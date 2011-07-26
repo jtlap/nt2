@@ -40,7 +40,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return boost::simd::meta::is_power_of_2<A0>::value;
+      return meta::is_power_of_2<A0>::value;
     }
   };
 } } }

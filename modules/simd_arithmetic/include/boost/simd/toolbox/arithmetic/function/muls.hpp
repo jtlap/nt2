@@ -17,11 +17,7 @@ namespace boost { namespace dispatch {
   {
     struct muls_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::muls_, muls, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::muls_, muls, 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

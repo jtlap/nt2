@@ -19,11 +19,8 @@ namespace boost { namespace dispatch
   {
     struct false_  {};
   }
-}
-
-namespace boost { namespace simd
-{
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::false_, False)
+  
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::false_, False)
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/false.hpp>

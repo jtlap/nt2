@@ -18,18 +18,13 @@ namespace boost { namespace dispatch
   {
     struct splat_  {};
   }
-} }
-
-
-namespace boost { namespace simd
-{  
+  
   template<class T, class A0> inline
-  typename boost::dispatch::meta::call<boost::dispatch::tag::splat_(A0,
-                                       boost::dispatch::meta::as_<T>)>::type
+  typename meta::call<tag::splat_(A0, meta::as_<T>)>::type
   splat(A0 const& a0)
   {
-    typename boost::dispatch::make_functor<boost::dispatch::tag::splat_, A0>::type callee;
-    return callee(a0, boost::dispatch::meta::as_<T>() );
+    typename make_functor<tag::splat_, A0>::type callee;
+    return callee(a0, meta::as_<T>() );
   }
 } }
 

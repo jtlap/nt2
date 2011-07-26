@@ -16,12 +16,8 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct select_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::select_, select, 3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::select_, sel, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::select_, select, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::select_, sel, 3)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

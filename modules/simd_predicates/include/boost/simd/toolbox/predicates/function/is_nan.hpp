@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_nan_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_nan_, is_nan, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nan_, is_nan, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

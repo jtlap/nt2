@@ -16,12 +16,8 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_not_less_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_not_less_, is_not_less, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_not_less_, is_nlt, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_less_, is_not_less, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_less_, is_nlt, 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

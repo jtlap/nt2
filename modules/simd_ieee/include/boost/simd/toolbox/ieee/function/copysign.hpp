@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct copysign_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::copysign_, copysign, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::copysign_, copysign, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

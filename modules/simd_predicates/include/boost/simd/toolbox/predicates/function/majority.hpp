@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct majority_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::majority_, majority, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::majority_, majority, 3)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

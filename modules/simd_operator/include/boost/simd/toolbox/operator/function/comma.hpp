@@ -21,13 +21,9 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::comma comma_;
   }
-} }
   
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::comma_ , comma  , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::comma_ , then   , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comma_ , comma  , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comma_ , then   , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/common/comma.hpp>

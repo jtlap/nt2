@@ -21,13 +21,9 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::greater_equal is_greater_equal_;
   }
-} }
   
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_greater_equal_, is_greater_equal , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_greater_equal_, ge               , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_equal_, is_greater_equal , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_equal_, ge               , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/is_greater_equal.hpp>

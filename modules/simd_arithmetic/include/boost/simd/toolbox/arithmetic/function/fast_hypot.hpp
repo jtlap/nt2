@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct fast_hypot_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::fast_hypot_, fast_hypot, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_hypot_, fast_hypot, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

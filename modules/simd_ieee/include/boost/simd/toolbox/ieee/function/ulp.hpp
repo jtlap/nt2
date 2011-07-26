@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct ulp_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::ulp_, ulp, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ulp_, ulp, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -17,12 +17,8 @@ namespace boost { namespace dispatch {
   {
     struct negs_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::negs_, negs, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::negs_, saturated_neg, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, negs, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, saturated_neg, 1)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

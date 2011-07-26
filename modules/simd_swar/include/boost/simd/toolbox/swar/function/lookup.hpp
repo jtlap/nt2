@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct lookup_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::lookup_, lookup, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::lookup_, lookup, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -21,14 +21,10 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::unary_plus unary_plus_;
   }
-} }
   
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::unary_plus_ , unary_plus  , 1 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::unary_plus_ , identity    , 1 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::unary_plus_ , id          , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , unary_plus  , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , identity    , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , id          , 1 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/unary_plus.hpp>

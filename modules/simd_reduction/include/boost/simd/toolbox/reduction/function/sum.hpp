@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct sum_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::sum_, sum, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -17,11 +17,7 @@ namespace boost { namespace dispatch {
   {
     struct fast_toint_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::fast_toint_, fast_toint, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_toint_, fast_toint, 1)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

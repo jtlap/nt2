@@ -17,30 +17,26 @@
 namespace boost { namespace dispatch
 {
   namespace tag { struct align_on_ {}; }
-} }
 
-namespace boost { namespace simd
-{
   namespace memory
   {
     ////////////////////////////////////////////////////////////////////////////
     // align_on(a0) aligns a0 on the default alignement value
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::align_on_, align_on, 1);
+    BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::align_on_, align_on, 1);
 
     ////////////////////////////////////////////////////////////////////////////
     // align_on(a0,a1) aligns a0 on the first address multiple of a1
     ////////////////////////////////////////////////////////////////////////////
     template<class A0, class A1> inline
-    typename
-    boost::dispatch::meta::call<boost::dispatch::tag::align_on_(A0 const&, A1 const&)>::type
+    typename meta::call<tag::align_on_(A0 const&, A1 const&)>::type
     align_on(A0 const& a0, A1 const& a1)
     {
       BOOST_SIMD_ASSERT(   is_power_of_2(a1)
                 &&  "Invalid alignment boundary. You tried to align an "
                     "address or a value on a non-power of 2 boundary."
                 );
-      typename boost::dispatch::make_functor<boost::dispatch::tag::align_on_, A0>::type callee;
+      typename make_functor<tag::align_on_, A0>::type callee;
       return callee(a0,a1);
     }
 
@@ -49,7 +45,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N,class A0> inline
     typename
-    boost::dispatch::meta::call<boost::dispatch::tag::align_on_(A0 const&,boost::mpl::int_<N> const&)>::type
+    meta::call<tag::align_on_(A0 const&,boost::mpl::int_<N> const&)>::type
     align_on(A0 const& a0)
     {
       BOOST_DISPATCH_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
@@ -58,7 +54,7 @@ namespace boost { namespace simd
                           "address or a value on a non-power of 2 boundary."
                         );
 
-      typename boost::dispatch::make_functor<boost::dispatch::tag::align_on_, A0>::type callee;
+      typename make_functor<tag::align_on_, A0>::type callee;
       return callee(a0,boost::mpl::int_<N>());
     }
   }

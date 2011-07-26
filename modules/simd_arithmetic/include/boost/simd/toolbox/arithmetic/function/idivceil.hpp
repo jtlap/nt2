@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct idivceil_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::idivceil_, idivceil, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::idivceil_, idivceil, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

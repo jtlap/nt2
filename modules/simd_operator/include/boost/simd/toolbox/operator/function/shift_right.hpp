@@ -21,13 +21,9 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::shift_right shift_right_;
   }
-} }
   
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::shift_right_             , shift_right     , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::shift_right_             , shr             , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shift_right     , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shr             , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/shift_right.hpp>

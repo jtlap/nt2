@@ -15,10 +15,10 @@
 
 #include <boost/simd/toolbox/operator/specific/compare_tags.hpp>
 
-namespace boost { namespace simd 
+namespace boost { namespace dispatch
 {
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::compare_greater_, compare_greater , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::compare_greater_, compare_gt      , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_greater_, compare_greater , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_greater_, compare_gt      , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/compare_greater.hpp>

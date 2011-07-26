@@ -19,12 +19,8 @@ namespace boost { namespace dispatch {
   {         
     struct comparator_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::comparator_, comparator, 3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(boost::dispatch::tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

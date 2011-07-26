@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct round_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::round_, round, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

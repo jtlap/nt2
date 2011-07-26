@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct genmask_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::genmask_, genmask, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, genmask, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

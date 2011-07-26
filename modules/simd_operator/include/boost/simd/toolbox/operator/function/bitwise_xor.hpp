@@ -21,12 +21,9 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::bitwise_xor bitwise_xor_;
   }
-} }
-
-namespace boost { namespace simd
-{  
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::bitwise_xor_      , bitwise_xor     , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::bitwise_xor_      , b_xor           , 2 )
+  
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_xor_      , bitwise_xor     , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_xor_      , b_xor           , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/bitwise_xor.hpp>

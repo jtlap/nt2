@@ -16,13 +16,9 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct toint_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::toint_, toint, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::toint_, ifix, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::toint_, itrunc, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, toint, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, ifix, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, itrunc, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

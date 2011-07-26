@@ -21,29 +21,26 @@
 namespace boost { namespace dispatch 
 {
   namespace tag { struct is_aligned_ {}; }
-} }
 
-namespace boost { namespace simd
-{
   namespace memory
   {
     ////////////////////////////////////////////////////////////////////////////
     // align_on(a0) aligns a0 on the default alignement value
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_aligned_, is_aligned, 1);
+    BOOST_SIMD_FUNCTION_IMPLEMENTATION(tag::is_aligned_, is_aligned, 1);
 
     ////////////////////////////////////////////////////////////////////////////
     // is_aligned(a0,a1) check if a0 is aligned on a1
     ////////////////////////////////////////////////////////////////////////////
     template<class A0, class A1> inline
-    typename boost::dispatch::meta::call<boost::dispatch::tag::is_aligned_(A0 const&, A1 const&)>::type
+    typename meta::call<tag::is_aligned_(A0 const&, A1 const&)>::type
     is_aligned(A0 const& a0, A1 const& a1)
     {
       BOOST_SIMD_ASSERT(   is_power_of_2(a1)
                 &&  "Invalid alignment boundary. You tried to check if an "
                     "address or a value is aligned on a non-power of 2 boundary."
                 );
-      typename boost::dispatch::make_functor<boost::dispatch::tag::is_aligned_, A0>::type callee;
+      typename make_functor<tag::is_aligned_, A0>::type callee;
       return callee(a0,a1);
     }
 
@@ -51,9 +48,9 @@ namespace boost { namespace simd
     // is_aligned<N>(a0) checks if a0 is aligned on N
     ////////////////////////////////////////////////////////////////////////////
     template<std::size_t N,class A0> inline
-    typename boost::dispatch::meta::call<boost::dispatch::tag::is_aligned_ ( A0 const&
-                                                          , boost::mpl::int_<N> const&
-                                                          )
+    typename meta::call<tag::is_aligned_ ( A0 const&
+                                         , boost::mpl::int_<N> const&
+                                         )
               >::type
     is_aligned(A0 const& a0)
     {
@@ -63,7 +60,7 @@ namespace boost { namespace simd
                           "address or a value is aligned on a non-power of 2 boundary."
                         );
 
-      typename boost::dispatch::make_functor<boost::dispatch::tag::is_aligned_, A0>::type callee;
+      typename make_functor<tag::is_aligned_, A0>::type callee;
       return callee(a0,boost::mpl::int_<N>());
     }
 } } }

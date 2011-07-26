@@ -21,11 +21,7 @@
 namespace boost { namespace dispatch
 {
   namespace tag { struct store_ {}; }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::store_,store,3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/store.hpp>

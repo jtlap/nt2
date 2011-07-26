@@ -21,14 +21,10 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::complement complement_;
   }
-} }
   
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::complement_ , complement  , 1 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::complement_ , bitwise_not , 1 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::complement_ , b_not       , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , complement  , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , bitwise_not , 1 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , b_not       , 1 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/complement.hpp>

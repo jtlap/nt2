@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace tag
   template<boost::simd::uint64_t D, boost::simd::uint32_t F> struct pattern {};
 } } }
 
-namespace boost { namespace simd { namespace details
+namespace boost { namespace dispatch { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
   // Small type to gather real value bit patterns depending on target type
@@ -46,40 +46,40 @@ namespace boost { namespace simd { namespace details
   template<class Target, boost::simd::uint64_t Value>
   struct pattern<Target, Value, float >
   {
-    typedef boost::dispatch::tag::pattern<0,Value> type;
+    typedef tag::pattern<0,Value> type;
   };
 
   template<class Target, boost::simd::uint64_t Value>
   struct pattern<Target, Value, double >
   {
-    typedef boost::dispatch::tag::pattern<Value,0> type;
+    typedef tag::pattern<Value,0> type;
   };
 } } }
 
-namespace boost { namespace simd 
+namespace boost { namespace dispatch 
 {
   //////////////////////////////////////////////////////////////////////////////
   // Basic named constant
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::m_half_      , Mhalf       )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::m_zero_      , Mzero       )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::half_        , Half        )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::third_       , Third       )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::quarter_     , Quarter     )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::two_to_m10_  , Twotom10    )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::two_to_nmb_  , Two2nmb     )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::pi_          , Pi          )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::split_factor_, Splitfactor )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::sqrt_2_o_2_  , Sqrt_2o_2   )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::sqrt_2_      , Sqrt_2      )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::gold_        , Gold        )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::c_gold_      , Cgold       )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::m_half_      , Mhalf       )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::m_zero_      , Mzero       )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::half_        , Half        )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::third_       , Third       )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::quarter_     , Quarter     )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::two_to_m10_  , Twotom10    )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::two_to_nmb_  , Two2nmb     )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::pi_          , Pi          )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::split_factor_, Splitfactor )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::sqrt_2_o_2_  , Sqrt_2o_2   )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::sqrt_2_      , Sqrt_2      )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::gold_        , Gold        )
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::c_gold_      , Cgold       )
 
   //////////////////////////////////////////////////////////////////////////////
   // Generic real value splatter from a bit patterns
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, boost::simd::uint64_t D, boost::simd::uint32_t F> inline
-  typename boost::dispatch::meta::call<boost::dispatch::tag::pattern<D,F >(boost::dispatch::meta::as_<Target>)>::type
+  typename meta::call<tag::pattern<D,F >(meta::as_<Target>)>::type
   real_constant()
   {
     boost::dispatch::functor< tag::pattern<D,F> > callee;
@@ -90,7 +90,7 @@ namespace boost { namespace simd
   // Generic real value splatter from a bit patterns of float
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, boost::simd::uint32_t F> inline
-  typename boost::dispatch::meta::call<boost::dispatch::tag::pattern<0,F >(boost::dispatch::meta::as_<Target>)>::type
+  typename meta::call<tag::pattern<0,F >(meta::as_<Target>)>::type
   single_constant()
   {
     boost::dispatch::functor< tag::pattern<0,F> > callee;
@@ -101,7 +101,7 @@ namespace boost { namespace simd
   // Generic real value splatter from a bit patterns of double
   //////////////////////////////////////////////////////////////////////////////
   template<class Target, boost::simd::uint64_t D> inline
-  typename boost::dispatch::meta::call<boost::dispatch::tag::pattern<D,0 >(boost::dispatch::meta::as_<Target>)>::type
+  typename meta::call<tag::pattern<D,0 >(meta::as_<Target>)>::type
   double_constant()
   {
     boost::dispatch::functor< tag::pattern<D,0> > callee;
@@ -112,7 +112,7 @@ namespace boost { namespace simd
   // Generic real value splatter from a bit patterns dependant on target type
   //////////////////////////////////////////////////////////////////////////////
   template<class T, uint64_t V> inline
-  typename boost::dispatch::meta::call<typename details::pattern<T,V>::type(boost::dispatch::meta::as_<T>)>::type
+  typename meta::call<typename details::pattern<T,V>::type(meta::as_<T>)>::type
   Const()
   {
     boost::dispatch::functor< typename details::pattern<T,V>::type > callee;

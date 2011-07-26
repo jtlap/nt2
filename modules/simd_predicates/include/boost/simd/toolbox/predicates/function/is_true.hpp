@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_true_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_true_, is_true, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_true_, is_true, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

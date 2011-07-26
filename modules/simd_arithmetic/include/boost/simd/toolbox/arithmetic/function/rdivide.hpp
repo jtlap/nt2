@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct rdivide_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::rdivide_, rdivide, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rdivide_, rdivide, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

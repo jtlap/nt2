@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct random_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::random_, random, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::random_, random, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct oneplus_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::oneplus_, oneplus, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::oneplus_, oneplus, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_eqz_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_eqz_, is_eqz, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_eqz_, is_eqz, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

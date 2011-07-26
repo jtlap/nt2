@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_unord_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_unord_, is_unord, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_unord_, is_unord, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

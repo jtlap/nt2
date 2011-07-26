@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_equal_with_equal_nans_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_equal_with_equal_nans_, is_equal_with_equal_nans, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_equal_with_equal_nans_, is_equal_with_equal_nans, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

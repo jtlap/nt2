@@ -16,24 +16,18 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct fma_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::fma_, fma, 3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::fma_, madd, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fma_, fma, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fma_, madd, 3)
   
-  BOOST_DISPATCH_FUNCTION_INTERFACE(boost::dispatch::tag::fma_, fam, 3)
+  BOOST_SIMD_FUNCTION_INTERFACE(tag::fma_, fam, 3)
   {
-    typename boost::dispatch::make_functor< boost::dispatch::tag::fma_
-                                          , A0>::type callee;
+    typename make_functor<tag::fma_, A0>::type callee;
     return callee(a1, a2, a0);
   }
   
-  BOOST_DISPATCH_FUNCTION_INTERFACE(boost::dispatch::tag::fma_, amul, 3)
+  BOOST_SIMD_FUNCTION_INTERFACE(tag::fma_, amul, 3)
   {
-    typename boost::dispatch::make_functor< boost::dispatch::tag::fma_
-                                          , A0>::type callee;
+    typename make_functor<tag::fma_, A0>::type callee;
     return callee(a1, a2, a0);
   }
   

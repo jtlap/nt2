@@ -20,11 +20,7 @@
 namespace boost { namespace dispatch
 {
   namespace tag { struct val_min_ {}; }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::dispatch::tag::val_min_, Valmin)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::val_min_, Valmin)
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/val_min.hpp>

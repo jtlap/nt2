@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct two_split_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::two_split_, two_split, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::two_split_, two_split, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

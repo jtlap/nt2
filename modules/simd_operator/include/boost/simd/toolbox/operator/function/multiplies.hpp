@@ -21,13 +21,9 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::multiplies multiplies_;
   }
-} }
   
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::multiplies_             , multiplies      , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::multiplies_             , mul             , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , multiplies      , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , mul             , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/multiplies.hpp>

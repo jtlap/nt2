@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct sqrt_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::sqrt_, sqrt, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqrt_, sqrt, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

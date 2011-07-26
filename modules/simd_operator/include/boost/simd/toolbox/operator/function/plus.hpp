@@ -21,13 +21,9 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::plus plus_;
   }
-} }
   
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::plus_             , plus            , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::plus_             , add             , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::plus_             , plus            , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::plus_             , add             , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/plus.hpp>

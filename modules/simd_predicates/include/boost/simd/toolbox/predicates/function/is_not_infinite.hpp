@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_not_infinite_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_not_infinite_, is_not_infinite, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_infinite_, is_not_infinite, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

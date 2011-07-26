@@ -16,12 +16,8 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_not_greater_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_not_greater_, is_not_greater, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_not_greater_, is_ngt, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_not_greater, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_ngt, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

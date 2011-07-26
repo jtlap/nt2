@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct negation_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::negation_, negation, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negation_, negation, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

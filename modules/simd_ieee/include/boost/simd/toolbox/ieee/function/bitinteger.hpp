@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct bitinteger_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::bitinteger_, bitinteger, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitinteger_, bitinteger, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

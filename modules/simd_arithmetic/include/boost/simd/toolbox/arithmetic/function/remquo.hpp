@@ -16,12 +16,8 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct remquo_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::remquo_, remquo, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(boost::dispatch::tag::remquo_, remquo,(A0 const&)(A1 const&)(A2&)(A3&),4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remquo_, remquo, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::remquo_, remquo,(A0 const&)(A1 const&)(A2&)(A3&),4)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

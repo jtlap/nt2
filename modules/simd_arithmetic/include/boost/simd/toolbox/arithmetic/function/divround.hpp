@@ -17,11 +17,7 @@ namespace boost { namespace dispatch {
   {
     struct divround_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::divround_, divround, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divround_, divround, 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

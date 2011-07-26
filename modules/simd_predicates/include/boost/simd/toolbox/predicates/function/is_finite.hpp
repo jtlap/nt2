@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct is_finite_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::is_finite_, is_finite, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_finite_, is_finite, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

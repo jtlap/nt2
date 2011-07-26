@@ -17,12 +17,8 @@ namespace boost { namespace dispatch {
   {
     struct at_i_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::at_i_, at_i, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::at_i_, at, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::at_i_, at_i, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::at_i_, at, 2)
 } }
 
 #include <boost/simd/toolbox/operator.hpp>

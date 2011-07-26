@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct minmag_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::minmag_, minmag, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minmag_, minmag, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

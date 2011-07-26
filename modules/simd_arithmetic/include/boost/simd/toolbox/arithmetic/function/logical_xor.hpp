@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct logical_xor_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::logical_xor_, logical_xor, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_xor_, logical_xor, 2)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

@@ -21,12 +21,9 @@ namespace boost { namespace dispatch
   {
     typedef boost::proto::tag::bitwise_and bitwise_and_;
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::simd::tag::bitwise_and_      , bitwise_and     , 2 )
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::simd::tag::bitwise_and_      , b_and           , 2 )
+  
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_and_      , bitwise_and     , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_and_      , b_and           , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/bitwise_and.hpp>

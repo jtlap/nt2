@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct first_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::first_, first, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::first_, first, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>

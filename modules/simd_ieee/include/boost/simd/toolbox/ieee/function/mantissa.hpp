@@ -16,11 +16,7 @@ namespace boost { namespace dispatch { namespace tag
   {         
     struct mantissa_ {};
   }
-} }
-
-namespace boost { namespace simd
-{
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(boost::dispatch::tag::mantissa_, mantissa, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mantissa_, mantissa, 1)
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
