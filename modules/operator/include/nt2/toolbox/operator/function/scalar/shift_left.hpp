@@ -33,9 +33,7 @@ namespace nt2 { namespace meta
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-    static A0& a0; static A1& a1;
-    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 << a1)
-    typedef typename nested::type result_type;
+    typedef typename meta::result_of<meta::arithmetic(A0, A1)>::type result_type;
     NT2_FUNCTOR_CALL(2) { return a0 << a1; }
   };
 } }

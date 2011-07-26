@@ -22,6 +22,7 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #endif
 
 namespace nt2  { namespace meta
@@ -29,8 +30,8 @@ namespace nt2  { namespace meta
   //============================================================================
   /*!
    * \ingroup metafunctions
-   * For a list of types \c T0,...,Tn, ref arithmetic computes the type able to
-   * store a value of type \c decltype(declval<T0>() + ... + declval<Tn>()).
+   * For a list of types \c T0,...,Tn, ref arithmetic computes the type obtained by the
+   * recursive application of \c decltype(0 ? declval<T0>() : declval<T1>())
    *
    * \semantic
    *
@@ -43,7 +44,7 @@ namespace nt2  { namespace meta
    * is equivalent to:
    *
    * \code
-   * typedef decltype(declval<T0>()+...+declval<Tn>()) type;
+   * typedef boost::common_type<T0,...,TN>::type type;
    * \endcode
    *
    * \par Example Usage:
@@ -63,24 +64,22 @@ namespace nt2  { namespace meta
 #undef NT2_DECLTYPE
 #endif
 
-    #define M0(z,n,t) static typename meta::strip<BOOST_PP_CAT(A,n)>::type& \
-                      BOOST_PP_CAT(a,n);
-                      /**/
-
-    #define M1(z,n,t)  + BOOST_PP_CAT(a,n)
-    #define M2(z,n,t)                                                           \
+    #define M0(z,n,t) static typename meta::strip<A##n>::type& a##n;
+    #define M1(z,n,t) 0 ? 
+    #define M2(z,n,t)  : a##n
+    #define M3(z,n,t)                                                           \
     template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                        \
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                             \
     {                                                                           \
       BOOST_PP_REPEAT(n,M0,~)                                                   \
-      NT2_DECLTYPE( a0 BOOST_PP_REPEAT_FROM_TO(1,n,M1,~)                        \
-                  , type                                                        \
-                  );                                                            \
-     };                                                                         \
-     /**/
-
-    BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M2,~)
+      NT2_DECLTYPE( BOOST_PP_REPEAT_FROM_TO(1,n,M1,~)                           \
+                    a0 BOOST_PP_REPEAT_FROM_TO(1,n,M2,~)                        \
+                  , type );                                                     \
+    };                                                                          \
+    /**/
+    BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M3,~)
     
+    #undef M3
     #undef M2
     #undef M1
     #undef M0
@@ -90,11 +89,12 @@ namespace nt2  { namespace meta
 #endif
 #endif
 
-    //==========================================================================
-    // Force integral promotion by computing arithmetic(A0,A0)
-    //==========================================================================
     template<class This,class A0>
-    struct result<This(A0)> : result<This(A0,A0)> {};
+    struct result<This(A0)>
+    {
+      typedef A0 type;
+    };
+
   };
 } }
 
