@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
 
+#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
 #ifdef BOOST_MSVC
@@ -25,8 +26,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      result_type t1 = bitwise_cast<result_type>(a0); 
-      if(!t1) return 0; 
+      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      if(!t1.bits) return 0; 
 
     #if defined BOOST_MSVC && defined _WIN64
       unsigned long index;
@@ -35,18 +36,18 @@ namespace nt2 { namespace meta
       return 0;
     #elif defined BOOST_MSVC
       unsigned long index;
-      if (b_and(t1, (uint64_t(-1) >> 32)))
+      if (b_and(t1.bits, (uint64_t(-1) >> 32)))
       {
-        _BitScanForward(&index, t1);
+        _BitScanForward(&index, t1.bits);
         return index+1;
       }
-      if(_BitScanForward(&index, t1 >> 32))
+      if(_BitScanForward(&index, t1.bits >> 32))
         return 32+index+1;
       return 0;
     #else
-      if (b_and(t1, (uint64_t(-1) >> 32)))
-      return __builtin_ffs(t1);
-      return 32+__builtin_ffs(t1 >> 32);
+      if (b_and(t1.bits, (uint64_t(-1) >> 32)))
+      return __builtin_ffs(t1.bits);
+      return 32+__builtin_ffs(t1.bits >> 32);
     #endif
     }
   };
@@ -60,13 +61,13 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      result_type t1 = bitwise_cast<result_type>(a0); 
+      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
     #ifdef BOOST_MSVC
       unsigned long index;
-      if(_BitScanForward(&index, t1)) return index+1;
+      if(_BitScanForward(&index, t1.bits)) return index+1;
       return 0;
     #else
-      return __builtin_ffs(t1);
+      return __builtin_ffs(t1.bits);
     #endif
     }
   };
@@ -79,8 +80,8 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      result_type t1 = bitwise_cast<result_type>(a0); 
-      return nt2::ffs(uint32_t(t1));
+      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      return nt2::ffs(uint32_t(t1.bits));
     }
   };
 } }

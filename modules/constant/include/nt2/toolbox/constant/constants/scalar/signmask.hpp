@@ -28,7 +28,8 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return splat<result_type>(bitwise_cast<result_type>(0x8000000000000000ll)); 
+      return splat<result_type>(bitwise_cast<result_type,
+				nt2::uint64_t>(0x8000000000000000ll)); 
     }
   };
 } }
@@ -43,7 +44,8 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return splat<result_type>(bitwise_cast<result_type>(0x80000000)); 
+      return splat<result_type>(bitwise_cast<result_type,
+				nt2::uint32_t>(0x80000000)); 
     }
   };
 } }

@@ -12,6 +12,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/functions/prev.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -52,12 +53,12 @@ namespace nt2 { namespace meta
       if (is_eqz(a0)) return Mindenormal<A0>();
       const A0 x = nt2::abs(a0);
       if (x == Inf<A0>()) return x;
-      int_type aa = bitwise_cast<int_type>(x);
+      int_type aa = bitwise_cast<int_type, A0>(x);
       int_type bb = aa;
       --bb;
       ++aa;
-      return nt2::min(x-bitwise_cast<A0>(bb),
-		      bitwise_cast<A0>(aa)-x);
+      return nt2::min(x-bitwise_cast<A0,int_type>(bb),
+		      bitwise_cast<A0,int_type>(aa)-x);
     }
   };
 } }

@@ -68,7 +68,7 @@ namespace nt2 { namespace meta
     {
        typedef typename meta::as_integer<A0>::type itype;
        typedef typename meta::scalar_of<itype>::type sitype;
-       return bitwise_cast<result_type>(_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<itype>(a0), 4)));
+       return bitwise_cast<result_type, sitype>(_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<itype>(a0), 4)));
     }
   };
 

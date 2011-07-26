@@ -41,7 +41,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, unsigned>::type itype; 
-      return bitwise_cast<result_type>(nt2::rshr(bitwise_cast<itype>(a0),a1));
+      return bitwise_cast<result_type,itype>(nt2::rshr(bitwise_cast<itype,result_type>(a0),a1));
     }
   };
 } }

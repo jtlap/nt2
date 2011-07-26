@@ -24,8 +24,8 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       return a0 >= Zero<A0>() ?
-	bitwise_cast<result_type>(a0) :
-	bitwise_cast<result_type>((One<A0>() << (8*sizeof(A0)-1))-a0);
+	bitwise_cast<result_type, A0>(a0) :
+	bitwise_cast<result_type, A0>((One<A0>() << (8*sizeof(A0)-1))-a0);
     }
   };
 
@@ -42,7 +42,7 @@ namespace nt2 { namespace meta
     typedef typename meta::as_real<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(a0); 
+      return bitwise_cast<result_type,A0>(a0); 
     }
   };
 } }
