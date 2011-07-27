@@ -8,7 +8,12 @@
 ################################################################################
 
 ################################################################################
-# Ignore random temporaries and object files
+# Find and detect Boost libraries
 ################################################################################
-*~
-*.o
+SET(Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0" "1.46" "1.46.0" "1.46.1" "1.47")
+FIND_PACKAGE( Boost 1.46.0 QUIET )
+IF(Boost_FOUND)
+  MESSAGE(STATUS "[nt2.sdk] Boost version: ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
+ELSE()
+  MESSAGE(STATUS "[nt2.sdk] Boost NOT found")
+ENDIF()

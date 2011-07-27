@@ -19,7 +19,7 @@ set(SOURCES
     memory/reallocate.cpp
     timing/now.cpp
     timing/timers.cpp
-    ${NT2_CONFIG_ROOT}/src/version.cpp
+    config/version.cpp
    )
 nt2_module_add_library(nt2 ${SOURCES})
 

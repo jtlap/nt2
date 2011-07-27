@@ -20,7 +20,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Include custom specific architectures from extensions folders
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/extension/sdk/config/arch.hpp>
 #include <nt2/sdk/config/arch/powerpc.hpp>
 #include <nt2/sdk/config/arch/x86.hpp>
 #include <nt2/sdk/config/arch/ia64.hpp>
