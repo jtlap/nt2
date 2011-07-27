@@ -7,11 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.simd)
+include(nt2.boost)
 
-MESSAGE( STATUS "[boost.simd.config] target system: ${NT2_OS} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-MESSAGE( STATUS "[boost.simd.config] target processor: ${NT2_ARCH}" )
-
-SET(NT2_SIMD_CONFIG_DEPENDENCIES_EXTRA dispatch)
-
-SET(NT2_SIMD_CONFIG_FLAGS ${NT2_CXX_SIMD_FLAGS})
+SET(NT2_DISPATCH_DEPENDENCIES_FOUND ${Boost_FOUND})
+SET(NT2_DISPATCH_DEPENDENCIES_INCLUDE_DIR ${Boost_INCLUDE_DIRS})
+SET(NT2_DISPATCH_DEPENDENCIES_LIBRARY_DIR ${Boost_LIBRARY_DIRS})

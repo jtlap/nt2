@@ -12,18 +12,18 @@ include(nt2.info)
 ################################################################################
 # x86 Family
 ################################################################################
-if(BOOST_SIMD_ARCH_X86)
+if(NT2_ARCH_X86)
   include(arch/Findx86)
 endif()
 
 ################################################################################
 # IBM/Motorola/Apple VMX Family
 ################################################################################
-if(BOOST_SIMD_ARCH_POWERPC)
+if(NT2_ARCH_POWERPC)
   include(arch/FindVMX)
 endif()
 
 set( NT2_CXX_SIMD_FLAGS "${NT2_SIMD_FLAGS} ${NT2_CXX_PRECISION_FLAGS}"
      CACHE STRING "SIMD extensions compiler flags"
    )
-message(STATUS "[nt2.config] SIMD flag: ${NT2_CXX_SIMD_FLAGS}")
+message(STATUS "[boost.simd.config] SIMD flag: ${NT2_CXX_SIMD_FLAGS}")
