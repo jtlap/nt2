@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( compare_less_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(compare_less_equal(nt2::Zero<vT>(), nt2::Zero<vT>()), true);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( compare_less_equal_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( compare_less_equal_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::compare_less_equal;
   using nt2::tag::compare_less_equal_;
@@ -76,8 +76,34 @@ NT2_TEST_CASE_TPL ( compare_less_equal_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less_equal(nt2::Mone<vT>(),nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_less_equal(nt2::Mone<vT>(),nt2::Zero<vT>()), true);
   NT2_TEST_EQUAL(compare_less_equal(nt2::One<vT>(), nt2::One<vT>()), true);
   NT2_TEST_EQUAL(compare_less_equal(nt2::One<vT>(),nt2::Zero<vT>()), false);
   NT2_TEST_EQUAL(compare_less_equal(nt2::Zero<vT>(), nt2::Zero<vT>()), true);
-} // end of test for integer_
+} // end of test for signed_int_
+
+NT2_TEST_CASE_TPL ( compare_less_equal_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
+{
+  using nt2::compare_less_equal;
+  using nt2::tag::compare_less_equal_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<compare_less_equal_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<compare_less_equal_(T,T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(compare_less_equal(nt2::One<vT>(), nt2::One<vT>()), true);
+  NT2_TEST_EQUAL(compare_less_equal(nt2::One<vT>(),nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_less_equal(nt2::Zero<vT>(), nt2::Zero<vT>()), true);
+} // end of test for unsigned_int_
