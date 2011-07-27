@@ -93,11 +93,11 @@ class Random_verif_test_gen(Base_gen) :
         if actual_ranges is None :
             actual_ranges = du["ranges"].get(orig_typ,du["ranges"].get("default",None))
             self.__grouping_used = True
-        print("ooooooo actual %s"%actual_ranges)
+        ## print("ooooooo actual %s"%actual_ranges)
         if isinstance(d.get("property_value",[]), list) : return []
         if self.mode == "scalar" :
             durac = d.get("property_call",{})
-            print("ooooooo durac %s"%durac)
+            ##print("ooooooo durac %s"%durac)
             if durac is None : durac = {} 
             if (len(durac.get(ctyp,durac.get("default",[])))== 0 and
                 len(durac.get(orig_typ,durac.get("default",[])))== 0) : return []
@@ -108,10 +108,10 @@ class Random_verif_test_gen(Base_gen) :
 ##        print ("actual_ranges %s"%actual_ranges)
 ##        print ("typ %s"%typ)
         if isinstance(actual_ranges[0][0],str) : actual_ranges = [actual_ranges]
-        ##print("actual_ranges = %s"%actual_ranges)
+        print("actual_ranges = %s"%actual_ranges)
         for r1 in actual_ranges :
-            ##print("r1 %s" % r1)
-##            print("ctyp %s"%ctyp)
+            print("r1 %s" % r1)
+            print("ctyp %s"%ctyp)
             self.bg.orig_typ=orig_typ
             r +=self.bg.create_unit_txt_part( Random_verif_test_gen.Random_test_body[self.mode],self.__prepare,dl,ctyp,r1)
         return r
@@ -224,17 +224,12 @@ class Random_verif_test_gen(Base_gen) :
 ##                        Call = beg+"NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(r), $property_value$, $ulp_thresh$);"
                         Call = beg+"NT2_TEST_TUPLE_ULP_EQUAL( r$i$, $property_value$, $ulp_thresh$);"
                     for j in xrange(0,ret_arity) :
-                        print("oooooo durat %s"%durat)
-                        print("oooooo self.bg.orig_typ %s"%self.bg.orig_typ)
                         thresh = durat.get(typ,durat.get("default",None))
                         if thresh is None : thresh = durat.get(self.bg.orig_typ,durat.get("default",["0"]))
                         index = j if (len(thresh)>1) else 0 
                         l = re.sub('\$ulp_thresh\$',thresh[index],Call)
-                        print("ooooooooo durav  %s"%durav)
                         value = durav.get(typ,durav.get("default",None))
                         if value is None : value =durav.get(self.bg.orig_typ,durav.get("default",None))
-                        print("ooo %s"%value)
-                        print("ooo %s"%value[j])
                         l = re.sub("\$property_value\$" ,value[j],l)
                         l = re.sub("\$i\$" ,str(j),l)
                         r.append(l)
@@ -253,7 +248,17 @@ class Random_verif_test_gen(Base_gen) :
                     if spcall :
                         r.extend(spcall)
                     else :
-                        length = len(durac.get(typ,durac.get("default",[])))
+                        print('here')
+                        print("oooooo durat %s"%durat)
+                        print("oooooo self.bg.orig_typ %s"%self.bg.orig_typ)
+                        print("oooooo durac %s"%durac)
+                        dtmp = durac.get(typ,None)
+                        if dtmp is None :
+                            dtmp = durac.get(self.bg.orig_typ,durac.get("default",[]))
+                            self.__grouping_used = True
+                        length = len(dtmp)
+                        print("length %s"%length)
+                        print("dtmp   %s"%dtmp)
                         for i in xrange(0, length) :
                             if no_ulp :
                                 s = beg+"NT2_TEST_EQUAL( $property_call$,$property_value$);"
@@ -263,9 +268,6 @@ class Random_verif_test_gen(Base_gen) :
                             j = i if len(thresh)>i else 0
                             s = re.sub('\$ulp_thresh\$',thresh[j],s)
                             #                    s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
-                            dtmp = durac.get(typ,durac.get("default",[]))
-                            print("=== i %s"%i)
-                            print("=== i %s"%durav)
                             call = durac.get(typ,durac.get("default",None))
                             if call is None : call = durac.get(self.bg.orig_typ,durac.get("default",None))
                             s=re.sub("\$property_call\$" ,call[i],s)
@@ -309,7 +311,11 @@ class Random_verif_test_gen(Base_gen) :
                         r+= dur['scalar_simul'].get(typ,dur['scalar_simul']['default'])
                     return r
                 else:
-                    length = len(durac.get(typ,durac.get("default",[])))
+                    dtmp = durac.get(typ,None)
+                    if dtmp is None :
+                        dtmp = durac.get(self.bg.orig_typ,durac.get("default",[]))
+                        self.__grouping_used = True
+                    length = len(dtmp)
                     g = ','.join([ "a%d" % i for i in xrange(0, arity) ])
                     index = [ ('j' if self.__simd_get_typ(i,df,scalar_ints) == 'iT' else 'k') for i in xrange(0, arity) ]
                     thresh = "0" if df.get("special",[""])[0] == "predicate" else durat.get("real_","2.5")
