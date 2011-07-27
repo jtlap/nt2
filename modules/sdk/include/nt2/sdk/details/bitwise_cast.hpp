@@ -98,9 +98,9 @@ namespace nt2
   template<typename To, typename From>
   NT2_FORCE_INLINE To bitwise_cast(From const& from)
   {
-    NT2_STATIC_ASSERT( sizeof(From) <= sizeof(To)
-                     , NT2_TARGET_IS_LARGER_SIZE_THAN_SOURCE_IN_BITWISE_CAST
-                     , "Target is of a larger size than source in nt2::bitwise_cast"
+    NT2_STATIC_ASSERT( sizeof(From) == sizeof(To)
+                     , NT2_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
+                     , "Target is not same size as source in nt2::bitwise_cast"
                      );
     return details::bitwise_cast<To, From>::template call<To>(from);
   }
