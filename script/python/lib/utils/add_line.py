@@ -36,7 +36,7 @@ class Add_line(object) :
         """ insertion of a line after a line
         containing a token in a list of lines
         """
-        pattern = re.compile(line2add)
+        pattern = re.compile("\s*" + line2add)
         def find_index(p) :
             for i,l in enumerate(txt) :
                 if p.match(l) : return i+1
@@ -47,12 +47,12 @@ class Add_line(object) :
             #### match for token
             pattern = re.compile(token)
             i = find_index(pattern)
-            if i != 0 : txt.insert(i,line2add)
+            if i != 0 : txt.insert(i,"    " + line2add)
             return (True,txt)
 
     def update_file(self,token) :
         txt_orig = read(self.path_to)
-        txt = "  %s.cpp"%self.name
+        txt = "%s.cpp"%self.name
         done, new_txt = self.insert_after(token,txt_orig,txt)
         if not done :
             print("Warning : line\n  %s\nis already in CMakelists.txt file"%txt ) 

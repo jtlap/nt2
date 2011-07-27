@@ -178,7 +178,7 @@ class Create_tests(Nt2_tb_props) :
             write(p,s,self.check_on_write)
             p1 = os.path.join(os.path.split(p)[0],'CMakeLists.txt')
             addline=Add_line(p1,fct_name)
-            addline.update_file("SET\( SOURCES")
+            addline.update_file("SET\( *SOURCES")
         elif self.verbose : 
             print("%s directory\n  does not exist " %os.path.split(p)[0])
 
