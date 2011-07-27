@@ -49,7 +49,7 @@
                  'integer_' : ['nt2::multiplies(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0*a1'],
+                 'integer_' : ['r_t(a0*a1)'],
                 },
              'simd' : {
                 },

@@ -53,6 +53,13 @@ NT2_TEST_CASE_TPL ( plus_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(plus(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(plus(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(plus(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+
+//   NT2_TEST_EQUAL(plus(nt2::Inf<vT>(), nt2::Inf<T>())[0], nt2::Inf<sr_t>());
+//   NT2_TEST_EQUAL(plus(nt2::Minf<vT>(), nt2::Minf<T>())[0], nt2::Minf<sr_t>());
+//   NT2_TEST_EQUAL(plus(nt2::Nan<vT>(), nt2::Nan<T>())[0], nt2::Nan<sr_t>());
+//   NT2_TEST_EQUAL(plus(nt2::One<vT>(),nt2::Zero<T>())[0], nt2::One<sr_t>());
+//   NT2_TEST_EQUAL(plus(nt2::Zero<vT>(), nt2::Zero<T>())[0], nt2::Zero<sr_t>());
+//   NT2_TEST_EQUAL(plus(nt2::Pi<vT>(), -3)[0], nt2::Pi<sr_t>()-nt2::Three<sr_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( plus_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)

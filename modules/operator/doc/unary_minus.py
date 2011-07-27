@@ -8,7 +8,7 @@
              'default' : 'r_t',
             },
          'type_defs' : [],
-         'types' : ['real_', 'integer_'],
+         'types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -30,7 +30,7 @@
                  'nt2::Two<T>()' : {'result' : 'r_t(-2)','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
-             'integer_' : {
+             'signed_int_' : {
                  'nt2::Mone<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
                  'nt2::Two<T>()' : {'result' : 'r_t(-nt2::Two<r_t>())','ulp_thresh' : '0',},

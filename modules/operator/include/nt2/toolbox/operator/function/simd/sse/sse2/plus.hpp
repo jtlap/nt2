@@ -124,4 +124,6 @@ namespace nt2 { namespace meta
   };
 } }
 
+//#include <nt2/toolbox/operator/simd/common/plus.hpp>
+
 #endif
