@@ -33,7 +33,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0, unsigned>::type bts;
-      return bitwise_cast<A0, bts>(~bitwise_cast<bts, A0>(a0));
+      return bitwise_cast<A0>(~bitwise_cast<bts>(a0));
     }
   };
 } }

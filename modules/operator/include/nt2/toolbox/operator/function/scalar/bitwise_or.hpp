@@ -29,10 +29,10 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0, unsigned>::type bts;
-      return bitwise_cast<A0, bts>(
-		bitwise_cast<bts, A0>(a0) |
-		bitwise_cast<bts, A1>(a1)
-		); 
+      return bitwise_cast<A0>(bts(
+        bitwise_cast<bts>(a0) |
+        bitwise_cast<bts>(a1)
+      )); 
     }
   };
   

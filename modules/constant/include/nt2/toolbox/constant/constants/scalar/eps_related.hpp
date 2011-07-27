@@ -33,8 +33,7 @@ NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
   typedef typename A0::type result_type;                              \
   NT2_FUNCTOR_CALL(1)                                                 \
   {							              \
-    return splat<result_type>(bitwise_cast<result_type,		      \
-			      nt2::uint64_t>(D);		      \
+    return splat<result_type>(bitwise_cast<result_type>(D);	      \
   }                                                                   \
 };                                                                    \
                                                                       \
@@ -45,8 +44,7 @@ NT2_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
   typedef typename A0::type result_type;                              \
   NT2_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
-    return splat<result_type>(bitwise_cast<result_type,		      \
-			      nt2::uint32_t>(F);		      \
+    return splat<result_type>(bitwise_cast<result_type>(F);	      \
   }                                                                   \
 };                                                                    \
 /**/

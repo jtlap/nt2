@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITS_HPP_INCLUDED
 
-#include <nt2/sdk/meta/as_bits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2 { namespace meta
@@ -22,9 +21,10 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_bits<A0, unsigned>::type type;
-      type that = {a0};
-      return that.bits;
+      return bitwise_cast<result_type>(a0); 
+//       typedef typename meta::as_bits<A0, unsigned>::type type;
+//       type that = {a0};
+//       return that.bits;
     }
   };
 } }
