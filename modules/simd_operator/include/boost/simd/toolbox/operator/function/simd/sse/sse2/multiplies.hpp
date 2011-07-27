@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_MULTIPLIES_HPP_INCLUDED
 
 #include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/simd/sdk/meta/upgrade.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
 #include <boost/simd/include/functions/bitwise_or.hpp>

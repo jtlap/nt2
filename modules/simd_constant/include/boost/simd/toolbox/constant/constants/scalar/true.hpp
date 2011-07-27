@@ -13,9 +13,9 @@
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::true_,tag::cpu_,(A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::true_,tag::cpu_,(A0)
                             , (target_< scalar_< fundamental_<A0> > >)
                             )
   {
@@ -24,9 +24,9 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return splat<result_type>(true);
+      return boost::simd::splat<result_type>(true);
     }
   };
-} }
+} } }
 
 #endif

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHRI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHRI_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

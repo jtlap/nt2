@@ -41,7 +41,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       unsigned int mask_a_lt_b =  _mm_movemask_pd(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_pd(gt(a0,a1));
-      return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
+      return boost::simd::details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
 
@@ -56,7 +56,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       unsigned int mask_a_lt_b =  _mm_movemask_ps(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_ps(gt(a0,a1));
-      return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
+      return boost::simd::details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
 
@@ -72,7 +72,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       unsigned int mask_a_lt_b =  _mm_movemask_epi8(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_epi8(gt(a0,a1));
-      return details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
+      return boost::simd::details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
     }
   };
 } } }

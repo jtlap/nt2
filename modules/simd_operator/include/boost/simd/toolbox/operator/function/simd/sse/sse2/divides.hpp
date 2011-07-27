@@ -29,6 +29,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using namespace boost::simd;
       A0  that = { _mm_div_pd(a0,a1) };
       return b_or(b_and(eq(a0, Zero<A0>()), eq(a1, Zero<A0>())),that);
     }
@@ -44,6 +45,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using namespace boost::simd;
       A0  that = { _mm_div_ps(a0,a1) };
       return  b_or(b_and(eq(a0, Zero<A0>()), eq(a1, Zero<A0>())),that);
     }
@@ -59,6 +61,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using namespace boost::simd;
       const A0 iseqza1 = eq(a1, Zero<A0>());
       return map( typename make_functor<boost::simd::tag::divides_,A0>::type()
                 , (a0-b_and(iseqza1, a0))

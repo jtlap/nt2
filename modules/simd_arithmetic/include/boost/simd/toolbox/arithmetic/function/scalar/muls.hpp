@@ -12,7 +12,7 @@
 #include <boost/simd/include/functions/adds.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/sdk/meta/downgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_

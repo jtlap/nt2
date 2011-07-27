@@ -26,8 +26,8 @@ namespace boost { namespace dispatch { namespace meta
 
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return simd::native_cast<A1>(_mm_blendv_epi8( a2, a1
-                                                  , simd::native_cast<A1>(a0)
+      return boost::simd::native_cast<A1>(_mm_blendv_epi8( a2, a1
+                                                  , boost::simd::native_cast<A1>(a0)
                                                   )
                                   );
     }
@@ -48,7 +48,7 @@ namespace boost { namespace dispatch { namespace meta
 
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return simd::native_cast<A1>(_mm_blendv_ps(a2, a1, simd::native_cast<A1>(a0))); 
+      return boost::simd::native_cast<A1>(_mm_blendv_ps(a2, a1, boost::simd::native_cast<A1>(a0))); 
     }
   };
 } } }
@@ -66,7 +66,7 @@ namespace boost { namespace dispatch { namespace meta
 
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return simd::native_cast<A1>(_mm_blendv_pd(a2, a1, simd::native_cast<A1>(a0))); 
+      return boost::simd::native_cast<A1>(_mm_blendv_pd(a2, a1, boost::simd::native_cast<A1>(a0))); 
     }
   };
 } } }

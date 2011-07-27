@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_IS_GREATER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_IS_GREATER_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/downgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/constants/properties.hpp>
@@ -60,10 +60,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0, signed>::type stype;
-      return  simd::native_cast<A0>
-              ( boost::simd::gt ( simd::native_cast<stype>(a0) - Signmask<stype>()
-                        , simd::native_cast<stype>(a1) - Signmask<stype>()
+      return  native_cast<A0>
+              ( boost::simd::gt ( native_cast<stype>(a0) - Signmask<stype>()
+                        , native_cast<stype>(a1) - Signmask<stype>()
                         )
               );
     }

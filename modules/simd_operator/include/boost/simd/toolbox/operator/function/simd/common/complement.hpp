@@ -20,7 +20,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return b_xor(True<A0>(), a0); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return b_xor(boost::simd::True<A0>(), a0); }
   };
 } } }
 

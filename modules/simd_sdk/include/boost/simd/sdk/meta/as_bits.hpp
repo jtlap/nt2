@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace details
     typedef union
     {
       T value;
-      typename meta::as_integer<T, Sign>::type  bits;
+      typename boost::dispatch::meta::as_integer<T, Sign>::type  bits;
     } type;
   };
 } } }
@@ -32,9 +32,9 @@ namespace boost { namespace simd { namespace meta
 {
   template<class T, class Sign = unsigned>
   struct  as_bits
-        : details::as_bits< typename meta::strip<T>::type
+        : details::as_bits< typename boost::dispatch::meta::strip<T>::type
                           , Sign
-                          , typename hierarchy_of<T>::type
+                          , typename boost::dispatch::meta::hierarchy_of<T>::type
                           > {};
 } } }
 

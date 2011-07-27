@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_IS_NOT_EQUAL_TO_HPP_INCLUDED
 
 #include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/simd/sdk/meta/downgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
@@ -77,7 +77,7 @@ namespace boost { namespace dispatch { namespace meta
       typedef typename meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
       type tmp2     = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
-      tmp           = boost::simd::neq(tmp,Zero<type>());
+      tmp           = boost::simd::neq(tmp,boost::simd::Zero<type>());
       A0   that     = { tmp | tmp2 };
       return that;
     }

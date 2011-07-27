@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_ROUND_HPP_INCLUDED
 
 #include <boost/simd/include/functions/round2even.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

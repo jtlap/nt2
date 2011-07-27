@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      ignore_unused(a1);
+      boost::simd::ignore_unused(a1);
       result_type that = { _mm_set1_pd(a0)  };
       return that;
     }
@@ -50,7 +50,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      ignore_unused(a1);
+      boost::simd::ignore_unused(a1);
       result_type that = { _mm_set1_ps(a0)  };
       return that;
     }
@@ -71,7 +71,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      ignore_unused(a1);
+      boost::simd::ignore_unused(a1);
       result_type that = { _mm_set1_epi8(a0)  };
       return that;
     }
@@ -92,7 +92,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      ignore_unused(a1);
+      boost::simd::ignore_unused(a1);
       result_type that = { _mm_set1_epi16(a0)  };
       return that;
     }
@@ -113,7 +113,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      ignore_unused(a1);
+      boost::simd::ignore_unused(a1);
       result_type that = { _mm_set1_epi32(a0)  };
       return that;
     }
@@ -134,8 +134,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      ignore_unused(a1);
-      return make<typename A1::type>(a0, a0);
+      boost::simd::ignore_unused(a1);
+      return boost::simd::make<typename A1::type>(a0, a0);
     }
   };
 } } }

@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace details
   //////////////////////////////////////////////////////////////////////////////
   template< class Target
           , boost::simd::uint64_t Value
-          , class Select = typename meta::scalar_of<Target>::type
+          , class Select = typename boost::dispatch::meta::scalar_of<Target>::type
           >
   struct  pattern;
 

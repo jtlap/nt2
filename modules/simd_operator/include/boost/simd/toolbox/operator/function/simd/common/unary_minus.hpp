@@ -25,7 +25,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return Zero<A0>() - a0;
+      return boost::simd::Zero<A0>() - a0;
     }
   };
 
@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return b_xor(Mzero<A0>(),a0);
+      return b_xor(boost::simd::Mzero<A0>(),a0);
     }
   };
 } } }

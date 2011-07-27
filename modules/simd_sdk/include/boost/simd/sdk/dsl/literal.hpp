@@ -32,7 +32,7 @@ namespace boost { namespace dispatch {  namespace meta
 
     inline result_type operator()( Value const& v, State const&, Data const& ) const
     {
-      return splat<result_type>(v);
+      return boost::simd::splat<result_type>(v);
     }
   };
 } } }

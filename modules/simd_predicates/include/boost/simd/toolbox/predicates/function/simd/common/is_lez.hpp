@@ -24,7 +24,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return le(a0, Zero<A0>());
+      return le(a0, boost::simd::Zero<A0>());
     }
   };
 

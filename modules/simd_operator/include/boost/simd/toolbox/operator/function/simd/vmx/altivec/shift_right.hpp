@@ -13,7 +13,7 @@
 // operator binary shift right
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 

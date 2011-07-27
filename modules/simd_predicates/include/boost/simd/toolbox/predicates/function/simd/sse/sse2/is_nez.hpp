@@ -18,7 +18,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_not_equal(a0,Zero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_not_equal(a0,boost::simd::Zero<A0>()); }
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nez_, tag::cpu_, (A0)
@@ -26,8 +26,9 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_not_equal(a0,Zero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_not_equal(a0,boost::simd::Zero<A0>()); }
   };
+
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nez_, tag::cpu_, (A0)
                             , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                             )
@@ -36,12 +37,13 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename meta::int32_t_<sctype >::type htype;
-      typedef simd::native<htype,boost::simd::tag::sse_> type;
-      type tmp1 = is_nez(simd::native_cast<type>(a0));
+      typedef typename boost::simd::meta::int32_t_<sctype >::type htype;
+      typedef boost::simd::native<htype,boost::simd::tag::sse_> type;
+
+      type tmp1 = is_nez(boost::simd::native_cast<type>(a0));
       const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
 
-      return simd::native_cast<A0>(b_or(tmp1, tmp2));
+      return boost::simd::native_cast<A0>(b_or(tmp1, tmp2));
     }
   };
 } } }

@@ -24,10 +24,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::native_cast;
       typedef typename meta::as_integer< A0 >::type int_type;
-      A0     that = { simd::native_cast<A0>
-                      ( _mm_or_si128( simd::native_cast<int_type>( a0 )
-                                    , simd::native_cast<int_type>( a1 )
+      A0     that = { native_cast<A0>
+                      ( _mm_or_si128( native_cast<int_type>( a0 )
+                                    , native_cast<int_type>( a1 )
                                     )
                       )
                     };

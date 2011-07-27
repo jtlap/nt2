@@ -19,7 +19,7 @@ namespace boost { namespace dispatch { namespace meta
                           )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0) & One<A0>(); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0) & boost::simd::One<A0>(); }
   };
 
 //  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_, (A0)(X)
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
 //                            )
 //  {
 //    typedef A0 result_type;
-//    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0) & One<A0>(); }
+//    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0) & boost::simd::One<A0>(); }
 //  };
 } } }
 

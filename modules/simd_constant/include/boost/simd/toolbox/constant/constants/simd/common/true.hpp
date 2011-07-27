@@ -16,9 +16,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, True is not !0 but ~0 whatever the type
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::true_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::true_, tag::cpu_
                             , (A0)(X), ((target_< simd_< real_<A0> ,X> >))
                             )
   {
@@ -30,15 +30,15 @@ namespace boost { namespace dispatch
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type type;
       typedef typename meta::as_integer<type>::type       int_type;
-      typename meta::from_bits<type>::type that = { ~int_type(0) };
-      return splat<result_type>(that.value);
+      typename boost::simd::meta::from_bits<type>::type that = { ~int_type(0) };
+      return boost::simd::splat<result_type>(that.value);
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::true_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::true_, tag::cpu_
                             , (A0)(X), ((target_< simd_< integer_<A0> ,X> >))
                             )
   {
@@ -48,9 +48,9 @@ namespace boost { namespace dispatch
     {
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type type;
-      return splat<result_type>(~type(0));
+      return boost::simd::splat<result_type>(~type(0));
     }
   };
-} }
+} } }
 
 #endif

@@ -30,7 +30,7 @@ namespace boost { namespace simd {  namespace details
   namespace result_of
   {
     template<typename Expr, typename Enable = void>
-    struct as_child : boost::simd::meta::strip<Expr> { };
+    struct as_child : boost::dispatch::meta::strip<Expr> { };
 
     template<typename Expr>
     struct as_child < Expr

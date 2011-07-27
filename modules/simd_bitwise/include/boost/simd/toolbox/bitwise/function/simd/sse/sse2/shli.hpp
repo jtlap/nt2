@@ -25,17 +25,16 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typedef simd::native<typename meta::int64_t_<A0>::type,boost::simd::tag::sse_> gen_type;
+      using namespace boost::simd;
+      typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> gen_type;
       result_type const
-      Mask1 = simd::
-              native_cast<result_type>(integral_constant< gen_type
+      Mask1 = native_cast<result_type>( boost::simd::integral_constant< gen_type
                                                         , 0x00ff00ff00ff00ffll
                                                         >()
                                       );
 
       result_type const
-      Mask2 = simd::
-              native_cast<result_type>( integral_constant < gen_type
+      Mask2 = native_cast<result_type>( boost::simd::integral_constant < gen_type
                                                           , 0xff00ff00ff00ff00ll
                                                           >()
                                       );
@@ -59,9 +58,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::native_cast;
+
       typedef typename meta::as_integer<A0,signed>::type sint;
-      sint const that = { _mm_slli_epi32(simd::native_cast<sint>(a0),a1)};
-      return simd::native_cast<A0>(that);
+      sint const that = { _mm_slli_epi32(native_cast<sint>(a0),a1)};
+      return native_cast<A0>(that);
     }
   };
 
@@ -75,9 +76,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::native_cast;
+
       typedef typename meta::as_integer<A0,signed>::type sint;
-      sint const that ={ _mm_slli_epi64(simd::native_cast<sint>(a0), a1)};
-      return simd::native_cast<A0>(that);
+      sint const that ={ _mm_slli_epi64(native_cast<sint>(a0), a1)};
+      return native_cast<A0>(that);
     }
   };
 

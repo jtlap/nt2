@@ -36,7 +36,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typename meta::as_bits<A0>::type t1 = {a0};
+      typename boost::simd::meta::as_bits<A0>::type t1 = {a0};
       t1.bits = (t1.bits >>  a1);
       return t1.value;
     }

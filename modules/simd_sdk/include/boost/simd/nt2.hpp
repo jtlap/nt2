@@ -21,7 +21,6 @@
 #include <boost/simd/include/config.hpp>
 #include <boost/simd/include/error.hpp>
 #include <boost/simd/include/timing.hpp>
-#include <boost/simd/include/functor.hpp>
 #include <boost/simd/include/simd.hpp>
 
 #endif

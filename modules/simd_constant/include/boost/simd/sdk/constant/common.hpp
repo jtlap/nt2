@@ -18,21 +18,21 @@
 // Forward all constant call to the simd version of themselves that splat
 // the appropriate scalar constants into a proper SIMD vector.
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)(X)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)(X)
                             , ((target_< simd_< arithmetic_<A0>,X> >))
                             )
   {
     typedef typename A0::type                                     target;
     typedef typename meta::scalar_of<target>::type                base;
     typedef typename meta::call<Tag(boost::dispatch::meta::as_<base>)>::type  value;
-    typedef simd::native<value,X>                                 result_type;
+    typedef boost::simd::native<value,X>                          result_type;
 
     inline result_type operator()(A0 const&) const
     {
       functor<Tag> callee;
-      return splat<result_type>( callee( boost::dispatch::meta::as_<base>()) );
+      return boost::simd::splat<result_type>( callee( meta::as_<base>()) );
     }
   };
 } } }

@@ -90,7 +90,7 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_ 
                             , (A0)
                             , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                               ((simd_<ints32_<A0>,boost::simd::tag::sse_>))

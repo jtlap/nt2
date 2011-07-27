@@ -41,8 +41,8 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0>::type int_type;
-      return  simd::
-              native_cast<A0>(shift_right(simd::native_cast<int_type>(a0), a1));
+      return  boost::simd::
+              native_cast<A0>(shift_right(boost::simd::native_cast<int_type>(a0), a1));
     }
   };
 } } }

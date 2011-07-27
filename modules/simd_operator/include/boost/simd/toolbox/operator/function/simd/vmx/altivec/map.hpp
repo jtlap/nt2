@@ -60,7 +60,7 @@ namespace boost { namespace dispatch { namespace meta                           
 /**/
 
 #define BOOST_SIMD_MAP_CALL(T,C)                      \
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_SIMD_MAX_ARITY,M0, (T,C) ) \
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_ARITY,M0, (T,C) ) \
 /**/
 
 BOOST_SIMD_MAP_CALL(float_  ,  4 )

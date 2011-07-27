@@ -30,9 +30,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::native_cast;
+
       typedef typename meta::as_integer<A0,signed>::type sint;
-      sint const that = {_mm_srai_epi32(simd::native_cast<sint>(a0), a1)};
-      return simd::native_cast<A0>(that);
+      sint const that = {_mm_srai_epi32(native_cast<sint>(a0), a1)};
+      return native_cast<A0>(that);
     }
   };
 
@@ -46,9 +48,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::native_cast;
+
       typedef typename meta::as_integer<A0,signed>::type sint;
-      sint const that =  {_mm_srai_epi16(simd::native_cast<sint>(a0), a1)};
-      return simd::native_cast<A0>(that);
+      sint const that =  {_mm_srai_epi16(native_cast<sint>(a0), a1)};
+      return native_cast<A0>(that);
     }
   };
 
@@ -62,10 +66,12 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typedef simd::native<typename meta::int16_t_<A0>::type,boost::simd::tag::sse_> gen_type;
+      using namespace boost::simd;
+
+      typedef native<typename meta::int16_t_<A0>::type, tag::sse_> gen_type;
       gen_type a0h, a0l;
       boost::fusion::tie(a0l, a0h) = split(a0);
-      return simd::native_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
+      return native_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
     }
   };
 

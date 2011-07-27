@@ -63,14 +63,14 @@ struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                    \
   make_expr < Func                                                \
             , BOOST_PP_ENUM_BINARY_PARAMS                         \
               ( n                                                 \
-              , typename boost::simd::details::result_of                  \
+              , typename boost::simd::details::result_of          \
                 ::as_child< typename meta::strip< A               \
               ,                                 >::type const&    \
                           >::type BOOST_PP_INTERCEPT              \
               )                                                   \
             >::type type;                                         \
 };                                                                \
-template<class This,BOOST_PP_ENUM_PARAMS(n,class A)> inline       \
+template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_SIMD_FORCE_INLINE \
 typename result<implement                                         \
                 (BOOST_PP_ENUM_BINARY_PARAMS( n,A                 \
                                             , const&              \

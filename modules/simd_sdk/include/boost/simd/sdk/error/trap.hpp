@@ -29,7 +29,7 @@ namespace boost { namespace simd
    * \param cond Runtime boolean value
    */
   //==============================================================================
-  BOOST_SIMD_SDK_FORCE_INLINE void trap(bool cond) { if(!cond) BOOST_SIMD_SDK_DEBUG_TRAP(); }
+  BOOST_SIMD_FORCE_INLINE void trap(bool cond) { if(!cond) BOOST_SIMD_SDK_DEBUG_TRAP(); }
 
   //==============================================================================
   /*!
@@ -37,7 +37,7 @@ namespace boost { namespace simd
    * Triggers a breakpoint trap unconditionnaly
    */
   //==============================================================================
-   BOOST_SIMD_SDK_FORCE_INLINE void trap()          { BOOST_SIMD_SDK_DEBUG_TRAP();           }
+   BOOST_SIMD_FORCE_INLINE void trap()          { BOOST_SIMD_SDK_DEBUG_TRAP();           }
 
    //==============================================================================
    /*!
@@ -47,13 +47,13 @@ namespace boost { namespace simd
     * \tparam Condition Compile-time boolean integral constant
     */
    //==============================================================================
-  template<class Condition> BOOST_SIMD_SDK_FORCE_INLINE
+  template<class Condition> BOOST_SIMD_FORCE_INLINE
   void trap( typename boost::enable_if_c<Condition::value>::type* = 0 )
   {
     BOOST_SIMD_SDK_DEBUG_TRAP();
   }
 
-  template<class Condition> BOOST_SIMD_SDK_FORCE_INLINE
+  template<class Condition> BOOST_SIMD_FORCE_INLINE
   void trap( typename boost::disable_if_c<Condition::value>::type* = 0) {}
 } }
 

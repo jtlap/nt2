@@ -118,10 +118,10 @@ namespace boost { namespace simd
   };
 } }
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template<class Type,class Cardinal, class Origin>
-  struct  property_of< simd::data<Type,Cardinal>, Origin >
-        : property_of< Type, simd::data<Type,Cardinal> > {};
+  struct  property_of< boost::simd::data<Type,Cardinal>, Origin >
+        : property_of< Type, boost::simd::data<Type,Cardinal> > {};
 } } }
 #endif

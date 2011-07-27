@@ -20,11 +20,11 @@
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 
-namespace boost { namespace dispatch { namespace simd
+namespace boost {  namespace simd
 {
   template<class T, class X>
   struct native;
-} } }
+} }
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -81,7 +81,7 @@ namespace boost { namespace dispatch { namespace details
   struct is_native : boost::mpl::false_ {};
   
   template<class T, class X>
-  struct is_native<simd::native<T, X> > : boost::mpl::true_ {};
+  struct is_native< boost::simd::native<T, X> > : boost::mpl::true_ {};
 
   template<class T,class Origin>
   struct  hierarchy_of< T

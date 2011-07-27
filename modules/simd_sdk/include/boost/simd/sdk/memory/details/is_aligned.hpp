@@ -87,7 +87,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       ignore_unused((a0,a1));
-      return meta::is_aligned<A0,A1>::value;
+      return boost::simd::meta::is_aligned<A0,A1>::value;
     }
   };
 } } }

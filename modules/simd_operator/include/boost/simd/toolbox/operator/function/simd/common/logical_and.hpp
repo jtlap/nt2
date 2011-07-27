@@ -26,6 +26,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return neq(a0, Zero<A0>()) & neq(a1, Zero<A0>());
     }
   };

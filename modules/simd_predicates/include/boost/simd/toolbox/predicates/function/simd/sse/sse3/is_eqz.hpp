@@ -19,7 +19,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return eq(a0,boost::simd::Zero<A0>()); }
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, tag::cpu_, (A0)
@@ -30,12 +30,14 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef simd::native <typename  meta::int32_t_<A0>::type, boost::simd::tag::sse_ > itype;
-      typedef simd::native <typename  meta::float__<A0>::type , boost::simd::tag::sse_ > ftype;
+      using boost::simd::native_cast;
+
+      typedef simd::native <typename boost::simd::meta::int32_t_<A0>::type, boost::simd::tag::sse_ > itype;
+      typedef simd::native <typename boost::simd::meta::float__<A0>::type , boost::simd::tag::sse_ > ftype;
       ftype tmp1
-      = simd::native_cast<ftype>(eq(simd::native_cast<itype>(a0),Zero<itype>()));
-      A0  l = simd::native_cast<A0>(_mm_moveldup_ps(tmp1));
-      A0  h = simd::native_cast<A0>(_mm_movehdup_ps(tmp1));
+      = native_cast<ftype>(eq(native_cast<itype>(a0),boost::simd::Zero<itype>()));
+      A0  l = native_cast<A0>(_mm_moveldup_ps(tmp1));
+      A0  h = native_cast<A0>(_mm_movehdup_ps(tmp1));
       return b_and(l,h);
     }
   };

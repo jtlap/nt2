@@ -11,14 +11,14 @@
 
 #include <boost/simd/sdk/meta/from_bits.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::val_min_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::val_min_,tag::cpu_
                             , (A0), (target_< scalar_< double_<A0> > > )
                             )
   {
@@ -27,16 +27,16 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename meta::from_bits<result_type>::type const
+      typename boost::simd::meta::from_bits<result_type>::type const
       that = {0xffefffffffffffffLL};
-      return splat<result_type>(that.value);
+      return boost::simd::splat<result_type>(that.value);
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::val_min_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::val_min_,tag::cpu_
                             , (A0), (target_< scalar_< float_<A0> > > )
                             )
   {
@@ -45,16 +45,16 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename meta::from_bits<result_type>::type const
+      typename boost::simd::meta::from_bits<result_type>::type const
       that = {0xff7fffff};
-      return splat<result_type>(that.value);
+      return boost::simd::splat<result_type>(that.value);
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::val_min_,tag::cpu_,(A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::val_min_,tag::cpu_,(A0)
                             , (target_< scalar_< unsigned_<A0> > > )
                             )
   {
@@ -63,14 +63,14 @@ namespace boost { namespace dispatch
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return splat<result_type>(0);
+      return boost::simd::splat<result_type>(0);
     }
   };
-} }
+} } }
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::val_min_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::val_min_,tag::cpu_
                             , (A0), (target_< scalar_< signed_<A0> > > )
                             )
   {
@@ -81,9 +81,9 @@ namespace boost { namespace dispatch
       ignore_unused(a0);
       typedef typename meta::as_unsigned<result_type>::type base;
       BOOST_STATIC_CONSTANT(base, value = base(1) << (sizeof(base)*CHAR_BIT-1) );
-      return splat<result_type>(base(value));
+      return boost::simd::splat<result_type>(base(value));
     }
   };
-} }
+} } }
 
 #endif

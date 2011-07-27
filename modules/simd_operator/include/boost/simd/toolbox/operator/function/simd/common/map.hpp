@@ -68,7 +68,7 @@ namespace boost { namespace  dispatch {  namespace meta                      \
 } } }                                                                        \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),M5,~)
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M5,~)
 
 #undef M5
 #undef M4

@@ -26,7 +26,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      typename boost::simd::meta::as_bits<A0, unsigned>::type t1 = {a0};
       if(!t1.bits) return 0; 
 
     #if defined BOOST_MSVC && defined _WIN64
@@ -61,7 +61,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      typename boost::simd::meta::as_bits<A0, unsigned>::type t1 = {a0};
     #ifdef BOOST_MSVC
       unsigned long index;
       if(_BitScanForward(&index, t1.bits)) return index+1;
@@ -80,7 +80,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      typename boost::simd::meta::as_bits<A0, unsigned>::type t1 = {a0};
       return boost::simd::ffs(uint32_t(t1.bits));
     }
   };

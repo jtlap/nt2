@@ -27,9 +27,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typedef simd::native<typename meta::int32_t_<A0>::type,boost::simd::tag::sse_> gen_type;
-      result_type const Mask1 =  simd::native_cast<result_type>(integral_constant<gen_type, 0x00ff00ff>());
-      result_type const Mask2 =  simd::native_cast<result_type>(integral_constant<gen_type, 0xff00ff00>());
+      using namespace boost::simd;
+
+      typedef native<typename boost::simd::meta::int32_t_<A0>::type, boost::simd::tag::sse_> gen_type;
+      result_type const Mask1 =  native_cast<result_type>(boost::simd::integral_constant<gen_type, 0x00ff00ff>());
+      result_type const Mask2 =  native_cast<result_type>(boost::simd::integral_constant<gen_type, 0xff00ff00>());
       result_type tmp  = b_and(a0, Mask1);
       result_type tmp1 = {_mm_srli_epi16(tmp, a1)};
       tmp1 = b_and(tmp1, Mask1);
@@ -49,9 +51,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::native_cast;
+
       typedef typename meta::as_integer<A0>::type sint;
-      sint const that = { _mm_srli_epi32(simd::native_cast<sint>(a0), a1)};
-      return simd::native_cast<A0>(that);
+      sint const that = { _mm_srli_epi32(native_cast<sint>(a0), a1)};
+      return native_cast<A0>(that);
     }
   };
 
@@ -65,9 +69,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::native_cast;
+
       typedef typename meta::as_integer<A0>::type sint;
-      sint const that ={ _mm_srli_epi64(simd::native_cast<sint>(a0),a1)};
-      return simd::native_cast<result_type>(that);
+      sint const that ={ _mm_srli_epi64(native_cast<sint>(a0),a1)};
+      return native_cast<result_type>(that);
     }
   };
 

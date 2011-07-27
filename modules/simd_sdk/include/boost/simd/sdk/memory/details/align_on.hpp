@@ -84,7 +84,7 @@ namespace boost { namespace dispatch { namespace meta
                               (mpl_integral_< scalar_< integer_<A1> > >)
                             )
   {
-    typedef typename meta::align_on < typename meta::strip<A0>::type
+    typedef typename boost::simd::meta::align_on < typename meta::strip<A0>::type
                                     , typename meta::strip<A1>::type
                                     >::type                         result_type;
 
@@ -101,7 +101,7 @@ namespace boost { namespace dispatch { namespace meta
                             , (A0), (mpl_integral_<scalar_< integer_<A0> > >)
                             )
   {
-    typedef typename meta::align_on < typename meta::strip<A0>::type
+    typedef typename boost::simd::meta::align_on < typename meta::strip<A0>::type
                                     , boost::mpl::int_<BOOST_SIMD_CONFIG_ALIGNMENT>
                                     >::type                         result_type;
 

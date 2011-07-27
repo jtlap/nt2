@@ -42,7 +42,7 @@ BOOST_DISPATCH_REGISTER_DISPATCH ( Tag , tag::cpu_, (A0)(Tag) \
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),M1,~)
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M1,~)
 } } }
 
 #undef M0
@@ -59,11 +59,11 @@ namespace boost { namespace dispatch { namespace meta                       \
   template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>          \
   struct implement<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy>          \
   {                                                                         \
-    typedef typename meta::call<tag::map_ ( functor<Tag>                    \
+    typedef typename meta::call<boost::simd::tag::map_ ( functor<Tag>       \
                                           , BOOST_PP_ENUM_PARAMS(n,A)       \
                                           )>::type result_type;             \
                                                                             \
-    BOOST_SIMD_FUNCTOR_CALL(n)                                              \
+    BOOST_DISPATCH_FUNCTOR_CALL(n)                                          \
     {                                                                       \
       return boost::simd::map( functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));  \
     }                                                                       \
@@ -71,7 +71,7 @@ namespace boost { namespace dispatch { namespace meta                       \
 } } }                                                                       \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_SIMD_MAX_ARITY),M1,~)
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M1,~)
 
 #undef M1
 #undef M0

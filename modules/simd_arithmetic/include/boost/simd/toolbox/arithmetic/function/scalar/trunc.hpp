@@ -11,7 +11,7 @@
 
 #include <boost/simd/include/functions/floor.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

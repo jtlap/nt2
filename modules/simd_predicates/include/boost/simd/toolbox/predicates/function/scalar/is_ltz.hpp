@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::strip<A0>::type stA0; 
-      return a0 < Zero<stA0>();
+      return a0 < boost::simd::Zero<stA0>();
     }
   };
 } } }

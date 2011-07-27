@@ -24,7 +24,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return b_and(is_nez(a0), One<A0>());
+      return b_and(is_nez(a0), boost::simd::One<A0>());
     }
   };
 } } }

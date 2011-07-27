@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return lt(a0, Zero<A0>());
+      return lt(a0, boost::simd::Zero<A0>());
     }
   };
 } } }

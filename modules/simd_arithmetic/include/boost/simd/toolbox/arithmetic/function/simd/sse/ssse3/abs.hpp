@@ -90,7 +90,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::strip<A0>::type result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
-    { return b_notand(Mzero<A0>(),a0); }
+    { return b_notand(boost::simd::Mzero<A0>(),a0); }
   };
 } } }
 

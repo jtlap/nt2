@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       ignore_unused(a2);
       result_type
-      that = { _mm_load_pd(a0+a1*meta::cardinal_of<result_type>::value) };
+      that = { _mm_load_pd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
       return that;
     }
   };
@@ -61,7 +61,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       ignore_unused(a2);
       result_type
-      that = { _mm_load_ps(a0+a1*meta::cardinal_of<result_type>::value) };
+      that = { _mm_load_ps(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
       return that;
     }
   };

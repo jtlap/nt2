@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-        return ge(a0, Zero<A0>());
+        return ge(a0, boost::simd::Zero<A0>());
     }
   };
 } } }
