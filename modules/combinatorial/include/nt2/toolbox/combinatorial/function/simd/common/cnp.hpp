@@ -29,7 +29,41 @@ namespace nt2 { namespace meta
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTOR_IMPLEMENTATION(tag::cnp_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<type16_<A0>,X>))
+                      ((simd_<type16_<A0>,X>))
+                     )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename meta::upgrade<A0> ::type utype;
+      utype a00, a01, a10, a11;
+      nt2::split(a0, a00, a01);
+      nt2::split(a1, a10, a11);
+      return nt2::group(cnp(a00,a10),cnp(a01,a11)); 
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION(tag::cnp_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<type8_<A0>,X>))
+                      ((simd_<type8_<A0>,X>))
+                     )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename meta::upgrade<A0> ::type utype;
+      utype a00, a01, a10, a11;
+      nt2::split(a0, a00, a01);
+      nt2::split(a1, a10, a11);
+      return nt2::group(cnp(a00,a10),cnp(a01,a11)); 
+    }
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
 

@@ -28,6 +28,40 @@ namespace nt2 { namespace meta
       return simd::native_cast<A0>(toint(anp(tofloat(a0),tofloat(a1))));
     }
   };
+  
+  NT2_FUNCTOR_IMPLEMENTATION(tag::anp_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<type16_<A0>,X>))
+                      ((simd_<type16_<A0>,X>))
+                     )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename meta::upgrade<A0> ::type utype;
+      utype a00, a01, a10, a11;
+      nt2::split(a0, a00, a01);
+      nt2::split(a1, a10, a11);
+      return nt2::group(anp(a00,a10),anp(a01,a11)); 
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION(tag::anp_, tag::cpu_,
+                      (A0)(X),
+                      ((simd_<type8_<A0>,X>))
+                      ((simd_<type8_<A0>,X>))
+                     )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef typename meta::upgrade<A0> ::type utype;
+      utype a00, a01, a10, a11;
+      nt2::split(a0, a00, a01);
+      nt2::split(a1, a10, a11);
+      return nt2::group(anp(a00,a10),anp(a01,a11)); 
+    }
+  };
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
