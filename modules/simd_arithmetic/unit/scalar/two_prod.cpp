@@ -17,7 +17,7 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -30,10 +30,10 @@ BOOST_SIMD_TEST_CASE_TPL ( two_prod_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::two_prod;
   using boost::simd::tag::two_prod_;
-  typedef typename boost::result_of<boost::simd::meta::floating(T,T)>::type r0_t;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<two_prod_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::floating(T,T)>::type r0_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<two_prod_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<r0_t,r0_t> wished_r_t;
 
 

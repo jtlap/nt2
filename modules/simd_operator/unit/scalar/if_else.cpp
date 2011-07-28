@@ -16,7 +16,7 @@
 #include <boost/simd/toolbox/operator/include/if_else.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -29,9 +29,9 @@ BOOST_SIMD_TEST_CASE_TPL ( if_else_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   
   using boost::simd::if_else;
   using boost::simd::tag::if_else_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<if_else_(T,T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<if_else_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -53,9 +53,9 @@ BOOST_SIMD_TEST_CASE_TPL ( if_else_real__3_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::if_else;
   using boost::simd::tag::if_else_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<if_else_(T,T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<if_else_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

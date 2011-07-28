@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/all.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -31,9 +31,9 @@ BOOST_SIMD_TEST_CASE_TPL ( compare_greater_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::compare_greater;
   using boost::simd::tag::compare_greater_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<compare_greater_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<compare_greater_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef bool wished_r_t;
 
 
@@ -57,9 +57,9 @@ BOOST_SIMD_TEST_CASE_TPL ( compare_greater_integer__2_0,  BOOST_SIMD_INTEGRAL_TY
   
   using boost::simd::compare_greater;
   using boost::simd::tag::compare_greater_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<compare_greater_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<compare_greater_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef bool wished_r_t;
 
 

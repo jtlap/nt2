@@ -16,7 +16,7 @@
 #include <boost/simd/toolbox/swar/include/put_first.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -35,14 +35,14 @@ BOOST_SIMD_TEST_CASE_TPL ( put_first_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::simd::meta::call<put_first_(vT,iT)>::type r_t;
-  typedef typename boost::simd::meta::call<put_first_(T,iT)>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<put_first_(vT,iT)>::type r_t;
+  typedef typename boost::dispatch::meta::call<put_first_(T,iT)>::type sr_t;
+  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -64,14 +64,14 @@ BOOST_SIMD_TEST_CASE_TPL ( put_first_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNE
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::simd::meta::call<put_first_(vT,iT)>::type r_t;
-  typedef typename boost::simd::meta::call<put_first_(T,iT)>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<put_first_(vT,iT)>::type r_t;
+  typedef typename boost::dispatch::meta::call<put_first_(T,iT)>::type sr_t;
+  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -90,14 +90,14 @@ BOOST_SIMD_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYP
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::simd::meta::call<put_first_(vT,iT)>::type r_t;
-  typedef typename boost::simd::meta::call<put_first_(T,iT)>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<put_first_(vT,iT)>::type r_t;
+  typedef typename boost::dispatch::meta::call<put_first_(T,iT)>::type sr_t;
+  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 

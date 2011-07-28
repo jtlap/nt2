@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/bitinteger.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -31,10 +31,10 @@ BOOST_SIMD_TEST_CASE_TPL ( bitfloating_uint32_t_1_0,  (boost::simd::uint32_t))
   
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<bitfloating_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::as_real<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitfloating_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_real<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -50,10 +50,10 @@ BOOST_SIMD_TEST_CASE_TPL ( bitfloating_uint64_t_1_0,  (boost::simd::uint64_t))
   
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<bitfloating_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::as_real<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitfloating_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_real<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -69,10 +69,10 @@ BOOST_SIMD_TEST_CASE_TPL ( bitfloating_int32_t_1_0,  (boost::simd::int32_t))
   
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<bitfloating_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::as_real<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitfloating_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_real<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -88,10 +88,10 @@ BOOST_SIMD_TEST_CASE_TPL ( bitfloating_int64_t_1_0,  (boost::simd::int64_t))
   
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<bitfloating_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::as_real<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitfloating_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_real<T>::type wished_r_t;
 
 
   // return type conformity test 

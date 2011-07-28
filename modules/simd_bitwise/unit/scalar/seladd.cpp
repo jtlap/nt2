@@ -18,7 +18,7 @@
 #include <boost/simd/toolbox/predicates/include/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -31,10 +31,10 @@ BOOST_SIMD_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::seladd;
   using boost::simd::tag::seladd_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<seladd_(T,T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::simd::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<seladd_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -58,10 +58,10 @@ BOOST_SIMD_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   
   using boost::simd::seladd;
   using boost::simd::tag::seladd_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<seladd_(T,T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::simd::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<seladd_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 

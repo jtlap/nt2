@@ -21,7 +21,7 @@
 #include <boost/simd/include/functions/min.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -40,22 +40,22 @@ BOOST_SIMD_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::simd::meta::upgrade<T>::type   u_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::simd::meta::call<comparator_(vT,vT,int)>::type r_t;
-  typedef typename boost::simd::meta::call<comparator_(T,T,int)>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<comparator_(vT,vT,int)>::type r_t;
+  typedef typename boost::dispatch::meta::call<comparator_(T,T,int)>::type sr_t;
+  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0; 
 
 
 //   // specific values tests
-  typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-  typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-  typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
+  typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
   {
     r_t res = comparator(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), 0);
     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Inf<r_t0>());

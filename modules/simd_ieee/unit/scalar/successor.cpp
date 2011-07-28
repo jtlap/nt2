@@ -19,7 +19,7 @@
 #include <boost/simd/include/constants/eps_related.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -34,9 +34,9 @@ BOOST_SIMD_TEST_CASE_TPL ( successor_real__1_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::successor;
   using boost::simd::tag::successor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<successor_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -62,9 +62,9 @@ BOOST_SIMD_TEST_CASE_TPL ( successor_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYP
   
   using boost::simd::successor;
   using boost::simd::tag::successor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<successor_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -86,9 +86,9 @@ BOOST_SIMD_TEST_CASE_TPL ( successor_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNE
   
   using boost::simd::successor;
   using boost::simd::tag::successor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<successor_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -111,10 +111,10 @@ BOOST_SIMD_TEST_CASE_TPL ( successor_real__2_1,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::successor;
   using boost::simd::tag::successor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<successor_(T,iT)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -131,10 +131,10 @@ BOOST_SIMD_TEST_CASE_TPL ( successor_unsigned_int__2_1,  BOOST_SIMD_UNSIGNED_TYP
   
   using boost::simd::successor;
   using boost::simd::tag::successor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<successor_(T,iT)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -151,10 +151,10 @@ BOOST_SIMD_TEST_CASE_TPL ( successor_signed_int__2_1,  BOOST_SIMD_INTEGRAL_SIGNE
   
   using boost::simd::successor;
   using boost::simd::tag::successor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<successor_(T,iT)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

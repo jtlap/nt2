@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/meta/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -31,9 +31,9 @@ BOOST_SIMD_TEST_CASE_TPL ( majority_real__3_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::majority;
   using boost::simd::tag::majority_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<majority_(T,T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<majority_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
@@ -62,9 +62,9 @@ BOOST_SIMD_TEST_CASE_TPL ( majority_signed_int__3_0,  BOOST_SIMD_INTEGRAL_SIGNED
   
   using boost::simd::majority;
   using boost::simd::tag::majority_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<majority_(T,T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<majority_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
@@ -87,9 +87,9 @@ BOOST_SIMD_TEST_CASE_TPL ( majority_unsigned_int__3_0,  BOOST_SIMD_UNSIGNED_TYPE
   
   using boost::simd::majority;
   using boost::simd::tag::majority_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<majority_(T,T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<majority_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 

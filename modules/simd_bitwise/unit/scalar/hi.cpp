@@ -15,10 +15,10 @@
 /// 
 #include <boost/simd/toolbox/bitwise/include/hi.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/downgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -31,11 +31,11 @@ BOOST_SIMD_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::hi;
   using boost::simd::tag::hi_;
-  typedef typename boost::simd::meta::as_integer<T,unsigned>::type ir_t;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<hi_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::downgrade<ir_t>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
 
   // return type conformity test 
@@ -55,11 +55,11 @@ BOOST_SIMD_TEST_CASE_TPL ( hi_int64__1_0,  (boost::simd::int64_t)(boost::simd::u
   
   using boost::simd::hi;
   using boost::simd::tag::hi_;
-  typedef typename boost::simd::meta::as_integer<T,unsigned>::type ir_t;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<hi_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::downgrade<ir_t>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
 
   // return type conformity test 
@@ -79,11 +79,11 @@ BOOST_SIMD_TEST_CASE_TPL ( hi_int32__1_0,  (boost::simd::int32_t)(boost::simd::u
   
   using boost::simd::hi;
   using boost::simd::tag::hi_;
-  typedef typename boost::simd::meta::as_integer<T,unsigned>::type ir_t;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<hi_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::downgrade<ir_t>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
 
   // return type conformity test 
@@ -103,11 +103,11 @@ BOOST_SIMD_TEST_CASE_TPL ( hi_int16__1_0,  (boost::simd::int16_t)(boost::simd::u
   
   using boost::simd::hi;
   using boost::simd::tag::hi_;
-  typedef typename boost::simd::meta::as_integer<T,unsigned>::type ir_t;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<hi_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::downgrade<ir_t>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
 
   // return type conformity test 

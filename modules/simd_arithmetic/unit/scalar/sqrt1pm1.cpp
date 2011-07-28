@@ -14,7 +14,7 @@
 /// created by jt the 01/12/2010
 /// modified by jt the 06/04/2011
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -28,10 +28,10 @@ BOOST_SIMD_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::sqrt1pm1;
   using boost::simd::tag::sqrt1pm1_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<sqrt1pm1_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<sqrt1pm1_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -55,10 +55,10 @@ BOOST_SIMD_TEST_CASE_TPL ( sqrt1pm1_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPE
   
   using boost::simd::sqrt1pm1;
   using boost::simd::tag::sqrt1pm1_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<sqrt1pm1_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<sqrt1pm1_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -78,10 +78,10 @@ BOOST_SIMD_TEST_CASE_TPL ( sqrt1pm1_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED
   
   using boost::simd::sqrt1pm1;
   using boost::simd::tag::sqrt1pm1_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<sqrt1pm1_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::simd::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<sqrt1pm1_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::floating(T)>::type wished_r_t;
 
 
   // return type conformity test 

@@ -18,7 +18,7 @@
 #include <boost/simd/sdk/meta/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -31,9 +31,9 @@ BOOST_SIMD_TEST_CASE_TPL ( sb2b_real__1_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::sb2b;
   using boost::simd::tag::sb2b_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<sb2b_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<sb2b_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
@@ -62,9 +62,9 @@ BOOST_SIMD_TEST_CASE_TPL ( sb2b_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYP
   
   using boost::simd::sb2b;
   using boost::simd::tag::sb2b_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<sb2b_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<sb2b_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
@@ -87,9 +87,9 @@ BOOST_SIMD_TEST_CASE_TPL ( sb2b_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   
   using boost::simd::sb2b;
   using boost::simd::tag::sb2b_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<sb2b_(T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<sb2b_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 

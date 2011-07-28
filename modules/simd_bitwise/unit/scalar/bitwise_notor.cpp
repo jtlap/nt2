@@ -16,7 +16,7 @@
 #include <boost/simd/toolbox/bitwise/include/bitwise_notor.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -29,9 +29,9 @@ BOOST_SIMD_TEST_CASE_TPL ( bitwise_notor_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::bitwise_notor;
   using boost::simd::tag::bitwise_notor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<bitwise_notor_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitwise_notor_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -54,9 +54,9 @@ BOOST_SIMD_TEST_CASE_TPL ( bitwise_notor_signed_int__2_0,  BOOST_SIMD_INTEGRAL_S
   
   using boost::simd::bitwise_notor;
   using boost::simd::tag::bitwise_notor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<bitwise_notor_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitwise_notor_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -79,9 +79,9 @@ BOOST_SIMD_TEST_CASE_TPL ( bitwise_notor_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED
   
   using boost::simd::bitwise_notor;
   using boost::simd::tag::bitwise_notor_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<bitwise_notor_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitwise_notor_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

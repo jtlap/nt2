@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/abs.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/sdk/unit/tests.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
@@ -31,10 +31,10 @@ BOOST_SIMD_TEST_CASE_TPL ( minnummag_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::minnummag;
   using boost::simd::tag::minnummag_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<minnummag_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::simd::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<minnummag_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -60,10 +60,10 @@ BOOST_SIMD_TEST_CASE_TPL ( minnummag_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYP
   
   using boost::simd::minnummag;
   using boost::simd::tag::minnummag_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<minnummag_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::simd::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<minnummag_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 
@@ -83,10 +83,10 @@ BOOST_SIMD_TEST_CASE_TPL ( minnummag_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNE
   
   using boost::simd::minnummag;
   using boost::simd::tag::minnummag_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<minnummag_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::simd::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<minnummag_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type wished_r_t;
 
 
   // return type conformity test 
