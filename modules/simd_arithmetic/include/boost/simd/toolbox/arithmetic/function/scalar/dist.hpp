@@ -49,7 +49,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      return logical_xor(a0, a1);
+      return boost::simd::logical_xor(a0, a1);
     }
   };
 } } }

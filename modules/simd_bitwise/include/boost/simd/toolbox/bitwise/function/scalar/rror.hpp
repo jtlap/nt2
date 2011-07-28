@@ -23,6 +23,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return (a1 > 0) ? ror(a0, a1) :rol(a0, boost::simd::neg(a1));
     }
   };

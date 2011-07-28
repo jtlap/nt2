@@ -11,7 +11,7 @@
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef result_type type;
       ignore_unused(a0);
-      return True<A0>();
+      return boost::simd::True<A0>();
     }
   };
 
@@ -44,7 +44,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return is_not_equal(abs(a0),Inf<A0>());
+      return is_not_equal(abs(a0),boost::simd::Inf<A0>());
     }
   };
 } } }

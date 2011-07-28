@@ -29,6 +29,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       if(a1)
         return -idivceil(-a0,a1);
       else
@@ -57,6 +59,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
        return rdivide(a0,a1);
     }
   };

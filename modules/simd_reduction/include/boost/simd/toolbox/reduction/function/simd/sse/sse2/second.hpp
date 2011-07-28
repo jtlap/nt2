@@ -69,7 +69,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_integer<A0>::type type;
-      meta::from_bits<float>::type t = {_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<type>(a0), 4))};
+      boost::simd::meta::from_bits<float>::type t = {_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<type>(a0), 4))};
       return t.value;
     }
   };
@@ -107,7 +107,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
-      meta::as_bits<double>::type t = {_mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)))};
+      boost::simd::meta::as_bits<double>::type t = {_mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)))};
       return t.bits;
     }
   };

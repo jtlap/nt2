@@ -54,6 +54,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       return is_gtz(a0)? ::ilogb(a0) : Zero<result_type>();
     }
   };
@@ -77,6 +78,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       return is_gtz(a0)? ::ilogbf(a0) : Zero<result_type>();
     }
   };
@@ -99,6 +101,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       return is_gtz(a0)? boost::simd::exponent(a0) : Zero<result_type>();
     }
   };

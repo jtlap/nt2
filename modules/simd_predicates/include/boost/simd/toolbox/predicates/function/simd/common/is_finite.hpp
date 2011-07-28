@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_FINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_FINITE_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 
@@ -23,7 +23,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return True<A0>();
+      return boost::simd::True<A0>();
     }
   };
 

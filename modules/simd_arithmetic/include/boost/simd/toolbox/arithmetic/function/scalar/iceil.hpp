@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_ICEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_ICEIL_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>

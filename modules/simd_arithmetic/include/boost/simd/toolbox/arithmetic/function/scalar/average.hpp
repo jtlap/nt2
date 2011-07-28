@@ -26,6 +26,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using namespace boost::simd;
+
       return b_and(a0, a1)+(shrai(b_xor(a0, a1), 1));
     }
   };
@@ -47,6 +49,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       return (a0+a1)*Half<result_type>();
     }
   };

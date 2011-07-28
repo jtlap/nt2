@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_ANY_HPP_INCLUDED
-#include <boost/simd/sdk/meta/upgrade.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/hmsb.hpp>

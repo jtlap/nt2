@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_BITOFSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_BITOFSIGN_HPP_INCLUDED
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
@@ -21,7 +21,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return b_and(a0, Signmask<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return b_and(a0, boost::simd::Signmask<A0>()); }
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitofsign_, tag::cpu_, (A0)(X)
@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { ignore_unused(a0); return Zero<A0>(); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { ignore_unused(a0); return boost::simd::Zero<A0>(); }
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitofsign_, tag::cpu_, (A0)(X)
@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return b_and(a0, Mzero<result_type>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return b_and(a0, boost::simd::Mzero<result_type>()); }
   };
 } } }
 

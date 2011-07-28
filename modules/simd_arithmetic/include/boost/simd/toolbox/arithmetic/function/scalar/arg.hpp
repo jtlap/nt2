@@ -31,6 +31,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       return (is_ltz(a0))*Pi<result_type>();
     }
   };
@@ -52,6 +53,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+      
       ignore_unused(a0);
       return Zero<result_type>();
     }
@@ -74,6 +77,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       if (is_nan(a0)) return a0;
       if (is_gez(a0)) return Zero<A0>();
       return Pi<A0>();

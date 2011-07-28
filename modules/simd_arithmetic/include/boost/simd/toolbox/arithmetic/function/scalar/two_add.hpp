@@ -36,6 +36,8 @@ namespace boost { namespace dispatch { namespace meta
     template<class R0,class R1> inline void
     eval(A0 const& a, A1 const& b,R0& r0, R1& r1)const
     {
+      using namespace boost::simd;
+
       r0 = a+b;
       if (is_invalid(r0))
       {

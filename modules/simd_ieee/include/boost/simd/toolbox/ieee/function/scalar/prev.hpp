@@ -29,6 +29,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       if (Valmin<A0>() == a0) return a0; 
       return minusone(a0);
     }
@@ -51,7 +52,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return boost::simd::nextafter(a0, Minf<A0>());
+      using namespace boost::simd;
+      return nextafter(a0, Minf<A0>());
     }
   };
 } } }

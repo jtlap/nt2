@@ -30,6 +30,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       return (!a1) ? a1 : iceil(double(a0)/double(a1));
     }
   };
@@ -43,6 +45,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       return (!a1) ? a1 : rdivide((a0+(a1-One<result_type>())), a1);
     }
   };
@@ -53,7 +57,12 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return ceil(a0/a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) 
+    {
+      using namespace boost::simd;
+
+      return ceil(a0/a1);
+    }
   };
 } } }
 

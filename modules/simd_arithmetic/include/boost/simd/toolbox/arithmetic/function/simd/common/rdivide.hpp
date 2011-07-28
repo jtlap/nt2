@@ -30,6 +30,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using boost::simd::One;
+
       const A0 iseqza1 = is_eqz(a1);
       return (a0-(iseqza1&a0))/(a1+(iseqza1&One<A0>()));
     }
@@ -65,6 +67,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using namespace boost::simd;
+
       typedef typename meta::scalar_of<A0>::type    stype;
       typedef typename meta::upgrade<stype>::type   itype;
       typedef simd::native<itype,X>                 ivtype;

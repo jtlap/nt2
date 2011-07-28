@@ -48,7 +48,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-        return True<A0>();
+        return boost::simd::True<A0>();
     }
   };
 } } }

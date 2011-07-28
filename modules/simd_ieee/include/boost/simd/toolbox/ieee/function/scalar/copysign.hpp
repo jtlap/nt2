@@ -31,6 +31,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::signnz;
       return boost::simd::abs(a0)*signnz(a1);
     }
   };

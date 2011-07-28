@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_HYPOT_HPP_INCLUDED
 #include <boost/simd/sdk/meta/from_bits.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
@@ -81,6 +81,8 @@ namespace boost { namespace dispatch { namespace meta
     template < class AA0>
     static inline AA0  internal(const AA0& a0, const  AA0& a1)
     {
+      using namespace boost::simd;
+
       // in double ::hypot is very slow and is 4 times slower than internal
       // this routine in float (with float constants) is 30% slower than 
       // the straightforward preceding overload for floats
@@ -122,7 +124,7 @@ namespace boost { namespace dispatch { namespace meta
       {
         AA0 y1 = b_and(b, hypot_constants<AA0>::M1());
         AA0 y2 = b - y1;
-        typedef typename meta::from_bits<AA0, unsigned>::type type;
+        typedef typename boost::simd::meta::from_bits<AA0, unsigned>::type type;
         type that = {bits(a)+hypot_constants<AA0>::C3()};
         AA0 t1 = that.value;
         AA0 t2 = (a+a) - t1;

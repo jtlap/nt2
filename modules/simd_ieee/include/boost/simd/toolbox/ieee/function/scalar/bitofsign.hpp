@@ -18,7 +18,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)  { return b_and(a0, Signmask<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1)  { return boost::simd::b_and(a0, boost::simd::Signmask<A0>()); }
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitofsign_, tag::cpu_, (A0)
@@ -26,7 +26,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return b_and(a0, Mzero<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return boost::simd::b_and(a0, boost::simd::Mzero<A0>()); }
   };
 } } }
 

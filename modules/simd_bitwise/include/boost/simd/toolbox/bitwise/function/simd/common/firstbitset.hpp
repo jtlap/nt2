@@ -29,6 +29,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using boost::simd::One;
       typedef typename  meta::as_integer<A0,unsigned>::type int_type;
       return b_and((b_not(simd::native_cast<int_type>(a0))+One<int_type>()), a0);
 

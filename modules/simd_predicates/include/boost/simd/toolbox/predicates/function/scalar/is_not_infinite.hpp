@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_NOT_INFINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_NOT_INFINITE_HPP_INCLUDED
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 #include <boost/simd/include/functions/abs.hpp>
 
@@ -51,7 +51,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return  boost::simd::abs(a0) != Inf<A0>();
+      return  boost::simd::abs(a0) != boost::simd::Inf<A0>();
     }
   };
 } } }

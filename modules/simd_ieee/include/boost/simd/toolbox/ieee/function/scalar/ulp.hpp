@@ -36,7 +36,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
        ignore_unused(a0);
-       return One<A0>();
+       return boost::simd::One<A0>();
     }
   };
 } } }
@@ -57,11 +57,12 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0,signed>::type int_type;
       if (is_eqz(a0)) return Mindenormal<A0>();
       const A0 x = boost::simd::abs(a0);
       if (x == Inf<A0>()) return x; 
-      typename meta::as_bits<A0>::type aa = {x},  bb = aa;
+      typename boost::simd::meta::as_bits<A0>::type aa = {x},  bb = aa;
       --bb.bits;
       ++aa.bits;
       return boost::simd::min(x-bb.value, aa.value-x);

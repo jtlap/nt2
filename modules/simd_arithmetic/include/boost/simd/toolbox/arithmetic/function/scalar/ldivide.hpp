@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      if (a0) return a1/a0;  else return Zero<result_type>();
+      if (a0) return a1/a0;  else return boost::simd::Zero<result_type>();
     }
   };
 } } }

@@ -65,7 +65,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return make<A0>(minimum(a0), maximum(a0));
+      return boost::simd::make<A0>(minimum(a0), maximum(a0));
     }
   };
 } } }

@@ -48,6 +48,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       if (gt(a0, a1))
 	return a0-a1;
       else
@@ -72,6 +74,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
        if (eq(a1, Valmin<A0>()))
  	{
           if (a0 >= Mone<A0>()) return Valmax<A0>(); 

@@ -75,7 +75,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef simd::native<typename meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
+      typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
       rtype v0 = simd::native_cast<rtype>(a0);
       A0 pack = simd::native_cast<A0>(_mm_unpackhi_pd(v0,v0));
       A0 max1 = boost::simd::max(a0,pack);

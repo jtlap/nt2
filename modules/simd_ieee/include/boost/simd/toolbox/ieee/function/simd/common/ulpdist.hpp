@@ -80,17 +80,18 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0>::type itype;
       itype e1, e2;
       A0 m1, m2;
       boost::fusion::tie(m1, e1) = boost::simd::frexp(a0);
       boost::fusion::tie(m2, e2) = boost::simd::frexp(a1);
       itype expo = -boost::simd::max(e1, e2);
-      A0 e = sel( is_equal(e1, e2)
+      A0 e = sel( boost::simd::is_equal(e1, e2)
                 , boost::simd::abs(m1-m2)
                 , boost::simd::abs(boost::simd::ldexp(a0, expo)-boost::simd::ldexp(a1, expo))
                 );
-      return sel((is_nan(a0)&is_nan(a1))|is_equal(a0, a1), Zero<A0>(), e/Eps<A0>());
+      return sel((is_nan(a0)&is_nan(a1))|boost::simd::is_equal(a0, a1), Zero<A0>(), e/Eps<A0>());
     }
   };
 } } }

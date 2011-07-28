@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_FRAC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_FRAC_HPP_INCLUDED
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       ignore_unused(a0);
-      return Zero<A0>();
+      return boost::simd::Zero<A0>();
     }
   };
 
@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return sel(is_invalid(a0), Nan<A0>(), a0-boost::simd::trunc(a0));
+      return sel(is_invalid(a0), boost::simd::Nan<A0>(), a0-boost::simd::trunc(a0));
     }
   };
 } } }

@@ -23,7 +23,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return splat<A0>(minimum(a0));
+      return boost::simd::splat<A0>(minimum(a0));
     }
   };
 } } }

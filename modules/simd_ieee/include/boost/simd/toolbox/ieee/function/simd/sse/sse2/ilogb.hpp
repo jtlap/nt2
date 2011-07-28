@@ -33,6 +33,7 @@ namespace boost { namespace dispatch { namespace meta
       typedef typename meta::as_integer<A0>::type  result_type; 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0,unsigned>::type vtype;
       static const A0 z = Zero<A0>();
       vtype tmp = ilogb(simd::native_cast<vtype>(a0));
@@ -55,9 +56,10 @@ namespace boost { namespace dispatch { namespace meta
       typedef typename meta::as_integer<A0>::type  result_type; 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       typedef A0 vtype8;
       static const vtype8& o = One<vtype8>();
-      static const vtype8 mask =  integral_constant<vtype8, 0x7f>();
+      static const vtype8 mask =  boost::simd::integral_constant<vtype8, 0x7f>();
       typedef typename A0::extension_type cat;
       typedef simd::native<uint16_t, cat> type;
       vtype8 n = a0;
@@ -95,12 +97,13 @@ namespace boost { namespace dispatch { namespace meta
       typedef typename meta::as_integer<A0>::type  result_type; 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       typedef typename A0::extension_type cat;
       typedef A0 vtype32;
       typedef simd::native<uint8_t, cat>  vtype8;
       static const vtype8& z = Zero<vtype8>();
       static const vtype8& o = One<vtype8>();
-      static const vtype32 mask =  integral_constant<vtype32, 0x7f7f7f7f>();
+      static const vtype32 mask = boost::simd::integral_constant<vtype32, 0x7f7f7f7f>();
       //      vtype8 i = boolean(is_nez((vtype8)a0));
       vtype8 i = select(is_eqz(MKN(8)(a0)), z, o);
       vtype8 n = MKN(8)(b_and(MKN(32)(_mm_srli_epi16(a0, 1)), mask));
@@ -117,13 +120,13 @@ namespace boost { namespace dispatch { namespace meta
       i = seladd(is_nez(n), i, o);
       n = MKN(8)(b_and(MKN(32)(_mm_srli_epi16(MKN(32)(n), 1)), mask));
       i = seladd(is_nez(n), i, o);
-      static const vtype32 mask1 = integral_constant<vtype32,0x000000ff>();
-      static const vtype32 mask2 = integral_constant<vtype32,0x0000ff00>();
-      static const vtype32 mask3 = integral_constant<vtype32,0x00ff0000>();
-      static const vtype32 mask4 = integral_constant<vtype32,0xff000000>();
-      static const vtype32 huit  = integral_constant<vtype32,8>();
-      static const vtype32 seize = integral_constant<vtype32,16u>();
-      static const vtype32 v4    = integral_constant<vtype32,24u>();
+      static const vtype32 mask1 = boost::simd::integral_constant<vtype32,0x000000ff>();
+      static const vtype32 mask2 = boost::simd::integral_constant<vtype32,0x0000ff00>();
+      static const vtype32 mask3 = boost::simd::integral_constant<vtype32,0x00ff0000>();
+      static const vtype32 mask4 = boost::simd::integral_constant<vtype32,0xff000000>();
+      static const vtype32 huit  = boost::simd::integral_constant<vtype32,8>();
+      static const vtype32 seize = boost::simd::integral_constant<vtype32,16u>();
+      static const vtype32 v4    = boost::simd::integral_constant<vtype32,24u>();
       vtype32 yy = b_and(MKN(32)(i), mask4);
       vtype32 zz = b_and(MKN(32)(i), mask3);
       vtype32 tt = b_and(MKN(32)(i), mask2);
@@ -172,12 +175,13 @@ namespace boost { namespace dispatch { namespace meta
       typedef typename meta::as_integer<A0>::type  result_type; 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       typedef A0 vtype16;
       typedef typename A0::extension_type cat;
       typedef simd::native<uint8_t, cat>  vtype8;
       static const vtype8& z = Zero<vtype8>();
       static const vtype8& o = One<vtype8>();
-      static const vtype16 mask =  integral_constant<vtype16, 0x7f7f > ();
+      static const vtype16 mask =  boost::simd::integral_constant<vtype16, 0x7f7f > ();
       vtype8 i = select(is_eqz(MKN(8)(a0)), z, o);
       //      vtype8 i = sb2b(is_nez((vtype8)a0));
       vtype8 n = MKN(8)(b_and(MKN(16)(_mm_srli_epi16(a0, 1)), mask));
@@ -194,9 +198,9 @@ namespace boost { namespace dispatch { namespace meta
       i = seladd(is_nez(n), i, o);
       n = MKN(8)(b_and(MKN(16)(_mm_srli_epi16(n, 1)), mask));
       i = seladd(is_nez(n), i, o);
-      static const vtype16 mask1 = integral_constant<vtype16, 0x00ff>();
-      static const vtype16 mask2 = integral_constant<vtype16, 0xff00>();
-      static const vtype16 huit  = integral_constant<vtype16, 8u>();
+      static const vtype16 mask1 = boost::simd::integral_constant<vtype16, 0x00ff>();
+      static const vtype16 mask2 = boost::simd::integral_constant<vtype16, 0xff00>();
+      static const vtype16 huit  = boost::simd::integral_constant<vtype16, 8u>();
       vtype16 yy = b_and(MKN(16)(i), mask2);
       vtype16 zz = b_and(MKN(16)(i), mask1);
       vtype16 xx = sel(is_nez(yy), MKN(16)(_mm_srli_epi16(yy, 8))+huit, zz);

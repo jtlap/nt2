@@ -47,7 +47,7 @@ namespace boost { namespace dispatch { namespace meta
                        )
   {
     typedef A1 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return b_xor(a1,b_and(is_true(a0),Signmask<A0>())); }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return b_xor(a1,b_and(is_true(a0),boost::simd::Signmask<A0>())); }
   };
 } } }
 

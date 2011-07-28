@@ -23,7 +23,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       result_type r = a0[0];
-      for(size_t i=1; i < meta::cardinal_of<A0>::value; i++)
+      for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)
       r = (r < a0[i]) ? a0[i] : r;
       return r;
     }

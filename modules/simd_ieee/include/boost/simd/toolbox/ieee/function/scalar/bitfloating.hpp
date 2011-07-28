@@ -24,9 +24,11 @@ namespace boost { namespace dispatch { namespace meta
  typedef typename meta::as_real<A0>::type result_type; 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       typedef result_type           rtype;
-      typedef typename meta::from_bits<rtype>::type       type;
-      typedef typename meta::from_bits<rtype>::bits_type  bits_type;
+      typedef typename boost::simd::meta::from_bits<rtype>::type       type;
+      typedef typename boost::simd::meta::from_bits<rtype>::bits_type  bits_type;
       type that = { a0 >= Zero<A0>()
                   ? bits_type(a0)
                   : bits_type((1LL << (8*sizeof(A0)-1))-a0)
@@ -50,7 +52,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef result_type rtype;
-      typename meta::from_bits<rtype, signed>::type  that =  {a0};
+      typename boost::simd::meta::from_bits<rtype, signed>::type  that =  {a0};
       return that.value;
     }
   };

@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/bitofsign.hpp>

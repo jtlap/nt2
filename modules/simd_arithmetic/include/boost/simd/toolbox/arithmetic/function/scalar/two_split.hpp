@@ -35,6 +35,8 @@ namespace boost { namespace dispatch { namespace meta
     template<class R0,class R1> inline void
     eval(A0 const& a,R0& r0, R1& r1)const
     {
+      using boost::simd::Nbmantissabits;
+
       // TODO: make local constant ?
       static const int N = (Nbmantissabits<A0>()-(Nbmantissabits<A0>()>>1))+1;
       static const A0 fac = (1<<N)+1;

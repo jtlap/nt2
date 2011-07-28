@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
       typedef typename meta::scalar_of<A0>::type type;
       int p = 0;
       type m = a0[0];
-      for(size_t i=1; i < meta::cardinal_of<A0>::value; i++)// TODO UNROLL
+      for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)// TODO UNROLL
       {
         if (m < a0[i]){m = a0[i]; p = i; }
       }

@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace meta
     {
       typedef meta::terminal_of<Expr> base_type;
       typedef typename boost::mpl::apply<base_type,void>::type pack_type;
-      typedef as_< typename pack_type::data_type::parent > type;
+      typedef boost::dispatch::meta::as_< typename pack_type::data_type::parent > type;
     };
 
     template<class Expr> inline

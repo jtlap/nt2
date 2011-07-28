@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_GROUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_GROUP_HPP_INCLUDED
 #include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/sdk/meta/downgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 // TODO no float no int8_

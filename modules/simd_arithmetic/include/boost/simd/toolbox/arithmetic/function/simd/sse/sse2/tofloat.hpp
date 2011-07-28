@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
-      return make<result_type>( static_cast<stype>(a0[0])
+      return boost::simd::make<result_type>( static_cast<stype>(a0[0])
                               , static_cast<stype>(a0[1])
                               );
     }
@@ -61,7 +61,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename meta::scalar_of<result_type>::type stype;
 
-      return make<result_type>( static_cast<stype>(a0[0])
+      return boost::simd::make<result_type>( static_cast<stype>(a0[0])
                               , static_cast<stype>(a0[1])
                               , static_cast<stype>(a0[2])
                               , static_cast<stype>(a0[3])
@@ -87,13 +87,13 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type sftype;
-      if (maximum(abs(a0)) > Valmax<int32_t>())
+      if (maximum(abs(a0)) > boost::simd::Valmax<int32_t>())
       {
-        return make<result_type>( static_cast<sftype>(a0[0])
+        return boost::simd::make<result_type>( static_cast<sftype>(a0[0])
                                 , static_cast<sftype>(a0[1])
                                 );
       }
-      typedef typename meta::int32_t_<A0>::type htype;
+      typedef typename boost::simd::meta::int32_t_<A0>::type htype;
       result_type v = { _mm_cvtepi32_pd(_mm_shuffle_epi32(a0,_MM_SHUFFLE(3,1,2,0)))};
       return v;
     }

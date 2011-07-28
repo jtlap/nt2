@@ -30,9 +30,9 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef typename simd::native<typename meta::int8_t_<A0>::type,boost::simd::tag::sse_> i8type;
+      typedef typename simd::native<typename boost::simd::meta::int8_t_<A0>::type,boost::simd::tag::sse_> i8type;
       i8type tmp = {is_nez(a0)};
-      return boost::simd::popcnt(_mm_movemask_epi8(tmp))*meta::cardinal_of<A0>::value >> 4;
+      return boost::simd::popcnt(_mm_movemask_epi8(tmp))*boost::simd::meta::cardinal_of<A0>::value >> 4;
     }
   };
 } } }

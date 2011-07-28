@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      return (!a1) ? a1 : round(double(a0)/double(a1));
+      return (!a1) ? a1 : boost::simd::round(double(a0)/double(a1));
     }
   };
 } } }
@@ -51,7 +51,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      return round2even(a0/a1);
+      return boost::simd::round2even(a0/a1);
     }
   };
 } } }

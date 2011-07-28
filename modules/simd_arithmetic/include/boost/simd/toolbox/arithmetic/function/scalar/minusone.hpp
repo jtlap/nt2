@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MINUSONE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_MINUSONE_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_signed.hpp>
+#include <boost/dispatch/meta/as_signed.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return result_type(a0)-One<result_type>();
+      return result_type(a0)-boost::simd::One<result_type>();
     }
 
   };

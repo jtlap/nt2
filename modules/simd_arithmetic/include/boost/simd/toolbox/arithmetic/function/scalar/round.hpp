@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-         return round2even(a0);
+      return boost::simd::round2even(a0);
     }
   };
 } } }

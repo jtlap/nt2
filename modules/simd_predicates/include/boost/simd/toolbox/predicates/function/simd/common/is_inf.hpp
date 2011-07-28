@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_INF_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -20,7 +20,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { ignore_unused(a0); return False<A0>(); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { ignore_unused(a0); return boost::simd::False<A0>(); }
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_inf_, tag::cpu_, (A0)(X)
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_equal(abs(a0),Inf<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return boost::simd::is_equal(abs(a0),boost::simd::Inf<A0>()); }
   };
 } } }
 

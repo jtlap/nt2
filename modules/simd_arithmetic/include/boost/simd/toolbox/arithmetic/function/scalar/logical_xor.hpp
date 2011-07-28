@@ -26,6 +26,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::is_nez;
       return (is_nez(a0)^is_nez(a1));
     }
   };

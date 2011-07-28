@@ -26,7 +26,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-       return is_eqz(a0 & boost::simd::One<A0>());
+      using namespace boost::simd;
+      return is_eqz(a0 & boost::simd::One<A0>());
     }
   };
 
@@ -43,6 +44,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       return is_flint(a0*Half<A0>());
     }
   };

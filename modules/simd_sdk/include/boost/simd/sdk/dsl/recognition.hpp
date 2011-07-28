@@ -18,7 +18,7 @@ namespace boost { namespace simd
 
 namespace tag
 {
-  BOOST_SIMD_HIERARCHY_CLASS(recognition_, formal_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(recognition_, boost::dispatch::tag::formal_);
 }
   
 namespace meta
@@ -27,14 +27,14 @@ namespace meta
   struct recognition_
       : boost::proto::
         unpack< boost::proto::
-                call< functor<Tag, tag::recognition_> >(compile< recognition_ < boost::mpl::_1 >
+                call< boost::dispatch::functor<Tag, tag::recognition_> >(compile< recognition_ < boost::mpl::_1 >
                                                                >
                                                        )
               >
   {};
 
   template <>
-  struct recognition_<tag::terminal_>
+  struct recognition_<boost::dispatch::tag::terminal_>
         : boost::proto::_
   {};
 } } }

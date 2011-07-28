@@ -51,6 +51,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using boost::simd::One;
+
       const A0 d0 = round2even(a0);
       return seladd(lt(d0,a0),d0,One<A0>());
     }

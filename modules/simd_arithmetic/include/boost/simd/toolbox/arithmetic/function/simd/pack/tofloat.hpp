@@ -23,17 +23,17 @@ namespace boost { namespace simd
         : boost::proto::
           unary_expr< boost::simd::tag::tofloat_ , grammar<boost::proto::_, N> >
   {};
-} } }
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Say to compute that tofloat_ need to retarget its inner evaluation process
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace meta
 {
   template<class Target>
-  struct  compute<boost::simd::tag::tofloat_,Target>
+  struct  compute<tag::tofloat_,Target>
         : boost::proto::
-          call< functor < boost::simd::tag::tofloat_
+          call< boost::dispatch::functor < tag::tofloat_
                         , Target
                         > ( compile< compute<boost::mpl::_1, Target> >
                             ( boost::proto::_child0
@@ -43,7 +43,10 @@ namespace boost { namespace dispatch { namespace meta
                           )
               >
   {};
+} } }
 
+namespace boost { namespace dispatch { namespace meta
+{
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_,  (A0)(T)(C)(Tag)(S)
                             , ((expr_<A0, domain_< simd::domain<T,C> >,Tag,S>))
                             )

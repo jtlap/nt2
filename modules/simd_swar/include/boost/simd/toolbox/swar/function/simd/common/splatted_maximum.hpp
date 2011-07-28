@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::strip<A0>::type type;
-      type that = splat<type>(boost::simd::maximum(a0));
+      type that = boost::simd::splat<type>(boost::simd::maximum(a0));
       return that;
     }
   };

@@ -51,6 +51,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       return is_flint(a0*Half<A0>());
     }
   };

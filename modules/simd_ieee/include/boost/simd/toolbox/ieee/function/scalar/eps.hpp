@@ -12,7 +12,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 #include <boost/simd/include/functions/is_not_finite.hpp>
 #include <boost/simd/include/functions/fast_ldexp.hpp>
@@ -35,7 +35,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return One<A0>();
+      return boost::simd::One<A0>();
     }
   };
 } } }
@@ -56,6 +56,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       typedef std::numeric_limits<A0> lim;
       const A0 a = boost::simd::abs(a0);
       if (is_not_finite(a))

@@ -33,7 +33,7 @@
 #include <cstdlib>
 #include <typeinfo>
 #include <iostream>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 namespace boost { namespace simd {  namespace details
 {
@@ -99,7 +99,7 @@ namespace boost { namespace simd
   //////////////////////////////////////////////////////////////////////////////
   template<typename T> inline std::string type_id(const T& expr = *((T*)0))
   {
-    boost::simd::ignore_unused(expr);
+    boost::dispatch::ignore_unused(expr);
     return details::demangle(typeid(T).name());
   }
   

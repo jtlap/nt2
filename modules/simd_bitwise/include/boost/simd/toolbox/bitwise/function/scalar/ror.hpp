@@ -24,6 +24,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return b_or(shri(a0, a1), shli(a0, (sizeof(A0)*CHAR_BIT-a1)));
     }
   };
@@ -36,6 +37,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       typename boost::simd::meta::as_bits<A0>::type t0 = {a0};
       t0.bits = b_or(shri(t0.bits, a1),shli(t0.bits,(sizeof(A0)*CHAR_BIT-a1)));
       return t0.value;

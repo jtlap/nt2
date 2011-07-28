@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_GEZ_HPP_INCLUDED
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/include/functions/boolean.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return True<A0>();
+      return boost::simd::True<A0>();
     }
   };
 
@@ -43,11 +43,13 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef typename meta::int32_t_<A0>::type htype;
-      typedef simd::native<htype,boost::simd::tag::sse_> type;
-      const type tmp1 = is_gez(simd::native_cast<type>(a0));
+      using namespace boost::simd;
+
+      typedef typename boost::simd::meta::int32_t_<A0>::type htype;
+      typedef native<htype,boost::simd::tag::sse_> type;
+      const type tmp1 = is_gez(native_cast<type>(a0));
       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
-      return  simd::native_cast<A0>(tmp);
+      return native_cast<A0>(tmp);
     }
   };
 } } }

@@ -33,6 +33,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       A0 const na  = is_nez(a0);
       A0 n   = add(shri(a0, 4), Four<A0>());
       A0 n1  = shri(n+a0/n, 1);
@@ -144,18 +146,20 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       A0 const na = is_nez(a0);
-      A0 const z1 = add(shri(a0, 6),    integral_constant<A0,16>());
-      A0 const z2 = add(shri(a0,10),   integral_constant<A0,256>());
-      A0 const z3 = add(shri(a0,13),  integral_constant<A0,2048>());
-      A0 const z4 = add(shri(a0,16), integral_constant<A0,16384>());
+      A0 const z1 = add(shri(a0, 6),    boost::simd::integral_constant<A0,16>());
+      A0 const z2 = add(shri(a0,10),   boost::simd::integral_constant<A0,256>());
+      A0 const z3 = add(shri(a0,13),  boost::simd::integral_constant<A0,2048>());
+      A0 const z4 = add(shri(a0,16), boost::simd::integral_constant<A0,16384>());
       static A0 const one = One<A0>();
 
-      A0 n  = select( gt(a0, integral_constant<A0,177155824>())
+      A0 n  = select( gt(a0, boost::simd::integral_constant<A0,177155824>())
                   , z4
-                  , select( gt(a0, integral_constant<A0,4084387>())
+                  , select( gt(a0, boost::simd::integral_constant<A0,4084387>())
                         , z3
-                        , select( gt(a0, integral_constant<A0,31679>())
+                        , select( gt(a0, boost::simd::integral_constant<A0,31679>())
                                 , z2
                                 , z1
                                 )
@@ -222,10 +226,12 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       A0 const  na = is_nez(a0);
-      A0 const  z1 = add(shri(a0, 6), integral_constant<A0, 16>());
-      A0 const  z2 = add(shri(a0,10), integral_constant<A0, 256>());
-      A0 const  C1 = integral_constant<A0, 31679>();
+      A0 const  z1 = add(shri(a0, 6), boost::simd::integral_constant<A0, 16>());
+      A0 const  z2 = add(shri(a0,10), boost::simd::integral_constant<A0, 256>());
+      A0 const  C1 = boost::simd::integral_constant<A0, 31679>();
       //////////////////////////////////////////////////////////////////////////
       // choose a proper starting point for approximation
       //////////////////////////////////////////////////////////////////////////

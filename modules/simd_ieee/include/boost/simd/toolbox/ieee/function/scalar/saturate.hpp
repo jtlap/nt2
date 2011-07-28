@@ -24,6 +24,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       if (a0 > Valmax<T>())
 	return Valmax<T>();
       else if (a0 <  Valmin<T>())

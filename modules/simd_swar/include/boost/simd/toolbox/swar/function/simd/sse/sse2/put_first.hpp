@@ -51,7 +51,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
-	typedef simd::native<typename meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
+	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
 	if(a1 > 7)
 	  {
 	    A0 t = { _mm_srli_si128(simd::native_cast<type64>(a0), 8 )};
@@ -94,8 +94,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
-	typedef simd::native<typename meta::double__<A0>::type,boost::simd::tag::sse_>   rtype;
-	typedef simd::native<typename meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
+	typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
+	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> type64;
 	if(a1 > 3)
 	  {
 	    A0 t = { _mm_srli_si128(simd::native_cast<type64>(a0), 8 )};
@@ -117,8 +117,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
-	typedef simd::native<typename meta::double__<A0>::type,boost::simd::tag::sse_>   rtype;
-	typedef simd::native<typename meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
+	typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
+	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> type64;
 	if(a1 > 1)
 	  {
 	    type64 z = simd::native_cast<type64>(a0);

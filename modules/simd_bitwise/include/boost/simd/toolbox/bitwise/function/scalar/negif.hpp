@@ -24,7 +24,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A1)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return is_true(a0)?-a1:a1; }
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return boost::simd::is_true(a0)?-a1:a1; }
   };
 } } }
 

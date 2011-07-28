@@ -29,6 +29,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       typedef typename meta::upgrade<A0>::type utype; 
       utype res = utype(a0)*utype(a1);
       return A0(res) | genmask(A0(res >> sizeof(A0)*8)); 	
@@ -52,6 +54,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       typedef typename meta::upgrade<A0>::type uptype;
       uptype res = uptype(a0)*uptype(a1);
       if (res >  Valmax<A0>())
@@ -81,6 +85,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       if (a1 == 0 || a0 == 0) return Zero<A0>(); 
       if (a1 >= a0)
 	{
@@ -141,6 +147,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       if (a1 == 0 || a0 == 0) return Zero<A0>();
       typedef typename meta::as_integer<A0, unsigned>::type untype;
       A0 sign =  (is_ltz(a0)^is_ltz(a1));

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_IROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_IROUND_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
@@ -34,6 +34,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       if (is_nan(a0)) return Zero<result_type>();
       if (is_inf(a0))
       {

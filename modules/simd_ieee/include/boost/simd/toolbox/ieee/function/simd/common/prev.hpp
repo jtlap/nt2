@@ -33,7 +33,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return a0-One<A0>();
+      return a0-boost::simd::One<A0>();
     }
   };
 
@@ -50,7 +50,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return b_or(-next(-a0), is_nan(a0));
+      return b_or(-boost::simd::next(-a0), is_nan(a0));
 //       typedef typename meta::as_integer<A0, signed>::type itype;
 //       A0 m;
 //       itype expon;

@@ -38,6 +38,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       return a0+One<A0>();
     }
   };
@@ -55,6 +56,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       //decommenting the following lines make clang works with the ieee.ulp.simd.unit      
       //       std::cout << "a0                                     " << a0 << std::endl;
       //       std::cout << "bitinteger(a0)                         " << bitinteger(a0)<< std::endl;

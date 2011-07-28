@@ -32,6 +32,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::idivfloor;
       return a1 ? a0-a1*idivfloor(a0,a1) : a0;
     }
   };

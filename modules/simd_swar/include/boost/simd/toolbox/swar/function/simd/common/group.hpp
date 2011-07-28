@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_GROUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_GROUP_HPP_INCLUDED
-#include <boost/simd/sdk/meta/downgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 /////////////////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@ namespace boost { namespace dispatch { namespace meta
     
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
-      static const int size = meta::cardinal_of<A0>::value;
+      static const int size = boost::simd::meta::cardinal_of<A0>::value;
       BOOST_SIMD_ALIGNED_TYPE(typename meta::scalar_of<result_type>::type) tmp[size*2];
       
       for(int i = 0; i != size; ++i)

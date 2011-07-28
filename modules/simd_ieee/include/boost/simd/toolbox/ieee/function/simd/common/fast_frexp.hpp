@@ -39,6 +39,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef int result_type;
     inline int operator()(A0 const& a0,A0 & r0,A1 & r1) const
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0, signed>::type      int_type;
       typedef typename meta::scalar_of<int_type>::type        sint_type;
       typedef typename meta::scalar_of<A0>::type                 s_type;

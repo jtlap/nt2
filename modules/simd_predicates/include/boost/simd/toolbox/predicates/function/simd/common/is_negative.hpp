@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/shrai.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       ignore_unused(a0);
-      return False<A0>();
+      return boost::simd::False<A0>();
     }
   };
 

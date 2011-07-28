@@ -30,6 +30,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       typedef result_type type;
       type a00 = simd::native_cast<type>(a0);
       return simd::native_cast<type>(sel( is_positive(a0)

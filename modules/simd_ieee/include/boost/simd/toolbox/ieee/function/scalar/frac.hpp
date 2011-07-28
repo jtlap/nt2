@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_FRAC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_FRAC_HPP_INCLUDED
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 #include <boost/simd/include/functions/trunc.hpp>
@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return Zero<A0>();
+      return boost::simd::Zero<A0>();
     }
   };
 } } }
@@ -51,7 +51,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return a0-trunc(a0);
+      return a0-boost::simd::trunc(a0);
     }
   };
 } } }

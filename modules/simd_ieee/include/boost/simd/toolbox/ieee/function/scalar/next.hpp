@@ -29,6 +29,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       if (Valmax<A0>() == a0) return a0; 
       return oneplus(a0);
     }
@@ -51,7 +52,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return boost::simd::nextafter(a0, Inf<A0>());
+      return boost::simd::nextafter(a0, boost::simd::Inf<A0>());
     }
   };
 } } }

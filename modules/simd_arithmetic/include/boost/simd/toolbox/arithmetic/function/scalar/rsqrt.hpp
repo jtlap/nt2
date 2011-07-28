@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return rec(boost::simd::sqrt(result_type(a0)));
+      return boost::simd::rec(boost::simd::sqrt(result_type(a0)));
     }
   };
 } } }

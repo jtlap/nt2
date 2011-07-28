@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_ORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_ORD_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -22,7 +22,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
-      ignore_unused((a0,a1)); return True<A0>();
+      ignore_unused((a0,a1)); return boost::simd::True<A0>();
     }
   };
 

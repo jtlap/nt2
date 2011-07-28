@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ONEMINUS_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/meta/is_signed.hpp>
+#include <boost/dispatch/meta/is_signed.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      return One<A0>()-a0;
+      return boost::simd::One<A0>()-a0;
     }
   };
 } } }

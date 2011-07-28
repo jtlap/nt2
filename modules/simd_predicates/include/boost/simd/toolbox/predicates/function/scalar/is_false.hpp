@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return is_eqz(a0);
+      return boost::simd::is_eqz(a0);
     }
   };
 } } }

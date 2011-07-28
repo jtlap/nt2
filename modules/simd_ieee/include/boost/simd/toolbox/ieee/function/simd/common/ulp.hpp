@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_ULP_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/predecessor.hpp>

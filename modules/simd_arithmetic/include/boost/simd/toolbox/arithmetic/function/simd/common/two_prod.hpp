@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_TWO_PROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_TWO_PROD_HPP_INCLUDED
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/two_split.hpp>
@@ -38,6 +38,8 @@ namespace boost { namespace dispatch { namespace meta
     template<class AA0,class AA1,class R0,class R1> inline void
     eval(AA0 const& a, AA1 const& b, R0& r0, R1& r1)const
     {
+      using boost::simd::Zero;
+
       r0  = a*b;
       AA0 isinf = b_and(b_or(is_inf(b), is_inf(a)), is_inf(r0)); 
       AA0 a1, a2, b1, b2;

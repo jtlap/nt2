@@ -28,6 +28,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::divceil;
        return -divceil(-a0,a1);
     }
   };
@@ -49,6 +50,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::rdivide;
       return (!a1) ? a1 : rdivide(a0,a1);
     }
   };

@@ -34,6 +34,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       typedef typename meta::scalar_of<A0>::type             s_type;
       typedef typename meta::scalar_of<result_type>::type sint_type;
       const int nmb= Nbmantissabits<s_type>();

@@ -19,7 +19,11 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0 ? Mone<A0>():Zero<A0>(); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    {
+      using namespace boost::simd;
+      return a0 ? Mone<A0>():Zero<A0>();
+    }
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_, (A0)
@@ -27,7 +31,11 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0 ? Nan<A0>():Zero<A0>(); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) 
+    {
+      using namespace boost::simd;
+      return a0 ? Nan<A0>():Zero<A0>();
+    }
   };
 } } }
 

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_UNORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_SSE2_IS_UNORD_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -25,7 +25,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       ignore_unused(a0);
       ignore_unused(a1);
-      return False<A0>();
+      return boost::simd::False<A0>();
     }
   };
 

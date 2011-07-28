@@ -74,7 +74,7 @@ namespace boost { namespace dispatch { namespace meta
 	//       A0 a00  =  simd::native_cast<A0>(_mm_shuffle_pd(simd::native_cast<ftype>(a0),
 	//                                           simd::native_cast<ftype>(a0),0x01));
 	//       return  max(a0, a00);
-	return splat<A0>(maximum(a0)); 
+	return boost::simd::splat<A0>(maximum(a0)); 
       }
   };
   
@@ -108,7 +108,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
       {
-	return splat<A0>(maximum(a0));
+	return boost::simd::splat<A0>(maximum(a0));
       }
   };
   

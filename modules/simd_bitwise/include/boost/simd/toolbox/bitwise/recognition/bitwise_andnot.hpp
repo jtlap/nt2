@@ -17,7 +17,7 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_ , tag::recognition_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_ , boost::simd::tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
                             , (unspecified_<A0>)
                               ((expr_<A1,Dom,boost::simd::tag::complement_,Sema>))
@@ -36,7 +36,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_ , tag::recognition_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_ , boost::simd::tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
                             , ((expr_<A0,Dom,boost::simd::tag::complement_,Sema>))
                               (unspecified_<A1>)

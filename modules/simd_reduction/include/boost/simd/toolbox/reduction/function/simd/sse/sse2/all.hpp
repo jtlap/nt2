@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
 
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/meta/upgrade.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/hmsb.hpp>
 #include <boost/simd/include/functions/split.hpp>

@@ -21,7 +21,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef typename meta::as_integer<A0, unsigned>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return ~a0 & (a0+One<A0>()); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return ~a0 & (a0+boost::simd::One<A0>()); }
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::firstbitunset_, tag::cpu_, (A0)
@@ -34,7 +34,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename boost::simd::meta::as_bits<A0, signed>::type type;
       type that = {a0};
-      return firstbitunset(that.bits);
+      return boost::simd::firstbitunset(that.bits);
     }
   };
 } } }

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_TWOPOWER_HPP_INCLUDED
 
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -23,6 +23,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       return (is_ltz(a0))?Zero<A0>():(One<A0>()<<a0);
     }
   };
@@ -32,7 +33,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return One<A0>()<<a0; }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return boost::simd::One<A0>()<<a0; }
   };
 } } }
 

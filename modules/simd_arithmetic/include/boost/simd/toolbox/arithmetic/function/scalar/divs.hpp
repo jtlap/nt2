@@ -45,6 +45,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       typedef typename meta::as_integer<A0, unsigned>::type utype; 
       return rdivide( a0+ !((a1 + One<A0>()) | ((utype)a0 + Valmin<A0>())), a1); 
     }

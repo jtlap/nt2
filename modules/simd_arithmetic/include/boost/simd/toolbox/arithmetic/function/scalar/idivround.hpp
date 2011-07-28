@@ -30,6 +30,7 @@ namespace boost { namespace dispatch { namespace meta
     
     BOOST_DISPATCH_FUNCTOR_CALL(2)
       {
+	using namespace boost::simd;
 	return (!a1) ? a1 :iround(tofloat(a0)/tofloat(a1));
       }
   };
@@ -45,6 +46,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::as_integer < typename meta::result_of<meta::arithmetic(A0,A1)>::type >::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return iround(a0/a1);
     }
   };

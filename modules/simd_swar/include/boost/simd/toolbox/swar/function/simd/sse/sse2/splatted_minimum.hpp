@@ -92,7 +92,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
       {
-	return splat<A0>(minimum(a0)); 
+	return boost::simd::splat<A0>(minimum(a0)); 
 	//       A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_ps(a0, a0, _MM_SHUFFLE(1, 0, 3, 2))))};
 	//       A0 that = {min(min1, simd::native_cast<A0>(_mm_shuffle_ps(min1, min1, _MM_SHUFFLE(2, 3, 0, 1))))};
 	//       return that;
@@ -110,7 +110,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
       {
-	return splat<A0>(minimum(a0));
+	return boost::simd::splat<A0>(minimum(a0));
       }
   };
   

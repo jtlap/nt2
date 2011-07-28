@@ -21,7 +21,12 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return rdivide(a0, a1); }
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    {
+      using namespace boost::simd;
+      return rdivide(a0, a1);
+    }
+
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)(A1)
@@ -35,6 +40,8 @@ namespace boost { namespace dispatch { namespace meta
                        >::type                                      result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type type;
       const type z = a0/a1; 
       return is_nan(z) ? Zero<result_type>() : result_type(trunc(z)); //TO DO itrunc

@@ -11,12 +11,12 @@
 
 #include <boost/simd/sdk/dsl/category.hpp>
 #include <boost/simd/sdk/dsl/recognition.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/predicates/function/is_not_greater.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_ , tag::recognition_, (A0)(Dom)(Sema)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_ , boost::simd::tag::recognition_, (A0)(Dom)(Sema)
 			      , ((expr_<A0,Dom,boost::simd::tag::is_greater_,Sema>))
 			      )
   {

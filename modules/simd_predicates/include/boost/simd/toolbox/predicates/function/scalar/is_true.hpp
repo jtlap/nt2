@@ -18,7 +18,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return boost::simd::is_nez(a0); }
   };
 } } }
 

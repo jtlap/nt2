@@ -11,7 +11,7 @@
 #include <boost/simd/include/constants/eps_related.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 
 #include <boost/simd/include/functions/sqrt.hpp>
@@ -58,6 +58,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       typedef typename meta::as_integer<A0, signed>::type  int_type;
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);

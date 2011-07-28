@@ -50,6 +50,7 @@ namespace boost { namespace dispatch { namespace meta
     
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using boost::simd::Zero;
       return first(simd::native_cast<A0>(_mm_hadd_pd( a0, Zero<A0>())));
     }
   };
@@ -88,6 +89,8 @@ namespace boost { namespace dispatch { namespace meta
     
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using boost::simd::Zero;
+
       A0 tmp = {_mm_hadd_ps(a0, Zero<A0>())};
       return  first(simd::native_cast<A0>(_mm_hadd_ps(tmp, Zero<A0>())));
     }

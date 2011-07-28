@@ -63,6 +63,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using  boost::simd::One;
       return seladd(is_nan(a0),boost::simd::negate(One<A0>(),a0),a0);
     }
   };

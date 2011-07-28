@@ -49,7 +49,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, signed>::type t0 = {a0};
+      typename boost::simd::meta::as_bits<A0, signed>::type t0 = {a0};
       return t0.bits >= 0;
     }
   };

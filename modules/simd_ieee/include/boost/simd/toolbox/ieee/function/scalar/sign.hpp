@@ -30,6 +30,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
        return is_gtz(a0)-is_ltz(a0);
     }
   };
@@ -51,7 +52,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-        return is_nez(a0);
+      using namespace boost::simd;
+      return is_nez(a0);
     }
   };
 } } }
@@ -72,7 +74,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-       return is_nan(a0)?a0:is_gtz(a0)-is_ltz(a0);
+      using namespace boost::simd;
+      return is_nan(a0)?a0:is_gtz(a0)-is_ltz(a0);
     }
   };
 } } }

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_TWO_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_TWO_SPLIT_HPP_INCLUDED
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 /////////////////////////////////////////////////////////////////////////////
@@ -35,6 +35,8 @@ namespace boost { namespace dispatch { namespace meta
     template<class AA0,class R0,class R1> inline void
     eval(AA0 const& a, R0& r0, R1& r1)const
     {
+      using boost::simd::Splitfactor;
+
       typedef typename meta::scalar_of<A0>::type s_type;
       AA0 c = Splitfactor<A0>()*a  ;
       r0 =  c-(c-a);

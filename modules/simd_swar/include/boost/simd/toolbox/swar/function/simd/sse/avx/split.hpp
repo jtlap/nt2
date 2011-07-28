@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_AVX_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_AVX_SPLIT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/upgrade.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/digits.hpp>

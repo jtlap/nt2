@@ -19,7 +19,11 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return shift_left(One<A0>(), a0); }
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    {
+      using namespace boost::simd;
+      return shift_left(One<A0>(), a0);
+    }
   };
 } } }
 

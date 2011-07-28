@@ -26,6 +26,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using boost::simd::Signmask;
+
       return b_and(a0, Signmask<result_type>()) != 0; }
   };
 } } }

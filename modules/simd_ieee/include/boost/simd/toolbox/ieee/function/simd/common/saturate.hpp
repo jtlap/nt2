@@ -23,6 +23,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       typedef typename meta::scalar_of<T>::type stype;
       const A0 vma = splat<A0>(Valmax<stype>());
       const A0 vmi = splat<A0>(Valmin<stype>()); 

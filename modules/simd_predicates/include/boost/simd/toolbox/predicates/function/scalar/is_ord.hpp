@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_ORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_ORD_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 #include <boost/simd/include/functions/is_nan.hpp>
 
@@ -31,7 +31,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       ignore_unused(a0);
       ignore_unused(a1);
-      return True<A0>();
+      return boost::simd::True<A0>();
     }
   };
 } } }
@@ -52,6 +52,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using  boost::simd::is_nan;
       return !(is_nan(a0) || is_nan(a1));
     }
   };

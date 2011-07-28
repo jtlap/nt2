@@ -42,8 +42,9 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
 	return seladd(neq(a0, Valmin<A0>()), a0, Mone<A0>());
-      }
+    }
   };
 } } }
 
@@ -84,6 +85,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return selsub( le(Valmin<A0>()+boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
     }
   };
@@ -105,6 +107,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using boost::simd::Minf;
 	return sel(eq(a0, Minf<A0>()), a0,  bitfloating(bitinteger(a0)-boost::simd::abs(a1)));
 //       typedef typename meta::as_integer<A0, signed>::type itype;
 //       A0 m;

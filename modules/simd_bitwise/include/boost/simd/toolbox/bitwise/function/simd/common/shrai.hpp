@@ -31,6 +31,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       return map(functor<boost::simd::tag::shift_right_>(), a0, splat<A0>(a1));
     }
   };

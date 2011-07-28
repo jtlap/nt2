@@ -29,6 +29,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       typedef  result_type int_type;
       static const int_type me = Maxexponent<A0>();
       static const int_type nmb= Nbmantissabits<A0>();

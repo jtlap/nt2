@@ -30,7 +30,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_bits<A0, signed>::type type;
+      using namespace boost::simd;
+      typedef typename boost::simd::meta::as_bits<A0, signed>::type type;
       typedef typename meta::as_integer<A0, signed>::type itype;
       type that = {a0};
 //       std::cout <<  "a0         " << a0                  << std::endl;

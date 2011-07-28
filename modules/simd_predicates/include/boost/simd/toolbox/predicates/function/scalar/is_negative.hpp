@@ -49,7 +49,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return sbits(a0) < 0;
+      return boost::simd::sbits(a0) < 0;
     }
   };
 } } }

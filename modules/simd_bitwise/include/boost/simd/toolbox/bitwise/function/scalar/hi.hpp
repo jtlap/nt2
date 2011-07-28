@@ -25,6 +25,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0,unsigned>::type type;
       BOOST_STATIC_CONSTANT(type, shift   = sizeof(type)*4);
       BOOST_STATIC_CONSTANT(type, pattern = type(type(-1)<<shift));

@@ -25,7 +25,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       result_type z = boost::simd::bits(a0[0])&1;
-      for(int i = 0; i< meta::cardinal_of<A0>::value; ++i)
+      for(int i = 0; i< boost::simd::meta::cardinal_of<A0>::value; ++i)
       {
         z |= boost::simd::bits(a0[i])&1<<i;
       }

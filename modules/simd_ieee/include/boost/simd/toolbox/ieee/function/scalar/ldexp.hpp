@@ -34,6 +34,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       // No denormal provision
       typedef typename meta::as_integer<result_type, unsigned>::type  int_type;
 

@@ -26,6 +26,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       typename boost::simd::meta::as_bits<A0, unsigned>::type t1 = {a0};
       if(!t1.bits) return 0; 
 

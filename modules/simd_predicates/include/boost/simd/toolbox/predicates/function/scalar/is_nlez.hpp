@@ -49,7 +49,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-       return ((a0 >  boost::simd::Zero<A0>()) || is_nan(a0));
+      using  boost::simd::is_nan;
+      return ((a0 >  boost::simd::Zero<A0>()) || is_nan(a0));
     }
   };
 } } }

@@ -31,6 +31,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::as_integer<A0>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       typedef typename meta::scalar_of<result_type>::type stype;
       A0 aa0 = b_andnot(a0, is_nan(a0)); 
       const result_type v = make<result_type> ( static_cast<stype>(aa0[0])
@@ -47,6 +49,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::as_integer<A0>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       A0 aa0 = b_andnot(a0, is_nan(a0)); 
       result_type that = {_mm_cvttps_epi32(aa0)};
       return  sel(eq(aa0, Inf<A0>()), Inf<result_type>(), that);

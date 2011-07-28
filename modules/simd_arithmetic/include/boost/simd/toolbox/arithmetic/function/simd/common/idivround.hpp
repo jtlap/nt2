@@ -52,7 +52,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::strip<A0>::type result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
-    { return rdivide(a0+a1/Two<A0>(), a1); }
+    { return rdivide(a0+a1/boost::simd::Two<A0>(), a1); }
   };
 } } }
 

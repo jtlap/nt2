@@ -34,7 +34,7 @@ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                       
   typedef typename A0::type result_type;                              \
   BOOST_DISPATCH_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
-    typename meta::from_bits<result_type>::type const that = {D};     \
+    typename boost::simd::meta::from_bits<result_type>::type const that = {D};     \
     return boost::simd::splat<result_type>(that.value);                            \
   }                                                                   \
 };                                                                    \
@@ -46,7 +46,7 @@ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                       
   typedef typename A0::type result_type;                              \
   BOOST_DISPATCH_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
-    typename meta::from_bits<result_type>::type const that = {F};     \
+    typename boost::simd::meta::from_bits<result_type>::type const that = {F};     \
     return boost::simd::splat<result_type>(that.value);                            \
   }                                                                   \
 };                                                                    \

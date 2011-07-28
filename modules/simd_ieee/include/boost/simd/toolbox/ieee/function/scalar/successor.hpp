@@ -43,11 +43,12 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       if (a0 != Valmax<A0>())
 	return  oneplus(a0);
       else
 	return Valmax<A0>(); 
-      }
+    }
   };
 } } }
 
@@ -67,6 +68,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       return a0==Inf<A0>() ? a0 : bitfloating(oneplus(bitinteger(a0)));
     }
   };
@@ -85,9 +87,10 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       if (Valmax<A0>()-boost::simd::abs(a1) <  a0) return Valmax<A0>(); 
       return a0+boost::simd::abs(a1);
-      }
+    }
   };
 } } }
 
@@ -107,7 +110,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-       return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+boost::simd::abs(a1));
+      using namespace boost::simd;
+      return a0==Inf<A0>() ? a0 : bitfloating(bitinteger(a0)+boost::simd::abs(a1));
     }
   };
 } } }

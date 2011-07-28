@@ -65,6 +65,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       // No denormal provision
       typedef typename meta::scalar_of<result_type>::type             s_type;
       typedef typename meta::as_integer<result_type, signed>::type  int_type;
@@ -91,7 +92,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_integer<A0>::type iA0; 
-      return ldexp(a0, splat<iA0>(a1)); 
+      return ldexp(a0, boost::simd::splat<iA0>(a1)); 
     }
   };
 } } }

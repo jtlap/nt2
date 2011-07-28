@@ -45,6 +45,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       int64_t v = sbits(a0);
     #if defined BOOST_MSVC && defined _WIN64
       return __popcnt64(v);
@@ -66,6 +67,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
     #ifdef BOOST_MSVC
       return __popcnt(sbits(a0));
     #else
@@ -114,6 +116,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
     #if defined BOOST_MSVC && defined _WIN64
       return __popcnt64(a0);
     #elif defined BOOST_MSVC

@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_COMMON_SPLIT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/upgrade.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>

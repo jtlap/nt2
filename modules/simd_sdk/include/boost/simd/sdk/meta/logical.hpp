@@ -27,8 +27,8 @@ namespace boost { namespace simd
   {
     template<class T>
     struct  logical
-      : details::logical_impl < typename strip<T>::type
-                              , typename meta::is_scalar<T>::type
+      : details::logical_impl < typename boost::dispatch::meta::strip<T>::type
+                              , typename boost::dispatch::meta::is_scalar<T>::type
                               > {};
   }
 } }

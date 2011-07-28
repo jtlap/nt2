@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
-      return make<result_type>(static_cast<stype>(a0[0]),static_cast<stype>(a0[1]));
+      return boost::simd::make<result_type>(static_cast<stype>(a0[0]),static_cast<stype>(a0[1]));
     }
   };
 

@@ -27,6 +27,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
+
       typedef result_type type;
       return b_and(Pi<type>(), is_ltz(a0));
     }
@@ -45,6 +47,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 Nan -> Nan
       return is_nan(a0)+b_and(Pi<A0>(), is_ltz(a0));
     }

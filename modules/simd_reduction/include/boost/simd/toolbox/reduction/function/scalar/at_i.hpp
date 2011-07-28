@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SCALAR_AT_I_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SCALAR_AT_I_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////

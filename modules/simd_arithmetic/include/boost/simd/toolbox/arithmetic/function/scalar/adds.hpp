@@ -51,7 +51,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      return boost::simd::min(Valmax<A0>(), a0+a1); 
+      return boost::simd::min(boost::simd::Valmax<A0>(), a0+a1); 
     }
   };
 } } }
@@ -72,6 +72,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+      
       bool gtza0 = is_gtz(a0);
       bool gtza1 = is_gtz(a1);
       A0 a0pa1 = a0+a1;
@@ -107,6 +109,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       A0 a0pa1 = a0+a1;
       if (lt(a0pa1, boost::simd::max(a0, a1)))
 	{
@@ -136,6 +140,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
+
       A0 a0pa1 = a0+a1;
       if (lt(a0pa1, boost::simd::max(a0, a1)))
 	{

@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return One<result_type>()/boost::simd::sqrt(tofloat(a0));
+      return boost::simd::One<result_type>()/boost::simd::sqrt(tofloat(a0));
     }
   };
 } } }

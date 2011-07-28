@@ -20,7 +20,11 @@ namespace boost { namespace dispatch { namespace meta
                                )
   {
     typedef A1 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(3) { return b_or(b_and(a1, a0), b_andnot(a2, a0)); }
+    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    {
+      using namespace boost::simd;
+      return b_or(b_and(a1, a0), b_andnot(a2, a0));
+    }
   };
 } } }
 

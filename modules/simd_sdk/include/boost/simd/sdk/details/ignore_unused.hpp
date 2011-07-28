@@ -28,7 +28,7 @@ namespace boost { namespace simd
    * \include ignore_unused.cpp
    */
   //============================================================================
-  template<class T> void ignore_unused( T const& )  {}
+  template<class T> void iignore_unused( T const& )  {}
 } }
 
 #endif

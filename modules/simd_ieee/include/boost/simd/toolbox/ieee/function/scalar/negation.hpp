@@ -28,6 +28,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return is_nez(a1)*(is_gez(a1)?a0:-a0);
     }
   };
@@ -49,7 +50,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-        return is_nez(a1)*a0;
+        return boost::simd::is_nez(a1)*a0;
     }
   };
 } } }

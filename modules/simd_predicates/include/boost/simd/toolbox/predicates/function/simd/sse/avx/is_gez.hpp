@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_AVX_IS_GEZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_AVX_IS_GEZ_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/is_gez.hpp>

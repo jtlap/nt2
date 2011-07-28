@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename boost::mpl::apply< meta::terminal_of<A0>, T>::type  that;
+      typename boost::mpl::apply< boost::simd::meta::terminal_of<A0>, T>::type  that;
       that = a0;
       return boost::simd::sum(that.value().value());
     }

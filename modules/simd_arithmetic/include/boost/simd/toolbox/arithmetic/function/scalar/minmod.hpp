@@ -30,6 +30,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return is_lez(a0*a1)? Zero<A0>(): boost::simd::min(a0, a1);
     }
   };
@@ -72,6 +73,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return is_lez(a0*a1) ? Zero<A0>() : min(a0,a1);
     }
   };

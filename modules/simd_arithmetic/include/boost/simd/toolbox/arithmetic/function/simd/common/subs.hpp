@@ -73,6 +73,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
+      using namespace boost::simd;
+
       A0 res =  adds(a0, -a1); 
       if (boost::simd::any(eq(a1, Valmin<A0>())))
 	return sel(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);

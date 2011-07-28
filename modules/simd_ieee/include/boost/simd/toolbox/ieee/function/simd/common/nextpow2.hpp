@@ -59,13 +59,14 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::as_integer<A0, signed>::type itype;
       rtype m;
       itype p;
       boost::fusion::tie(m, p) = frexp(tofloat(a0));
       //    std::cout << "a0 " << a0 << "  p " << p<< "  m " << m << std::endl;
-      return simd::native_cast<A0>(seladd(is_equal(m, Half<rtype>()), p, Mone<itype>()));
+      return simd::native_cast<A0>(seladd(boost::simd::is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
   };
 } } }
@@ -140,11 +141,12 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0>::type int_type;
       A0 m;
       int_type p;
       boost::fusion::tie(m, p) = frexp(abs(a0));
-      return tofloat(seladd(is_equal(m, Half<A0>()), p, Mone<int_type>()));
+      return tofloat(seladd(boost::simd::is_equal(m, Half<A0>()), p, Mone<int_type>()));
       }
   };
 } } }

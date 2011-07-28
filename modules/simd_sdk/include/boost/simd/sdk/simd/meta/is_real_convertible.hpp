@@ -16,7 +16,7 @@ namespace boost { namespace simd { namespace meta
   template<class T>
   struct  is_real_convertible
         : boost::mpl::bool_  <  (    sizeof(float)
-                              <=  sizeof(typename meta::scalar_of<T>::type)
+                              <=  sizeof(typename boost::dispatch::meta::scalar_of<T>::type)
                               )
                             > {};
 } } }

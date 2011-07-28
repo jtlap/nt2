@@ -81,7 +81,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
-       return (a0+a1)*Half<A0>();
+       return (a0+a1)*boost::simd::Half<A0>();
     }
   };
 } } }

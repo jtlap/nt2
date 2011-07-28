@@ -27,6 +27,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0, unsigned>::type  int_type;
       typedef typename meta::scalar_of<int_type>::type      sint_type;
       typedef typename meta::scalar_of<A0>::type               s_type;

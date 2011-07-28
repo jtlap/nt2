@@ -30,6 +30,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::as_integer<typename meta::result_of<meta::floating(A0)>::type, signed>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       return boost::simd::nextpow2(tofloat(a0));
     }
   };
@@ -47,6 +48,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::as_integer<typename meta::result_of<meta::floating(A0)>::type, signed>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0, signed>::type int_type;
       A0 m;
       int_type p;
