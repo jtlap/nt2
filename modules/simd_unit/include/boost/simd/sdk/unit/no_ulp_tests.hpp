@@ -13,14 +13,14 @@
 // Unit test predicates macros
 // Documentation: http://nt2.lri.fr/sdk/unit/tests.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 #include <boost/simd/include/functions/random.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/unit/details/stats.hpp>
 #include <boost/simd/sdk/unit/tests/basic.hpp>
 #include <boost/simd/sdk/unit/tests/relation.hpp>
 #include <boost/simd/sdk/unit/nb_rand_tests.hpp>
-#include <boost/simd/sdk/meta/upgrade.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Show details for comparisons tests

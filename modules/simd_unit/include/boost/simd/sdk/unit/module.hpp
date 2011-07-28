@@ -24,7 +24,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/simd/sdk/unit/details/suite.hpp>
 #include <boost/simd/sdk/unit/details/stats.hpp>
-#include <boost/simd/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 

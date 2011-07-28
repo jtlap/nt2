@@ -13,8 +13,8 @@
 #include <boost/type_traits/common_type.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/sdk/meta/upgrade.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <iostream>
 
 namespace boost { namespace simd { namespace details
@@ -34,9 +34,9 @@ namespace boost { namespace simd { namespace details
     /*volatile*/ T tt(t);
     /*volatile*/ U uu(u);
     /*volatile*/ V vv(v);
-    typedef typename boost::simd::meta::upgrade<T>::type TT;
-    typedef typename boost::simd::meta::upgrade<U>::type UU;
-    typedef typename boost::simd::meta::call<boost::simd::tag::ulpdist_(T, U)>::type R;
+    typedef typename boost::dispatch::meta::upgrade<T>::type TT;
+    typedef typename boost::dispatch::meta::upgrade<U>::type UU;
+    typedef typename boost::dispatch::meta::call<boost::simd::tag::ulpdist_(T, U)>::type R;
     if( boost::simd::ulpdist(T(tt), U(uu) ) <= (R)vv)
       {									
 	std::cout << " * Test `"					
@@ -75,8 +75,8 @@ namespace boost { namespace simd { namespace details
     volatile T tt(t);							
     volatile U uu(u);							
     volatile V vv(v);
-    typedef typename boost::simd::meta::upgrade<T>::type TT;
-    typedef typename boost::simd::meta::upgrade<U>::type UU;
+    typedef typename boost::dispatch::meta::upgrade<T>::type TT;
+    typedef typename boost::dispatch::meta::upgrade<U>::type UU;
     bool r =   boost::simd::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
     r &= boost::simd::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
     if(r)					

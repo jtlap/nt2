@@ -15,7 +15,7 @@
 #include <boost/simd/include/timing.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/store.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/details/type_id.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
@@ -26,10 +26,10 @@ void timing_test( Func callee, size_t size
                 , const char* name = NULL )
 {
   typedef T0                                      r_in0;
-  typedef typename boost::simd::meta::scalar_of<T0>::type t_in0;
+  typedef typename boost::dispatch::meta::scalar_of<T0>::type t_in0;
 
   // output value
-  typedef typename boost::simd::meta::result_of<Func(r_in0)>::type  out_t;
+  typedef typename boost::dispatch::meta::result_of<Func(r_in0)>::type  out_t;
   static out_t out;
 
   // Input samples

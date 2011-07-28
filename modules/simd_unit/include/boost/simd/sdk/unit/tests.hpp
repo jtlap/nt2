@@ -16,7 +16,7 @@
  */
 
 
-#include <boost/simd/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 #include <boost/simd/include/functions/random.hpp>
 #include <boost/simd/sdk/unit/details/stats.hpp>
 #include <boost/simd/sdk/unit/details/tests.hpp>
@@ -28,7 +28,7 @@
 
 #define BOOST_SIMD_TEST_ULP_EQUAL(A,B,N)          \
   {                  \
-    typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;    \
+    typedef typename boost::dispatch::meta::scalar_of<r_t>::type sr_t;    \
     sr_t r1 = A;              \
     sr_t r2 = B;              \
     ulpd = boost::simd::ulpdist(r1, r2);		\
