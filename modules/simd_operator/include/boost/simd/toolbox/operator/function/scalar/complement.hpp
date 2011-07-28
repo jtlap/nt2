@@ -10,7 +10,6 @@
 #define BOOST_SIMD_SDK_FUNCTOR_DETAILS_COMPLEMENT_HPP_INCLUDED
 
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -33,9 +32,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0>::type t0 = {a0};
-      t0.bits = ~t0.bits;
-      return t0.value;
+      typedef typename meta::as_integer<A0, unsigned>::type bts;
+      return bitwise_cast<A0>(~bitwise_cast<bts>(a0));
     }
   };
 } } }

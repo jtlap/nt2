@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_ROL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_ROL_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/sdk/meta/adapted_traits.hpp>
@@ -25,6 +24,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       return shli(a0, a1) | shri(a0, (sizeof(A0)*CHAR_BIT-a1));
     }
   };
@@ -37,9 +37,11 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typename meta::as_bits<A0>::type t0 = {a0};
-      t0.bits = shli(t0.bits,a1) | shri(t0.bits, (sizeof(A0)*CHAR_BIT-a1));
-      return t0.value;
+      using namespace boost::simd;
+      typedef typename meta::as_integer<A0, unsigned>::type itype;
+      const itype t0 = bitwise_cast<itype>(a0);
+      return bitwise_cast<result_type>(shli(t0,a1) |
+				       shri(t0, (sizeof(A0)*CHAR_BIT-a1))); 
     }
   };
 } } }

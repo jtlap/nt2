@@ -9,15 +9,19 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_AVX_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_AVX_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_AVX_SUPPORT)
+#if defined(__AVX__)
+#  ifndef BOOST_SIMD_HAS_AVX_SUPPORT
+#    define BOOST_SIMD_HAS_AVX_SUPPORT
+#  endif
+#elif defined(BOOST_SIMD_HAS_AVX_SUPPORT) && !defined(_MSC_VER)
+#  undef BOOST_SIMD_HAS_AVX_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for AVX
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__AVX__) || defined(_MSC_VER)
+#if defined(BOOST_SIMD_HAS_AVX_SUPPORT) && !defined(BOOST_SIMD_HAS_SSE4_2_SUPPORT)
+#  define BOOST_SIMD_HAS_SSE4_2_SUPPORT
+#endif
+
+#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_AVX_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report AVX discovery
@@ -44,6 +48,5 @@ BOOST_SIMD_WARNING(AVX SIMD extension detected)
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/avx.hpp>
 
-#endif
 #endif
 #endif

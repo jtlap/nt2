@@ -26,7 +26,7 @@
 #include <nt2/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1_0,  (nt2::uint32_t))
+NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  NT2_INT_CONVERT_TYPES)
 {
   
   using nt2::bitfloating;
@@ -43,9 +43,9 @@ NT2_TEST_CASE_TPL ( bitfloating_uint32_t_1_0,  (nt2::uint32_t))
   double ulpd;
   ulpd=0.0;
 
-} // end of test for uint32_t
+} // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1_0,  (nt2::uint64_t))
+NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  NT2_UINT_CONVERT_TYPES)
 {
   
   using nt2::bitfloating;
@@ -62,42 +62,4 @@ NT2_TEST_CASE_TPL ( bitfloating_uint64_t_1_0,  (nt2::uint64_t))
   double ulpd;
   ulpd=0.0;
 
-} // end of test for uint64_t
-
-NT2_TEST_CASE_TPL ( bitfloating_int32_t_1_0,  (nt2::int32_t))
-{
-  
-  using nt2::bitfloating;
-  using nt2::tag::bitfloating_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_real<T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for int32_t
-
-NT2_TEST_CASE_TPL ( bitfloating_int64_t_1_0,  (nt2::int64_t))
-{
-  
-  using nt2::bitfloating;
-  using nt2::tag::bitfloating_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_real<T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for int64_t
+} // end of test for uint_convert_

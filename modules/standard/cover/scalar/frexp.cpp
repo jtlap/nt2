@@ -64,8 +64,11 @@ NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_REAL_TYPES)
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
         NT2_TEST_EQUAL( boost::fusion::get<0>(r), nt2::mantissa(a0)/2);
+        if (ulpd>ulp0) ulp0=ulpd;
         NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::exponent(a0)+1);
+        if (ulpd>ulp0) ulp0=ulpd;
      }
      
    }
+
 } // end of test for real_

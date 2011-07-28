@@ -43,6 +43,7 @@ NT2_TEST_CASE_TPL ( shift_right_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(shift_right(nt2::Mone<T>(),nt2::One<iT>()), nt2::Valmax<r_t>());
   NT2_TEST_EQUAL(shift_right(nt2::One<T>(),nt2::One<iT>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(shift_right(nt2::One<T>(),nt2::Zero<iT>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(shift_right(nt2::Zero<T>(),nt2::One<iT>()), nt2::Zero<r_t>());

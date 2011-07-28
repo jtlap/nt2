@@ -27,14 +27,14 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::is_not_equal_with_equal_nans;
   using nt2::tag::is_not_equal_with_equal_nans_;
   using nt2::load; 
-  using boost::simd::native;
+  using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
@@ -48,12 +48,14 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_SIMD_REA
 
 
   // specific values tests
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(-nt2::Zero<vT>(), -nt2::Zero<vT>())[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Half<vT>(), nt2::Half<vT>())[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Inf<vT>(), nt2::Inf<vT>())[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Minf<vT>(), nt2::Minf<vT>())[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Mone<vT>(), nt2::Mone<vT>())[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Nan<vT>(), nt2::Nan<vT>())[0]!=0, nt2::False<sr_t>());
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::One<vT>(), nt2::One<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Two<vT>(), nt2::Two<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Zero<vT>(), nt2::Zero<vT>())[0]!=0, nt2::False<sr_t>());
-
-  // specific values tests
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::One<vT>(), nt2::One<vT>())[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Quarter<vT>(), nt2::Quarter<vT>())[0]!=0, nt2::False<sr_t>());
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Two<vT>(), nt2::Two<vT>())[0]!=0, nt2::False<sr_t>());
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(nt2::Zero<vT>(), nt2::Zero<vT>())[0]!=0, nt2::False<sr_t>());
 } // end of test for real_

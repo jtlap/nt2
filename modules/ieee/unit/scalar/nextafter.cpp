@@ -24,7 +24,7 @@
 #include <nt2/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
+NT2_TEST_CASE_TPL ( nextafter_real__2_0,  NT2_REAL_TYPES)
 {
   
   using nt2::nextafter;
@@ -41,61 +41,4 @@ NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
   double ulpd;
   ulpd=0.0;
 
-} // end of test for float
-
-NT2_TEST_CASE_TPL ( nextafter_double_2_0,  (double))
-{
-  
-  using nt2::nextafter;
-  using nt2::tag::nextafter_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<nextafter_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for double
-
-NT2_TEST_CASE_TPL ( nextafter_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
-{
-  
-  using nt2::nextafter;
-  using nt2::tag::nextafter_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<nextafter_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( nextafter_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  
-  using nt2::nextafter;
-  using nt2::tag::nextafter_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<nextafter_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for signed_int_
+} // end of test for real_

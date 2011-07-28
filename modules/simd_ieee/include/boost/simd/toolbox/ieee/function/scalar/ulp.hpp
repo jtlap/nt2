@@ -12,7 +12,6 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
 #include <boost/simd/include/functions/prev.hpp>
 #include <boost/simd/include/functions/min.hpp>
@@ -30,13 +29,12 @@ namespace boost { namespace dispatch { namespace meta
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::arithmetic(A0)>::type result_type;
-
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-       ignore_unused(a0);
-       return One<A0>();
+      using namespace boost::simd;
+      ignore_unused(a0);
+      return One<A0>();
     }
   };
 } } }
@@ -52,19 +50,20 @@ namespace boost { namespace dispatch { namespace meta
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef typename meta::strip<A0>::type result_type;
-
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0,signed>::type int_type;
+      using namespace boost::simd;
+      typedef typename meta::as_integer<A0,unsigned>::type int_type;
       if (is_eqz(a0)) return Mindenormal<A0>();
       const A0 x = boost::simd::abs(a0);
-      if (x == Inf<A0>()) return x; 
-      typename meta::as_bits<A0>::type aa = {x},  bb = aa;
-      --bb.bits;
-      ++aa.bits;
-      return boost::simd::min(x-bb.value, aa.value-x);
+      if (x == Inf<A0>()) return x;
+      int_type aa = bitwise_cast<int_type>(x);
+      int_type bb = aa;
+      --bb;
+      ++aa;
+      return boost::simd::min(x-bitwise_cast<A0>(bb),
+		      bitwise_cast<A0>(aa)-x);
     }
   };
 } } }

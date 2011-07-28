@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {
-	   'default' : 'boost::fusion::vector<T,nt2::int32_t>',
+              'default' : 'boost::fusion::vector<T,nt2::int32_t>',
             },
          'simd_types' : [],
          'special' : ['libc'],
@@ -24,21 +24,19 @@
              'stamp' : 'modified by jt the 05/03/2011',
             },
          'ranges' : {
-             'default' : [['T(-100)', 'T(100)']],
+             'real_' : [['T(-100)', 'T(100)']],
             },
          'specific_values' : {
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::libc::frexp(a0)'],
+                 'real_' : ['nt2::libc::frexp(a0)'],
                 },
              'property_value' : {
-                 'default' : [['nt2::mantissa(a0)/2', 'nt2::exponent(a0)+1']],
-                },
-             'simd' : {
+                 'real_' : ['nt2::mantissa(a0)/2', 'nt2::exponent(a0)+1'],
                 },
              'ulp_thresh' : {
-                 'default' : ['1'],
+                 'real_' : ['1'],
                 },
             },
         },

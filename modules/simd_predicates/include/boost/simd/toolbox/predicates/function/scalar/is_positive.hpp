@@ -6,9 +6,6 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_POSITIVE_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SCALAR_IS_POSITIVE_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 
@@ -49,8 +46,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, signed>::type t0 = {a0};
-      return t0.bits >= 0;
+      typedef typename meta::as_integer<A0>::type itype; 
+      return bitwise_cast<itype>(a0) >=  0; 
     }
   };
 } } }

@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_SHIFT_LEFT_HPP_INCLUDED
 
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -22,9 +21,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typename meta::as_bits<A0>::type t0 = {a0};
-      t0.bits = t0.bits << a1;
-      return t0.value;
+      typedef typename meta::as_integer<A0, unsigned>::type itype; 
+      return bitwise_cast<result_type>(nt2::shift_left(bitwise_cast<itype>(a0),a1));
     }
   };
 } } }
@@ -36,9 +34,7 @@ namespace boost { namespace dispatch { namespace meta
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-    static A0& a0; static A1& a1;
-    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,a0 << a1)
-    typedef typename nested::type result_type;
+    typedef typename meta::result_of<meta::arithmetic(A0, A1)>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 << a1; }
   };
 } } }

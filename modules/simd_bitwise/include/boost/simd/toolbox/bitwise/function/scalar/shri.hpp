@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_SHRI_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -23,8 +22,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_integer<A0, unsigned>::type type;
-      return type(a0) >> a1;
+      typedef typename meta::as_integer<A0, unsigned>::type uitype;
+      return uitype(a0) >> a1;
     }
   };
 
@@ -36,9 +35,9 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typename meta::as_bits<A0>::type t1 = {a0};
-      t1.bits = (t1.bits >>  a1);
-      return t1.value;
+      using namespace boost::simd;
+      typedef typename meta::as_integer<A0, unsigned>::type uitype;
+      return bitwise_cast<result_type>(bitwise_cast<uitype>(a0) >> a1);
     }
   };
 } } }

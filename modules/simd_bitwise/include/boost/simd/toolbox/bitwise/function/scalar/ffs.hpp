@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_FFS_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 #ifdef BOOST_MSVC
@@ -26,8 +25,10 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
-      if(!t1.bits) return 0; 
+      using namespace boost::simd;
+        
+      result_type t1 = bitwise_cast<result_type>(a0); 
+      if(!t1) return 0; 
 
     #if defined BOOST_MSVC && defined _WIN64
       unsigned long index;
@@ -36,18 +37,18 @@ namespace boost { namespace dispatch { namespace meta
       return 0;
     #elif defined BOOST_MSVC
       unsigned long index;
-      if (b_and(t1.bits, (uint64_t(-1) >> 32)))
+      if (b_and(t1, (uint64_t(-1) >> 32)))
       {
-        _BitScanForward(&index, t1.bits);
+        _BitScanForward(&index, t1);
         return index+1;
       }
-      if(_BitScanForward(&index, t1.bits >> 32))
+      if(_BitScanForward(&index, t1 >> 32))
         return 32+index+1;
       return 0;
     #else
-      if (b_and(t1.bits, (uint64_t(-1) >> 32)))
-      return __builtin_ffs(t1.bits);
-      return 32+__builtin_ffs(t1.bits >> 32);
+      if (b_and(t1, (uint64_t(-1) >> 32)))
+      return __builtin_ffs(t1);
+      return 32+__builtin_ffs(t1 >> 32);
     #endif
     }
   };
@@ -61,13 +62,15 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
+      using namespace boost::simd;
+      
+      result_type t1 = bitwise_cast<result_type>(a0); 
     #ifdef BOOST_MSVC
       unsigned long index;
-      if(_BitScanForward(&index, t1.bits)) return index+1;
+      if(_BitScanForward(&index, t1)) return index+1;
       return 0;
     #else
-      return __builtin_ffs(t1.bits);
+      return __builtin_ffs(t1);
     #endif
     }
   };
@@ -80,8 +83,9 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename meta::as_bits<A0, unsigned>::type t1 = {a0};
-      return boost::simd::ffs(uint32_t(t1.bits));
+      using namespace boost::simd;
+      result_type t1 = bitwise_cast<result_type>(a0); 
+      return boost::simd::ffs(uint32_t(t1));
     }
   };
 } } }

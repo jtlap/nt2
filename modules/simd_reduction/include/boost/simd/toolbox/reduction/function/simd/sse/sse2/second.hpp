@@ -10,8 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_SECOND_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/as_real.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
-#include <boost/simd/sdk/meta/from_bits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 /////////////////////////////////////////////////////////////////////////////
@@ -48,9 +46,9 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
-      type tmp = simd::native_cast<type>(a0);
-      type tmp1= {_mm_srli_si128(tmp, 8)}; 
-      rtype z = simd::native_cast<rtype>(tmp1); 
+      const type tmp = simd::native_cast<type>(a0);
+      const type tmp1= {_mm_srli_si128(tmp, 8)}; 
+      const rtype z = simd::native_cast<rtype>(tmp1); 
       return _mm_cvtsd_f64(z);
     }
   };
@@ -65,12 +63,12 @@ namespace boost { namespace dispatch { namespace meta
                          ((simd_<float_<A0>,boost::simd::tag::sse_>))
                         )
   {
-    typedef typename meta::scalar_of<A0 > ::type result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0>::type type;
-      meta::from_bits<float>::type t = {_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<type>(a0), 4))};
-      return t.value;
+       typedef typename meta::as_integer<A0>::type itype;
+       typedef typename meta::scalar_of<itype>::type sitype;
+       return bitwise_cast<result_type>(_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<itype>(a0), 4)));
     }
   };
 
@@ -107,8 +105,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
-      meta::as_bits<double>::type t = {_mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)))};
-      return t.bits;
+      return bitwise_cast<result_type, double >(_mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)))); 
     }
   };
 

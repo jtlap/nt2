@@ -9,15 +9,19 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSE4_1_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSE4_1_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSE4_1_SUPPORT)
+#if defined(__SSE4_1__)
+#  ifndef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#    define BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#  endif
+#elif defined(BOOST_SIMD_HAS_SSE4_1_SUPPORT) && !defined(_MSC_VER)
+#  undef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for SSE4_1
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__SSE4_1__) || defined(_MSC_VER)
+#if defined(BOOST_SIMD_HAS_SSE4_1_SUPPORT) && !defined(BOOST_SIMD_HAS_SSSE3_SUPPORT)
+#  define BOOST_SIMD_HAS_SSSE3_SUPPORT
+#endif
+
+#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSE4_1_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report  SSE4_1 discovery
@@ -43,6 +47,5 @@ BOOST_SIMD_WARNING(SSE4_1 SIMD extension detected)
 
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
 
-#endif
 #endif
 #endif

@@ -31,7 +31,7 @@
                  'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
-             'integer_   ' : {
+             'integer_' : {
                  'nt2::Mone<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},

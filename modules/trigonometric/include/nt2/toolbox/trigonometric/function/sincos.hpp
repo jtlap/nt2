@@ -18,6 +18,7 @@ namespace nt2 { namespace tag
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::sincos_, sincos, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincos_, sincos,(A0 const&)(A1&),2)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincos_, sincos,(A0 const&)(A1&)(A2&),3)
 
 }

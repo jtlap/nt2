@@ -12,8 +12,9 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/details/decltype.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/simd/sdk/config/attributes.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/functor/details/call.hpp>
+#include <boost/mpl/identity.hpp>
 
 #if !defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/functor/details/preprocessed/dispatch.hpp>
@@ -28,7 +29,7 @@
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
 #undef BOOST_DISPATCH_DECLTYPE
-#undef BOOST_SIMD_FORCE_INLINE
+#undef BOOST_DISPATCH_FORCE_INLINE
 #endif
 
 //==============================================================================
@@ -41,15 +42,16 @@
 #define M0(z,n,t) meta::unknown_<A##n> const&
 #define M2(z,n,t) typename meta::hierarchy_of<A##n>::type
 
-#define BOOST_DISPATCH_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                                     \
+#define BOOST_DISPATCH_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                          \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
-BOOST_SIMD_FORCE_INLINE                                                                \
-boost::dispatch::meta::implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>  \
+BOOST_DISPATCH_FORCE_INLINE                                                     \
+boost::dispatch::meta::                                                         \
+implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>       \
 dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
             , adl_helper = adl_helper()                                         \
             )                                                                   \
 {                                                                               \
-  boost::dispatch::meta::implement< Tag(tag::unknown_),Site                           \
+  boost::dispatch::meta::implement< Tag(tag::unknown_),Site                     \
                       , tag::error_with(BOOST_PP_ENUM(n,M2,~))                  \
                       > that;                                                   \
   return that;                                                                  \
@@ -81,19 +83,24 @@ namespace boost { namespace dispatch { namespace meta
 #define M0(z,n,t) typename meta::hierarchy_of<A##n>::type()
 /**/
 
-#define BOOST_DISPATCH_DISPATCH_CALL(z,n,t)                                            \
+#define BOOST_DISPATCH_DISPATCH_CALL(z,n,t)                                 \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
 struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
 {                                                                           \
-  BOOST_DISPATCH_DECLTYPE                                                              \
+  BOOST_DISPATCH_DECLTYPE                                                   \
   ( dispatching ( Tag(), Site(), BOOST_PP_ENUM(n,M0,~), adl_helper() )      \
   , type                                                                    \
   );                                                                        \
 };                                                                          \
                                                                             \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
-BOOST_SIMD_FORCE_INLINE                                                            \
-typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type          \
+BOOST_DISPATCH_FORCE_INLINE                                                 \
+typename boost::mpl::                                                       \
+identity< typename                                                          \
+          dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                     \
+                       , Site                                               \
+                       >::type                                              \
+        >::type                                                             \
 dispatch( Tag const&, Site const&                                           \
         , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \
         )                                                                   \

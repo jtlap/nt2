@@ -8,33 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_IEEE_SPEC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_IEEE_SPEC_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// Make some real based constants
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/constant/constant.hpp>
-#include <boost/simd/toolbox/constant/include.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
-
-namespace boost { namespace simd
-{
-  namespace tag
-  {
-    struct ldexp_mask_        {}; struct nb_digits_         {};
-    struct nb_mantissa_bits_  {}; struct nb_exponent_bits_  {};
-    struct max_exponent_      {}; struct min_exponent_      {};
-  }
-  
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::ldexp_mask_       , Ldexpmask      )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::nb_mantissa_bits_ , Nbmantissabits )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::nb_exponent_bits_ , Nbexponentbits )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::max_exponent_     , Maxexponent    )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::min_exponent_     , Minexponent    )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::nb_digits_        , Nbdigits       )
-} }
-
-#include <boost/simd/toolbox/constant/constants/scalar/ieee_spec.hpp>
-#include <boost/simd/toolbox/constant/constants/simd/all/ieee_spec.hpp>
+#include <boost/simd/toolbox/constant/constants/real.hpp>
+// TO DO replace with direct inclusion 
 
 #endif

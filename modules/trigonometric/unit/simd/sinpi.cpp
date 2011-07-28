@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( sinpi_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sinpi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( sinpi_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
+NT2_TEST_CASE_TPL ( sinpi_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::sinpi;
   using nt2::tag::sinpi_;
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( sinpi_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
   NT2_TEST_ULP_EQUAL(sinpi(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( sinpi_uint_convert__1_0,  (nt2::uint32_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( sinpi_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::sinpi;
   using nt2::tag::sinpi_;

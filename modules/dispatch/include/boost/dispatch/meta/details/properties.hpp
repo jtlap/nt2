@@ -131,30 +131,21 @@ namespace boost { namespace dispatch { namespace meta
                                     )
                           );
 
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META (type32_
-                          , (boost::mpl::if_<meta::is_floating_point<T>
-                                            , real_<T>
-                                            , typename
-                                              boost::mpl::if_
-                                              < behave_as<boost::is_signed<boost::mpl::_1>,T>
-                                                              , int_<T>
-                                                              , uint_<T>
-                                                              >::type
-                                            >
-                                    )
-                          );
-
-  BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META (type64_
-                          , (boost::mpl::if_< meta::is_floating_point<T>
-                                            , real_<T>
-                                            , typename
-                                              boost::mpl::if_ < behave_as<boost::is_signed<boost::mpl::_1>,T>
-                                                              , int_<T>
-                                                              , uint_<T>
-                                                              >::type
-                                            >
-                                    )
-                          );
+  BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META (real_sized_
+                               , (boost::mpl::if_<meta::is_floating_point<T>
+                                                 , real_<T>
+                                                 , typename
+                                                   boost::mpl::if_
+                                                   < behave_as<boost::is_signed<boost::mpl::_1>,T>
+                                                   , int_<T>
+                                                   , uint_<T>
+                                                   >::type
+                                                 >
+                                 )
+                               );
+                          
+  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(type32_       , real_sized_<T>  );
+  BOOST_DISPATCH_HIERARCHY_CLASS_TPL(type64_       , real_sized_<T>  );
 
   //////////////////////////////////////////////////////////////////////////////
   // Sizeof based hierarchy of integers

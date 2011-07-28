@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(hi(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( hi_int64__1_0,  NT2_INT_64_TYPES)
 {
   
   using nt2::hi;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
   NT2_TEST_EQUAL(hi(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for int64_
 
-NT2_TEST_CASE_TPL ( hi_int32__1_0,  (nt2::int32_t)(nt2::uint32_t))
+NT2_TEST_CASE_TPL ( hi_int32__1_0,  NT2_INT_32_TYPES)
 {
   
   using nt2::hi;
@@ -98,7 +98,7 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  (nt2::int32_t)(nt2::uint32_t))
   NT2_TEST_EQUAL(hi(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for int32_
 
-NT2_TEST_CASE_TPL ( hi_int16__1_0,  (nt2::int16_t)(nt2::uint16_t))
+NT2_TEST_CASE_TPL ( hi_int16__1_0,  NT2_INT_16_TYPES)
 {
   
   using nt2::hi;

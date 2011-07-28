@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( fast_tand_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_tand(nt2::_90<vT>())[0], nt2::Nan<sr_t>(), 1.0);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( fast_tand_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
+NT2_TEST_CASE_TPL ( fast_tand_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::fast_tand;
   using nt2::tag::fast_tand_;
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( fast_tand_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
   NT2_TEST_ULP_EQUAL(fast_tand(nt2::_45<vT>())[0], nt2::One<sr_t>(), 1.0);
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( fast_tand_uint_convert__1_0,  (nt2::uint32_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( fast_tand_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::fast_tand;
   using nt2::tag::fast_tand_;

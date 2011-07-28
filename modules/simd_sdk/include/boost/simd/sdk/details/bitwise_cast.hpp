@@ -16,8 +16,7 @@
 
 #include <cstring>
 #include <boost/dispatch/error/static_assert.hpp>
-#include <boost/simd/sdk/config/attributes.hpp>
-#include <boost/type_traits/is_convertible.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd {  namespace details
 {
@@ -27,7 +26,7 @@ namespace boost { namespace simd {  namespace details
   struct memcpy_cast
   {
     template<typename To, typename From>
-    static BOOST_SIMD_FORCE_INLINE To call(From const& from)
+    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
     {
       To to;
       std::memcpy(&to, &from, sizeof(From));
@@ -41,7 +40,7 @@ namespace boost { namespace simd {  namespace details
   struct union_cast
   {
     template<typename To, typename From>
-    static BOOST_SIMD_FORCE_INLINE To call(From const& from)
+    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
     {
       union
       {
@@ -58,25 +57,19 @@ namespace boost { namespace simd {  namespace details
   struct convert_cast
   {
     template<typename To, typename From>
-    static BOOST_SIMD_FORCE_INLINE To call(From const& from)
+    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
     {
       return (To)from;
     }
   };
 
   //============================================================================
-  // If To and From are not convertible, use memcpy_cast
+  // By default, use memcpy_cast
   //============================================================================
   template<typename To, typename From, typename Enable = void>
   struct bitwise_cast : memcpy_cast {};
-
-  //============================================================================
-  // If To and From are not convertible, use C-style cast
-  //============================================================================
-  template<typename To, typename From>
-  struct  bitwise_cast<To, From, typename boost::is_convertible<From, To>::type>
-        : convert_cast {};
-} } }
+  
+} }
 
 namespace boost { namespace simd
 {
@@ -103,11 +96,11 @@ namespace boost { namespace simd
    */
   //============================================================================
   template<typename To, typename From>
-  BOOST_SIMD_FORCE_INLINE To bitwise_cast(From const& from)
+  BOOST_DISPATCH_FORCE_INLINE To bitwise_cast(From const& from)
   {
-    BOOST_DISPATCH_STATIC_ASSERT( sizeof(From) >= sizeof(To)
-                     , BOOST_SIMD_TARGET_IS_LARGER_SIZE_THAN_SOURCE_IN_BITWISE_CAST
-                     , "Target is of a larger size than source in boost::simd::bitwise_cast"
+    BOOST_DISPATCH_STATIC_ASSERT( sizeof(From) == sizeof(To)
+                     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
+                     , "Target is not same size as source in boost::simd::bitwise_cast"
                      );
     return details::bitwise_cast<To, From>::template call<To>(from);
   }

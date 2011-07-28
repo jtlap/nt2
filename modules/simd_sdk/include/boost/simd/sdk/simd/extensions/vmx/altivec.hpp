@@ -11,16 +11,15 @@
 
 #include <boost/simd/sdk/error/warning.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_SIMD_DETECTED)
+#if defined(__ALTIVEC__) || defined(__VEC__)
+#  ifndef BOOST_SIMD_HAS_VMX_SUPPORT
+#    define BOOST_SIMD_HAS_VMX_SUPPORT
+#  endif
+#elif defined(NT2_HAS_VMX_SUPPORT)
+#  undef BOOST_SIMD_HAS_VMX_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for active Altivec extension
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__ALTIVEC__) || defined(__VEC__)                                   \
- || defined(BOOST_SIMD_HAS_VMX_SUPPORT)
+#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_VMX_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report discovery of Altivec support
@@ -66,6 +65,5 @@ BOOST_SIMD_WARNING(AltiVec SIMD extension detected)
 
 #include <boost/simd/sdk/simd/extensions/meta/altivec.hpp>
 
-#endif
 #endif
 #endif

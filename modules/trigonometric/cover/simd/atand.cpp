@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( atand_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Mone<T>(), nt2::One<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Zero<T>(), nt2::One<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( atand_real__1_0,  NT2_SIMD_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( atand_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
+NT2_TEST_CASE_TPL ( atand_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::atand;
   using nt2::tag::atand_;
@@ -109,7 +109,7 @@ NT2_TEST_CASE_TPL ( atand_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
   }
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( atand_uint_convert__1_0,  (nt2::uint32_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( atand_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::atand;
   using nt2::tag::atand_;

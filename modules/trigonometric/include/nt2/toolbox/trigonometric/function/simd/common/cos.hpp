@@ -11,13 +11,8 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/function/details/simd/common/impl/trigo.hpp
-//  of the old nt2
+#include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -55,7 +50,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<A0,radian_tag, trig_tag, tag::simd_type>::cosa(a0);
+      return impl::trig_base<A0,radian_tag,  tag::simd_type>::cosa(a0);
     }
   };
 } }

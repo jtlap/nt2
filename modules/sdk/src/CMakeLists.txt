@@ -10,8 +10,15 @@
 include(NT2Module)
 nt2_module_source_setup(sdk)
 
-file( GLOB_RECURSE source_sdk_files
-      ${NT2_SDK_ROOT}/src/*
-    )
-SET(SOURCES ${source_sdk_files} ${NT2_CONFIG_ROOT}/src/version.cpp)
+set(SOURCES
+    details/timestamp.cpp
+    error/assert_exception.cpp
+    error/exception.cpp
+    memory/allocate.cpp
+    memory/deallocate.cpp
+    memory/reallocate.cpp
+    timing/now.cpp
+    timing/timers.cpp
+    config/version.cpp
+   )
 nt2_module_add_library(nt2 ${SOURCES})

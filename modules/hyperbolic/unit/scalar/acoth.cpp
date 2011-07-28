@@ -95,6 +95,7 @@ NT2_TEST_CASE_TPL ( acoth_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(acoth(nt2::Mone<T>()), nt2::Minf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acoth(nt2::One<T>()), nt2::Inf<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acoth(nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
 } // end of test for signed_int_

@@ -11,6 +11,15 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/arithmetic/include.hpp>
+/*!
+ * \file
+ * \brief Defines the saturated addition functor: adds
+ *
+ * alias saturated_add
+ *
+ * This is generally equivalent to add except that in overflow cases
+ * Valmin or Valmax for the input type is returned
+ */
 
 namespace boost { namespace simd {
   namespace tag

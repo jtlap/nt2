@@ -9,7 +9,7 @@
 
 nt2_module_use_modules(simd_predicates)
 
-#ADD_SUBDIRECTORY(config)
+ADD_SUBDIRECTORY(config)
 ADD_SUBDIRECTORY(details)
 #ADD_SUBDIRECTORY(errors)
 ADD_SUBDIRECTORY(meta)

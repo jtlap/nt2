@@ -9,24 +9,42 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITWISE_ORNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_BITWISE_ORNOT_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/size.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
-
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_ornot_, tag::cpu_ , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              (scalar_< fundamental_<A1> >)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_ornot_, tag::cpu_, (A0)(A1), 
+				 (boost::mpl::bool_<sizeof(A0) == sizeof(A1)>), 				 
+                                 ( tag::bitwise_ornot_
+				  ( scalar_<fundamental_<A0> >, 
+				    scalar_<fundamental_<A1> >
+				    )
+				  ), 
+                               (scalar_< fundamental_<A0> >)
+                               (scalar_< fundamental_<A1> >)
                             )
   {
     typedef A0 result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typename meta::as_bits<A0>::type t0 = {a0};
-      typename meta::as_bits<A1>::type t1 = {a1};
-      t0.bits |= b_not(t1.bits);
-      return t0.value;
+      using namespace boost::simd;
+      typedef typename meta::as_integer<A0, unsigned>::type bts;
+      return bitwise_cast<A0>(b_or(bitwise_cast<bts>(a0),
+					 b_not(bitwise_cast<bts>(a1))
+					 )
+				   ); 
+    }
+  };
+  
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_ornot_, tag::cpu_ , (A0)(A1)
+                            , (scalar_< bool_<A0> >)
+                              (scalar_< bool_<A1> >)
+                            )
+  {
+    typedef A0 result_type;
+
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    {
+      return a0 || !a1; 
     }
   };
 } } }

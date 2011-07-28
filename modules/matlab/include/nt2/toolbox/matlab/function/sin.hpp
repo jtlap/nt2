@@ -17,14 +17,14 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( matlab::sin_, tag::cpu_,
 			     (A0),
-			     (scalar<real_<A0> >)
-			      )
+			     (scalar_< real_<A0> >)
+			    )
   {
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
-      {
-	return matlab::feval<typename NT2_RETURN_TYPE(1)::type>("sin", a0);
-      }
+    {
+      return matlab::feval<result_type>("sin", a0);
+    }
   };
 } }
 

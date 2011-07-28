@@ -69,6 +69,7 @@ NT2_TEST_CASE_TPL ( bitwise_notand_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(bitwise_notand(nt2::Mone<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(bitwise_notand(nt2::One<T>(), nt2::One<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(bitwise_notand(nt2::One<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(bitwise_notand(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());

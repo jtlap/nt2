@@ -13,7 +13,7 @@
 // Turn some digits consatnt into DSL terminals
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/proto/proto.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/sdk/constant/category.hpp>
 
 namespace boost { namespace simd
