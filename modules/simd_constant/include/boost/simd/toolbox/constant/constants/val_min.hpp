@@ -8,22 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_VAL_MIN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_VAL_MIN_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// Make some real based constants
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/constant/constant.hpp>
-#include <boost/simd/toolbox/constant/include.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
-
-namespace boost { namespace simd
-{
-  namespace tag { struct val_min_ {}; }
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::val_min_, Valmin)
-} }
-
-#include <boost/simd/toolbox/constant/constants/scalar/val_min.hpp>
-#include <boost/simd/toolbox/constant/constants/simd/all/val_min.hpp>
+#include <boost/simd/toolbox/constant/constants/real.hpp>
+// TO DO replace with direct inclusion 
 
 #endif

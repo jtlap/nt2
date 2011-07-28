@@ -32,9 +32,9 @@ NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  (float))
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
   using nt2::load; 
-  using boost::simd::native;
+  using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
@@ -60,9 +60,9 @@ NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
   using nt2::load; 
-  using boost::simd::native;
+  using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
@@ -83,14 +83,14 @@ NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
   NT2_TEST_EQUAL(firstbitset(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for double
 
-NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
   using nt2::load; 
-  using boost::simd::native;
+  using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
@@ -109,14 +109,14 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNE
   NT2_TEST_EQUAL(firstbitset(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
   using nt2::load; 
-  using boost::simd::native;
+  using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;

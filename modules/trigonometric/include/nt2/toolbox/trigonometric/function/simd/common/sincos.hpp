@@ -37,11 +37,33 @@ namespace nt2 { namespace meta
     typedef void result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
-      impl::trig_base <A1,radian_tag,trig_tag,
-	               tag::simd_type>::sincosa(tofloat(a0),a1,a2); 
+      a1 = impl::trig_base <A1,radian_tag,
+	               tag::simd_type>::sincosa(tofloat(a0),a2); 
     }
   };
  
+  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::sincos_, tag::cpu_,(A0)(A1)(X),
+				(boost::mpl::equal_to<meta::cardinal_of<A0>, 
+			                	 meta::cardinal_of<A1>
+				        >
+				), 
+                                ( tag::sincos_
+				  ( simd_<arithmetic_<A0>,X> 
+				    , simd_<real_<A1>,X>
+				    )
+				  ), 
+				((simd_ < arithmetic_<A0>,X > ))
+				((simd_ < real_<A1>,X > ))
+			     )
+  {
+    typedef A1 result_type;    
+    inline result_type operator()(A0 const& a0,A1 & a2) const
+    {
+      return impl::trig_base <A1,radian_tag,
+	               tag::simd_type>::sincosa(tofloat(a0),a2); 
+    }
+  };
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
@@ -53,15 +75,14 @@ namespace nt2 { namespace meta
       typedef typename meta::as_real<A0>::type  rtype;
       typedef boost::fusion::tuple<rtype, rtype> result_type;
     
-    NT2_FUNCTOR_CALL_REPEAT(1)
+    NT2_FUNCTOR_CALL(1)
     {
       result_type res;
-      impl::trig_base <rtype,radian_tag
-                      , trig_tag, tag::simd_type
-                      >::sincosa( tofloat(a0)
-                                , boost::fusion::at_c<0>(res)
-                                , boost::fusion::at_c<1>(res)
-                                );
+      boost::fusion::at_c<0>(res) = impl::trig_base <rtype,radian_tag
+	,  tag::simd_type
+	>::sincosa( tofloat(a0)
+		    , boost::fusion::at_c<1>(res)
+		    );
       return res;
     }
   };

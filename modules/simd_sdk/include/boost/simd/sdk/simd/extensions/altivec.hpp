@@ -16,7 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // No SIMD extensions have been found yet
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_SIMD_DETECTED)
 #include <boost/simd/sdk/simd/extensions/vmx/altivec.hpp>
 //#include <boost/simd/sdk/simd/extensions/vmx/spu.hpp>
 
@@ -24,5 +23,4 @@
 #include <boost/simd/sdk/simd/extensions/vmx/types.hpp>
 #endif
 
-#endif
 #endif

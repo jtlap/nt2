@@ -9,8 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_RSHL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_RSHL_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_bits.hpp>
-
 namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshl_, tag::cpu_ , (A0)(A1)
@@ -26,15 +24,27 @@ namespace boost { namespace dispatch { namespace meta
   };
 
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshl_, tag::cpu_ , (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< unsigned_<A1> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    {
+      return a0 << a1; 
+    }
+  };
+
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshl_, tag::cpu_ , (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typename boost::simd::meta::as_bits<A0>::type t0 = {a0};
-      t0.bits = (a1>0) ? (t0.bits << a1) : (t0.bits >> boost::simd::neg(a1));
-      return t0.value;
+      using namespace boost::simd;
+      typedef typename meta::as_integer<A0, unsigned>::type itype; 
+      return bitwise_cast<result_type>(rshl(bitwise_cast<itype>(a0),a1));
     }
   };
 } } }

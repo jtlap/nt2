@@ -1,11 +1,11 @@
-//==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
-//==============================================================================
+/*******************************************************************************
+ *         Copyright 2003-2010 LASMEA UMR 6602 CNRS/U.B.P
+ *         Copyright 2009-2010 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_TRIG_EVALUATION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_D_TRIG_EVALUATION_HPP_INCLUDED
 
@@ -21,7 +21,7 @@ namespace nt2
     namespace internal
     {
 
-      template < class A0> struct trig_evaluation < A0, trig_tag, tag::not_simd_type, double >
+      template < class A0> struct trig_evaluation < A0,  tag::not_simd_type, double >
       {
 	typedef typename meta::as_integer<A0, signed>::type int_type;
 	typedef typename meta::scalar_of<A0>::type stype; 
@@ -77,3 +77,7 @@ namespace nt2
 
 
 #endif
+
+// /////////////////////////////////////////////////////////////////////////////
+// End of d_trig_evaluation.hpp
+// /////////////////////////////////////////////////////////////////////////////

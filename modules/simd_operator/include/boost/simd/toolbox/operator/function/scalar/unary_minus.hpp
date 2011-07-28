@@ -20,10 +20,7 @@ namespace boost { namespace dispatch { namespace meta
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    static A0& a0;
-    BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested,-a0)
-    typedef typename nested::type result_type;
-
+    typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1) { return -a0; }
   };
 } } }

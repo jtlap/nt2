@@ -17,7 +17,7 @@
              'default' : {
                  'nt2::Zero<T>()' : {'ulp_thresh' : '0.5', 'result' : 'nt2::One<r_t>()', },
                 },
-             'signed_int_   ' : {
+             'signed_int_' : {
                  'nt2::Zero<T>()' : {'ulp_thresh' : '0.5', 'result' : 'nt2::One<r_t>()', },
                 },
              'real_' : {

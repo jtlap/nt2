@@ -30,7 +30,7 @@
                  'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
-             'integer_   ' : {
+             'integer_' : {
                  'nt2::Mone<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
@@ -49,7 +49,7 @@
                  'integer_' : ['nt2::multiplies(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0*a1'],
+                 'integer_' : ['r_t(a0*a1)'],
                 },
              'simd' : {
                 },

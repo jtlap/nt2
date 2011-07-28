@@ -8,7 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::constants eps related"
 
-#include <nt2/include/constants/eps_related.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
@@ -26,7 +26,7 @@ NT2_TEST_CASE( double_eps_value )
   NT2_TEST_EQUAL( nt2::Mlogeps2<double>()       , 18.021826694558580      );
   NT2_TEST_EQUAL( nt2::Mindenormal<double>()    , 5.0000000000000000e-324 );
   NT2_TEST_EQUAL( nt2::Smallestposval<double>() , 2.2250738585072014e-308 );
-}
+} 
 
 NT2_TEST_CASE( float_eps_value )
 {
@@ -48,9 +48,9 @@ NT2_TEST_CASE_TPL( real_value, NT2_INTEGRAL_TYPES )
 {
   NT2_TEST_EQUAL( nt2::Eps<T>()             , 1 );
   NT2_TEST_EQUAL( nt2::Halfeps<T>()         , 1 );
-  NT2_TEST_EQUAL( nt2::Threeeps<T>()        , 1 );
-  NT2_TEST_EQUAL( nt2::Sqrteps<T>()         , 3 );
-  NT2_TEST_EQUAL( nt2::Fourthrooteps<T>()    , 1 );
+  NT2_TEST_EQUAL( nt2::Threeeps<T>()        , 3 );
+  NT2_TEST_EQUAL( nt2::Sqrteps<T>()         , 1 );
+  NT2_TEST_EQUAL( nt2::Fourthrooteps<T>()   , 1 );
   NT2_TEST_EQUAL( nt2::Thirdrooteps<T>()    , 1 );
   NT2_TEST_EQUAL( nt2::Mlogeps2<T>()        , 0 );
   NT2_TEST_EQUAL( nt2::Mindenormal<T>()     , 1 );

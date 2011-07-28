@@ -52,7 +52,32 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), false);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  
+  using nt2::compare_less;
+  using nt2::tag::compare_less_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<compare_less_(T,T)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef bool wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(compare_less(nt2::Mone<T>(),nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(compare_less(nt2::One<T>(), nt2::One<T>()), false);
+  NT2_TEST_EQUAL(compare_less(nt2::One<T>(),nt2::Zero<T>()), false);
+  NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), false);
+} // end of test for signed_int_
+
+NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::compare_less;
@@ -74,4 +99,4 @@ NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  NT2_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(compare_less(nt2::One<T>(), nt2::One<T>()), false);
   NT2_TEST_EQUAL(compare_less(nt2::One<T>(),nt2::Zero<T>()), false);
   NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), false);
-} // end of test for integer_
+} // end of test for unsigned_int_

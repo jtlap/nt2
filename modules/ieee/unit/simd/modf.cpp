@@ -28,14 +28,15 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( modf_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::modf;
   using nt2::tag::modf_;
   using nt2::load; 
-  using boost::simd::native;
+  using nt2::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+    typedef typename nt2::meta::result_of<nt2::meta::floating(T)>::type etype;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;

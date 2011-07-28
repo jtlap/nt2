@@ -8,27 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIGNMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIGNMASK_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// Make some real based constants
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/constant/constant.hpp>
-#include <boost/simd/toolbox/constant/include.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
-
-namespace boost { namespace simd
-{
-  namespace tag
-  {
-    struct signmask_ {};
-  }
-  
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::signmask_, Signmask)
-} }
-
-#include <boost/simd/toolbox/constant/constants/scalar/signmask.hpp>
-#include <boost/simd/toolbox/constant/constants/simd/all/signmask.hpp>
+#include <boost/simd/toolbox/constant/constants/real.hpp>
+// TO DO replace with direct inclusion 
 
 #endif
 

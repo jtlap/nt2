@@ -23,13 +23,27 @@ namespace nt2 { namespace meta
 			     (scalar_ < real_<A1> > )
 			     )
   {
-    typedef void result_type;    
-    inline void operator()(A0 const& a0,A1 & a1,A1 & a2) const
+    typedef int result_type;    
+    inline int operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
-      impl::trig_base <A1,pi_tag,fast_tag,tag::not_simd_type>::sincosa(A1(a0),a1,a2); 
+      a1 = impl::trig_base <A1,pi_tag,fast_tag,tag::not_simd_type>::sincosa(A1(a0),a2);
+      return 0; 
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_sincospi_, tag::cpu_,
+			     (A0)(A1),
+			     (scalar_ < arithmetic_<A0> > )
+			     (scalar_ < real_<A1> > )
+			     )
+  {
+    typedef A1 result_type;    
+    inline A1 operator()(A0 const& a0,A1 & a2) const
+    {
+      return impl::trig_base <A1,pi_tag,fast_tag,tag::not_simd_type>::sincosa(A1(a0),a2);
+    }
+  };
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is real_
   /////////////////////////////////////////////////////////////////////////////
@@ -44,10 +58,9 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {
       result_type res;
-      impl::trig_base < A0,pi_tag
-                      , fast_tag, tag::not_simd_type
+      boost::fusion::at_c<0>(res) = impl::trig_base < A0,pi_tag
+                      ,  tag::not_simd_type, clipped_pio4
                       >::sincosa( a0
-                                , boost::fusion::at_c<0>(res)
                                 , boost::fusion::at_c<1>(res)
                                 );
       return res;

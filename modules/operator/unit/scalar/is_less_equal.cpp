@@ -45,6 +45,7 @@ NT2_TEST_CASE_TPL ( is_less_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(is_less_equal(nt2::Mone<T>(), nt2::Mone<T>()), true);
   NT2_TEST_EQUAL(is_less_equal(nt2::One<T>(), nt2::One<T>()), true);
   NT2_TEST_EQUAL(is_less_equal(nt2::One<T>(),nt2::Zero<T>()), false);
   NT2_TEST_EQUAL(is_less_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);

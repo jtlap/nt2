@@ -13,18 +13,16 @@
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 
-#if !defined(BOOST_SIMD_DETECTED)
 ////////////////////////////////////////////////////////////////////////////////
 // Check for the most recent SSE familly extension
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/simd/extensions/sse/xop.hpp>
-#include <boost/simd/sdk/simd/extensions/sse/sse4a.hpp>
-
-//#include <boost/simd/sdk/simd/extensions/sse/fma4.hpp>
+#include <boost/simd/sdk/simd/extensions/sse/fma4.hpp>
 #include <boost/simd/sdk/simd/extensions/sse/avx.hpp>
 #include <boost/simd/sdk/simd/extensions/sse/sse4_2.hpp>
 #include <boost/simd/sdk/simd/extensions/sse/sse4_1.hpp>
 #include <boost/simd/sdk/simd/extensions/sse/ssse3.hpp>
+#include <boost/simd/sdk/simd/extensions/sse/sse4a.hpp>
 #include <boost/simd/sdk/simd/extensions/sse/sse3.hpp>
 #include <boost/simd/sdk/simd/extensions/sse/sse2.hpp>
 
@@ -32,6 +30,5 @@
 #include <boost/simd/sdk/simd/extensions/sse/types.hpp>
 #endif
 
-#endif
 #endif
 

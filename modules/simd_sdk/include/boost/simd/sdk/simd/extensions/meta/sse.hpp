@@ -21,14 +21,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace tag
 {
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse_, boost::dispatch::tag::cpu_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(sse_, cpu_);
   BOOST_DISPATCH_HIERARCHY_CLASS(sse2_, sse_);
   BOOST_DISPATCH_HIERARCHY_CLASS(sse3_, sse2_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(sse4a_, sse3_);
+#ifdef BOOST_SIMD_ARCH_AMD
+  BOOST_DISPATCH_HIERARCHY_CLASS(ssse3_, sse4a_);
+#else
   BOOST_DISPATCH_HIERARCHY_CLASS(ssse3_, sse3_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse4a_, ssse3_);
+#endif
   BOOST_DISPATCH_HIERARCHY_CLASS(sse4_1_, ssse3_);
   BOOST_DISPATCH_HIERARCHY_CLASS(sse4_2_, sse4_1_);
-} } }
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // SSE extensions overload

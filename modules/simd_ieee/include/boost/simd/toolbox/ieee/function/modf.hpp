@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace tag
     struct modf_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::modf_, modf, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&)(A2&),3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&)(A1&),2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&),2) 
 
 } }

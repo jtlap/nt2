@@ -17,10 +17,10 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    struct false_  {};
+    struct False  {};
   }
   
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::false_, False)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::False, False)
 } }
 
 #include <boost/simd/toolbox/constant/constants/scalar/false.hpp>

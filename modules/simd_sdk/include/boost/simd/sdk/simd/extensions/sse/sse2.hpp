@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSE2_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSE2_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSE2_SUPPORT)
+#if defined(__SSE2__)
+#  ifndef BOOST_SIMD_HAS_SSE2_SUPPORT
+#    define BOOST_SIMD_HAS_SSE2_SUPPORT
+#  endif
+#elif defined(BOOST_SIMD_HAS_SSE2_SUPPORT) && !defined(_MSC_VER)
+#  undef BOOST_SIMD_HAS_SSE2_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for SSE2
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__SSE2__) || defined(_MSC_VER)
+#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSE2_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report SSE2 discovery
@@ -43,6 +43,5 @@ BOOST_SIMD_WARNING(SSE2 SIMD extension detected)
 
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
 
-#endif
 #endif
 #endif

@@ -9,10 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/from_bits.hpp>
-#include <boost/simd/include/functions/splat.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/inclu de/functions/splat.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 #define LOCAL_CONST(TAG, D, F, I)                                     \
 BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \
@@ -33,9 +32,8 @@ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                       
 {                                                                     \
   typedef typename A0::type result_type;                              \
   BOOST_DISPATCH_FUNCTOR_CALL(1)                                                 \
-  {                                                                   \
-    typename boost::simd::meta::from_bits<result_type>::type const that = {D};     \
-    return boost::simd::splat<result_type>(that.value);                            \
+  {							              \
+    return boost::simd::splat<result_type>(bitwise_cast<result_type>(D));	      \
   }                                                                   \
 };                                                                    \
                                                                       \
@@ -46,8 +44,7 @@ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                       
   typedef typename A0::type result_type;                              \
   BOOST_DISPATCH_FUNCTOR_CALL(1)                                                 \
   {                                                                   \
-    typename boost::simd::meta::from_bits<result_type>::type const that = {F};     \
-    return boost::simd::splat<result_type>(that.value);                            \
+    return boost::simd::splat<result_type>(bitwise_cast<result_type>(F));	      \
   }                                                                   \
 };                                                                    \
 /**/

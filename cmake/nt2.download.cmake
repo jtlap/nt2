@@ -18,25 +18,50 @@ macro(nt2_download_module module)
 
   find_package(Git QUIET)
   if(GIT_FOUND)
+
+    string(REPLACE "." "/" module_path ${module})
+    string(REPLACE "." ";" module_path_list ${module})
+
+    set(module_ ${module})
+    set(module_path_ ${module_path})
+  
     set(repo_found 0) 
-    foreach(repo ${NT2_FIND_REPOSITORIES})
-      if(NOT repo_found)
-        message(STATUS "[nt2] looking for module ${module} on ${repo}...")
-        execute_process(COMMAND ${GIT_EXECUTABLE} ls-remote --heads ${repo} ${module}
-                        OUTPUT_VARIABLE ls_remote_out
-                        OUTPUT_STRIP_TRAILING_WHITESPACE
-                       )
-                     
-        if(ls_remote_out)
-          set(repo_found 1)
-          message(STATUS "[nt2] downloading module ${module} from ${repo}...")
-          execute_process(COMMAND ${GIT_EXECUTABLE} clone ${repo} --branch ${module} ${module}
-                          WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/modules
+    foreach(mod_comp ${module_path_list})
+      foreach(repo ${NT2_FIND_REPOSITORIES})
+        if(NOT repo_found)
+          message(STATUS "[nt2] looking for module ${module} on ${repo}...")
+          execute_process(COMMAND ${GIT_EXECUTABLE} ls-remote --heads ${repo} ${module_}
+                          OUTPUT_VARIABLE ls_remote_out
+                          OUTPUT_STRIP_TRAILING_WHITESPACE
                          )
-          set(NT2_${module_U}_ROOT ${PROJECT_SOURCE_DIR}/modules/${module})
+                     
+          if(ls_remote_out)
+            set(repo_found 1)
+            message(STATUS "[nt2] downloading module ${module} from ${repo}...")
+            
+            if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path_})
+              file(RENAME ${PROJECT_SOURCE_DIR}/modules/${module_path_} ${PROJECT_SOURCE_DIR}/modules/__${module_path_})
+            endif()
+            execute_process(COMMAND ${GIT_EXECUTABLE} clone ${repo} --branch ${module_} ${module_path_}
+                            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/modules
+                           )
+            if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/__${module_path_})
+              file(GLOB files RELATIVE ${PROJECT_SOURCE_DIR}/modules/__${module_path_} ${PROJECT_SOURCE_DIR}/modules/__${module_path_}/*)
+              foreach(file ${files})
+                file(RENAME ${PROJECT_SOURCE_DIR}/modules/__${module_path_}/${file} ${PROJECT_SOURCE_DIR}/modules/${module_path_}/${file})
+              endforeach()
+              file(REMOVE_RECURSE ${PROJECT_SOURCE_DIR}/modules/__${module_path_})
+            endif()
+                           
+            set(NT2_${module_U}_ROOT ${PROJECT_SOURCE_DIR}/modules/${module_path})
+          endif()
+          
         endif()
-        
-      endif()
+      endforeach()
+      
+      string(REGEX REPLACE "^(.+)+\\.[^.]+$" "\\1" module_ ${module_})
+      string(REGEX REPLACE "^(.+)+/[^/]+$" "\\1" module_path_ ${module_path_})
+      
     endforeach()
   endif()
 endmacro()

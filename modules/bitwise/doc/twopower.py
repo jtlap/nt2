@@ -27,7 +27,7 @@
              'default' : {
                  'nt2::Zero<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
                 },
-             'unsigned_int_   ' : {
+             'unsigned_int_' : {
                  'nt2::Zero<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
                 },
             },

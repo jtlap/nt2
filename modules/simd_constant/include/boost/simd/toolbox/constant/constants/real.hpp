@@ -16,115 +16,46 @@
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <boost/simd/toolbox/constant/include.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/toolbox/constant/constants/macros.hpp>
+#include <boost/simd/toolbox/constant/constants/localgen.hpp>
 
-namespace boost { namespace simd { namespace tag
-{
-  struct pi_          {};
-  struct sqrt_2_o_2_  {}; struct sqrt_2_      {};
-  struct gold_        {}; struct c_gold_      {};
-  struct m_half_      {}; struct m_zero_      {};
-  struct half_        {}; struct third_       {}; struct quarter_     {};
-  struct two_to_m10_  {}; struct two_to_nmb_  {}; struct split_factor_{};
+// specially generated constants
+#include <boost/simd/toolbox/constant/constants/scalar/val_max.hpp>
+#include <boost/simd/toolbox/constant/constants/scalar/val_min.hpp>
+#include <boost/simd/toolbox/constant/constants/scalar/signmask.hpp>
+#include <boost/simd/toolbox/constant/constants/scalar/max_left_shift.hpp>  
+#include <boost/simd/toolbox/constant/constants/false.hpp>
+#include <boost/simd/toolbox/constant/constants/true.hpp>
+#include <boost/simd/toolbox/constant/constants/scalar/ieee_spec.hpp>  
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Small type to gather real value bit patterns
-  //////////////////////////////////////////////////////////////////////////////
-  template<boost::simd::uint64_t D, boost::simd::uint32_t F> struct pattern {};
-} } }
-
-namespace boost { namespace simd { namespace details
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Small type to gather real value bit patterns depending on target type
-  //////////////////////////////////////////////////////////////////////////////
-  template< class Target
-          , boost::simd::uint64_t Value
-          , class Select = typename boost::dispatch::meta::scalar_of<Target>::type
-          >
-  struct  pattern;
-
-  template<class Target, boost::simd::uint64_t Value>
-  struct pattern<Target, Value, float >
-  {
-    typedef tag::pattern<0,Value> type;
-  };
-
-  template<class Target, boost::simd::uint64_t Value>
-  struct pattern<Target, Value, double >
-  {
-    typedef tag::pattern<Value,0> type;
-  };
-} } }
-
-namespace boost { namespace simd 
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Basic named constant
-  //////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::m_half_      , Mhalf       )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::m_zero_      , Mzero       )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::half_        , Half        )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::third_       , Third       )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::quarter_     , Quarter     )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::two_to_m10_  , Twotom10    )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::two_to_nmb_  , Two2nmb     )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::pi_          , Pi          )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::split_factor_, Splitfactor )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::sqrt_2_o_2_  , Sqrt_2o_2   )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::sqrt_2_      , Sqrt_2      )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::gold_        , Gold        )
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::c_gold_      , Cgold       )
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Generic real value splatter from a bit patterns
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Target, boost::simd::uint64_t D, boost::simd::uint32_t F> inline
-  typename boost::dispatch::meta::
-  call<tag::pattern<D,F >(boost::dispatch::meta::as_<Target>)>::type
-  real_constant()
-  {
-    boost::dispatch::functor< tag::pattern<D,F> > callee;
-    return callee( boost::dispatch::meta::as_<Target>() );
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Generic real value splatter from a bit patterns of float
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Target, boost::simd::uint32_t F> inline
-  typename boost::dispatch::meta::
-  call<tag::pattern<0,F >(boost::dispatch::meta::as_<Target>)>::type
-  single_constant()
-  {
-    boost::dispatch::functor< tag::pattern<0,F> > callee;
-    return callee( boost::dispatch::meta::as_<Target>() );
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Generic real value splatter from a bit patterns of double
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Target, boost::simd::uint64_t D> inline
-  typename boost::dispatch::meta::
-  call<tag::pattern<D,0 >(boost::dispatch::meta::as_<Target>)>::type
-  double_constant()
-  {
-    boost::dispatch::functor< tag::pattern<D,0> > callee;
-    return callee( boost::dispatch::meta::as_<Target>() );
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Generic real value splatter from a bit patterns dependant on target type
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T, uint64_t V> inline
-  typename boost::dispatch::meta::
-  call<typename details::pattern<T,V>::type(boost::dispatch::meta::as_<T>)>::type
-  Const()
-  {
-    boost::dispatch::functor< typename details::pattern<T,V>::type > callee;
-    return callee( boost::dispatch::meta::as_<T>() );
-  }
-} }
-
-#include <boost/simd/toolbox/constant/constants/scalar/real.hpp>
+// standard constants
+BOOST_SIMD_MAKE_STD_CONSTANT(Mhalf         ,0xBFE0000000000000ll, 0xBF000000, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Mzero         ,0x8000000000000000ll, 0x80000000, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Half          ,0x3FE0000000000000ll, 0x3F000000, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Third         ,0x3FD5555555555555ll, 0x3EAAAAAB, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Quarter       ,0x3FD0000000000000ll, 0x3E800000, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Twotom10      ,0x3F50000000000000ll, 0x3a800000, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Two2nmb       ,0x4330000000000000ll, 0x4b000000, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Pi            ,0x400921fb54442d18ll, 0x40490fdb, 3 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Splitfactor   ,0x41a0000000000000ll, 0x46000000, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Sqrt_2o_2     ,0x3fe6a09e667f3bcdll, 0x3f3504f3, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Sqrt_2        ,0x3ff6a09e667f3bccll, 0x3fb504f3, 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Gold          ,0x3ff9e3779b97f4a8ll, 0x3fcf1bbd, 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Cgold         ,0x3fd8722191a02d61ll, 0x3ec3910d, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Eps           ,0x3cb0000000000000ll, 0X34000000, 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Halfeps       ,0x3ca0000000000000ll, 0x33800000, 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Threeeps      ,0x3CC8000000000000ll, 0x34c00000, 3 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Sqrteps       ,0x3e50000000000000ll, 0x39b504f3, 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Fourthrooteps ,0x3f20000000000000ll, 0x3c9837f0, 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Thirdrooteps  ,0x3ed965fea53d6e42ll, 0x3ba14518, 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Mlogeps2      ,0x403205966f2b4f13ll, 0x40ff1402, 0 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Mindenormal   ,0x1ll               , 0x1       , 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Smallestposval,0x0010000000000000ll, 0x00800000, 1 )
+BOOST_SIMD_MAKE_STD_CONSTANT(Inf           ,0x7FF0000000000000ll, 0x7F800000, boost::simd::Valmax<result_type>())
+BOOST_SIMD_MAKE_STD_CONSTANT(Minf          ,0xFFF0000000000000ll, 0xFF800000, boost::simd::Valmin<result_type>())
+BOOST_SIMD_MAKE_STD_CONSTANT(Nan           ,0xFFFFFFFFFFFFFFFFll, 0xFFFFFFFF, 0)
+  
+//#include <boost/simd/toolbox/constant/constants/scalar/real.hpp>
 #include <boost/simd/toolbox/constant/constants/simd/all/real.hpp>
 
 #endif

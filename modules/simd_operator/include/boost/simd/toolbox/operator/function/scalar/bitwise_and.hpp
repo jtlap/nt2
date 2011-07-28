@@ -11,7 +11,6 @@
 
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/equal_to.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -30,12 +29,24 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      typename boost::simd::meta::as_bits<A0>::type t0 = {a0};
-      typename boost::simd::meta::as_bits<A1>::type t1 = {a1};
-      t0.bits &= t1.bits;
-      return t0.value;
+      typedef typename meta::as_integer<A0, unsigned>::type bts;
+      return bitwise_cast<A0>(bts(
+        bitwise_cast<bts>(a0) &
+        bitwise_cast<bts>(a1)
+      )); 
     }
   };
+  
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, tag::cpu_, (A0)(A1)
+                            , (scalar_< bool_<A0> >)
+                              (scalar_< bool_<A1> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 && a1; }
+  };
+
+
 } } }
 
 #endif

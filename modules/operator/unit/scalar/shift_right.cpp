@@ -24,7 +24,32 @@
 #include <nt2/include/constants/infinites.hpp>
 
 
-NT2_TEST_CASE_TPL ( shift_right_integer__2_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( shift_right_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+{
+  
+  using nt2::shift_right;
+  using nt2::tag::shift_right_;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<shift_right_(T,iT)>::type r_t;
+  typedef typename nt2::meta::upgrade<T>::type u_t;
+  typedef r_t wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(shift_right(nt2::Mone<T>(),nt2::One<iT>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(shift_right(nt2::One<T>(),nt2::One<iT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(shift_right(nt2::One<T>(),nt2::Zero<iT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(shift_right(nt2::Zero<T>(),nt2::One<iT>()), nt2::Zero<r_t>());
+} // end of test for signed_int_
+
+NT2_TEST_CASE_TPL ( shift_right_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   
   using nt2::shift_right;
@@ -46,7 +71,7 @@ NT2_TEST_CASE_TPL ( shift_right_integer__2_0,  NT2_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(shift_right(nt2::One<T>(),nt2::One<iT>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(shift_right(nt2::One<T>(),nt2::Zero<iT>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(shift_right(nt2::Zero<T>(),nt2::One<iT>()), nt2::Zero<r_t>());
-} // end of test for integer_
+} // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( shift_right_real__2_0,  NT2_REAL_TYPES)
 {

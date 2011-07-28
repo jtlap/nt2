@@ -70,7 +70,7 @@ struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                    \
               )                                                   \
             >::type type;                                         \
 };                                                                \
-template<class This,BOOST_PP_ENUM_PARAMS(n,class A)> inline       \
+template<BOOST_PP_ENUM_PARAMS(n,class A)> inline                  \
 typename result<implement                                         \
                 (BOOST_PP_ENUM_BINARY_PARAMS( n,A                 \
                                             , const&              \

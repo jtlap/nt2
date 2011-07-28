@@ -11,54 +11,56 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
+#include <boost/simd/include/functions/trunc.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
-                      (A0)(A1)(A2),
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, boost::simd::tag::cpu_,
+                      (A0)(A1),
                       (scalar_ < arithmetic_<A0> > )
                       (scalar_ < arithmetic_<A1> > )
-                      (scalar_ < arithmetic_<A2> > )
+                      (scalar_ < arithmetic_<A1> > )
                      )
   {  
-    typedef void result_type;    
-    inline void operator()(A0 const& a0,A1 & a1,A2 & a2) const
+    typedef boost::simd::int32_t result_type;    
+    inline int32_t operator()(A0 const& a0,A1 & r1,A1 & r0) const
     {
-      a1 = trunc(a0);
-      a2 = a0 - a1;
+      r1 = boost::simd::trunc(a0);
+      r0 = a0 - r1;
+      return 0; 
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, boost::simd::tag::cpu_,
                       (A0)(A1),
                       (scalar_ < arithmetic_<A0> > )
                       (scalar_ < arithmetic_<A1> > )
                      )
   {  
-    typedef A0 result_type;    
-    inline void operator()(A0 const& a0,A1 & a1) const
+    typedef A1 result_type;    
+    inline A1 operator()(A0 const& a0,A1 & a1) const
     {
       a1 = trunc(a0);
       return a0 - a1;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, boost::simd::tag::cpu_,
                       (A0),
                       (scalar_ < arithmetic_<A0> > )
                      )
   {
-      typedef typename meta::strip<A0>::type            etype;
+      typedef typename meta::result_of<meta::floating(A0)>::type                 etype;
       typedef boost::fusion::vector<etype, etype>        result_type;
     
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       result_type res;
-      boost::simd::modf(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
+      boost::fusion::at_c<0>(res) = boost::simd::modf(a0, boost::fusion::at_c<1>(res));
       return res;
     }
   };
-} } }
+} }
 #endif

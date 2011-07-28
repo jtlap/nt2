@@ -77,8 +77,8 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYP
 
 
   // specific values tests
-  NT2_TEST_EQUAL(selsub(nt2::splat<vT>(-1),nt2::splat<vT>(4),nt2::splat<vT>(2))[0], T(2));
-  NT2_TEST_EQUAL(selsub(nt2::splat<vT>(0),nt2::splat<vT>(4),nt2::splat<vT>(2))[0], T(4));
+  NT2_TEST_EQUAL(selsub(nt2::splat<vT>(-1),nt2::splat<vT>(1),nt2::splat<vT>(2))[0], T(-1));
+  NT2_TEST_EQUAL(selsub(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(2))[0], T(1));
   NT2_TEST_EQUAL(selsub(nt2::Zero<vT>(), nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for signed_int_
 

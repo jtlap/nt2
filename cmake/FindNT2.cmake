@@ -98,13 +98,16 @@ macro(nt2_find_module_dependencies _COMPONENT)
 
   string(TOUPPER ${_COMPONENT} _COMPONENT_U)
   
+  string(REPLACE "." "/" _COMPONENT_PATH ${_COMPONENT})
   # Search for module source
   if(NOT NT2_${_COMPONENT_U}_ROOT)
-    find_file( NT2_${_COMPONENT_U}_ROOT ${_COMPONENT}
+    find_file( NT2_${_COMPONENT_U}_ROOT ${_COMPONENT_PATH}
                PATHS ${NT2_SOURCE_ROOT}/modules
-               NO_DEFAULT_PATH
                ENV NT2_${_COMPONENT_U}_ROOT
+               DOC "Root directory of the ${_COMPONENT} module's source"
+               NO_DEFAULT_PATH
              )
+    mark_as_advanced(NT2_${_COMPONENT_U}_ROOT)
   endif()
   
   # Try to download source if not available
@@ -333,6 +336,7 @@ function(nt2_find)
                       /usr/local/share /usr/share /opt
                       "C:\\Program Files"
                 ENV NT2_ROOT
+                DOC "Root directory in which NT2 is installed"
                 NO_DEFAULT_PATH
               )
     if(NT2_ROOT)
@@ -349,6 +353,7 @@ function(nt2_find)
                   PATHS ${NT2_ROOT}/include
                         /usr/local/include /usr/include
                   ENV NT2_INCLUDE_ROOT
+                  DOC "Root directory in which the NT2 headers are installed"
                   NO_DEFAULT_PATH
                 )
       if(NOT NT2_INCLUDE_ROOT)
@@ -363,6 +368,7 @@ function(nt2_find)
                   PATHS ${NT2_ROOT}/lib
                         /usr/local/lib /usr/lib
                   ENV NT2_LIBRARY_ROOT
+                  DOC "Root directory in which the NT2 libraries are installed"
                   NO_DEFAULT_PATH
                 )
       if(NOT NT2_LIBRARY_ROOT)

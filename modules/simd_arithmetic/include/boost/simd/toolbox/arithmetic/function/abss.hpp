@@ -11,6 +11,15 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/arithmetic/include.hpp>
+/*!
+ * \file
+ * \brief Defines the saturated absolute value functor: abss
+ *
+ * alias saturated_abs
+ *
+ * This is generally equivalent to abs except for signed integer
+ * type for which abss(Valmin) is Valmax-1
+ */
 
 namespace boost { namespace simd {
   namespace tag

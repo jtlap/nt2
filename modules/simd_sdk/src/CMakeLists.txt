@@ -8,10 +8,17 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(simd_sdk)
+nt2_module_source_setup(sdk)
 
-file( GLOB_RECURSE source_simd_sdk_files
-      ${NT2_SIMD_SDK_ROOT}/src/*
-    )
-SET(SOURCES ${source_simd_sdk_files} ${NT2_SIMD_CONFIG_ROOT}/src/version.cpp)
+set(SOURCES
+    details/timestamp.cpp
+    error/assert_exception.cpp
+    error/exception.cpp
+    memory/allocate.cpp
+    memory/deallocate.cpp
+    memory/reallocate.cpp
+    timing/now.cpp
+    timing/timers.cpp
+    config/version.cpp
+   )
 nt2_module_add_library(boost_simd ${SOURCES})

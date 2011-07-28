@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( fast_cosd_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_90<vT>())[0], nt2::Nan<sr_t>(), 0.5);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( fast_cosd_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
+NT2_TEST_CASE_TPL ( fast_cosd_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::fast_cosd;
   using nt2::tag::fast_cosd_;
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( fast_cosd_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 0.5);
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( fast_cosd_uint_convert__1_0,  (nt2::uint32_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( fast_cosd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::fast_cosd;
   using nt2::tag::fast_cosd_;

@@ -24,7 +24,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
     typedef int result_type;
-    inline void operator()(A0 const& a0,A1 & a1,A2 & a2) const
+    inline int operator()(A0 const& a0,A1 & a1,A2 & a2) const
     {
       a1 = ::frexp(a0, &a2);
       return 0; 

@@ -45,6 +45,7 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(logical_or(nt2::Mone<T>(), nt2::Mone<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(logical_or(nt2::One<T>(), nt2::One<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(logical_or(nt2::One<T>(),nt2::Zero<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(logical_or(nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<r_t>());

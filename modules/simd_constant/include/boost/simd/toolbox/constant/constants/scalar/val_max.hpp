@@ -8,16 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMAX_HPP_INCLUDED
+#include <boost/simd/sdk/meta/as_unsigned.hpp>
 
-#include <boost/simd/sdk/meta/from_bits.hpp>
-#include <boost/simd/include/functions/splat.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_unsigned.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
 
+BOOST_SIMD_STD_CONSTANT_TAG(Valmax)
+BOOST_SIMD_STD_CONSTANT_DEF(Valmax)
+  
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::val_max_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Valmax,tag::cpu_
                             , (A0), (target_< scalar_< double_<A0> > > )
                             )
   {
@@ -26,16 +25,14 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename boost::simd::meta::from_bits<result_type>::type const
-      that = {0x7fefffffffffffffLL};
-      return boost::simd::splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<result_type>(0x7fefffffffffffffll)); 
     }
   };
 } } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::val_max_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Valmax,tag::cpu_
                             , (A0), (target_< scalar_< float_<A0> > > )
                             )
   {
@@ -44,16 +41,14 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename boost::simd::meta::from_bits<result_type>::type const
-      that = {0x7f7fffff};
-      return boost::simd::splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<result_type>(0x7f7fffff)); 
     }
   };
 } } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::val_max_,tag::cpu_,(A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Valmax,tag::cpu_,(A0)
                             , (target_< scalar_< unsigned_<A0> > > )
                             )
   {
@@ -70,7 +65,7 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::val_max_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Valmax,tag::cpu_
                             , (A0), (target_< scalar_< signed_<A0> > > )
                             )
   {

@@ -55,7 +55,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<result_type,pi_tag, trig_tag, tag::simd_type>::sina(tofloat(a0));
+      return impl::trig_base<result_type,pi_tag,  tag::simd_type>::sina(tofloat(a0));
     }
   };
 } }

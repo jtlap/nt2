@@ -6,16 +6,15 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - random/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - group/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of arithmetic components in simd mode
+// unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// created by jt the 01/12/2010
+/// created  by jt the 24/02/2011
 /// 
-#include <nt2/toolbox/arithmetic/include/random.hpp>
+#include <nt2/toolbox/swar/include/group.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,10 +27,10 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( group_groupable__2_0,  NT2_SIMD_GROUPABLE_TYPES)
 {
-  using nt2::random;
-  using nt2::tag::random_;
+  using nt2::group;
+  using nt2::tag::group_;
   using nt2::load; 
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
@@ -41,10 +40,14 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<random_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<random_(T,T)>::type sr_t;
+  typedef typename nt2::meta::call<group_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<group_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+
+  // specific values tests
+  NT2_TEST_EQUAL(group(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(group(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+} // end of test for groupable_

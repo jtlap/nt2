@@ -66,8 +66,7 @@ namespace boost { namespace dispatch { namespace meta
                               ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef bool result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_epi8(lt(a0,a1));

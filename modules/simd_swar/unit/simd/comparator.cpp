@@ -6,19 +6,19 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 swar toolbox - comparator/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - comparator/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
 /// 
-#include <boost/simd/toolbox/swar/include/comparator.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
+#include <nt2/toolbox/swar/include/comparator.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/include/functions/all.hpp>
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/min.hpp>
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/min.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -32,7 +32,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 //COMMENTED
-BOOST_SIMD_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_REAL_TYPES)
 {
   using boost::simd::comparator;
   using boost::simd::tag::comparator_;
@@ -57,40 +57,40 @@ BOOST_SIMD_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
   typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
   {
-    r_t res = comparator(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), 0);
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Inf<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Inf<r_t1>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    r_t res = comparator(nt2::Inf<vT>(), nt2::Inf<vT>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Inf<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Inf<r_t1>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
-    r_t res = comparator(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), 0);
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Minf<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Minf<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    r_t res = comparator(nt2::Minf<vT>(), nt2::Minf<vT>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Minf<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Minf<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
-    r_t res = comparator(boost::simd::Mone<vT>(), boost::simd::Mone<vT>(), 0);
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Mone<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Mone<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    r_t res = comparator(nt2::Mone<vT>(), nt2::Mone<vT>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Mone<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Mone<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
-    r_t res = comparator(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), 0);
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Nan<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Nan<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    r_t res = comparator(nt2::Nan<vT>(), nt2::Nan<vT>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
-    r_t res = comparator(boost::simd::One<vT>(), boost::simd::One<vT>(), 0);
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::One<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    r_t res = comparator(nt2::One<vT>(), nt2::One<vT>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::One<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
   {
-    r_t res = comparator(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), 0);
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Zero<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t0>());
-    BOOST_SIMD_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    r_t res = comparator(nt2::Zero<vT>(), nt2::Zero<vT>(), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t0>());
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
 } // end of test for real_
  

@@ -15,7 +15,7 @@
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<is_equal_with_equal_nans_> from predicates
@@ -30,13 +30,13 @@ using nt2::tag::is_equal_with_equal_nans_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(is_equal_with_equal_nans_,(RS(vT,T(-10000),T(10000)))(RS(vT,T(-10000),T(10000))))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
+  typedef nt2::simd::native<T,ext_t> vT;
   NT2_TIMING(is_equal_with_equal_nans_,(RS(vT,T(-10000),T(10000)))(RS(vT,T(-10000),T(10000))))
 }
 

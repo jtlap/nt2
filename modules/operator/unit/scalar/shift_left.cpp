@@ -29,6 +29,7 @@ NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_INTEGRAL_TYPES)
   
   using nt2::shift_left;
   using nt2::tag::shift_left_;
+  typedef typename nt2::meta::scalar_of<T>::type sT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<shift_left_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
@@ -43,6 +44,7 @@ NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(shift_left(nt2::Mone<T>(),nt2::One<iT>()), r_t(-nt2::Two<r_t>()));
   NT2_TEST_EQUAL(shift_left(nt2::One<T>(),nt2::One<iT>()), nt2::Two<r_t>());
   NT2_TEST_EQUAL(shift_left(nt2::One<T>(),nt2::Zero<iT>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(shift_left(nt2::Zero<T>(),nt2::One<iT>()), nt2::Zero<r_t>());
@@ -53,6 +55,7 @@ NT2_TEST_CASE_TPL ( shift_left_real__2_0,  NT2_REAL_TYPES)
   
   using nt2::shift_left;
   using nt2::tag::shift_left_;
+  typedef typename nt2::meta::scalar_of<T>::type sT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<shift_left_(T,iT)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;

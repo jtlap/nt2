@@ -9,15 +9,19 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSSE3_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSSE3_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// No SIMD extensions have been found yet
-////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSSE3_SUPPORT)
+#if defined(__SSSE3__)
+#  ifndef BOOST_SIMD_HAS_SSSE3_SUPPORT
+#    define BOOST_SIMD_HAS_SSSE3_SUPPORT
+#  endif
+#elif defined(BOOST_SIMD_HAS_SSSE3_SUPPORT) && !defined(_MSC_VER)
+#  undef BOOST_SIMD_HAS_SSSE3_SUPPORT
+#endif
 
-////////////////////////////////////////////////////////////////////////////////
-// Check for SSSE3
-////////////////////////////////////////////////////////////////////////////////
-#if defined(__SSSE3__) || defined(_MSC_VER)
+#if defined(BOOST_SIMD_HAS_SSSE3_SUPPORT) && !defined(BOOST_SIMD_HAS_SSE3_SUPPORT)
+#  define BOOST_SIMD_HAS_SSE3_SUPPORT
+#endif
+
+#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSSE3_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Report SSSE3 discovery
@@ -43,6 +47,5 @@ BOOST_SIMD_WARNING(SSSE3 SIMD extension detected)
 
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
 
-#endif
 #endif
 #endif

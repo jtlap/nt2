@@ -57,8 +57,8 @@ namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
 			     (A0)(A1),
-			     (scalar_ < fundamental_<A0> > )
-			     (scalar_ < fundamental_<A1> > )
+			     (scalar_ < real_<A0> > )
+			     (scalar_ < real_<A1> > )
 			     )
   {
     typedef typename meta::result_of<meta::floating(A0,A1)>::type ftype;
@@ -82,14 +82,14 @@ namespace boost { namespace dispatch { namespace meta
 			     (scalar_ < arithmetic_<A3> > )
 			     )
   {
-    typedef void result_type;    
-    inline void operator()(A0 const& a0,A1 const& a1,A2 & a2,A3 & a3) const
+    typedef boost::simd::int32_t result_type;
+    inline result_type operator()(A0 const& a0,const A1 & a1,A2 & a2,A3 & a3) const
     {
       a2 = boost::simd::remainder(A2(a0), A2(a1));
       a3 = boost::simd::idivround(A2(a0), A2(a1));
+      return 0;
     }
-    
-  };  
+  };
 } } }
 
 #endif

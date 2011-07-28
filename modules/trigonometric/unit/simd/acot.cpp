@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( acot_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acot(nt2::Zero<vT>())[0], 1.570796326794897e+00, 1.5);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( acot_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
+NT2_TEST_CASE_TPL ( acot_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::acot;
   using nt2::tag::acot_;
@@ -83,7 +83,7 @@ NT2_TEST_CASE_TPL ( acot_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
   NT2_TEST_ULP_EQUAL(acot(nt2::Zero<vT>())[0], 1.570796326794897e+00, 1.5);
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( acot_uint_convert__1_0,  (nt2::uint32_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( acot_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::acot;
   using nt2::tag::acot_;

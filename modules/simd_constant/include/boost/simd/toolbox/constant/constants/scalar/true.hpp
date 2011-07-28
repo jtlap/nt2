@@ -9,13 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_TRUE_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/simd/sdk/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/splat.hpp>
+// BOOST_SIMD_STD_CONSTANT_TAG(True)
+// BOOST_SIMD_STD_CONSTANT_DEF(True)
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::true_,tag::cpu_,(A0)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::True,tag::cpu_,(A0)
                             , (target_< scalar_< fundamental_<A0> > >)
                             )
   {

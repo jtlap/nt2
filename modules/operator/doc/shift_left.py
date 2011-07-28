@@ -7,7 +7,7 @@
          'rturn' : {
              'default' : 'r_t',
             },
-         'type_defs' : [],
+         'type_defs' : ['typedef typename nt2::meta::scalar_of<T>::type sT;'],
          'types' : ['integer_','real_'],
         },
      'info' : 'manually modified',
@@ -21,7 +21,7 @@
             },
          'ranges' : {
              'default' : [
-                [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
+                [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['0','sizeof(sT)*8-1']],
                 ],
             },
          'specific_values' : {
@@ -30,8 +30,8 @@
                  'nt2::One<T>(),nt2::Zero<iT>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>(),nt2::One<iT>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
-             'integer_   ' : {
-                 'nt2::Mone<T>(),nt2::One<iT>()' : {'result' : '-nt2::Two<r_t>()','ulp_thresh' : '0',},
+             'integer_' : {
+                 'nt2::Mone<T>(),nt2::One<iT>()' : {'result' : 'r_t(-nt2::Two<r_t>())','ulp_thresh' : '0',},
                  'nt2::One<T>(),nt2::One<iT>()' : {'result' : 'nt2::Two<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>(),nt2::Zero<iT>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>(),nt2::One<iT>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
@@ -46,7 +46,7 @@
                  'integer_' : ['nt2::shift_left(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0<<a1'],
+                 'integer_' : ['r_t(a0<<a1)'],
                 },
              'simd' : {
                 },

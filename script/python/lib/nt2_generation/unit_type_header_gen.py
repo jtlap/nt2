@@ -34,7 +34,7 @@ class Type_header_test_gen() :
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type',
+             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -50,9 +50,9 @@ class Type_header_test_gen() :
             "  using nt2::$tb_style_base$$fct_name_repl$;",
             "  using nt2::$tb_style_base$tag::$fct_name$_;",
             "  $type_defs$",
-            "  typedef typename boost::dispatch::meta::as_integer<T>::type iT;",
-            "  typedef typename boost::dispatch::meta::call<$fct_name$_$tpl$($call_type$)>::type r_t;",
-            "  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;",
+            "  typedef typename nt2::meta::as_integer<T>::type iT;",
+            "  typedef typename nt2::meta::call<$fct_name$_$tpl$($call_type$)>::type r_t;",
+            "  typedef typename nt2::meta::upgrade<T>::type u_t;",
             "  typedef $rturn$ wished_r_t;",
             "  $type_defs_aft$",
             "",
@@ -71,18 +71,18 @@ class Type_header_test_gen() :
             "  using nt2::$tb_style_base$$fct_name_repl$;",
             "  using nt2::$tb_style_base$tag::$fct_name$_;",
             "  using nt2::load; ",
-            "  using boost::simd::native;", 
-            "  using boost::simd::meta::cardinal_of;",
+            "  using nt2::simd::native;", 
+            "  using nt2::meta::cardinal_of;",
             "  $type_defs$",
-            "  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;",         
+            "  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;",         
             "  typedef typename nt2::meta::upgrade<T>::type   u_t;",
             "  typedef native<T,ext_t>                        n_t;",
             "  typedef n_t                                     vT;",
-            "  typedef typename boost::dispatch::meta::as_integer<T>::type iT;",
+            "  typedef typename nt2::meta::as_integer<T>::type iT;",
             "  typedef native<iT,ext_t>                       ivT;",
-            "  typedef typename boost::dispatch::meta::call<$fct_name$_$tpl$($call_type$)>::type r_t;",
-            "  typedef typename boost::dispatch::meta::call<$fct_name$_$tpl$($scall_type$)>::type sr_t;",
-            "  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;",
+            "  typedef typename nt2::meta::call<$fct_name$_$tpl$($call_type$)>::type r_t;",
+            "  typedef typename nt2::meta::call<$fct_name$_$tpl$($scall_type$)>::type sr_t;",
+            "  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;",
             "  double ulpd;",
             "  ulpd=0.0;",
             "",
@@ -90,30 +90,30 @@ class Type_header_test_gen() :
         }
     Type_Footer   = [ "} // end of test for $type$"]
     Macros_dict = {
-       "fundamental_" : "BOOST_SIMD_TYPES(bool)",
-       "arithmetic_"  : "BOOST_SIMD_TYPES",
-       "real_"        : "BOOST_SIMD_REAL_TYPES",
-       "real_convert_": "BOOST_SIMD_REAL_CONVERTIBLE_TYPES",
-       "int_convert_" : "BOOST_SIMD_INT_CONVERT_TYPES", 
-       "uint_convert_": "BOOST_SIMD_UINT_CONVERT_TYPES",  
-       "unsigned_"    : "BOOST_SIMD_UNSIGNED_TYPES",
-       "unsigned_int_": "BOOST_SIMD_UNSIGNED_TYPES", 
-       "signed_int_"  : "BOOST_SIMD_INTEGRAL_SIGNED_TYPES",  
-       "integer_"     : "BOOST_SIMD_INTEGRAL_TYPES",  
-       "signed_"      : "BOOST_SIMD_SIGNED_TYPES",
-       "int64_"       : "BOOST_SIMD_INT_64_TYPES",
-       "int32_"       : "BOOST_SIMD_INT_32_TYPES",
-       "int16_"       : "BOOST_SIMD_INT_16_TYPES", 
-       "int8_"        : "BOOST_SIMD_INT_8_TYPES",
-       "groupable_"   : "BOOST_SIMD_GROUPABLE_TYPES",
-       "splitable_"   : "BOOST_SIMD_SPLITABLE_TYPES",
-       "gt_8_"        : "BOOST_SIMD_INT_GT8_TYPES",
-       "sintgt_8_"    : "BOOST_SIMD_SIGNED_INT_GT_8_TYPES",
-       "uintgt_8_"    : "BOOST_SIMD_UNSIGNED_INT_GT_8_TYPES",
-       "lt_64_"       : "BOOST_SIMD_LT64_TYPES",
-       "gt_16_"       : "BOOST_SIMD_GT16_TYPES",
-       "sintgt_16_"   : "BOOST_SIMD_SIGNED_INT_GT_16_TYPES",
-       "uintgt_16_"   : "BOOST_SIMD_UNSIGNED_INT_GT_16_TYPES",
+       "fundamental_" : "NT2_TYPES(bool)",
+       "arithmetic_"  : "NT2_TYPES",
+       "real_"        : "NT2_REAL_TYPES",
+       "real_convert_": "NT2_REAL_CONVERTIBLE_TYPES",
+       "int_convert_" : "NT2_INT_CONVERT_TYPES", 
+       "uint_convert_": "NT2_UINT_CONVERT_TYPES",  
+       "unsigned_"    : "NT2_UNSIGNED_TYPES",
+       "unsigned_int_": "NT2_UNSIGNED_TYPES", 
+       "signed_int_"  : "NT2_INTEGRAL_SIGNED_TYPES",  
+       "integer_"     : "NT2_INTEGRAL_TYPES",  
+       "signed_"      : "NT2_SIGNED_TYPES",
+       "int64_"       : "NT2_INT_64_TYPES",
+       "int32_"       : "NT2_INT_32_TYPES",
+       "int16_"       : "NT2_INT_16_TYPES", 
+       "int8_"        : "NT2_INT_8_TYPES",
+       "groupable_"   : "NT2_GROUPABLE_TYPES",
+       "splitable_"   : "NT2_SPLITABLE_TYPES",
+       "gt_8_"        : "NT2_INT_GT8_TYPES",
+       "sintgt_8_"    : "NT2_SIGNED_INT_GT_8_TYPES",
+       "uintgt_8_"    : "NT2_UNSIGNED_INT_GT_8_TYPES",
+       "lt_64_"       : "NT2_LT64_TYPES",
+       "gt_16_"       : "NT2_GT16_TYPES",
+       "sintgt_16_"   : "NT2_SIGNED_INT_GT_16_TYPES",
+       "uintgt_16_"   : "NT2_UNSIGNED_INT_GT_16_TYPES",
         }
 
     def __init__(self,base_gen,d,typ,rank) :
@@ -136,12 +136,12 @@ class Type_header_test_gen() :
         if typ in Type_header_test_gen.Macros_dict.keys() :
             r = Type_header_test_gen.Macros_dict[typ]
         elif typ[-2:] =="_t" :
-            r = "(boost::simd::"+typ+")"
+            r = "(nt2::"+typ+")"
         else :
             r = "("+typ+")"
         if mode == "simd" :
-            r = re.sub("BOOST_SIMD_(.*?)TYPES","BOOST_SIMD_SIMD_\\1TYPES",r)
-            r = r.replace("(bool)","")
+            r = re.sub("NT2_(.*?)TYPES","NT2_SIMD_\\1TYPES",r)
+            r = re.sub("(bool)","",r)
 ##        print("r = %s"%r)
         return r    
 

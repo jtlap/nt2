@@ -11,7 +11,6 @@
 
 #include <cstddef>
 #include <boost/detail/workaround.hpp>
-#include <nt2/sdk/config/bootstrap.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // On g++ before 4.3, alignment can't be more than 16
@@ -22,7 +21,7 @@
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// On some system, the qlignment detection fail, force it to be 16
+// On some system, the alignment detection fail, force it to be 16
 ////////////////////////////////////////////////////////////////////////////////
 #if (NT2_CONFIG_ALIGNMENT <= 1)
 #undef  NT2_CONFIG_ALIGNMENT

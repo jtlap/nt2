@@ -9,7 +9,7 @@
             },
          'simd_types' : ['real_', 'signed_int_'],
          'type_defs' : [],
-         'types' : ['real_', 'integer_'],
+         'types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -26,7 +26,7 @@
          'specific_values' : {
              'default' : {
                  'T(0),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
-                 'T(1),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
+                 'T(1),T(1)' : {'result' : 'r_t(-1)','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
@@ -37,9 +37,9 @@
                  'nt2::Nan<T>(),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>(),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
                 },
-             'signed_int_   ' : {
+             'signed_int_' : {
                  'T(0),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
-                 'T(1),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
+                 'T(1),T(1)' : {'result' : 'r_t(-1)','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
             },

@@ -9,9 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_SBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_SBITS_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -23,15 +20,8 @@ namespace boost { namespace dispatch { namespace meta
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef typename meta::as_integer<A0, signed>::type result_type;
-
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
-    {
-      typedef typename boost::simd::meta::as_bits<A0, signed>::type type;
-      type that = {a0};
-      return that.bits;
-    }
+    BOOST_DISPATCH_FUNCTOR_CALL(1) { return boost::simd::bitwise_cast<result_type>(a0); }
   };
 } } }
 

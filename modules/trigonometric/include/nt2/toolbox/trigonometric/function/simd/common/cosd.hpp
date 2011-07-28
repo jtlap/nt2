@@ -34,7 +34,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<result_type,degree_tag, trig_tag, tag::simd_type>::cosa(tofloat(a0));
+      return impl::trig_base<result_type,degree_tag,  tag::simd_type>::cosa(tofloat(a0));
     }
   };
 } }

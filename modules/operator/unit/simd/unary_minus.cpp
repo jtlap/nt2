@@ -54,3 +54,30 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(unary_minus(nt2::One<vT>())[0], nt2::Mone<sr_t>());
   NT2_TEST_EQUAL(unary_minus(nt2::Zero<vT>())[0], nt2::Mzero<sr_t>());
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::unary_minus;
+  using nt2::tag::unary_minus_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<unary_minus_(vT)>::type r_t;
+  typedef typename nt2::meta::call<unary_minus_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(unary_minus(nt2::Mone<vT>())[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(unary_minus(nt2::One<vT>())[0], nt2::Mone<sr_t>());
+  NT2_TEST_EQUAL(unary_minus(nt2::Two<vT>())[0], sr_t(-nt2::Two<sr_t>()));
+  NT2_TEST_EQUAL(unary_minus(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+} // end of test for signed_int_

@@ -11,7 +11,6 @@
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/sdk/meta/as_bits.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
 
 
@@ -31,15 +30,9 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
-      typedef typename boost::simd::meta::as_bits<A0, signed>::type type;
-      typedef typename meta::as_integer<A0, signed>::type itype;
-      type that = {a0};
-//       std::cout <<  "a0         " << a0                  << std::endl;
-//       std::cout <<  "is_positive(a0) " << is_positive(a0)                  << std::endl;
-//       std::cout << "that.bits " <<  that.bits          << std::endl;
-//       std::cout << "Signmask  " <<  Signmask<itype>()  << std::endl;
-//       std::cout << "S-that    " << Signmask<itype>()-that.bits << std::endl;
-      return is_positive(a0) ? that.bits : Signmask<itype>()-that.bits;
+      return is_positive(a0) ?
+	bitwise_cast<result_type, A0>(a0) :
+	Signmask<result_type>()-bitwise_cast<result_type, A0>(a0); 
     }
   };
 } } }

@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( inrad_real__1_0,  NT2_SIMD_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( inrad_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
+NT2_TEST_CASE_TPL ( inrad_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::inrad;
   using nt2::tag::inrad_;
@@ -108,7 +108,7 @@ NT2_TEST_CASE_TPL ( inrad_int_convert__1_0,  (nt2::int32_t)(nt2::int64_t))
   }
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( inrad_uint_convert__1_0,  (nt2::uint32_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( inrad_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::inrad;
   using nt2::tag::inrad_;

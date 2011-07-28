@@ -53,7 +53,7 @@ namespace nt2 { namespace meta
     {
       if (!a0) return b_or(Inf<A0>(), bitofsign(a0));
       if (is_flint(a0)) return Nan<A0>();
-      return impl::trig_base<A0,pi_tag, trig_tag, tag::not_simd_type>::cota(a0);
+      return impl::trig_base<A0,pi_tag,  tag::not_simd_type>::cota(a0);
     }
   };
 } }

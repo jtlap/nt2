@@ -19,7 +19,7 @@ SET(SOURCES
 pack.cpp
 #    foo.cpp
 #table_dim.cpp
-#transform_pass.cpp
+transform_pass.cpp
     )
 
 ADD_CUSTOM_TARGET(sandbox)

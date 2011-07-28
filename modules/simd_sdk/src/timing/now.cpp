@@ -60,3 +60,4 @@ namespace boost { namespace simd { namespace details
   double now() { return std::clock()/double(CLOCKS_PER_SEC); }
 } } }
 #endif
+

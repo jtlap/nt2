@@ -9,15 +9,17 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_SIGNMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_SIGNMASK_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/from_bits.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/dispatch/meta/as_unsigned.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/sdk/meta/adapted_traits.hpp>
+#include <boost/simd/sdk/meta/as_unsigned.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+
+BOOST_SIMD_STD_CONSTANT_TAG(Signmask)
+BOOST_SIMD_STD_CONSTANT_DEF(Signmask)
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signmask_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Signmask,tag::cpu_
                             , (A0), (target_< scalar_< double_<A0> > >)
                             )
   {
@@ -26,16 +28,14 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename boost::simd::meta::from_bits<result_type>::type const
-      that = {0x8000000000000000LL};
-      return boost::simd::splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<result_type>(0x8000000000000000ll)); 
     }
   };
 } } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signmask_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Signmask,tag::cpu_
                             , (A0), (target_< scalar_< float_<A0> > > ) )
   {
     typedef typename strip<A0>::type::type result_type;
@@ -43,15 +43,14 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      typename boost::simd::meta::from_bits<result_type>::type const that = {0x80000000};
-      return boost::simd::splat<result_type>(that.value);
+      return splat<result_type>(bitwise_cast<result_type>(0x80000000)); 
     }
   };
 } } }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signmask_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Signmask,tag::cpu_
                             , (A0), (target_< scalar_< unsigned_<A0> > > )
                             )
   {
@@ -67,7 +66,7 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signmask_,tag::cpu_
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Signmask,tag::cpu_
                             , (A0), (target_< scalar_< signed_<A0> > > )
                             )
   {

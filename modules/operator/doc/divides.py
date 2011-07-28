@@ -30,11 +30,11 @@
                  'nt2::One<T>(),nt2::Two<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>(),nt2::Two<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
-             'integer_   ' : {
-                 'nt2::Mone<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
+             'integer_' : {
                  'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>(),nt2::Two<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>(),nt2::Two<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Four<T>(),nt2::Two<T>()' : {'result' : 'nt2::Two<r_t>()','ulp_thresh' : '0',},
                 },
              'real_' : {
                  'nt2::Inf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},

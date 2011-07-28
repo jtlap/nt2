@@ -33,6 +33,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<unary_minus_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
+
   typedef r_t wished_r_t;
 
 
@@ -44,7 +45,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  NT2_REAL_TYPES)
 
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
   using nt2::unary_minus;

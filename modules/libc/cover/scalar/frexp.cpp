@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<frexp_(T)>::type r_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
+  typedef boost::fusion::vector<T,nt2::int32_t> wished_r_t;
 
 
   // return type conformity test 
@@ -64,7 +64,9 @@ NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_REAL_TYPES)
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
         NT2_TEST_TUPLE_ULP_EQUAL( r0, nt2::mantissa(a0)/2, 1);
+        if (ulpd>ulp0) ulp0=ulpd;
         NT2_TEST_TUPLE_ULP_EQUAL( r1, nt2::exponent(a0)+1, 1);
+        if (ulpd>ulp0) ulp0=ulpd;
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
