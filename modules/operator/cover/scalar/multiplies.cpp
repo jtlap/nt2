@@ -63,6 +63,7 @@ NT2_TEST_CASE_TPL ( multiplies_integer__2_0,  NT2_INTEGRAL_TYPES)
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
@@ -75,7 +76,7 @@ NT2_TEST_CASE_TPL ( multiplies_integer__2_0,  NT2_INTEGRAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::multiplies(a0,a1),a0*a1);
+        NT2_TEST_EQUAL( nt2::multiplies(a0,a1),r_t(a0*a1));
      }
      
    }

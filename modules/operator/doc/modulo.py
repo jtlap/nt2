@@ -8,8 +8,8 @@
              'default' : 'r_t',
             },
          'type_defs' : [],
-         'simd_types' : ['integer_'],
-         'types' : ['integer_'],
+         'simd_types' : ['signed_int_', 'unsigned_int_'],
+         'types' : ['signed_int_', 'unsigned_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -31,13 +31,19 @@
                  'nt2::One<T>(),nt2::Two<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>(),nt2::Two<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
-             'integer_' : {
-                 'nt2::Mone<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
+             'signed_int_' : {
+                 'nt2::Mone<T>(),nt2::Two<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::One<T>(),nt2::Two<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>(),nt2::Two<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },
-            },
+             'unsigned_int_' : {
+                 'nt2::Four<T>(),nt2::Two<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'nt2::One<T>(),nt2::Two<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
+                 'nt2::Zero<T>(),nt2::Two<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                },
+             },
          'verif_test' : {
              'property_call' : {
                  'integer_' : ['nt2::modulo(a0,a1)'],

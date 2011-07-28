@@ -9,7 +9,7 @@
             },
          'special' : ["reduction"],
          'type_defs' : [],
-         'types' : ['real_', 'integer_'],
+         'types' : ['real_', 'signed_int_', 'unsigned_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -26,14 +26,14 @@
                 ],
             },
          'specific_values' : {
-             'default' : {
+             'unsigned_int_' : {
                  'nt2::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
-                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
-             'integer_' : {
+             'signed_int_' : {
                  'nt2::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
-                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'nt2::Mone<T>(),nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },

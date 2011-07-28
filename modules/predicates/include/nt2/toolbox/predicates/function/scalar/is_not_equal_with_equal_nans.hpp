@@ -47,7 +47,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      return   (a0 != a1) || (nt2::is_nan(a0) && nt2::is_nan(a1));
+      return   (a0 != a1) && !(nt2::is_nan(a0) && nt2::is_nan(a1));
     }
   };
 } }
