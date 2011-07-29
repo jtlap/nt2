@@ -18,8 +18,6 @@ SET( SOURCES
     allocator.cpp
     allocator_adaptor.cpp
     buffer.cpp
-    slice.cpp
-    stride.cpp
     #block1D.cpp
   )
 
