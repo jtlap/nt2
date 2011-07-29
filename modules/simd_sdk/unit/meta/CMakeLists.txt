@@ -11,7 +11,7 @@ SET( SOURCES
     all.cpp
     any.cpp
     cardinal_of.cpp
-    is_resul_of_supported.cpp
+    is_result_of_supported.cpp
    )
 
 ADD_CUSTOM_TARGET(simd_sdk.meta.unit)
