@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_MAXLEFTSHIFT_HPP_INCLUDED
 
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/sdk/meta/adapted_traits.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 BOOST_SIMD_STD_CONSTANT_TAG(Maxleftshift)
 BOOST_SIMD_STD_CONSTANT_DEF(Maxleftshift)

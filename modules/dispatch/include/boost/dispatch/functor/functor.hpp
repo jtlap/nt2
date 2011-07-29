@@ -31,7 +31,7 @@
 #include <boost/dispatch/functor/meta/make_functor.hpp>
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/config/attributes.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 #if ((defined(BOOST_NO_VARIADIC_TEMPLATES) || defined(BOOST_NO_RVALUE_REFERENCES)) \
  && defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)) || defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)

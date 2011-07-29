@@ -31,8 +31,8 @@ namespace boost { namespace simd { namespace tag
   template<boost::simd::int64_t N> struct Digit{};
 } } }
 
-#define BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(VAL,NAME)		\
-namespace nt2							\
+#define BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(VAL,NAME)     \
+namespace boost { namespace simd				\
 {								\
   template<class Target> inline				        \
   typename boost::dispatch::meta::call<boost::simd::tag::Digit<VAL>(boost::dispatch::meta::as_<Target>)>::type \
@@ -41,7 +41,7 @@ namespace nt2							\
     typename boost::dispatch::make_functor<boost::simd::tag::Digit<VAL>, Target>::type callee; \
     return callee( boost::dispatch::meta::as_<Target>() );			\
   }								\
-}								\
+} }								\
 /**/
 
   //============================================================================
@@ -88,7 +88,7 @@ namespace nt2							\
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(180, _180              )
 
   //============================================================================
-  // Custom integral constant genertor function
+  // Custom integral constant generator function
   //============================================================================
 namespace boost { namespace simd {
   template<class Target, boost::simd::int64_t N> inline
@@ -115,10 +115,10 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return  splat<result_type>(N);
+      return boost::simd::splat<result_type>(N);
     }
   };
-} }
+} } }
 
 //#include <boost/simd/toolbox/constant/constants/scalar/digits.hpp>
 #include <boost/simd/toolbox/constant/constants/simd/all/digits.hpp>

@@ -21,8 +21,9 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0, unsigned>::type itype; 
-      return bitwise_cast<result_type>(nt2::shift_left(bitwise_cast<itype>(a0),a1));
+      return bitwise_cast<result_type>(shift_left(bitwise_cast<itype>(a0),a1));
     }
   };
 } } }

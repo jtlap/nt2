@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,6 +25,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
+
       // TODO : replace by bitwise_cast
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type type;

@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMIN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMIN_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
 BOOST_SIMD_STD_CONSTANT_TAG(Valmin)
 BOOST_SIMD_STD_CONSTANT_DEF(Valmin)

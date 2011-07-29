@@ -16,7 +16,7 @@
 
 #include <boost/dispatch/extension/parameters.hpp>
 #include <boost/dispatch/details/preprocessor.hpp>
-#include <boost/simd/sdk/config/attributes.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -42,7 +42,7 @@
 //==============================================================================
 #define BOOST_DISPATCH_REGISTER_DISPATCH(Tag,Site,Types,Seq)                         \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types)> \
-BOOST_SIMD_FORCE_INLINE boost::dispatch::meta::                                      \
+BOOST_DISPATCH_FORCE_INLINE boost::dispatch::meta::                                      \
 implement< BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)       \
                                       , BOOST_DISPATCH_DISPATCH_TAG,Seq))            \
     , Site                                                                \
@@ -77,7 +77,7 @@ dispatching( Tag const&, Site const&                                      \
 //==============================================================================
 #define BOOST_DISPATCH_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                         \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types)> \
-BOOST_SIMD_FORCE_INLINE                                                                  \
+BOOST_DISPATCH_FORCE_INLINE                                                                  \
 boost::dispatch::meta::                                                                  \
 implement < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)            \
           , BOOST_DISPATCH_DISPATCH_TAG,Seq))                                            \
@@ -114,7 +114,7 @@ dispatching( BOOST_DISPATCH_PP_STRIP(Tag) const&, Site const&                   
 //==============================================================================
 #define BOOST_DISPATCH_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)               \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types)>   \
-BOOST_SIMD_FORCE_INLINE                                                            \
+BOOST_DISPATCH_FORCE_INLINE                                                            \
 typename boost::enable_if < BOOST_DISPATCH_PP_STRIP(Cond)                              \
                           , boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>    \
                           >::type                                           \
@@ -147,7 +147,7 @@ dispatching( Tag const&, Site const&                                        \
 #define BOOST_DISPATCH_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)             \
 namespace boost { namespace dispatch { namespace meta {                                              \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types)> \
-BOOST_SIMD_FORCE_INLINE                                                              \
+BOOST_DISPATCH_FORCE_INLINE                                                              \
 typename boost::enable_if < BOOST_DISPATCH_PP_STRIP(Cond)                                \
                           , boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>      \
                           >::type                                             \

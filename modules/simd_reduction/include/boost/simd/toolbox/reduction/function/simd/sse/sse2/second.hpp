@@ -68,7 +68,7 @@ namespace boost { namespace dispatch { namespace meta
     {
        typedef typename meta::as_integer<A0>::type itype;
        typedef typename meta::scalar_of<itype>::type sitype;
-       return bitwise_cast<result_type>(_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<itype>(a0), 4)));
+       return boost::simd::bitwise_cast<result_type>(_mm_cvtsi128_si32(_mm_srli_si128(simd::native_cast<itype>(a0), 4)));
     }
   };
 
@@ -105,7 +105,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename meta::as_integer<A0>::type type;
       typedef typename meta::as_real<A0>::type rtype;
-      return bitwise_cast<result_type, double >(_mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)))); 
+      return boost::simd::bitwise_cast<result_type, double >(_mm_cvtsd_f64(simd::native_cast<rtype>(_mm_srli_si128(simd::native_cast<type>(a0), 8)))); 
     }
   };
 

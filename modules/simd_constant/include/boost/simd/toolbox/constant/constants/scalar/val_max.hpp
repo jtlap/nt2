@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMAX_HPP_INCLUDED
-#include <boost/simd/sdk/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
 
 BOOST_SIMD_STD_CONSTANT_TAG(Valmax)
@@ -24,6 +24,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       ignore_unused(a0);
       return splat<result_type>(bitwise_cast<result_type>(0x7fefffffffffffffll)); 
     }
@@ -40,6 +41,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using namespace boost::simd;
       ignore_unused(a0);
       return splat<result_type>(bitwise_cast<result_type>(0x7f7fffff)); 
     }

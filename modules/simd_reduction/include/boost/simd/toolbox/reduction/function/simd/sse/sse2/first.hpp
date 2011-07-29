@@ -82,7 +82,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::as_integer<A0>::type type;
-      return bitwise_cast<result_type,float >(_mm_cvtsi128_si32(simd::native_cast<type>(a0)));
+      return boost::simd::bitwise_cast<result_type,float >(_mm_cvtsi128_si32(simd::native_cast<type>(a0)));
     }
   };
 

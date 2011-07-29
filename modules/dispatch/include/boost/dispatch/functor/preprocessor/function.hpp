@@ -15,13 +15,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/simd/sdk/config/attributes.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a function prototype from NAME, TAG and Number of parameters
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_DISPATCH_FUNCTION_INTERFACE(TAG,NAME,N)                           \
-template<BOOST_PP_ENUM_PARAMS(N,class A)> BOOST_SIMD_FORCE_INLINE               \
+template<BOOST_PP_ENUM_PARAMS(N,class A)> BOOST_DISPATCH_FORCE_INLINE               \
 typename boost::dispatch::meta::call<TAG(                                       \
                     BOOST_PP_ENUM_BINARY_PARAMS(N,A, const& BOOST_PP_INTERCEPT) \
                                     )>::type                                    \
@@ -50,7 +50,7 @@ BOOST_DISPATCH_FUNCTION_INTERFACE(TAG,NAME,N) { BOOST_DISPATCH_FUNCTION_BODY(TAG
 // Generate a complete function implementation with a specific prototype
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(TAG,NAME,ARGS,N)                  \
-template<BOOST_PP_ENUM_PARAMS(N, class A)> BOOST_SIMD_FORCE_INLINE                   \
+template<BOOST_PP_ENUM_PARAMS(N, class A)> BOOST_DISPATCH_FORCE_INLINE                   \
 typename boost::dispatch::meta::                                                     \
 call<TAG(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(ARGS),BOOST_DISPATCH_FN_TYPES,ARGS))>::type \
 NAME( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(ARGS),BOOST_DISPATCH_FN_ARGS,ARGS) )           \
@@ -63,13 +63,13 @@ NAME( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(ARGS),BOOST_DISPATCH_FN_ARGS,ARGS) )      
 // Generate a complete function implementation for self modifying operator
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF_1(NAME,TAG) \
-template<class A0> BOOST_SIMD_FORCE_INLINE                      \
+template<class A0> BOOST_DISPATCH_FORCE_INLINE                      \
 typename boost::dispatch::meta::call<TAG(A0&)>::type            \
 NAME( A0& a0 )  { BOOST_DISPATCH_FUNCTION_BODY(TAG,1) }         \
 /**/
 
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF_2(NAME,TAG)       \
-template<class A0,class A1> BOOST_SIMD_FORCE_INLINE                   \
+template<class A0,class A1> BOOST_DISPATCH_FORCE_INLINE                   \
 typename boost::dispatch::meta::call<TAG(A0&,A1 const&)>::type        \
 NAME( A0& a0, A1 const& a1 )  { BOOST_DISPATCH_FUNCTION_BODY(TAG,2) } \
 /**/
@@ -84,7 +84,7 @@ BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(TAG,NAME, \
 // Generate a method for self-operator overload
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_DISPATCH_FUNCTION_METHOD_SELF(NAME,TAG,SELF)       \
-template<class A0>  BOOST_SIMD_FORCE_INLINE                      \
+template<class A0>  BOOST_DISPATCH_FORCE_INLINE                      \
 typename boost::dispatch::meta::call<TAG(SELF&,A0 const&)>::type \
 NAME( A0 const& a0 )                                             \
 {                                                                \

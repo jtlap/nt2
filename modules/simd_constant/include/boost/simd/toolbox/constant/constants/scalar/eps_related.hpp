@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
 
 #include <boost/simd/inclu de/functions/splat.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 #define LOCAL_CONST(TAG, D, F, I)                                     \
 BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( TAG,tag::cpu_,(A0)                        \

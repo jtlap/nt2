@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace tag
 {
   BOOST_DISPATCH_HIERARCHY_CLASS(fma4_, avx_);
     BOOST_DISPATCH_HIERARCHY_CLASS(xop_, fma4_);
-} }
+} } }
 
 ////////////////////////////////////////////////////////////////////////////////
 // XOP extensions overload

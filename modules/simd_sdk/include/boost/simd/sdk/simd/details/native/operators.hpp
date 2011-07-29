@@ -10,10 +10,10 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_OPERATORS_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/sdk/config/attributes.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 #define BOOST_SIMD_MAKE_NATIVE_OP(TAG,OP)                                  \
-template<class T1, class T2,class X> BOOST_SIMD_FORCE_INLINE               \
+template<class T1, class T2,class X> BOOST_DISPATCH_FORCE_INLINE               \
 typename boost::dispatch::meta::call<TAG(native<T1,X>,native<T2,X>)>::type \
 OP(native<T1,X> const& a0, native<T2,X> const& a1)                         \
 {                                                                          \

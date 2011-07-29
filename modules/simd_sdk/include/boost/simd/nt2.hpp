@@ -18,7 +18,6 @@
  * recommend you to look at the main user manual.
  */
 //==============================================================================
-#include <boost/simd/include/config.hpp>
 #include <boost/simd/include/error.hpp>
 #include <boost/simd/include/timing.hpp>
 #include <boost/simd/include/simd.hpp>

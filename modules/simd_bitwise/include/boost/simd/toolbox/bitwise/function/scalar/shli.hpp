@@ -35,7 +35,7 @@ namespace boost { namespace dispatch { namespace meta
     {
       using namespace boost::simd;
       typedef typename meta::as_integer<A0, unsigned>::type itype; 
-      return bitwise_cast<result_type>(nt2::shli(bitwise_cast<itype>(a0),a1));
+      return bitwise_cast<result_type>(shli(bitwise_cast<itype>(a0),a1));
     }
   };
 } } }

@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace details
   //////////////////////////////////////////////////////////////////////////////
   template< class Target
           , boost::simd::uint64_t Value
-          , class Select = typename meta::scalar_of<Target>::type
+          , class Select = typename boost::dispatch::meta::scalar_of<Target>::type
           >
   struct  pattern;
 
@@ -103,8 +103,9 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using boost::simd::bitwise_cast;
       ignore_unused(a0);
-      return splat<result_type>(bitwise_cast<result_type,boost::simd::uint64_t>(D)); 
+      return boost::simd::splat<result_type>(bitwise_cast<result_type,boost::simd::uint64_t>(D)); 
     }
   };
 
@@ -117,8 +118,9 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
+      using boost::simd::bitwise_cast;
       ignore_unused(a0);
-      return splat<result_type>(bitwise_cast<result_type,boost::simd::uint32_t>(F)); 
+      return boost::simd::splat<result_type>(bitwise_cast<result_type,boost::simd::uint32_t>(F)); 
     }
   };
 } } }

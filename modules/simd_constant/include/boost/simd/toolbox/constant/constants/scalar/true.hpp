@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_TRUE_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 // BOOST_SIMD_STD_CONSTANT_TAG(True)

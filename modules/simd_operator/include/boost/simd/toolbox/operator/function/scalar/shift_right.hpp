@@ -6,6 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_SHIFT_RIGHT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_SHIFT_RIGHT_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -18,8 +20,9 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
+      using namespace boost::simd;
       typedef typename meta::as_integer<A0, unsigned>::type itype; 
-      return bitwise_cast<result_type>(nt2::shift_right(bitwise_cast<itype>(a0),a1));
+      return bitwise_cast<result_type>(shift_right(bitwise_cast<itype>(a0),a1));
     }
   };
 } } }

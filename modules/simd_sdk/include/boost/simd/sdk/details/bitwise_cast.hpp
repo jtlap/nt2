@@ -69,7 +69,7 @@ namespace boost { namespace simd {  namespace details
   template<typename To, typename From, typename Enable = void>
   struct bitwise_cast : memcpy_cast {};
   
-} }
+} } }
 
 namespace boost { namespace simd
 {

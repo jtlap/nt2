@@ -70,7 +70,7 @@ struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                    \
               )                                                   \
             >::type type;                                         \
 };                                                                \
-template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_SIMD_FORCE_INLINE \
+template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_DISPATCH_FORCE_INLINE \
 typename result<implement                                         \
                 (BOOST_PP_ENUM_BINARY_PARAMS( n,A                 \
                                             , const&              \
