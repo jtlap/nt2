@@ -8,33 +8,19 @@
 ################################################################################
 
 SET( SOURCES
-    as.cpp
-    as_integer.cpp
-    as_real.cpp
-    as_signed.cpp
-    as_unsigned.cpp
-    downgrade.cpp
-    floating.cpp
-    fusion.cpp
-    hierarchy.cpp
-    is_scalar.cpp
-    is_signed.cpp
-    m_arithmetic.cpp
-    make_integer.cpp
-    make_real.cpp
-    scalar_of.cpp
-    sign_of.cpp
-    strip.cpp
-    upgrade.cpp
+    all.cpp
+    any.cpp
+    cardinal_of.cpp
+    is_resul_of_supported.cpp
    )
 
-ADD_CUSTOM_TARGET(dispatch.meta.unit)
-ADD_DEPENDENCIES(dispatch.unit dispatch.meta.unit)  
+ADD_CUSTOM_TARGET(simd_sdk.meta.unit)
+ADD_DEPENDENCIES(simd_sdk.unit simd_sdk.meta.unit)  
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(dispatch.meta.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+  nt2_module_add_unit(simd_sdk.meta.${EXAMPLE}.unit ${EXAMPLE}.cpp)
 ENDFOREACH()
