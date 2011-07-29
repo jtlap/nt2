@@ -78,6 +78,6 @@ BOOST_SIMD_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TY
 
   // specific values tests
   BOOST_SIMD_TEST_EQUAL(negif(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1))[0], 1);
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::splat<vT>(1),boost::simd::splat<vT>(1))[0], -1);
+  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::splat<vT>(1),boost::simd::splat<vT>(1))[0], sr_t(-1));
   BOOST_SIMD_TEST_EQUAL(negif(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for signed_int_

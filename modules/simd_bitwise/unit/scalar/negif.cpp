@@ -71,6 +71,6 @@ BOOST_SIMD_TEST_CASE_TPL ( negif_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
   // specific values tests
   BOOST_SIMD_TEST_EQUAL(negif(T(0),T(1)), 1);
-  BOOST_SIMD_TEST_EQUAL(negif(T(1),T(1)), -1);
+  BOOST_SIMD_TEST_EQUAL(negif(T(1),T(1)), r_t(-1));
   BOOST_SIMD_TEST_EQUAL(negif(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for integer_
