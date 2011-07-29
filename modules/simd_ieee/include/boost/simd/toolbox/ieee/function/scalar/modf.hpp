@@ -15,9 +15,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, boost::simd::tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
                       (A0)(A1),
                       (scalar_ < arithmetic_<A0> > )
                       (scalar_ < arithmetic_<A1> > )
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, boost::simd::tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
                       (A0)(A1),
                       (scalar_ < arithmetic_<A0> > )
                       (scalar_ < arithmetic_<A1> > )
@@ -42,12 +42,12 @@ namespace boost { namespace simd { namespace meta
     typedef A1 result_type;    
     inline A1 operator()(A0 const& a0,A1 & a1) const
     {
-      a1 = trunc(a0);
+      a1 = boost::simd::trunc(a0);
       return a0 - a1;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, boost::simd::tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
                       (A0),
                       (scalar_ < arithmetic_<A0> > )
                      )
@@ -62,5 +62,5 @@ namespace boost { namespace simd { namespace meta
       return res;
     }
   };
-} }
+} } }
 #endif

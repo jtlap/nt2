@@ -16,9 +16,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
-    BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, boost::simd::tag::cpu_, (A0)(X), 
+    BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
 				((simd_< arithmetic_<A0>, X>))
 				((simd_< arithmetic_<A0>, X>))    
 				((simd_< arithmetic_<A0>, X>))
@@ -33,7 +33,7 @@ namespace nt2 { namespace meta
       }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, boost::simd::tag::cpu_, (A0)(X), 
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
 			      ((simd_< arithmetic_<A0>, X>))
 			      ((simd_< arithmetic_<A0>, X>))    
                             )
@@ -47,7 +47,7 @@ namespace nt2 { namespace meta
   };
 
     
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, boost::simd::tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
@@ -60,5 +60,5 @@ namespace nt2 { namespace meta
       return res;
     }
   };
-} }
+} } }
 #endif
