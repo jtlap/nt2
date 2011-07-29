@@ -13,7 +13,7 @@ namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_ornot_, tag::cpu_, (A0)(A1), 
 				 (boost::mpl::bool_<sizeof(A0) == sizeof(A1)>), 				 
-                                 ( tag::bitwise_ornot_
+                                 ( boost::simd::tag::bitwise_ornot_
 				  ( scalar_<fundamental_<A0> >, 
 				    scalar_<fundamental_<A1> >
 				    )
