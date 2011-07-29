@@ -8,5 +8,5 @@
 ################################################################################
 
 
-SET(NT2_SDK_DEPENDENCIES_EXTRA simd_sdk)
+SET(NT2_SDK_DEPENDENCIES_EXTRA boost.simd.sdk)
 SET(NT2_SDK_LIBRARIES nt2)
