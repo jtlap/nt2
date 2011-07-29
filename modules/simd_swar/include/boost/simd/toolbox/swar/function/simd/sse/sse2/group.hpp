@@ -12,6 +12,7 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
+
 // TODO no float no int8_
 #define BOOST_SIMD_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 /////////////////////////////////////////////////////////////////////////////
@@ -26,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
                        )
   {
       typedef typename meta::scalar_of<A0>::type      stype; 
-      typedef typename meta::float__<stype>::type    sftype; 
+      typedef typename simd::meta::float__<stype>::type    sftype; 
       typedef simd::native<sftype,boost::simd::tag::sse_>           result_type;
     
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
