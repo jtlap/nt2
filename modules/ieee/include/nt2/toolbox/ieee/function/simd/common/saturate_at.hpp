@@ -23,10 +23,9 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return sel(gt(a0, functor<Tag>()),
-		 functor<Tag>(),
-		 sel(lt(a0, -functor<Tag>()), -functor<Tag>(), a0)
-		 ); 
+      typename nt2::make_functor<Tag, A0>::type callee;
+      const A0 z = callee( nt2::meta::as_<A0>() );
+      return sel(gt(a0, z), z, sel(lt(a0, -z), -z, a0)); 
     }
   };
 } }

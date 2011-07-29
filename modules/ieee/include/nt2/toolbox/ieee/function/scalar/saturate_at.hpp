@@ -27,12 +27,9 @@ namespace nt2 { namespace meta
     {
       typename nt2::make_functor<Tag, A0>::type callee; 
       const A0 z = callee( nt2::meta::as_<A0>() );
-      if (a0 > z)
-	return z;
-      else if (a0 <  -z)
- 	return -z;
-      else
-	return a0; 
+      if      (a0 > z)  return z;
+      else if (a0 < -z) return -z;
+      else              return a0; 
     }
   };
   
