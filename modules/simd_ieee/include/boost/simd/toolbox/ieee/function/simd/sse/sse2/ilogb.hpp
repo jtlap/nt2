@@ -61,7 +61,7 @@ namespace boost { namespace dispatch { namespace meta
       static const vtype8& o = One<vtype8>();
       static const vtype8 mask =  boost::simd::integral_constant<vtype8, 0x7f>();
       typedef typename A0::extension_type cat;
-      typedef simd::native<uint16_t, cat> type;
+      typedef boost::simd::native<boost::uint16_t, cat> type;
       vtype8 n = a0;
       vtype8 i = o;
       n = b_and(MKN(8)(_mm_srli_epi16(n, 1)), mask);
@@ -100,7 +100,7 @@ namespace boost { namespace dispatch { namespace meta
       using namespace boost::simd;
       typedef typename A0::extension_type cat;
       typedef A0 vtype32;
-      typedef simd::native<uint8_t, cat>  vtype8;
+      typedef simd::native<boost::uint8_t, cat>  vtype8;
       static const vtype8& z = Zero<vtype8>();
       static const vtype8& o = One<vtype8>();
       static const vtype32 mask = boost::simd::integral_constant<vtype32, 0x7f7f7f7f>();
@@ -155,7 +155,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename A0::extension_type cat;
-      typedef simd::native<uint64_t, cat> vtype64;
+      typedef simd::native<boost::uint64_t, cat> vtype64;
       return simd::native_cast<vtype64>(exponent(tofloat(a0)));
     }
   };
@@ -178,7 +178,7 @@ namespace boost { namespace dispatch { namespace meta
       using namespace boost::simd;
       typedef A0 vtype16;
       typedef typename A0::extension_type cat;
-      typedef simd::native<uint8_t, cat>  vtype8;
+      typedef simd::native<boost::uint8_t, cat>  vtype8;
       static const vtype8& z = Zero<vtype8>();
       static const vtype8& o = One<vtype8>();
       static const vtype16 mask =  boost::simd::integral_constant<vtype16, 0x7f7f > ();

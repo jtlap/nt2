@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace meta
       return 0;
     #elif defined BOOST_MSVC
       unsigned long index;
-      if (b_and(t1, (uint64_t(-1) >> 32)))
+      if (b_and(t1, (boost::uint64_t(-1) >> 32)))
       {
         _BitScanForward(&index, t1);
         return index+1;
@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
         return 32+index+1;
       return 0;
     #else
-      if (b_and(t1, (uint64_t(-1) >> 32)))
+      if (b_and(t1, (boost::uint64_t(-1) >> 32)))
       return __builtin_ffs(t1);
       return 32+__builtin_ffs(t1 >> 32);
     #endif
@@ -85,9 +85,10 @@ namespace boost { namespace dispatch { namespace meta
     {
       using namespace boost::simd;
       result_type t1 = bitwise_cast<result_type>(a0); 
-      return boost::simd::ffs(uint32_t(t1));
+      return boost::simd::ffs(boost::uint32_t(t1));
     }
   };
 } } }
 
 #endif
+
