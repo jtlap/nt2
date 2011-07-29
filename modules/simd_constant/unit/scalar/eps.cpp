@@ -48,9 +48,9 @@ BOOST_SIMD_TEST_CASE_TPL( real_value, BOOST_SIMD_INTEGRAL_TYPES )
 {
   BOOST_SIMD_TEST_EQUAL( boost::simd::Eps<T>()             , 1 );
   BOOST_SIMD_TEST_EQUAL( boost::simd::Halfeps<T>()         , 1 );
-  BOOST_SIMD_TEST_EQUAL( boost::simd::Threeeps<T>()        , 1 );
-  BOOST_SIMD_TEST_EQUAL( boost::simd::Sqrteps<T>()         , 3 );
-  BOOST_SIMD_TEST_EQUAL( boost::simd::Fourthrooteps<T>()    , 1 );
+  BOOST_SIMD_TEST_EQUAL( boost::simd::Threeeps<T>()        , 3 );
+  BOOST_SIMD_TEST_EQUAL( boost::simd::Sqrteps<T>()         , 1 );
+  BOOST_SIMD_TEST_EQUAL( boost::simd::Fourthrooteps<T>()   , 1 );
   BOOST_SIMD_TEST_EQUAL( boost::simd::Thirdrooteps<T>()    , 1 );
   BOOST_SIMD_TEST_EQUAL( boost::simd::Mlogeps2<T>()        , 0 );
   BOOST_SIMD_TEST_EQUAL( boost::simd::Mindenormal<T>()     , 1 );
