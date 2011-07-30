@@ -73,8 +73,8 @@ class Random_verif_test_gen(Base_gen) :
         ####        ctyp = typ if self.mode == "scalar" else self.convert(typ,dl)
         typs = self.expand_to_list(orig_typ)
         self.__grouping_used = False
-        print("oooooooo1 %s"%orig_typ)
-        print("oooooooo2 %s"%typs)
+##         print("oooooooo1 %s"%orig_typ)
+##         print("oooooooo2 %s"%typs)
 ##        if len(typs) :  r = self.__create_unit_txt(dl,typs[0],typ)
         for t in typs :
             r += self.__create_unit_txt(dl,t,orig_typ)
@@ -108,7 +108,7 @@ class Random_verif_test_gen(Base_gen) :
 ##        print ("actual_ranges %s"%actual_ranges)
 ##        print ("typ %s"%typ)
         if isinstance(actual_ranges[0][0],str) : actual_ranges = [actual_ranges]
-        print("actual_ranges = %s"%actual_ranges)
+        print("ooo actual_ranges = %s"%actual_ranges)
         for r1 in actual_ranges :
             print("r1 %s" % r1)
             print("ctyp %s"%ctyp)
@@ -201,10 +201,11 @@ class Random_verif_test_gen(Base_gen) :
         if m :
             call_param = ','.join([ "a%d" % i for i in xrange(0, arity) ])
             external = "" if self.bg.get_tb_style() == "sys" else self.bg.get_tb_name()+'::'
-            std_call = "nt2::"+external+self.bg.get_fct_name()+'('+call_param+")"
+            std_call = "nt2::"+external+self.bg.get_fct_name()+istpl+'('+call_param+")"
             durac = dur.get("property_call",{"default" : [std_call]})
             if durac is None : durac = {"default" : [std_call]}
             durav = dur.get("property_value",{"default" : ["0"]})
+            print("oooooooo %s" %durav)
             durat = dur.get("ulp_thresh",{"default" : ["0"]})
             if type(durat) is str : durat = {"default" : ["0"]}
             beg = m.groups()[0]
@@ -223,24 +224,23 @@ class Random_verif_test_gen(Base_gen) :
                         tpl = "NT2_TEST_TUPLE_ULP_EQUAL( $property_call$,$property_value$,$ulp_thresh$);"
 ##                        Call = beg+"NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(r), $property_value$, $ulp_thresh$);"
                         Call = beg+"NT2_TEST_TUPLE_ULP_EQUAL( r$i$, $property_value$, $ulp_thresh$);"
-                    for j in xrange(0,ret_arity) :
-                        thresh = durat.get(typ,durat.get("default",None))
-                        if thresh is None : thresh = durat.get(self.bg.orig_typ,durat.get("default",["0"]))
-                        index = j if (len(thresh)>1) else 0 
-                        l = re.sub('\$ulp_thresh\$',thresh[index],Call)
-                        value = durav.get(typ,durav.get("default",None))
-                        if value is None : value =durav.get(self.bg.orig_typ,durav.get("default",None))
-                        l = re.sub("\$property_value\$" ,value[j],l)
-                        l = re.sub("\$i\$" ,str(j),l)
-                        r.append(l)
-                        r.append(beg+"if (ulpd>ulp0) ulp0=ulpd;")
-##                for i in xrange(0, length) :
-##                    for j in xrange(0, ret_arity) :
-##                        l = beg+tpl
-##                        l = re.sub('\$ulp_thresh\$',durat.get(typ,durat.get("default",None))[i],l)
-##                        l=re.sub("\$property_call\$" ,'r'+str(j),l)
-##                        l=re.sub("\$property_value\$" ,durav.get(typ,durav.get("default",None))[i][j],l)
-##                        r.append(l)
+                    value = durav.get(typ,durav.get("default",None))
+                    if value is None :
+                        value =durav.get(self.bg.orig_typ,durav.get("default",None))
+                        self.__grouping_used = True
+                    if len(value) and isinstance(value[0],str) : value = [value]
+                    for v in value :
+                        for j in xrange(0,ret_arity) :
+                            if (v[j] != 'no test available') :
+                                thresh = durat.get(typ,durat.get("default",None))
+                                print("thresh %s"%thresh)
+                                if thresh is None : thresh = durat.get(self.bg.orig_typ,durat.get("default",["0"]))
+                                index = j if (len(thresh)>1) else 0 
+                                l = re.sub('\$ulp_thresh\$',thresh[index],Call)
+                                l = re.sub("\$property_value\$" ,v[j],l)
+                                l = re.sub("\$i\$" ,str(j),l)
+                                r.append(l)
+                                r.append(beg+"if (ulpd>ulp0) ulp0=ulpd;")
                     return r    
                 else :
                     r = []
@@ -259,27 +259,42 @@ class Random_verif_test_gen(Base_gen) :
                         length = len(dtmp)
                         print("length %s"%length)
                         print("dtmp   %s"%dtmp)
+                        print("durav  %s"%durav)
+                        value = durav.get(typ,None)
+                        if value is None or not len(value) :
+                            value =durav.get(self.bg.orig_typ,durav.get("default",None))
+                        print("  self.bg.orig_typ %s"% self.bg.orig_typ) 
+                        print("value   %s"%value)
                         for i in xrange(0, length) :
                             if no_ulp :
                                 s = beg+"NT2_TEST_EQUAL( $property_call$,$property_value$);"
                             else :
                                 s = beg+"NT2_TEST_ULP_EQUAL( $property_call$,$property_value$,$ulp_thresh$);"
-                            thresh = durat.get(typ,durat.get("default",["0"]))
+                            thresh = durac.get(typ,None)
+                            if thresh is None :
+                                thresh = durat.get(self.bg.orig_typ,durat.get("default",["0"]))
                             j = i if len(thresh)>i else 0
                             s = re.sub('\$ulp_thresh\$',thresh[j],s)
                             #                    s=re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
                             call = durac.get(typ,durac.get("default",None))
-                            if call is None : call = durac.get(self.bg.orig_typ,durac.get("default",None))
+                            print("ooooooo call %s"%call)
+                            if call is None or not len(call) :
+                                call = durac.get(self.bg.orig_typ,durac.get("default",None))
+                                self.__grouping_used = True
+                                
+                            print("ooooooo call %s"%call)
                             s=re.sub("\$property_call\$" ,call[i],s)
-                            value = durav.get(typ,durav.get("default",None))
-                            if value is None : value =durav.get(self.bg.orig_typ,durav.get("default",None))
                             s=re.sub("\$property_value\$" ,value[i],s)
                             r.append(s)
                     if not no_ulp : r.append(beg+"ulp0=nt2::max(ulpd,ulp0);")
                     return r
             else : ## simd
                 if ret_arity > 1 :
-                    length = len(durac.get(typ,durac.get("default",[])))
+                    dtmp = durac.get(typ,None)
+                    if dtmp is None :
+                        dtmp = durac.get(self.bg.orig_typ,durac.get("default",[]))
+                        self.__grouping_used = True
+                    length = len(dtmp)
                     g = ','.join([ "a%d" % i for i in xrange(0, arity) ])
                     index = [ ('j' if self.__simd_get_typ(i,df) == 'iT' else 'k') for i in xrange(0, arity) ]
                     thresh = "0" if df.get("special",[""])[0] == "predicate" else durat.get("real","1.5")
@@ -292,11 +307,11 @@ class Random_verif_test_gen(Base_gen) :
                     THR = "" if no_ulp else ", "+thresh
                     if not ( df.get("special",[""])[0] in ['swar']) :
                         r = [
-                        "        r_t r = nt2::%s(%s);"%(name,g),
+                        "        r_t r = nt2::%s%s(%s);"%(name,istpl,g),
                         "        for(int i = 0; i< cardinal_of<n_t>::value; i++)",
                         "        {",
                         "          int k = i+j*cardinal_of<n_t>::value;",
-                        "          sr_t sr =  nt2::%s(%s);"%(name,h),
+                        "          sr_t sr =  nt2::%s%s(%s);"%(name,istpl,h),
                         "          NT2_TEST_%sEQUAL( boost::fusion::get<0>(r)[i],"%(ULP),
                         "                                    boost::fusion::get<0>(sr)%s);"%(THR),
                         "          ulp0 = nt2::max(ulpd,ulp0);",
@@ -306,7 +321,7 @@ class Random_verif_test_gen(Base_gen) :
                         "        }",
                         ]
                     else :   
-                        r = ["        r_t v = %s(%s);"%(name,g)]
+                        r = ["        r_t v = %s%s(%s);"%(name,istpl,g)]
 ##                        print(dur)
                         r+= dur['scalar_simul'].get(typ,dur['scalar_simul']['default'])
                     return r
