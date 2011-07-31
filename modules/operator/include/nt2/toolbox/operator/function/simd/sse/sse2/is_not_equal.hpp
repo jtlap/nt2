@@ -76,8 +76,8 @@ namespace nt2 { namespace meta
     {
       typedef typename meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
-      type tmp2     = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
       tmp           = nt2::neq(tmp,Zero<type>());
+      type tmp2     = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
       A0   that     = { tmp | tmp2 };
       return that;
     }

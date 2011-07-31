@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
 
 #include <nt2/toolbox/bitwise/include/select.hpp>
-#include <nt2/toolbox/predicates/include/boolean.hpp>
+#include <nt2/toolbox/predicates/include/is_eqz.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return nt2::select( nt2::boolean(a0), a2, a1 );
+      return nt2::select( nt2::is_eqz(a0), a2, a1 );
     }
   };
 } }
