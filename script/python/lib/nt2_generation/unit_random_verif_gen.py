@@ -105,8 +105,8 @@ class Random_verif_test_gen(Base_gen) :
         "  // random verifications",
         "  static const nt2::uint32_t NR = %s;"%nb_rand,
         ]
-##        print ("actual_ranges %s"%actual_ranges)
-##        print ("typ %s"%typ)
+        print ("actual_ranges %s"%actual_ranges)
+        print ("typ %s"%typ)
         if isinstance(actual_ranges[0][0],str) : actual_ranges = [actual_ranges]
         print("ooo actual_ranges = %s"%actual_ranges)
         for r1 in actual_ranges :
