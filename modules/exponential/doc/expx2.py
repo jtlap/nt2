@@ -49,11 +49,9 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : [],
                  'real_' : ['nt2::log(nt2::expx2(nt2::sqrt(a0)))'],
                 },
              'property_value' : {
-                 'default' : [],
                  'real_' : ['a0'],
                 },
              'ulp_thresh' : {
