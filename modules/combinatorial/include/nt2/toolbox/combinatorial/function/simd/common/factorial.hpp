@@ -17,6 +17,7 @@
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/round.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -30,7 +31,7 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::gamma(oneplus(nt2::trunc(nt2::abs(a0))));
+      return nt2::round(nt2::gamma(oneplus(nt2::trunc(nt2::abs(a0)))));
     }
   };
   
@@ -50,6 +51,29 @@ namespace nt2 { namespace meta
 
   NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
                       (A0)(X),
+                      ((simd_<int32_<A0>,X>))
+                     )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      const A0 a00 = abss(a0);
+      A0 r =  One<A0>();
+      r =  sel(eq(a00, Two<A0>()),     Two<A0>(),  r);
+      r =  sel(eq(a00, Three<A0>()),   Six<A0>(), r); 
+      r =  sel(eq(a00, Four<A0>()),    Twentyfour<A0>(), r); 
+      r =  sel(eq(a00, Five<A0>()),    _120<A0>(), r);
+      r =  sel(eq(a00, Six<A0>()),     _720<A0>() , r);
+      r =  sel(eq(a00, Seven<A0>()),   _5040<A0>(), r);
+      r =  sel(eq(a00, Eight<A0>()),   _40320<A0>() , r); 
+      r =  sel(eq(a00, Nine<A0>()),    _362880<A0>(), r);
+      r =  sel(eq(a00, Ten<A0>()),     _3628800<A0>(), r);
+      r =  sel(eq(a00, Eleven<A0>()),  _39916800<A0>(), r);
+      return sel(ge(a00, Twelve<A0>()), Valmax<A0>(), r);
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+                      (A0)(X),
                       ((simd_<int16_<A0>,X>))
                      )
   {
@@ -64,7 +88,7 @@ namespace nt2 { namespace meta
       r =  sel(eq(a00, Five<A0>()), _120<A0>(), r);
       r =  sel(eq(a00, Six<A0>()), _720<A0>() , r);
       r =  sel(eq(a00, Seven<A0>()),_5040<A0>(), r);
-      return sel(gt(a00, Eight<A0>()), Valmax<A0>(), r);
+      return sel(ge(a00, Eight<A0>()), Valmax<A0>(), r);
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
@@ -84,7 +108,7 @@ namespace nt2 { namespace meta
       r =  sel(eq(a00, Six<A0>()),  _720<A0>() , r);
       r =  sel(eq(a00, Seven<A0>()), _5040<A0>(), r);
       r =  sel(eq(a00, Eight<A0>()), _40320<A0>() , r); 
-      return sel(gt(a00, Nine<A0>()), Valmax<A0>(), r);
+      return sel(ge(a00, Nine<A0>()), Valmax<A0>(), r);
     }
   };
 

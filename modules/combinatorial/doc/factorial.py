@@ -16,7 +16,10 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 07/03/2011',
-             'included' : [],
+             'cover_included' : ["#include <nt2/toolbox/boost_math/include/factorial.hpp>",
+                           "#include <nt2/include/functions/toint.hpp>",
+                           "#include <nt2/include/functions/abs.hpp>",
+                           "#include <nt2/include/functions/min.hpp>"],
              'notes' : [],
              'stamp' : 'modified by jt the 07/03/2011',
             },
@@ -45,10 +48,10 @@
           },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::boost_math::factorial<double>(a0)'],
+                 'default' : ['nt2::factorial(a0)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::boost_math::factorial<double>(a0)'],
+                 'default' : ['(nt2::min(nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0))),nt2::Valmax<r_t>()))'],
                 },
              'simd' : {
                 },
