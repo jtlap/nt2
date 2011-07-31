@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      return (!a1) ? a1 : round(double(a0)/double(a1));
+      return round(double(a0)/double(a1));
     }
   };
 } }

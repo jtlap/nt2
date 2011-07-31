@@ -57,7 +57,10 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-       return rdivide(a0,a1);
+      if(a1)
+        return rdivide(a0,a1);
+      else
+        return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }
   };
   

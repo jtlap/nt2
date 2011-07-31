@@ -28,7 +28,12 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-       return -divceil(-a0,a1);
+      if(a1)
+        return -iceil(-double(a0)/double(a1)); 
+      else
+      {
+        return (a0) ? ((a0>0) ? Valmax<result_type>() : Valmin<result_type>()) : Zero<result_type>();
+      }
     }
   };
 } }
@@ -41,7 +46,7 @@ namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION( tag::divfloor_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
                             )
   {
 
@@ -49,7 +54,10 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      return (!a1) ? a1 : rdivide(a0,a1);
+      if(a1)
+        return rdivide(a0, a1); 
+      else
+        return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }
   };
 } }

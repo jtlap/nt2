@@ -22,13 +22,8 @@ namespace nt2 { namespace meta
                             , (scalar_< unsigned_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::abs(a0); 
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return nt2::abs(a0); }
   };
 } }
 
@@ -43,13 +38,8 @@ namespace nt2 { namespace meta
                             , (scalar_< real_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::abs(a0); 
-    }
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1) { return nt2::abs(a0); }
   };
 } }
 
@@ -64,13 +54,10 @@ namespace nt2 { namespace meta
                             , (scalar_< signed_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 a = nt2::abs(a0);
-      return (a ==  Valmin<A0>()) ? Valmax<A0>() : a; 
+      return (a0 ==  Valmin<A0>()) ? Valmax<A0>() : nt2::abs(a0); 
     }
   };
 } }

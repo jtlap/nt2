@@ -49,7 +49,7 @@
                  'default' : ['nt2::divround(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::round(nt2::tofloat(a0)/nt2::tofloat(a1))'],
+                 'default' : ['nt2::round(double(a0)/double(a1))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

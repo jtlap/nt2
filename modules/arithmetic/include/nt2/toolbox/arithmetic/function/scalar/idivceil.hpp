@@ -13,8 +13,8 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/rdivide.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/iceil.hpp>
-
+#include <nt2/include/functions/ceil.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -31,7 +31,11 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      return iceil(tofloat(a0)/tofloat(a1));
+      typedef typename meta::result_of<meta::floating(result_type)>::type ftype;
+      ftype r = ceil(ftype(a0)/ftype(a1));
+      if (r > Valmax<result_type>()) return Valmax<result_type>();
+      else if (r <  Valmin<result_type>()) return Valmin<result_type>();
+      else return result_type(r); 
     }
   };
 
@@ -48,7 +52,7 @@ namespace nt2 { namespace meta
     
     NT2_FUNCTOR_CALL(2)
       {
-	return rdivide((a0+(a1-One<result_type>())), a1);
+	return (a1) ? rdivide((a0+(a1-One<result_type>())), a1) : Valmax<result_type>();
       }
   };
   

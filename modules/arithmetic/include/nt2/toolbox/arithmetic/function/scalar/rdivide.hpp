@@ -21,7 +21,28 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(2)
     {
-      if(a1) return a0/a1; else return Zero<result_type>();
+      if (a1) return a0/a1;
+      else if (a0 > 0) return Valmax<result_type>();
+      else if (a0 < 0) return Valmin<result_type>();
+      else return Zero<result_type>();
+    }
+  };
+} }
+
+namespace nt2 { namespace meta
+{
+  NT2_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_ , (A0)(A1)
+                            , (scalar_< unsigned_<A0> >)
+                              (scalar_< unsigned_<A1> >)
+                            )
+  {
+    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+
+    NT2_FUNCTOR_CALL(2)
+    {
+      if (a1) return a0/a1;
+      else if (a0 > 0) return Valmax<result_type>();
+      else return Zero<result_type>();
     }
   };
 } }

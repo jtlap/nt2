@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
-             'included' : ['#include<nt2/include/functions/trunc.hpp>'],
+             'included' : ['#include<nt2/include/functions/toint.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 13/12/2010',
             },
@@ -54,7 +54,7 @@
                  'default' : ['nt2::divfix(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['r_t(nt2::trunc((1.0*a0)/a1))'],
+                 'default' : ['r_t(nt2::toint((1.0*a0)/a1))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],
