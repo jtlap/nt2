@@ -25,7 +25,7 @@
  * Note that defining the classical \c NDEBUG symbol triggers \c BOOST_SIMD_SDK_RELEASE.
  */
 //==============================================================================
-#define BOOST_SIMD_SDK_RELEASE
+#define BOOST_SIMD_RELEASE
 
 //==============================================================================
 /*!
@@ -35,36 +35,32 @@
  * quality of debugging facilities. Performance are not guaranteed in Debug mode.
  */
 //==============================================================================
-#define BOOST_SIMD_SDK_DEBUG
+#define BOOST_SIMD_DEBUG
 #endif
 
 //==============================================================================
 // BOOST_SIMD_SDK_RELEASE is triggerable by NDEBUG
 //==============================================================================
 #if defined(NDEBUG)
-#define BOOST_SIMD_SDK_RELEASE
-#define BOOST_SIMD_SDK_DISABLE_ASSERTS
+#define BOOST_SIMD_RELEASE
+#define BOOST_SIMD_DISABLE_ASSERTS
 #define BOOST_DISABLE_ASSERTS
 #endif
 
 //==============================================================================
 // Ensure consistencies between assertion settings
 //==============================================================================
-#if defined(BOOST_DISABLE_ASSERTS) && !defined(BOOST_SIMD_SDK_DISABLE_ASSERTS)
-#define BOOST_SIMD_SDK_DISABLE_ASSERTS
-#endif
-
-#if !defined(BOOST_DISABLE_ASSERTS) && defined(BOOST_SIMD_SDK_DISABLE_ASSERTS)
-#define BOOST_DISABLE_ASSERTS
+#if defined(BOOST_DISABLE_ASSERTS) && !defined(BOOST_SIMD_DISABLE_ASSERTS)
+#define BOOST_SIMD_DISABLE_ASSERTS
 #endif
 
 //==============================================================================
-// BOOST_SIMD_SDK_DEBUG removes all NDEBUG influence
-// Note that defining BOOST_SIMD_SDK_DEBUG overrride any Release mode settings
+// BOOST_SIMD_DEBUG removes all NDEBUG influence
+// Note that defining BOOST_SIMD_DEBUG overrride any Release mode settings
 //==============================================================================
-#if defined(BOOST_SIMD_SDK_DEBUG)
+#if defined(BOOST_SIMD_DEBUG)
 #undef NDEBUG
-#undef BOOST_SIMD_SDK_DISABLE_ASSERTS
+#undef BOOST_SIMD_DISABLE_ASSERTS
 #undef BOOST_DISABLE_ASSERTS
 #endif
 

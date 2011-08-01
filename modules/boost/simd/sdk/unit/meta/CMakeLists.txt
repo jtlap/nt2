@@ -8,10 +8,7 @@
 ################################################################################
 
 SET( SOURCES
-    all.cpp
-    any.cpp
     cardinal_of.cpp
-    is_result_of_supported.cpp
    )
 
 ADD_CUSTOM_TARGET(boost.simd.sdk.meta.unit)

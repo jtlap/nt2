@@ -11,7 +11,6 @@
 
 #include <cstring>
 #include <cstddef>
-#include <boost/simd/sdk/error/error.hpp>
 #include <boost/simd/sdk/memory/config.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
 
@@ -32,7 +31,7 @@ namespace boost { namespace simd {  namespace memory
     if(obytes < nbytes)
     {
       byte* tmp = reinterpret_cast<byte*>(allocate(a,nbytes));
-      ::memmove(tmp,ptr,obytes);
+      std::memcpy(tmp,ptr,obytes);
       deallocate(a,ptr,obytes);
       result = tmp;
     }

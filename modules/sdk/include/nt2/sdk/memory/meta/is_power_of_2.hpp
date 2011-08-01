@@ -9,24 +9,12 @@
 #ifndef NT2_SDK_MEMORY_META_IS_POWER_OF_2_HPP_INCLUDED
 #define NT2_SDK_MEMORY_META_IS_POWER_OF_2_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/mpl/bool.hpp>
+#include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Boolean meta-function checking if a Integral Constant is a power of 2
-  // Documentation: is_power_of_2.rst
-  //////////////////////////////////////////////////////////////////////////////
-  template<std::size_t N>
-  struct is_power_of_2_c : boost::mpl::bool_<(!(N & (N - 1)) && N)> {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Boolean meta-function checking if a compile-time integral is a power of 2
-  // Documentation: is_power_of_2_c.rst
-  //////////////////////////////////////////////////////////////////////////////
-  template<class N>
-  struct is_power_of_2 : is_power_of_2_c<N::value> {};
+  using boost::simd::meta::is_power_of_2_c;
+  using boost::simd::meta::is_power_of_2;
 } }
 
 #endif

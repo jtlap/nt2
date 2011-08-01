@@ -9,40 +9,11 @@
 #ifndef NT2_SDK_MEMORY_REALLOCATE_HPP_INCLUDED
 #define NT2_SDK_MEMORY_REALLOCATE_HPP_INCLUDED
 
-#include <cstring>
-#include <cstddef>
-#include <nt2/sdk/error/error.hpp>
-#include <nt2/sdk/memory/config.hpp>
-#include <nt2/sdk/memory/align_on.hpp>
+#include <boost/simd/sdk/memory/reallocate.hpp>
 
 namespace nt2 { namespace memory
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Reallocate a raw buffer of bytes to a new size
-  //////////////////////////////////////////////////////////////////////////////
-  byte* reallocate( byte* ptr, std::size_t nbytes, std::size_t obytes);
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Reallocate a raw buffer of bytes to a new size using an allocator
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Allocator> inline byte*
-  reallocate( Allocator& a,  byte* ptr, std::size_t nbytes, std::size_t obytes)
-  {
-    byte* result;
-    if(obytes < nbytes)
-    {
-      byte* tmp = reinterpret_cast<byte*>(allocate(a,nbytes));
-      ::memmove(tmp,ptr,obytes);
-      deallocate(a,ptr,obytes);
-      result = tmp;
-    }
-    else
-    {
-      result = ptr;
-    }
-
-    return result;
-  }
+  using boost::simd::reallocate;
 } }
 
 #endif

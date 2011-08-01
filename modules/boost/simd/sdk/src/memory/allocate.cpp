@@ -7,7 +7,8 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #include <cstdlib>
-#include <boost/simd/sdk/error/error.hpp>
+#include <new>
+#include <boost/throw_exception.hpp>
 #include <boost/simd/sdk/memory/forward.hpp>
 
 namespace boost { namespace simd { namespace memory
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace memory
     //////////////////////////////////////////////////////////////////////////////
     if(posix_memalign(&result, align, nbytes))
     {
-      BOOST_SIMD_SDK_THROW( std::bad_alloc() );
+      BOOST_THROW_EXCEPTION( std::bad_alloc() );
       result = 0;
     }
     #elif defined (_MSC_VER)
@@ -32,7 +33,7 @@ namespace boost { namespace simd { namespace memory
     //////////////////////////////////////////////////////////////////////////////
     if( !(result = _aligned_malloc(nbytes, align) ) )
     {
-      BOOST_SIMD_SDK_THROW( std::bad_alloc() );
+      BOOST_THROW_EXCEPTION( std::bad_alloc() );
       result = 0;
     }
     #else
@@ -43,7 +44,7 @@ namespace boost { namespace simd { namespace memory
     BOOST_STATIC_CONSTANT(std::size_t, fix = ~(std::size_t(align-1)));
     if( !(base = ::malloc(nbytes+align+sizeof(void*))) )
     {
-      BOOST_SIMD_SDK_THROW( std::bad_alloc() );
+      BOOST_THROW_EXCEPTION( std::bad_alloc() );
       result = 0;
     }
     else

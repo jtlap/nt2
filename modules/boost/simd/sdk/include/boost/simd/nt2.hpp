@@ -19,7 +19,6 @@
  */
 //==============================================================================
 #include <boost/simd/include/error.hpp>
-#include <boost/simd/include/timing.hpp>
 #include <boost/simd/include/simd.hpp>
 
 #endif

@@ -11,12 +11,9 @@
 
 #include <boost/simd/sdk/config/types.hpp>
 
-#include <boost/simd/sdk/error/trap.hpp>
 #include <boost/simd/sdk/error/debug.hpp>
-#include <boost/simd/sdk/error/error.hpp>
 #include <boost/simd/sdk/error/assert.hpp>
 #include <boost/simd/sdk/error/warning.hpp>
 #include <boost/simd/sdk/error/concepts.hpp>
-//#include <boost/simd/sdk/error/static_assert.hpp>
 
 #endif

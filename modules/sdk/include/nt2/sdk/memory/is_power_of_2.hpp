@@ -9,23 +9,18 @@
 #ifndef NT2_SDK_MEMORY_IS_POWER_OF_2_HPP_INCLUDED
 #define NT2_SDK_MEMORY_IS_POWER_OF_2_HPP_INCLUDED
 
-#include <nt2/sdk/meta/mpl.hpp>
-#include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/memory/meta/is_power_of_2.hpp>
-#include <nt2/sdk/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/memory/is_power_of_2.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Check if a value is a power of 2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2
 {
-  namespace tag { struct is_power_of_2_ {}; }
+  namespace tag { using boost::simd::tag::is_power_of_2_; }
   namespace memory
   {
-    NT2_FUNCTION_IMPLEMENTATION(tag::is_power_of_2_, is_power_of_2, 1);
+    using boost::simd::memory::is_power_of_2;
   }
 }
-
-#include <nt2/sdk/memory/details/is_power_of_2.hpp>
 
 #endif

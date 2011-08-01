@@ -11,14 +11,8 @@ include(NT2Module)
 nt2_module_source_setup(sdk)
 
 set(SOURCES
-    details/timestamp.cpp
-    error/assert_exception.cpp
-    error/exception.cpp
     memory/allocate.cpp
     memory/deallocate.cpp
     memory/reallocate.cpp
-    timing/now.cpp
-    timing/timers.cpp
-    config/version.cpp
    )
 nt2_module_add_library(boost_simd ${SOURCES})

@@ -9,30 +9,11 @@
 #ifndef NT2_SDK_MEMORY_OVERLOAD_HPP_INCLUDED
 #define NT2_SDK_MEMORY_OVERLOAD_HPP_INCLUDED
 
-#include <cstddef>
-#include <nt2/sdk/memory/allocate.hpp>
-#include <nt2/sdk/memory/deallocate.hpp>
+#include <boost/simd/sdk/memory/overload.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Macro for operator new/new[] overload with aligned allocation
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_MEMORY_OVERLOAD_NEW_DELETE(A)                           \
-void* operator new(std::size_t s)                                   \
-{                                                                   \
-  return nt2::memory::allocate(s);                                  \
-}                                                                   \
-void* operator new[](std::size_t s)                                 \
-{                                                                   \
-  return nt2::memory::allocate(s);                                  \
-}                                                                   \
-void operator delete(void *p)                                       \
-{                                                                   \
-  nt2::memory::deallocate(reinterpret_cast<nt2::memory::byte*>(p)); \
-}                                                                   \
-void operator delete[](void *p)                                     \
-{                                                                   \
-  nt2::memory::deallocate(reinterpret_cast<nt2::memory::byte*>(p)); \
-}                                                                   \
-/**/
+#define NT2_MEMORY_OVERLOAD_NEW_DELETE BOOST_SIMD_OVERLOAD_NEW_DELETE
 
 #endif
