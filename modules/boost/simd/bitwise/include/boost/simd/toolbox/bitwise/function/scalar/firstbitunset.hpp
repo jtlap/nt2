@@ -12,29 +12,29 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::firstbitunset_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::firstbitunset_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
       return ~a0 & (a0+One<A0>());
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::firstbitunset_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::firstbitunset_, tag::cpu_, (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
       return firstbitunset(bitwise_cast<result_type, A0>(a0)); 

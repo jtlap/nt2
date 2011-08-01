@@ -19,6 +19,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -27,6 +28,15 @@
 #define BOOST_DISPATCH_DISPATCH_TYPE(z,n,t) class BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 #define BOOST_DISPATCH_DISPATCH_ARG(z,n,t) boost::dispatch::meta::BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const&
 #define BOOST_DISPATCH_DISPATCH_TAG(z,n,t) boost::dispatch::meta::BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
+
+#define BOOST_DISPATCH_NS_(s,data,elem) elem ::
+#define BOOST_DISPATCH_NS(seq) BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_NS_, ~, seq)
+
+#define BOOST_DISPATCH_CLOSE_(s,data,elem) }
+#define BOOST_DISPATCH_CLOSE(seq) BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_CLOSE_, ~, seq)
+
+#define BOOST_DISPATCH_REOPEN_(s,data,elem) namespace elem {
+#define BOOST_DISPATCH_REOPEN(seq) BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_REOPEN_, ~, seq)
 
 //==============================================================================
 /*!
@@ -40,9 +50,11 @@
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
-#define BOOST_DISPATCH_REGISTER_DISPATCH(Tag,Site,Types,Seq)                         \
+#define BOOST_DISPATCH_REGISTER_DISPATCH(NS,Tag,Site,Types,Seq)                      \
+BOOST_DISPATCH_CLOSE(NS)                                                             \
+namespace boost { namespace dispatch { namespace meta {                              \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types)> \
-BOOST_DISPATCH_FORCE_INLINE boost::dispatch::meta::                                      \
+BOOST_DISPATCH_FORCE_INLINE BOOST_DISPATCH_NS(NS)                                    \
 implement< BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)       \
                                       , BOOST_DISPATCH_DISPATCH_TAG,Seq))            \
     , Site                                                                \
@@ -52,7 +64,7 @@ dispatching( Tag const&, Site const&                                      \
         , adl_helper = adl_helper()                                       \
         )                                                                 \
 {                                                                         \
-  boost::dispatch::meta::                                                            \
+  BOOST_DISPATCH_NS(NS)                                                              \
   implement< BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)     \
                                         , BOOST_DISPATCH_DISPATCH_TAG,Seq)           \
                                         )                                 \
@@ -60,6 +72,8 @@ dispatching( Tag const&, Site const&                                      \
     > that;                                                               \
   return that;                                                            \
 }                                                                         \
+} } }                                                                     \
+BOOST_DISPATCH_REOPEN(NS)                                                 \
 /**/
 
 //==============================================================================
@@ -75,10 +89,12 @@ dispatching( Tag const&, Site const&                                      \
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
-#define BOOST_DISPATCH_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                         \
+#define BOOST_DISPATCH_REGISTER_DISPATCH_TPL(NS,Tag,Site,Types,Seq)                      \
+BOOST_DISPATCH_CLOSE(NS)                                                                 \
+namespace boost { namespace dispatch { namespace meta {                                  \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types)> \
-BOOST_DISPATCH_FORCE_INLINE                                                                  \
-boost::dispatch::meta::                                                                  \
+BOOST_DISPATCH_FORCE_INLINE                                                              \
+BOOST_DISPATCH_NS(NS)                                                                    \
 implement < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)            \
           , BOOST_DISPATCH_DISPATCH_TAG,Seq))                                            \
           , Site                                                              \
@@ -88,13 +104,15 @@ dispatching( BOOST_DISPATCH_PP_STRIP(Tag) const&, Site const&                   
         , adl_helper = adl_helper()                                           \
         )                                                                     \
 {                                                                             \
-  boost::dispatch::meta::                                                                \
+  BOOST_DISPATCH_NS(NS)                                                                  \
   implement < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)          \
             , BOOST_DISPATCH_DISPATCH_TAG,Seq))                                          \
             , Site                                                            \
             >  that;                                                          \
   return that;                                                                \
 }                                                                             \
+} } }                                                                         \
+BOOST_DISPATCH_REOPEN(NS)                                                     \
 /**/
 
 //==============================================================================
@@ -112,20 +130,24 @@ dispatching( BOOST_DISPATCH_PP_STRIP(Tag) const&, Site const&                   
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
-#define BOOST_DISPATCH_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)               \
+#define BOOST_DISPATCH_REGISTER_DISPATCH_IF(NS,Tag,Site,Types,Cond,Ret,Seq)            \
+BOOST_DISPATCH_CLOSE(NS)                                                               \
+namespace boost { namespace dispatch { namespace meta {                                \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types)>   \
 BOOST_DISPATCH_FORCE_INLINE                                                            \
 typename boost::enable_if < BOOST_DISPATCH_PP_STRIP(Cond)                              \
-                          , boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>    \
+                          , BOOST_DISPATCH_NS(NS) implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>    \
                           >::type                                           \
 dispatching( Tag const&, Site const&                                        \
         , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),BOOST_DISPATCH_DISPATCH_ARG,Seq)        \
         , adl_helper = adl_helper()                                         \
         )                                                                   \
 {                                                                           \
-  boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>  that;                       \
+  BOOST_DISPATCH_NS(NS) implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>  that; \
   return that;                                                              \
 }                                                                           \
+} } }                                                                       \
+BOOST_DISPATCH_REOPEN(NS)                                                   \
 /**/
 
 //==============================================================================
@@ -144,8 +166,9 @@ dispatching( Tag const&, Site const&                                        \
  * \param Seq Sequence of hierarchy defining the overload
  */
 //==============================================================================
-#define BOOST_DISPATCH_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)             \
-namespace boost { namespace dispatch { namespace meta {                                              \
+#define BOOST_DISPATCH_REGISTER_DISPATCH_IF_TPL(NS,Tag,Site,Types,Cond,Ret,Seq)          \
+BOOST_DISPATCH_CLOSE(NS)                                                                 \
+namespace boost { namespace dispatch { namespace meta {                                  \
 template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types)> \
 BOOST_DISPATCH_FORCE_INLINE                                                              \
 typename boost::enable_if < BOOST_DISPATCH_PP_STRIP(Cond)                                \
@@ -156,10 +179,11 @@ dispatching ( Tag const&, Site const&                                         \
             , adl_helper = adl_helper()                                       \
             )                                                                 \
 {                                                                             \
-  boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>  that;                         \
+  BOOST_DISPATCH_NS(NS) implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>  that;   \
   return that;                                                                \
 }                                                                             \
-} } }                                                                           \
+} } }                                                                         \
+BOOST_DISPATCH_REOPEN(NS)                                                     \
 /**/
 
 #endif

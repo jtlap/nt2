@@ -19,11 +19,11 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
 				  ,( 
-				     boost::is_same<typename meta::as_integer<A0>::type, A1>
+				     boost::is_same<typename dispatch::meta::as_integer<A0>::type, A1>
 				  )
                                 , ( boost::simd::tag::fast_frexp_
 				    ( simd_<real_<A0>,X> 
@@ -40,7 +40,7 @@ namespace boost { namespace dispatch { namespace meta
     inline int operator()(A0 const& a0,A0 & r0,A1 & r1) const
     {
       using namespace boost::simd;
-      typedef typename meta::as_integer<A0, signed>::type      int_type;
+      typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
       typedef typename meta::scalar_of<int_type>::type        sint_type;
       typedef typename meta::scalar_of<A0>::type                 s_type;
       static const sint_type me = Maxexponent<s_type>()-1;
@@ -55,8 +55,8 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
-				 , ( boost::is_same<typename meta::as_integer<A0>::type, A1>)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
+				 , ( boost::is_same<typename dispatch::meta::as_integer<A0>::type, A1>)
                                  , ( boost::simd::tag::fast_frexp_
 				     ( simd_<real_<A0>,X> 
 				     , simd_<integer_<A1>,X>  
@@ -75,15 +75,15 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
                              (A0)(X),
                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, signed>::type  exponent;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type  exponent;
     typedef boost::fusion::vector<A0,exponent>        result_type;
      
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       result_type res;
       boost::simd::fast_frexp( a0

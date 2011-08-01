@@ -16,9 +16,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is expression of pack
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sum_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sum_, tag::cpu_
                             , (A0)(T)(Card)(Tag)(Sema)
                             , ((expr_<A0, domain_< simd::domain<T,Card> >, Tag, Sema>))
                             )
@@ -26,7 +26,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef T result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typename boost::mpl::apply< boost::dispatch::meta::terminal_of<A0>, T>::type  that;
       that = a0;

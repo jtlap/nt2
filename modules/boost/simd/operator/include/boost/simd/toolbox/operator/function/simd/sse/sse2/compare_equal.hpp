@@ -11,36 +11,36 @@
 
 #include <boost/simd/include/functions/is_equal.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_pd(eq(a0,a1)) == 0X03; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_pd(eq(a0,a1)) == 0X03; }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                               ((simd_<float_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_ps(eq(a0,a1)) == 0X0F; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_ps(eq(a0,a1)) == 0X0F; }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                               ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_movemask_epi8(eq(a0,a1)) == 0X0FFFF;
     }

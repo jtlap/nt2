@@ -19,16 +19,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
 			      , ((simd_<double_<A0>,boost::simd::tag::sse_>))
 		  	        ((scalar_< integer_<A1> >))  
 			    )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
       {
 	if(a1)
 	  {
@@ -42,14 +42,14 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type8_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
 			      , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
 			      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
       {
 	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
 	if(a1 > 7)
@@ -64,16 +64,16 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type64_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
 			      , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
 			      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
       {
-	typedef typename meta::as_real<A0>::type rtype;
+	typedef typename dispatch::meta::as_real<A0>::type rtype;
 	if(a1)
 	  {
 	    return simd::native_cast<A0>(_mm_unpackhi_pd(simd::native_cast<rtype>(a0),simd::native_cast<rtype>(a0)));
@@ -85,14 +85,14 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type16_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
 			      , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
 			      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
       {
 	typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
 	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> type64;
@@ -108,14 +108,14 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type32_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::put_first_, tag::cpu_
 			      , (A0)(A1)
 			      , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
 			        ((scalar_< integer_<A1> >))
 			      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
       {
 	typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
 	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> type64;

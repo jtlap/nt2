@@ -15,15 +15,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_positive_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_positive_, tag::cpu_,
                               (A0)(X),
                               ((simd_<arithmetic_<A0>,X>))
                              )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return is_gez(a0);
     }
@@ -34,15 +34,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_positive_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_positive_, tag::cpu_,
                               (A0)(X),
                               ((simd_<real_<A0>,X>))
                              )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0, signed>::type type;
+      typedef typename dispatch::meta::as_integer<A0, signed>::type type;
       //      std::cout << "simd::native_cast<type>(a0) "<< simd::native_cast<type>(a0) << std::endl;
       //       std::cout << "is_gez ?                    "<< is_gez(simd::native_cast<type>(a0)) << std::endl;
       

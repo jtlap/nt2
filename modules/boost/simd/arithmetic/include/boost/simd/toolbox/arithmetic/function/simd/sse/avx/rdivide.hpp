@@ -15,16 +15,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::rdivide_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::rdivide_, tag::cpu_,
                           (A0),
                           ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                           ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                          )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       BOOST_SIMD_AVX_JOIN128INT2(that, boost::simd::rdivide);
       return that;
@@ -36,14 +36,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::rdivide_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::rdivide_, tag::cpu_,
                           (A0),
                           ((simd_<real_<A0>,boost::simd::tag::avx_>))
                           ((simd_<real_<A0>,boost::simd::tag::avx_>))
                          )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return a0/a1;
     }

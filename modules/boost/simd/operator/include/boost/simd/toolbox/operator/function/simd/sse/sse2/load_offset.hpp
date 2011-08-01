@@ -10,13 +10,14 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_LOAD_OFFSET_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd types with an offset
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(A3)(X)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -41,7 +42,7 @@ namespace boost { namespace dispatch { namespace meta
     struct  is_forward : boost::mpl::bool_< (Offset::value > 0) >
     {};
 
-    BOOST_DISPATCH_FUNCTOR_CALL(4)
+    BOOST_SIMD_FUNCTOR_CALL(4)
     {
       return eval ( a0, a1
                   , typename is_periodic<A2,A3>::type()

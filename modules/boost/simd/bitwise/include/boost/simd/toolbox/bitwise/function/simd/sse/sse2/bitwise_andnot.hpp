@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_BITWISE_ANDNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_BITWISE_ANDNOT_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_andnot_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_andnot_, tag::cpu_, (A0)(A1)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
@@ -27,9 +27,9 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_integer< A0 >::type int_type;
+      typedef typename dispatch::meta::as_integer< A0 >::type int_type;
       A0     that = { simd::native_cast<A0>
                       ( _mm_andnot_si128( simd::native_cast<int_type>(a1)
                                         , simd::native_cast<int_type>(a0)
@@ -40,28 +40,28 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_andnot_, tag::cpu_, (A0),
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_andnot_, tag::cpu_, (A0),
                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm_andnot_pd(a1, a0)};
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_andnot_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_andnot_, tag::cpu_, (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                               ((simd_<float_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm_andnot_ps(a1, a0)};
       return that;

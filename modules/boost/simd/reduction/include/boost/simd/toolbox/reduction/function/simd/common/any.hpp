@@ -19,9 +19,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef bool result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return hmsb(is_nez(a0)) != 0;
     }
@@ -40,9 +40,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<uint8_<A0>,X>))
                             )
@@ -50,10 +50,10 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef bool result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef typename meta::upgrade<stype>::type                           utype;
+      typedef typename dispatch::meta::upgrade<stype>::type                           utype;
       typedef simd::native<utype,X>                                         ttype;
       ttype a0h, a0l;
       boost::fusion::tie(a0h, a0l) = split(a0);
@@ -66,9 +66,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int8_<A0>,X>))
                             )
@@ -76,10 +76,10 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef bool result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef typename meta::upgrade<stype>::type                           utype;
+      typedef typename dispatch::meta::upgrade<stype>::type                           utype;
       typedef simd::native<utype,X>                                         ttype;
       ttype a0h, a0l;
       boost::fusion::tie(a0h, a0l) = split(a0);

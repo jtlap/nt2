@@ -19,9 +19,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_minimum_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_minimum_, tag::cpu_
                             , (A0)
                             , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                             )
@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename simd::native<float, boost::simd::tag::sse_> ftype;
       A0 min1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
@@ -50,13 +50,13 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_minimum_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_minimum_, tag::cpu_
 			      , (A0)
 			      , ((simd_<double_<A0>,boost::simd::tag::sse_>))
 			      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
       {
 	A0 that = {_mm_min_sd(a0, _mm_unpackhi_pd(a0,a0))};
 	return simd::native_cast<A0>(_mm_unpacklo_pd(that, that));
@@ -66,15 +66,15 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int64_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
 			     (A0),
 			     ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
 			     )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
       {
-	typedef typename meta::as_real<A0>::type ftype;
+	typedef typename dispatch::meta::as_real<A0>::type ftype;
 	A0 a00  =  simd::native_cast<A0>(_mm_shuffle_pd(simd::native_cast<ftype>(a0),
 							simd::native_cast<ftype>(a0),0x01));
 	return  min(a0, a00);
@@ -84,13 +84,13 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
 			     (A0),
 			     ((simd_<float_<A0>,boost::simd::tag::sse_>))
 			     )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
       {
 	return boost::simd::splat<A0>(minimum(a0)); 
 	//       A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_ps(a0, a0, _MM_SHUFFLE(1, 0, 3, 2))))};
@@ -102,13 +102,13 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
 			     (A0),
 			     ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
 			     )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
       {
 	return boost::simd::splat<A0>(minimum(a0));
       }
@@ -117,13 +117,13 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int32_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_minimum_, tag::cpu_,
 			     (A0),
 			     ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
 			     )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
       {
 	A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
 	A0 that = {min(min1, simd::native_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))))};

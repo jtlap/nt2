@@ -10,41 +10,40 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, True is not !0 but ~0 whatever the type
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::True, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::True, tag::cpu_
                             , (A0)(X), ((target_< simd_< real_<A0> ,X> >))
                             )
   {
     typedef typename A0::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       // TODO : replace by bitwise_cast
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type type;
-      typedef typename meta::as_integer<type>::type       int_type;
+      typedef typename dispatch::meta::as_integer<type>::type       int_type;
       return boost::simd::splat<result_type>(bitwise_cast<type>(~int_type(0))); 
     }
   };
 } } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::True, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::True, tag::cpu_
                             , (A0)(X), ((target_< simd_< integer_<A0> ,X> >))
                             )
   {
     typedef typename A0::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type type;

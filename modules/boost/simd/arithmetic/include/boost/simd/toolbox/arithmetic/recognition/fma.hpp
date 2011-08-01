@@ -14,35 +14,35 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/arithmetic/function/fma.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::recognition_, (A0)(A1)(Dom)(Sema)
-			      , ((expr_<A0,Dom,boost::simd::tag::multiplies_,Sema>))(unspecified_<A1>)
-			      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::recognition_, (A0)(A1)(Dom)(Sema)
+                                   , ((expr_<A0,Dom,boost::simd::tag::multiplies_,Sema>))(unspecified_<A1>)
+                                   )
   {
-    typedef typename meta::call< boost::simd::tag::fma_(
-					   typename boost::proto::result_of::child_c<A0, 0>::type,
-					   typename boost::proto::result_of::child_c<A0, 1>::type,
-					   A1
-					   ) >::type result_type; 
+    typedef typename dispatch::meta::call< boost::simd::tag::fma_(
+          typename boost::proto::result_of::child_c<A0, 0>::type,
+          typename boost::proto::result_of::child_c<A0, 1>::type,
+          A1
+        ) >::type result_type; 
   
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return fma(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), a1);
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::recognition_, (A0)(A1)(Dom)(Sema)
-			      , (unspecified_<A0>)((expr_<A1,Dom,boost::simd::tag::multiplies_,Sema>))
-			      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::recognition_, (A0)(A1)(Dom)(Sema)
+                                   , (unspecified_<A0>)((expr_<A1,Dom,boost::simd::tag::multiplies_,Sema>))
+                                   )
   {
-    typedef typename meta::call< boost::simd::tag::fma_(
+    typedef typename dispatch::meta::call< boost::simd::tag::fma_(
           typename boost::proto::result_of::child_c<A1, 0>::type,
           typename boost::proto::result_of::child_c<A1, 1>::type,
           A0
         ) >::type result_type; 
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return fma(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), a0);
     }

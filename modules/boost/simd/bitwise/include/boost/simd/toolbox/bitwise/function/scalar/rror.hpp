@@ -12,16 +12,16 @@
 #include <boost/simd/include/functions/ror.hpp>
 #include <boost/simd/include/functions/rol.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rror_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rror_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using namespace boost::simd;
       return (a1 > 0) ? ror(a0, a1) :rol(a0, boost::simd::neg(a1));

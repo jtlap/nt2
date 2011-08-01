@@ -14,15 +14,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
                         (A0),
                         ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                        )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
       int that = _mm_extract_epi16(a0, 0);
@@ -35,13 +35,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
                         (A0),
                         ((simd_<double_<A0>,boost::simd::tag::sse_>))
                        )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_cvtsd_f64(a0);
     }
@@ -52,15 +52,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
                         (A0),
                         ((simd_<float_<A0>,boost::simd::tag::sse_>))
                        )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0>::type type;
+      typedef typename dispatch::meta::as_integer<A0>::type type;
       typedef typename meta::scalar_of<type>::type stype;
 
       stype tmp = {_mm_cvtsi128_si32(simd::native_cast<type>(a0))}; 
@@ -73,15 +73,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
                         (A0),
                         ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                        )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0>::type type;
+      typedef typename dispatch::meta::as_integer<A0>::type type;
       return boost::simd::bitwise_cast<result_type,float >(_mm_cvtsi128_si32(simd::native_cast<type>(a0)));
     }
   };
@@ -91,16 +91,16 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
                         (A0),
                         ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                        )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0>::type type;
-      typedef typename meta::as_real<A0>::type rtype;
+      typedef typename dispatch::meta::as_integer<A0>::type type;
+      typedef typename dispatch::meta::as_real<A0>::type rtype;
       return boost::simd::bitwise_cast<result_type, double >(_mm_cvtsd_f64(simd::native_cast<rtype>(a0))); 
     }
   };
@@ -110,13 +110,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, tag::cpu_,
                         (A0),
                         ((simd_<type16_<A0>,boost::simd::tag::sse_>))
                        )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_extract_epi16(a0, 0);
     }

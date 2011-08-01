@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITWISE_ANDNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_BITWISE_ANDNOT_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_andnot_, tag::cpu_,(A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_andnot_, tag::cpu_,(A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
@@ -26,7 +26,7 @@ namespace boost { namespace dispatch { namespace meta
                                 )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return bitwise_and(a0,complement(a1)); }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return bitwise_and(a0,complement(a1)); }
   };
 } } }
 

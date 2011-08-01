@@ -56,7 +56,7 @@
 //     template<class This,class A0,class A1>
 //     struct result<This(A0,A1)>
 //       : meta::strip<A0>{};//
-//     BOOST_DISPATCH_FUNCTOR_CALL(2)
+//     BOOST_SIMD_FUNCTOR_CALL(2)
 //     {
 //       typedef typename meta::scalar_of<A0>::type sA0;
 //       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
@@ -89,7 +89,7 @@
 //     template<class This,class A0,class A1>
 //     struct result<This(A0,A1)>
 //       : meta::strip<A0>{};//
-//     BOOST_DISPATCH_FUNCTOR_CALL(2)
+//     BOOST_SIMD_FUNCTOR_CALL(2)
 //     {
 //       typedef typename meta::scalar_of<A0>::type sA0;
 //       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
@@ -97,7 +97,7 @@
 //       boost::simd::store<A0>(a0, &tmp[0], 0);
 //       for(int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
 //       return boost::simd::load<A0>(&tmp1[0], 0);
-// //       typedef typename meta::as_real<A0>::type real_type;
+// //       typedef typename dispatch::meta::as_real<A0>::type real_type;
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int32_t mask = _mm_movemask_ps(is_lt(a1, N));
 // //       real_type tmp = {simd::native_cast<real_type>(a0)}; 
@@ -124,7 +124,7 @@
 //     template<class This,class A0,class A1>
 //     struct result<This(A0,A1)>
 //       : meta::strip<A0>{};//
-//     BOOST_DISPATCH_FUNCTOR_CALL(2)
+//     BOOST_SIMD_FUNCTOR_CALL(2)
 //     {
 //       typedef typename meta::scalar_of<A0>::type sA0;
 //       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[meta::cardinal_of<A0>::value];
@@ -132,7 +132,7 @@
 //       boost::simd::store<A0>(a0, &tmp[0], 0);
 //       for(int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
 //       return boost::simd::load<A0>(&tmp1[0], 0);
-// //       typedef typename meta::as_real<A0>::type real_type;
+// //       typedef typename dispatch::meta::as_real<A0>::type real_type;
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int32_t mask = _mm_movemask_pd(is_lt(a1, N));
 // //       return simd::native_cast<A0>(_mm_blend_pd(simd::native_cast<real_type>(a0), mask));
@@ -158,7 +158,7 @@
 //     template<class This,class A0,class A1>
 //     struct result<This(A0,A1)>
 //       : meta::strip<A0>{};//
-//     BOOST_DISPATCH_FUNCTOR_CALL(2)
+//     BOOST_SIMD_FUNCTOR_CALL(2)
 //     {
 //       const int32_t N = meta::cardinal_of<A0>::value;
 //       int32_t mask = _mm_movemask_epi16(is_lt(a1, N));

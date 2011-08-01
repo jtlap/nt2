@@ -14,15 +14,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag> , tag::cpu_,
-                      (A0)(Tag),
-                      (scalar_<arithmetic_<A0> >)
-                     )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag>
+                                   , tag::cpu_
+                                   , (A0)(Tag)
+                                   , (scalar_<arithmetic_<A0> >)
+                                   )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typename boost::simd::make_functor<Tag, A0>::type callee; 
       const A0 z = callee( as_<A0>() );

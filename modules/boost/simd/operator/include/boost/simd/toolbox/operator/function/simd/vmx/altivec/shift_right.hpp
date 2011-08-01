@@ -17,16 +17,16 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_, (A0)(A1)
                             , ((simd_<integer_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<integer_<A1>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)  
+    BOOST_SIMD_FUNCTOR_CALL(2)  
     { 
      typedef typename meta::as_unsigned<A1>::type type;
      type shift = simd::native_cast<type>(a1);
@@ -35,14 +35,14 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_, (A0)(A1)
                             , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<ints32_<A1>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2) 
+    BOOST_SIMD_FUNCTOR_CALL(2) 
    { 
      typedef typename meta::as_unsigned<A1>::type type;
      type shift = simd::native_cast<type>(a1);

@@ -22,16 +22,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remainder_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remainder_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<arithmetic_<A0>,X>))
 			     ((simd_<arithmetic_<A0>,X>))
 			     )
   {
     typedef A0 result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
 	return a0-idivround(a0, a1)*a1; 
       }
@@ -41,7 +41,7 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::remainder_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::remainder_, tag::cpu_
 			      , (A0)(X)
 			      , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
 			      )
@@ -49,7 +49,7 @@ namespace boost { namespace dispatch { namespace meta
     
     typedef A0 result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
 	return b_or(is_invalid(a0), b_or(is_eqz(a1), a0-tofloat(idivround(a0, a1))*a1)); 
       }

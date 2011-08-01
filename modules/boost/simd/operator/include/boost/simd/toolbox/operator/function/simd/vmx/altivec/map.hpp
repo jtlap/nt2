@@ -30,9 +30,9 @@
 #define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <BOOST_PP_CAT(A, BOOST_PP_INC(n))>, boost::simd::tag::altivec_>))
 
 #define M0(z,n,t)                                                             \
-namespace boost { namespace dispatch { namespace meta                             \
+namespace boost { namespace simd                             \
 {                                                                             \
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,tag::cpu_                      \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,tag::cpu_                      \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n), M5,t)          \
                             , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)       \
                             )                                                 \
@@ -50,7 +50,7 @@ namespace boost { namespace dispatch { namespace meta                           
     stype;                                                                    \
     typedef simd::native<stype, boost::simd::tag::altivec_> result_type;                   \
                                                                               \
-    BOOST_DISPATCH_FUNCTOR_CALL(BOOST_PP_INC(n))                              \
+    BOOST_SIMD_FUNCTOR_CALL(BOOST_PP_INC(n))                              \
     {                                                                         \
       result_type that = {{BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n)}};  \
       return that;                                                            \

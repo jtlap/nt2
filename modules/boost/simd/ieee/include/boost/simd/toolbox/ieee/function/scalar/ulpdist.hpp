@@ -25,18 +25,18 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using namespace boost::simd;
       return dist(a0, a1);
@@ -48,17 +48,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is bool_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< bool_<A0> >)(scalar_< bool_<A1> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using namespace boost::simd;
       return dist(a0, is_nez(a1));
@@ -70,22 +70,22 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using namespace boost::simd;
 
-      typedef typename meta::result_of<meta::arithmetic(A0, A1) >::type type;
-      typedef typename meta::as_integer<A0>::type itype;
+      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0, A1) >::type type;
+      typedef typename dispatch::meta::as_integer<A0>::type itype;
       if (a0 == a1)               return Zero<type>();
       if (is_nan(a0)&&is_nan(a1)) return Zero<type>();
       itype e1, e2;

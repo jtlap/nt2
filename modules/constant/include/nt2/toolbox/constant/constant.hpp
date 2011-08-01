@@ -15,44 +15,44 @@ namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::digit_;
-    using boost::simd::tag::eps__;
-    using boost::simd::tag::half_eps__;
-    using boost::simd::tag::_3_x_eps_;
-    using boost::simd::tag::sqrt_eps_;
-    using boost::simd::tag::forth_root_eps_;
-    using boost::simd::tag::third_root_eps_;
-    using boost::simd::tag::mlog_eps_2_;
-    using boost::simd::tag::min_denormal_;
-    using boost::simd::tag::smallest_pos_val_;
-    using boost::simd::tag::false_;
-    using boost::simd::tag::ldexp_mask_;
-    using boost::simd::tag::nb_mantissa_bits_;
-    using boost::simd::tag::max_exponent_;
-    using boost::simd::tag::nb_digits_;
-    using boost::simd::tag::nb_exponent_bits_;
-    using boost::simd::tag::min_exponent_;
-    using boost::simd::tag::inf_;
-    using boost::simd::tag::m_inf_;
-    using boost::simd::tag::nan_;
-    using boost::simd::tag::max_left_shift_;
-    using boost::simd::tag::pi_;
-    using boost::simd::tag::sqrt_2_o_2_;
-    using boost::simd::tag::sqrt_2_;
-    using boost::simd::tag::gold_;
-    using boost::simd::tag::c_gold_;
-    using boost::simd::tag::m_half_;
-    using boost::simd::tag::m_zero_;
-    using boost::simd::tag::half_;
-    using boost::simd::tag::third_;
-    using boost::simd::tag::quarter_;
-    using boost::simd::tag::two_to_m10_;
-    using boost::simd::tag::two_to_nmb_;
-    using boost::simd::tag::split_factor_;
-    using boost::simd::tag::signmask_;
-    using boost::simd::tag::true_;
-    using boost::simd::tag::val_max_;
-    using boost::simd::tag::val_min_;
+    using boost::simd::tag::Digit;
+    using boost::simd::tag::Eps;
+    using boost::simd::tag::Halfeps;
+    using boost::simd::tag::Threeeps;
+    using boost::simd::tag::Sqrteps;
+    using boost::simd::tag::Fourthrooteps;
+    using boost::simd::tag::Thirdrooteps;
+    using boost::simd::tag::Mlogeps2;
+    using boost::simd::tag::Mindenormal;
+    using boost::simd::tag::Smallestposval;
+    using boost::simd::tag::False;
+    using boost::simd::tag::Ldexpmask;
+    using boost::simd::tag::Nbmantissabits;
+    using boost::simd::tag::Maxexponent;
+    using boost::simd::tag::Nbdigits;
+    using boost::simd::tag::Nbexponentbits;
+    using boost::simd::tag::Minexponent;
+    using boost::simd::tag::Inf;
+    using boost::simd::tag::Minf;
+    using boost::simd::tag::Nan;
+    using boost::simd::tag::Maxleftshift;
+    using boost::simd::tag::Pi;
+    using boost::simd::tag::Sqrt_2o_2;
+    using boost::simd::tag::Sqrt_2;
+    using boost::simd::tag::Gold;
+    using boost::simd::tag::Cgold;
+    using boost::simd::tag::Mhalf;
+    using boost::simd::tag::Mzero;
+    using boost::simd::tag::Half;
+    using boost::simd::tag::Third;
+    using boost::simd::tag::Quarter;
+    using boost::simd::tag::Twotom10;
+    using boost::simd::tag::Two2nmb;
+    using boost::simd::tag::Splitfactor;
+    using boost::simd::tag::Signmask;
+    using boost::simd::tag::True;
+    using boost::simd::tag::Valmax;
+    using boost::simd::tag::Valmin;
   }
     
   using boost::simd::Mten;
@@ -82,9 +82,9 @@ namespace nt2
   using boost::simd::Fortyfive;
   using boost::simd::Ninety;
   using boost::simd::Onehundredeighty;
-  using boost::simd::C_180;
+/*using boost::simd::C_180;
   using boost::simd::_45;
-  using boost::simd::_90;
+  using boost::simd::_90;*/
   using boost::simd::_180;
   using boost::simd::integral_constant;
   

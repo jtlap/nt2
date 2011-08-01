@@ -12,9 +12,9 @@
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/equal_to.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_xor_ , tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_xor_ , tag::cpu_, (A0)(A1)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >
@@ -27,10 +27,9 @@ namespace boost { namespace dispatch { namespace meta
                                 )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-      typedef typename meta::as_integer<A0, unsigned>::type bts;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type bts;
       return bitwise_cast<A0>(bts(
         bitwise_cast<bts>(a0) ^
         bitwise_cast<bts>(a1)

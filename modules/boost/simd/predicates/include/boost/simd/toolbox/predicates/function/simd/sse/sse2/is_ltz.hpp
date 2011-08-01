@@ -17,37 +17,37 @@
 
 #include <boost/simd/include/functions/is_ltz.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return lt(a0,boost::simd::Zero<A0>()); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return lt(a0,boost::simd::Zero<A0>()); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, tag::cpu_, (A0)
                             , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       return boost::simd::False<A0>();
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, tag::cpu_, (A0)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
 
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef boost::simd::native<typename boost::simd::meta::int32_t_<A0>::type,boost::simd::tag::sse_> type;
       const type tmp1 = is_ltz(simd::native_cast<type>(a0));

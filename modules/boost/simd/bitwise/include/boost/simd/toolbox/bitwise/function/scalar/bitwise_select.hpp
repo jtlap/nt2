@@ -11,16 +11,16 @@
 
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_select_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_select_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A1> >)
                               (scalar_< fundamental_<A2> >)
                                )
   {
     typedef A1 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       using namespace boost::simd;
       return b_or(b_and(a1, a0), b_andnot(a2, a0));

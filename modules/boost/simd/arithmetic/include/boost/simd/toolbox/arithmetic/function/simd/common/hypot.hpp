@@ -26,17 +26,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::hypot_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::hypot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::hypot(tofloat(a0), tofloat(a1));
     }
@@ -45,13 +45,13 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<real_<A0>,X>))
 			     ((simd_<real_<A0>,X>))
 			     )
   {
-    template < class T, class I = typename meta::as_integer<T, signed>::type>
+    template < class T, class I = typename dispatch::meta::as_integer<T, signed>::type>
       struct hypot_ctnts;
     template <class I, class CAT> struct hypot_ctnts<simd::native<float, CAT>, I>
     {
@@ -76,11 +76,11 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef typename  meta::as_real<A0>::type result_type; 
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       using namespace boost::simd;
 
-      typedef typename meta::as_integer<A0, signed>::type int_type;
+      typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
       typedef hypot_ctnts<A0, int_type> cts;
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);

@@ -20,19 +20,19 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<arithmetic_<A0>,X>))
 			     ((simd_<arithmetic_<A0>,X>))
 			     )
   {
-    typedef typename meta::as_real<A0>::type               stA0;
-    typedef typename meta::as_integer<A0, signed>::type     iA0;             
+    typedef typename dispatch::meta::as_real<A0>::type               stA0;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type     iA0;             
     typedef boost::fusion::tuple<stA0,iA0>          result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
 	result_type res;
 	boost::simd::remquo( tofloat(a0), tofloat(a1)
@@ -45,7 +45,7 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
 				  ,( boost::mpl::and_ <
 				     boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A1> >, 
@@ -79,7 +79,7 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(X)
 				  ,( boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A1> >)
 				  , ( boost::simd::tag::remquo_

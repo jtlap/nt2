@@ -16,17 +16,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
 			     (A0),
 			     (scalar_ < arithmetic_<A0> > )
 			     )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0)>::type tmp;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0)>::type tmp;
     typedef typename meta::as_signed<tmp>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return result_type(a0)-boost::simd::One<result_type>();
     }

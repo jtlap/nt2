@@ -14,15 +14,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
                           (A0),
                           ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                          )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 min1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
          min1 = _mm_shufflelo_epi16(min1, _MM_SHUFFLE(1, 0, 3, 2));
@@ -42,13 +42,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
                           (A0),
                           ((simd_<double_<A0>,boost::simd::tag::sse_>))
                          )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 that = {_mm_min_sd(a0, _mm_unpackhi_pd(a0,a0))};
       return that[0];
@@ -60,13 +60,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
                           (A0),
                           ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                          )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return boost::simd::min(a0[0], a0[1]);
     }
@@ -77,13 +77,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
                           (A0),
                           ((simd_<float_<A0>,boost::simd::tag::sse_>))
                          )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 min  = {_mm_min_ps(a0, _mm_movehl_ps(a0,a0))};
       A0 that = {_mm_min_ss(min, _mm_shuffle_ps(min,min,0x01))};
@@ -96,13 +96,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
                           (A0),
                           ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                          )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
       rtype v0 = simd::native_cast<rtype>(a0);
@@ -119,13 +119,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
                           (A0),
                           ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                          )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
       A0 that = {min(min1, simd::native_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))))};

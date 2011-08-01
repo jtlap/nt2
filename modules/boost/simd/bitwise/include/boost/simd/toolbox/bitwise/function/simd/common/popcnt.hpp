@@ -15,15 +15,15 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/bitwise_notand.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int8_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x55>(); //binary: 0101...
       const result_type m2  = boost::simd::integral_constant<result_type,0x33>(); //binary: 00110011..
@@ -36,13 +36,13 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int64_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x5555555555555555ULL>(); //binary: 0101...
       const result_type m2  = boost::simd::integral_constant<result_type,0x3333333333333333ULL>(); //binary: 00110011..
@@ -58,13 +58,13 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int16_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x5555>(); //binary: 0101...
       const result_type m2  = boost::simd::integral_constant<result_type,0x3333>(); //binary: 00110011..
@@ -78,13 +78,13 @@ namespace boost { namespace dispatch { namespace meta
       }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<int32_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x55555555>(); //binary: 0101...
       const result_type m2  = boost::simd::integral_constant<result_type,0x33333333>(); //binary: 00110011..
@@ -99,13 +99,13 @@ namespace boost { namespace dispatch { namespace meta
       }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return popcnt(simd::native_cast<result_type>(a0));
     }

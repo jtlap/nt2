@@ -14,30 +14,30 @@
 
 #include <boost/simd/include/functions/is_eqz.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                           )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return le(a0,boost::simd::Zero<A0>()); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return le(a0,boost::simd::Zero<A0>()); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, tag::cpu_, (A0)
                             , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_eqz(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return is_eqz(a0); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, tag::cpu_, (A0)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_less(a0, boost::simd::Zero<A0>()); //TO DO
 //       typedef typename meta::int32_t_<A0>::type htype;

@@ -12,30 +12,30 @@
 #include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, tag::cpu_, (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that   = { simd::native_cast<A0>(vec_cmpge(a0(),a1())) };
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 lt   = { simd::native_cast<A0>(vec_cmplt(a0(),a1())) };
       A0 that = { boost::simd::complement(lt) };

@@ -20,20 +20,20 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitfloating_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitfloating_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
-      typedef typename meta::as_real<A0>::type type;
+      typedef typename dispatch::meta::as_real<A0>::type type;
       //A0 s = Signmask<A0>();
       //      type that = {sel(isgez(type(a0)), a0, s-a0)};
       type r;
@@ -48,19 +48,19 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitfloating_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitfloating_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type type;
+      typedef typename dispatch::meta::as_real<A0>::type type;
       return simd::native_cast<type>(a0);
     }
   };

@@ -10,22 +10,22 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TOFLOAT_HPP_INCLUDED
 #include <boost/simd/sdk/meta/templatize.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return result_type(a0); }
+    typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return result_type(a0); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 } } }
 

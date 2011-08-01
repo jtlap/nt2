@@ -13,15 +13,15 @@
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::hi_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::hi_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type int_type;
 

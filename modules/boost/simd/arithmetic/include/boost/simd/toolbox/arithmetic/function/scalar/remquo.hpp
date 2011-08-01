@@ -21,7 +21,7 @@
   
 //   template <class Dummy> struct remquo<double,Dummy>{
 //     typedef double                                          rem; 
-//     typedef typename meta::as_integer<double,signed>::type  quo;
+//     typedef typename dispatch::meta::as_integer<double,signed>::type  quo;
 //     typedef boost::fusion::tuple<rem,quo>                 rtype;
     
 //     static inline rtype eval(const double& a0, const double& a1)
@@ -36,7 +36,7 @@
     
 //   template <class Dummy> struct remquo<float,Dummy>{
 //     typedef float                                           rem; 
-//     typedef typename meta::as_integer<float,signed>::type  quo;
+//     typedef typename dispatch::meta::as_integer<float,signed>::type  quo;
 //     typedef boost::fusion::tuple<rem,quo>                 rtype;
     
 //     static inline rtype eval(const float& a0, const float& a1)
@@ -53,19 +53,19 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when A0 and A1 types are fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
 			     (A0)(A1),
 			     (scalar_ < real_<A0> > )
 			     (scalar_ < real_<A1> > )
 			     )
   {
     typedef typename meta::result_of<meta::floating(A0,A1)>::type ftype;
-    typedef typename meta::as_integer<ftype,signed>::type           quo;
+    typedef typename dispatch::meta::as_integer<ftype,signed>::type           quo;
     typedef boost::fusion::tuple<ftype,quo>                 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       result_type res;
       boost::simd::remquo(a0, a1, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
@@ -74,7 +74,7 @@ namespace boost { namespace dispatch { namespace meta
     
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
 			     (A0)(A1)(A2)(A3),
 			     (scalar_ < arithmetic_<A0> > )
 			     (scalar_ < arithmetic_<A1> > )

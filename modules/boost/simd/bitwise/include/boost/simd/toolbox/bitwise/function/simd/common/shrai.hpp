@@ -11,25 +11,25 @@
 
 #include <boost/simd/include/functions/shri.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<unsigned_<A0>,X>))
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return shri(a0, a1); }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return shri(a0, a1); }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<signed_<A0>,X>))
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using namespace boost::simd;
 

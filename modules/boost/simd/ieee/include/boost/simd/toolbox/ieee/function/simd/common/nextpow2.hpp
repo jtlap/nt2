@@ -24,19 +24,19 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0, unsigned>::type utype;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       return simd::native_cast<A0>(nextpow2(simd::native_cast<utype >(abs(a0))));
       //    return seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(firstbitset(abs(a0))), One<A0>());
       }
@@ -47,21 +47,21 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
-      typedef typename meta::as_real<A0>::type rtype;
-      typedef typename meta::as_integer<A0, signed>::type itype;
+      typedef typename dispatch::meta::as_real<A0>::type rtype;
+      typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
       rtype m;
       itype p;
       boost::fusion::tie(m, p) = frexp(tofloat(a0));
@@ -75,20 +75,20 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint16_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<uint16_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type  stype;
-      typedef typename meta::upgrade<stype>::type itype;
+      typedef typename dispatch::meta::upgrade<stype>::type itype;
       typedef simd::native<itype,X>              ivtype;
       ivtype a0l, a0h;
       boost::fusion::tie(a0l, a0h) = split(a0);
@@ -102,20 +102,20 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<uint8_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type  stype;
-      typedef typename meta::upgrade<stype>::type itype;
+      typedef typename dispatch::meta::upgrade<stype>::type itype;
       typedef simd::native<itype, X>             ivtype;
       ivtype a0l, a0h;
       boost::fusion::tie(a0l, a0h) = split(a0);
@@ -129,20 +129,20 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
-      typedef typename meta::as_integer<A0>::type int_type;
+      typedef typename dispatch::meta::as_integer<A0>::type int_type;
       A0 m;
       int_type p;
       boost::fusion::tie(m, p) = frexp(abs(a0));

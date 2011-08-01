@@ -12,16 +12,16 @@
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/tuple.hpp>
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is upgradeable
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
 				 (A0)(A1)(X),
 				 (boost::mpl::and_ <
-				    boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >,
-				    boost::is_same<A1, typename meta::upgrade<A0>::type>
+				    boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
+				    boost::is_same<A1, typename dispatch::meta::upgrade<A0>::type>
 				  > 
                                  ), 
                                  (boost::simd::tag::split_(simd_<arithmetic_<A0>,X>,
@@ -51,17 +51,17 @@ namespace boost { namespace dispatch { namespace meta
       }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
 				 (A0)(X),
-				 (boost::mpl::not_< boost::is_same<A0, typename meta::upgrade<A0>::type> >),
+				 (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >),
 				 (boost::simd::tag::split_(simd_<arithmetic_<A0>,X>)),
 				 ((simd_<arithmetic_<A0>,X>))
 				 )
   {
-    typedef typename meta::upgrade<A0>::type rtype;
+    typedef typename dispatch::meta::upgrade<A0>::type rtype;
     typedef boost::fusion::tuple<rtype, rtype> result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       result_type res;
       boost::simd::split(a0,  boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res));

@@ -17,20 +17,20 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::firstbitset_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::firstbitset_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_integer<A0,unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0,unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using boost::simd::One;
-      typedef typename  meta::as_integer<A0,unsigned>::type int_type;
+      typedef typename  dispatch::meta::as_integer<A0,unsigned>::type int_type;
       return b_and((b_not(simd::native_cast<int_type>(a0))+One<int_type>()), a0);
 
     }

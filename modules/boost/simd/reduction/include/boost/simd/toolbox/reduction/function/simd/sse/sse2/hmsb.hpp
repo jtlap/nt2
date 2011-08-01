@@ -13,16 +13,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, tag::cpu_,
                        (A0),
                        ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
+      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
       
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_movemask_epi8(a0);
     }
@@ -33,14 +33,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, tag::cpu_,
                        (A0),
                        ((simd_<double_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
+      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
       
-    BOOST_DISPATCH_FUNCTOR_CALL(1){ return _mm_movemask_pd(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1){ return _mm_movemask_pd(a0); }
   };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -48,14 +48,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, tag::cpu_,
                        (A0),
                        ((simd_<float_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
+      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
       
-    BOOST_DISPATCH_FUNCTOR_CALL(1){ return _mm_movemask_ps(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1){ return _mm_movemask_ps(a0); }
   };
 } } }
 #endif

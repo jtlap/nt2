@@ -13,21 +13,21 @@
 #include <boost/simd/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/meta/align_on.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 //==============================================================================
 // Align integer on integer
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return (a0+a1-1) & ~(a1-1);
     }
@@ -37,17 +37,17 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 // Align integer on mpl integer
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)
                               (mpl_integral_< scalar_< integer_<A1> > >)
                             )
   {
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
       return (a0+A1::value-1) & ~(A1::value-1);
@@ -58,15 +58,15 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 // Align integer on default alignment
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
                             , (A0), (scalar_< integer_<A0> >)
                             )
   {
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::memory::align_on<BOOST_SIMD_CONFIG_ALIGNMENT>(a0);
     }
@@ -76,18 +76,16 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 // Align mpl integer on mpl integer
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
                             , (A0)(A1)
                             , (mpl_integral_< scalar_< integer_<A0> > >)
                               (mpl_integral_< scalar_< integer_<A1> > >)
                             )
   {
-    typedef typename boost::simd::meta::align_on < typename meta::strip<A0>::type
-                                    , typename meta::strip<A1>::type
-                                    >::type                         result_type;
-
+    typedef typename meta::align_on<A0, A1>::type result_type;
+    
     result_type operator()(A0 const&,A1 const&) const { return result_type(); }
   };
 } } }
@@ -95,13 +93,13 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 // Align mpl integer on default alignment
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
                             , (A0), (mpl_integral_<scalar_< integer_<A0> > >)
                             )
   {
-    typedef typename boost::simd::meta::align_on < typename meta::strip<A0>::type
+    typedef typename boost::simd::meta::align_on < A0
                                     , boost::mpl::int_<BOOST_SIMD_CONFIG_ALIGNMENT>
                                     >::type                         result_type;
 
@@ -112,17 +110,17 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 // Align iterator on integer
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
                             , (A0)(A1)
                             , (iterator_< generic_< fundamental_<A0> > >)
                               (scalar_< integer_<A1> >)
                             )
   {
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       std::size_t ptr = reinterpret_cast<std::size_t>(a0);
       return reinterpret_cast<result_type>(boost::simd::memory::align_on(ptr,a1));
@@ -133,17 +131,17 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 // Align iterator on mpl integer
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_, tag::cpu_
                             , (A0)(A1)
                             , (iterator_< generic_< fundamental_<A0> > >)
                               (mpl_integral_<scalar_< integer_<A1> > >)
                             )
   {
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       std::size_t ptr = reinterpret_cast<std::size_t>(a0);
       return reinterpret_cast<result_type>(boost::simd::memory::align_on(ptr,a1));
@@ -154,15 +152,15 @@ namespace boost { namespace dispatch { namespace meta
 ////////////////////////////////////////////////////////////////////////////////
 // Align iterator on default alignment
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_,tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::align_on_,tag::cpu_
                             , (A0), (iterator_< generic_< fundamental_<A0> > >)
                             )
   {
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::memory::align_on<BOOST_SIMD_CONFIG_ALIGNMENT>(a0);
     }

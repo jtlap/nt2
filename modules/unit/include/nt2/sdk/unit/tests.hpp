@@ -16,7 +16,6 @@
  */
 
 #include <iomanip>
-#include <nt2/sdk/details/preprocessor.hpp>
 #include <nt2/include/functions/random.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/tests.hpp>

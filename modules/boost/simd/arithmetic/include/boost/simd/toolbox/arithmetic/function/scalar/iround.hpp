@@ -16,23 +16,23 @@
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/round.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround_, tag::cpu_ , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround_, tag::cpu_ , (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
-    typedef typename meta::as_integer<A0>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 

@@ -17,9 +17,9 @@
 #include <boost/mpl/sizeof.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::shift_right_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::shift_right_, tag::cpu_,
                                   (A0)(A1)(X),
                                   ( boost::mpl::and_<
                                     boost::mpl::not_< boost::is_same<A0, A1> >
@@ -38,9 +38,9 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_integer<A0>::type int_type;
+      typedef typename dispatch::meta::as_integer<A0>::type int_type;
       return  boost::simd::
               native_cast<A0>(shift_right(boost::simd::native_cast<int_type>(a0), a1));
     }
