@@ -69,7 +69,8 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      return (a0 ==  boost::simd::Valmin<A0>()) ? boost::simd::Valmax<A0>() : boost::simd::abs(a0); 
+      return (a0 ==  boost::simd::Valmin<A0>()) ? boost::simd::Valmax<A0>()
+	                                        : boost::simd::abs(a0); 
     }
   };
 } } }
