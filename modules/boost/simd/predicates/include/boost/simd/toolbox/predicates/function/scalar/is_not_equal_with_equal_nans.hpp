@@ -16,10 +16,11 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
-                            )
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_,
+					 tag::cpu_, (A0)(A1), 
+					 (scalar_< arithmetic_<A0> >)
+					 (scalar_< arithmetic_<A1> >)
+					 )
   {
 
     typedef bool result_type;
@@ -37,17 +38,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
-                            )
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_,
+					 tag::cpu_, (A0)(A1), 
+					 (scalar_< real_<A0> >)(scalar_< real_<A1> >)
+					 )
   {
 
     typedef bool result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      return   (a0 != a1) || (boost::simd::is_nan(a0) && boost::simd::is_nan(a1));
+      return   (a0 != a1) && !(boost::simd::is_nan(a0) && boost::simd::is_nan(a1));
     }
   };
 } } }
