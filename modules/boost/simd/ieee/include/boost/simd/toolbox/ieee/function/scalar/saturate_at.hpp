@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_SATURATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SCALAR_SATURATE_HPP_INCLUDED
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/properties.hpp>
 #include <boost/dispatch/functor/forward.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -17,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(tag::saturate_at_<Tag> , tag::cpu_,
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag> , tag::cpu_,
                       (A0)(Tag),
                       (scalar_<arithmetic_<A0> >)
                      )
@@ -25,14 +24,11 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename nt2::make_functor<Tag, A0>::type callee; 
-      const A0 z = callee( nt2::meta::as_<A0>() );
-      if (a0 > z)
-	return z;
-      else if (a0 <  -z)
- 	return -z;
-      else
-	return a0; 
+      typename boost::simd::make_functor<Tag, A0>::type callee; 
+      const A0 z = callee( as_<A0>() );
+      if      (a0 > z)  return z;
+      else if (a0 < -z) return -z;
+      else              return a0; 
     }
   };
   

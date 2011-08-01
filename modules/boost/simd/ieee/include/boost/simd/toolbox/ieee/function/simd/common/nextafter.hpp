@@ -41,7 +41,9 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       using namespace boost::simd;
-      return seladd(boost::simd::is_not_equal(a0,a1),a0,seladd(gt(a1,a0),-One<A0>(),Two<A0>()));
+      return seladd(boost::simd::is_not_equal(a0,a1),
+		    a0,
+		    seladd(gt(a1,a0),-One<A0>(),Two<A0>()));
     }
   };
 } } }
@@ -63,7 +65,9 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       using namespace boost::simd;
-      return sel(boost::simd::is_equal(a0,a1),a0,sel(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
+      return sel(boost::simd::is_equal(a0,a1),
+		 a0,
+		 sel(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
     }
   };
 } } }
