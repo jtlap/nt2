@@ -10,8 +10,8 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_EVALUATION_HPP_INCLUDED
 
 #include <boost/simd/sdk/dsl/literal.hpp>
-#include <boost/simd/sdk/dsl/compute.hpp>
-#include <boost/simd/sdk/dsl/category.hpp>
+#include <boost/dispatch/dsl/compute.hpp>
+#include <boost/dispatch/dsl/category.hpp>
 #include <boost/simd/sdk/dsl/evaluation.hpp>
 
 
@@ -34,7 +34,7 @@ namespace boost { namespace dispatch { namespace meta
     inline result_type operator()( A0& a0, A1 const& a1) const
     {
       meta::as_<A0> target;
-      boost::simd::meta::compile < boost::simd::meta::compute<boost::mpl::_1,tag::cpu_> > callee;
+      boost::dispatch::meta::compile < boost::dispatch::meta::compute<boost::mpl::_1,tag::cpu_> > callee;
       a0 = callee(a1,target);
       return 0;
     }
@@ -60,7 +60,7 @@ namespace boost { namespace dispatch { namespace meta
     inline result_type operator()( Dst& a0, Src const& a1) const
     {
       meta::as_<A0> target;
-      boost::simd::meta::compile< boost::simd::meta::compute<boost::mpl::_1,tag::cpu_> > callee;
+      boost::dispatch::meta::compile< boost::dispatch::meta::compute<boost::mpl::_1,tag::cpu_> > callee;
 
       for(std::size_t i=0;i<C::value;++i)
           a0[i] = callee(a1,target,i);

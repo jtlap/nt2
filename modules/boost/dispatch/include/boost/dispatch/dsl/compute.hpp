@@ -6,16 +6,16 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
-#define NT2_SDK_DSL_COMPUTE_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_DSL_COMPUTE_HPP_INCLUDED
+#define BOOST_DISPATCH_DSL_COMPUTE_HPP_INCLUDED
 
-#include <nt2/sdk/dsl/compile.hpp>
-#include <nt2/sdk/functor/functor.hpp>
+#include <boost/dispatch/dsl/compile.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// compute evaluates a nt2 AST by passing its elements through a raw functor
+// compute evaluates an AST by passing its elements through a raw functor
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template <class Tag, class Target>
   struct compute
@@ -40,12 +40,12 @@ namespace nt2 { namespace meta
                           )
               >
   {};
-} }
+} } }
 
 namespace boost { namespace proto
 {
   template<class Tag, class Target>
-  struct  is_callable<nt2::meta::compute<Tag, Target> >
+  struct  is_callable<boost::dispatch::meta::compute<Tag, Target> >
         : boost::mpl::true_  {};
 } }
 

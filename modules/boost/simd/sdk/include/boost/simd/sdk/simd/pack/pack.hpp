@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
 #include <boost/proto/core.hpp>
-#include <boost/simd/sdk/dsl/call.hpp>
+#include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
 #include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/simd/include/functions/load.hpp>

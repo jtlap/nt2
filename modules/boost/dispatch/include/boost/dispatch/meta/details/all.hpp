@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_META_DETAILS_ANY_HPP_INCLUDED
-#define BOOST_SIMD_META_DETAILS_ANY_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_DETAILS_ALL_HPP_INCLUDED
+#define BOOST_DISPATCH_META_DETAILS_ALL_HPP_INCLUDED
 
 //==============================================================================
-// Internals for meta::any_
-//=============================================================================
+// Internals for meta::all_
+//==============================================================================
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/dispatch/meta/na.hpp>
@@ -29,30 +29,28 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #endif
 
-namespace boost { namespace simd { namespace details
+namespace boost { namespace dispatch { namespace details
 {
   //============================================================================
   // Recursive variadic version
   //============================================================================
   #if defined(BOOST_HAS_VARIADIC_TMPL)
-  template< class Predicate, class... Args> struct any_impl;
+  template< class Predicate, class... Args> struct all_impl;
 
   template< class Pred, class Head, class... Tails>
-  struct  any_impl<Pred,Head,Tails...>
-        : boost::mpl::or_ < boost::mpl::apply1<Pred,Head>
-                          , any_impl<Pred,Tails...>
+  struct  all_impl<Pred,Head,Tails...>
+        : boost::mpl::and_ < boost::mpl::apply1<Pred,Head>
+                          , all_impl<Pred,Tails...>
                           >
   {};
 
   template< class Pred, class T>
-  struct  any_impl<Pred, T>
+  struct  all_impl<Pred, T>
         : boost::mpl::eval_if_c < boost::mpl::is_sequence<T>::value
-                                , boost::mpl::not_<
-                                    boost::is_same< typename
-                                                    boost::mpl::find_if<T,Pred>::type
-                                                  , typename
-                                                    boost::mpl::end<T>::type
-                                                  >
+                                , boost::is_same< typename boost::mpl::find_if<  T
+                                                                              ,  boost::mpl::not_<Pred>
+                                                                              >::type
+                                                , typename boost::mpl::end<T>::type
                                                 >
                                 , boost::mpl::apply1<Pred,T>
                                 >::type
@@ -62,7 +60,7 @@ namespace boost { namespace simd { namespace details
   // Macro based version
   //============================================================================
   #define M1(z,n,t)                                           \
-  || boost::mpl::apply1<Pred,BOOST_PP_CAT(A,n)>::type::value  \
+  && boost::mpl::apply1<Pred,BOOST_PP_CAT(A,n)>::type::value  \
   /**/
 
   template< class Pred
@@ -71,29 +69,28 @@ namespace boost { namespace simd { namespace details
                                         , = dispatch::meta::na_ BOOST_PP_INTERCEPT
                                         )
           >
-  struct  any_impl
-        : boost::mpl::bool_<false BOOST_PP_REPEAT(BOOST_DISPATCH_MAX_META_ARITY,M1,~)>
+  struct  all_impl
+        : boost::mpl::bool_<true BOOST_PP_REPEAT(BOOST_DISPATCH_MAX_META_ARITY,M1,~)>
   {};
 
   template< class Pred, class T>
-  struct  any_impl<Pred, T>
+  struct  all_impl<Pred, T>
         : boost::mpl::
           eval_if_c < boost::mpl::is_sequence<T>::value
-                    , boost::mpl::not_<
-                        boost::is_same< typename
-                                        boost::mpl::find_if<T,Pred>::type
-                                      , typename
-                                        boost::mpl::end<T>::type
-                                      >
-                                    >
+                    ,  boost::
+                        is_same < typename boost::mpl::find_if< T
+                                                              , boost::mpl::not_<Pred>
+                                                              >::type
+                                , typename boost::mpl::end<T>::type
+                                >
                     , boost::mpl::apply1<Pred,T>
                     >::type
   {};
 
   #define M0(z,n,t)                                         \
   template<class Pred, BOOST_PP_ENUM_PARAMS(n,class A)>     \
-  struct  any_impl<Pred,BOOST_PP_ENUM_PARAMS(n,A)>          \
-        : boost::mpl::bool_<false BOOST_PP_REPEAT(n,M1,~)>  \
+  struct  all_impl<Pred,BOOST_PP_ENUM_PARAMS(n,A)>          \
+        : boost::mpl::bool_<true BOOST_PP_REPEAT(n,M1,~)>    \
   {};                                                       \
   /**/
 

@@ -6,9 +6,9 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::all"
+#define BOOST_DISPATCH_UNIT_MODULE "boost::dispatch::meta::all"
 
-#include <boost/simd/sdk/meta/all.hpp>
+#include <boost/dispatch/meta/all.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 BOOST_SIMD_TEST_CASE(unary_sequence)
 {
-  using boost::simd::meta::all;
+  using boost::dispatch::meta::all;
   using boost::is_same;
   using boost::mpl::_1;
   using boost::mpl::vector;
@@ -38,7 +38,7 @@ BOOST_SIMD_TEST_CASE(unary_sequence)
 ////////////////////////////////////////////////////////////////////////////////
 BOOST_SIMD_TEST_CASE(unary_non_sequence)
 {
-  using boost::simd::meta::all;
+  using boost::dispatch::meta::all;
   using boost::is_same;
   using boost::mpl::_1;
 
@@ -51,7 +51,7 @@ BOOST_SIMD_TEST_CASE(unary_non_sequence)
 ////////////////////////////////////////////////////////////////////////////////
 BOOST_SIMD_TEST_CASE(non_sequences)
 {
-  using boost::simd::meta::all;
+  using boost::dispatch::meta::all;
   using boost::is_same;
   using boost::mpl::_1;
 

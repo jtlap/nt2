@@ -6,17 +6,17 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_DSL_COMPILE_HPP_INCLUDED
-#define BOOST_SIMD_SDK_DSL_COMPILE_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_DSL_COMPILE_HPP_INCLUDED
+#define BOOST_DISPATCH_DSL_COMPILE_HPP_INCLUDED
 
 #include <boost/proto/transform.hpp>
-#include <boost/simd/sdk/dsl/proto/unpack.hpp>
+#include <boost/dispatch/dsl/proto/unpack.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// compile recursively traverse a nt2 AST to perform a given trasnformation
+// compile recursively traverse an AST to perform a given transformation
 // defined by externally extendable PFO
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template<class Phase>
   struct compile
@@ -30,10 +30,10 @@ namespace boost { namespace simd {  namespace meta
   };
 } } }
 
-namespace boost {  namespace proto
+namespace boost { namespace proto
 {
   template<class Phase>
-  struct  is_callable<boost::simd::meta::compile<Phase> >
+  struct  is_callable<boost::dispatch::meta::compile<Phase> >
         : boost::mpl::true_  {};
 } }
 

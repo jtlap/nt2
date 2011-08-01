@@ -7,20 +7,21 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 
-#ifndef BOOST_SIMD_META_IS_RESULT_OF_SUPPORTED_HPP_INCLUDED
-#define BOOST_SIMD_META_IS_RESULT_OF_SUPPORTED_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_IS_RESULT_OF_SUPPORTED_HPP_INCLUDED
+#define BOOST_DISPATCH_META_IS_RESULT_OF_SUPPORTED_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines and implements the boost::simd::meta::is_result_of_supported \metafunction
+ * \brief Defines and implements the boost::dispatch::meta::is_result_of_supported \metafunction
  */
 
 #include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/function_types/result_type.hpp>
-#include <boost/simd/sdk/meta/details/is_result_of_supported.hpp>
+#include <boost/dispatch/meta/result_of.hpp>
+#include <boost/dispatch/meta/details/is_result_of_supported.hpp>
 
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   #if defined(DOXYGEN_ONLY)
   //============================================================================
@@ -39,7 +40,7 @@ namespace boost { namespace simd { namespace meta
    *  For any type \c T,
    *
    *  \code
-   *  typedef boost::simd::meta::is_result_of_supported<T>::type r;
+   *  typedef boost::dispatch::meta::is_result_of_supported<T>::type r;
    *  \endcode
    *
    *  evaluates to \true_ if \c result_of<T>::type is defined.
@@ -57,7 +58,7 @@ namespace boost { namespace simd { namespace meta
 
   template<class T>
   struct is_result_of_supported<T, typename boost::enable_if_c<
-        boost::mpl::or_< details::has_result_type<
+        boost::mpl::or_< meta::has_result_type<
                         typename boost::function_types::result_type<T>::type
                                                  >
                        , details::result_defined<

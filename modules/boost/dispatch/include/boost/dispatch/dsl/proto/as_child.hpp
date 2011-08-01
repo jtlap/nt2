@@ -6,10 +6,10 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_DSL_PROTO_AS_CHILD_HPP_INCLUDED
-#define BOOST_SIMD_SDK_DSL_PROTO_AS_CHILD_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_DSL_PROTO_AS_CHILD_HPP_INCLUDED
+#define BOOST_DISPATCH_DSL_PROTO_AS_CHILD_HPP_INCLUDED
 
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template<typename Expr, typename Enable = void>
   struct is_terminal : boost::mpl::false_ {};
@@ -25,7 +25,7 @@ namespace boost { namespace simd {  namespace meta
   {};
 } } }
 
-namespace boost { namespace simd {  namespace details
+namespace boost { namespace dispatch { namespace details
 {
   namespace result_of
   {
@@ -42,7 +42,7 @@ namespace boost { namespace simd {  namespace details
   }
 } } }
 
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template<typename Expr>
   typename boost::disable_if< is_terminal<Expr>

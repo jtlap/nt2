@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_DSL_RECOGNITION_HPP_INCLUDED
 
 #include <boost/proto/proto.hpp>
-#include <boost/simd/sdk/dsl/compile.hpp>
+#include <boost/dispatch/dsl/compile.hpp>
 #include <boost/dispatch/functor/forward.hpp>
 
 namespace boost { namespace simd
@@ -27,7 +27,7 @@ namespace meta
   struct recognition_
       : boost::proto::
         unpack< boost::proto::
-                call< boost::dispatch::functor<Tag, tag::recognition_> >(compile< recognition_ < boost::mpl::_1 >
+                call< boost::dispatch::functor<Tag, tag::recognition_> >(dispatch::meta::compile< recognition_ < boost::mpl::_1 >
                                                                >
                                                        )
               >

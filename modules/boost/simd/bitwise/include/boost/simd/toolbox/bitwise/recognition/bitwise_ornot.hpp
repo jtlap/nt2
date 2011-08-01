@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_RECOGNITION_BITWISE_ORNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_RECOGNITION_BITWISE_ORNOT_HPP_INCLUDED
 
-#include <boost/simd/sdk/dsl/category.hpp>
+#include <boost/dispatch/dsl/category.hpp>
 #include <boost/simd/sdk/dsl/recognition.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/bitwise/function/bitwise_ornot.hpp>

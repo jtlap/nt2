@@ -28,16 +28,16 @@ namespace boost { namespace simd
 ////////////////////////////////////////////////////////////////////////////////
 // Say to compute that tofloat_ need to retarget its inner evaluation process
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template<class Target>
-  struct  compute<tag::tofloat_,Target>
+  struct  compute<boost::simd::tag::tofloat_,Target>
         : boost::proto::
-          call< boost::dispatch::functor < tag::tofloat_
+          call< functor < boost::simd::tag::tofloat_
                         , Target
                         > ( compile< compute<boost::mpl::_1, Target> >
                             ( boost::proto::_child0
-                            , retarget(boost::proto::_child0)
+                            , boost::simd::meta::retarget(boost::proto::_child0)
                             , boost::proto::_data
                             )
                           )

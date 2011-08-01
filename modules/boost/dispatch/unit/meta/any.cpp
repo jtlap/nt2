@@ -6,9 +6,9 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::any"
+#define BOOST_DISPATCH_UNIT_MODULE "boost::dispatch::meta::any"
 
-#include <boost/simd/sdk/meta/any.hpp>
+#include <boost/dispatch/meta/any.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 BOOST_SIMD_TEST_CASE(unary_sequence)
 {
-  using boost::simd::meta::any;
+  using boost::dispatch::meta::any;
   using boost::is_same;
   using boost::mpl::_1;
   using boost::mpl::vector;
@@ -35,7 +35,7 @@ BOOST_SIMD_TEST_CASE(unary_sequence)
 ////////////////////////////////////////////////////////////////////////////////
 BOOST_SIMD_TEST_CASE(unary_non_sequence)
 {
-  using boost::simd::meta::any;
+  using boost::dispatch::meta::any;
   using boost::is_same;
   using boost::mpl::_1;
 
@@ -48,7 +48,7 @@ BOOST_SIMD_TEST_CASE(unary_non_sequence)
 ////////////////////////////////////////////////////////////////////////////////
 BOOST_SIMD_TEST_CASE(non_sequences)
 {
-  using boost::simd::meta::any;
+  using boost::dispatch::meta::any;
   using boost::is_same;
   using boost::mpl::_1;
 

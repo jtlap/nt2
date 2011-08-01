@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_DSL_SEMANTIC_OF_HPP_INCLUDED
-#define BOOST_SIMD_SDK_DSL_SEMANTIC_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_DSL_SEMANTIC_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_DSL_SEMANTIC_OF_HPP_INCLUDED
 
 #include <boost/dispatch/meta/enable_if_type.hpp>
 
@@ -17,7 +17,7 @@
 // types expose a nt2_semantic_type that can be retrieved here.
 // Such information are used into expression hierarchy.
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd {  namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template<class Expr, class Enable = void>
   struct semantic_of
@@ -28,10 +28,10 @@ namespace boost { namespace simd {  namespace meta
   template< class Expr >
   struct semantic_of< Expr
                     , typename
-                      dispatch::meta::enable_if_type<typename Expr::nt2_semantic_type>::type
+                      enable_if_type<typename Expr::nt2_semantic_type>::type
                     >
   {
-    typedef typename Expr::nt2_semantic_type type;
+    typedef typename Expr::boost_dispatch_semantic_type type;
   };
 } } }
 
