@@ -15,7 +15,7 @@
  * Define macro for building a Unit Test Case implementation
  */
 
-
+#include <iomanip>
 #include <boost/dispatch/details/preprocessor.hpp>
 #include <boost/simd/include/functions/random.hpp>
 #include <boost/simd/sdk/unit/details/stats.hpp>
