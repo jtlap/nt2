@@ -11,7 +11,7 @@
 
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/simd/sdk/dsl/terminal_of.hpp>
+#include <boost/dispatch/dsl/terminal_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is expression of pack
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      typename boost::mpl::apply< boost::simd::meta::terminal_of<A0>, T>::type  that;
+      typename boost::mpl::apply< boost::dispatch::meta::terminal_of<A0>, T>::type  that;
       that = a0;
       return boost::simd::sum(that.value().value());
     }
