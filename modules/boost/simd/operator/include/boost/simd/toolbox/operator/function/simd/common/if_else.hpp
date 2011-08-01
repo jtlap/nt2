@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/include/select.hpp>
-#include <boost/simd/toolbox/predicates/include/is_true.hpp>
+#include <boost/simd/toolbox/predicates/include/is_false.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -23,7 +23,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(3)
     {
-      return boost::simd::select( boost::simd::is_true(a0), a2, a1 );
+      return boost::simd::select( boost::simd::is_false(a0), a2, a1 );
     }
   };
 } } }
