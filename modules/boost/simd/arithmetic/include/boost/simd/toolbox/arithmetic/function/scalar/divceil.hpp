@@ -22,17 +22,23 @@
 namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)
-                              (scalar_< arithmetic_<A1> >)
+                            , (scalar_< signed_<A0> >)
+                              (scalar_< signed_<A1> >)
                             )
   {
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
-      return (!a1) ? a1 : iceil(double(a0)/double(a1));
+      //      using namespace boost::simd;
+      if(a1)
+        return boost::simd::iceil(double(a0)/double(a1)); 
+      else
+      {
+        return (a0) ? ((a0>0) ? boost::simd::Valmax<result_type>()
+		              : boost::simd::Valmin<result_type>())
+	            : boost::simd::Zero<result_type>();
+      }
     }
   };
 
@@ -45,9 +51,13 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
-      return (!a1) ? a1 : rdivide((a0+(a1-One<result_type>())), a1);
+      if(a1)
+        return boost::simd::rdivide(a0+(a1-boost::simd::One<result_type>()), a1); 
+      else
+      {
+        return (a0) ? boost::simd::Valmax<result_type>()
+	            : boost::simd::Zero<result_type>();
+      }
     }
   };
 
@@ -59,9 +69,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2) 
     {
-      using namespace boost::simd;
-
-      return ceil(a0/a1);
+      return boost::simd::ceil(a0/a1);
     }
   };
 } } }

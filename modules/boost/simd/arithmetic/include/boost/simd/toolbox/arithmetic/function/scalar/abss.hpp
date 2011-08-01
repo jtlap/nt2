@@ -23,7 +23,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
@@ -44,7 +44,7 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
@@ -65,12 +65,11 @@ namespace boost { namespace dispatch { namespace meta
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      A0 a = boost::simd::abs(a0);
-      return (a == boost::simd::Valmin<A0>()) ? boost::simd::Valmax<A0>() : a; 
+      return (a0 ==  boost::simd::Valmin<A0>()) ? boost::simd::Valmax<A0>() : boost::simd::abs(a0); 
     }
   };
 } } }

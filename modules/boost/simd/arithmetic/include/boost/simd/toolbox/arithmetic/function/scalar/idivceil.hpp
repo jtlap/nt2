@@ -31,8 +31,13 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-      return iceil(tofloat(a0)/tofloat(a1));
+      typedef typename meta::result_of<meta::floating(result_type)>::type ftype;
+      ftype r = boost::simd::ceil(ftype(a0)/ftype(a1));
+      if (r > boost::simd::Valmax<result_type>())
+	return boost::simd::Valmax<result_type>();
+      else if (r <  boost::simd::Valmin<result_type>())
+	return boost::simd::Valmin<result_type>();
+      else return result_type(r); 
     }
   };
 
@@ -49,8 +54,8 @@ namespace boost { namespace dispatch { namespace meta
     
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-      return rdivide((a0+(a1-One<result_type>())), a1);
+	return (a1) ? boost::simd::rdivide((a0+(a1-boost::simd::One<result_type>())), a1)
+	            : boost::simd::Valmax<result_type>();
     }
   };
   
@@ -67,8 +72,7 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-      return iceil(a0/a1);
+      return boost::simd::iceil(a0/a1);
     }
   };
 } } }

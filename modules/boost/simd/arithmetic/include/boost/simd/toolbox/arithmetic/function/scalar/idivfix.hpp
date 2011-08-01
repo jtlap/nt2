@@ -9,9 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_IDIVFIX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_IDIVFIX_HPP_INCLUDED
 
-#include <boost/simd/include/functions/trunc.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
+#include <boost/simd/include/functions/toint.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -23,8 +22,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-      return rdivide(a0, a1);
+      return boost::simd::rdivide(a0, a1);
     }
 
   };
@@ -40,11 +38,7 @@ namespace boost { namespace dispatch { namespace meta
                        >::type                                      result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
-      typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type type;
-      const type z = a0/a1; 
-      return is_nan(z) ? Zero<result_type>() : result_type(trunc(z)); //TO DO itrunc
+      return boost::simd::toint(a0/a1); 
     }
   };
 } } }

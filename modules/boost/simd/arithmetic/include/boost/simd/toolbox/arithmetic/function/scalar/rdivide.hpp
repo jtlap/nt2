@@ -9,10 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_RDIVIDE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_RDIVIDE_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/real.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ , (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ ,
+					 (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
                             )
@@ -21,9 +23,26 @@ namespace boost { namespace dispatch { namespace meta
 
     BOOST_DISPATCH_FUNCTOR_CALL(2)
     {
-      using boost::simd::Zero;
+      if (a1) return a0/a1;
+      else if (a0 > 0) return  boost::simd::Valmax<result_type>();
+      else if (a0 < 0) return  boost::simd::Valmin<result_type>();
+      else return boost::simd::Zero<result_type>();
+    }
+  };
+  
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ ,
+					 (A0)(A1)
+                            , (scalar_< unsigned_<A0> >)
+                              (scalar_< unsigned_<A1> >)
+                            )
+  {
+    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
 
-      if(a1) return a0/a1; else return Zero<result_type>();
+    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    {
+      if (a1) return a0/a1;
+      else if (a0 > 0) return  boost::simd::Valmax<result_type>();
+      else return boost::simd::Zero<result_type>();
     }
   };
 } } }
@@ -36,7 +55,8 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_, (A0)(A1)
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_,
+					 (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
   {

@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TRUNC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TRUNC_HPP_INCLUDED
-
 #include <boost/simd/include/functions/floor.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
 #include <boost/dispatch/meta/strip.hpp>
@@ -21,17 +20,28 @@ namespace boost { namespace dispatch { namespace meta
 {
   BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     BOOST_DISPATCH_FUNCTOR_CALL(1)
     {
-      if (a0 > 0) return boost::simd::floor(a0);  else return boost::simd::ceil(a0);
+      return a0;
     }
   };
+
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_
+                            , (A0)
+                            , (scalar_< real_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    {
+      if (a0 > 0) return boost::simd::floor(a0);
+      else        return boost::simd::ceil(a0);
+    }
+  };  
 } } }
 
 
