@@ -17,21 +17,21 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int8_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using boost::simd::integral_constant;
       using boost::simd::native_cast;
 
-      typedef typename meta::as_integer<A0, unsigned>::type utype;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       utype v = native_cast<utype>(a0);
       const utype m1  = integral_constant<utype,0x55>(); //binary: 0101...
       const utype m2  = integral_constant<utype,0x33>(); //binary: 00110011..
@@ -51,21 +51,21 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int64_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int64_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using boost::simd::integral_constant;
       using boost::simd::native_cast;
 
-      typedef typename meta::as_integer<A0, unsigned>::type utype;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       utype v = native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555555555555555ull>(); //binary: 0101...
       const result_type m2  = integral_constant<result_type,0x3333333333333333ull>(); //binary: 00110011..
@@ -94,21 +94,21 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int16_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using boost::simd::integral_constant;
       using boost::simd::native_cast;
 
-      typedef typename meta::as_integer<A0, unsigned>::type utype;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       utype v = native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
       const result_type m2  = integral_constant<result_type,0x3333>(); //binary: 00110011..
@@ -131,21 +131,21 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int32_<A0>,X>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using boost::simd::integral_constant;
       using boost::simd::native_cast;
 
-      typedef typename meta::as_integer<A0, unsigned>::type utype;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       utype v = native_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
       const result_type m2  = integral_constant<result_type,0x33333333>(); //binary: 00110011..

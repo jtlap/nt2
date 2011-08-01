@@ -45,23 +45,23 @@ namespace boost { namespace dispatch { namespace meta
   {};
 } } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_,  (A0)(T)(C)(Tag)(S)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_,  (A0)(T)(C)(Tag)(S)
                             , ((expr_<A0, domain_< simd::domain<T,C> >,Tag,S>))
                             )
   {
     // tofloat MUST return something living in the domain<real,Card>
     // so we compute the destination domain so proto is A-OK with it.
-    typedef typename meta::as_real<T>::type real_type;
+    typedef typename dispatch::meta::as_real<T>::type real_type;
     typedef typename boost::proto::result_of::
     make_expr < boost::simd::tag::tofloat_ , simd::domain<real_type,C>
-                              , typename meta::strip<A0>::type const&
+                              , A0 const&
               >::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<T>::type real_type;
+      typedef typename dispatch::meta::as_real<T>::type real_type;
       return boost::proto::make_expr< boost::simd::tag::tofloat_
                                     , simd::domain<real_type,C>
                                     , A0 const&

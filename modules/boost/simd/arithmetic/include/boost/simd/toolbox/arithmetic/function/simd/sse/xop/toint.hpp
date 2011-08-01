@@ -14,15 +14,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
                         (A0),
                         ((simd_<arithmetic_<A0>,boost::simd::tag::xop_>))
                        )
   {
- typedef typename meta::as_integer<A0>::type result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+ typedef typename dispatch::meta::as_integer<A0>::type result_type; 
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return a0;
     }
@@ -33,13 +33,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
                         (A0),
                         ((simd_<double_<A0>,boost::simd::tag::xop_>))
                        )
   {
- typedef typename meta::as_integer<A0>::type result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+ typedef typename dispatch::meta::as_integer<A0>::type result_type; 
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
       return make<type>(a0[0],a0[1], a0[2],a0[3]); //TODO with _mm_cvttpd_epi32
@@ -51,13 +51,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
                         (A0),
                         ((simd_<float_<A0>,boost::simd::tag::xop_>))
                        )
   {
- typedef typename meta::as_integer<A0>::type result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+ typedef typename dispatch::meta::as_integer<A0>::type result_type; 
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
       type that =  {_mm256_cvttps_epi32(a0)};

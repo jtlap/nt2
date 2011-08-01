@@ -15,17 +15,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_split_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_split_, tag::cpu_,
                              (A0),
                              (scalar_< real_<A0> >)
                             )
   {
-    typedef typename meta::strip<A0>::type           stA0;
+    typedef A0           stA0;
     typedef typename boost::fusion::tuple<stA0,stA0> result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
       eval(a0,boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));

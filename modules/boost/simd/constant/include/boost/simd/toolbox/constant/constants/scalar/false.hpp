@@ -15,15 +15,15 @@
 // BOOST_SIMD_STD_CONSTANT_TAG(False)
 // BOOST_SIMD_STD_CONSTANT_DEF(False)
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::False ,tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::False ,tag::cpu_, (A0)
                             , (target_< scalar_<fundamental_<A0> > >)
                             )
   {
     typedef typename A0::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       return boost::simd::splat<result_type>(false);

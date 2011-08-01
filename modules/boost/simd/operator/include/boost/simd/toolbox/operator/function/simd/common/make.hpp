@@ -18,15 +18,15 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, tag::cpu_, (A0)(X)
                             , ((target_< simd_< arithmetic_<A0>, X > >))
                             )
   {
     typedef simd::native<A0, X> result_type;
     #define M0(z,n,t)                                                 \
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(n)                                        \
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(n)                                        \
     {                                                                 \
       BOOST_SIMD_ALIGNED_TYPE(A0) tmp[n] = {  BOOST_PP_ENUM_PARAMS(n, a)  }; \
       return load<simd::native<A0, X> >(&tmp[0], 0);                  \

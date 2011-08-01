@@ -19,15 +19,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<int32_<A0>,boost::simd::tag::avx_>))
                          )
   {
- typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+ typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
       type that = { _mm256_cvtepi32_ps(a0)};
@@ -40,15 +40,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
                          )
   {
- typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+ typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_real<A0>::type  result_type;
+      typedef typename dispatch::meta::as_real<A0>::type  result_type;
       result_type const v = {a0[0], a0[1], a0[2], a0[3]};
       return v;
     }
@@ -59,13 +59,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<real_<A0>,boost::simd::tag::avx_>))
                          )
   {
- typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+ typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return a0;
     }
@@ -76,17 +76,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
                          )
   {
- typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+ typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_real<A0>::type  result_type;
+      typedef typename dispatch::meta::as_real<A0>::type  result_type;
       typedef typename meta::scalar_of<A0>::type stype;
-      typedef typename meta::as_integer<A0,signed>::type sint_type;
+      typedef typename dispatch::meta::as_integer<A0,signed>::type sint_type;
       static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
       const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
       const sint_type a00 = simd::native_cast<sint_type>(a0);
@@ -102,15 +102,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
                           (A0),
                           ((simd_<int64_<A0>,boost::simd::tag::avx_>))
                          )
   {
- typedef typename meta::as_real<A0>::type  result_type; 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+ typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_real<A0>::type  type;
+      typedef typename dispatch::meta::as_real<A0>::type  type;
       type const v = {a0[0], a0[1], a0[2], a0[3]};
       return v;
     }

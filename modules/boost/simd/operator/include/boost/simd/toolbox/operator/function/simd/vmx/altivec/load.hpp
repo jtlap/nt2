@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -21,7 +21,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef typename A2::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       result_type that = { vec_ld(a1*16,a0) };
       return that;

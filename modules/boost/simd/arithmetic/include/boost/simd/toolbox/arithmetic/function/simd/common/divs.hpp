@@ -15,17 +15,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::rdivide(a0, a1); 
     }
@@ -35,21 +35,21 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       using namespace boost::simd;
 
-      typedef typename meta::as_integer<A0, unsigned>::type utype;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       A0 c = b_and(eq(a0, Valmin<A0>()), eq(a1, Mone<A0>())); 
       return rdivide( a0-c, a1); 
     }

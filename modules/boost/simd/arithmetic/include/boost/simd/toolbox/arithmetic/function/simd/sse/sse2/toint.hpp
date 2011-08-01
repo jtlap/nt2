@@ -14,22 +14,22 @@
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/make.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_, (A0)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::as_integer<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_ , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::as_integer<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 
@@ -42,12 +42,12 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_ , (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::as_integer<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 

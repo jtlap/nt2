@@ -58,30 +58,30 @@
 //     ulpdist(double(boost::simd::Pi<float>()), boost::simd::Pi<double>()) == 9.84293e+07
 ///////////////////////////////////////////////////////////////////////////////
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return (max(a0, a1)-min(a0,a1));
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                               ((simd_<real_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       using namespace boost::simd;
-      typedef typename meta::as_integer<A0>::type itype;
+      typedef typename dispatch::meta::as_integer<A0>::type itype;
       itype e1, e2;
       A0 m1, m2;
       boost::fusion::tie(m1, e1) = boost::simd::frexp(a0);

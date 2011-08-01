@@ -26,10 +26,10 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
 
-  template < class T, class I = typename meta::as_integer<T, signed>::type>
+  template < class T, class I = typename dispatch::meta::as_integer<T, signed>::type>
   struct hypot_constants;
 
   template <class I> struct hypot_constants<float, I>
@@ -56,14 +56,14 @@ namespace boost { namespace dispatch { namespace meta
     static inline int_type M1() { return (0xffffffff00000000ll);};
   };
 
- BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
+ BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
                        (A0)(A1),
                        (scalar_<fundamental_<A0> >)(scalar_<fundamental_<A1> >)
                       )
  {
    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef result_type ftype;
       return internal(ftype(a0), ftype(a1)); 
@@ -87,7 +87,7 @@ namespace boost { namespace dispatch { namespace meta
       // the straightforward preceding overload for floats
       // The float constants are provided in order to modify
       // the algorithm if a architecture gived different speed results
-      typedef typename meta::as_integer<AA0, signed>::type  int_type;
+      typedef typename dispatch::meta::as_integer<AA0, signed>::type  int_type;
       AA0 x =  boost::simd::abs(a0);
       AA0 y =  boost::simd::abs(a1);
       if (boost::simd::is_inf(x+y)) return Inf<AA0>();
@@ -125,7 +125,7 @@ namespace boost { namespace dispatch { namespace meta
         AA0 y2 = b - y1;
 	//         typedef typename meta::f rom_bits<AA0, unsigned>::type type;
 	//         type that = {bits(a)+hypot_constants<AA0>::C3()};
-        typedef typename meta::as_integer<AA0, unsigned>::type type;
+        typedef typename dispatch::meta::as_integer<AA0, unsigned>::type type;
         AA0 t1 =  boost::simd::bitwise_cast<AA0>(boost::simd::bitwise_cast<type>(a)+hypot_constants<AA0>::C3());
 	  //        AA0 t1 = that.value;
         AA0 t2 = (a+a) - t1;

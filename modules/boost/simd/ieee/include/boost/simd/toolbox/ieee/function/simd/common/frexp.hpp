@@ -21,12 +21,12 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A1)(A2)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A1)(A2)(X)
 				  ,( boost::mpl::and_ <
 				     boost::is_same<A0,A1>, 
-				     boost::is_same<typename meta::as_integer<A0>::type, A2>
+				     boost::is_same<typename dispatch::meta::as_integer<A0>::type, A2>
 				     >
 				  )
                                 , ( boost::simd::tag::frexp_
@@ -44,7 +44,7 @@ namespace boost { namespace dispatch { namespace meta
     inline void operator()(A0 const& a0,A1 & r0,A2 & r1) const
     {
       using namespace boost::simd;
-      typedef typename meta::as_integer<A0, signed>::type      int_type;
+      typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
       typedef typename meta::scalar_of<int_type>::type        sint_type;
       typedef typename meta::scalar_of<A0>::type                 s_type;
       const sint_type me = Maxexponent<s_type>()-1;
@@ -64,8 +64,8 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)(X)
-				 , ( boost::is_same<typename meta::as_integer<A0>::type, A2>)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)(X)
+				 , ( boost::is_same<typename dispatch::meta::as_integer<A0>::type, A2>)
                                  , ( boost::simd::tag::frexp_
 				    ( simd_<real_<A0>,X> 
 				    , simd_<integer_<A2>,X>  
@@ -84,14 +84,14 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, signed>::type  exponent;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type  exponent;
     typedef boost::fusion::vector<A0,exponent>           result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
       boost::simd::frexp( a0

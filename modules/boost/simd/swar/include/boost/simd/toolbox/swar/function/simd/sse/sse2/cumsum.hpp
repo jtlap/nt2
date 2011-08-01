@@ -14,17 +14,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
                          (A0),
                          ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0>::type sint;
+      typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::native_cast<sint>(a0);
       sint tmp1 = { _mm_slli_si128(tmp,1)}; 
@@ -66,15 +66,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
                          (A0),
                          ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0>::type sint;
+      typedef typename dispatch::meta::as_integer<A0>::type sint;
       sint tmp = simd::native_cast<sint>(a0); 
       sint tmp1 = { _mm_slli_si128(tmp,8)}; 
       return a0+simd::native_cast<A0>(tmp1);
@@ -86,15 +86,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
                          (A0),
                          ((simd_<type16_<A0>,boost::simd::tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0>::type sint;
+      typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::native_cast<sint>(a0); 
       sint tmp1 = { _mm_slli_si128(tmp,2)}; 
@@ -119,15 +119,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, tag::cpu_,
                          (A0),
                          ((simd_<type32_<A0>,boost::simd::tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0>::type sint;
+      typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::native_cast<sint>(a0);
       sint tmp1 = {_mm_slli_si128(tmp, 4)}; 

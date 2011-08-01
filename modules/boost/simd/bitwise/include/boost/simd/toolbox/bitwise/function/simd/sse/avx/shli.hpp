@@ -35,12 +35,12 @@ namespace boost { namespace simd { namespace ext
     template<class This,class A0, class A1>
     struct result<This(A0,A1)> : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename meta::as_integer<sctype>::type sitype;
+      typedef typename dispatch::meta::as_integer<sctype>::type sitype;
       typedef typename simd::native<sitype, boost::simd::tag::sse_ >  isvtype;
-      typedef typename meta::as_integer<A0>::type  itype;
+      typedef typename dispatch::meta::as_integer<A0>::type  itype;
 
       isvtype a00 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 0)};
       isvtype a01 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 1)};

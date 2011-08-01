@@ -30,9 +30,9 @@
 //     template<class Sig> struct result;
 //     template<class This,class A0>
 //     struct result<This(A0, A0)> : meta::strip<A0>{};
-//     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
 //     {
-//       typedef typename meta::as_integer<A0, unsigned>::type untype; 
+//       typedef typename dispatch::meta::as_integer<A0, unsigned>::type untype; 
 //       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
 //       untype aa0 = simd::native_cast<untype>(boost::simd::abs(a0));
 //       untype aa1 = simd::native_cast<untype>(boost::simd::abs(a1));
@@ -75,7 +75,7 @@
 //     template<class Sig> struct result;
 //     template<class This,class A0>
 //     struct result<This(A0, A0)> : meta::strip<A0>{};
-//     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
 //     {
 //       return sel( lt(rdivide(Valmax<A0>(), a0), a1),
 // 		  Valmax<A0>(),

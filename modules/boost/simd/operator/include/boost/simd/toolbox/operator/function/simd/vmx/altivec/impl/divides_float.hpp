@@ -11,16 +11,16 @@
 
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       result_type erb   = { vec_re(a1()) };
       result_type rec_b = { vec_madd( vec_nmsub(erb(), a1(), One<result_type>()())

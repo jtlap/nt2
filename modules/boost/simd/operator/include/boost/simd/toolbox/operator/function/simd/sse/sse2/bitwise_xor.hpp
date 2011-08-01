@@ -12,9 +12,9 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                               ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
@@ -22,10 +22,9 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using boost::simd::native_cast;
-      typedef typename meta::as_integer<A0>::type int_type;
+      typedef typename dispatch::meta::as_integer<A0>::type int_type;
       A0  that  = { native_cast<A0>
                     ( _mm_xor_si128 ( native_cast<int_type>( a0 )
                                     , native_cast<int_type>( a1 )
@@ -36,7 +35,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                               ((simd_<double_<A1>,boost::simd::tag::sse_>))
@@ -44,14 +43,14 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_xor_pd(a0,a1) };
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, tag::cpu_
                             , (A0)(A1)
                             , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                               ((simd_<float_<A1>,boost::simd::tag::sse_>))
@@ -59,7 +58,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_xor_ps(a0,a1) };
       return that;

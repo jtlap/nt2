@@ -17,14 +17,14 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/load.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
 
 //==============================================================================
 // load pack without offset
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(T)(C)(Sema)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -37,8 +37,8 @@ namespace boost { namespace dispatch { namespace meta
                               ))
                             )
   {
-    typedef typename meta::strip<A2>::type::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(3) { return result_type(a0,a1); }
+    typedef typename A2::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(3) { return result_type(a0,a1); }
   };
 } } }
 
@@ -46,9 +46,9 @@ namespace boost { namespace dispatch { namespace meta
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd pack with suboffset
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(T)(C)(Sema)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -62,9 +62,9 @@ namespace boost { namespace dispatch { namespace meta
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(4) { return result_type(a0,a1,a3); }
+    BOOST_SIMD_FUNCTOR_CALL(4) { return result_type(a0,a1,a3); }
   };
 } } }
 

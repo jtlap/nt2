@@ -14,9 +14,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Register terminal handlers for SIMD expression - native case
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
                             , (Value)(State)(Data)(X)
                             , ((simd_<arithmetic_<Value>,X>))
                               ((target_<simd_<arithmetic_<State>,X> >))
@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
                                   (class Data)(std::size_t N)
                                 , ((array_<scalar_< arithmetic_<Value > >,N>))

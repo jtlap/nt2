@@ -16,15 +16,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
                        (A0),
                        ((simd_<uint8_<A0>,boost::simd::tag::xop_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 const na  = isnez(a0);
       A0 n   = add(shri(a0, 4), Four<A0>());
@@ -43,16 +43,16 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
                        (A0),
                        ((simd_<arithmetic_<A0>,boost::simd::tag::xop_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_integer<A0,signed>::type     int_type;
-      typedef typename meta::as_integer<A0,unsigned>::type  uint_type;
+      typedef typename dispatch::meta::as_integer<A0,signed>::type     int_type;
+      typedef typename dispatch::meta::as_integer<A0,unsigned>::type  uint_type;
       return seladd(isgtz(a0), Zero<int_type>(), simd::native_cast<int_type>(sqrt(simd::native_cast<uint_type>(a0))));
     }
   };
@@ -62,13 +62,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
                        (A0),
                        ((simd_<double_<A0>,boost::simd::tag::xop_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 that = { _mm256_sqrt_pd(a0)}; return that;
     }
@@ -79,13 +79,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
                        (A0),
                        ((simd_<float_<A0>,boost::simd::tag::xop_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 that = { _mm256_sqrt_ps(a0)}; return that;
     }
@@ -96,13 +96,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
                        (A0),
                        ((simd_<uint32_<A0>,boost::simd::tag::xop_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 const na = isnez(a0);
       A0 const z1 = add(shri(a0, 6),    integral_constant<A0,16>());
@@ -143,13 +143,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
                        (A0),
                        ((simd_<uint64_<A0>,boost::simd::tag::xop_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return simd::native_cast<A0>(toint(sqrt(tofloat(a0))));
     }
@@ -160,13 +160,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, tag::cpu_,
                        (A0),
                        ((simd_<uint16_<A0>,boost::simd::tag::xop_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 const  na = isnez(a0);
       A0 const  z1 = add(shri(a0, 6), integral_constant<A0, 16>());

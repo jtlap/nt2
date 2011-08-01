@@ -92,33 +92,31 @@ namespace boost { namespace simd
 //==============================================================================
 // Custom local real functor
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( (boost::simd::tag::pattern<D,F>) , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( (boost::simd::tag::pattern<D,F>) , tag::cpu_
                                 , (boost::simd::uint64_t D)(boost::simd::uint32_t F)(class A0)
                                 , (target_< scalar_<double_<A0> > >)
                                 )
   {
-    typedef typename strip<A0>::type::type result_type;
+    typedef typename A0::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::bitwise_cast;
       ignore_unused(a0);
       return boost::simd::splat<result_type>(bitwise_cast<result_type,boost::simd::uint64_t>(D)); 
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( (boost::simd::tag::pattern<D,F>) , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( (boost::simd::tag::pattern<D,F>) , tag::cpu_
                                 , (boost::simd::uint64_t D)(boost::simd::uint32_t F)(class A0)
                                 , (target_< scalar_<float_<A0> > >)
                                 )
   {
-    typedef typename strip<A0>::type::type result_type;
+    typedef typename A0::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::bitwise_cast;
       ignore_unused(a0);
       return boost::simd::splat<result_type>(bitwise_cast<result_type,boost::simd::uint32_t>(F)); 
     }

@@ -28,16 +28,16 @@ namespace boost { namespace simd { namespace details
   }
 } } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_pd(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_pd(gt(a0,a1));
@@ -45,14 +45,14 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                               ((simd_<float_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_ps(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_ps(gt(a0,a1));
@@ -60,14 +60,14 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, tag::cpu_
                             , (A0)
                             , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                               ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_epi8(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm_movemask_epi8(gt(a0,a1));

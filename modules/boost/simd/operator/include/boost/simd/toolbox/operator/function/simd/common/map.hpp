@@ -34,16 +34,15 @@
 #define M4(z,n,t) (A##n)
 
 #define M5(z,n,t)                                                            \
-namespace boost { namespace  dispatch {  namespace meta                      \
+namespace boost { namespace simd { namespace ext                             \
 {                                                                            \
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_                \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_       \
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)(X)             \
                             , (unspecified_<Func>)BOOST_PP_REPEAT(n,M0,~)    \
                             )                                                \
   {                                                                          \
-    typedef typename meta::                                                  \
-    result_of< typename meta::                                               \
-               strip<Func>::type const( BOOST_PP_ENUM(n,M2,~) )              \
+    typedef typename dispatch::meta::                                        \
+    result_of< Func const( BOOST_PP_ENUM(n,M2,~) )                           \
              >::type                                                         \
     rtype;                                                                   \
     typedef typename details::                                               \
@@ -57,8 +56,7 @@ namespace boost { namespace  dispatch {  namespace meta                      \
     inline result_type                                                       \
     operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))   \
     {                                                                        \
-      BOOST_SIMD_ALIGNED_TYPE(stype)					     \
-	tmp[boost::simd::meta::cardinal_of<A0>::value];		             \
+      BOOST_SIMD_ALIGNED_TYPE(stype) tmp[meta::cardinal_of<A0>::value];      \
                                                                              \
       for(int i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i)    \
         tmp[i] = details::maybe_genmask<stype>(f(BOOST_PP_ENUM(n, M3, ~)));  \

@@ -22,21 +22,21 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is types8_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type8_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 
-      typedef typename meta::as_integer<A0,unsigned>::type rtype;
+      typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
       typedef typename simd::native<boost::uint64_t,ext> ltype;
       rtype v = firstbitset(a0);
@@ -51,19 +51,19 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type64_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type64_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0,unsigned>::type rtype;
+      typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       return  simd::native_cast<rtype>(map(functor<boost::simd::tag::ffs_>(), simd::native_cast<rtype>(a0)));
     }
   };
@@ -73,21 +73,21 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type16_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type16_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 
-      typedef typename meta::as_integer<A0,unsigned>::type rtype;
+      typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
       typedef typename simd::native<boost::uint64_t,ext> ltype;
       rtype v = firstbitset(a0);
@@ -103,21 +103,21 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type32_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 
-      typedef typename meta::as_integer<A0,unsigned>::type rtype;
+      typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
       typedef typename simd::native<boost::uint64_t, ext> ltype;
       rtype v = firstbitset(a0);

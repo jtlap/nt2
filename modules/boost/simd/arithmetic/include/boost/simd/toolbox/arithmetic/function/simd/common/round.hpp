@@ -9,14 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_ROUND_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return round2even(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return round2even(a0); }
   };
 } } }
 

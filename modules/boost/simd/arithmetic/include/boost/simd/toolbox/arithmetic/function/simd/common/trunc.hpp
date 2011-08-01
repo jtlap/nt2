@@ -13,22 +13,22 @@
 #include <boost/simd/include/functions/floor.hpp>
 #include <boost/simd/include/functions/bitofsign.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_,(A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_,(A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return a0; }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_,(A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_,(A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return  b_xor(floor(abs(a0)), bitofsign(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return  b_xor(floor(abs(a0)), bitofsign(a0)); }
   };
 } } }
 

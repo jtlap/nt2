@@ -13,23 +13,22 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag>,
-					tag::cpu_,
-					(A0)(Tag)(X),
-					((simd_<arithmetic_<A0>,X>))
-					)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag>
+                                   , tag::cpu_, (A0)(Tag)(X)
+                                   , ((simd_<arithmetic_<A0>,X>))
+                                   )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return sel(gt(a0, boost::simd::functor<Tag>()),
-		 boost::simd::functor<Tag>(),
-		 boost::simd::sel(lt(a0,-boost::simd::functor<Tag>()),
-				  -boost::simd::functor<Tag>(),
-				  a0)
-		 ); 
+      return sel(gt(a0, dispatch::functor<Tag>()),
+        dispatch::functor<Tag>(),
+        sel(lt(a0,-dispatch::functor<Tag>()),
+                  -dispatch::functor<Tag>(),
+                  a0)
+      ); 
     }
   };
 } } }

@@ -13,15 +13,12 @@
 #include <boost/simd/sdk/constant/category.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
-#include <iostream>
-#include <boost/simd/sdk/details/type_id.hpp>
-
 ////////////////////////////////////////////////////////////////////////////////
 // Litteral as usually splatted w/e the target
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch {  namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
                             , (Value)(State)(Data)
                             , (scalar_< arithmetic_<Value> >)
                               ((target_<unspecified_<State> >))
@@ -37,9 +34,9 @@ namespace boost { namespace dispatch {  namespace meta
   };
 } } }
 
-namespace boost { namespace dispatch {  namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
                             , (Id)(State)(Data)
                             , (constant_<Id>)
                               ((target_<unspecified_<State> >))
@@ -50,16 +47,16 @@ namespace boost { namespace dispatch {  namespace meta
 
     inline result_type operator()( Id const& v, State const&, Data const& ) const
     {
-      typename make_functor<typename Id::type,Id>::type callee;
-      return callee( meta::as_<result_type>() );
+      typename dispatch::make_functor<typename Id::type,Id>::type callee;
+      return callee( dispatch::meta::as_<result_type>() );
     }
   };
 } } }
 
 
-namespace boost { namespace dispatch {  namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
                                   (class Data)(std::size_t N)
                                 , (scalar_< arithmetic_<Value> >)
@@ -76,9 +73,9 @@ namespace boost { namespace dispatch {  namespace meta
 };
 } } }
 
-namespace boost { namespace dispatch {  namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Id)(class State)
                                   (class Data)(std::size_t N)
                                 , (constant_<Id>)
@@ -90,8 +87,8 @@ namespace boost { namespace dispatch {  namespace meta
 
   inline result_type operator()( Id const& v, State const&, Data const& ) const
   {
-    typename make_functor<typename Id::type,Id>::type callee;
-    return callee( meta::as_<result_type>() );
+    typename dispatch::make_functor<typename Id::type,Id>::type callee;
+    return callee( dispatch::meta::as_<result_type>() );
   }
 };
 } } }

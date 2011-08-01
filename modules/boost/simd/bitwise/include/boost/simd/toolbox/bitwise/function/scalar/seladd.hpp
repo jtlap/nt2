@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_SELADD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_SELADD_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::seladd_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::seladd_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A1> >)
                               (scalar_< fundamental_<A2> >)
                             )
   {
-    typedef typename meta::result_of<meta::arithmetic(A1,A2)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A1,A2)>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       if(a0) return result_type(a1) + result_type(a2);
       else   return result_type(a1);

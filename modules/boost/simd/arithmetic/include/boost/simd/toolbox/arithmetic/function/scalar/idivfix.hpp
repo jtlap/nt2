@@ -12,22 +12,22 @@
 #include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/toint.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return boost::simd::rdivide(a0, a1);
     }
 
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> > )(scalar_< real_<A1> > )
                             )
 
@@ -36,7 +36,7 @@ namespace boost { namespace dispatch { namespace meta
             as_integer < typename meta::
                                   result_of<meta::arithmetic(A0,A1)>::type
                        >::type                                      result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return boost::simd::toint(a0/a1); 
     }

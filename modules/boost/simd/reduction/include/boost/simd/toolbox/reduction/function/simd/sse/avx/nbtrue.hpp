@@ -15,15 +15,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, tag::cpu_,
                          (A0),
                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef int32_t result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;
@@ -38,13 +38,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, tag::cpu_,
                          (A0),
                          ((simd_<double_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef int32_t result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       int32_t  r = _mm256_movemask_pd(isnez(a0));
       return   (r&1)+(r>>1&1)+((r>>2)&1)+(r>>3);
@@ -56,15 +56,15 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, tag::cpu_,
                          (A0),
                          ((simd_<float_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef int32_t result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_real<A0>::type type;
+      typedef typename dispatch::meta::as_real<A0>::type type;
       int32_t  r = _mm256_movemask_ps(isnez(a0));
       return   (r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3&1)+((r>>4)&1)+((r>>5)&1)+(r>>6&1)+(r>>7);
       //      return __builtin_popcount(_mm_movemask_ps(isnez(cast<type>(a0))));

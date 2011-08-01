@@ -11,16 +11,16 @@
 
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       bool that = true;
       for(std::size_t i=0;i<boost::simd::meta::cardinal_of<A0>::value;++i)

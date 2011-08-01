@@ -15,17 +15,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
                       ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename meta::result_of<meta::arithmetic(base)>::type  result_type;
+      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return boost::fusion::fold(a0,0,functor<boost::simd::tag::plus_>());
     }
@@ -36,14 +36,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
                       ((simd_<double_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type                 result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1) {
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1) {
       A0 b1 = {_mm_hadd_pd (a0, Zero<A0>())};
       double r;
       _mm_store_sd(&r, b1);
@@ -56,14 +56,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, tag::cpu_,
                       (A0),
                       ((simd_<float_<A0>,boost::simd::tag::sse_>))
                      )
   {
       typedef typename meta::scalar_of<A0>::type   result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 b1 = {_mm_hadd_ps (a0, Zero<A0>())};
       b1 = _mm_hadd_ps (b1, Zero<A0>());

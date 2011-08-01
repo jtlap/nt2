@@ -18,23 +18,23 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::mantissa_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::mantissa_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
       //TO DO incorrect
       if(!a0) return a0;
       if(is_invalid(a0)) return a0; 
-      typedef typename meta::as_integer<A0, unsigned>::type int_type;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type int_type;
       static const int_type n1 = (((Maxexponent<A0>()<<1)+1)<< Nbmantissabits<A0>());
       static const int_type n2 = (sizeof(int_type)-2);
       static const int_type mask0 = ((n1<<2)>>2);

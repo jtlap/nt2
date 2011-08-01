@@ -24,26 +24,26 @@
 
 #include <boost/simd/toolbox/arithmetic/function/simd/common/tofloat.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)
                             , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type that = { _mm_cvtepi32_ps(a0)};
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
                             , ((simd_<uint64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
       return boost::simd::make<result_type>( static_cast<stype>(a0[0])
@@ -52,12 +52,12 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
                             , ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
 
@@ -68,7 +68,7 @@ namespace boost { namespace dispatch { namespace meta
                               );
       //TO DO
  //      typedef typename meta::scalar_of<A0>::type stype;
-//       typedef typename meta::as_integer<A0,signed>::type sint_type;
+//       typedef typename dispatch::meta::as_integer<A0,signed>::type sint_type;
 //       //      static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
 //       const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
 //       const sint_type a00 = simd::native_cast<sint_type>(a0);
@@ -79,12 +79,12 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type sftype;
       if (maximum(abs(a0)) > boost::simd::Valmax<int32_t>())

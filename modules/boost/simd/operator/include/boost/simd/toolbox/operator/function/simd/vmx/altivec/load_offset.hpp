@@ -11,9 +11,9 @@
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_, (A0)(A1)(A2)(A3)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_, (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               ((target_<simd_<fundamental_<A2>,boost::simd::tag::altivec_> >))
@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace meta
     struct  is_forward : boost::mpl::bool_< (Offset::value > 0) >
     {};
 
-    BOOST_DISPATCH_FUNCTOR_CALL(4)
+    BOOST_SIMD_FUNCTOR_CALL(4)
     {
       return eval ( a0,a1
                   , typename is_periodic<A2,A3>::type()

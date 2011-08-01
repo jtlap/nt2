@@ -14,15 +14,15 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <iostream>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::comma_,tag::cpu_ , (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::comma_,tag::cpu_ , (A0)(A1)
                             , (generic_<fundamental_<A0> >)
                               (generic_<fundamental_<A1> >)
                             )
   {
     typedef A1 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { ignore_unused(a0); return a1;}
+    BOOST_SIMD_FUNCTOR_CALL(2) { ignore_unused(a0); return a1;}
   };
 } } }
 

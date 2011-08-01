@@ -18,17 +18,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return boost::simd::round(double(a0)/double(a1));
     }
@@ -39,17 +39,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return boost::simd::round2even(a0/a1);
     }
