@@ -23,7 +23,7 @@
 BOOST_SIMD_TEST_CASE_TPL(terminal_of_pack, BOOST_SIMD_TYPES)
 {
   using boost::simd::pack;
-  using boost::simd::meta::terminal_of;
+  using boost::dispatch::meta::terminal_of;
   using boost::is_same;
 
   BOOST_SIMD_DECLTYPE(pack<T>() + pack<T>()+3, expr);

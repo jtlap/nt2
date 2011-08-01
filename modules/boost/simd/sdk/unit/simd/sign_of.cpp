@@ -9,7 +9,7 @@
 #define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::sign_of SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/sign_of.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/sdk/unit/tests/basic.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
@@ -19,7 +19,7 @@
 BOOST_SIMD_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
-  using boost::simd::meta::sign_of;
+  using boost::dispatch::meta::sign_of;
   using boost::is_same;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;

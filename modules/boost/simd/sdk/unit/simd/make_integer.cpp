@@ -9,7 +9,7 @@
 #define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::make_integer SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/make_integer.hpp>
+#include <boost/dispatch/meta/make_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <boost/simd/sdk/unit/tests/basic.hpp>
@@ -21,7 +21,7 @@
 BOOST_SIMD_TEST_CASE_TPL(make_uinteger_simd, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
-  using boost::simd::meta::make_integer;
+  using boost::dispatch::meta::make_integer;
   using boost::is_same;
   using boost::mpl::_;
 
@@ -41,7 +41,7 @@ BOOST_SIMD_TEST_CASE_TPL(make_uinteger_simd, BOOST_SIMD_TYPES)
 BOOST_SIMD_TEST_CASE_TPL(make_integer_simd, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
-  using boost::simd::meta::make_integer;
+  using boost::dispatch::meta::make_integer;
   using boost::is_same;
   using boost::mpl::_;
 

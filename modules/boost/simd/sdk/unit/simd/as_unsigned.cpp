@@ -9,7 +9,7 @@
 #define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::as_unsigned SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/as_unsigned.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <boost/simd/sdk/unit/tests/basic.hpp>
@@ -21,7 +21,7 @@
 BOOST_SIMD_TEST_CASE_TPL(as_unsigned, BOOST_SIMD_TYPES)
 {
 	using boost::simd::native;
-  using boost::simd::meta::as_unsigned;
+  using boost::dispatch::meta::as_unsigned;
   using boost::is_same;
   using boost::mpl::_;
 

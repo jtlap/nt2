@@ -9,7 +9,7 @@
 #define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::downgrade SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/downgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <boost/simd/sdk/unit/tests/basic.hpp>
@@ -21,7 +21,7 @@
 BOOST_SIMD_TEST_CASE_TPL(downgrade, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
-  using boost::simd::meta::downgrade;
+  using boost::dispatch::meta::downgrade;
   using boost::is_same;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;

@@ -9,7 +9,7 @@
 #define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::upgrade SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/upgrade.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/sdk/unit/tests/basic.hpp>
 #include <boost/simd/sdk/unit/module.hpp>
@@ -20,7 +20,7 @@
 BOOST_SIMD_TEST_CASE_TPL(upgrade, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
-  using boost::simd::meta::upgrade;
+  using boost::dispatch::meta::upgrade;
   using boost::is_same;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
