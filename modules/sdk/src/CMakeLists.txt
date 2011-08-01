@@ -14,9 +14,6 @@ set(SOURCES
     details/timestamp.cpp
     error/assert_exception.cpp
     error/exception.cpp
-    memory/allocate.cpp
-    memory/deallocate.cpp
-    memory/reallocate.cpp
     timing/now.cpp
     timing/timers.cpp
     config/version.cpp

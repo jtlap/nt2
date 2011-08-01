@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_RECOGNITION_FMA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_RECOGNITION_FMA_HPP_INCLUDED
 
-#include <boost/simd/sdk/dsl/category.hpp>
+#include <boost/dispatch/dsl/category.hpp>
 #include <boost/simd/sdk/dsl/recognition.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/arithmetic/function/fma.hpp>

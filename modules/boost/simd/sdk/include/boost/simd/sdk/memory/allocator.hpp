@@ -10,7 +10,6 @@
 #define BOOST_SIMD_SDK_MEMORY_ALLOCATOR_HPP_INCLUDED
 
 #include <cstddef>
-#include <boost/simd/sdk/error/error.hpp>
 #include <boost/simd/sdk/memory/config.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
 #include <boost/simd/sdk/memory/allocate.hpp>

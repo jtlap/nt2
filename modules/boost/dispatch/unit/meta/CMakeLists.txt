@@ -8,6 +8,9 @@
 ################################################################################
 
 SET( SOURCES
+    all.cpp
+    any.cpp
+    is_result_of_supported.cpp
     as.cpp
     as_integer.cpp
     as_real.cpp

@@ -7,6 +7,8 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #include <cstring>
+#include <new>
+#include <boost/throw_exception.hpp>
 #include <boost/simd/sdk/memory/forward.hpp>
 
 namespace boost { namespace simd { namespace memory
@@ -24,13 +26,17 @@ namespace boost { namespace simd { namespace memory
       //////////////////////////////////////////////////////////////////////////
       // MSVC systems use _aligned_realloc
       //////////////////////////////////////////////////////////////////////////
-      result = reinterpret_cast<byte*>(_aligned_realloc(ptr, nbytes, BOOST_SIMD_CONFIG_ALIGNMENT));
+      if( !(result = _aligned_realloc(ptr, nbytes, BOOST_SIMD_CONFIG_ALIGNMENT) ) )
+      {
+        BOOST_THROW_EXCEPTION( std::bad_alloc() );
+        result = 0;
+      }
       #else
       //////////////////////////////////////////////////////////////////////////
       // Other systems allocate/copy/deallocate
       //////////////////////////////////////////////////////////////////////////
       byte* tmp = reinterpret_cast<byte*>(allocate(nbytes));
-      ::memmove(tmp,ptr,obytes);
+      std::memcpy(tmp,ptr,obytes);
       deallocate(ptr);
       result = tmp;
       #endif

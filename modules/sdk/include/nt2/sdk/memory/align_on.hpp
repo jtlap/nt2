@@ -9,57 +9,16 @@
 #ifndef NT2_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 #define NT2_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 
-#include <nt2/sdk/error/assert.hpp>
-#include <nt2/sdk/functor/functor.hpp>
-#include <nt2/sdk/memory/is_power_of_2.hpp>
-#include <nt2/sdk/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/memory/align_on.hpp>
 
 namespace nt2
 {
-  namespace tag { struct align_on_ {}; }
+  namespace tag { using boost::simd::tag::align_on_ ; }
 
   namespace memory
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // align_on(a0) aligns a0 on the default alignement value
-    ////////////////////////////////////////////////////////////////////////////
-    NT2_FUNCTION_IMPLEMENTATION(tag::align_on_, align_on, 1);
-
-    ////////////////////////////////////////////////////////////////////////////
-    // align_on(a0,a1) aligns a0 on the first address multiple of a1
-    ////////////////////////////////////////////////////////////////////////////
-    template<class A0, class A1> inline
-    typename meta::call<tag::align_on_(A0 const&, A1 const&)>::type
-    align_on(A0 const& a0, A1 const& a1)
-    {
-      NT2_ASSERT(   is_power_of_2(a1)
-                &&  "Invalid alignment boundary. You tried to align an "
-                    "address or a value on a non-power of 2 boundary."
-                );
-      typename make_functor<tag::align_on_, A0>::type callee;
-      return callee(a0,a1);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // align_on<N>(a0) aligns a0 on the first address multiple of N
-    ////////////////////////////////////////////////////////////////////////////
-    template<std::size_t N,class A0> inline
-    typename
-    meta::call<tag::align_on_(A0 const&,boost::mpl::int_<N> const&)>::type
-    align_on(A0 const& a0)
-    {
-      NT2_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
-                        , INVALID_ALIGNMENT_BOUNDARY
-                        , "Invalid alignment boundary. You tried to align an "
-                          "address or a value on a non-power of 2 boundary."
-                        );
-
-      typename make_functor<tag::align_on_, A0>::type callee;
-      return callee(a0,boost::mpl::int_<N>());
-    }
+    using boost::simd::memory::align_on;
   }
 }
-
-#include <nt2/sdk/memory/details/align_on.hpp>
 
 #endif

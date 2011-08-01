@@ -24,7 +24,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 

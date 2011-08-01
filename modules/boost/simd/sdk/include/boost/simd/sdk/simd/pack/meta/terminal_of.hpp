@@ -11,10 +11,10 @@
 
 #include <boost/mpl/always.hpp>
 #include <boost/simd/sdk/simd/pack/pack.hpp>
-#include <boost/simd/sdk/dsl/terminal_of.hpp>
+#include <boost/dispatch/dsl/terminal_of.hpp>
 #include <boost/simd/sdk/simd/pack/domain.hpp>
 
-namespace boost { namespace simd { namespace ext
+namespace boost { namespace dispatch { namespace ext
 {
   //////////////////////////////////////////////////////////////////////////////
   // For simd domain, we return the proper pack

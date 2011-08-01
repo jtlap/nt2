@@ -9,39 +9,11 @@
 #ifndef NT2_SDK_MEMORY_DEALLOCATE_HPP_INCLUDED
 #define NT2_SDK_MEMORY_DEALLOCATE_HPP_INCLUDED
 
-#include <cstddef>
-#include <nt2/sdk/error/error.hpp>
-#include <nt2/sdk/memory/config.hpp>
-#include <nt2/sdk/memory/align_on.hpp>
+#include <boost/simd/sdk/memory/allocate.hpp>
 
 namespace nt2 { namespace memory
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Deallocate a raw buffer of bytes
-  //////////////////////////////////////////////////////////////////////////////
-  void deallocate( byte* ptr, std::size_t nbytes = 0);
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Deallocate a raw buffer of bytes using an allocator
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Allocator> inline void
-  deallocate( Allocator& a, byte* ptr, std::size_t nbytes = 0)
-  {
-    // Allocator element types
-    typedef typename Allocator::value_type value_type;
-
-    // Compute alignment values for fixing address
-    BOOST_STATIC_CONSTANT(std::size_t, size  = sizeof(value_type)       );
-    BOOST_STATIC_CONSTANT(std::size_t, align = NT2_CONFIG_ALIGNMENT     );
-
-    // How many elements are needed ot store proper number of bytes
-    std::size_t nelems = align_on<size>(nbytes+align+sizeof(void*))/size;
-
-    void* base = reinterpret_cast<void**>(ptr)[- 1];
-    a.deallocate(reinterpret_cast<typename Allocator::pointer>(base),nelems);
-  }
+  using boost::simd::deallocate;
 } }
-
-
 
 #endif

@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 
-#include <boost/simd/sdk/dsl/category.hpp>
-#include <boost/simd/sdk/dsl/proto/extends.hpp>
+#include <boost/dispatch/dsl/category.hpp>
+#include <boost/dispatch/dsl/proto/extends.hpp>
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
 
 namespace boost { namespace simd

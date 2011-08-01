@@ -11,7 +11,7 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/proto/proto.hpp>
-#include <boost/simd/sdk/dsl/terminal_of.hpp>
+#include <boost/dispatch/dsl/terminal_of.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace meta
     template<class This, class Expr>
     struct result<This(Expr)>
     {
-      typedef meta::terminal_of<Expr> base_type;
+      typedef boost::dispatch::meta::terminal_of<Expr> base_type;
       typedef typename boost::mpl::apply<base_type,void>::type pack_type;
       typedef boost::dispatch::meta::as_< typename pack_type::data_type::parent > type;
     };

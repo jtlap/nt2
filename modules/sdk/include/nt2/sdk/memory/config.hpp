@@ -13,18 +13,9 @@
 // Memory config header
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/config/types.hpp>
+#include <boost/simd/sdk/memory/config.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Detect if we can use any pre-existing aligned memory allocation function
-////////////////////////////////////////////////////////////////////////////////
-#if (     (defined _GNU_SOURCE)                                   \
-      ||  ((defined _XOPEN_SOURCE) && (_XOPEN_SOURCE >= 600))     \
-    )                                                             \
- && (defined _POSIX_ADVISORY_INFO) && (_POSIX_ADVISORY_INFO > 0)
-  #include <cstdlib>
-  #include <cstring>
-  #define NT2_CONFIG_SUPPORT_POSIX_MEMALIGN
-#endif
+#define NT2_CONFIG_SUPPORT_POSIX_MEMALIGN BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN
 
 ////////////////////////////////////////////////////////////////////////////////
 // Small byte typedef for memory components
