@@ -9,10 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_COMMON_COMMA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_COMMON_COMMA_HPP_INCLUDED
 
-#include <boost/simd/sdk/details/type_id.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
-#include <iostream>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
