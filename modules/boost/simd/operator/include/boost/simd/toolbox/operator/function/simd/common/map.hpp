@@ -57,9 +57,10 @@ namespace boost { namespace  dispatch {  namespace meta                      \
     inline result_type                                                       \
     operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))   \
     {                                                                        \
-      BOOST_SIMD_ALIGNED_TYPE(stype) tmp[meta::cardinal_of<A0>::value];             \
+      BOOST_SIMD_ALIGNED_TYPE(stype)					     \
+	tmp[boost::simd::meta::cardinal_of<A0>::value];		             \
                                                                              \
-      for(int i = 0; i != meta::cardinal_of<A0>::value; ++i)                 \
+      for(int i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i)    \
         tmp[i] = details::maybe_genmask<stype>(f(BOOST_PP_ENUM(n, M3, ~)));  \
                                                                              \
       return load<result_type>(&tmp[0], 0);                                  \

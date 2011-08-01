@@ -29,8 +29,8 @@ namespace boost { namespace dispatch { namespace meta
     {
       typedef typename meta::scalar_of<result_type>::type sA1;
       
-      BOOST_SIMD_ALIGNED_TYPE(sA1) tmp[meta::cardinal_of<result_type>::value];
-      for(int i = 0; i != meta::cardinal_of<result_type>::value; ++i)
+      BOOST_SIMD_ALIGNED_TYPE(sA1) tmp[boost::simd::meta::cardinal_of<result_type>::value];
+      for(int i = 0; i != boost::simd::meta::cardinal_of<result_type>::value; ++i)
         tmp[i] = a0;
       
       return load<result_type>(&tmp[0], 0);

@@ -8,15 +8,35 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_COMPARE_LESS_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_COMMON_COMPARE_LESS_EQUAL_HPP_INCLUDED
-
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/compare_less.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_, tag::cpu_, (X)(A0)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
-                            )
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_,
+					 tag::cpu_, (X)(A0), 
+					 ((simd_<real_<A0>,X>))
+					 ((simd_<real_<A0>,X>))
+					 )
+  {
+    typedef bool result_type;
+    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+      {
+	for(std::size_t i=0;i<boost::simd::meta::cardinal_of<A0>::value;++i)
+	  {
+	    if (a0[i] < a1[i])  return true;
+	    if (a1[i] < a0[i])  return false;
+	    if (a1[i] != a0[i]) return false;
+	  }
+	return true;
+      }
+  };
+  
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_,
+					 tag::cpu_, (X)(A0), 
+					 ((simd_<arithmetic_<A0>,X>))
+					 ((simd_<arithmetic_<A0>,X>))
+					 )
   {
     typedef bool result_type;
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return !(a1<a0); }

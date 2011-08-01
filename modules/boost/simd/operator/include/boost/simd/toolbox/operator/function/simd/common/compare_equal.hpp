@@ -23,7 +23,7 @@ namespace boost { namespace dispatch { namespace meta
     BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
     {
       bool that = true;
-      for(std::size_t i=0;i<meta::cardinal_of<A0>::value;++i)
+      for(std::size_t i=0;i<boost::simd::meta::cardinal_of<A0>::value;++i)
         that = that && (a0[i] == a1[i]);
       return that;
     }
