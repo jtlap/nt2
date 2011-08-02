@@ -54,9 +54,9 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
 
     def get_fcts_list(self) :
         l = []
-        for name in os.listdir(self.get_def_path()) :
-            if name[-4:]=='.hpp' :
-                h = name[:-4]
+        for name in os.listdir(self.get_doc_path()) :
+            if name[-3:]=='.py' :
+                h = name[:-3]
                 l.append(h)
         return sorted(l)
 
