@@ -61,10 +61,10 @@
 /**/
 
 
-#define BOOST_SIMD_SIMD__INT_CONVERT_TYPES  (boost::simd::int32_t)(boost::simd::int64_t) \
+#define BOOST_SIMD_SIMD_INT_CONVERT_TYPES  (boost::simd::int32_t)(boost::simd::int64_t) \
 /**/
 
-#define BOOST_SIMD_SIMD__UINT_CONVERT_TYPES  (boost::simd::uint32_t)(boost::simd::uint64_t) \
+#define BOOST_SIMD_SIMD_UINT_CONVERT_TYPES  (boost::simd::uint32_t)(boost::simd::uint64_t) \
 /**/
 
 #define BOOST_SIMD_SIMD_SIGNED_INT_GT_8  (boost::simd::int16_t)(boost::simd::int32_t)(boost::simd::int64_t) \

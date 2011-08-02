@@ -7,121 +7,59 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 
-
 #ifndef NT2_SDK_CONFIG_TYPE_LISTS_HPP_INCLUDED
 #define NT2_SDK_CONFIG_TYPE_LISTS_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/extensions.hpp>
 
-#if !defined(NT2_TYPES)
-#define NT2_TYPES  (nt2::uint64_t)     \
-    (nt2::int64_t)(double)		     \
-    (nt2::uint32_t)(nt2::int32_t)(float)     \
-    (nt2::uint16_t)(nt2::int16_t)	     \
-    (nt2::uint8_t) (nt2::int8_t)	     \
-/**/
-#endif
+#define NT2_TYPES BOOST_SIMD_TYPES
+#define NT2_REAL_TYPES BOOST_SIMD_REAL_TYPES
+#define NT2_REAL_CONVERTIBLE_TYPES BOOST_SIMD_REAL_CONVERTIBLE_TYPES
+#define NT2_UNSIGNED_TYPES BOOST_SIMD_UNSIGNED_TYPES
+#define NT2_SIGNED_TYPES BOOST_SIMD_SIGNED_TYPES
+#define NT2_INTEGRAL_TYPES BOOST_SIMD_INTEGRAL_TYPES
+#define NT2_INTEGRAL_SIGNED_TYPES BOOST_SIMD_INTEGRAL_SIGNED_TYPES
+#define NT2_INT_CONVERT_TYPES BOOST_SIMD_INT_CONVERT_TYPES
+#define NT2_UINT_CONVERT_TYPES BOOST_SIMD_UINT_CONVERT_TYPES
+#define NT2_SIGNED_INT_GT_8 BOOST_SIMD_SIGNED_INT_GT_8
+#define NT2_UNSIGNED_INT_GT_8 BOOST_SIMD_UNSIGNED_INT_GT_8
+#define NT2_INT_64_TYPES BOOST_SIMD_INT_64_TYPES
+#define NT2_INT_32_TYPES BOOST_SIMD_INT_32_TYPES
+#define NT2_INT_16_TYPES BOOST_SIMD_INT_16_TYPES
+#define NT2_INT_8_TYPES BOOST_SIMD_INT_8_TYPES
+#define NT2_GROUPABLE_TYPES BOOST_SIMD_GROUPABLE_TYPES
+#define NT2_SPLITABLE_TYPES BOOST_SIMD_SPLITABLE_TYPES
+#define NT2_INT_GT8_TYPES BOOST_SIMD_INT_GT8_TYPES
+#define NT2_SIGNED_INT_GT_8_TYPES BOOST_SIMD_SIGNED_INT_GT_8_TYPES
+#define NT2_UNSIGNED_INT_GT_8_TYPES BOOST_SIMD_UNSIGNED_INT_GT_8_TYPES
+#define NT2_LT64_TYPES BOOST_SIMD_LT64_TYPES
+#define NT2_GT16_TYPES BOOST_SIMD_T16_TYPES
+#define NT2_SIGNED_INT_GT_16_TYPES BOOST_SIMD_SIGNED_INT_GT_16_TYPES
+#define NT2_UNSIGNED_INT_GT_16_TYPES BOOST_SIMD_UNSIGNED_INT_GT_16_TYPES
 
-#if !defined(NT2_REAL_TYPES)
-#define NT2_REAL_TYPES	     \
-  (double)			     \
-  (float)			     \
-/**/
-#define NT2_REAL NT2_REAL_TYPES
-#endif
-
-#if !defined(NT2_REAL_CONVERTIBLE_TYPES)
-#define NT2_REAL_CONVERTIBLE_TYPES	     \
-  (nt2::uint64_t)(nt2::int64_t)(double)	     \
-    (nt2::uint32_t)(nt2::int32_t)(float)     \
-/**/
-#endif
-
-#if !defined(NT2_INTEGRAL_SIGNED_TYPES)
-#define NT2_INTEGRAL_SIGNED_TYPES  (nt2::int64_t)	\
-    (nt2::int32_t)					\
-    (nt2::int16_t)					\
-    (nt2::int8_t)					\
-/**/
-#endif
-
-#if !defined(NT2_UNSIGNED_TYPES)
-#define NT2_UNSIGNED_TYPES  (nt2::uint64_t)\
-    (nt2::uint32_t)			   \
-    (nt2::uint16_t)			   \
-    (nt2::uint8_t)			   \
-/**/
-#endif
-
-#if !defined(NT2_INTEGRAL_TYPES)
-#define NT2_INTEGRAL_TYPES  (nt2::uint64_t)		\
-    (nt2::int64_t)(nt2::uint32_t)			\
-    (nt2::int32_t)(nt2::uint16_t)(nt2::int16_t)		\
-    (nt2::int8_t)(nt2::uint8_t)				\
-				 /**/
-#endif
-
-#if !defined(NT2_SIGNED_TYPES)
-#define NT2_SIGNED_TYPES (nt2::int64_t)(double)	\
-    (nt2::int32_t)(float)			\
-    (nt2::int16_t)				\
-    (nt2::int8_t)				\
-/**/
-#endif
-
-#define NT2_INT_CONVERT_TYPES  (nt2::int32_t)(nt2::int64_t) \
-/**/
-
-#define NT2_UINT_CONVERT_TYPES  (nt2::uint32_t)(nt2::uint64_t) \
-/**/
-
-#define NT2_SIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t)(nt2::int64_t) \
-/**/
-
-#define NT2_UNSIGNED_INT_GT_8  (nt2::int16_t)(nt2::int32_t)(nt2::int64_t) \
-/**/
-
-#define NT2_INT_64_TYPES (nt2::int64_t)(nt2::uint64_t) \
-/**/
-
-#define NT2_INT_32_TYPES  (nt2::int32_t)(nt2::uint32_t) \
-/**/
-
-#define NT2_INT_16_TYPES  (nt2::int16_t)(nt2::uint16_t) \
-/**/
-
-#define NT2_INT_8_TYPES  (nt2::int8_t)(nt2::uint8_t) \
-/**/
-
-#define NT2_GROUPABLE_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)(double)\
-/**/
-
-#define NT2_SPLITABLE_TYPES  (nt2::int8_t)(nt2::uint8_t)(nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(float) \
-/**/
-
-#define NT2_INT_GT8_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)\
-/**/
-
-#define NT2_SIGNED_INT_GT_8_TYPES  (nt2::int16_t)(nt2::int32_t)(nt2::int64_t) \
-/**/
-
-#define NT2_UNSIGNED_INT_GT_8_TYPES  (nt2::uint16_t)(nt2::uint32_t)(nt2::uint64_t) \
-/**/
-
-#define NT2_LT64_TYPES  (nt2::int16_t)(nt2::uint16_t)(nt2::int32_t)(nt2::uint32_t)(nt2::int8_t)(nt2::uint8_t)(float) \
-/**/
-
-#define NT2_GT16_TYPES  (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)(float)(double) \
-/**/
-
-#define NT2_SIGNED_INT_GT_16_TYPES  (nt2::int32_t)(nt2::int64_t) \
-/**/
-
-#define NT2_UNSIGNED_INT_GT_16_TYPES  (nt2::uint32_t)(nt2::uint64_t) \
-/**/
-
+#define NT2_SIMD_TYPES BOOST_SIMD_SIMD_TYPES
+#define NT2_SIMD_REAL_TYPES BOOST_SIMD_SIMD_REAL_TYPES
+#define NT2_SIMD_REAL_CONVERTIBLE_TYPES BOOST_SIMD_SIMD_REAL_CONVERTIBLE_TYPES
+#define NT2_SIMD_UNSIGNED_TYPES BOOST_SIMD_SIMD_UNSIGNED_TYPES
+#define NT2_SIMD_SIGNED_TYPES BOOST_SIMD_SIMD_SIGNED_TYPES
+#define NT2_SIMD_INTEGRAL_TYPES BOOST_SIMD_SIMD_INTEGRAL_TYPES
+#define NT2_SIMD_INTEGRAL_SIGNED_TYPES BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
+#define NT2_SIMD_INT_CONVERT_TYPES BOOST_SIMD_SIMD_INT_CONVERT_TYPES
+#define NT2_SIMD_UINT_CONVERT_TYPES BOOST_SIMD_SIMD_UINT_CONVERT_TYPES
+#define NT2_SIMD_SIGNED_INT_GT_8 BOOST_SIMD_SIMD_SIGNED_INT_GT_8
+#define NT2_SIMD_UNSIGNED_INT_GT_8 BOOST_SIMD_SIMD_UNSIGNED_INT_GT_8
+#define NT2_SIMD_INT_64_TYPES BOOST_SIMD_SIMD_INT_64_TYPES
+#define NT2_SIMD_INT_32_TYPES BOOST_SIMD_SIMD_INT_32_TYPES
+#define NT2_SIMD_INT_16_TYPES BOOST_SIMD_SIMD_INT_16_TYPES
+#define NT2_SIMD_INT_8_TYPES BOOST_SIMD_SIMD_INT_8_TYPES
+#define NT2_SIMD_GROUPABLE_TYPES BOOST_SIMD_SIMD_GROUPABLE_TYPES
+#define NT2_SIMD_SPLITABLE_TYPES BOOST_SIMD_SIMD_SPLITABLE_TYPES
+#define NT2_SIMD_INT_GT8_TYPES BOOST_SIMD_SIMD_INT_GT8_TYPES
+#define NT2_SIMD_SIGNED_INT_GT_8_TYPES BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES
+#define NT2_SIMD_UNSIGNED_INT_GT_8_TYPES BOOST_SIMD_SIMD_UNSIGNED_INT_GT_8_TYPES
+#define NT2_SIMD_LT64_TYPES BOOST_SIMD_SIMD_LT64_TYPES
+#define NT2_SIMD_GT16_TYPES BOOST_SIMD_SIMD_T16_TYPES
+#define NT2_SIMD_SIGNED_INT_GT_16_TYPES BOOST_SIMD_SIMD_SIGNED_INT_GT_16_TYPES
+#define NT2_SIMD_UNSIGNED_INT_GT_16_TYPES BOOST_SIMD_SIMD_UNSIGNED_INT_GT_16_TYPES
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of type_lists.hpp
-// /////////////////////////////////////////////////////////////////////////////

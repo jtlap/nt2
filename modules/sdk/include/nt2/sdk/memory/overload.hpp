@@ -14,6 +14,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Macro for operator new/new[] overload with aligned allocation
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_MEMORY_OVERLOAD_NEW_DELETE BOOST_SIMD_OVERLOAD_NEW_DELETE
+#define NT2_MEMORY_OVERLOAD_NEW_DELETE BOOST_SIMD_MEMORY_OVERLOAD_NEW_DELETE
 
 #endif

@@ -10,7 +10,7 @@
 #define NT2_SDK_FUNCTOR_PREPROCESSOR_FUNCTION_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
-#include <nt2/functor/hierachy.hpp>
+#include <nt2/sdk/functor/hierarchy.hpp>
 
 #define NT2_REGISTER_DISPATCH(Tag,Site,Types,Seq)                      \
 BOOST_DISPATCH_REGISTER_DISPATCH((nt2)(meta),Tag,Site,Types,Seq)

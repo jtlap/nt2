@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_MEMORY_ALIGNED_TYPE_HPP_INCLUDED
 #define NT2_SDK_MEMORY_ALIGNED_TYPE_HPP_INCLUDED
 
+#include <nt2/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 
 #define NT2_ALIGN_ON BOOST_SIMD_ALIGN_ON

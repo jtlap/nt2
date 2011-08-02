@@ -15,7 +15,7 @@
 #include <boost/typeof/typeof.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
-#include <nt2/sdk/meta/fusion.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
 #include <nt2/sdk/memory/details/no_padding.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
@@ -36,8 +36,8 @@ namespace nt2 { namespace meta
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    static  typename strip<A0>::type const& s;
-    typedef typename strip<A2>::type        arg2;
+    static  A0 const& s;
+    typedef A2        arg2;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( true_case, memory::align_on( slice<1>(s,memory::no_padding()) ) );

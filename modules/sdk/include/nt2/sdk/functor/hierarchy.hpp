@@ -9,8 +9,8 @@
 #ifndef NT2_SDK_FUNCTOR_HIERARCHY_HPP_INCLUDED
 #define NT2_SDK_FUNCTOR_HIERARCHY_HPP_INCLUDED
 
-#include <boost/dispatch/functor/meta/hierarchy.hpp>
-#include <boost/dispatch/meta/hierachy_of.hpp>
+#include <boost/dispatch/functor/forward.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/dispatch/meta/as.hpp>
@@ -30,7 +30,7 @@ namespace nt2
     using boost::dispatch::tag::terminal_;
   }
   
-namespace ext
+namespace meta
 {
   // Base hierarchies
   using boost::dispatch::meta::unknown_;

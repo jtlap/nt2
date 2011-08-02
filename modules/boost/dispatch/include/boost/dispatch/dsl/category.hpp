@@ -11,6 +11,7 @@
 
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/proto/domain.hpp>
 
 namespace boost { namespace dispatch { namespace tag
 {

@@ -15,6 +15,7 @@
 #include <boost/mpl/size_t.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 #include <nt2/sdk/memory/padding.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
@@ -31,8 +32,8 @@ namespace nt2
   template<int N, class Seq,class Padding> inline
   typename boost::
   lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value >= N)
-                  , meta::call<tag::slice_
-                                      ( Seq const&
+                  , boost::dispatch::meta::
+                    call< tag::slice_ ( Seq const&
                                       , Padding const&
                                       , boost::mpl::size_t<N> const&
                                       )
@@ -40,7 +41,7 @@ namespace nt2
                   >::type
   slice(Seq const& s, Padding const& p)
   {
-    typename make_functor<tag::slice_,Seq>::type callee;
+    typename boost::dispatch::make_functor<tag::slice_,Seq>::type callee;
     return callee(s,p,boost::mpl::size_t<N>() );
   }
 
@@ -65,7 +66,7 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_REGISTER_DISPATCH ( tag::slice_, tag::cpu_
+  NT2_REGISTER_DISPATCH ( nt2::tag::slice_, tag::cpu_
                         , (A0)(A1)(A2)
                         , (fusion_sequence_<A0>)
                           (padding_<A1>)

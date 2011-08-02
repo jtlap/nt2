@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 #define NT2_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 
+#include <nt2/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
 
 namespace nt2

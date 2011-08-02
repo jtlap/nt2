@@ -9,11 +9,7 @@
 #ifndef NT2_SDK_MEMORY_REALLOCATE_HPP_INCLUDED
 #define NT2_SDK_MEMORY_REALLOCATE_HPP_INCLUDED
 
+#include <nt2/sdk/memory/forward.hpp>
 #include <boost/simd/sdk/memory/reallocate.hpp>
-
-namespace nt2 { namespace memory
-{
-  using boost::simd::reallocate;
-} }
 
 #endif

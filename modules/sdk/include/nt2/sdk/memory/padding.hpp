@@ -14,13 +14,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
-namespace nt2{ namespace meta
+namespace boost { namespace dispatch { namespace meta
 {
   template<class T> struct padding_ : unspecified_<T>
   {
     typedef unspecified_<T>   parent;
     typedef T                 origin;
   };
+} } }
+
+namespace nt2 { namespace meta
+{
+    using boost::dispatch::meta::padding_;
 } }
 
 #endif

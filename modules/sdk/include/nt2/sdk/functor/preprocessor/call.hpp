@@ -10,6 +10,7 @@
 #define NT2_SDK_FUNCTOR_PREPROCESSOR_CALL_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <nt2/sdk/functor/hierarchy.hpp>
 
 #define NT2_FUNCTOR_CALL(N) BOOST_DISPATCH_FUNCTOR_CALL(N)
 #define NT2_FUNCTOR_CALL_REPEAT(N) BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(N)

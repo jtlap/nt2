@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation of the no_padding strategy for memory allocation
 ////////////////////////////////////////////////////////////////////////////////
-#include <nt2/sdk/meta/fusion.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
@@ -33,10 +33,10 @@ namespace nt2 { namespace meta
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename strip<A2>::type        arg0;
-    typedef typename strip<A2>::type        arg2;
+    typedef A2        arg0;
+    typedef A2        arg2;
     typedef boost::fusion::result_of::size<arg0>  size_;
-    static  typename strip<A0>::type const& s;
+    static  A0 const& s;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( true_case
@@ -92,9 +92,9 @@ namespace nt2 { namespace meta
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename strip<A2>::type        arg0;
-    typedef typename strip<A2>::type        arg2;
-    static  typename strip<A0>::type const& s;
+    typedef A2        arg0;
+    typedef A2        arg2;
+    static  A0 const& s;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( true_case , memory::align_on( boost::fusion::at_c<0>(s) ) );
