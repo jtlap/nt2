@@ -8,7 +8,6 @@
 ################################################################################
 
 nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(meta)
 
 nt2_module_use_modules(operator)
 ADD_SUBDIRECTORY(memory)
