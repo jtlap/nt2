@@ -13,16 +13,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
                          (A0),
                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return ~boost::simd::is_gt(a0, a1);
     }
@@ -33,14 +33,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
                          (A0),
                          ((simd_<double_<A0>,boost::simd::tag::avx_>))
                          ((simd_<double_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm256_cmp_pd(a0,a1, _CMP_NGT_UQ)};
       return that;
@@ -52,14 +52,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
                          (A0),
                          ((simd_<float_<A0>,boost::simd::tag::avx_>))
                          ((simd_<float_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm256_cmp_ps(a0,a1, _CMP_NGT_UQ)};
       return that;

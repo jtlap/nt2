@@ -14,15 +14,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_greater_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_greater_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return b_not(gt(a0,a1));
     }
@@ -31,14 +31,14 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is integer_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<integer_<A0>,X>))
 			     ((simd_<integer_<A0>,X>))
 			     )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return le(a0,a1);
     }

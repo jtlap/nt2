@@ -17,16 +17,15 @@
 BOOST_SIMD_STD_CONSTANT_TAG(Maxleftshift)
 BOOST_SIMD_STD_CONSTANT_DEF(Maxleftshift)
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Maxleftshift, tag::cpu_,(A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Maxleftshift, tag::cpu_,(A0)
                             , (target_< scalar_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  strip<A0>::type sA0; 
-    typedef typename  as_integer<A0,signed>::type  result_type;
+    typedef typename dispatch::meta::as_integer<A0,signed>::type  result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       typedef typename meta::scalar_of<result_type>::type base_t;

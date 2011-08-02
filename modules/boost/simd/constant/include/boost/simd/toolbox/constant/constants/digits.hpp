@@ -115,17 +115,17 @@ namespace boost { namespace simd {
 //==============================================================================
 // Register dispatch over digits<N>
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL( boost::simd::tag::Digit<N> ,
-					     tag::cpu_
-                                , (boost::simd::int64_t N)(class A0)
-                                , (target_< scalar_< fundamental_<A0> > >)
-                                )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( boost::simd::tag::Digit<N>
+                                       , tag::cpu_
+                                       , (boost::simd::int64_t N)(class A0)
+                                       , (target_< scalar_< fundamental_<A0> > >)
+                                       )
   {
     typedef typename A0::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       return boost::simd::splat<result_type>(N);

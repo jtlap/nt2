@@ -39,29 +39,28 @@
 #define M1(z,n,t) ,boost::simd::tag::simd_<tag::arithmetic_,boost::simd::tag::sse_>
 
 #define M0(z,n,t)                                                                   \
-namespace boost { namespace dispatch { namespace meta                                   \
+namespace boost { namespace simd { namespace ext                                    \
 {                                                                                   \
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,tag::cpu_                            \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,tag::cpu_               \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n),M5,t)                 \
                             , (unspecified_<A0>)                                    \
                               ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t)<A1>,boost::simd::tag::sse_>))  \
                               BOOST_PP_REPEAT(BOOST_PP_DEC(n),M2,t)                 \
                             )                                                       \
   {                                                                                 \
-    typedef typename meta::                                                         \
-      result_of< typename meta::                                                    \
-                 strip<A0>::type const( BOOST_PP_ENUM(n,M6,~) )                     \
-               >::type                                                              \
-      rtype;                                                                        \
-      typedef typename boost::simd::details::                                       \
-      as_native< A0                                                                 \
-               , rtype                                                              \
-               , typename meta::scalar_of<A1>::type                                 \
-               >::type                                                              \
-      stype;                                                                        \
-      typedef boost::simd::native<stype, boost::simd::tag::sse_> result_type;                           \
+    typedef typename dispatch::meta::                                               \
+    result_of< A0 const( BOOST_PP_ENUM(n,M6,~) )                                    \
+             >::type                                                                \
+    rtype;                                                                          \
+    typedef typename details::                                                      \
+    as_native< A0                                                                   \
+             , rtype                                                                \
+             , typename meta::scalar_of<A1>::type                                   \
+             >::type                                                                \
+    stype;                                                                          \
+    typedef boost::simd::native<stype, boost::simd::tag::sse_> result_type;         \
                                                                                     \
-    BOOST_DISPATCH_FUNCTOR_CALL(BOOST_PP_INC(n))                                        \
+    BOOST_SIMD_FUNCTOR_CALL(BOOST_PP_INC(n))                                        \
     {                                                                               \
       return boost::simd::make<result_type>(BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n));     \
     }                                                                               \

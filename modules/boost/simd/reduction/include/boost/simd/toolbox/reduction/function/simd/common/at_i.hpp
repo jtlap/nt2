@@ -12,16 +12,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::at_i_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::at_i_, tag::cpu_,
                      (A0)(A1)(X),
                      ((simd_<arithmetic_<A0>,X>))
                      ((scalar_<integer_<A1> >))
                     )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0[a1]; }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return a0[a1]; }
   };
 } } }
 #endif

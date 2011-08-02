@@ -11,32 +11,32 @@
 
 #include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_integer<A0, unsigned>::type uitype;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type uitype;
       return uitype(a0) >> a1;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using namespace boost::simd;
-      typedef typename meta::as_integer<A0, unsigned>::type uitype;
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type uitype;
       return bitwise_cast<result_type>(bitwise_cast<uitype>(a0) >> a1);
     }
   };

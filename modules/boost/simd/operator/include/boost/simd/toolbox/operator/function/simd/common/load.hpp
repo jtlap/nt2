@@ -19,9 +19,9 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <cstring>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_<scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef typename A2::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       result_type that;
       std::memcpy ( &that
@@ -41,7 +41,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(X)
                             , (iterator_<scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -51,7 +51,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef typename A2::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(4)
+    BOOST_SIMD_FUNCTOR_CALL(4)
     {
       result_type that;
       std::memcpy ( &that

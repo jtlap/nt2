@@ -10,33 +10,32 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_SHIFT_RIGHT_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-      typedef typename meta::as_integer<A0, unsigned>::type itype; 
+      typedef typename dispatch::meta::as_integer<A0, unsigned>::type itype; 
       return bitwise_cast<result_type>(shift_right(bitwise_cast<itype>(a0),a1));
     }
   };
 } } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_ , tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0, A1)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 >> a1; }
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0, A1)>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 >> a1; }
   };
 } } }
 

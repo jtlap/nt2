@@ -16,9 +16,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sort_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                       )

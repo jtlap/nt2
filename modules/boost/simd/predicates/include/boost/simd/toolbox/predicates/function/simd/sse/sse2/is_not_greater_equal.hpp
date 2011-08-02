@@ -12,16 +12,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, tag::cpu_,
                          (A0),
                          ((simd_<double_<A0>,boost::simd::tag::sse_>))
                          ((simd_<double_<A0>,boost::simd::tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  { _mm_cmpnge_pd(a0,a1)}; return that;
     }
@@ -32,14 +32,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, tag::cpu_,
                          (A0),
                          ((simd_<float_<A0>,boost::simd::tag::sse_>))
                          ((simd_<float_<A0>,boost::simd::tag::sse_>))
                         )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  { _mm_cmpnge_ps(a0,a1)}; return that;
     }

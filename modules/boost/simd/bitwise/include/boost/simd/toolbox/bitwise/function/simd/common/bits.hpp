@@ -11,15 +11,15 @@
 
 #include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bits_, tag::cpu_,(A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bits_, tag::cpu_,(A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef typename meta::as_integer<A0, unsigned>::type  result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type  result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return simd::native_cast<result_type>(a0);
     }

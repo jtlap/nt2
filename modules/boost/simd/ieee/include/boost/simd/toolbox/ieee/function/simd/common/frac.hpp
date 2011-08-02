@@ -18,15 +18,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::frac_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::frac_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       ignore_unused(a0);
       return boost::simd::Zero<A0>();
@@ -38,13 +38,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::frac_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::frac_, tag::cpu_,
                        (A0)(X),
                        ((simd_<real_<A0>,X>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return sel(is_invalid(a0), boost::simd::Nan<A0>(), a0-boost::simd::trunc(a0));
     }

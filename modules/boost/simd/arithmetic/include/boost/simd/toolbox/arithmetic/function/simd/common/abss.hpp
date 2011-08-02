@@ -13,17 +13,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0; 
     }
@@ -34,17 +34,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::abs(a0); 
     }
@@ -55,17 +55,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<signed_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       A0 a =  boost::simd::abs(a0); 
       return sel(eq(a0,boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), a); 

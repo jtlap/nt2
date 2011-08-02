@@ -14,17 +14,17 @@
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A1>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return boost::simd::neq( (a0 | a1), boost::simd::Zero<A0>() );
     }

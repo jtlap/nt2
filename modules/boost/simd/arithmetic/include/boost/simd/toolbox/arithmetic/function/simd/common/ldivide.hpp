@@ -15,16 +15,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ldivide_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ldivide_, tag::cpu_,
                           (A0)(X),
                           ((simd_<arithmetic_<A0>,X>))
                           ((simd_<arithmetic_<A0>,X>))
                          )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
 //       const A0 iseqza0 = is_eqz(a0);
 //       return (a1-(iseqza0&a1))/(a0+(iseqza0&One<A0>()));

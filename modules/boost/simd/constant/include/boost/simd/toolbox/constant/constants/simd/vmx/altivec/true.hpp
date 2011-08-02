@@ -14,20 +14,20 @@
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, True is not !0 but ~0 whatever the type
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::true_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::true_, tag::cpu_, (A0)
                             , ((target_< simd_< arithmetic_<A0>,tag::altivec_> >))
                             )
   {
-    typedef typename meta::strip<A0>::type::type result_type;
+    typedef A0::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type that = { simd::native_cast<result_type>(vec_splat_u8(-1)) };
       return that;
     }
   };
-} } }
+} }
 
 #endif

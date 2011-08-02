@@ -30,17 +30,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_ unary
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 	return seladd(neq(a0, Valmin<A0>()), a0, Mone<A0>());
@@ -52,17 +52,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_ unary
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
 	return prev(a0);
       }
@@ -73,17 +73,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_ 
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<integer_<A0>,X>))((simd_<integer_<A1>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using namespace boost::simd;
       return selsub( le(Valmin<A0>()+boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
@@ -95,21 +95,21 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<real_<A0>,X>))((simd_<integer_<A1>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using boost::simd::Minf;
 	return sel(eq(a0, Minf<A0>()), a0,  bitfloating(bitinteger(a0)-boost::simd::abs(a1)));
-//       typedef typename meta::as_integer<A0, signed>::type itype;
+//       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
 //       A0 m;
 //       itype expon;
 //       const A0 fac =  boost::simd::abs(tofloat(a1));

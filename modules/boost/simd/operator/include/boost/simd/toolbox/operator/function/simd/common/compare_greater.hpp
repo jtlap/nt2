@@ -11,15 +11,15 @@
 
 #include <boost/simd/include/functions/compare_less.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_greater_, tag::cpu_, (X)(A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_greater_, tag::cpu_, (X)(A0)
                             , ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2) { return a1<a0; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a1<a0; }
   };
 } } }
 

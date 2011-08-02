@@ -46,14 +46,14 @@ namespace boost { namespace simd {						 	        \
 /**/
 
 #define BOOST_SIMD_STD_CONSTANT_STRUCT(NAME,TAG,VAL)			  \
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0)		  \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0)		  \
 			     , (target_< scalar_<TAG<A0> > >)	  \
                             )                                     \
   {                                                               \
-    typedef typename strip<A0>::type::type result_type;           \
-    BOOST_DISPATCH_FUNCTOR_CALL(1)                                           \
+    typedef typename A0::type result_type;                        \
+    BOOST_SIMD_FUNCTOR_CALL(1)                                    \
     {                                                             \
-      typedef typename as_integer<result_type>::type itype;	  \
+      typedef typename dispatch::meta::as_integer<result_type>::type itype;	  \
       ignore_unused(a0);                                          \
       return boost::simd::splat<result_type>(boost::simd::bitwise_cast<result_type,	  \
 				             itype>(VAL));			  \
@@ -72,7 +72,7 @@ namespace boost { namespace simd {						 	        \
 // Fill up the call needed for a standard constant call
 //==============================================================================
 #define BOOST_SIMD_STD_CONSTANT_FUNCTOR(NAME,DOUBLE,FLOAT,INT)	  \
-namespace boost { namespace dispatch { namespace meta {           \
+namespace boost { namespace simd { namespace ext {           \
     BOOST_SIMD_STD_CONSTANT_STRUCT(NAME,double_, DOUBLE); 	  \
     BOOST_SIMD_STD_CONSTANT_STRUCT(NAME,float_,  FLOAT); 	  \
     BOOST_SIMD_STD_CONSTANT_STRUCT(NAME,integer_,INT);		  \

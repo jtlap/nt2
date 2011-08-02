@@ -16,9 +16,9 @@
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , ((simd_< double_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< double_<A1> > >)
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       _mm_store_pd(a1+2*a2,a0);
       return a0;
@@ -35,9 +35,9 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , ((simd_< float_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< float_<A1> > >)
@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       _mm_store_ps(a1+4*a2,a0);
       return a0;
@@ -54,9 +54,9 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , ((simd_< integer_<A0>, boost::simd::tag::sse_ >))
                               (iterator_< scalar_< integer_<A1> > >)
@@ -65,7 +65,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       _mm_store_si128((__m128i*)(a1)+a2, a0);
       return a0;

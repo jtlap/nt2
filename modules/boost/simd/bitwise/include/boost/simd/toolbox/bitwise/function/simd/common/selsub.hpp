@@ -11,9 +11,9 @@
 
 #include <boost/simd/sdk/meta/size.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::selsub_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::selsub_, tag::cpu_, (A0)(A1)(X)
                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
                                                         , boost::mpl::sizeof_<A1>
                                                         >

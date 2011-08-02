@@ -14,15 +14,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
                       (A0),
                       ((simd_<signed_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
  //      typedef typename meta::scalar_of<A0>::type sctype;
 //       typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;
@@ -40,13 +40,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
                       (A0),
                       ((simd_<unsigned_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1){ return a0; }
+    BOOST_SIMD_FUNCTOR_CALL(1){ return a0; }
   };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -54,13 +54,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
                       (A0),
                       ((simd_<real_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1){ return b_notand(Mzero<A0>(),a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1){ return b_notand(Mzero<A0>(),a0); }
   };
 } } }
 #endif

@@ -19,19 +19,19 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<signed_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_integer<A0, signed>::type int_type;
+      typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<int_type>::type   sint_type;
       A0 const s = shri(a0, 8*sizeof(sint_type)-1);
       return (a0-s)^(-s);
@@ -43,17 +43,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_integer<A0, unsigned>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0;
     }
@@ -64,17 +64,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return b_notand(Mzero<A0>(),a0);
       //      return max(a0, Zero<A0>())-min(a0, Zero<A0>());

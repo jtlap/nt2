@@ -17,9 +17,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Compute fast_frexp(const A0& a0)
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< double_<A0> >)
                               (scalar_< double_<A1> >)
 			      (scalar_< int32_<A2> >)
@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
 			      (scalar_< int32_<A2> >)
                             )
@@ -40,23 +40,23 @@ namespace boost { namespace dispatch { namespace meta
     typedef A0 result_type;    
     inline void operator()(A0 const& a0,A2 & a2) const
     {
-      typedef typename meta::as_integer<A0, signed>::type      int_type;
+      typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
       A0 a1; 
       boost::simd::fast_frexp(a0, a1, a2);
       return a1; 
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
                             (A0),
                             (scalar_ < double_<A0> > )
                            )
   {
       typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename meta::as_integer<A0,signed>::type          exponent;
+      typedef typename dispatch::meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::vector<mantissa,exponent>             result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
       int r1t;
@@ -68,16 +68,16 @@ namespace boost { namespace dispatch { namespace meta
 
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fast_frexp_, tag::cpu_,
                             (A0),
                             (scalar_ < float_<A0> > )
                            )
   {
       typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename meta::as_integer<A0,signed>::type          exponent;
+      typedef typename dispatch::meta::as_integer<A0,signed>::type          exponent;
       typedef boost::fusion::vector<mantissa,exponent>             result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
       boost::fusion::at_c<0>(res) = ::frexpf(a0, &boost::fusion::at_c<1>(res));

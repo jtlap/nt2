@@ -15,9 +15,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_add_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_add_, tag::cpu_,
                              (A0)(A1),
                              (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename meta::result_of<meta::floating(A0, A1)>::type rtype;
     typedef typename boost::fusion::tuple<rtype,rtype>             result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       result_type res;
       eval(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));

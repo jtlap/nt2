@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;

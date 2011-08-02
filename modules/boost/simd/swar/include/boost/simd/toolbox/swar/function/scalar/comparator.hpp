@@ -15,19 +15,19 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::comparator_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::comparator_, tag::cpu_,
                             (A0)(A1)(A2),
 			     ((scalar_<arithmetic_<A0> >))
 			     ((scalar_<arithmetic_<A1> >))
 			     ((scalar_<arithmetic_<A2> >))
                            )
   {
-      typedef typename meta::strip<A0>::type           stA0;
+      typedef A0           stA0;
       typedef boost::fusion::tuple<stA0,stA0,bool>     result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       result_type res;
       eval( a0, a1, a2

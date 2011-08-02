@@ -12,22 +12,22 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_, (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                           )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0) & boost::simd::One<A0>(); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return is_nez(a0) & boost::simd::One<A0>(); }
   };
 
-//  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_, (A0)(X)
+//  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_, (A0)(X)
 //                            , ((simd_<int64_<A0>,X>))
 //                            )
 //  {
 //    typedef A0 result_type;
-//    BOOST_DISPATCH_FUNCTOR_CALL(1) { return is_nez(a0) & boost::simd::One<A0>(); }
+//    BOOST_SIMD_FUNCTOR_CALL(1) { return is_nez(a0) & boost::simd::One<A0>(); }
 //  };
 } } }
 

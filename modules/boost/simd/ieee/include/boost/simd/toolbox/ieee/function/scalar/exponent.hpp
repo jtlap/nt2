@@ -24,17 +24,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)
                             )
   {
 
-    typedef typename meta::as_integer<A0, signed>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 
@@ -50,17 +50,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
                             , (A0)
                             , (scalar_< float_<A0> >)
                             )
   {
 
-    typedef typename meta::as_integer<A0, signed>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 
@@ -75,17 +75,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
   {
 
-    typedef typename meta::as_integer<A0, signed>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using namespace boost::simd;
 

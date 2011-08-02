@@ -13,17 +13,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nge_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nge_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return b_not(ge(a0,a1));
     }
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     template<class This,class A0>
     struct result<This(A0, A0)> : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return lt(a0,a1);
     }

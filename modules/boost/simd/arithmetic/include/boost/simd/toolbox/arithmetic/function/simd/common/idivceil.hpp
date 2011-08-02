@@ -19,17 +19,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return iceil(tofloat(a0)/tofloat(a1)); }
   };
 } } }
@@ -38,17 +38,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return rdivide(a0+a1-boost::simd::One<A0>(), a1); }
   };
 } } }
@@ -57,20 +57,20 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int16_<A0>,X>))((simd_<int16_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
-      typedef typename meta::upgrade<stype>::type          itype;
+      typedef typename dispatch::meta::upgrade<stype>::type          itype;
       typedef simd::native<itype,X>                       ivtype;
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
@@ -85,20 +85,20 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int8_<A0>,X>))((simd_<int8_<A0>,X>))
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
-      typedef typename meta::upgrade<stype>::type          itype;
+      typedef typename dispatch::meta::upgrade<stype>::type          itype;
       typedef simd::native<itype, X>                      ivtype;
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
@@ -113,17 +113,17 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_integer<A0>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return iceil(a0/a1); }
   };
 } } }

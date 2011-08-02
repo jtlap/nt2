@@ -13,8 +13,8 @@
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <iostream>
 
 namespace nt2 { namespace details
@@ -34,9 +34,9 @@ namespace nt2 { namespace details
     /*volatile*/ T tt(t);
     /*volatile*/ U uu(u);
     /*volatile*/ V vv(v);
-    typedef typename nt2::meta::upgrade<T>::type TT;
-    typedef typename nt2::meta::upgrade<U>::type UU;
-    typedef typename nt2::meta::call<nt2::tag::ulpdist_(T, U)>::type R;
+    typedef typename boost::dispatch::meta::upgrade<T>::type TT;
+    typedef typename boost::dispatch::meta::upgrade<U>::type UU;
+    typedef typename boost::dispatch::meta::call<nt2::tag::ulpdist_(T, U)>::type R;
     if( nt2::ulpdist(T(tt), U(uu) ) <= (R)vv)
       {									
 	std::cout << " * Test `"					
@@ -75,8 +75,8 @@ namespace nt2 { namespace details
     volatile T tt(t);							
     volatile U uu(u);							
     volatile V vv(v);
-    typedef typename nt2::meta::upgrade<T>::type TT;
-    typedef typename nt2::meta::upgrade<U>::type UU;
+    typedef typename boost::dispatch::meta::upgrade<T>::type TT;
+    typedef typename boost::dispatch::meta::upgrade<U>::type UU;
     bool r =   nt2::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
     r &= nt2::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
     if(r)					

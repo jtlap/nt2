@@ -44,7 +44,7 @@
 #define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
 
 #define M4(z,n,t)                                                             \
-BOOST_DISPATCH_REGISTER_DISPATCH_IF( Func, tag::formal_                       \
+BOOST_DISPATCH_REGISTER_DISPATCH_IF((boost)(dispatch)(meta), Func, tag::formal_\
                         , (Func)BOOST_PP_REPEAT(n,M2,~)                       \
                         , (any< boost::proto::is_expr<boost::mpl::_>          \
                               , BOOST_PP_ENUM_PARAMS(n,A)                     \

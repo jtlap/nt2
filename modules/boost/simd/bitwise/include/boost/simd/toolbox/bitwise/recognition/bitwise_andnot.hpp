@@ -15,41 +15,41 @@
 #include <boost/simd/toolbox/bitwise/function/bitwise_andnot.hpp>
 
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_ , boost::simd::tag::recognition_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_ , boost::simd::tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
                             , (unspecified_<A0>)
                               ((expr_<A1,Dom,boost::simd::tag::complement_,Sema>))
                             )
   {
-    typedef typename
+    typedef typename dispatch::
             meta::call< boost::simd::tag::bitwise_andnot_( A0
                                             , typename boost::proto::result_of::
                                                       child_c<A1, 0>::type
                                             )
                       >::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return bitwise_andnot(a0, boost::proto::child_c<0>(a1));
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_ , boost::simd::tag::recognition_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_ , boost::simd::tag::recognition_
                             , (A0)(A1)(Dom)(Sema)
                             , ((expr_<A0,Dom,boost::simd::tag::complement_,Sema>))
                               (unspecified_<A1>)
                             )
   {
-    typedef typename
+    typedef typename dispatch::
             meta::call< boost::simd::tag::bitwise_andnot_( A1
                                             , typename boost::proto::result_of::
                                                       child_c<A0, 0>::type
                                             )
                       >::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return bitwise_andnot(a1, boost::proto::child_c<0>(a0));
     }

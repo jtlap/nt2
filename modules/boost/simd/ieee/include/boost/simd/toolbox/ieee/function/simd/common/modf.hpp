@@ -16,9 +16,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-    BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
+    BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
 				((simd_< arithmetic_<A0>, X>))
 				((simd_< arithmetic_<A0>, X>))    
 				((simd_< arithmetic_<A0>, X>))
@@ -33,7 +33,7 @@ namespace boost { namespace dispatch { namespace meta
       }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
 			      ((simd_< arithmetic_<A0>, X>))
 			      ((simd_< arithmetic_<A0>, X>))    
                             )
@@ -47,13 +47,13 @@ namespace boost { namespace dispatch { namespace meta
   };
 
     
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
     typedef boost::fusion::vector<A0, A0> result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       result_type res;
       boost::fusion::at_c<0>(res) = boost::simd::modf(a0,boost::fusion::at_c<1>(res));

@@ -15,9 +15,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nan_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nan_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef bool result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
       return false;
@@ -37,9 +37,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nan_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nan_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
@@ -47,7 +47,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef bool result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
        return (a0 != a0);
     }

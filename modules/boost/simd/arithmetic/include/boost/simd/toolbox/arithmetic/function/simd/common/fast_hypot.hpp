@@ -25,17 +25,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::fast_hypot(tofloat(a0), tofloat(a1));
     }
@@ -44,15 +44,15 @@ namespace boost { namespace dispatch { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_real<A0>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       using namespace boost::simd;
 

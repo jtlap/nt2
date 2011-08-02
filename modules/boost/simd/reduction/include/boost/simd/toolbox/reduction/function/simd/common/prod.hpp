@@ -15,17 +15,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::prod_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::prod_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
       typedef typename meta::scalar_of<A0>::type                base;
-      typedef typename meta::result_of<meta::arithmetic(base)>::type result_type;
+      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type result_type;
     
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       using boost::simd::One;
       typedef result_type     type;

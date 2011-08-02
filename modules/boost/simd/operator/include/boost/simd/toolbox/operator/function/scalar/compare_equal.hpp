@@ -9,16 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_COMPARE_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_COMPARE_EQUAL_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A1> >)
                             )
   {
     typedef bool result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 == a1; }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 == a1; }
   };
 } } }
  

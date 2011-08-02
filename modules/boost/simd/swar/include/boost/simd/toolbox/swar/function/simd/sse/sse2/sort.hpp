@@ -18,17 +18,17 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type32_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sort_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<type32_<A0>,boost::simd::tag::sse_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::as_real<A0>::type flt;
+      typedef typename dispatch::meta::as_real<A0>::type flt;
       A0 a =  {a0};
       A0 b =  {BOOST_SIMD_CAST(A0, _mm_movehl_ps(BOOST_SIMD_CAST(flt, a0), BOOST_SIMD_CAST(flt, a0)))};
       comp(a, b);
@@ -57,13 +57,13 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sort_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sort_, tag::cpu_,
                        (A0),
                        ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                       )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return boost::simd::make<A0>(minimum(a0), maximum(a0));
     }

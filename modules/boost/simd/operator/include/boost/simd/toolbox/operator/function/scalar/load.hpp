@@ -16,18 +16,18 @@
 //==============================================================================
 // load_ without offset
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               (target_< scalar_< fundamental_<A2> > >)
                             )
   {
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(3)
+    BOOST_SIMD_FUNCTOR_CALL(3)
     {
       ignore_unused(a2);
       A0 that = a0;
@@ -40,9 +40,9 @@ namespace boost { namespace dispatch { namespace meta
 //==============================================================================
 // load_ with offset
 //==============================================================================
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(  boost::simd::tag::load_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(  boost::simd::tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
@@ -50,9 +50,9 @@ namespace boost { namespace dispatch { namespace meta
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
-    typedef typename meta::strip<A2>::type::type result_type;
+    typedef typename A2::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(4)
+    BOOST_SIMD_FUNCTOR_CALL(4)
     {
       ignore_unused(a2);
       ignore_unused(a3);

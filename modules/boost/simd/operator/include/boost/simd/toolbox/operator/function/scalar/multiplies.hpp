@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SCALAR_MULTIPLIES_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0, A1)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) { return a0 * a1; }
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0, A1)>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 * a1; }
   };
 } } }
 

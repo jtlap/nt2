@@ -11,16 +11,16 @@
 
 #include <boost/dispatch/meta/as_unsigned.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shli_, tag::cpu_, (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shli_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_unsigned<A0>::type ntype;
       return simd::native_cast<A0>( map( functor<boost::simd::tag::shift_left_>()

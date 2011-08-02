@@ -13,15 +13,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sbits_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sbits_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef typename meta::as_integer<A0, signed>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return boost::simd::bitwise_cast<result_type>(a0); }
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::bitwise_cast<result_type>(a0); }
   };
 } } }
 

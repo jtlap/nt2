@@ -17,9 +17,9 @@
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
@@ -27,15 +27,14 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using namespace boost::simd;
       A0  that = { _mm_div_pd(a0,a1) };
       return b_or(b_and(eq(a0, Zero<A0>()), eq(a1, Zero<A0>())),that);
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                               ((simd_<float_<A0>,boost::simd::tag::sse_>))
@@ -43,15 +42,14 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using namespace boost::simd;
       A0  that = { _mm_div_ps(a0,a1) };
       return  b_or(b_and(eq(a0, Zero<A0>()), eq(a1, Zero<A0>())),that);
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_
                             , (A0)
                             , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                               ((simd_<integer_<A0>,boost::simd::tag::sse_>))
@@ -59,11 +57,10 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using namespace boost::simd;
       const A0 iseqza1 = eq(a1, Zero<A0>());
-      return map( typename make_functor<boost::simd::tag::divides_,A0>::type()
+      return map( typename dispatch::make_functor<boost::simd::tag::divides_,A0>::type()
                 , (a0-b_and(iseqza1, a0))
                 , (a1+b_and(iseqza1, One<A0>()))
                 );

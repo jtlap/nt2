@@ -14,15 +14,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, False is simply 0 and forward to its actual optimized version
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::False, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::False, tag::cpu_
                             , (A0)(X)
                             , ((target_< simd_< arithmetic_<A0> ,X> >))
                             )
   {
-    typedef typename meta::strip<A0>::type::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(1) { return boost::simd::Zero<result_type>(); }
+    typedef typename A0::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::Zero<result_type>(); }
   };
 } } }
 

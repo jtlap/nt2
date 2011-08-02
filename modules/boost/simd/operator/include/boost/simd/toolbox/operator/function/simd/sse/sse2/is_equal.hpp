@@ -15,9 +15,9 @@
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
@@ -26,14 +26,14 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpeq_pd(a0,a1) };
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::sse_>))
                               ((simd_<float_<A0>,boost::simd::tag::sse_>))
@@ -41,14 +41,14 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpeq_ps(a0,a1) };
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                               ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
@@ -56,14 +56,14 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpeq_epi8(a0,a1) };
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                               ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
@@ -71,14 +71,14 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpeq_epi16(a0,a1) };
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                               ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
@@ -86,14 +86,14 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = { _mm_cmpeq_epi32(a0,a1) };
       return that;
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, tag::cpu_
                             , (A0)
                             , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                               ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
@@ -101,9 +101,9 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::downgrade<A0, unsigned>::type  type;
+      typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
       tmp           = boost::simd::eq(tmp,boost::simd::Zero<type>());
       type shuffled = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };

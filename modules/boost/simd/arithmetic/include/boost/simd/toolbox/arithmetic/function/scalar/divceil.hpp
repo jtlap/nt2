@@ -19,16 +19,16 @@
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< signed_<A0> >)
                               (scalar_< signed_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       //      using namespace boost::simd;
       if(a1)
@@ -42,14 +42,14 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< unsigned_<A0> >)
                               (scalar_< unsigned_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if(a1)
         return boost::simd::rdivide(a0+(a1-boost::simd::One<result_type>()), a1); 
@@ -61,13 +61,13 @@ namespace boost { namespace dispatch { namespace meta
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)
                               (scalar_< real_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL(2) 
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2) 
     {
       return boost::simd::ceil(a0/a1);
     }

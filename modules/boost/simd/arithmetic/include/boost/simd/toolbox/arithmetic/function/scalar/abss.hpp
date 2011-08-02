@@ -15,9 +15,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)
                             )
@@ -25,7 +25,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::abs(a0); 
     }
@@ -36,9 +36,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::abs(a0); 
     }
@@ -57,9 +57,9 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_int_
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abss_, tag::cpu_
                             , (A0)
                             , (scalar_< signed_<A0> >)
                             )
@@ -67,7 +67,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef A0 result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return (a0 ==  boost::simd::Valmin<A0>()) ? boost::simd::Valmax<A0>()
 	                                        : boost::simd::abs(a0); 

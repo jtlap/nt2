@@ -13,16 +13,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
 /////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<uint8_<A0>,boost::simd::tag::xop_>))
                       ((simd_<uint8_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       BOOST_SIMD_XOP_JOIN128INT(that, _mm_min_epu8); return that;
     }
@@ -33,14 +33,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<arithmetic_<A0>,boost::simd::tag::xop_>))
                       ((simd_<arithmetic_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
        return seladd( is_lt(a0,a1),a0,a1-a0);
     }
@@ -51,14 +51,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<double_<A0>,boost::simd::tag::xop_>))
                       ((simd_<double_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  {_mm256_min_pd(a0,a1)}; return that;
     }
@@ -69,14 +69,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<int32_<A0>,boost::simd::tag::xop_>))
                       ((simd_<int32_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       BOOST_SIMD_XOP_JOIN128INT(that, _mm_min_epi32); return that;
     }
@@ -87,14 +87,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<float_<A0>,boost::simd::tag::xop_>))
                       ((simd_<float_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that =  {_mm256_min_ps(a0,a1)}; return that;
     }
@@ -105,14 +105,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<int8_<A0>,boost::simd::tag::xop_>))
                       ((simd_<int8_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       BOOST_SIMD_XOP_JOIN128INT(that, _mm_min_epi8); return that;
     }
@@ -123,14 +123,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<int16_<A0>,boost::simd::tag::xop_>))
                       ((simd_<int16_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       BOOST_SIMD_XOP_JOIN128INT(that, _mm_min_epi16); return that;
     }
@@ -141,14 +141,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<uint32_<A0>,boost::simd::tag::xop_>))
                       ((simd_<uint32_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       BOOST_SIMD_XOP_JOIN128INT(that, _mm_min_epu32); return that;
     }
@@ -159,14 +159,14 @@ namespace boost { namespace dispatch { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::min_, tag::cpu_,
                       (A0),
                       ((simd_<uint16_<A0>,boost::simd::tag::xop_>))
                       ((simd_<uint16_<A0>,boost::simd::tag::xop_>))
                      )
   {
     typedef A0 result_type;
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       BOOST_SIMD_XOP_JOIN128INT(that, _mm_min_epu16); return that;
     }

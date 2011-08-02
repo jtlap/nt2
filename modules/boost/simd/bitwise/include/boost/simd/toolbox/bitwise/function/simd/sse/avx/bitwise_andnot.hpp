@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename meta::double_<A0>::type dtype;
       return simd::native_cast<A0>(b_andnot(simd::native_cast<simd::native<dtype, simd::avx_> >(a0),
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = {_mm256_andnot_pd(simd::native_cast<A0>(a1), a0)};
       return that;
@@ -90,7 +90,7 @@ namespace boost { namespace simd { namespace ext
     template<class This,class A0,class A1>
     struct result<This(A0,A1)> : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = {_mm256_andnot_ps(simd::native_cast<A0>(a1), a0)};
       return that;

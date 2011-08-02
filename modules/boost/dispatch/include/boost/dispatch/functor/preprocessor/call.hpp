@@ -62,8 +62,8 @@ inline result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const
 inline result_type operator()( BOOST_PP_ENUM_PARAMS(N,A0 const& a) ) const  \
 /**/
 
-#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(Tag,Site,Types,Seq)                    \
-BOOST_DISPATCH_REGISTER_DISPATCH(Tag,Site,Types,Seq)                                 \
+#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(NS,Tag,Site,Types,Seq)                 \
+BOOST_DISPATCH_REGISTER_DISPATCH(NS,Tag,Site,Types,Seq)                              \
 template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types) \
         , class Dummy                                                     \
         >                                                                 \
@@ -75,8 +75,8 @@ struct  implement                                                         \
         >                                                                 \
 /**/
 
-#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL(Tag,Site,Types,Seq)                    \
-BOOST_DISPATCH_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                                 \
+#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL(NS,Tag,Site,Types,Seq)                 \
+BOOST_DISPATCH_REGISTER_DISPATCH_TPL(NS,Tag,Site,Types,Seq)                              \
 template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types) \
         , class Dummy                                                         \
         >                                                                     \
@@ -88,8 +88,8 @@ struct  implement                                                             \
         >                                                                     \
 /**/
 
-#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(Tag,Site,Types,Cond,Ret,Seq)        \
-BOOST_DISPATCH_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)                     \
+#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(NS,Tag,Site,Types,Cond,Ret,Seq)     \
+BOOST_DISPATCH_REGISTER_DISPATCH_IF(NS,Tag,Site,Types,Cond,Ret,Seq)                  \
 template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types) \
         , class Dummy                                                     \
         >                                                                 \

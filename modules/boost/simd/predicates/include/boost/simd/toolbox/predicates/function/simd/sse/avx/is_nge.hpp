@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     struct result<This(A0,A0)>
       : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return ~boost::simd::is_ge(a0, a1);
     }
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
     struct result<This(A0,A0)>
       : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = {_mm256_cmp_pd(a0,a1, _CMP_NGE_UQ)};
       return that;
@@ -91,7 +91,7 @@ namespace boost { namespace simd { namespace ext
     struct result<This(A0,A0)>
       : meta::strip<A0>{};//
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = {_mm256_cmp_ps(a0,a1, _CMP_NGE_UQ)};
       return that;
