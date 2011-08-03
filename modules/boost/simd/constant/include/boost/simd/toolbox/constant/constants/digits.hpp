@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace tag
 namespace boost { namespace simd							\
 {								\
   template<class Target> inline				        \
-  typename dispatch::meta::call<tag::Digit<VAL>(dispatch::as_<Target>)>::type \
+  typename dispatch::meta::call<tag::Digit<VAL>(dispatch::meta::as_<Target>)>::type \
   NAME()							\
   {								\
     typename dispatch::make_functor<tag::Digit<VAL>, Target>::type callee; \
@@ -114,9 +114,9 @@ namespace boost { namespace simd {
 //==============================================================================
 // Register dispatch over digits<N>
 //==============================================================================
-namespace nt2 { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::Digit<N> , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( boost::simd::tag::Digit<N> , tag::cpu_
                                 , (boost::simd::int64_t N)(class A0)
                                 , (target_< scalar_< fundamental_<A0> > >)
                                 )
@@ -129,7 +129,7 @@ namespace nt2 { namespace meta
       return  splat<result_type>(N);
     }
   };
-} }
+} } }
 
 //#include <boost/simd/toolbox/constant/constants/scalar/digits.hpp>
 #include <boost/simd/toolbox/constant/constants/simd/all/digits.hpp>
