@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
         else                 return  boost::simd::Valmax<result_type>();
       }
 
-      if (boost::simd::is_nan(a0)) return boost::simd::Zero<result_type>();
+      if (boost::simd::is_nan(a0)) return Zero<result_type>();
 
       return result_type(boost::simd::ceil(a0));
     }

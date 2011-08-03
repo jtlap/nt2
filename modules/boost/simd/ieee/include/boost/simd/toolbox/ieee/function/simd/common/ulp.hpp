@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
 	ignore_unused(a0);
-	return boost::simd::One<A0>();
+	return One<A0>();
       }
   };
   

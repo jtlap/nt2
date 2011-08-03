@@ -50,8 +50,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       typedef result_type rtype; 
       if (is_inf(a0))
 	{

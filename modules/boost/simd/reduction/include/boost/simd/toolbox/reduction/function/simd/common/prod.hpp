@@ -27,7 +27,6 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using boost::simd::One;
       typedef result_type     type;
       return boost::fusion::fold(a0,One<type>(),functor<boost::simd::tag::multiplies_>());
     }

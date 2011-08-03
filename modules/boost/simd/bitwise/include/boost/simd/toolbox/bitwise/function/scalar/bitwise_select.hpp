@@ -22,7 +22,6 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      using namespace boost::simd;
       return b_or(b_and(a1, a0), b_andnot(a2, a0));
     }
   };

@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (a0 & boost::simd::One<A0>()) != 0;
+      return (a0 & One<A0>()) != 0;
     }
   };
 } } }
@@ -50,7 +50,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return is_even(minusone(a0));
     }
   };

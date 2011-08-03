@@ -80,7 +80,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using namespace boost::simd;
       typedef typename dispatch::meta::as_integer<A0>::type itype;
       itype e1, e2;
       A0 m1, m2;

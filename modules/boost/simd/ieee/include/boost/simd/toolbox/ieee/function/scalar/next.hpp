@@ -29,7 +29,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       if (Valmax<A0>() == a0) return a0; 
       return oneplus(a0);
     }

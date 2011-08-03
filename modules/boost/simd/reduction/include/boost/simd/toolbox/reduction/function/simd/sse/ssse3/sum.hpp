@@ -24,8 +24,8 @@ namespace boost { namespace simd { namespace ext
                       ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                      )
   {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
+    typedef typename meta::scalar_of<A0>::type                 base;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
@@ -45,12 +45,11 @@ namespace boost { namespace simd { namespace ext
                       ((simd_<double_<A0>,boost::simd::tag::sse_>))
                      )
   {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
+    typedef typename meta::scalar_of<A0>::type                 base;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using boost::simd::Zero;
       return first(simd::native_cast<A0>(_mm_hadd_pd( a0, Zero<A0>())));
     }
   };
@@ -65,8 +64,8 @@ namespace boost { namespace simd { namespace ext
                       ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                      )
   {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
+    typedef typename meta::scalar_of<A0>::type                 base;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
@@ -84,13 +83,11 @@ namespace boost { namespace simd { namespace ext
                       ((simd_<float_<A0>,boost::simd::tag::sse_>))
                      )
   {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
+    typedef typename meta::scalar_of<A0>::type                 base;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
     
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::Zero;
-
       A0 tmp = {_mm_hadd_ps(a0, Zero<A0>())};
       return  first(simd::native_cast<A0>(_mm_hadd_ps(tmp, Zero<A0>())));
     }
@@ -106,8 +103,8 @@ namespace boost { namespace simd { namespace ext
                       ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                      )
   {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
+    typedef typename meta::scalar_of<A0>::type                 base;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
@@ -125,8 +122,8 @@ namespace boost { namespace simd { namespace ext
                       ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                      )
   {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
+    typedef typename meta::scalar_of<A0>::type                 base;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {

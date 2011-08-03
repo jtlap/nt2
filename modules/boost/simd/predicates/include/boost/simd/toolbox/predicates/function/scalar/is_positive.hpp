@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0 >= boost::simd::Zero<A0>();
+      return a0 >= Zero<A0>();
     }
   };
 } } }

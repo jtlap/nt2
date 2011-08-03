@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A0::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::Zero<result_type>(); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return Zero<result_type>(); }
   };
 } } }
 

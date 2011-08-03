@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return boost::simd::One<A0>();
+      return One<A0>();
     }
   };
 } } }
@@ -61,7 +61,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       typedef typename dispatch::meta::as_integer<A0, signed>::type        int_type;
       const A0 a = boost::simd::abs(a0);
       return seladd(is_invalid(a),

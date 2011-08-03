@@ -34,8 +34,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       if (is_nan(a0)) return Zero<result_type>();
       if (is_inf(a0))
       {

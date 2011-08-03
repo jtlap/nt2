@@ -78,8 +78,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using namespace boost::simd;
-
       typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
       typedef hypot_ctnts<A0, int_type> cts;
       A0 x =  boost::simd::abs(a0);

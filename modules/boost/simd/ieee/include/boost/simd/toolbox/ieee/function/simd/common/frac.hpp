@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       ignore_unused(a0);
-      return boost::simd::Zero<A0>();
+      return Zero<A0>();
     }
   };
 

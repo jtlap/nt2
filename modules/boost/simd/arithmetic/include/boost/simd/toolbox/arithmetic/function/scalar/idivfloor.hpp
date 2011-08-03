@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
         typedef result_type type;
         return (a0) ? ((a0>0) ? boost::simd::Valmax<type>()
                     : boost::simd::Valmin<type>())
-                    : boost::simd::Zero<type>();
+                    : Zero<type>();
       }
 
     }
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace ext
         return boost::simd::rdivide(a0,a1);
       else
         return (a0) ? boost::simd::Valmax<result_type>()
-                    : boost::simd::Zero<result_type>();
+                    : Zero<result_type>();
     }
   };
   

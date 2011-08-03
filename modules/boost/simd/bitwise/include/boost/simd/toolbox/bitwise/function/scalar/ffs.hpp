@@ -25,8 +25,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       result_type t1 = bitwise_cast<result_type>(a0); 
       if(!t1) return 0; 
 
@@ -62,8 +60,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-      
       result_type t1 = bitwise_cast<result_type>(a0); 
     #ifdef BOOST_MSVC
       unsigned long index;
@@ -83,7 +79,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       result_type t1 = bitwise_cast<result_type>(a0); 
       return boost::simd::ffs(boost::uint32_t(t1));
     }

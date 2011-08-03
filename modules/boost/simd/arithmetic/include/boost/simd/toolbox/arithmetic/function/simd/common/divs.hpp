@@ -47,8 +47,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using namespace boost::simd;
-
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       A0 c = b_and(eq(a0, Valmin<A0>()), eq(a1, Mone<A0>())); 
       return rdivide( a0-c, a1); 

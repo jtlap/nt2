@@ -80,8 +80,6 @@ namespace boost { namespace simd { namespace ext
     template < class AA0>
     static inline AA0  internal(const AA0& a0, const  AA0& a1)
     {
-      using namespace boost::simd;
-
       // in double ::hypot is very slow and is 4 times slower than internal
       // this routine in float (with float constants) is 30% slower than 
       // the straightforward preceding overload for floats

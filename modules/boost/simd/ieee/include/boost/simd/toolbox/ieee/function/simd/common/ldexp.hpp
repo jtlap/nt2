@@ -65,7 +65,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       // No denormal provision
       typedef typename meta::scalar_of<result_type>::type             s_type;
       typedef typename dispatch::meta::as_integer<result_type, signed>::type  int_type;

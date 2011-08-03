@@ -26,8 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using namespace boost::simd;
-      return is_eqz(a0 & boost::simd::One<A0>());
+      return is_eqz(a0 & One<A0>());
     }
   };
 
@@ -44,7 +43,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using namespace boost::simd;
       return is_flint(a0*Half<A0>());
     }
   };

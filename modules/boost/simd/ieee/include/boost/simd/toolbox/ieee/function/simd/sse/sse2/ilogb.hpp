@@ -33,7 +33,6 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using namespace boost::simd;
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type vtype;
       static const A0 z = Zero<A0>();
       vtype tmp = ilogb(simd::native_cast<vtype>(a0));
@@ -56,7 +55,6 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using namespace boost::simd;
       typedef A0 vtype8;
       static const vtype8& o = One<vtype8>();
       static const vtype8 mask =  boost::simd::integral_constant<vtype8, 0x7f>();
@@ -97,7 +95,6 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using namespace boost::simd;
       typedef typename A0::extension_type cat;
       typedef A0 vtype32;
       typedef simd::native<boost::uint8_t, cat>  vtype8;
@@ -175,7 +172,6 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using namespace boost::simd;
       typedef A0 vtype16;
       typedef typename A0::extension_type cat;
       typedef simd::native<boost::uint8_t, cat>  vtype8;

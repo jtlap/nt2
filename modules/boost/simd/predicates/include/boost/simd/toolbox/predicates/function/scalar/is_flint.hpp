@@ -52,7 +52,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return is_eqz(frac(a0));
     }
   };

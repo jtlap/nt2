@@ -27,8 +27,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
       typedef native<typename boost::simd::meta::int32_t_<A0>::type, boost::simd::tag::sse_> gen_type;
       result_type const Mask1 =  native_cast<result_type>(boost::simd::integral_constant<gen_type, 0x00ff00ff>());
       result_type const Mask2 =  native_cast<result_type>(boost::simd::integral_constant<gen_type, 0xff00ff00>());

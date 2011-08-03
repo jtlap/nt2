@@ -66,8 +66,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
       typedef native<typename boost::simd::meta::int16_t_<A0>::type, boost::simd::tag::sse_> gen_type;
       gen_type a0h, a0l;
       boost::fusion::tie(a0l, a0h) = split(a0);
@@ -85,8 +83,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
       return make<A0>(shrai(a0[0], a1), shrai(a0[1], a1));
     }
   };

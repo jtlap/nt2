@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
       {
         return (a0) ? ((a0>0) ? boost::simd::Valmax<result_type>()
 		              : boost::simd::Valmin<result_type>())
-	            : boost::simd::Zero<result_type>();
+	            : Zero<result_type>();
       }
     }
   };
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
         return boost::simd::rdivide(a0, a1); 
       else
         return (a0) ? boost::simd::Valmax<result_type>()
-	            : boost::simd::Zero<result_type>();
+	            : Zero<result_type>();
     }
   };
 } } }

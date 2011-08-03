@@ -32,7 +32,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       if (Valmin<A0>()+boost::simd::abs(a1) > a0) return Valmin<A0>(); 
       return a0-boost::simd::abs(a1);
     }
@@ -52,7 +51,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       if (a0 != Valmin<A0>())
 	return minusone(a0);
       else
@@ -78,7 +76,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       if (is_nan(a0)) return a0; 
       return a0==Minf<A0>() ? a0 : bitfloating(bitinteger(a0)-boost::simd::abs(a1));
     }
@@ -98,7 +95,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       if (is_nan(a0)) return a0; 
       return a0==Minf<A0>() ? a0 : bitfloating(minusone(bitinteger(a0)));
     }

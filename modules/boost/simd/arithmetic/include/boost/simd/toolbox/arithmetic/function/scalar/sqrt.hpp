@@ -48,7 +48,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return (is_ltz(a0)) ?  Nan<A0>() : ::sqrt(a0);
     }
   };
@@ -70,7 +69,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       // libc has a very poor treatment of exceptions regarding performance
       // this test is at almost no cost but improve drastically performances
       // in case negative arguments are common.

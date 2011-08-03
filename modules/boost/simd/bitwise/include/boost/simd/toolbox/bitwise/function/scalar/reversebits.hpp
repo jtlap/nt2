@@ -36,8 +36,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-      
       typedef union { A0 a; boost::simd::uint32_t b[2]; } trick;
       trick z = {a0};
       z.b[0] = reversebits(z.b[0]);
@@ -56,8 +54,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       typedef union { A0 a; boost::simd::uint8_t b[2]; } trick;
       trick z = {a0};
       z.b[0] = reversebits(z.b[0]);
@@ -76,8 +72,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       typedef union { A0 a; boost::simd::uint16_t b[2]; } trick;
       trick z = {a0};
       z.b[0] = reversebits(z.b[0]);

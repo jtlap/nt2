@@ -65,7 +65,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using namespace boost::simd;
       A0 gtza0 = is_gtz(a0);
       A0 gtza1 = is_gtz(a1);
       A0 a0pa1 = a0+a1;

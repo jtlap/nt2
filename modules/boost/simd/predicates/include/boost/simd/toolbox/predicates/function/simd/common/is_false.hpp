@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return eq(a0,boost::simd::Zero<A0>());
+      return eq(a0,Zero<A0>());
     }
   };
 } } }

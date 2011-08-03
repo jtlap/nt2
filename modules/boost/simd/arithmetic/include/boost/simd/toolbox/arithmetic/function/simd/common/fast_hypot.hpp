@@ -54,8 +54,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using namespace boost::simd;
-
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
       A0 gtyx = gt(y,x);

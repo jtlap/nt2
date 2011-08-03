@@ -58,8 +58,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
       typedef typename dispatch::meta::as_integer<A0, signed>::type  int_type;
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);

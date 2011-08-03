@@ -30,7 +30,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       //TO DO incorrect
       if(!a0) return a0;
       if(is_invalid(a0)) return a0; 

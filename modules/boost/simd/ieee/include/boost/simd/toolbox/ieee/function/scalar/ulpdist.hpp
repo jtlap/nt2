@@ -38,7 +38,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       return dist(a0, a1);
     }
   };
@@ -60,7 +59,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       return dist(a0, is_nez(a1));
     }
   };
@@ -82,8 +80,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
       typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0, A1) >::type type;
       typedef typename dispatch::meta::as_integer<A0>::type itype;
       if (a0 == a1)               return Zero<type>();

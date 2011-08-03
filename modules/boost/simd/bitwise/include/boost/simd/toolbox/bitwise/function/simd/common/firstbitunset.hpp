@@ -23,7 +23,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::One;
       return b_andnot ( simd::native_cast<result_type>(a0)+One<result_type>()
                       , a0
                       );

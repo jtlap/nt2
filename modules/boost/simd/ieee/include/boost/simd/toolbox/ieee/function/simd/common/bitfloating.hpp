@@ -32,7 +32,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       typedef typename dispatch::meta::as_real<A0>::type type;
       //A0 s = Signmask<A0>();
       //      type that = {sel(isgez(type(a0)), a0, s-a0)};

@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return a0-boost::simd::One<A0>();
+      return a0-One<A0>();
     }
   };
 

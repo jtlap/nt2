@@ -23,7 +23,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return a0 & (~a0+One<A0>());
     }
   };
@@ -36,7 +35,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return firstbitset(bitwise_cast<result_type>(a0));
     }
   };

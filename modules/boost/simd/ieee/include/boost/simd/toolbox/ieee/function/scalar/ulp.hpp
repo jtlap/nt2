@@ -32,7 +32,6 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0)>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       ignore_unused(a0);
       return One<A0>();
     }
@@ -53,7 +52,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type int_type;
       if (is_eqz(a0)) return Mindenormal<A0>();
       const A0 x = boost::simd::abs(a0);
