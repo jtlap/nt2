@@ -31,53 +31,52 @@
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
 #endif
 
-#define M6(z,n,t) typename meta::scalar_of<BOOST_PP_CAT(A,BOOST_PP_INC(n))>::type
-#define M5(z,n,t) (BOOST_PP_CAT(A,n))
-#define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
-#define M3(z,n,t) boost::simd::details::maybe_genmask<stype>(a0(BOOST_PP_ENUM(t,M4,n)))
-#define M2(z,n,t) ((simd_< arithmetic_<BOOST_PP_CAT(A,BOOST_PP_INC(BOOST_PP_INC(n)))>,boost::simd::tag::sse_>))
-#define M1(z,n,t) ,boost::simd::tag::simd_<tag::arithmetic_,boost::simd::tag::sse_>
+#define M0(z,n,h) ((simd_< h <A##n>, boost::simd::tag::sse_ >))
+#define M2(z,n,t) typename meta::scalar_of<A##n>::type
+#define M3(z,n,i) fusion::at_c<i>(a##n)
+#define M4(z,n,t) (A##n)
+#define M5(z,n,t) details::maybe_genmask<stype>(f(BOOST_PP_ENUM(t, M3, n)))
 
-#define M0(z,n,t)                                                                   \
-namespace boost { namespace simd { namespace ext                                    \
-{                                                                                   \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,tag::cpu_               \
-                            , BOOST_PP_REPEAT(BOOST_PP_INC(n),M5,t)                 \
-                            , (unspecified_<A0>)                                    \
-                              ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t)<A1>,boost::simd::tag::sse_>))  \
-                              BOOST_PP_REPEAT(BOOST_PP_DEC(n),M2,t)                 \
-                            )                                                       \
-  {                                                                                 \
-    typedef typename dispatch::meta::                                               \
-    result_of< A0 const( BOOST_PP_ENUM(n,M6,~) )                                    \
-             >::type                                                                \
-    rtype;                                                                          \
-    typedef typename details::                                                      \
-    as_native< A0                                                                   \
-             , rtype                                                                \
-             , typename meta::scalar_of<A1>::type                                   \
-             >::type                                                                \
-    stype;                                                                          \
-    typedef boost::simd::native<stype, boost::simd::tag::sse_> result_type;         \
-                                                                                    \
-    BOOST_SIMD_FUNCTOR_CALL(BOOST_PP_INC(n))                                        \
-    {                                                                               \
-      return boost::simd::make<result_type>(BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n));     \
-    }                                                                               \
-  };                                                                                \
-} } }                                                                               \
+#define M6(z,n,t)                                                            \
+namespace boost { namespace simd { namespace ext                             \
+{                                                                            \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_       \
+                            , (Func)BOOST_PP_REPEAT(n, M4, ~)                \
+                            , (unspecified_<Func>)                           \
+                              BOOST_PP_REPEAT(n,M0,BOOST_PP_TUPLE_ELEM(2, 0, t)) \
+                            )                                                \
+  {                                                                          \
+    typedef typename dispatch::meta::                                        \
+    result_of< Func const( BOOST_PP_ENUM(n,M2,~) )                           \
+             >::type                                                         \
+    rtype;                                                                   \
+    typedef typename details::                                               \
+    as_native< Func                                                          \
+             , rtype                                                         \
+             , typename meta::scalar_of<A0>::type                            \
+             >::type                                                         \
+    stype;                                                                   \
+    typedef simd::native<stype, tag::sse_> result_type;                      \
+                                                                             \
+    inline result_type                                                       \
+    operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))   \
+    {                                                                        \
+      return make<result_type>(                                              \
+        BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2, 1, t), M5, n)                   \
+      );                                                                     \
+    }                                                                        \
+  };                                                                         \
+} } }                                                                        \
 /**/
 
-#define BOOST_SIMD_MAP_CALL(T,C)                          \
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_ARITY,M0, (T,C) )     \
+#define BOOST_SIMD_MAP_CALL(T,C)                                             \
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M6, (T,C) ) \
 /**/
 
-BOOST_SIMD_MAP_CALL(ints64_ ,  2)
-BOOST_SIMD_MAP_CALL(double_ ,  2)
-BOOST_SIMD_MAP_CALL(float_  ,  4)
-BOOST_SIMD_MAP_CALL(ints32_ ,  4)
-BOOST_SIMD_MAP_CALL(ints16_ ,  8)
-BOOST_SIMD_MAP_CALL(ints8_  , 16)
+BOOST_SIMD_MAP_CALL(type64_ ,  2)
+BOOST_SIMD_MAP_CALL(type32_ ,  4)
+BOOST_SIMD_MAP_CALL(type16_ ,  8)
+BOOST_SIMD_MAP_CALL(type8_  , 16)
 
 #undef BOOST_SIMD_MAP_CALL
 #undef M6
