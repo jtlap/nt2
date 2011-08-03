@@ -10,8 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_TRUNC_HPP_INCLUDED
 #include <boost/simd/include/functions/floor.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -30,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )

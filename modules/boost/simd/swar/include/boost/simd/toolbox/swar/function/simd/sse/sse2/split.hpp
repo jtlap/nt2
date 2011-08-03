@@ -18,36 +18,35 @@
 #include <boost/simd/include/constants/digits.hpp>
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
-				 (A0)(A1)(X),
-				 (boost::mpl::and_ <
-				    boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
-				    boost::is_same<A1, typename dispatch::meta::upgrade<A0>::type>
-				  > 
-                                 ), 
-                                 (boost::simd::tag::split_(simd_<arithmetic_<A0>,X>,
-					      simd_<arithmetic_<A1>,X>,
-					      simd_<arithmetic_<A1>,X>
-					      )
-				  ),
-                                 ((simd_<arithmetic_<A0>,X>))
-				 ((simd_<arithmetic_<A1>,X>))
-		                 ((simd_<arithmetic_<A1>,X>))
-                                )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_
+                                      , (A0)(A1)(X)
+                                      , (boost::mpl::and_ <
+                                            boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
+                                            boost::is_same<A1, typename dispatch::meta::upgrade<A0>::type>
+                                        >)
+                                      , (boost::simd::tag::split_(simd_<arithmetic_<A0>,X>
+                                                                 ,simd_<arithmetic_<A1>,X>
+                                                                 ,simd_<arithmetic_<A1>,X>
+                                                                 )
+                                        ),
+                                        ((simd_<arithmetic_<A0>,X>))
+                                        ((simd_<arithmetic_<A1>,X>))
+                                        ((simd_<arithmetic_<A1>,X>))
+                                      ) 
   {
-    typedef typename meta::scalar_of<A0>::type                            stype;
+    typedef typename meta::scalar_of<A0>::type                                      stype;
     typedef typename dispatch::meta::upgrade<stype>::type                           utype;
-    typedef simd::native<utype,boost::simd::tag::sse_>                                 ttype;
-    typedef meta::is_floating_point<stype>                                 rtag;
+    typedef simd::native<utype,boost::simd::tag::sse_>                              ttype;
+    typedef dispatch::meta::is_floating_point<stype>                                rtag;
     typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_>    dtype;
-    typedef typename boost::mpl::if_c<rtag::value,dtype,ttype>::type      rtype;
+    typedef typename boost::mpl::if_c<rtag::value,dtype,ttype>::type                rtype;
 
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
-      {
-	eval( a0, a1, a2, rtype());
-	return 0; 
-      }
+    {
+      eval( a0, a1, a2, rtype());
+      return 0; 
+    }
   private:
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename boost::simd::meta::int16_t_<A0>::type,boost::simd::tag::sse_>&)const
@@ -102,11 +101,11 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::split_, tag::cpu_,
-				(A0),
-				(boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >), 
-				(boost::simd::tag::split_(simd_<arithmetic_<A0>,boost::simd::tag::sse_>)),
-				((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-		               )
+                                       (A0),
+                                       (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >), 
+                                       (boost::simd::tag::split_(simd_<arithmetic_<A0>,boost::simd::tag::sse_>)),
+                                       ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                                      )
   {
     typedef typename dispatch::meta::upgrade<A0>::type                              rtype;
     typedef boost::fusion::tuple<rtype,rtype>                       result_type;

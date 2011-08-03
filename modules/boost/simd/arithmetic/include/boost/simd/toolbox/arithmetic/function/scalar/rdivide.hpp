@@ -24,25 +24,25 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if (a1) return a0/a1;
-      else if (a0 > 0) return  boost::simd::Valmax<result_type>();
-      else if (a0 < 0) return  boost::simd::Valmin<result_type>();
-      else return boost::simd::Zero<result_type>();
+      else if (a0 > 0) return Valmax<result_type>();
+      else if (a0 < 0) return Valmin<result_type>();
+      else return Zero<result_type>();
     }
   };
   
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ ,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ ,
                                          (A0)(A1)
                                        , (scalar_< unsigned_<A0> >)
                                          (scalar_< unsigned_<A1> >)
                                        )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if (a1) return a0/a1;
-      else if (a0 > 0) return  boost::simd::Valmax<result_type>();
-      else return boost::simd::Zero<result_type>();
+      else if (a0 > 0) return Valmax<result_type>();
+      else return Zero<result_type>();
     }
   };
 } } }

@@ -14,17 +14,18 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/simd/toolbox/predicates/function/is_not_less.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace simd { namespace ext
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_ , boost::simd::tag::recognition_, (A0)(Dom)(Sema)
-			      , ((expr_<A0,Dom,boost::simd::tag::is_less_,Sema>))
-			      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
+                                   , boost::simd::tag::recognition_, (A0)(Dom)(Sema)
+                                   , ((expr_<A0,Dom,boost::simd::tag::is_less_,Sema>))
+                                   )
   {
-    typedef typename  meta::call< boost::simd::tag::is_not_less_(
+    typedef typename dispatch::meta::call< tag::is_not_less_(
           typename boost::proto::result_of::child_c<A0, 0>::type
-        ) >::type result_type;
+      ) >::type result_type;
 
-    BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return is_not_less(boost::proto::child_c<0>(a0));
     }

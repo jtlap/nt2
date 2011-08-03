@@ -26,24 +26,24 @@ namespace boost { namespace simd { namespace ext
                        )
   {
       typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef typename dispatch::meta::upgrade<stype>::type                  utype;
+      typedef typename dispatch::meta::upgrade<stype>::type                 utype;
       typedef simd::native<utype,simd::avx_>                                ttype;
-      typedef meta::is_floating_point<stype>                                 rtag;
+      typedef dispatch::meta::is_floating_point<stype>                      rtag;
       typedef simd::native<typename  meta::double_<A0>::type,simd::avx_>    dtype;
       typedef typename boost::mpl::if_c < rboost::simd::tag::value
-                                        , dtype, ttype>::type              rtype;
-      typedef boost::fusion::tuple<rtype,rtype>                              result_type;
+                                        , dtype, ttype>::type               rtype;
+      typedef boost::fusion::tuple<rtype,rtype>                             result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef meta::is_floating_point<stype>                                 rtag;
-      typedef typename dispatch::meta::upgrade<stype>::type                  utype;
+      typedef dispatch::meta::is_floating_point<stype>                      rtag;
+      typedef typename dispatch::meta::upgrade<stype>::type                 utype;
       typedef simd::native<utype,simd::avx_>                                ttype;
       typedef typename boost::mpl::if_c<rboost::simd::tag::value,
                                         simd::native<double,simd::avx_>, ttype>::type rtype;
-      typename result_type                                                    res;
-      typedef rtype                                                           tag;
+      typename result_type                                                  res;
+      typedef rtype                                                         tag;
       eval( a0
           , boost::fusion::at_c<0>(res)
           , boost::fusion::at_c<1>(res)
