@@ -38,8 +38,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-	if (!a1) return a0; 
+      if (!a1) return a0; 
 	return a0-boost::simd::idivround(a0, a1)*a1; 
     }
   };
@@ -61,7 +60,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       return a0-divround(a0, a1)*a1; 
     }
   };

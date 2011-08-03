@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
-      tmp           = boost::simd::neq(tmp,boost::simd::Zero<type>());
+      tmp           = boost::simd::neq(tmp,Zero<type>());
       type tmp2     = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
       A0   that     = { tmp | tmp2 };
       return that;

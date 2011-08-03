@@ -54,7 +54,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       if (a1) return a0-a1*idivfix(a0,a1);  else return a0;
     }
   };

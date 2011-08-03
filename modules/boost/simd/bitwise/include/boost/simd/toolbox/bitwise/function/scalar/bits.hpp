@@ -21,7 +21,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return bitwise_cast<result_type>(a0); 
 //       typedef typename meta::as_bits<A0, unsigned>::type type;
 //       type that = {a0};

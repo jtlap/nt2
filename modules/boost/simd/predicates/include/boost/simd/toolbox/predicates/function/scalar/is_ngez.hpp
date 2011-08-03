@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return a0 < boost::simd::Zero<A0>();
+       return a0 < Zero<A0>();
     }
   };
 } } }
@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using  boost::simd::is_nan;
-      return ((a0 < boost::simd::Zero<A0>()) || is_nan(a0));
+      return ((a0 < Zero<A0>()) || is_nan(a0));
     }
   };
 } } }

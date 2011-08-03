@@ -34,8 +34,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
       typedef typename simd::native<boost::uint64_t,ext> ltype;
@@ -85,8 +83,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
       typedef typename simd::native<boost::uint64_t,ext> ltype;
@@ -115,8 +111,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
       typedef typename simd::native<boost::uint64_t, ext> ltype;

@@ -48,12 +48,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
       if (gt(a0, a1))
-	return a0-a1;
+        return a0-a1;
       else
-	return Zero<A0>(); 
+        return Zero<A0>(); 
     }
   };
 } } }
@@ -74,13 +72,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
-       if (eq(a1, Valmin<A0>()))
- 	{
-          if (a0 >= Mone<A0>()) return Valmax<A0>(); 
- 	  return adds(adds(a0, Valmax<A0>()),One<A0>());
- 	}
+      if (eq(a1, Valmin<A0>()))
+      {
+        if (a0 >= Mone<A0>()) return Valmax<A0>(); 
+          return adds(adds(a0, Valmax<A0>()),One<A0>());
+      }
       return boost::simd::adds(a0, -a1);     
     }
   };

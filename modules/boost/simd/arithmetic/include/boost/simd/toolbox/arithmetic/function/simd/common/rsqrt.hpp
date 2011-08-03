@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return boost::simd::One<result_type>()/boost::simd::sqrt(tofloat(a0));
+      return One<result_type>()/boost::simd::sqrt(tofloat(a0));
     }
   };
 } } }

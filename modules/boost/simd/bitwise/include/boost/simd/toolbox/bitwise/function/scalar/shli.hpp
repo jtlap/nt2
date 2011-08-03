@@ -33,7 +33,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type itype; 
       return bitwise_cast<result_type>(shli(bitwise_cast<itype>(a0),a1));
     }

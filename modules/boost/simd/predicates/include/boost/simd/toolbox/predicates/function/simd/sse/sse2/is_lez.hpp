@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                           )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return le(a0,boost::simd::Zero<A0>()); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return le(a0,Zero<A0>()); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, tag::cpu_, (A0)
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return is_less(a0, boost::simd::Zero<A0>()); //TO DO
+      return is_less(a0, Zero<A0>()); //TO DO
 //       typedef typename meta::int32_t_<A0>::type htype;
 //       typedef simd::native<htype,boost::simd::tag::sse_> type;
 //       const type tmp1 = is_lez(simd::native_cast<type>(a0));

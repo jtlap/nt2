@@ -42,8 +42,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-	return seladd(neq(a0, Valmin<A0>()), a0, Mone<A0>());
+      return seladd(neq(a0, Valmin<A0>()), a0, Mone<A0>());
     }
   };
 } } }
@@ -85,7 +84,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       return selsub( le(Valmin<A0>()+boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
     }
   };

@@ -23,7 +23,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return (is_ltz(a0))?Zero<A0>():(One<A0>()<<a0);
     }
   };
@@ -33,7 +32,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::One<A0>()<<a0; }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return One<A0>()<<a0; }
   };
 } } }
 

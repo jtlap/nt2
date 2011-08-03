@@ -50,7 +50,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       // No denormal provision
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type int_type;
 

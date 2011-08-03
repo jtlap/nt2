@@ -41,7 +41,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return  seladd(neq(a0, Valmax<A0>()), a0, One<A0>());
     }
   };

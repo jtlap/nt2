@@ -36,8 +36,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       if (is_invalid(a0)) return Zero<A0>(); 
       return a0 ? ::ilogb(a0) : Zero<A0>();
     }
@@ -62,8 +60,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       if (is_invalid(a0) || is_eqz(a0)) return Zero<A0>(); 
       return ilogbf(a0); 
     }
@@ -87,8 +83,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       const int nmb= Nbmantissabits<A0>();
       const result_type x = shri(exponentbits(a0), nmb);
       return x-b_and(Maxexponent<A0>(), A0(is_nez(a0)));

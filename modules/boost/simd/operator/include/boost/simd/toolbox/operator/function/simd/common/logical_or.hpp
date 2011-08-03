@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::neq( (a0 | a1), boost::simd::Zero<A0>() );
+      return boost::simd::neq( (a0 | a1), Zero<A0>() );
     }
   };
 } } }

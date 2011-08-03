@@ -59,8 +59,8 @@ namespace boost { namespace simd { namespace ext
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::uint16_t_<A0>::type,boost::simd::tag::sse_ > &)const
     {
       typedef simd::native<typename  boost::simd::meta::uint16_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi8(a0, boost::simd::Zero<A0>()));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi8(a0, boost::simd::Zero<A0>()));
+      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi8(a0, Zero<A0>()));
+      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi8(a0, Zero<A0>()));
     }
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::int32_t_<A0>::type,boost::simd::tag::sse_ > &)const
@@ -73,8 +73,8 @@ namespace boost { namespace simd { namespace ext
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::uint32_t_<A0>::type,boost::simd::tag::sse_ > &)const
     {
       typedef simd::native<typename  boost::simd::meta::uint32_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi16(a0, boost::simd::Zero<A0>()));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi16(a0, boost::simd::Zero<A0>()));
+      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi16(a0, Zero<A0>()));
+      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi16(a0, Zero<A0>()));
     }
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_ > &)const
@@ -87,8 +87,8 @@ namespace boost { namespace simd { namespace ext
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::uint64_t_<A0>::type,boost::simd::tag::sse_ > &)const
     {
       typedef simd::native<typename  boost::simd::meta::uint64_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi32(a0, boost::simd::Zero<A0>()));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi32(a0, boost::simd::Zero<A0>()));
+      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi32(a0, Zero<A0>()));
+      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi32(a0, Zero<A0>()));
     }
 
     template<class R0,class R1> inline void

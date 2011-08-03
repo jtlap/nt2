@@ -49,7 +49,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-        using namespace boost::simd;
         A0 p, rp, s, rs;
         boost::fusion::tie(p, rp) = two_prod(a0, a1);
         boost::fusion::tie(s, rs) = two_add(p, a2);

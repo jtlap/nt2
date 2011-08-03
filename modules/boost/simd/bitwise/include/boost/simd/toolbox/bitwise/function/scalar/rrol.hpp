@@ -23,7 +23,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       return (a1 > 0)? rol(a0, a1) :ror(a0, boost::simd::neg(a1));
     }
   };

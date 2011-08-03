@@ -45,7 +45,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       boost::int64_t v = sbits(a0);
     #if defined BOOST_MSVC && defined _WIN64
       return __popcnt64(v);
@@ -67,8 +66,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-    #ifdef BOOST_MSVC
+      #ifdef BOOST_MSVC
       return __popcnt(sbits(a0));
     #else
       return __builtin_popcount(sbits(a0));
@@ -116,8 +114,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-    #if defined BOOST_MSVC && defined _WIN64
+      #if defined BOOST_MSVC && defined _WIN64
       return __popcnt64(a0);
     #elif defined BOOST_MSVC
       return  __popcnt( hi(a0) )

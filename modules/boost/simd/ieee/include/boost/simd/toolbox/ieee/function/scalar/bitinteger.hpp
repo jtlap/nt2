@@ -29,7 +29,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return is_positive(a0) ?
 	bitwise_cast<result_type, A0>(a0) :
 	Signmask<result_type>()-bitwise_cast<result_type, A0>(a0); 

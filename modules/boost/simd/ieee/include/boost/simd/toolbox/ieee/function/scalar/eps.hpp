@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return boost::simd::One<A0>();
+      return One<A0>();
     }
   };
 } } }
@@ -56,7 +56,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       typedef std::numeric_limits<A0> lim;
       const A0 a = boost::simd::abs(a0);
       if (is_not_finite(a))

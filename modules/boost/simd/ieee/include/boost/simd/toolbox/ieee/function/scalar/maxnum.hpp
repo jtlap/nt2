@@ -49,8 +49,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
-
       typedef result_type type;
       if (is_nan(a0)) return type(a1);
       else if (is_nan(a1)) return type(a0);

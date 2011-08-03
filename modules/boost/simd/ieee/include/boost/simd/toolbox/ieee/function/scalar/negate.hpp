@@ -28,7 +28,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       return is_nez(a1)*(is_gez(a1)?a0:-a0);
     }
   };

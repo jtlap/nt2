@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-	return (a1) ? boost::simd::rdivide((a0+(a1-boost::simd::One<result_type>())), a1)
+	return (a1) ? boost::simd::rdivide((a0+(a1-One<result_type>())), a1)
 	            : boost::simd::Valmax<result_type>();
     }
   };

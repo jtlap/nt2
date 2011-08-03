@@ -35,7 +35,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using namespace boost::simd;
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type uitype;
       return bitwise_cast<result_type>(bitwise_cast<uitype>(a0) >> a1);
     }

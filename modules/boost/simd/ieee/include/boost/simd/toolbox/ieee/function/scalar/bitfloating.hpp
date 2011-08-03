@@ -23,7 +23,6 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_real<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return a0 >= Zero<A0>() ?
 	bitwise_cast<result_type>(a0) :
 	bitwise_cast<result_type>((One<A0>() << (8*sizeof(A0)-1))-a0);

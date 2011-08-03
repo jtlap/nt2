@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       ignore_unused(a0);
-      return boost::simd::One<A0>();
+      return One<A0>();
     }
   };
 
@@ -65,7 +65,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      using namespace boost::simd;
       return seladd(is_nan(a0), seladd(is_positive(a0), Mone<A0>(),Two<A0>()), a0);
     }
   };

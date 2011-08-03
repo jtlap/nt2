@@ -30,8 +30,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-       return is_gtz(a0)-is_ltz(a0);
+      return is_gtz(a0)-is_ltz(a0);
     }
   };
 } } }
@@ -52,7 +51,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return is_nez(a0);
     }
   };
@@ -74,7 +72,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
       return is_nan(a0)?a0:is_gtz(a0)-is_ltz(a0);
     }
   };

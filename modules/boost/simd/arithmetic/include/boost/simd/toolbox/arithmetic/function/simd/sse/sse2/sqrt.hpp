@@ -33,8 +33,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       A0 const na  = is_nez(a0);
       A0 n   = add(shri(a0, 4), Four<A0>());
       A0 n1  = shri(n+a0/n, 1);
@@ -146,8 +144,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       A0 const na = is_nez(a0);
       A0 const z1 = add(shri(a0, 6),    boost::simd::integral_constant<A0,16>());
       A0 const z2 = add(shri(a0,10),   boost::simd::integral_constant<A0,256>());
@@ -226,8 +222,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using namespace boost::simd;
-
       A0 const  na = is_nez(a0);
       A0 const  z1 = add(shri(a0, 6), boost::simd::integral_constant<A0, 16>());
       A0 const  z2 = add(shri(a0,10), boost::simd::integral_constant<A0, 256>());
