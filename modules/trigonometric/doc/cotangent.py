@@ -49,7 +49,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::cot<medium>(a0)'],
+                 'real_' : ['nt2::cotangent<nt2::medium>(a0)'],
                 },
              'property_value' : {
                  'real_' : ['1.0l/::tanl(a0)'],

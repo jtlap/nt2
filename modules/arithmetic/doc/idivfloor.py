@@ -15,7 +15,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
-             'included' : ['#include<nt2/include/functions/floor.hpp>'],
+             'included' : ['#include<nt2/include/functions/floor.hpp>',
+                           '#include<nt2/include/functions/toint.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 13/12/2010',
             },
@@ -50,7 +51,7 @@
                  'default' : ['nt2::idivfloor(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['r_t(nt2::floor((1.0*a0)/a1))'],
+                 'default' : ['nt2::toint(nt2::floor((1.0*a0)/a1))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

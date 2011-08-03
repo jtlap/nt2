@@ -21,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< signed_<A0> >)
                               (scalar_< signed_<A1> >)
                             )
@@ -30,18 +30,16 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      //      if(a1)
-        return boost::simd::iceil(double(a0)/double(a1)); 
+      if(a1)
+        return iceil(double(a0)/double(a1)); 
       else
       {
-        return (a0) ? ((a0>0) ? boost::simd::Valmax<result_type>()
-		              : boost::simd::Valmin<result_type>())
-	            : Zero<result_type>();
+        return (a0) ? ((a0>0) ? Valmax<result_type>() : Valmin<result_type>()) : Zero<result_type>();
       }
     }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
+  }; 
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< unsigned_<A0> >)
                               (scalar_< unsigned_<A1> >)
                             )
@@ -51,25 +49,22 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if(a1)
-        return boost::simd::rdivide(a0+(a1-One<result_type>()), a1); 
+        return rdivide(a0+(a1-One<result_type>()), a1); 
       else
       {
-        return (a0) ? boost::simd::Valmax<result_type>()
-	            : Zero<result_type>();
+        return (a0) ? Valmax<result_type>() : Zero<result_type>();
       }
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)
                               (scalar_< real_<A1> >)
                             )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) 
-    {
-      return boost::simd::ceil(a0/a1);
-    }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return ceil(a0/a1); }
   };
 } } }
 

@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
                        >::type                                      result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::toint(a0/a1); 
+      return boost::simd::toint(a0/a1);
     }
   };
 } } }

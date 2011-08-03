@@ -15,7 +15,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
-             'included' : ['#include<nt2/include/functions/trunc.hpp>'],
+             'included' : ['#include<nt2/include/functions/trunc.hpp>',
+                           '#include<nt2/include/functions/toint.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 13/12/2010',
             },
@@ -29,31 +30,35 @@
                 },
              'real_' : {
                  'T(4),T(3)' : 'T(1)',
-                 'nt2::Inf<T>()' : 'nt2::Nan<T>()',
-                 'nt2::Minf<T>()' : 'nt2::Nan<T>()',
-                 'nt2::Mone<T>()' : 'nt2::One<T>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<T>()',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Nan<T>()',
+                 'T(4),T(0)' : 'nt2::Valmax<r_t>()',
+                 'T(-4),T(0)' : 'nt2::Valmin<r_t>()',   
+                 'nt2::Inf<T>()' : 'nt2::Nan<r_t>()',
+                 'nt2::Minf<T>()' : 'nt2::Nan<r_t>()',
+                 'nt2::Mone<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Nan<r_t>()',
                 },
              'signed_int_' : {
                  'T(4),T(3)' : 'T(1)',
                  'nt2::Mone<T>()' : 'nt2::One<T>()',
                  'nt2::One<T>()' : 'nt2::One<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'nt2::Zero<T>()' : 'nt2::Nan<T>()',  
                 },
              'unsigned_int_' : {
                  'T(4),T(3)' : 'T(1)',
                  'nt2::One<T>()' : 'nt2::One<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
-                },
+                 'nt2::Zero<T>()' : 'nt2::Nan<T>()',  
+                 },
             },
          'verif_test' : {
              'property_call' : {
                  'default' : ['nt2::idivfix(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['r_t(nt2::trunc((1.0*a0)/a1))'],
+                 'default' : ['nt2::toint((1.0*a0)/a1)'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

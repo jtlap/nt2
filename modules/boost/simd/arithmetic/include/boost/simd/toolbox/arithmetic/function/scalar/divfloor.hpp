@@ -29,12 +29,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if(a1)
-        return -boost::simd::iceil(-double(a0)/double(a1)); 
+        return -iceil(-double(a0)/double(a1)); 
       else
       {
-        return (a0) ? ((a0>0) ? boost::simd::Valmax<result_type>()
-		              : boost::simd::Valmin<result_type>())
-	            : Zero<result_type>();
+        return (a0) ? ((a0>0) ? Valmax<result_type>() : Valmin<result_type>()) : Zero<result_type>();
       }
     }
   };
@@ -57,10 +55,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if(a1)
-        return boost::simd::rdivide(a0, a1); 
+        return rdivide(a0, a1); 
       else
-        return (a0) ? boost::simd::Valmax<result_type>()
-	            : Zero<result_type>();
+        return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }
   };
 } } }

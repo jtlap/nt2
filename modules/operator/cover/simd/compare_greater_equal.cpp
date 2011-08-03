@@ -71,3 +71,87 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES
     
   }
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::compare_greater_equal;
+  using nt2::tag::compare_greater_equal_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<compare_greater_equal_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<compare_greater_equal_(T,T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a1 = load<vT>(&tab_a1[0],j);
+        r_t v = compare_greater_equal(a0,a1);
+        bool z = true;
+        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        {
+          if (a0[i]>=a1[i]) {z=true;break;}
+          else if (a0[i]<a1[i]){z=false; break;}
+        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for signed_int_
+
+NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
+{
+  using nt2::compare_greater_equal;
+  using nt2::tag::compare_greater_equal_;
+  using nt2::load; 
+  using nt2::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<compare_greater_equal_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<compare_greater_equal_(T,T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a1 = load<vT>(&tab_a1[0],j);
+        r_t v = compare_greater_equal(a0,a1);
+        bool z = true;
+        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        {
+          if (a0[i]>=a1[i]) {z=true;break;}
+          else if (a0[i]<a1[i]){z=false; break;}
+        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for unsigned_int_

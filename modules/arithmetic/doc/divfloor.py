@@ -38,14 +38,16 @@
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
              'signed_int_' : {
-                 'T(4),T(0)' : '0',
-                 '4,3' : '1',
-                 'nt2::Mone<T>()' : 'nt2::One<T>()',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
+                 'T(4),T(0)' : 'nt2::Valmax<r_t>()',
+                 'T(-4),T(0)' : 'nt2::Valmin<r_t>()',
+                 'T(4),T(3)' : '1',
+                 'nt2::Mone<T>()' : 'nt2::One<r_t>()',
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
              'unsigned_int_' : {
-                 '4,3' : '1',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
+                 'T(4),T(0)' : 'nt2::Valmax<r_t>()',
+                 'T(4),T(3)' : '1',
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
             },
          'verif_test' : {
@@ -53,7 +55,8 @@
                  'default' : ['nt2::divfloor(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['r_t(a1 ? nt2::floor((1.0*a0)/a1) : 0)'],
+                 'unsigned_int_' : ['a1 ? r_t(nt2::floor(double(a0)/double(a1))) : (a0 ? nt2::Valmax<r_t>() : 0)'],
+                 'signed_int_' : ['a1 ? r_t(nt2::floor(double(a0)/double(a1))) : (a0<0 ? nt2::Valmin<r_t>() : (a0 ? nt2::Valmax<r_t>() : 0))'],
                  'real_' : ['r_t(nt2::floor(a0/a1))'],
                  },
              'ulp_thresh' : {

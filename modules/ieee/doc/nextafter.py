@@ -7,9 +7,9 @@
          'rturn' : {
              'default' : 'T',
             },
-         'simd_types' : ['real_'],
+         'simd_types' : ['float','double','signed_int_','unsigned_int_'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['float','double','signed_int_','unsigned_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -21,7 +21,8 @@
              'stamp' : 'modified by jt the 12/12/2010',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
+             'float' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
+             'double': [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],  
              'signed_int_' : [['-100', '100'], ['-100', '100']],
              'unsigned_int_' : [['0', '100'], ['0', '100']],
             },

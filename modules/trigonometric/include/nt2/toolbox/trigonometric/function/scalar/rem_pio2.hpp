@@ -49,7 +49,7 @@ namespace nt2 { namespace meta
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
       A0 y[2];
-      int32_t n = __ieee754_rem_pio2f(a0, y);
+      nt2::int32_t n = __ieee754_rem_pio2f(a0, y);
       xr = y[0];
       xc = y[1];
       return n&3; 
@@ -68,7 +68,7 @@ namespace nt2 { namespace meta
 #define GET_A0_WORD(i,d)			\
     do {					\
       A0 f = (d);				\
-      (i) = *reinterpret_cast<uint32_t*>(&f);	\
+      (i) = *reinterpret_cast<nt2::uint32_t*>(&f);	\
     } while (0)					\
       /**/
   
@@ -80,12 +80,12 @@ namespace nt2 { namespace meta
   } while (0)				\
     /**/
 
-  static int32_t __ieee754_rem_pio2f(A0 x, A0 *y)
+  static nt2::int32_t __ieee754_rem_pio2f(A0 x, A0 *y)
       {
 	/*
 	 * Table of constants for 2/pi, 396 Hex digits (476 decimal) of 2/pi
 	 */
-	static const int32_t two_over_pi[] = {
+	static const nt2::int32_t two_over_pi[] = {
 	  0xA2, 0xF9, 0x83, 0x6E, 0x4E, 0x44, 0x15, 0x29, 0xFC,
 	  0x27, 0x57, 0xD1, 0xF5, 0x34, 0xDD, 0xC0, 0xDB, 0x62,
 	  0x95, 0x99, 0x3C, 0x43, 0x90, 0x41, 0xFE, 0x51, 0x63,
@@ -112,7 +112,7 @@ namespace nt2 { namespace meta
 	
 	/* This array is like the one in e_rem_pio2.c, but the numbers are
 	   single precision and the last 8 bits are forced to 0.  */
-	static const int32_t npio2_hw[] = {
+	static const nt2::int32_t npio2_hw[] = {
 	  0x3fc90f00, 0x40490f00, 0x4096cb00, 0x40c90f00, 0x40fb5300, 0x4116cb00,
 	  0x412fed00, 0x41490f00, 0x41623100, 0x417b5300, 0x418a3a00, 0x4196cb00,
 	  0x41a35c00, 0x41afed00, 0x41bc7e00, 0x41c90f00, 0x41d5a000, 0x41e23100,
@@ -143,7 +143,7 @@ namespace nt2 { namespace meta
 	
 	A0 z,w,t,r,fn;
 	A0 tx[3];
-	int32_t e0,i,j,nx,n,ix,hx;
+	nt2::int32_t e0,i,j,nx,n,ix,hx;
 	
 	GET_A0_WORD(hx,x);
 	ix = hx&0x7fffffff;
@@ -176,14 +176,14 @@ namespace nt2 { namespace meta
 	}
 	if(ix<=0x43490f80) { /* |x| ~<= 2^7*(pi/2), medium size */
 	  t  = fabsf(x);
-	  n  = (int32_t) (t*invpio2+Half<A0>());
+	  n  = (nt2::int32_t) (t*invpio2+Half<A0>());
 	  fn = (A0)n;
 	  r  = t-fn*pio2_1;
 	  w  = fn*pio2_1t;	/* 1st round good to 40 bit */
-	  if(n<32&&(int32_t)(ix&0xffffff00)!=npio2_hw[n-1]) {
+	  if(n<32&&(nt2::int32_t)(ix&0xffffff00)!=npio2_hw[n-1]) {
 	    y[0] = r-w;	/* quick check no cancellation */
 	  } else {
-	    u_int32_t high;
+	    nt2::uint32_t high;
 	    j  = ix>>23;
 	    y[0] = r-w;
 	    GET_A0_WORD(high,y[0]);
@@ -217,9 +217,9 @@ namespace nt2 { namespace meta
 	}
 	/* set z = scalbn(|x|,ilogb(x)-7) */
 	e0 	= (ix>>23)-134;		/* e0 = ilogb(z)-7; */
-	SET_A0_WORD(z, ix - ((int32_t)(e0<<23)));
+	SET_A0_WORD(z, ix - ((nt2::int32_t)(e0<<23)));
 	for(i=0;i<2;i++) {
-	  tx[i] = (A0)((int32_t)(z));
+	  tx[i] = (A0)((nt2::int32_t)(z));
 	  z     = (z-tx[i])*two8;
 	}
 	tx[2] = z;
@@ -231,7 +231,7 @@ namespace nt2 { namespace meta
       }
     
     
-    static int __kernel_rem_pio2f(A0 *x, A0 *y, int e0, int nx, int prec, const int32_t *ipio2) 
+    static int __kernel_rem_pio2f(A0 *x, A0 *y, int e0, int nx, int prec, const nt2::int32_t *ipio2) 
       {
 	static const int init_jk[] = {4,7,9}; /* initial value for jk */
 	
@@ -252,7 +252,7 @@ namespace nt2 { namespace meta
 	static const A0
 	  two8 =  2.5600000000e+02f, /* 0x43800000 */
 	  twon8  =  3.9062500000e-03f; /* 0x3b800000 */
-	int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
+	nt2::int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
 	A0 z,fw,f[20],fq[20],q[20];
 	
 	/* initialize jk*/
@@ -277,15 +277,15 @@ namespace nt2 { namespace meta
       recompute:
 	/* distill q[] into iq[] reversingly */
 	for(i=0,j=jz,z=q[jz];j>0;i++,j--) {
-	  fw    =  (A0)((int32_t)(twon8* z));
-	  iq[i] =  (int32_t)(z-two8*fw);
+	  fw    =  (A0)((nt2::int32_t)(twon8* z));
+	  iq[i] =  (nt2::int32_t)(z-two8*fw);
 	  z     =  q[j-1]+fw;
 	}
 	
 	/* compute n */
 	z  = nt2::ldexp(z,q0);		/* actual value of z */
 	z -= (A0)8.0f*nt2::floor(z*(A0)0.125f);	/* trim off integer >= 8 */
-	n  = (int32_t) z;
+	n  = (nt2::int32_t) z;
 	z -= (A0)n;
 	ih = 0;
 	if(q0>0) {	/* need iq[jz-1] to determine n */
@@ -344,11 +344,11 @@ namespace nt2 { namespace meta
 	} else { /* break z into 8-bit if necessary */
 	  z = nt2::ldexp(z,-q0);
 	  if(z>=two8) { 
-	    fw = (A0)((int32_t)(twon8*z));
-	    iq[jz] = (int32_t)(z-two8*fw);
+	    fw = (A0)((nt2::int32_t)(twon8*z));
+	    iq[jz] = (nt2::int32_t)(z-two8*fw);
 	    jz += 1; q0 += 8;
-	    iq[jz] = (int32_t) fw;
-	  } else iq[jz] = (int32_t) z ;
+	    iq[jz] = (nt2::int32_t) fw;
+	  } else iq[jz] = (nt2::int32_t) z ;
 	}
 	
 	/* convert integer "bit" chunk to floating-point value */
@@ -413,11 +413,11 @@ namespace nt2 { namespace meta
 			     (scalar_ < double_<A0> > )
 			     )
   {
-    typedef int32_t result_type;    
+    typedef nt2::int32_t result_type;    
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
       A0 y[2];
-      int32_t n = __ieee754_rem_pio2(a0, y);
+     nt2::int32_t n = __ieee754_rem_pio2(a0, y);
       xr = y[0];
       xc = y[1];
       return n&3; 
@@ -444,46 +444,46 @@ namespace nt2 { namespace meta
 #define EXTRACT_WORDS(ix0,ix1,d)					\
   do {									\
     A0 f = (d);								\
-    (ix0) = reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX];		\
-    (ix1) = reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX];		\
+    (ix0) = reinterpret_cast<nt2::uint32_t*>(&f)[HIGH_WORD_IDX];	\
+    (ix1) = reinterpret_cast<nt2::uint32_t*>(&f)[LOW_WORD_IDX];		\
   } while (0)
 
 #define GET_HIGH_WORD(i,d)						\
   do {									\
     A0 f = (d);								\
-    (i) = reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX];		\
+    (i) = reinterpret_cast<nt2::uint32_t*>(&f)[HIGH_WORD_IDX];		\
   } while (0)
 
 #define GET_LOW_WORD(i,d)					      \
   do {								      \
     A0 f = (d);							      \
-    (i) = reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX];	      \
+    (i) = reinterpret_cast<nt2::uint32_t*>(&f)[LOW_WORD_IDX];	      \
   } while (0)
 
 #define INSERT_WORDS(d,ix0,ix1)						\
   do {									\
     A0 f;								\
-    reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX] = (ix0);		\
-    reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX] = (ix1);		\
+    reinterpret_cast<nt2::uint32_t*>(&f)[HIGH_WORD_IDX] = (ix0);		\
+    reinterpret_cast<nt2::uint32_t*>(&f)[LOW_WORD_IDX] = (ix1);		\
     (d) = f;								\
   } while (0)
 
 #define SET_HIGH_WORD(d,v)						\
   do {									\
     A0 f = (d);								\
-    reinterpret_cast<uint32_t*>(&f)[HIGH_WORD_IDX] = (v);		\
+    reinterpret_cast<nt2::uint32_t*>(&f)[HIGH_WORD_IDX] = (v);		\
     (d) = f;								\
   } while (0)
 
 #define SET_LOW_WORD(d,v)						\
   do {									\
     A0 f = (d);								\
-    reinterpret_cast<uint32_t*>(&f)[LOW_WORD_IDX] = (v);		\
+    reinterpret_cast<nt2::uint32_t*>(&f)[LOW_WORD_IDX] = (v);		\
     (d) = f;								\
   } while (0)
-	static int32_t __ieee754_rem_pio2(A0 x, A0 *y)
+  static nt2::int32_t __ieee754_rem_pio2(A0 x, A0 *y)
 	{	
-	  static const int32_t two_over_pi[] = {
+	  static const nt2::int32_t two_over_pi[] = {
 	    0xA2F983, 0x6E4E44, 0x1529FC, 0x2757D1, 0xF534DD, 0xC0DB62, 
 	    0x95993C, 0x439041, 0xFE5163, 0xABDEBB, 0xC561B7, 0x246E3A, 
 	    0x424DD2, 0xE00649, 0x2EEA09, 0xD1921C, 0xFE1DEB, 0x1CB129, 
@@ -497,7 +497,7 @@ namespace nt2 { namespace meta
 	    0x4D7327, 0x310606, 0x1556CA, 0x73A8C9, 0x60E27B, 0xC08C6B, 
 	  };
 	  
-	  static const int32_t npio2_hw[] = {
+	  static const nt2::int32_t npio2_hw[] = {
 	    0x3FF921FB, 0x400921FB, 0x4012D97C, 0x401921FB, 0x401F6A7A, 0x4022D97C,
 	    0x4025FDBB, 0x402921FB, 0x402C463A, 0x402F6A7A, 0x4031475C, 0x4032D97C,
 	    0x40346B9C, 0x4035FDBB, 0x40378FDB, 0x403921FB, 0x403AB41B, 0x403C463A,
@@ -530,8 +530,8 @@ namespace nt2 { namespace meta
 	  
 	  A0 z,w,t,r,fn;
 	  A0 tx[3];
-	  int32_t e0,i,j,nx,n,ix,hx;
-	  u_int32_t low;
+	  nt2::int32_t e0,i,j,nx,n,ix,hx;
+	  nt2::uint32_t low;
 	  
 	  GET_HIGH_WORD(hx,x);		/* high word of x */
 	  ix = hx&0x7fffffff;
@@ -565,14 +565,14 @@ namespace nt2 { namespace meta
 	  }
 	  if(ix<=0x413921fb) { /* |x| ~<= 2^19*(pi/2), medium size */
 	    t  = fabs(x);
-	    n  = (int32_t) (t*invpio2+half);
+	    n  = (nt2::int32_t) (t*invpio2+half);
 	    fn = (A0)n;
 	    r  = t-fn*pio2_1;
 	    w  = fn*pio2_1t;	/* 1st round good to 85 bit */
 	    if(n<32&&ix!=npio2_hw[n-1]) {	
 	      y[0] = r-w;	/* quick check no cancellation */
 	    } else {
-	      u_int32_t high;
+	      nt2::uint32_t high;
 	      j  = ix>>20;
 	      y[0] = r-w; 
 	      GET_HIGH_WORD(high,y[0]);
@@ -608,9 +608,9 @@ namespace nt2 { namespace meta
 	  GET_LOW_WORD(low,x);
 	  SET_LOW_WORD(z,low);
 	  e0 	= (ix>>20)-1046;	/* e0 = ilogb(z)-23; */
-	  SET_HIGH_WORD(z, ix - ((int32_t)(e0<<20)));
+	  SET_HIGH_WORD(z, ix - ((nt2::int32_t)(e0<<20)));
 	  for(i=0;i<2;i++) {
-	    tx[i] = (A0)((int32_t)(z));
+	    tx[i] = (A0)((nt2::int32_t)(z));
 	    z     = (z-tx[i])*two24;
 	  }
 	  tx[2] = z;
@@ -732,7 +732,7 @@ namespace nt2 { namespace meta
 	
 	
 	
-	static int __kernel_rem_pio2(A0 *x, A0 *y, int e0, int nx, int prec, const int32_t *ipio2)
+	static int __kernel_rem_pio2(A0 *x, A0 *y, int e0, int nx, int prec, const nt2::int32_t *ipio2)
 	{
 	  static const int init_jk[] = {2,3,4,6}; /* initial value for jk */
 	  
@@ -753,7 +753,7 @@ namespace nt2 { namespace meta
 	    two24   =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
 	    twon24  =  5.96046447753906250000e-08; /* 0x3E700000, 0x00000000 */
 	  
-	  int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
+	 nt2::int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
 	  A0 z,fw,f[20],fq[20],q[20];
 	  
 	  /* initialize jk*/
@@ -778,15 +778,15 @@ namespace nt2 { namespace meta
 	recompute:
 	  /* distill q[] into iq[] reversingly */
 	  for(i=0,j=jz,z=q[jz];j>0;i++,j--) {
-	    fw    =  (A0)((int32_t)(twon24* z));
-	    iq[i] =  (int32_t)(z-two24*fw);
+	    fw    =  (A0)((nt2::int32_t)(twon24* z));
+	    iq[i] =  (nt2::int32_t)(z-two24*fw);
 	    z     =  q[j-1]+fw;
 	  }
 	  
 	  /* compute n */
 	  z  = nt2::ldexp(z,q0);		/* actual value of z */
 	  z -= 8.0*nt2::floor(z*0.125);		/* trim off integer >= 8 */
-	  n  = (int32_t) z;
+	  n  = (nt2::int32_t) z;
 	  z -= (A0)n;
 	  ih = 0;
 	  if(q0>0) {	/* need iq[jz-1] to determine n */
@@ -845,11 +845,11 @@ namespace nt2 { namespace meta
 	  } else { /* break z into 24-bit if necessary */
 	    z = nt2::ldexp(z,-q0);
 	    if(z>=two24) {
-	      fw = (A0)((int32_t)(twon24*z));
-	      iq[jz] = (int32_t)(z-two24*fw);
+	      fw = (A0)((nt2::int32_t)(twon24*z));
+	      iq[jz] = (nt2::int32_t)(z-two24*fw);
 	      jz += 1; q0 += 24;
-	      iq[jz] = (int32_t) fw;
-	    } else iq[jz] = (int32_t) z ;
+	      iq[jz] = (nt2::int32_t) fw;
+	    } else iq[jz] = (nt2::int32_t) z ;
 	  }
 	  
 	  /* convert integer "bit" chunk to floating-point value */

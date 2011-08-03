@@ -55,7 +55,9 @@
                  'default' : ['nt2::rdivide(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['(a1!=0) ? (a0/(a1+((a1==0)?1:0))) : 0'],
+                 'unsigned_int_' : ['(a1!=0) ? (a0/(a1+((a1==0)?1:0))) : nt2::Valmax<r_t>()'],
+                 'signed_int_' : ['(a1!=0) ? (a0/(a1+((a1==0)?1:0))) : ((a0>0) ? nt2::Valmax<r_t>() : (a0<0) ? nt2::Valmin<r_t>() : 0)'],     
+                 'real_'   : ['a0/a1'],   
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

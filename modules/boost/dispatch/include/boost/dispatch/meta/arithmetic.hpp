@@ -14,8 +14,8 @@
  * \brief Defines and implements the meta::arithmetic \metafunction
  */
 
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/details/decltype.hpp>
+#include <boost/utility/declval.hpp>
 
 #if defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/extension/parameters.hpp>
@@ -64,22 +64,19 @@ namespace boost { namespace dispatch  { namespace meta
 #undef BOOST_DISPATCH_DECLTYPE
 #endif
 
-    #define M0(z,n,t) static typename meta::strip<A##n>::type& a##n;
-    #define M1(z,n,t) 0 ? 
-    #define M2(z,n,t)  : a##n
-    #define M3(z,n,t)                                                           \
-    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                        \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                             \
-    {                                                                           \
-      BOOST_PP_REPEAT(n,M0,~)                                                   \
-      BOOST_DISPATCH_DECLTYPE( BOOST_PP_REPEAT_FROM_TO(1,n,M1,~)                \
-                    a0 BOOST_PP_REPEAT_FROM_TO(1,n,M2,~)                        \
-                  , type );                                                     \
-    };                                                                          \
+    #define M0(z,n,t) 0 ? 
+    #define M1(z,n,t)  : boost::declval<A##n>()
+    #define M2(z,n,t)                                                                    \
+    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                                 \
+    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                      \
+    {                                                                                    \
+      BOOST_DISPATCH_DECLTYPE( BOOST_PP_REPEAT_FROM_TO(1,n,M0,~)                         \
+                               boost::declval<A0>() BOOST_PP_REPEAT_FROM_TO(1,n,M1,~)    \
+                             , type );                                                   \
+    };                                                                                   \
     /**/
-    BOOST_PP_REPEAT_FROM_TO(2,BOOST_DISPATCH_MAX_ARITY,M3,~)
+    BOOST_PP_REPEAT_FROM_TO(2,BOOST_DISPATCH_MAX_ARITY,M2,~)
     
-    #undef M3
     #undef M2
     #undef M1
     #undef M0

@@ -20,7 +20,6 @@
              'stamp' : 'modified by jt the 13/12/2010',
             },
          'ranges' : {
-             'default' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
              'real_' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
              'signed_int_' : [['-100', '100'], ['-100', '100']],
              'unsigned_int_' : [['0', '100'], ['0', '100']],
@@ -41,14 +40,15 @@
                  'nt2::Zero<T>(),nt2::Zero<T>()' : 'nt2::Nan<r_t>()',
                 },
              'signed_int_' : {
-                 '4,3' : '2',
-                 '4,0' : '0',   
+                 'T(4),T(3)' : '2',
+                 'T(4),T(0)' : 'nt2::Valmax<r_t>()',
+                 'T(-4),T(0)' : 'nt2::Valmin<r_t>()',   
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
              'unsigned_int_' : {
-                 '4,0' : '0',   
-                 '4,3' : '2',
+                 'T(4),T(0)' : 'nt2::Valmax<r_t>()',   
+                 'T(4),T(3)' : '2',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
             },
@@ -57,8 +57,9 @@
                  'default' : ['nt2::divceil(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['r_t(a1 ? nt2::ceil((1.0*a0)/a1) : 0)'],
-                 'real_' : ['r_t(nt2::ceil(a0/a1))'],
+                 'unsigned_int_' : ['r_t(a1 ? nt2::ceil((1.0*a0)/a1) : nt2::Valmax<r_t>())'],
+                 'signed_int_' : ['r_t(a1 ? nt2::ceil((1.0*a0)/a1) : ((a0>0)? nt2::Valmax<r_t>(): (a0<0) ? nt2::Valmin<r_t>() : 0))'],    
+                 'real_'   : ['r_t(nt2::ceil(a0/a1))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

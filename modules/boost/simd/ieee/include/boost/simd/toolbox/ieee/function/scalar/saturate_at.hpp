@@ -25,11 +25,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typename boost::simd::make_functor<Tag, A0>::type callee; 
-      const A0 z = callee( as_<A0>() );
-      if      (a0 > z)  return z;
-      else if (a0 < -z) return -z;
-      else              return a0; 
+      typename dispatch::make_functor<Tag, A0>::type callee;
+      const A0 z = callee( dispatch::meta::as_<A0>() );
+      return sel(gt(a0, z), z, sel(lt(a0, -z), -z, a0)); 
     }
   };
   

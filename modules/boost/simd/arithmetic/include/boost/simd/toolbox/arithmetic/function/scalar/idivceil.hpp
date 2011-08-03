@@ -13,30 +13,28 @@
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/iceil.hpp>
-
+#include <boost/simd/include/functions/ceil.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivceil_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
 
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::result_of<meta::floating(result_type)>::type ftype;
-      ftype r = boost::simd::ceil(ftype(a0)/ftype(a1));
-      if (r > boost::simd::Valmax<result_type>())
-	return boost::simd::Valmax<result_type>();
-      else if (r <  boost::simd::Valmin<result_type>())
-	return boost::simd::Valmin<result_type>();
+      typedef typename dispatch::meta::result_of<dispatch::meta::floating(result_type)>::type ftype;
+      ftype r = ceil(ftype(a0)/ftype(a1));
+      if (r > Valmax<result_type>()) return Valmax<result_type>();
+      else if (r <  Valmin<result_type>()) return Valmin<result_type>();
       else return result_type(r); 
     }
   };
@@ -44,35 +42,34 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is unsigned_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
-			      , (A0)(A1)
-			      , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
-			      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivceil_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
+                            )
   {
     
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
     
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-	return (a1) ? boost::simd::rdivide((a0+(a1-One<result_type>())), a1)
-	            : boost::simd::Valmax<result_type>();
+      return (a1) ? rdivide((a0+(a1-One<result_type>())), a1) : Valmax<result_type>();
     }
   };
   
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivceil_, tag::cpu_,
-			     (A0)(A1),
-			     (scalar_< real_<A0> >)(scalar_< real_<A1> > )
-			     )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::idivceil_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A1> > )
+                            )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type typ;
     typedef typename dispatch::meta::as_integer<typ>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::iceil(a0/a1);
+      return iceil(a0/a1);
     }
   };
 } } }

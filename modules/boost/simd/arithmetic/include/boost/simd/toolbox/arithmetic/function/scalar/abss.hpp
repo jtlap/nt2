@@ -22,9 +22,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< unsigned_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::abs(a0); 
@@ -43,9 +41,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::abs(a0); 
@@ -64,18 +60,13 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< signed_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (a0 ==  boost::simd::Valmin<A0>()) ? boost::simd::Valmax<A0>()
-	                                        : boost::simd::abs(a0); 
+      return (a0 ==  Valmin<A0>()) ? Valmax<A0>() : boost::simd::abs(a0); 
     }
   };
 } } }
-
-
 
 
 #endif

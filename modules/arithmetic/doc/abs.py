@@ -58,7 +58,7 @@
                  'default' : ['nt2::abs(a0)'],
                 },
              'property_value' : {
-                 'default' : ['a0>0 ? a0 : -a0'],
+                 'default' : ['a0>0 ? T(a0) : T(-a0)'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

@@ -56,6 +56,7 @@
                 },
              'property_value' : {
                  'default' : ['(a0!=0) ? (a1/(a0+((a0==0)?1:0))) : 0'],
+                 'real_'   : ['a1/a0'],    
                 },
              'ulp_thresh' : {
                  'default' : ['0'],
