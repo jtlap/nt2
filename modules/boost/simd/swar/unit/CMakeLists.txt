@@ -16,5 +16,5 @@ ADD_DEPENDENCIES(boost.simd.swar.unit boost.simd.swar.simd.unit)
 ##############################################################################
 # Toolbox swar unit tests
 ##############################################################################
-nt2_module_use_modules(boost.simd.unit)
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(simd)

@@ -8,7 +8,7 @@
  ******************************************************************************/
 #include <boost/simd/include/functor.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
-#include <boost/simd/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<neg_>

@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 arithmetic toolbox - sqrt1pm1/simd Mode"
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - sqrt1pm1/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of arithmetic components in simd mode
@@ -19,14 +19,14 @@
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/toolbox/arithmetic/include/sqrt1pm1.hpp>
 
-BOOST_SIMD_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::sqrt1pm1;
   using boost::simd::tag::sqrt1pm1_;
@@ -47,10 +47,10 @@ BOOST_SIMD_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::One<vT>())[0], boost::simd::Sqrt_2<sr_t>()-boost::simd::One<sr_t>(), 2);
-  BOOST_SIMD_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::One<vT>())[0], boost::simd::Sqrt_2<sr_t>()-boost::simd::One<sr_t>(), 2);
+  NT2_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
 } // end of test for real_

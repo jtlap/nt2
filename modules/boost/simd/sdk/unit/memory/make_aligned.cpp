@@ -6,18 +6,18 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::memory::make_aligned"
+#define NT2_UNIT_MODULE "boost::simd::memory::make_aligned"
 
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
-#include <boost/simd/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test make_aligned on simple type
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE(make_aligned)
+NT2_TEST_CASE(make_aligned)
 {
   using boost::simd::memory::is_aligned;
 
@@ -33,23 +33,23 @@ BOOST_SIMD_TEST_CASE(make_aligned)
   BOOST_SIMD_ALIGNED_TYPE(boost::simd::int8_t  ) ai8;
   BOOST_SIMD_ALIGNED_TYPE(bool         ) ab;
 
-  BOOST_SIMD_TEST( is_aligned(&ad) );
-  BOOST_SIMD_TEST( is_aligned(&af) );
-  BOOST_SIMD_TEST( is_aligned(&aui64) );
-  BOOST_SIMD_TEST( is_aligned(&aui32) );
-  BOOST_SIMD_TEST( is_aligned(&aui16) );
-  BOOST_SIMD_TEST( is_aligned(&aui8) );
-  BOOST_SIMD_TEST( is_aligned(&ai64) );
-  BOOST_SIMD_TEST( is_aligned(&ai32) );
-  BOOST_SIMD_TEST( is_aligned(&ai16) );
-  BOOST_SIMD_TEST( is_aligned(&ai8) );
-  BOOST_SIMD_TEST( is_aligned(&ab) );
+  NT2_TEST( is_aligned(&ad) );
+  NT2_TEST( is_aligned(&af) );
+  NT2_TEST( is_aligned(&aui64) );
+  NT2_TEST( is_aligned(&aui32) );
+  NT2_TEST( is_aligned(&aui16) );
+  NT2_TEST( is_aligned(&aui8) );
+  NT2_TEST( is_aligned(&ai64) );
+  NT2_TEST( is_aligned(&ai32) );
+  NT2_TEST( is_aligned(&ai16) );
+  NT2_TEST( is_aligned(&ai8) );
+  NT2_TEST( is_aligned(&ab) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test make_aligned on array type
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE(make_aligned_array)
+NT2_TEST_CASE(make_aligned_array)
 {
   using boost::simd::memory::is_aligned;
 
@@ -65,15 +65,15 @@ BOOST_SIMD_TEST_CASE(make_aligned_array)
   BOOST_SIMD_ALIGNED_TYPE(boost::simd::int8_t  ) ai8[3];
   BOOST_SIMD_ALIGNED_TYPE(bool         ) ab[3];
 
-  BOOST_SIMD_TEST( is_aligned(&ad[0])    );
-  BOOST_SIMD_TEST( is_aligned(&af[0])    );
-  BOOST_SIMD_TEST( is_aligned(&aui64[0]) );
-  BOOST_SIMD_TEST( is_aligned(&aui32[0]) );
-  BOOST_SIMD_TEST( is_aligned(&aui16[0]) );
-  BOOST_SIMD_TEST( is_aligned(&aui8[0])  );
-  BOOST_SIMD_TEST( is_aligned(&ai64[0])  );
-  BOOST_SIMD_TEST( is_aligned(&ai32[0])  );
-  BOOST_SIMD_TEST( is_aligned(&ai16[0])  );
-  BOOST_SIMD_TEST( is_aligned(&ai8[0])   );
-  BOOST_SIMD_TEST( is_aligned(&ab[0])    );
+  NT2_TEST( is_aligned(&ad[0])    );
+  NT2_TEST( is_aligned(&af[0])    );
+  NT2_TEST( is_aligned(&aui64[0]) );
+  NT2_TEST( is_aligned(&aui32[0]) );
+  NT2_TEST( is_aligned(&aui16[0]) );
+  NT2_TEST( is_aligned(&aui8[0])  );
+  NT2_TEST( is_aligned(&ai64[0])  );
+  NT2_TEST( is_aligned(&ai32[0])  );
+  NT2_TEST( is_aligned(&ai16[0])  );
+  NT2_TEST( is_aligned(&ai8[0])   );
+  NT2_TEST( is_aligned(&ab[0])    );
 }

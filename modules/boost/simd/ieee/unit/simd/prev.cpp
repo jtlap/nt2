@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 ieee toolbox - prev/simd Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - prev/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of ieee components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( prev_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( prev_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::prev;
   using boost::simd::tag::prev_;
@@ -48,11 +48,11 @@ BOOST_SIMD_TEST_CASE_TPL ( prev_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(prev(boost::simd::Inf<vT>())[0], boost::simd::Valmax<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(prev(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(prev(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>()-boost::simd::Eps<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(prev(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(prev(boost::simd::One<vT>())[0], boost::simd::One<sr_t>()-boost::simd::Eps<sr_t>()/2);
-  BOOST_SIMD_TEST_EQUAL(prev(boost::simd::Valmin<vT>())[0], boost::simd::Minf<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(prev(boost::simd::Zero<vT>())[0], -boost::simd::Mindenormal<T>());
+  NT2_TEST_EQUAL(prev(boost::simd::Inf<vT>())[0], boost::simd::Valmax<sr_t>());
+  NT2_TEST_EQUAL(prev(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
+  NT2_TEST_EQUAL(prev(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>()-boost::simd::Eps<sr_t>());
+  NT2_TEST_EQUAL(prev(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(prev(boost::simd::One<vT>())[0], boost::simd::One<sr_t>()-boost::simd::Eps<sr_t>()/2);
+  NT2_TEST_EQUAL(prev(boost::simd::Valmin<vT>())[0], boost::simd::Minf<sr_t>());
+  NT2_TEST_EQUAL(prev(boost::simd::Zero<vT>())[0], -boost::simd::Mindenormal<T>());
 } // end of test for real_

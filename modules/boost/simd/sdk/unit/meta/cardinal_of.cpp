@@ -6,30 +6,30 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::cardinal_of"
+#define NT2_UNIT_MODULE "boost::simd::meta::cardinal_of"
 
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
-#include <boost/simd/sdk/unit/module.hpp>
-#include <boost/simd/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that cardinal_of scalars is 1
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE(cardinal_of_scalar)
+NT2_TEST_CASE(cardinal_of_scalar)
 {
   using boost::simd::meta::cardinal_of;
 
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<double>::value        , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<float>::value         , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<boost::simd::uint64_t>::value , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<boost::simd::uint32_t>::value , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<boost::simd::uint16_t>::value , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<boost::simd::uint8_t>::value  , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<boost::simd::int64_t>::value  , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<boost::simd::int32_t>::value  , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<boost::simd::int16_t>::value  , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<boost::simd::int8_t>::value   , 1 );
-  BOOST_SIMD_TEST_EQUAL( cardinal_of<bool>::value          , 1 );
+  NT2_TEST_EQUAL( cardinal_of<double>::value        , 1 );
+  NT2_TEST_EQUAL( cardinal_of<float>::value         , 1 );
+  NT2_TEST_EQUAL( cardinal_of<boost::simd::uint64_t>::value , 1 );
+  NT2_TEST_EQUAL( cardinal_of<boost::simd::uint32_t>::value , 1 );
+  NT2_TEST_EQUAL( cardinal_of<boost::simd::uint16_t>::value , 1 );
+  NT2_TEST_EQUAL( cardinal_of<boost::simd::uint8_t>::value  , 1 );
+  NT2_TEST_EQUAL( cardinal_of<boost::simd::int64_t>::value  , 1 );
+  NT2_TEST_EQUAL( cardinal_of<boost::simd::int32_t>::value  , 1 );
+  NT2_TEST_EQUAL( cardinal_of<boost::simd::int16_t>::value  , 1 );
+  NT2_TEST_EQUAL( cardinal_of<boost::simd::int8_t>::value   , 1 );
+  NT2_TEST_EQUAL( cardinal_of<bool>::value          , 1 );
 }

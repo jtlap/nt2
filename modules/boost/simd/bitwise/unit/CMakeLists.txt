@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(boost.simd.bitwise.unit boost.simd.bitwise.scalar.unit boost.si
 ##############################################################################
 # Toolbox bitwise unit tests
 ##############################################################################
-nt2_module_use_modules(boost.simd.unit)
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

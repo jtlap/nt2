@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 bitwise toolbox - reversebits/simd Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - reversebits/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of bitwise components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( reversebits_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( reversebits_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::reversebits;
   using boost::simd::tag::reversebits_;
@@ -48,7 +48,7 @@ BOOST_SIMD_TEST_CASE_TPL ( reversebits_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(reversebits(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(reversebits(boost::simd::One<vT>())[0], sr_t(boost::simd::One<sr_t>()<<(sizeof(sr_t)*8-1)));
-  BOOST_SIMD_TEST_EQUAL(reversebits(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(reversebits(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(reversebits(boost::simd::One<vT>())[0], sr_t(boost::simd::One<sr_t>()<<(sizeof(sr_t)*8-1)));
+  NT2_TEST_EQUAL(reversebits(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for integer_

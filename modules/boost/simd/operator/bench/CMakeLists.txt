@@ -17,5 +17,5 @@ ADD_DEPENDENCIES(boost.simd.operator.bench boost.simd.operator.scalar.bench boos
 ################################################################################
 # Add all bench directories for sdk/
 ################################################################################
-nt2_module_use_modules(boost.simd.unit)
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)

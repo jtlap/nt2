@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 reduction toolbox - sum/simd Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - sum/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of reduction components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( sum_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sum_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::sum;
   using boost::simd::tag::sum_;
@@ -49,10 +49,10 @@ BOOST_SIMD_TEST_CASE_TPL ( sum_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_ULP_EQUAL(sum(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sum(boost::simd::Minf<vT>()), boost::simd::Minf<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sum(boost::simd::Mone<vT>()), -int(cardinal_of<n_t>()), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sum(boost::simd::Nan<vT>()), boost::simd::Nan<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), int(cardinal_of<n_t>()), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(sum(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Minf<vT>()), boost::simd::Minf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Mone<vT>()), -int(cardinal_of<n_t>()), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Nan<vT>()), boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), int(cardinal_of<n_t>()), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);
 } // end of test for real_

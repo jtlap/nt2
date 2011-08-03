@@ -14,6 +14,6 @@ ADD_CUSTOM_TARGET(boost.simd.constant.scalar.unit)
 ADD_CUSTOM_TARGET(boost.simd.constant.simd.unit)
 ADD_DEPENDENCIES(boost.simd.constant.unit boost.simd.constant.scalar.unit boost.simd.constant.simd.unit)
 
-nt2_module_use_modules(boost.simd.unit boost.simd.operator)
+nt2_module_use_modules(unit boost.simd.operator)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 reduction toolbox - all/simd Mode"
+#define NT2_UNIT_MODULE "nt2 reduction toolbox - all/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of reduction components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::all;
   using boost::simd::tag::all_;
@@ -48,10 +48,10 @@ BOOST_SIMD_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(all(boost::simd::Inf<vT>()), boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(all(boost::simd::Minf<vT>()), boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(all(boost::simd::Mone<vT>()), boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(all(boost::simd::Nan<vT>()), boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(all(boost::simd::One<vT>()), boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(all(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Inf<vT>()), boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Minf<vT>()), boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Mone<vT>()), boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Nan<vT>()), boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::One<vT>()), boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
 } // end of test for real_

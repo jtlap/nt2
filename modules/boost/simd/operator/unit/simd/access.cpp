@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::memory::load and store SIMD"
+#define NT2_UNIT_MODULE "boost::simd::memory::load and store SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
@@ -16,14 +16,14 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 
 #include <boost/mpl/int.hpp>
-#include <boost/simd/sdk/unit/tests/relation.hpp>
-#include <boost/simd/sdk/unit/tests/basic.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test load behavior
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(load, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(load, BOOST_SIMD_TYPES )
 {
   using boost::simd::load;
   using boost::simd::native;
@@ -41,7 +41,7 @@ BOOST_SIMD_TEST_CASE_TPL(load, BOOST_SIMD_TYPES )
     n_t v = load<n_t>(&data[0],i);
     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
     {
-      BOOST_SIMD_TEST_EQUAL( v[j], 1+i*cardinal_of<n_t>::value+j );
+      NT2_TEST_EQUAL( v[j], 1+i*cardinal_of<n_t>::value+j );
     }
   }
 }
@@ -49,7 +49,7 @@ BOOST_SIMD_TEST_CASE_TPL(load, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test forward periodic case -- load 1 and 2 cardinal in front
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
 {
   using boost::simd::load;
   using boost::simd::native;
@@ -65,17 +65,17 @@ BOOST_SIMD_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
 
   v = load<n_t,1*cardinal_of<n_t>::value>(&data[0],0);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-    BOOST_SIMD_TEST_EQUAL( v[j], data[j+1*cardinal_of<n_t>::value] );
+    NT2_TEST_EQUAL( v[j], data[j+1*cardinal_of<n_t>::value] );
 
   v = load<n_t,2*cardinal_of<n_t>::value>(&data[0],0);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-    BOOST_SIMD_TEST_EQUAL( v[j], data[j+2*cardinal_of<n_t>::value] );
+    NT2_TEST_EQUAL( v[j], data[j+2*cardinal_of<n_t>::value] );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test non-periodic case -- load up to cardinal-1 front
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(shifted_load_non_periodic, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(shifted_load_non_periodic, BOOST_SIMD_TYPES )
 {
   using boost::simd::load;
   using boost::simd::native;
@@ -91,17 +91,17 @@ BOOST_SIMD_TEST_CASE_TPL(shifted_load_non_periodic, BOOST_SIMD_TYPES )
 
   v = load<n_t,1>(&data[0],1);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-    BOOST_SIMD_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value+1] );
+    NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value+1] );
 
   v = load<n_t,-1>(&data[0],1);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-    BOOST_SIMD_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value-1] );
+    NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value-1] );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test backward periodic case -- load 1 and 2 cardinal in front
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(shifted_load_bkwd_periodic, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(shifted_load_bkwd_periodic, BOOST_SIMD_TYPES )
 {
   using boost::simd::load;
   using boost::simd::native;
@@ -117,17 +117,17 @@ BOOST_SIMD_TEST_CASE_TPL(shifted_load_bkwd_periodic, BOOST_SIMD_TYPES )
 
   v = load<n_t,-1*cardinal_of<n_t>::value>(&data[0],2);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-    BOOST_SIMD_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value] );
+    NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value] );
 
   v = load<n_t,-2*cardinal_of<n_t>::value>(&data[0],2);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-    BOOST_SIMD_TEST_EQUAL( v[j], data[j] );
+    NT2_TEST_EQUAL( v[j], data[j] );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test store behavior
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(store, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(store, BOOST_SIMD_TYPES )
 {
   using boost::simd::store;
   using boost::simd::load;
@@ -146,6 +146,6 @@ BOOST_SIMD_TEST_CASE_TPL(store, BOOST_SIMD_TYPES )
 
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
   {
-    BOOST_SIMD_TEST_EQUAL( data[j], data[j+cardinal_of<n_t>::value] );
+    NT2_TEST_EQUAL( data[j], data[j+cardinal_of<n_t>::value] );
   }
 }

@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 bitwise toolbox - ror/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - ror/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of bitwise components in scalar mode
@@ -17,14 +17,14 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( ror_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( ror_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
   
   using boost::simd::ror;
@@ -36,16 +36,16 @@ BOOST_SIMD_TEST_CASE_TPL ( ror_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // return type conformity test 
-  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(ror(T(2),T(2)), r_t(boost::simd::One<T>()<<(sizeof(T)*8-1)));
-  BOOST_SIMD_TEST_EQUAL(ror(boost::simd::Mone<T>(),T(1)), boost::simd::Mone<T>());
-  BOOST_SIMD_TEST_EQUAL(ror(boost::simd::Mone<T>(),T(5)), boost::simd::Mone<T>());
-  BOOST_SIMD_TEST_EQUAL(ror(boost::simd::One<T>(),T(1)), r_t(boost::simd::One<T>()<<(sizeof(T)*8-1)));
-  BOOST_SIMD_TEST_EQUAL(ror(boost::simd::Zero<T>(),T(1)), boost::simd::Zero<T>());
+  NT2_TEST_EQUAL(ror(T(2),T(2)), r_t(boost::simd::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(ror(boost::simd::Mone<T>(),T(1)), boost::simd::Mone<T>());
+  NT2_TEST_EQUAL(ror(boost::simd::Mone<T>(),T(5)), boost::simd::Mone<T>());
+  NT2_TEST_EQUAL(ror(boost::simd::One<T>(),T(1)), r_t(boost::simd::One<T>()<<(sizeof(T)*8-1)));
+  NT2_TEST_EQUAL(ror(boost::simd::Zero<T>(),T(1)), boost::simd::Zero<T>());
 } // end of test for integer_

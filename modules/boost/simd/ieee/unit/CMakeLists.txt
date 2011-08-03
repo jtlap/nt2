@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(boost.simd.ieee.unit boost.simd.ieee.scalar.unit boost.simd.iee
 ##############################################################################
 # Toolbox ieee unit tests
 ##############################################################################
-nt2_module_use_modules(boost.simd.unit)
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

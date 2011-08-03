@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 bitwise toolbox - negif/simd Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - negif/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of bitwise components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::negif;
   using boost::simd::tag::negif_;
@@ -48,15 +48,15 @@ BOOST_SIMD_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1))[0], 1);
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::splat<vT>(1),boost::simd::splat<vT>(1))[0], -1);
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::Inf<vT>(),boost::simd::splat<vT>(1))[0], -1);
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::Minf<vT>(),boost::simd::splat<vT>(1))[0], -1);
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::Nan<vT>(),boost::simd::splat<vT>(1))[0], -1);
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::Zero<vT>(),boost::simd::splat<vT>(1))[0], 1);
+  NT2_TEST_EQUAL(negif(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1))[0], 1);
+  NT2_TEST_EQUAL(negif(boost::simd::splat<vT>(1),boost::simd::splat<vT>(1))[0], -1);
+  NT2_TEST_EQUAL(negif(boost::simd::Inf<vT>(),boost::simd::splat<vT>(1))[0], -1);
+  NT2_TEST_EQUAL(negif(boost::simd::Minf<vT>(),boost::simd::splat<vT>(1))[0], -1);
+  NT2_TEST_EQUAL(negif(boost::simd::Nan<vT>(),boost::simd::splat<vT>(1))[0], -1);
+  NT2_TEST_EQUAL(negif(boost::simd::Zero<vT>(),boost::simd::splat<vT>(1))[0], 1);
 } // end of test for real_
 
-BOOST_SIMD_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::negif;
   using boost::simd::tag::negif_;
@@ -77,7 +77,7 @@ BOOST_SIMD_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TY
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1))[0], 1);
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::splat<vT>(1),boost::simd::splat<vT>(1))[0], sr_t(-1));
-  BOOST_SIMD_TEST_EQUAL(negif(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(negif(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1))[0], 1);
+  NT2_TEST_EQUAL(negif(boost::simd::splat<vT>(1),boost::simd::splat<vT>(1))[0], sr_t(-1));
+  NT2_TEST_EQUAL(negif(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for signed_int_

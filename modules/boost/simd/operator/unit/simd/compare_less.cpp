@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 operator toolbox - compare_less/simd Mode"
+#define NT2_UNIT_MODULE "nt2 operator toolbox - compare_less/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of operator components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::compare_less;
   using boost::simd::tag::compare_less_;
@@ -48,9 +48,9 @@ BOOST_SIMD_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(compare_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), false);
-  BOOST_SIMD_TEST_EQUAL(compare_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), false);
-  BOOST_SIMD_TEST_EQUAL(compare_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), false);
-  BOOST_SIMD_TEST_EQUAL(compare_less(boost::simd::One<vT>(),boost::simd::Zero<vT>()), false);
-  BOOST_SIMD_TEST_EQUAL(compare_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), false);
+  NT2_TEST_EQUAL(compare_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), false);
+  NT2_TEST_EQUAL(compare_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), false);
+  NT2_TEST_EQUAL(compare_less(boost::simd::One<vT>(),boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), false);
 } // end of test for real_

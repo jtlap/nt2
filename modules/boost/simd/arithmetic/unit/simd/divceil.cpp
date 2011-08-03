@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 arithmetic toolbox - divceil/simd Mode"
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - divceil/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of arithmetic components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( divceil_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( divceil_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::divceil;
   using boost::simd::tag::divceil_;
@@ -48,14 +48,14 @@ BOOST_SIMD_TEST_CASE_TPL ( divceil_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::splat<vT>(4),boost::simd::splat<vT>(0))[0], boost::simd::Inf<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3))[0], 2, 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::One<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::Mone<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Minf<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-  BOOST_SIMD_TEST_ULP_EQUAL(divceil(boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::splat<vT>(4),boost::simd::splat<vT>(0))[0], boost::simd::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3))[0], 2, 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::Mone<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Minf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divceil(boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Nan<sr_t>(), 0);
 } // end of test for real_

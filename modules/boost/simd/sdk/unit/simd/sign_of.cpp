@@ -6,17 +6,17 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::sign_of SIMD"
+#define NT2_UNIT_MODULE "boost::simd::meta::sign_of SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/unit/tests/basic.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::sign_of;
@@ -25,7 +25,7 @@ BOOST_SIMD_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 native_t;
 
-  BOOST_SIMD_TEST( (is_same< typename sign_of<native_t>::type
+  NT2_TEST( (is_same< typename sign_of<native_t>::type
                     , typename sign_of<T>::type
                     >::value
             )

@@ -14,5 +14,5 @@
 ADD_CUSTOM_TARGET(boost.simd.reduction.simd.bench)
 ADD_DEPENDENCIES(boost.simd.reduction.bench boost.simd.reduction.simd.bench)
 
-nt2_module_use_modules(boost.simd.unit)
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(simd)

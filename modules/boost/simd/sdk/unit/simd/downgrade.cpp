@@ -6,19 +6,19 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::downgrade SIMD"
+#define NT2_UNIT_MODULE "boost::simd::meta::downgrade SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <boost/simd/sdk/unit/tests/basic.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(downgrade, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::downgrade;
@@ -28,6 +28,6 @@ BOOST_SIMD_TEST_CASE_TPL(downgrade, BOOST_SIMD_TYPES)
   typedef native<T,ext_t>                 native_t;
   typedef typename downgrade<T>::type base_t;
 
-  BOOST_SIMD_TEST( (is_same<typename downgrade<native_t>::type::value_type,base_t>::value ));
+  NT2_TEST( (is_same<typename downgrade<native_t>::type::value_type,base_t>::value ));
 }
 

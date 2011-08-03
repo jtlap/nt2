@@ -6,19 +6,19 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::as_real SIMD"
+#define NT2_UNIT_MODULE "boost::simd::meta::as_real SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <boost/simd/sdk/unit/tests/basic.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that as_real on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(as_real_simd, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(as_real_simd, BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::as_real;
@@ -28,7 +28,7 @@ BOOST_SIMD_TEST_CASE_TPL(as_real_simd, BOOST_SIMD_REAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
   typedef native<typename as_real<T>::type,ext_t> dst_t;
 
-  BOOST_SIMD_TEST( (is_same< typename as_real< native<T,ext_t> >::type
+  NT2_TEST( (is_same< typename as_real< native<T,ext_t> >::type
                     , dst_t
                     >::value
             )

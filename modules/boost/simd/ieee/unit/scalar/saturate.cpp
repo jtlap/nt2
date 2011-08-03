@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 ieee toolbox - saturate/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - saturate/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of ieee components in scalar mode
@@ -17,14 +17,14 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
   using boost::simd::saturate;
@@ -36,7 +36,7 @@ BOOST_SIMD_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPE
 
 
   // return type conformity test 
-  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;

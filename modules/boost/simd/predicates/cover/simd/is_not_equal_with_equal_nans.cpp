@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 predicates toolbox - is_not_equal_with_equal_nans/simd Mode"
+#define NT2_UNIT_MODULE "nt2 predicates toolbox - is_not_equal_with_equal_nans/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // cover test behavior of predicates components in simd mode
@@ -20,8 +20,8 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/sdk/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -30,7 +30,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::is_not_equal_with_equal_nans;
   using boost::simd::tag::is_not_equal_with_equal_nans_;
@@ -63,7 +63,7 @@ BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_R
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          BOOST_SIMD_TEST_EQUAL( v[i]!=0,ssr_t(boost::simd::is_not_equal_with_equal_nans (tab_a0[k],tab_a1[k])));
+          NT2_TEST_EQUAL( v[i]!=0,ssr_t(boost::simd::is_not_equal_with_equal_nans (tab_a0[k],tab_a1[k])));
         }
       }
     

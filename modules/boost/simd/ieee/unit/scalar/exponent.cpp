@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 ieee toolbox - exponent/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 ieee toolbox - exponent/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of ieee components in scalar mode
@@ -20,14 +20,14 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( exponent_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( exponent_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
   using boost::simd::exponent;
@@ -39,15 +39,15 @@ BOOST_SIMD_TEST_CASE_TPL ( exponent_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // return type conformity test 
-  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(exponent(boost::simd::Minf<T>()), boost::simd::Zero<r_t>());
-  BOOST_SIMD_TEST_EQUAL(exponent(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
-  BOOST_SIMD_TEST_EQUAL(exponent(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  BOOST_SIMD_TEST_EQUAL(exponent(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(exponent(boost::simd::Minf<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(exponent(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(exponent(boost::simd::One<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(exponent(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for real_

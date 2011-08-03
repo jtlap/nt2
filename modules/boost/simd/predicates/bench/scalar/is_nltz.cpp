@@ -12,8 +12,8 @@
 // timing Test behavior of predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/predicates/include/is_nltz.hpp>
-#include <boost/simd/sdk/unit/benchmark.hpp>
-#include <boost/simd/sdk/unit/bench_includes.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 

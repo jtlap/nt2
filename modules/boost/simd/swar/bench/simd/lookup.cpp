@@ -12,8 +12,8 @@
 // timing Test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/swar/include/lookup.hpp>
-#include <boost/simd/sdk/unit/benchmark.hpp>
-#include <boost/simd/sdk/unit/bench_includes.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 

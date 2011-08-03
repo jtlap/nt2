@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 swar toolbox - splatted_maximum/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - splatted_maximum/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of swar components in simd mode
@@ -19,8 +19,8 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -29,7 +29,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( splatted_maximum_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( splatted_maximum_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::splatted_maximum;
   using boost::simd::tag::splatted_maximum_;
@@ -50,10 +50,10 @@ BOOST_SIMD_TEST_CASE_TPL ( splatted_maximum_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(splatted_maximum(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(splatted_maximum(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(splatted_maximum(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(splatted_maximum(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(splatted_maximum(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(splatted_maximum(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
+  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(splatted_maximum(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(splatted_maximum(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for real_

@@ -17,7 +17,7 @@ ADD_DEPENDENCIES(boost.simd.arithmetic.unit boost.simd.arithmetic.scalar.unit bo
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
-#nt2_module_use_modules(boost.simd.unit standard libc)
-nt2_module_use_modules(boost.simd.unit)
+#nt2_module_use_modules(unit standard libc)
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

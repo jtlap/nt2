@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 bitwise toolbox - hi/simd Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - hi/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of bitwise components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::hi;
   using boost::simd::tag::hi_;
@@ -49,11 +49,11 @@ BOOST_SIMD_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(hi(boost::simd::Nan<vT>())[0], boost::simd::Mone<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::Nan<vT>())[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for real_
 
-BOOST_SIMD_TEST_CASE_TPL ( hi_int64__1_0,  (boost::simd::int64_t)(boost::simd::uint64_t))
+NT2_TEST_CASE_TPL ( hi_int64__1_0,  (boost::simd::int64_t)(boost::simd::uint64_t))
 {
   using boost::simd::hi;
   using boost::simd::tag::hi_;
@@ -75,11 +75,11 @@ BOOST_SIMD_TEST_CASE_TPL ( hi_int64__1_0,  (boost::simd::int64_t)(boost::simd::u
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for int64_
 
-BOOST_SIMD_TEST_CASE_TPL ( hi_int32__1_0,  (boost::simd::int32_t)(boost::simd::uint32_t))
+NT2_TEST_CASE_TPL ( hi_int32__1_0,  (boost::simd::int32_t)(boost::simd::uint32_t))
 {
   using boost::simd::hi;
   using boost::simd::tag::hi_;
@@ -101,11 +101,11 @@ BOOST_SIMD_TEST_CASE_TPL ( hi_int32__1_0,  (boost::simd::int32_t)(boost::simd::u
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for int32_
 
-BOOST_SIMD_TEST_CASE_TPL ( hi_int16__1_0,  (boost::simd::int16_t)(boost::simd::uint16_t))
+NT2_TEST_CASE_TPL ( hi_int16__1_0,  (boost::simd::int16_t)(boost::simd::uint16_t))
 {
   using boost::simd::hi;
   using boost::simd::tag::hi_;
@@ -127,6 +127,6 @@ BOOST_SIMD_TEST_CASE_TPL ( hi_int16__1_0,  (boost::simd::int16_t)(boost::simd::u
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for int16_

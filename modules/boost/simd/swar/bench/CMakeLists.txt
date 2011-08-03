@@ -14,5 +14,5 @@
 ADD_CUSTOM_TARGET(boost.simd.swar.simd.bench)
 ADD_DEPENDENCIES(boost.simd.swar.bench boost.simd.swar.simd.bench)
 
-nt2_module_use_modules(boost.simd.unit)
+nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(simd)

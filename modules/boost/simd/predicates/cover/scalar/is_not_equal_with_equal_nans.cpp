@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 predicates toolbox - is_not_equal_with_equal_nans/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 predicates toolbox - is_not_equal_with_equal_nans/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // cover test behavior of predicates components in scalar mode
@@ -20,14 +20,14 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/sdk/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   
   using boost::simd::is_not_equal_with_equal_nans;
@@ -39,7 +39,7 @@ BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_R
 
 
   // return type conformity test 
-  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
@@ -58,13 +58,13 @@ BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_R
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        BOOST_SIMD_TEST_EQUAL( boost::simd::is_not_equal_with_equal_nans(a0,a1),boost::simd::is_not_equal_with_equal_nans(a0,a1));
+        NT2_TEST_EQUAL( boost::simd::is_not_equal_with_equal_nans(a0,a1),boost::simd::is_not_equal_with_equal_nans(a0,a1));
      }
      
    }
 } // end of test for real_
 
-BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
   using boost::simd::is_not_equal_with_equal_nans;
@@ -76,7 +76,7 @@ BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  BOOST_
 
 
   // return type conformity test 
-  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
@@ -95,13 +95,13 @@ BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  BOOST_
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        BOOST_SIMD_TEST_EQUAL( boost::simd::is_not_equal_with_equal_nans(a0,a1),boost::simd::is_not_equal_with_equal_nans(a0,a1));
+        NT2_TEST_EQUAL( boost::simd::is_not_equal_with_equal_nans(a0,a1),boost::simd::is_not_equal_with_equal_nans(a0,a1));
      }
      
    }
 } // end of test for signed_int_
 
-BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
   using boost::simd::is_not_equal_with_equal_nans;
@@ -113,7 +113,7 @@ BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  BOOS
 
 
   // return type conformity test 
-  BOOST_SIMD_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
@@ -132,7 +132,7 @@ BOOST_SIMD_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  BOOS
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        BOOST_SIMD_TEST_EQUAL( boost::simd::is_not_equal_with_equal_nans(a0,a1),boost::simd::is_not_equal_with_equal_nans(a0,a1));
+        NT2_TEST_EQUAL( boost::simd::is_not_equal_with_equal_nans(a0,a1),boost::simd::is_not_equal_with_equal_nans(a0,a1));
      }
      
    }

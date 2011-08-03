@@ -6,19 +6,19 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::as_integer SIMD"
+#define NT2_UNIT_MODULE "boost::simd::meta::as_integer SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <boost/simd/sdk/unit/tests/basic.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that as_integer on SIMD with unsigned target
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(as_uinteger_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(as_uinteger_simd, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::as_integer;
@@ -28,7 +28,7 @@ BOOST_SIMD_TEST_CASE_TPL(as_uinteger_simd, BOOST_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
   typedef native<typename as_integer<T,unsigned>::type,ext_t> dst_t;
 
-  BOOST_SIMD_TEST( (is_same< typename as_integer<native<T,ext_t>,unsigned>::type
+  NT2_TEST( (is_same< typename as_integer<native<T,ext_t>,unsigned>::type
                     , dst_t
                     >::value
             )
@@ -38,7 +38,7 @@ BOOST_SIMD_TEST_CASE_TPL(as_uinteger_simd, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that as_integer on SIMD with signed target
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(as_integer_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(as_integer_simd, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::as_integer;
@@ -48,7 +48,7 @@ BOOST_SIMD_TEST_CASE_TPL(as_integer_simd, BOOST_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
   typedef native<typename as_integer<T,signed>::type,ext_t> dst_t;
 
-  BOOST_SIMD_TEST( (is_same< typename as_integer<native<T,ext_t>,signed>::type
+  NT2_TEST( (is_same< typename as_integer<native<T,ext_t>,signed>::type
                     , dst_t
                     >::value
             )

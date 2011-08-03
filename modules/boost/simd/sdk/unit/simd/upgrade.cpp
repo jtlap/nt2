@@ -6,18 +6,18 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::upgrade SIMD"
+#define NT2_UNIT_MODULE "boost::simd::meta::upgrade SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/unit/tests/basic.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that upgrade is correct for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(upgrade, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(upgrade, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::upgrade;
@@ -33,7 +33,7 @@ BOOST_SIMD_TEST_CASE_TPL(upgrade, BOOST_SIMD_TYPES)
                   , typename native_t::value_type
                   >::type upgraded_t;
 
-  BOOST_SIMD_TEST( (is_same< typename upgrade<native_t>::type::value_type
+  NT2_TEST( (is_same< typename upgrade<native_t>::type::value_type
                     , upgraded_t
                     >::value ));
 }

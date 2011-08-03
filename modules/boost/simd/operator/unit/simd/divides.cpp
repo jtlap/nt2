@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 operator toolbox - divides/simd Mode"
+#define NT2_UNIT_MODULE "nt2 operator toolbox - divides/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of operator components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::divides;
   using boost::simd::tag::divides_;
@@ -48,9 +48,9 @@ BOOST_SIMD_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(divides(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(divides(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(divides(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(divides(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Inf<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(divides(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(divides(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(divides(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(divides(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(divides(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(divides(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Nan<sr_t>());
 } // end of test for real_

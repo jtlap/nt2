@@ -9,20 +9,20 @@
 #define BOOST_DISPATCH_UNIT_MODULE "boost::dispatch::meta::is_result_of_supported"
 
 #include <boost/dispatch/meta/is_result_of_supported.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
-#include <boost/simd/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test is_result_of_supported with nothing
 ////////////////////////////////////////////////////////////////////////////////
 struct moo {};
 
-BOOST_SIMD_TEST_CASE(is_result_of_supported_fail)
+NT2_TEST_CASE(is_result_of_supported_fail)
 {
   using boost::dispatch::meta::is_result_of_supported;
 
-  BOOST_SIMD_TEST( !is_result_of_supported<float(int)>::value);
-  BOOST_SIMD_TEST( !is_result_of_supported<moo(int)>::value);
+  NT2_TEST( !is_result_of_supported<float(int)>::value);
+  NT2_TEST( !is_result_of_supported<moo(int)>::value);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,14 +30,14 @@ BOOST_SIMD_TEST_CASE(is_result_of_supported_fail)
 ////////////////////////////////////////////////////////////////////////////////
 struct foo { typedef float result_type; };
 
-BOOST_SIMD_TEST_CASE(is_result_of_supported_via_result_type)
+NT2_TEST_CASE(is_result_of_supported_via_result_type)
 {
   using boost::dispatch::meta::is_result_of_supported;
 
-  BOOST_SIMD_TEST( is_result_of_supported<foo(int)>::value);
-  BOOST_SIMD_TEST( is_result_of_supported<foo(int,int)>::value);
-  BOOST_SIMD_TEST( is_result_of_supported<foo(int,int,int)>::value);
-  BOOST_SIMD_TEST( is_result_of_supported<foo(int,int,int,int)>::value);
+  NT2_TEST( is_result_of_supported<foo(int)>::value);
+  NT2_TEST( is_result_of_supported<foo(int,int)>::value);
+  NT2_TEST( is_result_of_supported<foo(int,int,int)>::value);
+  NT2_TEST( is_result_of_supported<foo(int,int,int,int)>::value);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -56,14 +56,14 @@ struct bar
   struct result<This(A,B,C,D)>    { typedef D type; };
 };
 
-BOOST_SIMD_TEST_CASE(is_result_of_supported_via_result)
+NT2_TEST_CASE(is_result_of_supported_via_result)
 {
   using boost::dispatch::meta::is_result_of_supported;
 
-  BOOST_SIMD_TEST( is_result_of_supported<bar(int)>::value);
-  BOOST_SIMD_TEST( is_result_of_supported<bar(int,int)>::value);
-  BOOST_SIMD_TEST( is_result_of_supported<bar(int,int,int)>::value);
-  BOOST_SIMD_TEST( is_result_of_supported<bar(int,int,int,int)>::value);
+  NT2_TEST( is_result_of_supported<bar(int)>::value);
+  NT2_TEST( is_result_of_supported<bar(int,int)>::value);
+  NT2_TEST( is_result_of_supported<bar(int,int,int)>::value);
+  NT2_TEST( is_result_of_supported<bar(int,int,int,int)>::value);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -78,12 +78,12 @@ struct chu
   struct result<This(A,B,C)>  { typedef C type; };
 };
 
-BOOST_SIMD_TEST_CASE(is_result_of_supported_via_result_missing)
+NT2_TEST_CASE(is_result_of_supported_via_result_missing)
 {
   using boost::dispatch::meta::is_result_of_supported;
 
-  BOOST_SIMD_TEST( !is_result_of_supported<chu(int)>::value);
-  BOOST_SIMD_TEST( is_result_of_supported<chu(int,int)>::value);
-  BOOST_SIMD_TEST( is_result_of_supported<chu(int,int,int)>::value);
-  BOOST_SIMD_TEST( !is_result_of_supported<chu(int,int,int,int)>::value);
+  NT2_TEST( !is_result_of_supported<chu(int)>::value);
+  NT2_TEST( is_result_of_supported<chu(int,int)>::value);
+  NT2_TEST( is_result_of_supported<chu(int,int,int)>::value);
+  NT2_TEST( !is_result_of_supported<chu(int,int,int,int)>::value);
 }

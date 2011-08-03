@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::pack"
+#define NT2_UNIT_MODULE "boost::simd::pack"
 
 #include <iostream>
 #include <boost/simd/sdk/simd/pack.hpp>

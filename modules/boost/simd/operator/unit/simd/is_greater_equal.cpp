@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 operator toolbox - is_greater_equal/simd Mode"
+#define NT2_UNIT_MODULE "nt2 operator toolbox - is_greater_equal/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of operator components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( is_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::is_greater_equal;
   using boost::simd::tag::is_greater_equal_;
@@ -48,9 +48,9 @@ BOOST_SIMD_TEST_CASE_TPL ( is_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(is_greater_equal(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, true);
-  BOOST_SIMD_TEST_EQUAL(is_greater_equal(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, true);
-  BOOST_SIMD_TEST_EQUAL(is_greater_equal(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, false);
-  BOOST_SIMD_TEST_EQUAL(is_greater_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, true);
-  BOOST_SIMD_TEST_EQUAL(is_greater_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, true);
+  NT2_TEST_EQUAL(is_greater_equal(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, true);
+  NT2_TEST_EQUAL(is_greater_equal(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, true);
+  NT2_TEST_EQUAL(is_greater_equal(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, false);
+  NT2_TEST_EQUAL(is_greater_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, true);
+  NT2_TEST_EQUAL(is_greater_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, true);
 } // end of test for real_

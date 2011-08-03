@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::native_cast"
+#define NT2_UNIT_MODULE "boost::simd::native_cast"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
@@ -14,13 +14,13 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 
-#include <boost/simd/sdk/unit/tests/relation.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test pack default ctor
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(native_cast, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(native_cast, BOOST_SIMD_TYPES )
 {
   using boost::simd::native;
   using boost::simd::native_cast;

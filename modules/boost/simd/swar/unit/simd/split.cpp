@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 swar toolbox - split/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - split/simd Mode"
 //COMMENTED
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of swar components in simd mode
@@ -19,8 +19,8 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -29,7 +29,7 @@
 #include <boost/simd/include/functions/load.hpp>
 //COMMENTED
 
-BOOST_SIMD_TEST_CASE_TPL ( split_lt_64__1_0,  (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)(boost::simd::int8_t)(boost::simd::uint8_t)(float))
+NT2_TEST_CASE_TPL ( split_lt_64__1_0,  (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)(boost::simd::int8_t)(boost::simd::uint8_t)(float))
 {
   using boost::simd::split;
   using boost::simd::tag::split_;
@@ -54,12 +54,12 @@ BOOST_SIMD_TEST_CASE_TPL ( split_lt_64__1_0,  (boost::simd::int16_t)(boost::simd
 //   typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
 //   {
 //     r_t res = split(boost::simd::One<vT>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::One<r_t>());
+//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t>());
+//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::One<r_t>());
 //   }
 //   {
 //     r_t res = split(boost::simd::Zero<vT>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Zero<r_t>());
-//     BOOST_SIMD_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t>());
+//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Zero<r_t>());
+//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t>());
 //   }
 } // end of test for lt_64_

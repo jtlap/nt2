@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 bitwise toolbox - shri/simd Mode"
+#define NT2_UNIT_MODULE "nt2 bitwise toolbox - shri/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of bitwise components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( shri_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( shri_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::shri;
   using boost::simd::tag::shri_;
@@ -49,9 +49,9 @@ BOOST_SIMD_TEST_CASE_TPL ( shri_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(shri(boost::simd::splat<vT>(2),1)[0], boost::simd::One<T>());
-  BOOST_SIMD_TEST_EQUAL(shri(boost::simd::Mone<vT>(),(sizeof(r_type)*8-1))[0], boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(shri(boost::simd::Mone<vT>(),(sizeof(r_type)*8-2))[0], boost::simd::Three<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(shri(boost::simd::One<vT>(),1)[0], boost::simd::Zero<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(shri(boost::simd::Zero<vT>(),1)[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(shri(boost::simd::splat<vT>(2),1)[0], boost::simd::One<T>());
+  NT2_TEST_EQUAL(shri(boost::simd::Mone<vT>(),(sizeof(r_type)*8-1))[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(shri(boost::simd::Mone<vT>(),(sizeof(r_type)*8-2))[0], boost::simd::Three<sr_t>());
+  NT2_TEST_EQUAL(shri(boost::simd::One<vT>(),1)[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(shri(boost::simd::Zero<vT>(),1)[0], boost::simd::Zero<sr_t>());
 } // end of test for unsigned_int_

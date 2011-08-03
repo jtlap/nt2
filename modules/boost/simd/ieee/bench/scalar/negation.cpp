@@ -12,8 +12,8 @@
 // timing Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/ieee/include/negation.hpp>
-#include <boost/simd/sdk/unit/benchmark.hpp>
-#include <boost/simd/sdk/unit/bench_includes.hpp>
+#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
 
 

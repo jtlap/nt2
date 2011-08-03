@@ -6,33 +6,33 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::dispatch::meta::make_real"
+#define NT2_UNIT_MODULE "boost::dispatch::meta::make_real"
 
 #include <boost/mpl/placeholders.hpp>
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/dispatch/meta/make_real.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/add_pointer.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
-#include <boost/simd/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test make_real output
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE(make_real)
+NT2_TEST_CASE(make_real)
 {
   using boost::dispatch::meta::make_real;
   using boost::is_same;
   using namespace boost::simd;
 
-  BOOST_SIMD_TEST( (is_same<float  , make_real<4>::type >::value)  );
-  BOOST_SIMD_TEST( (is_same<double , make_real<8>::type >::value)  );
+  NT2_TEST( (is_same<float  , make_real<4>::type >::value)  );
+  NT2_TEST( (is_same<double , make_real<8>::type >::value)  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test make_real transformed output
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE(make_real_transform)
+NT2_TEST_CASE(make_real_transform)
 {
   using boost::dispatch::meta::make_real;
   using boost::add_pointer;
@@ -40,6 +40,6 @@ BOOST_SIMD_TEST_CASE(make_real_transform)
   using boost::mpl::_;
   using namespace boost::simd;
 
-  BOOST_SIMD_TEST( (is_same<float*  , make_real<4, add_pointer<_> >::type >::value)  );
-  BOOST_SIMD_TEST( (is_same<double* , make_real<8, add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<float*  , make_real<4, add_pointer<_> >::type >::value)  );
+  NT2_TEST( (is_same<double* , make_real<8, add_pointer<_> >::type >::value)  );
 }

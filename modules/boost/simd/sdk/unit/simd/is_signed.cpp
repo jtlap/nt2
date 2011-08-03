@@ -6,19 +6,19 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_SIMD_UNIT_MODULE "boost::simd::meta::is_signed SIMD"
+#define NT2_UNIT_MODULE "boost::simd::meta::is_signed SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/is_signed.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <boost/simd/sdk/unit/tests/relation.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that is_signed on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_TEST_CASE_TPL(is_signed_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(is_signed_simd, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::is_signed;
@@ -27,5 +27,5 @@ BOOST_SIMD_TEST_CASE_TPL(is_signed_simd, BOOST_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 native_t;
 
-  BOOST_SIMD_TEST_EQUAL( is_signed<native_t>::value, is_signed<T>::value );
+  NT2_TEST_EQUAL( is_signed<native_t>::value, is_signed<T>::value );
 }

@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 swar toolbox - comparator/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - comparator/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of swar components in simd mode
@@ -19,8 +19,8 @@
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/functions/max.hpp>
@@ -31,7 +31,7 @@
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/min.hpp>
 
-BOOST_SIMD_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::comparator;
   using boost::simd::tag::comparator_;
@@ -64,8 +64,8 @@ BOOST_SIMD_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_REAL_TYPES)
         vT ma = boost::simd::max(a0,a1);
         vT mi = boost::simd::min(a0,a1);
 	std::cout << a2 << "  " << mi << "   " << ma << std::endl; 
-        BOOST_SIMD_TEST(boost::simd::all(boost::simd::eq(boost::fusion::get<0>(v),(a2)?ma:mi)));
-        BOOST_SIMD_TEST(boost::simd::all(boost::simd::eq(boost::fusion::get<1>(v),(a2)?mi:ma)));
+        NT2_TEST(boost::simd::all(boost::simd::eq(boost::fusion::get<0>(v),(a2)?ma:mi)));
+        NT2_TEST(boost::simd::all(boost::simd::eq(boost::fusion::get<1>(v),(a2)?mi:ma)));
       }
     
   }

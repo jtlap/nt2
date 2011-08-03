@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_UNIT_MODULE "nt2 swar toolbox - put_first/simd Mode"
+#define NT2_UNIT_MODULE "nt2 swar toolbox - put_first/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of swar components in simd mode
@@ -17,8 +17,8 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/sdk/unit/tests.hpp>
-#include <boost/simd/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-BOOST_SIMD_TEST_CASE_TPL ( put_first_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( put_first_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::put_first;
   using boost::simd::tag::put_first_;
@@ -48,15 +48,15 @@ BOOST_SIMD_TEST_CASE_TPL ( put_first_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::Inf<vT>(),0)[0], boost::simd::Inf<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::Minf<vT>(),0)[0], boost::simd::Minf<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::Mone<vT>(),0)[0], boost::simd::Mone<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::Nan<vT>(),0)[0], boost::simd::Nan<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::One<vT>(),0)[0], boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::Zero<vT>(),0)[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::Inf<vT>(),0)[0], boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::Minf<vT>(),0)[0], boost::simd::Minf<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::Mone<vT>(),0)[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::Nan<vT>(),0)[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::One<vT>(),0)[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::Zero<vT>(),0)[0], boost::simd::Zero<sr_t>());
 } // end of test for real_
 
-BOOST_SIMD_TEST_CASE_TPL ( put_first_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::put_first;
   using boost::simd::tag::put_first_;
@@ -77,12 +77,12 @@ BOOST_SIMD_TEST_CASE_TPL ( put_first_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNE
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::Mone<vT>(),0)[0], boost::simd::Mone<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::One<vT>(),0)[0], boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::Zero<vT>(),0)[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::Mone<vT>(),0)[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::One<vT>(),0)[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::Zero<vT>(),0)[0], boost::simd::Zero<sr_t>());
 } // end of test for signed_int_
 
-BOOST_SIMD_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::put_first;
   using boost::simd::tag::put_first_;
@@ -103,6 +103,6 @@ BOOST_SIMD_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYP
 
 
   // specific values tests
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::One<vT>(),0)[0], boost::simd::One<sr_t>());
-  BOOST_SIMD_TEST_EQUAL(put_first(boost::simd::Zero<vT>(),0)[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::One<vT>(),0)[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(put_first(boost::simd::Zero<vT>(),0)[0], boost::simd::Zero<sr_t>());
 } // end of test for unsigned_int_
