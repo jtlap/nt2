@@ -20,7 +20,6 @@
              'stamp' : 'modified by jt the 13/12/2010',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()'], ['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
              'real_' : [['T(-100)', 'T(100)'], ['T(-100)', 'T(100)']],
              'signed_int_' : [['T(-100)', 'T(100)'], ['T(-100)', 'T(100)']],
              'unsigned_int_' : [['T(0)', 'T(100)'], ['T(0)', 'T(100)']],

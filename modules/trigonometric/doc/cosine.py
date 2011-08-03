@@ -50,7 +50,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::cosine<medium>(a0)'],
+                 'real_' : ['nt2::cosine<nt2::medium>(a0)'],
                 },
              'property_value' : {
                  'real_' : ['::cephes_cosl(a0)'],

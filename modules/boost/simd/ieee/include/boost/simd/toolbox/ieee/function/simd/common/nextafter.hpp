@@ -40,9 +40,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return seladd(boost::simd::is_not_equal(a0,a1),
-		    a0,
-		    seladd(gt(a1,a0),-One<A0>(),Two<A0>()));
+      return seladd(neq(a0,a1),a0,seladd(gt(a1,a0),Mone<A0>(),Two<A0>()));
+      //      return sel(eq(a0, a1),  a0, sel(gt(a1,a0), oneplus(a0), minusone(a0))); 
     }
   };
 } } }
@@ -64,8 +63,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return sel(boost::simd::is_equal(a0,a1),
-		 a0,
-		 sel(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
+         a0,
+         sel(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
     }
   };
 } } }

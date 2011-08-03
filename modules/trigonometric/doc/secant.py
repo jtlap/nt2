@@ -50,7 +50,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::sec<medium>(a0)'],
+                 'real_' : ['nt2::secant<nt2::medium>(a0)'],
                 },
              'property_value' : {
                  'real_' : ['nt2::rec(::cos(a0))'],

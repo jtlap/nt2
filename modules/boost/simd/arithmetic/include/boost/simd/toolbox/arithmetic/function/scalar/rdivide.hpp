@@ -9,15 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_RDIVIDE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_RDIVIDE_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/constants/real.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ ,
-                                     (A0)(A1)
-                                   , (scalar_< arithmetic_<A0> >)
-                                     (scalar_< arithmetic_<A1> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_ , (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A1> >)
+                            )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
@@ -29,12 +27,14 @@ namespace boost { namespace simd { namespace ext
       else return Zero<result_type>();
     }
   };
-  
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ ,
-                                         (A0)(A1)
-                                       , (scalar_< unsigned_<A0> >)
-                                         (scalar_< unsigned_<A1> >)
-                                       )
+} } }
+
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_ , (A0)(A1)
+                            , (scalar_< unsigned_<A0> >)
+                              (scalar_< unsigned_<A1> >)
+                            )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
@@ -55,10 +55,9 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_
-                                   , (A0)(A1)
-                                   , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(A1)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
+                            )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return a0/a1; }

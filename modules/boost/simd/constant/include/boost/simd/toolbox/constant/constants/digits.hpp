@@ -31,15 +31,15 @@ namespace boost { namespace simd { namespace tag
   template<boost::simd::int64_t N> struct Digit{};
 } } }
 
-#define BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(VAL,NAME)     \
-namespace boost { namespace simd				\
+#define BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(VAL,NAME)		\
+namespace boost { namespace simd							\
 {								\
   template<class Target> inline				        \
-  typename boost::dispatch::meta::call<boost::simd::tag::Digit<VAL>(boost::dispatch::meta::as_<Target>)>::type \
+  typename dispatch::meta::call<tag::Digit<VAL>(dispatch::meta::as_<Target>)>::type \
   NAME()							\
   {								\
-    typename boost::dispatch::make_functor<boost::simd::tag::Digit<VAL>, Target>::type callee; \
-    return callee( boost::dispatch::meta::as_<Target>() );			\
+    typename dispatch::make_functor<tag::Digit<VAL>, Target>::type callee; \
+    return callee( dispatch::meta::as_<Target>() );			\
   }								\
 } }								\
 /**/
@@ -68,6 +68,8 @@ namespace boost { namespace simd				\
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 8 , Eight )
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 9 , Nine  )
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 10, Ten   )
+  BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 11, Eleven)
+  BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 12, Twelve)  
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 20, Twenty)
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 24, Twentyfour)
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 120, _120)
@@ -78,13 +80,12 @@ namespace boost { namespace simd				\
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(3628800, _3628800)
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(39916800, _39916800)
 
+
   //============================================================================
   // Hundred and Thousand
   //============================================================================
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 100 , Hundred  )
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(1000 , Thousand )
-  BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 100 , _100     )
-  BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(1000 , _1000    )
 
   //============================================================================
   // Values useful for trigonometric and angle related computations
@@ -92,23 +93,21 @@ namespace boost { namespace simd				\
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 45, Fortyfive         )
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 90, Ninety            )
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(180, Onehundredeighty  )
-//   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(180, C_180             )
-//   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 45, _45               )
-//   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 90, _90               )
+  BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(180, C_180             )
+  BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 45, _45               )
+  BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION( 90, _90               )
   BOOST_SIMD_CONSTANT_DIGITS_IMPLEMENTATION(180, _180              )
 
   //============================================================================
-  // Custom integral constant generator function
+  // Custom integral constant genertor function
   //============================================================================
 namespace boost { namespace simd {
   template<class Target, boost::simd::int64_t N> inline
-  typename boost::dispatch::meta::call<tag::Digit<N >(
-	                           	  boost::dispatch::meta::as_<Target>
-		                                     )>::type
+  typename dispatch::meta::call<tag::Digit<N >(dispatch::meta::as_<Target>)>::type
   integral_constant()
   {
-    typename boost::dispatch::make_functor< tag::Digit<N>, Target >::type callee;
-    return callee( boost::dispatch::meta::as_<Target>() );
+    typename dispatch::make_functor< tag::Digit<N>, Target >::type callee;
+    return callee( dispatch::meta::as_<Target>() );
   }
 } }
 
@@ -117,22 +116,22 @@ namespace boost { namespace simd {
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( boost::simd::tag::Digit<N>
-                                       , tag::cpu_
-                                       , (boost::simd::int64_t N)(class A0)
-                                       , (target_< scalar_< fundamental_<A0> > >)
-                                       )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( boost::simd::tag::Digit<N> , tag::cpu_
+                                , (boost::simd::int64_t N)(class A0)
+                                , (target_< scalar_< fundamental_<A0> > >)
+                                )
   {
     typedef typename A0::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return boost::simd::splat<result_type>(N);
+      return  splat<result_type>(N);
     }
   };
 } } }
 
+//#include <boost/simd/toolbox/constant/constants/scalar/digits.hpp>
 #include <boost/simd/toolbox/constant/constants/simd/all/digits.hpp>
 
 #endif

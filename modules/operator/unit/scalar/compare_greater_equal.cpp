@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(compare_greater_equal(nt2::Inf<T>(), nt2::Inf<T>()), true);
   NT2_TEST_EQUAL(compare_greater_equal(nt2::Minf<T>(), nt2::Minf<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::Nan<T>(), nt2::Nan<T>()), true);
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Nan<T>(), nt2::Nan<T>()), false);
   NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(),nt2::Zero<T>()), true);
   NT2_TEST_EQUAL(compare_greater_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
 } // end of test for real_

@@ -55,7 +55,6 @@ class Global_header_gen() :
             "#include <nt2/sdk/unit/module.hpp>",
             "#include <nt2/sdk/memory/buffer.hpp>",
             "#include <nt2/include/constants/real.hpp>",
-            "#include <nt2/include/constants/infinites.hpp>",
             ]
     
     Simd_template =    [

@@ -12,14 +12,13 @@
 #include <boost/simd/include/functions/idivceil.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/ifloor.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivfloor_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< signed_<A0> >)(scalar_< signed_<A1> >)
                             )
@@ -30,13 +29,11 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if(a1)
-        return -boost::simd::idivceil(-a0,a1);
+        return -idivceil(-a0,a1);
       else
       {
         typedef result_type type;
-        return (a0) ? ((a0>0) ? boost::simd::Valmax<type>()
-                    : boost::simd::Valmin<type>())
-                    : Zero<type>();
+        return (a0) ? ((a0>0) ? Valmax<type>() : Valmin<type>()) : Zero<type>();
       }
 
     }
@@ -49,10 +46,9 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivfloor_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)
-                              (scalar_< arithmetic_<A1> >)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
 
@@ -61,28 +57,21 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if(a1)
-        return boost::simd::rdivide(a0,a1);
+        return rdivide(a0,a1);
       else
-        return (a0) ? boost::simd::Valmax<result_type>()
-                    : Zero<result_type>();
+        return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }
   };
   
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivfloor_, tag::cpu_,
-                                    (A0)(A1),
-                                    (scalar_< real_<A0> > )(scalar_< real_<A1> > )
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::idivfloor_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< real_<A0> > )(scalar_< real_<A1> > )
+                            )
   {
-    typedef typename dispatch::meta::
-    as_integer< typename dispatch::meta::
-                result_of< dispatch::meta::
-                           arithmetic(A0,A1)
-                         >::type
-              >::type result_type;
-    
+    typedef typename dispatch::meta::as_integer < typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type >::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return boost::simd::ifloor(a0/a1);

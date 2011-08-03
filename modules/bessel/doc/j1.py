@@ -34,13 +34,13 @@
                  'default' : 'NT2_NB_RANDOM_TEST',
                 },
              'property_call' : {
-                 'default' : ['nt2::j1(a0)'],
+                 'real_' : ['nt2::j1(a0)'],
                 },
              'property_value' : {
-                 'default' : ['cephes_j1l(a0)'],
+                 'real_' : ['cephes_j1l(a0)'],
                 },
              'ulp_thresh' : {
-                 'default' : ['350'],
+                 'real_' : ['350'],
                 },
             },
         },

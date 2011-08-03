@@ -52,7 +52,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::cosecant<medium>(a0)'],
+                 'real_' : ['nt2::cosecant<nt2::medium>(a0)'],
                 },
              'property_value' : {
                  'real_' : ['nt2::rec(::sin(a0))'],
