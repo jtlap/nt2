@@ -9,9 +9,9 @@
 #ifndef NT2_SDK_META_LOGICAL_HPP_INCLUDED
 #define NT2_SDK_META_LOGICAL_HPP_INCLUDED
 
-#include <boost/simd/meta/logical.hpp>
+#include <boost/simd/sdk/meta/logical.hpp>
 
-namespace boost { namespace meta
+namespace nt2 { namespace meta
 {
   using boost::simd::meta::logical;
 } }
