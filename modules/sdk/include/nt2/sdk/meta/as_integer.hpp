@@ -11,7 +11,7 @@
 
 #include <boost/dispatch/meta/as_integer.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
   using boost::dispatch::meta::as_integer;
 } }
