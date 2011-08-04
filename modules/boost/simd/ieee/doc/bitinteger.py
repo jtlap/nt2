@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_integer<T>::type',
+             'default' : 'typename boost::dispatch::meta::as_integer<T>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -27,7 +28,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::bitfloating(nt2::bitinteger(a0))'],
+                 'default' : ['boost::simd::bitfloating(boost::simd::bitinteger(a0))'],
                 },
              'property_value' : {
                  'default' : ['a0'],

@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -29,29 +30,29 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Nan<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Nan<r_t>()',
-                 'nt2::Mone<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::frac(a0)'],
+                 'default' : ['boost::simd::frac(a0)'],
                 },
              'property_value' : {
-                 'default' : ['a0-nt2::trunc(a0)'],
+                 'default' : ['a0-boost::simd::trunc(a0)'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

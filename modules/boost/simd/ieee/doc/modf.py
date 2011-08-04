@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '2',
@@ -29,10 +30,10 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::modf(a0)'],
+                 'default' : ['boost::simd::modf(a0)'],
                 },
              'property_value' : {
-                 'default' : [['nt2::frac(a0)', 'nt2::trunc(a0)']],
+                 'default' : [['boost::simd::frac(a0)', 'boost::simd::trunc(a0)']],
                 },
              'ulp_thresh' : '0',
             },

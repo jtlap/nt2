@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_integer<T, signed>::type',
+             'default' : 'typename boost::dispatch::meta::as_integer<T, signed>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -30,10 +31,10 @@
             },
          'verif_test' : {
              'property_call' : {
-                  'default' : ['nt2::exponentbits(a0)'],
+                  'default' : ['boost::simd::exponentbits(a0)'],
                },
              'property_value' : {
-                 'default' : ['nt2::bits(nt2::ldexp(nt2::One<T>(),nt2::exponent(a0)))'],
+                 'default' : ['boost::simd::bits(boost::simd::ldexp(boost::simd::One<T>(),boost::simd::exponent(a0)))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

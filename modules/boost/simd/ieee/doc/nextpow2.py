@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::floating(T)>::type, signed>::type',
+             'default' : 'typename boost::dispatch::meta::as_integer<typename boost::result_of<boost::dispatch::meta::floating(T)>::type, signed>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -29,20 +30,20 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Mone<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
             },
          'verif_test' : {

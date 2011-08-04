@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -22,7 +23,7 @@
              'stamp' : 'modified by jt the 20/03/2011',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
+             'default' : [['boost::simd::Valmin<T>()', 'boost::simd::Valmax<T>()']],
             },
          'specific_values' : {
             },
@@ -31,7 +32,7 @@
                  'default' : ['saturate<uint16_t>(a0)'],
                 },
              'property_value' : {
-                 'default' : ['a0>nt2::Valmax<uint16_t>() ? nt2::Valmax<uint16_t>() : a0'],
+                 'default' : ['a0>boost::simd::Valmax<uint16_t>() ? boost::simd::Valmax<uint16_t>() : a0'],
                 },
              'simd' : {
                 },

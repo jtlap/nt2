@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'boost::fusion::vector<T,typename nt2::meta::as_integer<T,signed>::type>',
+             'default' : 'boost::fusion::vector<T,typename boost::dispatch::meta::as_integer<T,signed>::type>',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -31,10 +32,10 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::frexp(a0)'],
+                 'default' : ['boost::simd::frexp(a0)'],
                 },
              'property_value' : {
-                 'default' : [['nt2::mantissa(a0)/2', 'nt2::exponent(a0)+1']],
+                 'default' : [['boost::simd::mantissa(a0)/2', 'boost::simd::exponent(a0)+1']],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

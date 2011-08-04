@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -9,7 +10,7 @@
             },
          'simd_types' : ['real_'],
          'special' : ['ieee'],
-         'tpl'   : '<nt2::tag::Pi>',   
+         'tpl'   : '<boost::simd::tag::Pi>',   
          'type_defs' : [],
          'types' : ['real_'],
         },
@@ -22,16 +23,16 @@
              'stamp' : 'modified by jt the 20/03/2011',
             },
          'ranges' : {
-             'default' : [['-nt2::Ten<T>()', 'nt2::Ten<T>()']],
+             'default' : [['-boost::simd::Ten<T>()', 'boost::simd::Ten<T>()']],
             },
          'specific_values' : {
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['saturate_at<nt2::tag::Pi>(a0)'],
+                 'default' : ['saturate_at<boost::simd::tag::Pi>(a0)'],
                 },
              'property_value' : {
-                 'default' : ['a0>nt2::Pi<T>() ? nt2::Pi<T>() : (a0<-nt2::Pi<T>() ? -nt2::Pi<T>() :a0)'],
+                 'default' : ['a0>boost::simd::Pi<T>() ? boost::simd::Pi<T>() : (a0<-boost::simd::Pi<T>() ? -boost::simd::Pi<T>() :a0)'],
                 },
              'simd' : {
                 },

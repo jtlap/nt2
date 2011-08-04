@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],
          'ret_arity' : '0',
@@ -8,7 +9,7 @@
              'default' : 'T',
             },
          'simd_types' : ['real_'],
-         'type_defs' : ['typedef typename nt2::meta::as_integer<T>::type iT;'],
+         'type_defs' : ['typedef typename boost::dispatch::meta::as_integer<T>::type iT;'],
          'types' : ['real_'],
         },
      'info' : 'manually modified',
@@ -27,7 +28,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::ldexp(a0,a1)'],
+                 'default' : ['boost::simd::ldexp(a0,a1)'],
                 },
              'property_value' : {
                  'default' : ['(a1>=0) ? a0*(1<<a1) : a0/(1<<(-a1))'],
