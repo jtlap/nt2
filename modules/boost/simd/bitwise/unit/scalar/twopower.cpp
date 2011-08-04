@@ -6,16 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - twopower/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - twopower/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bitwise components in scalar mode
+// unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/bitwise/include/twopower.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/include/functions/shli.hpp>
+#include <nt2/include/functions/shli.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -23,7 +23,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 
 
 NT2_TEST_CASE_TPL ( twopower_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -33,6 +32,8 @@ NT2_TEST_CASE_TPL ( twopower_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::tag::twopower_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<twopower_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type wished_r_t;
 
