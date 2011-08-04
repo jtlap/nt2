@@ -108,7 +108,7 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return boost::fusion::fold(a0,0,functor<boost::simd::tag::plus_>());
+      return boost::fusion::fold(a0,0,dispatch::functor<boost::simd::tag::plus_>());
     }
   };
 
