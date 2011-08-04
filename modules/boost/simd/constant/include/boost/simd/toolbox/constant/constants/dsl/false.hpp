@@ -18,7 +18,7 @@
 
 namespace boost { namespace simd
 {
-  boost::proto::terminal< constant_<tag::false_ > >::type false_  = {{}};
+  boost::proto::terminal< constant_<tag::False > >::type false_  = {{}};
 } }
 
 #endif
