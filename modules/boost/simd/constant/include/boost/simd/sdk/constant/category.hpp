@@ -30,6 +30,11 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
+namespace boost { namespace simd { namespace ext
+{
+  using boost::dispatch::meta::constant_;
+} } }
+
 namespace boost { namespace dispatch
 {
   //============================================================================

@@ -10,10 +10,13 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_VALMAX_HPP_INCLUDED
 #include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-
-BOOST_SIMD_STD_CONSTANT_TAG(Valmax)
-BOOST_SIMD_STD_CONSTANT_DEF(Valmax)
   
+namespace boost { namespace simd
+{
+  BOOST_SIMD_STD_CONSTANT_TAG(Valmax)
+  BOOST_SIMD_STD_CONSTANT_DEF(Valmax)
+} }
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::Valmax,tag::cpu_

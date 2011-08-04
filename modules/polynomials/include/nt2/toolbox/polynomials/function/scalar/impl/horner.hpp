@@ -72,7 +72,7 @@ namespace nt2
 }
 
 #define NT2_COEFF_GEN(z,n,text)                                           \
-boost::mpl::integral_c< NT2_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,text))       \
+boost::mpl::integral_c< BOOST_DISPATCH_PP_STRIP(BOOST_PP_TUPLE_ELEM(3,0,text))       \
                       , BOOST_PP_TUPLE_ELEM(BOOST_PP_TUPLE_ELEM(3,1,text) \
                                            ,n                             \
                                            ,BOOST_PP_TUPLE_ELEM(3,2,text) \

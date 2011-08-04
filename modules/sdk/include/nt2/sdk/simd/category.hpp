@@ -6,13 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_INCLUDE_SIMD_HPP_INCLUDED
-#define NT2_SDK_INCLUDE_SIMD_HPP_INCLUDED
+#ifndef NT2_SDK_SIMD_CATEGORY_HPP_INCLUDED
+#define NT2_SDK_SIMD_CATEGORY_HPP_INCLUDED
 
-#include <boost/simd/include/simd.hpp>
-#include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/simd/tags.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/simd/preprocessor/include.hpp>
- 
+#include <boost/simd/sdk/simd/category.hpp>
+
+namespace nt2 { namespace meta
+{
+  using boost::simd::ext::simd_;
+} }
+
 #endif

@@ -12,8 +12,12 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-// BOOST_SIMD_STD_CONSTANT_TAG(True)
-// BOOST_SIMD_STD_CONSTANT_DEF(True)
+
+namespace boost { namespace simd
+{
+//  BOOST_SIMD_STD_CONSTANT_TAG(True)
+//  BOOST_SIMD_STD_CONSTANT_DEF(True)
+} }
 
 namespace boost { namespace simd { namespace ext
 {

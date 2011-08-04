@@ -30,31 +30,29 @@ NAME()                                                  \
 *//**/
 
 #define BOOST_SIMD_STD_CONSTANT_TAG(NAME)					\
-  namespace boost { namespace simd { namespace tag { struct NAME{}; } } }			\
+  namespace tag { struct NAME{}; }			\
   /**/
 
 #define BOOST_SIMD_STD_CONSTANT_DEF(NAME)					\
-namespace boost { namespace simd {						 	        \
   template<class Target> inline						\
-  typename boost::dispatch::meta::call<boost::simd::tag::NAME(boost::dispatch::meta::as_<Target>)>::type\
+  typename boost::dispatch::meta::call<tag::NAME(boost::dispatch::meta::as_<Target>)>::type\
   NAME()								\
   {									\
-    typename boost::dispatch::make_functor<boost::simd::tag::NAME, Target>::type callee;	\
+    typename boost::dispatch::make_functor<tag::NAME, Target>::type callee;	\
     return callee( boost::dispatch::meta::as_<Target>() );				\
   }									\
-} }									\
 /**/
 
-#define BOOST_SIMD_STD_CONSTANT_STRUCT(NAME,TAG,VAL)			  \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0)		  \
-			     , (target_< scalar_<TAG<A0> > >)	  \
+#define BOOST_SIMD_STD_CONSTANT_STRUCT(NS,NS2,NAME,TAG,VAL)			  \
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(NS NS2,BOOST_DISPATCH_NS(NS) tag::NAME,tag::cpu_,(A0)		  \
+			     , (boost::dispatch::meta::target_< boost::dispatch::meta::scalar_<TAG<A0> > >)	  \
                             )                                     \
   {                                                               \
     typedef typename A0::type result_type;                        \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                    \
+    BOOST_DISPATCH_FUNCTOR_CALL(1)                                \
     {                                                             \
-      typedef typename dispatch::meta::as_integer<result_type>::type itype;	  \
-      ignore_unused(a0);                                          \
+      typedef typename boost::dispatch::meta::as_integer<result_type>::type itype;	  \
+      boost::dispatch::ignore_unused(a0);                                     \
       return boost::simd::splat<result_type>(boost::simd::bitwise_cast<result_type,	  \
 				             itype>(VAL));			  \
     }                                                             \
@@ -62,21 +60,19 @@ namespace boost { namespace simd {						 	        \
   /**/  
 
 #define BOOST_SIMD_PROTOIZE_CONSTANT(NAME)					\
-  namespace boost { namespace simd {							\
-    boost::proto::terminal<boost::dispatch::constant_<boost::simd::tag::NAME> >::type	\
+    boost::proto::terminal<boost::dispatch::constant_<tag::NAME> >::type	\
       NAME##_= {{}};							\
-  } }									\
   /**/
 
 //==============================================================================
 // Fill up the call needed for a standard constant call
 //==============================================================================
-#define BOOST_SIMD_STD_CONSTANT_FUNCTOR(NAME,DOUBLE,FLOAT,INT)	  \
-namespace boost { namespace simd { namespace ext {           \
-    BOOST_SIMD_STD_CONSTANT_STRUCT(NAME,double_, DOUBLE); 	  \
-    BOOST_SIMD_STD_CONSTANT_STRUCT(NAME,float_,  FLOAT); 	  \
-    BOOST_SIMD_STD_CONSTANT_STRUCT(NAME,integer_,INT);		  \
-} } }							          \
+#define BOOST_SIMD_STD_CONSTANT_FUNCTOR(NS,NS2,NAME,DOUBLE,FLOAT,INT)	  \
+BOOST_DISPATCH_REOPEN(NS2)           \
+    BOOST_SIMD_STD_CONSTANT_STRUCT(NS,NS2,NAME,double_, DOUBLE); 	  \
+    BOOST_SIMD_STD_CONSTANT_STRUCT(NS,NS2,NAME,float_,  FLOAT); 	  \
+    BOOST_SIMD_STD_CONSTANT_STRUCT(NS,NS2,NAME,integer_,INT);		  \
+BOOST_DISPATCH_CLOSE(NS2)							          \
 /**/
 
 
@@ -94,7 +90,7 @@ namespace boost { namespace simd { namespace ext {           \
 #define BOOST_SIMD_MAKE_STD_CONSTANT(NAME,HEXDOUBLE,HEXFLOAT,INT) \
   BOOST_SIMD_STD_CONSTANT_TAG(NAME)				   \
   BOOST_SIMD_STD_CONSTANT_DEF(NAME)				   \
-  BOOST_SIMD_STD_CONSTANT_FUNCTOR(NAME, HEXDOUBLE, HEXFLOAT, INT) \
+  BOOST_SIMD_STD_CONSTANT_FUNCTOR((boost)(simd), (ext), NAME, HEXDOUBLE, HEXFLOAT, INT) \
   BOOST_SIMD_PROTOIZE_CONSTANT(NAME)				   \
   /**/
 

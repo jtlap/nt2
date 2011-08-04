@@ -11,7 +11,12 @@
 
 #include <boost/simd/toolbox/constant/constant.hpp>
 
-#define NT2_MAKE_STD_CONSTANT(T,D,F,I) BOOST_SIMD_MAKE_STD_CONSTANT(T,D,F,I)
+#define NT2_MAKE_STD_CONSTANT(NAME,HEXDOUBLE,HEXFLOAT,INT)             \
+BOOST_SIMD_STD_CONSTANT_TAG(NAME)                                      \
+BOOST_SIMD_STD_CONSTANT_DEF(NAME)                                      \
+BOOST_SIMD_STD_CONSTANT_FUNCTOR((nt2), (meta), NAME, HEXDOUBLE, HEXFLOAT, INT) \
+BOOST_SIMD_PROTOIZE_CONSTANT(NAME)                                     \
+  /**/
 namespace nt2
 {
   namespace tag

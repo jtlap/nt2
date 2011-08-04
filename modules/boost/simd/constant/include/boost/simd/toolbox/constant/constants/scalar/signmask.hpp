@@ -14,8 +14,11 @@
 #include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
-BOOST_SIMD_STD_CONSTANT_TAG(Signmask)
-BOOST_SIMD_STD_CONSTANT_DEF(Signmask)
+namespace boost { namespace simd
+{
+  BOOST_SIMD_STD_CONSTANT_TAG(Signmask)
+  BOOST_SIMD_STD_CONSTANT_DEF(Signmask)
+} }
 
 namespace boost { namespace simd { namespace ext
 {

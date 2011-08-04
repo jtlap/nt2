@@ -14,52 +14,55 @@
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
-#define LOCAL_CONST(NAME, D, F, I)                                    \
-BOOST_SIMD_STD_CONSTANT_TAG(NAME)					      \
-BOOST_SIMD_STD_CONSTANT_DEF(NAME)					      \
-namespace boost { namespace simd { namespace ext				              \
-{								      \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0)		      \
-                          , (target_< scalar_< double_<A0> > > )      \
-                          )                                           \
-  {								      \
-    typedef typename dispatch::meta::as_integer < typename A0::type		      \
-      , signed							      \
-      >::type result_type;					      \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                               \
-    {								      \
-      ignore_unused(a0);					      \
-      return boost::simd::splat<result_type>(D);	              \
-    }								      \
-  };                                                                  \
-                                                                      \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0)		      \
-                          , (target_< scalar_< float_<A0> > > )       \
-                          )                                           \
-  {                                                                   \
-    typedef typename dispatch::meta::as_integer < typename A0::type		\
-                              , signed                                \
-                              >::type result_type;                    \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                               \
-    {                                                                 \
-      ignore_unused(a0);                                              \
-      return boost::simd::splat<result_type>(F);                      \
-    }                                                                 \
-  };								      \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0)		      \
-			   , (target_< scalar_< integer_<A0> > > )    \
-                          )                                           \
-  {                                                                   \
-    typedef typename dispatch::meta::as_integer < typename A0::type   \
-                              , signed                                \
-                              >::type result_type;                    \
-    BOOST_SIMD_FUNCTOR_CALL(1)                                               \
-    {                                                                 \
-      ignore_unused(a0);                                              \
-      return boost::simd::splat<result_type>(I);                                   \
-    }                                                                 \
-  };								      \
-} } }								      \
+#define LOCAL_CONST(NAME, D, F, I)                                     \
+namespace boost { namespace simd                                       \
+{                                                                      \
+  BOOST_SIMD_STD_CONSTANT_TAG(NAME)                                    \
+  BOOST_SIMD_STD_CONSTANT_DEF(NAME)                                    \
+                                                                       \
+namespace ext                                                          \
+{                                                                      \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0) \
+                          , (target_< scalar_< double_<A0> > > )       \
+                          )                                            \
+  {                                                                    \
+    typedef typename dispatch::meta::as_integer < typename A0::type    \
+      , signed                                                         \
+      >::type result_type;                                             \
+    BOOST_SIMD_FUNCTOR_CALL(1)                                         \
+    {                                                                  \
+      ignore_unused(a0);                                               \
+      return boost::simd::splat<result_type>(D);                       \
+    }                                                                  \
+  };                                                                   \
+                                                                       \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0) \
+                          , (target_< scalar_< float_<A0> > > )        \
+                          )                                            \
+  {                                                                    \
+    typedef typename dispatch::meta::as_integer < typename A0::type    \
+                              , signed                                 \
+                              >::type result_type;                     \
+    BOOST_SIMD_FUNCTOR_CALL(1)                                         \
+    {                                                                  \
+      ignore_unused(a0);                                               \
+      return boost::simd::splat<result_type>(F);                       \
+    }                                                                  \
+  };                                                                   \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::NAME,tag::cpu_,(A0) \
+                          , (target_< scalar_< integer_<A0> > > )      \
+                          )                                            \
+  {                                                                    \
+    typedef typename dispatch::meta::as_integer < typename A0::type    \
+                              , signed                                 \
+                              >::type result_type;                     \
+    BOOST_SIMD_FUNCTOR_CALL(1)                                         \
+    {                                                                  \
+      ignore_unused(a0);                                               \
+      return boost::simd::splat<result_type>(I);                       \
+    }                                                                  \
+  };                                                                   \
+} } }                                                                  \
 /**/
 
 LOCAL_CONST(Nbmantissabits ,                  52,         23, sizeof(A0));

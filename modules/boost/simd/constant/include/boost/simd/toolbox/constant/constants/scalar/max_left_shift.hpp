@@ -14,8 +14,11 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-BOOST_SIMD_STD_CONSTANT_TAG(Maxleftshift)
-BOOST_SIMD_STD_CONSTANT_DEF(Maxleftshift)
+namespace boost { namespace simd
+{
+  BOOST_SIMD_STD_CONSTANT_TAG(Maxleftshift)
+  BOOST_SIMD_STD_CONSTANT_DEF(Maxleftshift)
+} }
 
 namespace boost { namespace simd { namespace ext
 {
