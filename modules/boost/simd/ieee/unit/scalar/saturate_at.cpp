@@ -6,20 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - fast_frexp/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - saturate_at/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-/// 
-#include <boost/simd/toolbox/ieee/include/fast_frexp.hpp>
+/// created  by jt the 20/03/2011
+///
+//COMMENTED
+//#include <boost/simd/toolbox/ieee/include/saturate_at.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/mantissa.hpp>
-#include <nt2/include/functions/exponent.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,23 +24,23 @@
 #include <boost/simd/include/constants/real.hpp>
 
 
-NT2_TEST_CASE_TPL ( fast_frexp_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using boost::simd::fast_frexp;
-  using boost::simd::tag::fast_frexp_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<fast_frexp_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,typename boost::dispatch::meta::as_integer<T,signed>::type> wished_r_t;
+//   using boost::simd::saturate_at;
+//   using boost::simd::tag::saturate_at_;
+//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef typename boost::dispatch::meta::call<saturate_at_<boost::simd::tag::Pi>(T)>::type r_t;
+//   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+//   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+//   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+//   typedef T wished_r_t;
 
 
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
+//   // return type conformity test 
+//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+//   std::cout << std::endl; 
+//   double ulpd;
+//   ulpd=0.0;
 
 } // end of test for real_

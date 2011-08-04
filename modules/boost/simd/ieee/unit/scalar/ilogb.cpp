@@ -6,16 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - ilogb/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - ilogb/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of ieee components in scalar mode
+// unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
 #include <boost/simd/toolbox/ieee/include/ilogb.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
+#include <nt2/include/functions/exponent.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -23,7 +23,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 
 
 NT2_TEST_CASE_TPL ( ilogb_real__1_0,  BOOST_SIMD_REAL_TYPES)
@@ -33,6 +32,8 @@ NT2_TEST_CASE_TPL ( ilogb_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::ilogb_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ilogb_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 
@@ -60,6 +61,8 @@ NT2_TEST_CASE_TPL ( ilogb_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::tag::ilogb_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ilogb_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 
@@ -84,6 +87,8 @@ NT2_TEST_CASE_TPL ( ilogb_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::tag::ilogb_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ilogb_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
 

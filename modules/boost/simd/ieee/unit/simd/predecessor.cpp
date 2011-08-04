@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - predecessor/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - predecessor/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of ieee components in simd mode
+// unit test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
@@ -21,14 +21,13 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 
 
-NT2_TEST_CASE_TPL ( predecessor_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::predecessor;
   using boost::simd::tag::predecessor_;
@@ -42,8 +41,8 @@ NT2_TEST_CASE_TPL ( predecessor_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<predecessor_(vT)>::type r_t;
-  typedef typename boost::dispatch::meta::call<predecessor_(T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -58,7 +57,7 @@ NT2_TEST_CASE_TPL ( predecessor_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(predecessor(boost::simd::Zero<vT>())[0], -boost::simd::Mindenormal<T>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( predecessor_real__2_1,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( predecessor_real__2_1,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::predecessor;
   using boost::simd::tag::predecessor_;
@@ -73,8 +72,8 @@ NT2_TEST_CASE_TPL ( predecessor_real__2_1,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<predecessor_(vT,ivT)>::type r_t;
-  typedef typename boost::dispatch::meta::call<predecessor_(T,iT)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 

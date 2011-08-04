@@ -6,17 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - successor/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - successor/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of ieee components in scalar mode
+// unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
 #include <boost/simd/toolbox/ieee/include/successor.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/include/functions/next.hpp>
-#include <boost/simd/include/constants/eps_related.hpp>
+#include <nt2/include/functions/next.hpp>
+#include <nt2/include/constants/eps_related.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -24,7 +24,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 
 
 
@@ -36,6 +35,8 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::successor_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -64,6 +65,8 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::tag::successor_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -88,6 +91,8 @@ NT2_TEST_CASE_TPL ( successor_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES
   using boost::simd::tag::successor_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -114,6 +119,8 @@ NT2_TEST_CASE_TPL ( successor_real__2_1,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -134,6 +141,8 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__2_1,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -154,6 +163,8 @@ NT2_TEST_CASE_TPL ( successor_signed_int__2_1,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
