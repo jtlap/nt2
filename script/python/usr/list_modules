@@ -99,8 +99,8 @@ if __name__ == "__main__" :
                       submodules names
                       """)
 
-    namespace = parser.parse_args( "-st=sys,usr -subs=boost,*".split())
-##    namespace = parser.parse_args()
+##    namespace = parser.parse_args( "-st=sys,usr -subs=boost,*".split())
+    namespace = parser.parse_args()
 
     styles       = listify(namespace.styles)
     names        = namespace.names
