@@ -88,9 +88,9 @@ namespace nt2
   using boost::simd::Fortyfive;
   using boost::simd::Ninety;
   using boost::simd::Onehundredeighty;
-/*using boost::simd::C_180;
+  using boost::simd::C_180;
   using boost::simd::_45;
-  using boost::simd::_90;*/
+  using boost::simd::_90;
   using boost::simd::_180;
   using boost::simd::integral_constant;
   

@@ -18,10 +18,10 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X), 
-				(boost::mpl::equal_to < meta::cardinal_of<A0>, 
-				 meta::cardinal_of<A1> > ), 
-                                ( tag::sinecosine_<mode>
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X), 
+				(boost::mpl::equal_to < nt2::meta::cardinal_of<A0>, 
+				 nt2::meta::cardinal_of<A1> > ), 
+                                ( nt2::tag::sinecosine_<mode>
 				  ( simd_<arithmetic_<A0>,X> 
 				    , simd_<real_<A1>,X>
 				    , simd_<real_<A1>,X>
@@ -41,12 +41,12 @@ namespace nt2 { namespace meta
     }
   };
  
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X),
-				(boost::mpl::equal_to<meta::cardinal_of<A0>, 
-			                	 meta::cardinal_of<A1>
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X),
+				(boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
+			                	 nt2::meta::cardinal_of<A1>
 				        >
 				), 
-                                ( tag::sinecosine_<mode>
+                                ( nt2::tag::sinecosine_<mode>
 				  ( simd_<arithmetic_<A0>,X> 
 				    , simd_<real_<A1>,X>
 				    )

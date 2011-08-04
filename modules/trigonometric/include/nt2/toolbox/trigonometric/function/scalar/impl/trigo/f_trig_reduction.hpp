@@ -10,6 +10,8 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/rem_pio2_straight.hpp>

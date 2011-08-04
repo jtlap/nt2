@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::almost_equal_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::almost_equal_, tag::cpu_,
 			 (A0)(A2)(X),
 			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A2> >),
 			 tag::almost_equal_(simd_<integer_<A0>,X>,
@@ -44,10 +44,10 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::almost_equal_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::almost_equal_, tag::cpu_,
 			 (A0)(A2)(X),
 			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A2> >),
-			 (tag::almost_equal_(simd_<real_<A0>,X>,
+			 (nt2::tag::almost_equal_(simd_<real_<A0>,X>,
 					     simd_<real_<A0>,X>, 
 			  		     simd_<integer_<A2>,X>)), 
 			 ((simd_<real_<A0>,X>))
