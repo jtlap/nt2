@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - unary_minus/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - unary_minus/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in simd mode
+// unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
@@ -21,13 +21,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::unary_minus;
   using boost::simd::tag::unary_minus_;
@@ -41,8 +40,8 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<unary_minus_(vT)>::type r_t;
-  typedef typename boost::dispatch::meta::call<unary_minus_(T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -54,3 +53,29 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(unary_minus(boost::simd::One<vT>())[0], boost::simd::Mone<sr_t>());
   NT2_TEST_EQUAL(unary_minus(boost::simd::Zero<vT>())[0], boost::simd::Mzero<sr_t>());
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+{
+  using boost::simd::unary_minus;
+  using boost::simd::tag::unary_minus_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<unary_minus_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(unary_minus(boost::simd::One<vT>())[0], sr_t(-1));
+  NT2_TEST_EQUAL(unary_minus(boost::simd::Two<vT>())[0], sr_t(-2));
+  NT2_TEST_EQUAL(unary_minus(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+} // end of test for integer_

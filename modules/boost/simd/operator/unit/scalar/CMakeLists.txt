@@ -8,6 +8,12 @@
 ################################################################################
 
 SET(SOURCES
+    compare_not_equal.cpp
+    compare_less_equal.cpp
+    compare_less.cpp
+    compare_greater_equal.cpp
+    compare_greater.cpp
+    compare_equal.cpp
     access.cpp
     unary_plus.cpp
     complement.cpp

@@ -6,16 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - logical_and/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - logical_and/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in scalar mode
+// unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/operator/include/logical_and.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
+#include <nt2/sdk/meta/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -23,7 +23,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 
 
 NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
@@ -33,6 +32,8 @@ NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   using boost::simd::tag::logical_and_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<logical_and_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
@@ -57,6 +58,8 @@ NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::logical_and_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<logical_and_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
