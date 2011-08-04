@@ -52,6 +52,14 @@ class Global_header_gen() :
         'default' : [
             "#include <boost/type_traits/is_same.hpp>",
             "#include <nt2/sdk/functor/meta/call.hpp>",
+            "#include <nt2/sdk/meta/as_integer.hpp>",
+            "#include <nt2/sdk/meta/as_real.hpp>",
+            "#include <nt2/sdk/meta/as_signed.hpp>",
+            "#include <nt2/sdk/meta/upgrade.hpp>",
+            "#include <nt2/sdk/meta/downgrade.hpp>",
+            "#include <nt2/sdk/meta/scalar_of.hpp>",
+            "#include <nt2/sdk/meta/floating.hpp>",
+            "#include <nt2/sdk/meta/arithmetic.hpp>",
             "#include <nt2/sdk/unit/$no_ulp$tests.hpp>",
             "#include <nt2/sdk/unit/module.hpp>",
             "#include <nt2/sdk/memory/buffer.hpp>",
@@ -69,6 +77,8 @@ class Global_header_gen() :
     
     Simd_template =  {
         'default' : [
+            "#include <nt2/sdk/meta/cardinal_of.hpp>",
+            "#include <nt2/include/functions/splat.hpp>",
             "#include <nt2/sdk/memory/is_aligned.hpp>",
             "#include <nt2/sdk/memory/aligned_type.hpp>",
             "#include <nt2/include/functions/load.hpp>",           
@@ -130,8 +140,11 @@ class Global_header_gen() :
     
     def add_includes(self,r,dl) :
         print ("part = %s"%self.part)
-        include_src = 'included' if self.mode == 'scalar' else "simd_included"
-        if self.part == "cover" : include_src = ['cover_included','included']
+        include_src = ['included']
+        if self.mode == 'simd':
+            include_src.extend(['simd_included'])
+        if self.part == 'cover':
+            include_src.extend(['cover_included'])
         tuple_included = False
         default_includes = True
         for d in dl :

@@ -73,7 +73,7 @@ class Type_header_test_gen() :
             "  using nt2::$tb_style_base$$fct_name_repl$;",
             "  using nt2::$tb_style_base$tag::$fct_name$_;",
             "  using nt2::load; ",
-            "  using nt2::simd::native;", 
+            "  using boost::simd::native;", 
             "  using nt2::meta::cardinal_of;",
             "  $type_defs$",
             "  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;",         

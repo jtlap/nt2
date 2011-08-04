@@ -70,7 +70,7 @@ def populate_actions() :
         "tmpl" : "mk_cppbench.tpl",
         "cmmt" : "//",
         "head" : 'banner+inner',
-        "parm" : "nt2::simd::native<float,nt2::tag::sse_>",
+        "parm" : "boost::simd::native<float,nt2::tag::sse_>",
         },
     'mdy'   : {
         "file" : "CMakeLists.txt",
