@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 predicates toolbox - is_positive/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.predicates toolbox - is_positive/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of predicates components in simd mode
+// unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 /// 
@@ -21,13 +21,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( is_positive_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_positive_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_positive;
   using boost::simd::tag::is_positive_;
@@ -41,8 +40,8 @@ NT2_TEST_CASE_TPL ( is_positive_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_positive_(vT)>::type r_t;
-  typedef typename boost::dispatch::meta::call<is_positive_(T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 

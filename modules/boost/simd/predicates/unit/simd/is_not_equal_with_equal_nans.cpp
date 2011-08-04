@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 predicates toolbox - is_not_equal_with_equal_nans/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.predicates toolbox - is_not_equal_with_equal_nans/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of predicates components in simd mode
+// unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 /// 
@@ -21,13 +21,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_not_equal_with_equal_nans;
   using boost::simd::tag::is_not_equal_with_equal_nans_;
@@ -41,19 +40,21 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYP
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_not_equal_with_equal_nans_(vT,vT)>::type r_t;
-  typedef typename boost::dispatch::meta::call<is_not_equal_with_equal_nans_(T,T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(-boost::simd::Zero<vT>(), -boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Half<vT>(), boost::simd::Half<vT>())[0]!=0, boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0]!=0, boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, boost::simd::False<sr_t>());
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<vT>(), boost::simd::Two<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
-
-  // specific values tests
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>())[0]!=0, boost::simd::False<sr_t>());
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<vT>(), boost::simd::Two<vT>())[0]!=0, boost::simd::False<sr_t>());
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
 } // end of test for real_

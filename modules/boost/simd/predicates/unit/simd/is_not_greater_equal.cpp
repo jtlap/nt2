@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 predicates toolbox - is_not_greater_equal/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.predicates toolbox - is_not_greater_equal/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of predicates components in simd mode
+// unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 /// 
@@ -21,13 +21,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( is_not_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_not_greater_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_not_greater_equal;
   using boost::simd::tag::is_not_greater_equal_;
@@ -41,8 +40,8 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_not_greater_equal_(vT,vT)>::type r_t;
-  typedef typename boost::dispatch::meta::call<is_not_greater_equal_(T,T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -60,7 +59,7 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_not_greater_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( is_not_greater_equal_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( is_not_greater_equal_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::is_not_greater_equal;
   using boost::simd::tag::is_not_greater_equal_;
@@ -74,8 +73,8 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_signed_int__2_0,  BOOST_SIMD_INTEGRAL_S
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_not_greater_equal_(vT,vT)>::type r_t;
-  typedef typename boost::dispatch::meta::call<is_not_greater_equal_(T,T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -87,7 +86,7 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_signed_int__2_0,  BOOST_SIMD_INTEGRAL_S
   NT2_TEST_EQUAL(is_not_greater_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( is_not_greater_equal_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( is_not_greater_equal_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::is_not_greater_equal;
   using boost::simd::tag::is_not_greater_equal_;
@@ -101,8 +100,8 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_not_greater_equal_(vT,vT)>::type r_t;
-  typedef typename boost::dispatch::meta::call<is_not_greater_equal_(T,T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
