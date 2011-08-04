@@ -15,8 +15,8 @@
 
 namespace nt2 { namespace meta
 {
-  using boost::dispacth::meta::is_floating_point; 
-  using boost::dispacth::meta::is_integral;;
+  using boost::dispatch::meta::is_floating_point; 
+  using boost::dispatch::meta::is_integral;
 } }
 
 #endif

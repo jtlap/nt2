@@ -16,7 +16,7 @@
 
 namespace nt2 { namespace meta
 {
-  struct boost::dispatch::meta::behave_as;
+  using boost::dispatch::meta::behave_as;
 } }
 
 #endif
