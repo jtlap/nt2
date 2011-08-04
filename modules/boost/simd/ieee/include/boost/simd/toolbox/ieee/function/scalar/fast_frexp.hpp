@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                               (scalar_< double_<A1> >)
                               (scalar_< int32_<A2> >)
                             )
-  {
+  { 
     typedef void result_type;
     inline void operator()(A0 const& a0,A1 & a1,A2 & a2) const
     {
@@ -73,9 +73,15 @@ namespace boost { namespace simd { namespace ext
                             (scalar_ < float_<A0> > )
                            )
   {
+<<<<<<< HEAD
+      typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type mantissa;
+      typedef typename dispatch::meta::as_integer<A0,signed>::type          exponent;
+      typedef boost::fusion::vector<mantissa,exponent>             result_type;
+=======
     typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type mantissa;
     typedef typename dispatch::meta::as_integer<A0,signed>::type                   exponent;
     typedef boost::fusion::vector<mantissa,exponent>                               result_type;
+>>>>>>> bf905259a61556204c8eb7cbc0cdee583e44ab3a
     
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
