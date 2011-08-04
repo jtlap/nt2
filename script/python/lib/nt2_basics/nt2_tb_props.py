@@ -62,11 +62,15 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
 
     def demangle(self,name,insert=None,i=0) :
         ll = name.split('.')
-        if insert is not None : ll.insert(i,insert)
-        print ("demangle %s "%ll)
+ ##       print("avant %s"% ll)
+ ##       print("ins %s"%insert)
+        if insert is not None : ll.insert(-1,insert)
+ ##       print(i)
+ ##       print ("demangle %s "%ll)
         if len(ll) == 2 : ll.insert(0,'nt2')
         r = ''
         for l in ll : r = os.path.join(r,l)
+ ##       print('r %s'%r)
         return r
     
     def __str__(self) :
