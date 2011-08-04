@@ -101,13 +101,13 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::ellipke_, tag::cpu_,
 				(A0)(A1)(A2)(X), 
 				(boost::mpl::equal_to < meta::cardinal_of<A0> 
 			                                , meta::cardinal_of<A2>
 				                        >
 				), 
-                                ( tag::ellipke_
+                                ( nt2::tag::ellipke_
                                           ( simd_<arithmetic_<A0>,X> 
 					  , scalar_<real_<A1> >
 				          , simd_<real_<A2>,X>

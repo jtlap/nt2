@@ -17,7 +17,6 @@
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/round2even.hpp>
-#include <nt2/sdk/details/ignore_unused.hpp>
 
 namespace nt2
 {

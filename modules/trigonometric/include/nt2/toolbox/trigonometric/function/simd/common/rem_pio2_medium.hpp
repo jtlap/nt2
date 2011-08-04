@@ -11,6 +11,7 @@
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/fast_toint.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2 { namespace meta
 {

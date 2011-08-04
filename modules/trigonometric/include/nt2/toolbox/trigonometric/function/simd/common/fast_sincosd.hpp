@@ -19,10 +19,10 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::fast_sincosd_, tag::cpu_,(A0)(A1)(X),
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::fast_sincosd_, tag::cpu_,(A0)(A1)(X),
                              (boost::mpl::equal_to<cardinal_of<A0>, 
   			                           cardinal_of<A1> >), 
-                             ( tag::fast_sincosd_
+                             ( nt2::tag::fast_sincosd_
                                           ( simd_<arithmetic_<A0>,X> 
 					  , simd_<real_<A1>,X>
 				          , simd_<real_<A1>,X>
@@ -42,12 +42,12 @@ namespace nt2 { namespace meta
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::fast_sincosd_, tag::cpu_,(A0)(A1)(X),
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::fast_sincosd_, tag::cpu_,(A0)(A1)(X),
 				(boost::mpl::equal_to<meta::cardinal_of<A0>, 
 			                	 meta::cardinal_of<A1>
 				        >
 				), 
-                                ( tag::fast_sincosd_
+                                ( nt2::tag::fast_sincosd_
 				  ( simd_<arithmetic_<A0>,X> 
 				    , simd_<real_<A1>,X>
 				    )
