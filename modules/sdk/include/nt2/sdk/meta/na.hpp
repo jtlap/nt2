@@ -6,23 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_NA_HPP_INCLUDED
-#define BOOST_DISPATCH_META_NA_HPP_INCLUDED
+#ifndef NT2_SDK_META_NA_HPP_INCLUDED
+#define NT2_SDK_META_NA_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines the boost::dispatch::meta::na_ type
- */
+#include <boost/dispatch/meta/na.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
-  //============================================================================
-  /*!
-   * Empty type used to represent empty elements in compile-time containers.
-   * boost::dispatch::meta::na_ is used in \nt2 to prevent some ADL issues with Boost.MPL.
-   */
-  //============================================================================
-  struct na_ { typedef na_ type; };
-} } }
+  using boost::dispatch::meta::na_;
+} }
 
 #endif

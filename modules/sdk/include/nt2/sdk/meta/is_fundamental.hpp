@@ -6,51 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_IS_FUNDAMENTAL_HPP_INCLUDED
-#define BOOST_DISPATCH_META_IS_FUNDAMENTAL_HPP_INCLUDED
+#ifndef NT2_SDK_META_IS_FUNDAMENTAL_HPP_INCLUDED
+#define NT2_SDK_META_IS_FUNDAMENTAL_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines and implements the boost::dispatch::meta::is_fundamental \metafunction
- */
+#include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/is_fundamental.hpp>
 
-#include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/type_traits/is_base_of.hpp>
-
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
-  //==============================================================================
-  /*!
-   * Checks if a given type is a fundamental type (i.e any scalar type natively
-   * supported by C++).
-   *
-   * \par Model:
-   *
-   * \metafunction
-   *
-   * \semantic
-   *
-   * For any type \c T
-   *
-   * \code
-   * typedef is_fundamental<T>::type r;
-   * \endcode
-   *
-   * evaluates to \true_ if \c T hierarchy inherits from \c fundamental_<T>
-   * and to \false_ otherwise
-   *
-   * \usage
-   *
-   * \include is_fundamental.cpp
-   */
-  //==============================================================================
-  template<class T>
-  struct  is_fundamental
-        : boost::is_base_of < meta::scalar_< meta::fundamental_<T> >
-                            , typename meta::hierarchy_of<T>::type
-                            >
-  {};
-} } }
+  using boost::dispatch::meta::is_fundamental;
+} }
 
 #endif
 

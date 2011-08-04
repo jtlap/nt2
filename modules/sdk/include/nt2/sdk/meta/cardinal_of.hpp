@@ -9,7 +9,8 @@
 #ifndef NT2_SDK_META_CARDINAL_OF_HPP_INCLUDED
 #define NT2_SDK_META_CARDINAL_OF_HPP_INCLUDED
 
-#include <boost/simd/meta/cardinal_of.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace nt2 { namespace meta
 {

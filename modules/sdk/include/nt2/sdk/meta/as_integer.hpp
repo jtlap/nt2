@@ -9,6 +9,12 @@
 #ifndef NT2_SDK_META_AS_INTEGER_HPP_INCLUDED
 #define NT2_SDK_META_AS_INTEGER_HPP_INCLUDED
 
+#include <nt2/sdk/meta/sign_of.hpp>
+#include <nt2/sdk/meta/factory_of.hpp>
+#include <nt2/sdk/meta/make_integer.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
+#include <nt2/sdk/meta/is_fundamental.hpp>
+
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace nt2 { namespace meta

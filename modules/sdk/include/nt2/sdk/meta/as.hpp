@@ -9,6 +9,9 @@
 #ifndef NT2_SDK_META_AS_HPP_INCLUDED
 #define NT2_SDK_META_AS_HPP_INCLUDED
 
+#include <nt2/sdk/meta/factory_of.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
+
 #include <boost/dispatch/meta/as.hpp>
 
 namespace nt2 { namespace meta

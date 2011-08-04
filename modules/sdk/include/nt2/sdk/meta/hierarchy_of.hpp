@@ -6,53 +6,53 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_HIERARCHY_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_HIERARCHY_OF_HPP_INCLUDED
+#ifndef NT2_SDK_META_HIERARCHY_OF_HPP_INCLUDED
+#define NT2_SDK_META_HIERARCHY_OF_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines and implements the hierarchy building classes and \metafunction
- */
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/enable_if_type.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Types hierarchy defines a partially order lattice of type familly
-// which helps categorizing a given type into all its potential enclosing type
-// sets. Hierarchies are template so they can use their root type to
-// select at each lattice node which ancestor to use.
-//////////////////////////////////////////////////////////////////////////////
-
-#include <climits>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/meta/enable_if_type.hpp>
-#include <boost/dispatch/meta/details/hierarchy_of.hpp>
-
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // hierarchy_of computes the entry point of a given type inside the type
-  // hierarchy lattice.
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T, class Origin = T, class Enable = void>
-  struct  hierarchy_of
-        : details::hierarchy_of < typename meta::strip<T>::type
-                                , typename meta::strip<Origin>::type
-                                >
-  {};
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Overload for types with inner hierarchy tag
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Origin>
-  struct  hierarchy_of< T
-                      , Origin
-                      , typename
-                        enable_if_type<typename meta::strip<T>::type
-                                                    ::nt2_hierarchy_tag
-                                      >::type
-                      >
-  {
-    typedef typename meta::strip<T>::type::nt2_hierarchy_tag type;
-  };
-} } }
+  using boost::dispatch::meta::hierarchy_of;
+  
+  //============================================================================
+  // Basic hierarchies to be forwarded here
+  //============================================================================
+  using boost::dispatch::meta::generic_;
+  using boost::dispatch::meta::scalar_;
+  using boost::dispatch::meta::unspecified_;
+  using boost::dispatch::meta::fundamental_;
+  using boost::dispatch::meta::bool_;
+  using boost::dispatch::meta::void_;
+  using boost::dispatch::meta::arithmetic_;
+  using boost::dispatch::meta::integer_;
+  using boost::dispatch::meta::unsigned_;
+  using boost::dispatch::meta::signed_;
+  using boost::dispatch::meta::real_;
+  using boost::dispatch::meta::int_;
+  using boost::dispatch::meta::uint_;
+  using boost::dispatch::meta::type8_;
+  using boost::dispatch::meta::type16_;
+  using boost::dispatch::meta::real_sized_;
+  using boost::dispatch::meta::type32_;
+  using boost::dispatch::meta::type64_;
+  using boost::dispatch::meta::ints8_;
+  using boost::dispatch::meta::ints16_;
+  using boost::dispatch::meta::ints32_;
+  using boost::dispatch::meta::ints64_;
+  using boost::dispatch::meta::int8_;
+  using boost::dispatch::meta::int16_;
+  using boost::dispatch::meta::int32_;
+  using boost::dispatch::meta::int64_;
+  using boost::dispatch::meta::uint8_;
+  using boost::dispatch::meta::uint16_;
+  using boost::dispatch::meta::uint32_;
+  using boost::dispatch::meta::uint64_;
+  using boost::dispatch::meta::double_;
+  using boost::dispatch::meta::float_;
+  using boost::dispatch::meta::long_double_;
+} }
 
 #endif

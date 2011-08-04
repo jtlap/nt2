@@ -9,33 +9,12 @@
 #ifndef BOOST_DISPATCH_META_PROPERTY_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_PROPERTY_OF_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines and implements the boost::dispatch::meta::property_of \metafunction
- */
+#include <nt2/skd/meta/strip.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
 
-//////////////////////////////////////////////////////////////////////////////
-// Types property is defined on fundamental types as a lattice of classes
-// mimicking the type structuration in C++
-//////////////////////////////////////////////////////////////////////////////
-
-#include <climits>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/config/types.hpp>
-#include <boost/dispatch/meta/details/property_of.hpp>
-
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // property_of computes the entry point of a given type inside the type
-  // property lattice.
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T, class Origin = T, class Enable = void>
-  struct  property_of
-        : details::property_of< typename meta::strip<T>::type
-                              , typename meta::strip<Origin>::type
-                              >
-  {};
-} } }
+  using boost::dispatch::meta::property_of;
+} }
 
 #endif

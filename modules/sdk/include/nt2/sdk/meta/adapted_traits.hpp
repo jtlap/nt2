@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_META_ADAPTED_TRAITS_HPP_INCLUDED
 #define NT2_SDK_META_ADAPTED_TRAITS_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/behave_as.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 
 namespace nt2 { namespace meta

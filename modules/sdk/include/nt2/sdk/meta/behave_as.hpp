@@ -6,63 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_BEHAVE_AS_HPP_INCLUDED
-#define BOOST_DISPATCH_META_BEHAVE_AS_HPP_INCLUDED
+#ifndef NT2_SDK_META_BEHAVE_AS_HPP_INCLUDED
+#define NT2_SDK_META_BEHAVE_AS_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines the \ref boost::dispatch::meta::behave_as \metafunction
- */
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/primitive_of.hpp>
+//#include <nt2/sdk/error/static_assert.hpp>
+#include <boost/dispatch/meta/behave_as.hpp>
 
-#include <boost/mpl/apply.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
-#include <boost/dispatch/error/static_assert.hpp>
-
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
-  //============================================================================
-  /*!
-   * \ingroup metafunctions
-   * Forward the application of a given \metalambda \c Lambda onto the primitive
-   * type of a given Hierarchizable.
-   *
-   * \tparam Lambda \metalambda to apply.
-   * \tparam Hierarchizable Type to introspect.
-   *
-   * \semantic
-   *
-   * For any Hierarchizable type \c T and any Lambda \c L:
-   *
-   * \code
-   * typedef boost::dispatch::meta::behave_as<L,T>::type r;
-   * \endcode
-   *
-   * is equivalent to:
-   *
-   * \code
-   * typedef apply1 < L
-   *                , boost::dispatch::meta::primitive_of< boost::dispatch::meta::strip< T >::type >::type
-   *                >::type     r;
-   * \endcode
-   *
-   * For any other types, a \c BOOST_DISPATCH_BEHAVIOR_OF_NON_FUNDAMENTAL_PRIMITIVE_IS_UNDEFINED
-   * static assertion is raised.
-   *
-   * \usage
-   *
-   * \include behave_as.cpp
-   */
-  //============================================================================
-  template<class Lambda,class Hierarchizable>
-  struct  behave_as
-        : boost::mpl::
-          apply1< Lambda
-                , typename primitive_of < typename
-                                          strip<Hierarchizable>::type
-                                        >::type
-                >::type
-  {};
-} } }
+  struct boost::dispatch::meta::behave_as;
+} }
 
 #endif

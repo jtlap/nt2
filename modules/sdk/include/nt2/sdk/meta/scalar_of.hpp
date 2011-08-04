@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_META_ALL_HPP_INCLUDED
 #define NT2_SDK_META_ALL_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace nt2 { namespace meta

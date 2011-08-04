@@ -6,29 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_ENABLE_IF_TYPE_HPP_INCLUDED
-#define BOOST_DISPATCH_META_ENABLE_IF_TYPE_HPP_INCLUDED
+#ifndef NT2_SDK_META_ENABLE_IF_TYPE_HPP_INCLUDED
+#define NT2_SDK_META_ENABLE_IF_TYPE_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines the boost::dispatch::meta::enable_if_type \metafunction
- */
+#include <boost/dispatch/meta/enable_if_type.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
-  //============================================================================
-  /*!
-   * Provides a SFINAE context to test the existence of a given type.
-   *
-   * \tparam T Type to check existence of.
-   * \tparam R Type to return if \c T is defined.
-   *
-   * \usage
-   *
-   * \include enable_if_type.cpp
-   */
-  //============================================================================
-  template<class T, class R=void>  struct enable_if_type { typedef R type; };
-} } }
+  using boost::dispatch::meta::enable_if_type;
+} }
 
 #endif

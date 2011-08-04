@@ -9,21 +9,13 @@
 #ifndef BOOST_DISPATCH_META_IS_UNSPECIFIED_HPP_INCLUDED
 #define BOOST_DISPATCH_META_IS_UNSPECIFIED_HPP_INCLUDED
 
-#include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/is_unspecified.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Is T an unsepcified type ?
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct  is_unspecified
-        : boost::is_same< typename hierarchy_of<T>::type
-                        , unspecified_<T>
-                        >
-  {};
-} } }
+  using boost::dispatch::meta::is_unspecified;
+} }
 
 #endif
 
