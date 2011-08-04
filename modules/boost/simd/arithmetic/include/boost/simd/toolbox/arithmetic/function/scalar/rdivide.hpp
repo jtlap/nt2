@@ -12,7 +12,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_ , (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< arithmetic_<A1> >)
                             )
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_ , (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_ , (A0)(A1)
                             , (scalar_< unsigned_<A0> >)
                               (scalar_< unsigned_<A1> >)
                             )
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::rdivide_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rdivide_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
                             )
   {

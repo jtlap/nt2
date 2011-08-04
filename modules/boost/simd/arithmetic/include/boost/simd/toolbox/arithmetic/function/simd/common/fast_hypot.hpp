@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
-#include <boost/simd/include/constants/eps_related.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>

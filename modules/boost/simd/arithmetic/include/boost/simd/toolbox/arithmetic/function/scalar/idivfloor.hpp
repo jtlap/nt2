@@ -18,13 +18,13 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivfloor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< signed_<A0> >)(scalar_< signed_<A1> >)
                             )
   {
 
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename boost::dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
@@ -46,13 +46,13 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::idivfloor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
 
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename boost::dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
@@ -66,12 +66,12 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(tag::idivfloor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivfloor_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< real_<A0> > )(scalar_< real_<A1> > )
                             )
   {
-    typedef typename dispatch::meta::as_integer < typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type >::type result_type;
+    typedef typename boost::dispatch::meta::as_integer < typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type >::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return boost::simd::ifloor(a0/a1);

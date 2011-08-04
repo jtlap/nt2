@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
 			     )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0)>::type tmp;
-    typedef typename meta::as_signed<tmp>::type result_type;
+    typedef typename dispatch::meta::as_signed<tmp>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {

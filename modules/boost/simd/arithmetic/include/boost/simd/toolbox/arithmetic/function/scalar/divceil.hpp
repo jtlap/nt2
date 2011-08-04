@@ -21,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< signed_<A0> >)
                               (scalar_< signed_<A1> >)
                             )
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     }
   }; 
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< unsigned_<A0> >)
                               (scalar_< unsigned_<A1> >)
                             )
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::divceil_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)
                               (scalar_< real_<A1> >)
                             )

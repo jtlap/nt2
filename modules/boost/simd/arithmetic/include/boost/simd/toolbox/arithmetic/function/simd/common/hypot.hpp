@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace ext
       static inline int_type M1(){ return boost::simd::integral_constant<int_type, 0xffffffff00000000ll>();};
     };
 
-    typedef typename  meta::as_real<A0>::type result_type; 
+    typedef typename dispatch::meta::as_real<A0>::type result_type; 
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {

@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_FAST_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SCALAR_FAST_HYPOT_HPP_INCLUDED
-#include <boost/simd/include/constants/eps_related.hpp>
+
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 
@@ -32,7 +31,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0,A1)>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
@@ -54,7 +53,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0,A1)>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
@@ -82,7 +81,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0,A1)>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {

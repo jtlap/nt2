@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
 			     (scalar_ < real_<A1> > )
 			     )
   {
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type ftype;
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0,A1)>::type ftype;
     typedef typename dispatch::meta::as_integer<ftype,signed>::type           quo;
     typedef boost::fusion::tuple<ftype,quo>                 result_type;
 

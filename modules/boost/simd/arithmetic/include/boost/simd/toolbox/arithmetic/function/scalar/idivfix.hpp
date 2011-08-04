@@ -32,10 +32,10 @@ namespace boost { namespace simd { namespace ext
                             )
 
   {
-    typedef typename meta::
-            as_integer < typename meta::
-                                  result_of<meta::arithmetic(A0,A1)>::type
-                       >::type                                      result_type;
+    typedef typename boost::dispatch::meta::as_integer < typename
+                             boost::dispatch::meta::result_of<
+                                   boost::dispatch::meta::arithmetic(A0,A1)>::type
+                        >::type                                      result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return boost::simd::toint(a0/a1);

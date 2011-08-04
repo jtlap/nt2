@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
