@@ -308,20 +308,20 @@ NT2_TEST_CASE(hierarchy_of_float)
 
   NT2_TEST( (is_same<target_<simd_<float_<as_<dst_t> >,ext_t       > > , base >::value) );
   NT2_TEST( (is_same<target_<simd_<type32_<as_<dst_t> >,ext_t      > > , UP(base,1) >::value) );
-  NT2_TEST( (is_same<target_<simd_<real_<as_<dst_t> >,ext_t        > > , UP(base,2) >::value) );
-  NT2_TEST( (is_same<target_<simd_<signed_<as_<dst_t> >,ext_t      > > , UP(base,3) >::value) );
-  NT2_TEST( (is_same<target_<simd_<arithmetic_<as_<dst_t> >,ext_t  > > , UP(base,4) >::value) );
-  NT2_TEST( (is_same<target_<simd_<fundamental_<as_<dst_t> >,ext_t > > , UP(base,5) >::value) );
-  NT2_TEST( (is_same<target_<simd_<unspecified_<as_<dst_t> >,ext_t > > , UP(base,6) >::value) );
+  NT2_TEST( (is_same<target_<simd_<real_sized_< as_<dst_t> >,ext_t > > , UP(base,2) >::value) );
+  NT2_TEST( (is_same<target_<simd_<real_<as_<dst_t> >,ext_t        > > , UP(base,3) >::value) );
+  NT2_TEST( (is_same<target_<simd_<signed_<as_<dst_t> >,ext_t      > > , UP(base,4) >::value) );
+  NT2_TEST( (is_same<target_<simd_<arithmetic_<as_<dst_t> >,ext_t  > > , UP(base,5) >::value) );
+  NT2_TEST( (is_same<target_<simd_<fundamental_<as_<dst_t> >,ext_t > > , UP(base,6) >::value) );
+  NT2_TEST( (is_same<target_<simd_<unspecified_<as_<dst_t> >,ext_t > > , UP(base,7) >::value) );
 
-  std::cout << boost::simd::type_id<UP(base,7)>() << "\n";
-
-  NT2_TEST( (is_same<target_<generic_<float_<as_<dst_t> >       > > , UP(base,7) >::value) );
-  NT2_TEST( (is_same<target_<generic_<type32_<as_<dst_t> >      > > , UP(base,8) >::value) );
-  NT2_TEST( (is_same<target_<generic_<real_<as_<dst_t> >        > > , UP(base,9) >::value) );
-  NT2_TEST( (is_same<target_<generic_<signed_<as_<dst_t> >      > > , UP(base,10) >::value) );
-  NT2_TEST( (is_same<target_<generic_<arithmetic_<as_<dst_t> >  > > , UP(base,11) >::value) );
-  NT2_TEST( (is_same<target_<generic_<fundamental_<as_<dst_t> > > > , UP(base,12) >::value) );
-  NT2_TEST( (is_same<target_<generic_<unspecified_<as_<dst_t> > > > , UP(base,13) >::value) );
-  NT2_TEST( (is_same<target_<unspecified_<as_<dst_t> > >            , UP(base,14) >::value) );
+  NT2_TEST( (is_same<target_<generic_<float_<as_<dst_t> >       > > , UP(base,8) >::value) );
+  NT2_TEST( (is_same<target_<generic_<type32_<as_<dst_t> >      > > , UP(base,9) >::value) );
+  NT2_TEST( (is_same<target_<generic_<real_sized_<as_<dst_t> >  > > , UP(base,10) >::value) );
+  NT2_TEST( (is_same<target_<generic_<real_<as_<dst_t> >        > > , UP(base,11) >::value) );
+  NT2_TEST( (is_same<target_<generic_<signed_<as_<dst_t> >      > > , UP(base,12) >::value) );
+  NT2_TEST( (is_same<target_<generic_<arithmetic_<as_<dst_t> >  > > , UP(base,13) >::value) );
+  NT2_TEST( (is_same<target_<generic_<fundamental_<as_<dst_t> > > > , UP(base,14) >::value) );
+  NT2_TEST( (is_same<target_<generic_<unspecified_<as_<dst_t> > > > , UP(base,15) >::value) );
+  NT2_TEST( (is_same<target_<unspecified_<as_<dst_t> > >            , UP(base,16) >::value) );
 }
