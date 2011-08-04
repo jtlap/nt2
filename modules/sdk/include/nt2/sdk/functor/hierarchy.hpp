@@ -10,11 +10,16 @@
 #define NT2_SDK_FUNCTOR_HIERARCHY_HPP_INCLUDED
 
 #include <boost/dispatch/functor/forward.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/dispatch/meta/fusion.hpp>
-#include <boost/dispatch/meta/mpl.hpp>
-#include <boost/dispatch/meta/as.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/fusion.hpp>
+#include <nt2/sdk/meta/mpl.hpp>
+#include <nt2/sdk/meta/as.hpp>
 #include <boost/dispatch/dsl/category.hpp>
+
+#include <nt2/sdk/meta/floating.hpp>
+#include <nt2/sdk/meta/result_of.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/arithmetic.hpp>
 
 #include <boost/dispatch/details/ignore_unused.hpp>
 
@@ -31,52 +36,7 @@ namespace nt2
   }
   
 namespace meta
-{
-  // Base hierarchies
-  using boost::dispatch::meta::unknown_;
-  using boost::dispatch::meta::unspecified_;
-    
-  // Native types and related hierarchies
-  using boost::dispatch::meta::float_;
-  using boost::dispatch::meta::double_;
-  
-  using boost::dispatch::meta::int8_;  using boost::dispatch::meta::uint8_;  using boost::dispatch::meta::ints8_;
-  using boost::dispatch::meta::int16_; using boost::dispatch::meta::uint16_; using boost::dispatch::meta::ints16_;
-  using boost::dispatch::meta::int32_; using boost::dispatch::meta::uint32_; using boost::dispatch::meta::ints32_;
-  using boost::dispatch::meta::int64_; using boost::dispatch::meta::uint64_; using boost::dispatch::meta::ints64_;
-  
-  using boost::dispatch::meta::type8_;
-  using boost::dispatch::meta::type16_;
-  using boost::dispatch::meta::type32_;
-  using boost::dispatch::meta::type64_;
-  
-  using boost::dispatch::meta::real_sized_;
-  using boost::dispatch::meta::real_;
-  
-  using boost::dispatch::meta::signed_;
-  using boost::dispatch::meta::unsigned_;
-  
-  using boost::dispatch::meta::int_;
-  using boost::dispatch::meta::uint_;
-  using boost::dispatch::meta::integer_;
-  
-  using boost::dispatch::meta::arithmetic_;
-  using boost::dispatch::meta::bool_;
-  using boost::dispatch::meta::fundamental_;
-  
-  // Composite hierarchies
-  using boost::dispatch::meta::scalar_;
-  using boost::dispatch::meta::generic_;
-  using boost::dispatch::meta::target_;
-  
-  using boost::dispatch::meta::ast_;
-  using boost::dispatch::meta::expr_;
-  using boost::dispatch::meta::domain_;
-  
-  using boost::dispatch::meta::array_;
-  using boost::dispatch::meta::fusion_sequence_;
-  using boost::dispatch::meta::mpl_integral_;
-  
+{  
   // Function object
   template<class Sig, class Site, class Enable = void>
   struct implement;
