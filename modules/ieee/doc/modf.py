@@ -8,7 +8,6 @@
              'default' : 'typename nt2::meta::call<modf_(T)>::type',
             },
          'simd_types' : ['real_'],
-         'type_defs' : ['  typedef typename nt2::meta::result_of<nt2::meta::floating(T)>::type etype;'],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',
