@@ -320,17 +320,29 @@ macro(nt2_module_simd_toolbox name)
       string(REGEX REPLACE ".hpp" "" file ${file})
       string(TOUPPER ${file} file_U)
       file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file}.hpp
+                "//==============================================================================\n"
+                "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II       \n"
+                "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI       \n"
+                "//                                                                              \n"
+                "//          Distributed under the Boost Software License, Version 1.0.          \n"
+                "//                 See accompanying file LICENSE.txt or copy at                 \n"
+                "//                     http://www.boost.org/LICENSE_1_0.txt                     \n"
+                "//==============================================================================\n"
                 "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
                 "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "\n"
                 "#include <boost/simd/toolbox/${name}/function/${file}.hpp>\n"
+                "\n"
                 "namespace nt2\n"
                 "{\n"
                 "  namespace tag\n"
                 "  {\n"
                 "    using boost::simd::tag::${file}_;\n"
                 "  }\n"
+                "\n"
                 "  using boost::simd::${file};\n"
                 "}\n"
+                "\n"
                 "#endif\n"
           )
     endforeach()
@@ -340,9 +352,19 @@ macro(nt2_module_simd_toolbox name)
       string(REGEX REPLACE ".hpp" "" file ${file})
       string(TOUPPER ${file} file_U)
       file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file}.hpp
+                "//==============================================================================\n"
+                "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II       \n"
+                "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI       \n"
+                "//                                                                              \n"
+                "//          Distributed under the Boost Software License, Version 1.0.          \n"
+                "//                 See accompanying file LICENSE.txt or copy at                 \n"
+                "//                     http://www.boost.org/LICENSE_1_0.txt                     \n"
+                "//==============================================================================\n"
                 "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
                 "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "\n"
                 "#include <nt2/toolbox/${name}/${name}.hpp>\n" # Workaround
+                "\n"
                 "#endif\n"
           )
     endforeach()
@@ -361,4 +383,21 @@ macro(nt2_module_simd_toolbox name)
   else()
     nt2_module_configure_include(nt2/toolbox/${name}/include -o nt2/include/functions)
   endif()
+endmacro()
+
+# work in progress
+macro(nt2_module_gather_includes)
+  get_target_property(gather_includes_exists gather_includes EXCLUDE_FROM_ALL)
+  if(NOT gather_includes_exists)
+    add_subdirectory(${NT2_SOURCE_ROOT}/tools/gather_includes ${PROJECT_BINARY_DIR}/tools/gather_includes EXCLUDE_FROM_ALL)
+  endif()
+  
+  get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
+  string(REPLACE ";" ";-I" INCLUDES "${INCLUDES}")
+  
+  execute_process(COMMAND ${PROJECT_BINARY_DIR}/tools/gather_includes/gather_includes -I ${INCLUDES} ${PROJECT_BINARY_DIR}/include ${ARGN}
+                  RESULT_VARIABLE result
+                 )
+                  
+  message(STATUS "result = ${result}")
 endmacro()

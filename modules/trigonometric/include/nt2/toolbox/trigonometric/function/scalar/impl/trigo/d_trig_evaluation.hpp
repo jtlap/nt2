@@ -12,6 +12,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 
 namespace nt2

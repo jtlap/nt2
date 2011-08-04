@@ -17,6 +17,7 @@
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>

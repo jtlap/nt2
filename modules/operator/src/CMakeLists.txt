@@ -11,4 +11,4 @@ include(NT2Module)
 nt2_module_source_setup(operator)
 #nt2_module_configure_toolbox(operator 1)
 
-nt2_module_simd_toolbox(operator)
+nt2_module_configure_include(nt2/toolbox/operator/include -o nt2/include/functions)

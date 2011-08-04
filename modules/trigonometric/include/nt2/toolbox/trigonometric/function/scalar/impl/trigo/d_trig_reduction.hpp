@@ -20,6 +20,7 @@
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 

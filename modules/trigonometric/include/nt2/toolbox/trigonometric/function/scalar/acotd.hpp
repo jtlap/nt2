@@ -12,7 +12,7 @@
 
 #include <nt2/include/functions/atand.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-
+#include <nt2/include/functions/bitwise_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

@@ -19,8 +19,8 @@
 namespace nt2 { namespace meta
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF(  nt2::tag::sincos_, tag::cpu_,(A0)(A1)(X)
-				  , (boost::mpl::equal_to < meta::cardinal_of<A0> 
-			                                , meta::cardinal_of<A1>
+				  , (boost::mpl::equal_to < nt2::meta::cardinal_of<A0> 
+			                                , nt2::meta::cardinal_of<A1>
 				                        >
 				) 
                                , ( nt2::tag::sincos_
@@ -43,8 +43,8 @@ namespace nt2 { namespace meta
   };
  
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincos_, tag::cpu_,(A0)(A1)(X),
-				(boost::mpl::equal_to<meta::cardinal_of<A0>, 
-			                	 meta::cardinal_of<A1>
+				(boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
+			                	 nt2::meta::cardinal_of<A1>
 				        >
 				), 
                                 ( nt2::tag::sincos_

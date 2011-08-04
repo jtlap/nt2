@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return simd::native_cast<result_type>(One<A0>()+is_eqz(a0));
+      return boost::simd::native_cast<result_type>(One<A0>()+is_eqz(a0));
     }
   };
 } }
