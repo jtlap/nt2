@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
                       (scalar_ < arithmetic_<A0> > )
                      )
   {
-      typedef typename meta::result_of<meta::floating(A0)>::type                 etype;
+      typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type  etype;
       typedef boost::fusion::vector<etype, etype>        result_type;
     
     BOOST_SIMD_FUNCTOR_CALL(1)

@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< double_<A0> >)
                               (scalar_< double_<A1> >)
-			      (scalar_< int32_<A2> >)
+                              (scalar_< int32_<A2> >)
                             )
   {
     typedef void result_type;
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
-			      (scalar_< int32_<A2> >)
+                              (scalar_< int32_<A2> >)
                             )
   {
     typedef A0 result_type;    
@@ -52,9 +52,9 @@ namespace boost { namespace simd { namespace ext
                             (scalar_ < double_<A0> > )
                            )
   {
-      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename dispatch::meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type mantissa;
+    typedef typename dispatch::meta::as_integer<A0,signed>::type                   exponent;
+    typedef boost::fusion::vector<mantissa,exponent>                               result_type;
     
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
@@ -73,9 +73,9 @@ namespace boost { namespace simd { namespace ext
                             (scalar_ < float_<A0> > )
                            )
   {
-      typedef typename meta::result_of<meta::floating(A0)>::type mantissa;
-      typedef typename dispatch::meta::as_integer<A0,signed>::type          exponent;
-      typedef boost::fusion::vector<mantissa,exponent>             result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type mantissa;
+    typedef typename dispatch::meta::as_integer<A0,signed>::type                   exponent;
+    typedef boost::fusion::vector<mantissa,exponent>                               result_type;
     
     BOOST_SIMD_FUNCTOR_CALL(1)
     {

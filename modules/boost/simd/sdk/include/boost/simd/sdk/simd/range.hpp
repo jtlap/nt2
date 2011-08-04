@@ -75,7 +75,7 @@ namespace boost { namespace simd
 namespace boost { namespace simd
 {
   template<std::size_t N, class ContiguousRange>
-  typename meta::
+  typename dispatch::meta::
   result_of<result::range(ContiguousRange,boost::mpl::int_<N>)>::type
   range( ContiguousRange const& rng )
   {
@@ -84,7 +84,7 @@ namespace boost { namespace simd
   }
 
   template<class ContiguousRange>
-  typename meta::result_of<result::range(ContiguousRange)>::type
+  typename dispatch::meta::result_of<result::range(ContiguousRange)>::type
   range( ContiguousRange const& rng )
   {
     result::range callee;
