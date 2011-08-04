@@ -1,4 +1,5 @@
-
 datas = {
-"style" : "sys"
+'style' : 'sys',
+'parent' :'boost',
+'prefix' :['boost','simd'],
 }
