@@ -6,16 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - hi/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - hi/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bitwise components in scalar mode
+// unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/bitwise/include/hi.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/dispatch/meta/downgrade.hpp>
+#include<nt2/sdk/meta/downgrade.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -23,7 +23,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 
 
 NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
@@ -34,6 +33,8 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
@@ -50,7 +51,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( hi_int64__1_0,  (boost::simd::int64_t)(boost::simd::uint64_t))
+NT2_TEST_CASE_TPL ( hi_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
 {
   
   using boost::simd::hi;
@@ -58,6 +59,8 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  (boost::simd::int64_t)(boost::simd::uint64_t
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
@@ -74,7 +77,7 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  (boost::simd::int64_t)(boost::simd::uint64_t
   NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for int64_
 
-NT2_TEST_CASE_TPL ( hi_int32__1_0,  (boost::simd::int32_t)(boost::simd::uint32_t))
+NT2_TEST_CASE_TPL ( hi_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
 {
   
   using boost::simd::hi;
@@ -82,6 +85,8 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  (boost::simd::int32_t)(boost::simd::uint32_t
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
@@ -98,7 +103,7 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  (boost::simd::int32_t)(boost::simd::uint32_t
   NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for int32_
 
-NT2_TEST_CASE_TPL ( hi_int16__1_0,  (boost::simd::int16_t)(boost::simd::uint16_t))
+NT2_TEST_CASE_TPL ( hi_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
 {
   
   using boost::simd::hi;
@@ -106,6 +111,8 @@ NT2_TEST_CASE_TPL ( hi_int16__1_0,  (boost::simd::int16_t)(boost::simd::uint16_t
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 

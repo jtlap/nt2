@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - ffs/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - ffs/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bitwise components in scalar mode
+// unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
@@ -21,7 +21,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 
 
 NT2_TEST_CASE_TPL ( ffs_float_1_0,  (float))
@@ -31,6 +30,8 @@ NT2_TEST_CASE_TPL ( ffs_float_1_0,  (float))
   using boost::simd::tag::ffs_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ffs_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
@@ -57,6 +58,8 @@ NT2_TEST_CASE_TPL ( ffs_double_1_0,  (double))
   using boost::simd::tag::ffs_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ffs_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
@@ -83,6 +86,8 @@ NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::tag::ffs_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ffs_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
@@ -107,6 +112,8 @@ NT2_TEST_CASE_TPL ( ffs_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::tag::ffs_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ffs_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
