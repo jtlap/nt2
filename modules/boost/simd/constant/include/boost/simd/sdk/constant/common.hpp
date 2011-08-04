@@ -12,7 +12,6 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 
 //==============================================================================
 // Forward all constant call to the simd version of themselves that splat

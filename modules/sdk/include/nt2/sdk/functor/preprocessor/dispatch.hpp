@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_FUNCTOR_PREPROCESSOR_FUNCTION_HPP_INCLUDED
-#define NT2_SDK_FUNCTOR_PREPROCESSOR_FUNCTION_HPP_INCLUDED
+#ifndef NT2_SDK_FUNCTOR_PREPROCESSOR_DISPATCH_HPP_INCLUDED
+#define NT2_SDK_FUNCTOR_PREPROCESSOR_DISPATCH_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>

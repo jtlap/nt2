@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_FUNCTOR_PREPROCESSOR_FUNCTION_HPP_INCLUDED
-#define BOOST_SIMD_SDK_FUNCTOR_PREPROCESSOR_FUNCTION_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_FUNCTOR_PREPROCESSOR_DISPATCH_HPP_INCLUDED
+#define BOOST_SIMD_SDK_FUNCTOR_PREPROCESSOR_DISPATCH_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
