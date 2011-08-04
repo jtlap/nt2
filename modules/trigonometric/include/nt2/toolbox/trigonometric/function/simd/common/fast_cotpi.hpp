@@ -32,7 +32,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(nt2::copysign(Inf<result_type>(), simd::native_cast<result_type>(a0)), is_nez(a0));
+      return b_or(nt2::copysign(Inf<result_type>(), boost::simd::native_cast<result_type>(a0)), is_nez(a0));
     }
   };
 } }

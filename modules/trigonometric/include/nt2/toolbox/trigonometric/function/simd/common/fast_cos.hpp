@@ -28,7 +28,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return -is_eqz(simd::native_cast<result_type>(a0));
+      return -is_eqz(boost::simd::native_cast<result_type>(a0));
     }
   };
 } }
