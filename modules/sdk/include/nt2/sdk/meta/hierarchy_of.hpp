@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
+#include <nt2/sdk/config/types.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace meta
