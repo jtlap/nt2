@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::logical<T>::type',
+             'default' : 'typename boost::simd::meta::logical<T>::type',
             },
          'simd_types' : ['real_'],
          'special' : ['predicate'],
@@ -26,32 +27,32 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Two<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Two<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
-                 '-nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Half<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Inf<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Mone<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::One<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Quarter<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Two<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
+                 '-boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Half<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Inf<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Minf<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Mone<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Nan<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Quarter<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Two<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::One<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Two<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Mone<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Two<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::is_lez(a0)'],
+                 'default' : ['boost::simd::is_lez(a0)'],
                 },
              'property_value' : {
                  'default' : ['a0<=0'],
