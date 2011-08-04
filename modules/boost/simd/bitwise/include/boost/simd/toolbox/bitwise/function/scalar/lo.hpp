@@ -19,8 +19,8 @@ namespace boost { namespace simd { namespace ext
                             )
 
   {
-    typedef typename meta::
-            downgrade < typename dispatch::meta::as_integer<A0,unsigned>::type
+    typedef typename dispatch::meta::downgrade <
+            typename dispatch::meta::as_integer<A0,unsigned>::type
                       >::type  result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
