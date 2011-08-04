@@ -66,7 +66,7 @@ class Nt2_modules(Nt2_base_infos) :##(Nt2_base_infos,Nt2_tb_struct) :
             if os.path.isdir(p1) :
                 filename = os.path.join(p1,'py_data.py')
                 if exist(filename) :
-                    s = '\n'.join(read(filename))              
+                    s = '\n'.join(read(filename))
                     exec(s)
                     prefix = datas.get('prefix',[])
                     if ((datas.get('style','usr') in styles) or
