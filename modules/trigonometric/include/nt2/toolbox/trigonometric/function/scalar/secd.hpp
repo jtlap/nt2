@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::secd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::secd_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )

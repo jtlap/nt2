@@ -37,7 +37,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::expni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expni_, tag::cpu_
 			      , (A0)(A1)(X)
                             , (scalar_< integer_<A0> >)((simd_<integer_<A1>,X>))
                             )
@@ -54,7 +54,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A1 is real_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::expni_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::expni_, tag::cpu_,
 			     (A0)(A1)(X),
 			     ((scalar_<integer_<A0> > ))
 			     ((simd_<real_<A1>,X>))

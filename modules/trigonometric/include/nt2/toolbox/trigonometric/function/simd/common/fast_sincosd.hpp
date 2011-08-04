@@ -66,7 +66,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::fast_sincosd_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::fast_sincosd_, tag::cpu_,
                                (A0)(X),
                                ((simd_<arithmetic_<A0>,X>))
                               )

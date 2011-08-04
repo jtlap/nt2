@@ -23,7 +23,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
 			     (A0)(X),
                       ((simd_<real_<A0>,X>))
                      )
@@ -35,7 +35,7 @@ namespace nt2 { namespace meta
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<integer_<A0>,X>))
                      )
@@ -49,7 +49,7 @@ namespace nt2 { namespace meta
       }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<int32_<A0>,X>))
                      )
@@ -72,7 +72,7 @@ namespace nt2 { namespace meta
       return sel(ge(a00, Twelve<A0>()), Valmax<A0>(), r);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<int16_<A0>,X>))
                      )
@@ -91,7 +91,7 @@ namespace nt2 { namespace meta
       return sel(ge(a00, Eight<A0>()), Valmax<A0>(), r);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<uint16_<A0>,X>))
                      )
@@ -112,7 +112,7 @@ namespace nt2 { namespace meta
     }
   };
 
-    NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+    NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<type8_<A0>,X>))
                      )

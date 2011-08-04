@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::knuth_equal_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::knuth_equal_, tag::cpu_,
                               (A0)(X),
                               ((simd_<real_<A0>,X>))
                               ((simd_<real_<A0>,X>))

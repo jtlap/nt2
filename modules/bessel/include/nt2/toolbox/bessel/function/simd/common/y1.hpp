@@ -31,7 +31,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::y1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::y1_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -46,7 +46,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION( tag::y1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::y1_, tag::cpu_
 			      , (A0)(X)
 			      , ((simd_<double_<A0>,X>))
 			      )
@@ -61,7 +61,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION( tag::y1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::y1_, tag::cpu_
 			      , (A0)(X)
 			      , ((simd_<float_<A0>,X>))
 			      )

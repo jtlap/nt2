@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::hermite_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hermite_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< integer_<A0> >)((simd_<arithmetic_<A1>,X>))
                             )
@@ -45,7 +45,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::hermite_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hermite_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< integer_<A0> >)((simd_<real_<A1>,X>))
                             )

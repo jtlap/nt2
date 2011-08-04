@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::csch_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csch_, tag::cpu_
                             , (A0)
                             , (scalar_< integer_<A0> >)
                             )
@@ -39,7 +39,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::csch_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csch_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )

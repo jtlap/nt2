@@ -31,7 +31,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::powi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::powi_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
                             )
@@ -51,7 +51,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::powi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::powi_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<real_<A0>,X>))(scalar_< integer_<A1> >)
                             )

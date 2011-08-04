@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ellpe_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
@@ -45,7 +45,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ellpe_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)
                             )
@@ -70,7 +70,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::ellpe_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellpe_, tag::cpu_
                             , (A0)
                             , (scalar_< float_<A0> >)
                             )

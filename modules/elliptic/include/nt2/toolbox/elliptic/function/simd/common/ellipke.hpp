@@ -27,7 +27,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
@@ -45,7 +45,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   //Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0)(A1)(X),
 			     ((simd_<arithmetic_<A0>,X>))
 			     ((scalar_<real_<A1> >))
@@ -63,7 +63,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0)(A1)(X),
 			     ((simd_<real_<A0>,X>))
 			     ((scalar_<real_<A1> >))
@@ -83,7 +83,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 1 input
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
 			       (A0)(A1)(X), 
 			       ((simd_<arithmetic_<A0>,X >))
 			       ((simd_<real_<A1>,X>))
@@ -131,7 +131,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
 				(A0)(A1)(X), 
 				((simd_<real_<A0>,X >))
 				((scalar_<real_<A1> >))

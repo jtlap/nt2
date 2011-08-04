@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::acsch_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acsch_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<integer_<A0>,X>))
                             )
@@ -40,7 +40,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::acsch_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acsch_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )

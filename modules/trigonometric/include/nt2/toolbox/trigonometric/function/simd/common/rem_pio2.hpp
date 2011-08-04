@@ -21,7 +21,7 @@
 namespace nt2 { namespace meta
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_ < real_<A0>,X > ))
 			     )
@@ -41,7 +41,7 @@ namespace nt2 { namespace meta
       }
   }; 
 
-  NT2_FUNCTOR_IMPLEMENTATION(  tag::rem_pio2_, tag::cpu_,(A0)(X)
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::rem_pio2_, tag::cpu_,(A0)(X)
                                , ((simd_<real_<A0>,X>))
                                  ((simd_<real_<A0>,X>))
                                  ((simd_<real_<A0>,X>))

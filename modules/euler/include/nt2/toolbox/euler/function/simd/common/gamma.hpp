@@ -35,7 +35,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::gamma_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gamma_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -52,7 +52,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is real_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::gamma_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gamma_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<real_<A0>,X>))
 			     )

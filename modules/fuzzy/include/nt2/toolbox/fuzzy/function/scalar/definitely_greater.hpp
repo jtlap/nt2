@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::definitely_greater_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::definitely_greater_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< integer_<A2> >)
                             )
@@ -39,7 +39,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::definitely_greater_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::definitely_greater_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< integer_<A2> >)
                             )

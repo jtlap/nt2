@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::fuzzy_less_or_equal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fuzzy_less_or_equal_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< real_<A2> >)
                             )

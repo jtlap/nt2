@@ -31,7 +31,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::atanh_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -52,7 +52,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::atanh_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )

@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0),
 			     (scalar_<arithmetic_<A0> > )
 			     )
@@ -41,7 +41,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0)(A1),
 			     (scalar_<arithmetic_<A0> >)
 			     (scalar_<arithmetic_<A1> >)
@@ -60,7 +60,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0)(A1),
 			     (scalar_<real_<A0> >)
 			     (scalar_<real_<A1> >)
@@ -80,7 +80,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 1 input
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
 			       (A0)(A1), 
 			       (scalar_<arithmetic_<A0> >)
 			       (scalar_<real_<A1> >)
@@ -97,7 +97,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  tag::ellipke_, tag::cpu_,(A0)(A1)(A2), 
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,(A0)(A1)(A2), 
 			       (scalar_<arithmetic_<A0> >)
 			       (scalar_<real_<A1> >)
 			       (scalar_<real_<A2> >)

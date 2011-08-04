@@ -36,7 +36,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::cbrt_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cbrt_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -57,7 +57,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::cbrt_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cbrt_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<double_<A0>,X>))
                             )
@@ -109,7 +109,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::cbrt_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cbrt_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<float_<A0>,X>))
                             )

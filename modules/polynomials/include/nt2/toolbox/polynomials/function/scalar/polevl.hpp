@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::polevl_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polevl_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)(fusion_sequence_<A1>)
                             )
@@ -39,7 +39,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::polevl_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polevl_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< real_<A0> >)(fusion_sequence_<A1>)
                             )

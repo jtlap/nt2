@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::cotangent_<mode>, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cotangent_<mode>, tag::cpu_
 			      , (A0)(mode)(X)
 			      , ((simd_<arithmetic_<A0>,X>))
                             )
