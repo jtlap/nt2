@@ -123,7 +123,7 @@ class Global_header_gen() :
                 if not no_ulp :
                     r.append(Global_header_gen.No_ulp_Template[self.__module])
                     if self.part == "cover" :
-                        r.append(Global_header_gen.Cover_Template[self._module])
+                        r.append(Global_header_gen.Cover_Template[self.__module])
                     return r
         return r
     
@@ -183,7 +183,7 @@ class Global_header_gen() :
     def __create_unit_txt(self) :
         dl = self.bg.get_fct_dict_list()
         if isinstance(dl,dict ) : dl = [dl]
-        self.__module = dl[0].get('functor',False).get("module",'')
+        self.__module = dl[0].get('functor',False).get("module",'default')
         r = self.add_header(dl)
         r = self.add_includes(r,dl)
         return r

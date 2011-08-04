@@ -70,7 +70,7 @@ if __name__ == "__main__" :
 
     ln = Nt2_modules().get_modules_list(['sys','usr'],'boost')
     for l in ln :
-        if re.search('arithmetic',l) :
+        if re.search('bitwise',l) :
             print(l)
             p =Nt2_tb_props(l).get_doc_path()
 ##        print(p)
