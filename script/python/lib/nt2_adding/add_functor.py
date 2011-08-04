@@ -278,7 +278,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
                     r.append("  typedef %s T;"%t )
                     r += ["  "+td for td in d1["type_defs"]]
                     if mode == "simd" :
-                        r += ["  typedef nt2::simd::native<%s,ext_t> v%s;"%(ct,ct)  for ct in d1["call_types"] ]
+                        r += ["  typedef boost::simd::native<%s,ext_t> v%s;"%(ct,ct)  for ct in d1["call_types"] ]
                     tpl = "(RS(%s,%s,%s))"
                     rges = d1["ranges"].get(typ,d1["ranges"]["default"])
                     if not isinstance(rges[0][0],list) : rges = [rges]

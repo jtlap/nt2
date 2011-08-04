@@ -158,7 +158,7 @@ class Bench_gen() :
                         r.append("  typedef nt2::meta::as_integer<T>::type iT;")
 ##                        r += ["  "+td for td in d1["type_defs"]]
                         if mode == "simd" :
-                            r += ["  typedef nt2::simd::native<%s,ext_t> v%s;"%(ct,ct)  for ct in d1["call_types"] if ct[0] != 's' ]
+                            r += ["  typedef boost::simd::native<%s,ext_t> v%s;"%(ct,ct)  for ct in d1["call_types"] if ct[0] != 's' ]
                         tpl = "(RS(%s,%s,%s))"
 ##                        print( 'd1["ranges"] %s'%d1["ranges"])
 ##                        print("rges  %s"%rges)
