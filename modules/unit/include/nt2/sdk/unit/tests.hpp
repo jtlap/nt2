@@ -27,7 +27,6 @@
 
 #define NT2_TEST_ULP_EQUAL(A,B,N)          \
   {                  \
-    typedef typename nt2::meta::scalar_of<r_t>::type sr_t;    \
     sr_t r1 = A;              \
     sr_t r2 = B;              \
     ulpd = nt2::ulpdist(r1, r2);		\
