@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],
          'ret_arity' : '0',
@@ -23,26 +24,26 @@
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()'],['0','nt2::meta::cardinal_of<T>::value-1']],
-             'real_' : [['T(-100)', 'T(100)'],['0','nt2::meta::cardinal_of<T>::value-1']],
+             'default' : [['boost::simd::Valmin<T>()', 'boost::simd::Valmax<T>()'],['0','boost::dispatch::meta::cardinal_of<T>::value-1']],
+             'real_' : [['T(-100)', 'T(100)'],['0','boost::dispatch::meta::cardinal_of<T>::value-1']],
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>(),0' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>(),0' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::One<T>(),0' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>(),0' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'real_' : {
-                 'nt2::Inf<T>(),0' : {'result' : 'nt2::Inf<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Minf<T>(),0' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Mone<T>(),0' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Nan<T>(),0' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>(),0' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>(),0' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Inf<T>(),0' : {'result' : 'boost::simd::Inf<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Minf<T>(),0' : {'result' : 'boost::simd::Minf<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Mone<T>(),0' : {'result' : 'boost::simd::Mone<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Nan<T>(),0' : {'result' : 'boost::simd::Nan<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::One<T>(),0' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>(),0' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>(),0' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>(),0' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>(),0' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Mone<T>(),0' : {'result' : 'boost::simd::Mone<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::One<T>(),0' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>(),0' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {
@@ -50,7 +51,7 @@
                  'default' : 'NT2_NB_RANDOM_TEST',
                 },
              'property_call' : {
-                 'default' : ['nt2::put_first(a0,a1)'],
+                 'default' : ['boost::simd::put_first(a0,a1)'],
                 },
              'property_value' : {
                  'default' : ['a0'],
