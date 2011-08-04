@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',
@@ -21,30 +22,30 @@
              'stamp' : 'modified by jt the 18/02/2011',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2'], ['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
+             'default' : [['boost::simd::Valmin<T>()/2', 'boost::simd::Valmax<T>()/2'], ['boost::simd::Valmin<T>()/2', 'boost::simd::Valmax<T>()/2']],
             },
          'specific_values' : {
              'unsigned_int_' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>(),nt2::One<T>()' : {'result' : 'r_t(nt2::Mone<r_t>())','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Mone<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>(),boost::simd::One<T>()' : {'result' : 'r_t(boost::simd::Mone<r_t>())','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Mone<r_t>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>(),nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::One<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>(),nt2::One<T>()' : {'result' : 'r_t(nt2::Mone<r_t>())','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Mone<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Mone<T>(),boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Mone<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>(),boost::simd::One<T>()' : {'result' : 'r_t(boost::simd::Mone<r_t>())','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Mone<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Nan<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Inf<T>()' : {'result' : 'boost::simd::Nan<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Minf<T>()' : {'result' : 'boost::simd::Nan<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Nan<T>()' : {'result' : 'boost::simd::Nan<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Nan<r_t>()','ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'integer_' : ['nt2::bitwise_notor(a0,a1)'],
+                 'integer_' : ['boost::simd::bitwise_notor(a0,a1)'],
                 },
              'property_value' : {
                  'integer_' : ['r_t((~a0)|a1)'],

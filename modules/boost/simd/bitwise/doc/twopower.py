@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::arithmetic(T)>::type',
+             'default' : 'typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type',
             },
          'simd_types' : ['unsigned_int_'],
          'type_defs' : [],
@@ -25,18 +26,18 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::Zero<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0.5',},
                 },
              'unsigned_int_   ' : {
-                 'nt2::Zero<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'unsigned_int_' : ['nt2::twopower(a0)'],
+                 'unsigned_int_' : ['boost::simd::twopower(a0)'],
                 },
              'property_value' : {
-                 'unsigned_int_' : ['nt2::shli(T(1),a0)'],
+                 'unsigned_int_' : ['boost::simd::shli(T(1),a0)'],
                 },
              'simd' : {
                 },
