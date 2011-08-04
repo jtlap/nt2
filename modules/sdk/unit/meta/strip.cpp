@@ -6,24 +6,23 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_META_MUTABLE_ZIP_HPP_INCLUDED
-#define NT2_SDK_META_MUTABLE_ZIP_HPP_INCLUDED
+#define NT2_UNIT_MODULE "nt2::meta::strip"
 
-#include <boost/fusion/include/vector.hpp>
-#include <boost/fusion/include/zip_view.hpp>
+#include <nt2/sdk/meta/strip.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Build a zip_view of mutable elements
+// Test that strip is correct
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+NT2_TEST_CASE(strip)
 {
-  template<class S1,class S2>
-  boost::fusion::zip_view< boost::fusion::vector<S1&,S2&> >
-  mutable_zip(S1& s1, S2& s2)
-  {
-    typedef boost::fusion::vector<S1&,S2&> sequences;
-    return boost::fusion::zip_view<sequences>( sequences ( s1,s2 ) );
-  }
-} }
+  using boost::is_same;
+  using nt2::meta::strip;
 
-#endif
+  NT2_TEST( (is_same<double , strip<double>::type >::value)       );
+  NT2_TEST( (is_same<double , strip<double&>::type >::value)      );
+  NT2_TEST( (is_same<double , strip<double const>::type >::value) );
+  NT2_TEST( (is_same<double , strip<double const&>::type >::value));
+}
