@@ -71,6 +71,8 @@ def extract(d,key_substitute,default_value,*fromkeys) :
 
 class Specific_values_test_gen(object) :
     def __init__(self, base_gen,d,typ,ret_arity,platform) :
+        self.__module  = d["functor"].get('module','default')
+        self._prefix = 'NT2' if self.__module == 'default' else 'NT2'
         self.bg = base_gen
         self.mode = self.bg.get_fct_mode()
         self.ret_arity = ret_arity
@@ -89,13 +91,13 @@ class Specific_values_test_gen(object) :
         if self.mode == 'simd' :
             special = extract(d,"",[""],"functor","special")[0]
             if special in ['predicate','fuzzy'] :
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0]!=0, $call_param_res$%s);"
+                spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0]!=0, $call_param_res$%s);"
             elif special in ['reduction']:
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
+                spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
             else :
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0], $call_param_res$%s);"
+                spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0], $call_param_res$%s);"
         else :
-            spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
+            spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
         return spec_values_tpl
 
     def expand_to_list(self,typ) :
@@ -111,6 +113,8 @@ class Specific_values_test_gen(object) :
         for t in typs :
             r+=self.__create_v_test(dl,t,typ)
             if self.__grouping_used : break;
+        if dl["functor"].get("module","")=="boost" :
+            r = [ re.sub("nt2::","boost::simd::",rr) for rr in r]
         return r
     
     def __create_v_test(self,dl,typ,orig_type) :
@@ -196,9 +200,9 @@ class Specific_values_test_gen(object) :
     def __create_tuple_values_test(self,dl,typ,orig_typ,no_ulp,r) :
         d = extract(dl,"","",'unit',"specific_values")
         if no_ulp :
-            Call = "    NT2_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
+            Call = "    "+self._prefix+"_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
         else :
-            Call = "    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res)$simd$, $call_param_res$$simd$, $specific_thresh$);"
+            Call = "    "+self._prefix+"_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res)$simd$, $call_param_res$$simd$, $specific_thresh$);"
             
         Results = "    r_t res = $fct_name$$tpl_parm$($call_param_vals$);"
         dd = d.get(typ,d.get("default",None))

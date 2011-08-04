@@ -79,6 +79,7 @@ class Nt2_fct_props(Nt2_tb_props) :
     def get_fct_type_defs(self) : return []   ##TO DO
 
 
+        
     def is_subsidiary(self,*modes) :
         path = self.get_fct_impl_path(list(modes))
         if not exist(path) : return True
@@ -108,7 +109,8 @@ class Nt2_fct_props(Nt2_tb_props) :
     
     def __read_fct_info_dict(self,verbose = False) :
         p = self.get_fct_doc_path()
-##        print("p = %s" % p)
+        print("p = %s" % p)
+        print("self.get_doc_path() %s" % self.get_doc_path())
         if not exist(p) :
             print('FATAL ERROR')
             print("%s does not exist: please create it before use" % p )

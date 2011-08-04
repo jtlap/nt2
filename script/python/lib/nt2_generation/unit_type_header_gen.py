@@ -41,6 +41,7 @@ class Type_header_test_gen() :
          'types' : ['real_'],
         }
     Type_Header  = {
+      "default" : {
         "scalar" :
         [
             "",
@@ -52,6 +53,7 @@ class Type_header_test_gen() :
             "  $type_defs$",
             "  typedef typename nt2::meta::as_integer<T>::type iT;",
             "  typedef typename nt2::meta::call<$fct_name$_$tpl$($call_type$)>::type r_t;",
+            "  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;",
             "  typedef typename nt2::meta::upgrade<T>::type u_t;",
             "  typedef $rturn$ wished_r_t;",
             "  $type_defs_aft$",
@@ -87,7 +89,59 @@ class Type_header_test_gen() :
             "  ulpd=0.0;",
             "",
             ]
-        }
+        },
+      "boost"   :
+        {
+          "scalar" :
+           [
+            "",
+            "NT2_TEST_CASE_TPL ( $fct_name$_$type$_$arity$_$rank$,  $macro_types$)",
+            "{",
+            "  $special$",
+            "  using boost::simd::$tb_style_base$$fct_name_repl$;",
+            "  using boost::simd::$tb_style_base$tag::$fct_name$_;",
+            "  $type_defs$",
+            "  typedef typename boost::dispatch::meta::as_integer<T>::type iT;",
+            "  typedef typename boost::dispatch::meta::call<$fct_name$_$tpl$($call_type$)>::type r_t;",
+            "  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;",
+            "  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;",
+            "  typedef $rturn$ wished_r_t;",
+            "  $type_defs_aft$",
+            "",
+            "  // return type conformity test ",
+            "  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );",
+            "  std::cout << std::endl; ",
+            "  double ulpd;",
+            "  ulpd=0.0;",
+            "",
+            ],
+        "simd" :
+        [
+            "",
+            "NT2_TEST_CASE_TPL ( $fct_name$_$type$_$arity$_$rank$,  $macro_types$)",
+            "{",
+            "  using boost::simd::$tb_style_base$$fct_name_repl$;",
+            "  using boost::simd::$tb_style_base$tag::$fct_name$_;",
+            "  using boost::simd::load; ",
+            "  using boost::simd::native;", 
+            "  using boost::simd::meta::cardinal_of;",
+            "  $type_defs$",
+            "  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;",         
+            "  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;",
+            "  typedef native<T,ext_t>                        n_t;",
+            "  typedef n_t                                     vT;",
+            "  typedef typename boost::dispatch::meta::as_integer<T>::type iT;",
+            "  typedef native<iT,ext_t>                       ivT;",
+            "  typedef typename boost::dispatch::meta::call<$fct_name$_$tpl$($call_type$)>::type r_t;",
+            "  typedef typename boost::dispatch::meta::call<$fct_name$_$tpl$($scall_type$)>::type sr_t;",
+            "  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;",
+            "  double ulpd;",
+            "  ulpd=0.0;",
+            "",
+            ]
+        },
+      }
+   
     Type_Footer   = [ "} // end of test for $type$"]
     Macros_dict = {
        "fundamental_" : "NT2_TYPES(bool)",
@@ -120,14 +174,15 @@ class Type_header_test_gen() :
         self.bg   = base_gen
         self.mode = self.bg.get_fct_mode()
         self.__rank = rank
+        self.__module =  d["functor"].get("module",'default')
         self.__gen_beg = self.__create_beg_txt(d,typ)
         self.__gen_end = self.__create_end_txt(d,typ)
-        
+       
     def get_gen_beg(self) : return  self.__gen_beg
     def get_gen_end(self) : return  self.__gen_end
 
     def __create_beg_txt(self,d,typ) :
-        return self.bg.create_unit_txt_part(Type_header_test_gen.Type_Header[self.mode],self.__prepare,d=d,typ=typ)
+        return self.bg.create_unit_txt_part(Type_header_test_gen.Type_Header[self.__module][self.mode],self.__prepare,d=d,typ=typ)
 
     def __create_end_txt(self,d,typ) :
         return self.bg.create_unit_txt_part(Type_header_test_gen.Type_Footer,self.__prepare,d=d,typ=typ)
@@ -143,6 +198,7 @@ class Type_header_test_gen() :
             r = re.sub("NT2_(.*?)TYPES","NT2_SIMD_\\1TYPES",r)
             r = re.sub("(bool)","",r)
 ##        print("r = %s"%r)
+        if self.__module == 'boost' : r = re.sub("NT2","BOOST_SIMD",r)  
         return r    
 
     def __get_call_types(self,d) :
