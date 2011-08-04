@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - idivfix/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - idivfix/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of arithmetic components in simd mode
+// unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
@@ -21,13 +21,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( idivfix_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( idivfix_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::idivfix;
   using boost::simd::tag::idivfix_;
@@ -42,17 +41,19 @@ NT2_TEST_CASE_TPL ( idivfix_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<idivfix_(vT,vT)>::type r_t;
   typedef typename boost::dispatch::meta::call<idivfix_(T,T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
+  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::splat<vT>(-4),boost::simd::splat<vT>(0))[0], boost::simd::Valmin<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(0))[0], boost::simd::Valmax<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3))[0], T(1), 0);
-  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Nan<sr_t>(), 0);
 } // end of test for real_

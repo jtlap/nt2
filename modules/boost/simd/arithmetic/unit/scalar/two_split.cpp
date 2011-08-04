@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - two_split/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - two_split/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of arithmetic components in scalar mode
+// unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
@@ -21,7 +21,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 
 
 NT2_TEST_CASE_TPL ( two_split_real__1_0,  BOOST_SIMD_REAL_TYPES)
@@ -31,6 +30,8 @@ NT2_TEST_CASE_TPL ( two_split_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::two_split_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<two_split_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::call<two_split_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,T> wished_r_t;
 

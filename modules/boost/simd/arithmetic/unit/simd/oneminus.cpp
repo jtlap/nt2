@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - oneminus/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - oneminus/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of arithmetic components in simd mode
+// unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
@@ -21,13 +21,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::oneminus;
   using boost::simd::tag::oneminus_;
@@ -42,7 +41,7 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<oneminus_(vT)>::type r_t;
   typedef typename boost::dispatch::meta::call<oneminus_(T)>::type sr_t;
-  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
