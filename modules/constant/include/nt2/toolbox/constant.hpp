@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_CONSTANT_HPP_INCLUDED
 #define NT2_TOOLBOX_CONSTANT_HPP_INCLUDED
 
-// Please do not remove or modify the next line comment
-// This toolbox is of sys type
-#include <nt2/nt2.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
 #endif
