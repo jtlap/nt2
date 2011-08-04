@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '3',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::arithmetic(T,T,T)>::type',
+             'default' : 'typename boost::result_of<boost::dispatch::meta::arithmetic(T,T,T)>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -29,26 +30,26 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Inf<T>()',
-                 'nt2::Minf<T>()' : 'nt2::Nan<T>()',
-                 'nt2::Mone<T>()' : 'nt2::Zero<T>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<T>()',
-                 'nt2::One<T>()' : 'nt2::Two<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Inf<T>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Nan<T>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Zero<T>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Two<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::Zero<T>()',
-                 'nt2::One<T>()' : 'nt2::Two<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Zero<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Two<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::Two<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Two<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::fma(a0,a1,a2)'],
+                 'default' : ['boost::simd::fma(a0,a1,a2)'],
                 },
              'property_value' : {
                  'default' : ['a0*a1+a2'],

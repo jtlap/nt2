@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '2',
@@ -8,7 +9,7 @@
              'default' : 'boost::fusion::tuple<r0_t,r0_t>',
             },
          'simd_types' : ['real_'],
-         'type_defs' : ['typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;'],
+         'type_defs' : ['typedef typename boost::result_of<boost::dispatch::meta::floating(T,T)>::type r0_t;'],
          'types' : ['real_'],
         },
      'info' : 'manually modified',

@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::arithmetic(T,T)>::type',
+             'default' : 'typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -28,7 +29,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::random(a0,a1)'],
+                 'default' : ['boost::simd::random(a0,a1)'],
                 },
             },
         },

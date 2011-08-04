@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::arithmetic(T,T)>::type>::type',
+             'default' : 'typename boost::dispatch::meta::as_integer<typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -30,28 +31,28 @@
                 },
              'real_' : {
                  'T(4),T(3)' : 'T(1)',
-                 'nt2::Inf<T>()' : 'nt2::Nan<T>()',
-                 'nt2::Minf<T>()' : 'nt2::Nan<T>()',
-                 'nt2::Mone<T>()' : 'nt2::One<T>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<T>()',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Nan<T>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Nan<T>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
                 },
              'signed_int_' : {
                  'T(4),T(3)' : 'T(1)',
-                 'nt2::Mone<T>()' : 'nt2::One<T>()',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
                 },
              'unsigned_int_' : {
                  'T(4),T(3)' : 'T(1)',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::idivfloor(a0,a1)'],
+                 'default' : ['boost::simd::idivfloor(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::toint(nt2::floor((1.0*a0)/a1))'],
+                 'default' : ['boost::simd::toint(boost::simd::floor((1.0*a0)/a1))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

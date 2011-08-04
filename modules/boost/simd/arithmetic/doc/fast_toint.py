@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_integer<T>::type',
+             'default' : 'typename boost::dispatch::meta::as_integer<T>::type',
             },
          'simd_types' : ['real_', 'unsigned_int_', 'signed_int_'],
          'type_defs' : [],
@@ -29,23 +30,23 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Mone<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Mone<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::fast_toint(a0)'],
+                 'default' : ['boost::simd::fast_toint(a0)'],
                  },
              'property_value' : {
                  'default' : ['r_t(a0)'],

@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+             'default' : 'typename boost::result_of<boost::dispatch::meta::floating(T)>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -20,7 +21,7 @@
              'stamp' : 'modified by jt the 13/12/2010',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
+             'default' : [['boost::simd::Valmin<T>()', 'boost::simd::Valmax<T>()']],
              'double' : [['-10.0', '10.0']],
              'float' : [['-10.0f', '10.0f']],
             },
@@ -28,29 +29,29 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Pi<r_t>()',
-                 'nt2::Mone<T>()' : 'nt2::Pi<r_t>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Pi<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Pi<r_t>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::Pi<r_t>()',
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Pi<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::arg(a0)'],
+                 'default' : ['boost::simd::arg(a0)'],
                 },
              'property_value' : {
-                 'default' : ['a0>=0 ? 0 : nt2::Pi<r_t>()'],
+                 'default' : ['a0>=0 ? 0 : boost::simd::Pi<r_t>()'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

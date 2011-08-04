@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'boost::fusion::tuple<T,typename nt2::meta::as_integer<T,signed>::type>',
+             'default' : 'boost::fusion::tuple<T,typename boost::dispatch::meta::as_integer<T,signed>::type>',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -31,10 +32,10 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'real_' : ['nt2::remquo(a0,a1)'],
+                 'real_' : ['boost::simd::remquo(a0,a1)'],
                 },
              'property_value' : {
-                 'real_' : [['nt2::remainder(a0,a1)', 'nt2::idivround(a0,a1)']],
+                 'real_' : [['boost::simd::remainder(a0,a1)', 'boost::simd::idivround(a0,a1)']],
                 },
              'ulp_thresh' : {
                  'real_' : ['0'],

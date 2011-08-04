@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::arithmetic(T,T)>::type',
+             'default' : 'typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -28,29 +29,29 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Inf<T>()',
-                 'nt2::Minf<T>()' : 'nt2::Minf<T>()',
-                 'nt2::Mone<T>()' : 'nt2::Mone<T>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<T>()',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Inf<T>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Minf<T>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Mone<T>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::Mone<T>()',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Mone<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::One<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::minmod(a0,a1)'],
+                 'default' : ['boost::simd::minmod(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['(a0*a1>0)? nt2::min(a0,a1):0'],
+                 'default' : ['(a0*a1>0)? boost::simd::min(a0,a1):0'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

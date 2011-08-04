@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -28,7 +29,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::two_split(a0)'],
+                 'default' : ['boost::simd::two_split(a0)'],
                 },
             },
         },

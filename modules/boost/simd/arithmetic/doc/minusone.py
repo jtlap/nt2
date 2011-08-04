@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_signed<typename boost::result_of<nt2::meta::arithmetic(T)>::type>::type',
+             'default' : 'typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -28,26 +29,26 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Inf<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Minf<r_t>()',
-                 'nt2::Mone<T>()' : '-nt2::Two<r_t>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Mone<r_t>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Inf<r_t>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Minf<r_t>()',
+                 'boost::simd::Mone<T>()' : '-boost::simd::Two<r_t>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Mone<r_t>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : '-nt2::Two<r_t>()',
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Mone<T>()',
+                 'boost::simd::Mone<T>()' : '-boost::simd::Two<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Mone<T>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Mone<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Mone<r_t>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::minusone(a0)'],
+                 'default' : ['boost::simd::minusone(a0)'],
                 },
              'property_value' : {
                  'default' : ['a0-1'],

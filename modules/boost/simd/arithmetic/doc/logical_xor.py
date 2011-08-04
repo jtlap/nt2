@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0', 
@@ -31,26 +32,26 @@
              'real_' : {
                  'T(0),T(1)' : 'true',
                  'T(3),T(0)' : 'true',
-                 'nt2::Inf<T>()' : 'false',
-                 'nt2::Minf<T>()' : 'false',
-                 'nt2::Mone<T>()' : 'false',
-                 'nt2::Nan<T>()' : 'false',
-                 'nt2::One<T>()' : 'false',
-                 'nt2::Zero<T>()' : 'false',
+                 'boost::simd::Inf<T>()' : 'false',
+                 'boost::simd::Minf<T>()' : 'false',
+                 'boost::simd::Mone<T>()' : 'false',
+                 'boost::simd::Nan<T>()' : 'false',
+                 'boost::simd::One<T>()' : 'false',
+                 'boost::simd::Zero<T>()' : 'false',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'false',
-                 'nt2::One<T>()' : 'false',
-                 'nt2::Zero<T>()' : 'false',
+                 'boost::simd::Mone<T>()' : 'false',
+                 'boost::simd::One<T>()' : 'false',
+                 'boost::simd::Zero<T>()' : 'false',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'false',
-                 'nt2::Zero<T>()' : 'false',
+                 'boost::simd::One<T>()' : 'false',
+                 'boost::simd::Zero<T>()' : 'false',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::logical_xor(a0,a1)'],
+                 'default' : ['boost::simd::logical_xor(a0,a1)'],
                 },
              'property_value' : {
                  'default' : ['(a0!=0)^(a1!=0)'],

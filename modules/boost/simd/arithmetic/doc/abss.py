@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -28,36 +29,36 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Inf<T>()',
-                 'nt2::Minf<T>()' : 'nt2::Inf<T>()',
-                 'nt2::Mone<T>()' : 'nt2::One<T>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<T>()',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
-                 'nt2::Valmax<T>()' : 'nt2::Valmax<T>()',
-                 'nt2::Valmin<T>()' : 'nt2::Valmax<T>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Inf<T>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Inf<T>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
+                 'boost::simd::Valmax<T>()' : 'boost::simd::Valmax<T>()',
+                 'boost::simd::Valmin<T>()' : 'boost::simd::Valmax<T>()',
                  'T(1)':'T(1)',   
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::One<T>()',
-                 'nt2::One<T>()' : 'nt2::One<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
-                 'nt2::Valmax<T>()' : 'nt2::Valmax<T>()',
-                 'nt2::Valmin<T>()' : 'nt2::Valmax<T>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
+                 'boost::simd::Valmax<T>()' : 'boost::simd::Valmax<T>()',
+                 'boost::simd::Valmin<T>()' : 'boost::simd::Valmax<T>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::One<T>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
-                 'nt2::Valmin<T>()' : 'nt2::Valmin<T>()',
-                 'nt2::Valmax<T>()' : 'nt2::Valmax<T>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
+                 'boost::simd::Valmin<T>()' : 'boost::simd::Valmin<T>()',
+                 'boost::simd::Valmax<T>()' : 'boost::simd::Valmax<T>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::abss(a0)'],
+                 'default' : ['boost::simd::abss(a0)'],
                 },
              'property_value' : {
-                 'default' : ['(a0>=0 ? a0 : (a0==nt2::Valmin<T>()?nt2::Valmax<T>():-a0))'],
+                 'default' : ['(a0>=0 ? a0 : (a0==boost::simd::Valmin<T>()?boost::simd::Valmax<T>():-a0))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

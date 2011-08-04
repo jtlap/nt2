@@ -1,11 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::arithmetic(T,T)>::type >::type',
+             'default' : 'typename boost::dispatch::meta::as_integer<typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type >::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -28,26 +29,26 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Mone<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Nan<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::One<r_t>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                 },
              'signed_int_' : {
-                 'nt2::Mone<T>()' : 'nt2::One<r_t>()',
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::One<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                 },
              'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'default' : ['nt2::idivround(a0,a1)'],
+                 'default' : ['boost::simd::idivround(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::iround(nt2::tofloat(a0)/nt2::tofloat(a1))'],
+                 'default' : ['boost::simd::iround(boost::simd::tofloat(a0)/boost::simd::tofloat(a1))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],
