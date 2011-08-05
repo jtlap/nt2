@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_DISPATCH_UNIT_MODULE "boost::dispatch::meta::is_result_of_supported"
+#define NT2_UNIT_MODULE "boost::dispatch::meta::is_result_of_supported"
 
 #include <boost/dispatch/meta/is_result_of_supported.hpp>
 #include <nt2/sdk/unit/module.hpp>
