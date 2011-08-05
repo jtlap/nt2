@@ -10,8 +10,10 @@
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_DEFINITELY_GREATER_HPP_INCLUDED
 
 #include <nt2/include/functions/is_ord.hpp>
+#include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/successor.hpp>
-
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/bitwise_and.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

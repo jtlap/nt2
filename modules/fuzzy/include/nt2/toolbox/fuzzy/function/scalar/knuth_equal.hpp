@@ -12,6 +12,7 @@
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exponent.hpp>
 #include <nt2/include/functions/maxnummag.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
