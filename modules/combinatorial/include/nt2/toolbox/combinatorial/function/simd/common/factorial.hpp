@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTION_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTION_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
-
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -43,6 +43,7 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
+	using boost::simd::bitwise_cast; 
 	typedef typename meta::as_real<A0>::type ftype;
 	ftype r = nt2::factorial(nt2::tofloat(a0));
 	return sel(gt(r,tofloat(Valmax<A0>())), Valmax<A0>(), bitwise_cast<A0>(nt2::toint(r))); 

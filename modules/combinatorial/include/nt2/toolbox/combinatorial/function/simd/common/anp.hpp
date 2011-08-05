@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTION_SIMD_COMMON_ANP_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTION_SIMD_COMMON_ANP_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/include/functions/split.hpp>
+#include <nt2/include/functions/group.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

@@ -8,13 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTION_SCALAR_LCM_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTION_SCALAR_LCM_HPP_INCLUDED
-
 #include <nt2/include/functions/rdivide.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/gcd.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -26,9 +24,7 @@ namespace nt2 { namespace meta
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-
     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-
     NT2_FUNCTOR_CALL(2)
     {
      return nt2::abs(a0*rdivide(a1,gcd(a0,a1)));
@@ -54,7 +50,7 @@ namespace nt2 { namespace meta
     {
       typedef result_type type; 
       if (is_invalid(a0+a1)) return Nan<type>(); 
-      return nt2::abs(trunc(a0)*rdiv(a1,gcd(a0,a1)));
+      return nt2::abs(trunc(a0)*(a1/gcd(a0,a1)));
     }
   };
 } }

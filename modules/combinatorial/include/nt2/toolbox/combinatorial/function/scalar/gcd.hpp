@@ -13,7 +13,7 @@
 #include <nt2/include/functions/is_not_finite.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/rem.hpp>
-
+#include <nt2/include/constants/real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

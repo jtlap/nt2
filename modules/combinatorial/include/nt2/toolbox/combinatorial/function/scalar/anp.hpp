@@ -17,7 +17,7 @@
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/is_ngez.hpp>
 #include <nt2/include/functions/exp.hpp>
-
+#include <nt2/include/functions/is_less.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
