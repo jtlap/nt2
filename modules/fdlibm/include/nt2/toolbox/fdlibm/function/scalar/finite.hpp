@@ -12,7 +12,7 @@
 
 extern "C" { extern bool fd_finite ( double ); }
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::finite_, tag::cpu_
                             , (A0)

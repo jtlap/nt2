@@ -12,7 +12,7 @@
 
 extern "C"{ extern int fd_ilogb ( double ); }
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::ilogb_, tag::cpu_
                             , (A0)

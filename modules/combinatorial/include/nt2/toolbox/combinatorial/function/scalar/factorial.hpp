@@ -13,7 +13,7 @@
 #include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/abss.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
 		      (A0),

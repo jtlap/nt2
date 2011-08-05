@@ -12,7 +12,7 @@
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_cephes_, tag::cpu_,

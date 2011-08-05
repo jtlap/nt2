@@ -13,7 +13,7 @@ namespace nt2
     }
 }
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( matlab::sin_, tag::cpu_,
 			     (A0),
