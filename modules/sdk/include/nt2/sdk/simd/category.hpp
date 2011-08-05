@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/simd/category.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   using boost::simd::ext::simd_;
 } }

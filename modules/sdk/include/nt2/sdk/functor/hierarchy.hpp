@@ -35,7 +35,7 @@ namespace nt2
     using boost::dispatch::tag::terminal_;
   }
   
-namespace meta
+namespace ext
 {  
   // Function object
   template<class Sig, class Site, class Enable = void>

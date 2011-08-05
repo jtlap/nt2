@@ -13,7 +13,7 @@
 #include <nt2/sdk/meta/enable_if_type.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::mpl_integral_;
 } }
