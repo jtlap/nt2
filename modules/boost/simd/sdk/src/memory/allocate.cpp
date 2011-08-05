@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace memory
     //////////////////////////////////////////////////////////////////////////////
     void *base;
     BOOST_STATIC_CONSTANT(std::size_t, fix = ~(std::size_t(align-1)));
-    if( !(base = ::malloc(nbytes+align+sizeof(void*))) )
+    if( !(base = std::malloc(nbytes+align+sizeof(void*))) )
     {
       BOOST_THROW_EXCEPTION( std::bad_alloc() );
       result = 0;
