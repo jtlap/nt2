@@ -10,7 +10,7 @@
             },
          'simd_types' : ['real_', 'signed_int_'],
          'type_defs' : [],
-         'types' : ['real_', 'integer_'],
+         'types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -25,9 +25,8 @@
              'default' : [['T(0)', 'T(1)'], ['boost::simd::Valmin<T>()/2', 'boost::simd::Valmax<T>()/2']],
             },
          'specific_values' : {
-             'default' : {
+             'unsigned_int_' : {
                  'T(0),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
-                 'T(1),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
@@ -38,7 +37,7 @@
                  'boost::simd::Nan<T>(),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
                  'boost::simd::Zero<T>(),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
                 },
-             'signed_int_   ' : {
+             'signed_int_' : {
                  'T(0),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
                  'T(1),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},

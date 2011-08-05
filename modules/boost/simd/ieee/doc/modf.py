@@ -6,10 +6,10 @@
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'boost::fusion::vector<T,T>',
+             'default' : 'boost::fusion::vector<ftype,ftype>',
             },
          'simd_types' : ['real_'],
-         'type_defs' : [],
+         'type_defs' : ["typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;"],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',
