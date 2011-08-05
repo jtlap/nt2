@@ -32,12 +32,13 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::modf;
   using boost::simd::tag::modf_;
+  typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  typedef boost::fusion::vector<ftype,ftype> wished_r_t;
 
 
   // return type conformity test 
@@ -53,12 +54,13 @@ NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   
   using boost::simd::modf;
   using boost::simd::tag::modf_;
+  typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  typedef boost::fusion::vector<ftype,ftype> wished_r_t;
 
 
   // return type conformity test 
@@ -74,12 +76,13 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   
   using boost::simd::modf;
   using boost::simd::tag::modf_;
+  typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  typedef boost::fusion::vector<ftype,ftype> wished_r_t;
 
 
   // return type conformity test 

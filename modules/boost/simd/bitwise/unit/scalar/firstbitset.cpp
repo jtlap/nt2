@@ -23,7 +23,35 @@
 #include <boost/simd/include/constants/real.hpp>
 
 
-NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  (float))
+{
+  
+  using boost::simd::firstbitset;
+  using boost::simd::tag::firstbitset_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<firstbitset_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Inf<T>()), 8388608u);
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Minf<T>()), 8388608u);
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Nan<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Signmask<T>()), boost::simd::One<r_t>()+boost::simd::Valmax<r_t>()/2);
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+} // end of test for float
+
+NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
 {
   
   using boost::simd::firstbitset;
@@ -49,14 +77,7 @@ NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(firstbitset(boost::simd::Nan<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(firstbitset(boost::simd::Signmask<T>()), boost::simd::One<r_t>()+boost::simd::Valmax<r_t>()/2);
   NT2_TEST_EQUAL(firstbitset(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-
-  // specific values tests
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Inf<T>()), 8388608u);
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Minf<T>()), 8388608u);
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Nan<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Signmask<T>()), boost::simd::One<r_t>()+boost::simd::Valmax<r_t>()/2);
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for real_
+} // end of test for double
 
 NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

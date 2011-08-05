@@ -15,6 +15,8 @@
 /// 
 #include <boost/simd/toolbox/bitwise/include/hi.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
+#include<nt2/sdk/meta/downgrade.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -34,6 +36,8 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type dtype;
+  typedef typename boost::simd::meta::scalar_of<ir_t>::type scal;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -48,8 +52,8 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(hi(boost::simd::Nan<vT>())[0], boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::Nan<vT>())[0], boost::simd::Mone<dtype>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<dtype>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES)
@@ -60,6 +64,8 @@ NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES)
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type dtype;
+  typedef typename boost::simd::meta::scalar_of<ir_t>::type scal;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -74,6 +80,6 @@ NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::One<vT>())[0], boost::simd::Zero<dtype>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<dtype>());
 } // end of test for sintgt_8_

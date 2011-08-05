@@ -50,6 +50,7 @@ NT2_TEST_CASE_TPL ( compare_greater_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(compare_greater(boost::simd::Minf<T>(), boost::simd::Minf<T>()), false);
   NT2_TEST_EQUAL(compare_greater(boost::simd::Nan<T>(), boost::simd::Nan<T>()), false);
   NT2_TEST_EQUAL(compare_greater(boost::simd::One<T>(),boost::simd::Two<T>()), false);
+  NT2_TEST_EQUAL(compare_greater(boost::simd::One<T>(),boost::simd::Zero<T>()), true);
   NT2_TEST_EQUAL(compare_greater(boost::simd::Zero<T>(), boost::simd::Zero<T>()), false);
 } // end of test for real_
 
@@ -75,6 +76,6 @@ NT2_TEST_CASE_TPL ( compare_greater_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(compare_greater(boost::simd::One<T>(), boost::simd::One<T>()), false);
-  NT2_TEST_EQUAL(compare_greater(boost::simd::One<T>(),boost::simd::Zero<T>()), false);
+  NT2_TEST_EQUAL(compare_greater(boost::simd::One<T>(),boost::simd::Zero<T>()), true);
   NT2_TEST_EQUAL(compare_greater(boost::simd::Zero<T>(), boost::simd::Zero<T>()), false);
 } // end of test for integer_

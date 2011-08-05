@@ -31,6 +31,8 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::hi;
   using boost::simd::tag::hi_;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type dtype;
+  typedef typename boost::simd::meta::scalar_of<ir_t>::type scal;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -47,8 +49,8 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(hi(boost::simd::Nan<T>()), boost::simd::Mone<r_t>());
-  NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::Nan<T>()), boost::simd::Mone<dtype>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<dtype>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( hi_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
@@ -57,6 +59,8 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
   using boost::simd::hi;
   using boost::simd::tag::hi_;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type dtype;
+  typedef typename boost::simd::meta::scalar_of<ir_t>::type scal;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -73,8 +77,8 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(hi(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::One<T>()), boost::simd::Zero<dtype>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<dtype>());
 } // end of test for int64_
 
 NT2_TEST_CASE_TPL ( hi_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
@@ -83,6 +87,8 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
   using boost::simd::hi;
   using boost::simd::tag::hi_;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type dtype;
+  typedef typename boost::simd::meta::scalar_of<ir_t>::type scal;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -99,8 +105,8 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(hi(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::One<T>()), boost::simd::Zero<dtype>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<dtype>());
 } // end of test for int32_
 
 NT2_TEST_CASE_TPL ( hi_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
@@ -109,6 +115,8 @@ NT2_TEST_CASE_TPL ( hi_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
   using boost::simd::hi;
   using boost::simd::tag::hi_;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
+  typedef typename boost::dispatch::meta::downgrade<ir_t>::type dtype;
+  typedef typename boost::simd::meta::scalar_of<ir_t>::type scal;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -125,6 +133,6 @@ NT2_TEST_CASE_TPL ( hi_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(hi(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(hi(boost::simd::One<T>()), boost::simd::Zero<dtype>());
+  NT2_TEST_EQUAL(hi(boost::simd::Zero<T>()), boost::simd::Zero<dtype>());
 } // end of test for int16_

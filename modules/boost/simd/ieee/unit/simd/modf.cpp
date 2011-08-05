@@ -16,6 +16,9 @@
 #include <boost/simd/toolbox/ieee/include/modf.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <nt2/include/functions/trunc.hpp>
+#include <nt2/include/functions/frac.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -34,6 +37,7 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::load; 
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
+  typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
