@@ -11,7 +11,7 @@
 #include <nt2/include/constants/digits.hpp>
 
 #include <nt2/include/functions/expm1.hpp>
-
+#include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <iostream>
