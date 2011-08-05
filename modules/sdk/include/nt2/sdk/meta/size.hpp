@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_META_SIZE_HPP_INCLUDED
 #define NT2_SDK_META_SIZE_HPP_INCLUDED
 
-#include <boost/simd/meta/size.hpp>
+#include <boost/simd/sdk/meta/size.hpp>
 
 namespace nt2 { namespace meta
 {
