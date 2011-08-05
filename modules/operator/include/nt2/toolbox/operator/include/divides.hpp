@@ -19,6 +19,7 @@ namespace nt2
   }
 
   using boost::simd::divides;
+  using boost::simd::rdiv; 
 }
 
 #endif
