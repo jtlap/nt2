@@ -18,7 +18,7 @@
 #include <nt2/sdk/config/attributes.hpp>
 #include <nt2/sdk/error/details/trap.hpp>
 
-namespace nt2 {
+namespace nt2
 {
 
   //==============================================================================
