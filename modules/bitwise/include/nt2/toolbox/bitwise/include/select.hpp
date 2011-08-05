@@ -19,6 +19,7 @@ namespace nt2
   }
 
   using boost::simd::select;
+  using boost::simd::sel; 
 }
 
 #endif
