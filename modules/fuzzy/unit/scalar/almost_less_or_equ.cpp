@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 fuzzy toolbox - definitely_greater/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 fuzzy toolbox - almost_less_or_equ/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of fuzzy components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
 /// 
-#include <nt2/toolbox/fuzzy/include/definitely_greater.hpp>
+#include <nt2/toolbox/fuzzy/include/almost_less_or_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/meta/logical.hpp>
 
@@ -33,13 +33,13 @@
 #include <nt2/include/constants/real.hpp>
 
 
-NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( almost_less_or_equ_real__3_0,  NT2_REAL_TYPES)
 {
   
-  using nt2::definitely_greater;
-  using nt2::tag::definitely_greater_;
+  using nt2::almost_less_or_equ;
+  using nt2::tag::almost_less_or_equ_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<definitely_greater_(T,T,iT)>::type r_t;
+  typedef typename nt2::meta::call<almost_less_or_equ_(T,T,iT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::logical<T>::type wished_r_t;
@@ -53,17 +53,17 @@ NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_greater(T(0),T(0),iT(1)), nt2::False<r_t>());
-  NT2_TEST_EQUAL(definitely_greater(T(0),T(1),iT(1)), nt2::False<r_t>());
+  NT2_TEST_EQUAL(almost_less_or_equ(T(0),T(0),iT(1)), nt2::True<r_t>());
+  NT2_TEST_EQUAL(almost_less_or_equ(T(0),T(1),iT(1)), nt2::True<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( almost_less_or_equ_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::definitely_greater;
-  using nt2::tag::definitely_greater_;
+  using nt2::almost_less_or_equ;
+  using nt2::tag::almost_less_or_equ_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<definitely_greater_(T,T,iT)>::type r_t;
+  typedef typename nt2::meta::call<almost_less_or_equ_(T,T,iT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::logical<T>::type wished_r_t;
@@ -77,17 +77,17 @@ NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYP
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_greater(T(0),T(0),iT(1)), nt2::False<r_t>());
-  NT2_TEST_EQUAL(definitely_greater(T(0),T(1),iT(1)), nt2::False<r_t>());
+  NT2_TEST_EQUAL(almost_less_or_equ(T(0),T(0),iT(1)), nt2::True<r_t>());
+  NT2_TEST_EQUAL(almost_less_or_equ(T(0),T(1),iT(1)), nt2::True<r_t>());
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( almost_less_or_equ_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
 {
   
-  using nt2::definitely_greater;
-  using nt2::tag::definitely_greater_;
+  using nt2::almost_less_or_equ;
+  using nt2::tag::almost_less_or_equ_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<definitely_greater_(T,T,iT)>::type r_t;
+  typedef typename nt2::meta::call<almost_less_or_equ_(T,T,iT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::logical<T>::type wished_r_t;
@@ -101,6 +101,6 @@ NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_greater(T(0),T(0),iT(1)), nt2::False<r_t>());
-  NT2_TEST_EQUAL(definitely_greater(T(0),T(1),iT(1)), nt2::False<r_t>());
+  NT2_TEST_EQUAL(almost_less_or_equ(T(0),T(0),iT(1)), nt2::True<r_t>());
+  NT2_TEST_EQUAL(almost_less_or_equ(T(0),T(1),iT(1)), nt2::True<r_t>());
 } // end of test for unsigned_int_

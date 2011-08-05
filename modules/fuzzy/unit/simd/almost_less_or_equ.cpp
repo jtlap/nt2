@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 fuzzy toolbox - fuzzy_definitely_less/simd Mode"
+#define NT2_UNIT_MODULE "nt2 fuzzy toolbox - almost_less_or_equ/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
 /// 
-#include <nt2/toolbox/fuzzy/include/fuzzy_definitely_less.hpp>
+#include <nt2/toolbox/fuzzy/include/almost_less_or_equ.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/meta/logical.hpp>
 
@@ -38,10 +38,10 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( fuzzy_definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( almost_less_or_equ_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::fuzzy_definitely_less;
-  using nt2::tag::fuzzy_definitely_less_;
+  using nt2::almost_less_or_equ;
+  using nt2::tag::almost_less_or_equ_;
   using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
@@ -51,14 +51,14 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<fuzzy_definitely_less_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<fuzzy_definitely_less_(T,T,T)>::type sr_t;
+  typedef typename nt2::meta::call<almost_less_or_equ_(vT,vT,ivT)>::type r_t;
+  typedef typename nt2::meta::call<almost_less_or_equ_(T,T,iT)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(fuzzy_definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<vT>(1))[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(fuzzy_definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(1))[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(almost_less_or_equ(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
+  NT2_TEST_EQUAL(almost_less_or_equ(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
 } // end of test for real_
