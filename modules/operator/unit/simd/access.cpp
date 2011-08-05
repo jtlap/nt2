@@ -8,10 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::memory::load and store SIMD"
 
-#include <nt2/sdk/simd/native.hpp>
-#include <nt2/sdk/simd/io.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 

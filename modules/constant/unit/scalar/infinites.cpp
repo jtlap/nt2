@@ -17,7 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of infinites for every base real types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( real_inf, NT2_REAL )
+NT2_TEST_CASE_TPL( real_inf, NT2_REAL_TYPES )
 {
   NT2_TEST_EQUAL( nt2::Inf<T>() , std::numeric_limits<T>::infinity()  );
   NT2_TEST_EQUAL( nt2::Minf<T>(), -std::numeric_limits<T>::infinity() );

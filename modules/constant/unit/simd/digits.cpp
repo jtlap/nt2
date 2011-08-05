@@ -11,7 +11,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 #ifdef BOOST_MSVC
   #pragma warning(disable: 4309) // truncation of constant value
