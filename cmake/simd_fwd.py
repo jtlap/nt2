@@ -158,10 +158,10 @@ class SimdFile(object):
             
         self.write_header(f)
         if(len(parents) == 0):
-	  if( self.path_prefix[:2] == ['boost', 'simd']):
+          if( self.path_prefix[:2] == ['boost', 'simd']):
             f.write("#include <boost/simd/sdk/error/warning.hpp>\n")
             f.write("BOOST_SIMD_WARNING(function has no SIMD implementation)\n")
-	  else:
+          else:
             f.write("#include <nt2/sdk/error/warning.hpp>\n")
             f.write("NT2_WARNING(function has no SIMD implementation)\n")
         else:

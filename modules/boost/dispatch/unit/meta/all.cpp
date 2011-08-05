@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define BOOST_DISPATCH_UNIT_MODULE "boost::dispatch::meta::all"
+#define NT2_UNIT_MODULE "boost::dispatch::meta::all"
 
 #include <boost/dispatch/meta/all.hpp>
 #include <boost/mpl/vector.hpp>

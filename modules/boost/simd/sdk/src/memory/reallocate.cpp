@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace memory
       //////////////////////////////////////////////////////////////////////////
       // MSVC systems use _aligned_realloc
       //////////////////////////////////////////////////////////////////////////
-      if( !(result = _aligned_realloc(ptr, nbytes, BOOST_SIMD_CONFIG_ALIGNMENT) ) )
+      if( !(result = reinterpret_cast<byte*>(_aligned_realloc(ptr, nbytes, BOOST_SIMD_CONFIG_ALIGNMENT)) ) )
       {
         BOOST_THROW_EXCEPTION( std::bad_alloc() );
         result = 0;
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace memory
       //////////////////////////////////////////////////////////////////////////
       // Other systems allocate/copy/deallocate
       //////////////////////////////////////////////////////////////////////////
-      byte* tmp = reinterpret_cast<byte*>(allocate(nbytes));
+      byte* tmp = allocate(nbytes);
       std::memcpy(tmp,ptr,obytes);
       deallocate(ptr);
       result = tmp;
