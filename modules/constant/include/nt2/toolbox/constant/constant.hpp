@@ -82,7 +82,17 @@ namespace nt2
   using boost::simd::Eight;
   using boost::simd::Nine;
   using boost::simd::Ten;
+  using boost::simd::Eleven;
+  using boost::simd::Twelve; 
   using boost::simd::Twenty;
+  using boost::simd::Twentyfour;	
+  using boost::simd::_120; //!5 
+  using boost::simd::_720; //!6  
+  using boost::simd::_5040; //!7 
+  using boost::simd::_40320; //!8 
+  using boost::simd::_362880; //!9 
+  using boost::simd::_3628800; //!10 
+  using boost::simd::_39916800; //!11
   using boost::simd::Hundred;
   using boost::simd::Thousand;
   using boost::simd::Fortyfive;
