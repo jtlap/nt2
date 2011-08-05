@@ -15,6 +15,7 @@
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/signnz.hpp>
 #include <nt2/include/functions/is_odd.hpp>
+#include <nt2/include/functions/is_even.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/sqr.hpp>
