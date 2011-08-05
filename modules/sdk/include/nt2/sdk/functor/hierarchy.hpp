@@ -41,6 +41,9 @@ namespace meta
   template<class Sig, class Site, class Enable = void>
   struct implement;
   
+  using boost::dispatch::functor;
+  using boost::dispatch::make_functor;
+  
   // Helpers
   using boost::dispatch::ignore_unused;
   
