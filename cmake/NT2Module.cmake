@@ -385,19 +385,87 @@ macro(nt2_module_simd_toolbox name)
   endif()
 endmacro()
 
-# work in progress
-macro(nt2_module_gather_includes)
-  get_target_property(gather_includes_exists gather_includes EXCLUDE_FROM_ALL)
-  if(NOT gather_includes_exists)
-    add_subdirectory(${NT2_SOURCE_ROOT}/tools/gather_includes ${PROJECT_BINARY_DIR}/tools/gather_includes EXCLUDE_FROM_ALL)
+macro(nt2_module_tool tool)
+
+  if(NOT EXISTS ${PROJECT_BINARY_DIR}/tools/${tool}/${tool})
+
+    message(STATUS "[nt2] building tool ${tool}")
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool})
+    execute_process(COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${PROJECT_SOURCE_DIR}/tools/${tool}
+                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
+                    OUTPUT_QUIET
+                    RESULT_VARIABLE tool_configure
+                   )
+
+    if(tool_configure)
+      message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
+    endif()
+
+    execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
+                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
+                    OUTPUT_QUIET
+                    RESULT_VARIABLE tool_build
+                   )
+                 
+    if(tool_build)
+      message(FATAL_ERROR "[nt2] building tool ${tool} failed")
+    endif()
+    
   endif()
+  
+  execute_process(COMMAND ${PROJECT_BINARY_DIR}/tools/${tool}/${tool} ${ARGN})
+
+endmacro()
+
+macro(nt2_module_gather_includes)
   
   get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
   string(REPLACE ";" ";-I" INCLUDES "${INCLUDES}")
   
-  execute_process(COMMAND ${PROJECT_BINARY_DIR}/tools/gather_includes/gather_includes -I ${INCLUDES} ${PROJECT_BINARY_DIR}/include ${ARGN}
-                  RESULT_VARIABLE result
-                 )
-                  
-  message(STATUS "result = ${result}")
+  nt2_module_postconfigure(gather_includes -I ${INCLUDES} ${PROJECT_BINARY_DIR}/include ${ARGN})
+                
+endmacro()
+
+macro(nt2_module_postconfigure)
+
+  set(NT2_POSTCONFIGURE_COMMANDS_${NT2_POSTCONFIGURE_COMMANDS} "${ARGN}" CACHE INTERNAL "" FORCE)
+  set(NT2_POSTCONFIGURE_COMMANDS_${NT2_POSTCONFIGURE_COMMANDS}_MODULE ${NT2_CURRENT_MODULE} CACHE INTERNAL "" FORCE)
+  
+  math(EXPR plus_one "${NT2_POSTCONFIGURE_COMMANDS} + 1")
+  set(NT2_POSTCONFIGURE_COMMANDS ${plus_one} CACHE INTERNAL "" FORCE)
+
+endmacro()
+
+macro(nt2_postconfigure_init)
+
+  set(NT2_POSTCONFIGURE_COMMANDS 0 CACHE INTERNAL "" FORCE)
+
+endmacro()
+
+macro(nt2_postconfigure_run)
+
+  set(i 0)
+  while(i LESS ${NT2_POSTCONFIGURE_COMMANDS})
+    string(REPLACE ";" " " command "${NT2_POSTCONFIGURE_COMMANDS_${i}}")
+    message(STATUS "[nt2.${NT2_POSTCONFIGURE_COMMANDS_${i}_MODULE}] running post-configure command")
+    nt2_module_tool(${NT2_POSTCONFIGURE_COMMANDS_${i}})
+    math(EXPR i "${i} + 1")
+  endwhile()
+
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+
+    if(CPACK_GENERATOR)
+      cpack_add_component(postconfigure
+                          HIDDEN DISABLED
+                         )
+    endif()
+  
+    # install headers, cmake modules and manifest
+    install( DIRECTORY ${PROJECT_BINARY_DIR}/include/
+             DESTINATION include
+             COMPONENT postconfigure
+             FILES_MATCHING PATTERN "*.hpp"
+           )
+  endif()
+
 endmacro()

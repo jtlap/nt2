@@ -46,11 +46,12 @@ if(NT2_WITH_TESTS)
   ENABLE_TESTING()
 endif()
 
+set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
+nt2_postconfigure_init()
+
 ################################################################################
 # Module inclusion
 ################################################################################
-set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
-
 set(NT2_MODULES_EXTRA "" CACHE STRING "Extra modules to load")
 set(NT2_MODULES_BLACKLIST "" CACHE STRING "Modules that should not be loaded")
 
@@ -101,6 +102,8 @@ foreach(module ${NT2_MODULES})
     
   endif()
 endforeach()
+
+nt2_postconfigure_run()
 
 ADD_SUBDIRECTORY(sandbox)
 
