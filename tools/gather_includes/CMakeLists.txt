@@ -17,11 +17,16 @@ if(MSVC)
 endif()
 
 set(Boost_USE_STATIC_LIBS ON)
+set(Boost_USE_STATIC_RUNTIME ON)
+SET(Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0" "1.46" "1.46.0" "1.46.1" "1.47" "1.47.0")
 find_package(Boost COMPONENTS filesystem system program_options REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
 add_executable(gather_includes gather_includes.cpp)
+set_target_properties(gather_includes
+                      PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}
+                     )
 target_link_libraries(gather_includes
                       ${Boost_FILESYSTEM_LIBRARY}
                       ${Boost_SYSTEM_LIBRARY}
