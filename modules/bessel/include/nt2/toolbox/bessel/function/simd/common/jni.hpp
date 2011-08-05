@@ -20,6 +20,10 @@
 #include <nt2/include/functions/j0.hpp>
 #include <nt2/include/functions/j1.hpp>
 #include <nt2/include/functions/cospi.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/select.hpp>
 
 
 
