@@ -8,7 +8,7 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(sdk)
+nt2_module_source_setup(boost.simd.sdk)
 
 set(SOURCES
     memory/allocate.cpp
