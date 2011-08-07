@@ -11,6 +11,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/plevl.hpp>
 #include <nt2/include/functions/polevl.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/sqr.hpp>
