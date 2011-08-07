@@ -9,7 +9,7 @@
 
 INCLUDE_DIRECTORIES(${GSL_INCLUDE_DIRS} ${GSLCBLAS_INCLUDE_DIRS})
 
-SET( SOURCES
+SET( SOURCESs
   gsl_sf_bessel_kl_scaled.cpp
   gsl_sf_bessel_j1.cpp
   gsl_sf_sinc.cpp
