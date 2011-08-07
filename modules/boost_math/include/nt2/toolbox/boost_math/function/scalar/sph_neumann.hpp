@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost_math::tag::sph_neumann_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::sph_neumann_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost_math::tag::sph_neumann_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::sph_neumann_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< real_<A1> >)
                             )
