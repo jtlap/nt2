@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::incbi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::incbi_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< arithmetic_<A2> >)
                             )
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::incbi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::incbi_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< double_<A0> >)(scalar_< double_<A1> >)(scalar_< double_<A2> >)
                             )
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::incbi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::incbi_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< float_<A0> >)(scalar_< float_<A1> >)(scalar_< float_<A2> >)
                             )
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::incbi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::incbi_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (long_double_<A0>)(long_double_<A1>)(long_double_<A2>)
                             )

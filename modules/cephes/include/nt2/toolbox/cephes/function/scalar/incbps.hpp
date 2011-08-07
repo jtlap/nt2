@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::incbps_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::incbps_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< arithmetic_<A2> >)
                             )

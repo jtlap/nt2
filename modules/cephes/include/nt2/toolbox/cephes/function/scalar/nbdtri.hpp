@@ -20,7 +20,7 @@ extern "C" { extern double cephes_nbdtri(int,int,double); }
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::nbdtri_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::nbdtri_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< arithmetic_<A2> >)
                             )
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::nbdtri_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::nbdtri_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< real_<A2> >)
                             )
