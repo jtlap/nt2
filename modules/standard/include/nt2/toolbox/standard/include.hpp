@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_STANDARD_INCLUDE_HPP_INCLUDED
 #define NT2_TOOLBOX_STANDARD_INCLUDE_HPP_INCLUDED
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 #include <cmath>
 
 #define NT2_STANDARD_BASE() nt2/toolbox/standard/function/scalar/
