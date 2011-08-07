@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( libc::tag::fabs_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::fabs_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( libc::tag::fabs_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::fabs_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)
                             )
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( libc::tag::fabs_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::fabs_, tag::cpu_
                             , (A0)
                             , (scalar_< float_<A0> >)
                             )
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( libc::tag::fabs_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::fabs_, tag::cpu_
                             , (A0)
                             , (long_double_<A0>)
                             )
