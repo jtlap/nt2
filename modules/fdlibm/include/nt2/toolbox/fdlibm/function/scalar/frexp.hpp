@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::frexp_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::fdlibm::tag::frexp_, tag::cpu_,
 			     (A0)(A1),
                        (scalar_<double_<A0> > )
 		       (scalar_<int32_<A1> > )
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::frexp_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::fdlibm::tag::frexp_, tag::cpu_,
                        (A0),
                        (scalar_<double_<A0> > )
                       )
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       result_type res; 
-      boost::fusion::at_c<0>(res) = fdlibm::frexp(a0, boost::fusion::at_c<1>(res));
+      boost::fusion::at_c<0>(res) =nt2::fdlibm::frexp(a0, boost::fusion::at_c<1>(res));
       return res; 
     }
   };

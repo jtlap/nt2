@@ -14,7 +14,7 @@ extern "C"{ extern double fd_isnan ( double ); }
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::isnan_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::fdlibm::tag::isnan_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( fdlibm::tag::isnan_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::fdlibm::tag::isnan_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
