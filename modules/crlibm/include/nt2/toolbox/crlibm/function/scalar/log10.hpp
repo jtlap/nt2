@@ -20,7 +20,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(crlibm::tag::log10_<Rounding>, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::crlibm::tag::log10_<Rounding>, tag::cpu_,
                        (A0)(Rounding),
                        (scalar_<arithmetic_<A0> > )
                       )
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  NT2_FUNCTOR_IMPLEMENTATION(crlibm::tag::log10_<Rounding>, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::crlibm::tag::log10_<Rounding>, tag::cpu_,
                        (A0)(Rounding),
                        (scalar_<double_<A0> > )
                       )

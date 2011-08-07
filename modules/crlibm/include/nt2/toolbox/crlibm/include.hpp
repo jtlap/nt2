@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_CRLIBM_INCLUDE_HPP_INCLUDED
 #define NT2_TOOLBOX_CRLIBM_INCLUDE_HPP_INCLUDED
 #include <nt2/toolbox/crlibm/specific/interface.hpp>
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 
 #define NT2_CRLIBM_BASE() nt2/toolbox/crlibm/function/scalar/
 #define NT2_CRLIBM_RELATIVE() nt2/toolbox/crlibm/function/
