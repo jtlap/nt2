@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/operator/include/compare_greater_equal.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <boost/simd/include/functions/all.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

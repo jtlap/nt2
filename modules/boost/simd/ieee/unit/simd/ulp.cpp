@@ -15,6 +15,10 @@
 /// 
 #include <boost/simd/toolbox/ieee/include/ulp.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/next.hpp>
+#include <boost/simd/include/functions/prev.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>

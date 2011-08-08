@@ -15,8 +15,8 @@
 /// 
 #include <boost/simd/toolbox/ieee/include/prev.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/predecessor.hpp>
-#include <nt2/include/constants/eps_related.hpp>
+#include <boost/simd/include/functions/predecessor.hpp>
+#include <boost/simd/include/constants/eps_related.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

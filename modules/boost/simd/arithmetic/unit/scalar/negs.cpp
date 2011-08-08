@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( negs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::negs_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<negs_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<negs_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( negs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::tag::negs_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<negs_(T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<negs_(T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;

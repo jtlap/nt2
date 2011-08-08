@@ -18,7 +18,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 18/02/2011',
-             'included' : ['#include<nt2/sdk/meta/downgrade.hpp>'],
+             'included' : ['#include <boost/dispatch/meta/downgrade.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 18/02/2011',

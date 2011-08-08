@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/ieee/include/negate.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/sign.hpp>
+#include <boost/simd/include/functions/sign.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

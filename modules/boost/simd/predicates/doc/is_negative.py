@@ -17,7 +17,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 21/02/2011',
-             'included' : ['#include <nt2/sdk/meta/logical.hpp>', '#include <nt2/include/functions/bitofsign.hpp>'],
+             'included' : ['#include <boost/simd/sdk/meta/logical.hpp>', '#include <boost/simd/include/functions/bitofsign.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 21/02/2011',

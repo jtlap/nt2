@@ -18,8 +18,8 @@
              'first_stamp' : 'modified by jt the 01/12/2010',
              'included' : 
                 ['#include <boost/fusion/tuple.hpp>',
-                 '#include <nt2/include/functions/remainder.hpp>',
-                 '#include <nt2/include/functions/idivround.hpp>'],
+                 '#include <boost/simd/include/functions/remainder.hpp>',
+                 '#include <boost/simd/include/functions/idivround.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 13/12/2010',
             },
