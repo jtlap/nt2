@@ -23,11 +23,20 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/floating.hpp>
+#include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
@@ -38,7 +47,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_real__1_0,  NT2_SIMD_REAL_TYPES)
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
   using nt2::load; 
-  using nt2::simd::native;
+  using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -84,7 +93,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
   using nt2::load; 
-  using nt2::simd::native;
+  using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -130,7 +139,7 @@ NT2_TEST_CASE_TPL ( fast_sincosd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES
   using nt2::fast_sincosd;
   using nt2::tag::fast_sincosd_;
   using nt2::load; 
-  using nt2::simd::native;
+  using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
