@@ -16,7 +16,10 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 30/11/2010',
              'included' : [],
-             'notes' : [],
+             'cover_included' : ['#include <nt2/sdk/meta/as_integer.hpp>',
+                                '#include <nt2/sdk/meta/upgrade.hpp>'
+                                 ],
+            'notes' : [],
              'stamp' : 'modified by jt the 02/01/2011',
             },
          'ranges' : {

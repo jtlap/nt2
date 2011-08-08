@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( lcm_real__2_0,  NT2_SIMD_REAL_TYPES)
   using nt2::lcm;
   using nt2::tag::lcm_;
   using nt2::load; 
-  using nt2::simd::native;
+  using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;

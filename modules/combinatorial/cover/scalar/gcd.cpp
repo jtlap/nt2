@@ -22,7 +22,8 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
 
 
 NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_REAL_TYPES)
