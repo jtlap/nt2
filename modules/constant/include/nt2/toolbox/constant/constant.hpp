@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_CONSTANT_CONSTANT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <nt2/include/functor.hpp>
 
 #define NT2_MAKE_STD_CONSTANT(NAME,HEXDOUBLE,HEXFLOAT,INT)             \
 BOOST_SIMD_STD_CONSTANT_TAG(NAME)                                      \
