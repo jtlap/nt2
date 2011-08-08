@@ -20,24 +20,73 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/floating.hpp>
+#include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( is_greater_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::is_greater;
   using nt2::tag::is_greater_;
   using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<is_greater_(vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<is_greater_(T,T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        vT a1 = load<vT>(&tab_a1[0],j);
+        r_t v = is_greater(a0,a1);
+        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          int k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::is_greater (tab_a0[k],tab_a1[k])));
+        }
+      }
+    
+  }
+} // end of test for integer_
+
+NT2_TEST_CASE_TPL ( is_greater_real__2_0,  NT2_SIMD_REAL_TYPES)
+{
+  using nt2::is_greater;
+  using nt2::tag::is_greater_;
+  using nt2::load; 
+  using boost::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
