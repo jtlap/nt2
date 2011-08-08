@@ -65,10 +65,15 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  NT2_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = saturate_at<nt2::tag::Pi>(a0);
+	std::cout << " a0 " << a0 << std::endl; 
+	std::cout << " v " << v << std::endl; 
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::saturate_at<nt2::tag::Pi> (tab_a0[k])), 2.5);
+	  std::cout << "tab_a0[k] " << tab_a0[k] << std::endl; 
+	  std::cout << " v[" << i << "] = " << v[i] << " sv " << ssr_t(nt2::saturate_at<nt2::tag::Pi>(tab_a0[k])) << std::endl; 
+
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

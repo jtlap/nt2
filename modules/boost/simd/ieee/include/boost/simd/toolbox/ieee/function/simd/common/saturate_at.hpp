@@ -10,6 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_COMMON_SATURATE_AT_HPP_INCLUDED
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -25,9 +28,7 @@ namespace boost { namespace simd { namespace ext
     {
       typename dispatch::make_functor<Tag, A0>::type callee; 
       const A0 z = callee( dispatch::meta::as_<A0>() );
-      if      (a0 > z)  return z;
-      else if (a0 < -z) return -z;
-      else              return a0; 
+      return select(gt(a0, z), z, select(lt(a0, -z), -z, a0)); 
     }
   };
 } } }
