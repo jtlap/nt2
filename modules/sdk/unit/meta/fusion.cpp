@@ -27,7 +27,8 @@ NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, NT2_TYPES)
 {
   using boost::array;
   using boost::is_same;
-  using namespace nt2::meta;
+  using nt2::meta::hierarchy_of;
+  using namespace nt2::ext;
 
   typedef array<T,7> base;
   typedef typename hierarchy_of<base>::type        hvalue;
@@ -45,7 +46,8 @@ NT2_TEST_CASE(hierarchy_of_array)
 {
   using boost::array;
   using boost::is_same;
-  using namespace nt2::meta;
+  using nt2::meta::hierarchy_of;
+  using namespace nt2::ext;
 
   typedef hierarchy_of< array<double,7> >::type base;
 

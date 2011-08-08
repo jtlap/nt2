@@ -25,7 +25,7 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   struct no_padding
   {
-    typedef meta::padding_<no_padding>                  nt2_hierarchy_tag;
+    typedef ext::padding_<no_padding>                  nt2_hierarchy_tag;
   };
 } }
 

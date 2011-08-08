@@ -15,7 +15,7 @@
 #include <boost/typeof/typeof.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
-#include <boost/dispatch/meta/fusion.hpp>
+#include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/memory/align_on.hpp>
 #include <nt2/sdk/memory/details/no_padding.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
@@ -23,7 +23,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // slice implementation for global_padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   template<class A0, class A2, class Dummy>
   struct implement< tag::slice_
