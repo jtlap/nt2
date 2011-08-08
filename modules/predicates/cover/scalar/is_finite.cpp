@@ -16,8 +16,9 @@
 #include <nt2/toolbox/predicates/include/is_finite.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/meta/logical.hpp>
+
+#include <nt2/include/functions/abs.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
