@@ -41,7 +41,7 @@ namespace nt2
             return r;                                                          \
         }
         
-        BOOST_PP_REPEAT(NT2_MAX_ARITY, M0, ~)
+        BOOST_PP_REPEAT(BOOST_DISPATCH_MAX_ARITY, M0, ~)
         #undef M0
         #undef M1
     }

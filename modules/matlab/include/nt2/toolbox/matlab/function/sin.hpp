@@ -15,10 +15,10 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( matlab::sin_, tag::cpu_,
-			     (A0),
-			     (scalar_< real_<A0> >)
-			    )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::matlab::sin_, tag::cpu_,
+                             (A0),
+                             (scalar_< real_<A0> >)
+                            )
   {
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
