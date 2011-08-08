@@ -15,9 +15,9 @@
 /// 
 #include <boost/simd/toolbox/ieee/include/exponentbits.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/ldexp.hpp>
-#include <nt2/include/functions/exponent.hpp>
-#include <nt2/include/functions/bits.hpp>
+#include <boost/simd/include/functions/ldexp.hpp>
+#include <boost/simd/include/functions/exponent.hpp>
+#include <boost/simd/include/functions/bits.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

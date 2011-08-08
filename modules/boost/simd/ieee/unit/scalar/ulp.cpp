@@ -15,9 +15,9 @@
 /// 
 #include <boost/simd/toolbox/ieee/include/ulp.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/next.hpp>
-#include <nt2/include/functions/prev.hpp>
+#include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/next.hpp>
+#include <boost/simd/include/functions/prev.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

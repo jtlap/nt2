@@ -16,8 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
-             'included' : ['#include<nt2/include/functions/signnz.hpp>',
-                           '#include<nt2/include/functions/abs.hpp>'],
+             'included' : ['#include <boost/simd/include/functions/signnz.hpp>',
+                           '#include <boost/simd/include/functions/abs.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',

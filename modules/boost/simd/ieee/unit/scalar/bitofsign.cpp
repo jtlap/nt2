@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/ieee/include/bitofsign.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/is_negative.hpp>
+#include <boost/simd/include/functions/is_negative.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

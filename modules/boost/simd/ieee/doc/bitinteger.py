@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
-             'included' : ['#include <nt2/include/functions/bitfloating.hpp>', '#include <nt2/sdk/meta/as_integer.hpp>'],
+             'included' : ['#include <boost/simd/include/functions/bitfloating.hpp>', '#include <boost/dispatch/meta/as_integer.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',

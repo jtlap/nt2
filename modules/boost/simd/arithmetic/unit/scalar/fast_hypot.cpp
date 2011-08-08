@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/arithmetic/include/fast_hypot.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/arithmetic/include/hypot.hpp>
+#include <boost/simd/toolbox/arithmetic/include/hypot.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( fast_hypot_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::fast_hypot_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<fast_hypot_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<fast_hypot_(T,T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<boost::dispatch::meta::floating(T,T)>::type wished_r_t;
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( fast_hypot_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::tag::fast_hypot_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<fast_hypot_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<fast_hypot_(T,T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<boost::dispatch::meta::floating(T,T)>::type wished_r_t;
@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL ( fast_hypot_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPE
   using boost::simd::tag::fast_hypot_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<fast_hypot_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<fast_hypot_(T,T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<boost::dispatch::meta::floating(T,T)>::type wished_r_t;

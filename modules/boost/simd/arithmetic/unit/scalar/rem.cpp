@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/arithmetic/include/rem.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include<nt2/include/functions/idivfix.hpp>
+#include <boost/simd/include/functions/idivfix.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( rem_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::rem_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<rem_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<rem_(T,T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type wished_r_t;
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( rem_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::tag::rem_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<rem_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<rem_(T,T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type wished_r_t;
@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL ( rem_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::tag::rem_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<rem_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<rem_(T,T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type wished_r_t;

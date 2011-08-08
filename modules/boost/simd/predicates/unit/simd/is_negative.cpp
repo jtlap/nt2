@@ -15,6 +15,9 @@
 /// 
 #include <boost/simd/toolbox/predicates/include/is_negative.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/sdk/meta/logical.hpp>
+#include <boost/simd/include/functions/bitofsign.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>

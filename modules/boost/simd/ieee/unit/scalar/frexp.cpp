@@ -16,8 +16,8 @@
 #include <boost/simd/toolbox/ieee/include/frexp.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/mantissa.hpp>
-#include <nt2/include/functions/exponent.hpp>
+#include <boost/simd/include/functions/mantissa.hpp>
+#include <boost/simd/include/functions/exponent.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

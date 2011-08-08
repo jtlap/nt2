@@ -17,9 +17,9 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
              'included' : 
-                ['#include <nt2/include/functions/ldexp.hpp>',
-                 '#include <nt2/include/functions/exponent.hpp>',
-                 '#include <nt2/include/functions/bits.hpp>'],
+                ['#include <boost/simd/include/functions/ldexp.hpp>',
+                 '#include <boost/simd/include/functions/exponent.hpp>',
+                 '#include <boost/simd/include/functions/bits.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',

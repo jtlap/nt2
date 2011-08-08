@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/bitwise/include/selsub.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/predicates/include/is_nez.hpp>
+#include <boost/simd/toolbox/predicates/include/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

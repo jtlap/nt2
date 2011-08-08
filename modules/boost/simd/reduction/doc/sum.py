@@ -17,7 +17,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'included' : ['#include <nt2/sdk/meta/logical.hpp>'],
+             'included' : ['#include <boost/simd/sdk/meta/logical.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },

@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
-             'included' : ['#include<nt2/include/functions/idivfloor.hpp>'],
+             'included' : ['#include <boost/simd/include/functions/idivfloor.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 13/12/2010',
             },

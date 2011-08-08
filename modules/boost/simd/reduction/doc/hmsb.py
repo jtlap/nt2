@@ -18,9 +18,9 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
              'included' : [],   
-             'simd_included' : ['#include <nt2/include/functions/bits.hpp>',
-                                '#include <nt2/include/functions/shri.hpp>'],
-             'cover_included' : ['#include <nt2/include/functions/bits.hpp>'],
+             'simd_included' : ['#include <boost/simd/include/functions/bits.hpp>',
+                                '#include <boost/simd/include/functions/shri.hpp>'],
+             'cover_included' : ['#include <boost/simd/include/functions/bits.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',

@@ -16,8 +16,8 @@
 #include <boost/simd/toolbox/ieee/include/modf.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/trunc.hpp>
-#include <nt2/include/functions/frac.hpp>
+#include <boost/simd/include/functions/trunc.hpp>
+#include <boost/simd/include/functions/frac.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
