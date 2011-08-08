@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_HPP_INCLUDED
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 
 #define NT2_GSL_SPECFUN_BASE() nt2/toolbox/gsl_specfun/function/scalar/
 #define NT2_GSL_SPECFUN_RELATIVE() nt2/toolbox/gsl_specfun/function/

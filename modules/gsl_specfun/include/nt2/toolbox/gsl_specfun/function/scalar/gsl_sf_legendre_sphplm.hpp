@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_legendre_sphplm_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::gsl_specfun::tag::gsl_sf_legendre_sphplm_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< arithmetic_<A2> >)
                             )
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_legendre_sphplm_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::gsl_specfun::tag::gsl_sf_legendre_sphplm_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< double_<A2> >)
                             )
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_legendre_sphplm_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::gsl_specfun::tag::gsl_sf_legendre_sphplm_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< float_<A2> >)
                             )
