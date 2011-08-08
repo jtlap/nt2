@@ -126,7 +126,6 @@ SET( SOURCES
   gsl_sf_bessel_yl.cpp
   gsl_sf_bessel_y1.cpp
   gsl_sf_bessel_y0.cpp
-  gsl_sf_bessel_knu_scaled_.cpp
   gsl_sf_bessel_kn_scaled.cpp
   gsl_sf_bessel_kn.cpp
   gsl_sf_bessel_kl_scaled.cpp
