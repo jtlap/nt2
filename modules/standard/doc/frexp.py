@@ -10,7 +10,7 @@
          'simd_types' : [],
          'special' : ['standard'],
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['float','double'],
         },
      'info' : 'manually modified',
      'unit' : {
