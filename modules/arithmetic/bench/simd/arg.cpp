@@ -14,8 +14,9 @@
 #include <nt2/toolbox/arithmetic/include/arg.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<arg_> from arithmetic
@@ -29,13 +30,13 @@ using nt2::tag::arg_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(arg_,(RS(vT,-10.0f,10.0f)))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(arg_,(RS(vT,-10.0,10.0)))
 }
