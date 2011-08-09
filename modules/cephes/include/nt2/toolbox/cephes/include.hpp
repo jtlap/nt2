@@ -13,10 +13,6 @@
 #define NT2_CEPHES_BASE() nt2/toolbox/cephes/function/scalar/
 #define NT2_CEPHES_RELATIVE() nt2/toolbox/cephes/function/
 
-#if defined(NT2_SIMD_DETECTED)
 #define NT2_CEPHES_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_CEPHES_RELATIVE, F)
-#else
-#define NT2_CEPHES_INCLUDE(F) NT2_PP_INCLUDE(NT2_CEPHES_BASE, F)
-#endif
 
 #endif

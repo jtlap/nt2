@@ -13,10 +13,6 @@
 #define NT2_BOOST_MATH_BASE() nt2/toolbox/boost_math/function/scalar/
 #define NT2_BOOST_MATH_RELATIVE() nt2/toolbox/boost_math/function/
 
-#if defined(NT2_SIMD_DETECTED)
 #define NT2_BOOST_MATH_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_BOOST_MATH_RELATIVE, F)
-#else
-#define NT2_BOOST_MATH_INCLUDE(F) NT2_PP_INCLUDE(NT2_BOOST_MATH_BASE, F)
-#endif
 
 #endif

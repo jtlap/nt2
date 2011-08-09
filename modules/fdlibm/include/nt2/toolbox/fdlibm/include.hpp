@@ -13,10 +13,6 @@
 #define NT2_FDLIBM_BASE() nt2/toolbox/fdlibm/function/scalar/
 #define NT2_FDLIBM_RELATIVE() nt2/toolbox/fdlibm/function/
 
-#if defined(NT2_SIMD_DETECTED)
 #define NT2_FDLIBM_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_FDLIBM_RELATIVE, F)
-#else
-#define NT2_FDLIBM_INCLUDE(F) NT2_PP_INCLUDE(NT2_FDLIBM_BASE, F)
-#endif
 
 #endif
