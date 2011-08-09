@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 swar toolbox - comparator/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.swar toolbox - comparator/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of swar components in scalar mode
+// timing Test behavior of boost.simd.swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/swar/include/comparator.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<comparator_> from swar
+// scalar runtime benchmark for functor<comparator_> from boost.simd.swar
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::comparator_;
 
@@ -29,13 +30,13 @@ using boost::simd::tag::comparator_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(comparator_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(comparator_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(comparator_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(comparator_,(RS(T,T(-100),T(100)))(RS(T,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
 }
 
 #undef RS

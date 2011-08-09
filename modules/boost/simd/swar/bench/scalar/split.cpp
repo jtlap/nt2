@@ -6,39 +6,27 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 boost.simd.swar toolbox - splatted_first/simd Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.swar toolbox - split/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of boost.simd.swar components in simd mode
+// timing Test behavior of boost.simd.swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/swar/include/splatted_first.hpp>
+#include <boost/simd/toolbox/swar/include/split.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<splatted_first_> from boost.simd.swar
+// scalar runtime benchmark for functor<split_> from boost.simd.swar
 //////////////////////////////////////////////////////////////////////////////
-using boost::simd::tag::splatted_first_;
+using boost::simd::tag::split_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, (V1) ,(V2))
+#define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
-namespace n1 {
-  typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(splatted_first_,(RS(vT,T(-100),T(100))))
-}
-namespace n2 {
-  typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(splatted_first_,(RS(vT,T(-100),T(100))))
-}
 
 #undef RS

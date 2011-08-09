@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 swar toolbox - comparator/simd Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.swar toolbox - comparator/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of swar components in simd mode
+// timing Test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/swar/include/comparator.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<comparator_> from swar
+// simd runtime benchmark for functor<comparator_> from boost.simd.swar
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::comparator_;
 
@@ -29,19 +30,19 @@ using boost::simd::tag::comparator_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
-  BOOST_SIMD_TIMING(comparator_,(RS(vT,T(-100),T(100)))(RS(vT,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
+  NT2_TIMING(comparator_,(RS(vT,T(-100),T(100)))(RS(vT,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
-  BOOST_SIMD_TIMING(comparator_,(RS(vT,T(-100),T(100)))(RS(vT,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
+  NT2_TIMING(comparator_,(RS(vT,T(-100),T(100)))(RS(vT,T(-100),T(100)))(RS(iT,iT(0),iT(1))))
 }
 
 #undef RS
