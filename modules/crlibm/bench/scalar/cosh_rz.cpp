@@ -14,6 +14,7 @@
 #include <nt2/toolbox/crlibm/include/cosh_rz.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,12 +30,12 @@ using nt2::crlibm::tag::cosh_rz_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(cosh_rz_,(RS(T,T(-80),T(80))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(cosh_rz_,(RS(T,T(-80),T(80))))
 }
 

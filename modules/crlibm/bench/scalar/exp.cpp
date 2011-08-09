@@ -14,6 +14,7 @@
 #include <nt2/toolbox/crlibm/include/exp.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -28,14 +29,14 @@ using nt2::crlibm::tag::exp_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
-  typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(exp_<nt2::rn>,(RS(T,T(-85),T(85))))
+  typedef double T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(exp_<nt2::rn>,(RS(T,T(-706),T(706))))
 }
 namespace n2 {
-  typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(exp_<nt2::rn>,(RS(T,T(-706),T(706))))
+  typedef float T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(exp_<nt2::rn>,(RS(T,T(-85),T(85))))
 }
 
 #undef RS
