@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 bitwise toolbox - twopower/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.bitwise toolbox - twopower/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of bitwise components in scalar mode
+// timing Test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/bitwise/include/twopower.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<twopower_> from bitwise
+// scalar runtime benchmark for functor<twopower_> from boost.simd.bitwise
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::twopower_;
 
@@ -29,23 +30,23 @@ using boost::simd::tag::twopower_;
 
 namespace n1 {
   typedef boost::simd::uint8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
 }
 namespace n2 {
   typedef boost::simd::uint16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
 }
 namespace n3 {
   typedef boost::simd::uint32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
 }
 namespace n4 {
   typedef boost::simd::uint64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(twopower_,(RS(T,0,sizeof(T)*8-1)))
 }
 
 #undef RS
