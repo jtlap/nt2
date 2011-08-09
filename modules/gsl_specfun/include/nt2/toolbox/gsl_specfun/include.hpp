@@ -13,10 +13,6 @@
 #define NT2_GSL_SPECFUN_BASE() nt2/toolbox/gsl_specfun/function/scalar/
 #define NT2_GSL_SPECFUN_RELATIVE() nt2/toolbox/gsl_specfun/function/
 
-#if defined(NT2_SIMD_DETECTED)
 #define NT2_GSL_SPECFUN_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_GSL_SPECFUN_RELATIVE, F)
-#else
-#define NT2_GSL_SPECFUN_INCLUDE(F) NT2_PP_INCLUDE(NT2_GSL_SPECFUN_BASE, F)
-#endif
 
 #endif

@@ -13,9 +13,6 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/function/simd/common/impl/trigo.hpp>
-#ifdef NT2_SIMD_DETECTED
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -59,6 +56,4 @@ namespace nt2 { namespace ext
   };
 } }
 
-
-#endif
 #endif

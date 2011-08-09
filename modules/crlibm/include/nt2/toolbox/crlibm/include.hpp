@@ -14,10 +14,6 @@
 #define NT2_CRLIBM_BASE() nt2/toolbox/crlibm/function/scalar/
 #define NT2_CRLIBM_RELATIVE() nt2/toolbox/crlibm/function/
 
-#if defined(NT2_SIMD_DETECTED)
 #define NT2_CRLIBM_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_CRLIBM_RELATIVE, F)
-#else
-#define NT2_CRLIBM_INCLUDE(F) NT2_PP_INCLUDE(NT2_CRLIBM_BASE, F)
-#endif
 
 #endif
