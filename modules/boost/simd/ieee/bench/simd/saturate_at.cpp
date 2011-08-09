@@ -6,12 +6,12 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 boost.simd.ieee toolbox - negate/simd Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.ieee toolbox - saturate_at/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/ieee/include/negate.hpp>
+#include <boost/simd/toolbox/ieee/include/saturate_at.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -19,9 +19,9 @@
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<negate_> from boost.simd.ieee
+// simd runtime benchmark for functor<saturate_at_> from boost.simd.ieee
 //////////////////////////////////////////////////////////////////////////////
-using boost::simd::tag::negate_;
+using boost::simd::tag::saturate_at_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -32,13 +32,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(negate_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+  NT2_TIMING(saturate_at_<boost::simd::tag::Pi>,(RS(vT,-boost::simd::Ten<T>(),boost::simd::Ten<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(negate_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+  NT2_TIMING(saturate_at_<boost::simd::tag::Pi>,(RS(vT,-boost::simd::Ten<T>(),boost::simd::Ten<T>())))
 }
 
 #undef RS

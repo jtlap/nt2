@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 ieee toolbox - bitfloating/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.ieee toolbox - bitfloating/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of ieee components in scalar mode
+// timing Test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/ieee/include/bitfloating.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<bitfloating_> from ieee
+// scalar runtime benchmark for functor<bitfloating_> from boost.simd.ieee
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::bitfloating_;
 
@@ -28,24 +29,24 @@ using boost::simd::tag::bitfloating_;
 #define RS(T,V1,V2) (T, T(V1) ,T(V2))
 
 namespace n1 {
-  typedef boost::simd::uint32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(bitfloating_,(RS(T,0,100)))
+  typedef boost::simd::int32_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,-100,100)))
 }
 namespace n2 {
-  typedef boost::simd::uint64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(bitfloating_,(RS(T,0,100)))
+  typedef boost::simd::int64_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,-100,100)))
 }
 namespace n3 {
-  typedef boost::simd::int32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(bitfloating_,(RS(T,-100,100)))
+  typedef boost::simd::uint32_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,0,100)))
 }
 namespace n4 {
-  typedef boost::simd::int64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(bitfloating_,(RS(T,-100,100)))
+  typedef boost::simd::uint64_t T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(bitfloating_,(RS(T,0,100)))
 }
 
 #undef RS
