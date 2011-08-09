@@ -14,6 +14,7 @@
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_kl_scaled.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,13 +30,13 @@ using nt2::gsl_specfun::tag::gsl_sf_bessel_kl_scaled_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(gsl_sf_bessel_kl_scaled_,(RS(iT,iT(-10),iT(10)))(RS(T,T(-10),T(10))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(gsl_sf_bessel_kl_scaled_,(RS(iT,iT(1),iT(10)))(RS(T,T(1),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  NT2_TIMING(gsl_sf_bessel_kl_scaled_,(RS(iT,iT(-10),iT(10)))(RS(T,T(-10),T(10))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(gsl_sf_bessel_kl_scaled_,(RS(iT,iT(1),iT(10)))(RS(T,T(1),T(10))))
 }
 
 #undef RS

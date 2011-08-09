@@ -6,12 +6,12 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 gsl_specfun toolbox - gsl_sf_lambert_w0/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 gsl_specfun toolbox - gsl_sf_bessel_klu_scaled/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of gsl_specfun components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_lambert_w0.hpp>
+#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_klu_scaled.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -19,9 +19,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<gsl_sf_lambert_w0_> from gsl_specfun
+// scalar runtime benchmark for functor<gsl_sf_bessel_klu_scaled_> from gsl_specfun
 //////////////////////////////////////////////////////////////////////////////
-using nt2::gsl_specfun::tag::gsl_sf_lambert_w0_;
+using nt2::gsl_specfun::tag::gsl_sf_bessel_klu_scaled_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -31,12 +31,12 @@ using nt2::gsl_specfun::tag::gsl_sf_lambert_w0_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(gsl_sf_lambert_w0_,(RS(T,T(0),T(10))))
+  NT2_TIMING(gsl_sf_bessel_klu_scaled_,(RS(iT,iT(-10),iT(10)))(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(gsl_sf_lambert_w0_,(RS(T,T(0),T(10))))
+  NT2_TIMING(gsl_sf_bessel_klu_scaled_,(RS(iT,iT(-10),iT(10)))(RS(T,T(-10),T(10))))
 }
 
 #undef RS
