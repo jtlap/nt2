@@ -14,6 +14,7 @@
 #include <nt2/toolbox/bitwise/include/lo.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,42 +30,42 @@ using nt2::tag::lo_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n3 {
   typedef nt2::uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n4 {
   typedef nt2::int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n5 {
   typedef nt2::uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n6 {
   typedef nt2::int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n7 {
   typedef nt2::uint16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 namespace n8 {
   typedef nt2::int16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(lo_,(RS(T,T(0),T(10))))
 }
 
