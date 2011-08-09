@@ -9,8 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_FALSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_FALSE_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
 namespace boost { namespace simd

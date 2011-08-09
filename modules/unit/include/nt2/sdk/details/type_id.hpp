@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
-#define BOOST_SIMD_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
+#ifndef NT2_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
+#define NT2_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
 
 /*!
  * \file
@@ -35,7 +35,7 @@
 #include <iostream>
 #include <boost/dispatch/details/ignore_unused.hpp>
 
-namespace boost { namespace simd {  namespace details
+namespace nt2 {  namespace details
 {
   //============================================================================
   // demangle a type name retrieved through typeid()
@@ -72,9 +72,9 @@ namespace boost { namespace simd {  namespace details
     return os;
   }
   
-} } }
+} }
 
-namespace boost { namespace simd
+namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////
   /*!
@@ -173,6 +173,6 @@ namespace boost { namespace simd
     }
     std::cout << std::endl;
   }
-} }
+}
 
 #endif
