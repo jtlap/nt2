@@ -14,6 +14,7 @@
 #include <nt2/toolbox/exponential/include/pow.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,62 +30,62 @@ using nt2::tag::pow_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,T(0),T(10)))(RS(T,T(0),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,T(0),T(10)))(RS(T,T(0),T(10))))
 }
 namespace n3 {
   typedef nt2::uint8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
 }
 namespace n4 {
   typedef nt2::uint16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
 }
 namespace n5 {
   typedef nt2::uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
 }
 namespace n6 {
   typedef nt2::uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
 }
 namespace n7 {
   typedef nt2::int8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
 }
 namespace n8 {
   typedef nt2::int16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
 }
 namespace n9 {
   typedef nt2::int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
 }
 namespace n10 {
   typedef nt2::int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,0,10))(RS(T,0,10)))
 }
 namespace n11 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,T(-10),T(10)))(RS(iT,T(-10),T(10))))
 }
 namespace n12 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(pow_,(RS(T,T(-10),T(10)))(RS(iT,T(-10),T(10))))
 }
 

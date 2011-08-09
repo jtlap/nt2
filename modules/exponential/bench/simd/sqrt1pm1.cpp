@@ -6,12 +6,12 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 exponential toolbox - expx2/simd Mode"
+#define NT2_BENCH_MODULE "nt2 exponential toolbox - sqrt1pm1/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/exponential/include/expx2.hpp>
+#include <nt2/toolbox/exponential/include/sqrt1pm1.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -19,9 +19,9 @@
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<expx2_> from exponential
+// simd runtime benchmark for functor<sqrt1pm1_> from exponential
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::expx2_;
+using nt2::tag::sqrt1pm1_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -32,13 +32,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(expx2_,(RS(vT,T(1),T(5))))
+  NT2_TIMING(sqrt1pm1_,(RS(vT,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(expx2_,(RS(vT,T(1),T(5))))
+  NT2_TIMING(sqrt1pm1_,(RS(vT,T(-10),T(10))))
 }
 
 #undef RS
