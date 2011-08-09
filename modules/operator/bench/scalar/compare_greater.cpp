@@ -6,12 +6,12 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 operator toolbox - unary_plus/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 operator toolbox - compare_greater/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/operator/include/unary_plus.hpp>
+#include <nt2/toolbox/operator/include/compare_greater.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -19,9 +19,9 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<unary_plus_> from operator
+// scalar runtime benchmark for functor<compare_greater_> from operator
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::unary_plus_;
+using nt2::tag::compare_greater_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -31,52 +31,52 @@ using nt2::tag::unary_plus_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n3 {
   typedef nt2::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n4 {
   typedef nt2::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n5 {
   typedef nt2::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n6 {
   typedef nt2::int64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n7 {
   typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n8 {
   typedef nt2::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n9 {
   typedef nt2::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n10 {
   typedef nt2::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(unary_plus_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
+  NT2_TIMING(compare_greater_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 
 #undef RS
