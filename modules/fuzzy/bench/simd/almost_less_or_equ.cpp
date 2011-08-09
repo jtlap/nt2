@@ -6,12 +6,12 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 fuzzy toolbox - almost_less_or_equal/simd Mode"
+#define NT2_BENCH_MODULE "nt2 fuzzy toolbox - almost_less_or_equ/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/fuzzy/include/almost_less_or_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/almost_less_or_equ.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -19,9 +19,9 @@
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<almost_less_or_equal_> from fuzzy
+// simd runtime benchmark for functor<almost_less_or_equ_> from fuzzy
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::almost_less_or_equal_;
+using nt2::tag::almost_less_or_equ_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -34,7 +34,7 @@ namespace n1 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
-  NT2_TIMING(almost_less_or_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+  NT2_TIMING(almost_less_or_equ_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
 }
 namespace n2 {
   typedef double T;
@@ -42,7 +42,7 @@ namespace n2 {
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
-  NT2_TIMING(almost_less_or_equal_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
+  NT2_TIMING(almost_less_or_equ_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10)))(RS(viT,iT(0),iT(10))))
 }
 
 #undef RS
