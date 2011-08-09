@@ -11,7 +11,6 @@
 
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/details/ignore_unused.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, True is not !0 but ~0 whatever the type

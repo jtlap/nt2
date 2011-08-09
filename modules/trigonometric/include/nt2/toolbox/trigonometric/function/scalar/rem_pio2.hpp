@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
 #define GET_A0_WORD(i,d)			\
     do {					\
       A0 f = (d);				\
-      (i) = *reinterpret_cast<nt2::uint32_t*>(&f);	\
+      (i) = boost::simd::bitwise_cast<nt2::uint32_t>(f);	\
     } while (0)					\
       /**/
   
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
 #define SET_A0_WORD(d,i)		\
   do {					\
     int ii = (i);			\
-    (d) = *reinterpret_cast<A0*>(&ii);	\
+    (d) = boost::simd::bitwise_cast<A0>(ii);	\
   } while (0)				\
     /**/
 
@@ -441,44 +441,31 @@ namespace nt2 { namespace ext
 #define HIGH_WORD_IDX 0
 #endif
 
-#define EXTRACT_WORDS(ix0,ix1,d)					\
-  do {									\
-    A0 f = (d);								\
-    (ix0) = reinterpret_cast<nt2::uint32_t*>(&f)[HIGH_WORD_IDX];	\
-    (ix1) = reinterpret_cast<nt2::uint32_t*>(&f)[LOW_WORD_IDX];		\
-  } while (0)
-
 #define GET_HIGH_WORD(i,d)						\
   do {									\
     A0 f = (d);								\
-    (i) = reinterpret_cast<nt2::uint32_t*>(&f)[HIGH_WORD_IDX];		\
+    std::memcpy(&(i), reinterpret_cast<nt2::uint32_t*>(&f) + HIGH_WORD_IDX, sizeof(nt2::uint32_t));		\
   } while (0)
 
 #define GET_LOW_WORD(i,d)					      \
   do {								      \
     A0 f = (d);							      \
-    (i) = reinterpret_cast<nt2::uint32_t*>(&f)[LOW_WORD_IDX];	      \
-  } while (0)
-
-#define INSERT_WORDS(d,ix0,ix1)						\
-  do {									\
-    A0 f;								\
-    reinterpret_cast<nt2::uint32_t*>(&f)[HIGH_WORD_IDX] = (ix0);		\
-    reinterpret_cast<nt2::uint32_t*>(&f)[LOW_WORD_IDX] = (ix1);		\
-    (d) = f;								\
+    std::memcpy(&(i), reinterpret_cast<nt2::uint32_t*>(&f) + LOW_WORD_IDX, sizeof(nt2::uint32_t));		\
   } while (0)
 
 #define SET_HIGH_WORD(d,v)						\
   do {									\
     A0 f = (d);								\
-    reinterpret_cast<nt2::uint32_t*>(&f)[HIGH_WORD_IDX] = (v);		\
+    nt2::uint32_t value = (v);		\
+    std::memcpy(reinterpret_cast<nt2::uint32_t*>(&f) + HIGH_WORD_IDX, &value, sizeof(nt2::uint32_t));		\
     (d) = f;								\
   } while (0)
 
 #define SET_LOW_WORD(d,v)						\
   do {									\
     A0 f = (d);								\
-    reinterpret_cast<nt2::uint32_t*>(&f)[LOW_WORD_IDX] = (v);		\
+    nt2::uint32_t value = (v);		\
+    std::memcpy(reinterpret_cast<nt2::uint32_t*>(&f) + LOW_WORD_IDX, &value, sizeof(nt2::uint32_t));		\
     (d) = f;								\
   } while (0)
   static nt2::int32_t __ieee754_rem_pio2(A0 x, A0 *y)

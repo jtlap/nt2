@@ -9,9 +9,6 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_TERMINAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_TERMINAL_HPP_INCLUDED
 
-#include <iostream>
-#include <boost/simd/sdk/details/type_id.hpp>
-
 ////////////////////////////////////////////////////////////////////////////////
 // Terminal functor handling for pack based expressions
 // Two flavors are presented : the native and boost::array one
