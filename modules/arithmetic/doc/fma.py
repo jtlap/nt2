@@ -34,16 +34,19 @@
                  'nt2::Mone<T>()' : 'nt2::Zero<T>()',
                  'nt2::Nan<T>()' : 'nt2::Nan<T>()',
                  'nt2::One<T>()' : 'nt2::Two<T>()',
+                 'nt2::Two<T>(),nt2::Two<T>(),nt2::Three<T>()' : 'nt2::Seven<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
                 },
              'signed_int_' : {
                  'nt2::Mone<T>()' : 'nt2::Zero<T>()',
                  'nt2::One<T>()' : 'nt2::Two<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'nt2::Two<T>(),nt2::Two<T>(),nt2::Three<T>()' : 'nt2::Seven<T>()',
                 },
              'unsigned_int_' : {
                  'nt2::One<T>()' : 'nt2::Two<T>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'nt2::Two<T>(),nt2::Two<T>(),nt2::Three<T>()' : 'nt2::Seven<T>()',
                 },
             },
          'verif_test' : {

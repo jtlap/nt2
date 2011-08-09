@@ -54,9 +54,9 @@ NT2_TEST_CASE_TPL ( idivfix_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(idivfix(T(-4),T(0)), nt2::Valmin<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfix(T(4),T(0)), nt2::Valmax<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfix(T(4),T(3)), T(1), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(-nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmin<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
@@ -85,7 +85,8 @@ NT2_TEST_CASE_TPL ( idivfix_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(idivfix(T(4),T(3)), T(1), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Nan<T>(), 0);
 } // end of test for unsigned_int_
@@ -110,7 +111,10 @@ NT2_TEST_CASE_TPL ( idivfix_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(idivfix(T(4),T(3)), T(1), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(-nt2::Four<T>(),nt2::Three<T>()), nt2::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(-nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmin<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfix(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(idivfix(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Nan<T>(), 0);

@@ -56,6 +56,7 @@ NT2_TEST_CASE_TPL ( fma_real__3_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fma(nt2::Mone<T>(), nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(nt2::Nan<T>(), nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
+  NT2_TEST_ULP_EQUAL(fma(nt2::Two<T>(),nt2::Two<T>(),nt2::Three<T>()), nt2::Seven<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 } // end of test for real_
 
@@ -80,6 +81,7 @@ NT2_TEST_CASE_TPL ( fma_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fma(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
+  NT2_TEST_ULP_EQUAL(fma(nt2::Two<T>(),nt2::Two<T>(),nt2::Three<T>()), nt2::Seven<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 } // end of test for unsigned_int_
 
@@ -105,5 +107,6 @@ NT2_TEST_CASE_TPL ( fma_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(fma(nt2::Mone<T>(), nt2::Mone<T>(), nt2::Mone<T>()), nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
+  NT2_TEST_ULP_EQUAL(fma(nt2::Two<T>(),nt2::Two<T>(),nt2::Three<T>()), nt2::Seven<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 } // end of test for signed_int_
