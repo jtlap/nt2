@@ -13,10 +13,12 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 /// 
-/// for integer values average does not,coincide with (a0+a1)/2 by at most one unit.
+/// for integer values average does not coincide with (a0+a1)/2 by at most one unit.
 #include <nt2/toolbox/arithmetic/include/average.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+#include<nt2/include/functions/round.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -65,7 +67,7 @@ NT2_TEST_CASE_TPL ( average_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),(a0+a1)/2,0);
+        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),nt2::round((a0+a1)/2),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -104,7 +106,7 @@ NT2_TEST_CASE_TPL ( average_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),(a0+a1)/2,1);
+        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),nt2::round((a0+a1)/2),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -143,7 +145,7 @@ NT2_TEST_CASE_TPL ( average_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),(a0+a1)/2,1);
+        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),nt2::round((a0+a1)/2),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

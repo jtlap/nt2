@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( divfix_real__2_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(divfix(nt2::splat<vT>(4),nt2::splat<vT>(3))[0], T(1), 0);
+  NT2_TEST_ULP_EQUAL(divfix(nt2::Four<vT>(),nt2::Three<vT>())[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfix(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(divfix(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(divfix(nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::One<T>(), 0);

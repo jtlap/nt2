@@ -59,8 +59,8 @@ NT2_TEST_CASE_TPL ( divfloor_real__2_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(divfloor(nt2::splat<vT>(4),nt2::splat<vT>(0))[0], nt2::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divfloor(nt2::splat<vT>(4),nt2::splat<vT>(3))[0], 1, 0);
+  NT2_TEST_ULP_EQUAL(divfloor(nt2::Four<vT>(),nt2::Three<vT>())[0], nt2::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divfloor(nt2::Four<vT>(),nt2::Zero<vT>())[0], nt2::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::One<sr_t>(), 0);

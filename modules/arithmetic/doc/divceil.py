@@ -28,8 +28,8 @@
              'default' : {
                 },
              'real_' : {
-                 'T(4),T(3)' : '2',
-                 'T(4),T(0)' : 'nt2::Inf<r_t>()',   
+                 'nt2::Four<T>(),nt2::Three<T>()' : 'nt2::Two<r_t>()',
+                 'nt2::Four<T>(),nt2::Zero<T>()' : 'nt2::Inf<r_t>()',   
                  'nt2::Inf<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::Minf<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
@@ -40,15 +40,15 @@
                  'nt2::Zero<T>(),nt2::Zero<T>()' : 'nt2::Nan<r_t>()',
                 },
              'signed_int_' : {
-                 'T(4),T(3)' : '2',
-                 'T(4),T(0)' : 'nt2::Valmax<r_t>()',
-                 'T(-4),T(0)' : 'nt2::Valmin<r_t>()',   
+                 'nt2::Four<T>(),nt2::Three<T>()' : 'nt2::Two<r_t>()',
+                 'nt2::Four<T>(),nt2::Zero<T>()' : 'nt2::Valmax<r_t>()',   
+                 '-Four<T>(),Zero<T>()' : 'nt2::Valmin<r_t>()',   
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
              'unsigned_int_' : {
-                 'T(4),T(0)' : 'nt2::Valmax<r_t>()',   
-                 'T(4),T(3)' : '2',
+                 'nt2::Four<T>(),nt2::Three<T>()' : 'nt2::Two<r_t>()',
+                 'nt2::Four<T>(),nt2::Zero<T>()' : 'nt2::Valmax<r_t>()',   
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },
             },

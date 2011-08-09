@@ -13,9 +13,11 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 /// 
-/// for integer values average does not,coincide with (a0+a1)/2 by at most one unit.
+/// for integer values average does not coincide with (a0+a1)/2 by at most one unit.
 #include <nt2/toolbox/arithmetic/include/average.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include<nt2/include/functions/round.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -58,6 +60,7 @@ NT2_TEST_CASE_TPL ( average_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(average(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(average(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(average(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(average(nt2::Zero<T>(),nt2::One<T>()), nt2::Half<T>(), 0);
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( average_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -83,6 +86,7 @@ NT2_TEST_CASE_TPL ( average_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(average(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Mone<T>(), 0);
   NT2_TEST_ULP_EQUAL(average(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(average(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(average(nt2::Zero<T>(),nt2::One<T>()), nt2::Zero<T>(), 0);
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( average_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
@@ -107,4 +111,5 @@ NT2_TEST_CASE_TPL ( average_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(average(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(average(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(average(nt2::Zero<T>(),nt2::One<T>()), nt2::Zero<T>(), 0);
 } // end of test for unsigned_int_
