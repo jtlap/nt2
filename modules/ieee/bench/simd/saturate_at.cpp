@@ -6,12 +6,12 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_BENCH_MODULE "nt2 ieee toolbox - successor/simd Mode"
+#define NT2_BENCH_MODULE "nt2 ieee toolbox - saturate_at/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/ieee/include/successor.hpp>
+#include <nt2/toolbox/ieee/include/saturate_at.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -19,9 +19,9 @@
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<successor_> from ieee
+// simd runtime benchmark for functor<saturate_at_> from ieee
 //////////////////////////////////////////////////////////////////////////////
-using nt2::tag::successor_;
+using nt2::tag::saturate_at_;
 
 //////////////////////////////////////////////////////////////////////////////
 // range macro
@@ -32,27 +32,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(successor_,(RS(vT,T(-10),T(10))))
+  NT2_TIMING(saturate_at_<nt2::tag::Pi>,(RS(vT,-nt2::Ten<T>(),nt2::Ten<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(successor_,(RS(vT,T(-10),T(10))))
-}
-namespace n3 {
-  typedef float T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  typedef boost::simd::native<iT,ext_t> viT;
-  NT2_TIMING(successor_,(RS(vT,T(-10),T(10)))(RS(viT,iT(2),iT(2))))
-}
-namespace n4 {
-  typedef double T;
-  typedef boost::dispatch::meta::as_integer<T>::type iT;
-  typedef boost::simd::native<T,ext_t> vT;
-  typedef boost::simd::native<iT,ext_t> viT;
-  NT2_TIMING(successor_,(RS(vT,T(-10),T(10)))(RS(viT,iT(2),iT(2))))
+  NT2_TIMING(saturate_at_<nt2::tag::Pi>,(RS(vT,-nt2::Ten<T>(),nt2::Ten<T>())))
 }
 
 #undef RS
