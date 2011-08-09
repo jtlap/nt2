@@ -14,6 +14,7 @@
 #include <nt2/toolbox/trigonometric/include/fast_cotpi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -29,14 +30,14 @@ using nt2::tag::fast_cotpi_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(fast_cotpi_,(RS(vT,T(0.25),T(0.25))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(fast_cotpi_,(RS(vT,T(0.25),T(0.25))))
 }
 
