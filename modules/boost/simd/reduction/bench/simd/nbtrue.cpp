@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 reduction toolbox - nbtrue/simd Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.reduction toolbox - nbtrue/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of reduction components in simd mode
+// timing Test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/reduction/include/nbtrue.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<nbtrue_> from reduction
+// simd runtime benchmark for functor<nbtrue_> from boost.simd.reduction
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::nbtrue_;
 
@@ -29,15 +30,15 @@ using boost::simd::tag::nbtrue_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  BOOST_SIMD_TIMING(nbtrue_,(RS(vT,T(-100),T(100))))
+  NT2_TIMING(nbtrue_,(RS(vT,T(-100),T(100))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  BOOST_SIMD_TIMING(nbtrue_,(RS(vT,T(-100),T(100))))
+  NT2_TIMING(nbtrue_,(RS(vT,T(-100),T(100))))
 }
 
 #undef RS

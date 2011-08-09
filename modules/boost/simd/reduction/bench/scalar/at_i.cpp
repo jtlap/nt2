@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 reduction toolbox - at_i/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.reduction toolbox - at_i/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of reduction components in scalar mode
+// timing Test behavior of boost.simd.reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/reduction/include/at_i.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<at_i_> from reduction
+// scalar runtime benchmark for functor<at_i_> from boost.simd.reduction
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::at_i_;
 
@@ -29,43 +30,43 @@ using boost::simd::tag::at_i_;
 
 namespace n1 {
   typedef boost::simd::int8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n2 {
   typedef boost::simd::int16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n3 {
   typedef boost::simd::int32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n4 {
   typedef boost::simd::int64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n5 {
   typedef boost::simd::uint8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n6 {
   typedef boost::simd::uint16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n7 {
   typedef boost::simd::uint32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n8 {
   typedef boost::simd::uint64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(at_i_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 
 #undef RS

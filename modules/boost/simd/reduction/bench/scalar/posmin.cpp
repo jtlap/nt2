@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 reduction toolbox - posmin/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.reduction toolbox - posmin/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of reduction components in scalar mode
+// timing Test behavior of boost.simd.reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/reduction/include/posmin.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<posmin_> from reduction
+// scalar runtime benchmark for functor<posmin_> from boost.simd.reduction
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::posmin_;
 
@@ -29,13 +30,13 @@ using boost::simd::tag::posmin_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(posmin_,(RS(T,T(-100),T(100))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(posmin_,(RS(T,T(-100),T(100))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(posmin_,(RS(T,T(-100),T(100))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(posmin_,(RS(T,T(-100),T(100))))
 }
 
 #undef RS
