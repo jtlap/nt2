@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 predicates toolbox - sb2b/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.predicates toolbox - sb2b/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of predicates components in scalar mode
+// timing Test behavior of boost.simd.predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/predicates/include/sb2b.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<sb2b_> from predicates
+// scalar runtime benchmark for functor<sb2b_> from boost.simd.predicates
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::sb2b_;
 
@@ -29,53 +30,53 @@ using boost::simd::tag::sb2b_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n3 {
   typedef boost::simd::int8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n4 {
   typedef boost::simd::int16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n5 {
   typedef boost::simd::int32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n6 {
   typedef boost::simd::int64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n7 {
   typedef boost::simd::uint8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n8 {
   typedef boost::simd::uint16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n9 {
   typedef boost::simd::uint32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 namespace n10 {
   typedef boost::simd::uint64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(sb2b_,(RS(T,T(-10000),T(10000))))
 }
 
 #undef RS
