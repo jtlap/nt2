@@ -15,7 +15,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/meta/print.hpp>
 #include <boost/simd/toolbox/operator/function/map.hpp>
+
+#ifdef BOOST_SIMD_LOG_MAP
+namespace boost { namespace simd { namespace details
+{
+  template<class Tag>
+  struct MAP_FALLBACK;
+} } }
+#define BOOST_SIMD_MAP_LOG(Tag) typedef typename boost::dispatch::meta::print< boost::simd::details::MAP_FALLBACK<Tag> >::type _;
+#else
+#define BOOST_SIMD_MAP_LOG(Tag)
+#endif
 
 #if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/toolbox/operator/specific/preprocessed/common.hpp>
@@ -27,6 +39,7 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/common.hpp")
+#undef BOOST_SIMD_MAP_LOG
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -59,6 +72,7 @@ namespace boost { namespace simd { namespace ext                            \
   template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>          \
   struct implement<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy>          \
   {                                                                         \
+    BOOST_SIMD_MAP_LOG(Tag);                                                \
     typedef typename dispatch::meta::                                       \
     call<tag::map_ ( dispatch::functor<Tag>                                 \
                    , BOOST_PP_ENUM_PARAMS(n,A)                              \
