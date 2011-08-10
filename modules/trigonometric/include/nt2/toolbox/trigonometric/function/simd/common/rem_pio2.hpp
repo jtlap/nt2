@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRTIC_FUNCTION_SIMD_COMMON_REM_PIO2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRTIC_FUNCTION_SIMD_COMMON_REM_PIO2_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/load.hpp>
@@ -18,10 +20,10 @@
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_ < real_<A0>,X > ))
 			     )
@@ -41,7 +43,7 @@ namespace nt2 { namespace meta
       }
   }; 
 
-  NT2_FUNCTOR_IMPLEMENTATION(  tag::rem_pio2_, tag::cpu_,(A0)(X)
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::rem_pio2_, tag::cpu_,(A0)(X)
                                , ((simd_<real_<A0>,X>))
                                  ((simd_<real_<A0>,X>))
                                  ((simd_<real_<A0>,X>))

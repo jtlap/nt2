@@ -18,11 +18,18 @@
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/floating.hpp>
+#include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
 
 
 NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  NT2_REAL_TYPES)
@@ -31,7 +38,8 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  NT2_REAL_TYPES)
   using nt2::saturate_at;
   using nt2::tag::saturate_at_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<saturate_at_<uint16_t>(T)>::type r_t;
+  typedef typename nt2::meta::call<saturate_at_<nt2::tag::Pi>(T)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
@@ -45,7 +53,7 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, -nt2::Pi<T>(), nt2::Pi<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, -nt2::Ten<T>(), nt2::Ten<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     for(nt2::uint32_t j =0; j < NR; ++j )

@@ -22,6 +22,8 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/plus.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/include/constants/real.hpp>
 

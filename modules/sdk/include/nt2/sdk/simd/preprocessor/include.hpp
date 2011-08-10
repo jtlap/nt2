@@ -9,16 +9,13 @@
 #ifndef NT2_SDK_SIMD_PREPROCESSOR_INCLUDE_HPP_INCLUDED
 #define NT2_SDK_SIMD_PREPROCESSOR_INCLUDE_HPP_INCLUDED
 
-#include <nt2/sdk/simd/extensions.hpp>
-#include <nt2/sdk/details/preprocessor.hpp>
-#include <nt2/sdk/simd/preprocessor/sse.hpp>
-#include <nt2/sdk/simd/preprocessor/vmx.hpp>
+#include <boost/simd/sdk/simd/preprocessor/include.hpp>
 
-#ifndef NT2_SIMD_DETECTED
-  #define NT2_SIMD_RELATIVE_INCLUDE_BASE(B,F) BOOST_PP_STRINGIZE(B()simd/none/F) 
+#ifndef BOOST_SIMD_RELATIVE_INCLUDE_BASE
+  #define NT2_SIMD_RELATIVE_INCLUDE(B,F) BOOST_PP_BOOST_SIMD_RELATIVE_INCLUDE_BASE(B,F)
 #endif
 
-#define NT2_SIMD_RELATIVE_INCLUDE(B,F)  NT2_SIMD_RELATIVE_INCLUDE_BASE(B,F)
+#define NT2_SIMD_RELATIVE_INCLUDE(B,F)  BOOST_SIMD_RELATIVE_INCLUDE(B,F)
 
 #endif
 

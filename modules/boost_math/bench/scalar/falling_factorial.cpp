@@ -14,6 +14,7 @@
 #include <nt2/toolbox/boost_math/include/falling_factorial.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,12 +30,12 @@ using nt2::boost_math::tag::falling_factorial_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(falling_factorial_,(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(falling_factorial_,(RS(T,T(-10),T(10)))(RS(iT,iT(0),iT(10))))
 }
 

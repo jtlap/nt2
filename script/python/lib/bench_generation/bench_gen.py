@@ -54,9 +54,10 @@ class Bench_gen() :
             "// timing Test behavior of %s components in %s mode"%(tb_name,mode),
             "//////////////////////////////////////////////////////////////////////////////",
             ""
-            "#include <nt2/toolbox/%s/include/%s.hpp>"%(tb_name,name.lower()),
+            "#include <%s/include/%s.hpp>"%(self.bg.demangle(tb_name,'toolbox'),name.lower()),
             "#include <nt2/sdk/unit/benchmark.hpp>",
             "#include <nt2/sdk/unit/bench_includes.hpp>",
+            "#include <boost/dispatch/meta/as_integer.hpp>",
             "#include <cmath>",
             "" if mode=='scalar' else "typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;",
             "",
@@ -88,7 +89,7 @@ class Bench_gen() :
                        "ranges" : d["unit"].get("ranges",[['0','1']]),
                        "types"  : d["functor"].get('types',['T']),
                        "simd_types"  : d["functor"].get('simd_types',d["functor"].get('types',['T'])),
-                       "type_defs": d["functor"]['type_defs'],
+                       "type_defs": d["functor"].get('type_defs',[]),
                        "call_types" :d["functor"]["call_types"],
                        }
                 if d1["call_types"] == [] : d1["call_types"] = ["T"]
@@ -121,7 +122,8 @@ class Bench_gen() :
                             "sintgt_16_"    : ["nt2::int32_t","nt2::int64_t"],
                             "uintgt_16_"    : ["nt2::uint32_t","nt2::uint64_t"],
                             "int_convert_"  : ["nt2::int32_t","nt2::int64_t"],
-                            "uint_convert_" : ["nt2::uint32_t","nt2::uint64_t"], 
+                            "uint_convert_" : ["nt2::uint32_t","nt2::uint64_t"],
+                            "sintgt_8_"      : ["nt2::int16_t","nt2::int32_t","nt2::int64_t"], 
                              }
                 typs = d1["simd_types"] if mode == 'simd' else d1["types"]
                 if self.__simd_type == 'altivec' and mode ==  'simd' :
@@ -132,7 +134,7 @@ class Bench_gen() :
                      variety[ "groupable_"] = ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t"]
                      variety[ "gt_8_"] = ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","double","float"]
                               
-##                print ("typs %s" % typs)
+                print ("typs %s" % typs)
                 for typ in typs :
 ##                    print("typ = %s, variety = %s"%(typ,variety[typ]))
                     for t in variety[typ] :
@@ -155,10 +157,10 @@ class Bench_gen() :
                         r += ["namespace n%s {"%str(k) ]
                         k+=1;
                         r.append("  typedef %s T;"%t )
-                        r.append("  typedef nt2::meta::as_integer<T>::type iT;")
+                        r.append("  typedef boost::dispatch::meta::as_integer<T>::type iT;")
 ##                        r += ["  "+td for td in d1["type_defs"]]
                         if mode == "simd" :
-                            r += ["  typedef nt2::simd::native<%s,ext_t> v%s;"%(ct,ct)  for ct in d1["call_types"] if ct[0] != 's' ]
+                            r += ["  typedef boost::simd::native<%s,ext_t> v%s;"%(ct,ct)  for ct in d1["call_types"] if ct[0] != 's' ]
                         tpl = "(RS(%s,%s,%s))"
 ##                        print( 'd1["ranges"] %s'%d1["ranges"])
 ##                        print("rges  %s"%rges)
@@ -185,6 +187,9 @@ class Bench_gen() :
                         r += ["}"]
 
         txt += r+txtf;
+        if tb_name.find('.') != -1 :
+            for i,l in enumerate(txt) :
+                txt[i]=re.sub('nt2::','boost::simd::',l)
         h = Headers(os.path.join(self.bg.get_nt2_rel_tb_path(tb_name),'bench',mode),
                     name,inner=txt,guard_begin=[],guard_end=[]).txt()
         return h.split('\n')

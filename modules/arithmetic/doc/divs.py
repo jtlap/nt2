@@ -47,6 +47,8 @@
                 },
              'property_value' : {
                  'default' : ['nt2::divs(a0,a1)'],
+                 'signed_int_' :   ['(a1) ? a0/a1 :( (a0>0) ? Valmax<T>() : ((a0) ? Valmin<T>() : Zero<T>()))'],
+                 'unsigned_int_' :   ['(a1) ? a0/a1 : ( (a0>0) ? Valmax<T>() : Zero<T>() )'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

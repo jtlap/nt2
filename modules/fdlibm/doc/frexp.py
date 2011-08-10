@@ -5,7 +5,7 @@
          'call_types' : ['T'],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'boost::fusion::vector<T,nt2::int32_t>::type>',
+             'default' : 'boost::fusion::vector<T,nt2::int32_t>',
             },
          'simd_types' : [],
          'special' : ['fdlibm'],

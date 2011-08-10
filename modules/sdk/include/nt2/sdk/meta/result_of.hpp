@@ -9,99 +9,12 @@
 #ifndef NT2_SDK_META_RESULT_OF_HPP_INCLUDED
 #define NT2_SDK_META_RESULT_OF_HPP_INCLUDED
 
-#include <nt2/extension/parameters.hpp>
-#include <boost/function_types/result_type.hpp>
-#include <boost/mpl/has_xxx.hpp>
-#include <boost/type_traits/is_function.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/dispatch/meta/result_of.hpp>
 
-#if (defined(BOOST_NO_VARIADIC_TEMPLATES) && defined(NT2_DONT_USE_PREPROCESSED_FILES)) || defined(NT2_CREATE_PREPROCESSED_FILES)
-#include <nt2/extension/parameters.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#endif
-
-namespace nt2
-{
-  namespace meta
-  {
-    template<class Sig, class Enable = void>
-    struct result_of;
-    
-    BOOST_MPL_HAS_XXX_TRAIT_DEF(result_type);
-    
-    template<class T>
-    struct is_function
-      : boost::is_function<typename boost::remove_pointer<typename meta::strip<T>::type>::type>
-    {
-    };
-  }
-}
-    
-#if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(NT2_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
 namespace nt2 { namespace meta
 {
-  template<class F, class... Args>
-  struct result_of<F(Args...), typename boost::enable_if< is_function<F> >::type>
-    : boost::function_types::result_type<typename boost::remove_pointer<typename meta::strip<F>::type>::type>
-  {
-  };
-  
-  template<class F, class... Args>
-  struct result_of<F(Args...), typename boost::enable_if< has_result_type<F> >::type>
-  {
-    typedef typename F::result_type type;
-  };
-  
-  template<class F, class... Args>
-  struct result_of<F(Args...), typename boost::disable_if< boost::mpl::or_< is_function<F>, has_result_type<F> > >::type>
-  {
-    typedef typename F::template result<F(Args...)>::type type;
-  };
-  
+  using boost::dispatch::meta::result_of;
 } }
-#else
-namespace nt2 { namespace meta
-{
-#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
-#include <nt2/sdk/meta/preprocessed/result_of.hpp>
-#else
-#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
-#pragma wave option(preserve: 2, line: 0, output: "preprocessed/result_of.hpp")
-#endif
-    
-    #define M0(z, n, t)                                                                    \
-    template<class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>                \
-    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename boost::enable_if< is_function<F> >::type>\
-      : boost::function_types::result_type<typename boost::remove_pointer<typename meta::strip<F>::type>::type>\
-    {                                                                                      \
-    };                                                                                     \
-                                                                                           \
-    template<class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>                \
-    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename boost::enable_if< has_result_type<F> >::type>\
-    {                                                                                      \
-      typedef typename F::result_type type;                                                \
-    };                                                                                     \
-                                                                                           \
-    template<class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>                \
-    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename boost::disable_if< boost::mpl::or_< is_function<F>, has_result_type<F> > >::type>\
-    {                                                                                      \
-      typedef typename F::template result<F(BOOST_PP_ENUM_PARAMS(n, A))>::type type;       \
-    };
-
-    BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_ARITY), M0, ~)
-    #undef M0
-    
-#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
-#endif
-#endif
-    
-  }
-}
-#endif
 
 #endif

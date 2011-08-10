@@ -10,6 +10,8 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 
 #include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/rem_pio2_straight.hpp>
@@ -18,6 +20,7 @@
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/is_odd.hpp>
+#include <nt2/include/functions/select.hpp>  
 #include <nt2/include/functions/is_not_less.hpp>
 #include <nt2/include/functions/is_not_greater.hpp>
 #include <nt2/include/functions/is_inf.hpp>
@@ -204,18 +207,18 @@ namespace nt2
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
         {
-	  xr = sel(isalreadyreduced(x), x, Nan<A0>());
+	  xr = select(isalreadyreduced(x), x, Nan<A0>());
 	  xc = Zero<A0>();
 	  return Zero<int_type>(); 
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
         {
-	  xr = sel(issmall(x), x, Nan<A0>());
+	  xr = select(issmall(x), x, Nan<A0>());
 	  return inner_reduce(xr, xr, xc, small()); 
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
         {
-	  xr = sel(ismedium(x), x, Nan<A0>());
+	  xr = select(ismedium(x), x, Nan<A0>());
 	  return inner_reduce(xr, xr, xc, medium()); 
         }
       };
@@ -240,18 +243,18 @@ namespace nt2
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
         {
-	  xr = sel(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
+	  xr = select(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
 	  xc = Zero<A0>();
 	  return Zero<int_type>(); 
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
         {
-	  x = sel(issmall(nt2::abs(x)), x, Nan<A0>());
+	  x = select(issmall(nt2::abs(x)), x, Nan<A0>());
 	  return inner_reduce(x, xr, xc, small()); 
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
         {
-	  x = sel(ismedium(nt2::abs(x)), x, Nan<A0>());
+	  x = select(ismedium(nt2::abs(x)), x, Nan<A0>());
 	  return inner_reduce(x, xr, xc, medium()); 
         }
       };

@@ -9,4 +9,6 @@
 
 include(NT2Module)
 nt2_module_source_setup(bitwise)
-nt2_module_configure_toolbox(bitwise 1)
+#nt2_module_configure_toolbox(bitwise 1)
+
+nt2_module_configure_include(nt2/toolbox/bitwise/include -o nt2/include/functions)

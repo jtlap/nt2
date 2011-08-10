@@ -14,6 +14,7 @@
 #include <nt2/toolbox/arithmetic/include/negs.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -29,38 +30,38 @@ using nt2::tag::negs_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
 }
 namespace n3 {
   typedef nt2::int8_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
 }
 namespace n4 {
   typedef nt2::int16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
 }
 namespace n5 {
   typedef nt2::int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
 }
 namespace n6 {
   typedef nt2::int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(negs_,(RS(vT,T(-100),T(100))))
 }
 

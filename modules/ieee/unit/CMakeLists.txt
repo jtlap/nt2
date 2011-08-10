@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(ieee.unit ieee.scalar.unit ieee.simd.unit)
 ##############################################################################
 # Toolbox ieee unit tests
 ##############################################################################
-nt2_module_use_modules(unit)
+nt2_module_use_modules(unit bitwise)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

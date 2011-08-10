@@ -15,9 +15,9 @@
  * Define macro for building a Unit Test Case implementation
  */
 
-
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <iomanip>
 #include <nt2/include/functions/random.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/tests.hpp>
 
@@ -78,7 +78,7 @@
 
 #define NT2_CREATE_BUF(NAME, TYPE, SIZE, MIN, MAX)		\
   nt2::memory::buffer<TYPE,					\
-		      nt2::memory::allocator<TYPE> >		\
+		      boost::simd::memory::allocator<TYPE> >		\
   NAME(0, SIZE);						\
   {/*TYPE fac = double((MAX-MIN))/(SIZE+2);*/			\
     for(int k = 0; k < (int)SIZE; ++k){				\
@@ -89,7 +89,7 @@
 
 #define NT2_CREATE_BUFFER(NAME, TYPE, SIZE, MIN, MAX)	\
   nt2::memory::buffer<TYPE,				\
-		      nt2::memory::allocator<TYPE> >    \
+		      boost::simd::memory::allocator<TYPE> >    \
 		      tab_##NAME(0, SIZE);		\
   {/*TYPE fac = double((MAX-MIN))/(SIZE+2);*/   	\
     for(int k = 0; k < (int)SIZE; ++k){			\
@@ -100,7 +100,7 @@
 
 #define NT2_CREATE_SCALAR_BUFFER(NAME, TYPE, SIZE, MIN, MAX)  \
   nt2::memory::buffer<TYPE,          \
-          nt2::memory::allocator<TYPE> >    \
+          boost::simd::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
   for(int k = 0; k < (int)SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \

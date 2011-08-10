@@ -6,36 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_META_PROPERTY_OF_HPP_INCLUDED
-#define NT2_SDK_META_PROPERTY_OF_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_PROPERTY_OF_HPP_INCLUDED
+#define BOOST_DISPATCH_META_PROPERTY_OF_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines and implements the nt2::meta::property_of \metafunction
- */
-
-//////////////////////////////////////////////////////////////////////////////
-// Types property is defined on fundamental types as a lattice of classes
-// mimicking the type structuration in C++
-//////////////////////////////////////////////////////////////////////////////
-
-#include <climits>
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/details/property_of.hpp>
+#include <nt2/skd/meta/strip.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
 
 namespace nt2 { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // property_of computes the entry point of a given type inside the type
-  // property lattice.
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T, class Origin = T, class Enable = void>
-  struct  property_of
-        : details::property_of< typename meta::strip<T>::type
-                              , typename meta::strip<Origin>::type
-                              >
-  {};
+  using boost::dispatch::meta::property_of;
 } }
 
 #endif

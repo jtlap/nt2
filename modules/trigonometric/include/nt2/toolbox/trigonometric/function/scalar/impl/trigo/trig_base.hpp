@@ -19,6 +19,9 @@
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 
 // trigonometric functions are implemented using the classical cephes/fdlibm/libc principles

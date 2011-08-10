@@ -10,15 +10,17 @@
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_LESS_OR_EQUAL_HPP_INCLUDED
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::almost_less_or_equal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_less_or_equal_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< integer_<A2> >)
                             )
@@ -37,9 +39,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::almost_less_or_equal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_less_or_equal_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< integer_<A2> >)
                             )

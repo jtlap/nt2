@@ -20,6 +20,7 @@
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
@@ -111,18 +112,18 @@ namespace nt2
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
         {
-	  xr = sel(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
+	  xr = select(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
 	  xc = Zero<A0>();
 	  return Zero<int_type>(); 
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
         {
-	  xr = sel(issmall(nt2::abs(x)), x, Nan<A0>());
+	  xr = select(issmall(nt2::abs(x)), x, Nan<A0>());
 	  return inner_reduce(xr, xr, xc, small()); 
         }
 	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
         {
-	  xr = sel(ismedium(nt2::abs(x)), x, Nan<A0>());
+	  xr = select(ismedium(nt2::abs(x)), x, Nan<A0>());
 	  return inner_reduce(xr, xr, xc, medium()); 
         }
       };

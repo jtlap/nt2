@@ -9,20 +9,21 @@
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTION_SCALAR_JNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SCALAR_JNI_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
-
 #include <nt2/include/functions/j0.hpp>
 #include <nt2/include/functions/j1.hpp>
 #include <nt2/include/functions/cospi.hpp>
-#include <nt2/include/functions/select.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
-
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/splat.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::jni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::jni_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
@@ -41,9 +42,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::jni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::jni_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< double_<A1> >)
                             )
@@ -62,9 +63,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::jni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::jni_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< float_<A1> >)
                             )
@@ -108,7 +109,7 @@ namespace nt2 { namespace meta
         r -= Two<result_type>();
       }
       while( --k > 0 );
-      return sign*sel(gt(abs(pk), nt2::abs(pkm1)),nt2::j1(x)/pk, nt2::j0(x)/pkm1);
+      return sign*select(gt(abs(pk), nt2::abs(pkm1)),nt2::j1(x)/pk, nt2::j0(x)/pkm1);
       //     return ::jnf(a0, a1);
     }
   };

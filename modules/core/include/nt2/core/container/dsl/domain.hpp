@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DOMAIN_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DOMAIN_HPP_INCLUDED
 
-#include <nt2/extension/parameters.hpp>
+#include <boost/dispatch/extension/parameters.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Define tag for table_ related domain specialization

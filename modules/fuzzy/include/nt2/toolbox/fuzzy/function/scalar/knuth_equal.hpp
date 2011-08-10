@@ -8,19 +8,19 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_KNUTH_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_KNUTH_EQUAL_HPP_INCLUDED
-#include <nt2/sdk/details/ignore_unused.hpp>
 
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exponent.hpp>
 #include <nt2/include/functions/maxnummag.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::knuth_equal_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::knuth_equal_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< real_<A2> >)
                             )

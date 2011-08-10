@@ -9,11 +9,12 @@
 #ifndef NT2_SDK_SIMD_TAGS_HPP_INCLUDED
 #define NT2_SDK_SIMD_TAGS_HPP_INCLUDED
 
-namespace nt2 { namespace tag {
+#include <boost/simd/sdk/simd/tags.hpp>
 
-  typedef boost::mpl::false_ not_simd_type;
-  typedef boost::mpl::true_      simd_type;
-
-}}
+namespace nt2 { namespace tag
+{
+  using boost::simd::tag::not_simd_type;
+  using boost::simd::tag::simd_type;
+} }
 
 #endif

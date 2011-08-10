@@ -20,6 +20,10 @@
 #include <nt2/include/functions/j0.hpp>
 #include <nt2/include/functions/j1.hpp>
 #include <nt2/include/functions/cospi.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/select.hpp>
 
 
 
@@ -27,9 +31,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::jni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::jni_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< integer_<A0> >)((simd_<arithmetic_<A1>,X>))
                             )
@@ -48,9 +52,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::jni_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::jni_, tag::cpu_
                             , (A0)(A1)(X)
                             , (scalar_< integer_<A0> >)((simd_<real_<A1>,X>))
                             )

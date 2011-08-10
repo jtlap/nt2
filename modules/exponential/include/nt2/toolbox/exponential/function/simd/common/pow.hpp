@@ -24,9 +24,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::pow_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
@@ -45,9 +45,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::pow_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
                             )
@@ -80,9 +80,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::pow_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))((simd_<integer_<A1>,X>))
                             )
@@ -130,9 +130,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is scalar integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::pow_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
                             )

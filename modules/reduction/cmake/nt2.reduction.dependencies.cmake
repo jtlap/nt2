@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_REDUCTION_DEPENDENCIES_EXTRA operator)
+SET(NT2_REDUCTION_DEPENDENCIES_EXTRA sdk boost.simd.reduction)

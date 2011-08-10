@@ -18,9 +18,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::hyp2f1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::hyp2f1_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< arithmetic_<A2> >)(scalar_< arithmetic_<A3> >)
                             )
@@ -39,9 +39,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::hyp2f1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::hyp2f1_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (scalar_< double_<A0> >)(scalar_< double_<A1> >)(scalar_< double_<A2> >)(scalar_< double_<A3> >)
                             )
@@ -58,9 +58,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::hyp2f1_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::hyp2f1_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (scalar_< float_<A0> >)(scalar_< float_<A1> >)(scalar_< float_<A2> >)(scalar_< float_<A3> >)
                             )

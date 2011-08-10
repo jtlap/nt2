@@ -24,7 +24,8 @@
 #include <boost/preprocessor/cat.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
+#include <nt2/sdk/details/type_id.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 
@@ -71,8 +72,8 @@ void BOOST_PP_CAT(test,Name)()                                                \
 // Helper for template tets cases generation
 //==============================================================================
 #define NT2_PP_TPL_CASES(r,name,type)                                 \
-printf("With T = [%s]\n",nt2::type_id<NT2_PP_STRIP(type)>().c_str()); \
-BOOST_PP_CAT(tpl_test,name)<NT2_PP_STRIP(type)>();                    \
+printf("With T = [%s]\n",nt2::type_id<BOOST_DISPATCH_PP_STRIP(type)>().c_str()); \
+BOOST_PP_CAT(tpl_test,name)<BOOST_DISPATCH_PP_STRIP(type)>();                    \
 /**/
 
 //==============================================================================

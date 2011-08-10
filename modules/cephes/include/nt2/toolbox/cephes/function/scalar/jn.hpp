@@ -21,9 +21,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::jn_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::jn_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
@@ -42,9 +42,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::jn_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::jn_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< double_<A1> >)
                             )
@@ -61,9 +61,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::jn_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::jn_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< float_<A1> >)
                             )
@@ -80,9 +80,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is long double
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( cephes::tag::jn_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::jn_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(long_double_<A1>)
                             )

@@ -11,7 +11,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/simd/native.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 #ifdef BOOST_MSVC
   #pragma warning(disable: 4309) // truncation of constant value
@@ -20,10 +20,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of digit constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( digit_value, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_SIMD_TYPES )
 {
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef nt2::simd::native<T,ext_t>             dst_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>             dst_t;
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
     NT2_TEST_EQUAL( (nt2::Mten<dst_t>())[i], static_cast<T>(  -10 ) );
@@ -107,10 +107,10 @@ NT2_TEST_CASE_TPL( digit_value, NT2_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test integral_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( integral_constant, NT2_SIMD_TYPES )
+NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_SIMD_TYPES )
 {
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef nt2::simd::native<T,ext_t>             dst_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>             dst_t;
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
     NT2_TEST_EQUAL( (nt2::integral_constant<dst_t,42>())[i], static_cast<T>(42) );

@@ -16,9 +16,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::fast_cos_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cos_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -28,7 +28,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return -is_eqz(simd::native_cast<result_type>(a0));
+      return -is_eqz(boost::simd::native_cast<result_type>(a0));
     }
   };
 } }
@@ -37,9 +37,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::fast_cos_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cos_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )

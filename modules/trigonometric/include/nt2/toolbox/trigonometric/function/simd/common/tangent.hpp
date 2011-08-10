@@ -19,9 +19,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tangent_<mode> , tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tangent_<mode> , tag::cpu_
 			      , (A0)(mode)(X)
 			      , ((simd_<arithmetic_<A0>,X>))
 			      )
@@ -40,9 +40,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::tangent_<mode>, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tangent_<mode>, tag::cpu_
                             , (A0)(mode)(X)
                             , ((simd_<real_<A0>,X>))
                             )

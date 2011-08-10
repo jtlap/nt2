@@ -15,7 +15,7 @@
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <boost/fusion/include/at.hpp>
-#include <nt2/extension/parameters.hpp>
+#include <boost/dispatch/extension/parameters.hpp>
 #include <boost/fusion/include/nview.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <boost/fusion/include/make_vector.hpp>

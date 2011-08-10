@@ -7,20 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.boost)
-IF(NOT Boost_FOUND)
-  SET(NT2_SDK_DEPENDENCIES_FOUND 0)
-  RETURN()
-ENDIF()
 
-include(nt2.simd)
-
-MESSAGE( STATUS "[nt2.sdk] target system: ${NT2_OS} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-MESSAGE( STATUS "[nt2.sdk] target processor: ${NT2_ARCH} (${CMAKE_SYSTEM_PROCESSOR})" )
-
-SET(NT2_SDK_DEPENDENCIES_FOUND 1)
-SET(NT2_SDK_DEPENDENCIES_INCLUDE_DIR ${Boost_INCLUDE_DIRS})
-SET(NT2_SDK_DEPENDENCIES_LIBRARY_DIR ${Boost_LIBRARY_DIRS})
-
-SET(NT2_SDK_FLAGS ${NT2_SIMD_FLAGS})
+SET(NT2_SDK_DEPENDENCIES_EXTRA boost.simd.sdk)
 SET(NT2_SDK_LIBRARIES nt2)

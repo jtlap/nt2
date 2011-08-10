@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTION_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
 #include <nt2/include/functions/fast_ldexp.hpp>
-#include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/fast_toint.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/is_flint.hpp>
@@ -17,7 +16,7 @@
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/round2even.hpp>
-#include <nt2/sdk/details/ignore_unused.hpp>
+#include <nt2/include/functions/bitwise_and.hpp>
 
 namespace nt2
 {
@@ -57,7 +56,7 @@ namespace nt2
 	  A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
 	  y = fast_ldexp(y, fast_toint(k));
 	  // adjust for 2^n n flint
-	  return  sel(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
+	  return  select(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
 	}
       };
 
@@ -69,7 +68,7 @@ namespace nt2
 	{
 	  A0 y = fast_ldexp(c, fast_toint(k));
 	  //adjust for 10^n n flint
-	  return  sel(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
+	  return  select(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
 	}
       };
 

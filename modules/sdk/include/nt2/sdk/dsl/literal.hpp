@@ -19,9 +19,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Litteral as usually splatted w/e the target
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_,tag::cpu_
                             , (Value)(State)(Data)
                             , (scalar_< arithmetic_<Value> >)
                               ((target_<unspecified_<State> >))
@@ -37,9 +37,9 @@ namespace nt2 { namespace meta
   };
 } }
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_,tag::cpu_
                             , (Id)(State)(Data)
                             , (constant_<Id>)
                               ((target_<unspecified_<State> >))
@@ -57,7 +57,7 @@ namespace nt2 { namespace meta
 } }
 
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
@@ -76,7 +76,7 @@ namespace nt2 { namespace meta
 };
 } }
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Id)(class State)

@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTION_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTION_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
-
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -21,9 +21,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
 			     (A0)(X),
                       ((simd_<real_<A0>,X>))
                      )
@@ -35,7 +35,7 @@ namespace nt2 { namespace meta
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<integer_<A0>,X>))
                      )
@@ -43,13 +43,14 @@ namespace nt2 { namespace meta
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
+	using boost::simd::bitwise_cast; 
 	typedef typename meta::as_real<A0>::type ftype;
 	ftype r = nt2::factorial(nt2::tofloat(a0));
 	return sel(gt(r,tofloat(Valmax<A0>())), Valmax<A0>(), bitwise_cast<A0>(nt2::toint(r))); 
       }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<int32_<A0>,X>))
                      )
@@ -72,7 +73,7 @@ namespace nt2 { namespace meta
       return sel(ge(a00, Twelve<A0>()), Valmax<A0>(), r);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<int16_<A0>,X>))
                      )
@@ -91,7 +92,7 @@ namespace nt2 { namespace meta
       return sel(ge(a00, Eight<A0>()), Valmax<A0>(), r);
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<uint16_<A0>,X>))
                      )
@@ -112,7 +113,7 @@ namespace nt2 { namespace meta
     }
   };
 
-    NT2_FUNCTOR_IMPLEMENTATION(tag::factorial_, tag::cpu_,
+    NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
                       (A0)(X),
                       ((simd_<type8_<A0>,X>))
                      )

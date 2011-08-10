@@ -80,7 +80,7 @@ Files find_files(const std::vector<string>& paths, const std::vector<string>& ig
             for(fs::recursive_directory_iterator it2(dir); it2 != end; ++it2)
             {
                 if(it2->path().extension() == ".hpp")
-                    files[it2->path().filename()].push_back(it2->path().native().substr(it->size()+1));
+                    files[it2->path().filename()].push_back(it2->path().string().substr(it->size()+1));
                 
                 if(std::find(ignore.begin(), ignore.end(), it2->path().filename()) != ignore.end())
                     it2.no_push();
@@ -93,7 +93,7 @@ Files find_files(const std::vector<string>& paths, const std::vector<string>& ig
 
 void generate_file(const string& binary_path, const string& output_dir, const fs::path& file_name, const vector<string>& includes)
 {
-    string file_dir = (output_dir / file_name).native();
+    string file_dir = (output_dir / file_name).string();
     fs::path file_path = fs::path(binary_path) / file_dir;
     
     // generate include guard name
@@ -109,7 +109,7 @@ void generate_file(const string& binary_path, const string& output_dir, const fs
     
     std::ofstream fp(file_path.c_str());
     if(!fp)
-        throw std::runtime_error("couldn't open file '" + file_path.native() + "' for writing");
+        throw std::runtime_error("couldn't open file '" + file_path.string() + "' for writing");
     
     fp << "#ifndef " << file_dir << "_INCLUDED\n";
     fp << "#define " << file_dir << "_INCLUDED\n\n";
@@ -177,7 +177,7 @@ int main(int argc, char* argv[])
                     includes.insert(includes.end(), it2->second.begin(), it2->second.end());
                     
                 fs::path path = it->value.front();
-                generate_file(binary_path, path.parent_path().native(), path.filename(), includes);
+                generate_file(binary_path, path.parent_path().string(), path.filename(), includes);
             }
         }
         

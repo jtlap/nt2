@@ -12,9 +12,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(boost_math::tag::ellint_rj_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::ellint_rj_, tag::cpu_,
                            (A0)(A1)(A2)(A3),
                            (scalar_<arithmetic_<A0> >)(scalar_<arithmetic_<A1> >)
 			   (scalar_<arithmetic_<A2> >)(scalar_<arithmetic_<A3> >)
@@ -33,9 +33,10 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  NT2_FUNCTOR_IMPLEMENTATION(boost_math::tag::ellint_rj_, tag::cpu_,
+NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::ellint_rj_, tag::cpu_,
                            (A0)(A1)(A2)(A3),
-                           (scalar_<real_<A0> > )(scalar_<real_<A1> >)(scalar_<real_<A2> >)(scalar_<real_<A3> >)
+                           (scalar_<real_<A0> >)(scalar_<real_<A1> >)
+			   (scalar_<real_<A2> >)(scalar_<real_<A3> >)
                           )
   {
     typedef typename meta::result_of<meta::floating(A0, A1, A2/*, A3*/)>::type result_type;

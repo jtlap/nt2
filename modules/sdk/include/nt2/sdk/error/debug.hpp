@@ -11,14 +11,14 @@
 
 /*!
  * \file
- * \brief Control the way build mode affect NT2 error handlign setting
+ * \brief Control the way build mode affect Boost.Dispatch error handlign setting
  */
 
 #if defined(DOXYGEN_ONLY)
 //==============================================================================
 /*!
  * \ingroup error_config
- * When defined -- usually via cmake --, force the compilation of NT2 in Release
+ * When defined -- usually via cmake --, force the compilation of Boost.Dispatch in Release
  * mode. In this mode, most error checking systems are off to ensure a high
  * level of performance. Use only when debuggign is done.
  *
@@ -30,7 +30,7 @@
 //==============================================================================
 /*!
  * \ingroup error_config
- * When defined -- usually via cmake --, force the compilation of NT2 in Debug
+ * When defined -- usually via cmake --, force the compilation of Boost.Dispatch in Debug
  * mode. In this mode, most error checking systems are on to ensure a high
  * quality of debugging facilities. Performance are not guaranteed in Debug mode.
  */

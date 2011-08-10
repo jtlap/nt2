@@ -20,14 +20,15 @@
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/maximum.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/eps_related.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))
                       )
@@ -45,7 +46,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   //Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0)(A1)(X),
 			     ((simd_<arithmetic_<A0>,X>))
 			     ((scalar_<real_<A1> >))
@@ -63,7 +64,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0)(A1)(X),
 			     ((simd_<real_<A0>,X>))
 			     ((scalar_<real_<A1> >))
@@ -83,7 +84,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 1 input
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
 			       (A0)(A1)(X), 
 			       ((simd_<arithmetic_<A0>,X >))
 			       ((simd_<real_<A1>,X>))
@@ -101,13 +102,13 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::ellipke_, tag::cpu_,
 				(A0)(A1)(A2)(X), 
-				(boost::mpl::equal_to < meta::cardinal_of<A0> 
-			                                , meta::cardinal_of<A2>
+				(boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0> 
+			                                , boost::simd::meta::cardinal_of<A2>
 				                        >
 				), 
-                                ( tag::ellipke_
+                                ( nt2::tag::ellipke_
                                           ( simd_<arithmetic_<A0>,X> 
 					  , scalar_<real_<A1> >
 				          , simd_<real_<A2>,X>
@@ -131,7 +132,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(  tag::ellipke_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
 				(A0)(A1)(X), 
 				((simd_<real_<A0>,X >))
 				((scalar_<real_<A1> >))

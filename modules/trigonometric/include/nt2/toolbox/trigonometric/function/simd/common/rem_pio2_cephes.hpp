@@ -10,11 +10,12 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTION_SIMD_COMMON_REM_PIO2_CEPHES_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/function/scalar/impl/constants.hpp>
 #include <nt2/include/functions/round2even.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_cephes_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_cephes_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_ < real_<A0>,X > ))
 			     )
@@ -37,7 +38,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation when real
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::rem_pio2_cephes_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_cephes_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_ < real_<A0>, X > ))
 			     ((simd_ < real_<A0>, X > ))

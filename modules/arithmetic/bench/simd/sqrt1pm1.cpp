@@ -15,7 +15,7 @@
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>
-typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<sqrt1pm1_> from arithmetic
@@ -30,13 +30,13 @@ using nt2::tag::sqrt1pm1_;
 namespace n1 {
   typedef float T;
   typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(sqrt1pm1_,(RS(vT,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
   typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(sqrt1pm1_,(RS(vT,T(-10),T(10))))
 }
 

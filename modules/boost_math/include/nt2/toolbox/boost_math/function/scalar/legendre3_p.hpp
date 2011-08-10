@@ -14,9 +14,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost_math::tag::legendre3_p_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::legendre3_p_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< arithmetic_<A2> >)
                             )
@@ -35,9 +35,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost_math::tag::legendre3_p_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::legendre3_p_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< real_<A2> >)
                             )

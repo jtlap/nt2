@@ -24,7 +24,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // slice implementation for no_padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   template<class A0, class A2, class Dummy>
   struct implement< tag::slice_
@@ -47,9 +47,9 @@ namespace nt2 { namespace meta
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename strip<A0>::type  arg0;
-    typedef memory::no_padding        arg1;
-    typedef typename strip<A2>::type  arg2;
+    typedef A0                  arg0;
+    typedef memory::no_padding  arg1;
+    typedef A2                  arg2;
 
     typedef boost::fusion::result_of::at_c<arg0 const,arg2::value-1>  true_case;
 
@@ -101,8 +101,8 @@ namespace nt2 { namespace meta
                   >
   {
     typedef typename  boost::fusion::result_of::
-                      at_c< typename strip<A0>::type const
-                          , strip<A2>::type::value-1
+                      at_c< A0 const
+                          , A2::value-1
                           >::type                                 result_type;
 
     inline result_type

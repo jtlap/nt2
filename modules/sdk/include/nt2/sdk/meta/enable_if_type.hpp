@@ -9,26 +9,11 @@
 #ifndef NT2_SDK_META_ENABLE_IF_TYPE_HPP_INCLUDED
 #define NT2_SDK_META_ENABLE_IF_TYPE_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines the nt2::meta::enable_if_type \metafunction
- */
+#include <boost/dispatch/meta/enable_if_type.hpp>
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
-  /*!
-   * Provides a SFINAE context to test the existence of a given type.
-   *
-   * \tparam T Type to check existence of.
-   * \tparam R Type to return if \c T is defined.
-   *
-   * \usage
-   *
-   * \include enable_if_type.cpp
-   */
-  //============================================================================
-  template<class T, class R=void>  struct enable_if_type { typedef R type; };
+  using boost::dispatch::meta::enable_if_type;
 } }
 
 #endif

@@ -17,9 +17,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellpk_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellpk_, tag::cpu_,
                         (A0)(X),
                         ((simd_<double_<A0>,X>))
                        )
@@ -65,7 +65,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 
 
-  NT2_FUNCTOR_IMPLEMENTATION(tag::ellpk_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellpk_, tag::cpu_,
                         (A0)(X),
                         ((simd_<float_<A0>,X>))
                        )

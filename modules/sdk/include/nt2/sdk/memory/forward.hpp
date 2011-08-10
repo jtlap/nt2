@@ -12,12 +12,13 @@
 #include <cstddef>
 #include <nt2/sdk/memory/config.hpp>
 #include <nt2/sdk/memory/parameters.hpp>
+#include <boost/simd/sdk/memory/forward.hpp>
 
 namespace nt2 { namespace memory
 {
-  byte* allocate( std::size_t nbytes );
-  void deallocate( byte* ptr, std::size_t nbytes = 0);
-  byte* reallocate( byte* ptr, std::size_t nbytes, std::size_t obytes);
+  using boost::simd::memory::allocate;
+  using boost::simd::memory::deallocate;
+  using boost::simd::memory::reallocate;
 } }
 #endif
 

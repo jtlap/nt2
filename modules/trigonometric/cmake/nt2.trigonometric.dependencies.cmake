@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TRIGONOMETRIC_DEPENDENCIES_EXTRA common polynomials)
+SET(NT2_TRIGONOMETRIC_DEPENDENCIES_EXTRA common polynomials bitwise)

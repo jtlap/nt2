@@ -48,21 +48,55 @@ class Global_header_gen() :
             "$stamp$",
             "$notes$",
             ]
-    Default_template =  [
+    Default_template = {
+        'default' : [
             "#include <boost/type_traits/is_same.hpp>",
             "#include <nt2/sdk/functor/meta/call.hpp>",
+            "#include <nt2/sdk/meta/as_integer.hpp>",
+            "#include <nt2/sdk/meta/as_real.hpp>",
+            "#include <nt2/sdk/meta/as_signed.hpp>",
+            "#include <nt2/sdk/meta/upgrade.hpp>",
+            "#include <nt2/sdk/meta/downgrade.hpp>",
+            "#include <nt2/sdk/meta/scalar_of.hpp>",
+            "#include <nt2/sdk/meta/floating.hpp>",
+            "#include <nt2/sdk/meta/arithmetic.hpp>",
             "#include <nt2/sdk/unit/$no_ulp$tests.hpp>",
             "#include <nt2/sdk/unit/module.hpp>",
             "#include <nt2/sdk/memory/buffer.hpp>",
             "#include <nt2/include/constants/real.hpp>",
+            ],
+        'boost' : [
+            "#include <boost/type_traits/is_same.hpp>",
+            "#include <boost/dispatch/functor/meta/call.hpp>",
+            "#include <nt2/sdk/unit/$no_ulp$tests.hpp>",
+            "#include <nt2/sdk/unit/module.hpp>",
+            "#include <boost/simd/sdk/memory/buffer.hpp>",
+            "#include <boost/simd/include/constants/real.hpp>",
             ]
+        }
     
-    Simd_template =    [
+    Simd_template =  {
+        'default' : [
+            "#include <nt2/sdk/meta/cardinal_of.hpp>",
+            "#include <nt2/include/functions/splat.hpp>",
             "#include <nt2/sdk/memory/is_aligned.hpp>",
             "#include <nt2/sdk/memory/aligned_type.hpp>",
             "#include <nt2/include/functions/load.hpp>",           
+            ],
+        'boost' : [
+            "#include <boost/simd/sdk/memory/is_aligned.hpp>",
+            "#include <boost/simd/sdk/memory/aligned_type.hpp>",
+            "#include <boost/simd/include/functions/load.hpp>",           
             ]
-
+        }
+    Cover_Template = {
+        'default' : "#include <nt2/include/functions/max.hpp>",         
+        'boost'   : "#include <boost/simd/include/functions/max.hpp>",
+        }
+    No_ulp_Template = {
+        'default' : "#include <nt2/include/functions/ulpdist.hpp>",         
+        'boost'   : "#include <boost/simd/include/functions/ulpdist.hpp>", 
+        }
     Default_dug = {
         'first_stamp' : 'modified by ??? the ???',
         'no_default_includes' : False,  
@@ -88,22 +122,29 @@ class Global_header_gen() :
         if dug :
             r = self.bg.create_unit_txt_part( Global_header_gen.Header_template,
                                               self.__prepare,d=dug)
-            if os.path.exists(self.bg.get_fct_def_path()) :
-                r.append("#include <nt2/toolbox/"+self.bg.get_tb_name()+"/include/"+self.bg.get_fct_name()+".hpp>")
+            if os.path.exists(self.bg.get_fct_doc_path()) :
+                pos = 1 if self.__module == 'default' else 2
+                l = os.path.join(self.bg.demangle(self.bg.get_tb_name(),'toolbox',pos),"include",self.bg.get_fct_name()+".hpp")
+                r.append("#include <"+l+">")
+##                r.append("#include <nt2/toolbox/"+bg.demangle(self.bg.get_tb_name())+"/include/"+self.bg.get_fct_name()+".hpp>")
+                print(r[-1])
             for d in dl :
                 df =  d.get('functor',False)
                 no_ulp =  df.get('no_ulp',False) if df else True
                 if not no_ulp :
-                    r.append("#include <nt2/include/functions/ulpdist.hpp>")
+                    r.append(Global_header_gen.No_ulp_Template[self.__module])
                     if self.part == "cover" :
-                        r.append("#include <nt2/include/functions/max.hpp>")
+                        r.append(Global_header_gen.Cover_Template[self.__module])
                     return r
         return r
     
     def add_includes(self,r,dl) :
         print ("part = %s"%self.part)
-        include_src = 'included' if self.mode == 'scalar' else "simd_included"
-        if self.part == "cover" : include_src = ['cover_included','included']
+        include_src = ['included']
+        if self.mode == 'simd':
+            include_src.extend(['simd_included'])
+        if self.part == 'cover':
+            include_src.extend(['cover_included'])
         tuple_included = False
         default_includes = True
         for d in dl :
@@ -134,9 +175,9 @@ class Global_header_gen() :
                     r.append('')
             if default_includes : #uses default once
                 default_includes = False
-                r1 = self.bg.create_unit_txt_part( Global_header_gen.Default_template,self.__prepare,d=d)
+                r1 = self.bg.create_unit_txt_part( Global_header_gen.Default_template[self.__module],self.__prepare,d=d)
                 r.extend(r1)
-                if self.mode == "simd" : r.extend(Global_header_gen.Simd_template)
+                if self.mode == "simd" : r.extend(Global_header_gen.Simd_template[self.__module])
             r.append('')
         def is_include(st) :
             st =st.lstrip()
@@ -156,6 +197,8 @@ class Global_header_gen() :
     def __create_unit_txt(self) :
         dl = self.bg.get_fct_dict_list()
         if isinstance(dl,dict ) : dl = [dl]
+        print (dl)
+        self.__module = dl[0].get('functor',False).get("module",'default')
         r = self.add_header(dl)
         r = self.add_includes(r,dl)
         return r

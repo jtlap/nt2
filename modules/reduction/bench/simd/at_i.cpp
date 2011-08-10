@@ -14,6 +14,7 @@
 #include <nt2/toolbox/reduction/include/at_i.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -29,16 +30,16 @@ using nt2::tag::at_i_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  typedef nt2::simd::native<iT,ext_t> viT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
-  typedef nt2::simd::native<iT,ext_t> viT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(at_i_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>()))(RS(iT,0,0)))
 }
 

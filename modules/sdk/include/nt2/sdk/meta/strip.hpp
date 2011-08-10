@@ -9,55 +9,11 @@
 #ifndef NT2_SDK_META_STRIP_HPP_INCLUDED
 #define NT2_SDK_META_STRIP_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines the nt2::meta::strip \metafunction
- */
-
-#include <boost/config.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
-  /*!
-   * Removes all reference and cv-qualifier from a given type \c T.
-   *
-   * \tparam T Type to strip from reference and cv-qualifier.
-   *
-   * \semantic:
-   *
-   * For any given type \c T,
-   *
-   * \code
-   * typedef nt2::meta::strip<T>::type r;
-   * \endcode
-   *
-   * is equivalent to:
-   *
-   * \code
-   * typedef remove_cv< remove_reference<T>::type >::type r;
-   * \endcode
-   *
-   * \usage
-   *
-   * \include strip.cpp
-   */
-  //============================================================================
-  template<class T> struct strip                      { typedef T type; };
-  template<class T> struct strip<T const            > : strip<T> {};
-  template<class T> struct strip<T volatile         > : strip<T> {};
-  template<class T> struct strip<T const volatile   > : strip<T> {}; 
-  template<class T> struct strip<T &                > : strip<T> {};
-#ifndef BOOST_NO_RVALUE_REFERENCES
-  template<class T> struct strip<T &&               > : strip<T> {};
-#endif
-
-  //============================================================================
-  // strip on C-style array
-  //============================================================================
-  template<class T, std::size_t N>
-  struct strip<T[N]> { typedef typename strip<T>::type type[N]; };
-  
+  using boost::dispatch::meta::strip;
 } }
 
 #endif

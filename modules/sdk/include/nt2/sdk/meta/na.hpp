@@ -9,20 +9,11 @@
 #ifndef NT2_SDK_META_NA_HPP_INCLUDED
 #define NT2_SDK_META_NA_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines the nt2::meta::na_ type
- */
+#include <boost/dispatch/meta/na.hpp>
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
-  /*!
-   * Empty type used to represent empty elements in compile-time containers.
-   * nt2::meta::na_ is used in \nt2 to prevent some ADL issues with Boost.MPL.
-   */
-  //============================================================================
-  struct na_ { typedef na_ type; };
+  using boost::dispatch::meta::na_;
 } }
 
 #endif

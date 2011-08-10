@@ -73,14 +73,25 @@ macro(nt2_setup_variant)
   endif()
 endmacro()
 
+function(nt2_module_target_parent target)
+  string(REGEX REPLACE "[^.]+\\.([^.]+)$" "\\1" parent_target ${target})
+
+  if(NOT parent_target STREQUAL ${target})
+    get_target_property(${parent_target}_exists ${parent_target} EXCLUDE_FROM_ALL)
+    if(${parent_target}_exists MATCHES "NOTFOUND$")
+      add_custom_target(${parent_target})
+    endif()
+    add_dependencies(${parent_target} ${target})
+  
+    nt2_module_target_parent(${parent_target})
+  endif()
+  
+endfunction()
+
 macro(nt2_module_dir dir)
   if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${dir})
-      get_target_property(${dir}_exists ${dir} EXCLUDE_FROM_ALL)
-      if(${dir}_exists MATCHES "NOTFOUND$")
-        add_custom_target(${dir})
-      endif()
       add_custom_target(${NT2_CURRENT_MODULE}.${dir})
-      add_dependencies(${dir} ${NT2_CURRENT_MODULE}.${dir})
+      nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
       add_subdirectory(${dir})
     endif()
 endmacro()
@@ -146,9 +157,14 @@ macro(nt2_module_add_library libname)
 
   set_target_properties(${libname} PROPERTIES VERSION 3.0.0 SOVERSION 3)
   
-  set(FLAGS "${NT2_CURRENT_FLAGS} -DNT2_${NT2_CURRENT_MODULE_U}_SOURCE")
+  if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
+    string(REPLACE "." "_" macro_name ${NT2_CURRENT_MODULE_U})
+  else()
+    string(REPLACE "." "__" macro_name "NT2_${NT2_CURRENT_MODULE_U}")
+  endif()
+  set(FLAGS "${NT2_CURRENT_FLAGS} -D${macro_name}_SOURCE")
   if(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK)
-    set(FLAGS "${FLAGS} -DNT2_${NT2_CURRENT_MODULE_U}_DYN_LINK")
+    set(FLAGS "${FLAGS} -D${macro_name}_DYN_LINK")
   endif()
   set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
   
@@ -270,7 +286,7 @@ macro(nt2_module_configure_py pyfile)
                    OUTPUT_STRIP_TRAILING_WHITESPACE
                  )
    
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")              
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}" AND ${pyfile}_result)
     string(REPLACE "\n" ";" ${pyfile}_files ${${pyfile}_result})
     foreach(gen_file ${${pyfile}_files})
       nt2_module_install_file(${gen_file})
@@ -298,4 +314,95 @@ endmacro()
 macro(nt2_module_configure_file cmake_file header)
   configure_file(${cmake_file} ${PROJECT_BINARY_DIR}/include/${header})
   nt2_module_install_file(${header})
+endmacro()
+
+macro(nt2_module_simd_toolbox name)
+  string(TOUPPER ${name} name_U)
+  get_directory_property(INCLUDE_DIRECTORIES INCLUDE_DIRECTORIES)
+  foreach(dir ${INCLUDE_DIRECTORIES})
+    file(GLOB function_files RELATIVE ${dir}/boost/simd/toolbox/${name}/function ${dir}/boost/simd/toolbox/${name}/function/*.hpp)
+    foreach(file ${function_files})
+      string(REGEX REPLACE ".hpp" "" file ${file})
+      string(TOUPPER ${file} file_U)
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file}.hpp
+                "//==============================================================================\n"
+                "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II       \n"
+                "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI       \n"
+                "//                                                                              \n"
+                "//          Distributed under the Boost Software License, Version 1.0.          \n"
+                "//                 See accompanying file LICENSE.txt or copy at                 \n"
+                "//                     http://www.boost.org/LICENSE_1_0.txt                     \n"
+                "//==============================================================================\n"
+                "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "\n"
+                "#include <boost/simd/toolbox/${name}/function/${file}.hpp>\n"
+                "\n"
+                "namespace nt2\n"
+                "{\n"
+                "  namespace tag\n"
+                "  {\n"
+                "    using boost::simd::tag::${file}_;\n"
+                "  }\n"
+                "\n"
+                "  using boost::simd::${file};\n"
+                "}\n"
+                "\n"
+                "#endif\n"
+          )
+    endforeach()
+    
+    file(GLOB constant_files RELATIVE ${dir}/boost/simd/toolbox/${name}/constants ${dir}/boost/simd/toolbox/${name}/constants/*.hpp)
+    foreach(file ${constant_files})
+      string(REGEX REPLACE ".hpp" "" file ${file})
+      string(TOUPPER ${file} file_U)
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file}.hpp
+                "//==============================================================================\n"
+                "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II       \n"
+                "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI       \n"
+                "//                                                                              \n"
+                "//          Distributed under the Boost Software License, Version 1.0.          \n"
+                "//                 See accompanying file LICENSE.txt or copy at                 \n"
+                "//                     http://www.boost.org/LICENSE_1_0.txt                     \n"
+                "//==============================================================================\n"
+                "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "\n"
+                "#include <nt2/toolbox/${name}/${name}.hpp>\n" # Workaround
+                "\n"
+                "#endif\n"
+          )
+    endforeach()
+    
+    file(GLOB include_files RELATIVE ${dir}/boost/simd/toolbox/${name}/include ${dir}/boost/simd/toolbox/${name}/include/*.hpp)
+    foreach(file ${include_files})
+      file(READ ${dir}/boost/simd/toolbox/${name}/include/${file} file_content)
+      string(REPLACE "boost/simd/" "nt2/" file_content ${file_content})
+      string(REPLACE "BOOST_SIMD_" "NT2_" file_content ${file_content})
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file} ${file_content})
+    endforeach()
+  endforeach()
+    
+  if(${name} STREQUAL constant)
+    nt2_module_configure_include(nt2/toolbox/${name}/include -o nt2/include/constants)
+  else()
+    nt2_module_configure_include(nt2/toolbox/${name}/include -o nt2/include/functions)
+  endif()
+endmacro()
+
+# work in progress
+macro(nt2_module_gather_includes)
+  get_target_property(gather_includes_exists gather_includes EXCLUDE_FROM_ALL)
+  if(NOT gather_includes_exists)
+    add_subdirectory(${NT2_SOURCE_ROOT}/tools/gather_includes ${PROJECT_BINARY_DIR}/tools/gather_includes EXCLUDE_FROM_ALL)
+  endif()
+  
+  get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
+  string(REPLACE ";" ";-I" INCLUDES "${INCLUDES}")
+  
+  execute_process(COMMAND ${PROJECT_BINARY_DIR}/tools/gather_includes/gather_includes -I ${INCLUDES} ${PROJECT_BINARY_DIR}/include ${ARGN}
+                  RESULT_VARIABLE result
+                 )
+                  
+  message(STATUS "result = ${result}")
 endmacro()

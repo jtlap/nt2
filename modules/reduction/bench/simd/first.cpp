@@ -14,6 +14,7 @@
 #include <nt2/toolbox/reduction/include/first.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -29,14 +30,14 @@ using nt2::tag::first_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(first_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(first_,(RS(vT,nt2::Valmin<T>(),nt2::Valmax<T>())))
 }
 

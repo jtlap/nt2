@@ -9,4 +9,6 @@
 
 include(NT2Module)
 nt2_module_source_setup(predicates)
-nt2_module_configure_toolbox(predicates 1)
+#nt2_module_configure_toolbox(predicates 1)
+
+nt2_module_simd_toolbox(predicates)

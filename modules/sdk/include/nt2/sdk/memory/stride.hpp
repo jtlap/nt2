@@ -13,13 +13,13 @@
 // Compute the number of stride_ between inner and the Nth outer dimension
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/size_t.hpp>
-#include <nt2/sdk/meta/mpl.hpp>
-#include <nt2/sdk/meta/fusion.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 #include <nt2/sdk/memory/padding.hpp>
-#include <nt2/sdk/functor/functor.hpp>
 #include <boost/fusion/include/size.hpp>
-#include <nt2/sdk/memory/details/category.hpp>
-#include <nt2/sdk/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/memory/details/category.hpp>
+#include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 
 namespace nt2
 {
@@ -31,8 +31,8 @@ namespace nt2
   template<int N, class Seq,class Padding> inline
   typename boost::
   lazy_enable_if_c< (boost::fusion::result_of::size<Seq>::value >= N)
-                  , meta::call<tag::stride_
-                                      ( Seq const&
+                  , boost::dispatch::meta::
+                    call<tag::stride_ ( Seq const&
                                       , Padding const&
                                       , boost::mpl::size_t<N> const&
                                       )
@@ -40,7 +40,7 @@ namespace nt2
                   >::type
   stride(Seq const& s, Padding const& p)
   {
-    typename make_functor<tag::stride_,Seq>::type callee;
+    typename boost::dispatch::make_functor<tag::stride_,Seq>::type callee;
     return callee(s,p,boost::mpl::size_t<N>() );
   }
 }
@@ -50,12 +50,12 @@ namespace nt2
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  NT2_REGISTER_DISPATCH ( tag::stride_, tag::cpu_
-                      , (A0)(A1)(A2)
-                      , (fusion_sequence_<A0>)
-                        (padding_<A1>)
-                        (mpl_integral_< scalar_< integer_<A2> > >)
-                      )
+  NT2_REGISTER_DISPATCH(  nt2::tag::stride_, tag::cpu_
+                        , (A0)(A1)(A2)
+                        , (fusion_sequence_<A0>)
+                          (padding_<A1>)
+                          (mpl_integral_< scalar_< integer_<A2> > >)
+                        )
 } }
 
 #endif

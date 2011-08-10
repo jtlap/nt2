@@ -11,6 +11,7 @@
 
 #include <boost/fusion/include/vector_tie.hpp>
 #include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/bitwise_and.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
@@ -21,7 +22,7 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+
 
 namespace nt2
 {

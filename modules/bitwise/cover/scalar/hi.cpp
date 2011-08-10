@@ -20,11 +20,18 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/floating.hpp>
+#include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
 
 
 NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_REAL_TYPES)
@@ -35,6 +42,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<hi_(T)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::downgrade<ir_t>::type wished_r_t;
 
@@ -47,7 +55,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_REAL_TYPES)
 
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( hi_int64__1_0,  NT2_INT_64_TYPES)
 {
   
   using nt2::hi;
@@ -55,6 +63,7 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<hi_(T)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::downgrade<ir_t>::type wished_r_t;
 
@@ -67,7 +76,7 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
 
 } // end of test for int64_
 
-NT2_TEST_CASE_TPL ( hi_int32__1_0,  (nt2::int32_t)(nt2::uint32_t))
+NT2_TEST_CASE_TPL ( hi_int32__1_0,  NT2_INT_32_TYPES)
 {
   
   using nt2::hi;
@@ -75,6 +84,7 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  (nt2::int32_t)(nt2::uint32_t))
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<hi_(T)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::downgrade<ir_t>::type wished_r_t;
 
@@ -87,7 +97,7 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  (nt2::int32_t)(nt2::uint32_t))
 
 } // end of test for int32_
 
-NT2_TEST_CASE_TPL ( hi_int16__1_0,  (nt2::int16_t)(nt2::uint16_t))
+NT2_TEST_CASE_TPL ( hi_int16__1_0,  NT2_INT_16_TYPES)
 {
   
   using nt2::hi;
@@ -95,6 +105,7 @@ NT2_TEST_CASE_TPL ( hi_int16__1_0,  (nt2::int16_t)(nt2::uint16_t))
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<hi_(T)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::downgrade<ir_t>::type wished_r_t;
 

@@ -14,6 +14,7 @@
 #include <nt2/toolbox/trigonometric/include/fast_sincos.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,12 +30,12 @@ using nt2::tag::fast_sincos_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_sincos_,(RS(T,nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(fast_sincos_,(RS(T,nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 

@@ -9,82 +9,14 @@
 #ifndef NT2_SDK_META_ADAPTED_TRAITS_HPP_INCLUDED
 #define NT2_SDK_META_ADAPTED_TRAITS_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Provides adaptation of some boost type traits for NT2 types
- */
-
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/behave_as.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 
 namespace nt2 { namespace meta
 {
-  //============================================================================
-  /*!
-   * \ingroup metafunctions
-   * For any type \c T, checks if its primitive type is a floating-point type.
-   *
-   * \tparam T Any type
-   *
-   * \par Models:
-   * \metafunction
-   *
-   * \semantic
-   * For any type \c T,
-   *
-   * \code
-   * typedef is_floating<T>::type type;
-   * \endcode
-   *
-   * is equivalent to
-   *
-   * \code
-   * typedef behave_as<boost::is_floating_point<boost::mpl::_>
-   *                  , strip<T>::type
-   *                  > type;
-   * \endcode
-   */
-  //============================================================================
-  template<class T>
-  struct  is_floating_point
-        : behave_as  < boost::is_floating_point<boost::mpl::_>
-                    , typename strip<T>::type
-                    > {};
-
-  //============================================================================
-  /*!
-   * \ingroup metafunctions
-   * For any type \c T, checks if its primitive type is a integral type.
-   *
-   * \tparam T Any type
-   *
-   * \par Models:
-   * \metafunction
-   *
-   * \par Semantic:
-   * For any type \c T,
-   *
-   * \code
-   * typedef is_integral<T>::type type;
-   * \endcode
-   *
-   * is equivalent to
-   *
-   * \code
-   * typedef behave_as<boost::is_integral<boost::mpl::_>
-   *                  , strip<T>::type
-   *                  > type;
-   * \endcode
-   */
-  //============================================================================
-  template<class T>
-  struct  is_integral
-        : behave_as< boost::is_integral<boost::mpl::_>
-                    , typename strip<T>::type
-                    > {};
+  using boost::dispatch::meta::is_floating_point; 
+  using boost::dispatch::meta::is_integral;
 } }
 
 #endif

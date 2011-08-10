@@ -71,6 +71,8 @@ def extract(d,key_substitute,default_value,*fromkeys) :
 
 class Specific_values_test_gen(object) :
     def __init__(self, base_gen,d,typ,ret_arity,platform) :
+        self.__module  = d["functor"].get('module','default')
+        self._prefix = 'NT2' if self.__module == 'default' else 'NT2'
         self.bg = base_gen
         self.mode = self.bg.get_fct_mode()
         self.ret_arity = ret_arity
@@ -89,13 +91,13 @@ class Specific_values_test_gen(object) :
         if self.mode == 'simd' :
             special = extract(d,"",[""],"functor","special")[0]
             if special in ['predicate','fuzzy'] :
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0]!=0, $call_param_res$%s);"
+                spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0]!=0, $call_param_res$%s);"
             elif special in ['reduction']:
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
+                spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
             else :
-                spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0], $call_param_res$%s);"
+                spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$)[0], $call_param_res$%s);"
         else :
-            spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
+            spec_values_tpl = "  "+self._prefix+"_TEST_%sEQUAL($fct_name_repl$$tpl_parm$($call_param_vals$), $call_param_res$%s);"
         return spec_values_tpl
 
     def expand_to_list(self,typ) :
@@ -111,6 +113,8 @@ class Specific_values_test_gen(object) :
         for t in typs :
             r+=self.__create_v_test(dl,t,typ)
             if self.__grouping_used : break;
+        if dl["functor"].get("module","")=="boost" :
+            r = [ re.sub("nt2::","boost::simd::",rr) for rr in r]
         return r
     
     def __create_v_test(self,dl,typ,orig_type) :
@@ -139,17 +143,18 @@ class Specific_values_test_gen(object) :
 
     def __create_values_test(self,dl,typ,orig_typ,no_ulp,r) :
         unit_specific = extract(dl,"","",'unit',"specific_values")
+        print("unit_specific   %s"%unit_specific)
         ulp_str = "" if no_ulp else "ULP_"                   #string to modify the macro name accordingly
         thresh_str = "" if no_ulp else ", $specific_thresh$" # provision for the possible ulp threshold
         spec_values_tpl = self.get_spec_value_call_tpl(dl)   # template for macro call
-##        print("typ   %s"%typ)
-##        print("otype %s"%orig_typ)
+        print("typ   %s"%typ)
+        print("otype %s"%orig_typ)
         typ_values = unit_specific.get(typ,None)
         if typ_values is None:
             typ_values = extract(unit_specific,"default",None,orig_typ)
             self.__grouping_used = True
         # typ_values is the dictionnary of types for which specific values calls will be generated
-        #        print("typ_values = %s"%typ_values)
+        print("typ_values = %s"%typ_values)
         for k in sorted(typ_values.keys()) :
             #print("typ = %s"%typ)
             # k is here the string representation of the list of parameters f the functor
@@ -196,9 +201,9 @@ class Specific_values_test_gen(object) :
     def __create_tuple_values_test(self,dl,typ,orig_typ,no_ulp,r) :
         d = extract(dl,"","",'unit',"specific_values")
         if no_ulp :
-            Call = "    NT2_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
+            Call = "    "+self._prefix+"_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
         else :
-            Call = "    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res)$simd$, $call_param_res$$simd$, $specific_thresh$);"
+            Call = "    "+self._prefix+"_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res)$simd$, $call_param_res$$simd$, $specific_thresh$);"
             
         Results = "    r_t res = $fct_name$$tpl_parm$($call_param_vals$);"
         dd = d.get(typ,d.get("default",None))

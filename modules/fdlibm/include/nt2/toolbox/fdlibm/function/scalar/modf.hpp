@@ -18,9 +18,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is double_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::modf_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::fdlibm::tag::modf_, tag::cpu_,
                       (A0),
                       (scalar_<double_<A0> > )
 	              (scalar_<double_<A0> > )		     
@@ -34,7 +34,7 @@ namespace nt2 { namespace meta
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(fdlibm::tag::modf_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::fdlibm::tag::modf_, tag::cpu_,
                       (A0),
                       (scalar_<double_<A0> > )
                      )
@@ -43,7 +43,7 @@ namespace nt2 { namespace meta
     NT2_FUNCTOR_CALL(1)
     {      
       result_type res;
-      boost::fusion::at_c<0>(res) = fdlibm::modf(a0, boost::fusion::at_c<1>(res));
+      boost::fusion::at_c<0>(res) = nt2::fdlibm::modf(a0, boost::fusion::at_c<1>(res));
       return res;
     }
   };

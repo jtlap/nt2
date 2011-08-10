@@ -8,25 +8,24 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_I0_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTION_SIMD_COMMON_I0_HPP_INCLUDED
+
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/tchebeval.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/bitwise_ornot.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::i0_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::i0_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -43,7 +42,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION( tag::i0_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::i0_, tag::cpu_
 			      , (A0)(X)
 			      , ((simd_<double_<A0>,X>))
 			      )
@@ -136,9 +135,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::i0_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::i0_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<float_<A0>,X>))
                             )

@@ -11,14 +11,14 @@
 
 /*!
  * \file
- * \brief Implements NT2 exception handling system
+ * \brief Implements Boost.Dispatch exception handling system
  */
 
 /*!
  * \defgroup error Error handling
  * \ingroup sdk
  * This module gathers macros, classes and functions to perform error handling
- * in NT2, beign at runtime or at compile-time.
+ * in Boost.Dispatch, beign at runtime or at compile-time.
  */
 
 /*!
@@ -33,7 +33,7 @@
 //==============================================================================
 /*!
  * \ingroup error_config
- * If defined, all NT2 exceptions handling code is disabled. This macro can be
+ * If defined, all Boost.Dispatch exceptions handling code is disabled. This macro can be
  * defined manually and is triggered automatically if \c BOOST_NO_EXCEPTIONS is
  * defined or if exceptions are disabled by the compiler options.
  *

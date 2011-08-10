@@ -9,100 +9,12 @@
 #ifndef NT2_SDK_META_FLOATING_HPP_INCLUDED
 #define NT2_SDK_META_FLOATING_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines and implements the meta::arithmetic \metafunction
- */
+#include <boost/dispatch/meta/make_real.hpp>
+#include <boost/dispatch/meta/floating.hpp>
 
-#include <nt2/sdk/meta/make_real.hpp>
-
-#if defined(NT2_DONT_USE_PREPROCESSED_FILES)
-#include <nt2/extension/parameters.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#endif
-
-namespace nt2  { namespace meta
+namespace nt2 { namespace meta
 {
-  //============================================================================
-  /*!
-   * \ingroup metafunctions
-   * For a list of types \c T0,...,Tn, floating computes the type able to
-   * store a value of the smallest floating-point value type compatible with
-   * all \c T0,...,Tn
-   *
-   * \semantic
-   *
-   * For types \c T0,...,Tn,
-   *
-   * \code
-   * typedef result_of<floating(T0,...,Tn)>::type type
-   * \endcode
-   *
-   * is equivalent to:
-   *
-   * \code
-   * typedef nt2::meta:::make_real< max<sizeof(float),...,sizeof(Tn)>::value >::type type;
-   * \endcode
-   *
-   * \usage:
-   *
-   * \include floating.cpp
-   */
-  //============================================================================
-  struct floating
-  {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct  result<This(A0)>
-    {
-      typedef float base_real;
-      BOOST_STATIC_CONSTANT ( std::size_t
-                            , value = (sizeof(A0) > sizeof(base_real))
-                                    ?  sizeof(A0) : sizeof(base_real)
-                            );
-      typedef typename meta::make_real<value>::type type;
-    };
-
-#if !defined(NT2_DONT_USE_PREPROCESSED_FILES)
-#include <nt2/sdk/meta/preprocessed/floating.hpp>
-#else
-#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
-#pragma wave option(preserve: 2, line: 0, output: "preprocessed/floating.hpp")
-#endif
-
-    #define M1(z,n,t)                                               \
-    BOOST_STATIC_CONSTANT ( std::size_t                             \
-                          , BOOST_PP_CAT(value,BOOST_PP_INC(n)) =   \
-                            (   BOOST_PP_CAT(value,n)               \
-                              > sizeof(BOOST_PP_CAT(A,n))           \
-                            ) ? BOOST_PP_CAT(value,n)               \
-                              : sizeof(BOOST_PP_CAT(A,n))           \
-                          );                                        \
-    /**/
-    #define M0(z,n,t)                                                     \
-    template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                  \
-    struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                       \
-    {                                                                     \
-      typedef float base_real;                                            \
-      BOOST_STATIC_CONSTANT ( std::size_t, value0 =  sizeof(base_real) ); \
-      BOOST_PP_REPEAT(n,M1,~)                                             \
-      typedef typename                                                    \
-      meta::make_real<BOOST_PP_CAT(value,n)>::type type;                  \
-    };                                                                    \
-     /**/
-
-    BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_ARITY,M0,~)
-    #undef M1
-    #undef M0
-    
-#if defined(__WAVE__) && defined(NT2_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
-#endif
-#endif
-    
-  };
+  using boost::dispatch::meta::floating;
 } }
 
 #endif

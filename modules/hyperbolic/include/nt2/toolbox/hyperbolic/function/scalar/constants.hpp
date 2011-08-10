@@ -8,16 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_CONSTANTS_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SCALAR_CONSTANTS_HPP_INCLUDED
-// ////////////////////////////////////////////////////////////////////////////////
-// // Make True and False
-// ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/constant/constant.hpp>
 #include <nt2/include/constants/real.hpp>
 
-NT2_MAKE_STD_CONSTANT(Oneo_6  , 0x3fc5555555555555ll, 0x3e2aaaab, 0)
-NT2_MAKE_STD_CONSTANT(Moneo_6 , 0xbfc5555555555555ll, 0xbe2aaaab, 0)
-NT2_MAKE_STD_CONSTANT(Oneo_120, 0x3f81111111111111ll, 0x3c088889, 0)
-		      
+namespace nt2
+{
+  NT2_MAKE_STD_CONSTANT(Oneo_6  , 0x3fc5555555555555ll, 0x3e2aaaab, 0)
+  NT2_MAKE_STD_CONSTANT(Moneo_6 , 0xbfc5555555555555ll, 0xbe2aaaab, 0)
+  NT2_MAKE_STD_CONSTANT(Oneo_120, 0x3f81111111111111ll, 0x3c088889, 0)
+}		      
 // namespace nt2 { namespace constants
 // {
 //   struct one_o_6_  {};

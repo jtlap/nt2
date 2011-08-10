@@ -33,9 +33,9 @@ NT2_TEST_CASE_TPL ( store_real__2_0,  NT2_REAL_TYPES)
 //   using nt2::store;
 //   using nt2::tag::store_;
 //   using nt2::load; 
-//   using nt2::simd::native;
+//   using boost::simd::native;
 //   using nt2::meta::cardinal_of;
-//   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 //   typedef typename nt2::meta::upgrade<T>::type   u_t;
 //   typedef native<T,ext_t>                        n_t;
 //   typedef n_t                                     vT;

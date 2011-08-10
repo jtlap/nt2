@@ -14,7 +14,7 @@
  * \brief Defines macros and functions controlling runtime assertions
  */
 #include <nt2/sdk/error/debug.hpp>
-#include <nt2/sdk/details/ignore_unused.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 #if defined(DOXYGEN_ONLY)
 //==============================================================================
@@ -133,10 +133,10 @@ namespace boost
     fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
     ::nt2::trap();
     #else
-    nt2::ignore_unused(expr);
-    nt2::ignore_unused(fn);
-    nt2::ignore_unused(f);
-    nt2::ignore_unused(l);
+    boost::dispatch::ignore_unused(expr);
+    boost::dispatch::ignore_unused(fn);
+    boost::dispatch::ignore_unused(f);
+    boost::dispatch::ignore_unused(l);
     #endif
   }
 }

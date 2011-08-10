@@ -23,7 +23,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // slice implementation for global_padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   template<class A0, class A2, class Dummy>
   struct implement< tag::slice_
@@ -36,8 +36,8 @@ namespace nt2 { namespace meta
     ////////////////////////////////////////////////////////////////////////////
     // Computes the actual result type depending on A0 size and A2 value
     ////////////////////////////////////////////////////////////////////////////
-    static  typename strip<A0>::type const& s;
-    typedef typename strip<A2>::type        arg2;
+    static  A0 const& s;
+    typedef A2        arg2;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( true_case, memory::align_on( slice<1>(s,memory::no_padding()) ) );

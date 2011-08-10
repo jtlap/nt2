@@ -39,14 +39,14 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
         Nt2_modules.__init__(self)
         Nt2_tb_struct.__init__(self)
         self.__tb_name = tb_name
-        self.__md_path = os.path.join(self.get_nt2_path(),'modules',tb_name)
+        self.__md_path = os.path.join(self.get_nt2_path(),'modules',self.demangle(tb_name))
         self.__tb_style = self.get_module_style(tb_name)
 
     def get_tb_name(self)     : return self.__tb_name
     def get_md_path(self)     : return self.__md_path 
     def get_tb_path(self)     : return os.path.join(self.get_md_path(),'include','nt2','toolbox',self.get_tb_name())
     def get_tb_style(self)    : return self.__tb_style
-    def get_def_path(self)    : return os.path.join(self.get_tb_path(),'function')
+    def get_def_path(self)    : return os.path.join(self.get_md_path(),'function')
     def get_bench_path(self)  : return os.path.join(self.get_md_path(),'bench')
     def get_unit_path(self,part)   : return os.path.join(self.get_md_path(),part)
     def get_doc_path(self)    : return os.path.join(self.get_md_path(),'doc')
@@ -54,20 +54,33 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
 
     def get_fcts_list(self) :
         l = []
-        for name in os.listdir(self.get_def_path()) :
-            if name[-4:]=='.hpp' :
-                h = name[:-4]
+        for name in os.listdir(self.get_doc_path()) :
+            if name[-3:]=='.py' :
+                h = name[:-3]
                 l.append(h)
         return sorted(l)
 
+    def demangle(self,name,insert=None,i=0) :
+        ll = name.split('.')
+ ##       print("avant %s"% ll)
+ ##       print("ins %s"%insert)
+        if insert is not None : ll.insert(-1,insert)
+ ##       print(i)
+ ##       print ("demangle %s "%ll)
+        if len(ll) == 2 : ll.insert(0,'nt2')
+        r = ''
+        for l in ll : r = os.path.join(r,l)
+ ##       print('r %s'%r)
+        return r
     
     def __str__(self) :
-        r =  "tbi.get_tb_path():     %s" % tbi.get_tb_path    ()    
+        r  = "tbi.get_tb_path():     %s" % tbi.get_tb_path    ()    
         r += "\ntbi.get_tb_name():     %s" % tbi.get_tb_name    ()    
         r += "\ntbi.get_tb_style():    %s" % tbi.get_tb_style   ()  
         r += "\ntbi.get_def_path():    %s" % tbi.get_def_path   ()   
         r += "\ntbi.get_bench_path():  %s" % tbi.get_bench_path () 
-        r += "\ntbi.get_unit_path():   %s" % tbi.get_unit_path  ()  
+        r += "\ntbi.get_unit_path('cover'):   %s" % tbi.get_unit_path  ('cover')
+        r += "\ntbi.get_unit_path('unit') :   %s" % tbi.get_unit_path  ('unit')
         r += "\ntbi.get_doc_path():    %s" % tbi.get_doc_path   ()   
         r += "\ntbi.get_fcts_list():  [ \n"
         for f in tbi.get_fcts_list() :  r += " "*5+f+'\n'
@@ -141,7 +154,7 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
 
 
 if __name__ == "__main__" :
-    tbi = Nt2_tb_props("arithmetic")   
+    tbi = Nt2_tb_props("boost.simd.arithmetic")   
     print(tbi)
 ##    tbi = Nt2_tb_props("cephes")   
 ##    print(tbi)

@@ -14,6 +14,7 @@
 #include <nt2/toolbox/bitwise/include/hi.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,42 +30,42 @@ using nt2::tag::hi_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n3 {
   typedef nt2::uint64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n4 {
   typedef nt2::int64_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n5 {
   typedef nt2::uint32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n6 {
   typedef nt2::int32_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n7 {
   typedef nt2::uint16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 namespace n8 {
   typedef nt2::int16_t T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(hi_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2)))
 }
 

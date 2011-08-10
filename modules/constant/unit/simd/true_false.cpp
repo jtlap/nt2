@@ -11,16 +11,16 @@
 #include <nt2/include/constants/true_false.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constant for integral types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( true_false_integer_value, NT2_SIMD_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL( true_false_integer_value, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 {
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef nt2::simd::native<T,ext_t>                dst_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>                dst_t;
   typedef typename nt2::meta::as_unsigned<T>::type  uns_t;
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
@@ -33,10 +33,10 @@ NT2_TEST_CASE_TPL( true_false_integer_value, NT2_SIMD_INTEGRAL_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constant for real types (which can't use ~0)
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( true_false_real_value, NT2_SIMD_REAL_TYPES )
+NT2_TEST_CASE_TPL( true_false_real_value, BOOST_SIMD_SIMD_REAL_TYPES )
 {
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef nt2::simd::native<T,ext_t>                dst_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>                dst_t;
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
     NT2_TEST_EQUAL( (nt2::False<dst_t>())[i], static_cast<T>(0) );

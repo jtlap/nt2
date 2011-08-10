@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTION_SIMD_COMMON_GAMMA_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/is_lez.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
@@ -27,15 +26,15 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/maximum.hpp>
-#include <nt2/include/constants/eps_related.hpp>
+#include <nt2/include/constants/real.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::gamma_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gamma_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -52,7 +51,7 @@ namespace nt2 { namespace meta
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is real_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::gamma_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::gamma_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<real_<A0>,X>))
 			     )

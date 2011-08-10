@@ -14,6 +14,7 @@
 #include <nt2/toolbox/gsl_specfun/include/gsl_sf_psi_n.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,12 +30,12 @@ using nt2::gsl_specfun::tag::gsl_sf_psi_n_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_psi_n_,(RS(iT,iT(0),iT(10)))(RS(T,T(0),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(gsl_sf_psi_n_,(RS(iT,iT(0),iT(10)))(RS(T,T(0),T(10))))
 }
 

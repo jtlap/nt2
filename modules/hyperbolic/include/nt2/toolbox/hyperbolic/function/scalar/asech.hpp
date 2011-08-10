@@ -18,9 +18,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::asech_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asech_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
@@ -42,9 +42,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::asech_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asech_, tag::cpu_
                             , (A0)
                             , (scalar_< real_<A0> >)
                             )
@@ -70,9 +70,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::asech_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asech_, tag::cpu_
                             , (A0)
                             , (scalar_< float_<A0> >)
                             )

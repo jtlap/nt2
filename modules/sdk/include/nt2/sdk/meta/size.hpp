@@ -9,91 +9,16 @@
 #ifndef NT2_SDK_META_SIZE_HPP_INCLUDED
 #define NT2_SDK_META_SIZE_HPP_INCLUDED
 
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/sizeof.hpp>
-#include <boost/mpl/comparison.hpp>
-
-namespace nt2 { namespace details
-{
-  template<class T1,class T2, class Tr, class Op>
-  struct  size_check
-        : boost::mpl::apply < Op
-                            , boost::mpl::
-                              sizeof_<typename boost::mpl::apply<Tr,T1>::type>
-                            , boost::mpl::
-                              sizeof_<typename boost::mpl::apply<Tr,T2>::type>
-                            >
-  {};
-} }
+#include <boost/simd/sdk/meta/size.hpp>
 
 namespace nt2 { namespace meta
 {
-    template<class T1,class T2,class Transform = boost::mpl::_>
-    struct  has_same_size
-          : details::size_check < T1
-                                , T2
-                                , Transform
-                                , boost::mpl::equal_to< boost::mpl::_1
-                                                      , boost::mpl::_2
-                                                      >
-                                >
-    {};
-
-    template<class T1,class T2,class Transform = boost::mpl::_>
-    struct  has_different_size
-          : details::size_check < T1
-                                , T2
-                                , Transform
-                                , boost::mpl::not_equal_to< boost::mpl::_1
-                                                          , boost::mpl::_2
-                                                          >
-                                >
-    {};
-
-    template<class T1,class T2,class Transform = boost::mpl::_>
-    struct  has_smaller_size
-          : details::size_check < T1
-                                , T2
-                                , Transform
-                                , boost::mpl::less< boost::mpl::_1
-                                                  , boost::mpl::_2
-                                                  >
-                                >
-    {};
-
-    template<class T1,class T2,class Transform = boost::mpl::_>
-    struct has_larger_size
-          : details::size_check < T1
-                                , T2
-                                , Transform
-                                , boost::mpl::greater < boost::mpl::_1
-                                                      , boost::mpl::_2
-                                                      >
-                                >
-    {};
-
-    template<class T1,class T2,class Transform = boost::mpl::_>
-    struct has_smaller_or_equal_size
-          : details::size_check < T1
-                                , T2
-                                , Transform
-                                , boost::mpl::less_equal< boost::mpl::_1
-                                                        , boost::mpl::_2
-                                                        >
-                                >
-    {};
-
-    template<class T1,class T2,class Transform = boost::mpl::_>
-    struct has_larger_or_equal_size
-          : details::size_check < T1
-                                , T2
-                                , Transform
-                                , boost::mpl::greater_equal < boost::mpl::_1
-                                                            , boost::mpl::_2
-                                                            >
-                                >
-    {};
-
+  using boost::simd::meta::has_same_size;
+  using boost::simd::meta::has_different_size;
+  using boost::simd::meta::has_smaller_size;
+  using boost::simd::meta::has_larger_size;
+  using boost::simd::meta::has_smaller_or_equal_size;
+  using boost::simd::meta::has_larger_or_equal_size;
 } }
+
 #endif

@@ -9,6 +9,6 @@
 
 include(NT2Module)
 nt2_module_source_setup(constant)
+#nt2_module_configure_toolbox(constant 1)
 
-nt2_module_configure_include(nt2/toolbox/constant/constants -o nt2/toolbox/constant/include -o nt2/include/constants)
-nt2_module_configure_simd(nt2/toolbox/constant/constants)
+nt2_module_simd_toolbox(constant)

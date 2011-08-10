@@ -9,10 +9,6 @@
 
 include(NT2Module)
 nt2_module_source_setup(operator)
-nt2_module_configure_toolbox(operator 1)
+#nt2_module_configure_toolbox(operator 1)
 
-include(nt2.preprocess)
-nt2_preprocess(operator.preprocess ${NT2_OPERATOR_ROOT}/include/nt2/toolbox/operator/specific/common.hpp
-                                   ${NT2_OPERATOR_ROOT}/include/nt2/toolbox/operator/function/simd/common/map.hpp
-                                   ${NT2_OPERATOR_ROOT}/include/nt2/toolbox/operator/function/simd/sse/sse2/map.hpp
-              )
+nt2_module_configure_include(nt2/toolbox/operator/include -o nt2/include/functions)

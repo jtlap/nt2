@@ -14,30 +14,31 @@
 #include <nt2/toolbox/polynomials/include/polevl.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
-// //////////////////////////////////////////////////////////////////////////////
-// // simd runtime benchmark for functor<polevl_> from polynomials
-// //////////////////////////////////////////////////////////////////////////////
-// using nt2::tag::polevl_;
+//////////////////////////////////////////////////////////////////////////////
+// simd runtime benchmark for functor<polevl_> from polynomials
+//////////////////////////////////////////////////////////////////////////////
+using nt2::tag::polevl_;
 
-// //////////////////////////////////////////////////////////////////////////////
-// // range macro
-// //////////////////////////////////////////////////////////////////////////////
-// #define RS(T,V1,V2) (T, (V1) ,(V2))
+//////////////////////////////////////////////////////////////////////////////
+// range macro
+//////////////////////////////////////////////////////////////////////////////
+#define RS(T,V1,V2) (T, (V1) ,(V2))
 
-// namespace n1 {
-//   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
-//   NT2_TIMING(polevl_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
-// }
-// namespace n2 {
-//   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
-//   NT2_TIMING(polevl_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
-// }
+namespace n1 {
+  typedef float T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(polevl_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+}
+namespace n2 {
+  typedef double T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
+  NT2_TIMING(polevl_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+}
 
-// #undef RS
+#undef RS

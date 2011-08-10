@@ -17,6 +17,7 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 05/03/2011',
              'included' : ['#include <nt2/include/functions/rem.hpp>'],
+             'cover_included' : ['#include <nt2/include/functions/rem.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 05/03/2011',
             },
@@ -30,7 +31,7 @@
                  'default' : ['nt2::libc::fmod(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::fmod(a0,a1)'],
+                 'default' : ['nt2::rem(a0,a1)'],
                 },
              'simd' : {
                 },

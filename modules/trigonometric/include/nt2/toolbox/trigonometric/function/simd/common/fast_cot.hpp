@@ -21,9 +21,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::fast_cot_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<signed_<A0>,X>))
                             )
@@ -33,7 +33,7 @@ namespace nt2 { namespace meta
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(nt2::copysign(Inf<result_type>(), simd::native_cast<result_type>(a0)), is_nez(a0));
+      return b_or(nt2::copysign(Inf<result_type>(), boost::simd::native_cast<result_type>(a0)), is_nez(a0));
     }
   };
 } }
@@ -42,9 +42,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::fast_cot_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                             )
@@ -63,9 +63,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::fast_cot_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
                             )

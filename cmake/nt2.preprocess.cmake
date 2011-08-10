@@ -42,9 +42,7 @@ macro(nt2_preprocess target)
     foreach(src ${ARG_UNPARSED_ARGUMENTS})
       math(EXPR n "${prev} + 1")
       add_custom_target(${target}.${n}
-                        COMMAND echo "wave ${src}" && ${WAVE_EXECUTABLE} -DNT2_DONT_USE_PREPROCESSED_FILES -DNT2_CREATE_PREPROCESSED_FILES
-                        --c++0x --timer ${ARG_OPTIONS}
-                        ${INCLUDE_DIRECTORIES} -o - ${src}
+                        COMMAND echo "wave ${src}" && ${WAVE_EXECUTABLE}  --c++0x --timer ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
                         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/include
                        )
       add_dependencies(${target} ${target}.${n})

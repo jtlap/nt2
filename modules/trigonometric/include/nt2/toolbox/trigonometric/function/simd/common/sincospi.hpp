@@ -16,12 +16,12 @@
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(tag::sincospi_, tag::cpu_,(A0)(A1)(X),
-				(boost::mpl::equal_to<meta::cardinal_of<A0>, 
-  			                           meta::cardinal_of<A1> >), 
-                             ( tag::sincospi_
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincospi_, tag::cpu_,(A0)(A1)(X),
+				(boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
+  			                           nt2::meta::cardinal_of<A1> >), 
+                             ( nt2::tag::sincospi_
                                           ( simd_<arithmetic_<A0>,X> 
 					  , simd_<real_<A1>,X>
 				          , simd_<real_<A1>,X>
@@ -40,12 +40,12 @@ namespace nt2 { namespace meta
     }
   };
   
-   NT2_FUNCTOR_IMPLEMENTATION_IF(tag::sincospi_, tag::cpu_,(A0)(A1)(X),
-				(boost::mpl::equal_to<meta::cardinal_of<A0>, 
-			                	 meta::cardinal_of<A1>
+   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincospi_, tag::cpu_,(A0)(A1)(X),
+				(boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
+			                	 nt2::meta::cardinal_of<A1>
 				        >
 				), 
-                                ( tag::sincospi_
+                                ( nt2::tag::sincospi_
 				  ( simd_<arithmetic_<A0>,X> 
 				    , simd_<real_<A1>,X>
 				    )
@@ -66,7 +66,7 @@ namespace nt2 { namespace meta
  /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(tag::sincospi_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincospi_, tag::cpu_,
                            (A0)(X),
                            ((simd_<arithmetic_<A0>,X>))
                           )

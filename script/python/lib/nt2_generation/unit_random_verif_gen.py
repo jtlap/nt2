@@ -244,6 +244,10 @@ class Random_verif_test_gen(Base_gen) :
                     return r    
                 else :
                     r = []
+                    dtmp = durac.get(typ,None)
+                    if dtmp is None :
+                        dtmp = durac.get(self.bg.orig_typ,durac.get("default",[]))
+                        self.__grouping_used = True
                     spcall = dur.get('special_call',False)
                     if spcall :
                         r.extend(spcall)
@@ -252,10 +256,6 @@ class Random_verif_test_gen(Base_gen) :
                         print("oooooo durat %s"%durat)
                         print("oooooo self.bg.orig_typ %s"%self.bg.orig_typ)
                         print("oooooo durac %s"%durac)
-                        dtmp = durac.get(typ,None)
-                        if dtmp is None :
-                            dtmp = durac.get(self.bg.orig_typ,durac.get("default",[]))
-                            self.__grouping_used = True
                         length = len(dtmp)
                         print("length %s"%length)
                         print("dtmp   %s"%dtmp)

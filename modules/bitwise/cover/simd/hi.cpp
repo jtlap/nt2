@@ -20,11 +20,20 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/floating.hpp>
+#include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
@@ -35,7 +44,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_SIMD_REAL_TYPES)
   using nt2::hi;
   using nt2::tag::hi_;
   using nt2::load; 
-  using nt2::simd::native;
+  using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -70,12 +79,12 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_SIMD_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
+NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  NT2_SIMD_SIGNED_INT_GT_8_TYPES)
 {
   using nt2::hi;
   using nt2::tag::hi_;
   using nt2::load; 
-  using nt2::simd::native;
+  using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -108,84 +117,4 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  (nt2::int64_t)(nt2::uint64_t))
       }
     
   }
-} // end of test for int64_
-
-NT2_TEST_CASE_TPL ( hi_int32__1_0,  (nt2::int32_t)(nt2::uint32_t))
-{
-  using nt2::hi;
-  using nt2::tag::hi_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<hi_(vT)>::type r_t;
-  typedef typename nt2::meta::call<hi_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = hi(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::hi (tab_a0[k])));
-        }
-      }
-    
-  }
-} // end of test for int32_
-
-NT2_TEST_CASE_TPL ( hi_int16__1_0,  (nt2::int16_t)(nt2::uint16_t))
-{
-  using nt2::hi;
-  using nt2::tag::hi_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<hi_(vT)>::type r_t;
-  typedef typename nt2::meta::call<hi_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = hi(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::hi (tab_a0[k])));
-        }
-      }
-    
-  }
-} // end of test for int16_
+} // end of test for sintgt_8_

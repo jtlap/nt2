@@ -17,11 +17,20 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/floating.hpp>
+#include <nt2/sdk/meta/arithmetic.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
@@ -32,7 +41,7 @@ NT2_TEST_CASE_TPL ( dist_real__2_0,  NT2_SIMD_REAL_TYPES)
   using nt2::dist;
   using nt2::tag::dist_;
   using nt2::load; 
-  using nt2::simd::native;
+  using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
@@ -49,9 +58,12 @@ NT2_TEST_CASE_TPL ( dist_real__2_0,  NT2_SIMD_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(dist(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Nan<T>(), 0);
+  NT2_TEST_ULP_EQUAL(dist(nt2::Inf<vT>(),nt2::Minf<vT>())[0], nt2::Inf<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(dist(nt2::One<vT>(),nt2::Two<vT>())[0], nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(dist(nt2::Two<vT>(),nt2::One<vT>())[0], nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<T>(), 0);
 } // end of test for real_

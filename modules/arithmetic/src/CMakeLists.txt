@@ -9,4 +9,6 @@
 
 include(NT2Module)
 nt2_module_source_setup(arithmetic)
-nt2_module_configure_toolbox(arithmetic 1)
+#nt2_module_configure_toolbox(arithmetic 1)
+
+nt2_module_configure_include(nt2/toolbox/arithmetic/include -o nt2/include/functions)

@@ -11,6 +11,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
+#include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_lez.hpp>
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/is_odd.hpp>
@@ -21,9 +22,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( tag::signgam_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::signgam_, tag::cpu_
                             , (A0)
                             , (scalar_< fundamental_<A0> >)
                             )
