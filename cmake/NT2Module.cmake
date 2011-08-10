@@ -134,7 +134,6 @@ macro(nt2_module_main module)
   if(PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     nt2_postconfigure_run()
   endif()
-  nt2_find_transfer_parent()
 endmacro()
 
 macro(nt2_module_add_library libname)
@@ -191,7 +190,6 @@ macro(nt2_module_use_modules)
   find_package(NT2 COMPONENTS ${ARGN})
   if(NOT NT2_FOUND)
     message(STATUS "[nt2.${NT2_CURRENT_MODULE}] warning:${component_} dependencies not met, skipping")
-    nt2_find_transfer_parent()
     return()
   endif()
 
@@ -200,8 +198,6 @@ macro(nt2_module_use_modules)
   link_libraries(${NT2_LIBRARIES})
   
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
-  
-  nt2_find_transfer_parent()
 endmacro()
 
 macro(nt2_module_add_exe DIRECTORY EXECUTABLE)

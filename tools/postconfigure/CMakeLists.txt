@@ -33,7 +33,7 @@ if(0) #MSVC)
   set_target_properties(postconfigure
                         PROPERTIES LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\""
                        )
-endif(MSVC)
+endif()
 
 target_link_libraries(postconfigure
                       ${Boost_FILESYSTEM_LIBRARY}
