@@ -11,6 +11,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/plevl.hpp>
 #include <nt2/include/functions/polevl.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -21,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dawson_, tag::cpu_
                             , (A0)
@@ -42,7 +43,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dawson_, tag::cpu_
                             , (A0)

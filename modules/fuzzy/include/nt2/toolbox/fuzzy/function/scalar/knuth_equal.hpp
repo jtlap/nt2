@@ -12,12 +12,13 @@
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exponent.hpp>
 #include <nt2/include/functions/maxnummag.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::knuth_equal_, tag::cpu_
                             , (A0)(A1)(A2)

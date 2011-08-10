@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 swar toolbox - group/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.swar toolbox - group/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of swar components in scalar mode
+// timing Test behavior of boost.simd.swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/swar/include/group.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<group_> from swar
+// scalar runtime benchmark for functor<group_> from boost.simd.swar
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::group_;
 
@@ -29,38 +30,38 @@ using boost::simd::tag::group_;
 
 namespace n1 {
   typedef boost::simd::int16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n2 {
   typedef boost::simd::uint16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n3 {
   typedef boost::simd::int32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n4 {
   typedef boost::simd::uint32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n5 {
   typedef boost::simd::int64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n6 {
   typedef boost::simd::uint64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n7 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(group_,(RS(T,0,100))(RS(T,0,100)))
 }
 
 #undef RS

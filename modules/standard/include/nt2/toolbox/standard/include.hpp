@@ -8,16 +8,12 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_STANDARD_INCLUDE_HPP_INCLUDED
 #define NT2_TOOLBOX_STANDARD_INCLUDE_HPP_INCLUDED
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/details/preprocessor.hpp>
 #include <cmath>
 
 #define NT2_STANDARD_BASE() nt2/toolbox/standard/function/scalar/
 #define NT2_STANDARD_RELATIVE() nt2/toolbox/standard/function/
 
-#if defined(NT2_SIMD_DETECTED)
 #define NT2_STANDARD_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_STANDARD_RELATIVE, F)
-#else
-#define NT2_STANDARD_INCLUDE(F) NT2_PP_INCLUDE(NT2_STANDARD_BASE, F)
-#endif
 
 #endif

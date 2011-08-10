@@ -15,14 +15,15 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_equal.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/toolbox/trigonometric/include/constants.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/eps_related.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0),
@@ -30,7 +31,7 @@ namespace nt2 { namespace meta
 			     )
   {
     typedef typename meta::result_of<meta::floating(A0)>::type etype;
-    typedef boost::fusion::tuple<etype, etype>                   result_type;
+    typedef boost::fusion::tuple<etype, etype>           result_type;
     
     NT2_FUNCTOR_CALL(1)
       {

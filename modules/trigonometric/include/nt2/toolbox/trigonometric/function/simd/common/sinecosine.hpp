@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X), 
 				(boost::mpl::equal_to < nt2::meta::cardinal_of<A0>, 

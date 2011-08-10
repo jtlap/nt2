@@ -17,7 +17,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'simd_included' : ['#include <nt2/include/functions/sum.hpp>'],
+             'simd_included' : ['#include <boost/simd/include/functions/sum.hpp>'],
              'included' : [],
              'no_ulp' : 'True',
              'notes' : [],

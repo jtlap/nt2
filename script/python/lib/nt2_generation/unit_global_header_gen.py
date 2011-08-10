@@ -197,6 +197,7 @@ class Global_header_gen() :
     def __create_unit_txt(self) :
         dl = self.bg.get_fct_dict_list()
         if isinstance(dl,dict ) : dl = [dl]
+        print (dl)
         self.__module = dl[0].get('functor',False).get("module",'default')
         r = self.add_header(dl)
         r = self.add_includes(r,dl)

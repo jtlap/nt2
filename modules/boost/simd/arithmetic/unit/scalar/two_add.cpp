@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( two_add_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tag::two_add_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<two_add_(T,T)>::type r_t;
-  typedef typename boost::dispatch::meta::call<two_add_(T,T)>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,T> wished_r_t;

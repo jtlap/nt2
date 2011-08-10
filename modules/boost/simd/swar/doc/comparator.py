@@ -18,12 +18,12 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'simd_included' : ['#include <nt2/include/functions/all.hpp>',
-                           '#include <nt2/include/functions/max.hpp>',
-                           '#include <nt2/include/functions/min.hpp>',],
-             'cover_included' : ['#include <nt2/include/functions/all.hpp>',
-                           '#include <nt2/include/functions/max.hpp>',
-                           '#include <nt2/include/functions/min.hpp>',],
+             'simd_included' : ['#include <boost/simd/include/functions/all.hpp>',
+                           '#include <boost/simd/include/functions/max.hpp>',
+                           '#include <boost/simd/include/functions/min.hpp>',],
+             'cover_included' : ['#include <boost/simd/include/functions/all.hpp>',
+                           '#include <boost/simd/include/functions/max.hpp>',
+                           '#include <boost/simd/include/functions/min.hpp>',],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',

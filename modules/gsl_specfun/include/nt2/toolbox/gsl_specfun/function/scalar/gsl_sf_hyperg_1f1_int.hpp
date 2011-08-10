@@ -17,9 +17,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A2 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_hyperg_1f1_int_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::gsl_specfun::tag::gsl_sf_hyperg_1f1_int_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< arithmetic_<A2> >)
                             )
@@ -38,9 +38,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A2 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_hyperg_1f1_int_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::gsl_specfun::tag::gsl_sf_hyperg_1f1_int_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< double_<A2> >)
                             )
@@ -57,9 +57,9 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A2 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( gsl_specfun::tag::gsl_sf_hyperg_1f1_int_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::gsl_specfun::tag::gsl_sf_hyperg_1f1_int_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< float_<A2> >)
                             )

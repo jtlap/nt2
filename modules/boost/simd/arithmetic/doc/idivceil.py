@@ -6,7 +6,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::dispatch:::meta::as_integer<typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type>::type',
+             'default' : 'typename boost::dispatch::meta::as_integer<typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -16,8 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
-             'included' : ['#include<nt2/include/functions/ceil.hpp>',
-                           '#include<nt2/include/functions/toint.hpp>'],
+             'included' : ['#include <boost/simd/include/functions/ceil.hpp>',
+                           '#include <boost/simd/include/functions/toint.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 13/12/2010',
             },

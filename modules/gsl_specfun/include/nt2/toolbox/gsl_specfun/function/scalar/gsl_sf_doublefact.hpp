@@ -15,9 +15,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_doublefact_<T>, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::gsl_specfun::tag::gsl_sf_doublefact_<T>, tag::cpu_,
 		      (A0)(T),
 		      (scalar_<integer_<A0> >)
 		      )

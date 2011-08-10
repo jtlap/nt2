@@ -16,5 +16,5 @@ ADD_DEPENDENCIES(reduction.unit reduction.simd.unit)
 ##############################################################################
 # Toolbox reduction unit tests
 ##############################################################################
-nt2_module_use_modules(unit)
+nt2_module_use_modules(unit bitwise)
 ADD_SUBDIRECTORY(simd)

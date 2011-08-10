@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/pair.hpp>
 #include <boost/typeof/typeof.hpp>
-#include <boost/dispatch/meta/fusion.hpp>
+#include <nt2/sdk/meta/fusion.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <boost/fusion/include/at.hpp>
@@ -24,7 +24,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // slice implementation for no_padding strategy
 ////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   template<class A0, class A2, class Dummy>
   struct implement< tag::slice_

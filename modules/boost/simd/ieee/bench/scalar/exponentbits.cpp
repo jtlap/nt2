@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 ieee toolbox - exponentbits/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.ieee toolbox - exponentbits/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of ieee components in scalar mode
+// timing Test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/ieee/include/exponentbits.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<exponentbits_> from ieee
+// scalar runtime benchmark for functor<exponentbits_> from boost.simd.ieee
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::exponentbits_;
 
@@ -29,13 +30,13 @@ using boost::simd::tag::exponentbits_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(exponentbits_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(exponentbits_,(RS(T,T(-10000),T(10000))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(exponentbits_,(RS(T,T(-10000),T(10000))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(exponentbits_,(RS(T,T(-10000),T(10000))))
 }
 
 #undef RS

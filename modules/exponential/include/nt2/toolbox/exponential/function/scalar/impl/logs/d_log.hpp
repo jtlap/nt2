@@ -15,6 +15,9 @@
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/fma.hpp>
@@ -48,6 +51,7 @@ namespace nt2
 	  A0 x;
 	  int_type k;
 	  boost::fusion::vector_tie(x, k) = fast_frexp(a0);
+	  //	  fast_frexp(a0, x, k);
 	  const int_type x_lt_sqrthf = -is_greater(Sqrt_2o_2<A0>(), x);
 	  k += x_lt_sqrthf;
 	  f = minusone(x+b_and(x, genmask(x_lt_sqrthf)));

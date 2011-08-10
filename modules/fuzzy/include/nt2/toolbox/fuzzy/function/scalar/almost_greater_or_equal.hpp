@@ -10,13 +10,14 @@
 #define NT2_TOOLBOX_FUZZY_FUNCTION_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #include <nt2/include/functions/predecessor.hpp>
 #include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/subs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_greater_or_equal_, tag::cpu_
                             , (A0)(A1)(A2)
@@ -36,7 +37,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_greater_or_equal_, tag::cpu_
                             , (A0)(A1)(A2)
@@ -57,7 +58,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_greater_or_equal_, tag::cpu_
                             , (A0)(A1)(A2)

@@ -17,7 +17,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is float_
 /////////////////////////////////////////////////////////////////////////////
-NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
+NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::frexp_, tag::cpu_,
 			   (A0)(A1),
 			   (scalar_<float_<A0> >)
 			   (scalar_<int32_<A1> >)	     
@@ -33,7 +33,7 @@ NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is double_
 /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::frexp_, tag::cpu_,
 			     (A0)(A1),
 			     (scalar_<double_<A0> >)
 			     (scalar_<int32_<A1> >)	     
@@ -51,7 +51,7 @@ NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
 /////////////////////////////////////////////////////////////////////////////
 
 
-  NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::libc::tag::frexp_, tag::cpu_,
                        (A0),
                        (scalar_<real_<A0> >)
                       )
@@ -61,7 +61,7 @@ NT2_FUNCTOR_IMPLEMENTATION(libc::tag::frexp_, tag::cpu_,
     NT2_FUNCTOR_CALL(1)
     {
       result_type res;
-      boost::fusion::at_c<0>(res) = libc::frexp(a0, boost::fusion::at_c<1>(res)); 
+      boost::fusion::at_c<0>(res) =nt2::libc::frexp(a0, boost::fusion::at_c<1>(res)); 
       return res;
     }
   };

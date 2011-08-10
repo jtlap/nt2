@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Implementation of the no_padding strategy for memory allocation
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/meta/fusion.hpp>
+#include <nt2/sdk/meta/fusion.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
@@ -20,7 +20,7 @@
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   template<class A0, class A2, class Dummy>
   struct implement< tag::slice_

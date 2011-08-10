@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_UNIT_DEPENDENCIES_EXTRA sdk ieee arithmetic constant)
+SET(NT2_UNIT_DEPENDENCIES_EXTRA sdk ieee arithmetic constant operator)

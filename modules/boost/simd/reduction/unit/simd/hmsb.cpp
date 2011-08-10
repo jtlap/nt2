@@ -15,8 +15,8 @@
 /// 
 #include <boost/simd/toolbox/reduction/include/hmsb.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/bits.hpp>
-#include <nt2/include/functions/shri.hpp>
+#include <boost/simd/include/functions/bits.hpp>
+#include <boost/simd/include/functions/shri.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

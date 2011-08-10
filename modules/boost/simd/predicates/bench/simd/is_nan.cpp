@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 predicates toolbox - is_nan/simd Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.predicates toolbox - is_nan/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of predicates components in simd mode
+// timing Test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/predicates/include/is_nan.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<is_nan_> from predicates
+// simd runtime benchmark for functor<is_nan_> from boost.simd.predicates
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::is_nan_;
 
@@ -29,15 +30,15 @@ using boost::simd::tag::is_nan_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  BOOST_SIMD_TIMING(is_nan_,(RS(vT,T(-10000),T(10000))))
+  NT2_TIMING(is_nan_,(RS(vT,T(-10000),T(10000))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  BOOST_SIMD_TIMING(is_nan_,(RS(vT,T(-10000),T(10000))))
+  NT2_TIMING(is_nan_,(RS(vT,T(-10000),T(10000))))
 }
 
 #undef RS

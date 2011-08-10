@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 reduction toolbox - at_i/simd Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.reduction toolbox - at_i/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of reduction components in simd mode
+// timing Test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/reduction/include/at_i.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<at_i_> from reduction
+// simd runtime benchmark for functor<at_i_> from boost.simd.reduction
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::at_i_;
 
@@ -29,17 +30,17 @@ using boost::simd::tag::at_i_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
-  BOOST_SIMD_TIMING(at_i_,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  NT2_TIMING(at_i_,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
-  BOOST_SIMD_TIMING(at_i_,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
+  NT2_TIMING(at_i_,(RS(vT,boost::simd::Valmin<T>(),boost::simd::Valmax<T>()))(RS(iT,0,0)))
 }
 
 #undef RS

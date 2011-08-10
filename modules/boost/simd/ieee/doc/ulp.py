@@ -17,9 +17,9 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
              'included' : 
-                ['#include <nt2/include/functions/min.hpp>',
-                 '#include <nt2/include/functions/next.hpp>',
-                 '#include <nt2/include/functions/prev.hpp>'],
+                ['#include <boost/simd/include/functions/min.hpp>',
+                 '#include <boost/simd/include/functions/next.hpp>',
+                 '#include <boost/simd/include/functions/prev.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',

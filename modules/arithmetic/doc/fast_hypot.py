@@ -34,16 +34,19 @@
                  'nt2::Mone<T>()' : ['nt2::Sqrt_2<r_t>()', '0.5'],
                  'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::One<T>()' : ['nt2::Sqrt_2<r_t>()', '0.5'],
-                 'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Three<T>(),nt2::Four <r_t>()' : 'nt2::Five <r_t>()',
                 },
              'signed_int_' : {
                  'nt2::Mone<T>()' : ['nt2::Sqrt_2<r_t>()', '0.5'],
                  'nt2::One<T>()' : ['nt2::Sqrt_2<r_t>()', '0.5'],
                  'nt2::Zero<T>()' : 'nt2::Zero<T>()',
+                 'nt2::Three<T>(),nt2::Four <r_t>()' : 'nt2::Five <r_t>()',
                 },
              'unsigned_int_' : {
                  'nt2::One<T>()' : ['nt2::Sqrt_2<r_t>()', '0.5'],
                  'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'nt2::Three<T>(),nt2::Four <r_t>()' : 'nt2::Five <r_t>()',
                 },
             },
          'verif_test' : {

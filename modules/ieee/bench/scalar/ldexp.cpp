@@ -14,6 +14,7 @@
 #include <nt2/toolbox/ieee/include/ldexp.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
@@ -29,12 +30,12 @@ using nt2::tag::ldexp_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(ldexp_,(RS(T,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   NT2_TIMING(ldexp_,(RS(T,T(-10),T(10)))(RS(iT,iT(-10),iT(10))))
 }
 

@@ -143,17 +143,18 @@ class Specific_values_test_gen(object) :
 
     def __create_values_test(self,dl,typ,orig_typ,no_ulp,r) :
         unit_specific = extract(dl,"","",'unit',"specific_values")
+        print("unit_specific   %s"%unit_specific)
         ulp_str = "" if no_ulp else "ULP_"                   #string to modify the macro name accordingly
         thresh_str = "" if no_ulp else ", $specific_thresh$" # provision for the possible ulp threshold
         spec_values_tpl = self.get_spec_value_call_tpl(dl)   # template for macro call
-##        print("typ   %s"%typ)
-##        print("otype %s"%orig_typ)
+        print("typ   %s"%typ)
+        print("otype %s"%orig_typ)
         typ_values = unit_specific.get(typ,None)
         if typ_values is None:
             typ_values = extract(unit_specific,"default",None,orig_typ)
             self.__grouping_used = True
         # typ_values is the dictionnary of types for which specific values calls will be generated
-        #        print("typ_values = %s"%typ_values)
+        print("typ_values = %s"%typ_values)
         for k in sorted(typ_values.keys()) :
             #print("typ = %s"%typ)
             # k is here the string representation of the list of parameters f the functor

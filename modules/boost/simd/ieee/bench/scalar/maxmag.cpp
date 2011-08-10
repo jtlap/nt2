@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 ieee toolbox - maxmag/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.ieee toolbox - maxmag/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of ieee components in scalar mode
+// timing Test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/ieee/include/maxmag.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<maxmag_> from ieee
+// scalar runtime benchmark for functor<maxmag_> from boost.simd.ieee
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::maxmag_;
 
@@ -29,53 +30,53 @@ using boost::simd::tag::maxmag_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,T(-10),T(10)))(RS(T,T(-10),T(10))))
 }
 namespace n3 {
   typedef boost::simd::uint8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n4 {
   typedef boost::simd::uint16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n5 {
   typedef boost::simd::uint32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n6 {
   typedef boost::simd::uint64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,0,100))(RS(T,0,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,0,100))(RS(T,0,100)))
 }
 namespace n7 {
   typedef boost::simd::int8_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,-100,100))(RS(T,-100,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,-100,100))(RS(T,-100,100)))
 }
 namespace n8 {
   typedef boost::simd::int16_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,-100,100))(RS(T,-100,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,-100,100))(RS(T,-100,100)))
 }
 namespace n9 {
   typedef boost::simd::int32_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,-100,100))(RS(T,-100,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,-100,100))(RS(T,-100,100)))
 }
 namespace n10 {
   typedef boost::simd::int64_t T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maxmag_,(RS(T,-100,100))(RS(T,-100,100)))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maxmag_,(RS(T,-100,100))(RS(T,-100,100)))
 }
 
 #undef RS

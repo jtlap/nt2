@@ -16,6 +16,7 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 18/02/2011',
              'included' : ['#include <nt2/include/functions/all.hpp>'],
+             'cover_included' : ['#include <nt2/include/functions/is_equal.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 18/02/2011',

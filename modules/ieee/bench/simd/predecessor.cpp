@@ -14,8 +14,9 @@
 #include <nt2/toolbox/ieee/include/predecessor.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
 // simd runtime benchmark for functor<predecessor_> from ieee
@@ -29,26 +30,26 @@ using nt2::tag::predecessor_;
 
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(predecessor_,(RS(vT,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(predecessor_,(RS(vT,T(-10),T(10))))
 }
 namespace n3 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(predecessor_,(RS(vT,T(-10),T(10)))(RS(viT,iT(2),iT(2))))
 }
 namespace n4 {
   typedef double T;
-  typedef nt2::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
   NT2_TIMING(predecessor_,(RS(vT,T(-10),T(10)))(RS(viT,iT(2),iT(2))))

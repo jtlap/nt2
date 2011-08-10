@@ -14,7 +14,7 @@
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::fusion_sequence_;
   using boost::dispatch::meta::array_;

@@ -11,8 +11,8 @@
 #include <nt2/include/constants/true_false.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/simd/native.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constant for integral types

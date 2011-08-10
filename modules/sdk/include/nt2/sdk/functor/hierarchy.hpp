@@ -25,6 +25,9 @@
 
 namespace nt2
 {
+  using boost::dispatch::functor;
+  using boost::dispatch::make_functor;
+
   namespace tag
   {
     // Sites
@@ -35,14 +38,11 @@ namespace nt2
     using boost::dispatch::tag::terminal_;
   }
   
-namespace meta
+namespace ext
 {  
   // Function object
   template<class Sig, class Site, class Enable = void>
   struct implement;
-  
-  using boost::dispatch::functor;
-  using boost::dispatch::make_functor;
   
   // Helpers
   using boost::dispatch::ignore_unused;

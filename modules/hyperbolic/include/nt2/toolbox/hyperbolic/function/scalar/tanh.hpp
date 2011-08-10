@@ -11,7 +11,7 @@
 #include <nt2/include/constants/digits.hpp>
 
 #include <nt2/include/functions/expm1.hpp>
-
+#include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <iostream>
@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tanh_, tag::cpu_
                             , (A0)
@@ -42,7 +42,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tanh_, tag::cpu_
                             , (A0)

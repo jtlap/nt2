@@ -15,8 +15,8 @@
 /// 
 #include <boost/simd/toolbox/ieee/include/copysign.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include<nt2/include/functions/signnz.hpp>
-#include<nt2/include/functions/abs.hpp>
+#include <boost/simd/include/functions/signnz.hpp>
+#include <boost/simd/include/functions/abs.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

@@ -13,15 +13,15 @@
 #include <nt2/sdk/functor/hierarchy.hpp>
 
 #define NT2_REGISTER_DISPATCH(Tag,Site,Types,Seq)                      \
-BOOST_DISPATCH_REGISTER_DISPATCH((nt2)(meta),Tag,Site,Types,Seq)
+BOOST_DISPATCH_REGISTER_DISPATCH((nt2)(ext),Tag,Site,Types,Seq)
 
 #define NT2_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                  \
-BOOST_DISPATCH_REGISTER_DISPATCH_TPL((nt2)(meta),Tag,Site,Types,Seq)
+BOOST_DISPATCH_REGISTER_DISPATCH_TPL((nt2)(ext),Tag,Site,Types,Seq)
 
 #define NT2_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)          \
-BOOST_DISPATCH_REGISTER_DISPATCH_IF((nt2)(meta),Tag,Site,Types,Cond,Ret,Seq)
+BOOST_DISPATCH_REGISTER_DISPATCH_IF((nt2)(ext),Tag,Site,Types,Cond,Ret,Seq)
 
 #define NT2_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)      \
-BOOST_DISPATCH_REGISTER_DISPATCH_IF_TPL((nt2)(meta),Tag,Site,Types,Cond,Ret,Seq)
+BOOST_DISPATCH_REGISTER_DISPATCH_IF_TPL((nt2)(ext),Tag,Site,Types,Cond,Ret,Seq)
 
 #endif

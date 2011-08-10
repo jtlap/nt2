@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 reduction toolbox - maximum/scalar Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.reduction toolbox - maximum/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of reduction components in scalar mode
+// timing Test behavior of boost.simd.reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/reduction/include/maximum.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 
 
 //////////////////////////////////////////////////////////////////////////////
-// scalar runtime benchmark for functor<maximum_> from reduction
+// scalar runtime benchmark for functor<maximum_> from boost.simd.reduction
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::maximum_;
 
@@ -29,13 +30,13 @@ using boost::simd::tag::maximum_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maximum_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maximum_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
-  BOOST_SIMD_TIMING(maximum_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(maximum_,(RS(T,boost::simd::Valmin<T>(),boost::simd::Valmax<T>())))
 }
 
 #undef RS

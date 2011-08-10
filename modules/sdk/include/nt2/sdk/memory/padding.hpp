@@ -23,7 +23,7 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
     using boost::dispatch::meta::padding_;
 } }

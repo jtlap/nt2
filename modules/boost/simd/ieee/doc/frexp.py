@@ -17,8 +17,8 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
              'included' : 
-                ['#include <nt2/include/functions/mantissa.hpp>',
-                 '#include <nt2/include/functions/exponent.hpp>'],
+                ['#include <boost/simd/include/functions/mantissa.hpp>',
+                 '#include <boost/simd/include/functions/exponent.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',

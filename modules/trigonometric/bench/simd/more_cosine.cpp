@@ -15,6 +15,7 @@
 #include <nt2/toolbox/trigonometric/include/fast_cos.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
@@ -30,311 +31,311 @@ using nt2::tag::fast_cos_;
 #define RS(T,V1,V2) (T, (V1) ,(V2))
 namespace nnnn01 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(fast_cos_,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nnnn1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(fast_cos_,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nnn01 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::clipped_pio4>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nnn1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::clipped_pio4>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn01 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::clipped_small>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::clipped_small>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n01 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::small>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace n1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::small>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n011 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::direct_small>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace n11 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::direct_small>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn011 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn11 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn0 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::direct_medium>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn1 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::direct_medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn0111 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::clipped_medium>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn111 {
   typedef float T;
-  typedef nt2::meta::as_integer<T>::type iT;
-  typedef nt2::simd::native<T,ext_t> vT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  typedef boost::simd::native<T,ext_t> vT;
   NT2_TIMING(cosine_<nt2::clipped_medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 
 
 // namespace n11 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,-60*nt2::Pi<T>(),60*nt2::Pi<T>())))
 // }
 // namespace n111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
 // }
 // namespace n111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,T(-1.0e38),T(1.0e38))))
 // }
 // namespace n111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,nt2::Nan < T>(),nt2::Nan < T>())))
 // }
 
 
 // namespace n02 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 // }
 // namespace n2 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 // }
 
 // namespace n21 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,-60*nt2::Pi<T>(),60*nt2::Pi<T>())))
 // }
 
 // namespace n211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
 // }
 
 // namespace n211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,T(-1.0e15),T(1.0e15))))
 // }
 
 // namespace n211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::small>,(RS(vT,nt2::Nan < T>(),nt2::Nan < T>())))
 // }
 
 
 // namespace m01 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 // }
 // namespace m02 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 // }namespace m1 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 // }
 // namespace m2 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 // }
 // namespace m11 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-60*nt2::Pi<T>(),60*nt2::Pi<T>())))
 // }
 // namespace m21 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-60*nt2::Pi<T>(),60*nt2::Pi<T>())))
 // }
 // namespace m111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
 // }
 // namespace m211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
 // }
 // namespace m111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,T(-1.0e38),T(1.0e38))))
 // }
 // namespace m211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,T(-1.0e38),T(1.0e38))))
 // }
 // namespace m111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,nt2::Nan < T>(),nt2::Nan < T>())))
 // }
 // namespace m211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::medium>,(RS(vT,nt2::Nan < T>(),nt2::Nan < T>())))
 // }
 
 // namespace n01 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 // }
 // namespace n02 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 // }namespace n1 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 // }
 // namespace n2 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 // }
 // namespace n11 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,-60*nt2::Pi<T>(),60*nt2::Pi<T>())))
 // }
 // namespace n21 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,-60*nt2::Pi<T>(),60*nt2::Pi<T>())))
 // }
 // namespace n111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
 // }
 // namespace n211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,-10000*nt2::Pi<T>(),10000*nt2::Pi<T>())))
 // }
 // namespace n111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,T(-1.0e38),T(1.0e38))))
 // }
 // namespace n211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,T(-1.0e38),T(1.0e38))))
 // }
 // namespace n111 {
 //   typedef float T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,nt2::Nan < T>(),nt2::Nan < T>())))
 // }
 // namespace n211 {
 //   typedef double T;
-//   typedef nt2::meta::as_integer<T>::type iT;
-//   typedef nt2::simd::native<T,ext_t> vT;
+//   typedef boost::dispatch::meta::as_integer<T>::type iT;
+//   typedef boost::simd::native<T,ext_t> vT;
 //   NT2_TIMING(cosine_<nt2::big>,(RS(vT,nt2::Nan < T>(),nt2::Nan < T>())))
 // }
 

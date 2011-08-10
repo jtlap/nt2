@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/bitwise/include/shri.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/twopower.hpp>
+#include <boost/simd/include/functions/twopower.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

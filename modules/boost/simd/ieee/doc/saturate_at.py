@@ -26,6 +26,14 @@
              'default' : [['-boost::simd::Ten<T>()', 'boost::simd::Ten<T>()']],
             },
          'specific_values' : {
+             'real_' : {
+                 'nt2::Inf<T>()' : 'nt2::Pi<r_t>()',
+                 'nt2::Minf<T>()' : '-nt2::Pi<r_t>()',
+                 'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
+                 'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
+                 'nt2::One<T>()' : 'nt2::One<r_t>()',
+                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                },
             },
          'verif_test' : {
              'property_call' : {

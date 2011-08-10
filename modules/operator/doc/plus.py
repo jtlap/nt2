@@ -46,10 +46,10 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'integer_' : ['nt2::bitwise_andnot(a0,a1)'],
+                 'integer_' : ['nt2::plus(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0&(~a1)'],
+                 'integer_' : ['r_t(a0+a1)'],
                 },
              'simd' : {
                 },

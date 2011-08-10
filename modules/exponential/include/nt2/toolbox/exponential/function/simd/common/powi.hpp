@@ -15,6 +15,7 @@
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/signnz.hpp>
 #include <nt2/include/functions/is_odd.hpp>
+#include <nt2/include/functions/is_even.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -29,7 +30,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::powi_, tag::cpu_
                             , (A0)(A1)(X)
@@ -49,7 +50,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::powi_, tag::cpu_
                             , (A0)(A1)(X)

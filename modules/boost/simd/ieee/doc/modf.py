@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
-             'included' : ['#include <nt2/include/functions/trunc.hpp>', '#include <nt2/include/functions/frac.hpp>'],
+             'included' : ['#include <boost/simd/include/functions/trunc.hpp>', '#include <boost/simd/include/functions/frac.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/12/2010',

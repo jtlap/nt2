@@ -158,9 +158,14 @@ macro(nt2_module_add_library libname)
 
   set_target_properties(${libname} PROPERTIES VERSION 3.0.0 SOVERSION 3)
   
-  set(FLAGS "${NT2_CURRENT_FLAGS} -DNT2_${NT2_CURRENT_MODULE_U}_SOURCE")
+  if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
+    string(REPLACE "." "_" macro_name ${NT2_CURRENT_MODULE_U})
+  else()
+    string(REPLACE "." "__" macro_name "NT2_${NT2_CURRENT_MODULE_U}")
+  endif()
+  set(FLAGS "${NT2_CURRENT_FLAGS} -D${macro_name}_SOURCE")
   if(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK)
-    set(FLAGS "${FLAGS} -DNT2_${NT2_CURRENT_MODULE_U}_DYN_LINK")
+    set(FLAGS "${FLAGS} -D${macro_name}_DYN_LINK")
   endif()
   set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
   

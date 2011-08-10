@@ -24,6 +24,7 @@ namespace boost { namespace simd
   
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_, is_not_equal , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_, neq          , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_, ne           , 2 )
 } }
 
 #include <boost/simd/toolbox/operator/function/scalar/is_not_equal.hpp>

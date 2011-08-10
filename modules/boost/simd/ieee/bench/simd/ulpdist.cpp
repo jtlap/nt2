@@ -6,19 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_BENCH_MODULE "nt2 ieee toolbox - ulpdist/simd Mode"
+#define NT2_BENCH_MODULE "nt2 boost.simd.ieee toolbox - ulpdist/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// timing Test behavior of ieee components in simd mode
+// timing Test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/ieee/include/ulpdist.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
-typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
 
 //////////////////////////////////////////////////////////////////////////////
-// simd runtime benchmark for functor<ulpdist_> from ieee
+// simd runtime benchmark for functor<ulpdist_> from boost.simd.ieee
 //////////////////////////////////////////////////////////////////////////////
 using boost::simd::tag::ulpdist_;
 
@@ -29,15 +30,15 @@ using boost::simd::tag::ulpdist_;
 
 namespace n1 {
   typedef float T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  BOOST_SIMD_TIMING(ulpdist_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+  NT2_TIMING(ulpdist_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
 }
 namespace n2 {
   typedef double T;
-  typedef boost::simd::meta::as_integer<T>::type iT;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  BOOST_SIMD_TIMING(ulpdist_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
+  NT2_TIMING(ulpdist_,(RS(vT,T(-10),T(10)))(RS(vT,T(-10),T(10))))
 }
 
 #undef RS

@@ -13,7 +13,7 @@
 #include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/abss.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
 		      (A0),
@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
     typedef A0  result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::result_of<floating(A0)>::type ftype; 
+      typedef typename meta::result_of<meta::floating(A0)>::type ftype; 
       const ftype r = nt2::gamma(nt2::trunc(nt2::abss(a0))+One<double>());
       return r > Valmax<A0>() ? Inf<A0>() : nt2::round(r); 
     }

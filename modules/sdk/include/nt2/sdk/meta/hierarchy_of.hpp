@@ -14,10 +14,15 @@
 #include <nt2/sdk/config/types.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2
 {
-  using boost::dispatch::meta::hierarchy_of;
-  
+  namespace meta
+  {
+    using boost::dispatch::meta::hierarchy_of;
+  }
+
+namespace ext
+{
   //============================================================================
   // Basic hierarchies to be forwarded here
   //============================================================================

@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SIMD_COMMON_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTION_SIMD_COMMON_ASINH_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -25,13 +25,14 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
+#include <nt2/include/functions/madd.hpp>
 
 
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asinh_, tag::cpu_
                             , (A0)(X)
@@ -52,7 +53,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asinh_, tag::cpu_
                             , (A0)(X)
@@ -84,7 +85,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asinh_, tag::cpu_
                             , (A0)(X)

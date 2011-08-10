@@ -12,18 +12,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(boost_math::tag::factorial_<T>, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::factorial_<T>, tag::cpu_,
 		      (A0)(T),
-		      (scalar_ < integer_<A0> > )
+		      (scalar_<integer_<A0> >)
 		      )
   {
     typedef T result_type; 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return boost::math::factorial<T>(a0, nt2_policy());
-    }
+    NT2_FUNCTOR_CALL(1){ return boost::math::factorial<T>(a0,nt2_policy()); }
   };
 } }
 #endif
