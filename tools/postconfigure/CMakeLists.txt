@@ -27,6 +27,14 @@ add_executable(postconfigure postconfigure.cpp)
 set_target_properties(postconfigure
                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}
                      )
+
+# Request administrator rights to run this executable
+if(0) #MSVC)
+  set_target_properties(postconfigure
+                        PROPERTIES LINK_FLAGS "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\""
+                       )
+endif(MSVC)
+
 target_link_libraries(postconfigure
                       ${Boost_FILESYSTEM_LIBRARY}
                       ${Boost_SYSTEM_LIBRARY}

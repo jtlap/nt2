@@ -401,17 +401,16 @@ macro(nt2_module_tool_setup tool)
     if(tool_configure)
       message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
     endif()
+  endif()
 
-    execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
-                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
-                    OUTPUT_QUIET
-                    RESULT_VARIABLE tool_build
-                   )
+  execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
+                  WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
+                  OUTPUT_QUIET
+                  RESULT_VARIABLE tool_build
+                 )
                  
-    if(tool_build)
-      message(FATAL_ERROR "[nt2] building tool ${tool} failed")
-    endif()
-    
+  if(tool_build)
+    message(FATAL_ERROR "[nt2] building tool ${tool} failed")
   endif()
 
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
@@ -446,7 +445,7 @@ endmacro()
 macro(nt2_postconfigure_init)
 
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
-    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" $INSTDIR'")
+    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" \\\"$INSTDIR\\\"'")
     include(CPack)
     cpack_add_component(tools REQUIRED)
   endif()
@@ -489,8 +488,7 @@ macro(nt2_postconfigure_run)
              COMPONENT postconfigured
              FILES_MATCHING PATTERN "*.hpp"
            )
-  endif()
 
-  #include(CPack)
+  endif()
 
 endmacro()
