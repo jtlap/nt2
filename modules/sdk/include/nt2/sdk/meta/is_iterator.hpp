@@ -15,7 +15,7 @@
 
 namespace nt2 { namespace meta
 {
-  using boost::disptach::meta::is_iterator;
+  using boost::dispatch::meta::is_iterator;
 } }
 
 #endif
