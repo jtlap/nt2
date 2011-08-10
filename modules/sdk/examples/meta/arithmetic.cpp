@@ -7,7 +7,7 @@ using namespace boost;
 
 int main()
 {
-  BOOST_MPL_ASSERT(( is_same<nt2::meta::result_of< nt2::meta::arithmetic(char) >::type, int>             ));
+  BOOST_MPL_ASSERT(( is_same<nt2::meta::result_of< nt2::meta::arithmetic(char) >::type, char>            ));
   BOOST_MPL_ASSERT(( is_same< nt2::meta::result_of< nt2::meta::arithmetic(int,float  ) >::type, float>   ));
   BOOST_MPL_ASSERT(( is_same< nt2::meta::result_of< nt2::meta::arithmetic(int,double ) >::type, double>  ));
 }

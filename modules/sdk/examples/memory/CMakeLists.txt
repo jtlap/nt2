@@ -9,7 +9,6 @@
 
 SET(SOURCES
     buffer.cpp
-    report.cpp
     align_on.cpp
     is_aligned.cpp
    )

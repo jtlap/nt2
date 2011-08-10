@@ -18,11 +18,6 @@ SET(SOURCES
     pp_include.cpp
     pp_index.cpp
     pp_strip.cpp
-    
-# meta examples
-    #decltype.cpp # FIXME
-    type_id.cpp
-    display_type.cpp
     )
 
 ADD_CUSTOM_TARGET(boost.simd.sdk.details.examples)
