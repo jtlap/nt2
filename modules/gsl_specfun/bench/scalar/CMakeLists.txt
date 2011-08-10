@@ -106,7 +106,6 @@ SET( SOURCES
   gsl_sf_choose.cpp
   gsl_sf_gegenpoly_2.cpp
   gsl_sf_legendre_p3.cpp
-  gsl_sf_bessel_knu_scaled_.cpp
   gsl_sf_expint_e1_scaled.cpp
   gsl_sf_bessel_y0.cpp
   gsl_sf_bessel_y1.cpp
