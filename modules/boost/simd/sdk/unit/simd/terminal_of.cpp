@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/toolbox/operator.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/details/decltype.hpp>
+#include <boost/dispatch/details/decltype.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL(terminal_of_pack, BOOST_SIMD_TYPES)
   using boost::dispatch::meta::terminal_of;
   using boost::is_same;
 
-  BOOST_SIMD_DECLTYPE(pack<T>() + pack<T>()+3, expr);
+  BOOST_DISPATCH_DECLTYPE(pack<T>() + pack<T>()+3, expr);
   NT2_TEST( (is_same<typename boost::mpl::apply<terminal_of< pack<T> >, void >::type, pack<T> >::value) );
   NT2_TEST( (is_same<typename boost::mpl::apply<terminal_of< expr    >, void >::type, pack<T> >::value) );
   typedef pack<T,1>   native1_t;
