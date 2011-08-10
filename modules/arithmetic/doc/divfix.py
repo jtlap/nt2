@@ -31,7 +31,7 @@
              'real_' : {
                  'nt2::Four<T>(),nt2::Three<T>()' : 'nt2::One<r_t>()',
                  'nt2::Four<T>(),nt2::Zero<T>()' : 'nt2::Inf<r_t>()',   
-                 '-nt2::Four<T>(),nt2::Zero<T>()' : 'nt2::MiInf<r_t>()',   
+                 '-nt2::Four<T>(),nt2::Zero<T>()' : 'nt2::Minf<r_t>()',   
                  'nt2::Inf<T>()' : 'nt2::Nan<T>()',
                  'nt2::Minf<T>()' : 'nt2::Nan<T>()',
                  'nt2::Mone<T>()' : 'nt2::One<T>()',

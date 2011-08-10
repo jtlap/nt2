@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( divfix_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(divfix(-nt2::Four<T>(),nt2::Zero<T>()), nt2::MiInf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(divfix(-nt2::Four<T>(),nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfix(nt2::Four<T>(),nt2::Three<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfix(nt2::Four<T>(),nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfix(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<T>(), 0);
