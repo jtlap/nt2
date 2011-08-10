@@ -31,6 +31,8 @@ macro(nt2_module_source_setup module)
   link_libraries(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARIES})
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}")
   
+  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+  
   # installation is only done when current project is NT2
   # or same as current module
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
@@ -48,7 +50,6 @@ macro(nt2_module_source_setup module)
              COMPONENT ${module}
              FILES_MATCHING PATTERN "*.hpp"
            )
-    file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
     install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
              DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
              COMPONENT ${module}
@@ -57,6 +58,7 @@ macro(nt2_module_source_setup module)
              DESTINATION ${NT2_INSTALL_SHARE_DIR}
              COMPONENT ${module}
              FILES_MATCHING PATTERN "*.cmake"
+                            PATTERN "*.cpp"
            )
   endif()
   
@@ -393,7 +395,7 @@ macro(nt2_module_tool_setup tool)
 
     message(STATUS "[nt2] building tool ${tool}")
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool})
-    execute_process(COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${PROJECT_SOURCE_DIR}/tools/${tool}
+    execute_process(COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
                     OUTPUT_QUIET
                     RESULT_VARIABLE tool_configure
@@ -445,6 +447,13 @@ endmacro()
 
 macro(nt2_postconfigure_init)
 
+  define_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED
+                  BRIEF_DOCS "Whether nt2_postconfigure_init has already been called"
+                  FULL_DOCS "Global flag to avoid running postconfigure multiple times"
+                 )
+  set_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED 1)
+  set(NT2_FOUND_COMPONENTS "" CACHE INTERNAL "" FORCE)
+
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" \\\"$INSTDIR\\\"'")
     include(CPack)
@@ -457,17 +466,23 @@ endmacro()
 
 macro(nt2_postconfigure_run)
 
-  file(GLOB manifests RELATIVE ${PROJECT_BINARY_DIR}/modules ${PROJECT_BINARY_DIR}/modules/*.manifest)
-  string(REPLACE ".manifest" "" modules "${manifests}")
-
-  foreach(module ${modules})
+  foreach(module ${NT2_FOUND_COMPONENTS})
     string(TOUPPER ${module} module_U)
-    list(APPEND postconfigure_prefix "-I${NT2_${module_U}_ROOT}/include")
+    if(NT2_${module_U}_ROOT)
+      list(APPEND postconfigure_prefix "-I${NT2_${module_U}_ROOT}/include")
+    endif()
   endforeach()
   list(APPEND postconfigure_prefix "${PROJECT_BINARY_DIR}/include")
 
-  foreach(file ${manifests})
-    file(STRINGS "${PROJECT_BINARY_DIR}/modules/${file}" commands)
+  foreach(module ${NT2_FOUND_COMPONENTS})
+    message(STATUS "nt2_postconfigure_un ${module}")
+    if(EXISTS ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+      set(file "${PROJECT_BINARY_DIR}/modules/${module}.manifest")
+    else()
+      set(file "${NT2_ROOT}/modules/${module}.manifest")
+    endif()
+  
+    file(STRINGS ${file} commands)
     foreach(command ${commands})
       string(REGEX REPLACE "^([^ ]+) (.*)$" "\\1" tool ${command})
       string(REGEX REPLACE "^([^ ]+) (.*)$" "\\2" args ${command})

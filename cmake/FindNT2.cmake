@@ -27,7 +27,7 @@
 # - NT2_LIBRARIES                   list of libraries that are necessary to link all the requested components
 # - NT2_${COMPONENT_U}_FLAGS        flags that must be passed to the compiler to use the component
 # - NT2_FLAGS                       flags that must be passed to the compiler to use all the requested components
-# - NT2_FOUND_COMPONENTS            list of all components requested along with their dependencies
+# - NT2_FOUND_COMPONENTS            list of all NT2 modules that have been found
 # - NT2_MODULE_PATH                 list of directories containing NT2 CMake modules
 #
 # Additionally, the script also adds all the NT2-specific CMake modules to the CMAKE_MODULE_PATH.
@@ -50,6 +50,8 @@
 #                                                  order in which modules are loaded, so not suitable for overriding.
 # - NT2_${COMPONENT_U}_LIBRARIES                   libraries provided by the module
 # - NT2_${COMPONENT_U}_FLAGS                       flags required to use the module
+
+include(NT2Module)
 
 macro(nt2_copy_parent)
   foreach(ARG ${ARGV})
@@ -117,6 +119,9 @@ macro(nt2_find_module_dependencies _COMPONENT)
                NO_DEFAULT_PATH
              )
     mark_as_advanced(NT2_${_COMPONENT_U}_ROOT)
+  endif()
+  if(NT2_${COMPONENT_U}_ROOT AND NOT EXISTS "${NT2_${COMPONENT_U}_ROOT}/CMakeLists.txt")
+    nt2_find_info("root of module ${COMPONENT} invalid: ${NT2_${COMPONENT_U}_ROOT}")
   endif()
   
   # Try to download source if not available
@@ -308,7 +313,7 @@ function(nt2_find_module COMPONENT)
   # Copy over to parent
   nt2_append_if(NT2_FOUND_COMPONENTS NT2_${COMPONENT_U}_EXTRA)
   nt2_remove_duplicates(NT2_FOUND_COMPONENTS)
-  nt2_copy_parent(NT2_FOUND_COMPONENTS)
+  set(NT2_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} CACHE INTERNAL "")
     
 endfunction()
 
@@ -326,7 +331,6 @@ function(nt2_find)
   set(NT2_LIBRARY_DIR "")
   set(NT2_LIBRARIES "")
   set(NT2_FLAGS " ")
-  set(NT2_FOUND_COMPONENTS "")
   
   if(DEFINED NT2_FIND_RECURSIVE)
     set(NT2_FIND_RECURSIVE_ "${NT2_FIND_RECURSIVE_}  ")
@@ -412,13 +416,24 @@ function(nt2_find)
   # if no component specified, we glob the source or install directories for modules
   if(ARGC EQUAL 0)
     if(NT2_SOURCE_ROOT)
-      file(GLOB NT2_COMPONENTS_ROOT ${NT2_SOURCE_ROOT}/modules/*/)
-      foreach(NT2_COMPONENT ${NT2_COMPONENTS_ROOT})
-        if(IS_DIRECTORY ${NT2_COMPONENT})
-          string(REGEX REPLACE "^.*/(.*)$" "\\1" NT2_COMPONENT ${NT2_COMPONENT})
-          list(APPEND NT2_COMPONENTS ${NT2_COMPONENT})
+      file(GLOB NT2_COMPONENTS RELATIVE ${NT2_SOURCE_ROOT}/modules ${NT2_SOURCE_ROOT}/modules/*/)
+      set(i 0)
+      list(LENGTH NT2_COMPONENTS len)
+      while(i LESS len)
+        list(GET NT2_COMPONENTS ${i} module)
+        string(REPLACE "." "/" module_path ${module})
+        if(NOT EXISTS ${NT2_SOURCE_ROOT}/modules/${module_path}/CMakeLists.txt)
+          list(REMOVE_ITEM NT2_COMPONENTS ${module})
+          file(GLOB NT2_COMPONENTS_ RELATIVE ${NT2_SOURCE_ROOT}/modules ${NT2_SOURCE_ROOT}/modules/${module_path}/*/)
+          if(NT2_COMPONENTS_)
+            string(REPLACE "/" "." NT2_COMPONENTS_ "${NT2_COMPONENTS_}")
+            list(APPEND NT2_COMPONENTS ${NT2_COMPONENTS_})
+          endif()
+          list(LENGTH NT2_COMPONENTS len)
+        else()
+          math(EXPR i "${i} + 1")
         endif()
-      endforeach()
+      endwhile()
     elseif(NT2_ROOT)
       file(GLOB NT2_COMPONENTS_ROOT ${NT2_ROOT}/modules/*.manifest)
       foreach(NT2_COMPONENT ${NT2_COMPONENTS_ROOT})
@@ -432,6 +447,11 @@ function(nt2_find)
       nt2_find(${NT2_COMPONENTS})
       return()
     endif()
+  endif()
+  
+  get_property(NT2_POSTCONFIGURE_INITED GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED)
+  if(NOT NT2_POSTCONFIGURE_INITED)
+    nt2_postconfigure_init()
   endif()
 
   # Search for all requested components
@@ -455,6 +475,10 @@ function(nt2_find)
                    NT2_INCLUDE_DIR NT2_LIBRARY_DIR
                    NT2_LIBRARIES NT2_FLAGS
                  )
+                 
+  if(NOT NT2_POSTCONFIGURE_INITED)
+    nt2_postconfigure_run()
+  endif()
 
 endfunction()
 
