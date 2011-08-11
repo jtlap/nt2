@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_EPS_RELATED_HPP_INCLUDED
+#if 0
 
 #include <boost/simd/inclu de/functions/splat.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
@@ -67,4 +68,5 @@ namespace boost { namespace simd { namespace ext
 
 #undef LOCAL_CONST
 
+#endif
 #endif

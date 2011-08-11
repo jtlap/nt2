@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type     type;
-      return boost::fusion::fold(a0,Zero<type>(),functor<boost::simd::tag::plus_>());
+      return boost::fusion::fold(a0,Zero<type>(),dispatch::functor<boost::simd::tag::plus_>());
     }
   };
 } } }

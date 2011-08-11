@@ -10,8 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_COMMON_IS_LTZ_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
 
 
 /////////////////////////////////////////////////////////////////////////////

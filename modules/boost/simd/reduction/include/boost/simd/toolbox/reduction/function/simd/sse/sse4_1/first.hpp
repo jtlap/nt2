@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE4_1_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE4_1_FIRST_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
-#include <boost/simd/toolbox/reduction/function/simd/sse/ssse3/first.hpp>
+
 #ifdef BOOST_SIMD_ARCH_X86_64
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is ints64_
@@ -29,6 +29,7 @@ namespace boost { namespace simd { namespace ext
   };
 } } }  
 #endif
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::first_, boost::simd::tag::sse4_1_,
@@ -64,6 +65,7 @@ namespace boost { namespace simd { namespace ext
       return _mm_extract_epi8(a0, 0);
     }
   };    
-} } }  
+} } }
+
 #endif
 #endif

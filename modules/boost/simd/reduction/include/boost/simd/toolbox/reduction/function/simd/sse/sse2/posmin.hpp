@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_POSMIN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_POSMIN_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <nt2/include/functions/minimum.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::posmin_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::posmin_, boost::simd::tag::sse2_,
                          (A0)(X),
                          ((simd_<arithmetic_<A0>,X>))
                         )
@@ -31,4 +32,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#endif
 #endif
