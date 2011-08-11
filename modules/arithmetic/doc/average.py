@@ -16,6 +16,7 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 28/11/2010',
              'included' : ['#include<nt2/include/functions/round.hpp>'],
+             'cover_included' : ['#include<nt2/include/functions/iround.hpp>'],
              'notes' : ['for integer values average does not coincide with (a0+a1)/2 by at most one unit.'],
              'stamp' : 'modified by jt the 13/12/2010',
             },
@@ -54,6 +55,7 @@
                 },
              'property_value' : {
                  'default' : ['nt2::iround((a0+a1)/2)'],
+                 'real_'   : ['(a0+a1)/2'],   
                 },
              'ulp_thresh' : {
                  'default' : ['1'],

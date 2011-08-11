@@ -60,7 +60,9 @@
                  'default' : ['nt2::divround(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::round(double(a0)/double(a1))'],
+                 'unsigned_int_' : ['a1 ? r_t(nt2::round(double(a0)/double(a1))) : (a0 ? nt2::Valmax<r_t>() : 0)'],
+                 'signed_int_' : ['a1 ? r_t(nt2::round(double(a0)/double(a1))) : (a0<0 ? nt2::Valmin<r_t>() : (a0 ? nt2::Valmax<r_t>() : 0))'],
+                 'real_' : ['nt2::round(double(a0)/double(a1))'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],
