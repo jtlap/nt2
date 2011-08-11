@@ -51,13 +51,8 @@ NT2_TEST_CASE_TPL ( fast_toint_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(fast_toint(nt2::Inf<T>()), nt2::Valmax<r_t>());
-  NT2_TEST_EQUAL(fast_toint(nt2::Minf<T>()), nt2::Valmin<r_t>());
   NT2_TEST_EQUAL(fast_toint(nt2::Mone<T>()), nt2::Mone<r_t>());
-  NT2_TEST_EQUAL(fast_toint(nt2::Nan<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(fast_toint(nt2::One<T>()), nt2::One<r_t>());
-  NT2_TEST_EQUAL(fast_toint(nt2::Valmax<T>()), nt2::Valmax<r_t>());
-  NT2_TEST_EQUAL(fast_toint(nt2::Valmin<T>()), nt2::Valmin<r_t>());
   NT2_TEST_EQUAL(fast_toint(nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
 
