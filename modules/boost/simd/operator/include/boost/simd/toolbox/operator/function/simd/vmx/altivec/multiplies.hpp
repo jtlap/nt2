@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MULTIPLIES_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
@@ -15,7 +16,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::altivec_, (A0)
                             , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                             )
@@ -30,7 +31,7 @@ namespace boost { namespace simd { namespace ext
   };
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::altivec_, (A0)
                             , ((simd_<type16_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<type16_<A0>,boost::simd::tag::altivec_>))
                             )
@@ -43,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::altivec_, (A0)
                             , ((simd_<type8_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<type8_<A0>,boost::simd::tag::altivec_>))
                             )
@@ -86,4 +87,5 @@ namespace boost { namespace simd { namespace ext
 */
 } } }
 
+#endif
 #endif

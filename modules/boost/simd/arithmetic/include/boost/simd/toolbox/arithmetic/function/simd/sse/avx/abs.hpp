@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_AVX_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_AVX_ABS_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/abs.hpp>
@@ -16,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<signed_<A0>,boost::simd::tag::avx_>))
                      )
@@ -40,7 +41,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<unsigned_<A0>,boost::simd::tag::avx_>))
                      )
@@ -54,7 +55,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::abs_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<real_<A0>,boost::simd::tag::avx_>))
                      )
@@ -63,4 +64,5 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1){ return b_notand(Mzero<A0>(),a0); }
   };
 } } }
+#endif
 #endif

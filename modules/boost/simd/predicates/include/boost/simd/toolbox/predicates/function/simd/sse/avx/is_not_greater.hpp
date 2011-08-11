@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_AVX_IS_NOT_GREATER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_AVX_IS_NOT_GREATER_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/is_not_greater.hpp>
 /////////////////////////////////////////////////////////////////////////////
@@ -15,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, boost::simd::tag::avx_,
                          (A0),
                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, boost::simd::tag::avx_,
                          (A0),
                          ((simd_<double_<A0>,boost::simd::tag::avx_>))
                          ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -52,7 +53,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, boost::simd::tag::avx_,
                          (A0),
                          ((simd_<float_<A0>,boost::simd::tag::avx_>))
                          ((simd_<float_<A0>,boost::simd::tag::avx_>))
@@ -66,4 +67,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#endif
 #endif

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_SHIFT_RIGHT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_SHIFT_RIGHT_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 ////////////////////////////////////////////////////////////////////////////////
 // operator binary shift right
@@ -19,7 +20,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, boost::simd::tag::altivec_, (A0)(A1)
                             , ((simd_<integer_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<integer_<A1>,boost::simd::tag::altivec_>))
                             )
@@ -35,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, boost::simd::tag::altivec_, (A0)(A1)
                             , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<ints32_<A1>,boost::simd::tag::altivec_>))
                             )
@@ -53,4 +54,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

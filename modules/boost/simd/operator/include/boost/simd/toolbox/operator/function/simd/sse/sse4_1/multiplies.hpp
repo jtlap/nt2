@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE4_1_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE4_1_MULTIPLIES_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 #include <boost/simd/toolbox/operator/function/simd/sse/sse4_1/multiplies.hpp>
 
 
@@ -30,4 +31,5 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 
+#endif
 #endif

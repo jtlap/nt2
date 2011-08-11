@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_XOP_TOINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_XOP_TOINT_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_XOP_SUPPORT
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/make.hpp>
@@ -16,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, boost::simd::tag::xop_,
                         (A0),
                         ((simd_<arithmetic_<A0>,boost::simd::tag::xop_>))
                        )
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, boost::simd::tag::xop_,
                         (A0),
                         ((simd_<double_<A0>,boost::simd::tag::xop_>))
                        )
@@ -51,7 +52,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, boost::simd::tag::xop_,
                         (A0),
                         ((simd_<float_<A0>,boost::simd::tag::xop_>))
                        )
@@ -65,4 +66,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#endif
 #endif

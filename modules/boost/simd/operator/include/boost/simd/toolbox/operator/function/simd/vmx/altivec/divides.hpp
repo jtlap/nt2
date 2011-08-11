@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_DIVIDES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_DIVIDES_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 ////////////////////////////////////////////////////////////////////////////////
 // Altivec division algorithm are long-ass. Let's hide them for clarity purpose
@@ -17,4 +18,5 @@
 //#include <boost/simd/toolbox/operator/function/simd/vmx/altivec/impl/divides_int16.hpp>
 //#include <boost/simd/toolbox/operator/function/simd/vmx/altivec/impl/divides_int8.hpp>
 
+#endif
 #endif

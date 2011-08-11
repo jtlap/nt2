@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_XOP_IS_ORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTION_SIMD_SSE_XOP_IS_ORD_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_XOP_SUPPORT
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
@@ -16,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, boost::simd::tag::xop_,
                          (A0),
                          ((simd_<arithmetic_<A0>,boost::simd::tag::xop_>))
                          ((simd_<arithmetic_<A0>,boost::simd::tag::xop_>))
@@ -36,7 +37,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, boost::simd::tag::xop_,
                          (A0),
                          ((simd_<double_<A0>,boost::simd::tag::xop_>))
                          ((simd_<double_<A0>,boost::simd::tag::xop_>))
@@ -55,7 +56,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ord_, boost::simd::tag::xop_,
                          (A0),
                          ((simd_<float_<A0>,boost::simd::tag::xop_>))
                          ((simd_<float_<A0>,boost::simd::tag::xop_>))
@@ -69,4 +70,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#endif
 #endif

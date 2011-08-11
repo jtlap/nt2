@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE4_1_SECOND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE4_1_SECOND_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 #include <boost/simd/toolbox/reduction/function/simd/sse/ssse3/second.hpp>
 #ifdef BOOST_SIMD_ARCH_X86_64
 /////////////////////////////////////////////////////////////////////////////
@@ -67,4 +68,4 @@ namespace boost { namespace simd { namespace ext
   };    
 } } }  
 #endif
-
+#endif

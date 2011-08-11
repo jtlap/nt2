@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_SPLAT_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
@@ -20,7 +21,7 @@
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               ((target_< simd_< double_<A1>, boost::simd::tag::sse_ > >))
                       )
@@ -41,7 +42,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               ((target_< simd_< float_<A1>, boost::simd::tag::sse_ > >))
                       )
@@ -62,7 +63,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               ((target_< simd_< ints8_<A1>, boost::simd::tag::sse_ > >))
                       )
@@ -83,7 +84,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               ((target_< simd_< ints16_<A1>, boost::simd::tag::sse_ > >))
                       )
@@ -104,7 +105,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               ((target_< simd_< ints32_<A1>, boost::simd::tag::sse_ > >))
                       )
@@ -125,7 +126,7 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::sse2_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               ((target_< simd_< ints64_<A1>, boost::simd::tag::sse_ > >))
                       )
@@ -140,4 +141,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTION_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/ieee/function/simd/common/ilogb.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
@@ -19,13 +20,13 @@
 #include <boost/simd/include/functions/dist.hpp>
 #define MKN(N) simd::native_cast<vtype##N>
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
+// Implementation when type A0 is int_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
-                        ((simd_<signed_<A0>,boost::simd::tag::sse_>))
+                        ((simd_<int_<A0>,boost::simd::tag::sse_>))
                        )
   {
 //    typedef typename meta::scalar_of<A0>::type sA0;
@@ -45,7 +46,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                        )
@@ -85,7 +86,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                        )
@@ -141,7 +142,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint64_<A0>,boost::simd::tag::sse_>))
                        )
@@ -162,7 +163,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
                        )
@@ -204,4 +205,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#endif
 #endif

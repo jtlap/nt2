@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MAP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_MAP_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/toolbox/operator/specific/details/maybe_genmask.hpp>
@@ -32,7 +33,7 @@
 #define M0(z,n,t)                                                             \
 namespace boost { namespace simd                             \
 {                                                                             \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,tag::cpu_                      \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_,boost::simd::tag::altivec_                      \
                             , BOOST_PP_REPEAT(BOOST_PP_INC(n), M5,t)          \
                             , (unspecified_<A0>)BOOST_PP_REPEAT(n,M2,t)       \
                             )                                                 \
@@ -77,4 +78,5 @@ BOOST_SIMD_MAP_CALL(ints8_  , 16 )
 #undef M1
 #undef M0
 
+#endif
 #endif

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
@@ -22,7 +23,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
@@ -43,7 +44,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                             )
@@ -69,7 +70,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                             )
@@ -90,4 +91,5 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 
+#endif
 #endif

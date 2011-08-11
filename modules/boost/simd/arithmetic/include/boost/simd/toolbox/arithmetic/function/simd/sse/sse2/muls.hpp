@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_MULS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_MULS_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/arithmetic/function/simd/common/muls.hpp>
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is int16_
 // /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::muls_, tag::cpu_,
+// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::muls_, boost::simd::tag::sse2_,
 //                        (A0)(X),
 //                        ((simd_<int16_<A0>,X>))((simd_<int16_<A0>,X>))
 //                       );
@@ -21,7 +22,7 @@
 //   template<class X, class Dummy>
 //   struct call<boost::simd::tag::muls_(tag::simd_<tag::int16_, X> ,
 // 			 boost::simd::tag::simd_<tag::int16_, X>),
-//               boost::simd::tag::cpu_, Dummy> : callable
+//               boost::simd::boost::simd::tag::sse2_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0>
@@ -43,7 +44,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is uint16_
 // /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::muls_, tag::cpu_,
+// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::muls_, boost::simd::tag::sse2_,
 //                        (A0)(X),
 //                        ((simd_<uint16_<A0>,X>))((simd_<uint16_<A0>,X>))
 //                       );
@@ -52,7 +53,7 @@
 //   template<class X, class Dummy>
 //   struct call<boost::simd::tag::muls_(tag::simd_<tag::uint16_, X> ,
 // 			 boost::simd::tag::simd_<tag::uint16_, X>),
-//               boost::simd::tag::cpu_, Dummy> : callable
+//               boost::simd::boost::simd::tag::sse2_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0>
@@ -65,4 +66,5 @@
 //     }
 //   };
 // } } }
+#endif
 #endif

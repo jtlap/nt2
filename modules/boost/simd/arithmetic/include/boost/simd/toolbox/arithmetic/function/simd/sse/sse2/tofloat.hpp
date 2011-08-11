@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
@@ -26,7 +27,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, boost::simd::tag::sse2_, (A0)
                             , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -38,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, boost::simd::tag::sse2_ , (A0)
                             , ((simd_<uint64_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -52,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, boost::simd::tag::sse2_ , (A0)
                             , ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -79,7 +80,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, boost::simd::tag::sse2_ , (A0)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -100,4 +101,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

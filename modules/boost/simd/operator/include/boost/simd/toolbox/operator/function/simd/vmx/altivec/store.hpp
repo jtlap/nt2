@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_STORE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_STORE_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 ////////////////////////////////////////////////////////////////////////////////
 // store for SIMD types
@@ -18,7 +19,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_, boost::simd::tag::altivec_, (A0)(A1)(A2)
                             , ((simd_< arithmetic_<A0>, boost::simd::tag::altivec_ >))
                               (iterator_< scalar_< arithmetic_<A1> > >)
                               (scalar_< integer_<A2> >)
@@ -34,4 +35,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

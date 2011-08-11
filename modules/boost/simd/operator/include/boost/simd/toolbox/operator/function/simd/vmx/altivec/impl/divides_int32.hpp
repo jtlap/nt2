@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_IMPL_DIVIDES_INT32_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_VMX_ALTIVEC_IMPL_DIVIDES_INT32_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation
@@ -17,7 +18,7 @@ namespace boost { namespace simd { namespace ext
   //////////////////////////////////////////////////////////////////////////////
   // a/b use a bit preserving algorithm from vecLib by Apple
   //////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::altivec_, (A0)(A1)
                             , ((simd_<ints32_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<ints32_<A1>,boost::simd::tag::altivec_>)) )
   {
@@ -29,4 +30,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

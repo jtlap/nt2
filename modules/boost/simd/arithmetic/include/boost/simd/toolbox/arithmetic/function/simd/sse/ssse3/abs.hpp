@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSSE3_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSSE3_ABS_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -24,7 +25,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                             )
@@ -43,7 +44,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                             )
@@ -62,7 +63,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                             )
@@ -81,7 +82,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<real_<A0>,boost::simd::tag::sse_>))
                             )
@@ -100,7 +101,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
@@ -125,7 +126,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
                             , (A0)
                             , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
                             )
@@ -139,4 +140,5 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 
+#endif
 #endif

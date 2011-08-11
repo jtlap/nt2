@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE4_1_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE4_1_ANY_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
 namespace boost { namespace simd { namespace ext
 {
@@ -35,4 +36,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }  
+#endif
 #endif

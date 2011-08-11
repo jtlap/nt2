@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE2_SPLIT_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 
 #include <boost/fusion/tuple.hpp>
@@ -18,7 +19,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, boost::simd::tag::sse2_
                                       , (A0)(A1)(X)
                                       , (boost::mpl::and_ <
                                             boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
@@ -100,7 +101,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::split_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::split_, boost::simd::tag::sse2_,
                                        (A0),
                                        (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >), 
                                        (boost::simd::tag::split_(simd_<arithmetic_<A0>,boost::simd::tag::sse_>)),
@@ -121,4 +122,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

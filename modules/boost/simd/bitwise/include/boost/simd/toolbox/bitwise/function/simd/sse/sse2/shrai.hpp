@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHRAI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHRAI_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
@@ -20,7 +21,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -38,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -56,7 +57,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<int8_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -73,7 +74,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -88,4 +89,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

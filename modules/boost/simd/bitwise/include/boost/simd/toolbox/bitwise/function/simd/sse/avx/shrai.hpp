@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_AVX_SHRAI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_AVX_SHRAI_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/dispatch/meta/strip.hpp>
 
@@ -17,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::shrai_, tag::cpu_,
+BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::shrai_, boost::simd::tag::avx_,
                         (A0),
                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
@@ -28,7 +29,7 @@ namespace boost { namespace simd { namespace ext
   template<class Dummy>
   struct call<boost::simd::tag::shrai_(tag::simd_<tag::arithmetic_, tag::avx_),
                           boost::simd::tag::simd_<tag::arithmetic_, tag::avx_)),
-              boost::simd::tag::cpu_, Dummy> : callable
+              boost::simd::boost::simd::tag::avx_, Dummy> : callable
   {
     template<class Sig> struct result;
     template<class This,class A0, class A1>
@@ -48,4 +49,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

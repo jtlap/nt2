@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_AVERAGE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_SSE2_AVERAGE_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shrai.hpp>
@@ -16,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                           ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
@@ -34,7 +35,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
                           ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
@@ -53,7 +54,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                           ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
@@ -72,7 +73,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<real_<A0>,boost::simd::tag::sse_>))
                           ((simd_<real_<A0>,boost::simd::tag::sse_>))
@@ -85,4 +86,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#endif
 #endif

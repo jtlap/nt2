@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTION_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 #include <boost/simd/toolbox/swar/function/simd/sse/ssse3/lookup.hpp>
 // #include <boost/dispatch/meta/as_real.hpp>
 // #include <boost/simd/sdk/meta/size.hpp>
@@ -19,7 +20,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is arithmetic_
 // /////////////////////////////////////////////////////////////////////////////
-// // BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, tag::cpu_,
+// // BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, boost::simd::tag::sse4_1_,
 // //                          (A0),
 // //                          ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
 // //                          ((simd_<integer_<A0>,boost::simd::tag::sse_>))
@@ -29,7 +30,7 @@
 // //   template<class Dummy>
 // //   struct call<boost::simd::tag::lookup_(tag::simd_<tag::arithmetic_, tag::sse_> ,
 // //                            boost::simd::tag::simd_<tag::integer_, tag::sse_> ),
-// //               boost::simd::tag::cpu_, Dummy> : callable
+// //               boost::simd::boost::simd::tag::sse4_1_, Dummy> : callable
 // //   {
 // //     template<class Sig> struct result;
 // //     template<class This,class A0,class A1>
@@ -40,7 +41,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is type8_
 // /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, tag::cpu_,
+// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, boost::simd::tag::sse4_1_,
 //                          (A0),
 //                          ((simd_<type8_<A0>,boost::simd::tag::sse_>))
 //                          ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
@@ -50,7 +51,7 @@
 //   template<class Dummy>
 //   struct call<boost::simd::tag::lookup_(tag::simd_<tag::type8_, tag::sse_> ,
 //                            boost::simd::tag::simd_<tag::ints8_, tag::sse_> ),
-//               boost::simd::tag::cpu_, Dummy> : callable
+//               boost::simd::boost::simd::tag::sse4_1_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0,class A1>
@@ -73,7 +74,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is type32_
 // /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, tag::cpu_,
+// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, boost::simd::tag::sse4_1_,
 //                          (A0),
 //                          ((simd_<type32_<A0>,boost::simd::tag::sse_>))
 //                          ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
@@ -83,7 +84,7 @@
 //   template<class Dummy>
 //   struct call<boost::simd::tag::lookup_(tag::simd_<tag::type32_, tag::sse_> ,
 //                            boost::simd::tag::simd_<tag::ints32_, tag::sse_> ),
-//               boost::simd::tag::cpu_, Dummy> : callable
+//               boost::simd::boost::simd::tag::sse4_1_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0,class A1>
@@ -108,7 +109,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is type64_
 // /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, tag::cpu_,
+// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, boost::simd::tag::sse4_1_,
 //                          (A0),
 //                          ((simd_<type64_<A0>,boost::simd::tag::sse_>))
 //                          ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
@@ -118,7 +119,7 @@
 //   template<class Dummy>
 //   struct call<boost::simd::tag::lookup_(tag::simd_<tag::type64_, tag::sse_> ,
 //                            boost::simd::tag::simd_<tag::ints64_, tag::sse_> ),
-//               boost::simd::tag::cpu_, Dummy> : callable
+//               boost::simd::boost::simd::tag::sse4_1_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0,class A1>
@@ -142,7 +143,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is type16_
 // /////////////////////////////////////////////////////////////////////////////
-// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, tag::cpu_,
+// BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::lookup_, boost::simd::tag::sse4_1_,
 //                          (A0),
 //                          ((simd_<type16_<A0>,boost::simd::tag::sse_>))
 //                          ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
@@ -152,7 +153,7 @@
 //   template<class Dummy>
 //   struct call<boost::simd::tag::lookup_(tag::simd_<tag::type16_, tag::sse_> ,
 //                            boost::simd::tag::simd_<tag::ints16_, tag::sse_> ),
-//               boost::simd::tag::cpu_, Dummy> : callable
+//               boost::simd::boost::simd::tag::sse4_1_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0,class A1>
@@ -166,4 +167,5 @@
 //     }
 //   };
 // } } }
+#endif
 #endif

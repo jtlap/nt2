@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_MAP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE2_MAP_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/toolbox/operator/specific/details/maybe_genmask.hpp>
@@ -40,7 +41,7 @@
 #define M6(z,n,t)                                                            \
 namespace boost { namespace simd { namespace ext                             \
 {                                                                            \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_       \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, boost::simd::tag::sse2_       \
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)                \
                             , (unspecified_<Func>)                           \
                               BOOST_PP_REPEAT(n,M0,BOOST_PP_TUPLE_ELEM(2, 0, t)) \
@@ -92,4 +93,5 @@ BOOST_SIMD_MAP_CALL(type8_  , 16)
 #endif
 #endif
 
+#endif
 #endif

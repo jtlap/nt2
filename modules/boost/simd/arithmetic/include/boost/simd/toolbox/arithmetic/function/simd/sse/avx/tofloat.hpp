@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_AVX_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_AVX_TOFLOAT_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
@@ -21,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<int32_<A0>,boost::simd::tag::avx_>))
                          )
@@ -40,7 +41,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
                          )
@@ -59,7 +60,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<real_<A0>,boost::simd::tag::avx_>))
                          )
@@ -76,7 +77,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
                          )
@@ -102,7 +103,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<int64_<A0>,boost::simd::tag::avx_>))
                          )
@@ -116,4 +117,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#endif
 #endif

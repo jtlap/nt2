@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_AVX_MAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTION_SIMD_SSE_AVX_MAX_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/details/simd/sse/sse4_1/max.hpp>
@@ -16,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<uint8_<A0>,boost::simd::tag::avx_>))
                       ((simd_<uint8_<A0>,boost::simd::tag::avx_>))
@@ -34,7 +35,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                       ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
@@ -52,7 +53,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<double_<A0>,boost::simd::tag::avx_>))
                       ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -70,7 +71,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<int32_<A0>,boost::simd::tag::avx_>))
                       ((simd_<int32_<A0>,boost::simd::tag::avx_>))
@@ -88,7 +89,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<float_<A0>,boost::simd::tag::avx_>))
                       ((simd_<float_<A0>,boost::simd::tag::avx_>))
@@ -106,7 +107,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<int8_<A0>,boost::simd::tag::avx_>))
                       ((simd_<int8_<A0>,boost::simd::tag::avx_>))
@@ -124,7 +125,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<int16_<A0>,boost::simd::tag::avx_>))
                       ((simd_<int16_<A0>,boost::simd::tag::avx_>))
@@ -142,7 +143,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
                       ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
@@ -160,7 +161,7 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<uint16_<A0>,boost::simd::tag::avx_>))
                       ((simd_<uint16_<A0>,boost::simd::tag::avx_>))
@@ -173,4 +174,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#endif
 #endif

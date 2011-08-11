@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHRI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE2_SHRI_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/dispatch/meta/is_scalar.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -17,7 +18,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -39,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::shri_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::shri_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -57,7 +58,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -75,7 +76,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::sse2_
                             , (A0)(A1)
                             , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
                               (scalar_< integer_<A1> >)
@@ -91,4 +92,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif
