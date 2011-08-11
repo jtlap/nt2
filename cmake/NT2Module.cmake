@@ -399,11 +399,25 @@ endmacro()
 
 macro(nt2_module_tool_setup tool)
 
-  if(NOT EXISTS ${PROJECT_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX})
+  get_property(NT2_TOOL_${tool}_BUILT GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT)
+  if(NOT NT2_TOOL_${tool}_BUILT)
+
+    define_property(GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT
+                    BRIEF_DOCS "Whether nt2 tool ${tool} has already been built"
+                    FULL_DOCS "Global flag to avoid building nt2 tool ${tool} multiple times"
+                   )
+    set_property(GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT 1)
 
     message(STATUS "[nt2] building tool ${tool}")
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool})
-    execute_process(COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${NT2_SOURCE_ROOT}/tools/${tool}
+  
+    if(DEFINED NT2_TOOL_BOOST_STUB)
+      set(NT2_TOOL_BOOST_STUB_DEFINE -DNT2_TOOL_BOOST_STUB=${NT2_TOOL_BOOST_STUB})
+    endif()
+  
+    execute_process(COMMAND ${CMAKE_COMMAND}
+                            -DCMAKE_BUILD_TYPE=Release ${NT2_TOOL_BOOST_STUB_DEFINE}
+                            ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
                     OUTPUT_QUIET
                     RESULT_VARIABLE tool_configure
@@ -412,23 +426,24 @@ macro(nt2_module_tool_setup tool)
     if(tool_configure)
       message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
     endif()
-  endif()
 
-  execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
-                  WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
-                  OUTPUT_QUIET
-                  RESULT_VARIABLE tool_build
-                 )
+    execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
+                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
+                    OUTPUT_QUIET
+                    RESULT_VARIABLE tool_build
+                   )
                  
-  if(tool_build)
-    message(FATAL_ERROR "[nt2] building tool ${tool} failed")
-  endif()
+    if(tool_build)
+      message(FATAL_ERROR "[nt2] building tool ${tool} failed")
+    endif()
 
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
-    install( FILES ${PROJECT_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
-             DESTINATION tools/${tool}
-             COMPONENT tools
-           )
+    if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+      install( FILES ${PROJECT_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
+               DESTINATION tools/${tool}
+               COMPONENT tools
+             )
+    endif()
+
   endif()
 
 endmacro()
@@ -460,9 +475,26 @@ macro(nt2_postconfigure_init)
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" \\\"$INSTDIR\\\"'")
     include(CPack)
     cpack_add_component(tools REQUIRED)
-  endif()
 
-  nt2_module_tool_setup(postconfigure)
+    # postconfigure is a target because it's only required to install, not to configure
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure)
+    install( FILES ${PROJECT_BINARY_DIR}/tools/postconfigure/postconfigure${CMAKE_EXECUTABLE_SUFFIX}
+             DESTINATION tools/postconfigure
+             COMPONENT tools
+           )
+             
+    if(DEFINED NT2_TOOL_BOOST_STUB)
+      set(NT2_TOOL_BOOST_STUB_DEFINE -DNT2_TOOL_BOOST_STUB=${NT2_TOOL_BOOST_STUB})
+    endif()
+             
+    add_custom_target(postconfigure
+                      COMMAND ${CMAKE_COMMAND}
+                              -DCMAKE_BUILD_TYPE=Release ${NT2_TOOL_BOOST_STUB_DEFINE}
+                              ${NT2_SOURCE_ROOT}/tools/postconfigure
+                           && ${CMAKE_COMMAND} --build . --config Release
+                      WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure
+                     )
+  endif()
 
 endmacro()
 
