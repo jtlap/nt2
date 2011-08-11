@@ -475,7 +475,6 @@ macro(nt2_postconfigure_run)
   list(APPEND postconfigure_prefix "${PROJECT_BINARY_DIR}/include")
 
   foreach(module ${NT2_FOUND_COMPONENTS})
-    message(STATUS "nt2_postconfigure_un ${module}")
     if(EXISTS ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
       set(file "${PROJECT_BINARY_DIR}/modules/${module}.manifest")
     else()
