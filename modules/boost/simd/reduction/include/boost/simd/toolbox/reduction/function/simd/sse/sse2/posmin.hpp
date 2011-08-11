@@ -6,8 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_POSMIN_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_POSMIN_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_POSMIN_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_SSE_SSE2_POSMIN_HPP_INCLUDED
+#include <nt2/include/functions/minimum.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -19,16 +20,14 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<A0>::type stype;
       typedef typename dispatch::meta::as_integer<stype, signed>::type result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type type;
-      int p = 0;
-      type m = a0[0];
-      for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)// TODO UNROLL
+      type m =  nt2::minimum(a0); 
+      for(size_t i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)// TODO UNROLL
       {
-        if (m > a0[i]){m = a0[i]; p = i; }
+        if (m == a0[i]){ return i; }
       }
-      return p;
     }
   };
 } } }

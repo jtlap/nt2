@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::second_, tag::sse4_1_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::second_, boost::simd::tag::sse4_1_,
                          (A0),
                          ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                         )
@@ -30,4 +30,41 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 #endif
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::second_, boost::simd::tag::sse4_1_,
+                        (A0),
+                        ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                       )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return _mm_extract_epi32(a0,1);
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::second_, boost::simd::tag::sse4_1_,
+                        (A0),
+                        ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                       )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return _mm_extract_epi16(a0,1);
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::second_, boost::simd::tag::sse4_1_,
+                        (A0),
+                        ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                       )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return _mm_extract_epi8(a0,1);
+    }
+  };    
+} } }  
 #endif
+
