@@ -11,4 +11,7 @@ include(NT2Module)
 nt2_module_source_setup(arithmetic)
 #nt2_module_configure_toolbox(arithmetic 1)
 
-nt2_module_simd_toolbox(arithmetic)
+nt2_module_gather_includes(nt2/toolbox/arithmetic/include
+                           --all nt2/toolbox/arithmetic/arithmetic.hpp
+                           nt2/include/functions
+                          )
