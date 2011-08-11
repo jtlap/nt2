@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_ALL_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_ALL_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_NONE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTION_SIMD_COMMON_NONE_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::none_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     {
       for(int i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)
       {
-        if(!a0[i]) return 0;
+        if(a0[i]) return 0;
       }
       return 1;
     }
