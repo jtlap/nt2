@@ -1,6 +1,5 @@
 #include <iostream>
 #include <algorithm>
-#include <nt2/nt2.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/error/assert.hpp>
 
