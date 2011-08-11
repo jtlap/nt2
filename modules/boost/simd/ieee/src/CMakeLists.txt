@@ -9,10 +9,7 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.ieee)
-#nt2_module_configure_toolbox(ieee 1)
-
-nt2_module_configure_include(boost/simd/toolbox/ieee/function -o boost/simd/toolbox/ieee/include -o boost/simd/include/functions)
-nt2_module_configure_simd(boost/simd/toolbox/ieee/function)
+nt2_module_configure_toolbox(ieee 1)
 
 ################################################################################
 # Find out which C99/TR1 math functions are available

@@ -9,7 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.predicates)
-#nt2_module_configure_toolbox(predicates 1)
-
-nt2_module_configure_include(boost/simd/toolbox/predicates/function -o boost/simd/toolbox/predicates/include -o boost/simd/include/functions)
-nt2_module_configure_simd(boost/simd/toolbox/predicates/function)
+nt2_module_configure_toolbox(predicates 1)

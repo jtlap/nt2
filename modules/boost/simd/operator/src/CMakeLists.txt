@@ -9,10 +9,7 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.operator)
-#nt2_module_configure_toolbox(operator 1)
-
-nt2_module_configure_include(boost/simd/toolbox/operator/function -o boost/simd/toolbox/operator/include -o boost/simd/include/functions)
-nt2_module_configure_simd(boost/simd/toolbox/operator/function)
+nt2_module_configure_toolbox(operator 1)
 
 include(nt2.preprocess)
 nt2_preprocess(boost.simd.operator.preprocess ${NT2_BOOST.SIMD.OPERATOR_ROOT}/include/boost/simd/toolbox/operator/specific/common.hpp

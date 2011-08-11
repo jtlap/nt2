@@ -9,7 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.bitwise)
-#nt2_module_configure_toolbox(bitwise 1)
-
-nt2_module_configure_include(boost/simd/toolbox/bitwise/function -o boost/simd/toolbox/bitwise/include -o boost/simd/include/functions)
-nt2_module_configure_simd(boost/simd/toolbox/bitwise/function)
+nt2_module_configure_toolbox(bitwise 1)
