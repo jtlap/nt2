@@ -293,10 +293,6 @@ macro(nt2_module_configure_py pyfile)
   endif()
 endmacro()
 
-macro(nt2_module_configure_simd)
-  nt2_module_configure_py(simd_fwd.py ${ARGN})
-endmacro()
-
 macro(nt2_module_configure_include)
   nt2_module_configure_py(include_fwd.py ${ARGN})
 endmacro()
