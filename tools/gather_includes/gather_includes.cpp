@@ -10,8 +10,6 @@
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
 #include <boost/utility.hpp>
-#include <boost/fusion/include/tuple_tie.hpp>
-#include <boost/fusion/include/std_pair.hpp>
 
 #include <iostream>
 #include <fstream>
