@@ -1,5 +1,4 @@
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/simd/pack.hpp>
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/meta/behave_as.hpp>
 #include <boost/mpl/placeholders.hpp>

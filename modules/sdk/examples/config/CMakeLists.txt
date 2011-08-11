@@ -11,7 +11,6 @@ SET(SOURCES
     architecture.cpp
     compiler.cpp
     platform.cpp
-    status.cpp
    )
 
 ADD_CUSTOM_TARGET(sdk.config.examples)

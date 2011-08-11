@@ -16,12 +16,14 @@
 
 #define M0(z,n,t) ::parent
 #define UP(T,N) T BOOST_PP_REPEAT(N,M0,~)
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test that hierarchy_of is correct for ref, value and const ref
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, NT2_TYPES)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 
@@ -39,6 +41,7 @@ NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, NT2_TYPES)
 NT2_TEST_CASE(hierarchy_of_bool)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 
@@ -56,6 +59,7 @@ NT2_TEST_CASE(hierarchy_of_bool)
 NT2_TEST_CASE(hierarchy_of_void)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 
@@ -73,6 +77,7 @@ NT2_TEST_CASE(hierarchy_of_void)
 NT2_TEST_CASE(hierarchy_of_ints64)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 
@@ -105,6 +110,7 @@ NT2_TEST_CASE(hierarchy_of_ints64)
 NT2_TEST_CASE(hierarchy_of_uints64)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 
@@ -137,6 +143,7 @@ NT2_TEST_CASE(hierarchy_of_uints64)
 NT2_TEST_CASE(hierarchy_of_ints32)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 
@@ -169,9 +176,10 @@ NT2_TEST_CASE(hierarchy_of_ints32)
 NT2_TEST_CASE(hierarchy_of_uints32)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
-
+  
   typedef hierarchy_of< as_<nt2::uint32_t> >::type base;
 
   NT2_TEST( (is_same<target_<scalar_<uint32_< as_<nt2::uint32_t> >      > > , base >::value) );
@@ -201,9 +209,10 @@ NT2_TEST_CASE(hierarchy_of_uints32)
 NT2_TEST_CASE(hierarchy_of_ints16)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
-
+  
   typedef hierarchy_of< as_<nt2::int16_t> >::type base;
 
   NT2_TEST( (is_same<target_<scalar_<int16_<as_<nt2::int16_t> >       > > , base >::value) );
@@ -231,9 +240,10 @@ NT2_TEST_CASE(hierarchy_of_ints16)
 NT2_TEST_CASE(hierarchy_of_uints16)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
-
+  
   typedef hierarchy_of< as_<nt2::uint16_t> >::type base;
 
   NT2_TEST( (is_same<target_<scalar_<uint16_<as_<nt2::uint16_t> >      > > , base >::value) );
@@ -261,9 +271,10 @@ NT2_TEST_CASE(hierarchy_of_uints16)
 NT2_TEST_CASE(hierarchy_of_ints8)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
-
+  
   typedef hierarchy_of< as_<nt2::int8_t> >::type base;
 
   NT2_TEST( (is_same<target_<scalar_<int8_<as_<nt2::int8_t> >       > > , base >::value) );
@@ -291,6 +302,7 @@ NT2_TEST_CASE(hierarchy_of_ints8)
 NT2_TEST_CASE(hierarchy_of_uints8)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 
@@ -321,6 +333,7 @@ NT2_TEST_CASE(hierarchy_of_uints8)
 NT2_TEST_CASE(hierarchy_of_double)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 
@@ -349,6 +362,7 @@ NT2_TEST_CASE(hierarchy_of_double)
 NT2_TEST_CASE(hierarchy_of_float)
 {
   using boost::is_same;
+  using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
 

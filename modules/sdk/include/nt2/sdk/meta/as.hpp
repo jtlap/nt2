@@ -17,6 +17,10 @@
 namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::target_;
+} }
+
+namespace nt2 { namespace meta
+{
   using boost::dispatch::meta::as_;
 } }
 

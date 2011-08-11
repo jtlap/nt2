@@ -10,17 +10,8 @@
 SET(SOURCES
     assertion_failed.cpp
     timestamp.cpp
-    ignore_unused.cpp
-    bitwise_cast.cpp
-    
-# preprocessor examples
-    pp_enum_value.cpp
-    pp_include.cpp
-    pp_index.cpp
-    pp_strip.cpp
-    
+
 # meta examples
-    #decltype.cpp # FIXME
     type_id.cpp
     display_type.cpp
     )

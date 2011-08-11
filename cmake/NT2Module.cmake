@@ -31,6 +31,8 @@ macro(nt2_module_source_setup module)
   link_libraries(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARIES})
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}")
   
+  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+  
   # installation is only done when current project is NT2
   # or same as current module
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
@@ -38,11 +40,9 @@ macro(nt2_module_source_setup module)
     nt2_module_install_setup()
 
     # set up component
-    if(CPACK_GENERATOR)
-      cpack_add_component(${module}
-                          DEPENDS ${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_EXTRA}
-                         )
-    endif()
+    cpack_add_component(${module}
+                        DEPENDS ${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_EXTRA}
+                       )
   
     # install headers, cmake modules and manifest
     install( DIRECTORY ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include/
@@ -50,7 +50,6 @@ macro(nt2_module_source_setup module)
              COMPONENT ${module}
              FILES_MATCHING PATTERN "*.hpp"
            )
-    file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
     install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
              DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
              COMPONENT ${module}
@@ -59,6 +58,7 @@ macro(nt2_module_source_setup module)
              DESTINATION ${NT2_INSTALL_SHARE_DIR}
              COMPONENT ${module}
              FILES_MATCHING PATTERN "*.cmake"
+                            PATTERN "*.cpp"
            )
   endif()
   
@@ -101,7 +101,7 @@ macro(nt2_module_main module)
     
   if(CMAKE_CURRENT_SOURCE_DIR STREQUAL ${PROJECT_SOURCE_DIR})
     project(NT2_${NT2_CURRENT_MODULE_U})
-    include(CPack)
+    nt2_postconfigure_init()
   endif()
 
   nt2_setup_variant()
@@ -133,7 +133,9 @@ macro(nt2_module_main module)
     endif()
   endif()
   
-  nt2_find_transfer_parent()
+  if(PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+    nt2_postconfigure_run()
+  endif()
 endmacro()
 
 macro(nt2_module_add_library libname)
@@ -170,9 +172,9 @@ macro(nt2_module_add_library libname)
   
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     install( TARGETS ${libname}
-             LIBRARY DESTINATION lib
-             ARCHIVE DESTINATION lib
-             COMPONENT ${NT2_CURRENT_MODULE}
+             LIBRARY DESTINATION lib COMPONENT ${NT2_CURRENT_MODULE} CONFIGURATIONS Release
+             ARCHIVE DESTINATION lib COMPONENT ${NT2_CURRENT_MODULE} CONFIGURATIONS Release
+             RUNTIME DESTINATION lib COMPONENT ${NT2_CURRENT_MODULE} CONFIGURATIONS Release
            )
   endif()
   
@@ -190,7 +192,6 @@ macro(nt2_module_use_modules)
   find_package(NT2 COMPONENTS ${ARGN})
   if(NOT NT2_FOUND)
     message(STATUS "[nt2.${NT2_CURRENT_MODULE}] warning:${component_} dependencies not met, skipping")
-    nt2_find_transfer_parent()
     return()
   endif()
 
@@ -199,8 +200,6 @@ macro(nt2_module_use_modules)
   link_libraries(${NT2_LIBRARIES})
   
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
-  
-  nt2_find_transfer_parent()
 endmacro()
 
 macro(nt2_module_add_exe DIRECTORY EXECUTABLE)
@@ -390,19 +389,121 @@ macro(nt2_module_simd_toolbox name)
   endif()
 endmacro()
 
-# work in progress
-macro(nt2_module_gather_includes)
-  get_target_property(gather_includes_exists gather_includes EXCLUDE_FROM_ALL)
-  if(NOT gather_includes_exists)
-    add_subdirectory(${NT2_SOURCE_ROOT}/tools/gather_includes ${PROJECT_BINARY_DIR}/tools/gather_includes EXCLUDE_FROM_ALL)
+macro(nt2_module_tool_setup tool)
+
+  if(NOT EXISTS ${PROJECT_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX})
+
+    message(STATUS "[nt2] building tool ${tool}")
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool})
+    execute_process(COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release ${NT2_SOURCE_ROOT}/tools/${tool}
+                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
+                    OUTPUT_QUIET
+                    RESULT_VARIABLE tool_configure
+                   )
+
+    if(tool_configure)
+      message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
+    endif()
   endif()
-  
-  get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
-  string(REPLACE ";" ";-I" INCLUDES "${INCLUDES}")
-  
-  execute_process(COMMAND ${PROJECT_BINARY_DIR}/tools/gather_includes/gather_includes -I ${INCLUDES} ${PROJECT_BINARY_DIR}/include ${ARGN}
-                  RESULT_VARIABLE result
+
+  execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
+                  WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
+                  OUTPUT_QUIET
+                  RESULT_VARIABLE tool_build
                  )
-                  
-  message(STATUS "result = ${result}")
+                 
+  if(tool_build)
+    message(FATAL_ERROR "[nt2] building tool ${tool} failed")
+  endif()
+
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+    install( FILES ${PROJECT_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
+             DESTINATION tools/${tool}
+             COMPONENT tools
+           )
+  endif()
+
+endmacro()
+
+macro(nt2_module_tool tool)
+
+  nt2_module_tool_setup(${tool})
+  execute_process(COMMAND ${PROJECT_BINARY_DIR}/tools/${tool}/${tool} ${ARGN})
+
+endmacro()
+
+macro(nt2_module_gather_includes)
+  
+  nt2_module_postconfigure(gather_includes ${ARGN})
+                
+endmacro()
+
+macro(nt2_module_postconfigure)
+
+  string(REPLACE ";" " " args "${ARGN}")
+  file(APPEND ${PROJECT_BINARY_DIR}/modules/${NT2_CURRENT_MODULE}.manifest "${args}\n")
+
+endmacro()
+
+macro(nt2_postconfigure_init)
+
+  define_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED
+                  BRIEF_DOCS "Whether nt2_postconfigure_init has already been called"
+                  FULL_DOCS "Global flag to avoid running postconfigure multiple times"
+                 )
+  set_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED 1)
+  set(NT2_FOUND_COMPONENTS "" CACHE INTERNAL "" FORCE)
+
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+    set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" \\\"$INSTDIR\\\"'")
+    include(CPack)
+    cpack_add_component(tools REQUIRED)
+  endif()
+
+  nt2_module_tool_setup(postconfigure)
+
+endmacro()
+
+macro(nt2_postconfigure_run)
+
+  foreach(module ${NT2_FOUND_COMPONENTS})
+    string(TOUPPER ${module} module_U)
+    if(NT2_${module_U}_ROOT)
+      list(APPEND postconfigure_prefix "-I${NT2_${module_U}_ROOT}/include")
+    endif()
+  endforeach()
+  list(APPEND postconfigure_prefix "${PROJECT_BINARY_DIR}/include")
+
+  foreach(module ${NT2_FOUND_COMPONENTS})
+    if(EXISTS ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+      set(file "${PROJECT_BINARY_DIR}/modules/${module}.manifest")
+    else()
+      set(file "${NT2_ROOT}/modules/${module}.manifest")
+    endif()
+  
+    file(STRINGS ${file} commands)
+    foreach(command ${commands})
+      string(REGEX REPLACE "^([^ ]+) (.*)$" "\\1" tool ${command})
+      string(REGEX REPLACE "^([^ ]+) (.*)$" "\\2" args ${command})
+      string(REPLACE " " ";" args ${args})
+
+      nt2_module_tool(${tool} ${postconfigure_prefix} ${args})
+
+    endforeach()
+  endforeach()
+
+  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+
+    cpack_add_component(postconfigured
+                        HIDDEN DISABLED
+                       )
+  
+    install( DIRECTORY ${PROJECT_BINARY_DIR}/include/
+             DESTINATION include
+             COMPONENT postconfigured
+             FILES_MATCHING PATTERN "*.hpp"
+           )
+
+  endif()
+
 endmacro()

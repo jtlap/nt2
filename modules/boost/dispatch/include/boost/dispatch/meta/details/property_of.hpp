@@ -27,7 +27,10 @@ namespace boost { namespace dispatch { namespace details
   struct property_of_ints;
 
   template<class T,class Origin = T, class Enable = void>
-  struct  property_of;
+  struct  property_of
+  {
+    typedef meta::unspecified_<Origin> type;
+  };
 
   template<class T,class Origin>
   struct  property_of < T
