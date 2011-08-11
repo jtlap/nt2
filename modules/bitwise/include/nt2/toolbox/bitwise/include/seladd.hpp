@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_SELADD_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_SELADD_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/seladd.hpp>
+#include <boost/simd/toolbox/bitwise/include/seladd.hpp>
 
 namespace nt2
 {

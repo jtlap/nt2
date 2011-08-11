@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_RSHL_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_RSHL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/rshl.hpp>
+#include <boost/simd/toolbox/bitwise/include/rshl.hpp>
 
 namespace nt2
 {

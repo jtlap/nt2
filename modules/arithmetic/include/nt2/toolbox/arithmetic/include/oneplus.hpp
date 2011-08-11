@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_ONEPLUS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_ONEPLUS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/oneplus.hpp>
+#include <boost/simd/toolbox/arithmetic/include/oneplus.hpp>
 
 namespace nt2
 {

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_TOINT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_TOINT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/toint.hpp>
+#include <boost/simd/toolbox/arithmetic/include/toint.hpp>
 
 namespace nt2
 {

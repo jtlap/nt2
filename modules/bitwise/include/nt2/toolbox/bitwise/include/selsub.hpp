@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_SELSUB_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_SELSUB_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/selsub.hpp>
+#include <boost/simd/toolbox/bitwise/include/selsub.hpp>
 
 namespace nt2
 {

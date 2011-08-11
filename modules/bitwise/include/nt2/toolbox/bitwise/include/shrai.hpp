@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_SHRAI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_SHRAI_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/shrai.hpp>
+#include <boost/simd/toolbox/bitwise/include/shrai.hpp>
 
 namespace nt2
 {

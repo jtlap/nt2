@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_RDIVIDE_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_RDIVIDE_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/rdivide.hpp>
+#include <boost/simd/toolbox/arithmetic/include/rdivide.hpp>
 
 namespace nt2
 {

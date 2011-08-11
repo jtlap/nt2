@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_REMQUO_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_REMQUO_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/remquo.hpp>
+#include <boost/simd/toolbox/arithmetic/include/remquo.hpp>
 
 namespace nt2
 {

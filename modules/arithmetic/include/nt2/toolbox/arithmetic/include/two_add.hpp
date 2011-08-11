@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_TWO_ADD_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_TWO_ADD_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/two_add.hpp>
+#include <boost/simd/toolbox/arithmetic/include/two_add.hpp>
 
 namespace nt2
 {

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_REVERSEBITS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_REVERSEBITS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/reversebits.hpp>
+#include <boost/simd/toolbox/bitwise/include/reversebits.hpp>
 
 namespace nt2
 {

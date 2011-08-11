@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_REC_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_REC_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/rec.hpp>
+#include <boost/simd/toolbox/arithmetic/include/rec.hpp>
 
 namespace nt2
 {

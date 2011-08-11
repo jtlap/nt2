@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_CEIL_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_CEIL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/ceil.hpp>
+#include <boost/simd/toolbox/arithmetic/include/ceil.hpp>
 
 namespace nt2
 {

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_RANDOM_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_RANDOM_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/random.hpp>
+#include <boost/simd/toolbox/arithmetic/include/random.hpp>
 
 namespace nt2
 {

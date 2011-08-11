@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIVFLOOR_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIVFLOOR_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/divfloor.hpp>
+#include <boost/simd/toolbox/arithmetic/include/divfloor.hpp>
 
 namespace nt2
 {

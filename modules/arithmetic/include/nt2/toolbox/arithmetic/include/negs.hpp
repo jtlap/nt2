@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_NEGS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_NEGS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/negs.hpp>
+#include <boost/simd/toolbox/arithmetic/include/negs.hpp>
 
 namespace nt2
 {

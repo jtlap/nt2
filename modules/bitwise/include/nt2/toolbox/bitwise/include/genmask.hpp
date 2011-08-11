@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_GENMASK_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_GENMASK_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/genmask.hpp>
+#include <boost/simd/toolbox/bitwise/include/genmask.hpp>
 
 namespace nt2
 {

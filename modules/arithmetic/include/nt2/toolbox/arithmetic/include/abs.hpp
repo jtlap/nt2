@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_ABS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_ABS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/abs.hpp>
+#include <boost/simd/toolbox/arithmetic/include/abs.hpp>
 
 namespace nt2
 {

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_TWOPOWER_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_TWOPOWER_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/twopower.hpp>
+#include <boost/simd/toolbox/bitwise/include/twopower.hpp>
 
 namespace nt2
 {

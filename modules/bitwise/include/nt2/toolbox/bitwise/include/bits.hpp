@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_BITS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_BITS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/bits.hpp>
+#include <boost/simd/toolbox/bitwise/include/bits.hpp>
 
 namespace nt2
 {

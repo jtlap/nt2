@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_NEGIF_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_NEGIF_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/negif.hpp>
+#include <boost/simd/toolbox/bitwise/include/negif.hpp>
 
 namespace nt2
 {

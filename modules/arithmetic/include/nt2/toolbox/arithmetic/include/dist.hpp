@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIST_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIST_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/dist.hpp>
+#include <boost/simd/toolbox/arithmetic/include/dist.hpp>
 
 namespace nt2
 {

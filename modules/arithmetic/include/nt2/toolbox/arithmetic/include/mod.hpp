@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_MOD_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_MOD_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/mod.hpp>
+#include <boost/simd/toolbox/arithmetic/include/mod.hpp>
 
 namespace nt2
 {

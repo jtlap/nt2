@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_TRUNC_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_TRUNC_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/trunc.hpp>
+#include <boost/simd/toolbox/arithmetic/include/trunc.hpp>
 
 namespace nt2
 {

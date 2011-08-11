@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_FFS_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_FFS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/ffs.hpp>
+#include <boost/simd/toolbox/bitwise/include/ffs.hpp>
 
 namespace nt2
 {
