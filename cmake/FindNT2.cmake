@@ -27,7 +27,8 @@
 # - NT2_LIBRARIES                   list of libraries that are necessary to link all the requested components
 # - NT2_${COMPONENT_U}_FLAGS        flags that must be passed to the compiler to use the component
 # - NT2_FLAGS                       flags that must be passed to the compiler to use all the requested components
-# - NT2_FOUND_COMPONENTS            list of all components that were ever found by FindNT2
+# - NT2_FOUND_COMPONENTS            list of all NT2 modules that have been found
+# - NT2_MODULE_PATH                 list of directories containing NT2 CMake modules
 #
 # Additionally, the script also adds all the NT2-specific CMake modules to the CMAKE_MODULE_PATH.
 #
@@ -49,6 +50,8 @@
 #                                                  order in which modules are loaded, so not suitable for overriding.
 # - NT2_${COMPONENT_U}_LIBRARIES                   libraries provided by the module
 # - NT2_${COMPONENT_U}_FLAGS                       flags required to use the module
+
+include(NT2Module)
 
 macro(nt2_copy_parent)
   foreach(ARG ${ARGV})
@@ -93,7 +96,15 @@ macro(nt2_str_remove_duplicates)
 
 endmacro()
 
-include(nt2.download)
+macro(nt2_find_module_path_push)
+  set(CMAKE_MODULE_PATH_ ${CMAKE_MODULE_PATH})
+  set(CMAKE_MODULE_PATH ${NT2_MODULE_PATH} ${CMAKE_MODULE_PATH})
+endmacro()
+
+macro(nt2_find_module_path_pop)
+  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH_})
+endmacro()
+
 macro(nt2_find_module_dependencies _COMPONENT)
 
   string(TOUPPER ${_COMPONENT} _COMPONENT_U)
@@ -109,9 +120,15 @@ macro(nt2_find_module_dependencies _COMPONENT)
              )
     mark_as_advanced(NT2_${_COMPONENT_U}_ROOT)
   endif()
+  if(NT2_${COMPONENT_U}_ROOT AND NOT EXISTS "${NT2_${COMPONENT_U}_ROOT}/CMakeLists.txt")
+    nt2_find_info("root of module ${COMPONENT} invalid: ${NT2_${COMPONENT_U}_ROOT}")
+  endif()
   
   # Try to download source if not available
-  if(NOT NT2_CURRENT_MODULE STREQUAL ${_COMPONENT} AND NOT NT2_${_COMPONENT_U}_ROOT)
+  nt2_find_module_path_push()
+  include(nt2.download OPTIONAL RESULT_VARIABLE NT2_DOWNLOAD_CMAKE)
+  nt2_find_module_path_pop()
+  if(NT2_DOWNLOAD_CMAKE AND NOT NT2_CURRENT_MODULE STREQUAL ${_COMPONENT} AND NOT NT2_${_COMPONENT_U}_ROOT)
     nt2_download_module(${_COMPONENT})
   endif()
     
@@ -119,7 +136,8 @@ macro(nt2_find_module_dependencies _COMPONENT)
   if(NT2_CURRENT_MODULE STREQUAL ${_COMPONENT} OR NT2_${_COMPONENT_U}_ROOT)
   
     nt2_find_log("${_COMPONENT} source found, testing dependencies")
-    set(CMAKE_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" ${CMAKE_MODULE_PATH})
+    set(NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" ${NT2_MODULE_PATH} CACHE STRING "List of directories in which to search for NT2 CMake includes" FORCE)
+    mark_as_advanced(NT2_MODULE_PATH)
     
     set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${PROJECT_BINARY_DIR}/include ${NT2_${_COMPONENT_U}_ROOT}/include)
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${PROJECT_BINARY_DIR}/lib)
@@ -142,7 +160,9 @@ macro(nt2_find_module_dependencies _COMPONENT)
     return()
   endif()
 
+  nt2_find_module_path_push()
   include("nt2.${_COMPONENT}.dependencies" OPTIONAL)
+  nt2_find_module_path_pop()
     
   if(NOT DEFINED NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND)
     set(NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND 1)
@@ -170,6 +190,7 @@ function(nt2_find_module COMPONENT)
     list(GET NT2_${COMPONENT_U}_EXTRA_REST 0 EXTRA_COMPONENT)
     string(TOUPPER ${EXTRA_COMPONENT} EXTRA_COMPONENT_U)
 
+    get_property(NT2_${EXTRA_COMPONENT_U}_FOUND GLOBAL PROPERTY NT2_${EXTRA_COMPONENT_U}_FOUND)
     if(NT2_${EXTRA_COMPONENT_U}_FOUND)
       nt2_find_log("${EXTRA_COMPONENT} already found")
       
@@ -241,14 +262,27 @@ function(nt2_find_module COMPONENT)
   
   foreach(EXTRA_COMPONENT ${NT2_${COMPONENT_U}_EXTRA})
     string(TOUPPER ${EXTRA_COMPONENT} EXTRA_COMPONENT_U)
+    
+    get_property(NT2_${EXTRA_COMPONENT_U}_FOUND GLOBAL PROPERTY NT2_${EXTRA_COMPONENT_U}_FOUND)
     if(NOT NT2_${EXTRA_COMPONENT_U}_FOUND)
+
+      define_property(GLOBAL PROPERTY NT2_${EXTRA_COMPONENT_U}_FOUND
+                      BRIEF_DOCS "Whether NT2 module ${EXTRA_COMPONENT} was found"
+                      FULL_DOCS "Global flag to avoid building NT2 module ${EXTRA_COMPONENT} multiple times"
+                     )
+      set_property(GLOBAL PROPERTY NT2_${EXTRA_COMPONENT_U}_FOUND 1)
 
       # Set variables
       set(NT2_${EXTRA_COMPONENT_U}_FOUND 1)
-      set(NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_INCLUDE_DIR})
-      set(NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_LIBRARY_DIR})
-      set(NT2_${EXTRA_COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES})
-      set(NT2_${EXTRA_COMPONENT_U}_FLAGS ${NT2_${COMPONENT_U}_FLAGS})
+      set(NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_INCLUDE_DIR} CACHE STRING "Include directories for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_LIBRARY_DIR} CACHE STRING "Library directories for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} CACHE STRING "Libraries for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_FLAGS ${NT2_${COMPONENT_U}_FLAGS} CACHE STRING "Compilation flags for NT2 module ${EXTRA_COMPONENT}" FORCE)
+    
+      mark_as_advanced(NT2_${EXTRA_COMPONENT_U}_FOUND
+                       NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR
+                       NT2_${EXTRA_COMPONENT_U}_LIBRARIES NT2_${EXTRA_COMPONENT_U}_FLAGS
+                      )
     
       # Debug info
       nt2_find_log("${EXTRA_COMPONENT} variables:")
@@ -257,9 +291,10 @@ function(nt2_find_module COMPONENT)
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR = ${NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR}")
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_LIBRARIES = ${NT2_${EXTRA_COMPONENT_U}_LIBRARIES}")
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_FLAGS = ${NT2_${EXTRA_COMPONENT_U}_FLAGS}")
-      
-      # Configure and build if source
+    
+      # Configure/build if source
       if(NT2_${EXTRA_COMPONENT_U}_ROOT)
+        nt2_find_module_path_push()
         if(IS_DIRECTORY ${NT2_${EXTRA_COMPONENT_U}_ROOT}/src)
           add_subdirectory(${NT2_${EXTRA_COMPONENT_U}_ROOT}/src ${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
         else()
@@ -267,15 +302,18 @@ function(nt2_find_module COMPONENT)
           file(WRITE ${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src/CMakeLists.txt "include(NT2Module)\nnt2_module_source_setup(${EXTRA_COMPONENT})")
           add_subdirectory(${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src ${PROJECT_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
         endif()
+        nt2_find_module_path_pop()
       endif()
-      
     endif()
+    
+    nt2_copy_parent(NT2_${EXTRA_COMPONENT_U}_FOUND)
+
   endforeach()
   
   # Copy over to parent
   nt2_append_if(NT2_FOUND_COMPONENTS NT2_${COMPONENT_U}_EXTRA)
   nt2_remove_duplicates(NT2_FOUND_COMPONENTS)
-  nt2_flag_found()
+  set(NT2_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} CACHE INTERNAL "")
     
 endfunction()
 
@@ -286,24 +324,6 @@ macro(nt2_prepend_module name)
   endif()
 endmacro()
 
-macro(nt2_flag_found)
-  foreach(COMPONENT_ ${NT2_FOUND_COMPONENTS})
-    string(TOUPPER ${COMPONENT_} COMPONENT_U_)
-    nt2_copy_parent( NT2_${COMPONENT_U_}_FOUND
-                     NT2_${COMPONENT_U_}_INCLUDE_DIR NT2_${COMPONENT_U_}_LIBRARY_DIR
-                     NT2_${COMPONENT_U_}_LIBRARIES NT2_${COMPONENT_U_}_FLAGS
-                     CMAKE_MODULE_PATH
-                   )
-  endforeach()
-  nt2_copy_parent(NT2_FOUND_COMPONENTS NT2_SOURCE_ROOT_IN_MODULE_PATH NT2_ROOT_IN_MODULE_PATH)
-endmacro()
-
-macro(nt2_find_transfer_parent)
-  if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-    nt2_flag_found()
-  endif()
-endmacro()
-
 function(nt2_find)
 
   set(NT2_FOUND 1)
@@ -311,7 +331,6 @@ function(nt2_find)
   set(NT2_LIBRARY_DIR "")
   set(NT2_LIBRARIES "")
   set(NT2_FLAGS " ")
-  set(NT2_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS})
   
   if(DEFINED NT2_FIND_RECURSIVE)
     set(NT2_FIND_RECURSIVE_ "${NT2_FIND_RECURSIVE_}  ")
@@ -383,25 +402,38 @@ function(nt2_find)
   # Add install and source cmake directories to module path if they're not
   # already there, prefer source over install
   if(NT2_ROOT AND NOT NT2_ROOT_IN_MODULE_PATH)
-    set(CMAKE_MODULE_PATH ${NT2_ROOT}/cmake ${CMAKE_MODULE_PATH})
-    set(NT2_ROOT_IN_MODULE_PATH 1)
+    set(NT2_MODULE_PATH ${NT2_ROOT}/cmake ${NT2_MODULE_PATH} CACHE STRING "List of directories in which to search for NT2 CMake includes" FORCE)
+    mark_as_advanced(NT2_MODULE_PATH)
+    set(NT2_ROOT_IN_MODULE_PATH 1 CACHE INTERNAL "")
   endif()
 
   if(NT2_SOURCE_ROOT AND NOT NT2_SOURCE_ROOT_IN_MODULE_PATH)
-    set(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake ${CMAKE_MODULE_PATH})
-    set(NT2_SOURCE_ROOT_IN_MODULE_PATH 1)
+    set(NT2_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake ${NT2_MODULE_PATH} CACHE STRING "List of directories in which to search for NT2 CMake includes" FORCE)
+    mark_as_advanced(NT2_MODULE_PATH)
+    set(NT2_SOURCE_ROOT_IN_MODULE_PATH 1 CACHE INTERNAL "")
   endif()
   
   # if no component specified, we glob the source or install directories for modules
   if(ARGC EQUAL 0)
     if(NT2_SOURCE_ROOT)
-      file(GLOB NT2_COMPONENTS_ROOT ${NT2_SOURCE_ROOT}/modules/*/)
-      foreach(NT2_COMPONENT ${NT2_COMPONENTS_ROOT})
-        if(IS_DIRECTORY ${NT2_COMPONENT})
-          string(REGEX REPLACE "^.*/(.*)$" "\\1" NT2_COMPONENT ${NT2_COMPONENT})
-          list(APPEND NT2_COMPONENTS ${NT2_COMPONENT})
+      file(GLOB NT2_COMPONENTS RELATIVE ${NT2_SOURCE_ROOT}/modules ${NT2_SOURCE_ROOT}/modules/*/)
+      set(i 0)
+      list(LENGTH NT2_COMPONENTS len)
+      while(i LESS len)
+        list(GET NT2_COMPONENTS ${i} module)
+        string(REPLACE "." "/" module_path ${module})
+        if(NOT EXISTS ${NT2_SOURCE_ROOT}/modules/${module_path}/CMakeLists.txt)
+          list(REMOVE_ITEM NT2_COMPONENTS ${module})
+          file(GLOB NT2_COMPONENTS_ RELATIVE ${NT2_SOURCE_ROOT}/modules ${NT2_SOURCE_ROOT}/modules/${module_path}/*/)
+          if(NT2_COMPONENTS_)
+            string(REPLACE "/" "." NT2_COMPONENTS_ "${NT2_COMPONENTS_}")
+            list(APPEND NT2_COMPONENTS ${NT2_COMPONENTS_})
+          endif()
+          list(LENGTH NT2_COMPONENTS len)
+        else()
+          math(EXPR i "${i} + 1")
         endif()
-      endforeach()
+      endwhile()
     elseif(NT2_ROOT)
       file(GLOB NT2_COMPONENTS_ROOT ${NT2_ROOT}/modules/*.manifest)
       foreach(NT2_COMPONENT ${NT2_COMPONENTS_ROOT})
@@ -413,9 +445,13 @@ function(nt2_find)
     endif()
     if(NT2_COMPONENTS)
       nt2_find(${NT2_COMPONENTS})
-      nt2_flag_found()
       return()
     endif()
+  endif()
+  
+  get_property(NT2_POSTCONFIGURE_INITED GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED)
+  if(NOT NT2_POSTCONFIGURE_INITED)
+    nt2_postconfigure_init()
   endif()
 
   # Search for all requested components
@@ -432,13 +468,17 @@ function(nt2_find)
     set(NT2_FLAGS "${NT2_${COMPONENT_U}_FLAGS} ${NT2_FLAGS}")
     nt2_str_remove_duplicates(NT2_FLAGS)
     
-    nt2_flag_found()
+    nt2_copy_parent(NT2_${COMPONENT_U}_FOUND)
   endforeach()
   
   nt2_copy_parent( NT2_FOUND
                    NT2_INCLUDE_DIR NT2_LIBRARY_DIR
                    NT2_LIBRARIES NT2_FLAGS
                  )
+                 
+  if(NOT NT2_POSTCONFIGURE_INITED)
+    nt2_postconfigure_run()
+  endif()
 
 endfunction()
 

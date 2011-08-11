@@ -80,7 +80,11 @@ Files find_files(const std::vector<string>& paths, const std::vector<string>& ig
             for(fs::recursive_directory_iterator it2(dir); it2 != end; ++it2)
             {
                 if(it2->path().extension() == ".hpp")
-                    files[it2->path().filename()].push_back(it2->path().string().substr(it->size()+1));
+                {
+                    string s = it2->path().string().substr(it->size()+1);
+                    std::replace(s.begin(), s.end(), '\\', '/');
+                    files[it2->path().filename()].push_back(s);
+                }
                 
                 if(std::find(ignore.begin(), ignore.end(), it2->path().filename()) != ignore.end())
                     it2.no_push();
@@ -99,7 +103,7 @@ void generate_file(const string& binary_path, const string& output_dir, const fs
     // generate include guard name
     for(string::iterator it = file_dir.begin(); it != file_dir.end(); ++it)
     {
-        if(*it == '/' || *it == '.')
+        if(*it == '/' || *it == '\\' || *it == '.')
             *it = '_';
         else
             *it = std::toupper(*it);

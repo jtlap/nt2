@@ -33,5 +33,3 @@ set(CPACK_NSIS_CONTACT "contact@metascale.org")
 set(CPACK_STRIP_FILES 1)
 set(CPACK_SOURCE_STRIP_FILES 1)
 set(CPACK_COMPONENTS_ALL_IN_ONE_PACKAGE 1)
-
-include(CPack)

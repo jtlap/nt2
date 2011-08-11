@@ -6,10 +6,13 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
+cmake_minimum_required(VERSION 2.6)
 
 ################################################################################
 # Some global random test
 ################################################################################
+SET(NT2_SOURCE_ROOT ${CMAKE_SOURCE_DIR}/..)
+SET(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake ${CMAKE_MODULE_PATH})
 FIND_PACKAGE(NT2 COMPONENTS arithmetic core reduction)
 INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR}/include ${NT2_INCLUDE_DIR})
 LINK_DIRECTORIES(${NT2_LIBRARY_DIR})
