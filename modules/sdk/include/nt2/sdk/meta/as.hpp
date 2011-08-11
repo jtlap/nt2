@@ -14,9 +14,13 @@
 
 #include <boost/dispatch/meta/as.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::target_;
+} }
+
+namespace nt2 { namespace meta
+{
   using boost::dispatch::meta::as_;
 } }
 
