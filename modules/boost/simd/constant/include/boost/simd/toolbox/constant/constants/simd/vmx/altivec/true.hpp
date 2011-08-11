@@ -8,13 +8,14 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_VMX_ALTIVEC_TRUE_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // in SIMD, True is not !0 but ~0 whatever the type
 ////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd
+namespace boost { namespace simd 
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::true_, tag::cpu_, (A0)
                             , ((target_< simd_< arithmetic_<A0>,tag::altivec_> >))
@@ -30,4 +31,5 @@ namespace boost { namespace simd
   };
 } }
 
+#endif
 #endif
