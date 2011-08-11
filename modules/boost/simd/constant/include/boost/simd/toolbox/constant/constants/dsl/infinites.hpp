@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DSL_INFINITES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DSL_INFINITES_HPP_INCLUDED
+#if 0
 
 ////////////////////////////////////////////////////////////////////////////////
 // Turn some digits consatnt into DSL terminals
@@ -22,4 +23,5 @@ namespace boost { namespace simd
   boost::proto::terminal< constant_<tag::m_inf_> >::type  minf_ = {{}};
 } }
 
+#endif
 #endif

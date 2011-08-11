@@ -8,6 +8,7 @@
 //============================================================================== 
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DSL_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DSL_TRUE_HPP_INCLUDED
+#if 0
 
 ////////////////////////////////////////////////////////////////////////////////
 // Turn some digits consatnt into DSL terminals
@@ -21,4 +22,5 @@ namespace boost { namespace simd
   boost::proto::terminal< constant_<tag::True > >::type true_  = {{}};
 } }
 
+#endif
 #endif
