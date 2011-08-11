@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/arithmetic/function/scalar/tofloat.hpp>
-#include <boost/simd/toolbox/arithmetic/function/simd/all/tofloat.hpp> 
-#include <boost/simd/toolbox/arithmetic/function/simd/pack/tofloat.hpp>
 
 #endif
 

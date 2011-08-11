@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::acsc_, acsc, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/acsc.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/acsc.hpp> 
-
  
 #endif
 

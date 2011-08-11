@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::yni_, yni, 2)
 }
  
-#include <nt2/toolbox/bessel/function/scalar/yni.hpp>
-#include <nt2/toolbox/bessel/function/simd/all/yni.hpp> 
-
  
 #endif
 

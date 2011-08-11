@@ -21,9 +21,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/predicates/function/scalar/is_not_greater.hpp>
-#include <boost/simd/toolbox/predicates/function/simd/all/is_not_greater.hpp> 
-
 #include <boost/simd/toolbox/predicates/recognition/is_not_greater.hpp>
 
 #endif

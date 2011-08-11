@@ -21,9 +21,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sincosd_, sincosd,(A0 const&)(A1&)(A2&),3)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/sincosd.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/sincosd.hpp> 
-
  
 #endif
 

@@ -20,9 +20,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::tangent_<A0> , tangent, (A1 const&), 2)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/tangent.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/tangent.hpp> 
-
  
 #endif
 

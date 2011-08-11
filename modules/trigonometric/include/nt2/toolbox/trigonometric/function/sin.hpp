@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sin_, sin, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/sin.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/sin.hpp> 
-
  
 #endif
 

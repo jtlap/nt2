@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::signgam_, signgam, 1)
 }
  
-#include <nt2/toolbox/euler/function/scalar/signgam.hpp>
-#include <nt2/toolbox/euler/function/simd/all/signgam.hpp> 
-
  
 #endif
 

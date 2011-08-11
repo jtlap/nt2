@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fuzzy_definitely_less_, fuzzy_definitely_less, 3)
 }
  
-#include <nt2/toolbox/fuzzy/function/scalar/fuzzy_definitely_less.hpp>
-#include <nt2/toolbox/fuzzy/function/simd/all/fuzzy_definitely_less.hpp> 
-
  
 #endif
 

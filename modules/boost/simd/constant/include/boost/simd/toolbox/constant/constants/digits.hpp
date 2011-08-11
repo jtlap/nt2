@@ -131,7 +131,4 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
-//#include <boost/simd/toolbox/constant/constants/scalar/digits.hpp>
-#include <boost/simd/toolbox/constant/constants/simd/all/digits.hpp>
-
 #endif

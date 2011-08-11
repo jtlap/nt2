@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_sin_, fast_sin, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/fast_sin.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/fast_sin.hpp> 
-
  
 #endif
 

@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , mul             , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/multiplies.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/multiplies.hpp>
-
 #endif

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_IF_ELSE_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_IF_ELSE_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/if_else.hpp>
+#include <boost/simd/toolbox/operator/include/if_else.hpp>
 
 namespace nt2
 {

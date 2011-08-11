@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_COMPARE_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_COMPARE_GREATER_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/compare_greater.hpp>
+#include <boost/simd/toolbox/operator/include/compare_greater.hpp>
 
 namespace nt2
 {

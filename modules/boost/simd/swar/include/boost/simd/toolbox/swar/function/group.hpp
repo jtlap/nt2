@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/swar/function/scalar/group.hpp>
-#include <boost/simd/toolbox/swar/function/simd/all/group.hpp> 
-
 #endif
 
 // modified by jt the 25/12/2010

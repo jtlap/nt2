@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::hermite_, hermite, 2)
 }
  
-#include <nt2/toolbox/polynomials/function/scalar/hermite.hpp>
-#include <nt2/toolbox/polynomials/function/simd/all/hermite.hpp> 
-
  
 #endif
 

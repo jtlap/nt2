@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::asinh_, asinh, 1)
 }
  
-#include <nt2/toolbox/hyperbolic/function/scalar/asinh.hpp>
-#include <nt2/toolbox/hyperbolic/function/simd/all/asinh.hpp> 
-
  
 #endif
 

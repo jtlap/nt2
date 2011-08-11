@@ -22,7 +22,4 @@ namespace boost { namespace simd {
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/reduction/function/scalar/at_i.hpp>
-#include <boost/simd/toolbox/reduction/function/simd/all/at_i.hpp> 
-
 #endif

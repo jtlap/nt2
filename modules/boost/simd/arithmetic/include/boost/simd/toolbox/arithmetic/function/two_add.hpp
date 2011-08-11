@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/arithmetic/function/scalar/two_add.hpp>
-#include <boost/simd/toolbox/arithmetic/function/simd/all/two_add.hpp> 
-
  
 #endif
 

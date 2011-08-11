@@ -21,9 +21,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/arithmetic/function/scalar/trunc.hpp>
-#include <boost/simd/toolbox/arithmetic/function/simd/all/trunc.hpp> 
-
  
 #endif
 

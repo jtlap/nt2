@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::log1p_, log1p, 1)
 }
  
-#include <nt2/toolbox/exponential/function/scalar/log1p.hpp>
-#include <nt2/toolbox/exponential/function/simd/all/log1p.hpp> 
-
  
 #endif
 

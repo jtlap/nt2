@@ -27,7 +27,4 @@ namespace boost { namespace simd
 
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/if_else.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/if_else.hpp>
-
 #endif

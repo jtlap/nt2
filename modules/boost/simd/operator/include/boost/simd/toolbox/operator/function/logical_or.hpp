@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_or_      , l_or           , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/logical_or.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/logical_or.hpp>
-
 #endif

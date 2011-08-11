@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::csc_, csc, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/csc.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/csc.hpp> 
-
  
 #endif
 

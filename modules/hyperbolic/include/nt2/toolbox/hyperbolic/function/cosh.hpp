@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::cosh_, cosh, 1)
 }
  
-#include <nt2/toolbox/hyperbolic/function/scalar/cosh.hpp>
-#include <nt2/toolbox/hyperbolic/function/simd/all/cosh.hpp> 
-
  
 #endif
 

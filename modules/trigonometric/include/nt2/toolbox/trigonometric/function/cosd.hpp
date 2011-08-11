@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::cosd_, cosd, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/cosd.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/cosd.hpp> 
-
  
 #endif
 

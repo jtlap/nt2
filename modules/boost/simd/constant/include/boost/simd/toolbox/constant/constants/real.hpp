@@ -57,8 +57,5 @@ namespace boost { namespace simd
   BOOST_SIMD_MAKE_STD_CONSTANT(Minf          ,0xFFF0000000000000ll, 0xFF800000, boost::simd::Valmin<result_type>())
   BOOST_SIMD_MAKE_STD_CONSTANT(Nan           ,0xFFFFFFFFFFFFFFFFll, 0xFFFFFFFF, 0)
 } }
-  
-//#include <boost/simd/toolbox/constant/constants/scalar/real.hpp>
-#include <boost/simd/toolbox/constant/constants/simd/all/real.hpp>
 
 #endif

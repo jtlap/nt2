@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::expni_, expni, 2)
 }
  
-#include <nt2/toolbox/euler/function/scalar/expni.hpp>
-#include <nt2/toolbox/euler/function/simd/all/expni.hpp> 
-
  
 #endif
 

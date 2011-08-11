@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_, lt      , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/is_less.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/is_less.hpp>
-
 #endif

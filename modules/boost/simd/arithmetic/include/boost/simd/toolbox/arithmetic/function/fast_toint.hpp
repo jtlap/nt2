@@ -21,7 +21,4 @@ namespace boost { namespace simd {
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/arithmetic/function/scalar/fast_toint.hpp>
-#include <boost/simd/toolbox/arithmetic/function/simd/all/fast_toint.hpp> 
-
 #endif

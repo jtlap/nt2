@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/ieee/function/scalar/eps.hpp>
-#include <boost/simd/toolbox/ieee/function/simd/all/eps.hpp> 
-
  
 #endif
 

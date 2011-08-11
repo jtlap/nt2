@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_MODULO_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_MODULO_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/modulo.hpp>
+#include <boost/simd/toolbox/operator/include/modulo.hpp>
 
 namespace nt2
 {

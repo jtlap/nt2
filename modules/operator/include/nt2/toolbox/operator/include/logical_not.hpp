@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_LOGICAL_NOT_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_LOGICAL_NOT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/logical_not.hpp>
+#include <boost/simd/toolbox/operator/include/logical_not.hpp>
 
 namespace nt2
 {

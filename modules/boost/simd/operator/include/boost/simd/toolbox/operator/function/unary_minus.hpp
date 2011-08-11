@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, neg         , 1 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/unary_minus.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/unary_minus.hpp>
-
 #endif

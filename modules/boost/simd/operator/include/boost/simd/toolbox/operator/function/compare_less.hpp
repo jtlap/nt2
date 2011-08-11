@@ -21,7 +21,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_less_, compare_lt   , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/compare_less.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/compare_less.hpp>
-
 #endif

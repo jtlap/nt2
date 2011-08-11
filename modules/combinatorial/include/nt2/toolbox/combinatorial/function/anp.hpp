@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::anp_, anp, 2)
 }
  
-#include <nt2/toolbox/combinatorial/function/scalar/anp.hpp>
-#include <nt2/toolbox/combinatorial/function/simd/all/anp.hpp> 
-
  
 #endif
 

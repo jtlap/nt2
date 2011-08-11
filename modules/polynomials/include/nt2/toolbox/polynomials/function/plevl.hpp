@@ -20,9 +20,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::plevl_, p1evl, 2)
 }
  
-#include <nt2/toolbox/polynomials/function/scalar/plevl.hpp>
-#include <nt2/toolbox/polynomials/function/simd/all/plevl.hpp> 
-
  
 #endif
 

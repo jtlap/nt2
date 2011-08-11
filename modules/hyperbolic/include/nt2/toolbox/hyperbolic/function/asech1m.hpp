@@ -20,7 +20,4 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::asech1m_, asech1m, 1)
 }
 
-#include <nt2/toolbox/hyperbolic/function/scalar/asech1m.hpp>
-#include <nt2/toolbox/hyperbolic/function/simd/all/asech1m.hpp> 
-
 #endif

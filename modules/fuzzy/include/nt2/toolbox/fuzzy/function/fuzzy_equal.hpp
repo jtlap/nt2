@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fuzzy_equal_, fuzzy_equal, 3)
 }
  
-#include <nt2/toolbox/fuzzy/function/scalar/fuzzy_equal.hpp>
-#include <nt2/toolbox/fuzzy/function/simd/all/fuzzy_equal.hpp> 
-
  
 #endif
 

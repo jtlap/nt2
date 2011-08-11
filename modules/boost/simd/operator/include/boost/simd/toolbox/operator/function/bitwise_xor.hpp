@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_xor_      , b_xor           , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/bitwise_xor.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/bitwise_xor.hpp>
-
 #endif

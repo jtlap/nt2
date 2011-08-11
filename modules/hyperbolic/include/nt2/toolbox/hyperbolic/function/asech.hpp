@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::asech_, asech, 1)
 }
  
-#include <nt2/toolbox/hyperbolic/function/scalar/asech.hpp>
-#include <nt2/toolbox/hyperbolic/function/simd/all/asech.hpp> 
-
  
 #endif
 

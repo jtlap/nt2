@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_COMPARE_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_COMPARE_LESS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/compare_less.hpp>
+#include <boost/simd/toolbox/operator/include/compare_less.hpp>
 
 namespace nt2
 {

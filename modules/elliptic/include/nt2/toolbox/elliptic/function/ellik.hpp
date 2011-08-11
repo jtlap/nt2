@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::ellik_, ellik, 2)
 }
  
-#include <nt2/toolbox/elliptic/function/scalar/ellik.hpp>
-#include <nt2/toolbox/elliptic/function/simd/all/ellik.hpp> 
-
  
 #endif
 

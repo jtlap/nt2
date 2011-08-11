@@ -122,9 +122,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sine_<A0> , sine, (A1 const&), 2)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/sine.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/sine.hpp> 
-
  
 #endif
 

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::definitely_not_equal_, definitely_not_equal, 3)
 }
  
-#include <nt2/toolbox/fuzzy/function/scalar/definitely_not_equal.hpp>
-#include <nt2/toolbox/fuzzy/function/simd/all/definitely_not_equal.hpp> 
-
  
 #endif
 

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sinpi_, sinpi, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/sinpi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/sinpi.hpp> 
-
  
 #endif
 

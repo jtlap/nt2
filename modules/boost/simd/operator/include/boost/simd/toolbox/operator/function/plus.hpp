@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::plus_             , add             , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/plus.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/plus.hpp>
-
 #endif

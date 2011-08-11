@@ -19,7 +19,4 @@ namespace boost { namespace simd
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::True, True)
 } }
 
-#include <boost/simd/toolbox/constant/constants/scalar/true.hpp>
-#include <boost/simd/toolbox/constant/constants/simd/all/true.hpp>
-
 #endif

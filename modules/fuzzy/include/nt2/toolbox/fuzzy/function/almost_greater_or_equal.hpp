@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::almost_greater_or_equal_, almost_greater_or_equal, 3)
 }
  
-#include <nt2/toolbox/fuzzy/function/scalar/almost_greater_or_equal.hpp>
-#include <nt2/toolbox/fuzzy/function/simd/all/almost_greater_or_equal.hpp> 
-
  
 #endif
 

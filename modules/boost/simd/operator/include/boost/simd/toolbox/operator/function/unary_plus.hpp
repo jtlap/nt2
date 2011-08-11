@@ -27,7 +27,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , id          , 1 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/unary_plus.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/unary_plus.hpp>
-
 #endif

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::beta_, beta, 2)
 }
  
-#include <nt2/toolbox/euler/function/scalar/beta.hpp>
-#include <nt2/toolbox/euler/function/simd/all/beta.hpp> 
-
  
 #endif
 

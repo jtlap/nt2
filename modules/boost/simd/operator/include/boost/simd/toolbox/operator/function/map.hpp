@@ -22,6 +22,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,4)
 } }
 
-#include <boost/simd/toolbox/operator/function/simd/all/map.hpp>
-
 #endif

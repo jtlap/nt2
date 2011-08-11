@@ -20,9 +20,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::factorial_,factorial, 1)
 } 
  
-#include <nt2/toolbox/combinatorial/function/scalar/factorial.hpp>
-#include <nt2/toolbox/combinatorial/function/simd/all/factorial.hpp> 
-
 
 
 #endif

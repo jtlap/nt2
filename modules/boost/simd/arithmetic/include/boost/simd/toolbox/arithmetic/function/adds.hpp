@@ -31,7 +31,4 @@ namespace boost { namespace simd {
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/arithmetic/function/scalar/adds.hpp>
-#include <boost/simd/toolbox/arithmetic/function/simd/all/adds.hpp> 
-
 #endif

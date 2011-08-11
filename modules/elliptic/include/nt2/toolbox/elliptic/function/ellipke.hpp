@@ -23,7 +23,4 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::ellipke_, ellipke,(A0 const&)(A1 const&)(A2&)(A3&),4)
 }
 
-#include <nt2/toolbox/elliptic/function/scalar/ellipke.hpp>
-#include <nt2/toolbox/elliptic/function/simd/all/ellipke.hpp> 
-
 #endif

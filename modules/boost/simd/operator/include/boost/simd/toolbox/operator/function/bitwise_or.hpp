@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_or_      , b_or           , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/bitwise_or.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/bitwise_or.hpp>
-
 #endif

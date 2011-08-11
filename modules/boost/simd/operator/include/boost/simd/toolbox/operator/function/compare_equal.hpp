@@ -21,7 +21,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_equal_, compare_eq    , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/compare_equal.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/compare_equal.hpp>
-
 #endif

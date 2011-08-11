@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::coth_, coth, 1)
 }
  
-#include <nt2/toolbox/hyperbolic/function/scalar/coth.hpp>
-#include <nt2/toolbox/hyperbolic/function/simd/all/coth.hpp> 
-
  
 #endif
 

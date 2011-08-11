@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::powi_, powi, 2)
 }
  
-#include <nt2/toolbox/exponential/function/scalar/powi.hpp>
-#include <nt2/toolbox/exponential/function/simd/all/powi.hpp> 
-
  
 #endif
 

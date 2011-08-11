@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_cotd_, fast_cotd, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/fast_cotd.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/fast_cotd.hpp> 
-
  
 #endif
 

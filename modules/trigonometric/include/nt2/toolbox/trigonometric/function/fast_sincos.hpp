@@ -21,9 +21,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::fast_sincos_, fast_sincos,(A0 const&)(A1&)(A2&),3)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/fast_sincos.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/fast_sincos.hpp> 
-
  
 #endif
 

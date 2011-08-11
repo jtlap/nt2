@@ -24,7 +24,4 @@ namespace boost { namespace simd
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/ieee/function/scalar/saturate_at.hpp>
-#include <boost/simd/toolbox/ieee/function/simd/all/saturate_at.hpp>
-
 #endif
