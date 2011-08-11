@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::indeg_, indeg, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/indeg.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/indeg.hpp> 
-
  
 #endif
 

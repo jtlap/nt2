@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::acscd_, acscd, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/acscd.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/acscd.hpp> 
-
  
 #endif
 

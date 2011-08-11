@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::stirling_, stirling, 1)
 }
  
-#include <nt2/toolbox/euler/function/scalar/stirling.hpp>
-#include <nt2/toolbox/euler/function/simd/all/stirling.hpp> 
-
  
 #endif
 

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_gamma_, fast_gamma, 1)
 }
  
-#include <nt2/toolbox/euler/function/scalar/fast_gamma.hpp>
-#include <nt2/toolbox/euler/function/simd/all/fast_gamma.hpp> 
-
  
 #endif
 

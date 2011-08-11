@@ -10,8 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTION_SIMD_SSE_SSE4_1_IS_EQUAL_TO_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
-#include <boost/simd/toolbox/operator/function/simd/sse/ssse3/is_equal.hpp>
-
 ////////////////////////////////////////////////////////////////////////////////
 // Overloads implementation for ints64
 ////////////////////////////////////////////////////////////////////////////////

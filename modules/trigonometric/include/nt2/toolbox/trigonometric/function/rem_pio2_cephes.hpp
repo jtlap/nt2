@@ -20,9 +20,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_cephes_, rem_pio2_cephes,(A0 const&),1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/rem_pio2_cephes.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/rem_pio2_cephes.hpp> 
-
  
 #endif
 

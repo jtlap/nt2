@@ -27,7 +27,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , b_not       , 1 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/complement.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/complement.hpp>
-
 #endif

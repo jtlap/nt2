@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_cotpi_, fast_cotpi, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/fast_cotpi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/fast_cotpi.hpp> 
-
  
 #endif
 

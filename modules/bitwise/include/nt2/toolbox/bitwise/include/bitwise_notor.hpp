@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_BITWISE_NOTOR_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_BITWISE_NOTOR_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/bitwise_notor.hpp>
+#include <boost/simd/toolbox/bitwise/include/bitwise_notor.hpp>
 
 namespace nt2
 {

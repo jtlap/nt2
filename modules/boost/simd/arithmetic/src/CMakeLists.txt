@@ -9,7 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.arithmetic)
-#nt2_module_configure_toolbox(arithmetic 1)
-
-nt2_module_configure_include(boost/simd/toolbox/arithmetic/function -o boost/simd/toolbox/arithmetic/include -o boost/simd/include/functions)
-nt2_module_configure_simd(boost/simd/toolbox/arithmetic/function)
+nt2_module_configure_toolbox(arithmetic 1)

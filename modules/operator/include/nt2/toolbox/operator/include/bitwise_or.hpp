@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_BITWISE_OR_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_BITWISE_OR_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/bitwise_or.hpp>
+#include <boost/simd/toolbox/operator/include/bitwise_or.hpp>
 
 namespace nt2
 {

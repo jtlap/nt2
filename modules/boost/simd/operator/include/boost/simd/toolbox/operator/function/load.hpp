@@ -54,7 +54,4 @@ namespace boost { namespace simd
   }
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/load.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/load.hpp>
-
 #endif

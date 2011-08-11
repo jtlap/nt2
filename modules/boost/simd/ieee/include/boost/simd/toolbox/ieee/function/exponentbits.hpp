@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/ieee/function/scalar/exponentbits.hpp>
-#include <boost/simd/toolbox/ieee/function/simd/all/exponentbits.hpp> 
-
  
 #endif
 

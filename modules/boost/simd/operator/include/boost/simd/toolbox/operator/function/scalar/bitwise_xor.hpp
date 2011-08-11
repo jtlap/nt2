@@ -11,6 +11,7 @@
 
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

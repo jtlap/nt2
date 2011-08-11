@@ -23,7 +23,4 @@ namespace boost { namespace simd
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::False, False)
 } }
 
-#include <boost/simd/toolbox/constant/constants/scalar/false.hpp>
-#include <boost/simd/toolbox/constant/constants/simd/all/false.hpp>
-
 #endif

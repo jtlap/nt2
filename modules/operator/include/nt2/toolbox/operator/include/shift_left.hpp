@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_SHIFT_LEFT_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_SHIFT_LEFT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/shift_left.hpp>
+#include <boost/simd/toolbox/operator/include/shift_left.hpp>
 
 namespace nt2
 {

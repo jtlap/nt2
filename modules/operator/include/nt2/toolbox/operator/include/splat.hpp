@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_SPLAT_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_SPLAT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/splat.hpp>
+#include <boost/simd/toolbox/operator/include/splat.hpp>
 
 namespace nt2
 {

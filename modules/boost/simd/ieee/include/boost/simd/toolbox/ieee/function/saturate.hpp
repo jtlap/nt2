@@ -24,7 +24,4 @@ namespace boost { namespace simd
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/ieee/function/scalar/saturate.hpp>
-#include <boost/simd/toolbox/ieee/function/simd/all/saturate.hpp>
-
 #endif

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::tchebeval_, tchebeval, 2)
 }
  
-#include <nt2/toolbox/polynomials/function/scalar/tchebeval.hpp>
-#include <nt2/toolbox/polynomials/function/simd/all/tchebeval.hpp> 
-
  
 #endif
 

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_UNARY_PLUS_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_UNARY_PLUS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/unary_plus.hpp>
+#include <boost/simd/toolbox/operator/include/unary_plus.hpp>
 
 namespace nt2
 {

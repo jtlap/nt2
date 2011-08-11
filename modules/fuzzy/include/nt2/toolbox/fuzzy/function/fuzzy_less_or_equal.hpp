@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fuzzy_less_or_equal_, fuzzy_less_or_equal, 3)
 }
  
-#include <nt2/toolbox/fuzzy/function/scalar/fuzzy_less_or_equal.hpp>
-#include <nt2/toolbox/fuzzy/function/simd/all/fuzzy_less_or_equal.hpp> 
-
  
 #endif
 

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_MINUS_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_MINUS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/minus.hpp>
+#include <boost/simd/toolbox/operator/include/minus.hpp>
 
 namespace nt2
 {

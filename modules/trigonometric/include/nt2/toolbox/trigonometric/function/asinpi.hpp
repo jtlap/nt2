@@ -20,7 +20,4 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::asinpi_, asinpi, 1)
 }
 
-#include <nt2/toolbox/trigonometric/function/scalar/asinpi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/asinpi.hpp> 
-
 #endif

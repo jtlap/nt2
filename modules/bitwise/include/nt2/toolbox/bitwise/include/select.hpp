@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_SELECT_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_SELECT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/select.hpp>
+#include <boost/simd/toolbox/bitwise/include/select.hpp>
 
 namespace nt2
 {

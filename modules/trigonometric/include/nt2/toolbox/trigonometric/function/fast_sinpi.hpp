@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_sinpi_, fast_sinpi, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/fast_sinpi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/fast_sinpi.hpp> 
-
  
 #endif
 

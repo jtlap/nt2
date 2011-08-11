@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::exp10_, exp10, 1)
 }
  
-#include <nt2/toolbox/exponential/function/scalar/exp10.hpp>
-#include <nt2/toolbox/exponential/function/simd/all/exp10.hpp> 
-
  
 #endif
 

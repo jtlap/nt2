@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/bitwise/function/scalar/popcnt.hpp>
-#include <boost/simd/toolbox/bitwise/function/simd/all/popcnt.hpp> 
-
  
 #endif
 

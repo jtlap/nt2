@@ -20,9 +20,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cosecant_<A0> , cosecant, (A1 const&), 2)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/cosecant.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/cosecant.hpp> 
-
  
 #endif
 

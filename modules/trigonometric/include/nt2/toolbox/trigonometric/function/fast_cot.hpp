@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_cot_, fast_cot, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/fast_cot.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/fast_cot.hpp> 
-
  
 #endif
 

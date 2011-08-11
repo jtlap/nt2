@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::acosh_, acosh, 1)
 }
  
-#include <nt2/toolbox/hyperbolic/function/scalar/acosh.hpp>
-#include <nt2/toolbox/hyperbolic/function/simd/all/acosh.hpp> 
-
  
 #endif
 

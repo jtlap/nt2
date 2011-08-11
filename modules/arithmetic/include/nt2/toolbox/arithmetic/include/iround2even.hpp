@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_IROUND2EVEN_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_IROUND2EVEN_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/iround2even.hpp>
+#include <boost/simd/toolbox/arithmetic/include/iround2even.hpp>
 
 namespace nt2
 {

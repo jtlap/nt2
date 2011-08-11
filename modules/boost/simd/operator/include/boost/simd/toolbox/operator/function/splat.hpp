@@ -28,7 +28,4 @@ namespace boost { namespace simd
   }
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/splat.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/splat.hpp>
-
 #endif

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::digamma_, digamma, 1)
 }
  
-#include <nt2/toolbox/euler/function/scalar/digamma.hpp>
-#include <nt2/toolbox/euler/function/simd/all/digamma.hpp> 
-
  
 #endif
 

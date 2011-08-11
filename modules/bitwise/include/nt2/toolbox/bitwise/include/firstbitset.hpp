@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_FIRSTBITSET_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_FIRSTBITSET_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/firstbitset.hpp>
+#include <boost/simd/toolbox/bitwise/include/firstbitset.hpp>
 
 namespace nt2
 {

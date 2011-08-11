@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::y1_, y1, 1)
 }
  
-#include <nt2/toolbox/bessel/function/scalar/y1.hpp>
-#include <nt2/toolbox/bessel/function/simd/all/y1.hpp> 
-
  
 #endif
 

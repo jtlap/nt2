@@ -20,9 +20,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::secant_<A0> , secant, (A1 const&), 2)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/secant.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/secant.hpp> 
-
  
 #endif
 

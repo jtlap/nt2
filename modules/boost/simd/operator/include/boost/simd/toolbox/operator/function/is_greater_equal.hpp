@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_equal_, ge               , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/is_greater_equal.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/is_greater_equal.hpp>
-
 #endif

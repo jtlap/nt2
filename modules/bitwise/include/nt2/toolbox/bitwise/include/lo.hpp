@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_LO_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_LO_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/lo.hpp>
+#include <boost/simd/toolbox/bitwise/include/lo.hpp>
 
 namespace nt2
 {

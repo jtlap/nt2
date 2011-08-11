@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_FUNCTOR_DETAILS_COMPLEMENT_HPP_INCLUDED
 #define BOOST_SIMD_SDK_FUNCTOR_DETAILS_COMPLEMENT_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace simd { namespace ext

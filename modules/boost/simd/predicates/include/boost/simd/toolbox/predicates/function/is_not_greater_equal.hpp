@@ -23,9 +23,6 @@ namespace boost { namespace simd
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/predicates/function/scalar/is_not_greater_equal.hpp>
-#include <boost/simd/toolbox/predicates/function/simd/all/is_not_greater_equal.hpp> 
-
 #include <boost/simd/toolbox/predicates/recognition/is_not_greater_equal.hpp>
 
 #endif

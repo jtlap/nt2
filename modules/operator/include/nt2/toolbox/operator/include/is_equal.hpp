@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_IS_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_IS_EQUAL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/is_equal.hpp>
+#include <boost/simd/toolbox/operator/include/is_equal.hpp>
 
 namespace nt2
 {

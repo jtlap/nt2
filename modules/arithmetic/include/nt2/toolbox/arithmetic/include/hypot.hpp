@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_HYPOT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_HYPOT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/hypot.hpp>
+#include <boost/simd/toolbox/arithmetic/include/hypot.hpp>
 
 namespace nt2
 {

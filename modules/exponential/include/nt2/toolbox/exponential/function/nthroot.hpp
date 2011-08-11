@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::nthroot_, nthroot, 2)
 }
  
-#include <nt2/toolbox/exponential/function/scalar/nthroot.hpp>
-#include <nt2/toolbox/exponential/function/simd/all/nthroot.hpp> 
-
  
 #endif
 

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_LOGICAL_XOR_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_LOGICAL_XOR_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/logical_xor.hpp>
+#include <boost/simd/toolbox/arithmetic/include/logical_xor.hpp>
 
 namespace nt2
 {

@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/ieee/function/scalar/round2even.hpp>
-#include <boost/simd/toolbox/ieee/function/simd/all/round2even.hpp> 
-
  
 #endif
 

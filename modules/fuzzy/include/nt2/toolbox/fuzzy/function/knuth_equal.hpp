@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::knuth_equal_, knuth_equal, 3)
 }
  
-#include <nt2/toolbox/fuzzy/function/scalar/knuth_equal.hpp>
-#include <nt2/toolbox/fuzzy/function/simd/all/knuth_equal.hpp> 
-
  
 #endif
 

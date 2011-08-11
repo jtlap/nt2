@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::cot_, cot, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/cot.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/cot.hpp> 
-
  
 #endif
 

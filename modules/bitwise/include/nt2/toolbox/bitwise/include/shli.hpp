@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_SHLI_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_SHLI_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/shli.hpp>
+#include <boost/simd/toolbox/bitwise/include/shli.hpp>
 
 namespace nt2
 {

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::ellie_, ellie, 2)
 }
  
-#include <nt2/toolbox/elliptic/function/scalar/ellie.hpp>
-#include <nt2/toolbox/elliptic/function/simd/all/ellie.hpp> 
-
  
 #endif
 

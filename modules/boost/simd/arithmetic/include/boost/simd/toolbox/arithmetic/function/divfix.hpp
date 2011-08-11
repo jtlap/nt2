@@ -21,7 +21,4 @@ namespace boost { namespace simd {
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/arithmetic/function/scalar/divfix.hpp>
-#include <boost/simd/toolbox/arithmetic/function/simd/all/divfix.hpp> 
-
 #endif

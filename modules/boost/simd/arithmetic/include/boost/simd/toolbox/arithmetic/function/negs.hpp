@@ -22,7 +22,4 @@ namespace boost { namespace simd {
 } }
 
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/arithmetic/function/scalar/negs.hpp>
-#include <boost/simd/toolbox/arithmetic/function/simd/all/negs.hpp> 
-
 #endif

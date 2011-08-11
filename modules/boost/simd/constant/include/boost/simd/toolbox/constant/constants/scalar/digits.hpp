@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_DIGITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_DETAILS_DIGITS_HPP_INCLUDED
+#if 0
 
 #include <boost/simd/include/functions/splat.hpp>
 
@@ -31,4 +32,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif

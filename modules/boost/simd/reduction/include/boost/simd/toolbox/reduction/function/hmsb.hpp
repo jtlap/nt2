@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/reduction/function/scalar/hmsb.hpp>
-#include <boost/simd/toolbox/reduction/function/simd/all/hmsb.hpp> 
-
  
 #endif
 

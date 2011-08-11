@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/reduction/function/scalar/posmax.hpp>
-#include <boost/simd/toolbox/reduction/function/simd/all/posmax.hpp> 
-
  
 #endif
 

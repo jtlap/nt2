@@ -21,9 +21,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/ieee/function/scalar/predecessor.hpp>
-#include <boost/simd/toolbox/ieee/function/simd/all/predecessor.hpp> 
-
  
 #endif
 

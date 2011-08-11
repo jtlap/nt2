@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_SUBS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_SUBS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/subs.hpp>
+#include <boost/simd/toolbox/arithmetic/include/subs.hpp>
 
 namespace nt2
 {

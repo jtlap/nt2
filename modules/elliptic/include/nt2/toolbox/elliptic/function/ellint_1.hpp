@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::ellint_1_, ellint_1, 1)
 }
  
-#include <nt2/toolbox/elliptic/function/scalar/ellint_1.hpp>
-#include <nt2/toolbox/elliptic/function/simd/all/ellint_1.hpp> 
-
  
 #endif
 

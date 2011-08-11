@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIVROUND_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIVROUND_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/divround.hpp>
+#include <boost/simd/toolbox/arithmetic/include/divround.hpp>
 
 namespace nt2
 {

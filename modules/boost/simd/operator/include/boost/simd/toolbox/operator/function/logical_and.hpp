@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_and_      , l_and           , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/logical_and.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/logical_and.hpp>
-
 #endif

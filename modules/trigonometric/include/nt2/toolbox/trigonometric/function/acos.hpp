@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::acos_, acos, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/acos.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/acos.hpp> 
-
  
 #endif
 

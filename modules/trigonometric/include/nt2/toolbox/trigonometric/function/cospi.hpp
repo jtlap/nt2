@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::cospi_, cospi, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/cospi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/cospi.hpp> 
-
  
 #endif
 

@@ -24,9 +24,6 @@ namespace boost { namespace simd {
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/swar/function/scalar/comparator.hpp>
-#include <boost/simd/toolbox/swar/function/simd/all/comparator.hpp> 
-
  
 #endif
 

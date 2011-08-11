@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::gcd_, gcd, 2)
 }
  
-#include <nt2/toolbox/combinatorial/function/scalar/gcd.hpp>
-#include <nt2/toolbox/combinatorial/function/simd/all/gcd.hpp> 
-
  
 #endif
 

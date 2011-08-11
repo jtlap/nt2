@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIVFIX_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIVFIX_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/divfix.hpp>
+#include <boost/simd/toolbox/arithmetic/include/divfix.hpp>
 
 namespace nt2
 {

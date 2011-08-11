@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::asind_, asind, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/asind.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/asind.hpp> 
-
  
 #endif
 

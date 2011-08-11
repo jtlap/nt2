@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_not_ , l_not        , 1 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/logical_not.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/logical_not.hpp>
-
 #endif

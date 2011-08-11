@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::cbrt_, cbrt, 1)
 }
  
-#include <nt2/toolbox/exponential/function/scalar/cbrt.hpp>
-#include <nt2/toolbox/exponential/function/simd/all/cbrt.hpp> 
-
  
 #endif
 

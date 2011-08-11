@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_CORRECT_FMA_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_CORRECT_FMA_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/correct_fma.hpp>
+#include <boost/simd/toolbox/arithmetic/include/correct_fma.hpp>
 
 namespace nt2
 {

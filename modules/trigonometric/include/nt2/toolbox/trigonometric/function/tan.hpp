@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::tan_, tan, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/tan.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/tan.hpp> 
-
  
 #endif
 

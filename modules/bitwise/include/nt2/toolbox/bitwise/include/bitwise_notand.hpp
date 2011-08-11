@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_BITWISE_NOTAND_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_BITWISE_NOTAND_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/bitwise_notand.hpp>
+#include <boost/simd/toolbox/bitwise/include/bitwise_notand.hpp>
 
 namespace nt2
 {

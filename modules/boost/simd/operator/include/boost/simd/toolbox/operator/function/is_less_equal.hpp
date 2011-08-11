@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_equal_, le            , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/is_less_equal.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/is_less_equal.hpp>
-
 #endif

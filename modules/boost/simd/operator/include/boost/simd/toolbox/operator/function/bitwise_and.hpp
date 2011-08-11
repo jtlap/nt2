@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_and_      , b_and           , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/bitwise_and.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/bitwise_and.hpp>
-
 #endif

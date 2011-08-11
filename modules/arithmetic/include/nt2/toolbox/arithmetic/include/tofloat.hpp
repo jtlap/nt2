@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_TOFLOAT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_TOFLOAT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/tofloat.hpp>
+#include <boost/simd/toolbox/arithmetic/include/tofloat.hpp>
 
 namespace nt2
 {

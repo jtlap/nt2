@@ -20,7 +20,4 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::acospi_, acospi, 1)
 }
 
-#include <nt2/toolbox/trigonometric/function/scalar/acospi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/acospi.hpp> 
-
 #endif

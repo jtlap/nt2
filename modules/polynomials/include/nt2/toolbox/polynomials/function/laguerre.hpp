@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::laguerre_, laguerre, 2)
 }
  
-#include <nt2/toolbox/polynomials/function/scalar/laguerre.hpp>
-#include <nt2/toolbox/polynomials/function/simd/all/laguerre.hpp> 
-
  
 #endif
 

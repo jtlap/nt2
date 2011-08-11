@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/predicates/function/scalar/is_ngez.hpp>
-#include <boost/simd/toolbox/predicates/function/simd/all/is_ngez.hpp> 
-
  
 #endif
 

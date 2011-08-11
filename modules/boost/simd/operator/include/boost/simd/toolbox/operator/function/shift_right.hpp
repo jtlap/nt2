@@ -26,7 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shr             , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/shift_right.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/shift_right.hpp>
-
 #endif

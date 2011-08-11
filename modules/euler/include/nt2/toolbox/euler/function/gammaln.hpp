@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::gammaln_, gammaln, 1)
 }
  
-#include <nt2/toolbox/euler/function/scalar/gammaln.hpp>
-#include <nt2/toolbox/euler/function/simd/all/gammaln.hpp> 
-
  
 #endif
 

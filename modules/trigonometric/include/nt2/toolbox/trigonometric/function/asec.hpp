@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::asec_, asec, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/asec.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/asec.hpp> 
-
  
 #endif
 

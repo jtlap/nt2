@@ -24,7 +24,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/store.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/store.hpp>
-
 #endif

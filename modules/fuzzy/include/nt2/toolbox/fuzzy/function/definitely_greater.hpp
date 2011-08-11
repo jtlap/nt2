@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::definitely_greater_, definitely_greater, 3)
 }
  
-#include <nt2/toolbox/fuzzy/function/scalar/definitely_greater.hpp>
-#include <nt2/toolbox/fuzzy/function/simd/all/definitely_greater.hpp> 
-
  
 #endif
 

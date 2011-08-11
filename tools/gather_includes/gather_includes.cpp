@@ -64,7 +64,23 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T, Allocator>& v)
     return os;
 }
 
-typedef std::map<fs::path, vector<string> > Files;
+struct depth_compare
+{
+    bool operator()(const fs::path& a0, const fs::path& a1) const
+    {
+        std::size_t a0_size = std::distance(a0.begin(), a0.end());
+        std::size_t a1_size = std::distance(a1.begin(), a1.end());
+        
+        if(a0_size == a1_size)
+            return a0 < a1;
+        
+        return a0_size < a1_size;
+    }
+};
+
+typedef std::set<string, depth_compare> FileSet;
+
+typedef std::map<fs::path, FileSet> Files;
 Files find_files(const std::vector<string>& paths, const std::vector<string>& ignore, const string& source_dir)
 {
     Files files;
@@ -83,7 +99,7 @@ Files find_files(const std::vector<string>& paths, const std::vector<string>& ig
                 {
                     string s = it2->path().string().substr(it->size()+1);
                     std::replace(s.begin(), s.end(), '\\', '/');
-                    files[it2->path().filename()].push_back(s);
+                    files[it2->path().filename()].insert(s);
                 }
                 
                 if(std::find(ignore.begin(), ignore.end(), it2->path().filename()) != ignore.end())
@@ -95,7 +111,7 @@ Files find_files(const std::vector<string>& paths, const std::vector<string>& ig
     return files;
 }
 
-void generate_file(const string& binary_path, const string& output_dir, const fs::path& file_name, const vector<string>& includes)
+void generate_file(const string& binary_path, const string& output_dir, const fs::path& file_name, const FileSet& includes)
 {
     string file_dir = (output_dir / file_name).string();
     fs::path file_path = fs::path(binary_path) / file_dir;
@@ -117,7 +133,7 @@ void generate_file(const string& binary_path, const string& output_dir, const fs
     
     fp << "#ifndef " << file_dir << "_INCLUDED\n";
     fp << "#define " << file_dir << "_INCLUDED\n\n";
-    for(vector<string>::const_iterator it = includes.begin(); it != includes.end(); ++it)
+    for(FileSet::const_iterator it = includes.begin(); it != includes.end(); ++it)
         fp << "#include <" << *it << ">\n";
         
     fp << "\n#endif\n";
@@ -176,9 +192,9 @@ int main(int argc, char* argv[])
             {
                 // flatten all found files
                 Files files = find_files(paths, ignore, prev);
-                vector<string> includes;
+                FileSet includes;
                 for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
-                    includes.insert(includes.end(), it2->second.begin(), it2->second.end());
+                    includes.insert(it2->second.begin(), it2->second.end());
                     
                 fs::path path = it->value.front();
                 generate_file(binary_path, path.parent_path().string(), path.filename(), includes);

@@ -77,7 +77,4 @@ namespace boost { namespace simd
   #undef M0
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/make.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/make.hpp>
-
 #endif

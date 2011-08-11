@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIVS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_DIVS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/divs.hpp>
+#include <boost/simd/toolbox/arithmetic/include/divs.hpp>
 
 namespace nt2
 {

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_POPCNT_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_POPCNT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/popcnt.hpp>
+#include <boost/simd/toolbox/bitwise/include/popcnt.hpp>
 
 namespace nt2
 {

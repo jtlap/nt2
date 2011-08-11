@@ -21,9 +21,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/swar/function/scalar/put_first.hpp>
-#include <boost/simd/toolbox/swar/function/simd/all/put_first.hpp> 
-
  
 #endif
 

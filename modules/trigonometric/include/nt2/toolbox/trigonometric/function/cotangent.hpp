@@ -20,9 +20,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cotangent_<A0> , cotangent, (A1 const&), 2)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/cotangent.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/cotangent.hpp> 
-
  
 #endif
 

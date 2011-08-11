@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sind_, sind, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/sind.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/sind.hpp> 
-
  
 #endif
 

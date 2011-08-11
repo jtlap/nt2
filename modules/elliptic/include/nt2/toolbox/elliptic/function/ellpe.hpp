@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::ellpe_, ellpe, 1)
 }
  
-#include <nt2/toolbox/elliptic/function/scalar/ellpe.hpp>
-#include <nt2/toolbox/elliptic/function/simd/all/ellpe.hpp> 
-
  
 #endif
 

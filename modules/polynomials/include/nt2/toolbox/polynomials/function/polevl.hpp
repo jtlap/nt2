@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::polevl_, polevl, 2)
 }
  
-#include <nt2/toolbox/polynomials/function/scalar/polevl.hpp>
-#include <nt2/toolbox/polynomials/function/simd/all/polevl.hpp> 
-
  
 #endif
 

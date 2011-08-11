@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BITWISE_INCLUDE_ROL_HPP_INCLUDED
 #define NT2_TOOLBOX_BITWISE_INCLUDE_ROL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/function/rol.hpp>
+#include <boost/simd/toolbox/bitwise/include/rol.hpp>
 
 namespace nt2
 {

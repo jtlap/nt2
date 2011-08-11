@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_DIVIDES_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_INCLUDE_DIVIDES_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/function/divides.hpp>
+#include <boost/simd/toolbox/operator/include/divides.hpp>
 
 namespace nt2
 {

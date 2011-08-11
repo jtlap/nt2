@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::secd_, secd, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/secd.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/secd.hpp> 
-
  
 #endif
 

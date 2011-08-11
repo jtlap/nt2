@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::spence_, spence, 1)
 }
  
-#include <nt2/toolbox/euler/function/scalar/spence.hpp>
-#include <nt2/toolbox/euler/function/simd/all/spence.hpp> 
-
  
 #endif
 

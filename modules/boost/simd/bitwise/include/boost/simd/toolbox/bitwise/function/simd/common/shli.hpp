@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_COMMON_SHLI_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/simd/include/functions/shift_left.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,8 +23,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_unsigned<A0>::type ntype;
-      return simd::native_cast<A0>( map( functor<boost::simd::tag::shift_left_>()
+      typedef typename dispatch::meta::as_unsigned<A0>::type ntype;
+      return simd::native_cast<A0>( map( dispatch::functor<tag::shift_left_>()
                                        , simd::native_cast<ntype>(a0)
                                        , splat<ntype>(a1)
                                        )

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::sqrt1pm1_, sqrt1pm1, 1)
 }
  
-#include <nt2/toolbox/exponential/function/scalar/sqrt1pm1.hpp>
-#include <nt2/toolbox/exponential/function/simd/all/sqrt1pm1.hpp> 
-
  
 #endif
 

@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/swar/function/scalar/splatted_second.hpp>
-#include <boost/simd/toolbox/swar/function/simd/all/splatted_second.hpp> 
-
  
 #endif
 

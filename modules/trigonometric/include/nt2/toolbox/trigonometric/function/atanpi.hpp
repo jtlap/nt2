@@ -20,7 +20,4 @@ namespace nt2 {
   NT2_FUNCTION_IMPLEMENTATION(tag::atanpi_, atanpi, 1)
 }
 
-#include <nt2/toolbox/trigonometric/function/scalar/atanpi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/atanpi.hpp> 
-
 #endif

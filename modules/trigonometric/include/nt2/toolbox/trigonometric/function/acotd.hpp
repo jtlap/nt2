@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::acotd_, acotd, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/acotd.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/acotd.hpp> 
-
  
 #endif
 

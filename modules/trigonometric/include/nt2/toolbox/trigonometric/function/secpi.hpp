@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::secpi_, secpi, 1)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/secpi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/secpi.hpp> 
-
  
 #endif
 

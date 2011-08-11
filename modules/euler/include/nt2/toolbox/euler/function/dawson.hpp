@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::dawson_, dawson, 1)
 }
  
-#include <nt2/toolbox/euler/function/scalar/dawson.hpp>
-#include <nt2/toolbox/euler/function/simd/all/dawson.hpp> 
-
  
 #endif
 

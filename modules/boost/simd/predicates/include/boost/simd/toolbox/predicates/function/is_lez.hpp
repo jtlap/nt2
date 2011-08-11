@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/predicates/function/scalar/is_lez.hpp>
-#include <boost/simd/toolbox/predicates/function/simd/all/is_lez.hpp> 
-
  
 #endif
 

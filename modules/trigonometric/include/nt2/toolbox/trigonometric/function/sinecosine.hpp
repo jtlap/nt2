@@ -23,9 +23,6 @@ namespace nt2 { namespace tag
    
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/sinecosine.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/sinecosine.hpp> 
-
  
 #endif
 

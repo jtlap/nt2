@@ -183,9 +183,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cosine_<A0> , cosine, (A1 const&), 2)
 }
  
-#include <nt2/toolbox/trigonometric/function/scalar/cosine.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/cosine.hpp> 
-
  
 #endif
 

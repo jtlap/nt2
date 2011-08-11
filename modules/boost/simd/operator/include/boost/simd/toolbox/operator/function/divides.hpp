@@ -27,7 +27,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divides_             , rdiv            , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/divides.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/divides.hpp>
-
 #endif

@@ -19,9 +19,6 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::gamma_, gamma, 1)
 }
  
-#include <nt2/toolbox/euler/function/scalar/gamma.hpp>
-#include <nt2/toolbox/euler/function/simd/all/gamma.hpp> 
-
  
 #endif
 

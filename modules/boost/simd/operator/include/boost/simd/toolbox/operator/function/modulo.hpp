@@ -25,7 +25,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::modulo_             , modulo      , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/function/scalar/modulo.hpp>
-#include <boost/simd/toolbox/operator/function/simd/all/modulo.hpp>
-
 #endif

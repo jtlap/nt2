@@ -22,9 +22,6 @@ namespace nt2 { namespace tag
 
  }
  
-#include <nt2/toolbox/trigonometric/function/scalar/sincospi.hpp>
-#include <nt2/toolbox/trigonometric/function/simd/all/sincospi.hpp> 
-
  
 #endif
 

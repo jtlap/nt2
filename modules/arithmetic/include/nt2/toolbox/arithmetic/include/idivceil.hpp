@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_IDIVCEIL_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_INCLUDE_IDIVCEIL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/function/idivceil.hpp>
+#include <boost/simd/toolbox/arithmetic/include/idivceil.hpp>
 
 namespace nt2
 {

@@ -21,9 +21,6 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/bitwise/function/scalar/bitwise_notor.hpp>
-#include <boost/simd/toolbox/bitwise/function/simd/all/bitwise_notor.hpp> 
-
  
 #endif
 

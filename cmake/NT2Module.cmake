@@ -293,20 +293,28 @@ macro(nt2_module_configure_py pyfile)
   endif()
 endmacro()
 
-macro(nt2_module_configure_simd)
-  nt2_module_configure_py(simd_fwd.py ${ARGN})
-endmacro()
-
 macro(nt2_module_configure_include)
   nt2_module_configure_py(include_fwd.py ${ARGN})
 endmacro()
 
 macro(nt2_module_configure_toolbox toolbox is_sys)
-  if(${is_sys})
-    nt2_module_configure_include(nt2/toolbox/${toolbox}/function -o nt2/toolbox/${toolbox}/include -o nt2/include/functions)
-    nt2_module_configure_simd(nt2/toolbox/${toolbox}/function)
+  if(NT2_CURRENT_MODULE MATCHES "^boost[.]")
+    set(prefix "boost/simd")
   else()
-    nt2_module_configure_include(nt2/toolbox/${toolbox}/function -o nt2/toolbox/${toolbox}/include)
+    set(prefix "nt2")
+  endif()
+  
+  if(${is_sys})
+    nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
+                                             ${prefix}/toolbox/${toolbox}/function ${prefix}/toolbox/${toolbox}/include
+                                             --all ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
+                                             ${prefix}/include/functions
+                            )
+  else()
+    nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
+                                             ${prefix}/toolbox/${toolbox}/function ${prefix}/toolbox/${toolbox}/include
+                                             --all ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
+                            )
   endif()
 endmacro()
 
@@ -335,7 +343,7 @@ macro(nt2_module_simd_toolbox name)
                 "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
                 "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
                 "\n"
-                "#include <boost/simd/toolbox/${name}/function/${file}.hpp>\n"
+                "#include <boost/simd/toolbox/${name}/include/${file}.hpp>\n"
                 "\n"
                 "namespace nt2\n"
                 "{\n"
@@ -430,12 +438,6 @@ macro(nt2_module_tool tool)
   nt2_module_tool_setup(${tool})
   execute_process(COMMAND ${PROJECT_BINARY_DIR}/tools/${tool}/${tool} ${ARGN})
 
-endmacro()
-
-macro(nt2_module_gather_includes)
-  
-  nt2_module_postconfigure(gather_includes ${ARGN})
-                
 endmacro()
 
 macro(nt2_module_postconfigure)
