@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cctype>
 
 namespace fs = boost::filesystem;
 namespace po = boost::program_options;
