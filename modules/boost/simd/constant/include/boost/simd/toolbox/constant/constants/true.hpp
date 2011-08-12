@@ -19,8 +19,8 @@ namespace boost { namespace simd
   {
     struct True 
     { 
-      template<class Target, class Dummy=void> 
-      struct apply : mpl::integral_c<Target,1> {};  
+      template<class Target, class Site, class Dummy=void> 
+      struct apply;  
     };
   }
   

@@ -6,19 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_TRUE_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_TRUE_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_FALSE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_FALSE_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
+#include <boost/simd/sdk/simd/tags.hpp>
 
 namespace boost { namespace simd { namespace tag
 {
+  template<class Target, class Dummy>
+  struct  False::apply<Target,not_simd_type,Dummy> 
+        : mpl::integral_c<Target,0> {};
+  
   template<class Dummy>
-  struct True::apply<float,Dummy> : meta::float_<0x3F800000UL> {};
+  struct  False::apply<float,not_simd_type,Dummy> 
+        : meta::float_<0> {};
 
   template<class Dummy>
-  struct True::apply<double,Dummy> : meta::double_<0x3FF0000000000000ULL> {};
+  struct  False::apply<double,not_simd_type,Dummy> 
+        : meta::double_<0> {};
 } } }
 
 #endif

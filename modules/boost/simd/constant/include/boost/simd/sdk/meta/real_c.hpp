@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace meta
  template<typename Type, Type Value> struct real_c
  {
    BOOST_STATIC_CONSTANT(Type, value = Value);
-   typedef real_c type;
+   typedef real_c                                       type;
    typedef typename dispatch::meta::as_real<Type>::type value_type;
    
    operator value_type() const

@@ -10,7 +10,10 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as.hpp>
-//#include <boost/simd/sdk/simd/category.hpp>
+#include <boost/simd/sdk/simd/tags.hpp>
+#include <boost/simd/sdk/simd/category.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
 //==============================================================================
@@ -19,6 +22,10 @@
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
+  //============================================================================
+  // By default we splat the constant contained into the extarcted value from
+  // the Tag over a given Target.
+  //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)
                                    , ((target_< scalar_< arithmetic_<A0> > >))
                                    )
@@ -27,29 +34,42 @@ namespace boost { namespace simd { namespace ext
 
     inline result_type operator()(A0 const&) const
     {
-      typename boost::mpl::apply<Tag,result_type>::type value;
+      typename boost::mpl::apply<Tag,result_type,tag::not_simd_type>::type value;
       return boost::simd::splat<result_type>( result_type(value) );
     }
   };
-  
-  /*
+
+  //============================================================================
+  // In the SIMD case, if we generate an integral vector, we do a simple
+  // splat from the Tag/Target bit pattern immediate, if not we add a bitwise
+  // cast
+  //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)(X)
                             , ((target_< simd_< arithmetic_<A0>,X> >))
                             )
   {
-    typedef typename A0::type                                     target;
-    typedef typename dispatch::meta::scalar_of<target>::type      base;
-    typedef typename dispatch::meta
-    ::call<Tag(boost::dispatch::meta::as_<base>)>::type           value;
-    typedef boost::simd::native<value,X>                          result_type;
+    typedef typename A0::type                                       target_type;
+    typedef typename dispatch::meta::scalar_of<target_type>::type   base_type;
+    typedef typename boost::mpl::
+            apply<Tag,base_type,tag::simd_type>::type               value_type;
+    typedef boost::simd::native<typename value_type::value_type,X>  result_type;
 
     inline result_type operator()(A0 const&) const
     {
-      dispatch::functor<Tag> callee;
-      return boost::simd::splat<result_type>( callee( dispatch::meta::as_<base>()) );
+      typedef typename A0::type                                     target_type;
+      typedef typename dispatch::meta::scalar_of<target_type>::type base_type;
+      typedef typename boost::mpl::
+              apply<Tag,base_type,tag::simd_type>::type               value_type;
+      typedef typename dispatch::meta::
+                       as_integer<typename value_type::value_type>::type 
+                                                                    pattern_type;
+      typedef boost::simd::native<pattern_type,X>                   tmp_type;
+      
+      return native_cast<result_type> ( boost::simd::
+                                        splat<tmp_type>( value_type::value )
+                                      );
     }
   };
-  */
 } } }
 
 #endif
