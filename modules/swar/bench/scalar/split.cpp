@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/swar/include/split.hpp>
+#include <nt2/toolbox/swar/include/functions/split.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

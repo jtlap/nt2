@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/mantissa.hpp>
+#include <nt2/toolbox/ieee/include/functions/mantissa.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/frexp.hpp>
 

@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/ieee/include/negation.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/negation.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

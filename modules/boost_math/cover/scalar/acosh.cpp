@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
 /// 
-#include <nt2/toolbox/boost_math/include/acosh.hpp>
+#include <nt2/toolbox/boost_math/include/functions/acosh.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/acosh.hpp>

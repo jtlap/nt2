@@ -24,7 +24,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/swar/include/comparator.hpp>
+#include <nt2/toolbox/swar/include/functions/comparator.hpp>
 #include <boost/fusion/tuple.hpp>
 // specific includes for arity 3 tests
 #include <nt2/include/functions/all.hpp>

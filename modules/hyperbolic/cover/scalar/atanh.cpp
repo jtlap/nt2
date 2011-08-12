@@ -13,13 +13,13 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
 /// 
-#include <nt2/toolbox/hyperbolic/include/atanh.hpp>
+#include <nt2/toolbox/hyperbolic/include/functions/atanh.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/exponential/include/constants.hpp>
+#include <nt2/toolbox/exponential/include/constants/constants.hpp>
 
 extern "C" { long double cephes_atanhl(long double); }
-#include <nt2/toolbox/boost_math/include/atanh.hpp>
+#include <nt2/toolbox/boost_math/include/functions/atanh.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

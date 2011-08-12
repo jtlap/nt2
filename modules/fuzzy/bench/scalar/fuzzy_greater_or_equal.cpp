@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of fuzzy components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/fuzzy/include/fuzzy_greater_or_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/fuzzy_greater_or_equal.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

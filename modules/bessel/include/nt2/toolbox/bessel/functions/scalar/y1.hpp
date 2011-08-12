@@ -22,7 +22,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/plevl.hpp>
 #include <nt2/include/functions/polevl.hpp>
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
 #include <boost/array.hpp>
 
 #include <nt2/toolbox/bessel/details/math.hpp>

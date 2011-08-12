@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/reduction/include/all.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/all.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

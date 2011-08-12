@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/trigonometric/include/cosine.hpp>
-#include <nt2/toolbox/trigonometric/include/fast_cos.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/cosine.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/fast_cos.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

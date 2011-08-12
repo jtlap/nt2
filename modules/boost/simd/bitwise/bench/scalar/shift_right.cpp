@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/bitwise/include/shift_right.hpp>
+#include <boost/simd/toolbox/bitwise/include/functions/shift_right.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 

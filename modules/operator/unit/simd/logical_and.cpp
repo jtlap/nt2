@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/operator/include/logical_and.hpp>
+#include <nt2/toolbox/operator/include/functions/logical_and.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/meta/logical.hpp>
 

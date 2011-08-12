@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
-#include <boost/simd/toolbox/arithmetic/include/rec.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/rec.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/maxmag.hpp>
+#include <nt2/toolbox/ieee/include/functions/maxmag.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/abs.hpp>
 

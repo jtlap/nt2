@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
 /// 
-#include <nt2/toolbox/combinatorial/include/gcd.hpp>
+#include <nt2/toolbox/combinatorial/include/functions/gcd.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

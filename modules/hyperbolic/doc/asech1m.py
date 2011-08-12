@@ -17,8 +17,8 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 20/02/2011',
              'included' : 
-                ['#include <nt2/toolbox/exponential/include/constants.hpp>',
-                 '#include <nt2/toolbox/hyperbolic/include/asech.hpp>',
+                ['#include <nt2/toolbox/exponential/include/constants/constants.hpp>',
+                 '#include <nt2/toolbox/hyperbolic/include/functions/asech.hpp>',
                  'extern "C" { long double cephes_acoshl(long double); }'],
              'notes' : [],
              'stamp' : 'modified by jt the 20/02/2011',

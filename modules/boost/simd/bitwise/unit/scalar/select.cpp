@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <boost/simd/toolbox/bitwise/include/select.hpp>
+#include <boost/simd/toolbox/bitwise/include/functions/select.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/toolbox/predicates/include/is_nez.hpp>
+#include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

@@ -13,10 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 /// 
-#include <nt2/toolbox/trigonometric/include/sin.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/sin.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
 extern "C" {extern long double cephes_sinl(long double);}
 
 #include <boost/type_traits/is_same.hpp>

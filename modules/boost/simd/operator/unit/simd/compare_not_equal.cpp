@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <boost/simd/toolbox/operator/include/compare_not_equal.hpp>
+#include <boost/simd/toolbox/operator/include/functions/compare_not_equal.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/any.hpp>
 

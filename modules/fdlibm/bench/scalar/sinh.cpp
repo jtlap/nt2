@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of fdlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/fdlibm/include/sinh.hpp>
+#include <nt2/toolbox/fdlibm/include/functions/sinh.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

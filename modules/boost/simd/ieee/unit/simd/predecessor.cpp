@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <boost/simd/toolbox/ieee/include/predecessor.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/predecessor.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/prev.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>

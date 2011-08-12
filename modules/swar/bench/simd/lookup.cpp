@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/swar/include/lookup.hpp>
+#include <nt2/toolbox/swar/include/functions/lookup.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

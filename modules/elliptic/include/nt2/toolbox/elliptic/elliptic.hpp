@@ -10,12 +10,12 @@
 #define NT2_TOOLBOX_ELLIPTIC_ELLIPTIC_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/elliptic/include/ellpk.hpp>
-#include <nt2/toolbox/elliptic/include/ellpe.hpp>
-#include <nt2/toolbox/elliptic/include/ellint_2.hpp>
-#include <nt2/toolbox/elliptic/include/ellint_1.hpp>
-#include <nt2/toolbox/elliptic/include/ellik.hpp>
-#include <nt2/toolbox/elliptic/include/ellie.hpp>
+#include <nt2/toolbox/elliptic/include/functions/ellpk.hpp>
+#include <nt2/toolbox/elliptic/include/functions/ellpe.hpp>
+#include <nt2/toolbox/elliptic/include/functions/ellint_2.hpp>
+#include <nt2/toolbox/elliptic/include/functions/ellint_1.hpp>
+#include <nt2/toolbox/elliptic/include/functions/ellik.hpp>
+#include <nt2/toolbox/elliptic/include/functions/ellie.hpp>
 //<\include>
 
 #endif

@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of bessel components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bessel/include/jni.hpp>
+#include <nt2/toolbox/bessel/include/functions/jni.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

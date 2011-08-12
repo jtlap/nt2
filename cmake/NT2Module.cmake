@@ -306,14 +306,21 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
   
   if(${is_sys})
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/functions ${prefix}/toolbox/${toolbox}/include
+                                             ${prefix}/toolbox/${toolbox}/functions ${prefix}/toolbox/${toolbox}/include/functions
                                              --all ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
                                              ${prefix}/include/functions
                             )
+    nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
+                                             ${prefix}/toolbox/${toolbox}/constants ${prefix}/toolbox/${toolbox}/include/constants
+                                             ${prefix}/include/constants
+                            )
   else()
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/functions ${prefix}/toolbox/${toolbox}/include
+                                             ${prefix}/toolbox/${toolbox}/functions ${prefix}/toolbox/${toolbox}/include/functions
                                              --all ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
+                            )
+    nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
+                                             ${prefix}/toolbox/${toolbox}/constants ${prefix}/toolbox/${toolbox}/include/constants
                             )
   endif()
 endmacro()
@@ -331,7 +338,7 @@ macro(nt2_module_simd_toolbox name)
     foreach(file ${function_files})
       string(REGEX REPLACE ".hpp" "" file ${file})
       string(TOUPPER ${file} file_U)
-      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file}.hpp
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/functions/${file}.hpp
                 "//==============================================================================\n"
                 "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II       \n"
                 "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI       \n"
@@ -340,10 +347,10 @@ macro(nt2_module_simd_toolbox name)
                 "//                 See accompanying file LICENSE.txt or copy at                 \n"
                 "//                     http://www.boost.org/LICENSE_1_0.txt                     \n"
                 "//==============================================================================\n"
-                "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
-                "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_FUNCTIONS_${file_U}_HPP_INCLUDED\n"
+                "#define NT2_TOOLBOX_${name_U}_INCLUDE_FUNCTIONS_${file_U}_HPP_INCLUDED\n"
                 "\n"
-                "#include <boost/simd/toolbox/${name}/include/${file}.hpp>\n"
+                "#include <boost/simd/toolbox/${name}/include/functions/${file}.hpp>\n"
                 "\n"
                 "namespace nt2\n"
                 "{\n"
@@ -363,7 +370,7 @@ macro(nt2_module_simd_toolbox name)
     foreach(file ${constant_files})
       string(REGEX REPLACE ".hpp" "" file ${file})
       string(TOUPPER ${file} file_U)
-      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file}.hpp
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/constants/${file}.hpp
                 "//==============================================================================\n"
                 "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II       \n"
                 "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI       \n"
@@ -372,8 +379,8 @@ macro(nt2_module_simd_toolbox name)
                 "//                 See accompanying file LICENSE.txt or copy at                 \n"
                 "//                     http://www.boost.org/LICENSE_1_0.txt                     \n"
                 "//==============================================================================\n"
-                "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
-                "#define NT2_TOOLBOX_${name_U}_INCLUDE_${file_U}_HPP_INCLUDED\n"
+                "#ifndef NT2_TOOLBOX_${name_U}_INCLUDE_CONSTANTS_${file_U}_HPP_INCLUDED\n"
+                "#define NT2_TOOLBOX_${name_U}_INCLUDE_CONSTANTS_${file_U}_HPP_INCLUDED\n"
                 "\n"
                 "#include <nt2/toolbox/${name}/${name}.hpp>\n" # Workaround
                 "\n"
@@ -381,20 +388,25 @@ macro(nt2_module_simd_toolbox name)
           )
     endforeach()
     
-    file(GLOB include_files RELATIVE ${dir}/boost/simd/toolbox/${name}/include ${dir}/boost/simd/toolbox/${name}/include/*.hpp)
-    foreach(file ${include_files})
-      file(READ ${dir}/boost/simd/toolbox/${name}/include/${file} file_content)
+    file(GLOB include_files1 RELATIVE ${dir}/boost/simd/toolbox/${name}/include/functions ${dir}/boost/simd/toolbox/${name}/include/functions/*.hpp)
+    foreach(file ${include_files1})
+      file(READ ${dir}/boost/simd/toolbox/${name}/include/functions/${file} file_content)
       string(REPLACE "boost/simd/" "nt2/" file_content ${file_content})
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content ${file_content})
-      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/${file} ${file_content})
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/functions/${file} ${file_content})
+    endforeach()
+  
+    file(GLOB include_files2 RELATIVE ${dir}/boost/simd/toolbox/${name}/include/constants ${dir}/boost/simd/toolbox/${name}/include/constants/*.hpp)
+    foreach(file ${include_files2})
+      file(READ ${dir}/boost/simd/toolbox/${name}/include/constants/${file} file_content)
+      string(REPLACE "boost/simd/" "nt2/" file_content ${file_content})
+      string(REPLACE "BOOST_SIMD_" "NT2_" file_content ${file_content})
+      file(WRITE ${PROJECT_BINARY_DIR}/include/nt2/toolbox/${name}/include/constants/${file} ${file_content})
     endforeach()
   endforeach()
     
-  if(${name} STREQUAL constant)
-    nt2_module_configure_include(nt2/toolbox/${name}/include -o nt2/include/constants)
-  else()
-    nt2_module_configure_include(nt2/toolbox/${name}/include -o nt2/include/functions)
-  endif()
+  nt2_module_configure_include(nt2/toolbox/${name}/include/constants -o nt2/include/constants)
+  nt2_module_configure_include(nt2/toolbox/${name}/include/functions -o nt2/include/functions)
 endmacro()
 
 macro(nt2_module_tool_setup tool)

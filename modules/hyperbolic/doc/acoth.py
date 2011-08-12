@@ -15,9 +15,9 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 20/02/2011',
-             'included' : ['#include <nt2/toolbox/exponential/include/constants.hpp>'],
+             'included' : ['#include <nt2/toolbox/exponential/include/constants/constants.hpp>'],
              'cover_included' :
-                ['#include <nt2/toolbox/boost_math/include/atanh.hpp>',
+                ['#include <nt2/toolbox/boost_math/include/functions/atanh.hpp>',
                  'extern "C" { long double cephes_atanhl(long double); }',
                  '#include <nt2/include/functions/rec.hpp>'],
              'notes' : [],

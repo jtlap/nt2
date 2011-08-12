@@ -10,13 +10,13 @@
 #define NT2_TOOLBOX_BESSEL_BESSEL_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/bessel/include/i0.hpp>
-#include <nt2/toolbox/bessel/include/yni.hpp>
-#include <nt2/toolbox/bessel/include/y1.hpp>
-#include <nt2/toolbox/bessel/include/y0.hpp>
-#include <nt2/toolbox/bessel/include/jni.hpp>
-#include <nt2/toolbox/bessel/include/j1.hpp>
-#include <nt2/toolbox/bessel/include/j0.hpp>
+#include <nt2/toolbox/bessel/include/functions/i0.hpp>
+#include <nt2/toolbox/bessel/include/functions/yni.hpp>
+#include <nt2/toolbox/bessel/include/functions/y1.hpp>
+#include <nt2/toolbox/bessel/include/functions/y0.hpp>
+#include <nt2/toolbox/bessel/include/functions/jni.hpp>
+#include <nt2/toolbox/bessel/include/functions/j1.hpp>
+#include <nt2/toolbox/bessel/include/functions/j0.hpp>
 //<\include>
 
 #endif

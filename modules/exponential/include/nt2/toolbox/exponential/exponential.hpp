@@ -10,20 +10,20 @@
 #define NT2_TOOLBOX_EXPONENTIAL_EXPONENTIAL_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/exponential/include/expx2.hpp>
-#include <nt2/toolbox/exponential/include/expni.hpp>
-#include <nt2/toolbox/exponential/include/powi.hpp>
-#include <nt2/toolbox/exponential/include/pow.hpp>
-#include <nt2/toolbox/exponential/include/nthroot.hpp>
-#include <nt2/toolbox/exponential/include/log2.hpp>
-#include <nt2/toolbox/exponential/include/log1p.hpp>
-#include <nt2/toolbox/exponential/include/log10.hpp>
-#include <nt2/toolbox/exponential/include/log.hpp>
-#include <nt2/toolbox/exponential/include/expm1.hpp>
-#include <nt2/toolbox/exponential/include/exp2.hpp>
-#include <nt2/toolbox/exponential/include/exp10.hpp>
-#include <nt2/toolbox/exponential/include/exp.hpp>
-#include <nt2/toolbox/exponential/include/cbrt.hpp>
+#include <nt2/toolbox/exponential/include/functions/expx2.hpp>
+#include <nt2/toolbox/exponential/include/functions/expni.hpp>
+#include <nt2/toolbox/exponential/include/functions/powi.hpp>
+#include <nt2/toolbox/exponential/include/functions/pow.hpp>
+#include <nt2/toolbox/exponential/include/functions/nthroot.hpp>
+#include <nt2/toolbox/exponential/include/functions/log2.hpp>
+#include <nt2/toolbox/exponential/include/functions/log1p.hpp>
+#include <nt2/toolbox/exponential/include/functions/log10.hpp>
+#include <nt2/toolbox/exponential/include/functions/log.hpp>
+#include <nt2/toolbox/exponential/include/functions/expm1.hpp>
+#include <nt2/toolbox/exponential/include/functions/exp2.hpp>
+#include <nt2/toolbox/exponential/include/functions/exp10.hpp>
+#include <nt2/toolbox/exponential/include/functions/exp.hpp>
+#include <nt2/toolbox/exponential/include/functions/cbrt.hpp>
 //<\include>
 
 #endif

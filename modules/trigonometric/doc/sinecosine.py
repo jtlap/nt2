@@ -18,7 +18,7 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
              'included' : 
-                ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
+                ['#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>',
                  'extern "C" {extern long double cephes_asinl(long double);}',
                  'extern "C" {extern long double cephes_acosl(long double);}'],
              'notes' : [],

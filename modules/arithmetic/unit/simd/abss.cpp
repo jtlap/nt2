@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/abss.hpp>
+#include <nt2/toolbox/arithmetic/include/functions/abss.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

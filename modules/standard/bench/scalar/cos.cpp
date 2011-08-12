@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of standard components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/standard/include/cos.hpp>
+#include <nt2/toolbox/standard/include/functions/cos.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

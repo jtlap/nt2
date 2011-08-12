@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/shli.hpp>
+#include <nt2/toolbox/bitwise/include/functions/shli.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/twopower.hpp>
 

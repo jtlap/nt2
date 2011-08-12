@@ -10,10 +10,10 @@
 #define NT2_TOOLBOX_COMBINATORIAL_COMBINATORIAL_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/combinatorial/include/lcm.hpp>
-#include <nt2/toolbox/combinatorial/include/gcd.hpp>
-#include <nt2/toolbox/combinatorial/include/cnp.hpp>
-#include <nt2/toolbox/combinatorial/include/anp.hpp>
+#include <nt2/toolbox/combinatorial/include/functions/lcm.hpp>
+#include <nt2/toolbox/combinatorial/include/functions/gcd.hpp>
+#include <nt2/toolbox/combinatorial/include/functions/cnp.hpp>
+#include <nt2/toolbox/combinatorial/include/functions/anp.hpp>
 //<\include>
 
 #endif

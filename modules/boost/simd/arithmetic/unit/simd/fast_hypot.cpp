@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
-#include <boost/simd/toolbox/arithmetic/include/fast_hypot.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/fast_hypot.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/toolbox/arithmetic/include/hypot.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/hypot.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

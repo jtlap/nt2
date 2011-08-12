@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-// #include <nt2/toolbox/gsl_specfun/include/gsl_sf_choose.hpp>
+// #include <nt2/toolbox/gsl_specfun/include/functions/gsl_sf_choose.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 // #include <cmath>
 

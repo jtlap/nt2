@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 03/03/2011
 /// 
-#include <nt2/toolbox/fdlibm/include/significand.hpp>
+#include <nt2/toolbox/fdlibm/include/functions/significand.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/mantissa.hpp>
 

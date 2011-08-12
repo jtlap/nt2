@@ -9,21 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/constant/include/digits.hpp>
-#include <boost/simd/toolbox/constant/include/eps_related.hpp>
-#include <boost/simd/toolbox/constant/include/false.hpp>
-#include <boost/simd/toolbox/constant/include/ieee_spec.hpp>
-#include <boost/simd/toolbox/constant/include/infinites.hpp>
-#include <boost/simd/toolbox/constant/include/localgen.hpp>
-#include <boost/simd/toolbox/constant/include/macros.hpp>
-#include <boost/simd/toolbox/constant/include/max_left_shift.hpp>
-#include <boost/simd/toolbox/constant/include/real.hpp>
-#include <boost/simd/toolbox/constant/include/signmask.hpp>
-#include <boost/simd/toolbox/constant/include/true.hpp>
-#include <boost/simd/toolbox/constant/include/val_max.hpp>
-#include <boost/simd/toolbox/constant/include/val_min.hpp>
+#include <boost/simd/toolbox/constant/include/constants/digits.hpp>
+#include <boost/simd/toolbox/constant/include/constants/eps_related.hpp>
+#include <boost/simd/toolbox/constant/include/constants/false.hpp>
+#include <boost/simd/toolbox/constant/include/constants/ieee_spec.hpp>
+#include <boost/simd/toolbox/constant/include/constants/infinites.hpp>
+#include <boost/simd/toolbox/constant/include/constants/localgen.hpp>
+#include <boost/simd/toolbox/constant/include/constants/macros.hpp>
+#include <boost/simd/toolbox/constant/include/constants/max_left_shift.hpp>
+#include <boost/simd/toolbox/constant/include/constants/real.hpp>
+#include <boost/simd/toolbox/constant/include/constants/signmask.hpp>
+#include <boost/simd/toolbox/constant/include/constants/true.hpp>
+#include <boost/simd/toolbox/constant/include/constants/val_max.hpp>
+#include <boost/simd/toolbox/constant/include/constants/val_min.hpp>
 
-#include <boost/simd/toolbox/constant/include/properties.hpp>
-#include <boost/simd/toolbox/constant/include/true_false.hpp>
+#include <boost/simd/toolbox/constant/include/constants/properties.hpp>
+#include <boost/simd/toolbox/constant/include/constants/true_false.hpp>
 
 #endif

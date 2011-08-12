@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
 /// 
-#include <nt2/toolbox/bessel/include/y0.hpp>
+#include <nt2/toolbox/bessel/include/functions/y0.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 extern "C" {long double cephes_y0l(long double);}

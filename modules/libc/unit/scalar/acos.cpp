@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 05/03/2011
 /// 
-#include <nt2/toolbox/libc/include/acos.hpp>
+#include <nt2/toolbox/libc/include/functions/acos.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/acos.hpp>
 

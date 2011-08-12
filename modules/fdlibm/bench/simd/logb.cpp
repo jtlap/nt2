@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/fdlibm/include/logb.hpp>
+#include <nt2/toolbox/fdlibm/include/functions/logb.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 

@@ -24,7 +24,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/reduction/include/all.hpp>
+#include <nt2/toolbox/reduction/include/functions/all.hpp>
 
 NT2_TEST_CASE_TPL ( all_real__1_0,  NT2_REAL_TYPES)
 {

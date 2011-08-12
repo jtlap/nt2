@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 06/03/2011',
-             'cover_included' : ['#include <nt2/toolbox/cephes/include/polevl.hpp>'],
+             'cover_included' : ['#include <nt2/toolbox/cephes/include/functions/polevl.hpp>'],
              'no_ulp' : 'False',
              'notes' : [],
              'stamp' : 'modified by jt the 06/03/2011',

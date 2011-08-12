@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// 
 /// 
-#include <boost/simd/toolbox/reduction/include/second.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/second.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

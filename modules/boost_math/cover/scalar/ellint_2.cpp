@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
 /// 
-#include <nt2/toolbox/boost_math/include/ellint_2.hpp>
+#include <nt2/toolbox/boost_math/include/functions/ellint_2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/ellint_2.hpp>
@@ -33,7 +33,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
 
 
 

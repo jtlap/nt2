@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <boost/simd/toolbox/ieee/include/exponent.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/exponent.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/ilogb.hpp>
 #include <boost/simd/include/functions/abs.hpp>

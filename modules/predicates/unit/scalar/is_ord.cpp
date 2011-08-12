@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 /// 
-#include <nt2/toolbox/predicates/include/is_ord.hpp>
+#include <nt2/toolbox/predicates/include/functions/is_ord.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/meta/logical.hpp>
 

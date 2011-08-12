@@ -17,7 +17,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 06/03/2011',
-             'cover_included' : ['#include <nt2/toolbox/boost_math/include/laguerre.hpp>'],
+             'cover_included' : ['#include <nt2/toolbox/boost_math/include/functions/laguerre.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 06/03/2011',
             },

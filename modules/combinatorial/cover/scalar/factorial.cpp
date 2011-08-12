@@ -13,10 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
 /// 
-#include <nt2/toolbox/combinatorial/include/factorial.hpp>
+#include <nt2/toolbox/combinatorial/include/functions/factorial.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/boost_math/include/factorial.hpp>
+#include <nt2/toolbox/boost_math/include/functions/factorial.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/min.hpp>

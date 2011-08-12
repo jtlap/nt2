@@ -13,10 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 /// 
-#include <nt2/toolbox/trigonometric/include/fast_sincosd.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/fast_sincosd.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
 #include <nt2/include/functions/sind.hpp>
 #include <nt2/include/functions/cosd.hpp>
 

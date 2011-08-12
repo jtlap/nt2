@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 05/03/2011
 /// 
-#include <nt2/toolbox/libc/include/sqrt.hpp>
+#include <nt2/toolbox/libc/include/functions/sqrt.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
 /// 
-#include <nt2/toolbox/swar/include/comparator.hpp>
+#include <nt2/toolbox/swar/include/functions/comparator.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/all.hpp>

@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/cephes/include/i0e.hpp>
+#include <nt2/toolbox/cephes/include/functions/i0e.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

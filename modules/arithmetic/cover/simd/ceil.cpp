@@ -13,10 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/ceil.hpp>
+#include <nt2/toolbox/arithmetic/include/functions/ceil.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include<nt2/toolbox/standard/include/ceil.hpp>
+#include<nt2/toolbox/standard/include/functions/ceil.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

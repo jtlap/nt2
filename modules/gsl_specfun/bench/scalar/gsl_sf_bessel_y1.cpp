@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of gsl_specfun components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/gsl_specfun/include/gsl_sf_bessel_y1.hpp>
+#include <nt2/toolbox/gsl_specfun/include/functions/gsl_sf_bessel_y1.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

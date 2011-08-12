@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
 /// 
-#include <nt2/toolbox/bessel/include/jni.hpp>
+#include <nt2/toolbox/bessel/include/functions/jni.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 extern "C" {long double cephes_jnl(int,long double);}

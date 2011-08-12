@@ -13,10 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
 /// 
-#include <nt2/toolbox/hyperbolic/include/asinh.hpp>
+#include <nt2/toolbox/hyperbolic/include/functions/asinh.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/exponential/include/constants.hpp>
+#include <nt2/toolbox/exponential/include/constants/constants.hpp>
 extern "C" { long double cephes_asinhl(long double); }
 
 #include <boost/type_traits/is_same.hpp>

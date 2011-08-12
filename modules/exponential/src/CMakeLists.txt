@@ -12,7 +12,7 @@ nt2_module_source_setup(exponential)
 nt2_module_configure_toolbox(exponential 1)
 
 nt2_module_configure_include(nt2/toolbox/exponential/functions/scalar/impl constants.hpp
-                             -o nt2/toolbox/exponential/include
+                             -o nt2/toolbox/exponential/include/constants
                             )
 
 ################################################################################

@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
-             'included' : ['#include <boost/simd/toolbox/arithmetic/include/hypot.hpp>'],
+             'included' : ['#include <boost/simd/toolbox/arithmetic/include/functions/hypot.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 13/12/2010',
             },

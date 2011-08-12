@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <boost/simd/toolbox/ieee/include/ulp.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/ulp.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/next.hpp>

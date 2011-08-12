@@ -21,7 +21,7 @@
                             '#include <nt2/include/functions/idivround.hpp>'
                           ],
               'cover_included': [ '#include <nt2/include/functions/rem.hpp>',
-                                  '#include <nt2/toolbox/fdlibm/include/fmod.hpp>'
+                                  '#include <nt2/toolbox/fdlibm/include/functions/fmod.hpp>'
                                 ],
              'notes' : [],
              'stamp' : 'modified by jt the 03/03/2011',

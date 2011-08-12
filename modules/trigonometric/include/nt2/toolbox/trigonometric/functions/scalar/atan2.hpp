@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ATAN2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ATAN2_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/constants.hpp>
-#include <nt2/toolbox/predicates/include/is_invalid.hpp>
+#include <nt2/toolbox/predicates/include/functions/is_invalid.hpp>
 #include <cmath>
 
 
