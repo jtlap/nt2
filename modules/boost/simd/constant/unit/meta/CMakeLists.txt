@@ -7,15 +7,16 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(boost.simd.constant.scalar.unit)
-ADD_CUSTOM_TARGET(boost.simd.constant.simd.unit)
-ADD_CUSTOM_TARGET(boost.simd.constant.meta.unit)
-ADD_DEPENDENCIES(boost.simd.constant.unit boost.simd.constant.scalar.unit boost.simd.constant.simd.unit boost.simd.constant.meta.unit)
+SET(SOURCES
+    real_c.cpp
+    float.cpp
+    double.cpp
+    )
 
-nt2_module_use_modules(unit boost.simd.operator)
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
+################################################################################
+# For each filename
+################################################################################
+FOREACH( EXAMPLE ${SOURCES})
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_unit(boost.simd.constant.meta.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+ENDFOREACH()
