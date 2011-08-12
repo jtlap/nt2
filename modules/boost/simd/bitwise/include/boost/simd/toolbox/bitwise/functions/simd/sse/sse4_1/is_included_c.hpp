@@ -6,10 +6,11 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE4_1_IS_INCLUDED_C_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SIMD_SSE_SSE4_1_IS_INCLUDED_C_HPP_INCLUDED
-#include <boost/dispatch/meta/as_integer.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE4_1_IS_INCLUDED_C_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE4_1_IS_INCLUDED_C_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,6 +26,7 @@ namespace boost { namespace simd { namespace ext
       return _mm_testz_si128(a1, a0);
     }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_c_, boost::simd::tag::sse4_1_
                             , (A0)(X)
                             , ((simd_<real_<A0>,X>))
@@ -38,7 +40,8 @@ namespace boost { namespace simd { namespace ext
       return is_included_c(bitwise_cast<iA0>(a0), bitwise_cast<iA0>(a1));
     }
   };
-
   
 } } }
+
+#endif
 #endif

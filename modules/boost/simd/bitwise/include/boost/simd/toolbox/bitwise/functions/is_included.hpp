@@ -6,18 +6,18 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_IS_INCLUDED_C_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_IS_INCLUDED_C_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_IS_INCLUDED_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_IS_INCLUDED_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/bitwise/include.hpp>
 
 namespace boost { namespace simd { namespace tag
   {         
-    struct is_included_c_ {};
+    struct is_included_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, is_included_c, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, testz, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_, is_included, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_, testz, 2)
 } }
 
 #endif

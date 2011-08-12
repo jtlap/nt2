@@ -6,15 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_IS_INCLUDED_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTION_SCALAR_IS_INCLUDED_HPP_INCLUDED
-
-#include <boost/dispatch/meta/as_integer.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_IS_INCLUDED_C_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_IS_INCLUDED_C_HPP_INCLUDED
+#include <nt2/include/functions/bitwise_ornot.hpp>
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_c_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
 			      (scalar_< fundamental_<A0> >)
                             )
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (bitwise_or(a0, a1) == a1); 
+      return (bitwise_ornot(a1, a0) == a1); 
     }
   };
 } } }
