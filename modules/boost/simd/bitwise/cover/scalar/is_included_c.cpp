@@ -16,7 +16,7 @@
 #include <boost/simd/toolbox/bitwise/include/is_included_c.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/max.hpp>
-#include<nt2/include/functions/bitwise_not.hpp>
+#include <boost/simd/include/functions/complement.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

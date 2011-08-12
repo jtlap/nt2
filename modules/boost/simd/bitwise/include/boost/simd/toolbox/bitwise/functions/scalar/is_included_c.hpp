@@ -8,15 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_IS_INCLUDED_C_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_IS_INCLUDED_C_HPP_INCLUDED
-#include <nt2/include/functions/bitwise_ornot.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/include/functions/is_equal.hpp>
+
+#include <boost/simd/include/functions/bitwise_ornot.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_c_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
-			      (scalar_< fundamental_<A0> >)
+                              (scalar_< fundamental_<A0> >)
                             )
   {
     typedef bool result_type;
