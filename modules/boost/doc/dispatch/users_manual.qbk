@@ -1,0 +1,258 @@
+[library Dispatch
+    [quickbook 1.3]
+    [version 1.0]
+    [authors [Falcou, Joel], [Gaunard, Mathias]]
+    [copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II]
+    [copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI]
+    [category Generic]
+    [purpose Generic overloading]
+    [license
+        Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        [@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+]
+
+[/ Some links]
+
+[def __note__           [$images/note.png]]
+[def __alert__          [$images/alert.png]]
+[def __tip__            [$images/tip.png]]
+
+[section Preface]
+
+This library aims at providing an idiomatic way to define functions that can
+be extended or specialized, with each specialization being able to be generic.
+
+With transparent tag dispatching, it becomes then possible to select the best
+specialization for the arguments provided, avoiding the limitations inherent
+to unconstrained template function overloads.
+
+[warning Boost.Dispatch is a library in development and is not part of Boost.]
+
+[heading How to use this manual]
+
+Some icons are used to mark certain topics indicative of their relevance. These
+icons precede some text to indicate:
+
+[table Icons
+    [[Icon]         [Name]          [Meaning]]
+    [[__note__]     [Note]          [Information provided is auxiliary but will
+                                     give the reader a deeper insight into a specific
+                                     topic. May be skipped.]]
+    [[__alert__]    [Alert]         [Information provided is of utmost importance.]]
+    [[__tip__]      [Tip]           [A potentially useful and helpful piece of
+                                     information.]]
+]
+
+[endsect]
+
+[section Motivation]
+
+Let us consider a fairly artificial scenario, but representive of things that
+are quite common in generic programming: we want to define a unary function `f`, for all built-in arithmetic
+types, that returns different values depending on the actual type of the argument.
+
+* return 0 if it is floating point
+* return 1 if it is a signed integer
+* return 2 if it is an unsigned integer
+
+You could do this with two means: SFINAE or tag dispatching.
+
+With SFINAE: 
+[c++]
+``
+template<class T>
+typename enable_if<
+    is_floating_point<T>,
+    int
+>::type f(T)
+{
+    return 0;
+}
+
+template<class T>
+typename enable_if<
+    mpl::and_<
+        is_signed<T>,
+        is_integral<T>
+    >,
+    int
+>::type f(T)
+{
+    return 1;
+}
+
+template<class T>
+typename enable_if<
+    mpl::and_<
+        mpl::not_< is_signed<T> >,
+        is_integral<T>
+    >,
+    int
+>::type f(T)
+{
+    return 2;
+}
+``
+
+Or, with tag dispatching:
+[c++]
+``
+template<class T>
+int f(T t)
+{
+    return f(t, typename is_floating_point<T>::type(), typename is_signed<T>::type());
+}
+
+template<class T, class U>
+int f(T, mpl::true_, U)
+{
+    return 0;
+}
+
+template<class T, class U>
+int f(T, mpl::false_, mpl::true_)
+{
+    return 1;
+}
+
+template<class T, class U>
+int f(T, mpl::false_, mpl::false_)
+{
+    return 2;
+}
+``
+
+The SFINAE approach clearly doesn't scale in terms of programming, since all
+overloads must be mutually exclusive, but also in terms of compile times, since
+SFINAE-based overload resolution is linear.
+
+Tag dispatching, on the other hand, can be very good if rather than using `mpl::true_` / `mpl::false_`
+a hierarchy of inheriting types are used, allowing to make use of the best-match
+feature of C++ overloading to introduce specializations without requiring them
+to be mutually exclusive. [br]
+Doing this in a clean, concise, reusable and
+idiomatic manner is however of some difficulty, which is why that is only done
+in an ad-hoc way in practice.
+
+Boost.Dispatch solves that problem by providing a generic way to do best-match
+selection, with an extensible hierarchy system that contains ready-made hierarchies
+and that can be easily extended.
+
+[c++]
+``
+// each function must have a type to be uniquely identified
+struct f_ {};
+
+/ we define the free function f, that for now only does a static assert
+BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(f_, f, 1)
+
+// we define the specialization for real types
+BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( (),
+    f_,
+    tag::cpu_,
+    (A0),
+    (scalar_< real_<A0> >)
+)
+{
+    typedef int result_type;
+    result_type operator()(T) const
+    {
+        return 0;
+    }
+};
+
+// we define the specialization for signed types
+BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( (),
+    f_,
+    tag::cpu_,
+    (A0),
+    (scalar_< signed_<A0> >)
+)
+{
+    typedef int result_type;
+    result_type operator()(T) const
+    {
+        return 1;
+    }
+};
+
+// we define the specialization for unsigned types
+BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION( (),
+    f_,
+    tag::cpu_,
+    (A0),
+    (scalar_< unsigned_<A0> >)
+)
+{
+    typedef int result_type;
+    result_type operator()(T) const
+    {
+        return 2;
+    }
+};
+``
+
+Here, the second specialization applies to any signed scalar type, including
+floating-point ones. However, since there is also a specialization for real
+(i.e. floating point) types, the latter gets preferred, since `real_` is a refinement of `signed_`.
+
+Additionally, with Boost.Dispatch, all specializations are registered in an
+ADL context. That means that you can introduce specializations after the function
+is used in template contexts and those new specializations will still get used
+when that code is instantiated. This is not the case with regular function
+overloads, which usually perform name lookup eagerly.
+
+The approach also turns all incriminated functions into polymorphic function
+objects, which has a lot of uses in generic and functional programming.
+
+[endsect] [/Motivation]
+
+[section Defining hierarchies] [endsect]
+[section Associating types to hierarchies] [endsect]
+
+[section Scalar hierarchy and properties]
+
+The hierarchy of a built-in fundamental type `T` is the composite `scalar_< typename property_of<T>::type >`.
+
+A list of all properties available and how they relate to each other is listed below:
+
+[$dispatch/tags.png]
+
+[variablelist Properties      
+    [[fundamental_] [a fundamental type]]
+    [[bool_] [the `bool` type]]
+    [[arithmetic_] [an arithmetic fundamental type, i.e. any fundamental type but `bool`]]
+    [[integer_] [an integral type]]
+    [[real_] [a real or floating-point type]]
+    [[unsigned_] [an unsigned type]]
+    [[signed_] [a signed type]]
+    [[uint_] [an unsigned integral type]]
+    [[int_] [a signed integral type]]
+    [[type8_] [a type of size 8 bits]]
+    [[type16_] [a type of size 16 bits]]
+    [[real_sized_] [a type of the same size as a real type]]
+    [[type32_] [a type of size 32 bits]]
+    [[type64_] [a type of size 64 bits]]
+    [[ints8_] [an integral type of size 8 bits]]
+    [[ints16_] [an integral type of size 16 bits]]
+    [[ints32_] [an integral type of size 32 bits]]
+    [[ints64_] [an integral type of size 64 bits]]
+    [[int8_] [an integral signed type of size 8 bits]]
+    [[uint8_] [an integral unsigned type of size 8 bits]]
+    [[int16_] [an integral signed type of size 16 bits]]
+    [[uint16_] [an integral unsigned type of size 16 bits]]
+    [[float_] [the `float` type of size 32 bits]]
+    [[int32_] [an integral signed type of size 32 bits]]
+    [[uint32_] [an integral unsigned type of size 32 bits]]
+    [[double_] [the `double` type of size 64 bits]]
+    [[int64_] [an integral signed type of size 64 bits]]
+    [[uint64_] [an integral unsigned type of size 64 bits]]
+]
+
+[endsect] [/Scalar]
+
+[section Defining functions] [endsect]
+[section Defining specializations] [endsect]
+[section Reference] [endsect]

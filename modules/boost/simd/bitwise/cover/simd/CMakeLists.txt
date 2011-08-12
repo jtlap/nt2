@@ -9,6 +9,8 @@
 ################################################################################
 
 SET( SOURCES
+  is_included_c.cpp
+  is_included.cpp
   twopower.cpp
   shri.cpp
   shrai.cpp

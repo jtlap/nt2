@@ -1,0 +1,16 @@
+import boostbook : boostbook ;
+using quickbook ;
+
+import toolset ;
+toolset.using doxygen ;
+
+path-constant images : html ;
+import path ;
+
+boostbook quickbook
+    :
+        users_manual.qbk
+    :
+        <format>pdf:<xsl:param>boost.url.prefix=http://www.boost.org/doc/libs/release/doc/html
+        <format>pdf:<xsl:param>img.src.path=$(images)/
+    ;

@@ -1,0 +1,171 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Chapter&#160;1.&#160;Dispatch 1.0</title>
+<link rel="stylesheet" href="boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Dispatch 1.0">
+<link rel="next" href="dispatch/motivation.html" title="Motivation">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
+<hr>
+<div class="spirit-nav"><a accesskey="n" href="dispatch/motivation.html"><img src="images/next.png" alt="Next"></a></div>
+<div class="chapter">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="dispatch"></a>Chapter&#160;1.&#160;Dispatch 1.0</h2></div>
+<div><div class="author"><h3 class="author">
+<span class="firstname">Falcou</span> <span class="surname">Joel</span>
+</h3></div></div>
+<div><div class="author"><h3 class="author">
+<span class="firstname">Mathias</span> <span class="surname">Gaunard</span>
+</h3></div></div>
+<div><p class="copyright">Copyright &#169; 2003-2011 LASMEA
+      UMR 6602 CNRS/Univ. Clermont II</p></div>
+<div><p class="copyright">Copyright &#169; 2009-2011 LRI UMR 8623
+      CNRS/Univ Paris Sud XI</p></div>
+<div><div class="legalnotice">
+<a name="dispatch.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="index.html#dispatch.preface">Preface</a></span></dt>
+<dt><span class="section"><a href="dispatch/motivation.html">Motivation</a></span></dt>
+<dt><span class="section"><a href="dispatch/defining_hierarchies.html">Defining hierarchies</a></span></dt>
+<dt><span class="section"><a href="dispatch/associating_types_to_hierarchies.html">Associating
+    types to hierarchies</a></span></dt>
+<dt><span class="section"><a href="dispatch/scalar_hierarchy_and_properties.html">Scalar hierarchy
+    and properties</a></span></dt>
+<dt><span class="section"><a href="dispatch/defining_functions.html">Defining functions</a></span></dt>
+<dt><span class="section"><a href="dispatch/defining_specializations.html">Defining specializations</a></span></dt>
+<dt><span class="section"><a href="dispatch/reference.html">Reference</a></span></dt>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="dispatch.preface"></a><a class="link" href="index.html#dispatch.preface" title="Preface">Preface</a>
+</h2></div></div></div>
+<p>
+      This library aims at providing an idiomatic way to define functions that can
+      be extended or specialized, with each specialization being able to be generic.
+    </p>
+<p>
+      With transparent tag dispatching, it becomes then possible to select the best
+      specialization for the arguments provided, avoiding the limitations inherent
+      to unconstrained template function overloads.
+    </p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        Boost.Dispatch is a library in development and is not part of Boost.
+      </p></td></tr>
+</table></div>
+<a name="dispatch.preface.how_to_use_this_manual"></a><h4>
+<a name="dispatch.preface.h0"></a>
+      <a class="link" href="index.html#dispatch.preface.how_to_use_this_manual">How to use this manual</a>
+    </h4>
+<p>
+      Some icons are used to mark certain topics indicative of their relevance. These
+      icons precede some text to indicate:
+    </p>
+<div class="table">
+<a name="dispatch.preface.t0"></a><p class="title"><b>Table&#160;1.1.&#160;Icons</b></p>
+<div class="table-contents"><table class="table" summary="Icons">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                Icon
+              </p>
+            </th>
+<th>
+              <p>
+                Name
+              </p>
+            </th>
+<th>
+              <p>
+                Meaning
+              </p>
+            </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <span class="inlinemediaobject"><img src="images/note.png" alt="note"></span>
+              </p>
+            </td>
+<td>
+              <p>
+                Note
+              </p>
+            </td>
+<td>
+              <p>
+                Information provided is auxiliary but will give the reader a deeper
+                insight into a specific topic. May be skipped.
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <span class="inlinemediaobject"><img src="images/alert.png" alt="alert"></span>
+              </p>
+            </td>
+<td>
+              <p>
+                Alert
+              </p>
+            </td>
+<td>
+              <p>
+                Information provided is of utmost importance.
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <span class="inlinemediaobject"><img src="images/tip.png" alt="tip"></span>
+              </p>
+            </td>
+<td>
+              <p>
+                Tip
+              </p>
+            </td>
+<td>
+              <p>
+                A potentially useful and helpful piece of information.
+              </p>
+            </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: August 12, 2011 at 16:31:35 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"><a accesskey="n" href="dispatch/motivation.html"><img src="images/next.png" alt="Next"></a></div>
+</body>
+</html>

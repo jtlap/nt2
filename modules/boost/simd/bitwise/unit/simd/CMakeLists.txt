@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+  is_included_c.cpp
+  is_included.cpp
   negif.cpp
   genmask.cpp
   selsub.cpp
