@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/combinatorial/function/cnp.hpp>
+  #include <nt2/toolbox/combinatorial/functions/cnp.hpp>
 
 or simply
 

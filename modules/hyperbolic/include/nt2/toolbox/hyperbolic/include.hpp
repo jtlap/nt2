@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_HYPERBOLIC_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
-#define NT2_HYPERBOLIC_BASE() nt2/toolbox/hyperbolic/function/scalar/
-#define NT2_HYPERBOLIC_RELATIVE() nt2/toolbox/hyperbolic/function/
+#define NT2_HYPERBOLIC_BASE() nt2/toolbox/hyperbolic/functions/scalar/
+#define NT2_HYPERBOLIC_RELATIVE() nt2/toolbox/hyperbolic/functions/
 
 #define NT2_HYPERBOLIC_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_HYPERBOLIC_RELATIVE, F)
 

@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/ieee/function/modf.hpp>
+  #include <nt2/toolbox/ieee/functions/modf.hpp>
 
 or simply
 

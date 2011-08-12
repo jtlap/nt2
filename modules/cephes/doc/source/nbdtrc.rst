@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``cephes``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/cephes/function/nbdtrc.hpp>
+  #include <nt2/toolbox/cephes/functions/nbdtrc.hpp>
 
 or simply
 

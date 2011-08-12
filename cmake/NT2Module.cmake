@@ -306,13 +306,13 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
   
   if(${is_sys})
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/function ${prefix}/toolbox/${toolbox}/include
+                                             ${prefix}/toolbox/${toolbox}/functions ${prefix}/toolbox/${toolbox}/include
                                              --all ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
                                              ${prefix}/include/functions
                             )
   else()
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/function ${prefix}/toolbox/${toolbox}/include
+                                             ${prefix}/toolbox/${toolbox}/functions ${prefix}/toolbox/${toolbox}/include
                                              --all ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
                             )
   endif()
@@ -327,7 +327,7 @@ macro(nt2_module_simd_toolbox name)
   string(TOUPPER ${name} name_U)
   get_directory_property(INCLUDE_DIRECTORIES INCLUDE_DIRECTORIES)
   foreach(dir ${INCLUDE_DIRECTORIES})
-    file(GLOB function_files RELATIVE ${dir}/boost/simd/toolbox/${name}/function ${dir}/boost/simd/toolbox/${name}/function/*.hpp)
+    file(GLOB function_files RELATIVE ${dir}/boost/simd/toolbox/${name}/functions ${dir}/boost/simd/toolbox/${name}/functions/*.hpp)
     foreach(file ${function_files})
       string(REGEX REPLACE ".hpp" "" file ${file})
       string(TOUPPER ${file} file_U)

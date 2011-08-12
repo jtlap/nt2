@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_INCLUDE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/preprocessor/include.hpp>
 
-#define BOOST_SIMD_ARITHMETIC_BASE() boost/simd/toolbox/arithmetic/function/scalar/
-#define BOOST_SIMD_ARITHMETIC_RELATIVE() boost/simd/toolbox/arithmetic/function/
+#define BOOST_SIMD_ARITHMETIC_BASE() boost/simd/toolbox/arithmetic/functions/scalar/
+#define BOOST_SIMD_ARITHMETIC_RELATIVE() boost/simd/toolbox/arithmetic/functions/
 
 #define BOOST_SIMD_ARITHMETIC_INCLUDE(F) BOOST_SIMD_RELATIVE_INCLUDE(BOOST_SIMD_ARITHMETIC_RELATIVE, F)
 

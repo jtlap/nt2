@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``libc``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/libc/function/pow.hpp>
+  #include <nt2/toolbox/libc/functions/pow.hpp>
 
 or simply
 

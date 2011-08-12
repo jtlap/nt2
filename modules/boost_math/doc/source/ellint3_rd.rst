@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``boost_math``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/boost_math/function/ellint3_rd.hpp>
+  #include <nt2/toolbox/boost_math/functions/ellint3_rd.hpp>
 
 or simply
 

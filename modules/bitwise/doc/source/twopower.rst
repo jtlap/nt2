@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/bitwise/function/twopower.hpp>
+  #include <nt2/toolbox/bitwise/functions/twopower.hpp>
 
 or simply
 

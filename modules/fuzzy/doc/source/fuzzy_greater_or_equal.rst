@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fuzzy/function/fuzzy_greater_or_equal.hpp>
+  #include <nt2/toolbox/fuzzy/functions/fuzzy_greater_or_equal.hpp>
 
 or simply
 

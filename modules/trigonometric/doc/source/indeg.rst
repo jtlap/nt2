@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/trigonometric/function/indeg.hpp>
+  #include <nt2/toolbox/trigonometric/functions/indeg.hpp>
 
 or simply
 

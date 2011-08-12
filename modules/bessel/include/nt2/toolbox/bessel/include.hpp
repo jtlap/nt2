@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_BESSEL_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
-#define NT2_BESSEL_BASE() nt2/toolbox/bessel/function/scalar/
-#define NT2_BESSEL_RELATIVE() nt2/toolbox/bessel/function/
+#define NT2_BESSEL_BASE() nt2/toolbox/bessel/functions/scalar/
+#define NT2_BESSEL_RELATIVE() nt2/toolbox/bessel/functions/
 
 #define NT2_BESSEL_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_BESSEL_RELATIVE, F)
 

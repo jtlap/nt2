@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fuzzy/function/fuzzy_definitely_less.hpp>
+  #include <nt2/toolbox/fuzzy/functions/fuzzy_definitely_less.hpp>
 
 or simply
 

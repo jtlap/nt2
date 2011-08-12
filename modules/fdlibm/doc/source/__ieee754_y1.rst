@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``fdlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fdlibm/function/__ieee754_y1.hpp>
+  #include <nt2/toolbox/fdlibm/functions/__ieee754_y1.hpp>
 
 or simply
 

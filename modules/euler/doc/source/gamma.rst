@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/euler/function/gamma.hpp>
+  #include <nt2/toolbox/euler/functions/gamma.hpp>
 
 or simply
 

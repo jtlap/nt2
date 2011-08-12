@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``gsl_specfun``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/gsl_specfun/function/gsl_sf_bessel_K0.hpp>
+  #include <nt2/toolbox/gsl_specfun/functions/gsl_sf_bessel_K0.hpp>
 
 or simply
 

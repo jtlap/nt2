@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/arithmetic/function/mod.hpp>
+  #include <nt2/toolbox/arithmetic/functions/mod.hpp>
 
 or simply
 

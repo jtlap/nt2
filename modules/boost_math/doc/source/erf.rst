@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``boost_math``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/boost_math/function/erf.hpp>
+  #include <nt2/toolbox/boost_math/functions/erf.hpp>
 
 or simply
 

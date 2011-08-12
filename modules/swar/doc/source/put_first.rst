@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/swar/function/put_first.hpp>
+  #include <nt2/toolbox/swar/functions/put_first.hpp>
 
 or simply
 

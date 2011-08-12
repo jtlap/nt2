@@ -11,8 +11,8 @@
 #include <boost/dispatch/details/preprocessor.hpp>
 #include <math.h>
 
-#define NT2_LIBC_BASE() nt2/toolbox/libc/function/scalar/
-#define NT2_LIBC_RELATIVE() nt2/toolbox/libc/function/
+#define NT2_LIBC_BASE() nt2/toolbox/libc/functions/scalar/
+#define NT2_LIBC_RELATIVE() nt2/toolbox/libc/functions/
 
 #define NT2_LIBC_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_LIBC_RELATIVE, F)
 

@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_INCLUDE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/preprocessor/include.hpp>
 
-#define BOOST_SIMD_PREDICATES_BASE() boost/simd/toolbox/predicates/function/scalar/
-#define BOOST_SIMD_PREDICATES_RELATIVE() boost/simd/toolbox/predicates/function/
+#define BOOST_SIMD_PREDICATES_BASE() boost/simd/toolbox/predicates/functions/scalar/
+#define BOOST_SIMD_PREDICATES_RELATIVE() boost/simd/toolbox/predicates/functions/
 
 #define BOOST_SIMD_PREDICATES_INCLUDE(F) BOOST_SIMD_RELATIVE_INCLUDE(BOOST_SIMD_PREDICATES_RELATIVE, F)
 

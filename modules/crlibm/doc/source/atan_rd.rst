@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``crlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/crlibm/function/atan_rd.hpp>
+  #include <nt2/toolbox/crlibm/functions/atan_rd.hpp>
 
 or simply
 

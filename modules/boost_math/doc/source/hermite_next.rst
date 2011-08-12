@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``boost_math``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/boost_math/function/hermite_next.hpp>
+  #include <nt2/toolbox/boost_math/functions/hermite_next.hpp>
 
 or simply
 

@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/swar/function/sort.hpp>
+  #include <nt2/toolbox/swar/functions/sort.hpp>
 
 or simply
 

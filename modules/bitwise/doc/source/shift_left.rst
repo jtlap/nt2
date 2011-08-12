@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/bitwise/function/shift_left.hpp>
+  #include <nt2/toolbox/bitwise/functions/shift_left.hpp>
 
 or simply
 

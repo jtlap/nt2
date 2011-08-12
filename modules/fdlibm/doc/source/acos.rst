@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``fdlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fdlibm/function/acos.hpp>
+  #include <nt2/toolbox/fdlibm/functions/acos.hpp>
 
 or simply
 

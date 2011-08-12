@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``crlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/crlibm/function/asin_ru.hpp>
+  #include <nt2/toolbox/crlibm/functions/asin_ru.hpp>
 
 or simply
 

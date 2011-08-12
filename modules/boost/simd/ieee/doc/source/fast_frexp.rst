@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/ieee/function/fast_frexp.hpp>
+  #include <nt2/toolbox/ieee/functions/fast_frexp.hpp>
 
 or simply
 

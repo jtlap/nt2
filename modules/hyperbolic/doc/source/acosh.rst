@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/hyperbolic/function/acosh.hpp>
+  #include <nt2/toolbox/hyperbolic/functions/acosh.hpp>
 
 or simply
 

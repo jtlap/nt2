@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``crlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/crlibm/function/exp_rn.hpp>
+  #include <nt2/toolbox/crlibm/functions/exp_rn.hpp>
 
 or simply
 

@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_BOOST_MATH_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/details/preprocessor.hpp>
 
-#define NT2_BOOST_MATH_BASE() nt2/toolbox/boost_math/function/scalar/
-#define NT2_BOOST_MATH_RELATIVE() nt2/toolbox/boost_math/function/
+#define NT2_BOOST_MATH_BASE() nt2/toolbox/boost_math/functions/scalar/
+#define NT2_BOOST_MATH_RELATIVE() nt2/toolbox/boost_math/functions/
 
 #define NT2_BOOST_MATH_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_BOOST_MATH_RELATIVE, F)
 

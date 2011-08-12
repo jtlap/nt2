@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/reduction/function/posmin.hpp>
+  #include <nt2/toolbox/reduction/functions/posmin.hpp>
 
 or simply
 

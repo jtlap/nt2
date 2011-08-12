@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/trigonometric/function/secpi.hpp>
+  #include <nt2/toolbox/trigonometric/functions/secpi.hpp>
 
 or simply
 

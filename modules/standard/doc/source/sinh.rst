@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``standard``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/standard/function/sinh.hpp>
+  #include <nt2/toolbox/standard/functions/sinh.hpp>
 
 or simply
 

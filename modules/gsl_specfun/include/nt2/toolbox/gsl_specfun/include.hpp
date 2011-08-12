@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_HPP_INCLUDED
 #include <boost/dispatch/details/preprocessor.hpp>
 
-#define NT2_GSL_SPECFUN_BASE() nt2/toolbox/gsl_specfun/function/scalar/
-#define NT2_GSL_SPECFUN_RELATIVE() nt2/toolbox/gsl_specfun/function/
+#define NT2_GSL_SPECFUN_BASE() nt2/toolbox/gsl_specfun/functions/scalar/
+#define NT2_GSL_SPECFUN_RELATIVE() nt2/toolbox/gsl_specfun/functions/
 
 #define NT2_GSL_SPECFUN_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_GSL_SPECFUN_RELATIVE, F)
 

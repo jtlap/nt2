@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``fdlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fdlibm/function/isnan.hpp>
+  #include <nt2/toolbox/fdlibm/functions/isnan.hpp>
 
 or simply
 

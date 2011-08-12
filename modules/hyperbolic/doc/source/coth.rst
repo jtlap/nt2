@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/hyperbolic/function/coth.hpp>
+  #include <nt2/toolbox/hyperbolic/functions/coth.hpp>
 
 or simply
 
