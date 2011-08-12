@@ -7,7 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FALSE_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FALSE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_TRUE_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
@@ -17,14 +17,14 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    struct False 
+    struct True 
     { 
       template<class Target, class Dummy=void> 
-      struct apply : mpl::integral_c<Target,0> {};  
+      struct apply : mpl::integral_c<Target,1> {};  
     };
   }
   
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::False, False)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::True, True)
 } }
 
 #endif

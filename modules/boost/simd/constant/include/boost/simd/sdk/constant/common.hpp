@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
+//#include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
 //==============================================================================
@@ -19,6 +19,20 @@
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)
+                                   , ((target_< scalar_< arithmetic_<A0> > >))
+                                   )
+  {
+    typedef typename A0::type result_type;
+
+    inline result_type operator()(A0 const&) const
+    {
+      typename boost::mpl::apply<Tag,result_type>::type value;
+      return boost::simd::splat<result_type>( result_type(value) );
+    }
+  };
+  
+  /*
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)(X)
                             , ((target_< simd_< arithmetic_<A0>,X> >))
                             )
@@ -35,6 +49,7 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::splat<result_type>( callee( dispatch::meta::as_<base>()) );
     }
   };
+  */
 } } }
 
 #endif

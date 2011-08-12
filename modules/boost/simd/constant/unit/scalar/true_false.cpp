@@ -8,15 +8,17 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants true/false"
 
-#include <boost/simd/include/constants/true_false.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constants for every base real types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL  (  true_false_value, (double)(float) )
+NT2_TEST_CASE_TPL( true_false_value, BOOST_SIMD_TYPES )
 {
-  NT2_TEST_EQUAL( boost::simd::False<T>()       , static_cast<T>(0) );
-  NT2_TEST_EQUAL( boost::simd::True<T>()        , static_cast<T>(1) );
+  NT2_TEST_EQUAL( boost::simd::False<T>(), static_cast<T>(0) );
+  NT2_TEST_EQUAL( boost::simd::True<T>() , static_cast<T>(1) );
 }
