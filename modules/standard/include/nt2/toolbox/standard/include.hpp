@@ -11,8 +11,8 @@
 #include <boost/dispatch/details/preprocessor.hpp>
 #include <cmath>
 
-#define NT2_STANDARD_BASE() nt2/toolbox/standard/function/scalar/
-#define NT2_STANDARD_RELATIVE() nt2/toolbox/standard/function/
+#define NT2_STANDARD_BASE() nt2/toolbox/standard/functions/scalar/
+#define NT2_STANDARD_RELATIVE() nt2/toolbox/standard/functions/
 
 #define NT2_STANDARD_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_STANDARD_RELATIVE, F)
 

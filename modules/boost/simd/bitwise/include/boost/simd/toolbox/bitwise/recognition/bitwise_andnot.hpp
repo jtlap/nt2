@@ -12,7 +12,7 @@
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/simd/sdk/dsl/recognition.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/toolbox/bitwise/function/bitwise_andnot.hpp>
+#include <boost/simd/toolbox/bitwise/functions/bitwise_andnot.hpp>
 
 
 namespace boost { namespace simd { namespace ext

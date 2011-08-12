@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/predicates/function/is_not_less_equal.hpp>
+  #include <nt2/toolbox/predicates/functions/is_not_less_equal.hpp>
 
 or simply
 

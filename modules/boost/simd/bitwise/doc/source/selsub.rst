@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/bitwise/function/selsub.hpp>
+  #include <nt2/toolbox/bitwise/functions/selsub.hpp>
 
 or simply
 

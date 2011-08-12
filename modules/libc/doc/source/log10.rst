@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``libc``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/libc/function/log10.hpp>
+  #include <nt2/toolbox/libc/functions/log10.hpp>
 
 or simply
 

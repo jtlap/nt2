@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/ieee/function/minnum.hpp>
+  #include <nt2/toolbox/ieee/functions/minnum.hpp>
 
 or simply
 

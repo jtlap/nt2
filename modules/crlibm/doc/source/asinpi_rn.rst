@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``crlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/crlibm/function/asinpi_rn.hpp>
+  #include <nt2/toolbox/crlibm/functions/asinpi_rn.hpp>
 
 or simply
 

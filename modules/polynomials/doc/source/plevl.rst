@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/polynomials/function/plevl.hpp>
+  #include <nt2/toolbox/polynomials/functions/plevl.hpp>
 
 or simply
 

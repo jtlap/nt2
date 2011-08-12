@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/euler/function/signgam.hpp>
+  #include <nt2/toolbox/euler/functions/signgam.hpp>
 
 or simply
 

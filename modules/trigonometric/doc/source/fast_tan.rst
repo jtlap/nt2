@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/trigonometric/function/fast_tan.hpp>
+  #include <nt2/toolbox/trigonometric/functions/fast_tan.hpp>
 
 or simply
 

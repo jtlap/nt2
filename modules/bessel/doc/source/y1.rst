@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/bessel/function/y1.hpp>
+  #include <nt2/toolbox/bessel/functions/y1.hpp>
 
 or simply
 

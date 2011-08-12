@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``standard``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/standard/function/log.hpp>
+  #include <nt2/toolbox/standard/functions/log.hpp>
 
 or simply
 

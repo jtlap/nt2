@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``boost_math``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/boost_math/function/legendre3_p.hpp>
+  #include <nt2/toolbox/boost_math/functions/legendre3_p.hpp>
 
 or simply
 

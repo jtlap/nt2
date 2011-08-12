@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``crlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/crlibm/function/log10_ru.hpp>
+  #include <nt2/toolbox/crlibm/functions/log10_ru.hpp>
 
 or simply
 

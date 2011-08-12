@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/predicates/function/is_nlt.hpp>
+  #include <nt2/toolbox/predicates/functions/is_nlt.hpp>
 
 or simply
 

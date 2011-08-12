@@ -12,7 +12,7 @@
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/simd/sdk/dsl/recognition.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/simd/toolbox/predicates/function/is_not_less_equal.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_not_less_equal.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

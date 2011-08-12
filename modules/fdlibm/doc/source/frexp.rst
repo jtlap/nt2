@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``fdlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fdlibm/function/frexp.hpp>
+  #include <nt2/toolbox/fdlibm/functions/frexp.hpp>
 
 or simply
 

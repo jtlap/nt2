@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/predicates/function/is_nan.hpp>
+  #include <nt2/toolbox/predicates/functions/is_nan.hpp>
 
 or simply
 

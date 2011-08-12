@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/trigonometric/function/acotd.hpp>
+  #include <nt2/toolbox/trigonometric/functions/acotd.hpp>
 
 or simply
 

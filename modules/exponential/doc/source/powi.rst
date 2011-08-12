@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/exponential/function/powi.hpp>
+  #include <nt2/toolbox/exponential/functions/powi.hpp>
 
 or simply
 

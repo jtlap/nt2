@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/exponential/function/log2.hpp>
+  #include <nt2/toolbox/exponential/functions/log2.hpp>
 
 or simply
 

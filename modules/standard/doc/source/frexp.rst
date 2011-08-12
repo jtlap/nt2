@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``standard``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/standard/function/frexp.hpp>
+  #include <nt2/toolbox/standard/functions/frexp.hpp>
 
 or simply
 

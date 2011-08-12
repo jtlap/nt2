@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/ieee/function/nextpow2.hpp>
+  #include <nt2/toolbox/ieee/functions/nextpow2.hpp>
 
 or simply
 

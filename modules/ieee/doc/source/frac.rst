@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/ieee/function/frac.hpp>
+  #include <nt2/toolbox/ieee/functions/frac.hpp>
 
 or simply
 

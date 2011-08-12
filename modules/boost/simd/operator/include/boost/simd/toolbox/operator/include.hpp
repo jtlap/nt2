@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_INCLUDE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/preprocessor/include.hpp>
 
-#define BOOST_SIMD_OPERATOR_BASE() boost/simd/toolbox/operator/function/scalar/
-#define BOOST_SIMD_OPERATOR_RELATIVE() boost/simd/toolbox/operator/function/
+#define BOOST_SIMD_OPERATOR_BASE() boost/simd/toolbox/operator/functions/scalar/
+#define BOOST_SIMD_OPERATOR_RELATIVE() boost/simd/toolbox/operator/functions/
 
 #define BOOST_SIMD_OPERATOR_INCLUDE(F) BOOST_SIMD_RELATIVE_INCLUDE(BOOST_SIMD_OPERATOR_RELATIVE, F)
 

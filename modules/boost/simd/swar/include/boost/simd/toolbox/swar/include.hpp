@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_INCLUDE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/preprocessor/include.hpp>
 
-#define BOOST_SIMD_SWAR_BASE() boost/simd/toolbox/swar/function/scalar/
-#define BOOST_SIMD_SWAR_RELATIVE() boost/simd/toolbox/swar/function/
+#define BOOST_SIMD_SWAR_BASE() boost/simd/toolbox/swar/functions/scalar/
+#define BOOST_SIMD_SWAR_RELATIVE() boost/simd/toolbox/swar/functions/
 
 #define BOOST_SIMD_SWAR_INCLUDE(F) BOOST_SIMD_RELATIVE_INCLUDE(BOOST_SIMD_SWAR_RELATIVE, F)
 

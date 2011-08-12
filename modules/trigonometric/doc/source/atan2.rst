@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/trigonometric/function/atan2.hpp>
+  #include <nt2/toolbox/trigonometric/functions/atan2.hpp>
 
 or simply
 

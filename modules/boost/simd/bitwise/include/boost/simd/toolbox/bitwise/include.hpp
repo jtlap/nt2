@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_INCLUDE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/preprocessor/include.hpp>
 
-#define BOOST_SIMD_BITWISE_BASE() boost/simd/toolbox/bitwise/function/scalar/
-#define BOOST_SIMD_BITWISE_RELATIVE() boost/simd/toolbox/bitwise/function/
+#define BOOST_SIMD_BITWISE_BASE() boost/simd/toolbox/bitwise/functions/scalar/
+#define BOOST_SIMD_BITWISE_RELATIVE() boost/simd/toolbox/bitwise/functions/
 
 #define BOOST_SIMD_BITWISE_INCLUDE(F) BOOST_SIMD_RELATIVE_INCLUDE(BOOST_SIMD_BITWISE_RELATIVE, F)
 

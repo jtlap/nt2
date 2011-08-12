@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/bitwise/function/rshl.hpp>
+  #include <nt2/toolbox/bitwise/functions/rshl.hpp>
 
 or simply
 

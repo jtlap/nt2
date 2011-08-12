@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/polynomials/function/hermite.hpp>
+  #include <nt2/toolbox/polynomials/functions/hermite.hpp>
 
 or simply
 

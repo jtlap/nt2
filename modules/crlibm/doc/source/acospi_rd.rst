@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``crlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/crlibm/function/acospi_rd.hpp>
+  #include <nt2/toolbox/crlibm/functions/acospi_rd.hpp>
 
 or simply
 
