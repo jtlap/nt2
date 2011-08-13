@@ -19,7 +19,7 @@
 namespace boost { namespace simd
 {
   template<class T> inline
-  typename boost::enable_if_c<meta::is_native<T>::value, T>::type
+  typename boost::enable_if_c<meta::is_native<T>::value, T const&>::type
   native_cast( T const& a )
   {
     return a;
