@@ -8,51 +8,29 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants eps related"
 
-#include <boost/simd/include/constants/eps_related.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/include/constants/eps_related.hpp>
+   
 ////////////////////////////////////////////////////////////////////////////////
-// Test value of eps constants for every base real types
+// Test values for IEEE specs
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( double_eps_value )
+NT2_TEST_CASE_TPL(eps, BOOST_SIMD_TYPES)
 {
-  NT2_TEST_EQUAL( boost::simd::Eps<double>()            , 2.220446049250313e-16   );
-  NT2_TEST_EQUAL( boost::simd::Halfeps<double>()        , 1.1102230246251565e-16  );
-  NT2_TEST_EQUAL( boost::simd::Threeeps<double>()       , 6.661338147750939e-16   );
-  NT2_TEST_EQUAL( boost::simd::Sqrteps<double>()        , 1.4901161193847656e-8   );
-  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<double>()  , 1.2207031250000000e-4   );
-  NT2_TEST_EQUAL( boost::simd::Thirdrooteps<double>()   , 6.0554544523933440e-6   );
-  NT2_TEST_EQUAL( boost::simd::Mlogeps2<double>()       , 18.021826694558580      );
-  NT2_TEST_EQUAL( boost::simd::Mindenormal<double>()    , 5.0000000000000000e-324 );
-  NT2_TEST_EQUAL( boost::simd::Smallestposval<double>() , 2.2250738585072014e-308 );
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t> vd_t;
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vd_t>::value;++i)
+  {
+    NT2_TEST_EQUAL( (boost::simd::Eps<vd_t>())[i], boost::simd::Eps<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Halfeps<vd_t>())[i], boost::simd::Halfeps<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Threeeps<vd_t>())[i], boost::simd::Threeeps<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Sqrteps<vd_t>())[i], boost::simd::Sqrteps<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Fourthrooteps<vd_t>())[i], boost::simd::Fourthrooteps<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Thirdrooteps<vd_t>())[i], boost::simd::Thirdrooteps<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Mlogeps2<vd_t>())[i], boost::simd::Mlogeps2<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Mindenormal<vd_t>())[i], boost::simd::Mindenormal<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Smallestposval<vd_t>())[i], boost::simd::Smallestposval<T>() );
+  }
 }
 
-NT2_TEST_CASE( float_eps_value )
-{
-  NT2_TEST_EQUAL( boost::simd::Eps<float>()             , 1.1920928955078125e-7  );
-  NT2_TEST_EQUAL( boost::simd::Halfeps<float>()         , 5.960464477539063e-8   );
-  NT2_TEST_EQUAL( boost::simd::Threeeps<float>()        , 3.5762786865234375e-7  );
-  NT2_TEST_EQUAL( boost::simd::Sqrteps<float>()         , 0.0003452669770922512  );
-  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<float>()    , 0.018581360578536987   );
-  NT2_TEST_EQUAL( boost::simd::Thirdrooteps<float>()    , 0.004921566694974899   );
-  NT2_TEST_EQUAL( boost::simd::Mlogeps2<float>()        , 7.971192359924316      );
-  NT2_TEST_EQUAL( boost::simd::Mindenormal<float>()     , 1.401298464324817e-45  );
-  NT2_TEST_EQUAL( boost::simd::Smallestposval<float>()  , 1.1754943508222875e-38 );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Test value of eps constants for every base integral types
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( real_value, BOOST_SIMD_INTEGRAL_TYPES )
-{
-  NT2_TEST_EQUAL( boost::simd::Eps<T>()             , 1 );
-  NT2_TEST_EQUAL( boost::simd::Halfeps<T>()         , 1 );
-  NT2_TEST_EQUAL( boost::simd::Threeeps<T>()        , 3 );
-  NT2_TEST_EQUAL( boost::simd::Sqrteps<T>()         , 1 );
-  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<T>()   , 1 );
-  NT2_TEST_EQUAL( boost::simd::Thirdrooteps<T>()    , 1 );
-  NT2_TEST_EQUAL( boost::simd::Mlogeps2<T>()        , 0 );
-  NT2_TEST_EQUAL( boost::simd::Mindenormal<T>()     , 1 );
-  NT2_TEST_EQUAL( boost::simd::Smallestposval<T>()  , 1 );
-}
