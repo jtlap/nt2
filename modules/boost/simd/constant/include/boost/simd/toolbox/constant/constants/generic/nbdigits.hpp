@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_NBDIGITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_NBDIGITS_HPP_INCLUDED
 
+#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
 
@@ -16,11 +17,11 @@ namespace boost { namespace simd { namespace tag
 {
   template<class Dummy>
   struct  Nbdigits::apply<float,Dummy> 
-        : mpl::integral_c<boost::simd::int32_t,24> {};
+        : meta::int_c<boost::simd::int32_t,24> {};
 
   template<class Dummy>
   struct  Nbdigits::apply<double,Dummy> 
-        : mpl::integral_c<boost::simd::int64_t,53> {};
+        : meta::int_c<boost::simd::int64_t,53> {};
 } } }
 
 #endif

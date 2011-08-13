@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MAXLEFTSHIFT_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
+#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
@@ -22,10 +23,10 @@ namespace boost { namespace simd
     { 
       template<class Target, class Dummy=void> 
       struct  apply 
-            : mpl::integral_c < typename dispatch::meta::
-                                         as_integer<Target,signed>::type
-                              , sizeof(Target)*CHAR_BIT-1
-                              > {};  
+            : meta::int_c < typename dispatch::meta::
+                                     as_integer<Target,signed>::type
+                          , sizeof(Target)*CHAR_BIT-1
+                          > {};  
     };
   }
   

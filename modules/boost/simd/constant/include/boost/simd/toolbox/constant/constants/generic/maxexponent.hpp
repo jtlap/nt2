@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_MAXEXPONENT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_MAXEXPONENT_HPP_INCLUDED
 
+#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
 
@@ -16,11 +17,11 @@ namespace boost { namespace simd { namespace tag
 {
   template<class Dummy>
   struct  Maxexponent::apply<float,Dummy> 
-        : mpl::integral_c<boost::simd::int32_t,127> {};
+        : meta::int_c<boost::simd::int32_t,127> {};
 
   template<class Dummy>
   struct  Maxexponent::apply<double,Dummy> 
-        : mpl::integral_c<boost::simd::int64_t,1023> {};
+        : meta::int_c<boost::simd::int64_t,1023> {};
 } } }
 
 #endif

@@ -10,8 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_VALMAX_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
@@ -19,7 +20,12 @@ namespace boost { namespace simd
   {
     struct Valmax 
     { 
-      template<class Target, class Dummy=void> struct apply;  
+      template<class Target, class Dummy=void> 
+      struct  apply 
+            : meta::int_c < Target
+                          , Target(Target(1) << (sizeof(Target)*CHAR_BIT-1))
+                          > 
+      {};
     };
   }
   

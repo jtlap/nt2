@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_SIGNMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_SIGNMASK_HPP_INCLUDED
 
+#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
 
@@ -24,19 +25,19 @@ namespace boost { namespace simd { namespace tag
         
   template<class Dummy>
   struct  Signmask::apply<boost::simd::int8_t,Dummy> 
-        : mpl::integral_c<boost::simd::int8_t,0x80> {};
+        : meta::int_c<boost::simd::int8_t,0x80> {};
 
   template<class Dummy>
   struct  Signmask::apply<boost::simd::int16_t,Dummy> 
-        : mpl::integral_c<boost::simd::int16_t,0x8000> {};
+        : meta::int_c<boost::simd::int16_t,0x8000> {};
 
   template<class Dummy>
   struct  Signmask::apply<boost::simd::int32_t,Dummy> 
-        : mpl::integral_c<boost::simd::int32_t,0x80000000> {};
+        : meta::int_c<boost::simd::int32_t,0x80000000> {};
 
   template<class Dummy>
   struct  Signmask::apply<boost::simd::int64_t,Dummy> 
-        : mpl::integral_c<boost::simd::int64_t,0x8000000000000000LL> {};
+        : meta::int_c<boost::simd::int64_t,0x8000000000000000LL> {};
 } } }
 
 #endif

@@ -9,6 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::True, tag::cpu_, (A0)(X)
@@ -21,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<result_type>::type  tmp_type;
       typedef typename dispatch::meta::scalar_of<tmp_type>::type      cst_type;
-      typedef mpl::integral_c<typename cst_type::value_type,(~0ULL)> bits_type;
+      typedef meta::int_c<cst_type,(~0ULL)>                           bits_type;
       
       return native_cast<result_type> ( boost::simd::
                                         splat<tmp_type>( bits_type::value )

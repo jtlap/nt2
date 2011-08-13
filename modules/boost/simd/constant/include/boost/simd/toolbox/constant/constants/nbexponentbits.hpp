@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_NBEXPONENTBITS_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
@@ -21,7 +21,7 @@ namespace boost { namespace simd
     struct Nbexponentbits 
     { 
       template<class Target, class Dummy=void> 
-      struct  apply : mpl::integral_c<Target,0> {}; 
+      struct  apply : meta::int_c<Target,0> {}; 
     };
   }
   
