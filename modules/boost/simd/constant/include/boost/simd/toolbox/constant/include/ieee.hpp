@@ -6,13 +6,14 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_TOOLBOX_CONSTANT_INCLUDE_PROPERTIES_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_CONSTANT_INCLUDE_PROPERTIES_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_CONSTANT_INCLUDE_IEEE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_CONSTANT_INCLUDE_IEEE_HPP_INCLUDED
 
-#include <boost/simd/toolbox/constant/include/ieee.hpp>
-#include <boost/simd/toolbox/constant/include/valmax.hpp>
-#include <boost/simd/toolbox/constant/include/valmin.hpp>
-#include <boost/simd/toolbox/constant/include/signmask.hpp>
-#include <boost/simd/toolbox/constant/include/maxleftshift.hpp>
+#include <boost/simd/toolbox/constant/include/nbdigits.hpp>
+#include <boost/simd/toolbox/constant/include/ldexpmask.hpp>
+#include <boost/simd/toolbox/constant/include/maxexponent.hpp>
+#include <boost/simd/toolbox/constant/include/minexponent.hpp>
+#include <boost/simd/toolbox/constant/include/nbmantissabits.hpp>
+#include <boost/simd/toolbox/constant/include/nbexponentbits.hpp>
 
 #endif
