@@ -8,9 +8,11 @@
  ******************************************************************************/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_INCLUDE_PROPERTIES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_INCLUDE_PROPERTIES_HPP_INCLUDED
-#include <boost/simd/toolbox/constant/include/ieee_spec.hpp>
-#include <boost/simd/toolbox/constant/include/max_left_shift.hpp>
+
+//#include <boost/simd/toolbox/constant/include/ieee_spec.hpp>
+#include <boost/simd/toolbox/constant/include/maxleftshift.hpp>
 #include <boost/simd/toolbox/constant/include/signmask.hpp>
-#include <boost/simd/toolbox/constant/include/val_max.hpp>
-#include <boost/simd/toolbox/constant/include/val_min.hpp>
+#include <boost/simd/toolbox/constant/include/valmax.hpp>
+#include <boost/simd/toolbox/constant/include/valmin.hpp>
+
 #endif
