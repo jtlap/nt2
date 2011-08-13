@@ -11,20 +11,15 @@
 
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
-#include <boost/simd/sdk/simd/tags.hpp>
 
 namespace boost { namespace simd { namespace tag
 {
-  template<class Target, class Dummy>
-  struct  True::apply<Target,not_simd_type,Dummy> 
-        : mpl::integral_c<Target,1> {};
-  
   template<class Dummy>
-  struct  True::apply<float,not_simd_type,Dummy> 
+  struct  True::apply<float,Dummy> 
         : meta::float_<0x3F800000UL> {};
 
   template<class Dummy>
-  struct  True::apply<double,not_simd_type,Dummy> 
+  struct  True::apply<double,Dummy> 
         : meta::double_<0x3FF0000000000000ULL> {};
 } } }
 

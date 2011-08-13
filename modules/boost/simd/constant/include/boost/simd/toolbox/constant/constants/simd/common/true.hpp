@@ -9,23 +9,25 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/float.hpp>
-#include <boost/simd/sdk/meta/double.hpp>
-#include <boost/simd/sdk/simd/tags.hpp>
-
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace simd { namespace ext
 {
-  template<class Target, class Dummy>
-  struct  True::apply<Target,simd_type,Dummy> 
-        : mpl::integral_c<Target,Target(~0ULL)> {};
-      
-  template<class Dummy>
-  struct  True::apply<float,simd_type,Dummy> 
-        : meta::float_<0xFFFFFFFFUL> {};
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::True, tag::cpu_, (A0)(X)
+                                    , ((target_< simd_< arithmetic_<A0>,X> >))
+                                    )
+  {
+    typedef typename A0::type result_type;
 
-  template<class Dummy>
-  struct  True::apply<double,simd_type,Dummy> 
-        : meta::double_<0xFFFFFFFFFFFFFFFFULL> {};
+    inline result_type operator()(A0 const&) const
+    {
+      typedef typename dispatch::meta::as_integer<result_type>::type  tmp_type;
+      typedef typename dispatch::meta::scalar_of<tmp_type>::type      cst_type;
+      typedef mpl::integral_c<typename cst_type::value_type,(~0ULL)> bits_type;
+      
+      return native_cast<result_type> ( boost::simd::
+                                        splat<tmp_type>( bits_type::value )
+                                      );
+    }
+  };
 } } }
 
 #endif
