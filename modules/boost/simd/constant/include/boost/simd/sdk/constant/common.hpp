@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
 
     inline result_type operator()(A0 const&) const
     {
-      typename boost::mpl::apply<Tag,result_type,tag::not_simd_type>::type value;
+      typename boost::mpl::apply<Tag,result_type>::type value;
       return boost::simd::splat<result_type>( result_type(value) );
     }
   };
@@ -50,16 +50,11 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A0::type                                       target_type;
     typedef typename dispatch::meta::scalar_of<target_type>::type   base_type;
-    typedef typename boost::mpl::
-            apply<Tag,base_type,tag::simd_type>::type               value_type;
+    typedef typename boost::mpl::apply<Tag,base_type>::type         value_type;
     typedef boost::simd::native<typename value_type::value_type,X>  result_type;
 
     inline result_type operator()(A0 const&) const
     {
-      typedef typename A0::type                                     target_type;
-      typedef typename dispatch::meta::scalar_of<target_type>::type base_type;
-      typedef typename boost::mpl::
-              apply<Tag,base_type,tag::simd_type>::type               value_type;
       typedef typename dispatch::meta::
                        as_integer<typename value_type::value_type>::type 
                                                                     pattern_type;
