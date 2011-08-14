@@ -15,11 +15,11 @@
 namespace boost { namespace simd { namespace tag
 {
   template<class Dummy>
-  struct  MFive::apply<float,Dummy> 
+  struct  Mfive::apply<float,Dummy> 
         : meta::float_<0xc0a00000UL> {};
 
   template<class Dummy>
-  struct  MFive::apply<double,Dummy> 
+  struct  Mfive::apply<double,Dummy> 
         : meta::double_<0xc014000000000000ULL> {};
 } } }
 #endif
