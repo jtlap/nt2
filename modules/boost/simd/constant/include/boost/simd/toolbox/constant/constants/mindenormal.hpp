@@ -20,7 +20,6 @@ namespace boost { namespace simd
   {
     struct Mindenormal 
     { 
-      typedef int default_type;
       template<class Target, class Dummy=void> 
       struct apply : meta::int_c<Target,1> {};  
     };

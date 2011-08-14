@@ -20,7 +20,7 @@ namespace boost { namespace simd
   {
     struct Smallestposval 
     { 
-      typedef int default_type;
+      typedef double default_type;
       template<class Target, class Dummy=void> 
       struct apply : meta::int_c<Target,1> {};  
     };
