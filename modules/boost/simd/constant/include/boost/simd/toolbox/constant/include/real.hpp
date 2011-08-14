@@ -24,6 +24,7 @@
 #include <boost/simd/toolbox/constant/include/quarter.hpp>
 #include <boost/simd/toolbox/constant/include/twotom10.hpp>
 #include <boost/simd/toolbox/constant/include/twotonmb.hpp>
+#include <boost/simd/toolbox/constant/include/real_splat.hpp>
 #include <boost/simd/toolbox/constant/include/splitfactor.hpp>
 
 #endif
