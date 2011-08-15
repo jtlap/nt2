@@ -471,6 +471,9 @@ macro(nt2_postconfigure_init)
   set_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED 1)
   set(NT2_FOUND_COMPONENTS "" CACHE INTERNAL "" FORCE)
 
+  # remove all generated include files at the beginning of configure.
+  file(REMOVE_RECURSE ${PROJECT_BINARY_DIR}/include)
+
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" \\\"$INSTDIR\\\"'")
     include(CPack)
