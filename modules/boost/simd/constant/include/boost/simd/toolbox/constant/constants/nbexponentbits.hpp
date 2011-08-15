@@ -23,6 +23,14 @@ namespace boost { namespace simd
       template<class Target, class Dummy=void> 
       struct  apply : meta::int_c<Target,0> {}; 
     };
+    
+    template<class Dummy>
+    struct  Nbexponentbits::apply<float,Dummy> 
+          : meta::int_c<boost::simd::int32_t,8> {};
+
+    template<class Dummy>
+    struct  Nbexponentbits::apply<double,Dummy> 
+          : meta::int_c<boost::simd::int64_t,11> {};
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nbexponentbits, Nbexponentbits)

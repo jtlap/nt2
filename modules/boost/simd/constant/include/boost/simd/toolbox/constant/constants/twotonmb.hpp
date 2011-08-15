@@ -10,20 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_TWOTONMB_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Twotonmb
-    { 
-      typedef double default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,0> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER( Twotonmb, double, 0
+                                , 0x4B000000, 0x4330000000000000ULL
+                                );
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twotonmb, Twotonmb)

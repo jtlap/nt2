@@ -10,20 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_PI_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Pi 
-    { 
-      typedef double default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,3> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER( Pi, double, 3
+                                , 0x40490FDB, 0x400921FB54442D18ULL
+                                );
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Pi, Pi)

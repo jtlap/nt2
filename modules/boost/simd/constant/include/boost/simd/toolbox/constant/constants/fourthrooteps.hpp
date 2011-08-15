@@ -10,20 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FOURTHROOTEPS_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Fourthrooteps 
-    { 
-      typedef double default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,1> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER( Fourthrooteps,double,1
+                                , 0x3C9837F0,0x3F20000000000000ULL
+                                );
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fourthrooteps, Fourthrooteps)

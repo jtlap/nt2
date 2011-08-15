@@ -10,7 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MINDENORMAL_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
+#include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
+#include <boost/simd/sdk/meta/double.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
@@ -23,6 +25,12 @@ namespace boost { namespace simd
       template<class Target, class Dummy=void> 
       struct apply : meta::int_c<Target,1> {};  
     };
+    
+    template<class Dummy>
+    struct Mindenormal::apply<float,Dummy> : meta::float_<1> {};
+
+    template<class Dummy>
+    struct Mindenormal::apply<double,Dummy> : meta::double_<1> {};
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Mindenormal)

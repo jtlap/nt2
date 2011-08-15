@@ -10,22 +10,19 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_THREE_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Three 
-    { 
-      typedef int default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,3> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER( Three, int, 3
+                                , 0x40400000UL, 0x4008000000000000ULL
+                                );
   }
-
+  
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Three, Three)
 } }
 #endif

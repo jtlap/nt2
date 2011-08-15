@@ -10,24 +10,18 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FOUR_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Four 
-    { 
-      typedef int default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,4> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER(Four,int,4,0x40800000UL,0x4010000000000000ULL);
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Four, Four)
 } }
+
 #endif
-
-

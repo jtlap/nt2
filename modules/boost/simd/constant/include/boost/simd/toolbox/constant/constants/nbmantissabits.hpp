@@ -23,6 +23,14 @@ namespace boost { namespace simd
       template<class Target, class Dummy=void> 
       struct  apply : meta::int_c<Target,sizeof(Target)*CHAR_BIT> {}; 
     };
+    
+    template<class Dummy>
+    struct  Nbmantissabits::apply<float,Dummy> 
+          : meta::int_c<boost::simd::int32_t,23> {};
+
+    template<class Dummy>
+    struct  Nbmantissabits::apply<double,Dummy> 
+          : meta::int_c<boost::simd::int64_t,52> {};
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nbmantissabits, Nbmantissabits)

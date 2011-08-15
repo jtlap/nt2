@@ -10,20 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_QUARTER_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Quarter 
-    { 
-      typedef double default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,0> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER( Quarter, double, 0
+                                , 0x3E800000, 0x3FD0000000000000ULL
+                                );
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Quarter, Quarter)

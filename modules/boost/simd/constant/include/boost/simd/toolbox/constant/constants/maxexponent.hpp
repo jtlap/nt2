@@ -23,6 +23,15 @@ namespace boost { namespace simd
       template<class Target, class Dummy=void> 
       struct  apply : meta::int_c<Target,0> {};  
     };
+
+    template<class Dummy>
+    struct  Maxexponent::apply<float,Dummy> 
+          : meta::int_c<boost::simd::int32_t,127> {};
+
+    template<class Dummy>
+    struct  Maxexponent::apply<double,Dummy> 
+          : meta::int_c<boost::simd::int64_t,1023> {};
+
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Maxexponent, Maxexponent)

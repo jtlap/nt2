@@ -10,20 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_THREEEPS_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Threeeps 
-    { 
-      typedef double default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,3> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER( Threeeps, double, 3
+                                , 0x34C00000, 0x3CC8000000000000ULL
+                                );
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Threeeps, Threeeps)

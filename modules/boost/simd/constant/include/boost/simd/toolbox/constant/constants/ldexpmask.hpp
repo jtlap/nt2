@@ -23,6 +23,14 @@ namespace boost { namespace simd
       template<class Target, class Dummy=void> 
       struct  apply : meta::int_c<Target,0> {};  
     };
+    
+    template<class Dummy>
+    struct  Ldexpmask::apply<float,Dummy> 
+          : meta::int_c<boost::simd::int32_t,0x7F800000> {};
+
+    template<class Dummy>
+    struct  Ldexpmask::apply<double,Dummy> 
+          : meta::int_c<boost::simd::int64_t,0x7FF0000000000000ULL> {};
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Ldexpmask, Ldexpmask)

@@ -10,20 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MEIGHT_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Meight 
-    { 
-      typedef int default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,-8> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER( Meight, int, -8
+                                , 0xc1000000UL,0xc020000000000000ULL
+                                ); 
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Meight, Meight)

@@ -10,7 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MINF_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
+#include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
+#include <boost/simd/sdk/meta/double.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <boost/simd/toolbox/constant/include/valmin.hpp>
@@ -25,6 +27,14 @@ namespace boost { namespace simd
       template<class Target, class Dummy=void> 
       struct apply : Valmin::apply<Target,Dummy> {};  
     };
+    
+    template<class Dummy>
+    struct  Minf::apply<float,Dummy> 
+          : meta::float_<0xFF800000> {};
+
+    template<class Dummy>
+    struct  Minf::apply<double,Dummy> 
+          : meta::double_<0xFFF0000000000000ULL> {};
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minf, Minf)

@@ -10,20 +10,15 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_CGOLD_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Cgold 
-    { 
-      typedef double default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,0> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER(Cgold,double,0,0x3EC3910D,0x3FD8722191A02D61ULL);
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Cgold, Cgold)

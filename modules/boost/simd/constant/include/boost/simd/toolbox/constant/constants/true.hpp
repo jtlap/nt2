@@ -10,20 +10,17 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_TRUE_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct True 
-    { 
-      typedef int default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,1> {};  
-    };
+    BOOST_SIMD_CONSTANT_REGISTER( True, int, 1
+                                , 0x3F800000UL, 0x3FF0000000000000ULL
+                                );
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::True, True)
