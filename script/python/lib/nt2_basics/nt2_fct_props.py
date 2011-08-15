@@ -64,6 +64,8 @@ class Nt2_fct_props(Nt2_tb_props) :
         return os.path.join(self.get_unit_path(part),mode,self.get_fct_name()+'.cpp')
     def get_fct_bench_path(self,mode)  :
         return os.path.join(self.get_bench_path(),mode,self.get_fct_name()+'.cpp')
+    def get_fct_exhaustive_path(self,mode)  :
+        return os.path.join(self.get_exhaustive_path(),mode,self.get_fct_name()+'.cpp')
 
 
     def get_fct_arities(self) : return self.__read_arities()#self.__fct_arities
