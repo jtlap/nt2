@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_SPECIFIC_DETAILS_MAYBE_GENMASK_HPP_INCLUDED
 
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/nan.hpp>
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>

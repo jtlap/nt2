@@ -12,6 +12,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/eps_related.hpp>
 
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/sqr.hpp>

@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type v   = boost::simd::abs(a0);
-      const result_type t2n = boost::simd::Two2nmb<A0>();
+      const result_type t2n = boost::simd::Twotonmb<A0>();
       const result_type d0  = (v+t2n);
       const result_type d   = (d0-t2n);
       const result_type d1  = sel(lt(v,t2n),d,v);

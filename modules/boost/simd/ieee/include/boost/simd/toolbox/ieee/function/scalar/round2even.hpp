@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type v = boost::simd::abs(a0);
-      const result_type t2n = boost::simd::Two2nmb<result_type>();
+      const result_type t2n = boost::simd::Twotonmb<result_type>();
       volatile result_type d0 = (v+t2n);
       volatile result_type d = (d0-t2n);
       d = (v < t2n)?d:v;
