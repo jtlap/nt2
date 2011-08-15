@@ -1,9 +1,9 @@
 #ifndef LOCAL_HPP_INCLUDED
 #define LOCAL_HPP_INCLUDED
 
-#define NT2_VERBOSE
-#include <nt2/sdk/error/warning.hpp>
+#define BOOST_SIMD_VERBOSE
+#include <boost/simd/sdk/error/warning.hpp>
 
-NT2_WARNING( Success ! This file is indirectly included )
+BOOST_SIMD_WARNING( Success ! This file is indirectly included )
 
 #endif
