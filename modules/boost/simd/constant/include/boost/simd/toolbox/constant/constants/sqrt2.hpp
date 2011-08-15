@@ -18,7 +18,7 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Sqrt2 
+    struct Sqrt_2 
     { 
       typedef double default_type;
       template<class Target, class Dummy=void> 
@@ -26,7 +26,7 @@ namespace boost { namespace simd
     };
   }
   
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt2, Sqrt2)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt_2, Sqrt_2)
 } }
 
 #endif

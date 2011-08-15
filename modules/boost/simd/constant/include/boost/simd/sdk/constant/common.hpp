@@ -27,14 +27,16 @@ namespace boost { namespace simd { namespace ext
   // the Tag over a given Target.
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)
-                                   , ((target_< scalar_< arithmetic_<A0> > >))
+                                   , ((target_< scalar_< fundamental_<A0> > >))
                                    )
   {
-    typedef typename A0::type result_type;
+    typedef typename A0::type                               base_type;
+    typedef typename boost::mpl::apply<Tag,base_type>::type value_type;
+    typedef typename value_type::value_type                 result_type;
 
     inline result_type operator()(A0 const&) const
     {
-      typename boost::mpl::apply<Tag,result_type>::type value;
+      value_type value;
       return boost::simd::splat<result_type>( result_type(value) );
     }
   };

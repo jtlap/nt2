@@ -13,7 +13,7 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
 
-#include <boost/simd/include/constants/boolean.hpp>
+#include <boost/simd/include/constants/true_false.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constant for integral types
