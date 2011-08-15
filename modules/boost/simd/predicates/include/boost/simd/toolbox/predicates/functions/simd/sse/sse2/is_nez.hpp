@@ -13,7 +13,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nez_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
