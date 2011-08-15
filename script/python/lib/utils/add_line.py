@@ -47,7 +47,7 @@ class Add_line(object) :
             #### match for token
             pattern = re.compile(token)
             i = find_index(pattern)
-            if i != 0 : txt.insert(i,"    " + line2add)
+            if i != 0 : txt.insert(i,"  " + line2add)
             return (True,txt)
 
     def update_file(self,token) :
