@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``libc``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/libc/function/atan2.hpp>
+  #include <nt2/toolbox/libc/functions/atan2.hpp>
 
 or simply
 

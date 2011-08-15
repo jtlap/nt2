@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/arithmetic/function/idivround.hpp>
+  #include <nt2/toolbox/arithmetic/functions/idivround.hpp>
 
 or simply
 

@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``libc``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/libc/function/tan.hpp>
+  #include <nt2/toolbox/libc/functions/tan.hpp>
 
 or simply
 

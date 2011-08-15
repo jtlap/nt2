@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fuzzy/function/definitely_not_equal.hpp>
+  #include <nt2/toolbox/fuzzy/functions/definitely_not_equal.hpp>
 
 or simply
 

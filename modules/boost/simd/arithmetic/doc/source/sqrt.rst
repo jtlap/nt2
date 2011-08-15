@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/arithmetic/function/sqrt.hpp>
+  #include <nt2/toolbox/arithmetic/functions/sqrt.hpp>
 
 or simply
 

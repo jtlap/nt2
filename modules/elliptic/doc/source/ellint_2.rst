@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/elliptic/function/ellint_2.hpp>
+  #include <nt2/toolbox/elliptic/functions/ellint_2.hpp>
 
 or simply
 

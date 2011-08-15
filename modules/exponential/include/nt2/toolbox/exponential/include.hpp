@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_EXPONENTIAL_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
-#define NT2_EXPONENTIAL_BASE() nt2/toolbox/exponential/function/scalar/
-#define NT2_EXPONENTIAL_RELATIVE() nt2/toolbox/exponential/function/
+#define NT2_EXPONENTIAL_BASE() nt2/toolbox/exponential/functions/scalar/
+#define NT2_EXPONENTIAL_RELATIVE() nt2/toolbox/exponential/functions/
 
 #define NT2_EXPONENTIAL_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_EXPONENTIAL_RELATIVE, F)
 

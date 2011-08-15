@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``cephes``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/cephes/function/zetac.hpp>
+  #include <nt2/toolbox/cephes/functions/zetac.hpp>
 
 or simply
 

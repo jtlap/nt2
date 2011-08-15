@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``libc``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/libc/function/sin.hpp>
+  #include <nt2/toolbox/libc/functions/sin.hpp>
 
 or simply
 

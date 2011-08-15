@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/reduction/function/sum.hpp>
+  #include <nt2/toolbox/reduction/functions/sum.hpp>
 
 or simply
 

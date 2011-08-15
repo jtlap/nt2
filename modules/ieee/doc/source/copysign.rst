@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/ieee/function/copysign.hpp>
+  #include <nt2/toolbox/ieee/functions/copysign.hpp>
 
 or simply
 

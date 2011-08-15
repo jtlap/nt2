@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/predicates/function/majority.hpp>
+  #include <nt2/toolbox/predicates/functions/majority.hpp>
 
 or simply
 

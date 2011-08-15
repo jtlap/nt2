@@ -21,7 +21,7 @@ or
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/arithmetic/function/abs.hpp>
+  #include <nt2/toolbox/arithmetic/functions/abs.hpp>
 
 Synopsis
 ^^^^^^^^

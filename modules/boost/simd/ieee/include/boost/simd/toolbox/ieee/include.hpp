@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_INCLUDE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/preprocessor/include.hpp>
 
-#define BOOST_SIMD_IEEE_BASE() boost/simd/toolbox/ieee/function/scalar/
-#define BOOST_SIMD_IEEE_RELATIVE() boost/simd/toolbox/ieee/function/
+#define BOOST_SIMD_IEEE_BASE() boost/simd/toolbox/ieee/functions/scalar/
+#define BOOST_SIMD_IEEE_RELATIVE() boost/simd/toolbox/ieee/functions/
 
 #define BOOST_SIMD_IEEE_INCLUDE(F) BOOST_SIMD_RELATIVE_INCLUDE(BOOST_SIMD_IEEE_RELATIVE, F)
 

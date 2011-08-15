@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_POLYNOMIALS_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
-#define NT2_POLYNOMIALS_BASE() nt2/toolbox/polynomials/function/scalar/
-#define NT2_POLYNOMIALS_RELATIVE() nt2/toolbox/polynomials/function/
+#define NT2_POLYNOMIALS_BASE() nt2/toolbox/polynomials/functions/scalar/
+#define NT2_POLYNOMIALS_RELATIVE() nt2/toolbox/polynomials/functions/
 
 #define NT2_POLYNOMIALS_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_POLYNOMIALS_RELATIVE, F)
 

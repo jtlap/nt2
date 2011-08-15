@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/arithmetic/function/two_prod.hpp>
+  #include <nt2/toolbox/arithmetic/functions/two_prod.hpp>
 
 or simply
 

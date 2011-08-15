@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``libc``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/libc/function/cos.hpp>
+  #include <nt2/toolbox/libc/functions/cos.hpp>
 
 or simply
 

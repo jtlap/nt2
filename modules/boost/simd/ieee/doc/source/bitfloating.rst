@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/ieee/function/bitfloating.hpp>
+  #include <nt2/toolbox/ieee/functions/bitfloating.hpp>
 
 or simply
 

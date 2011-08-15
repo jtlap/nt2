@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/swar/function/splatted_sum.hpp>
+  #include <nt2/toolbox/swar/functions/splatted_sum.hpp>
 
 or simply
 

@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``fdlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fdlibm/function/log.hpp>
+  #include <nt2/toolbox/fdlibm/functions/log.hpp>
 
 or simply
 

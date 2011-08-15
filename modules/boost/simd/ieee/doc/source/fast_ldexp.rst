@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/ieee/function/fast_ldexp.hpp>
+  #include <nt2/toolbox/ieee/functions/fast_ldexp.hpp>
 
 or simply
 

@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/trigonometric/function/fast_sind.hpp>
+  #include <nt2/toolbox/trigonometric/functions/fast_sind.hpp>
 
 or simply
 

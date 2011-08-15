@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 18/02/2011',
-             'included' : ['#include<nt2/include/functions/complement.hpp>'],
+             'included' : ['#include <boost/simd/include/functions/complement.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 12/08/2011',
@@ -28,12 +28,12 @@
             },
          'specific_values' : {
              'integer_' : {
-                 'boost::simd::One<T>(),~boost::simd::Three<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'boost::simd::One<T>(),~boost::simd::Mone<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'boost::simd::One<T>(),~boost::simd::Two<T>()' : {'result' : 'false','ulp_thresh' : '0',},     
-                 'boost::simd::Mone<T>(),~boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'boost::simd::One<T>(),boost::simd::complement(boost::simd::Three<T>())' : {'result' : 'true','ulp_thresh' : '0',},
+                 'boost::simd::One<T>(),boost::simd::complement(boost::simd::Mone<T>())' : {'result' : 'true','ulp_thresh' : '0',},
+                 'boost::simd::One<T>(),boost::simd::complement(boost::simd::Two<T>())' : {'result' : 'false','ulp_thresh' : '0',},     
+                 'boost::simd::Mone<T>(),boost::simd::complement(boost::simd::Zero<T>())' : {'result' : 'false','ulp_thresh' : '0',},
                  'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
-                 'boost::simd::One<T>(),~boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'boost::simd::One<T>(),boost::simd::complement(boost::simd::Zero<T>())' : {'result' : 'false','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                 },
             },

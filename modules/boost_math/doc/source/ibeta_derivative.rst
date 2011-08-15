@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``boost_math``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/boost_math/function/ibeta_derivative.hpp>
+  #include <nt2/toolbox/boost_math/functions/ibeta_derivative.hpp>
 
 or simply
 

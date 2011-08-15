@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/exponential/function/nthroot.hpp>
+  #include <nt2/toolbox/exponential/functions/nthroot.hpp>
 
 or simply
 

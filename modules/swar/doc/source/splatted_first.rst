@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/swar/function/splatted_first.hpp>
+  #include <nt2/toolbox/swar/functions/splatted_first.hpp>
 
 or simply
 

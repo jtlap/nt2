@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``cephes``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/cephes/function/exp2.hpp>
+  #include <nt2/toolbox/cephes/functions/exp2.hpp>
 
 or simply
 

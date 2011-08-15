@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/swar/function/cumsum.hpp>
+  #include <nt2/toolbox/swar/functions/cumsum.hpp>
 
 or simply
 

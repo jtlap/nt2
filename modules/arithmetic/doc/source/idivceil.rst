@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/arithmetic/function/idivceil.hpp>
+  #include <nt2/toolbox/arithmetic/functions/idivceil.hpp>
 
 or simply
 

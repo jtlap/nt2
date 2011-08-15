@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_FUZZY_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
-#define NT2_FUZZY_BASE() nt2/toolbox/fuzzy/function/scalar/
-#define NT2_FUZZY_RELATIVE() nt2/toolbox/fuzzy/function/
+#define NT2_FUZZY_BASE() nt2/toolbox/fuzzy/functions/scalar/
+#define NT2_FUZZY_RELATIVE() nt2/toolbox/fuzzy/functions/
 
 #define NT2_FUZZY_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_FUZZY_RELATIVE, F)
 

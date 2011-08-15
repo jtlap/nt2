@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_EULER_INCLUDE_HPP_INCLUDED
 #include <nt2/sdk/simd/preprocessor/include.hpp>
 
-#define NT2_EULER_BASE() nt2/toolbox/euler/function/scalar/
-#define NT2_EULER_RELATIVE() nt2/toolbox/euler/function/
+#define NT2_EULER_BASE() nt2/toolbox/euler/functions/scalar/
+#define NT2_EULER_RELATIVE() nt2/toolbox/euler/functions/
 
 #define NT2_EULER_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_EULER_RELATIVE, F)
 

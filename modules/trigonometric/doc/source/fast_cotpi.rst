@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/trigonometric/function/fast_cotpi.hpp>
+  #include <nt2/toolbox/trigonometric/functions/fast_cotpi.hpp>
 
 or simply
 

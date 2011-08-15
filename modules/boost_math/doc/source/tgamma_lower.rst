@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``boost_math``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/boost_math/function/tgamma_lower.hpp>
+  #include <nt2/toolbox/boost_math/functions/tgamma_lower.hpp>
 
 or simply
 

@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_INCLUDE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/preprocessor/include.hpp>
 
-#define BOOST_SIMD_REDUCTION_BASE() boost/simd/toolbox/reduction/function/scalar/
-#define BOOST_SIMD_REDUCTION_RELATIVE() boost/simd/toolbox/reduction/function/
+#define BOOST_SIMD_REDUCTION_BASE() boost/simd/toolbox/reduction/functions/scalar/
+#define BOOST_SIMD_REDUCTION_RELATIVE() boost/simd/toolbox/reduction/functions/
 
 #define BOOST_SIMD_REDUCTION_INCLUDE(F) BOOST_SIMD_RELATIVE_INCLUDE(BOOST_SIMD_REDUCTION_RELATIVE, F)
 

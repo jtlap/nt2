@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``cephes``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/cephes/function/k0e.hpp>
+  #include <nt2/toolbox/cephes/functions/k0e.hpp>
 
 or simply
 

@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``functors``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/polynomials/function/laguerre.hpp>
+  #include <nt2/toolbox/polynomials/functions/laguerre.hpp>
 
 or simply
 

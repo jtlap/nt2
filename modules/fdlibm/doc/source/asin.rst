@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``fdlibm``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/fdlibm/function/asin.hpp>
+  #include <nt2/toolbox/fdlibm/functions/asin.hpp>
 
 or simply
 

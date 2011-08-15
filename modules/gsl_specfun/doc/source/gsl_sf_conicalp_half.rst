@@ -28,7 +28,7 @@ This functor belongs to the namespace: ``gsl_specfun``
 
 .. code-block:: cpp
 
-  #include <nt2/toolbox/gsl_specfun/function/gsl_sf_conicalP_half.hpp>
+  #include <nt2/toolbox/gsl_specfun/functions/gsl_sf_conicalP_half.hpp>
 
 or simply
 
