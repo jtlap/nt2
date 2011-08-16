@@ -29,7 +29,7 @@ namespace boost { namespace simd
     
     template<class Dummy>
     struct  Valmin::apply<float,Dummy> 
-          : meta::float_<0xFF7FFFFF> {};
+          : meta::float_<0xFF7FFFFFUL> {};
 
     template<class Dummy>
     struct  Valmin::apply<double,Dummy> 
@@ -37,19 +37,19 @@ namespace boost { namespace simd
 
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int8_t,Dummy> 
-          : meta::int_c<boost::simd::int8_t,-128> {};
+          : meta::int_c<boost::simd::int8_t,-boost::simd::uint8_t(128)> {};
 
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int16_t,Dummy> 
-          : meta::int_c<boost::simd::int16_t,-32768> {};
+          : meta::int_c<boost::simd::int16_t,-boost::simd::uint16_t(32768U)> {};
 
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int32_t,Dummy> 
-          : meta::int_c<boost::simd::int32_t,-2147483648UL> {};
+          : meta::int_c<boost::simd::int32_t,-boost::simd::uint32_t(2147483648UL)> {};
 
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int64_t,Dummy> 
-          : meta::int_c<boost::simd::int64_t,-9223372036854775808ULL> {};
+          : meta::int_c<boost::simd::int64_t,-boost::simd::uint64_t(9223372036854775808ULL)> {};
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmin, Valmin)
