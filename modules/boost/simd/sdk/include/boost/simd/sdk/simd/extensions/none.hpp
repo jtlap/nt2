@@ -38,9 +38,9 @@ BOOST_SIMD_WARNING(No SIMD extensions detected)
 
 namespace boost { namespace simd { namespace tag
 {
-  template<class N> struct none_ : boost::dispatch::cpu_
+  template<class N> struct none_ : boost::dispatch::tag::cpu_
   {
-    typedef cpu_ parent;
+    typedef boost::dispatch::tag::cpu_ parent;
     typedef none_ type;
   };
 } } }
