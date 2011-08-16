@@ -65,7 +65,7 @@ namespace nt2
       }; 
       template < class A0>  struct trig_ranges<A0, degree_tag>
       {
-	static inline A0    max_range() {return Fortyfive<A0>(); }
+	static inline A0    max_range() {return _45<A0>(); }
 	static inline A0    scale()     {return Pio_180<A0>(); }
       }; 
 
