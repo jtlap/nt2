@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL  (  real_value, BOOST_SIMD_REAL_TYPES )
   NT2_TEST_EQUAL( boost::simd::Quarter<T>()     , static_cast<T>(1./4.  ) );
   NT2_TEST_EQUAL( boost::simd::Twotom10<T>()    , static_cast<T>(9.765625e-4) );
   NT2_TEST_EQUAL( boost::simd::Pi<T>()          , static_cast<T>(3.1415926535897930) );
-  NT2_TEST_EQUAL( boost::simd::Sqrt2o2<T>()     , static_cast<T>(7.071067811865476e-1) );
+  NT2_TEST_EQUAL( boost::simd::Sqrt_2o_2<T>()     , static_cast<T>(7.071067811865476e-1) );
   NT2_TEST_EQUAL( boost::simd::Gold<T>()        , static_cast<T>(1.6180339887498950) );
   NT2_TEST_EQUAL( boost::simd::Cgold<T>()       , static_cast<T>(3.8196601125010515e-1) );
 }
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL( real_value_int, BOOST_SIMD_INTEGRAL_TYPES )
   NT2_TEST_EQUAL( boost::simd::Twotom10<T>()    , static_cast<T>(0) );
   NT2_TEST_EQUAL( boost::simd::Pi<T>()          , static_cast<T>(3) );
   NT2_TEST_EQUAL( boost::simd::Sqrt_2<T>()      , static_cast<T>(1) );
-  NT2_TEST_EQUAL( boost::simd::Sqrt2o2<T>()     , static_cast<T>(0) );
+  NT2_TEST_EQUAL( boost::simd::Sqrt_2o_2<T>()     , static_cast<T>(0) );
   NT2_TEST_EQUAL( boost::simd::Gold<T>()        , static_cast<T>(1) );
   NT2_TEST_EQUAL( boost::simd::Cgold<T>()       , static_cast<T>(0) );
 }
