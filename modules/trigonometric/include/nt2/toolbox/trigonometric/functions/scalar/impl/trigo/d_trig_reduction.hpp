@@ -143,8 +143,8 @@ namespace nt2
 	static inline A0 tan_replacement(const A0& a0){ return std::tan(inrad(a0)); }
 	static inline A0 cot_replacement(const A0& a0){ return rec(std::tan(inrad(a0))); }
 	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ }//::sincos(inrad(a0), &s, &c); }
-        static inline logic cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_even(x/_90<A0>())); }
-        static inline logic tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_odd(x/_90<A0>()); }
+        static inline logic cot_invalid(const A0& x) { return (is_nez(x)&is_even(x/_180<A0>())); }
+        static inline logic tan_invalid(const A0& x) { return is_flint((x-_90<A0>())/_180<A0>()); }
 	static inline int_type reduce(A0 x, A0& xr, A0& xc)
 	{
 	  A0 xi = round2even(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02

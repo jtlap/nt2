@@ -13,6 +13,7 @@
 #include <nt2/include/functions/atand.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/bitwise_or.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -30,9 +31,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
 	  A0 s = bitofsign(a0);
-	  if(!a0)  return b_or(Ninety<A0>(), s);
+	  if(!a0)  return b_or(_90<A0>(), s);
 	  if(is_inf(a0)) return b_or(Zero<A0>(), s);
-	  return b_or(Ninety<A0>()-atand(abs(a0)), s);
+	  return b_or(_90<A0>()-atand(abs(a0)), s);
 	}
   };
 } }

@@ -18,7 +18,6 @@
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/d_trig_evaluation.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/d_trig_reduction.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/trig_base.hpp>
-//#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/fast_trig_base.hpp>   
 namespace impl = nt2::details::internal; 
 
 #endif
