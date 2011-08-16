@@ -30,6 +30,8 @@
 
 namespace boost { namespace simd
 {
+  static const long double long_pi = 3.141592653589793238462643383279502884197l;
+    
   // standard constants
   BOOST_SIMD_MAKE_STD_CONSTANT(Mhalf         ,0xBFE0000000000000ll, 0xBF000000, 0 )
   BOOST_SIMD_MAKE_STD_CONSTANT(Mzero         ,0x8000000000000000ll, 0x80000000, 0 )

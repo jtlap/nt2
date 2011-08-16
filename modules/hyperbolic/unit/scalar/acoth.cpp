@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/hyperbolic/include/functions/acoth.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/exponential/include/constants/constants.hpp>
+#include <nt2/toolbox/exponential/constants.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

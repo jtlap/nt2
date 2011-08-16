@@ -16,7 +16,7 @@
 #include <nt2/toolbox/elliptic/include/functions/ellint_2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/math/special_functions.hpp>
-#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

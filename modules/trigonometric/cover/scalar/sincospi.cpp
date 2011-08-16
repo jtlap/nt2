@@ -17,7 +17,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/include/functions/cospi.hpp>
 

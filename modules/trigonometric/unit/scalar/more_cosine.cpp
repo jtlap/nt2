@@ -25,7 +25,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>    
 #include <nt2/include/functions/ceil.hpp>
-#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_cosl(long double);}
 
 #include <iomanip>

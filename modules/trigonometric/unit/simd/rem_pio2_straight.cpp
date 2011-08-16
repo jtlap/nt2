@@ -16,7 +16,7 @@
 #include <nt2/toolbox/trigonometric/include/functions/rem_pio2_straight.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/trigonometric/include/functions/rem_pio2_medium.hpp>
 
 #include <boost/type_traits/is_same.hpp>

@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/hyperbolic/include/functions/coth.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/exponential/include/constants/constants.hpp>
+#include <nt2/toolbox/exponential/constants.hpp>
 extern "C" { long double cephes_tanhl(long double); }
 
 #include <boost/type_traits/is_same.hpp>

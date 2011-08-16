@@ -9,11 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MACROS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MACROS_HPP_INCLUDED
 #include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/proto/proto.hpp>
 #include <boost/simd/sdk/constant/category.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 /*!
  * \file
  * \brief Defines the BOOST_SIMD_CONSTANT_IMPLEMENTATION macro

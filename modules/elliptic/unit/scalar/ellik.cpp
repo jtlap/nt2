@@ -16,7 +16,7 @@
 #include <nt2/toolbox/elliptic/include/functions/ellik.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_ellikl(long double,long double);}
-#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

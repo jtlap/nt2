@@ -16,7 +16,7 @@
 #include <nt2/toolbox/trigonometric/include/functions/sincosd.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/sind.hpp>
 #include <nt2/include/functions/cosd.hpp>
 

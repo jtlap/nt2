@@ -12,7 +12,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/toolbox/trigonometric/functions/scalar/impl/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 
 

@@ -17,7 +17,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_sinl(long double);}
 extern "C" {extern long double cephes_cosl(long double);}
 

@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_HPP_INCLUDED
 
-#include <nt2/toolbox/trigonometric/functions/scalar/impl/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/fallback.hpp>

@@ -16,7 +16,7 @@
 #include <nt2/toolbox/hyperbolic/include/functions/sinhc.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/exponential/include/constants/constants.hpp>
+#include <nt2/toolbox/exponential/constants.hpp>
 
 #include <nt2/toolbox/boost_math/include/functions/sinhc_pi.hpp>
 

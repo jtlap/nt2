@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/trigonometric/include/functions/fast_sind.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/trigonometric/include/constants/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/sind.hpp>
 
 #include <boost/type_traits/is_same.hpp>

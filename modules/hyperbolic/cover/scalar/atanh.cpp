@@ -16,7 +16,7 @@
 #include <nt2/toolbox/hyperbolic/include/functions/atanh.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/exponential/include/constants/constants.hpp>
+#include <nt2/toolbox/exponential/constants.hpp>
 
 extern "C" { long double cephes_atanhl(long double); }
 #include <nt2/toolbox/boost_math/include/functions/atanh.hpp>
