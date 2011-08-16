@@ -264,39 +264,6 @@ macro(nt2_module_install_file header)
   endif()
 endmacro()
 
-macro(nt2_module_configure_py pyfile)
-  string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
-
-  if(NOT PYTHON_EXECUTABLE)
-    find_package(PythonInterp QUIET)
-    if(NOT PYTHONINTERP_FOUND)
-      set(NT2_ARITHMETIC_DEPENDENCIES_FOUND 0)
-      message(FATAL_ERROR "Python is necessary to configure sources of module ${NT2_CURRENT_MODULE}")
-    endif()
-  endif()
-
-  find_file(_${pyfile}_PY ${pyfile} ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
-  set(_${pyfile}_PY ${_${pyfile}_PY} CACHE INTERNAL "" FORCE)
-  execute_process( COMMAND ${PYTHON_EXECUTABLE}
-                   ${_${pyfile}_PY} --display
-                   ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include ${PROJECT_BINARY_DIR}/include
-                   ${ARGN}
-                   OUTPUT_VARIABLE ${pyfile}_result
-                   OUTPUT_STRIP_TRAILING_WHITESPACE
-                 )
-   
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}" AND ${pyfile}_result)
-    string(REPLACE "\n" ";" ${pyfile}_files ${${pyfile}_result})
-    foreach(gen_file ${${pyfile}_files})
-      nt2_module_install_file(${gen_file})
-    endforeach()
-  endif()
-endmacro()
-
-macro(nt2_module_configure_include)
-  nt2_module_configure_py(include_fwd.py ${ARGN})
-endmacro()
-
 macro(nt2_module_configure_toolbox toolbox is_sys)
   if(NT2_CURRENT_MODULE MATCHES "^boost[.]")
     set(prefix "boost/simd")
@@ -304,25 +271,29 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
     set(prefix "nt2")
   endif()
   
-  if(${is_sys})
+  set(reduce)
+  foreach(component functions constants)
+  
+    set(postfix)
+    if(${is_sys})
+      set(postfix ${prefix}/include/${component})
+    endif()
+    
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/functions ${prefix}/toolbox/${toolbox}/include/functions
+                                             ${prefix}/toolbox/${toolbox}/${component} ${prefix}/toolbox/${toolbox}/include/${component}
+                                             --all ${prefix}/toolbox/${toolbox}/${component}.hpp
+                                             ${postfix}
+                            )
+                            
+    list(APPEND reduce ${prefix}/toolbox/${toolbox}/${component}.hpp)
+  endforeach()
+  
+  if(NOT ${prefix} STREQUAL "nt2" AND NOT ${toolbox} STREQUAL "constant")
+    nt2_module_postconfigure(gather_includes ${reduce}
                                              --all ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
-                                             ${prefix}/include/functions
-                            )
-    nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/constants ${prefix}/toolbox/${toolbox}/include/constants
-                                             ${prefix}/include/constants
-                            )
-  else()
-    nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/functions ${prefix}/toolbox/${toolbox}/include/functions
-                                             --all ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
-                            )
-    nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
-                                             ${prefix}/toolbox/${toolbox}/constants ${prefix}/toolbox/${toolbox}/include/constants
-                            )
+                             )
   endif()
+  
 endmacro()
 
 macro(nt2_module_configure_file cmake_file header)
@@ -405,8 +376,7 @@ macro(nt2_module_simd_toolbox name)
     endforeach()
   endforeach()
     
-  nt2_module_configure_include(nt2/toolbox/${name}/include/constants -o nt2/include/constants)
-  nt2_module_configure_include(nt2/toolbox/${name}/include/functions -o nt2/include/functions)
+  nt2_module_configure_toolbox(${name} 1)
 endmacro()
 
 macro(nt2_module_tool_setup tool)
