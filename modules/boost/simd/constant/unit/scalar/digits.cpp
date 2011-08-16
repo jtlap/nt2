@@ -42,17 +42,12 @@ NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_TYPES )
   NT2_TEST_EQUAL( boost::simd::Eight<T>()           , static_cast<T>(   8) );
   NT2_TEST_EQUAL( boost::simd::Nine<T>()            , static_cast<T>(   9) );
   NT2_TEST_EQUAL( boost::simd::Ten<T>()             , static_cast<T>(  10) );
-  NT2_TEST_EQUAL( boost::simd::Fortyfive<T>()       , static_cast<T>(  45) );
-  NT2_TEST_EQUAL( boost::simd::Ninety<T>()          , static_cast<T>(  90) );
-  NT2_TEST_EQUAL( boost::simd::Hundred<T>()         , static_cast<T>( 100) );
-  NT2_TEST_EQUAL( boost::simd::Onehundredeighty<T>(), static_cast<T>( 180) );
-  NT2_TEST_EQUAL( boost::simd::Thousand<T>()        , static_cast<T>(1000) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test integral_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( integral_constant,BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL( integral_constant,BOOST_SIMD_INTEGRAL_TYPES )
 {
   NT2_TEST_EQUAL( (boost::simd::integral_constant<T,42>()), static_cast<T>(42) );
 }

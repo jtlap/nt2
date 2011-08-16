@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_BOOLEAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_BOOLEAN_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,16 +19,10 @@ namespace boost { namespace simd { namespace ext
                           )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_nez(a0) & One<A0>(); }
+    BOOST_SIMD_FUNCTOR_CALL(1) 
+    { 
+      return is_nez(a0) & One<A0>(); }
   };
-
-//  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_, (A0)(X)
-//                            , ((simd_<int64_<A0>,X>))
-//                            )
-//  {
-//    typedef A0 result_type;
-//    BOOST_SIMD_FUNCTOR_CALL(1) { return is_nez(a0) & One<A0>(); }
-//  };
 } } }
 
 #endif

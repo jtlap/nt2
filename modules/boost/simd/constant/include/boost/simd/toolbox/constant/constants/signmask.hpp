@@ -8,8 +8,50 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIGNMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIGNMASK_HPP_INCLUDED
-#include <boost/simd/toolbox/constant/constants/real.hpp>
-// TO DO replace with direct inclusion 
+
+#include <boost/simd/include/simd.hpp>
+#include <boost/simd/sdk/meta/float.hpp>
+#include <boost/simd/sdk/meta/int_c.hpp>
+#include <boost/simd/sdk/meta/double.hpp>
+#include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
+
+namespace boost { namespace simd
+{
+  namespace tag
+  {
+    struct Signmask 
+    { 
+      template<class Target, class Dummy=void> 
+      struct apply : meta::int_c<Target,0> {};  
+    };
+    
+    template<class Dummy>
+    struct  Signmask::apply<float,Dummy> 
+          : meta::float_<0x80000000> {};
+
+    template<class Dummy>
+    struct  Signmask::apply<double,Dummy> 
+          : meta::double_<0x8000000000000000ULL> {};
+
+    template<class Dummy>
+    struct  Signmask::apply<boost::simd::int8_t,Dummy> 
+          : meta::int_c<boost::simd::int8_t,0x80> {};
+
+    template<class Dummy>
+    struct  Signmask::apply<boost::simd::int16_t,Dummy> 
+          : meta::int_c<boost::simd::int16_t,0x8000> {};
+
+    template<class Dummy>
+    struct  Signmask::apply<boost::simd::int32_t,Dummy> 
+          : meta::int_c<boost::simd::int32_t,0x80000000> {};
+
+    template<class Dummy>
+    struct  Signmask::apply<boost::simd::int64_t,Dummy> 
+          : meta::int_c<boost::simd::int64_t,0x8000000000000000LL> {};
+  }
+  
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Signmask, Signmask)
+} }
 
 #endif
-

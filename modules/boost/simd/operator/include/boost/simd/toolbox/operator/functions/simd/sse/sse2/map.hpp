@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/toolbox/operator/specific/details/maybe_genmask.hpp>
 #include <boost/simd/include/functions/make.hpp>
+#include <boost/fusion/include/at.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Implement a SIMD map that apply a given function to any SSE vector types

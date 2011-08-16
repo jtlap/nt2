@@ -47,7 +47,7 @@ NT2_TEST_CASE(valmax)
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::uint32_t>(), 0xFFFFFFFFUL           );
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::uint16_t>(), 0xFFFF                 );
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::uint8_t >(), 0xFF                   );
-
+ 
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::int64_t>(), 9223372036854775807LL);
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::int32_t>(), 2147483647           );
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::int16_t>(), 32767                );
@@ -76,7 +76,7 @@ NT2_TEST_CASE(valmin)
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for maxleftshift
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(maxleftshift)
+NT2_TEST_CASE(Maxleftshift)
 {
   NT2_TEST_EQUAL( boost::simd::Maxleftshift<double>()       , 63 );
   NT2_TEST_EQUAL( boost::simd::Maxleftshift<float>()        , 31 );
@@ -112,4 +112,16 @@ NT2_TEST_CASE(ieee)
 
   NT2_TEST_EQUAL( boost::simd::Nbdigits<double>(), 53 );
   NT2_TEST_EQUAL( boost::simd::Nbdigits<float>() , 24 );
+}
+////////////////////////////////////////////////////////////////////////////////
+// Test values for IEEE specs on integer
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(ieee_ints, BOOST_SIMD_INTEGRAL_TYPES)
+{
+  NT2_TEST_EQUAL( boost::simd::Nbmantissabits<T>(), sizeof(T)*CHAR_BIT);
+  NT2_TEST_EQUAL( boost::simd::Nbexponentbits<T>(), 0 );
+  NT2_TEST_EQUAL( boost::simd::Maxexponent<T>()   , 0 );
+  NT2_TEST_EQUAL( boost::simd::Minexponent<T>()   , 0 );
+  NT2_TEST_EQUAL( boost::simd::Ldexpmask<T>()     , 0 );
+  NT2_TEST_EQUAL( boost::simd::Nbdigits<T>()      , 0 );
 }

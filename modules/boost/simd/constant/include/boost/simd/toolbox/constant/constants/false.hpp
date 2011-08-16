@@ -8,16 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FALSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FALSE_HPP_INCLUDED
+
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/constant/constant.hpp>
-#include <boost/simd/toolbox/constant/include.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    struct False  {};
+    BOOST_SIMD_CONSTANT_REGISTER(False,int,0,0x0UL,0x0ULL);
   }
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::False, False)

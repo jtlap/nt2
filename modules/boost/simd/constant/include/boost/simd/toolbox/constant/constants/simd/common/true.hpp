@@ -1,52 +1,34 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
-#ifndef BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_DETAILS_IMPL_COMMON_TRUE_HPP_INCLUDED
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// in SIMD, True is not !0 but ~0 whatever the type
-////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::True, tag::cpu_
-                            , (A0)(X), ((target_< simd_< real_<A0> ,X> >))
-                            )
-  {
-    typedef typename A0::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      // TODO : replace by bitwise_cast
-      ignore_unused(a0);
-      typedef typename meta::scalar_of<result_type>::type type;
-      typedef typename dispatch::meta::as_integer<type>::type       int_type;
-      return boost::simd::splat<result_type>(bitwise_cast<type>(~int_type(0))); 
-    }
-  };
-} } }
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::True, tag::cpu_
-                            , (A0)(X), ((target_< simd_< integer_<A0> ,X> >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::True, tag::cpu_, (A0)(X)
+                                    , ((target_< simd_< arithmetic_<A0>,X> >))
+                                    )
   {
     typedef typename A0::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    inline result_type operator()(A0 const&) const
     {
-      ignore_unused(a0);
-      typedef typename meta::scalar_of<result_type>::type type;
-      return boost::simd::splat<result_type>(~type(0));
+      typedef typename dispatch::meta::as_integer<result_type>::type  tmp_type;
+      typedef typename dispatch::meta::scalar_of<tmp_type>::type      cst_type;
+      typedef meta::int_c<cst_type,(~0ULL)>                           bits_type;
+      
+      return native_cast<result_type> ( boost::simd::
+                                        splat<tmp_type>( bits_type::value )
+                                      );
     }
   };
 } } }
