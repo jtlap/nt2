@@ -80,7 +80,7 @@ struct depth_compare
 typedef std::set<string, depth_compare> FileSet;
 
 typedef std::map<fs::path, FileSet> Files;
-Files find_files(const std::vector<string>& paths, const std::vector<string>& ignore, const string& source_dir)
+Files find_files(const std::vector<string>& paths, const std::vector<string>& ignore, const fs::path& source_dir)
 {
     Files files;
     
@@ -110,10 +110,10 @@ Files find_files(const std::vector<string>& paths, const std::vector<string>& ig
     return files;
 }
 
-void generate_file(const string& binary_path, const string& output_dir, const fs::path& file_name, const FileSet& includes)
+void generate_file(const fs::path& binary_path, const fs::path& output_dir, const fs::path& file_name, const FileSet& includes)
 {
     string file_dir = (output_dir / file_name).string();
-    fs::path file_path = fs::path(binary_path) / file_dir;
+    fs::path file_path = binary_path / file_dir;
     
     // generate include guard name
     for(string::iterator it = file_dir.begin(); it != file_dir.end(); ++it)
@@ -172,30 +172,32 @@ int main(int argc, char* argv[])
         const string& binary_path = vm["binary-path"].as<string>();
         paths.push_back(binary_path);
         
-        std::string prev;
+        Files files;
         for(vector<po::option>::const_iterator it = options.options.begin(); it != options.options.end(); ++it)
         {
+            fs::path path = it->value.front();
+            
             if(it->string_key == "directory")
             {
-                if(!prev.empty())
+                // regular file rather than directory
+                if(path.extension() != "")
                 {
-                    Files files = find_files(paths, ignore, prev);
-                    for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
-                    {
-                        generate_file(binary_path, it->value.front(), it2->first, it2->second);
-                    }
+                    files[path.filename()].insert(path.string());
+                    continue;
                 }
-                prev = it->value.front();
+                
+                for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
+                   generate_file(binary_path, path, it2->first, it2->second);
+                
+                files = find_files(paths, ignore, path);
             }
-            else if(it->string_key == "all" && !prev.empty())
+            else if(it->string_key == "all")
             {
                 // flatten all found files
-                Files files = find_files(paths, ignore, prev);
                 FileSet includes;
                 for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
                     includes.insert(it2->second.begin(), it2->second.end());
                     
-                fs::path path = it->value.front();
                 generate_file(binary_path, path.parent_path().string(), path.filename(), includes);
             }
         }
