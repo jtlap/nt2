@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <boost/simd/toolbox/ieee/include/modf.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/modf.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/trunc.hpp>

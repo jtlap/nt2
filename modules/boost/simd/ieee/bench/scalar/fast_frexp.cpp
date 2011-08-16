@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/ieee/include/fast_frexp.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/fast_frexp.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

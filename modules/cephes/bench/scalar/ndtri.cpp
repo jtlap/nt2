@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of cephes components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/cephes/include/ndtri.hpp>
+#include <nt2/toolbox/cephes/include/functions/ndtri.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

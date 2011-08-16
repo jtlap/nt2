@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/ieee/include/bitinteger.hpp>
+#include <nt2/toolbox/ieee/include/functions/bitinteger.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

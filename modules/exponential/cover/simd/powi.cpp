@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 /// 
-#include <nt2/toolbox/exponential/include/powi.hpp>
+#include <nt2/toolbox/exponential/include/functions/powi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 extern "C" { long double cephes_powil(long double,int); }

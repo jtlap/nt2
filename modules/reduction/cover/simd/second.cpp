@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// 
 /// 
-#include <nt2/toolbox/reduction/include/second.hpp>
+#include <nt2/toolbox/reduction/include/functions/second.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>

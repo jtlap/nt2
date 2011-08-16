@@ -14,7 +14,7 @@
 /// created by jt the 28/11/2010
 /// 
 /// 
-#include <nt2/toolbox/arithmetic/include/correct_fma.hpp>
+#include <nt2/toolbox/arithmetic/include/functions/correct_fma.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/constants/eps_related.hpp>

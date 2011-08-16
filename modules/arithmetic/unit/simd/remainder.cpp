@@ -17,7 +17,7 @@
 /// The return value is x-n*y, where n is the value x / y,
 /// rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,
 /// n is chosen to be even. The drem() function does precisely the same thing.
-#include <nt2/toolbox/arithmetic/include/remainder.hpp>
+#include <nt2/toolbox/arithmetic/include/functions/remainder.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include<nt2/include/functions/idivround.hpp>
 

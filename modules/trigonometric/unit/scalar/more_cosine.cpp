@@ -13,19 +13,19 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 /// 
-#include <nt2/toolbox/crlibm/include/cos_rn.hpp>
-#include <nt2/toolbox/crlibm/include/sin_rn.hpp>
-#include <nt2/toolbox/trigonometric/include/sinecosine.hpp>
-#include <nt2/toolbox/trigonometric/include/fast_cos.hpp>
-#include <nt2/toolbox/trigonometric/include/cos.hpp>
-#include <nt2/toolbox/trigonometric/include/sincos.hpp>
-#include <nt2/toolbox/trigonometric/include/rem_pio2_medium.hpp>
+#include <nt2/toolbox/crlibm/include/functions/cos_rn.hpp>
+#include <nt2/toolbox/crlibm/include/functions/sin_rn.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/sinecosine.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/fast_cos.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/cos.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/sincos.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>    
 #include <nt2/include/functions/ceil.hpp>
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_cosl(long double);}
 
 #include <iomanip>

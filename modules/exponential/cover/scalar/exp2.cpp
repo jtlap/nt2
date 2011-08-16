@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 /// 
-#include <nt2/toolbox/exponential/include/exp2.hpp>
+#include <nt2/toolbox/exponential/include/functions/exp2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/exp2.hpp>

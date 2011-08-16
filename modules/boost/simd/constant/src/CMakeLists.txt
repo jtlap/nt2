@@ -9,9 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.constant)
-#nt2_module_configure_toolbox(constant 1)
-
-nt2_module_postconfigure(gather_includes boost/simd/toolbox/constant/constants boost/simd/toolbox/constant/include
-                                         --all boost/simd/toolbox/constant/constant.hpp
-                                         boost/simd/include/constants
-                        )
+nt2_module_configure_toolbox(constant 1)

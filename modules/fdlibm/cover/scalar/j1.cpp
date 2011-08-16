@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 03/03/2011
 /// 
-#include <nt2/toolbox/fdlibm/include/j1.hpp>
+#include <nt2/toolbox/fdlibm/include/functions/j1.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/j1.hpp>

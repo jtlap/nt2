@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
 /// 
-#include <nt2/toolbox/boost_math/include/expm1.hpp>
+#include <nt2/toolbox/boost_math/include/functions/expm1.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/expm1.hpp>
 

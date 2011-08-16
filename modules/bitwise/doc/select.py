@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 18/02/2011',
-             'included' : ["#include <nt2/toolbox/predicates/include/is_nez.hpp>"],
+             'included' : ["#include <nt2/toolbox/predicates/include/functions/is_nez.hpp>"],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 18/02/2011',

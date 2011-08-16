@@ -1,7 +1,7 @@
 #define NT2_UNIT_MODULE "nt2 matlab toolbox - sin"
 
 #include <nt2/toolbox/matlab/functions/sin.hpp>
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

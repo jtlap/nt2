@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 gsl_specfun toolbox - gsl_sf_choose - unit/scalar Mode"
 
-//#include <nt2/toolbox/gsl_specfun/include/gsl_sf_choose.hpp>
+//#include <nt2/toolbox/gsl_specfun/include/functions/gsl_sf_choose.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

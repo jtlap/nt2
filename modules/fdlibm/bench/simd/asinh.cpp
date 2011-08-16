@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/fdlibm/include/asinh.hpp>
+#include <nt2/toolbox/fdlibm/include/functions/asinh.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/simd/native.hpp>
 #include <cmath>

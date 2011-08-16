@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 /// 
-#include <nt2/toolbox/standard/include/log10.hpp>
+#include <nt2/toolbox/standard/include/functions/log10.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/log10.hpp>
 

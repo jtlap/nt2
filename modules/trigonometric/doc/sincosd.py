@@ -17,7 +17,7 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
              'included' : 
-                ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
+                ['#include <nt2/toolbox/trigonometric/constants.hpp>',
                  '#include <nt2/include/functions/sind.hpp>',
                  '#include <nt2/include/functions/cosd.hpp>'],
              'notes' : [],

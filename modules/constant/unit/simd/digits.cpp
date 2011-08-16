@@ -87,27 +87,12 @@ NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_SIMD_TYPES )
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
     NT2_TEST_EQUAL( (nt2::One<dst_t>())[i], static_cast<T>( 1 ) );
-
-  for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::Fortyfive<dst_t>())[i], static_cast<T>( 45 ) );
-
-  for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::Ninety<dst_t>())[i], static_cast<T>( 90 ) );
-
-  for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::Hundred<dst_t>())[i], static_cast<T>( 100 ) );
-
-  for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::Onehundredeighty<dst_t>())[i], static_cast<T>( 180 ) );
-
-  for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::Thousand<dst_t>())[i], static_cast<T>( 1000 ) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test integral_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_SIMD_TYPES )
+NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>             dst_t;

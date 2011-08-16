@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 01/03/2011
 /// 
-#include <nt2/toolbox/cephes/include/expx2.hpp>
+#include <nt2/toolbox/cephes/include/functions/expx2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/expx2.hpp>
 

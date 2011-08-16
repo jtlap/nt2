@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of crlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/crlibm/include/tanpi_rz.hpp>
+#include <nt2/toolbox/crlibm/include/functions/tanpi_rz.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

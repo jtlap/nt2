@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/meta/double.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
-#include <boost/simd/toolbox/constant/include/valmax.hpp>
+#include <boost/simd/toolbox/constant/include/constants/valmax.hpp>
 
 namespace boost { namespace simd
 {

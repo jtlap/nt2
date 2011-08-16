@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 /// 
-#include <boost/simd/toolbox/predicates/include/is_true.hpp>
+#include <boost/simd/toolbox/predicates/include/functions/is_true.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/meta/logical.hpp>
 

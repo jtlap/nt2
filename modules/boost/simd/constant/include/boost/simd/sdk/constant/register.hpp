@@ -33,10 +33,13 @@
 struct TAG                                                                \
 {                                                                         \
   typedef TYPE default_type;                                              \
-  template<class T, class D=void> struct apply : meta::int_c<T,INT> {};   \
+  template<class T, class D=void> struct apply                            \
+    : boost::simd::meta::int_c<T,INT> {};                                 \
 };                                                                        \
-template<class D> struct TAG::apply<float,D>  : meta::float_<FLOAT> {};   \
-template<class D> struct TAG::apply<double,D> : meta::double_<DOUBLE> {}  \
+template<class D> struct TAG::apply<float,D>                              \
+  : boost::simd::meta::float_<FLOAT> {};                                  \
+template<class D> struct TAG::apply<double,D>                             \
+  : boost::simd::meta::double_<DOUBLE> {};                                \
 /**/
 
 #endif

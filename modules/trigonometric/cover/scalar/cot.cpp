@@ -13,10 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 /// 
-#include <nt2/toolbox/trigonometric/include/cot.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/cot.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/trigonometric/include/constants.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_tanl(long double);}
 
 #include <boost/type_traits/is_same.hpp>

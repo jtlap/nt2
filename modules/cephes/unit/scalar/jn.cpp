@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 01/03/2011
 /// 
-#include <nt2/toolbox/cephes/include/jn.hpp>
+#include <nt2/toolbox/cephes/include/functions/jn.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/jni.hpp>
 

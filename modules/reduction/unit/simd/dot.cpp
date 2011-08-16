@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
 /// 
-#include <nt2/toolbox/reduction/include/dot.hpp>
+#include <nt2/toolbox/reduction/include/functions/dot.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

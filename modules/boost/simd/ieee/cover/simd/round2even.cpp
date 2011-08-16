@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/round2even.hpp>
+#include <nt2/toolbox/ieee/include/functions/round2even.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>

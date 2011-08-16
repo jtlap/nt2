@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
 /// 
-#include <nt2/toolbox/hyperbolic/include/sinh.hpp>
+#include <nt2/toolbox/hyperbolic/include/functions/sinh.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/exponential/include/constants.hpp>
+#include <nt2/toolbox/exponential/constants.hpp>
 extern "C" { long double cephes_sinhl(long double); }
 
 #include <boost/type_traits/is_same.hpp>

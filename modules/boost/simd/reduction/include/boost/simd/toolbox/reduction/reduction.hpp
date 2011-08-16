@@ -10,19 +10,19 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_REDUCTION_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <boost/simd/toolbox/reduction/include/hmsb.hpp>
-#include <boost/simd/toolbox/reduction/include/sum.hpp>
-#include <boost/simd/toolbox/reduction/include/second.hpp>
-#include <boost/simd/toolbox/reduction/include/prod.hpp>
-#include <boost/simd/toolbox/reduction/include/posmin.hpp>
-#include <boost/simd/toolbox/reduction/include/posmax.hpp>
-#include <boost/simd/toolbox/reduction/include/nbtrue.hpp>
-#include <boost/simd/toolbox/reduction/include/minimum.hpp>
-#include <boost/simd/toolbox/reduction/include/maximum.hpp>
-#include <boost/simd/toolbox/reduction/include/first.hpp>
-#include <boost/simd/toolbox/reduction/include/dot.hpp>
-#include <boost/simd/toolbox/reduction/include/all.hpp>
-#include <boost/simd/toolbox/reduction/include/any.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/hmsb.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/sum.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/second.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/prod.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/posmin.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/posmax.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/nbtrue.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/minimum.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/maximum.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/first.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/dot.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/all.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/any.hpp>
 //<\include>
 
 #endif

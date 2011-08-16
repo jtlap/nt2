@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <boost/simd/toolbox/bitwise/include/hi.hpp>
+#include <boost/simd/toolbox/bitwise/include/functions/hi.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 

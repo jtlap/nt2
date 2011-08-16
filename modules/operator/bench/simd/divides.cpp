@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/operator/include/divides.hpp>
+#include <nt2/toolbox/operator/include/functions/divides.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

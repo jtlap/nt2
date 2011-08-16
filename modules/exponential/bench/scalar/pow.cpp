@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/exponential/include/pow.hpp>
+#include <nt2/toolbox/exponential/include/functions/pow.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

@@ -10,27 +10,27 @@
 #define NT2_TOOLBOX_LIBC_LIBC_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/libc/include/sin.hpp>
-#include <nt2/toolbox/libc/include/acos.hpp>
-#include <nt2/toolbox/libc/include/log10.hpp>
-#include <nt2/toolbox/libc/include/cosh.hpp>
-#include <nt2/toolbox/libc/include/tan.hpp>
-#include <nt2/toolbox/libc/include/exp.hpp>
-#include <nt2/toolbox/libc/include/sinh.hpp>
-#include <nt2/toolbox/libc/include/abs.hpp>
-#include <nt2/toolbox/libc/include/atan2.hpp>
-#include <nt2/toolbox/libc/include/frexp.hpp>
-#include <nt2/toolbox/libc/include/ceil.hpp>
-#include <nt2/toolbox/libc/include/sqrt.hpp>
-#include <nt2/toolbox/libc/include/fmod.hpp>
-#include <nt2/toolbox/libc/include/tanh.hpp>
-#include <nt2/toolbox/libc/include/pow.hpp>
-#include <nt2/toolbox/libc/include/atan.hpp>
-#include <nt2/toolbox/libc/include/floor.hpp>
-#include <nt2/toolbox/libc/include/fabs.hpp>
-#include <nt2/toolbox/libc/include/log.hpp>
-#include <nt2/toolbox/libc/include/cos.hpp>
-#include <nt2/toolbox/libc/include/asin.hpp>
+#include <nt2/toolbox/libc/include/functions/sin.hpp>
+#include <nt2/toolbox/libc/include/functions/acos.hpp>
+#include <nt2/toolbox/libc/include/functions/log10.hpp>
+#include <nt2/toolbox/libc/include/functions/cosh.hpp>
+#include <nt2/toolbox/libc/include/functions/tan.hpp>
+#include <nt2/toolbox/libc/include/functions/exp.hpp>
+#include <nt2/toolbox/libc/include/functions/sinh.hpp>
+#include <nt2/toolbox/libc/include/functions/abs.hpp>
+#include <nt2/toolbox/libc/include/functions/atan2.hpp>
+#include <nt2/toolbox/libc/include/functions/frexp.hpp>
+#include <nt2/toolbox/libc/include/functions/ceil.hpp>
+#include <nt2/toolbox/libc/include/functions/sqrt.hpp>
+#include <nt2/toolbox/libc/include/functions/fmod.hpp>
+#include <nt2/toolbox/libc/include/functions/tanh.hpp>
+#include <nt2/toolbox/libc/include/functions/pow.hpp>
+#include <nt2/toolbox/libc/include/functions/atan.hpp>
+#include <nt2/toolbox/libc/include/functions/floor.hpp>
+#include <nt2/toolbox/libc/include/functions/fabs.hpp>
+#include <nt2/toolbox/libc/include/functions/log.hpp>
+#include <nt2/toolbox/libc/include/functions/cos.hpp>
+#include <nt2/toolbox/libc/include/functions/asin.hpp>
 //<\include>
 
 #endif

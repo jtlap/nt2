@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of hyperbolic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/hyperbolic/include/asinh.hpp>
+#include <nt2/toolbox/hyperbolic/include/functions/asinh.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

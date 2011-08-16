@@ -42,17 +42,12 @@ NT2_TEST_CASE_TPL( digit_value, NT2_TYPES )
   NT2_TEST_EQUAL( nt2::Eight<T>()           , static_cast<T>(   8) );
   NT2_TEST_EQUAL( nt2::Nine<T>()            , static_cast<T>(   9) );
   NT2_TEST_EQUAL( nt2::Ten<T>()             , static_cast<T>(  10) );
-  NT2_TEST_EQUAL( nt2::Fortyfive<T>()       , static_cast<T>(  45) );
-  NT2_TEST_EQUAL( nt2::Ninety<T>()          , static_cast<T>(  90) );
-  NT2_TEST_EQUAL( nt2::Hundred<T>()         , static_cast<T>( 100) );
-  NT2_TEST_EQUAL( nt2::Onehundredeighty<T>(), static_cast<T>( 180) );
-  NT2_TEST_EQUAL( nt2::Thousand<T>()        , static_cast<T>(1000) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test integral_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( integral_constant,NT2_TYPES )
+NT2_TEST_CASE_TPL( integral_constant,NT2_INTEGRAL_TYPES )
 {
   NT2_TEST_EQUAL( (nt2::integral_constant<T,42>()), static_cast<T>(42) );
 }

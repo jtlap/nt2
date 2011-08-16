@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/bitwise/include/shli.hpp>
+#include <nt2/toolbox/bitwise/include/functions/shli.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

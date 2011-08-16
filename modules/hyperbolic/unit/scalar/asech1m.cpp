@@ -13,10 +13,10 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/02/2011
 /// 
-#include <nt2/toolbox/hyperbolic/include/asech1m.hpp>
+#include <nt2/toolbox/hyperbolic/include/functions/asech1m.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/exponential/include/constants.hpp>
-#include <nt2/toolbox/hyperbolic/include/asech.hpp>
+#include <nt2/toolbox/exponential/constants.hpp>
+#include <nt2/toolbox/hyperbolic/include/functions/asech.hpp>
 extern "C" { long double cephes_acoshl(long double); }
 
 #include <boost/type_traits/is_same.hpp>

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <boost/simd/toolbox/ieee/include/bitofsign.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/bitofsign.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/is_negative.hpp>
 

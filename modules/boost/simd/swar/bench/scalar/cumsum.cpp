@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.swar components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/swar/include/cumsum.hpp>
+#include <boost/simd/toolbox/swar/include/functions/cumsum.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

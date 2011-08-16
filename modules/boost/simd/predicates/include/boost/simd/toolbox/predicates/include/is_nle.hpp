@@ -8,5 +8,5 @@
 //============================================================================== 
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_INCLUDE_IS_NLE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_INCLUDE_IS_NLE_HPP_INCLUDED
-#include <boost/simd/toolbox/predicates/include/is_not_less_equal.hpp>
+#include <boost/simd/toolbox/predicates/include/functions/is_not_less_equal.hpp>
 #endif

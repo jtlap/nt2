@@ -16,6 +16,6 @@
 #define BOOST_SIMD_REDUCTION_INCLUDE(F) BOOST_SIMD_RELATIVE_INCLUDE(BOOST_SIMD_REDUCTION_RELATIVE, F)
 
 
-#include <boost/simd/toolbox/constant/include/true_false.hpp>
+#include <boost/simd/toolbox/constant/include/constants/true_false.hpp>
 
 #endif

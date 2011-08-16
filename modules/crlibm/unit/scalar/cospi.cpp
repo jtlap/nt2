@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 02/03/2011
 /// 
-#include <nt2/toolbox/crlibm/include/cospi.hpp>
+#include <nt2/toolbox/crlibm/include/functions/cospi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/cospi.hpp>
 

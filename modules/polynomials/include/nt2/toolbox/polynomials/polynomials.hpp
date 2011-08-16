@@ -11,12 +11,12 @@
 #include <nt2/toolbox/polynomials/categorize.hpp>
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/polynomials/include/plevl.hpp>
-#include <nt2/toolbox/polynomials/include/polevl.hpp>
-#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
-#include <nt2/toolbox/polynomials/include/legendre.hpp>
-#include <nt2/toolbox/polynomials/include/hermite.hpp>
-#include <nt2/toolbox/polynomials/include/laguerre.hpp>
+#include <nt2/toolbox/polynomials/include/functions/plevl.hpp>
+#include <nt2/toolbox/polynomials/include/functions/polevl.hpp>
+#include <nt2/toolbox/polynomials/include/functions/tchebeval.hpp>
+#include <nt2/toolbox/polynomials/include/functions/legendre.hpp>
+#include <nt2/toolbox/polynomials/include/functions/hermite.hpp>
+#include <nt2/toolbox/polynomials/include/functions/laguerre.hpp>
 //<\include>
 
 #endif

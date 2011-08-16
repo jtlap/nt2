@@ -19,7 +19,7 @@
              'first_stamp' : 'created  by jt the 21/02/2011',
              'included' : 
                 ['extern "C" {long double cephes_ellikl(long double,long double);}',
-                 '#include <nt2/toolbox/trigonometric/include/constants.hpp>'],
+                 '#include <nt2/toolbox/trigonometric/constants.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 21/02/2011',
             },
@@ -57,7 +57,7 @@
              'first_stamp' : 'created  by jt the 21/02/2011',
              'included' : 
                 ['extern "C" {long double cephes_ellikl(long double,long double);}',
-                 '#include <nt2/toolbox/trigonometric/include/constants.hpp>'],
+                 '#include <nt2/toolbox/trigonometric/constants.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 21/02/2011',
             },

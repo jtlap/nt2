@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/arithmetic/include/sqrt1pm1.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/sqrt1pm1.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <cmath>

@@ -24,7 +24,7 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/toolbox/swar/include/comparator.hpp>
+#include <boost/simd/toolbox/swar/include/functions/comparator.hpp>
 #include <boost/fusion/tuple.hpp>
 // specific includes for arity 3 tests
 #include <boost/simd/include/functions/all.hpp>

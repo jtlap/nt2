@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of libc components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/libc/include/log.hpp>
+#include <nt2/toolbox/libc/include/functions/log.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

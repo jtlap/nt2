@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/divfloor.hpp>
+#include <nt2/toolbox/arithmetic/include/functions/divfloor.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include<nt2/include/functions/floor.hpp>
 

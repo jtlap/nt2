@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #define NT2_UNIT_MODULE "nt2 bitwise toolbox - unit/scalar Mode"
 
-#include <boost/simd/toolbox/bitwise/include/shift_left.hpp>
+#include <boost/simd/toolbox/bitwise/include/functions/shift_left.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 

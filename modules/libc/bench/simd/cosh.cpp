@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/libc/include/cosh.hpp>
+#include <nt2/toolbox/libc/include/functions/cosh.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/simd/native.hpp>
 #include <cmath>

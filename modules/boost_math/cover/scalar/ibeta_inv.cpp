@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
 /// 
-#include <nt2/toolbox/boost_math/include/ibeta_inv.hpp>
+#include <nt2/toolbox/boost_math/include/functions/ibeta_inv.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>

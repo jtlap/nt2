@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost_math components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/boost_math/include/laguerre_next.hpp>
+#include <nt2/toolbox/boost_math/include/functions/laguerre_next.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

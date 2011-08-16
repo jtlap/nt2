@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/euler/include/gamma.hpp>
+#include <nt2/toolbox/euler/include/functions/gamma.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

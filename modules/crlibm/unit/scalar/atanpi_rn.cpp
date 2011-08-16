@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 02/03/2011
 /// 
-#include <nt2/toolbox/crlibm/include/atanpi_rn.hpp>
+#include <nt2/toolbox/crlibm/include/functions/atanpi_rn.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/atanpi.hpp>
 

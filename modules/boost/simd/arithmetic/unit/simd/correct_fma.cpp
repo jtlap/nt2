@@ -14,7 +14,7 @@
 /// created by jt the 28/11/2010
 /// 
 /// 
-#include <boost/simd/toolbox/arithmetic/include/correct_fma.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/correct_fma.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

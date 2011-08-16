@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <boost/simd/toolbox/ieee/include/bitinteger.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/bitfloating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

@@ -10,19 +10,19 @@
 #define NT2_TOOLBOX_FUZZY_FUZZY_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <nt2/toolbox/fuzzy/include/knuth_equal.hpp>
-#include <nt2/toolbox/fuzzy/include/fuzzy_less_or_equal.hpp>
-#include <nt2/toolbox/fuzzy/include/fuzzy_greater_or_equal.hpp>
-#include <nt2/toolbox/fuzzy/include/fuzzy_equal.hpp>
-#include <nt2/toolbox/fuzzy/include/fuzzy_definitely_not_equal.hpp>
-#include <nt2/toolbox/fuzzy/include/fuzzy_definitely_less.hpp>
-#include <nt2/toolbox/fuzzy/include/fuzzy_definitely_greater.hpp>
-#include <nt2/toolbox/fuzzy/include/definitely_not_equal.hpp>
-#include <nt2/toolbox/fuzzy/include/definitely_less.hpp>
-#include <nt2/toolbox/fuzzy/include/definitely_greater.hpp>
-#include <nt2/toolbox/fuzzy/include/almost_less_or_equal.hpp>
-#include <nt2/toolbox/fuzzy/include/almost_greater_or_equal.hpp>
-#include <nt2/toolbox/fuzzy/include/almost_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/knuth_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/fuzzy_less_or_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/fuzzy_greater_or_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/fuzzy_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/fuzzy_definitely_not_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/fuzzy_definitely_less.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/fuzzy_definitely_greater.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/definitely_not_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/definitely_less.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/definitely_greater.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/almost_less_or_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/almost_greater_or_equal.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/almost_equal.hpp>
 //<\include>
 
 #endif

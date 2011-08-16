@@ -10,19 +10,19 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_SWAR_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <boost/simd/toolbox/swar/include/group.hpp>
-#include <boost/simd/toolbox/swar/include/splatted_second.hpp>
-#include <boost/simd/toolbox/swar/include/comparator.hpp>
-#include <boost/simd/toolbox/swar/include/lookup.hpp>
-#include <boost/simd/toolbox/swar/include/sort.hpp>
-#include <boost/simd/toolbox/swar/include/cumsum.hpp>
-#include <boost/simd/toolbox/swar/include/split.hpp>
-#include <boost/simd/toolbox/swar/include/splatted_maximum.hpp>
-#include <boost/simd/toolbox/swar/include/splatted_minimum.hpp>
-#include <boost/simd/toolbox/swar/include/splatted_prod.hpp>
-#include <boost/simd/toolbox/swar/include/splatted_first.hpp>
-#include <boost/simd/toolbox/swar/include/splatted_sum.hpp>
-#include <boost/simd/toolbox/swar/include/put_first.hpp>
+#include <boost/simd/toolbox/swar/include/functions/group.hpp>
+#include <boost/simd/toolbox/swar/include/functions/splatted_second.hpp>
+#include <boost/simd/toolbox/swar/include/functions/comparator.hpp>
+#include <boost/simd/toolbox/swar/include/functions/lookup.hpp>
+#include <boost/simd/toolbox/swar/include/functions/sort.hpp>
+#include <boost/simd/toolbox/swar/include/functions/cumsum.hpp>
+#include <boost/simd/toolbox/swar/include/functions/split.hpp>
+#include <boost/simd/toolbox/swar/include/functions/splatted_maximum.hpp>
+#include <boost/simd/toolbox/swar/include/functions/splatted_minimum.hpp>
+#include <boost/simd/toolbox/swar/include/functions/splatted_prod.hpp>
+#include <boost/simd/toolbox/swar/include/functions/splatted_first.hpp>
+#include <boost/simd/toolbox/swar/include/functions/splatted_sum.hpp>
+#include <boost/simd/toolbox/swar/include/functions/put_first.hpp>
 //<\include>
 
 #endif

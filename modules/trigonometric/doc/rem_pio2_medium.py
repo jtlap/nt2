@@ -16,8 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
-             'included' : ['#include <nt2/toolbox/trigonometric/include/constants.hpp>',
-                 '#include <nt2/toolbox/trigonometric/include/rem_pio2.hpp>'],
+             'included' : ['#include <nt2/toolbox/trigonometric/constants.hpp>',
+                 '#include <nt2/toolbox/trigonometric/include/functions/rem_pio2.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 11/02/2011',
             },

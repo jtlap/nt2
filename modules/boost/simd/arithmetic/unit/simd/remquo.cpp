@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
-#include <boost/simd/toolbox/arithmetic/include/remquo.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/remquo.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/fusion/tuple.hpp>

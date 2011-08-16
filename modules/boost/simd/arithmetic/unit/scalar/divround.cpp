@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
-#include <boost/simd/toolbox/arithmetic/include/divround.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/divround.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/iround.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>

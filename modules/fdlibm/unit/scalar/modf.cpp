@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 03/03/2011
 /// 
-#include <nt2/toolbox/fdlibm/include/modf.hpp>
+#include <nt2/toolbox/fdlibm/include/functions/modf.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/trunc.hpp>

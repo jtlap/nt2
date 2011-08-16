@@ -19,7 +19,7 @@
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/floor.hpp>
-#include <nt2/toolbox/exponential/functions/scalar/impl/constants.hpp>
+#include <nt2/toolbox/exponential/constants.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -34,10 +34,10 @@ NT2_TEST_CASE_TPL  (  real_value, (double)(float) )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(type_dependant_real)
 {
-  NT2_TEST_EQUAL( nt2::Two2nmb<double>()    , 4503599627370496. );
-  NT2_TEST_EQUAL( nt2::Splitfactor<double>(), 134217728.        );
-  NT2_TEST_EQUAL( nt2::Two2nmb<float>()     , 8388608.f         );
-  NT2_TEST_EQUAL( nt2::Splitfactor<float>() , 8192.f            );
+  NT2_TEST_EQUAL( nt2::Twotonmb<double>()    , 4503599627370496. );
+  NT2_TEST_EQUAL( nt2::Splitfactor<double>() , 134217728.        );
+  NT2_TEST_EQUAL( nt2::Twotonmb<float>()     , 8388608.f         );
+  NT2_TEST_EQUAL( nt2::Splitfactor<float>()  , 8192.f            );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

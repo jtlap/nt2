@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/toolbox/ieee/include/minnummag.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/minnummag.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

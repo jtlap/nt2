@@ -124,7 +124,7 @@ class Global_header_gen() :
                                               self.__prepare,d=dug)
             if os.path.exists(self.bg.get_fct_doc_path()) :
                 pos = 1 if self.__module == 'default' else 2
-                l = os.path.join(self.bg.demangle(self.bg.get_tb_name(),'toolbox',pos),"include",self.bg.get_fct_name()+".hpp")
+                l = os.path.join(self.bg.demangle(self.bg.get_tb_name(),'toolbox',pos),"include/functions",self.bg.get_fct_name()+".hpp")
                 r.append("#include <"+l+">")
 ##                r.append("#include <nt2/toolbox/"+bg.demangle(self.bg.get_tb_name())+"/include/"+self.bg.get_fct_name()+".hpp>")
                 print(r[-1])

@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/fuzzy/include/fuzzy_definitely_greater.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/fuzzy_definitely_greater.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

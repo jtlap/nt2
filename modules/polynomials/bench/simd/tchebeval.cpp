@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // timing Test behavior of polynomials components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-#include <nt2/toolbox/polynomials/include/tchebeval.hpp>
+#include <nt2/toolbox/polynomials/include/functions/tchebeval.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

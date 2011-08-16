@@ -10,5 +10,20 @@
 #define NT2_SDK_CONSTANT_CONSTANT_HPP_INCLUDED
 
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
+
+#define NT2_CONSTANT_IMPLEMENTATION(TAG,NAME)                          \
+BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)
+
+#define NT2_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)               \
+BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)
+
+#define NT2_MAKE_STD_CONSTANT(NAME,HEXDOUBLE,HEXFLOAT,INT)             \
+namespace tag                                                          \
+{                                                                      \
+    NT2_CONSTANT_REGISTER(NAME,double,INT,HEXFLOAT,HEXDOUBLE)          \
+}                                                                      \
+NT2_CONSTANT_IMPLEMENTATION(tag::NAME, NAME)                           \
+/**/
 
 #endif

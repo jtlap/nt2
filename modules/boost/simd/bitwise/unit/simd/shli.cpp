@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <boost/simd/toolbox/bitwise/include/shli.hpp>
+#include <boost/simd/toolbox/bitwise/include/functions/shli.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/twopower.hpp>
 

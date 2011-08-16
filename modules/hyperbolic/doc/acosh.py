@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 20/01/2011',
-             'included' : ['#include <nt2/toolbox/exponential/include/constants.hpp>',
+             'included' : ['#include <nt2/toolbox/exponential/constants.hpp>',
                            'extern "C" { long double cephes_acoshl(long double); }'],
              'notes' : [],
              'stamp' : 'modified by jt the 20/02/2011',

@@ -13,9 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/seladd.hpp>
+#include <nt2/toolbox/bitwise/include/functions/seladd.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/toolbox/predicates/include/is_nez.hpp>
+#include <nt2/toolbox/predicates/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

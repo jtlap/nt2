@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
 /// 
-#include <nt2/toolbox/euler/include/dawson.hpp>
+#include <nt2/toolbox/euler/include/functions/dawson.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
