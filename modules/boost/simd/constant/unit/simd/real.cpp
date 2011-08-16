@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL(real_values, BOOST_SIMD_TYPES)
     NT2_TEST_EQUAL( (boost::simd::Twotom10<vd_t>())[i], boost::simd::Twotom10<T>() );
     NT2_TEST_EQUAL( (boost::simd::Pi<vd_t>())[i], boost::simd::Pi<T>() );
     NT2_TEST_EQUAL( (boost::simd::Sqrt_2<vd_t>())[i], boost::simd::Sqrt_2<T>() );
-    NT2_TEST_EQUAL( (boost::simd::Sqrt2o2<vd_t>())[i], boost::simd::Sqrt2o2<T>() );
+    NT2_TEST_EQUAL( (boost::simd::Sqrt_2o_2<vd_t>())[i], boost::simd::Sqrt_2o_2<T>() );
     NT2_TEST_EQUAL( (boost::simd::Gold<vd_t>())[i], boost::simd::Gold<T>() );
     NT2_TEST_EQUAL( (boost::simd::Cgold<vd_t>())[i], boost::simd::Cgold<T>() );
     NT2_TEST_EQUAL( (boost::simd::Twotonmb<vd_t>())[i] , boost::simd::Twotonmb<T>() );
