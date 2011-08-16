@@ -44,9 +44,9 @@ BOOST_SIMD_WARNING(FMA4 SIMD extension detected)
 #define BOOST_SIMD_BYTES              32
 #define BOOST_SIMD_BITS               256
 #define BOOST_SIMD_CARDINALS          (2)(4)(8)(16)(32)
-#define BOOST_SIMD_TAG_SEQ            (::nt2::tag::avx_)(::nt2::tag::sse_)
-#define BOOST_SIMD_DEFAULT_EXTENSION  ::nt2::tag::avx_
-#define BOOST_SIMD_DEFAULT_SITE       ::nt2::tag::avx_
+#define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::avx_)(::boost::simd::tag::sse_)
+#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::avx_
+#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::avx_
 
 #include <immintrin.h>
 
