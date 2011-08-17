@@ -1,0 +1,28 @@
+[section negif]
+
+[h5 Description]
+Negates the second argument only if the first is true.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0, class A1> A1 negif(A0 const& a0, A1 const& a1);
+    } }
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0, a1,]   [Operation's arguments]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/bitwise/include/negif.hpp>
+[h5 Expression Semantics]
+   negif(a, b);
+
+[*Return type: ] Returns a variable of `b`'s type.
+
+[*Semantics:   ] Returns -b if a is true, b otherwise.
+
+[h5 Example]
+
+[endsect]

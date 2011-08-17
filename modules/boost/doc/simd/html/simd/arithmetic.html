@@ -1,0 +1,107 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Arithmetic Toolbox</title>
+<link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;simd">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;simd">
+<link rel="prev" href="operator/store.html" title="store">
+<link rel="next" href="arithmetic/abs.html" title="abs">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../../boost.png"></td>
+<td align="center"><a href="../../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="operator/store.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="arithmetic/abs.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="simd.arithmetic"></a><a class="link" href="arithmetic.html" title="Arithmetic Toolbox">Arithmetic Toolbox</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="arithmetic/abs.html">abs</a></span></dt>
+<dt><span class="section"><a href="arithmetic/abss.html">abss</a></span></dt>
+<dt><span class="section"><a href="arithmetic/adds.html">adds</a></span></dt>
+<dt><span class="section"><a href="arithmetic/amul.html">amul</a></span></dt>
+<dt><span class="section"><a href="arithmetic/arg.html">arg</a></span></dt>
+<dt><span class="section"><a href="arithmetic/average.html">average</a></span></dt>
+<dt><span class="section"><a href="arithmetic/ceil.html">ceil</a></span></dt>
+<dt><span class="section"><a href="arithmetic/correct_fma.html">correct_fma</a></span></dt>
+<dt><span class="section"><a href="arithmetic/dist.html">dist</a></span></dt>
+<dt><span class="section"><a href="arithmetic/divceil.html">divceil</a></span></dt>
+<dt><span class="section"><a href="arithmetic/divfix.html">divfix</a></span></dt>
+<dt><span class="section"><a href="arithmetic/divfloor.html">divfloor</a></span></dt>
+<dt><span class="section"><a href="arithmetic/divround.html">divround</a></span></dt>
+<dt><span class="section"><a href="arithmetic/divs.html">divs</a></span></dt>
+<dt><span class="section"><a href="arithmetic/fam.html">fam</a></span></dt>
+<dt><span class="section"><a href="arithmetic/fast_hypot.html">fast_hypot</a></span></dt>
+<dt><span class="section"><a href="arithmetic/fast_toint.html">fast_toint</a></span></dt>
+<dt><span class="section"><a href="arithmetic/floor.html">floor</a></span></dt>
+<dt><span class="section"><a href="arithmetic/fma.html">fma</a></span></dt>
+<dt><span class="section"><a href="arithmetic/hypot.html">hypot</a></span></dt>
+<dt><span class="section"><a href="arithmetic/iceil.html">iceil</a></span></dt>
+<dt><span class="section"><a href="arithmetic/idivceil.html">idivceil</a></span></dt>
+<dt><span class="section"><a href="arithmetic/idivfix.html">idivfix</a></span></dt>
+<dt><span class="section"><a href="arithmetic/idivfloor.html">idivfloor</a></span></dt>
+<dt><span class="section"><a href="arithmetic/idivround.html">idivround</a></span></dt>
+<dt><span class="section"><a href="arithmetic/ifix.html">ifix</a></span></dt>
+<dt><span class="section"><a href="arithmetic/ifloor.html">ifloor</a></span></dt>
+<dt><span class="section"><a href="arithmetic/iround2even.html">iround2even</a></span></dt>
+<dt><span class="section"><a href="arithmetic/iround.html">iround</a></span></dt>
+<dt><span class="section"><a href="arithmetic/itrunc.html">itrunc</a></span></dt>
+<dt><span class="section"><a href="arithmetic/ldiv.html">ldiv</a></span></dt>
+<dt><span class="section"><a href="arithmetic/ldivide.html">ldivide</a></span></dt>
+<dt><span class="section"><a href="arithmetic/logical_xor.html">logical_xor</a></span></dt>
+<dt><span class="section"><a href="arithmetic/madd.html">madd</a></span></dt>
+<dt><span class="section"><a href="arithmetic/max.html">max</a></span></dt>
+<dt><span class="section"><a href="arithmetic/min.html">min</a></span></dt>
+<dt><span class="section"><a href="arithmetic/minmod.html">minmod</a></span></dt>
+<dt><span class="section"><a href="arithmetic/minusone.html">minusone</a></span></dt>
+<dt><span class="section"><a href="arithmetic/mod.html">mod</a></span></dt>
+<dt><span class="section"><a href="arithmetic/muls.html">muls</a></span></dt>
+<dt><span class="section"><a href="arithmetic/negs.html">negs</a></span></dt>
+<dt><span class="section"><a href="arithmetic/oneminus.html">oneminus</a></span></dt>
+<dt><span class="section"><a href="arithmetic/oneplus.html">oneplus</a></span></dt>
+<dt><span class="section"><a href="arithmetic/random.html">random</a></span></dt>
+<dt><span class="section"><a href="arithmetic/rdivide.html">rdivide</a></span></dt>
+<dt><span class="section"><a href="arithmetic/rec.html">rec</a></span></dt>
+<dt><span class="section"><a href="arithmetic/remainder.html">remainder</a></span></dt>
+<dt><span class="section"><a href="arithmetic/rem.html">rem</a></span></dt>
+<dt><span class="section"><a href="arithmetic/remquo.html">remquo</a></span></dt>
+<dt><span class="section"><a href="arithmetic/round.html">round</a></span></dt>
+<dt><span class="section"><a href="arithmetic/rsqrt.html">rsqrt</a></span></dt>
+<dt><span class="section"><a href="arithmetic/sqr.html">sqr</a></span></dt>
+<dt><span class="section"><a href="arithmetic/sqrt.html">sqrt</a></span></dt>
+<dt><span class="section"><a href="arithmetic/subs.html">subs</a></span></dt>
+<dt><span class="section"><a href="arithmetic/tofloat.html">tofloat</a></span></dt>
+<dt><span class="section"><a href="arithmetic/toint.html">toint</a></span></dt>
+<dt><span class="section"><a href="arithmetic/trunc.html">trunc</a></span></dt>
+<dt><span class="section"><a href="arithmetic/two_add.html">two_add</a></span></dt>
+<dt><span class="section"><a href="arithmetic/two_prod.html">two_prod</a></span></dt>
+<dt><span class="section"><a href="arithmetic/two_split.html">two_split</a></span></dt>
+</dl></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2011 LASMEA
+      UMR 6602 CNRS/Univ. Clermont II<br>Copyright &#169; 2009-2011 LRI UMR 8623
+      CNRS/Univ Paris Sud XI<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="operator/store.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="arithmetic/abs.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

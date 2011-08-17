@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Preface</title>
+<link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;simd">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;simd">
+<link rel="prev" href="../index.html" title="Chapter&#160;1.&#160;simd">
+<link rel="next" href="getting_started.html" title="Getting Started">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../../boost.png"></td>
+<td align="center"><a href="../../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../index.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="getting_started.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="simd.preface"></a><a class="link" href="preface.html" title="Preface">Preface</a>
+</h2></div></div></div>
+<a name="simd.preface.description"></a><h4>
+<a name="simd.preface.description-heading"></a>
+      <a class="link" href="preface.html#simd.preface.description">Description</a>
+    </h4>
+<p>
+      <span class="bold"><strong>Boost.simd</strong></span> is a library that provides a proper
+      C++ abstraction for SIMD operations. SIMD which stands for Single Instruction
+      Multiple Data, is a class of instruction sets in processor that allow to execute
+      an operation on multiple data elements simultaneously. Examples of such set
+      of instructions are SSE for x86 architectures and Altivec for powerpc. Operations
+      supported by the library range from built-in operators to arithmetic operations
+      like absolute, including predicates (is even etc...). Of course those operations
+      are available both on SIMD registers and scalar types.
+    </p>
+<a name="simd.preface.motivation"></a><h4>
+<a name="simd.preface.motivation-heading"></a>
+      <a class="link" href="preface.html#simd.preface.motivation">Motivation</a>
+    </h4>
+<p>
+      Nowadays performance is often critical in software development. Parallelism
+      as proven useful in those cases. SIMD is one possible way to execute arbitrary
+      operations simultaneously on data. Alas SIMD coding is a really low level feature
+      and isn't really generic, mainly because SIMD instructions vary from one architecture
+      to another and even between processor models. Add to this alignement issues,
+      and this partially explains why SIMD is not widely used. Boost.simd eases SIMD
+      development by abstracting those low level details behind a domain-specific
+      embedded language and a set of generic functions dispatching to the right SIMD
+      intrinsics.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2011 LASMEA
+      UMR 6602 CNRS/Univ. Clermont II<br>Copyright &#169; 2009-2011 LRI UMR 8623
+      CNRS/Univ Paris Sud XI<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../index.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="getting_started.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+[section ceil]
+
+[h5 Description]
+Computes the nearest integer greater than or equal to the input value.
+
+[h5 Synopsis]
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/arithmetic/include/ceil.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

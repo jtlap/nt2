@@ -1,0 +1,203 @@
+[section:operator Operator Toolbox]
+
+The operator toolbox provides support for usual C++ operators.
+
+[table 
+    [[C++ operator] [Function name] [Alias] [Description]]
+    [[`a & b` ]     [bitwise_and  ] [b_and] [Returns a variable of the type of its first parameter.]]
+    [[`a | b` ]     [bitwise_or   ] [b_or ] [Returns a variable of the type of its first parameter.]]
+    [[`a ^ b` ]     [bitwise_xor  ] [b_xor] [Returns a variable of the type of its first parameter.]]
+    [[`a == b`]     [compare_equal]         [compare_eq]         [Returns a boolean. On SIMD types the comparison is done in lexicographical order.]]
+    [[`a >= b`]     [compare_greater_equal] [compare_greater_eq] [Returns a boolean. On SIMD types the comparison is done in lexicographical order.]]
+    [[`a > b` ]     [compare_greater]       [compare_gt]         [Returns a boolean. On SIMD types the comparison is done in lexicographical order.]]
+    [[`a <= b`]     [compare_less_equal]    [compare_less_eq]    [Returns a boolean. On SIMD types the comparison is done in lexicographical order.]]
+    [[`a > b` ]     [compare_less ]         [compare_lt]         [Returns a boolean. On SIMD types the comparison is done in lexicographical order.]]
+    [[`a != b`]     [compare_not_equal]     [compare_neq]        [Returns a boolean. On SIMD types the comparison is done in lexicographical order.]]
+    [[`a ? b : c` ] [if_else      ] [where] []]
+    [[n/a]          [is_equal        ] [eq]    [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.
+                                                   On scalar types it has the same semantic as `compare_equal`.]]
+    [[n/a]          [is_greater_equal] [ge]    [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.
+                                                   On scalar types it has the same semantic as `compare_greater_equal`.]]
+    [[n/a]          [is_greater      ] [gt]    [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.
+                                                   On scalar types it has the same semantic as `compare_greater`.]]
+    [[n/a]          [is_less_equal   ] [le]    [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.
+                                                   On scalar types it has the same semantic as `compare_less_equal`.]]
+    [[n/a]          [is_less         ] [lt]    [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.
+                                                   On scalar types it has the same semantic as `compare_less`.]]
+    [[n/a]          [is_not_equal    ] [neq, ne] [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.
+                                                   On scalar types it has the same semantic as `compare_not_equal`.]]
+    [[`a && b`]     [logical_and  ] [l_and] [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.]]
+    [[`a ! b` ]     [logical_not  ] [l_not] [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.]]
+    [[`a || b`]     [logical_or   ] [l_xor] [On SIMD types performs an element wise comparison and returns a new SIMD variable containing the results.]]
+    [[`a - b` ]     [minus        ] [sub]   [Returns a variable holding the result of the subtraction done element-wise.]]
+    [[`a + b` ]     [plus         ] [add]   [Returns a variable holding the result of the addition done element-wise.]]
+    [[`a * b` ]     [multiplies   ] [mul]   [Returns a variable holding the result of the multiplication done element-wise.]]
+    [[`a / b` ]     [divides      ] [div, rdiv] [Returns a variable holding the result of the division done element-wise.]]
+    [[`a % b` ]     [modulo       ] [n/a]   [Returns a variable holding the result of the modulo operation done element-wise.]]
+    [[`-a` ]        [unary_minus  ] [neg]   [Returns a variable holding the result of the unary minus operation done element-wise.]]
+    [[`+a` ]        [unary_plus   ] [identity, id]   []]
+    [[`a << b`]     [shift_left   ] [shl]   []]
+    [[`a >> b`]     [shift_right  ] [shr]   []]
+]
+
+
+[section load]
+
+[h5 Description]
+Load data from a memory block and an offset.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template<class T, class P,class O>               T load(P const& ptr, O const& offset );
+      template<std::size_t N,class T, class P,class O> T load(P const& ptr, O const& offset );
+    } }
+
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+    [[N]         [Integer constant] [Local memory offset]]
+    [[T]         [None]        [Type to load]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[ptr]       [Base address of the memory block to load]]
+    [[offset]    [Offset of the memory block to load]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/operator/load.hpp>
+
+[h5 Expression Semantics]
+    load<T>(ptr, offset);
+[*Return type: ] T
+
+[*Semantics:   ] Returns an instance of T containing the data loaded from the address `ptr + offset`.
+
+    load<T, N>(ptr, offset);
+[*Return type: ] T
+
+[*Semantics:   ] Returns an instance of T containing the data loaded from the address `ptr + offset + N`.
+
+[h5 Example]
+
+[endsect]
+
+
+[section map]
+
+[h5 Description]
+Apply a functor on every element of a SIMD register.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template<class Func, class... An> __unspecified__ store(Func const& f, Args const& ... an);
+    } }
+
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+    [[Func]      [None]        [Type of the functor]]
+    [[An]        [None]        []]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[f]         [Functor instance]]
+    [[an]        []]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/operator/map.hpp>
+
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ] 
+
+[h5 Example]
+
+[endsect]
+
+
+[section splat]
+
+[h5 Description]
+Initialize a variable with a given value.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template<class T, class A0> T splat(A0 const& a0);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+    [[T]         [None]        [Type of the variable to initialize]]
+    [[A0]        [None]        [Type of the variable to initialize from]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0]        [Variable to initialize from]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/operator/splat.hpp>
+
+[h5 Expression Semantics]
+    splat<T>(a);
+
+[*Return type: ] T
+
+[*Semantics:   ] Return an instance of T initialized with a. 
+
+[h5 Example]
+
+[endsect]
+
+
+[section store]
+
+[h5 Description]
+Store data into a memory block from an address and an offset.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template<class Value, class Ptr,class Offset>
+      Value store(Value const& v, Ptr const& ptr, Offset const& o);
+    } }
+
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+    [[Value]         [None]    [Type to store]]
+    [[Ptr]           [None]    [Address type]]
+    [[Offset]        [None]    [Offset type]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[v]         [Value to store into memory]]
+    [[ptr]       [Base address of the memory block to store]]
+    [[o]         [Offset of the memory block to store]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/operator/store.hpp>
+
+[h5 Expression Semantics]
+    store(value, ptr, offset);
+[*Return type: ] Type of value
+
+[*Semantics:   ] Returns the instance of T that was stored at the address `ptr + offset`.
+
+[h5 Example]
+
+[endsect]
+
+[endsect]

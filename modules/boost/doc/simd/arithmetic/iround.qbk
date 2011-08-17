@@ -1,0 +1,27 @@
+[section iround]
+
+[h5 Description]
+
+[h5 Synonyms]
+
+[h5 Synopsis]
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/arithmetic/include/iround.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

@@ -1,0 +1,29 @@
+[section splatted_maximum]
+
+[h5 Description]
+Equivalent to the __maximum__ function except that it returns a new SIMD vector splatted
+with the result of the operation.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> A0 splatted_maximum(A0 const& a0);
+    } }
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0]        [Operation's argument]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/swar/include/splatted_maximum.hpp>
+[h5 Expression Semantics]
+   splatted_maximum(a);
+
+[*Return type: ] A0.
+
+[*Semantics:   ] Another SIMD register, storing the result of the __maximum__ operation applied on `a`. 
+
+[h5 Example]
+
+[endsect]

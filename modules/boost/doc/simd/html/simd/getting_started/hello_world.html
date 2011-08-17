@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Hello World</title>
+<link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;simd">
+<link rel="up" href="../getting_started.html" title="Getting Started">
+<link rel="prev" href="../getting_started.html" title="Getting Started">
+<link rel="next" href="a_more_detailed_explanation.html" title="A more detailed explanation">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../../../boost.png"></td>
+<td align="center"><a href="../../../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../getting_started.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../getting_started.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="a_more_detailed_explanation.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="simd.getting_started.hello_world"></a><a class="link" href="hello_world.html" title="Hello World">Hello World</a>
+</h3></div></div></div>
+<p>
+        Here is a simple program that demonstrates how easy it is to use boost.simd
+        :
+      </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">simd</span><span class="special">/</span><span class="identifier">sdk</span><span class="special">/</span><span class="identifier">simd</span><span class="special">/</span><span class="identifier">pack</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">simd</span><span class="special">/</span><span class="identifier">sdk</span><span class="special">/</span><span class="identifier">simd</span><span class="special">/</span><span class="identifier">io</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">simd</span><span class="special">/</span><span class="identifier">toolbox</span><span class="special">/</span><span class="keyword">operator</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+
+<span class="keyword">int</span> <span class="identifier">main</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">argc</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="identifier">argv</span><span class="special">[])</span>
+<span class="special">{</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">simd</span><span class="special">::</span><span class="identifier">pack</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">u</span><span class="special">(</span><span class="number">10</span><span class="special">),</span> <span class="identifier">r</span><span class="special">(</span><span class="number">11</span><span class="special">);</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">simd</span><span class="special">::</span><span class="identifier">pack</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">res</span> <span class="special">=</span> <span class="special">(</span><span class="identifier">u</span> <span class="special">+</span> <span class="identifier">r</span><span class="special">)</span> <span class="special">*</span> <span class="number">2</span><span class="special">;</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">res</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+    <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+        Once compiled and executed this will print the following :
+      </p>
+<pre class="programlisting">{42,42,42,42}
+</pre>
+<p>
+        (The number of elements outputted may vary depending on the set of instruction
+        supported by your processor).
+      </p>
+<p>
+        What this snippet is doing is :
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            Construct packs of integers, a pack is a representation of a SIMD register.
+          </li>
+<li class="listitem">
+            Initialize them from integers (this operation is implicit here but it's
+            named <code class="computeroutput"><span class="identifier">splat</span></code>).
+          </li>
+<li class="listitem">
+            Do some operations on it, here adding two vectors and multiplying by
+            a scalar.
+          </li>
+<li class="listitem">
+            Display the resulting vector, boost.simd provides the needed operator&lt;&lt;
+            overload.
+          </li>
+</ul></div>
+<p>
+        As you see it, boost.simd makes SIMD operations as easy as their scalar counterparts
+        without having to worry about things like platform type, SIMD instruction
+        sets supported etc.
+      </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2011 LASMEA
+      UMR 6602 CNRS/Univ. Clermont II<br>Copyright &#169; 2009-2011 LRI UMR 8623
+      CNRS/Univ Paris Sud XI<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../getting_started.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../getting_started.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="a_more_detailed_explanation.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

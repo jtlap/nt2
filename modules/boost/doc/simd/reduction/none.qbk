@@ -1,0 +1,27 @@
+[section none]
+
+[h5 Description]
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> bool none(A0 const& a0);
+    } }
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0]        [Operation's argument]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/reduction/include/none.hpp>
+[h5 Expression Semantics]
+   none(a);
+
+[*Return type: ] bool.
+
+[*Semantics:   ] Returns true if all the elements of the a are equal to zero, false otherwise.
+
+[h5 Example]
+
+[endsect]

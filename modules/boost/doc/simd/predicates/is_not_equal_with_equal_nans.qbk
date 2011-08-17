@@ -1,0 +1,25 @@
+[section is_not_equal_with_equal_nans]
+
+[h5 Description]
+
+[h5 Synopsis]
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/predicates/include/is_not_equal_with_equal_nans.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

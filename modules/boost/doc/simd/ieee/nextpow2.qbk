@@ -1,0 +1,27 @@
+[section nextpow2]
+
+[h5 Description]
+
+[h5 Synonyms]
+
+[h5 Synopsis]
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/nextpow2.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

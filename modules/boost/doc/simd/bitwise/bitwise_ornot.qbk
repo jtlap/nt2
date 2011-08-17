@@ -1,0 +1,32 @@
+[section bitwise_ornot]
+
+[h5 Description]
+Computes the bitwise "or" operation between its first argument and the complement
+of its second argument.
+
+[h5 Synonyms]
+b_ornot
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0, class A1> A0 bitwise_ornot(A0 const& a0, A1 const& a1);
+    } }
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0, a1]    [Operation's arguments]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/bitwise/include/bitwise_ornot.hpp>
+[h5 Expression Semantics]
+   bitwise_ornot(a, b);
+
+[*Return type: ] A variable of `a`'s type.
+
+[*Semantics:   ] a || !b
+
+[h5 Example]
+
+[endsect]

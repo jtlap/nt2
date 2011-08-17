@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Memory</title>
+<link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;simd">
+<link rel="up" href="../sdk.html" title="SDK">
+<link rel="prev" href="simd_iterator.html" title="SIMD Iterator">
+<link rel="next" href="../operator.html" title="Operator Toolbox">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../../../boost.png"></td>
+<td align="center"><a href="../../../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="simd_iterator.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../sdk.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../operator.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="simd.sdk.memory"></a><a class="link" href="memory.html" title="Memory">Memory</a>
+</h3></div></div></div>
+<p>
+        When dealing with SIMD registers, the memory needs to be aligned in order
+        to achieve good performances. To achieve this goal, boost.simd provides a
+        set of tool to allocate aligned memory. First the <code class="computeroutput"><span class="identifier">allocate</span></code>
+        function, defined in boost/simd/sdk/memory/allocate.hpp :
+      </p>
+<pre class="programlisting"><span class="identifier">byte</span><span class="special">*</span> <span class="identifier">allocate</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">nbytes</span> <span class="special">);</span>
+</pre>
+<p>
+        allocates a buffer of nbytes bytes starting at an aligned address.
+      </p>
+<p>
+        Obviously <code class="computeroutput"><span class="identifier">deallocate</span></code> and
+        <code class="computeroutput"><span class="identifier">reallocate</span></code> counterparts are
+        also available :
+      </p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">deallocate</span><span class="special">(</span> <span class="identifier">byte</span><span class="special">*</span> <span class="identifier">ptr</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">nbytes</span> <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
+<span class="identifier">byte</span><span class="special">*</span> <span class="identifier">reallocate</span><span class="special">(</span> <span class="identifier">byte</span><span class="special">*</span> <span class="identifier">ptr</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">nbytes</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">obytes</span><span class="special">);</span>
+</pre>
+<p>
+        All this functions live in the boost::simd::memory namespace.
+      </p>
+<p>
+        Lastly, an allocator, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">simd</span><span class="special">::</span><span class="identifier">memory</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;&gt;</span></code> is provided, which uses internally
+        the above memory handling related functions. This means that you can use
+        it with an STL container to get automatically aligned ranges :
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">simd</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">vec</span><span class="special">(</span><span class="number">9</span><span class="special">,</span> <span class="number">9</span><span class="special">);</span>
+</pre>
+<p>
+        <code class="computeroutput"><span class="identifier">vec</span></code> will start at an aligned
+        address meaning that you can immediately applicate SIMD operations on it
+        without using boost::simd::begin function. This allocator is defined in boost/simd/sdk/memory/allocator.hpp.
+      </p>
+<p>
+        An allocator adaptator is also available for you to adapt an allocator to
+        be aligned, it is named <code class="computeroutput"><span class="identifier">allocator_adaptor</span></code>.
+      </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2011 LASMEA
+      UMR 6602 CNRS/Univ. Clermont II<br>Copyright &#169; 2009-2011 LRI UMR 8623
+      CNRS/Univ Paris Sud XI<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="simd_iterator.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../sdk.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../operator.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

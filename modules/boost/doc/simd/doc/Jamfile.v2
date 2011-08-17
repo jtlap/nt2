@@ -1,0 +1,10 @@
+import quickbook ;
+
+xml simd : simd.qbk ;
+
+boostbook standalone
+	:
+	simd
+	:
+	<xsl:param>boost.root=../../../..
+	;

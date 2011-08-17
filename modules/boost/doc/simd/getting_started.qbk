@@ -1,0 +1,79 @@
+[section Getting Started]
+
+[section Hello World]
+
+Here is a simple program that demonstrates how easy it is to use boost.simd :
+
+	#include <iostream>
+	#include <boost/simd/sdk/simd/pack.hpp>
+	#include <boost/simd/sdk/simd/io.hpp>
+	#include <boost/simd/toolbox/operator.hpp>
+	
+	
+	int main(int argc, const char *argv[])
+	{
+	    boost::simd::pack<int> u(10), r(11);
+	    boost::simd::pack<int> res = (u + r) * 2;
+	
+	    std::cout << res << std::endl;
+	    return 0;
+	}
+
+Once compiled and executed this will print the following :
+
+[pre
+{42,42,42,42}
+]
+
+(The number of elements outputted may vary depending on the set of instruction
+supported by your processor).
+
+What this snippet is doing is :
+
+* Construct packs of integers, a pack is a representation of a SIMD register.
+* Initialize them from integers (this operation is implicit here but it's named
+  `splat`). 
+* Do some operations on it, here adding two vectors and multiplying by a scalar.
+* Display the resulting vector, boost.simd provides the needed operator<<
+  overload.
+
+As you see it, boost.simd makes SIMD operations as easy as their scalar 
+counterparts without having to worry about things like platform type, SIMD
+instruction sets supported etc.
+
+[endsect]
+
+[section A more detailed explanation]
+
+Let's dive a bit more into the library and see what happens with the previous
+code snippet. First, when compiling the library, the sets of instructions
+supported by the host machine is identified. As an example the machine used to
+compile the previous code supports MMX up to SSE4.1 instructions.
+Next when we use a `pack`, which is the high interface boost.simd exposes to
+represent a SIMD register, internally a variable using the right vector type is
+instantiated, with the same machine as above that would be `__m128i`. The
+cardinal is also infered from the size of the register and the size of the type
+used (in this example it would be 4).
+Finally when we use operators on packs, the type of instructions supported is
+used to select the right overload which in turns uses available intrisics, in
+our example the addition operator would use `_mm_add_epi_32`.
+
+[endsect]
+
+[section Supported SIMD instruction sets]
+
+At the moment the library supports on x86 platforms the following instruction sets :
+
+* SSE2
+* SSE3
+* SSSE3 
+* SSE4_1
+* SSE4_2
+* AVX 
+* XOP
+
+The other platform supported is Powerpc with the Altivec instruction set.
+
+[endsect]
+
+[endsect]
