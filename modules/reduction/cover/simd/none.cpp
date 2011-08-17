@@ -18,8 +18,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/meta/logical.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+ 
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
@@ -31,30 +30,31 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( none_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( none_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using nt2::none;
-  using nt2::tag::none_;
-  using nt2::load; 
+  using boost::simd::none;
+  using boost::simd::tag::none_;
+  using boost::simd::load; 
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
+  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<none_(vT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<none_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
