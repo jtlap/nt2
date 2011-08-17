@@ -52,7 +52,7 @@
                  'real_' : ['nt2::tanpi(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::cephes_tanl(nt2::long_pi*a0)'],
+                 'real_' : ['::cephes_tanl(long_pi*a0)'],
                 },
              'ulp_thresh' : {
                  'real_' : ['10.0'],

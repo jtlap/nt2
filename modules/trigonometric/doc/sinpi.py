@@ -51,7 +51,7 @@
                  'real_' : ['nt2::sinpi(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::cephes_sinl(nt2::long_pi*a0)'],
+                 'real_' : ['::cephes_sinl(long_pi*a0)'],
                 },
              'ulp_thresh' : {
                  'real_' : ['10.0'],

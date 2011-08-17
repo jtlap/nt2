@@ -48,7 +48,7 @@
                  'real_' : ['nt2::secpi(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['1.0l/(::cosl(nt2::long_pi*a0))'],
+                 'real_' : ['1.0l/(::cosl(long_pi*a0))'],
                 },
              'ulp_thresh' : {
                  'real_' : ['10.0'],

@@ -50,7 +50,7 @@
                  'real_' : ['nt2::atanpi(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::cephes_atanl(a0)/nt2::long_pi'],
+                 'real_' : ['::cephes_atanl(a0)/long_pi'],
                 },
              'ulp_thresh' : {
                  'real_' : '1.0',

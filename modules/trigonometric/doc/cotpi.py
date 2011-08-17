@@ -53,7 +53,7 @@
                  'real_' : ['nt2::cotpi(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['1.0l/(::cephes_tanl(nt2::long_pi*a0))'],
+                 'real_' : ['1.0l/(::cephes_tanl(long_pi*a0))'],
                 },
              'ulp_thresh' : {
                  'real_' : ['10.0'],
