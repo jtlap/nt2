@@ -6,51 +6,51 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - tofloat/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - tofloat/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of arithmetic components in simd mode
+// cover test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/functions/tofloat.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using nt2::tofloat;
-  using nt2::tag::tofloat_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::tofloat;
+  using boost::simd::tag::tofloat_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<tofloat_(vT)>::type r_t;
-  typedef typename nt2::meta::call<tofloat_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<tofloat_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
+    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
@@ -66,22 +66,22 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_SIMD_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (nt2::uint32_t))
+NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
 {
-  using nt2::tofloat;
-  using nt2::tag::tofloat_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::tofloat;
+  using boost::simd::tag::tofloat_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<tofloat_(vT)>::type r_t;
-  typedef typename nt2::meta::call<tofloat_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<tofloat_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -102,24 +102,24 @@ NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (nt2::uint32_t))
       }
     
   }
-} // end of test for uint32_t
+} // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
+NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES)
 {
-  using nt2::tofloat;
-  using nt2::tag::tofloat_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::tofloat;
+  using boost::simd::tag::tofloat_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<tofloat_(vT)>::type r_t;
-  typedef typename nt2::meta::call<tofloat_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<tofloat_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -140,80 +140,4 @@ NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
       }
     
   }
-} // end of test for uint64_t
-
-NT2_TEST_CASE_TPL ( tofloat_int32_t_1_0,  (nt2::int32_t))
-{
-  using nt2::tofloat;
-  using nt2::tag::tofloat_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<tofloat_(vT)>::type r_t;
-  typedef typename nt2::meta::call<tofloat_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = tofloat(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
-        }
-      }
-    
-  }
-} // end of test for int32_t
-
-NT2_TEST_CASE_TPL ( tofloat_int64_t_1_0,  (nt2::int64_t))
-{
-  using nt2::tofloat;
-  using nt2::tag::tofloat_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<tofloat_(vT)>::type r_t;
-  typedef typename nt2::meta::call<tofloat_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = tofloat(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
-        }
-      }
-    
-  }
-} // end of test for int64_t
+} // end of test for uint_convert_

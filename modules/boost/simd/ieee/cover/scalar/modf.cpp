@@ -6,38 +6,40 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - modf/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - modf/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of ieee components in scalar mode
+// cover test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/functions/modf.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/modf.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/trunc.hpp>
-#include <nt2/include/functions/frac.hpp>
+#include <boost/simd/include/functions/trunc.hpp>
+#include <boost/simd/include/functions/frac.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( modf_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::modf;
-  using nt2::tag::modf_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<modf_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  using boost::simd::modf;
+  using boost::simd::tag::modf_;
+  typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef boost::fusion::vector<ftype,ftype> wished_r_t;
 
 
   // return type conformity test 
@@ -49,6 +51,7 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
@@ -62,22 +65,27 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  NT2_REAL_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_EQUAL( boost::fusion::get<0>(r), nt2::frac(a0));
-        NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::trunc(a0));
+        NT2_TEST_EQUAL( boost::fusion::get<0>(r), boost::simd::frac(a0));
+        if (ulpd>ulp0) ulp0=ulpd;
+        NT2_TEST_EQUAL( boost::fusion::get<1>(r), boost::simd::trunc(a0));
+        if (ulpd>ulp0) ulp0=ulpd;
      }
      
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using nt2::modf;
-  using nt2::tag::modf_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<modf_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  using boost::simd::modf;
+  using boost::simd::tag::modf_;
+  typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef boost::fusion::vector<ftype,ftype> wished_r_t;
 
 
   // return type conformity test 
@@ -89,6 +97,7 @@ NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
@@ -102,22 +111,27 @@ NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_EQUAL( boost::fusion::get<0>(r), nt2::frac(a0));
-        NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::trunc(a0));
+        NT2_TEST_EQUAL( boost::fusion::get<0>(r), boost::simd::frac(a0));
+        if (ulpd>ulp0) ulp0=ulpd;
+        NT2_TEST_EQUAL( boost::fusion::get<1>(r), boost::simd::trunc(a0));
+        if (ulpd>ulp0) ulp0=ulpd;
      }
      
    }
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::modf;
-  using nt2::tag::modf_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<modf_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef boost::fusion::vector<T,T> wished_r_t;
+  using boost::simd::modf;
+  using boost::simd::tag::modf_;
+  typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<modf_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef boost::fusion::vector<ftype,ftype> wished_r_t;
 
 
   // return type conformity test 
@@ -129,6 +143,7 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
@@ -142,8 +157,10 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_EQUAL( boost::fusion::get<0>(r), nt2::frac(a0));
-        NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::trunc(a0));
+        NT2_TEST_EQUAL( boost::fusion::get<0>(r), boost::simd::frac(a0));
+        if (ulpd>ulp0) ulp0=ulpd;
+        NT2_TEST_EQUAL( boost::fusion::get<1>(r), boost::simd::trunc(a0));
+        if (ulpd>ulp0) ulp0=ulpd;
      }
      
    }

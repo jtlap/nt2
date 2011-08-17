@@ -6,34 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - firstbitset/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - firstbitset/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of bitwise components in scalar mode
+// cover test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/functions/firstbitset.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <boost/simd/toolbox/bitwise/include/functions/firstbitset.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  (float))
 {
   
-  using nt2::firstbitset;
-  using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+  using boost::simd::firstbitset;
+  using boost::simd::tag::firstbitset_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<firstbitset_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
   // return type conformity test 
@@ -47,12 +48,14 @@ NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  (float))
 NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
 {
   
-  using nt2::firstbitset;
-  using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+  using boost::simd::firstbitset;
+  using boost::simd::tag::firstbitset_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<firstbitset_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
   // return type conformity test 
@@ -63,15 +66,17 @@ NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
 
 } // end of test for double
 
-NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::firstbitset;
-  using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+  using boost::simd::firstbitset;
+  using boost::simd::tag::firstbitset_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<firstbitset_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
   // return type conformity test 
@@ -82,15 +87,17 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using nt2::firstbitset;
-  using nt2::tag::firstbitset_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<firstbitset_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_integer<T, unsigned>::type wished_r_t;
+  using boost::simd::firstbitset;
+  using boost::simd::tag::firstbitset_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<firstbitset_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
   // return type conformity test 

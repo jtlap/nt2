@@ -6,33 +6,34 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - bitwise_xor/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - bitwise_xor/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of operator components in scalar mode
+// cover test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/operator/include/functions/bitwise_xor.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <boost/simd/toolbox/operator/include/functions/bitwise_xor.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( bitwise_xor_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_xor_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::bitwise_xor;
-  using nt2::tag::bitwise_xor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitwise_xor_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::bitwise_xor;
+  using boost::simd::tag::bitwise_xor_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitwise_xor_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -44,14 +45,16 @@ NT2_TEST_CASE_TPL ( bitwise_xor_real__2_0,  NT2_REAL_TYPES)
 
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( bitwise_xor_integer__2_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( bitwise_xor_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
   
-  using nt2::bitwise_xor;
-  using nt2::tag::bitwise_xor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<bitwise_xor_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::bitwise_xor;
+  using boost::simd::tag::bitwise_xor_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<bitwise_xor_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -64,8 +67,8 @@ NT2_TEST_CASE_TPL ( bitwise_xor_integer__2_0,  NT2_INTEGRAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
@@ -75,7 +78,7 @@ NT2_TEST_CASE_TPL ( bitwise_xor_integer__2_0,  NT2_INTEGRAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::bitwise_xor(a0,a1),a0^a1);
+        NT2_TEST_EQUAL( boost::simd::bitwise_xor(a0,a1),a0^a1);
      }
      
    }

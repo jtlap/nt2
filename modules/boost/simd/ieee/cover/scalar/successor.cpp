@@ -6,38 +6,39 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 ieee toolbox - successor/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - successor/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of ieee components in scalar mode
+// cover test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/functions/successor.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/next.hpp>
-#include <nt2/include/constants/eps_related.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/successor.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/max.hpp>
+#include <boost/simd/include/functions/next.hpp>
+#include <boost/simd/include/constants/eps_related.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
 
 
-NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( successor_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::successor;
-  using nt2::tag::successor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<successor_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::successor;
+  using boost::simd::tag::successor_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -58,20 +59,22 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::successor(a0),nt2::next(a0));
+        NT2_TEST_EQUAL( boost::simd::successor(a0),boost::simd::next(a0));
      }
      
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( successor_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( successor_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using nt2::successor;
-  using nt2::tag::successor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<successor_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::successor;
+  using boost::simd::tag::successor_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -92,20 +95,22 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::successor(a0),nt2::next(a0));
+        NT2_TEST_EQUAL( boost::simd::successor(a0),boost::simd::next(a0));
      }
      
    }
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( successor_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( successor_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::successor;
-  using nt2::tag::successor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<successor_(T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::successor;
+  using boost::simd::tag::successor_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -126,21 +131,23 @@ NT2_TEST_CASE_TPL ( successor_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::successor(a0),nt2::next(a0));
+        NT2_TEST_EQUAL( boost::simd::successor(a0),boost::simd::next(a0));
      }
      
    }
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( successor_real__2_1,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( successor_real__2_1,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::successor;
-  using nt2::tag::successor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<successor_(T,iT)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::successor;
+  using boost::simd::tag::successor_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -153,7 +160,7 @@ NT2_TEST_CASE_TPL ( successor_real__2_1,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename nt2::meta::as_integer<T>::type iT;
+    typedef typename boost::dispatch::meta::as_integer<T>::type iT;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,iT, NR, iT(2), iT(2));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -165,21 +172,23 @@ NT2_TEST_CASE_TPL ( successor_real__2_1,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::successor(a0,a1),nt2::next(nt2::next(a0)));
+        NT2_TEST_EQUAL( boost::simd::successor(a0,a1),boost::simd::next(boost::simd::next(a0)));
      }
      
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( successor_unsigned_int__2_1,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( successor_unsigned_int__2_1,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using nt2::successor;
-  using nt2::tag::successor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<successor_(T,iT)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::successor;
+  using boost::simd::tag::successor_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -192,7 +201,7 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__2_1,  NT2_UNSIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename nt2::meta::as_integer<T>::type iT;
+    typedef typename boost::dispatch::meta::as_integer<T>::type iT;
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     NT2_CREATE_BUF(tab_a1,iT, NR, iT(2), iT(2));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -204,21 +213,23 @@ NT2_TEST_CASE_TPL ( successor_unsigned_int__2_1,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::successor(a0,a1),nt2::next(nt2::next(a0)));
+        NT2_TEST_EQUAL( boost::simd::successor(a0,a1),boost::simd::next(boost::simd::next(a0)));
      }
      
    }
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( successor_signed_int__2_1,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( successor_signed_int__2_1,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::successor;
-  using nt2::tag::successor_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<successor_(T,iT)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::successor;
+  using boost::simd::tag::successor_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<successor_(T,iT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -231,7 +242,7 @@ NT2_TEST_CASE_TPL ( successor_signed_int__2_1,  NT2_INTEGRAL_SIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename nt2::meta::as_integer<T>::type iT;
+    typedef typename boost::dispatch::meta::as_integer<T>::type iT;
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     NT2_CREATE_BUF(tab_a1,iT, NR, iT(2), iT(2));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -243,7 +254,7 @@ NT2_TEST_CASE_TPL ( successor_signed_int__2_1,  NT2_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::successor(a0,a1),nt2::next(nt2::next(a0)));
+        NT2_TEST_EQUAL( boost::simd::successor(a0,a1),boost::simd::next(boost::simd::next(a0)));
      }
      
    }

@@ -6,34 +6,35 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - average/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - average/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of arithmetic components in scalar mode
+// cover test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
 /// 
 /// for integer values average does not,coincide with (a0+a1)/2 by at most one unit.
-#include <nt2/toolbox/arithmetic/include/functions/average.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/average.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( average_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( average_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::average;
-  using nt2::tag::average_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<average_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::average;
+  using boost::simd::tag::average_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<average_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -57,21 +58,23 @@ NT2_TEST_CASE_TPL ( average_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),(a0+a1)/2,0);
+        NT2_TEST_ULP_EQUAL( boost::simd::average(a0,a1),(a0+a1)/2,0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( average_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( average_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::average;
-  using nt2::tag::average_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<average_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::average;
+  using boost::simd::tag::average_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<average_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -95,21 +98,23 @@ NT2_TEST_CASE_TPL ( average_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),(a0+a1)/2,1);
+        NT2_TEST_ULP_EQUAL( boost::simd::average(a0,a1),(a0+a1)/2,1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( average_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( average_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using nt2::average;
-  using nt2::tag::average_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<average_(T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::average;
+  using boost::simd::tag::average_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<average_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -133,7 +138,7 @@ NT2_TEST_CASE_TPL ( average_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::average(a0,a1),(a0+a1)/2,1);
+        NT2_TEST_ULP_EQUAL( boost::simd::average(a0,a1),(a0+a1)/2,1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
