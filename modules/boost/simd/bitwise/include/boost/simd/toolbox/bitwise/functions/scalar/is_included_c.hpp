@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (bitwise_ornot(a1, a0) == a1); 
+      return (bitwise_and(a1, a0) == Zero<A0>()); 
     }
   };
 } } }

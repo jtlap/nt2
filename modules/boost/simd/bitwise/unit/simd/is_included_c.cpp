@@ -49,11 +49,11 @@ NT2_TEST_CASE_TPL ( is_included_c_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_included_c(boost::simd::Mone<vT>(),boost::simd::complement(boost::simd::Zero<vT>())), false);
+  NT2_TEST_EQUAL(is_included_c(boost::simd::Mone<vT>(),boost::simd::Zero<vT>()), true);
   NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(), boost::simd::One<vT>()), false);
-  NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(),boost::simd::complement(boost::simd::Mone<vT>())), true);
-  NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(),boost::simd::complement(boost::simd::Three<vT>())), true);
-  NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(),boost::simd::complement(boost::simd::Two<vT>())), false);
-  NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(),boost::simd::complement(boost::simd::Zero<vT>())), false);
+  NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(),boost::simd::Mone<vT>()), false);
+  NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(),boost::simd::Three<vT>()), false);
+  NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(),boost::simd::Two<vT>()), true);
+  NT2_TEST_EQUAL(is_included_c(boost::simd::One<vT>(),boost::simd::Zero<vT>()), true);
   NT2_TEST_EQUAL(is_included_c(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), true);
 } // end of test for integer_
