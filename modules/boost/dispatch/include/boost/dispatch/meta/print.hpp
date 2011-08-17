@@ -14,7 +14,7 @@
  * \brief Defines and implements the \ref boost::dispatch::meta::print \metafunction
  */
 
-#if 1
+#ifdef __GNUC__
 
 namespace boost { namespace dispatch { namespace meta
 {
