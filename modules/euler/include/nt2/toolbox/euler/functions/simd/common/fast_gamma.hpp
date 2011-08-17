@@ -21,7 +21,7 @@
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/bitwise_ornot.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/toolbox/euler/functions/scalar/constants.hpp>
+#include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

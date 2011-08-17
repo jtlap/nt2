@@ -28,7 +28,7 @@
 #include <nt2/include/functions/tanpi.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/poleval.hpp>
-#include <nt2/toolbox/euler/functions/scalar/constants.hpp>
+#include <nt2/toolbox/euler/constants/digammalargelim.hpp>
 
 
 
