@@ -45,8 +45,8 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Constructors from various sources
     ////////////////////////////////////////////////////////////////////////////
-    data()                  : mData()   {}
-    data(parent const& a0)  : mData(a0) {}
+    /*data()                  : mData()   {}
+    data(parent const& a0)  : mData(a0) {}*/
 
     data& operator=(data const& a0)
     {
