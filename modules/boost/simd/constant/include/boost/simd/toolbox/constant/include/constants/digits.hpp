@@ -32,6 +32,19 @@
 #include <boost/simd/toolbox/constant/include/constants/eight.hpp>
 #include <boost/simd/toolbox/constant/include/constants/nine.hpp>
 #include <boost/simd/toolbox/constant/include/constants/ten.hpp>
+#include <boost/simd/toolbox/constant/include/constants/eleven.hpp>
+#include <boost/simd/toolbox/constant/include/constants/twelve.hpp>
+#include <boost/simd/toolbox/constant/include/constants/twenty.hpp>
+
+#include <boost/simd/toolbox/constant/include/constants/fact_4.hpp>
+#include <boost/simd/toolbox/constant/include/constants/fact_5.hpp>
+#include <boost/simd/toolbox/constant/include/constants/fact_6.hpp>
+#include <boost/simd/toolbox/constant/include/constants/fact_7.hpp>
+#include <boost/simd/toolbox/constant/include/constants/fact_8.hpp>
+#include <boost/simd/toolbox/constant/include/constants/fact_9.hpp>
+#include <boost/simd/toolbox/constant/include/constants/fact_10.hpp>
+#include <boost/simd/toolbox/constant/include/constants/fact_11.hpp>
+
 
 #include <boost/simd/toolbox/constant/include/constants/int_splat.hpp>
 
