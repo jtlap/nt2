@@ -12,6 +12,11 @@
     #include <string.h>
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4996) // The POSIX name for this item is deprecated.
+#endif
+
 namespace filesystem
 {
     inline std::string parent_path( std::string const & path )
@@ -46,5 +51,9 @@ namespace filesystem
         #endif // OS API
     }
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif

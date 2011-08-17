@@ -18,6 +18,11 @@
     #define FILESYSTEM_MKDIR_SUFFIX , 0777
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4996) // The POSIX name for this item is deprecated.
+#endif
+
 namespace filesystem
 {
     inline void create_directories( std::string const & file_path )
@@ -70,5 +75,9 @@ namespace filesystem
         return current_path( directory.c_str() );
     }
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif
