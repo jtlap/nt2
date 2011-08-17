@@ -8,8 +8,8 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants real"
 
-#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/real.hpp>
+#include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////

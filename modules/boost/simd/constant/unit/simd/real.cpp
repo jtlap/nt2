@@ -8,10 +8,10 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants SIMD real"
 
+#include <boost/simd/include/constants/real.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <boost/simd/include/constants/real.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of real constants for every base real types

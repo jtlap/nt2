@@ -8,9 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants infinites"
 
-#include <limits>
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/constants/properties.hpp>
+#include <limits>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

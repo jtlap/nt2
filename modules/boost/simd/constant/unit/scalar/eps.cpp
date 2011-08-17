@@ -8,9 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants eps related"
 
+#include <boost/simd/include/constants/eps_related.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <boost/simd/include/constants/eps_related.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of eps constants for every base real types

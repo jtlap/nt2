@@ -8,10 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants true/false"
 
+#include <boost/simd/include/constants/true_false.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-
-#include <boost/simd/include/constants/true_false.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constants for every base real types
