@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -62,14 +63,14 @@ namespace nt2 { namespace ext
       A0 r =  One<A0>();
       r =  sel(eq(a00, Two<A0>()),     Two<A0>(),  r);
       r =  sel(eq(a00, Three<A0>()),   Six<A0>(), r); 
-      r =  sel(eq(a00, Four<A0>()),    Twentyfour<A0>(), r); 
-      r =  sel(eq(a00, Five<A0>()),    _120<A0>(), r);
-      r =  sel(eq(a00, Six<A0>()),     _720<A0>() , r);
-      r =  sel(eq(a00, Seven<A0>()),   _5040<A0>(), r);
-      r =  sel(eq(a00, Eight<A0>()),   _40320<A0>() , r); 
-      r =  sel(eq(a00, Nine<A0>()),    _362880<A0>(), r);
-      r =  sel(eq(a00, Ten<A0>()),     _3628800<A0>(), r);
-      r =  sel(eq(a00, Eleven<A0>()),  _39916800<A0>(), r);
+      r =  sel(eq(a00, Four<A0>()),    Fact_4<A0>(), r); 
+      r =  sel(eq(a00, Five<A0>()),    Fact_5<A0>(), r);
+      r =  sel(eq(a00, Six<A0>()),     Fact_6<A0>() , r);
+      r =  sel(eq(a00, Seven<A0>()),   Fact_7<A0>(), r);
+      r =  sel(eq(a00, Eight<A0>()),   Fact_8<A0>() , r); 
+      r =  sel(eq(a00, Nine<A0>()),    Fact_9<A0>(), r);
+      r =  sel(eq(a00, Ten<A0>()),     Fact_10<A0>(), r);
+      r =  sel(eq(a00, Eleven<A0>()),  Fact_11<A0>(), r);
       return sel(ge(a00, Twelve<A0>()), Valmax<A0>(), r);
     }
   };
@@ -85,10 +86,10 @@ namespace nt2 { namespace ext
       A0 r =  One<A0>();
       r =  sel(eq(a00, Two<A0>()), Two<A0>(),  r);
       r =  sel(eq(a00, Three<A0>()), Six<A0>(), r); 
-      r =  sel(eq(a00, Four<A0>()), Twentyfour<A0>(), r); 
-      r =  sel(eq(a00, Five<A0>()), _120<A0>(), r);
-      r =  sel(eq(a00, Six<A0>()), _720<A0>() , r);
-      r =  sel(eq(a00, Seven<A0>()),_5040<A0>(), r);
+      r =  sel(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
+      r =  sel(eq(a00, Five<A0>()), Fact_5<A0>(), r);
+      r =  sel(eq(a00, Six<A0>()),  Fact_6<A0>() , r);
+      r =  sel(eq(a00, Seven<A0>()),Fact_7<A0>(), r);
       return sel(ge(a00, Eight<A0>()), Valmax<A0>(), r);
     }
   };
@@ -104,11 +105,11 @@ namespace nt2 { namespace ext
       A0 r =  One<A0>();
       r =  sel(eq(a00, Two<A0>()), Two<A0>(),  r);
       r =  sel(eq(a00, Three<A0>()), Six<A0>(), r); 
-      r =  sel(eq(a00, Four<A0>()), Twentyfour<A0>(), r); 
-      r =  sel(eq(a00, Five<A0>()), _120<A0>(), r);
-      r =  sel(eq(a00, Six<A0>()),  _720<A0>() , r);
-      r =  sel(eq(a00, Seven<A0>()), _5040<A0>(), r);
-      r =  sel(eq(a00, Eight<A0>()), _40320<A0>() , r); 
+      r =  sel(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
+      r =  sel(eq(a00, Five<A0>()), Fact_5<A0>(), r);
+      r =  sel(eq(a00, Six<A0>()),  Fact_6<A0>() , r);
+      r =  sel(eq(a00, Seven<A0>()), Fact_8<A0>(), r);
+      r =  sel(eq(a00, Eight<A0>()), Fact_9<A0>() , r); 
       return sel(ge(a00, Nine<A0>()), Valmax<A0>(), r);
     }
   };
@@ -125,8 +126,8 @@ namespace nt2 { namespace ext
       A0 r =  One<A0>();
       r =  sel(eq(a00, Two<A0>()), Two<A0>(),  r);
       r =  sel(eq(a00, Three<A0>()), Six<A0>(), r); 
-      r =  sel(eq(a00, Four<A0>()), Twentyfour<A0>(), r); 
-      r =  sel(eq(a00, Five<A0>()), _120<A0>(), r);
+      r =  sel(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
+      r =  sel(eq(a00, Five<A0>()), Fact_5<A0>(), r);
       return sel(gt(a00, Five<A0>()), Valmax<A0>(), r);
     }
   };

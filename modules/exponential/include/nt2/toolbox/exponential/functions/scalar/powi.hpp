@@ -22,7 +22,7 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/copysign.hpp>
-
+#include <nt2/include/constants/real.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
