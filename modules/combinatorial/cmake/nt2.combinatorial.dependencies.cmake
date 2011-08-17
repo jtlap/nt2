@@ -7,4 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_COMBINATORIAL_DEPENDENCIES_EXTRA euler)
+SET(NT2_COMBINATORIAL_DEPENDENCIES_EXTRA arithmetic bitwise constant ieee operator predicates reduction swar
+                                         euler exponential
+   )
