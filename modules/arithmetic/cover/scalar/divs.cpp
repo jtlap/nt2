@@ -29,7 +29,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::divs(a0,a1),nt2::divs(a0,a1));
+        NT2_TEST_EQUAL( nt2::divs(a0,a1),(a1) ? a0/a1 :( (a0>0) ? nt2::Valmax<T>() : ((a0) ? nt2::Valmin<T>() : nt2::Zero<T>())));
      }
      
    }
@@ -102,7 +102,7 @@ NT2_TEST_CASE_TPL ( divs_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::divs(a0,a1),nt2::divs(a0,a1));
+        NT2_TEST_EQUAL( nt2::divs(a0,a1),(a1) ? a0/a1 : ( (a0>0) ? nt2::Valmax<T>() : nt2::Zero<T>() ));
      }
      
    }
