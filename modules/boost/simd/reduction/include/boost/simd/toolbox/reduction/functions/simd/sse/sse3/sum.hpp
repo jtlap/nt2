@@ -23,8 +23,7 @@ namespace boost { namespace simd { namespace ext
                       ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                      )
   {
-      typedef typename meta::scalar_of<A0>::type                 base;
-      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(base)>::type  result_type;
+      typedef typename meta::scalar_of<A0>::type                result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {

@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                               (scalar_< fundamental_<A1> >)
                             )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A1)>::type result_type;
+    typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return boost::simd::is_true(a0)?-a1:a1; }
   };
 } } }
