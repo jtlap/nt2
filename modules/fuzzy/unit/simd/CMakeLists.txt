@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  almost_less_or_equ.cpp
   knuth_equal.cpp
   fuzzy_less_or_equal.cpp
   fuzzy_greater_or_equal.cpp

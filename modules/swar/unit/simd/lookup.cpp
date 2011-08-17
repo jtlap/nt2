@@ -36,6 +36,7 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 //COMMENTED
 
 NT2_TEST_CASE_TPL ( lookup_real__2_0,  NT2_REAL_TYPES)
