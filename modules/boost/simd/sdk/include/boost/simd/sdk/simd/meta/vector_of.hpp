@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd
 {
-  template<class Scalar,class Extension> struct native;
+  template<class Scalar,class Extension> union native;
 } }
 
 /* We use boost::mpl::sizeof_ rather than sizeof because MSVC has trouble
