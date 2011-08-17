@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 predicates toolbox - is_equal_with_equal_nans/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.predicates toolbox - is_equal_with_equal_nans/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of predicates components in scalar mode
+// cover test behavior of boost.simd.predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
 /// 
@@ -19,12 +19,11 @@
 #include <boost/simd/sdk/meta/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
@@ -32,9 +31,11 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::is_equal_with_equal_nans;
   using boost::simd::tag::is_equal_with_equal_nans_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<is_equal_with_equal_nans_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<is_equal_with_equal_nans_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
@@ -45,14 +46,14 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const boost::simd::uint32_t NR = BOOST_SIMD_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    BOOST_SIMD_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    BOOST_SIMD_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for(boost::simd::uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -69,9 +70,11 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_INTEGR
   
   using boost::simd::is_equal_with_equal_nans;
   using boost::simd::tag::is_equal_with_equal_nans_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<is_equal_with_equal_nans_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<is_equal_with_equal_nans_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
@@ -82,14 +85,14 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_INTEGR
   ulpd=0.0;
 
   // random verifications
-  static const boost::simd::uint32_t NR = BOOST_SIMD_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    BOOST_SIMD_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    BOOST_SIMD_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for(boost::simd::uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
@@ -106,9 +109,11 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_UNSI
   
   using boost::simd::is_equal_with_equal_nans;
   using boost::simd::tag::is_equal_with_equal_nans_;
-  typedef typename boost::simd::meta::as_integer<T>::type iT;
-  typedef typename boost::simd::meta::call<is_equal_with_equal_nans_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<is_equal_with_equal_nans_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
@@ -119,14 +124,14 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_UNSI
   ulpd=0.0;
 
   // random verifications
-  static const boost::simd::uint32_t NR = BOOST_SIMD_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    BOOST_SIMD_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
-    BOOST_SIMD_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
+    NT2_CREATE_BUF(tab_a1,T, NR, T(-10000), T(10000));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
-    for(boost::simd::uint32_t j =0; j < NR; ++j )
+    for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])

@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_FUZZY_DEPENDENCIES_EXTRA ieee)
+SET(NT2_FUZZY_DEPENDENCIES_EXTRA arithmetic constant ieee operator predicates)

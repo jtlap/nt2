@@ -32,7 +32,7 @@ extern "C" {extern long double cephes_cosl(long double);}
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( fast_cospi_real__1_0,  NT2_REAL_TYPES)
@@ -40,6 +40,7 @@ NT2_TEST_CASE_TPL ( fast_cospi_real__1_0,  NT2_REAL_TYPES)
   
   using nt2::fast_cospi;
   using nt2::tag::fast_cospi_;
+  static const long double long_pi = 3.141592653589793238462643383279502884197l;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_cospi_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -56,6 +57,7 @@ NT2_TEST_CASE_TPL ( fast_cospi_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
+    static const long double long_pi = 3.141592653589793238462643383279502884197l;
     NT2_CREATE_BUF(tab_a0,T, NR, T(0.25), T(0.25));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
@@ -64,7 +66,7 @@ NT2_TEST_CASE_TPL ( fast_cospi_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::fast_cospi(a0),::cephes_cosl(nt2::long_pi*a0),0.5);
+        NT2_TEST_ULP_EQUAL( nt2::fast_cospi(a0),::cephes_cosl(long_pi*a0),0.5);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -76,6 +78,7 @@ NT2_TEST_CASE_TPL ( fast_cospi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   
   using nt2::fast_cospi;
   using nt2::tag::fast_cospi_;
+  static const long double long_pi = 3.141592653589793238462643383279502884197l;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_cospi_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -96,6 +99,7 @@ NT2_TEST_CASE_TPL ( fast_cospi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   
   using nt2::fast_cospi;
   using nt2::tag::fast_cospi_;
+  static const long double long_pi = 3.141592653589793238462643383279502884197l;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<fast_cospi_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;

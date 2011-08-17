@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::none_, boost::simd::tag::sse2_
                             , (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse2_>))
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
 

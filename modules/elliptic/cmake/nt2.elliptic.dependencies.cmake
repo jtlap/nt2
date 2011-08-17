@@ -7,4 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_ELLIPTIC_DEPENDENCIES_EXTRA trigonometric exponential)
+SET(NT2_ELLIPTIC_DEPENDENCIES_EXTRA arithmetic bitwise constant ieee operator predicates reduction
+                                    polynomials
+                                    exponential trigonometric
+   )

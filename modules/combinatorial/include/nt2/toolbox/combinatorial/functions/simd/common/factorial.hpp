@@ -18,7 +18,12 @@
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/round.hpp>
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/select.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -32,7 +37,25 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::round(nt2::gamma(oneplus(nt2::trunc(nt2::abs(a0)))));
+      A0 r =  One<A0>();
+      A0 a00 = nt2::trunc(nt2::abs(a0)); 
+      r =  select(eq(a00, Two<A0>()),     Two<A0>(),    r);
+      r =  select(eq(a00, Three<A0>()),   Six<A0>(),    r); 
+      r =  select(eq(a00, Four<A0>()),    Fact_4<A0>(), r); 
+      r =  select(eq(a00, Five<A0>()),    Fact_5<A0>(), r);
+      r =  select(eq(a00, Six<A0>()),     Fact_6<A0>(), r);
+      r =  select(eq(a00, Seven<A0>()),   Fact_7<A0>(), r);
+      r =  select(eq(a00, Eight<A0>()),   Fact_8<A0>(), r); 
+      r =  select(eq(a00, Nine<A0>()),    Fact_9<A0>(), r);
+      r =  select(eq(a00, Ten<A0>()),     Fact_10<A0>(),r);
+      r =  select(eq(a00, Eleven<A0>()),  Fact_11<A0>(),r);
+      r =  select(eq(a00, Twelve<A0>()),  Fact_12<A0>(),r);
+      A0 test = le(a00, Twelve<A0>());
+      if (nt2::all(test))
+	return r;
+      else
+	return select(test, r, 
+		 nt2::round(nt2::gamma(oneplus(a00))));
     }
   };
   
@@ -47,7 +70,7 @@ namespace nt2 { namespace ext
 	using boost::simd::bitwise_cast; 
 	typedef typename meta::as_real<A0>::type ftype;
 	ftype r = nt2::factorial(nt2::tofloat(a0));
-	return sel(gt(r,tofloat(Valmax<A0>())), Valmax<A0>(), bitwise_cast<A0>(nt2::toint(r))); 
+	return select(gt(r,tofloat(Valmax<A0>())), Valmax<A0>(), bitwise_cast<A0>(nt2::toint(r))); 
       }
   };
 
@@ -61,17 +84,18 @@ namespace nt2 { namespace ext
     {
       const A0 a00 = abss(a0);
       A0 r =  One<A0>();
-      r =  sel(eq(a00, Two<A0>()),     Two<A0>(),  r);
-      r =  sel(eq(a00, Three<A0>()),   Six<A0>(), r); 
-      r =  sel(eq(a00, Four<A0>()),    Fact_4<A0>(), r); 
-      r =  sel(eq(a00, Five<A0>()),    Fact_5<A0>(), r);
-      r =  sel(eq(a00, Six<A0>()),     Fact_6<A0>() , r);
-      r =  sel(eq(a00, Seven<A0>()),   Fact_7<A0>(), r);
-      r =  sel(eq(a00, Eight<A0>()),   Fact_8<A0>() , r); 
-      r =  sel(eq(a00, Nine<A0>()),    Fact_9<A0>(), r);
-      r =  sel(eq(a00, Ten<A0>()),     Fact_10<A0>(), r);
-      r =  sel(eq(a00, Eleven<A0>()),  Fact_11<A0>(), r);
-      return sel(ge(a00, Twelve<A0>()), Valmax<A0>(), r);
+      r =  select(eq(a00, Two<A0>()),     Two<A0>(),  r);
+      r =  select(eq(a00, Three<A0>()),   Six<A0>(), r); 
+      r =  select(eq(a00, Four<A0>()),    Fact_4<A0>(), r); 
+      r =  select(eq(a00, Five<A0>()),    Fact_5<A0>(), r);
+      r =  select(eq(a00, Six<A0>()),     Fact_6<A0>() , r);
+      r =  select(eq(a00, Seven<A0>()),   Fact_7<A0>(), r);
+      r =  select(eq(a00, Eight<A0>()),   Fact_8<A0>() , r); 
+      r =  select(eq(a00, Nine<A0>()),    Fact_9<A0>(), r);
+      r =  select(eq(a00, Ten<A0>()),     Fact_10<A0>(), r);
+      r =  select(eq(a00, Eleven<A0>()),  Fact_11<A0>(), r);
+      r =  select(eq(a00, Twelve<A0>()),  Fact_12<A0>(), r);
+      return select(gt(a00, Twelve<A0>()), Valmax<A0>(), r);
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
@@ -84,13 +108,13 @@ namespace nt2 { namespace ext
     {
       const A0 a00 = abss(a0);
       A0 r =  One<A0>();
-      r =  sel(eq(a00, Two<A0>()), Two<A0>(),  r);
-      r =  sel(eq(a00, Three<A0>()), Six<A0>(), r); 
-      r =  sel(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
-      r =  sel(eq(a00, Five<A0>()), Fact_5<A0>(), r);
-      r =  sel(eq(a00, Six<A0>()),  Fact_6<A0>() , r);
-      r =  sel(eq(a00, Seven<A0>()),Fact_7<A0>(), r);
-      return sel(ge(a00, Eight<A0>()), Valmax<A0>(), r);
+      r =  select(eq(a00, Two<A0>()), Two<A0>(),  r);
+      r =  select(eq(a00, Three<A0>()), Six<A0>(), r); 
+      r =  select(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
+      r =  select(eq(a00, Five<A0>()), Fact_5<A0>(), r);
+      r =  select(eq(a00, Six<A0>()),  Fact_6<A0>() , r);
+      r =  select(eq(a00, Seven<A0>()),Fact_7<A0>(), r);
+      return select(ge(a00, Eight<A0>()), Valmax<A0>(), r);
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
@@ -103,14 +127,14 @@ namespace nt2 { namespace ext
     {
       const A0 a00 = abss(a0);
       A0 r =  One<A0>();
-      r =  sel(eq(a00, Two<A0>()), Two<A0>(),  r);
-      r =  sel(eq(a00, Three<A0>()), Six<A0>(), r); 
-      r =  sel(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
-      r =  sel(eq(a00, Five<A0>()), Fact_5<A0>(), r);
-      r =  sel(eq(a00, Six<A0>()),  Fact_6<A0>() , r);
-      r =  sel(eq(a00, Seven<A0>()), Fact_8<A0>(), r);
-      r =  sel(eq(a00, Eight<A0>()), Fact_9<A0>() , r); 
-      return sel(ge(a00, Nine<A0>()), Valmax<A0>(), r);
+      r =  select(eq(a00, Two<A0>()), Two<A0>(),  r);
+      r =  select(eq(a00, Three<A0>()), Six<A0>(), r); 
+      r =  select(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
+      r =  select(eq(a00, Five<A0>()), Fact_5<A0>(), r);
+      r =  select(eq(a00, Six<A0>()),  Fact_6<A0>() , r);
+      r =  select(eq(a00, Seven<A0>()), Fact_7<A0>(), r);
+      r =  select(eq(a00, Eight<A0>()), Fact_8<A0>() , r); 
+      return select(ge(a00, Nine<A0>()), Valmax<A0>(), r);
     }
   };
 
@@ -124,11 +148,11 @@ namespace nt2 { namespace ext
     {
       const A0 a00 = abss(a0);
       A0 r =  One<A0>();
-      r =  sel(eq(a00, Two<A0>()), Two<A0>(),  r);
-      r =  sel(eq(a00, Three<A0>()), Six<A0>(), r); 
-      r =  sel(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
-      r =  sel(eq(a00, Five<A0>()), Fact_5<A0>(), r);
-      return sel(gt(a00, Five<A0>()), Valmax<A0>(), r);
+      r =  select(eq(a00, Two<A0>()), Two<A0>(),  r);
+      r =  select(eq(a00, Three<A0>()), Six<A0>(), r); 
+      r =  select(eq(a00, Four<A0>()), Fact_4<A0>(), r); 
+      r =  select(eq(a00, Five<A0>()), Fact_5<A0>(), r);
+      return select(gt(a00, Five<A0>()), Valmax<A0>(), r);
     }
   };
 } }

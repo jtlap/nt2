@@ -9,7 +9,7 @@
             },
          'simd_types' : ['real_','int_convert_','uint_convert_'],
          'special' : ['trigonometric'],
-         'type_defs' : [],
+         'type_defs' : ['static const long double long_pi = 3.141592653589793238462643383279502884197l;'],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
          'simd_types' : ['real_'],
         },
@@ -51,7 +51,7 @@
                  'real_' : ['nt2::asinpi(a0)'],
                 },
              'property_value' : {
-                 'real_' : ['::cephes_asinl(a0)/nt2::long_pi'],
+                 'real_' : ['::cephes_asinl(a0)/long_pi'],
                 },
              'ulp_thresh' : {
                  'real_' : '1.0',

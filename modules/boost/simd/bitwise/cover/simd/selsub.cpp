@@ -6,46 +6,46 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - selsub/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - selsub/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of bitwise components in simd mode
+// cover test behavior of boost.simd.bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/functions/selsub.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/toolbox/predicates/include/functions/is_nez.hpp>
+#include <boost/simd/toolbox/bitwise/include/functions/selsub.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/max.hpp>
+#include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( selsub_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using nt2::selsub;
-  using nt2::tag::selsub_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::selsub;
+  using boost::simd::tag::selsub_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<selsub_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<selsub_(T,T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<selsub_(vT,vT,vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -53,15 +53,15 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_SIMD_REAL_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(0));
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a2,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
+        r_t v = boost::simd::selsub(boost::simd::is_nez(a0),a1,a2);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
@@ -71,16 +71,16 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_SIMD_REAL_TYPES)
     
   }
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Nan<T>(), nt2::Nan<T>());
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(-1));
+    NT2_CREATE_BUF(tab_a1,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a2,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
+        r_t v = boost::simd::selsub(boost::simd::is_nez(a0),a1,a2);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
@@ -91,22 +91,22 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_SIMD_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  using nt2::selsub;
-  using nt2::tag::selsub_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::selsub;
+  using boost::simd::tag::selsub_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<selsub_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<selsub_(T,T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<selsub_(vT,vT,vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -114,15 +114,15 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(0));
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a2,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
+        r_t v = boost::simd::selsub(boost::simd::is_nez(a0),a1,a2);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
@@ -133,15 +133,15 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   }
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(-1));
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a2,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
+        r_t v = boost::simd::selsub(boost::simd::is_nez(a0),a1,a2);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
@@ -152,22 +152,22 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   }
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
-  using nt2::selsub;
-  using nt2::tag::selsub_;
-  using nt2::load; 
-  using nt2::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::selsub;
+  using boost::simd::tag::selsub_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<selsub_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<selsub_(T,T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<selsub_(vT,vT,vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
@@ -175,15 +175,15 @@ NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(0));
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmax<T>()/2, nt2::Valmax<T>());
-    NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a2,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
+        r_t v = boost::simd::selsub(boost::simd::is_nez(a0),a1,a2);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
@@ -194,15 +194,15 @@ NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
   }
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(-1));
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmax<T>()/2, nt2::Valmax<T>());
-    NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a2,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
-        r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
+        r_t v = boost::simd::selsub(boost::simd::is_nez(a0),a1,a2);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;

@@ -44,6 +44,7 @@
 #include <boost/simd/toolbox/constant/include/constants/fact_9.hpp>
 #include <boost/simd/toolbox/constant/include/constants/fact_10.hpp>
 #include <boost/simd/toolbox/constant/include/constants/fact_11.hpp>
+#include <boost/simd/toolbox/constant/include/constants/fact_12.hpp>
 
 
 #include <boost/simd/toolbox/constant/include/constants/int_splat.hpp>

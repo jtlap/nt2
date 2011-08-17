@@ -172,6 +172,8 @@ class Specific_values_test_gen(object) :
                 g =re.sub("T","vT",g)
                 g =re.sub("vTwo","Two",g)
                 g =re.sub("vThree","Three",g)
+                g =re.sub("vTen"  ,"Ten",g)
+                g =re.sub("vTwelve"  ,"Twelve",g)
                 g =re.sub("vThousand","Thousand",g)
                 g =re.sub("ivT\(","nt2::splat<ivT>(",g)
                 g =re.sub("vT\(","nt2::splat<vT>(",g)
@@ -223,6 +225,8 @@ class Specific_values_test_gen(object) :
             if self.mode == 'simd' :
                 g =re.sub("T","vT",g)
                 g =re.sub("vTwo","Two",g)
+                g =re.sub("vTen"  ,"Ten",g)
+                g =re.sub("vTwelve"  ,"Twelve",g)
                 g =re.sub("vThree","Three",g)
                 g =re.sub("ivT\(","nt2::splat<ivT>(",g)
                 g =re.sub("vT\(","nt2::splat<vT>(",g)

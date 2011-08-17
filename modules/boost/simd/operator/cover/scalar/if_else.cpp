@@ -6,33 +6,34 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - if_else/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.operator toolbox - if_else/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of operator components in scalar mode
+// cover test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/operator/include/functions/if_else.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <boost/simd/toolbox/operator/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( if_else_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
   
-  using nt2::if_else;
-  using nt2::tag::if_else_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<if_else_(T,T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::if_else;
+  using boost::simd::tag::if_else_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<if_else_(T,T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -45,9 +46,9 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_INTEGRAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
-    NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a1,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    NT2_CREATE_BUF(tab_a2,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
     T a1;
@@ -59,20 +60,22 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_INTEGRAL_TYPES)
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << ", a2 = "<< u_t(a2 = tab_a2[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::if_else(a0,a1,a2),a0?a1:a2);
+        NT2_TEST_EQUAL( boost::simd::if_else(a0,a1,a2),a0?a1:a2);
      }
      
    }
 } // end of test for integer_
 
-NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( if_else_real__3_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::if_else;
-  using nt2::tag::if_else_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<if_else_(T,T,T)>::type r_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
+  using boost::simd::if_else;
+  using boost::simd::tag::if_else_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<if_else_(T,T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
