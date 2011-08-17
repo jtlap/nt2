@@ -28,7 +28,7 @@ namespace boost { namespace simd
     
     template<class Dummy>
     struct  Signmask::apply<float,Dummy> 
-          : meta::float_<0x80000000> {};
+          : meta::float_<0x80000000UL> {};
 
     template<class Dummy>
     struct  Signmask::apply<double,Dummy> 

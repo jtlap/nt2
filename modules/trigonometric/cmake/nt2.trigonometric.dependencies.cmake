@@ -7,4 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TRIGONOMETRIC_DEPENDENCIES_EXTRA common polynomials bitwise)
+SET(NT2_TRIGONOMETRIC_DEPENDENCIES_EXTRA arithmetic bitwise constant ieee operator predicates reduction swar
+                                         common polynomials
+                                         exponential
+   )
