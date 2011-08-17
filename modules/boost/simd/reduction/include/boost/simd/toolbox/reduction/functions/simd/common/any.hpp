@@ -9,11 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ANY_HPP_INCLUDED
 #include <boost/dispatch/meta/upgrade.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/hmsb.hpp>
-#include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/split.hpp>
+#include <boost/fusion/tuple.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -53,10 +52,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef typename dispatch::meta::upgrade<stype>::type                           utype;
+      typedef typename dispatch::meta::upgrade<stype>::type                 utype;
       typedef simd::native<utype,X>                                         ttype;
       ttype a0h, a0l;
-      boost::fusion::tie(a0h, a0l) = split(a0);
+      boost::simd::split(a0, a0h, a0l);
       return (hmsb(is_nez(a0h)) || hmsb(is_nez(a0l)));
     }
   };
@@ -79,7 +78,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef typename dispatch::meta::upgrade<stype>::type                           utype;
+      typedef typename dispatch::meta::upgrade<stype>::type                 utype;
       typedef simd::native<utype,X>                                         ttype;
       ttype a0h, a0l;
       boost::fusion::tie(a0h, a0l) = split(a0);

@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_ANY_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+//#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,18 +24,45 @@ namespace boost { namespace simd { namespace ext
       return !_mm_test_all_zeros(a0, True<A0>()) ;
     }
   };
+
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::sse4_1_,
+                        (A0),
+                        ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
+                       )
+  {
+    typedef bool result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return !_mm_test_all_zeros(a0, True<A0>()) ;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::sse4_1_,
+                        (A0),
+                        ((simd_<int8_<A0>,boost::simd::tag::sse_>))
+                       )
+  {
+    typedef bool result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return !_mm_test_all_zeros(a0, True<A0>()) ;
+    }
+  };
+
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::sse4_1_,
                         (A0),
                         ((simd_<real_<A0>,boost::simd::tag::sse_>))
                        )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type iA0; 
-      return any(bitwise_cast<iA0>(a0)) ;
+      return boost::simd::any(bitwise_cast<iA0>(a0)) ;
     }
   };
 } } }  
-#endif
+//#endif
 #endif
