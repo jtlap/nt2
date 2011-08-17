@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
-      typedef typename simd::native<boost::uint64_t,ext> ltype;
+      typedef simd::native<boost::uint64_t,ext> ltype;
       rtype v = firstbitset(a0);
       return b_and(is_nez(v), b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
                    ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
@@ -85,7 +85,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
-      typedef typename simd::native<boost::uint64_t,ext> ltype;
+      typedef simd::native<boost::uint64_t,ext> ltype;
       rtype v = firstbitset(a0);
       return  b_and(is_nez(v), b_or(b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
                        ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
@@ -113,7 +113,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
-      typedef typename simd::native<boost::uint64_t, ext> ltype;
+      typedef simd::native<boost::uint64_t, ext> ltype;
       rtype v = firstbitset(a0);
       return  b_and(is_nez(v), b_or(b_or(b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
                           ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))

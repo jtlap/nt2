@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename dispatch::meta::upgrade<stype>::type itype;
-      typedef typename simd::native<itype,X>                 ivtype;
+      typedef simd::native<itype,X>                 ivtype;
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
@@ -102,7 +102,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type           stype;
       typedef typename dispatch::meta::upgrade<stype>::type itype;
-      typedef typename simd::native<itype, X>                 ivtype;
+      typedef simd::native<itype, X>                 ivtype;
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
