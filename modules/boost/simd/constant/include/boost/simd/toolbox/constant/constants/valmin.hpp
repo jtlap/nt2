@@ -16,6 +16,11 @@
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4146)
+#endif
+
 namespace boost { namespace simd
 {
   namespace tag
@@ -54,5 +59,9 @@ namespace boost { namespace simd
   
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmin, Valmin)
 } }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif
