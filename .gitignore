@@ -32,6 +32,7 @@
 *.pdb
 *.resource.txt
 *.bak
+*.swp
 .DS_Store
 .project
 .cproject
