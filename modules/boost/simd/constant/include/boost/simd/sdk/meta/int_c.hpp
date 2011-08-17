@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_SDK_META_INT_C_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_INT_C_HPP_INCLUDED
 
+#include <boost/config.hpp>
+
 namespace boost { namespace simd { namespace meta
 {
  template<typename Type, Type Value> struct int_c

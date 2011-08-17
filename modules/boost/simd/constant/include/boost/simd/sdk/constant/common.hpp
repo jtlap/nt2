@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
       typedef boost::simd::native<pattern_type,X>                   tmp_type;
       
       return native_cast<result_type> ( boost::simd::
-                                        splat<tmp_type>( value_type::value )
+                                        splat<tmp_type>( pattern_type(value_type::value) )
                                       );
     }
   };
