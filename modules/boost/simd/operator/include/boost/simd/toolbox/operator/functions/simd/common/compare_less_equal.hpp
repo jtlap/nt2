@@ -13,24 +13,24 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_,
-                                     tag::cpu_, (X)(A0)
-                                   , ((simd_<real_<A0>,X>))
-                                     ((simd_<real_<A0>,X>))
-                                   )
-  {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      for(std::size_t i=0;i<meta::cardinal_of<A0>::value;++i)
-      {
-        if (a0[i] < a1[i])  return true;
-        if (a1[i] < a0[i])  return false;
-        if (a1[i] != a0[i]) return false;
-      }
-      return true;
-    }
-  };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_,
+//                                      tag::cpu_, (X)(A0)
+//                                    , ((simd_<real_<A0>,X>))
+//                                      ((simd_<real_<A0>,X>))
+//                                    )
+//   {
+//     typedef bool result_type;
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       for(std::size_t i=0;i<meta::cardinal_of<A0>::value;++i)
+//       {
+//         if (a0[i] < a1[i])  return true;
+//         if (a1[i] < a0[i])  return false;
+//         if (a1[i] != a0[i]) return false;
+//       }
+//       return true;
+//     }
+//   };
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_,
                                      tag::cpu_, (X)(A0)

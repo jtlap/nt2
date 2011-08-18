@@ -26,6 +26,7 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( compare_less_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -51,7 +52,7 @@ NT2_TEST_CASE_TPL ( compare_less_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(compare_less_equal(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), true);
   NT2_TEST_EQUAL(compare_less_equal(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), true);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), false);
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), true);
   NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>()), false);
   NT2_TEST_EQUAL(compare_less_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), true);
 } // end of test for real_

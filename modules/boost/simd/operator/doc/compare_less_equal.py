@@ -41,7 +41,7 @@
              'real_' : {
                  'boost::simd::Inf<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'boost::simd::Minf<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'boost::simd::Nan<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'boost::simd::Nan<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'boost::simd::One<T>(),boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                 },
@@ -58,7 +58,7 @@
                         "        bool z = true;",
                         "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
-                        "          if (a0[i]<=a1[i]) {z=true;break;}",
+                        "          if (!(a0[i]>a1[i])) {z=true;break;}",
                         "          else if (a0[i]>a1[i]){z=false; break;}",
                         "        }",
                         "        NT2_TEST_EQUAL( v,z);",

@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES
         bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
-          if (a0[i]>=a1[i]) {z=true;break;}
+          if (!(a0[i]<a1[i])) {z=true;break;}
           else if (a0[i]<a1[i]){z=false; break;}
         }
         NT2_TEST_EQUAL( v,z);
@@ -105,7 +105,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  BOOST_SIMD_SIMD_INTE
         bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
-          if (a0[i]>=a1[i]) {z=true;break;}
+          if (!(a0[i]<a1[i])) {z=true;break;}
           else if (a0[i]<a1[i]){z=false; break;}
         }
         NT2_TEST_EQUAL( v,z);
@@ -147,7 +147,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  BOOST_SIMD_SIMD_UN
         bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
-          if (a0[i]>=a1[i]) {z=true;break;}
+          if (!(a0[i]<a1[i])) {z=true;break;}
           else if (a0[i]<a1[i]){z=false; break;}
         }
         NT2_TEST_EQUAL( v,z);

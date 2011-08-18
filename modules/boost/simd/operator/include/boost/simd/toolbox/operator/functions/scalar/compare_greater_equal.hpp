@@ -18,7 +18,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 >= a1; }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return !(a0 <  a1); }
   };
 } } }
  
