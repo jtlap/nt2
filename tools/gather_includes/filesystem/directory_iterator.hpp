@@ -5,6 +5,7 @@
 #include <boost/assert.hpp>
 #include <stdexcept>
 #include <string>
+#include <cstring>
 
 #ifdef BOOST_WINDOWS_API
     #define NOMINMAX
@@ -23,11 +24,12 @@ namespace filesystem
     #ifdef BOOST_WINDOWS_API
         directory_iterator( char const * const path )
             :
-            handle_              ( ::FindFirstFileA( path, &state_ ) ),
+            handle_              ( ::FindFirstFileA( (std::string(path) + "\\*").c_str(), &state_ ) ),
             p_current_entry_name_( state_.cFileName                  )
         {
             if ( !handle_ )
                 throw std::runtime_error( std::string("Error opening directory ") + path );
+            skip_dots();
         }
     #else // POSIX
          directory_iterator( char const * const path )
@@ -59,6 +61,12 @@ namespace filesystem
         }
     
     private:
+        void skip_dots()
+        {
+            if ( p_current_entry_name_ && ( !std::strcmp(p_current_entry_name_, ".") || !std::strcmp(p_current_entry_name_, "..") ) )
+                get_next_entry();
+        }
+
         void get_next_entry()
         {
             #ifdef BOOST_WINDOWS_API
@@ -74,12 +82,12 @@ namespace filesystem
                 dirent * const p_entry( ::readdir( p_dir_ ) );
                 p_current_entry_name_ = p_entry ? p_entry->d_name : NULL;
                 bool const failed( !p_entry && errno );
-                if ( p_current_entry_name_ && ( !::strcmp(p_current_entry_name_, ".") || !::strcmp(p_current_entry_name_, "..") ) )
-                    get_next_entry();
             #endif // OS API
     
             if ( failed )
-                throw std::runtime_error( "Error reading a directory." );
+                throw std::runtime_error( "Error reading a directory" );
+
+            skip_dots();
         }
     
         #ifdef BOOST_WINDOWS_API
