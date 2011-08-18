@@ -18,7 +18,7 @@ namespace boost { namespace simd
   ////////////////////////////////////////////////////////////////////////////
   // Here is the domain-specific expression wrapper
   ////////////////////////////////////////////////////////////////////////////
-  template<class Expr,class Type,class Cardinal>
+  template<class Expr,class Type,class Cardinal,class Dummy>
   struct  expression
   {
     BOOST_PROTO_BASIC_EXTENDS_TPL(Expr, (expression<Expr, Type, Cardinal>)
@@ -33,7 +33,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // FusionRandomAccessSequence interface
     ////////////////////////////////////////////////////////////////////////////
-    typedef data<Type,Cardinal>                     data_type;
+    typedef pack<Type,Cardinal::value>              data_type;
     typedef typename data_type::value_type          value_type;
     typedef typename data_type::reference           reference;
     typedef typename data_type::const_reference     const_reference;

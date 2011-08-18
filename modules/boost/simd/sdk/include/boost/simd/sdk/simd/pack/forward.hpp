@@ -20,6 +20,7 @@ namespace boost { namespace simd
   template< class Expression
           , class Type
           , class Cardinal
+	  , class Dummy = boost::proto::is_proto_expr
           >
   struct expression;
 

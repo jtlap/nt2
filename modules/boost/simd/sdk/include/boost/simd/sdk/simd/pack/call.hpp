@@ -23,12 +23,12 @@ namespace boost { namespace simd { namespace ext
                               (scalar_< integer_<Data> >)
                             )
   {
-    typedef typename Value::parent result_type;
+    typedef Value result_type;
 
     inline result_type
     operator()( Value const& v, State const& , Data const& ) const
     {
-      return v.value();
+      return v;
     }
   };
 
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
                                   (scalar_< integer_<Data> >)
                                 )
 {
-    typedef typename Value::parent::value_type result_type;
+    typedef typename Value::value_type result_type;
 
     inline result_type
     operator()( Value const& v, State const&, Data const& p ) const

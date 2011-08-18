@@ -25,10 +25,12 @@ namespace boost { namespace simd
   struct  pack
   {
     BOOST_PROTO_BASIC_EXTENDS_TPL( (typename boost::proto::
-                                     terminal< data< Type
-                                                   , boost::mpl::size_t<Cardinal>
-                                                   >
-                                             >::type)
+                                    terminal< typename meta::
+                                                       vector_of< Type
+                                                                , boost::mpl::
+                                                                         size_t<Cardinal>::value
+                                                                >::type
+                                            >::type)
                                  , (pack<Type,Cardinal>)
                                  , (domain<Type,boost::mpl::size_t<Cardinal> >))
 
@@ -43,7 +45,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Data holder of pack terminals
     ////////////////////////////////////////////////////////////////////////////
-    typedef data<Type,boost::mpl::size_t<Cardinal> >            data_type;
+    typedef typename meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value >::type data_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // expression hierarchy of simd:::expression
@@ -55,7 +57,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename data_type::parent          base_type;
+    //typedef typename data_type::parent          base_type;
     typedef typename data_type::value_type      value_type;
     typedef typename data_type::reference       reference;
     typedef typename data_type::const_reference const_reference;
@@ -66,7 +68,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Array interface
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_STATIC_CONSTANT(size_type, static_size = base_type::static_size);
+    BOOST_STATIC_CONSTANT(size_type, static_size = data_type::static_size);
 
     ////////////////////////////////////////////////////////////////////////////
     // Assignments
@@ -108,20 +110,25 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     data_type const& value() const { return boost::proto::value(*this); }
 
+    template<class X> void evaluate(X const& xpr)
+    {
+      boost::simd::evaluate(boost::proto::value(*this), xpr);
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     // SIMD expression evaluates as pack in assignment context
     // TODO: fix to use obliviosu AST evaluation
     ////////////////////////////////////////////////////////////////////////////
     template<class X> pack& operator=(X const& xpr )
     {
-      boost::proto::value(*this).evaluate(xpr);
+      evaluate(xpr);
       return *this;
     }
 
-    #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                                      \
+    #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                               \
     template<class X> pack& operator BOOST_PP_CAT(OP,=)(X const& xpr )  \
     {                                                                   \
-      boost::proto::value(*this).evaluate(*this OP xpr);                \
+      evaluate(*this OP xpr);                                           \
       return *this;                                                     \
     }                                                                   \
     /**/
