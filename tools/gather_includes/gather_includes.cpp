@@ -7,7 +7,6 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //============================================================================== 
 
-#include <boost/program_options.hpp>
 #include <filesystem/filesystem.hpp>
 
 #include <boost/assert.hpp>
@@ -17,59 +16,15 @@
 #include <boost/range/size.hpp>
 #include <boost/utility.hpp>
 
+#include <set>
+#include <map>
+#include <vector>
 #include <algorithm>
 #include <cctype>
-#include <climits>
 #include <fstream>
 #include <iostream>
 
-namespace po = boost::program_options;
 namespace fs = filesystem;
-using std::vector;
-using std::string;
-using std::pair;
-
-// Compiler options
-po::options_description cmdline_options("Allowed options");
-
-po::parsed_options compiler_options(int argc, char* argv[])
-{    
-    po::options_description generic("Generic options");
-    generic.add_options()
-        ("version,v",  "print version string")
-        ("help,h",     "produce help message")
-    ;
-    
-    po::options_description config("Configuration");
-    config.add_options()
-        ("include-path,I", po::value< vector<string> >()->composing()->default_value(vector<string>(), ""), 
-                           "include path")
-        ("ignore",         po::value< vector<string> >()->composing()->default_value(vector<string>(), ""), 
-                           "directory names to ignore when looking for files")
-        ("binary-path",    po::value<string>(), "binary path")
-        ("directory",      po::value< vector<string> >()->composing()->default_value(vector<string>(), ""), 
-                           "directory where files are or where they should be put")
-        ("all",            po::value< vector<string> >()->composing()->default_value(vector<string>(), ""),
-                           "reduce all files in previous directory to a single one")
-    ;
-    
-    cmdline_options.add(generic).add(config);
-    
-    po::positional_options_description p;
-    p.add("binary-path",  1);
-    p.add("directory",   -1);
-
-    return po::command_line_parser(argc, argv).
-               options(cmdline_options).positional(p).run();
-}
-
-template<class T, class Allocator>
-std::ostream& operator<<(std::ostream& os, const std::vector<T, Allocator>& v)
-{
-    for(std::size_t i=0; i!=v.size(); ++i)
-        os << v[i] << ", ";
-    return os;
-}
 
 struct depth_compare
 {
@@ -114,7 +69,7 @@ struct depth_compare
 typedef std::set<std::string, depth_compare> FileSet;
 typedef std::map<std::string, FileSet      > Files  ;
 
-void find_files_recursive_worker( Files & files, std::string const & path, std::vector<string> const & ignore )
+void find_files_recursive_worker( Files & files, std::string const & path, std::set<std::string> const & ignore )
 {
     BOOST_ASSERT( fs::current_path().size() > path.size() );
     std::string cwd_relative_path( fs::current_path().c_str() + path.size() + 1 );
@@ -130,7 +85,7 @@ void find_files_recursive_worker( Files & files, std::string const & path, std::
         {
             files[ entry_name ].insert( cwd_relative_path + '/' + entry_name );
         }
-        else if( std::find( ignore.begin(), ignore.end(), entry_name ) == ignore.end() )
+        else if( ignore.find(entry_name) == ignore.end() )
         {
             fs::current_path_saver const cps;
             
@@ -145,10 +100,10 @@ void find_files_recursive_worker( Files & files, std::string const & path, std::
 
 void find_files
 (
-    Files                     & files,
-    std::vector<string> const & paths,
-    std::vector<string> const & ignore,
-    std::string         const & source_dir
+    Files                          & files,
+    std::vector<std::string> const & paths,
+    std::set<std::string>    const & ignore,
+    std::string              const & source_dir
 )
 {
     BOOST_FOREACH( std::string const & path, paths )
@@ -203,64 +158,79 @@ int main(int argc, char* argv[])
 {
     try
     {
-        po::parsed_options options = compiler_options(argc, argv);
-        po::variables_map vm;
-        
-        store(options, vm);
-        notify(vm);
-    
-        if(vm.count("help"))
+        if(argc < 3)
         {
-            std::cout << "Usage: gather_includes [options] binary-path directory [directory | --all file]...\n";
-            std::cout << cmdline_options << std::endl;
-            return 0;
-        }
-
-        if (vm.count("version"))
-        {
-            std::cout << "NT2 specialization gatherer, version 1.0" << std::endl;
-            return 0;
-        }
-
-        if(vm.count("binary-path") == 0 || vm.count("directory") == 0)
-        {
-            std::cerr << "Error: not enough arguments provided." << std::endl;
+            std::cout << "Usage: gather_includes [options] binary-path directory [directory | --all file]..." << std::endl;
             return 1;
         }
 
-        vector<string>         paths       = vm["include-path"].as< vector<string> >();
-        vector<string> const & ignore      = vm["ignore"      ].as< vector<string> >();
-        string         const & binary_path = vm["binary-path" ].as<string>();
-        paths.push_back(binary_path);
+        std::vector<std::string> paths;
+        std::set<std::string>    ignore;
+        std::string              binary_path;
         
         Files files;
-        for(vector<po::option>::const_iterator it = options.options.begin(); it != options.options.end(); ++it)
+        for(int i = 1; i != argc; ++i)
         {
-            std::string const & path( it->value.front() );
-            if(it->string_key == "directory")
+            // directory names to ignore
+            if(!std::strcmp(argv[i], "--ignore") && i != argc-1)
             {
-                // regular file rather than directory
-                if ( !fs::extension( path ).empty() )
-                {
-                    files[ fs::filename( path ) ].insert( path );
-                    continue;
-                }
-                
-                for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
-                   generate_file(binary_path, path, it2->first, it2->second);
-                
-                files.clear();
-                find_files( files, paths, ignore, path );
+                ignore.insert(argv[i+1]);
+                ++i;
+                continue;
             }
-            else if(it->string_key == "all")
+            
+            // include directories, two argument syntax
+            if(!std::strcmp(argv[i], "-I") && i != argc-1)
             {
-                // flatten all found files
+                paths.push_back(argv[i+1]);
+                ++i;
+                continue;
+            }
+            
+            // include directories, one argument syntax
+            if(!std::strncmp(argv[i], "-I", 2))
+            {
+                paths.push_back(argv[i] + 2);
+                continue;
+            }
+            
+            // flatten all found files
+            if(!std::strcmp(argv[i], "--all") && i != argc-1)
+            {
+                std::string const & path( argv[i+1] );
+                ++i;
+                
                 FileSet includes;
                 for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
                     includes.insert(it2->second.begin(), it2->second.end());
 
                 generate_file( binary_path, fs::parent_path( path ), fs::filename( path ), includes );
+                continue;
             }
+            
+            // first argument is binary path
+            if( binary_path.empty() )
+            {
+                binary_path = argv[i];
+                paths.push_back(binary_path);
+                continue;
+            }
+            
+            // other arguments are directory or file names
+            std::string const & path( argv[i] );
+            
+            // regular file rather than directory
+            if ( !fs::extension( path ).empty() )
+            {
+                files[ fs::filename( path ) ].insert( path );
+                continue;
+            }
+                
+            for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
+                generate_file(binary_path, path, it2->first, it2->second);
+                
+            files.clear();
+            find_files( files, paths, ignore, path );
         }
     }
     catch(const std::exception& e)
