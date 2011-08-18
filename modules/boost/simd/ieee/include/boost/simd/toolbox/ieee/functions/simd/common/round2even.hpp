@@ -9,11 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ROUND2EVEN_HPP_INCLUDED
 
+#include <boost/simd/toolbox/ieee/functions/round2even.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/bitofsign.hpp>
-#include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/constants/twotonmb.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

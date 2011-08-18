@@ -21,5 +21,4 @@ namespace boost { namespace simd {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, saturated_neg, 1)
 } }
 
-#include <boost/simd/toolbox/operator.hpp>
 #endif

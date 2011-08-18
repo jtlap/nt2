@@ -22,8 +22,6 @@ namespace boost { namespace simd { namespace tag
 
 } }
  
-#include <boost/simd/toolbox/operator.hpp>
- 
 #endif
 
 // modified by jt the 25/12/2010

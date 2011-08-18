@@ -22,7 +22,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_greater_equal_, is_nge, 2)
 } }
 
-#include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/predicates/recognition/is_not_greater_equal.hpp>
-
 #endif

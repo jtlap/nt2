@@ -20,5 +20,4 @@ namespace boost { namespace simd {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divfloor_, divfloor, 2)
 } }
 
-#include <boost/simd/toolbox/operator.hpp>
 #endif

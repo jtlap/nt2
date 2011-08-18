@@ -19,11 +19,6 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, bitwise_ornot, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, b_ornot, 2)
 } }
- 
-#include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/bitwise/recognition/bitwise_ornot.hpp>
 
  
 #endif
-
-// modified by jt the 25/12/2010

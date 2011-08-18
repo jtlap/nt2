@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_RSQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_RSQRT_HPP_INCLUDED
+
+#include <boost/simd/toolbox/arithmetic/functions/rsqrt.hpp>
+#include <boost/simd/include/functions/sqrt.hpp>
+#include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_real.hpp>
-#include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

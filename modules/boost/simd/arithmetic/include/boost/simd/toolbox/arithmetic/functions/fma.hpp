@@ -33,9 +33,4 @@ namespace boost { namespace simd { namespace tag
   
 } }
  
-#include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/arithmetic/recognition/fma.hpp>
- 
 #endif
-
-// modified by jt the 25/12/2010

@@ -20,7 +20,4 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_less_, is_nlt, 2)
 } }
 
-#include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/predicates/recognition/is_not_less.hpp>
-
 #endif

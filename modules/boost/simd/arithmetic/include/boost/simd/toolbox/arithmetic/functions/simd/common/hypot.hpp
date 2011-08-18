@@ -8,20 +8,32 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_HYPOT_HPP_INCLUDED
-#include <boost/dispatch/meta/as_real.hpp>
-#include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/hypot.hpp>
+#include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/is_inf.hpp>
+#include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/max.hpp>
+#include <boost/simd/include/functions/is_inf.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/unary_minus.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
-#include <boost/simd/include/functions/any.hpp>
-#include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
+#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
+#include <boost/simd/include/functions/any.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/int_splat.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -46,10 +58,10 @@ namespace boost { namespace simd { namespace ext
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
-			     (A0)(X),
-			     ((simd_<real_<A0>,X>))
-			     ((simd_<real_<A0>,X>))
-			     )
+                              (A0)(X),
+                              ((simd_<real_<A0>,X>))
+                              ((simd_<real_<A0>,X>))
+                            )
   {
     template < class T, class I = typename dispatch::meta::as_integer<T, signed>::type>
       struct hypot_ctnts;

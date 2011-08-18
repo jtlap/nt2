@@ -8,11 +8,21 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ADDS_HPP_INCLUDED
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/adds.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/max.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_
 /////////////////////////////////////////////////////////////////////////////

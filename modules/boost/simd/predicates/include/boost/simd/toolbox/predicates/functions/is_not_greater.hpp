@@ -19,8 +19,5 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_not_greater, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_ngt, 2)
 } }
- 
-#include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/predicates/recognition/is_not_greater.hpp>
 
 #endif

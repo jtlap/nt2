@@ -20,5 +20,4 @@ namespace boost { namespace simd {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_toint_, fast_toint, 1)
 } }
 
-#include <boost/simd/toolbox/operator.hpp>
 #endif

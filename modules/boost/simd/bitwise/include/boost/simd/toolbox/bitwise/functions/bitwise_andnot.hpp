@@ -20,9 +20,4 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, b_andnot, 2)
 } }
  
-#include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/bitwise/recognition/bitwise_andnot.hpp>
- 
 #endif
-
-// modified by jt the 25/12/2010
