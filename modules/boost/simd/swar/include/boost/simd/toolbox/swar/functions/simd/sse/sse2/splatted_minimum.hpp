@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename simd::native<float, boost::simd::tag::sse_> ftype;
+      typedef simd::native<float, boost::simd::tag::sse_> ftype;
       A0 min1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
          min1 = _mm_shufflelo_epi16(min1, _MM_SHUFFLE(1, 0, 3, 2));
          min1 = min(a0, min1);

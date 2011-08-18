@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename simd::native<float, boost::simd::tag::sse_> ftype;
+      typedef simd::native<float, boost::simd::tag::sse_> ftype;
       A0 max1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
          max1 = _mm_shufflelo_epi16(max1, _MM_SHUFFLE(1, 0, 3, 2));
          max1 = max(a0, max1);

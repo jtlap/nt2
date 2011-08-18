@@ -23,7 +23,7 @@ namespace boost { namespace simd
   //////////////////////////////////////////////////////////////////////////////
   /// Platform independant native SIMD type
   //////////////////////////////////////////////////////////////////////////////
-  template<class Scalar,class Extension> struct native
+  template<class Scalar,class Extension> union native
   {
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> is a SIMD type encapsulation
@@ -50,21 +50,14 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // vector size
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_STATIC_CONSTANT ( size_type
-                          , static_size = sizeof(native_type)/sizeof(value_type)
-                                        ? sizeof(native_type)/sizeof(value_type)
-                                        : 1
-                          );
+    enum { static_size = sizeof(native_type)/sizeof(value_type)
+                       ? sizeof(native_type)/sizeof(value_type) : 1}; 
 
     ////////////////////////////////////////////////////////////////////////////
-    // union based type for value extraction
-    ////////////////////////////////////////////////////////////////////////////
-    union extraction_type { native_type v; value_type s[static_size]; };
-
-    ////////////////////////////////////////////////////////////////////////////
-    // SIDM register value
+    // SIMD register value
     ////////////////////////////////////////////////////////////////////////////
     native_type data_;
+    value_type  array[static_size];
 
     ////////////////////////////////////////////////////////////////////////////
     // Assignment operator from compatible types
@@ -89,11 +82,14 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     static std::size_t size() { return static_size; }
 
+    reference        operator[](int i)
+    {
+      return array[i];
+    }
+
     const_reference  operator[](int i) const
     {
-      // we need to return in memory as using reinterpret_cast is an UB here
-      extraction_type const that = {data_};
-      return that.s[i];
+      return array[i];
     }
 
     ////////////////////////////////////////////////////////////////////////////

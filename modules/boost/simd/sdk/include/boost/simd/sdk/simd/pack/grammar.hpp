@@ -51,7 +51,12 @@ namespace boost { namespace simd
   template<class T, class N> template<class Dummy>
   struct  grammar_cases<T,N>::case_<dispatch::tag::terminal_, Dummy>
         : boost::proto::
-          or_ < boost::proto::terminal< data<T,N> >
+          or_ < boost::proto::terminal< native<T,boost::proto::_> >
+              , boost::proto::
+                and_< boost::proto::terminal<boost::proto::_>
+                    , boost::proto::if_ < boost::dispatch::details::
+                                         is_array<boost::proto::_value>()>
+                    >
               , boost::proto::terminal< dispatch::meta::constant_<boost::proto::_> >
               , boost::proto::
                 and_< boost::proto::terminal<boost::proto::_>

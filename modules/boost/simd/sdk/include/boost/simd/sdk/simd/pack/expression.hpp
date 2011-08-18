@@ -18,13 +18,12 @@ namespace boost { namespace simd
   ////////////////////////////////////////////////////////////////////////////
   // Here is the domain-specific expression wrapper
   ////////////////////////////////////////////////////////////////////////////
-  template<class Expr,class Type,class Cardinal>
+  template<class Expr,class Type,class Cardinal,class Dummy>
   struct  expression
-        : boost::proto::extends < Expr
-                                , expression<Expr,Type,Cardinal>
-                                , domain<Type,Cardinal>
-                                >
   {
+    BOOST_PROTO_BASIC_EXTENDS_TPL(Expr, (expression<Expr, Type, Cardinal>)
+                                      , (domain<Type, Cardinal>))
+
     ////////////////////////////////////////////////////////////////////////////
     // expression hierarchy of simd:::expression
     ////////////////////////////////////////////////////////////////////////////
@@ -34,17 +33,13 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // FusionRandomAccessSequence interface
     ////////////////////////////////////////////////////////////////////////////
-    typedef data<Type,Cardinal>                     data_type;
+    typedef pack<Type,Cardinal::value>              data_type;
     typedef typename data_type::value_type          value_type;
     typedef typename data_type::reference           reference;
     typedef typename data_type::const_reference     const_reference;
     typedef typename data_type::size_type           size_type;
     typedef typename data_type::iterator            iterator;
     typedef typename data_type::const_iterator      const_iterator;
-
-    typedef boost::proto::extends<Expr,expression,domain<Type,Cardinal> > parent;
-
-    expression( Expr const& xpr = Expr() ) : parent(xpr) {}
 
     ////////////////////////////////////////////////////////////////////////////
     // Array interface

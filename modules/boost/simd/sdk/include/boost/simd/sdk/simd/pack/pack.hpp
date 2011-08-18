@@ -21,17 +21,19 @@ namespace boost { namespace simd
   // pack, implemented in terms of simd::expr via non-inheritance to preserve
   // PODness of pack throughout the whole system.
   ////////////////////////////////////////////////////////////////////////////
-  template<class Type,std::size_t Cardinal>
+  template<class Type,std::size_t Cardinal,class Dummy>
   struct  pack
-        : boost::proto::extends < typename boost::proto::
-                                  terminal< data< Type
-                                                , boost::mpl::size_t<Cardinal>
-                                                >
-                                          >::type
-                                , pack<Type,Cardinal>
-                                , domain<Type,boost::mpl::size_t<Cardinal> >
-                                >
   {
+    BOOST_PROTO_BASIC_EXTENDS_TPL( (typename boost::proto::
+                                    terminal< typename meta::
+                                                       vector_of< Type
+                                                                , boost::mpl::
+                                                                         size_t<Cardinal>::value
+                                                                >::type
+                                            >::type)
+                                 , (pack<Type,Cardinal>)
+                                 , (domain<Type,boost::mpl::size_t<Cardinal> >))
+
     ////////////////////////////////////////////////////////////////////////////
     // Pack must be sized with a power of 2
     ////////////////////////////////////////////////////////////////////////////
@@ -43,12 +45,8 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Data holder of pack terminals
     ////////////////////////////////////////////////////////////////////////////
-    typedef data<Type,boost::mpl::size_t<Cardinal> >            data_type;
-    typedef boost::proto::extends < typename boost::proto::
-                                    terminal<data_type>::type
-                                  , pack<Type,Cardinal>
-                                  , domain<Type,boost::mpl::size_t<Cardinal> >
-                                  >                             parent;
+    typedef typename
+    meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type data_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // expression hierarchy of simd:::expression
@@ -60,7 +58,6 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename data_type::parent          base_type;
     typedef typename data_type::value_type      value_type;
     typedef typename data_type::reference       reference;
     typedef typename data_type::const_reference const_reference;
@@ -71,69 +68,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Array interface
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_STATIC_CONSTANT(size_type, static_size = base_type::static_size);
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Default Constructor
-    ////////////////////////////////////////////////////////////////////////////
-    pack() : parent() {}
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Copy Constructor
-    ////////////////////////////////////////////////////////////////////////////
-    pack(pack const& src) : parent()
-    {
-      boost::proto::value(*this) = boost::proto::value(src);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Constructor from native udnerlying type
-    ////////////////////////////////////////////////////////////////////////////
-    pack(base_type const& a0) : parent()
-    {
-      boost::proto::value(*this) = a0;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Construct from Iterator + offset
-    ////////////////////////////////////////////////////////////////////////////
-    template<class Iterator>
-    pack( Iterator it, std::ptrdiff_t offset
-        , typename boost::enable_if< dispatch::meta::is_iterator<Iterator> >::type* = 0
-        ) : parent()
-    {
-      boost::proto::value(*this) = load<base_type>(it,offset);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Construct from Iterator + offset + suboffset
-    ////////////////////////////////////////////////////////////////////////////
-    template<class Iterator, class Suboffset>
-    pack( Iterator it
-        , std::ptrdiff_t offset
-        , Suboffset const&
-        , typename
-          boost::enable_if_c< dispatch::meta::is_iterator<Iterator>::value
-                            &&  dispatch::details::is_mpl_integral<Suboffset>::value
-                            >::type* = 0
-        ) : parent()
-    {
-      boost::proto::value(*this) = load<base_type,Suboffset::value>(it,offset);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Construct from Range ?
-    ////////////////////////////////////////////////////////////////////////////
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Construct from explicit list of values - requires PP ?
-    ////////////////////////////////////////////////////////////////////////////
-
-    // to be removed
-    explicit pack(Type const& a0) : parent()
-    {
-      boost::proto::value(*this).fill(a0);
-    }
+    BOOST_STATIC_CONSTANT(size_type, static_size = data_type::static_size);
 
     ////////////////////////////////////////////////////////////////////////////
     // Assignments
@@ -159,7 +94,7 @@ namespace boost { namespace simd
 
     void fill(Type const& a0)
     {
-      boost::proto::value(*this).fill(a0);
+      fill(a0, typename meta::is_native<data_type>::type());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -175,16 +110,9 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     data_type const& value() const { return boost::proto::value(*this); }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // SIMD expression evaluates as pack
-    ////////////////////////////////////////////////////////////////////////////
-    template<class X>
-    pack( X const& xpr
-        , typename boost::disable_if< boost::is_convertible<X,Type> >::type* = 0
-        )
+    template<class X> void evaluate(X const& xpr)
     {
-      // TODO: check that X can be put in a pack via evaluation
-      boost::proto::value(*this).evaluate(xpr);
+      boost::simd::evaluate(boost::proto::value(*this), xpr);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -193,14 +121,14 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     template<class X> pack& operator=(X const& xpr )
     {
-      boost::proto::value(*this).evaluate(xpr);
+      evaluate(xpr);
       return *this;
     }
 
-    #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                                      \
+    #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                               \
     template<class X> pack& operator BOOST_PP_CAT(OP,=)(X const& xpr )  \
     {                                                                   \
-      boost::proto::value(*this).evaluate(*this OP xpr);                \
+      evaluate(*this OP xpr);                                           \
       return *this;                                                     \
     }                                                                   \
     /**/
@@ -217,6 +145,18 @@ namespace boost { namespace simd
     BOOST_SIMD_MAKE_ASSIGN_OP(<<)
 
     #undef BOOST_SIMD_MAKE_ASSIGN_OP
+
+    private :
+
+    void fill(Type const& a0, boost::mpl::true_ const&)
+    {
+      boost::proto::value(*this) = splat<data_type>(a0);
+    }
+
+    void fill(Type const& a0, boost::mpl::false_ const&)
+    {
+      boost::proto::value(*this).fill(a0);
+    }
   };
 } }
 

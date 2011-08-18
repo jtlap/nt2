@@ -23,7 +23,7 @@
 namespace boost { namespace simd
 {
   template<class T, class X>
-  struct native;
+  union native;
 } }
 
 namespace boost { namespace dispatch { namespace meta

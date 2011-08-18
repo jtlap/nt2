@@ -23,7 +23,7 @@ namespace boost { namespace simd
     template<class Expr>
     expression<Expr,Type,Cardinal> const operator()(Expr const &xpr) const
     {
-      expression<Expr,Type,Cardinal> const that(xpr);
+      expression<Expr,Type,Cardinal> const that = {xpr};
       return that;
     }
   };
