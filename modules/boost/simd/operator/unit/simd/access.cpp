@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL(load, BOOST_SIMD_TYPES )
 
   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
+    data[i] = T(1+i);
 
   for(std::size_t i=0;i<3;++i)
   {
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
 
   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
+    data[i] = T(1+i);
 
   v = load<n_t,1*cardinal_of<n_t>::value>(&data[0],0);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
@@ -87,7 +87,7 @@ NT2_TEST_CASE_TPL(shifted_load_non_periodic, BOOST_SIMD_TYPES )
 
   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
+    data[i] = T(1+i);
 
   v = load<n_t,1>(&data[0],1);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
@@ -113,13 +113,13 @@ NT2_TEST_CASE_TPL(shifted_load_bkwd_periodic, BOOST_SIMD_TYPES )
 
   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
+    data[i] = T(1+i);
 
-  v = load<n_t,-1*cardinal_of<n_t>::value>(&data[0],2);
+  v = load<n_t,-1*int(cardinal_of<n_t>::value)>(&data[0],2);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
     NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value] );
 
-  v = load<n_t,-2*cardinal_of<n_t>::value>(&data[0],2);
+  v = load<n_t,-2*int(cardinal_of<n_t>::value)>(&data[0],2);
   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
     NT2_TEST_EQUAL( v[j], data[j] );
 }
@@ -139,7 +139,7 @@ NT2_TEST_CASE_TPL(store, BOOST_SIMD_TYPES )
 
   BOOST_SIMD_ALIGNED_TYPE(T) data[2*cardinal_of<n_t>::value];
   for(std::size_t i=0;i<cardinal_of<n_t>::value;++i)
-    data[i] = 1+i;
+    data[i] = T(1+i);
 
   n_t v = load<n_t>(&data[0],0);
   store(v,&data[0],1);

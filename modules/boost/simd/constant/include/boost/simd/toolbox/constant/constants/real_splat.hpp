@@ -23,7 +23,7 @@ namespace boost { namespace simd
     struct Realpattern 
     { 
       template<class Target, class Dummy=void> 
-      struct apply;  
+      struct apply {};
 
       template<class Dummy> 
       struct apply<float,Dummy> : meta::float_<F> {};  

@@ -20,11 +20,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef union { A0 a; boost::simd::uint8_t b; } trick;
-      trick z = {a0};
-      z.b = ((z.b * 0x0802LU & 0x22110LU) | (z.b * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16;
-      return z.a;
-      }
+      return uint8_t(
+        ((uint8_t(a0) * 0x0802LU & 0x22110LU) | (uint8_t(a0) * 0x8020LU & 0x88440LU)) * 0x10101LU >> 16
+      );
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_

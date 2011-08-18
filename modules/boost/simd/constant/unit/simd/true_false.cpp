@@ -8,12 +8,12 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants true/false"
 
+#include <boost/simd/include/constants/true_false.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
-
-#include <boost/simd/include/constants/true_false.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constant for integral types
@@ -45,5 +45,5 @@ NT2_TEST_CASE_TPL( true_false_real_value, BOOST_SIMD_REAL_TYPES )
     NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], static_cast<T>(0) );
 
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], static_cast<T>(0.)/static_cast<T>(0.) );
+    NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], boost::simd::Zero<T>()/boost::simd::Zero<T>() );
 }

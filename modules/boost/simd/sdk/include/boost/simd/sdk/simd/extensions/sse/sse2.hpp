@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSE2_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSE2_HPP_INCLUDED
 
-#if defined(__SSE2__)
+#if defined(__SSE2__) || defined(_M_X64) || _M_IX86_FP >= 2
 #  ifndef BOOST_SIMD_HAS_SSE2_SUPPORT
 #    define BOOST_SIMD_HAS_SSE2_SUPPORT
 #  endif

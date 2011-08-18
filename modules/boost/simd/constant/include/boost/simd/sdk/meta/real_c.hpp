@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_META_REAL_C_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_REAL_C_HPP_INCLUDED
 
+#include <boost/config.hpp>
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/details/bitwise_cast.hpp>
 

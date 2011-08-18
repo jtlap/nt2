@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::constants true/false"
 
 #include <nt2/include/constants/true_false.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
@@ -42,5 +43,5 @@ NT2_TEST_CASE_TPL( true_false_real_value, BOOST_SIMD_SIMD_REAL_TYPES )
     NT2_TEST_EQUAL( (nt2::False<dst_t>())[i], static_cast<T>(0) );
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], static_cast<T>(0.)/static_cast<T>(0.) );
+    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], boost::simd::Zero<T>()/boost::simd::Zero<T>() );
 }
