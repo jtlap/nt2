@@ -424,12 +424,8 @@ macro(nt2_module_tool_setup tool)
     message(STATUS "[nt2] building tool ${tool}")
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool})
   
-    if(DEFINED NT2_TOOL_BOOST_STUB)
-      set(NT2_TOOL_BOOST_STUB_DEFINE -DNT2_TOOL_BOOST_STUB=${NT2_TOOL_BOOST_STUB})
-    endif()
-  
     execute_process(COMMAND ${CMAKE_COMMAND}
-                            -DCMAKE_BUILD_TYPE=Release ${NT2_TOOL_BOOST_STUB_DEFINE}
+                            -DCMAKE_BUILD_TYPE=Release
                             ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
                     OUTPUT_QUIET
@@ -499,13 +495,9 @@ macro(nt2_postconfigure_init)
              COMPONENT tools
            )
              
-    if(DEFINED NT2_TOOL_BOOST_STUB)
-      set(NT2_TOOL_BOOST_STUB_DEFINE -DNT2_TOOL_BOOST_STUB=${NT2_TOOL_BOOST_STUB})
-    endif()
-             
     add_custom_target(postconfigure
                       COMMAND ${CMAKE_COMMAND}
-                              -DCMAKE_BUILD_TYPE=Release ${NT2_TOOL_BOOST_STUB_DEFINE}
+                              -DCMAKE_BUILD_TYPE=Release
                               ${NT2_SOURCE_ROOT}/tools/postconfigure
                            && ${CMAKE_COMMAND} --build . --config Release
                       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure
