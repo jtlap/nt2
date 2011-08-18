@@ -12,6 +12,8 @@
     #include <string.h>
 #endif
 
+#include <filesystem/operations.hpp>
+
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4996) // The POSIX name for this item is deprecated.

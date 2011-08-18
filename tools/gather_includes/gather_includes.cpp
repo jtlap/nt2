@@ -111,34 +111,13 @@ struct depth_compare
     }
 };
 
-
 typedef std::set<std::string, depth_compare> FileSet;
 typedef std::map<std::string, FileSet      > Files  ;
 
-class guarded_cwd
-{
-public:
-    guarded_cwd() : cwd_(fs::current_path())
-    {
-    }
-
-    ~guarded_cwd()
-    {
-        fs::current_path(cwd_);
-    }
-
-    char const * c_str() const { return cwd_.c_str(); }
-    
-private:
-    std::string cwd_;
-};
-
-
 void find_files_recursive_worker( Files & files, std::string const & path, std::vector<string> const & ignore )
 {
-    guarded_cwd const cwd;
-    BOOST_ASSERT( std::strlen( cwd.c_str() ) > path.size() );
-    std::string cwd_relative_path( cwd.c_str() + path.size() );
+    BOOST_ASSERT( fs::current_path().size() > path.size() );
+    std::string cwd_relative_path( fs::current_path().c_str() + path.size() + 1 );
     #ifdef _WIN32
         boost::replace( cwd_relative_path, '\\', '/' );
     #endif
@@ -146,19 +125,19 @@ void find_files_recursive_worker( Files & files, std::string const & path, std::
     for ( fs::directory_iterator current_dir( "." ); *current_dir; ++current_dir )
     {
         std::string const entry_name( *current_dir );
-        static char const header_extension[] = ".hpp";
-        if
-        (
-            ( entry_name.size() >= static_cast<std::size_t>( boost::size( header_extension ) ) ) &&
-            ( std::memcmp( &*entry_name.rbegin() - boost::size( header_extension ), header_extension, boost::size( header_extension ) ) == 0 )
-        )
+        
+        if(fs::extension(entry_name) == ".hpp")
         {
-            files[ entry_name ].insert( cwd_relative_path );
+            files[ entry_name ].insert( cwd_relative_path + '/' + entry_name );
         }
-        else if( std::find( ignore.begin(), ignore.end(), *current_dir ) == ignore.end() )
+        else if( std::find( ignore.begin(), ignore.end(), entry_name ) == ignore.end() )
         {
-            fs::current_path( *current_dir );
-            find_files_recursive_worker( files, path, ignore );
+            fs::current_path_saver const cps;
+            
+            int ec;
+            fs::current_path( entry_name, ec );
+            if ( !ec )
+                find_files_recursive_worker( files, path, ignore );
         }
     }
 }
@@ -174,21 +153,30 @@ void find_files
 {
     BOOST_FOREACH( std::string const & path, paths )
     {
-        guarded_cwd const cwd;
-        fs::current_path(path);
-        fs::current_path(source_dir);
+        fs::current_path_saver const cps;
+        int ec;
         
-        find_files_recursive_worker( files, path, ignore );
+        fs::current_path(path, ec);
+        if( ec )
+            continue;
+        std::string absolute_path = fs::current_path();
+            
+        fs::current_path(source_dir, ec);
+        if( ec )
+            continue;
+        
+        find_files_recursive_worker( files, absolute_path, ignore );
     }
 }
 
 void generate_file( std::string const & binary_path, std::string const & output_dir, std::string const & file_name, FileSet const & includes )
 {
-    std::string       file_dir ( output_dir  + '/' + file_name );
-    std::string const file_path( binary_path + '/' + file_dir  );
+    std::string const file_dir    ( binary_path + '/' + output_dir );
+    std::string const file_path   ( file_dir    + '/' + file_name  );
+    std::string       file_header ( output_dir  + '/' + file_name  );
 
-    // generate include guard name
-    BOOST_FOREACH( char & character, file_dir )
+    // uppercase include guard name
+    BOOST_FOREACH( char & character, file_header )
     {
         char const chr( character );
         if ( chr == '/' || chr == '\\' || chr == '.' )
@@ -197,14 +185,14 @@ void generate_file( std::string const & binary_path, std::string const & output_
             character = static_cast<char>( std::toupper( chr ) );
     }
 
-    fs::create_directories( file_path );
+    fs::create_directories( file_dir );
     
     std::ofstream fp( file_path.c_str() );
     if(!fp)
         throw std::runtime_error( "couldn't open file '" + file_path + "' for writing" );
     
-    fp << "#ifndef " << file_dir << "_INCLUDED\n";
-    fp << "#define " << file_dir << "_INCLUDED\n\n";
+    fp << "#ifndef " << file_header << "_INCLUDED\n";
+    fp << "#define " << file_header << "_INCLUDED\n\n";
     for(FileSet::const_iterator it = includes.begin(); it != includes.end(); ++it)
         fp << "#include <" << *it << ">\n";
         
