@@ -45,7 +45,8 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Data holder of pack terminals
     ////////////////////////////////////////////////////////////////////////////
-    typedef typename meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value >::type data_type;
+    typedef typename
+    meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type data_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // expression hierarchy of simd:::expression
@@ -57,7 +58,6 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    //typedef typename data_type::parent          base_type;
     typedef typename data_type::value_type      value_type;
     typedef typename data_type::reference       reference;
     typedef typename data_type::const_reference const_reference;
@@ -94,7 +94,7 @@ namespace boost { namespace simd
 
     void fill(Type const& a0)
     {
-      boost::proto::value(*this).fill(a0);
+      fill(a0, typename meta::is_native<data_type>::type());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -145,6 +145,18 @@ namespace boost { namespace simd
     BOOST_SIMD_MAKE_ASSIGN_OP(<<)
 
     #undef BOOST_SIMD_MAKE_ASSIGN_OP
+
+    private :
+
+    void fill(Type const& a0, boost::mpl::true_ const&)
+    {
+      boost::proto::value(*this) = splat<data_type>(a0);
+    }
+
+    void fill(Type const& a0, boost::mpl::false_ const&)
+    {
+      boost::proto::value(*this).fill(a0);
+    }
   };
 } }
 
