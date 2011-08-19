@@ -2,6 +2,9 @@
 
 [h5 Description]
 
+returns an unsigned (SIMD vector) in which all the bits of the floating  (SIMD vector) entry
+have being set to 0 except the exponent bits of the ieee representation.
+
 [h5 Synonyms]
 
 [h5 Synopsis]

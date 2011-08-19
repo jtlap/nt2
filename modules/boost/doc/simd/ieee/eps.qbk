@@ -2,6 +2,12 @@
 
 [h5 Description]
 
+returns the distance from `abs(a0)` to the next greater number of the same type.
+for integer types it's always `One`
+
+The constant `Eps<T>()` is equal to `eps(T(1))`.
+
+It is `2^-52` for double and `2^-23` for floats
 [h5 Synonyms]
 
 [h5 Synopsis]
