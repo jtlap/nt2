@@ -16,8 +16,8 @@ if(MSVC)
   endforeach()
 endif()  
   
-set(Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0" "1.46" "1.46.0" "1.46.1" "1.47" "1.47.0")
-find_package(Boost REQUIRED)
+set(Boost_ADDITIONAL_VERSIONS "1.46" "1.46.0" "1.46.1" "1.47" "1.47.0" "1.48" "1.48.0")
+find_package(Boost 1.46.0 REQUIRED)
 
 include_directories(${CMAKE_SOURCE_DIR}/../gather_includes ${Boost_INCLUDE_DIRS})
 
