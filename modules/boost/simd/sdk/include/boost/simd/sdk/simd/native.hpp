@@ -9,12 +9,11 @@
 #ifndef BOOST_SIMD_SDK_SIMD_NATIVE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_NATIVE_HPP_INCLUDED
 
+#include <boost/utility/enable_if.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
 #include <boost/dispatch/error/static_assert.hpp>
-//#include <boost/simd/sdk/functor/details/tags.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/simd/sdk/simd/details/native/iterator.hpp>
 
@@ -36,8 +35,8 @@ namespace boost { namespace simd
     // native<S,E> models FusionRandomAccessSequence
     ////////////////////////////////////////////////////////////////////////////
     typedef Scalar                                          value_type;
-    typedef value_type                                      reference;
-    typedef value_type                                      const_reference;
+    typedef value_type&                                     reference;
+    typedef value_type const&                               const_reference;
     typedef std::size_t                                     size_type;
     typedef details::native_iterator<native>                iterator;
     typedef details::native_iterator<native>                const_iterator;
@@ -60,6 +59,15 @@ namespace boost { namespace simd
     value_type  array[static_size];
 
     ////////////////////////////////////////////////////////////////////////////
+    // Assignment operator from same native types
+    ////////////////////////////////////////////////////////////////////////////
+    this_type& operator=(this_type const& s)
+    {
+      data_ = s.data_;
+      return *this;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
     // Assignment operator from compatible types
     ////////////////////////////////////////////////////////////////////////////
     template<class S2>
@@ -69,8 +77,14 @@ namespace boost { namespace simd
       return *this;
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Assignment operator from raw SIMD vector types
+    ////////////////////////////////////////////////////////////////////////////
     this_type& operator=(native_type const& s) { data_ = s; return *this;}
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Assignment operator from convertible SIMD vector types
+    ////////////////////////////////////////////////////////////////////////////
     template<class V2>
     typename boost::enable_if_c< meta::is_simd_specific<V2,extension_type>::value
                                , this_type&
@@ -217,21 +231,7 @@ namespace boost { namespace simd
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
 #include <boost/simd/sdk/simd/details/native/fusion.hpp>
-//#include <boost/simd/sdk/simd/details/native/constants.hpp>
-//#include <boost/simd/sdk/simd/details/native/functions.hpp>
 #include <boost/simd/sdk/simd/details/native/operators.hpp>
 #include <boost/simd/sdk/simd/details/native/comparisons.hpp>
-
-#if 0
-#include <boost/simd/include/constants/digits.hpp>
-namespace boost { namespace simd
-{
-  template<class T, class X>
-  inline native<T, X>& native<T, X>::operator++() { *this += One< native<T, X> >();  return *this; }
-  
-  template<class T, class X>
-  inline native<T, X>& native<T, X>::operator--() { *this -= One< native<T, X> >();  return *this; }
-}
-#endif
 
 #endif

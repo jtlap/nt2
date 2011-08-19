@@ -11,6 +11,7 @@
 
 #include <boost/proto/proto.hpp>
 #include <boost/simd/sdk/constant/category.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
 #include <boost/simd/sdk/dsl/is_comparison_expression.hpp>
 
