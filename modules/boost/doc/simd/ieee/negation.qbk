@@ -2,6 +2,8 @@
 
 [h5 Description]
 
+doublon avec negate ?!
+	
 [h5 Synopsis]
     namespace boost { namespace simd
     {

@@ -3,6 +3,12 @@
 
 [h5 Description]
 
+next(a0) returns the least element of the same type as a0 strictly greater tha a0.
+Exception is `Inf` that returns himself and sometimes `Valmax`.
+`Valmax` next element is himself for scalar types but `Inf` for floating types.
+Applied to `Minf` for floating types the result is `Valmin` for this type
+
+
 [h5 Synopsis]
     namespace boost { namespace simd
     {

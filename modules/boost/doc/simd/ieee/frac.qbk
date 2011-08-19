@@ -1,7 +1,7 @@
 [section frac]
 
 [h5 Description]
-Return the fractionnal part of the input.
+Return the fractionnal part of the input. For integer input always returns `Zero`
 
 [h5 Synopsis]
     namespace boost { namespace simd

@@ -2,6 +2,8 @@
 
 [h5 Description]
 
+return the least power of two greater or equal to the input.
+
 [h5 Synopsis]
     namespace boost { namespace simd
     {
