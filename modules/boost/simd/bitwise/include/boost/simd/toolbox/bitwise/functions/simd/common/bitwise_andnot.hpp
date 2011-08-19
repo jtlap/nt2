@@ -9,6 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_ANDNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_ANDNOT_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/complement.hpp>
+#include <boost/mpl/sizeof.hpp>
+#include <boost/mpl/equal_to.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_andnot_, tag::cpu_,(A0)(A1)(X)

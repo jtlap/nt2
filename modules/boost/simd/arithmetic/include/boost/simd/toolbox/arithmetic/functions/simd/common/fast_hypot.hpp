@@ -8,18 +8,21 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
-#include <boost/dispatch/meta/as_real.hpp>
-#include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
-#include <boost/simd/include/functions/select.hpp>
-#include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/sqrt.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/fast_hypot.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
+#include <boost/simd/include/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/sqrt.hpp>
+#include <boost/simd/include/functions/sqr.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/constants/eps.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

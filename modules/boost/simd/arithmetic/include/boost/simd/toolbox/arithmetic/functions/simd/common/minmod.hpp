@@ -8,12 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINMOD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINMOD_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/minmod.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/bitwise_xor.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/sign.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -73,8 +76,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return b_or(b_or(is_nan(a0), is_nan(a1)),
-		   b_and(boost::simd::min(a0,a1), is_gez(a0*a1))
-		   );
+               b_and(boost::simd::min(a0,a1), is_gez(a0*a1))
+             );
     }
   };
 } } }

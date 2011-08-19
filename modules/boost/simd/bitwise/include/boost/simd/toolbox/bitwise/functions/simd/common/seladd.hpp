@@ -9,7 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_SELADD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_SELADD_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/seladd.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

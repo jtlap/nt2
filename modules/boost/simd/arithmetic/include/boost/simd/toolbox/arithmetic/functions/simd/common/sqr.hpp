@@ -8,7 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SQR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SQR_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/sqr.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

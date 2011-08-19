@@ -20,8 +20,6 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::split_, split, (A0 const &)(A1&)(A1&), 2)
 } }
  
-#include <boost/simd/toolbox/operator.hpp>
- 
 #endif
 
 // modified by jt the 25/12/2010

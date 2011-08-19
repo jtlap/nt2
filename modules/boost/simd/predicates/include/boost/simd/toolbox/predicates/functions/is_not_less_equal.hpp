@@ -19,8 +19,5 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_less_equal_, is_not_less_equal, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_less_equal_, is_nle, 2)
 } }
- 
-#include <boost/simd/toolbox/operator.hpp>
-#include <boost/simd/toolbox/predicates/recognition/is_not_less_equal.hpp>
 
 #endif

@@ -8,11 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_EVEN_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_flint.hpp>
+
+#include <boost/simd/toolbox/predicates/functions/is_even.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/is_flint.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/half.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

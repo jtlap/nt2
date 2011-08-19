@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CORRECT_FMA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CORRECT_FMA_HPP_INCLUDED
-#include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/correct_fma.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/two_prod.hpp>
 #include <boost/simd/include/functions/two_add.hpp>
-
-
+#include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

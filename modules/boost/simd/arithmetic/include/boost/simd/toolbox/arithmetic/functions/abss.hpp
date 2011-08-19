@@ -30,5 +30,4 @@ namespace boost { namespace simd {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::abss_, sturated_abs, 1)
 } }
 
-#include <boost/simd/toolbox/operator.hpp>
 #endif

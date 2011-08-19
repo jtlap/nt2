@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_COMPARATOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_COMPARATOR_HPP_INCLUDED
-#include <boost/mpl/vector.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/swar/functions/comparator.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/any.hpp>
 #include <boost/simd/include/functions/is_not_equal_with_equal_nans.hpp>
+#include <boost/fusion/include/vector.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -35,15 +36,15 @@ namespace boost { namespace simd { namespace ext
       typedef result_type r_t;
       r_t res;
       if (a2)
-	{
-	  r1 =  boost::simd::min(a0, a1);
-	  r0 =  boost::simd::max(a0, a1);
-	}
+      {
+        r1 =  boost::simd::min(a0, a1);
+        r0 =  boost::simd::max(a0, a1);
+      }
       else
-	{
-	  r0 =  boost::simd::min(a0, a1);
-	  r1 =  boost::simd::max(a0, a1);
-	}
+      {
+        r0 =  boost::simd::min(a0, a1);
+        r1 =  boost::simd::max(a0, a1);
+      }
       return boost::simd::any(is_not_equal_with_equal_nans(a0, r0)); 
     }
   };

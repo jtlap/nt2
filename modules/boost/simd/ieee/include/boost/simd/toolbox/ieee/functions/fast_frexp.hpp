@@ -21,8 +21,6 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&),2) 
 } }
  
-#include <boost/simd/toolbox/operator.hpp>
- 
 #endif
 
 // modified by jt the 25/12/2010

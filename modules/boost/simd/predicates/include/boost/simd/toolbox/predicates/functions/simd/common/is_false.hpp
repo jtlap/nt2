@@ -8,8 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FALSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FALSE_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/predicates/functions/is_false.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

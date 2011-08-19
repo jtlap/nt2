@@ -19,8 +19,6 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::idivceil_, idivceil, 2)
 } }
  
-#include <boost/simd/toolbox/operator.hpp>
- 
 #endif
 
 // modified by jt the 25/12/2010

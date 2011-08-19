@@ -23,5 +23,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::saturate_<A0>, saturate, (A1 const&), 2)
 } }
 
-#include <boost/simd/toolbox/operator.hpp>
 #endif

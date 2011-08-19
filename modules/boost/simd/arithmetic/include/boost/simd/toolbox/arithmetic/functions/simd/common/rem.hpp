@@ -9,6 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REM_HPP_INCLUDED
 
+#include <boost/simd/toolbox/arithmetic/functions/rem.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/selsub.hpp>
 #include <boost/simd/include/functions/idivfix.hpp>

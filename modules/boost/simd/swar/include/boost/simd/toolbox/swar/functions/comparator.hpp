@@ -23,8 +23,6 @@ namespace boost { namespace simd {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)
 } }
  
-#include <boost/simd/toolbox/operator.hpp>
- 
 #endif
 
 // modified by jt the 25/12/2010

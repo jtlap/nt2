@@ -10,6 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
+#include <boost/simd/toolbox/predicates/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/sdk/meta/templatize.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, boost::simd::tag::sse2_, (A0)

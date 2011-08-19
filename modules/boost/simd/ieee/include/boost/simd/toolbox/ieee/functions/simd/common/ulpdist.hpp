@@ -8,17 +8,23 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULPDIST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULPDIST_HPP_INCLUDED
-#include <boost/simd/include/constants/eps_related.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/max.hpp>
+#include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/constants/eps.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/fusion/tuple.hpp>
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // It is often difficult to  answer to the following question:

@@ -9,6 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTAND_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/bitwise_notand.hpp>
+#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/sizeof.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is arithmetic_ of same size
 /////////////////////////////////////////////////////////////////////////////

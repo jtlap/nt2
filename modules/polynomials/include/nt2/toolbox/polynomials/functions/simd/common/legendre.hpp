@@ -9,14 +9,19 @@
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SIMD_COMMON_LEGENDRE_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SIMD_COMMON_LEGENDRE_HPP_INCLUDED
 
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/sdk/meta/as_unsigned.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/toolbox/polynomials/functions/legendre.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
+#include <nt2/include/functions/bitwise_or.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_unsigned.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -61,14 +66,14 @@ namespace nt2 { namespace ext
       A1 vc =  One<A1>();
       uint32_t c = 1;
       while(c < (typename meta::as_unsigned<A0>::type)a0)
-            {
-              p = p0;
-              p0 = p1;
+      {
+        p = p0;
+        p0 = p1;
         A1 vcp1 =  oneplus(vc);
         p1 = ((vc + vcp1)*a1 * p0 - vc * p) /vcp1;
-              vc = vcp1;
-              ++c;
-            }
+        vc = vcp1;
+        ++c;
+      }
       return b_or(p1, gt(abs(a1), One<A1>()));
     }
   };

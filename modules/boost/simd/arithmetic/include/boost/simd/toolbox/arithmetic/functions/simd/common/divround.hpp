@@ -8,16 +8,19 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVROUND_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/divround.hpp>
 #include <boost/simd/include/functions/iround2even.hpp>
 #include <boost/simd/include/functions/iround.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-
-
+#include <boost/simd/include/constants/two.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
