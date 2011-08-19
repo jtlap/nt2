@@ -1,5 +1,7 @@
 [section maxmag]
 
+return from each element of the two parameters the elements the one that have the greatest absolute value.
+
 [h5 Description]
 
 [h5 Synonyms]

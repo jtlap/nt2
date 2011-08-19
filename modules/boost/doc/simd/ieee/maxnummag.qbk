@@ -1,6 +1,8 @@
 [section maxnummag]
 
 [h5 Description]
+return from each element of the two parameters the elements the one that have the greatest absolute value, neglecting Nan values
+when there is another choice.
 
 [h5 Synopsis]
     namespace boost { namespace simd
