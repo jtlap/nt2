@@ -16,6 +16,12 @@
 
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/test_func.hpp>
+#include <nt2/include/functions/compare_equal.hpp>
+#include <nt2/include/functions/compare_not_equal.hpp>
+#include <nt2/include/functions/compare_less.hpp>
+#include <nt2/include/functions/compare_less_equal.hpp>
+#include <nt2/include/functions/compare_greater.hpp>
+#include <nt2/include/functions/compare_greater_equal.hpp>
 
 //==============================================================================
 /*!
