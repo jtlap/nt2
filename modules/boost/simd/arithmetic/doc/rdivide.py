@@ -42,14 +42,19 @@
                  '3,2' : '1',
                  'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',
                  'boost::simd::One<T>()' : 'boost::simd::One<T>()',
+                 'boost::simd::One<T>(),Zero<T>()' : 'boost::simd::Valmax<T>()',
+                 'boost::simd::Mone<T>(),Zero<T>()' : 'boost::simd::Valmin<T>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
+                 'boost::simd::Valmin<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmax<T>()';
+                 'boost::simd::Valmax<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmin<T>()';
                 },
              'unsigned_int_' : {
                  '2,3' : '0',
                  '3,2' : '1',
                  'boost::simd::One<T>()' : 'boost::simd::One<T>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
-                },
+                 'boost::simd::One<T>(),Zero<T>()' : 'boost::simd::Valmax<T>()',
+                 },
             },
          'verif_test' : {
              'property_call' : {
@@ -57,7 +62,7 @@
                 },
              'property_value' : {
                  'unsigned_int_' : ['(a1!=0) ? (a0/(a1+((a1==0)?1:0))) : boost::simd::Valmax<r_t>()'],
-                 'signed_int_' : ['(a1!=0) ? (a0/(a1+((a1==0)?1:0))) : ((a0>0) ? boost::simd::Valmax<r_t>() : (a0<0) ? boost::simd::Valmin<r_t>() : 0)'],     
+                 'signed_int_' : ['(a0==boost::simd::Valmin<T>() && a1==boost::simd::Mone<T>()) ? boost::simd::Valmax<r_t>(): (a1!=0) ? (a0/(a1+((a1==0)?1:0))) : ((a0>0) ? boost::simd::Valmax<r_t>() : (a0<0) ? boost::simd::Valmin<r_t>() : 0)'],     
                  'real_'   : ['a0/a1'],   
                 },
              'ulp_thresh' : {

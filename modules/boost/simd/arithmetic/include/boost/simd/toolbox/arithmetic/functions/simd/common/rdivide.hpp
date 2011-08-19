@@ -40,7 +40,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       const A0 iseqza1 = is_eqz(a1);
-      return (a0-(iseqza1&a0))/(a1+(iseqza1&One<A0>()));
+      const A0 c = b_and(eq(a0, Valmin<A0>()), eq(a1, Mone<A0>())); 
+      return ((a0-c)-(iseqza1&a0))/(a1+(iseqza1&One<A0>()));
     }
   };
 
