@@ -9,6 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_SHLI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_SHLI_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/shli.hpp>
+#include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shli_, tag::cpu_, (A0)(A1)
@@ -26,7 +30,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shli_, tag::cpu_, (A0)(A1)
                             , (scalar_< real_<A0> >)
-			      (scalar_< integer_<A1> >)
+                              (scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;

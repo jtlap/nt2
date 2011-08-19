@@ -20,5 +20,3 @@ namespace boost { namespace simd { namespace tag
 } }
  
 #endif
-
-// modified by jt the 25/12/2010

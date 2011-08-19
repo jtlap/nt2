@@ -9,6 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_ORNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_ORNOT_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/bitwise_ornot.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/mpl/equal_to.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_ornot_, tag::cpu_, (A0)(A1)(X)

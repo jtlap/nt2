@@ -8,11 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FLINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FLINT_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/predicates/functions/is_flint.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
-
-
+#include <boost/simd/include/functions/minus.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

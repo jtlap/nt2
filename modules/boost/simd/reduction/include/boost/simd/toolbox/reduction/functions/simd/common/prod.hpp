@@ -8,10 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_PROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_PROD_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/fusion/include/fold.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/reduction/functions/prod.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/fusion/algorithm/iteration/fold.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

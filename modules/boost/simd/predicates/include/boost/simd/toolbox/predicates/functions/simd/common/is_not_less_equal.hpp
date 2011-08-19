@@ -8,8 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_LESS_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_LESS_EQUAL_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
 
+#include <boost/simd/toolbox/predicates/functions/is_not_less_equal.hpp>
+#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/include/functions/is_less_equal.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -19,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_less_equal_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
-			      ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef A0 result_type;
@@ -33,16 +36,16 @@ namespace boost { namespace simd { namespace ext
   // Implementation when type A0 is integer_
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_less_equal_, tag::cpu_,
-			     (A0)(X),
-			     ((simd_<integer_<A0>,X>))
-			     ((simd_<integer_<A0>,X>))
-			     )
+                              (A0)(X),
+                              ((simd_<integer_<A0>,X>))
+                              ((simd_<integer_<A0>,X>))
+                            )
   {
     typedef A0 result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-      {
-	return gt(a0,a1);
-      }
+    {
+      return gt(a0,a1);
+    }
   };
 } } }
 

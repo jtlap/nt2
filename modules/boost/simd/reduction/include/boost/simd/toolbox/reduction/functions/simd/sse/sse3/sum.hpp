@@ -9,33 +9,18 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE3_SUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE3_SUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE3_SUPPORT
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/fusion/include/fold.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
+#include <boost/simd/toolbox/reduction/functions/sum.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/fusion/algorithm/iteration/fold.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, boost::simd::tag::sse3_,
-                      (A0),
-                      ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                     )
-  {
-      typedef typename meta::scalar_of<A0>::type                result_type;
-    
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
-    {
-      return boost::fusion::fold(a0,0,dispatch::functor<boost::simd::tag::plus_>());
-    }
-  };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-
-
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is double
+  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, boost::simd::tag::sse3_,
                       (A0),
                       ((simd_<double_<A0>,boost::simd::tag::sse_>))
@@ -51,11 +36,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
-
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is float
+  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, boost::simd::tag::sse3_,
                       (A0),
                       ((simd_<float_<A0>,boost::simd::tag::sse_>))

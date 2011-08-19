@@ -9,8 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_ROR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_ROR_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/ror.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -38,9 +42,9 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type itype;
       const itype ia0 = bitwise_cast<itype>(a0);
       return bitwise_cast<result_type>(
-				       shri(ia0,a1) |
-				       shli(ia0, (sizeof(A0)*CHAR_BIT-a1))
-				       ); 
+                                        shri(ia0,a1) |
+                                        shli(ia0, (sizeof(A0)*CHAR_BIT-a1))
+                                      ); 
     }
   };
 } } }
