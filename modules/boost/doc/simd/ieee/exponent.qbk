@@ -8,9 +8,13 @@ which is the base two exponent (`e`) in the ieee representation of each input el
 exponent is equal to `ilogb(abs(a0))`
 exponent is also related to `frexp` second result which is `exponent(a0)+One`
 
-[h5 Synonyms]
-
 [h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0>
+      typename dispatch::meta::as_integer<A0, signed>::type exponent(A0 const& a0);
+    } }
+
 
 [table Template Parameters
     [[Parameter] [Requirement] [Description]]

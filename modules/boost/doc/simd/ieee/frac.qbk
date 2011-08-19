@@ -1,11 +1,13 @@
 [section frac]
 
-Return the fractionnal part of the input: 
 [h5 Description]
-
-[h5 Synonyms]
+Return the fractionnal part of the input.
 
 [h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> A0 frac(A0 const& a0);
+    } }
 
 [table Template Parameters
     [[Parameter] [Requirement] [Description]]

@@ -1,11 +1,6 @@
 [section bitfloating]
 
 [h5 Description]
-
-    return_type bitfloating(const & integer_type a0)
-
-[h5 Synopsis]
-
 In the ieee standard the bit patterns representing real numbers
 (float and double) are such that the ordering of real positive numbers
 is identical to the ordering of the integers formed by the same bit pattern.
@@ -18,6 +13,13 @@ to the corresponding floating (SIMD vector) value.
 
 This function is generally not intended for direct use, but is used in
 implementing fast [link #next] and ``successor`` functors.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0>
+      typename dispatch::meta::as_real<A0>::type bitfloating(A0 const& a0);
+    } }
 
 
 [table Template Parameters

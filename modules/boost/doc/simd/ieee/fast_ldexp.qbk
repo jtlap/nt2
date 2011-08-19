@@ -1,4 +1,6 @@
 [section fast_ldexp]
+
+[h5 Description]
 This functor acts similarly as the standard `ldexp` function returning the combination 
 of the mantissa (first parameter) and the exponent (second parameter) as `m*2^e`
 
@@ -10,11 +12,12 @@ As usual here the fast is paid by wrong limiting cases: for `nan`, `inf`, `-inf`
 to big an exponent the results will be undefined.
 Use `ldexp` if your datas can be invalid and you still care in these cases.
 
-[h5 Description]
-
-[h5 Synonyms]
-
 [h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0, class A1>
+      A0 fast_ldexp(A0 const& a0, A1 const& a1);
+    } }
 
 [table Template Parameters
     [[Parameter] [Requirement] [Description]]

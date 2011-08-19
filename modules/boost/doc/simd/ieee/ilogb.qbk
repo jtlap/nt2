@@ -2,9 +2,12 @@
 
 [h5 Description]
 
-[h5 Synonyms]
-
 [h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0>
+      typename dispatch::meta::as_integer<A0,signed>::type ilogb(A0 const& a0);
+    } }
 
 [table Template Parameters
     [[Parameter] [Requirement] [Description]]

@@ -14,9 +14,12 @@ to the corresponding an integer (SIMD vector) value.
 This function is generally not intended for direct use, but is used in
 implementing fast next and successor functors.
 
-[h5 Synonyms]
-
 [h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0>
+      typename dispatch::meta::as_integer<A0>::type bitinteger(A0 const& a0);
+    } }
 
 
 [table Template Parameters
