@@ -29,6 +29,7 @@
 [include getting_started.qbk]
 
 [include sdk.qbk]
+[include rationale.qbk]
 
 [include operator.qbk]
 [include arithmetic.qbk]
