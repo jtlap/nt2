@@ -33,12 +33,6 @@ SET(SOURCES
     modulo.cpp
     shift_left.cpp
     shift_right.cpp
-    is_equal.cpp
-    is_not_equal.cpp
-    is_less.cpp
-    is_greater.cpp
-    is_less_equal.cpp
-    is_greater_equal.cpp
     splat.cpp
     )
 

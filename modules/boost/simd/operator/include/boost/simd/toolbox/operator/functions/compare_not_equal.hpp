@@ -13,10 +13,15 @@
 #include <boost/simd/toolbox/operator/include.hpp>
 #include <boost/simd/toolbox/operator/specific/common.hpp>
 
-#include <boost/simd/toolbox/operator/specific/compare_tags.hpp>
+#include <boost/proto/tags.hpp>
 
 namespace boost { namespace simd
 {
+  namespace tag
+  {
+    typedef boost::proto::tag::not_equal_to compare_not_equal_;
+  }
+    
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_not_equal_, compare_not_equal , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_not_equal_, compare_neq       , 2 )
 } }

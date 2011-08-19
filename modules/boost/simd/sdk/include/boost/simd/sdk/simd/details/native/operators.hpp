@@ -36,6 +36,13 @@ namespace boost { namespace simd
   BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::modulus         , operator%  )
   BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::shift_left      , operator<< )
   BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::shift_right     , operator>> )
+  
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::equal_to        , operator== )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::not_equal_to    , operator!= )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::less            , operator<  )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::greater         , operator>  )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::less_equal      , operator<= )
+  BOOST_SIMD_MAKE_NATIVE_OP( boost::proto::tag::greater_equal   , operator>= )
 } }
 
 #undef BOOST_SIMD_MAKE_NATIVE_OP

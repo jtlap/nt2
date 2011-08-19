@@ -26,6 +26,4 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comma_ , then   , 2 )
 } }
 
-#include <boost/simd/toolbox/operator/functions/common/comma.hpp>
-
 #endif

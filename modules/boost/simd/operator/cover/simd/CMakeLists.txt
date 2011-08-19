@@ -25,12 +25,6 @@ SET( SOURCES
   logical_not.cpp
   logical_and.cpp
   load.cpp
-  is_not_equal.cpp
-  is_less_equal.cpp
-  is_less.cpp
-  is_greater_equal.cpp
-  is_greater.cpp
-  is_equal.cpp
   if_else.cpp
   divides.cpp
   complement.cpp
