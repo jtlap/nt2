@@ -428,21 +428,23 @@ macro(nt2_module_tool_setup tool)
                             -DCMAKE_BUILD_TYPE=Release
                             ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
-                    OUTPUT_QUIET
+                    OUTPUT_VARIABLE tool_configure_out
                     RESULT_VARIABLE tool_configure
                    )
 
     if(tool_configure)
+      message(${tool_configure_out})
       message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
     endif()
 
     execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
-                    OUTPUT_QUIET
+                    OUTPUT_VARIABLE tool_build_out
                     RESULT_VARIABLE tool_build
                    )
                  
     if(tool_build)
+      message(${tool_build_out})
       message(FATAL_ERROR "[nt2] building tool ${tool} failed")
     endif()
 
