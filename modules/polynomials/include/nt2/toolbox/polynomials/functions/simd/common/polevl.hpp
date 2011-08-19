@@ -8,12 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SIMD_COMMON_POLEVL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SIMD_COMMON_POLEVL_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
+
+#include <nt2/toolbox/polynomials/functions/polevl.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <boost/fusion/adapted/array.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
