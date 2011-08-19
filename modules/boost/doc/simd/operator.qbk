@@ -6,6 +6,9 @@ The main difference is that except the compare_x...x ones that return boolean (a
 the other always return a SIMD vector and have some input restrictions and ouput type differences from C++
 that will be precised in or just after the following table:
 
+
+[#compare_greater_equal]
+
 [table 
     [[C++ operator] [Function name] [Alias] [SIMD Description]]
     [[`a & b` ]     [bitwise_and  ] [b_and] [Returns a vector of the type of its first parameter.]]

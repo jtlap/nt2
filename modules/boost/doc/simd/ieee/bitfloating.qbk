@@ -17,7 +17,7 @@ bitfloating is the part of the transform that map an integer (SIMD vector) value
 to the corresponding floating (SIMD vector) value.
 
 This function is generally not intended for direct use, but is used in
-implementing fast next and successor functors.
+implementing fast [link #next] and ``successor`` functors.
 
 
 [table Template Parameters
