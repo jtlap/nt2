@@ -27,12 +27,6 @@ SET( SOURCES
   compare_not_equal.cpp
   complement.cpp
   divides.cpp
-  is_equal.cpp
-  is_greater.cpp
-  is_greater_equal.cpp
-  is_less.cpp
-  is_less_equal.cpp
-  is_not_equal.cpp
   logical_and.cpp
   logical_not.cpp
   logical_or.cpp

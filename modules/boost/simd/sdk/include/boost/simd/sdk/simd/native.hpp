@@ -232,6 +232,5 @@ namespace boost { namespace simd
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
 #include <boost/simd/sdk/simd/details/native/fusion.hpp>
 #include <boost/simd/sdk/simd/details/native/operators.hpp>
-#include <boost/simd/sdk/simd/details/native/comparisons.hpp>
 
 #endif
