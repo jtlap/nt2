@@ -70,12 +70,11 @@ namespace nt2 { namespace ext
                             , ((simd_<real_<A0>,X>))
                             )
   {
-
-    typedef typename meta::as_real<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::cota(a0);
+      A0 that = {impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::cota(a0)}; 
+      return that;
     }
   };
 } }

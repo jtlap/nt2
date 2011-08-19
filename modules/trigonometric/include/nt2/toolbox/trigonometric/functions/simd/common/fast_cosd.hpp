@@ -11,10 +11,8 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/functions/details/simd/common/impl/trigo.hpp
-//  of the old nt2
+#include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
+
 
 
 
@@ -33,7 +31,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<result_type,degree_tag,  tag::simd_type, clipped_pio4>::cosa(tofloat(a0));
+      result_type that = {impl::trig_base<result_type,degree_tag,  tag::simd_type, clipped_pio4>::cosa(tofloat(a0))}; 
+      return that;
     }
   };
 } }

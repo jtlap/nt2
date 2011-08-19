@@ -11,12 +11,7 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
- #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/functions/details/simd/common/impl/trigo.hpp
-//  of the old nt2
-
-
+#include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -28,9 +23,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_real<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return is_nez(a0);
@@ -49,14 +42,13 @@ namespace nt2 { namespace ext
                             , ((simd_<real_<A0>,X>))
                             )
   {
-
-    typedef typename meta::as_real<A0>::type result_type;
-
+    typedef A0  result_type;
     NT2_FUNCTOR_CALL(1)
-    {
-      return impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::sina(a0);
-    }
-  };
+      {
+	A0 that = {impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::sina(a0)}; 
+	return that;
+      }
+  }; 
 } }
 
 

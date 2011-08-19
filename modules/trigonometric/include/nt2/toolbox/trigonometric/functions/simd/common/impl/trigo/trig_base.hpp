@@ -42,21 +42,23 @@ namespace nt2
         // * evaluations of the two branches and selection using flags
         // * return with flag based corrections and inf and nan or specific invalid cases inputs considerations
 
-        static inline A0 cosa(const A0& a0){ return cosa(a0, style()); }
-        static inline A0 sina(const A0& a0){ return sina(a0, style()); }
-        static inline A0 tana(const A0& a0){ return tana(a0, style()); }
-        static inline A0 cota(const A0& a0){ return cota(a0, style()); }
+        static inline typename A0::native_type cosa(const A0& a0){ return cosa(a0, style()); }
+        static inline typename A0::native_type sina(const A0& a0){ return sina(a0, style()); }
+        static inline typename A0::native_type tana(const A0& a0){ return tana(a0, style()); }
+        static inline typename A0::native_type cota(const A0& a0){ return cota(a0, style()); }
         static inline typename A0::native_type sincosa(const A0& a0, A0& c){ return sincosa(a0,c,style()); }
         
       private:
-        static inline A0 cosa(const A0&a0, const fast&)
+        static inline typename A0::native_type cosa(const typename A0::native_type a0_n, const fast&)
         {
+	  const A0 a0 = { a0_n };
 	  const A0 x =  scale(a0);
           return  eval_t::cos_eval(sqr(x), x, Zero<A0>());
         }
 
-        static inline A0 cosa(const A0 & a0, const regular&)
+        static inline typename A0::native_type cosa(const typename A0::native_type a0_n, const regular&)
         {
+	  const A0 a0 = { a0_n };
 	  static const sint_type de = sizeof(sint_type)*8-1;
           // de is the size in bits of the scalar types minus one
           const A0 x = nt2::abs(a0);
@@ -71,14 +73,16 @@ namespace nt2
                         sign_bit); 
         }
 
-        static inline A0 sina(const A0& a0, const fast&)
+        static inline typename A0::native_type sina(const typename A0::native_type a0_n, const fast&)
         {
+	  const A0 a0 = { a0_n };
           const A0 x =  scale(a0);
           return  eval_t::sin_eval(sqr(x), x, Zero<A0>());
         }
 
-        static inline A0 sina(const A0& a0, const regular&)
+        static inline typename A0::native_type sina(const typename A0::native_type a0_n, const regular&)
         {
+	  const A0 a0 = { a0_n };
           static const sint_type de = sizeof(sint_type)*8-1;
           // size in bits of the scalar types minus one
           const A0 x = nt2::abs(a0);
@@ -93,13 +97,15 @@ namespace nt2
                        sign_bit); 
         }
 
-        static inline A0 tana(const A0& a0, const fast&)
+        static inline typename A0::native_type tana(const typename A0::native_type a0_n, const fast&)
         {
+	  const A0 a0 = { a0_n };
           return  eval_t::base_tancot_eval(scale(a0)); 
         }
 
-        static inline A0 tana(const A0& a0, const regular&)
+        static inline typename A0::native_type tana(const typename A0::native_type a0_n, const regular&)
         {
+	  const A0 a0 = { a0_n };
           const A0 x =  nt2::abs(a0); 
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
@@ -109,13 +115,15 @@ namespace nt2
           return b_or(testnan, b_xor(y, bitofsign(a0)));                        
         }
 
-        static inline A0 cota(const A0& a0, const fast&)
+        static inline typename A0::native_type cota(const typename A0::native_type a0_n, const fast&)
         {
+	  const A0 a0 = { a0_n };
           return  rec(eval_t::base_tancot_eval(scale(a0))); 
         }
 
-        static inline A0 cota(const A0& a0, const regular&)
+        static inline typename A0::native_type cota(const typename A0::native_type a0_n, const regular&)
         {
+	  const A0 a0 = { a0_n };
           const A0 x =  nt2::abs(a0); 
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);

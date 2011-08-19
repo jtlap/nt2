@@ -27,9 +27,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_real<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return tofloat(One<A0>()+Two<A0>()*is_odd(a0));
@@ -47,9 +45,7 @@ namespace nt2 { namespace ext
                             , ((simd_<uint_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_real<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return selsub(is_odd(a0), One<result_type>(), Two<result_type>());
@@ -67,12 +63,11 @@ namespace nt2 { namespace ext
                             , ((simd_<real_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<A0,pi_tag,  tag::simd_type>::cosa(a0);
+      A0 that = {impl::trig_base<A0,pi_tag,tag::simd_type>::cosa(a0)}; 
+      return that;
     }
   };
 } }

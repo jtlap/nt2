@@ -33,7 +33,25 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::trig_base<result_type,radian_tag,  tag::simd_type>::sina(tofloat(a0));
+      return nt2::sin(tofloat(a0));
+    }
+  };
+} }
+
+namespace nt2 { namespace ext
+{
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sin_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<real_<A0>,X>))
+                            )
+  {
+
+    typedef A0 result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      result_type that = {impl::trig_base<result_type,radian_tag,  tag::simd_type, big>::sina(tofloat(a0))}; 
+      return that;
     }
   };
 } }
