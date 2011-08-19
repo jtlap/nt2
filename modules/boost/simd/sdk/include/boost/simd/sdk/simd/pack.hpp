@@ -12,7 +12,6 @@
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
 
-#include <boost/simd/sdk/simd/pack/data.hpp>
 #include <boost/simd/sdk/simd/pack/grammar.hpp>
 #include <boost/simd/sdk/simd/pack/generator.hpp>
 #include <boost/simd/sdk/simd/pack/expression.hpp>

@@ -12,6 +12,9 @@
 #include <boost/proto/core.hpp>
 #include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
+#include <boost/simd/sdk/simd/pack/evaluation.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
