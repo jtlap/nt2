@@ -56,9 +56,11 @@ namespace nt2 { namespace ext
   {
 
     typedef typename meta::as_real<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    inline result_type operator()(const typename A0::native_type a0_n,
+				  const typename A0::native_type a1_n) const
     {
+      const A0 a0 = {a0_n};
+      const A0 a1 = {a1_n};
       result_type z = atan(tofloat(a0)/tofloat(a1));  
       return sel(is_eqz(a0), Zero<result_type>(), z);
     }
@@ -78,11 +80,14 @@ namespace nt2 { namespace ext
 
     typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    //    NT2_FUNCTOR_CALL_REPEAT(2)
+    inline result_type operator()(const typename A0::native_type a0_n,
+				  const typename A0::native_type a1_n) const
     {
+      const A0 a0 = {a0_n};
+      const A0 a1 = {a1_n};
       A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
       z = sel(is_gtz(a1), z, Pi<A0>()-z);
-      //      z = sel(is_nez(a1), z, z*Half<A0>());
       z = z*signnz(a0);
       return sel(is_eqz(a0), sel(is_ltz(a1), Pi<A0>(), Zero<A0>()), z);
     }
