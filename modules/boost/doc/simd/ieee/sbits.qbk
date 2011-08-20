@@ -1,5 +1,6 @@
 [section sbits]
 
+signed bits is just a bitwise_cast of the input of type `A0` to the type `as_integer<A0, signed>::type`.
 [h5 Description]
 
 [h5 Synonyms]

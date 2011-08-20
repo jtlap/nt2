@@ -1,4 +1,6 @@
 [section round2even]
+rounding to nearest integer.
+half-integers are rounded toward the nearest even integer.
 
 [h5 Description]
 

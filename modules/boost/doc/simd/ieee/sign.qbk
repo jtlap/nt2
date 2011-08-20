@@ -1,5 +1,9 @@
 [section sign]
 
+`One` or `Zero` `Mone` according to the fact the input `is_greater` 
+than `Zero` `is_equal_to` `Zero` or `is_less` than `Zero`.
+
+
 [h5 Description]
 
 [h5 Synopsis]

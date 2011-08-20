@@ -1,7 +1,7 @@
 [section minnum]
 
 [h5 Description]
-
+return from each element of the two parameters the elements the one that have the least absolute value.
 [h5 Synopsis]
     namespace boost { namespace simd
     {

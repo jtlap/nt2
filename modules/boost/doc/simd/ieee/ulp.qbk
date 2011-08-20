@@ -1,5 +1,9 @@
 [section ulp]
 
+unit in the last point.
+This functor give the Unit in the Last Point of the input. That is the minimum of the distances of the input
+to its predecessor and its successor.
+Invalid floating values lead to `Nan`.
 [h5 Description]
 
 [h5 Synopsis]

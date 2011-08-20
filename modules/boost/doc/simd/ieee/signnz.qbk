@@ -1,5 +1,11 @@
 [section signnz]
 
+`One` or `Mone` according to the fact the input `is_positive` or not.
+
+Take care that with floating point numbers, there are two representation of `Zero` :
+`Zero` and `Mzero` (-0).
+The first one `is_positive` the second is not but the two are equal (!)
+
 [h5 Description]
 
 [h5 Synopsis]

@@ -1,4 +1,7 @@
 [section successor]
+`successor(x,n)` returns the nth `next` iteration: 
+for example `successor(x,3)` is `next(next(next(x)))` 
+and `successor(x,1)` is simply  `next(x)`.
 
 [h5 Description]
 
