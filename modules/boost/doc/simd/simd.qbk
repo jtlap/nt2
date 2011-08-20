@@ -20,6 +20,9 @@
 [def __prod__    [link simd.reduction.prod `prod`]]
 [def __second__  [link simd.reduction.second `second`]]
 [def __sum__     [link simd.reduction.sum `sum`]]
+[def __next__    [link simd.ieee.next `next`]]
+[def __successor__ [link simd.ieee.successor `successor`]]
+
 [def __unspecified__ /unspecified/]
 
 [warning Boost.Dispatch is a library in development and is not part of Boost.]

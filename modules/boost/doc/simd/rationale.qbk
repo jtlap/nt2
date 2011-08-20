@@ -38,7 +38,7 @@ Consider the simple piece of code:
 
 This can of course be writen with scalar operands, but what if they are SIMD vectors ?
 
-first we cannot write [link #compare_greater_equal [c++] `a>=0`] because this operator 
+first we cannot write [c++] `a>=0` because this operator 
 compare vector in lexicographical order to preserve STL compatibility when iterating on arrays, 
 so we can use something like:
 

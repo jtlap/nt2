@@ -1,9 +1,10 @@
 [section successor]
+
+[h5 Description]
 `successor(x,n)` returns the nth `next` iteration: 
 for example `successor(x,3)` is `next(next(next(x)))` 
 and `successor(x,1)` is simply  `next(x)`.
 
-[h5 Description]
 
 [h5 Synopsis]
     namespace boost { namespace simd

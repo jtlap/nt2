@@ -1,8 +1,9 @@
 [section round2even]
+
+[h5 Description]
 rounding to nearest integer.
 half-integers are rounded toward the nearest even integer.
 
-[h5 Description]
 
 [h5 Synopsis]
     namespace boost { namespace simd

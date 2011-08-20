@@ -1,5 +1,7 @@
 [section ulpdist]
 
+[h5 Description]
+
 return the unit in the last bit distance beetween the two inputs.
 
 The ulpdist is a way to answer to relative errors estimations
@@ -39,7 +41,6 @@ ulpdist( 1.0, 1-boost::simd::Eps<double>())   == 0.5
 ulpdist(double(boost::simd::Pi<float>()), boost::simd::Pi<double>()) == 9.84293e+07
 ``
 
-[h5 Description]
 
 
 [h5 Synopsis]

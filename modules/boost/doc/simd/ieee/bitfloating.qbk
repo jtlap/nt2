@@ -12,7 +12,7 @@ bitfloating is the part of the transform that map an integer (SIMD vector) value
 to the corresponding floating (SIMD vector) value.
 
 This function is generally not intended for direct use, but is used in
-implementing fast [link #next] and ``successor`` functors.
+implementing fast __next__ and __successor__ functors.
 
 [h5 Synopsis]
     namespace boost { namespace simd
