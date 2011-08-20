@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return is_ltz(a0)-is_gtz(a0); // here True is -1 False 0 !
+      return is_ltz(a0)-is_gez(a0); // here True is -1 False 0 !
     }
   };
 

@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/prev.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
 
@@ -55,14 +56,13 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type int_type;
       if (is_eqz(a0)) return Mindenormal<A0>();
+      if (is_invalid(a0)) return Nan<A0>();
       const A0 x = boost::simd::abs(a0);
-      if (x == Inf<A0>()) return x;
       int_type aa = bitwise_cast<int_type>(x);
       int_type bb = aa;
       --bb;
       ++aa;
-      return boost::simd::min(x-bitwise_cast<A0>(bb),
-		      bitwise_cast<A0>(aa)-x);
+      return boost::simd::min(x-bitwise_cast<A0>(bb), bitwise_cast<A0>(aa)-x);
     }
   };
 } } }
