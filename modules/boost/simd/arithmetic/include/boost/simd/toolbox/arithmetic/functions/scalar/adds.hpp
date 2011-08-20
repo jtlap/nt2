@@ -26,14 +26,12 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
+                            , (A0)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype; 
       return boost::simd::saturate<A0>(utype(a0)+utype(a1)); 
@@ -48,16 +46,15 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::min(boost::simd::Valmax<A0>(), a0+a1); 
+      typedef typename dispatch::meta::upgrade<A0>::type utype; 
+      return boost::simd::min(utype(boost::simd::Valmax<A0>()), utype(a0+a1)); 
     }
   };
 } } }
@@ -69,14 +66,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< int64_<A0> >)(scalar_< int64_<A1> >)
+                            , (A0)
+                            , (scalar_< int64_<A0> >)(scalar_< int64_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       bool gtza0 = is_gtz(a0);
       bool gtza1 = is_gtz(a1);
@@ -104,14 +99,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< uint64_<A0> >)(scalar_< uint64_<A1> >)
+                            , (A0)
+                            , (scalar_< uint64_<A0> >)(scalar_< uint64_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0pa1 = a0+a1;
       if (lt(a0pa1, boost::simd::max(a0, a1)))
@@ -133,14 +126,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< uint32_<A0> >)(scalar_< uint32_<A1> >)
+                            , (A0)
+                            , (scalar_< uint32_<A0> >)(scalar_< uint32_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0pa1 = a0+a1;
       if (lt(a0pa1, boost::simd::max(a0, a1)))

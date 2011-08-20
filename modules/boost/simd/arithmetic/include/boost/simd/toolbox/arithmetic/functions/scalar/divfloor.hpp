@@ -19,14 +19,12 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< signed_<A0> >)(scalar_< signed_<A1> >)
+                            , (A0)
+                            , (scalar_< signed_<A0> >)(scalar_< signed_<A0> >)
                             )
   {
-
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
         return -iceil(-double(a0)/double(a1)); 
@@ -45,14 +43,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
                             )
   {
-
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
         return rdivide(a0, a1); 
@@ -73,14 +69,14 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
+                            , (A0)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)
                             )
   {
 
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::floor(a0/a1);
     }

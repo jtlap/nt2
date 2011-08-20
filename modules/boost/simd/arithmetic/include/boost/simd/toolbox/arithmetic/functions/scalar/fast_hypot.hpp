@@ -27,17 +27,14 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef result_type type;
-      return boost::simd::fast_hypot(type(a0), type(a1));
+      return boost::simd::fast_hypot(result_type(a0), result_type(a1));
     }
   };
 } } }
@@ -49,16 +46,13 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< double_<A0> >)(scalar_< double_<A1> >)
+                            , (A0)
+                            , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
                             )
   {
-
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type  int_type;
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
       if (boost::simd::is_inf(x+y)) return Inf<float>();
@@ -77,14 +71,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< float_<A0> >)(scalar_< float_<A1> >)
+                            , (A0)
+                            , (scalar_< float_<A0> >)(scalar_< float_<A0> >)
                             )
   {
-
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       // flibc do that in ::fast_hypotf(a0, a1) in asm with no more speed!
       // proper impl as for double is 30% slower

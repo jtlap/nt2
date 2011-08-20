@@ -28,10 +28,10 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-
   template < class T, class I = typename dispatch::meta::as_integer<T, signed>::type>
   struct hypot_constants;
-
+  //TODO make proper constants
+  
   template <class I> struct hypot_constants<float, I>
   {
     typedef I  int_type;
@@ -57,23 +57,22 @@ namespace boost { namespace simd { namespace ext
   };
 
  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
-                       (A0)(A1),
-                       (scalar_<fundamental_<A0> >)(scalar_<fundamental_<A1> >)
+                       (A0),
+                       (scalar_<arithmetic_<A0> >)(scalar_<arithmetic_<A0> >)
                       )
  {
-   typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0,A1)>::type result_type;
+   typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef result_type ftype;
-      return internal(ftype(a0), ftype(a1)); 
+      return internal(result_type(a0), result_type(a1)); 
     }
   private:
 
     static inline float internal(const float& a0, const  float& a1)
       {
 	// flibc do that in ::hypotf(a0, a1) in asm with no more speed!
-	// internal is 30% slower
+	// proper internal is 30% slower
 	return float(boost::simd::sqrt(boost::simd::sqr(double(a0))+boost::simd::sqr(double(a1))));	
       }
     
@@ -134,7 +133,6 @@ namespace boost { namespace simd { namespace ext
       return w;
     }
   };
-
 } } }
 
 #endif

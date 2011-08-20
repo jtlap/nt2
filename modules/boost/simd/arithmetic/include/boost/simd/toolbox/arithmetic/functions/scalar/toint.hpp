@@ -12,7 +12,6 @@
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_ , (A0)

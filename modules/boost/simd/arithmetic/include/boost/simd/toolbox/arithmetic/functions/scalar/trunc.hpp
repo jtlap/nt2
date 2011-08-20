@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/toint.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
@@ -24,10 +24,7 @@ namespace boost { namespace simd { namespace ext
   {
 
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return a0;
-    }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::trunc_, tag::cpu_
@@ -35,7 +32,6 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {

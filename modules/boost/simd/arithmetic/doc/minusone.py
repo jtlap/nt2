@@ -6,7 +6,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type',
+             'default' : 'T',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],

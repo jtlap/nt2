@@ -14,29 +14,25 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
-                              (scalar_< arithmetic_<A1> >)
+                              (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::rdivide(a0, a1);
     }
-
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)(A1)
-                            , (scalar_< real_<A0> > )(scalar_< real_<A1> > )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfix_, tag::cpu_, (A0)
+                            , (scalar_< real_<A0> > )(scalar_< real_<A0> > )
                             )
 
   {
-    typedef typename boost::dispatch::meta::as_integer < typename
-                             boost::dispatch::meta::result_of<
-                                   boost::dispatch::meta::arithmetic(A0,A1)>::type
-                        >::type                                      result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef typename boost::dispatch::meta::as_integer <A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::toint(a0/a1);
     }
