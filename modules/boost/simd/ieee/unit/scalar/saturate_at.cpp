@@ -51,3 +51,32 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( saturate_at_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  
+  using boost::simd::saturate_at;
+  using boost::simd::tag::saturate_at_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<saturate_at_<boost::simd::tag::Pi>(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::Nan<T>()), boost::simd::Nan<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::Valmax<T>()), boost::simd::Pi<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::Valmin<T>()), -boost::simd::Pi<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
+} // end of test for signed_int_

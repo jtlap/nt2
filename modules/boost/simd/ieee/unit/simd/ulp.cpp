@@ -28,6 +28,7 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( ulp_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -51,8 +52,8 @@ NT2_TEST_CASE_TPL ( ulp_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(ulp(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(ulp(boost::simd::Minf<vT>())[0], boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(ulp(boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(ulp(boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(ulp(boost::simd::Mone<vT>())[0], boost::simd::Eps<sr_t>()/2);
   NT2_TEST_EQUAL(ulp(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(ulp(boost::simd::One<vT>())[0], boost::simd::Eps<sr_t>()/2);

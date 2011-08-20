@@ -12,7 +12,7 @@
          'special' : ['ieee'],
          'tpl'   : '<boost::simd::tag::Pi>',   
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['real_','signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -27,12 +27,27 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Pi<r_t>()',
-                 'nt2::Minf<T>()' : '-nt2::Pi<r_t>()',
-                 'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
-                 'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Pi<r_t>()',
+                 'boost::simd::Minf<T>()' : '-boost::simd::Pi<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Mone<r_t>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
+                },
+             'signed_int_' : {
+                 'boost::simd::Valmax<T>()' : 'boost::simd::Pi<r_t>()',
+                 'boost::simd::Valmin<T>()' : '-boost::simd::Pi<r_t>()',
+                 'boost::simd::Mone<T>()' : 'boost::simd::Mone<r_t>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
+                },
+             'unsigned_int_' : {
+                 'boost::simd::Valmax<T>()' : 'boost::simd::Pi<r_t>()',
+                 'boost::simd::Valmin<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
+                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },
             },
          'verif_test' : {
@@ -40,7 +55,9 @@
                  'default' : ['saturate_at<boost::simd::tag::Pi>(a0)'],
                 },
              'property_value' : {
-                 'default' : ['a0>boost::simd::Pi<T>() ? boost::simd::Pi<T>() : (a0<-boost::simd::Pi<T>() ? -boost::simd::Pi<T>() :a0)'],
+                 'real_' : ['a0>boost::simd::Pi<T>() ? boost::simd::Pi<T>() : (a0<-boost::simd::Pi<T>() ? -boost::simd::Pi<T>() :a0)'],
+                 'signed_int_' : ['a0>boost::simd::Pi<T>() ? boost::simd::Pi<T>() : (a0<-boost::simd::Pi<T>() ? -boost::simd::Pi<T>() :a0)'],
+                 'unsigned_int_' : ['a0>boost::simd::Pi<T>() ? boost::simd::Pi<T>() :a0)'],
                 },
              'simd' : {
                 },

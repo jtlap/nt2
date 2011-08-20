@@ -33,8 +33,8 @@
              'default' : {
                 },
              'real_' : {
-                 'boost::simd::Inf<T>()' : 'boost::simd::Inf<r_t>()',
-                 'boost::simd::Minf<T>()' : 'boost::simd::Inf<r_t>()',
+                 'boost::simd::Inf<T>()' : 'boost::simd::Nan<r_t>()',
+                 'boost::simd::Minf<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::Mone<T>()' : 'boost::simd::Eps<r_t>()/2',
                  'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::One<T>()' : 'boost::simd::Eps<r_t>()/2',

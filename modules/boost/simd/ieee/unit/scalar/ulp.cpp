@@ -48,8 +48,8 @@ NT2_TEST_CASE_TPL ( ulp_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(ulp(boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(ulp(boost::simd::Minf<T>()), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(ulp(boost::simd::Inf<T>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(ulp(boost::simd::Minf<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(ulp(boost::simd::Mone<T>()), boost::simd::Eps<r_t>()/2);
   NT2_TEST_EQUAL(ulp(boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(ulp(boost::simd::One<T>()), boost::simd::Eps<r_t>()/2);
