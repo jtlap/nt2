@@ -21,14 +21,12 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextafter_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return a0+sign(a1-a0);
     }
@@ -42,14 +40,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextafter_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< double_<A0> >)(scalar_< double_<A1> >)
+                            , (A0)
+                            , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
     #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_NEXTAFTER
       return ::nextafter(a0, a1);
@@ -69,14 +65,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextafter_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< float_<A0> >)(scalar_< float_<A1> >)
+                            , (A0)
+                            , (scalar_< float_<A0> >)(scalar_< float_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
     #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_NEXTAFTERF
       return ::nextafterf(a0, a1);
@@ -96,14 +90,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextafter_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return (a1 == a0) ? a0 : (a1 > a0) ? a0+One<A0>() : a0-One<A0>();
     }

@@ -18,14 +18,14 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
-                      (A0)(A1),
+                      (A0),
                       (scalar_ < arithmetic_<A0> > )
-                      (scalar_ < arithmetic_<A1> > )
-                      (scalar_ < arithmetic_<A1> > )
+                      (scalar_ < arithmetic_<A0> > )
+                      (scalar_ < arithmetic_<A0> > )
                      )
   {  
-    typedef boost::simd::int32_t result_type;    
-    inline int32_t operator()(A0 const& a0,A1 & r1,A1 & r0) const
+    typedef int result_type;    
+    inline int32_t operator()(A0 const& a0,A0 & r1,A0 & r0) const
     {
       r1 = boost::simd::trunc(a0);
       r0 = a0 - r1;
@@ -34,13 +34,13 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
-                      (A0)(A1),
+                      (A0),
                       (scalar_ < arithmetic_<A0> > )
-                      (scalar_ < arithmetic_<A1> > )
+                      (scalar_ < arithmetic_<A0> > )
                      )
   {  
-    typedef A1 result_type;    
-    inline A1 operator()(A0 const& a0,A1 & a1) const
+    typedef A0 result_type;    
+    inline A0 operator()(A0 const& a0,A0 & a1) const
     {
       a1 = boost::simd::trunc(a0);
       return a0 - a1;
@@ -52,9 +52,8 @@ namespace boost { namespace simd { namespace ext
                       (scalar_ < arithmetic_<A0> > )
                      )
   {
-      typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type  etype;
-      typedef boost::fusion::vector<etype, etype>        result_type;
-    
+    typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type  etype;
+    typedef boost::fusion::vector<etype, etype>                               result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
