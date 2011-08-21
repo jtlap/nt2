@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_SCALAR_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_SCALAR_OF_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 

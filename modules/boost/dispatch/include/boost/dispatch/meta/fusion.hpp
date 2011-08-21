@@ -20,11 +20,7 @@
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 
-namespace boost { namespace simd
-{
-  template<class T, class X>
-  union native;
-} }
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

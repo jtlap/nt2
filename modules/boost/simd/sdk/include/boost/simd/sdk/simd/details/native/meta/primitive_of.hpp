@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_PRIMITIVE_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_PRIMITIVE_OF_HPP_INCLUDED
 
-#include <boost/mpl/placeholders.hpp>
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
