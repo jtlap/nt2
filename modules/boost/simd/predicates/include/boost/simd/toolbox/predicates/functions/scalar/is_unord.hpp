@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_UNORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_UNORD_HPP_INCLUDED
-#include <boost/simd/include/functions/boolean.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/constants/false.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
