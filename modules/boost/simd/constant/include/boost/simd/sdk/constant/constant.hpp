@@ -26,7 +26,7 @@
  */
 //==============================================================================
 #define BOOST_SIMD_CONSTANT_IMPLEMENTATION(TAG,NAME)                \
-template<class Target> inline                                       \
+template<class Target> BOOST_DISPATCH_FORCE_INLINE                  \
 typename boost::dispatch::meta::                                    \
 call<TAG(boost::dispatch::meta::as_<Target>)>::type                 \
 NAME()                                                              \
