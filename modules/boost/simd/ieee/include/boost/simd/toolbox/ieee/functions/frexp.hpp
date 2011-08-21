@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_FREXP_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/ieee/include.hpp>
+
 
 namespace boost { namespace simd { namespace tag
   {         
