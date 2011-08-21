@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOINT_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 
 
