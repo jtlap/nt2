@@ -9,7 +9,7 @@
 #ifndef BOOST_DISPATCH_META_RESULT_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_RESULT_OF_HPP_INCLUDED
 
-#include <boost/dispatch/extension/parameters.hpp>
+#include <boost/dispatch/details/parameters.hpp>
 #include <boost/function_types/result_type.hpp>
 #include <boost/mpl/has_xxx.hpp>
 #include <boost/type_traits/is_function.hpp>
@@ -19,7 +19,7 @@
 #include <boost/utility/enable_if.hpp>
 
 #if (defined(BOOST_NO_VARIADIC_TEMPLATES) && defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)) || defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
-#include <boost/dispatch/extension/parameters.hpp>
+#include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #endif

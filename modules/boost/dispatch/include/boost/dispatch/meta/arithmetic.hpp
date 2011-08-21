@@ -18,7 +18,7 @@
 #include <boost/utility/declval.hpp>
 
 #if defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
-#include <boost/dispatch/extension/parameters.hpp>
+#include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
