@@ -15,7 +15,7 @@
  */
 
 #include <boost/dispatch/details/parameters.hpp>
-#include <boost/dispatch/details/preprocessor.hpp>
+#include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
