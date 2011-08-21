@@ -55,8 +55,8 @@ namespace boost { namespace simd
     // expression hierarchy of simd:::expression
     ////////////////////////////////////////////////////////////////////////////
     typedef typename
-    dispatch::details::hierarchy_of_expr<pack>::type  nt2_hierarchy_tag;
-    typedef data_type                                 nt2_semantic_type;
+    dispatch::details::hierarchy_of_expr<pack>::type  dispatch_hierarchy_tag;
+    typedef data_type                                 dispatch_semantic_tag;
 
     ////////////////////////////////////////////////////////////////////////////
     // Range interface

@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // For a given proto expression class, retrieves its semantic info as a type
 // Expression semantic info is void by design while SemanticRichExpression
-// types expose a nt2_semantic_type that can be retrieved here.
+// types expose a dispatch_semantic_tag that can be retrieved here.
 // Such information are used into expression hierarchy.
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
@@ -28,7 +28,7 @@ namespace boost { namespace dispatch { namespace meta
   template< class Expr >
   struct semantic_of< Expr
                     , typename
-                      enable_if_type<typename Expr::nt2_semantic_type>::type
+                      enable_if_type<typename Expr::dispatch_semantic_tag>::type
                     >
   {
     typedef typename Expr::boost_dispatch_semantic_type type;
