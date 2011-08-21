@@ -22,8 +22,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
-
+    typedef A0 const& result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0;
