@@ -19,10 +19,9 @@
 #if !defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/functor/details/preprocessed/dispatch.hpp>
 #else
-#include <boost/dispatch/details/parameters.hpp>
-#include <boost/dispatch/details/preprocessor.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
+#include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
