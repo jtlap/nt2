@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 
+#include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
-#include <boost/simd/sdk/meta/int_c.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
