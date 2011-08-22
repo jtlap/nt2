@@ -12,7 +12,9 @@
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-namespace nt2 { namespace meta
+#include <cmath>
+
+namespace nt2 { namespace ext
 {
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is float_

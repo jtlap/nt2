@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_LIBC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
 #define NT2_TOOLBOX_LIBC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
+#include <cmath>
 
 
 /////////////////////////////////////////////////////////////////////////////
