@@ -9,10 +9,6 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_NONE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_NONE_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/sdk/simd/meta/extension_of.hpp>
-#include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
-
 #if !defined(BOOST_SIMD_DETECTED)
 BOOST_SIMD_WARNING(No SIMD extensions detected)
 #define BOOST_SIMD_NO_SIMD
@@ -31,6 +27,7 @@ BOOST_SIMD_WARNING(No SIMD extensions detected)
 #include <boost/dispatch/functor/meta/hierarchy.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/simd/meta/extension_of.hpp>
 
 #include <boost/array.hpp>
 #include <boost/mpl/times.hpp>

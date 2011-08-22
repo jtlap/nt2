@@ -10,13 +10,15 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_META_ALTIVEC_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_META_ALTIVEC_HPP_INCLUDED
 
-#include <climits>
 #include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/simd/meta/extension_of.hpp>
+#include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
+#include <boost/dispatch/functor/meta/hierarchy.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_signed.hpp>
-
-#include <boost/dispatch/functor/meta/hierarchy.hpp>
+#include <climits>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Tag hierarchy for Altivec PPC extensions

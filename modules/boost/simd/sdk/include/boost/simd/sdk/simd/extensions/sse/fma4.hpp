@@ -48,7 +48,9 @@ BOOST_SIMD_WARNING(FMA4 SIMD extension detected)
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::avx_
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::avx_
 
-#include <immintrin.h>
+// FMA4 header not standardized
+#include <x86intrin.h>
+#include <fma4intrin.h>
 
 #include <nt2/sdk/simd/extensions/meta/sse.hpp>
 #include <nt2/sdk/simd/extensions/meta/avx.hpp>

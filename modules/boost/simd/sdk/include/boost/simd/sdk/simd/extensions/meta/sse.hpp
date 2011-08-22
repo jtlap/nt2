@@ -11,10 +11,12 @@
 
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/simd/meta/extension_of.hpp>
+#include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
+#include <boost/dispatch/functor/meta/hierarchy.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
-
-#include <boost/dispatch/functor/meta/hierarchy.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Tag hierarchy for SSE extensions
