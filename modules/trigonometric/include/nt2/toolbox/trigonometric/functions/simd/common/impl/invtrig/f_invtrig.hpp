@@ -27,8 +27,9 @@ namespace nt2
       struct invtrig_base<A0,radian_tag,tag::simd_type, float>
       {
 	
-	static inline A0 asin(const A0& a0)
+	static inline typename A0::native_type asin(const typename A0::native_type a0_n)
 	{
+	  const A0 a0 = { a0_n };
 	  A0 sign, x;
 	  //	bf::tie(sign, x) = sign_and_abs(a0);
 	  x = nt2::abs(a0);
@@ -54,8 +55,9 @@ namespace nt2
 	  return b_xor(z, sign);
 	}
 	
-	static inline A0 acos(const A0& a0)
+	static inline typename A0::native_type acos(const typename A0::native_type a0_n)
 	{
+	  const A0 a0 = { a0_n };
 	  A0 x = nt2::abs(a0);
 	  A0 z2 = asin(a0);
 	  A0 isgtxh = gt(x, Half<A0>());
@@ -69,8 +71,9 @@ namespace nt2
 	  //	return Pi_o_2<A0>()-asin(a0); 
 	}
 	
-	static inline A0 atan(const A0& a0)
+	static inline typename A0::native_type atan(const typename A0::native_type a0_n)
 	{
+	  const A0 a0 = { a0_n };
 	  A0 x, sign;
 	  x = nt2::abs(a0);
 	  sign = bitofsign(a0);
