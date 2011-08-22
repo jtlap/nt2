@@ -23,12 +23,12 @@ NT2_TEST_CASE_TPL(make_real_simd, BOOST_SIMD_REAL_TYPES)
   using boost::simd::native;
   using boost::dispatch::meta::make_real;
   using boost::is_same;
-  using boost::mpl::_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
   typedef native<typename make_real<sizeof(T)>::type,ext_t> dst_t;
+  typedef boost::dispatch::meta::factory_of<dst_t>::type fact_t;
 
-  NT2_TEST( (is_same< typename make_real<sizeof(T),native<_,ext_t> >::type
+  NT2_TEST( (is_same< typename make_real<sizeof(T), fact_t>::type
                     , dst_t
                     >::value
             )

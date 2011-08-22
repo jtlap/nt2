@@ -17,11 +17,7 @@ namespace boost { namespace simd
    * so we make it an struct and rely on the fact that the wrapper native type
    * is itself a union with that compiler. */
   template<class T, class X>
-#ifdef BOOST_MSVC
-  struct native;
-#else
   union native;
-#endif
 } }
 
 #endif

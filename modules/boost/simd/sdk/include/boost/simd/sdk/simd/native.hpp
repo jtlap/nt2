@@ -24,11 +24,7 @@ namespace boost { namespace simd
   /// Platform independant native SIMD type
   //////////////////////////////////////////////////////////////////////////////
   template<class Scalar,class Extension>
-#ifdef BOOST_MSVC
-  struct native
-#else
   union native
-#endif
   {
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> is a SIMD type encapsulation
@@ -124,7 +120,6 @@ namespace boost { namespace simd
     }
     
     native_type data_;
-#ifndef BOOST_MSVC
     value_type array[static_size];
     
     BOOST_DISPATCH_FORCE_INLINE
@@ -132,13 +127,7 @@ namespace boost { namespace simd
     {
       return array;
     }
-#else
-    BOOST_DISPATCH_FORCE_INLINE
-    value_type* data()
-    {
-      return reinterpret_cast<value_type*>(&data_);
-    }
-#endif
+
     BOOST_DISPATCH_FORCE_INLINE
     const value_type* data() const
     {
