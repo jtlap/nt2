@@ -47,8 +47,9 @@ namespace nt2
 	static inline logic tan_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const big&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const big&)
         {
+	  const A0 x = { x_n };
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
@@ -66,8 +67,9 @@ namespace nt2
 	    return rem_pio2(x, xr, xc);
         }
 	
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const medium&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const medium&)
         {
+	  const A0 x = { x_n };
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
@@ -83,8 +85,9 @@ namespace nt2
 	    return rem_pio2_medium(x, xr, xc);
         }
 	
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const small&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const small&)
         {
+	  const A0 x = { x_n };
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
@@ -105,31 +108,37 @@ namespace nt2
 	      return rem_pio2_cephes(x, xr, xc);
 	    }
 	}
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_small&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const direct_small&)
         {
+	  const A0 x = { x_n };
 	  return rem_pio2_cephes(x, xr, xc);
         }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_medium&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const direct_medium&)
         {
+	  const A0 x = { x_n };
 	  return rem_pio2_medium(x, xr, xc);
         }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const direct_big&)
         {
+	  const A0 x = { x_n };
 	  return rem_pio2_big(x, xr, xc);
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
+	static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const clipped_pio4&)
         {
+	  const A0 x = { x_n };
 	  xr = sel(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
 	  xc = Zero<A0>();
 	  return Zero<int_type>(); 
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
+	static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const clipped_small&)
         {
+	  const A0 x = { x_n };
 	  xr = sel(issmall(nt2::abs(x)), x, Nan<A0>());
 	  return inner_reduce(xr, xr, xc, small()); 
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
+	static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const clipped_medium&)
         {
+	  const A0 x = { x_n };
 	  xr = sel(ismedium(nt2::abs(x)), x, Nan<A0>());
 	  return inner_reduce(xr, xr, xc, medium()); 
         }
@@ -151,8 +160,9 @@ namespace nt2
 	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ }//::sincos(inrad(a0), &s, &c); }
         static inline logic cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_even(x/_90<A0>())); }
         static inline logic tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_odd(x/_90<A0>()); }
-	static inline int_type reduce(A0 x, A0& xr, A0& xc)
+	static inline int_type reduce(const typename A0::native_type x_n, A0& xr, A0& xc)
 	{
+	  const A0 x = { x_n };
 	  A0 xi = round2even(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02 1/90
 	  A0 x2 = x - xi * _90<A0>();
 	  xr =  x2*double_constant<A0,0x3f91df46a2529d39ll>();//0.0174532925199432957692
@@ -181,8 +191,9 @@ namespace nt2
 	static inline void sincos_replacement(const A0& a0, A0&s, A0&c){ c = cos_replacement(a0); s = sin_replacement(a0); }
         static inline logic cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_flint(x)); }
         static inline logic tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_flint(x-Half<A0>()); }
-	static inline int_type reduce(const A0& x,  A0& xr, A0&xc)
+	static inline int_type reduce(const typename A0::native_type x_n,  A0& xr, A0&xc)
 	{
+	  const A0 x = { x_n };
 	  A0 xi = round2even(x*Two<A0>());
 	  A0 x2 = x - xi * Half<A0>();
 	  xr = x2*Pi<A0>();
