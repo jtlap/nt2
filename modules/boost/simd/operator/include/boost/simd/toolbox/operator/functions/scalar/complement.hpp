@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_FUNCTOR_DETAILS_COMPLEMENT_HPP_INCLUDED
 #define BOOST_SIMD_SDK_FUNCTOR_DETAILS_COMPLEMENT_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
@@ -21,10 +20,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return ~a0; }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::complement_, tag::cpu_, (A0)
                             , (scalar_< real_<A0> >)
                             )

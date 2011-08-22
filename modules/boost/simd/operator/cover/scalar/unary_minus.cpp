@@ -43,9 +43,24 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>()/2, boost::simd::Valmax<T>()/2);
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    T a0;
+    for(nt2::uint32_t j =0; j < NR; ++j )
+      {
+        std::cout << "for param "
+                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << std::endl;
+        NT2_TEST_EQUAL( boost::simd::unary_minus(a0),-a0);
+     }
+     
+   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
   using boost::simd::unary_minus;
@@ -79,4 +94,4 @@ NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
      }
      
    }
-} // end of test for integer_
+} // end of test for signed_int_
