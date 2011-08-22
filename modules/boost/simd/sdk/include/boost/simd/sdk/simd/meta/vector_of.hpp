@@ -9,21 +9,14 @@
 #ifndef BOOST_SIMD_SDK_SIMD_META_VECTOR_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_META_VECTOR_OF_HPP_INCLUDED
 
-#include <boost/array.hpp>
-#include <boost/mpl/sizeof.hpp>
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// Forward declaration for native
-////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd
-{
-  template<class Scalar,class Extension> union native;
-} }
+#include <boost/mpl/sizeof.hpp>
+#include <boost/array.hpp>
 
 /* We use boost::mpl::sizeof_ rather than sizeof because MSVC has trouble
  * with sizeof of dependent names in SFINAE contexts */
-#define BOOST_SIMD_LOCAL(z,d,r)                                                \
+#define BOOST_SIMD_LOCAL(z,d,r)                                         \
 template<class T,std::size_t Card>                                      \
 struct vector_of< T ,Card                                               \
                 , typename boost::                                      \
