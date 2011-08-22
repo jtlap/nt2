@@ -8,11 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_GEZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_GEZ_HPP_INCLUDED
-#include <boost/simd/include/functions/boolean.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
@@ -24,9 +21,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0 >= Zero<A0>();
@@ -45,9 +40,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< unsigned_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
