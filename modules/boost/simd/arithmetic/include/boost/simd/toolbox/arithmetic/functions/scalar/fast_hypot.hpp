@@ -88,7 +88,7 @@ namespace boost { namespace simd { namespace ext
     {
       // flibc do that in ::fast_hypotf(a0, a1) in asm with no more speed!
       // proper impl as for double is 30% slower
-      return boost::simd::sqrt(boost::simd::sqr(double(a0))+boost::simd::sqr(double(a1)));
+      return result_type(boost::simd::sqrt(boost::simd::sqr(double(a0))+boost::simd::sqr(double(a1))));
     }
   };
 } } }
