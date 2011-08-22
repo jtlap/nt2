@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<result_type>::type  tmp_type;
       typedef typename dispatch::meta::scalar_of<tmp_type>::type      cst_type;
       typedef typename dispatch::meta::as_unsigned<cst_type>::type    ucst_type;
-      typedef meta::int_c<cst_type,ucst_type(~0ULL)>                  bits_type;
+      typedef meta::int_c<cst_type, ~ucst_type()>                     bits_type;
       
       return native_cast<result_type> ( boost::simd::
                                         splat<tmp_type>( cst_type(bits_type::value) )
