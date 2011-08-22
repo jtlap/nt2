@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_CRLIBM_FUNCTIONS_ACOSPI_RZ_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/crlibm/include.hpp>
 
 namespace nt2 { namespace crlibm { namespace tag
   {         

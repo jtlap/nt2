@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/fuzzy/include.hpp>
 
 namespace nt2 { namespace tag
   {         

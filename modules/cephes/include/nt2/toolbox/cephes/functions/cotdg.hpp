@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_CEPHES_FUNCTIONS_COTDG_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/cephes/include.hpp>
 
 namespace nt2 { namespace cephes { namespace tag
   {         
