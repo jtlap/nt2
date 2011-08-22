@@ -38,6 +38,7 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( ulp_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -61,8 +62,8 @@ NT2_TEST_CASE_TPL ( ulp_real__1_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(ulp(nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
-  NT2_TEST_EQUAL(ulp(nt2::Minf<vT>())[0], nt2::Inf<sr_t>());
+  NT2_TEST_EQUAL(ulp(nt2::Inf<vT>())[0], nt2::Nan<sr_t>());
+  NT2_TEST_EQUAL(ulp(nt2::Minf<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(ulp(nt2::Mone<vT>())[0], nt2::Eps<sr_t>()/2);
   NT2_TEST_EQUAL(ulp(nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(ulp(nt2::One<vT>())[0], nt2::Eps<sr_t>()/2);
