@@ -426,6 +426,7 @@ macro(nt2_module_tool_setup tool)
   
     execute_process(COMMAND ${CMAKE_COMMAND}
                             -DCMAKE_BUILD_TYPE=Release
+                            -G ${CMAKE_GENERATOR}
                             ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_configure_out
@@ -500,6 +501,7 @@ macro(nt2_postconfigure_init)
     add_custom_target(postconfigure
                       COMMAND ${CMAKE_COMMAND}
                               -DCMAKE_BUILD_TYPE=Release
+                              -G ${CMAKE_GENERATOR}
                               ${NT2_SOURCE_ROOT}/tools/postconfigure
                            && ${CMAKE_COMMAND} --build . --config Release
                       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure
