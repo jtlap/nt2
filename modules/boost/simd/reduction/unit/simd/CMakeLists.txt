@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  is_simd_logical.cpp
     none.cpp
   at_i.cpp
   hmsb.cpp

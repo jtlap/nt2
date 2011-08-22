@@ -9,6 +9,7 @@
 ################################################################################
 
 SET( SOURCES
+  is_simd_logical.cpp
     none.cpp
   sum.cpp
   second.cpp

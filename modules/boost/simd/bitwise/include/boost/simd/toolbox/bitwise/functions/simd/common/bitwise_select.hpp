@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
-      return bitwise_xor(a2, b_and(bitwise_xor(a2, a1),a0));
+      return b_or(b_and(a1,a0),b_andnot(a2,a0));
     }
   };
 } } }
