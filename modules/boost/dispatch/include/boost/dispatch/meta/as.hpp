@@ -56,7 +56,7 @@ namespace boost { namespace dispatch { namespace meta
     //==========================================================================
     // Required for Hierarchizable
     //==========================================================================
-    typedef target_< typename hierarchy_of<T, as_>::type >  nt2_hierarchy_tag;
+    typedef target_< typename hierarchy_of<T, as_>::type >  dispatch_hierarchy_tag;
     typedef T                                               type;
   };
 

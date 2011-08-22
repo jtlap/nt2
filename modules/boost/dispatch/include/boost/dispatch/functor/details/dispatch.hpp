@@ -38,7 +38,7 @@
 // dispatching without having to order them BEFORE the actual dispatch_call
 // class definitions. Without it, the whole system brittles.
 //==============================================================================
-#define M0(z,n,t) meta::unknown_<A##n> const&
+#define M0(z,n,t) meta::unknown_<A##n>
 #define M2(z,n,t) typename meta::hierarchy_of<A##n>::type
 
 #define BOOST_DISPATCH_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                          \
@@ -46,7 +46,7 @@ template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                
 BOOST_DISPATCH_FORCE_INLINE                                                     \
 boost::dispatch::meta::                                                         \
 implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>       \
-dispatching ( Tag const&, meta::unknown_<Site> const&, BOOST_PP_ENUM(n,M0,~)    \
+dispatching ( Tag, meta::unknown_<Site>, BOOST_PP_ENUM(n,M0,~)                  \
             , adl_helper = adl_helper()                                         \
             )                                                                   \
 {                                                                               \
@@ -100,7 +100,7 @@ identity< typename                                                          \
                        , Site                                               \
                        >::type                                              \
         >::type                                                             \
-dispatch( Tag const&, Site const&                                           \
+dispatch( Tag, Site                                                         \
         , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \
         )                                                                   \
 {                                                                           \

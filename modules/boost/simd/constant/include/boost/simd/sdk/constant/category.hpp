@@ -47,7 +47,7 @@ namespace boost { namespace dispatch
   struct constant_
   {
     typedef ID type;
-    typedef meta::constant_< constant_<ID> > nt2_hierarchy_tag;
+    typedef meta::constant_< constant_<ID> > dispatch_hierarchy_tag;
   };
 } }
 

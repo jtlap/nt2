@@ -26,7 +26,7 @@
 
 #define BOOST_DISPATCH_DISPATCH_TYPE_TPL(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 #define BOOST_DISPATCH_DISPATCH_TYPE(z,n,t) class BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
-#define BOOST_DISPATCH_DISPATCH_ARG(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const&
+#define BOOST_DISPATCH_DISPATCH_ARG(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const
 #define BOOST_DISPATCH_DISPATCH_TAG(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 
 #define BOOST_DISPATCH_NS_(s,data,elem) elem ::
@@ -59,7 +59,7 @@ implement< BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)  
                                       , BOOST_DISPATCH_DISPATCH_TAG,Seq))            \
     , Site                                                                \
     >                                                                     \
-dispatching( Tag const&, Site const&                                      \
+dispatching( Tag, Site                                      \
         , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),BOOST_DISPATCH_DISPATCH_ARG,Seq)      \
         , adl_helper = adl_helper()                                       \
         )                                                                 \
@@ -99,7 +99,7 @@ implement < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq)   
           , BOOST_DISPATCH_DISPATCH_TAG,Seq))                                            \
           , Site                                                              \
           >                                                                   \
-dispatching( BOOST_DISPATCH_PP_STRIP(Tag) const&, Site const&                            \
+dispatching( BOOST_DISPATCH_PP_STRIP(Tag), Site                            \
         , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),BOOST_DISPATCH_DISPATCH_ARG,Seq)          \
         , adl_helper = adl_helper()                                           \
         )                                                                     \
@@ -138,7 +138,7 @@ BOOST_DISPATCH_FORCE_INLINE                                                     
 typename boost::enable_if < BOOST_DISPATCH_PP_STRIP(Cond)                              \
                           , BOOST_DISPATCH_NS(NS) implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>    \
                           >::type                                           \
-dispatching( Tag const&, Site const&                                        \
+dispatching( Tag, Site                                        \
         , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),BOOST_DISPATCH_DISPATCH_ARG,Seq)        \
         , adl_helper = adl_helper()                                         \
         )                                                                   \
@@ -174,7 +174,7 @@ BOOST_DISPATCH_FORCE_INLINE                                                     
 typename boost::enable_if < BOOST_DISPATCH_PP_STRIP(Cond)                                \
                           , boost::dispatch::meta::implement<BOOST_DISPATCH_PP_STRIP(Ret),Site>      \
                           >::type                                             \
-dispatching ( Tag const&, Site const&                                         \
+dispatching ( Tag, Site                                         \
             , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),BOOST_DISPATCH_DISPATCH_ARG,Seq)      \
             , adl_helper = adl_helper()                                       \
             )                                                                 \

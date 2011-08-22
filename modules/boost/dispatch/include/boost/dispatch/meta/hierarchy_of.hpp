@@ -47,11 +47,11 @@ namespace boost { namespace dispatch { namespace meta
                       , Origin
                       , typename
                         enable_if_type<typename meta::strip<T>::type
-                                                    ::nt2_hierarchy_tag
+                                                    ::dispatch_hierarchy_tag
                                       >::type
                       >
   {
-    typedef typename meta::strip<T>::type::nt2_hierarchy_tag type;
+    typedef typename meta::strip<T>::type::dispatch_hierarchy_tag type;
   };
 } } }
 

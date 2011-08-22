@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::meta::upgrade SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>

@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_FUSION_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_FUSION_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 
 namespace boost { namespace fusion {

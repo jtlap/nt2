@@ -37,7 +37,7 @@ namespace nt2 { namespace container
     // expression hierarchy and semantic of container:::expression
     ////////////////////////////////////////////////////////////////////////////
     typedef typename
-    details::hierarchy_of_expr<expression>::type nt2_hierarchy_tag;
+    details::hierarchy_of_expr<expression>::type dispatch_hierarchy_tag;
 
     ////////////////////////////////////////////////////////////////////////////
     // Default explicit constructor

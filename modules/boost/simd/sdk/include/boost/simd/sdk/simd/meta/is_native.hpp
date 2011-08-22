@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_META_IS_NATIVE_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 
 namespace boost { namespace simd { namespace meta
 {

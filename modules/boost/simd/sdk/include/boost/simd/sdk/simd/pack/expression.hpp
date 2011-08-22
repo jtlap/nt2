@@ -28,7 +28,7 @@ namespace boost { namespace simd
     // expression hierarchy of simd:::expression
     ////////////////////////////////////////////////////////////////////////////
     typedef typename
-    dispatch::details::hierarchy_of_expr<expression>::type nt2_hierarchy_tag;
+    dispatch::details::hierarchy_of_expr<expression>::type dispatch_hierarchy_tag;
 
     ////////////////////////////////////////////////////////////////////////////
     // FusionRandomAccessSequence interface
