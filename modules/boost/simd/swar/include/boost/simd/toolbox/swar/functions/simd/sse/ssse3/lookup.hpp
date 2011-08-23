@@ -49,7 +49,6 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef simd::native<int8_t, boost::simd::tag::sse_> type8;
-      typedef simd::native<int64_t, boost::simd::tag::sse_> type64;
       const type8 inc = make<type8>(0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3);
       const type8 dup = make<type8>(0, 0, 0, 0, 4, 4, 4, 4, 8, 8, 8, 8, 12, 12, 12, 12);
 //    const type8 inc = native_cast<type8>(make<type64>(0x302010003020100LL,0x302010003020100LL));
