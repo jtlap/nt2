@@ -12,6 +12,7 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/subs.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +28,7 @@ namespace nt2 { namespace ext
     typedef bool result_type;
     inline result_type operator()(const A0& a0, const A0& a1,const A2& a2)
     {
-      return a0 >= a1-a2;
+      return a0 >= a1-nt2::abs(a2);
     }
   };
 } }
@@ -73,7 +74,7 @@ namespace nt2 { namespace ext
       // by Bruce Dawson
       // Do not choose a2 negative or too large
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
-      return  a0 >= predecessor(a1, a2); 
+      return  a0 > predecessor(a1, nt2::abs(a2)); 
     }
   };
 } }
