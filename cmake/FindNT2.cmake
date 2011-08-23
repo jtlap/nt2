@@ -160,6 +160,12 @@ macro(nt2_find_module_dependencies _COMPONENT)
     return()
   endif()
 
+  unset(NT2_${_COMPONENT_U}_FOUND)
+  unset(NT2_${_COMPONENT_U}_INCLUDE_DIR CACHE)
+  unset(NT2_${_COMPONENT_U}_LIBRARY_DIR CACHE)
+  unset(NT2_${_COMPONENT_U}_LIBRARIES CACHE)
+  unset(NT2_${_COMPONENT_U}_FLAGS CACHE)
+
   nt2_find_module_path_push()
   include("nt2.${_COMPONENT}.dependencies" OPTIONAL)
   nt2_find_module_path_pop()
@@ -274,10 +280,10 @@ function(nt2_find_module COMPONENT)
 
       # Set variables
       set(NT2_${EXTRA_COMPONENT_U}_FOUND 1)
-      set(NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_INCLUDE_DIR} CACHE STRING "Include directories for NT2 module ${EXTRA_COMPONENT}" FORCE)
-      set(NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_LIBRARY_DIR} CACHE STRING "Library directories for NT2 module ${EXTRA_COMPONENT}" FORCE)
-      set(NT2_${EXTRA_COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} CACHE STRING "Libraries for NT2 module ${EXTRA_COMPONENT}" FORCE)
-      set(NT2_${EXTRA_COMPONENT_U}_FLAGS ${NT2_${COMPONENT_U}_FLAGS} CACHE STRING "Compilation flags for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_INCLUDE_DIR} CACHE INTERNAL "Include directories for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_LIBRARY_DIR} CACHE INTERNAL "Library directories for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} CACHE INTERNAL "Libraries for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_FLAGS ${NT2_${COMPONENT_U}_FLAGS} CACHE INTERNAL "Compilation flags for NT2 module ${EXTRA_COMPONENT}" FORCE)
     
       mark_as_advanced(NT2_${EXTRA_COMPONENT_U}_FOUND
                        NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR
