@@ -169,7 +169,7 @@ class Specific_values_test_gen(object) :
             else :                 ## regular call parameters list
                 g = k
             if self.mode == 'simd' :
-                g =re.sub("T","vT",g)
+                g =re.sub("(?<!v)T","vT",g)
                 g =re.sub("vTwo","Two",g)
                 g =re.sub("vThree","Three",g)
                 g =re.sub("vTen"  ,"Ten",g)

@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
     #ifdef BOOST_MSVC
-      return __popcnt16(int16_t(a0) & 0xFF);
+      return result_type(__popcnt16(int16_t(a0) & 0xFF));
     #else
       return __builtin_popcount(int32_t(a0) & 0xFF);
     #endif
