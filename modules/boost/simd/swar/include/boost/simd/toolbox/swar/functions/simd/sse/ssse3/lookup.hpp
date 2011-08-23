@@ -49,8 +49,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef simd::native<int8_t, boost::simd::tag::sse_> type8;
-      const type8 inc = make<type8>(0x03, 0x02, 0x01, 0x00, 0x03, 0x02, 0x01, 0x00, 0x03, 0x02, 0x01, 0x00, 0x03, 0x02, 0x01, 0x00);
-      const type8 dup = make<type8>(0x04, 0x04, 0x04, 0x04, 0x00, 0x00, 0x00, 0x00, 0x0c, 0x0c, 0x0c, 0x0c, 0x08, 0x08, 0x08, 0x08);
+      typedef simd::native<int64_t, boost::simd::tag::sse_> type64;
+      const type8 inc = make<type8>(0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3);
+      const type8 dup = make<type8>(0, 0, 0, 0, 4, 4, 4, 4, 8, 8, 8, 8, 12, 12, 12, 12);
 //    const type8 inc = native_cast<type8>(make<type64>(0x302010003020100LL,0x302010003020100LL));
 //    const type8 dup = native_cast<type8>(make<type64>(0x404040400000000LL,0xc0c0c0c08080808LL));
       type8 i1 = {_mm_shuffle_epi8(shli(a1, 2), dup)};
@@ -65,7 +66,7 @@ namespace boost { namespace simd { namespace ext
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::lookup_, boost::simd::tag::ssse3_,
-		      (A0)(A1),
+                         (A0)(A1),
                          ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                          ((simd_<ints64_<A1>,boost::simd::tag::sse_>))
                         )
@@ -74,8 +75,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef simd::native<int8_t, boost::simd::tag::sse_> type8;
-      const type8 inc = make<type8>(0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7 );
-      const type8 dup = make<type8>(0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8 );
+      const type8 inc = make<type8>(0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7);
+      const type8 dup = make<type8>(0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8);
 //    const type8 inc = native_cast<type8>(make<type64>(506097522914230528ll,506097522914230528ll));
 //    const type8 dup = native_cast<type8>(make<type64>(0ll,578721382704613384ll));
       const type8 i1 =  {_mm_shuffle_epi8(shli(a1, 3), dup)};
@@ -99,7 +100,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef simd::native<int8_t, boost::simd::tag::sse_> type8;
-      const type8 inc = make<type8>(0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1);
+      const type8 inc = make<type8>(0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0);
       const type8 dup = make<type8>(0, 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14);
 //    const type8 inc = native_cast<type8>(make<type64>(72058693566333184ll,72058693566333184ll));
 //    const type8 dup = native_cast<type8>(make<type64>(434038829347897344ll,1012760212052510728ll));
