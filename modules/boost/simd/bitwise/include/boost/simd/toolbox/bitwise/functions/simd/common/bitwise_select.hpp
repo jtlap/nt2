@@ -9,7 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_SELECT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_SELECT_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/bitwise_select.hpp>
+#include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -34,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
-      return bitwise_xor(a2, b_and(bitwise_xor(a2, a1),a0));
+      return b_or(b_and(a1,a0),b_andnot(a2,a0));
     }
   };
 } } }
