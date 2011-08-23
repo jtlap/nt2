@@ -33,8 +33,6 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1,const A1 & a2, A0 & r0, A0 & r1) const
     {
-      typedef result_type r_t;
-      r_t res;
       if (a2)
       {
         r1 =  boost::simd::min(a0, a1);
