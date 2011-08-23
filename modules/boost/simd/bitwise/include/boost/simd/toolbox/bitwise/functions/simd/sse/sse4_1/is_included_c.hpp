@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<real_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef bool result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1) const
     {
       typedef typename boost::dispatch::meta::as_integer<A0>::type iA0; 
