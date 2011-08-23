@@ -17,40 +17,59 @@
 
 namespace boost { namespace simd
 {
-  template<class T> inline
+  template<class T> BOOST_DISPATCH_FORCE_INLINE
   typename boost::enable_if_c<meta::is_native<T>::value, T const&>::type
   native_cast( T const& a )
   {
     return a;
   }
 
-  template<class T,class U> inline
+  template<class T,class U> BOOST_DISPATCH_FORCE_INLINE
+  typename boost::enable_if_c<meta::is_native<T>::value, T const&>::type
+  native_cast( typename T::native_type const& a )
+  {
+	  return reinterpret_cast<T const&>(a);
+  }
+
+#ifdef BOOST_SIMD_NO_STRICT_ALIASING
+  #define M0 T const&
+  #define M1(t) return reinterpret_cast<T const&>(t);
+#else
+  #define M0 T
+  #define M1(t)                                                               \
+  typedef typename T::native_type native_type;                                \
+  T that = { bitwise_cast<native_type>(t) };                                  \
+  return that;                                                                \
+  /**/
+#endif
+
+  template<class T,class U> BOOST_DISPATCH_FORCE_INLINE
   typename boost::enable_if_c <     meta::is_native<T>::value
                                 &&  meta::is_native<U>::value
                                 && !is_same<T,U>::value
-                              , T
+                              , M0
                               >::type
   native_cast( U const& a )
   {
-    typedef typename T::native_type native_type;
-    T that = { bitwise_cast<native_type>(a.data_) };
-    return that;
+    M1(a.data_);
   }
 
-  template<class T,class U> inline
+  template<class T,class U> BOOST_DISPATCH_FORCE_INLINE
   typename boost::enable_if_c <     meta::is_native<T>::value
                                 &&  meta::is_simd_specific< U
                                                           , typename
                                                             T::extension_type
                                                           >::value
-                              , T
+                              , M0
                               >::type
   native_cast( U const& a )
   {
-    typedef typename T::native_type native_type;
-    T that = { bitwise_cast<native_type>(a) };
-    return that;
+    M1(a);
   }
+
+#undef M1
+#undef M0
+
 } }
 
 #endif

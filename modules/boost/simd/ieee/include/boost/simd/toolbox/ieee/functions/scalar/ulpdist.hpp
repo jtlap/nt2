@@ -91,7 +91,7 @@ namespace boost { namespace simd { namespace ext
       itype expo = -boost::simd::max(e1, e2);
       double e = (e1 == e2) ? boost::simd::abs(m1-m2)
       : boost::simd::abs(boost::simd::ldexp(a0, expo)-boost::simd::ldexp(a1, expo));
-      return e/Eps<type>();
+      return type(e/Eps<type>());
     }
   };
 } } }

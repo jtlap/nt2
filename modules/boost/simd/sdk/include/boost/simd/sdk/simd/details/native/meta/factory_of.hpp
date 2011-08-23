@@ -10,7 +10,6 @@
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_FACTORY_OF_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -18,7 +17,14 @@ namespace boost { namespace dispatch { namespace meta
   template<class Type,class Extension>
   struct factory_of< simd::native<Type,Extension> >
   {
-    typedef simd::native<boost::mpl::_,Extension> type;
+    struct type
+    {
+      template<class T>
+      struct apply
+      {
+          typedef simd::native<T, Extension> type;
+      };
+    };
   };
 } } }
 

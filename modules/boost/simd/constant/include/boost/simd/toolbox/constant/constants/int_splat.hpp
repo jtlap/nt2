@@ -22,7 +22,7 @@ namespace boost { namespace simd
     struct Intpattern 
     { 
       template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,I> {};  
+      struct apply : meta::int_c<Target, Target(I)> {};  
     };
   }
 

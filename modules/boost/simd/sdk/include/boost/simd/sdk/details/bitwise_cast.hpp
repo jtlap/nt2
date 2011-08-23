@@ -14,11 +14,20 @@
  * \brief Defines and implements the \ref boost::simd::bitwise_cast utility function
  */
 
-#include <cstring>
 #include <boost/dispatch/error/static_assert.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/mpl/identity.hpp>
+#include <cstring>
 
-namespace boost { namespace simd {  namespace details
+#ifdef BOOST_MSVC
+#define BOOST_SIMD_NO_STRICT_ALIASING
+#endif
+
+namespace boost { namespace simd
+{
+
+#ifndef BOOST_SIMD_NO_STRICT_ALIASING
+namespace details
 {
   //============================================================================
   // Perform a bitwise cast via memcpy - This is the safe bet
@@ -69,10 +78,8 @@ namespace boost { namespace simd {  namespace details
   template<typename To, typename From, typename Enable = void>
   struct bitwise_cast : memcpy_cast {};
   
-} } }
+}
 
-namespace boost { namespace simd
-{
   //============================================================================
   /*!
    * \ingroup sdk
@@ -104,6 +111,26 @@ namespace boost { namespace simd
                      );
     return details::bitwise_cast<To, From>::template call<To>(from);
   }
-} }
 
+#else
+
+  template<typename To, typename From>
+  BOOST_DISPATCH_FORCE_INLINE To const& bitwise_cast(From const& from)
+  {
+    BOOST_DISPATCH_STATIC_ASSERT( sizeof(From) == sizeof(To)
+                     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
+                     , "Target is not same size as source in boost::simd::bitwise_cast"
+                     );
+    return reinterpret_cast<To const&>(from);
+  }
+
+#endif
+
+  template<typename To>
+  BOOST_DISPATCH_FORCE_INLINE To const& bitwise_cast(typename mpl::identity<To>::type const& from)
+  {
+	return from;
+  }
+
+} }
 #endif

@@ -40,10 +40,10 @@ namespace boost { namespace simd { namespace ext
                                       );
 
       result_type tmp  = b_and(a0, Mask1);
-      result_type tmp1 = {_mm_slli_epi16(tmp, a1)};
+      result_type tmp1 = {_mm_slli_epi16(tmp, int(a1))};
       tmp1 = b_and(tmp1, Mask1);
       tmp = b_and(a0, Mask2);
-      result_type tmp3 = {_mm_slli_epi16(tmp, a1)};
+      result_type tmp3 = {_mm_slli_epi16(tmp, int(a1))};
       return tmp1 | b_and(tmp3, Mask2);
     }
   };
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
       using boost::simd::native_cast;
 
       typedef typename dispatch::meta::as_integer<A0,signed>::type sint;
-      sint const that = { _mm_slli_epi32(native_cast<sint>(a0),a1)};
+      sint const that = { _mm_slli_epi32(native_cast<sint>(a0), int(a1))};
       return native_cast<A0>(that);
     }
   };
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
       using boost::simd::native_cast;
 
       typedef typename dispatch::meta::as_integer<A0,signed>::type sint;
-      sint const that ={ _mm_slli_epi64(native_cast<sint>(a0), a1)};
+      sint const that ={ _mm_slli_epi64(native_cast<sint>(a0), int(a1))};
       return native_cast<A0>(that);
     }
   };
@@ -94,7 +94,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      A0 that = {_mm_slli_epi16(a0, a1)};
+      A0 that = {_mm_slli_epi16(a0, int(a1))};
       return that;
     }
   };

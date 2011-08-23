@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
 	    return Valmax<rtype>();
 	}
       if (boost::simd::is_nan(a0)) return Zero<rtype>(); 
-      return round(a0);
+      return result_type(round(a0));
     }
   };
 } } }

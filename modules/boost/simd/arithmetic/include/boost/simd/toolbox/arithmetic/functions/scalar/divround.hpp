@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
-			      (scalar_< arithmetic_<A1> >)
+                              (scalar_< arithmetic_<A1> >)
                             )
   {
 
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return (a1) ? boost::simd::round(double(a0)/double(a1))
+      return (a1) ? A0(boost::simd::round(double(a0)/double(a1)))
 	          : ((a0 > 0) ? Valmax<A0>()
 		              : ((a1) ? Valmin<A0>()
 				      : Zero<A0>()
