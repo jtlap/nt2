@@ -19,14 +19,12 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fuzzy_definitely_greater_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< arithmetic_<A2> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(3)
+    NT2_FUNCTOR_CALL_REPEAT(3)
     {
        return a0 > a1+a2*nt2::max(nt2::abs(a0),nt2::abs(a1));
     }

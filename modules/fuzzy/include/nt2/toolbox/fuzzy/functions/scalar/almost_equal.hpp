@@ -24,14 +24,12 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_equal_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)(scalar_< integer_<A2> >)
+                            , (A0)(A2)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
-
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(3)
+    inline result_type operator()(const A0& a0, const A0& a1,const A2& a2)
     {
       return dist(a0, a1) <= nt2::abs(a2);
     }
@@ -45,14 +43,12 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::almost_equal_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< integer_<A2> >)
+                            , (A0)(A2)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
-
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(3)
+    inline result_type operator()(const A0& a0, const A0& a1,const A2& a2)
     {
       if (a0 == a1) return true;
       if (is_inf(a0) || is_inf(a1)) return (a0 == a1);
