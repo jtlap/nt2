@@ -434,7 +434,7 @@ macro(nt2_module_tool_setup tool)
                    )
 
     if(tool_configure)
-      message(${tool_configure_out})
+      message("${tool_configure_out}")
       message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
     endif()
 
@@ -445,7 +445,7 @@ macro(nt2_module_tool_setup tool)
                    )
                  
     if(tool_build)
-      message(${tool_build_out})
+      message("${tool_build_out}")
       message(FATAL_ERROR "[nt2] building tool ${tool} failed")
     endif()
 
