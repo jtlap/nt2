@@ -40,7 +40,7 @@
              'real_' : {
                  'nt2::Inf<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'nt2::Minf<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'nt2::Nan<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::Nan<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'nt2::One<T>(),nt2::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                 },

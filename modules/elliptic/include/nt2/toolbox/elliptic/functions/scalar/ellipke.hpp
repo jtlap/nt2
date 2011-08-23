@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
 	  {
 	    a2 = Nan<A0>();
 	    a3 = Nan<A0>();
-	    return; 
+	    return 0; 
 	  }
 	A0 m = a0; 
 	A0 aa0 = One<A0>();;

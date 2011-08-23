@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
 
     typedef bool result_type;
 
-    NT2_FUNCTOR_CALL(3)
+    NT2_FUNCTOR_CALL_REPEAT(3)
     {
       return a0 < a1-a2*nt2::max(nt2::abs(a0),nt2::abs(a1));
     }

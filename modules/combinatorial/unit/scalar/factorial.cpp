@@ -90,16 +90,16 @@ NT2_TEST_CASE_TPL ( factorial_integer__1_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<T>()), nt2::min((40320ll    ),(long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<T>()), nt2::min((39916800ll ),(long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<T>()), nt2::min((40320ull    ),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<T>()), nt2::min((39916800ull ),(unsigned long long)nt2::Valmax<T>()), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Five<T>()), T(120), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Four<T>()), T(24), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<T>()), nt2::min((362880ll   ),(long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<T>()), nt2::min((362880ull   ),(unsigned long long)nt2::Valmax<T>()), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::One<T>()), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<T>()), nt2::min((5040ll     ),(long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Six<T>()), nt2::min((720ll      ),(long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Ten<T>()), nt2::min((3628800ll  ),(long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<T>()), nt2::min((5040ull     ),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Six<T>()), nt2::min((720ull      ),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Ten<T>()), nt2::min((3628800ull  ),(unsigned long long)nt2::Valmax<T>()), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Three<T>()), nt2::Six<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Twelve<T>()), nt2::min((479001600ll),(long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Twelve<T>()), nt2::min((479001600ull),(unsigned long long)nt2::Valmax<T>()), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Zero<T>()), nt2::One<T>(), 0);
 } // end of test for integer_

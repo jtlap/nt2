@@ -98,16 +98,16 @@ NT2_TEST_CASE_TPL ( factorial_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<vT>())[0], nt2::min((40320ll    ),(long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<vT>())[0], nt2::min((39916800ll ),(long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<vT>())[0], nt2::min((40320ull    ),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<vT>())[0], nt2::min((39916800ull ),(unsigned long long)nt2::Valmax<T>()), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Five<vT>())[0], T(120), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Four<vT>())[0], T(24), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<vT>())[0], nt2::min((362880ll   ),(long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<vT>())[0], nt2::min((362880ull   ),(unsigned long long)nt2::Valmax<T>()), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::One<vT>())[0], nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<vT>())[0], nt2::min((5040ll     ),(long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Six<vT>())[0], nt2::min((720ll      ),(long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Ten<vT>())[0], nt2::min((3628800ll  ),(long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<vT>())[0], nt2::min((5040ull     ),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Six<vT>())[0], nt2::min((720ull      ),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Ten<vT>())[0], nt2::min((3628800ull  ),(unsigned long long)nt2::Valmax<T>()), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Three<vT>())[0], nt2::Six<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Twelve<vT>())[0], nt2::min((479001600ll),(long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Twelve<vT>())[0], nt2::min((479001600ull),(unsigned long long)nt2::Valmax<T>()), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Zero<vT>())[0], nt2::One<T>(), 0);
 } // end of test for integer_

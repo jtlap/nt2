@@ -32,8 +32,8 @@
              'default' : {
                 },
              'real_' : {
-                 'nt2::Inf<T>()' : 'nt2::Inf<r_t>()',
-                 'nt2::Minf<T>()' : 'nt2::Inf<r_t>()',
+                 'nt2::Inf<T>()' : 'nt2::Nan<r_t>()',
+                 'nt2::Minf<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::Mone<T>()' : 'nt2::Eps<r_t>()/2',
                  'nt2::Nan<T>()' : 'nt2::Nan<r_t>()',
                  'nt2::One<T>()' : 'nt2::Eps<r_t>()/2',

@@ -5,11 +5,11 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_signed<typename boost::result_of<nt2::meta::arithmetic(T)>::type>::type',
+             'default' : 'T',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
-         'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -39,10 +39,6 @@
                  'nt2::Mone<T>()' : 'nt2::Two<r_t>()',
                  'nt2::One<T>()' : 'nt2::Zero<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::One<T>()',
-                },
-             'unsigned_int_' : {
-                 'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::One<r_t>()',
                 },
             },
          'verif_test' : {

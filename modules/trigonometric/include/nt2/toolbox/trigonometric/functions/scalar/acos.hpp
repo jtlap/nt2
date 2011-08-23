@@ -10,12 +10,14 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACOS_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/invtrig.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/seladd.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +27,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< signed_<A0> >)
                             )
   {
 
@@ -34,7 +36,21 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if(gt(abs(a0), One<A0>())) return Nan<result_type>();
-      return oneminus(nt2::sign(a0))*Pio_2<result_type>();
+      else return oneminus(nt2::sign(a0))*Pio_2<result_type>();
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)
+                            )
+  {
+
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      if(gt(a0, One<A0>())) return Nan<result_type>();
+      return select(is_nez(a0), Zero<result_type>(), Pio_2<result_type>());
     }
   };
 } }

@@ -25,9 +25,7 @@ namespace nt2 { namespace ext
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
       return (a0 > a1+nt2::abs(a2));
@@ -42,14 +40,12 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::definitely_greater_, tag::cpu_
-                            , (A0)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)(scalar_< integer_<A0> >)
+			      , (A0)(A2)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
-
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL_REPEAT(3)
+    inline A0 operator()(const A0& a0,const A0& a1, const A2& a2)
     {
       return b_and(
                is_ord(a0, a1),

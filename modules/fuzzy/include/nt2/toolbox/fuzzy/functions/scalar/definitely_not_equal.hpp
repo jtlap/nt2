@@ -13,6 +13,8 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/successor.hpp>
+#include <nt2/include/functions/predecessor.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/dist.hpp>
 
 
@@ -22,16 +24,15 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::definitely_not_equal_, tag::cpu_
-                            , (A0)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
+			      , (A0)(A2)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
 
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL_REPEAT(3)
+    inline A2 operator()(const A0& a0,const A0& a1,const A2& a2) const
     {
-        return dist(a0, a1) > a2;
+      return dist(a0, a1) > nt2::abs(a2);
     }
   };
 } }
@@ -43,14 +44,13 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::definitely_not_equal_, tag::cpu_
-                            , (A0)(A0)(A0)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)(scalar_< integer_<A0> >)
+			      , (A0)(A2)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
 
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL_REPEAT(3)
+    inline A2 operator()(const A0& a0,const A0& a1,const A2& a2) const
     {
       if (a0 == a1) return false;
       if (is_inf(a0) || is_inf(a1)) return (a0 != a1);
@@ -59,7 +59,8 @@ namespace nt2 { namespace ext
       // by Bruce Dawson
       // Do not choose a2 negative or too large
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
-      return  (a0 > successor(a1,a2)) || (a0 < successor(a1,-a2));
+      A2 aa2 =  nt2::abs(a2); 
+      return  (a0 > successor(a1,aa2)) || (a0 < predecessor(a1,aa2));
     }
   };
 } }
