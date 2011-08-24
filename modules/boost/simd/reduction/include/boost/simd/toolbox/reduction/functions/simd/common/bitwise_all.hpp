@@ -6,32 +6,34 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_HMSB_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_HMSB_HPP_INCLUDED
-#include <boost/simd/include/functions/bits.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_BITWISE_ALL_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_BITWISE_ALL_HPP_INCLUDED
+#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<arithmetic_<A0>,X>))
-                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_all_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
   {
-      
-    typedef boost::simd::int32_t result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+
+    typedef bool result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const result_type mask = Signmask<result_type>()
-      result_type z = boost::simd::bits(a0[0])&mask;
-      const result_type N = boost::simd::meta::cardinal_of<A0>::value
-      for(result_type i = 0; i< N; ++i)
+      for(int i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)
       {
-        z |= boost::simd::bits(a0[i])&mask >> N-i+1;
+        if(!a0[i]) return 0;
       }
-      return z;
+      return 1;
     }
   };
 } } }
+
+
 #endif

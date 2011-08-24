@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
