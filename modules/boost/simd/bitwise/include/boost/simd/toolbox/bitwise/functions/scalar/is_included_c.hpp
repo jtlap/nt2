@@ -9,7 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_IS_INCLUDED_C_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_IS_INCLUDED_C_HPP_INCLUDED
 
-#include <boost/simd/include/functions/bitwise_ornot.hpp>
+#include <boost/simd/toolbox/bitwise/functions/is_included_c.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (bitwise_and(a1, a0) == Zero<A0>()); 
+      return is_eqz(bitwise_and(a1, a0)); 
     }
   };
 } } }
