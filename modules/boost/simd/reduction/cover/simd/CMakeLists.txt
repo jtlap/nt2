@@ -9,6 +9,7 @@
 ################################################################################
 
 SET( SOURCES
+  bitwise_any.cpp
   bitwise_all.cpp
     none.cpp
   sum.cpp
