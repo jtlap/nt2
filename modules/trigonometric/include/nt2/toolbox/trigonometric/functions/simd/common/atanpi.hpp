@@ -31,7 +31,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return Invpi<result_type>()*(nt2::atan(tofloat(a0)));
+      const result_type r =nt2::atan(tofloat(a0)); 
+      return Invpi<result_type>()*r;
     }
   };
 } }

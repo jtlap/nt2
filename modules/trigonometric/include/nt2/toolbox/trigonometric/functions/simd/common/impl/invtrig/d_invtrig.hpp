@@ -90,8 +90,10 @@ namespace nt2
         static inline typename A0::native_type acos(const typename A0::native_type a0_n)
 	{
 	  const A0 a0 = { a0_n };
-	  A0 z1 = Two<A0>() * asin(  sqrt(Half<A0>() - Half<A0>()*a0) );
-	  A0 z2 = ((Pio_4<A0>() - asin(a0))+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
+	  const A0 as =  { asin(  sqrt(Half<A0>() - Half<A0>()*a0) )}; 
+	  A0 z1 = Two<A0>() * as;
+	  const A0 as1 = {asin(a0)}; 
+	  A0 z2 = ((Pio_4<A0>() - as1)+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
 	  return b_or( gt(abs(a0),One<A0>()), sel( gt(a0,Half<A0>()), z1, z2));
 	}
 

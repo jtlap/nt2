@@ -59,11 +59,12 @@ namespace nt2
 	{
 	  const A0 a0 = { a0_n };
 	  A0 x = nt2::abs(a0);
-	  A0 z2 = asin(a0);
+	  A0 z2 = {asin(a0)};
 	  A0 isgtxh = gt(x, Half<A0>());
 	  if (nt2::any(isgtxh))
 	    {
-	      A0 z1 = asin(sqrt(oneminus(x)*Half<A0>()))*Two<A0>();
+	      const A0 as = {asin(sqrt(oneminus(x)*Half<A0>()))};
+	      const A0 z1 = as*Two<A0>(); 
 	      z2 = select(isgtxh, z1, z2);
 	    }
 	  z2 = select(lt(a0, -Half<A0>()), Pi<A0>()-z2, z2);

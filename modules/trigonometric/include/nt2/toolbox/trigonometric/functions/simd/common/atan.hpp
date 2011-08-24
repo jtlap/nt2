@@ -30,7 +30,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(tofloat(a0));
+      const result_type r = { impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(tofloat(a0)) }; 
+      return r;
     }
   };
 } }

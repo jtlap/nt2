@@ -28,7 +28,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return Invpi<result_type>()*(nt2::acos(tofloat(a0)));
+      const A0 r =  {nt2::acos(tofloat(a0))}; 
+      return Invpi<result_type>()*r;
     }
   };
 } }
