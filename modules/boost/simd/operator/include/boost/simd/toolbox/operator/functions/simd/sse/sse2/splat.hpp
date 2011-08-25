@@ -27,10 +27,8 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      ignore_unused(a1);
       result_type that = { _mm_set1_pd(double(a0))  };
       return that;
     }
@@ -48,10 +46,8 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      ignore_unused(a1);
       result_type that = { _mm_set1_ps(float(a0))  };
       return that;
     }
@@ -69,10 +65,8 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      ignore_unused(a1);
       result_type that = { _mm_set1_epi8(a0)  };
       return that;
     }
@@ -90,10 +84,8 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      ignore_unused(a1);
       result_type that = { _mm_set1_epi16(a0)  };
       return that;
     }
@@ -111,10 +103,8 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      ignore_unused(a1);
       result_type that = { _mm_set1_epi32(a0)  };
       return that;
     }
@@ -132,10 +122,8 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename A1::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      ignore_unused(a1);
       return boost::simd::make<typename A1::type>(a0, a0);
     }
   };

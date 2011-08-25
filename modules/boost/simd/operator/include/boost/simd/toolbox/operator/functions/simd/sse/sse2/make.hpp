@@ -27,7 +27,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename A0::type result_type;
 
     template<class I0, class I1>
-    inline result_type operator()(I0 const& a0, I1 const& a1) const
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(I0 const& a0, I1 const& a1) const
     {
       result_type that = { _mm_setr_pd(a0, a1) };
       return that;
@@ -47,7 +48,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename A0::type result_type;
 
     template<class I0, class I1>
-    inline result_type operator()(I0 const& a0, I1 const& a1) const
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(I0 const& a0, I1 const& a1) const
     {
       result_type
       that =  { _mm_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
@@ -72,7 +74,8 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A0::type result_type;
 
-    template<class I0, class I1,class I2,class I3> inline result_type
+    template<class I0, class I1,class I2,class I3>
+    BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3) const
     {
       result_type that = { _mm_setr_ps(a0, a1, a2, a3) };
@@ -92,7 +95,8 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A0::type result_type;
 
-    template<class I0, class I1,class I2,class I3> inline result_type
+    template<class I0, class I1,class I2,class I3>
+    BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3) const
     {
       result_type that = { _mm_setr_epi32(a0, a1, a2, a3) };
@@ -114,7 +118,8 @@ namespace boost { namespace simd { namespace ext
 
     template< class I0, class I1,class I2,class I3
             , class I4, class I5,class I6,class I7
-            >  inline result_type
+            >
+    BOOST_DISPATCH_FORCE_INLINE result_type
     operator()( I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3
               , I4 const& a4, I5 const& a5, I6 const& a6, I7 const& a7
               ) const
@@ -140,7 +145,8 @@ namespace boost { namespace simd { namespace ext
             , class I4, class I5,class I6,class I7
             , class I8, class I9,class IA,class IB
             , class IC, class ID,class IE,class IF
-            >  inline result_type
+            >
+    BOOST_DISPATCH_FORCE_INLINE result_type
     operator()( I0 const& a0  , I1 const& a1  , I2 const& a2  , I3 const& a3
               , I4 const& a4  , I5 const& a5  , I6 const& a6  , I7 const& a7
               , I8 const& a8  , I9 const& a9  , IA const& a10 , IB const& a11
