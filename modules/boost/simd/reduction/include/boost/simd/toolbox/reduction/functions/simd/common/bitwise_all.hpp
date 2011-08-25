@@ -8,8 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_BITWISE_ALL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_BITWISE_ALL_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
+
+#include <boost/simd/toolbox/reduction/functions/bitwise_all.hpp>
+#include <boost/simd/include/functions/hmsb.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -26,11 +30,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      for(int i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)
-      {
-        if(!a0[i]) return 0;
-      }
-      return 1;
+      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type sitype;
+      return hmsb(a0) == Allbits<sitype>();
     }
   };
 } } }
