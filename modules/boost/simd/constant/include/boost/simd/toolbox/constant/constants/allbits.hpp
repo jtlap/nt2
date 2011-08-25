@@ -31,11 +31,11 @@ namespace boost { namespace simd
     
     template<class Dummy>
     struct  Allbits::apply<float,Dummy>
-          : meta::float_<apply<uint32_t>::value> {};
+          : meta::float_<apply<uint32_t,Dummy>::value> {};
           
     template<class Dummy>
     struct  Allbits::apply<double,Dummy>
-          : meta::double_<apply<uint64_t>::value> {};
+          : meta::double_<apply<uint64_t,Dummy>::value> {};
 
     template<class Dummy>
     struct  Allbits::apply<boost::simd::uint8_t,Dummy> 
