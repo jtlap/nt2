@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ $# -ne 1 ]
+then
+  echo "Usage: `basename $0` <username>"
+  exit 65
+fi
+
 # define NT2_SOURCE_ROOT
 old_path=`pwd`
 cd ../..
@@ -39,9 +45,19 @@ function build_modules
     rm -rf "/tmp/_nt2_build"
 }
 
+# get a fresh checkout
+echo "Setting up directory for SVN with username $1..."
 rm -rf boostification_build
-mkdir -p boostification
-cp -r boostification boostification_build
+svn co https://svn.boost.org/svn/boost/sandbox/SOC/2011/simd boostification_build --username $1
+
+# erase all files
+for i in `find boostification_build -mindepth 1 -not -name '.svn' -not -path '*/.svn/*'`
+do
+    svn delete "$i"
+done
+
+# get boostification base
+cp -r boostification/* boostification_build
 
 mkdir boostification_tmp
 build_modules boostification_tmp $modules
@@ -85,3 +101,36 @@ do
 done
 
 rm -rf boostification_tmp
+
+# build doc
+cd boostification_build/doc
+if   [ -e "$BOOST_ROOT/b2" ]
+then
+    "$BOOST_ROOT/b2"
+elif [ -e "$BOOST_ROOT/bjam" ]
+then
+    "$BOOST_ROOT/bjam"
+else
+    bjam
+fi
+cd ..
+
+# remove binaries or extra files
+for i in `find . -name bin -type d`
+do
+    rm -rf "$i"
+done
+for i in `find . -name .gitignore`
+do
+    rm -rf "$i"
+done
+for i in `find . -name '*.xml' -not -name 'boost.xml'`
+do
+    rm -f "$i"
+done
+
+echo -ne "\n"
+echo -ne "--------------------------\n"
+echo -ne "Boostification complete.\n"
+echo -ne "You may now add files and commit them if you wish.\n"
+echo -ne "--------------------------\n"
