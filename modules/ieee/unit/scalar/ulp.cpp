@@ -55,8 +55,8 @@ NT2_TEST_CASE_TPL ( ulp_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(ulp(nt2::Inf<T>()), nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(ulp(nt2::Minf<T>()), nt2::Inf<r_t>());
+  NT2_TEST_EQUAL(ulp(nt2::Inf<T>()), nt2::Nan<r_t>());
+  NT2_TEST_EQUAL(ulp(nt2::Minf<T>()), nt2::Nan<r_t>());
   NT2_TEST_EQUAL(ulp(nt2::Mone<T>()), nt2::Eps<r_t>()/2);
   NT2_TEST_EQUAL(ulp(nt2::Nan<T>()), nt2::Nan<r_t>());
   NT2_TEST_EQUAL(ulp(nt2::One<T>()), nt2::Eps<r_t>()/2);

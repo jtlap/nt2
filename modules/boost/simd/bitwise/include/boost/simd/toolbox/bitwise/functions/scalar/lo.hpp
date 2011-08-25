@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type type;
       BOOST_STATIC_CONSTANT(type, shift = sizeof(type)*4);
       BOOST_STATIC_CONSTANT(type, pattern = (type(type(-1)<<shift)>>shift));
-      return b_and(pattern, a0);
+      return result_type(b_and(pattern, a0));
     }
   };
 } } }

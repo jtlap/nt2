@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
-      result_type that = { _mm_set1_pd(a0)  };
+      result_type that = { _mm_set1_pd(double(a0))  };
       return that;
     }
   };
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       ignore_unused(a1);
-      result_type that = { _mm_set1_ps(a0)  };
+      result_type that = { _mm_set1_ps(float(a0))  };
       return that;
     }
   };

@@ -27,8 +27,9 @@ namespace nt2
       template < class A0 >
       struct invtrig_base<A0,radian_tag,tag::simd_type, double>
       {
-	static inline A0 asin(const A0& a0)
+	static inline typename A0::native_type asin(const typename A0::native_type a0_n)
 	{
+	  const A0 a0 = { a0_n };
 	  typedef typename meta::scalar_of<A0>::type sA0;
 	  A0 x = nt2::abs(a0);
 	  static const A0 pio4 =  Pio_4<A0>();
@@ -86,15 +87,19 @@ namespace nt2
 		      );
 	}
 
-        static inline A0 acos(const A0& a0)
+        static inline typename A0::native_type acos(const typename A0::native_type a0_n)
 	{
-	  A0 z1 = Two<A0>() * asin(  sqrt(Half<A0>() - Half<A0>()*a0) );
-	  A0 z2 = ((Pio_4<A0>() - asin(a0))+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
+	  const A0 a0 = { a0_n };
+	  const A0 as =  { asin(  sqrt(Half<A0>() - Half<A0>()*a0) )}; 
+	  A0 z1 = Two<A0>() * as;
+	  const A0 as1 = {asin(a0)}; 
+	  A0 z2 = ((Pio_4<A0>() - as1)+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
 	  return b_or( gt(abs(a0),One<A0>()), sel( gt(a0,Half<A0>()), z1, z2));
 	}
 
-	static inline A0 atan(const A0& a0)
+	static inline typename A0::native_type atan(const typename A0::native_type a0_n)
 	{
+	  const A0 a0 = { a0_n };
 	  typedef typename meta::scalar_of<A0>::type sA0;
 	  static const A0 tan3pio8  = double_constant<A0, 0x4003504f333f9de6ll>();
 	  static const A0 Twothird = double_constant<A0, 0x3fe51eb851eb851fll>();

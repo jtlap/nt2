@@ -8,13 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ATAN_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ATAN_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+
+#include <nt2/toolbox/trigonometric/functions/atan.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/invtrig.hpp>
+
 #include <nt2/include/functions/tofloat.hpp>
-
-
+#include <nt2/sdk/meta/as_real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -31,7 +30,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(tofloat(a0));
+      const result_type r = { impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(tofloat(a0)) }; 
+      return r;
     }
   };
 } }

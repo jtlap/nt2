@@ -426,6 +426,7 @@ macro(nt2_module_tool_setup tool)
   
     execute_process(COMMAND ${CMAKE_COMMAND}
                             -DCMAKE_BUILD_TYPE=Release
+                            -G ${CMAKE_GENERATOR}
                             ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_configure_out
@@ -433,7 +434,7 @@ macro(nt2_module_tool_setup tool)
                    )
 
     if(tool_configure)
-      message(${tool_configure_out})
+      message("${tool_configure_out}")
       message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
     endif()
 
@@ -444,7 +445,7 @@ macro(nt2_module_tool_setup tool)
                    )
                  
     if(tool_build)
-      message(${tool_build_out})
+      message("${tool_build_out}")
       message(FATAL_ERROR "[nt2] building tool ${tool} failed")
     endif()
 
@@ -500,6 +501,7 @@ macro(nt2_postconfigure_init)
     add_custom_target(postconfigure
                       COMMAND ${CMAKE_COMMAND}
                               -DCMAKE_BUILD_TYPE=Release
+                              -G ${CMAKE_GENERATOR}
                               ${NT2_SOURCE_ROOT}/tools/postconfigure
                            && ${CMAKE_COMMAND} --build . --config Release
                       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure

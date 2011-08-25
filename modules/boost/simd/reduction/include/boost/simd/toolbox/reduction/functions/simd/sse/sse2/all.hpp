@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/hmsb.hpp>
@@ -49,16 +48,14 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type                            stype;
-      typedef typename dispatch::meta::upgrade<stype>::type                           utype;
-      typedef simd::native<utype,boost::simd::tag::sse_>                                 ttype;
+      typedef typename meta::scalar_of<A0>::type                stype;
+      typedef typename dispatch::meta::upgrade<stype>::type     utype;
+      typedef simd::native<utype,boost::simd::tag::sse_>        ttype;
       ttype a0h, a0l;
-      boost::fusion::tie(a0h, a0l) = split(a0);
+      split(a0, a0h, a0l);
       return (hmsb(is_eqz(a0h)) || hmsb(is_eqz(a0l))) == 0;
     }
   };

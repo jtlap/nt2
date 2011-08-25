@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+  bitwise_any.cpp
+  bitwise_all.cpp
     none.cpp
   at_i.cpp
   hmsb.cpp

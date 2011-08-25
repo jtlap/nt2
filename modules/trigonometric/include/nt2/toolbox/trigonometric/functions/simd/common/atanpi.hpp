@@ -8,9 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ATANPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ATANPI_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
+
+#include <nt2/toolbox/trigonometric/functions/atanpi.hpp>
 #include <nt2/include/functions/atan.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/constants/invpi.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -27,7 +31,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return Invpi<result_type>()*(nt2::atan(tofloat(a0)));
+      const result_type r =nt2::atan(tofloat(a0)); 
+      return Invpi<result_type>()*r;
     }
   };
 } }

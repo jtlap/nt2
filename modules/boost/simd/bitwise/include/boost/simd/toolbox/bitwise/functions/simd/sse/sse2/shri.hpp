@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
       using boost::simd::native_cast;
 
       typedef typename dispatch::meta::as_integer<A0>::type sint;
-      sint const that = { _mm_srli_epi32(native_cast<sint>(a0), a1)};
+      sint const that = { _mm_srli_epi32(native_cast<sint>(a0), int(a1))};
       return native_cast<A0>(that);
     }
   };
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
       using boost::simd::native_cast;
 
       typedef typename dispatch::meta::as_integer<A0>::type sint;
-      sint const that ={ _mm_srli_epi64(native_cast<sint>(a0),a1)};
+      sint const that ={ _mm_srli_epi64(native_cast<sint>(a0), int(a1))};
       return native_cast<result_type>(that);
     }
   };
@@ -86,7 +86,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      A0 that = {_mm_srli_epi16(a0, a1)};
+      A0 that = {_mm_srli_epi16(a0, int(a1))};
       return that;
     }
   };

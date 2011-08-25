@@ -8,10 +8,9 @@
          'rturn' : {
              'default' : 'T',
             },
-         'simd_types' : ['real_'],
          'special' : ['swar'],  
          'type_defs' : [],
-         'types' : ['real_'],
+         'types' : ['real_', 'integer_'],
         },
      'info' : 'manually modified',
      'unit' : {

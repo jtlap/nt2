@@ -9,10 +9,6 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_ALTIVEC_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_ALTIVEC_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/sdk/simd/meta/extension_of.hpp>
-#include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
-
 ////////////////////////////////////////////////////////////////////////////////
 // No SIMD extensions have been found yet
 ////////////////////////////////////////////////////////////////////////////////

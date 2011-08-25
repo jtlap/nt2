@@ -8,21 +8,21 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ATAN2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ATAN2_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/signnz.hpp>
-#include <nt2/include/functions/select.hpp>
-#include <nt2/include/functions/atan.hpp>
+
+#include <nt2/toolbox/trigonometric/functions/atan2.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-
-
+#include <nt2/include/functions/atan.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/signnz.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/pi.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

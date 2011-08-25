@@ -43,7 +43,7 @@ BOOST_SIMD_WARNING(SSE4_2 SIMD extension detected)
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::sse_
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::sse4_2_
 
-#include <smmintrin.h>
+#include <nmmintrin.h>
 
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
 

@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       if(a1)
-        return -iceil(-double(a0)/double(a1)); 
+        return result_type(-iceil(-double(a0)/double(a1))); 
       else
       {
         return (a0) ? ((a0>0) ? Valmax<result_type>() : Valmin<result_type>()) : Zero<result_type>();

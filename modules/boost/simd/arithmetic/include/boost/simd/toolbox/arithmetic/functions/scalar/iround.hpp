@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
         if (is_ltz(a0)) return Valmin<result_type>();
         else            return Valmax<result_type>();
       }
-      return boost::simd::round(a0); 
+      return result_type(boost::simd::round(a0)); 
     }
   };
 } } }

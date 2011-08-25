@@ -11,10 +11,12 @@
 
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/simd/meta/extension_of.hpp>
+#include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
+#include <boost/dispatch/functor/meta/hierarchy.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
-
-#include <boost/dispatch/functor/meta/hierarchy.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Tag hierarchy for SSE extensions
@@ -73,15 +75,16 @@ namespace boost { namespace simd { namespace meta
   template<class X> struct extension_of<__m128i,X>  { typedef tag::sse_ type; };
 } } }
 
+#ifndef BOOST_SIMD_NO_STRICT_ALIASING
 ////////////////////////////////////////////////////////////////////////////////
 // Conversion between vector types
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace details
 {
-    #if defined BOOST_MSVC || defined BOOST_INTEL
-        #define BOOST_SIMD_SSE_CONVERT union_cast
-    #else
+    #if defined(__GNUC__)
         #define BOOST_SIMD_SSE_CONVERT convert_cast
+    #else
+        #define BOOST_SIMD_SSE_CONVERT union_cast
     #endif
 
     template<> struct bitwise_cast<__m128 , __m128d> : BOOST_SIMD_SSE_CONVERT {};
@@ -93,5 +96,6 @@ namespace boost { namespace simd { namespace details
 
     #undef BOOST_SIMD_SSE_CONVERT
 } } }
+#endif
 
 #endif

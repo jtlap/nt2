@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype; 
-      return boost::simd::saturate<A0>(utype(a0)+utype(a1)); 
+      return A0(boost::simd::saturate<A0>(utype(a0)+utype(a1)));
     }
   };
 } } }

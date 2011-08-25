@@ -64,8 +64,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     template < class T, class I = typename dispatch::meta::as_integer<T, signed>::type>
-      struct hypot_ctnts;
-    template <class I, class CAT> struct hypot_ctnts<simd::native<float, CAT>, I>
+    struct hypot_ctnts {};
+
+    template <class I, class CAT>
+    struct hypot_ctnts<simd::native<float, CAT>, I>
     {
       typedef I  int_type;
       static inline int_type C1(){ return boost::simd::integral_constant<int_type, 50>();};
@@ -75,7 +77,9 @@ namespace boost { namespace simd { namespace ext
       static inline int_type C3(){ return boost::simd::integral_constant<int_type, 0x00800000>();};
       static inline int_type M1(){ return boost::simd::integral_constant<int_type, 0xfffff000>();};
     };
-    template <class I, class CAT> struct hypot_ctnts<simd::native<double, CAT>, I>
+
+    template <class I, class CAT>
+    struct hypot_ctnts<simd::native<double, CAT>, I>
     {
       typedef I  int_type;
       static inline int_type C1(){ return boost::simd::integral_constant<int_type, 500>();};

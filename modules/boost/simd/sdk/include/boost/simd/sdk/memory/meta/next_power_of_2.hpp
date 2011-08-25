@@ -25,6 +25,13 @@ namespace boost { namespace simd {  namespace details
     BOOST_STATIC_CONSTANT(std::size_t, x5    = x4 | (x4 >> 1) );
     BOOST_STATIC_CONSTANT(std::size_t, value = x5 + 1         );
   };
+
+  template<>
+  struct next_power_of_2_impl<0>
+  {
+    BOOST_STATIC_CONSTANT(std::size_t, value = 0              );
+  };
+
 } } }
 
 namespace boost { namespace simd {  namespace meta

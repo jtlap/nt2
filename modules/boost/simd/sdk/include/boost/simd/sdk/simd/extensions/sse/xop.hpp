@@ -39,14 +39,16 @@ BOOST_SIMD_WARNING(XOP SIMD extension detected)
 #define BOOST_SIMD_BYTES              32
 #define BOOST_SIMD_BITS               256
 #define BOOST_SIMD_CARDINALS          (2)(4)(8)(16)(32)
-#define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::xop_)(::boost::simd::tag::sse_)
-#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::xop_
-#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::xop_
+#define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::avx_)(::boost::simd::tag::sse_)
+#define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::avx_
+#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::avx_
 
-#include <immintrin.h>
+// XOP header not standardized
+#include <x86intrin.h>
+#include <xopintrin.h>
 
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
-#include <boost/simd/sdk/simd/extensions/meta/xop.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/avx.hpp>
 
 #endif
 #endif
