@@ -9,7 +9,7 @@
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
-         'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -24,7 +24,6 @@
          'ranges' : {
              'real_' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
              'signed_int_' : [['-100', '100'], ['-100', '100']],
-             'unsigned_int_' : [['0', '100'], ['0', '100']],
             },
          'specific_values' : {
              'default' : {
@@ -41,10 +40,6 @@
                 },
              'signed_int_' : {
                  'nt2::Mone<T>()' : 'nt2::Mone<r_t>()',
-                 'nt2::One<T>()' : 'nt2::One<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
-                },
-             'unsigned_int_' : {
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                  'nt2::Zero<T>()' : 'nt2::Zero<r_t>()',
                 },

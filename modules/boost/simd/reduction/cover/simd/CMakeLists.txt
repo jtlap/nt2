@@ -11,7 +11,8 @@
 SET( SOURCES
   bitwise_any.cpp
   bitwise_all.cpp
-    none.cpp
+  is_simd_logical.cpp
+  none.cpp
   sum.cpp
   second.cpp
   prod.cpp

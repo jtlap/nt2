@@ -23,7 +23,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return neq(a0, Zero<A0>()) & neq(a1, Zero<A0>());

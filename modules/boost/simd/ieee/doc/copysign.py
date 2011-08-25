@@ -10,7 +10,7 @@
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
-         'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -25,7 +25,6 @@
          'ranges' : {
              'real_' : [['T(-10)', 'T(10)'], ['T(-10)', 'T(10)']],
              'signed_int_' : [['-100', '100'], ['-100', '100']],
-             'unsigned_int_' : [['0', '100'], ['0', '100']],
             },
          'specific_values' : {
              'default' : {
@@ -42,10 +41,6 @@
                 },
              'signed_int_' : {
                  'boost::simd::Mone<T>()' : 'boost::simd::Mone<r_t>()',
-                 'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
-                 'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
-                },
-             'unsigned_int_' : {
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                 },

@@ -22,17 +22,14 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::copysign_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (A0)
+                            , (scalar_< signed_<A0> >)(scalar_< signed_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using boost::simd::signnz;
-      return boost::simd::abs(a0)*signnz(a1);
+      return boost::simd::abs(a0)*boost::simd::signnz(a1);
     }
   };
 } } }
@@ -44,14 +41,13 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::copysign_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< double_<A0> >)(scalar_< double_<A1> >)
+                            , (A0)
+                            , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
                             )
   {
 
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
     #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_COPYSIGN
       return ::copysign(a0, a1);
@@ -71,14 +67,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::copysign_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< float_<A0> >)(scalar_< float_<A1> >)
+                            , (A0)
+                            , (scalar_< float_<A0> >)(scalar_< float_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
     #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_COPYSIGNF
       return ::copysignf(a0, a1);

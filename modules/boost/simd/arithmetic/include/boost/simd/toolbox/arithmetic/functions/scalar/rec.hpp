@@ -13,18 +13,16 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef result_type type;
@@ -45,9 +43,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return One<result_type>()/a0;

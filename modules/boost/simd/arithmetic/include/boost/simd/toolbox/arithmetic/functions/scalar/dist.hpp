@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIST_HPP_INCLUDED
-
 #include <boost/simd/include/functions/logical_xor.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -19,14 +17,12 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dist_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
         return (a0>a1) ? a0-a1 : a1-a0;
     }
@@ -40,14 +36,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dist_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_<bool_<A0> >)(scalar_<bool_<A1> >)
+                            , (A0)
+                            , (scalar_<bool_<A0> >)(scalar_<bool_<A0> >)
                             )
   {
-
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::logical_xor(a0, a1);
     }
@@ -61,14 +55,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dist_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
+                            , (A0)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)
                             )
   {
-
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::abs(a0-a1);
     }

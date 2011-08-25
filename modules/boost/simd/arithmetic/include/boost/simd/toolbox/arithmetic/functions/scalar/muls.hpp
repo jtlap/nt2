@@ -21,14 +21,12 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype; 
       utype res = utype(a0)*utype(a1);
@@ -44,14 +42,14 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
+                            , (A0)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
                             )
   {
 
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
       return A0(saturate<A0>(uptype(a0)*uptype(a1)));
@@ -67,14 +65,14 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< uint64_<A0> >)(scalar_< uint64_<A1> >)
+                            , (A0)
+                            , (scalar_< uint64_<A0> >)(scalar_< uint64_<A0> >)
                             )
   {
 
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1 == 0 || a0 == 0) return Zero<A0>(); 
       if (a1 >= a0)
@@ -125,14 +123,14 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::muls_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< int64_<A0> >)(scalar_< int64_<A1> >)
+                            , (A0)
+                            , (scalar_< int64_<A0> >)(scalar_< int64_<A0> >)
                             )
   {
 
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1 == 0 || a0 == 0) return Zero<A0>();
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type untype;

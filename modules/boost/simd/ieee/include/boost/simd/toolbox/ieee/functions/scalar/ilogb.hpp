@@ -13,7 +13,6 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
-
 #include <boost/simd/toolbox/ieee/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -26,9 +25,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type type;
@@ -49,9 +46,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< double_<A0> >)
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_gtz(a0)? ::ilogb(a0) : Zero<result_type>();
@@ -72,9 +67,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< float_<A0> >)
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_gtz(a0)? ::ilogbf(a0) : Zero<result_type>();
@@ -96,7 +89,6 @@ namespace boost { namespace simd { namespace ext
   {
 
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_gtz(a0)? boost::simd::exponent(a0) : Zero<result_type>();

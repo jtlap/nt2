@@ -12,13 +12,13 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_greater_, tag::cpu_
-                            , (A0)(A1)
+                            , (A0)
                             , (scalar_< fundamental_<A0> >)
-                              (scalar_< fundamental_<A1> >)
+                              (scalar_< fundamental_<A0> >)
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 > a1; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0 > a1; }
   };
 } } }
  

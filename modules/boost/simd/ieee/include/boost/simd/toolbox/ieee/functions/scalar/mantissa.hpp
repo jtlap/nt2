@@ -25,12 +25,9 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //TO DO incorrect
       if(!a0) return a0;
       if(is_invalid(a0)) return a0; 
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type int_type;

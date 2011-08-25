@@ -11,7 +11,6 @@
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-
 #include <boost/simd/include/functions/is_finite.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
@@ -22,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return (a1>0)?(a0<<a1):(a0>>a1); }
   };
 
@@ -31,18 +30,16 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       // No denormal provision
       typedef typename dispatch::meta::as_integer<result_type, unsigned>::type  int_type;
-
       // clear exponent in x
       result_type const x(b_andnot(a0, Ldexpmask<result_type>()));
-
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<result_type>(), a0);
       e += int_type(a1) << Nbmantissabits<result_type>(); //nmb;
+      // provisions for limit values
       if (is_nez(a0)&&is_finite(a0)) return  b_or(x, e);
       return a0;
     }

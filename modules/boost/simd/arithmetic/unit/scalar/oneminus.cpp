@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 
@@ -52,31 +52,6 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(oneminus(boost::simd::Zero<T>()), boost::simd::One<r_t>(), 0);
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( oneminus_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-  
-  using boost::simd::oneminus;
-  using boost::simd::tag::oneminus_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<oneminus_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(oneminus(boost::simd::One<T>()), boost::simd::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(oneminus(boost::simd::Zero<T>()), boost::simd::One<r_t>(), 0);
-} // end of test for unsigned_int_
-
 NT2_TEST_CASE_TPL ( oneminus_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
@@ -87,7 +62,7 @@ NT2_TEST_CASE_TPL ( oneminus_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 

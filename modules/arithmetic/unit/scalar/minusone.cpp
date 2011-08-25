@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( minusone_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<minusone_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_signed<typename boost::result_of<nt2::meta::arithmetic(T)>::type>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( minusone_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<minusone_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_signed<typename boost::result_of<nt2::meta::arithmetic(T)>::type>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 
@@ -80,7 +80,6 @@ NT2_TEST_CASE_TPL ( minusone_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(minusone(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(minusone(nt2::Zero<T>()), nt2::Mone<r_t>(), 0);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( minusone_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -92,7 +91,7 @@ NT2_TEST_CASE_TPL ( minusone_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<minusone_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_signed<typename boost::result_of<nt2::meta::arithmetic(T)>::type>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 

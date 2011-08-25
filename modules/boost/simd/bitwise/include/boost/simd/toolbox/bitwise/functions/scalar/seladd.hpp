@@ -11,17 +11,17 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::seladd_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::seladd_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
-                              (scalar_< fundamental_<A1> >)
-                              (scalar_< fundamental_<A2> >)
+                              (scalar_< arithmetic_<A1> >)
+                              (scalar_< arithmetic_<A1> >)
                             )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A1,A2)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    typedef A1 result_type;
+    inline A1 operator()(const A0 & a0,const A1 & a1,const A1 & a2) const 
     {
-      if(a0) return result_type(a1) + result_type(a2);
-      else   return result_type(a1);
+      if(a0) return (a1+a2);
+      else   return a1;
     }
   };
 } } }

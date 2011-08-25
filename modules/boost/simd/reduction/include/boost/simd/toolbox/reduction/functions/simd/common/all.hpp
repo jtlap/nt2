@@ -21,9 +21,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       for(int i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)

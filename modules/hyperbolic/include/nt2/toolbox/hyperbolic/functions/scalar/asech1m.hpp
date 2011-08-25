@@ -29,6 +29,21 @@ namespace nt2 { namespace ext
       return asech(oneminus(a0)); 
     }
   };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asech1m_, tag::cpu_
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)
+                            )
+  {
+
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+
+    NT2_FUNCTOR_CALL(1)
+    {
+      if (is_eqz(a0))return Zero<result_type>();
+      else if (a0 ==  One<A0>()) return One<result_type>();
+      else return Nan<result_type>(); 
+    }
+  };
 } }
 
 

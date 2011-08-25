@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE4_1_SELECT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE4_1_SELECT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/include/functions/is_simd_logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -24,9 +24,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A1 result_type;
-
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
+      //NT2_ASSERT(is_simd_logical(a0), "Some entries are not legal SIMD True or False"); 
       return boost::simd::native_cast<A1>(_mm_blendv_epi8( a2, a1
                                                   , boost::simd::native_cast<A1>(a0)
                                                   )
@@ -46,9 +46,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A1 result_type;
-
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
+      //      assert(all(is_simd_logical(a0)))
       return boost::simd::native_cast<A1>(_mm_blendv_ps(a2, a1, boost::simd::native_cast<A1>(a0))); 
     }
   };
@@ -67,6 +67,7 @@ namespace boost { namespace simd { namespace ext
 
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
+      //      assert(all(is_simd_logical(a0)))
       return boost::simd::native_cast<A1>(_mm_blendv_pd(a2, a1, boost::simd::native_cast<A1>(a0))); 
     }
   };

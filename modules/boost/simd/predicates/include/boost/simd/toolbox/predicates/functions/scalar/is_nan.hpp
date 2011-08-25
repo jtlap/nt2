@@ -22,13 +22,11 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return false;
+      return boost::simd::False<A0>();
     }
   };
 } } }
@@ -44,12 +42,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return (a0 != a0);
+      return (a0 != a0);
     }
   };
 } } }

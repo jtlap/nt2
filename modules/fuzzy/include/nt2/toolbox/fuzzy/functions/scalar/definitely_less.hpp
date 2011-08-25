@@ -23,14 +23,12 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::definitely_less_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< integer_<A2> >)
+                            , (A0)(A2)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
-
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(3)
+    inline A2 operator()(const A0 & a0,const A0 & a1, const A2 & a2) 
     {
       return a0 < nt2::subs(a1, nt2::abs(a2));
     }
@@ -44,16 +42,14 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::definitely_less_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)(scalar_< integer_<A2> >)
+                            , (A0)(A2)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
-
     typedef bool result_type;
-
-    NT2_FUNCTOR_CALL(3)
+    inline A2 operator()(const A0 & a0,const A0 & a1, const A2 & a2) 
     {
-      if (is_finite(a0) && a1 == Inf<A1>()) return true;
+      if (is_finite(a0) && a1 == Inf<A0>()) return true;
       if (is_finite(a1) && a0 == Minf<A0>()) return true;
       if (is_nan(a0) || is_nan(a1)) return false;
       return  a0 < predecessor(a1,nt2::abs(a2));

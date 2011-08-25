@@ -20,12 +20,12 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lcm_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
+                            , (A0)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
                             )
   {
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
-    NT2_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
      return nt2::abs(a0*rdivide(a1,gcd(a0,a1)));
     }

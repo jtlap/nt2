@@ -10,9 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_INF_HPP_INCLUDED
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-
 #include <boost/simd/include/functions/abs.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
@@ -30,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
-      return false;
+      return boost::simd::False<A0>();
     }
   };
 } } }
@@ -46,9 +44,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
        return boost::simd::abs(a0) == boost::simd::Inf<A0>();

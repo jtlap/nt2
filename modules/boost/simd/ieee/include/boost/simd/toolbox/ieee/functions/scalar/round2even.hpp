@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ROUND2EVEN_HPP_INCLUDED
-
 #include <boost/simd/toolbox/ieee/functions/round2even.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/bitofsign.hpp>
@@ -29,7 +28,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type v = boost::simd::abs(a0);

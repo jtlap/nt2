@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_GEZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_GEZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -19,8 +20,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename boost::simd::meta::int32_t_<A0>::type htype;
-      typedef native<htype,boost::simd::tag::sse_> type;
+      //      typedef typename boost::simd::meta::int32_t_<A0>::type htype;
+      typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
+      typedef typename dispatch::meta::downgrade<itype>::type type; 
+      //      typedef native<htype,boost::simd::tag::sse_> type;
       const type tmp1 = is_gez(native_cast<type>(a0));
       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
       return native_cast<A0>(tmp);

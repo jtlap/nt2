@@ -27,14 +27,14 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellik_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return ellik(result_type(a0), result_type(a1));
     }
@@ -48,17 +48,17 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellik_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< double_<A0> >)(scalar_< double_<A1> >)
+                            , (A0)
+                            , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type type;
-      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
+      if (a1>One<A0>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return type(a0);
       return boost::math::ellint_1(nt2::sqrt(a1), a0);
     }
@@ -72,17 +72,17 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ellik_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< float_<A0> >)(scalar_< float_<A1> >)
+                            , (A0)
+                            , (scalar_< float_<A0> >)(scalar_< float_<A0> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type type;
-      if (a1>One<A1>()||(is_ltz(a1))) return Nan<type>();
+      if (a1>One<A0>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return a0;
       type phi = nt2::abs(a0);
       type m = a1;

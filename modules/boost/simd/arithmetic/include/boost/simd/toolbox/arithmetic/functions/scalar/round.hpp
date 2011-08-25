@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
-
 #include <boost/simd/include/functions/round2even.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -20,12 +18,10 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::round2even(a0);

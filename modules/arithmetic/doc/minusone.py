@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_signed<typename boost::result_of<nt2::meta::arithmetic(T)>::type>::type',
+             'default' : 'T',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -42,7 +42,6 @@
                 },
              'unsigned_int_' : {
                  'nt2::One<T>()' : 'nt2::Zero<r_t>()',
-                 'nt2::Zero<T>()' : 'nt2::Mone<r_t>()',
                 },
             },
          'verif_test' : {

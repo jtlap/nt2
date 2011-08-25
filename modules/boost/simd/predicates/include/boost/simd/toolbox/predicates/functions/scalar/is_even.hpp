@@ -8,12 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_EVEN_HPP_INCLUDED
-
 #include <boost/simd/toolbox/predicates/functions/is_even.hpp>
 #include <boost/simd/include/functions/is_flint.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/half.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
@@ -25,9 +23,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return !(a0 & One<A0>());
@@ -46,9 +42,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_flint(a0*Half<A0>());
