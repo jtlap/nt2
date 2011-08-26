@@ -232,6 +232,35 @@ macro(nt2_module_add_unit)
   nt2_module_add_test(unit ${ARGN})
 endmacro()
 
+macro(nt2_module_add_tests name)  
+  string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\1" prefix ${name})
+  string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\2" suffix ${name})
+  
+  create_test_sourcelist(${name}_files ${name}.cpp ${SOURCES})
+  add_executable(${name} ${${name}_files})
+  set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
+  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${suffix})
+  
+  nt2_module_target_parent(${name})
+    
+  if(NOT CMAKE_CROSSCOMPILING_HOST AND DEFINED ENV{CMAKE_CROSSCOMPILING_HOST})
+    set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})
+  endif()
+    
+  foreach(source ${SOURCES})
+    string(REGEX REPLACE "^([^/]+).cpp$" "\\1" basename ${source})
+    set_property(SOURCE ${source} PROPERTY COMPILE_DEFINITIONS NT2_UNIT_MAIN=${basename})
+       
+    if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
+      add_test(${prefix}.${basename}.${suffix} /bin/sh -c
+               "scp \"${PROJECT_BINARY_DIR}/${suffix}/${name}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${name} ${basename} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${name}"
+              )
+    else()
+      add_test(${prefix}.${basename}.${suffix} ${PROJECT_BINARY_DIR}/${suffix}/${name} ${basename})
+    endif()
+  endforeach()
+endmacro()
+
 macro(nt2_module_add_cover)
   nt2_module_add_test(cover ${ARGN})
 endmacro()
