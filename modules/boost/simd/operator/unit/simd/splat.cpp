@@ -30,28 +30,29 @@
 //COMMENTED
 NT2_TEST_CASE_TPL ( splat_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-//   using boost::simd::splat;
-//   using boost::simd::tag::splat_;
-//   using boost::simd::load; 
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   typedef typename boost::dispatch::meta::call<splat_(vT)>::type r_t;
-//   typedef typename boost::dispatch::meta::call<splat_(T)>::type sr_t;
-//   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
-//   double ulpd;
-//   ulpd=0.0;
+  using boost::simd::splat;
+  using boost::simd::tag::splat_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<splat_(T, boost::dispatch::meta::as_<vT>)>::type r_t;
+  typedef typename boost::dispatch::meta::call<splat_(T, boost::dispatch::meta::as_<vT>)>::type sr_t;
+  typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-
-//   // specific values tests
-//   NT2_TEST_EQUAL(splat(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-//   NT2_TEST_EQUAL(splat(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-//   NT2_TEST_EQUAL(splat(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-//   NT2_TEST_EQUAL(splat(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-//   NT2_TEST_EQUAL(splat(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  std::cout << boost::simd::Inf<T>() << std::endl;
+  std::cout << boost::simd::Inf<sr_t>() << std::endl;
+  // specific values tests
+//   NT2_TEST_EQUAL(splat(boost::simd::Inf<T>())[0], boost::simd::Inf<sr_t>());
+//   NT2_TEST_EQUAL(splat(boost::simd::Minf<T>())[0], boost::simd::Minf<sr_t>());
+//   NT2_TEST_EQUAL(splat(boost::simd::Nan<T>())[0], boost::simd::Nan<sr_t>());
+//   NT2_TEST_EQUAL(splat(boost::simd::One<T>())[0], boost::simd::One<sr_t>());
+//   NT2_TEST_EQUAL(splat(boost::simd::Zero<T>())[0], boost::simd::Zero<sr_t>());
 } // end of test for real_

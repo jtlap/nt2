@@ -13,19 +13,19 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shli_, boost::simd::tag::avx_
 				     , (A0)(A1)
-				     , ((simd_<arithmetic__<A0>,boost::simd::tag::avx_>))
+				     , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
 				     (scalar_< integer_<A1> >)
 				     )
   {
     typedef A0 result_type; 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename dispatch::meta::as_integer<sctype>::type sitype;
-      typedef typename simd::native<sitype, boost::simd::tag::sse_ >  isvtype;
-      typedef typename dispatch::meta::as_integer<A0>::type  itype;
+      typedef typename meta::scalar_of<A0>::type                  sctype;
+      typedef typename dispatch::meta::as_integer<sctype>::type   sitype;
+      typedef simd::native<sitype, boost::simd::tag::sse_ >      isvtype;
+      typedef typename dispatch::meta::as_integer<A0>::type        itype;
 
       isvtype a00 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 0)};
       isvtype a01 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 1)};
