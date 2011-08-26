@@ -6,31 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_BITWISE_ANY_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_BITWISE_ANY_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_ALL_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_ALL_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
-#include <boost/simd/toolbox/reduction/functions/bitwise_any.hpp>
-#include <boost/simd/include/functions/hmsb.hpp>
+#include <boost/simd/toolbox/reduction/functions/bitwise_all.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_any_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_all_, boost::simd::tag::sse2_,
+                              (A0),
+                              ((simd_<type16_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return hmsb(a0) != 0;
+      return _mm_movemask_epi8(a0) == 0xFFFF;
     }
   };
-} } }
 
-
+} } }  
+#endif
 #endif

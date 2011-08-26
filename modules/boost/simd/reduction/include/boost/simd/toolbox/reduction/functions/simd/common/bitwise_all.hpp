@@ -11,9 +11,6 @@
 
 #include <boost/simd/toolbox/reduction/functions/bitwise_all.hpp>
 #include <boost/simd/include/functions/hmsb.hpp>
-#include <boost/simd/include/constants/allbits.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -30,8 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type sitype;
-      return hmsb(a0) == Allbits<sitype>();
+      return hmsb(a0) == (1 << meta::cardinal_of<A0>::value)-1;
     }
   };
 } } }
