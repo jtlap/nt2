@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      cout << "pb lié à gcc 4.5 ?" << std::endl;
+      cout << "pb liÃ© Ã  gcc 4.5 ?" << std::endl;
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       std::cout << " == a0 " << a0 << std::endl;
