@@ -24,9 +24,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef  result_type int_type;

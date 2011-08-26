@@ -26,14 +26,12 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
+                            , (A0)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype; 
       return A0(boost::simd::saturate<A0>(utype(a0)-utype(a1))); 
@@ -48,14 +46,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (gt(a0, a1))
         return a0-a1;
@@ -72,14 +68,12 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< int64_<A0> >)(scalar_< int64_<A1> >)
+                            , (A0)
+                            , (scalar_< int64_<A0> >)(scalar_< int64_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (eq(a1, Valmin<A0>()))
       {

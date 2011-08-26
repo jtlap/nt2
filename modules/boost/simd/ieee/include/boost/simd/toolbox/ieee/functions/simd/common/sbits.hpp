@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SBITS_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

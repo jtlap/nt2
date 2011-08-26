@@ -9,7 +9,7 @@
              'default' : 'r_t',
             },
          'type_defs' : [],
-         'types' : ['real_', 'integer_'],
+         'types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -26,12 +26,7 @@
                 ],
             },
          'specific_values' : {
-             'default' : {
-                 'boost::simd::One<T>()' : {'result' : 'r_t(-1)','ulp_thresh' : '0',},
-                 'boost::simd::Two<T>()' : {'result' : 'r_t(-2)','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                },
-             'integer_   ' : {
+            'signed_int_' : {
                  'boost::simd::Mone<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::One<T>()' : {'result' : 'boost::simd::Mone<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::Two<T>()' : {'result' : '-boost::simd::Two<r_t>()','ulp_thresh' : '0',},
@@ -47,15 +42,15 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'integer_' : ['boost::simd::unary_minus(a0)'],
+                 'default' : ['boost::simd::unary_minus(a0)'],
                 },
              'property_value' : {
-                 'integer_' : ['-a0'],
+                 'default' : ['-a0'],
                 },
              'simd' : {
                 },
              'ulp_thresh' : {
-                 'integer_' : ['0'],
+                 'default' : ['0'],
                 },
             },
         },

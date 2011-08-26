@@ -111,9 +111,9 @@ NT2_TEST_CASE_TPL ( idivceil_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(idivceil(-nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmin<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivceil(nt2::Four<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivceil(nt2::Four<T>(),nt2::Zero<T>()), nt2::Valmax<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(idivceil(nt2::Mfour<T>(),nt2::Zero<T>()), nt2::Valmin<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivceil(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivceil(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
 } // end of test for signed_int_

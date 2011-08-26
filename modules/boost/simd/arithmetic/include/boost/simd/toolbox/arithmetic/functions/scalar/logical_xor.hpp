@@ -17,14 +17,12 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
+                            , (A0)
+                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       using boost::simd::is_nez;
       return (is_nez(a0)^is_nez(a1));

@@ -6,13 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_HPP_INCLUDED
-#define NT2_TOOLBOX_GSL_SPECFUN_INCLUDE_HPP_INCLUDED
-#include <boost/dispatch/details/preprocessor.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_IS_SIMD_LOGICAL_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_IS_SIMD_LOGICAL_HPP_INCLUDED
+#include <boost/simd/include/simd.hpp>
+#include <boost/dispatch/include/functor.hpp>
 
-#define NT2_GSL_SPECFUN_BASE() nt2/toolbox/gsl_specfun/functions/scalar/
-#define NT2_GSL_SPECFUN_RELATIVE() nt2/toolbox/gsl_specfun/functions/
-
-#define NT2_GSL_SPECFUN_INCLUDE(F) NT2_SIMD_RELATIVE_INCLUDE(NT2_GSL_SPECFUN_RELATIVE, F)
-
+namespace boost { namespace simd { namespace tag
+  {         
+    struct is_simd_logical_ {};
+  }
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_simd_logical_, is_simd_logical, 1)
+} }
+ 
 #endif

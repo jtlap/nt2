@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 
@@ -61,43 +61,6 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( oneminus_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-  
-  using boost::simd::oneminus;
-  using boost::simd::tag::oneminus_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<oneminus_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( boost::simd::oneminus(a0),1-a0,0);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
-} // end of test for unsigned_int_
-
 NT2_TEST_CASE_TPL ( oneminus_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
@@ -108,7 +71,7 @@ NT2_TEST_CASE_TPL ( oneminus_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 

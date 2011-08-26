@@ -11,14 +11,15 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::select_, tag::cpu_, (A0)(A1)(A2)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::select_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A1> >)
-                              (scalar_< fundamental_<A2> >)
+                              (scalar_< fundamental_<A1> >)
                             )
   {
     typedef A1 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(3) { return a0 ? a1 : a2; }
+    inline A1 operator()(const A0 & a0,const A1 & a1,const A1 & a2) const 
+    { return a0 ? a1 : a2; }
   };
 } } }
 

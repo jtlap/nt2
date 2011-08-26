@@ -22,12 +22,12 @@
 
 #include <cstdio>
 #include <boost/preprocessor/cat.hpp>
+#include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
-#include <boost/dispatch/details/preprocessor.hpp>
-#include <nt2/sdk/details/type_id.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/dispatch/preprocessor/strip.hpp>
 
 #if defined(DOXYGEN_ONLY)
 //==============================================================================

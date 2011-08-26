@@ -12,7 +12,6 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/minusone.hpp>
@@ -44,13 +43,12 @@ namespace boost { namespace simd { namespace ext
                           (scalar_ < real_<A0> > )
                          )
   {
-    typedef typename dispatch::meta::as_integer<typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type, signed>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
       A0 m;
-      int_type p;
-      boost::fusion::tie(m, p) = boost::simd::frexp(boost::simd::abs(a0));
+      result_type p;
+      boost::simd::frexp(boost::simd::abs(a0), m, p);
       return (m == Half<A0>())  ? minusone(p) :  p;
     }
   };

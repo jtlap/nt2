@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::unary_minus;
   using boost::simd::tag::unary_minus_;
@@ -102,4 +102,4 @@ NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
       }
     
   }
-} // end of test for integer_
+} // end of test for signed_int_

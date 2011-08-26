@@ -25,16 +25,13 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<result_type>(shift_left(bitwise_cast<itype>(a0),a1));
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_left_ , tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0, A1)>::type result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return a0 << a1; }
   };
 } } }

@@ -109,4 +109,8 @@ NT2_TEST_CASE_TPL ( boolean_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(boolean(boost::simd::One<T>()), boost::simd::True<r_t>());
   NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), boost::simd::True<r_t>());
   NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), boost::simd::False<r_t>());
+
+  if (boost::simd::Nan < float > ()) std::cout << 1 << std::endl;  else std::cout << 0 << std::endl;
+  int z =   (boost::simd::Nan < float > ()) ? 1 :0;
+   std::cout << z << std::endl;
 } // end of test for unsigned_int_

@@ -44,7 +44,7 @@
              'signed_int_' : {
                  'nt2::Four<T>(),nt2::Three<T>()' : 'nt2::Two<r_t>()',
                  'nt2::Four<T>(),nt2::Zero<T>()' : 'nt2::Valmax<r_t>()',   
-                 '-nt2::Four<T>(),nt2::Zero<T>()' : 'nt2::Valmin<r_t>()',   
+                 'nt2::Mfour<T>(),nt2::Zero<T>()' : 'nt2::Valmin<r_t>()',   
                  'nt2::Mone<T>()' : 'nt2::One<r_t>()',
                  'nt2::One<T>()' : 'nt2::One<r_t>()',
                 },

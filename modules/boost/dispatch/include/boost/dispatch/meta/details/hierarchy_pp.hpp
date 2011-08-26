@@ -9,36 +9,31 @@
 #ifndef BOOST_DISPATCH_META_DETAILS_HIERARCHY_PP_HPP_INCLUDED
 #define BOOST_DISPATCH_META_DETAILS_HIERARCHY_PP_HPP_INCLUDED
 
-#include <boost/dispatch/details/preprocessor.hpp>
+#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/dispatch/preprocessor/remove_typename.hpp>
 
 //==============================================================================
 // Build a simple hierarchy element
 //==============================================================================
-#define BOOST_DISPATCH_HIERARCHY_CLASS(Name, Parent)     \
-struct Name : Parent                          \
-{                                             \
-  typedef Parent  parent;                     \
-}                                             \
+#define BOOST_DISPATCH_HIERARCHY_CLASS(Name, Parent)  \
+struct Name : Parent { typedef Parent  parent; }      \
 /**/
 
 //==============================================================================
 // Build a template based hierarchy element
 //==============================================================================
-#define BOOST_DISPATCH_HIERARCHY_CLASS_TPL(Name, Parent) \
-template<class T> struct Name : Parent        \
-{                                             \
-  typedef Parent  parent;                     \
-}                                             \
+#define BOOST_DISPATCH_HIERARCHY_CLASS_TPL(Name, Parent)            \
+template<class T> struct Name : Parent { typedef Parent  parent; }  \
 /**/
 
 //==============================================================================
 // Build a template based hierarchy element with a template parent
 //==============================================================================
-#define BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META(Name, Parent)          \
-template<class T> struct Name : BOOST_DISPATCH_PP_STRIP(Parent)::type  \
-{                                                           \
-  typedef typename BOOST_DISPATCH_PP_STRIP(Parent)::type parent;       \
-}                                                           \
+#define BOOST_DISPATCH_HIERARCHY_CLASS_TPL_META(Name, Parent)         \
+template<class T> struct Name : BOOST_DISPATCH_PP_STRIP(Parent)::type \
+{                                                                     \
+  typedef typename BOOST_DISPATCH_PP_STRIP(Parent)::type parent;      \
+}                                                                     \
 /**/
 
 //==============================================================================
@@ -59,7 +54,8 @@ namespace boost { namespace dispatch                                            
     {                                                                           \
       typedef unspecified_<T> parent;                                           \
     };                                                                          \
-    template<class T> struct Name< unknown_<T> > : BOOST_DISPATCH_PP_REMOVE_TYPENAME(Base) \
+    template<class T> struct  Name< unknown_<T> >                               \
+                            : BOOST_DISPATCH_PP_REMOVE_TYPENAME(Base)           \
     {                                                                           \
       typedef Base parent;                                                      \
     };                                                                          \
@@ -70,8 +66,8 @@ namespace boost { namespace dispatch                                            
 //==============================================================================
 // Defines a classic hierarchy ending up going into unknown_
 //==============================================================================
-#define BOOST_DISPATCH_REGISTER_HIERARCHY(Name)                                           \
-BOOST_DISPATCH_REGISTER_HIERARCHY_PARENT(Name, unknown_<T>)                               \
+#define BOOST_DISPATCH_REGISTER_HIERARCHY(Name)             \
+BOOST_DISPATCH_REGISTER_HIERARCHY_PARENT(Name, unknown_<T>) \
 /**/
 
 #endif

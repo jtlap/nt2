@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_LIBC_FUNCTIONS_SCALAR_TAN_HPP_INCLUDED
 #define NT2_TOOLBOX_LIBC_FUNCTIONS_SCALAR_TAN_HPP_INCLUDED
-
+#include <cmath>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

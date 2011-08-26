@@ -24,6 +24,7 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -54,7 +55,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(unary_minus(boost::simd::Zero<vT>())[0], boost::simd::Mzero<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::unary_minus;
   using boost::simd::tag::unary_minus_;
@@ -75,7 +76,8 @@ NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(unary_minus(boost::simd::One<vT>())[0], sr_t(-1));
-  NT2_TEST_EQUAL(unary_minus(boost::simd::Two<vT>())[0], sr_t(-2));
+  NT2_TEST_EQUAL(unary_minus(boost::simd::Mone<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(unary_minus(boost::simd::One<vT>())[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(unary_minus(boost::simd::Two<vT>())[0], -boost::simd::Two<sr_t>());
   NT2_TEST_EQUAL(unary_minus(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for integer_
+} // end of test for signed_int_

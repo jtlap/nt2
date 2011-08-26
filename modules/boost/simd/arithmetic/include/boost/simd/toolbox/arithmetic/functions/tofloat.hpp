@@ -10,7 +10,7 @@
 #define BOOST_SIMD_ARITHMETIC_IEEE_FUNCTIONS_TOFLOAT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/arithmetic/include.hpp>
+
 
 namespace boost { namespace simd { namespace tag
   {         

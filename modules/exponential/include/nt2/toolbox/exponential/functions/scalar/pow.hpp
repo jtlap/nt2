@@ -21,12 +21,10 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
-
+    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::powi(result_type(a0), a1);
@@ -41,14 +39,14 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< double_<A0> >)(scalar_< double_<A1> >)
+                            , (A0)
+                            , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       bool ltza0 = a0 < Zero<A0>(); 
       if ((a0 == a1 && a0 == Minf<A0>()) ||
@@ -67,14 +65,14 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< float_<A0> >)(scalar_< float_<A1> >)
+                            , (A0)
+                            , (scalar_< float_<A0> >)(scalar_< float_<A0> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
       bool ltza0 = a0 < Zero<A0>(); 
       if ((a0 == a1 && a0 == Minf<A0>()) ||

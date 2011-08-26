@@ -36,6 +36,7 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
@@ -61,6 +62,7 @@ NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
   NT2_TEST_EQUAL(definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
+  NT2_TEST_EQUAL(definitely_less(nt2::splat<vT>(0),nt2::splat<vT>(2),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( definitely_less_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
