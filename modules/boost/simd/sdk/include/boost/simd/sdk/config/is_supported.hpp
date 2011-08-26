@@ -19,30 +19,29 @@
 namespace boost{ namespace simd{ namespace config{
 
   template<class Tag>
-  bool is_supported(void)
+  bool is_supported()
   {
 
 #if !defined(BOOST_SIMD_ARCH_POWERPC)
 
     int regs[4]; 
-    // Force tag to instanciate the vendor mask, we only want the vendor.
-    details::cpuid_mask<details::get_vendor, details::get_vendor> mvendor;
-    if(is_vendor(mvendor, INTEL) == true) 
+    switch(details::get_vendor())
     {
-      details::cpuid_mask<Tag, details::intel> m;
-      details::__cpuid(regs,m.function);
-      return details::has_bit_set(regs[m.register_id-1], m.bit);
+    case details::intel : 
+      details::cpuid_mask<Tag, details::intel_> mIntel;
+      details::__cpuid(regs,mIntel.function);
+      return details::has_bit_set(regs[mIntel.register_id-1], mIntel.bit);
+    case details::amd :
+      details::cpuid_mask<Tag, details::amd_ > mAmd;
+      details::__cpuid(regs,mAmd.function);
+      return details::has_bit_set(regs[mAmd.register_id-1], mAmd.bit);
+    case details::none :
+      return false;
+    default :
+      return false;
     }
-    else if(is_vendor(mvendor, AMD) == true) 
-    {
-      details::cpuid_mask<Tag, details::amd > m;
-      details::__cpuid(regs,m.function);
-      return details::has_bit_set(regs[m.register_id], m.bit);
-    }
-    else return false;
 
 #elif defined(BOOST_SIMD_ARCH_POWERPC) 
-
 
 
 #endif

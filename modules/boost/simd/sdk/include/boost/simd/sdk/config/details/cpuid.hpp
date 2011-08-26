@@ -17,35 +17,42 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
   
   bool has_bit_set(int value, int bit);
 
+////////////////////////////////////////////////////////////////////////////////
+// Case of x86 processor. 
+////////////////////////////////////////////////////////////////////////////////
 #if !defined(BOOST_SIMD_ARCH_POWERPC)
 
-#define INTEL "GenuineIntel"
-#define AMD   "AuthenticAMD"
+  bool str_match(const int abcd[4], const char* vendor);
+
+  enum { eax,ebx,ecx,edx };
 
 #if defined(BOOST_SIMD_COMPILER_GNU_C)
 
   void __cpuid( int CPUInfo[4],int InfoType);
   void __cpuidex(int CPUInfo[4],int InfoType,int ECXValue);
 
-  enum { eax,ebx,ecx,edx };
-
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
 #include <intrin.h>
 #endif
-  
+
+////////////////////////////////////////////////////////////////////////////////
+// Case of PPC processor. 
+////////////////////////////////////////////////////////////////////////////////
 #elif defined(BOOST_SIMD_ARCH_POWERPC) 
 
   //TODO : Altivec runtime detection
 
 #endif
 
-  template<class Tag, class Vendor>
-  bool is_vendor(const cpuid_mask<Tag, Vendor>& m, const char* vendor)
-  {
-    int abcd[4];
-    __cpuid(abcd, m.function);
-    return (abcd[1] == ((int*)(vendor))[0] && abcd[2] == ((int*)(vendor))[2] && abcd[3] == ((int*)(vendor))[1]);
-  }
+////////////////////////////////////////////////////////////////////////////////
+// Runtime function to get the Vendor Processor. 
+////////////////////////////////////////////////////////////////////////////////
+#define INTEL "GenuineIntel"
+#define AMD   "AuthenticAMD"
+
+  enum { intel, amd, ibm, none};
+
+  int get_vendor();
 
 } } } }
 

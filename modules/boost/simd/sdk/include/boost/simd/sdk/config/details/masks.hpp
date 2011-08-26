@@ -11,8 +11,6 @@
 
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/mpl/char.hpp>
-
 
 #define BOOST_SIMD_DECLARE_MASK(x,y,z) static const int bit = x, function = y, register_id = z
 
@@ -27,16 +25,16 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 ////////////////////////////////////////////////////////////////////////////////	
   
   //Vendor Tag to select the correct mask.
-  struct get_vendor;
-  struct intel;
-  struct amd;
+  struct get_vendor_;
+  struct intel_;
+  struct amd_;
 
   template<class Tag = void, class Vendor = void>
   struct cpuid_mask;
 
   //Use for Vendor detection (Force the two template parameter).
   template<>
-  struct cpuid_mask<get_vendor, get_vendor>
+  struct cpuid_mask<get_vendor_, void>
   {
     BOOST_SIMD_DECLARE_MASK(0,0x00000000,0); //No bit, all registers required.
   };
@@ -85,14 +83,14 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 
   // // Intel mask selection 
   // template<>
-  // struct cpuid_mask<tag::fma4_, intel >::type >
+  // struct cpuid_mask<tag::fma4_, intel_ >::type >
   // {
   //   BOOST_SIMD_DECLARE_MASK(16,0x80000001,3);
   // };
 
   // // AMD mask selection 
   // template<>
-  // struct cpuid_mask<tag::fma4_, amd >::type >
+  // struct cpuid_mask<tag::fma4_, amd_ >::type >
   // {
   //   BOOST_SIMD_DECLARE_MASK(12,0x80000001,3);
   // };

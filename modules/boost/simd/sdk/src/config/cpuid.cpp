@@ -18,6 +18,11 @@ namespace boost { namespace simd { namespace config{ namespace details {
 
 #if !defined(BOOST_SIMD_ARCH_POWERPC)
 
+  bool str_match(const int abcd[4], const char* vendor)
+  {
+    return (abcd[1] == ((int*)(vendor))[0] && abcd[2] == ((int*)(vendor))[2] && abcd[3] == ((int*)(vendor))[1]);
+  }
+
 #ifdef BOOST_SIMD_COMPILER_GNU_C
 
   void __cpuid( int CPUInfo[4],int InfoType)
@@ -48,12 +53,27 @@ namespace boost { namespace simd { namespace config{ namespace details {
 
 #elif defined(BOOST_SIMD_ARCH_POWERPC) 
 
-#include <signal.h>
-
-
 
 #endif
 
-  
+  int get_vendor()
+  {
+
+#if !defined(BOOST_SIMD_ARCH_POWERPC)
+
+    details::cpuid_mask< details::get_vendor_ > mvendor;
+    int abcd[4];
+    __cpuid(abcd, mvendor.function);
+    if( str_match(abcd, INTEL) ) return intel;
+    else if( str_match(abcd, AMD) ) return amd;  
+    else return none;
+
+#elif defined(BOOST_SIMD_ARCH_POWERPC) 
+
+  //TODO : Altivec runtime detection
+
+#endif
+
+  }
 
 } } } }
