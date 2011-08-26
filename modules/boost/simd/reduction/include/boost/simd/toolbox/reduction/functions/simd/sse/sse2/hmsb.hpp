@@ -9,53 +9,57 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
+#include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
+#include <boost/simd/include/functions/popcnt.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is type8
+  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
                        (A0),
-                       ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                       ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
-      
+    typedef int32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_movemask_epi8(a0);
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-
-
+  
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is type32
+  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
                        (A0),
-                       ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                       ((simd_<type32_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
-      
-    BOOST_SIMD_FUNCTOR_CALL(1){ return _mm_movemask_pd(a0); }
+    typedef int32_t result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typedef typename dispatch::meta::as_real<A0>::type type;
+      return _mm_movemask_ps(native_cast<type>(a0));
+    }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
-
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is type64
+  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
                        (A0),
-                       ((simd_<float_<A0>,boost::simd::tag::sse_>))
+                       ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
-      
-    BOOST_SIMD_FUNCTOR_CALL(1){ return _mm_movemask_ps(a0); }
+    typedef int32_t result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typedef typename dispatch::meta::as_real<A0>::type type;
+      return _mm_movemask_pd(native_cast<type>(a0));
+    }
   };
 } } }
 #endif

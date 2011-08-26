@@ -9,10 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_TRUE_HPP_INCLUDED
 
-#include <boost/simd/sdk/meta/int_c.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/toolbox/constant/constants/true.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,17 +19,9 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename A0::type result_type;
-
-    inline result_type operator()(A0 const&) const
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      typedef typename dispatch::meta::as_integer<result_type>::type  tmp_type;
-      typedef typename dispatch::meta::scalar_of<tmp_type>::type      cst_type;
-      typedef typename dispatch::meta::as_unsigned<cst_type>::type    ucst_type;
-      typedef meta::int_c<cst_type, ~ucst_type()>                     bits_type;
-      
-      return native_cast<result_type> ( boost::simd::
-                                        splat<tmp_type>( cst_type(bits_type::value) )
-                                      );
+      return Allbits<result_type>();
     }
   };
 } } }

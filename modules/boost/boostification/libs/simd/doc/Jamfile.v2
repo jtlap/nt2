@@ -1,0 +1,146 @@
+##############################################################################
+###   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
+###   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+###
+###          Distributed under the Boost Software License, Version 1.0
+###                 See accompanying file LICENSE.txt or copy at
+###                     http://www.boost.org/LICENSE_1_0.txt
+##############################################################################
+
+project boost/libs/simd/doc ;
+
+import boostbook : boostbook ;
+using quickbook ;
+
+import toolset ;
+toolset.using doxygen ;
+
+path-constant images : html ;
+path-constant here : . ;
+import path ;
+
+project
+    : requirements 
+        <doxygen:param>EXTRACT_ALL=NO
+        <doxygen:param>"PREDEFINED=BOOST_SIMD_DOXYGEN_INVOKED \\
+                                   \"BOOST_CONCEPT_REQUIRES(a,b)=/** Requires: a */ b \""
+        <doxygen:param>HIDE_UNDOC_MEMBERS=YES
+        <doxygen:param>EXTRACT_PRIVATE=NO
+        <doxygen:param>ENABLE_PREPROCESSING=YES
+        <doxygen:param>MACRO_EXPANSION=YES
+#       <doxygen:param>EXPAND_ONLY_PREDEF=YES
+        <doxygen:param>"EXPAND_AS_DEFINED=BOOST_PP_EMPTY BOOST_PP_COMMA \\
+                        "
+        <doxygen:param>SEARCH_INCLUDES=YES
+        <doxygen:param>"INCLUDE_PATH=$(BOOST_ROOT) \\
+                                     ../../../"
+;
+
+boostbook standalone
+    :
+        simd
+    :
+        <xsl:param>boost.root=../../../..
+        <xsl:param>chunk.section.depth=3
+        <xsl:param>chunk.first.sections=1
+        <xsl:param>toc.section.depth=3
+        <xsl:param>toc.max.depth=3
+        <xsl:param>generate.section.toc.level=3
+        <format>pdf:<xsl:param>boost.url.prefix=http://www.boost.org/doc/libs/release/libs/simd/doc/html
+        <format>pdf:<xsl:param>img.src.path=$(images)/
+    ;
+
+xml simd
+    :
+        simd.qbk
+    :
+        <dependency>sdk_reference
+        <dependency>arithmetic
+        <dependency>bitwise
+        <dependency>constant
+        <dependency>ieee
+        <dependency>operator
+        <dependency>predicates
+        <dependency>reduction
+        <dependency>swar
+    ;
+    
+doxygen sdk_reference
+    :
+        [ path.glob-tree $(here)/../../../boost/simd/sdk : *.hpp : .svn details ]
+    :
+        <xsl:param>boost.doxygen.reftitle="SDK reference"
+    ;
+
+    
+doxygen arithmetic
+    :
+        [ glob ../../../boost/simd/toolbox/arithmetic/functions/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/arithmetic/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/arithmetic.hpp ]
+    :
+        <xsl:param>boost.doxygen.reftitle="Arithmetic Toolbox"
+    ;
+
+doxygen bitwise
+    :
+        [ glob ../../../boost/simd/toolbox/bitwise/functions/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/bitwise/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/bitwise.hpp ]
+    :
+        <xsl:param>boost.doxygen.reftitle="Bitwise Toolbox"
+    ;
+    
+doxygen constant
+    :
+        [ glob ../../../boost/simd/toolbox/constant/constants/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/constant/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/constant.hpp ]
+    :
+        <xsl:param>boost.doxygen.reftitle="Constant Toolbox"
+    ;
+
+doxygen ieee
+    :
+        [ glob ../../../boost/simd/toolbox/ieee/functions/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/ieee/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/ieee.hpp ]
+    :
+        <xsl:param>boost.doxygen.reftitle="IEEE Toolbox"
+    ;
+
+doxygen operator
+    :
+        [ glob ../../../boost/simd/toolbox/operator/functions/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/operator/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/operator.hpp ]
+    :
+        <xsl:param>boost.doxygen.reftitle="Operator Toolbox"
+    ;
+    
+doxygen predicates
+    :
+        [ glob ../../../boost/simd/toolbox/predicates/functions/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/predicates/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/predicates.hpp ]
+    :
+        <xsl:param>boost.doxygen.reftitle="Predicates Toolbox"
+    ;
+    
+doxygen reduction
+    :
+        [ glob ../../../boost/simd/toolbox/reduction/functions/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/reduction/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/reduction.hpp ]
+    :
+        <xsl:param>boost.doxygen.reftitle="Reduction Toolbox"
+    ;
+    
+doxygen swar
+    :
+        [ glob ../../../boost/simd/toolbox/swar/functions/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/swar/*.hpp ]
+        [ glob ../../../boost/simd/toolbox/swar.hpp ]
+    :
+        <xsl:param>boost.doxygen.reftitle="SWAR Toolbox"
+    ;
