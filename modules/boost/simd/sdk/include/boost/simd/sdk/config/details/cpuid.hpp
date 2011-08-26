@@ -11,7 +11,9 @@
 
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/sdk/config/arch.hpp>
-#include <boost/simd/sdk/config/details/masks.hpp>
+
+#define INTEL "GenuineIntel"
+#define AMD   "AuthenticAMD"
 
 namespace boost{ namespace simd{ namespace config{ namespace details{
   
@@ -22,9 +24,7 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 ////////////////////////////////////////////////////////////////////////////////
 
   bool str_match(const int abcd[4], const char* vendor);
-
   enum { eax,ebx,ecx,edx };
-
 
 #if defined(BOOST_SIMD_COMPILER_GNU_C)
 

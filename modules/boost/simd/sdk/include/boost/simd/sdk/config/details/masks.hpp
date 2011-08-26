@@ -12,7 +12,6 @@
 #include <boost/simd/sdk/config/details/cpuid.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/config/arch.hpp>
-#include <boost/mpl/int.hpp>
 
 #define BOOST_SIMD_DECLARE_MASK(x,y,z) static const int bit = x, function = y, register_id = z
 #define BOOST_SIMD_DECLARE_CPUID_CALL(function) int regs_x86[4]; __cpuid(regs_x86, function)
@@ -246,7 +245,7 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
   };
 
 ////////////////////////////////////////////////////////////////////////////////
-//Use for Vendor detection (Force the two template parameter).
+//Use for Vendor detection.
 ////////////////////////////////////////////////////////////////////////////////                                                                     
   template<>
   struct cpuid_mask<get_vendor_, void>
@@ -256,9 +255,9 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
     int get_support()
     {
 #if !defined(BOOST_SIMD_ARCH_POWERPC)
-      BOOST_SIMD_DECLARE_CPUID_CALL(this->function)
-      if( str_match(abcd, INTEL) ) return intel;
-      else if( str_match(abcd, AMD) ) return amd;  
+      BOOST_SIMD_DECLARE_CPUID_CALL(this->function);
+      if( str_match(regs_x86, INTEL) ) return intel;
+      else if( str_match(regs_x86, AMD) ) return amd;  
 #elif defined(BOOST_SIMD_ARCH_POWERPC)
       return ibm;
 #endif
