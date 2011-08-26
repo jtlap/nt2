@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_IS_SIMD_LOGICAL_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/predicates/include.hpp>
 
 namespace boost { namespace simd { namespace tag
   {         

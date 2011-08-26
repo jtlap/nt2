@@ -8,8 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_GEZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_GEZ_HPP_INCLUDED
+
 #include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/true.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
