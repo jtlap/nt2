@@ -1,13 +1,15 @@
 #!/bin/bash
 
+cd `dirname "$BASH_SOURCE"`
+
 # define NT2_SOURCE_ROOT
 old_path=`pwd`
-cd ../..
+cd ../../..
 export NT2_SOURCE_ROOT=`pwd`
 cd "$old_path"
 
-# Find all modules in current directory
-directories=`find . -name CMakeLists.txt | sed s/CMakeLists.txt$//g`
+# Find all modules in parent directory
+directories=`find .. -name CMakeLists.txt | sed s/CMakeLists.txt$//g`
 
 for i in $directories
 do
@@ -19,8 +21,7 @@ do
 done
 
 # Transform paths to modules
-directories=`echo "$directories" | sed -r 's@^./(.*)/$@\1@g'`
-modules=`echo "$directories" | sed -r 's@^@boost/@g' | sed  's@/@.@g'`
+modules=`echo "$directories" | sed -r 's@^../(.*)/$@boost/\1@g' | sed  's@/@.@g'`
 
 # $1 path to install dir, $2+ list of modules
 function build_modules
@@ -39,38 +40,59 @@ function build_modules
     rm -rf "/tmp/_nt2_build"
 }
 
+function cleanup
+{
+    for i in `find . -name bin -type d`
+    do
+        rm -rf "$i"
+    done
+    for i in `find . -name '*.manifest'`
+    do
+        rm -rf "$i"
+    done
+    for i in `find . -name '*.xml' -not -name 'boost.xml'`
+    do
+        rm -f "$i"
+    done
+}
+
 # get a clean directory
-rm -rf boostification_build
-cp -r boostification boostification_build
+cleanup
+rm -rf boost
+for i in `find libs -name '*.cpp'`
+do
+    rm -rf "$i"
+done
 
 # configure and build the modules to generate all headers and use 'install' target
-mkdir boostification_tmp
-build_modules boostification_tmp $modules
+mkdir install_tmp
+build_modules install_tmp $modules
 
 # copy all boost simd includes
-cp -r boostification_tmp/include/boost boostification_build
+cp -r install_tmp/include/boost .
 
 # copy mini_nt2 into Boost.SIMD (to reduce to bare minimum)
 cwd=`pwd`
-cd boostification_tmp/include
+rm -rf libs/simd/mini_nt2
+cd install_tmp/include
 for j in `find nt2 -name '*.hpp'`
 do
-    mkdir -p "$cwd/boostification_build/libs/simd/mini_nt2"
-    cp --parents "$j" "$cwd/boostification_build/libs/simd/mini_nt2"
+    mkdir -p "$cwd/libs/simd/mini_nt2"
+    cp --parents "$j" "$cwd/libs/simd/mini_nt2"
 done
 cd "$cwd"
 
 # copy sources and unit tests
 for i in `echo "$directories"`
 do
-    top=`echo $i | sed -r 's@^([^/]+)/.*$@\1@g'`
+    top=`echo $i | sed -r 's@^../([^/]+)/.*$@\1@g'`
     
     # copy sources
     cd $i/src
     for j in `find . -name '*.cpp'`
     do
-        mkdir -p "$cwd/boostification_build/libs/$top/src"
-        cp --parents "$j" "$cwd/boostification_build/libs/$top/src"
+        mkdir -p "$cwd/libs/$top/src"
+        cp --parents "$j" "$cwd/libs/$top/src"
     done;
     cd $cwd
     
@@ -78,17 +100,17 @@ do
     cd $i/unit
     for j in `find . -name '*.cpp'`
     do
-        mkdir -p "$cwd/boostification_build/libs/$top/test"
-        cp --parents "$j" "$cwd/boostification_build/libs/$top/test"
+        mkdir -p "$cwd/libs/$top/test"
+        cp --parents "$j" "$cwd/libs/$top/test"
     done;
     cd $cwd
     
 done
 
-rm -rf boostification_tmp
+rm -rf install_tmp
 
 # build documentation
-cd boostification_build/doc
+cd doc
 if   [ -e "$BOOST_ROOT/b2" ]
 then
     "$BOOST_ROOT/b2"
@@ -100,25 +122,9 @@ else
 fi
 cd ..
 
-# remove binaries or extra files
-for i in `find . -name bin -type d`
-do
-    rm -rf "$i"
-done
-for i in `find . -name .gitignore`
-do
-    rm -rf "$i"
-done
-for i in `find . -name '*.manifest'`
-do
-    rm -rf "$i"
-done
-for i in `find . -name '*.xml' -not -name 'boost.xml'`
-do
-    rm -f "$i"
-done
+cleanup
 
 echo -ne "\n"
-echo -ne "--------------------------\n"
-echo -ne "Boostification complete.\n"
-echo -ne "--------------------------\n"
+echo -ne "----------------------------\n"
+echo -ne "  Boostification complete.  \n"
+echo -ne "----------------------------\n"

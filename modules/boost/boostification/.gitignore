@@ -1,0 +1,6 @@
+*.hpp
+*.cpp
+*.xml
+*.manifest
+bin
+!boost.xml
