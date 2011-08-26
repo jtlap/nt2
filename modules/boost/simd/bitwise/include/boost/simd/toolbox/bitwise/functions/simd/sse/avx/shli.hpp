@@ -9,33 +9,17 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_AVX_SHLI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_AVX_SHLI_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
-#include <boost/simd/include/functions/details/simd/sse/sse4_1/shli.hpp>
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::shli_, boost::simd::tag::avx_,
-                       (A0),
-                       ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                       ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                      );
 
 namespace boost { namespace simd { namespace ext
 {
-  template<class Dummy>
-  struct call<boost::simd::tag::shli_(tag::simd_<tag::arithmetic_, tag::avx_),
-                         boost::simd::tag::simd_<tag::arithmetic_, tag::avx_)),
-              boost::simd::boost::simd::tag::avx_, Dummy> : callable
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::avx_
+				     , (A0)(A1)
+				     , ((simd_<arithmetic__<A0>,boost::simd::tag::avx_>))
+				     (scalar_< integer_<A1> >)
+				     )
   {
-    template<class Sig> struct result;
-    template<class This,class A0, class A1>
-    struct result<This(A0,A1)> : meta::strip<A0>{};//
-
+    typedef A0 result_type; 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<A0>::type sctype;

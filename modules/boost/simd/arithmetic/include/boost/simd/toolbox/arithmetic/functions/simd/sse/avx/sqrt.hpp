@@ -11,8 +11,6 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/details/simd/sse/sse4_1/sqrt.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/toint.hpp>
 /////////////////////////////////////////////////////////////////////////////

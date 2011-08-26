@@ -13,8 +13,6 @@
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/details/simd/sse/sse4_1/tofloat.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/maximum.hpp>
 /////////////////////////////////////////////////////////////////////////////
@@ -28,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                          )
   {
  typedef typename dispatch::meta::as_real<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef result_type type;
       type that = { _mm256_cvtepi32_ps(a0)};
@@ -47,7 +45,7 @@ namespace boost { namespace simd { namespace ext
                          )
   {
  typedef typename dispatch::meta::as_real<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_real<A0>::type  result_type;
       result_type const v = {a0[0], a0[1], a0[2], a0[3]};
@@ -66,7 +64,7 @@ namespace boost { namespace simd { namespace ext
                          )
   {
  typedef typename dispatch::meta::as_real<A0>::type  result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0;
     }

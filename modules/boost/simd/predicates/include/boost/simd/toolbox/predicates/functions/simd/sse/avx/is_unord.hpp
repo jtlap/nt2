@@ -12,7 +12,6 @@
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/details/simd/sse/sse4_1/is_unord.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
