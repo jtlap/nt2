@@ -11,9 +11,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Runtime function returning the SIMD extension supported. 
+// For detecting a new extenion from a new vendor you need to add a vendor case
+// and provide the right specialization of cpuid_mask.  
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/config/details/cpuid.hpp>
 #include <boost/simd/sdk/config/details/masks.hpp>
+#include <boost/simd/sdk/config/details/get_vendor.hpp>
 #include <boost/mpl/int.hpp>
 
 namespace boost{ namespace simd{ namespace config{
@@ -21,30 +24,20 @@ namespace boost{ namespace simd{ namespace config{
   template<class Tag>
   bool is_supported()
   {
-
-#if !defined(BOOST_SIMD_ARCH_POWERPC)
-
-    int regs[4]; 
     switch(details::get_vendor())
     {
     case details::intel : 
       details::cpuid_mask<Tag, details::intel_> mIntel;
-      details::__cpuid(regs,mIntel.function);
-      return details::has_bit_set(regs[mIntel.register_id-1], mIntel.bit);
+      return mIntel.get_support();
     case details::amd :
       details::cpuid_mask<Tag, details::amd_ > mAmd;
-      details::__cpuid(regs,mAmd.function);
-      return details::has_bit_set(regs[mAmd.register_id-1], mAmd.bit);
-    case details::none :
-      return false;
+      return mAmd.get_support();
+    case details::ibm : 
+      details::cpuid_mask<Tag, details::ibm_> mIbm;
+      return mIbm.get_support();
     default :
       return false;
     }
-
-#elif defined(BOOST_SIMD_ARCH_POWERPC) 
-
-
-#endif
 
   }
 

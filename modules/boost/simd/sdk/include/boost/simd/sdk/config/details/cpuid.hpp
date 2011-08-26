@@ -20,11 +20,11 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 ////////////////////////////////////////////////////////////////////////////////
 // Case of x86 processor. 
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_SIMD_ARCH_POWERPC)
 
   bool str_match(const int abcd[4], const char* vendor);
 
   enum { eax,ebx,ecx,edx };
+
 
 #if defined(BOOST_SIMD_COMPILER_GNU_C)
 
@@ -34,25 +34,6 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
 #include <intrin.h>
 #endif
-
-////////////////////////////////////////////////////////////////////////////////
-// Case of PPC processor. 
-////////////////////////////////////////////////////////////////////////////////
-#elif defined(BOOST_SIMD_ARCH_POWERPC) 
-
-  //TODO : Altivec runtime detection
-
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
-// Runtime function to get the Vendor Processor. 
-////////////////////////////////////////////////////////////////////////////////
-#define INTEL "GenuineIntel"
-#define AMD   "AuthenticAMD"
-
-  enum { intel, amd, ibm, none};
-
-  int get_vendor();
 
 } } } }
 
