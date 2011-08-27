@@ -19,7 +19,6 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
-#include <iostream>
 
 //==============================================================================
 // load vector of double
