@@ -349,12 +349,12 @@ namespace nt2 { namespace memory
     typename boost::enable_if_c<Sz::value>::type
     check_index( Position const& p, Sz const&) const
     {
-      NT2_ASSERT(  boost::fusion::at_c<Sz::value-1>(p) >= lower<Sz::value>()
-                && "Index below lowest valid value"
-                );
-      NT2_ASSERT( boost::fusion::at_c<Sz::value-1>(p) <= upper<Sz::value>()
-                && "Index above greatest valid value"
-                );
+//      NT2_ASSERT(  boost::fusion::at_c<Sz::value-1>(p) >= lower<Sz::value>()
+//                && "Index below lowest valid value"
+//                );
+//      NT2_ASSERT( boost::fusion::at_c<Sz::value-1>(p) <= upper<Sz::value>()
+//                && "Index above greatest valid value"
+//                );
       check_index(p,boost::mpl::int_<Sz::value-1>() );
     }
 
@@ -373,12 +373,12 @@ namespace nt2 { namespace memory
     typename boost::enable_if_c<Sz::value==1,reference>::type
     access( Position const& p, Sz const& )
     {
-      NT2_ASSERT(  boost::fusion::at_c<0>(p) >= data<1>().lower()
-                && "Index below lowest valid value"
-                );
-      NT2_ASSERT(  boost::fusion::at_c<0>(p) <= data<1>().upper()
-                && "Index above greatest valid value"
-                );
+//      NT2_ASSERT(  boost::fusion::at_c<0>(p) >= data<1>().lower()
+//                && "Index below lowest valid value"
+//                );
+//      NT2_ASSERT(  boost::fusion::at_c<0>(p) <= data<1>().upper()
+//                && "Index above greatest valid value"
+//                );
 
       typedef typename boost::fusion::result_of::value_at_c<Position,0>::type type;
       type idx = boost::fusion::at_c<0>(p) - data<1>().lower();
@@ -391,12 +391,12 @@ namespace nt2 { namespace memory
     typename boost::enable_if_c<Sz::value==1,const_reference>::type
     access( Position const& p, Sz const& ) const
     {
-      NT2_ASSERT(  boost::fusion::at_c<0>(p) >= data<1>().lower()
-                && "Index below lowest valid value"
-                );
-      NT2_ASSERT(  boost::fusion::at_c<0>(p) <= data<1>().upper()
-                && "Index above greatest valid value"
-                );
+//      NT2_ASSERT(  boost::fusion::at_c<0>(p) >= data<1>().lower()
+//                && "Index below lowest valid value"
+//                );
+//      NT2_ASSERT(  boost::fusion::at_c<0>(p) <= data<1>().upper()
+//                && "Index above greatest valid value"
+//                );
 
       typedef typename boost::fusion::result_of::value_at_c<Position,0>::type type;
       type idx = boost::fusion::at_c<0>(p) - data<1>().lower();
