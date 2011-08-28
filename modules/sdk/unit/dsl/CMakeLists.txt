@@ -7,8 +7,17 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit operator)
+SET( SOURCES
+    select.cpp
+  )
 
-ADD_SUBDIRECTORY(dsl)
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(memory)
+ADD_CUSTOM_TARGET(sdk.dsl.unit)
+ADD_DEPENDENCIES(sdk.unit sdk.dsl.unit)
+
+################################################################################
+# For each filename
+################################################################################
+FOREACH( EXAMPLE ${SOURCES})
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_unit(sdk.dsl.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+ENDFOREACH()
