@@ -45,3 +45,4 @@ FOREACH( EXAMPLE ${SOURCES})
   nt2_module_add_example(sdk.meta.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 
+

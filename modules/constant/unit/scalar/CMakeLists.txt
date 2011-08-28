@@ -16,10 +16,4 @@ SET(SOURCES
     true_false.cpp
     )
 
-################################################################################
-# For each filename
-################################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(constant.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(constant.scalar.unit ${SOURCES})

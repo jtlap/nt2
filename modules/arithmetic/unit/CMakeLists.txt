@@ -7,16 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(arithmetic.scalar.unit)
-ADD_CUSTOM_TARGET(arithmetic.simd.unit)
-ADD_DEPENDENCIES(arithmetic.unit arithmetic.scalar.unit arithmetic.simd.unit)
-
-##############################################################################
-# Toolbox arithmetic unit tests
-##############################################################################
 nt2_module_use_modules(unit standard libc)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

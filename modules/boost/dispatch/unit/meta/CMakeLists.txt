@@ -31,13 +31,4 @@ SET( SOURCES
     upgrade.cpp
    )
 
-ADD_CUSTOM_TARGET(boost.dispatch.meta.unit)
-ADD_DEPENDENCIES(boost.dispatch.unit boost.dispatch.meta.unit)  
-
-################################################################################
-# For each filename
-################################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(boost.dispatch.meta.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(boost.dispatch.meta.unit ${SOURCES})

@@ -8,15 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(boost_math.scalar.cover)
-ADD_DEPENDENCIES(boost_math.cover boost_math.scalar.cover)
-
-##############################################################################
-# Toolbox boost_math cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates ieee arithmetic euler exponential hyperbolic elliptic)
 ADD_SUBDIRECTORY(scalar)
 

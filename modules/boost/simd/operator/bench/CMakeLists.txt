@@ -7,15 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(boost.simd.operator.scalar.bench)
-ADD_CUSTOM_TARGET(boost.simd.operator.simd.bench)
-ADD_DEPENDENCIES(boost.simd.operator.bench boost.simd.operator.scalar.bench boost.simd.operator.simd.bench)
-
-################################################################################
-# Add all bench directories for sdk/
-################################################################################
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)

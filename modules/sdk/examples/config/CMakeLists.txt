@@ -23,4 +23,3 @@ FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
   nt2_module_add_example(sdk.config.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
-

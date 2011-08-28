@@ -8,15 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(crlibm.scalar.cover)
-ADD_DEPENDENCIES(crlibm.cover crlibm.scalar.cover)
-
-##############################################################################
-# Toolbox crlibm cover tests
-##############################################################################
 nt2_module_use_modules(unit  arithmetic ieee trigonometric exponential hyperbolic predicates)
 ADD_SUBDIRECTORY(scalar)
 

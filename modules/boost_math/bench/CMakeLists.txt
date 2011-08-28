@@ -7,12 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##****************************************************************************
-##*     Toolbox boost_math bench tests
-##****************************************************************************
-
-ADD_CUSTOM_TARGET(boost_math.scalar.bench)
-ADD_DEPENDENCIES(boost_math.bench boost_math.scalar.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)

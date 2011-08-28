@@ -31,4 +31,3 @@ FOREACH( EXAMPLE ${SOURCES})
   nt2_module_add_example(boost.simd.sdk.details.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 
-

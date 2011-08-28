@@ -46,10 +46,4 @@ SET( SOURCES
 # List of scalar test files for toolbox ieee
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(boost.simd.ieee.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(boost.simd.ieee.scalar.bench ${SOURCES})

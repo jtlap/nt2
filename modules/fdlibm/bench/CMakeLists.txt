@@ -7,12 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##****************************************************************************
-##*     Toolbox fdlibm bench tests
-##****************************************************************************
-
-ADD_CUSTOM_TARGET(fdlibm.scalar.bench)
-ADD_DEPENDENCIES(fdlibm.bench fdlibm.scalar.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)

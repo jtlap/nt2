@@ -7,14 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(boost.simd.constant.scalar.unit)
-ADD_CUSTOM_TARGET(boost.simd.constant.simd.unit)
-ADD_CUSTOM_TARGET(boost.simd.constant.meta.unit)
-ADD_DEPENDENCIES(boost.simd.constant.unit boost.simd.constant.scalar.unit boost.simd.constant.simd.unit boost.simd.constant.meta.unit)
-
 nt2_module_use_modules(unit boost.simd.operator)
 ADD_SUBDIRECTORY(meta)
 ADD_SUBDIRECTORY(scalar)

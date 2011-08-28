@@ -7,14 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox ieee bench tests
-##############################################################################
-
-ADD_CUSTOM_TARGET(ieee.scalar.bench)
-ADD_CUSTOM_TARGET(ieee.simd.bench)
-ADD_DEPENDENCIES(ieee.bench ieee.scalar.bench ieee.simd.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

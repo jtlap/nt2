@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(trigonometric.scalar.cover)
-ADD_CUSTOM_TARGET(trigonometric.simd.cover)
-ADD_DEPENDENCIES(trigonometric.cover trigonometric.scalar.cover trigonometric.simd.cover)
-
-##############################################################################
-# Toolbox trigonometric cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates arithmetic cephes libc crlibm standard)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

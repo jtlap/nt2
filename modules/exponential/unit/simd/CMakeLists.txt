@@ -25,10 +25,4 @@ SET( SOURCES
 # List of simd test files for toolbox exponential
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(exponential.simd.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(exponential.simd.unit ${SOURCES})

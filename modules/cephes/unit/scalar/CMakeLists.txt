@@ -106,10 +106,4 @@ SET( SOURCES
 # List of scalar test files for toolbox cephes
    )
 
-##****************************************************************************
-# For each filename
-##****************************************************************************
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(cephes.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(cephes.scalar.unit ${SOURCES})
