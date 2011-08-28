@@ -237,6 +237,14 @@ macro(nt2_module_add_tests name)
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\2" suffix ${name})
   
   create_test_sourcelist(${name}_files ${name}.cpp ${SOURCES})
+  file(READ "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" DATA)
+  foreach(source ${SOURCES})
+    string(REGEX REPLACE "^([^/]+).cpp$" "\\1" basename ${source})
+    string(REPLACE " ${basename}" " nt2_test_${basename}" DATA "${DATA}")
+    set_property(SOURCE ${source} PROPERTY COMPILE_DEFINITIONS NT2_UNIT_MAIN=nt2_test_${basename})
+  endforeach()
+  file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" "${DATA}")
+  
   add_executable(${name} ${${name}_files})
   set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${suffix})
@@ -249,7 +257,6 @@ macro(nt2_module_add_tests name)
     
   foreach(source ${SOURCES})
     string(REGEX REPLACE "^([^/]+).cpp$" "\\1" basename ${source})
-    set_property(SOURCE ${source} PROPERTY COMPILE_DEFINITIONS NT2_UNIT_MAIN=${basename})
        
     if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
       add_test(${prefix}.${basename}.${suffix} /bin/sh -c
