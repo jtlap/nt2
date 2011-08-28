@@ -53,6 +53,8 @@
 #define NT2_UNIT_MAIN main
 #endif
 
+#define NT2_UNIT_PREFIX BOOST_PP_CAT(test_, NT2_UNIT_MAIN)
+
 //==============================================================================
 // Embedded main for testing purpose
 //==============================================================================
@@ -71,22 +73,22 @@ int NT2_UNIT_MAIN(int, char**)
  * \param Name Name of the Test Case to generate
  */
 //==============================================================================
-#define NT2_TEST_CASE(Name)                                                   \
-void BOOST_PP_CAT(test,Name)();                                               \
-nt2::details::test const                                                      \
-BOOST_PP_CAT(Name,test) = { BOOST_PP_CAT(test,Name)                           \
-                          , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))      \
-                          , nt2::details                                      \
-                               ::main_suite.link(&BOOST_PP_CAT(Name,test)) }; \
-void BOOST_PP_CAT(test,Name)()                                                \
+#define NT2_TEST_CASE(Name)                                                              \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                               \
+nt2::details::test const                                                                 \
+BOOST_PP_CAT(Name,NT2_UNIT_PREFIX) = { BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)                \
+                                     , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))      \
+                                     , nt2::details                                      \
+                               ::main_suite.link(&BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)) }; \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                                \
 /**/
 
 //==============================================================================
 // Helper for template tets cases generation
 //==============================================================================
-#define NT2_PP_TPL_CASES(r,name,type)                                 \
-printf("With T = [%s]\n",nt2::type_id<BOOST_DISPATCH_PP_STRIP(type)>().c_str()); \
-BOOST_PP_CAT(tpl_test,name)<BOOST_DISPATCH_PP_STRIP(type)>();                    \
+#define NT2_PP_TPL_CASES(r,name,type)                                                    \
+printf("With T = [%s]\n",nt2::type_id<BOOST_DISPATCH_PP_STRIP(type)>().c_str());         \
+BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,name))<BOOST_DISPATCH_PP_STRIP(type)>(); \
 /**/
 
 //==============================================================================
@@ -101,19 +103,19 @@ BOOST_PP_CAT(tpl_test,name)<BOOST_DISPATCH_PP_STRIP(type)>();                   
  * Test Cases.
  */
 //==============================================================================
-#define NT2_TEST_CASE_TPL(Name, Types)                                        \
-template<class T> void BOOST_PP_CAT(tpl_test,Name)();                         \
-void BOOST_PP_CAT(test,Name)();                                               \
-nt2::details::test const                                                      \
-BOOST_PP_CAT(Name,test) = { BOOST_PP_CAT(test,Name)                           \
-                          , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))      \
-                          , nt2::details                                      \
-                               ::main_suite.link(&BOOST_PP_CAT(Name,test)) }; \
-void BOOST_PP_CAT(test,Name)()                                                \
-{                                                                             \
-  BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_CASES,Name,Types);                         \
-}                                                                             \
-template<class T> void BOOST_PP_CAT(tpl_test,Name)()                          \
+#define NT2_TEST_CASE_TPL(Name, Types)                                                   \
+template<class T> void BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,Name))();         \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                               \
+nt2::details::test const                                                                 \
+BOOST_PP_CAT(Name,NT2_UNIT_PREFIX) = { BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)                \
+                                     , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))      \
+                                     , nt2::details                                      \
+                               ::main_suite.link(&BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)) }; \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                                \
+{                                                                                        \
+  BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_CASES,Name,Types);                                    \
+}                                                                                        \
+template<class T> void BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,Name))()          \
 /**/
 
 #endif
