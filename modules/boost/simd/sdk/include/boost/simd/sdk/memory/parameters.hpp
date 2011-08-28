@@ -8,7 +8,8 @@
  ******************************************************************************/
 #ifndef BOOST_SIMD_SDK_MEMORY_PARAMETERS_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_PARAMETERS_HPP_INCLUDED
-
+//TODO compute alignement according instruction set
+//nosimd -> 0 sse2 -> 16 avx -> 32 altivec ? etc.
 #include <cstddef>
 #include <boost/detail/workaround.hpp>
 
@@ -17,15 +18,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 #if BOOST_WORKAROUND(__GNUC__, == 4) && BOOST_WORKAROUND(__GNUC_MINOR__, < 3)
 #undef  BOOST_SIMD_CONFIG_ALIGNMENT
-#define BOOST_SIMD_CONFIG_ALIGNMENT 16
+#define BOOST_SIMD_CONFIG_ALIGNMENT 32
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// On some system, the qlignment detection fail, force it to be 16
+// On some system, the alignment detection fail, force it to be 16
 ////////////////////////////////////////////////////////////////////////////////
 #if (BOOST_SIMD_CONFIG_ALIGNMENT <= 1)
 #undef  BOOST_SIMD_CONFIG_ALIGNMENT
-#define BOOST_SIMD_CONFIG_ALIGNMENT 16
+#define BOOST_SIMD_CONFIG_ALIGNMENT 32
 #endif
 
 #endif
