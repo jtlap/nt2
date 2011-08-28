@@ -46,17 +46,15 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(4)
     {
-      return eval ( a0, a1
-                  , typename is_periodic<A2,A3>::type()
-                  , typename is_forward<A3>::type()
-                  );
+      return eval( a0, a1, typename is_periodic<A2,A3>::type() );
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Periodic case - Just add up to the runtime offset
     ////////////////////////////////////////////////////////////////////////////
-    template<class Fwd> inline result_type
-    eval( A0 const& a0, A1 const& a1, boost::mpl::true_ const&, Fwd const&) const
+    inline result_type eval ( A0 const& a0, A1 const& a1
+                            , boost::mpl::true_ const&
+                            ) const
     {
       BOOST_STATIC_CONSTANT
       ( std::size_t
@@ -68,54 +66,13 @@ namespace boost { namespace simd { namespace ext
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // Forward, non-periodic case
+    // Non-periodic case
     ////////////////////////////////////////////////////////////////////////////
     inline result_type eval ( A0 const& a0, A1 const& a1
-                            , boost::mpl::false_ const&, boost::mpl::true_ const&
+                            , boost::mpl::false_ const&
                             ) const
     {
-      BOOST_STATIC_CONSTANT( std::size_t, card    = boost::simd::meta::cardinal_of<result_type>::value );
-      BOOST_STATIC_CONSTANT( std::size_t, offset  = std::size_t(A3::value)/card           );
-      BOOST_STATIC_CONSTANT( std::size_t, bytes   = 32u/card                              );
-      BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*(A3::value%card)                );
-      BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-A3::value%card)           );
-
-      typedef typename boost::simd::meta::as_simd< typename meta::scalar_of<result_type>::type
-                                    , boost::simd::tag::avx_
-                                    >::type     raw_type;
-
-      result_type a     = boost::simd::unaligned_load<result_type>(a0,a1+offset+shifta);
-      result_type b     = boost::simd::unaligned_load<result_type>(a0,a1+offset+1+shiftb);
-      // TODO mask appropriately before oring
-//       __m256i sa        = _mm_srli_si256(boost::simd::bitwise_cast<__m256i>(a.data_),shifta);
-//       __m256i sb        = _mm_slli_si256(boost::simd::bitwise_cast<__m256i>(b.data_),shiftb);
-       result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si256(a,b)) };
-       return that;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // backward, non-periodic case
-    ////////////////////////////////////////////////////////////////////////////
-    inline result_type eval ( A0 const& a0, A1 const& a1
-                            , boost::mpl::false_ const&, boost::mpl::false_ const&
-                            ) const
-    {
-      BOOST_STATIC_CONSTANT( std::size_t, card    = boost::simd::meta::cardinal_of<result_type>::value    );
-      BOOST_STATIC_CONSTANT( std::size_t, offset  = std::size_t(-A3::value)/card             );
-      BOOST_STATIC_CONSTANT( std::size_t, bytes   = 32/card                                  );
-      BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*(std::size_t(-A3::value)%card)     );
-      BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-std::size_t(-A3::value)%card));
-
-      typedef typename boost::simd::meta::as_simd< typename meta::scalar_of<result_type>::type
-                                    , boost::simd::tag::avx_
-                                    >::type     raw_type;
-
-      result_type a     = boost::simd::load<result_type>(a0,a1-offset);
-      result_type b     = boost::simd::load<result_type>(a0,a1-offset-1);
-//       __m128i sa        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
-//       __m128i sb        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
-      result_type that; // = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
-      return that;
+      return boost::simd::unaligned_load<result_type>(a0+A3::value,a1);
     }
   };
 } } }

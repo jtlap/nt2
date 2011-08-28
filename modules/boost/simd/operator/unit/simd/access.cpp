@@ -77,80 +77,80 @@ NT2_TEST_CASE_TPL(load, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test forward periodic case -- load 1 and 2 cardinal in front
 ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
-// {
-//   using boost::simd::load;
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
+NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
+{
+  using boost::simd::load;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
 
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef native<T,ext_t>             n_t;
-//   n_t v;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             n_t;
+  n_t v;
 
-//   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
-//   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
-//     data[i] = T(1+i);
+  BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
+   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
+     data[i] = T(1+i);
 
-//   v = load<n_t,1*cardinal_of<n_t>::value>(&data[0],0);
-//   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//     NT2_TEST_EQUAL( v[j], data[j+1*cardinal_of<n_t>::value] );
+   v = load<n_t,1*cardinal_of<n_t>::value>(&data[0],0);
+   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     NT2_TEST_EQUAL( v[j], data[j+1*cardinal_of<n_t>::value] );
 
-//   v = load<n_t,2*cardinal_of<n_t>::value>(&data[0],0);
-//   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//     NT2_TEST_EQUAL( v[j], data[j+2*cardinal_of<n_t>::value] );
-// }
+   v = load<n_t,2*cardinal_of<n_t>::value>(&data[0],0);
+   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     NT2_TEST_EQUAL( v[j], data[j+2*cardinal_of<n_t>::value] );
+ }
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // Test non-periodic case -- load up to cardinal-1 front
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL(shifted_load_non_periodic, BOOST_SIMD_TYPES )
-// {
-//   using boost::simd::load;
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
+ ////////////////////////////////////////////////////////////////////////////////
+ // Test non-periodic case -- load up to cardinal-1 front
+ ////////////////////////////////////////////////////////////////////////////////
+ NT2_TEST_CASE_TPL(shifted_load_non_periodic, BOOST_SIMD_TYPES )
+ {
+   using boost::simd::load;
+   using boost::simd::native;
+   using boost::simd::meta::cardinal_of;
 
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef native<T,ext_t>             n_t;
-//   n_t v;
+   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+   typedef native<T,ext_t>             n_t;
+   n_t v;
 
-//   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
-//   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
-//     data[i] = T(1+i);
+   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
+   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
+     data[i] = T(1+i);
 
-//   v = load<n_t,1>(&data[0],1);
-//   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//     NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value+1] );
+   v = load<n_t,1>(&data[0],1);
+   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value+1] );
 
-//   v = load<n_t,-1>(&data[0],1);
-//   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//     NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value-1] );
-// }
+   v = load<n_t,-1>(&data[0],1);
+   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value-1] );
+ }
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // Test backward periodic case -- load 1 and 2 cardinal in front
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL(shifted_load_bkwd_periodic, BOOST_SIMD_TYPES )
-// {
-//   using boost::simd::load;
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
+ ////////////////////////////////////////////////////////////////////////////////
+ // Test backward periodic case -- load 1 and 2 cardinal in front
+ ////////////////////////////////////////////////////////////////////////////////
+ NT2_TEST_CASE_TPL(shifted_load_bkwd_periodic, BOOST_SIMD_TYPES )
+ {
+   using boost::simd::load;
+   using boost::simd::native;
+   using boost::simd::meta::cardinal_of;
 
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef native<T,ext_t>             n_t;
-//   n_t v;
+   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+   typedef native<T,ext_t>             n_t;
+   n_t v;
 
-//   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
-//   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
-//     data[i] = T(1+i);
+   BOOST_SIMD_ALIGNED_TYPE(T) data[3*cardinal_of<n_t>::value];
+   for(std::size_t i=0;i<3*cardinal_of<n_t>::value;++i)
+     data[i] = T(1+i);
 
-//   v = load<n_t,-1*int(cardinal_of<n_t>::value)>(&data[0],2);
-//   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//     NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value] );
+   v = load<n_t,-1*int(cardinal_of<n_t>::value)>(&data[0],2);
+   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     NT2_TEST_EQUAL( v[j], data[j+cardinal_of<n_t>::value] );
 
-//   v = load<n_t,-2*int(cardinal_of<n_t>::value)>(&data[0],2);
-//   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
-//     NT2_TEST_EQUAL( v[j], data[j] );
-// }
+   v = load<n_t,-2*int(cardinal_of<n_t>::value)>(&data[0],2);
+   for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
+     NT2_TEST_EQUAL( v[j], data[j] );
+ }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test store behavior
