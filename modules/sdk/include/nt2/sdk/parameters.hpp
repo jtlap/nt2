@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_EXTENSION_PARAMETERS_HPP_INCLUDED
-#define NT2_EXTENSION_PARAMETERS_HPP_INCLUDED
+#ifndef NT2_SDK_PARAMETERS_HPP_INCLUDED
+#define NT2_SDK_PARAMETERS_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global parameters for nt2 code generator
