@@ -9,7 +9,8 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 
-#include <boost/simd/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
@@ -32,10 +33,11 @@ namespace boost { namespace simd
     typename boost::dispatch::meta::call<tag::align_on_(A0 const&, A1 const&)>::type
     align_on(A0 const& a0, A1 const& a1)
     {
-      BOOST_SIMD_ASSERT(   is_power_of_2(a1)
-                &&  "Invalid alignment boundary. You tried to align an "
-                    "address or a value on a non-power of 2 boundary."
-                );
+      BOOST_ASSERT_MSG( is_power_of_2(a1)
+                      , "Invalid alignment boundary. You tried to align an "
+                        "address or a value on a non-power of 2 boundary."
+                      );
+      
       typename boost::dispatch::make_functor<tag::align_on_, A0>::type callee;
       return callee(a0,a1);
     }
@@ -48,11 +50,17 @@ namespace boost { namespace simd
     call<tag::align_on_(A0 const&,boost::mpl::int_<N> const&)>::type
     align_on(A0 const& a0)
     {
-      BOOST_DISPATCH_STATIC_ASSERT ( meta::is_power_of_2_c<N>::value
-                        , INVALID_ALIGNMENT_BOUNDARY
-                        , "Invalid alignment boundary. You tried to align an "
-                          "address or a value on a non-power of 2 boundary."
-                        );
+      //==========================================================================
+      /*
+       * Invalid alignment boundary. You tried to align an address or a value 
+       * on a non-power of 2 boundary.
+       */    
+      //==========================================================================
+      BOOST_MPL_ASSERT_MSG
+      ( meta::is_power_of_2_c<N>::value 
+      , INVALID_ALIGNMENT_BOUNDARY
+      , (boost::mpl::int_<N>)
+      );              
 
       typename boost::dispatch::make_functor<tag::align_on_, A0>::type callee;
       return callee(a0,boost::mpl::int_<N>());

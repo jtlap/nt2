@@ -11,9 +11,9 @@
 
 #include <cstddef>
 #include <boost/mpl/size_t.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/simd/sdk/memory/parameters.hpp>
-#include <boost/dispatch/error/static_assert.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 
 namespace boost { namespace simd {  namespace meta
@@ -28,10 +28,16 @@ namespace boost { namespace simd {  namespace meta
                                , (V+N-1) & ~(N-1)
                                >
   {
-    BOOST_DISPATCH_STATIC_ASSERT ( (meta::is_power_of_2_c<N>::value)
-                      , INVALID_ALIGNMENT_VALUE
-                      , "Alignment done on a non-power of two boundary."
-                      );
+    //==========================================================================
+    /*
+     * Alignment done on a non-power of two boundary
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
+    ( (meta::is_power_of_2_c<N>::value)
+    , BOOST_SIMD_INVALID_ALIGNMENT_VALUE
+    , (boost::mpl::int_<N>)
+    );  
   };
 
   //////////////////////////////////////////////////////////////////////////////

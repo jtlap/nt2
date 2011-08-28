@@ -25,7 +25,6 @@
 #include <boost/dispatch/meta/arithmetic.hpp>
 #include <boost/dispatch/meta/floating.hpp>
 #include <boost/dispatch/functor/forward.hpp>
-#include <boost/dispatch/error/static_assert.hpp>
 #include <boost/dispatch/functor/details/call.hpp>
 #include <boost/dispatch/functor/details/dispatch.hpp>
 #include <boost/dispatch/functor/meta/make_functor.hpp>
