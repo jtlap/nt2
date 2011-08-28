@@ -25,8 +25,7 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   struct global_padding
   {
-    typedef ext::padding_<global_padding>                  dispatch_hierarchy_tag;
-    //typedef boost::mpl::pair<tag::padding_,global_padding>  nt2_settings_type;
+    typedef ext::padding_<global_padding> dispatch_hierarchy_tag;
   };
 } }
 
