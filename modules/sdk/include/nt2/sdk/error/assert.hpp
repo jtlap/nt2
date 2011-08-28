@@ -90,29 +90,6 @@ namespace nt2
 //==============================================================================
 #include <boost/assert.hpp>
 
-//==============================================================================
-/*!
- * \ingroup error
- * If NT2_DISABLE_ASSERTS is not defined, evaluates \c XPR and, if \c XPR
- * evaluates to \c false, trigger a runtime assertion failure. If not, no
- * operationsa re performed.
- *
- * \param XPR Expression to assert.
- */
-//==============================================================================
-#define NT2_ASSERT(XPR) BOOST_ASSERT(XPR)
-
-//==============================================================================
-/*!
- * \ingroup error
- * Evaluates \c XPR and, if \c XPR evaluates to \c false, trigger a runtime
- * assertion failure if and only if NT2_DISABLE_ASSERTS is not defined
- *
- * \param XPR Expression to verify.
- */
-//==============================================================================
-#define NT2_VERIFY(XPR) BOOST_VERIFY(XPR)
-
 #if defined(BOOST_ENABLE_ASSERT_HANDLER)
 #if defined(NT2_DEBUG)
 #include <cstdio>
