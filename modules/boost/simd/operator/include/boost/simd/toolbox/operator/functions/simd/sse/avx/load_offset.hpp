@@ -12,6 +12,7 @@
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/include/functions/unaligned_load.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd types with an offset
@@ -83,14 +84,13 @@ namespace boost { namespace simd { namespace ext
                                     , boost::simd::tag::avx_
                                     >::type     raw_type;
 
-      result_type a     = boost::simd::load<result_type>(a0,a1+offset);
-      result_type b     = boost::simd::load<result_type>(a0,a1+offset+1);
+      result_type a     = boost::simd::unaligned_load<result_type>(a0,a1+offset+shifta);
+      result_type b     = boost::simd::unaligned_load<result_type>(a0,a1+offset+1+shiftb);
+      // TODO mask appropriately before oring
 //       __m256i sa        = _mm_srli_si256(boost::simd::bitwise_cast<__m256i>(a.data_),shifta);
 //       __m256i sb        = _mm_slli_si256(boost::simd::bitwise_cast<__m256i>(b.data_),shiftb);
-//       result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si256(sa,sb)) };
-//       return that;
-      result_type that; 
-      return that;
+       result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si256(a,b)) };
+       return that;
     }
 
     ////////////////////////////////////////////////////////////////////////////

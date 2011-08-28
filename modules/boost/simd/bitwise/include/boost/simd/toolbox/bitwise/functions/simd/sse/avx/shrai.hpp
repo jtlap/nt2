@@ -12,25 +12,42 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::avx_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::avx_
 				     , (A0)(A1)
-				     , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-				     (scalar_< integer_<A1> >)
+				     , ((simd_<signed_<A0>,boost::simd::tag::avx_>))
+				       (scalar_< integer_<A1> >)
 				     )
   {
     typedef A0 result_type; 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename simd::native<sctype, boost::simd::tag::sse_ >  svtype;
+      typedef typename meta::scalar_of<A0>::type             sctype;
+      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      A0 that = { _mm256_insertf128_si256(that,boost::simd::shrai( a00, a1), 0)};
-      that =  _mm256_insertf128_si256(that, boost::simd::shrai(a01, a1), 1);
+      A0 that= { _mm256_insertf128_si256(that,boost::simd::shrai( a00, a1), 0)};
+         that =  _mm256_insertf128_si256(that, boost::simd::shrai(a01, a1), 1);
       return that;
      }
-
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::avx_
+				     , (A0)(A1)
+				     , ((simd_<unsigned_<A0>,boost::simd::tag::avx_>))
+				       (scalar_< integer_<A1> >)
+				     )
+  {
+    typedef A0 result_type; 
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::scalar_of<A0>::type             sctype;
+      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
+      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
+      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
+      A0 that= { _mm256_insertf128_si256(that,boost::simd::shrai( a00, a1), 0)};
+         that =  _mm256_insertf128_si256(that, boost::simd::shrai(a01, a1), 1);
+      return that;
+     }
+  };  
 } } }
 
 #endif

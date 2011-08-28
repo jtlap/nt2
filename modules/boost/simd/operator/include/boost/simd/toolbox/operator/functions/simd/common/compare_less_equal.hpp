@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_LESS_EQUAL_HPP_INCLUDED
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/compare_less.hpp>
-
+ 
 namespace boost { namespace simd { namespace ext
 {  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_,

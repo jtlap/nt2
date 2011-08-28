@@ -29,9 +29,9 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
     {
-      typedef simd::native<double_<A1> , boost::simd::tag::sse_ >  htype;
+      typedef simd::native<double , boost::simd::tag::sse_ >  htype;
       const htype hres = {_mm_set1_pd(double(a0))}; 
-      A0 that = { _mm256_insertf128_pd(that, hres, 0)};
+      result_type that = { _mm256_insertf128_pd(that, hres, 0)};
       that =  _mm256_insertf128_pd(that,hres, 1);
       return that;
     }

@@ -12,7 +12,13 @@
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -27,8 +33,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      BOOST_SIMD_AVX_JOIN128INT2(that, boost::simd::rdivide);
-      return that;
+      const A0 iseqza1 = is_eqz(a1);
+      const A0 c = b_and(eq(a0, Valmin<A0>()), eq(a1, Mone<A0>())); 
+      return ((a0-c)-(iseqza1&a0))/(a1+(iseqza1&One<A0>()));
     }
   };
 
