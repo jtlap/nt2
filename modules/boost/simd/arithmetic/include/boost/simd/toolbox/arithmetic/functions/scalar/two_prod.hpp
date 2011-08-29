@@ -14,27 +14,27 @@
 #include <boost/simd/include/functions/two_split.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
+// Implementation when type  is real_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
+  //TODO ref implementation
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
-                             (A0)(A1),
-                             (scalar_< real_<A0> >)(scalar_< real_<A1> >)
+                             (A0),
+                             (scalar_< real_<A0> >)(scalar_< real_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0, A1)>::type       rtype;
+    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type       rtype;
     typedef typename boost::fusion::tuple<rtype,rtype>             result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       result_type res;
       eval(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
       return res;
     }
   private:
-    template<class AA0, class AA1, class R0,class R1> inline void
-    eval(AA0 const& a, AA1 const& b,R0& r0, R1& r1)const
+    template<class AA0, class R0, class R1> inline void
+    eval(AA0 const& a, AA0 const& b, R0& r0, R1& r1)const
     {
       r0  = a*b;
       if (is_invalid(r0))

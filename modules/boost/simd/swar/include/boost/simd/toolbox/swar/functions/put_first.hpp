@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_PUT_FIRST_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/swar/include.hpp>
+
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace tag

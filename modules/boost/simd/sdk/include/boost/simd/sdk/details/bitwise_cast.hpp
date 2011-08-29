@@ -14,10 +14,10 @@
  * \brief Defines and implements the \ref boost::simd::bitwise_cast utility function
  */
 
-#include <boost/dispatch/error/static_assert.hpp>
-#include <boost/dispatch/attributes.hpp>
-#include <boost/mpl/identity.hpp>
 #include <cstring>
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 #ifdef BOOST_MSVC
 #define BOOST_SIMD_NO_STRICT_ALIASING
@@ -105,10 +105,17 @@ namespace details
   template<typename To, typename From>
   BOOST_DISPATCH_FORCE_INLINE To bitwise_cast(From const& from)
   {
-    BOOST_DISPATCH_STATIC_ASSERT( sizeof(From) == sizeof(To)
-                     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
-                     , "Target is not same size as source in boost::simd::bitwise_cast"
-                     );
+    //==========================================================================
+    /*
+     * Target is not same size as source in boost::simd::bitwise_cast
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
+    ( (sizeof(From) == sizeof(To))
+    , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
+    , (From&,To&)
+    );  
+    
     return details::bitwise_cast<To, From>::template call<To>(from);
   }
 
@@ -117,10 +124,17 @@ namespace details
   template<typename To, typename From>
   BOOST_DISPATCH_FORCE_INLINE To const& bitwise_cast(From const& from)
   {
-    BOOST_DISPATCH_STATIC_ASSERT( sizeof(From) == sizeof(To)
-                     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
-                     , "Target is not same size as source in boost::simd::bitwise_cast"
-                     );
+    //==========================================================================
+    /*
+     * Target is not same size as source in boost::simd::bitwise_cast
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
+    ( (sizeof(From) == sizeof(To))
+    , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
+    , (From&,To&)
+    );   
+
     return reinterpret_cast<To const&>(from);
   }
 

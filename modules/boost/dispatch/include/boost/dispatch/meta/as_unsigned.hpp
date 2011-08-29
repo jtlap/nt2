@@ -67,13 +67,19 @@ namespace boost { namespace dispatch { namespace meta
   struct  as_unsigned
         : details::as_unsigned_impl< typename meta::strip<T>::type >
   {
-    BOOST_DISPATCH_STATIC_ASSERT
+    //==========================================================================
+    /*
+     * A type with a non-fundamental primitive is used in 
+     * boost::dispatch::meta::as_unsigned.
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
     ( (is_fundamental < typename
                         meta::primitive_of<typename meta::strip<T>::type>::type
                       >::value
       )
     , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_UNSIGNED
-    , "A type with a non-fundamental primitive is used in boost::dispatch::meta::as_unsigned."
+    , (T&)
     );
   };
 } } }

@@ -13,8 +13,8 @@
 // User-overloadable call meta-function
 // Documentation:http://nt2.lri.fr/extension/custom_function.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/error/static_assert.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Forward declare the unknown_ tag and the error_with helper
@@ -31,14 +31,18 @@ namespace boost { namespace dispatch { namespace meta
   struct implement<Function(tag::unknown_),Site,Dummy>
   {
     typedef int result_type;
-    BOOST_DISPATCH_STATIC_ASSERT ( (boost::is_same<Function,void>::value)
-                      , BOOST_DISPATCH_UNSUPPORTED_FUNCTION_CALL
-                      , "If you get an error here, you tried to call a nt2 "
-                        "function on values which types is not supported by nt2 "
-                        "or which is not implemented on the given type. "
-                        "Check that you included the proper toolbox or use the "
-                        "correct type in your function call."
-                      );
+    //==========================================================================
+    /*
+     * If you get an error here, you tried to call a function on values which 
+     * types is not supported or which is not implemented on the given type.
+     * Check that you included the proper toolbox or use the correct type in 
+     * your function call.
+     */
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG( (boost::is_same<Function,void>::value)
+                        , BOOST_DISPATCH_UNSUPPORTED_FUNCTION_CALL
+                        , (Function)
+                        );
   };
 } } }
 

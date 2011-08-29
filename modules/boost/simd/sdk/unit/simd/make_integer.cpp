@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL(make_uinteger_simd, BOOST_SIMD_TYPES)
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
   typedef native<typename make_integer<sizeof(T),unsigned>::type,ext_t> dst_t;
-  typedef boost::dispatch::meta::factory_of<dst_t>::type fact_t;
+  typedef typename boost::dispatch::meta::factory_of<dst_t>::type fact_t;
 
   NT2_TEST( (is_same< typename make_integer<sizeof(T),unsigned, fact_t>::type
                     , dst_t
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL(make_integer_simd, BOOST_SIMD_TYPES)
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
   typedef native<typename make_integer<sizeof(T),signed>::type,ext_t> dst_t;
-  typedef boost::dispatch::meta::factory_of<dst_t>::type fact_t;
+  typedef typename boost::dispatch::meta::factory_of<dst_t>::type fact_t;
 
   NT2_TEST( (is_same< typename make_integer<sizeof(T),signed, fact_t>::type
                     , dst_t

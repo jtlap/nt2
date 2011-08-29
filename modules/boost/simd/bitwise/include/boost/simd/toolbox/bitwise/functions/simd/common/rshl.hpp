@@ -32,16 +32,6 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2) { return map(dispatch::functor<boost::simd::tag::rshl_>(), a0, a1); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshl_, tag::cpu_, (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((scalar_ < integer_<A1> >))
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      if(is_gtz(a1)) return shli(a0, a1);  else return shri(a0, -a1);
-    }
-  };
 } } }
 
 #endif

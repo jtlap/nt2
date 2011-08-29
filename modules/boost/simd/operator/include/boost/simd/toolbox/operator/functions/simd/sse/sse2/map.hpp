@@ -24,7 +24,7 @@
 #if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/toolbox/operator/functions/simd/sse/sse2/preprocessed/map.hpp>
 #else
-#include <boost/dispatch/extension/parameters.hpp>
+#include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>

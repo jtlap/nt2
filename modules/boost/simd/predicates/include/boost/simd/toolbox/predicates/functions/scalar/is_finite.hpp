@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_FINITE_HPP_INCLUDED
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-
 #include <boost/simd/include/functions/is_eqz.hpp>
 
 
@@ -24,9 +23,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
@@ -46,9 +43,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef bool result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::is_eqz(a0-a0);

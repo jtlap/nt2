@@ -14,7 +14,7 @@
 // Basically a std::vector that copes well with bool and use NRC like allocation
 // interface and parametrization
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <boost/simd/sdk/memory/details/buffer_base.hpp>
 
@@ -120,14 +120,14 @@ namespace boost { namespace simd { namespace memory
     typename parent_data::reference
     operator[](typename parent_data::difference_type const& i)
     {
-      BOOST_SIMD_ASSERT( (i >= lower()) && (i <= upper()) );
+      BOOST_ASSERT( (i >= lower()) && (i <= upper()) );
       return parent_data::begin_[i];
     }
 
     typename parent_data::const_reference
     operator[](typename parent_data::difference_type const& i) const
     {
-      BOOST_SIMD_ASSERT( (i >= lower()) && (i <= upper()) );
+      BOOST_ASSERT( (i >= lower()) && (i <= upper()) );
       return parent_data::begin_[i];
     }
 

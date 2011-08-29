@@ -26,7 +26,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       ignore_unused(a2);
@@ -51,7 +50,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(4)
     {
       ignore_unused(a2);

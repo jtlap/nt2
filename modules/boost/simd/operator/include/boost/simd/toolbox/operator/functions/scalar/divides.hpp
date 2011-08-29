@@ -11,13 +11,13 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
-                              (scalar_< fundamental_<A1> >)
+                              (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0, A1)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 / a1; }
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0/a1; }
   };
 } } }
 

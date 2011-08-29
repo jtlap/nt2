@@ -9,9 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_UNORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_UNORD_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/simd/include/functions/boolean.hpp>
+#include <boost/simd/include/constants/false.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

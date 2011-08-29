@@ -8,7 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_POSMAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_POSMAX_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

@@ -30,7 +30,7 @@ namespace nt2
 
       type toc( bool display ) const
       {
-        NT2_ASSERT(!empty() && "Unbalanced timing calls");
+        BOOST_ASSERT_MSG(!empty(), "Unbalanced timing calls");
         type t = time()-times().top();
         times().pop();
         if(display) timer_type::Print(t);

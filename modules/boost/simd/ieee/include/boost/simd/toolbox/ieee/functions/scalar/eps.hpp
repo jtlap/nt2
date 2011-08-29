@@ -13,7 +13,6 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-
 #include <boost/simd/include/functions/is_not_finite.hpp>
 #include <boost/simd/include/functions/fast_ldexp.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
@@ -29,9 +28,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
@@ -51,16 +48,14 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef std::numeric_limits<A0> lim;
       const A0 a = boost::simd::abs(a0);
       if (is_not_finite(a))
       {
-        return result_type(Nan<A0>());
+        return Nan<A0>();
       }
       else if (a < lim::min())
       {
@@ -68,7 +63,9 @@ namespace boost { namespace simd { namespace ext
       }
       else
       {
-        return boost::simd::fast_ldexp(One<A0>(), exponent(a) -lim::digits+1);
+        return boost::simd::fast_ldexp(One<A0>(), exponent(a)-lim::digits+1);
+	// TODO this can surely be made speedier by computing it directly
+	// as One is a constant
       }
     }
   };

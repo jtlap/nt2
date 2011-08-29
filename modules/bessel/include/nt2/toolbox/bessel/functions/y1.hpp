@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_Y1_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/bessel/include.hpp>
 
 namespace nt2 { namespace tag
   {         

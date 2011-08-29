@@ -18,16 +18,14 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::comparator_, tag::cpu_,
-                            (A0)(A1)(A2),
+                            (A0)(A2),
 			     ((scalar_<arithmetic_<A0> >))
-			     ((scalar_<arithmetic_<A1> >))
+			     ((scalar_<arithmetic_<A0> >))
 			     ((scalar_<arithmetic_<A2> >))
                            )
   {
-      typedef A0           stA0;
-      typedef boost::fusion::tuple<stA0,stA0,bool>     result_type;
-    
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    typedef boost::fusion::tuple<A0,A0,bool>     result_type;
+    inline result_type operator()(const A0& a0, const A0& a1, const A2& a2) 
     {
       result_type res;
       eval( a0, a1, a2
@@ -38,8 +36,8 @@ namespace boost { namespace simd { namespace ext
       return res;
     }
   private:
-    template<class AA0,class AA2,class R0,class R1> inline void
-    eval(AA0 const& a0, AA0 const& a1, AA2 const& a2, R0& r0, R1& r1, bool& modified)const
+    template<class AA0,class AA2> inline void
+    eval(AA0 const& a0, AA0 const& a1, AA0 const& a2, AA0& r0, AA0& r1, bool& modified)const
     {
       r0 = a0;
       r1 = a1;
@@ -51,14 +49,6 @@ namespace boost { namespace simd { namespace ext
       {
         if ( (modified = (a1 > a0)) ) std::swap(r0, r1);
       }
-//       r0 =  boost::simd::min(a0, a1);
-//       r1 =  boost::simd::max(a0, a1);
-//       if (a2) {
-//    A0 t =  r1;
-//    r1 = r0;
-//    r0 = t;
-//       }
-//       modified = any(a0-r0);
     }
   };
 } } }

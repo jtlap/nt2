@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(unary_minus(boost::simd::Zero<T>()), boost::simd::Mzero<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
   using boost::simd::unary_minus;
@@ -72,7 +72,8 @@ NT2_TEST_CASE_TPL ( unary_minus_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(unary_minus(boost::simd::One<T>()), r_t(-1));
-  NT2_TEST_EQUAL(unary_minus(boost::simd::Two<T>()), r_t(-2));
+  NT2_TEST_EQUAL(unary_minus(boost::simd::Mone<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(unary_minus(boost::simd::One<T>()), boost::simd::Mone<r_t>());
+  NT2_TEST_EQUAL(unary_minus(boost::simd::Two<T>()), -boost::simd::Two<r_t>());
   NT2_TEST_EQUAL(unary_minus(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for integer_
+} // end of test for signed_int_

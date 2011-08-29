@@ -15,6 +15,7 @@
  */
 
 #include <boost/mpl/apply.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
@@ -70,27 +71,32 @@ namespace boost { namespace dispatch { namespace meta
    * \include downgrade.cpp
    */
   //============================================================================
-  template< class Type, class Sign>
+  template< class T, class Sign>
   struct  downgrade
         : details::downgrade_impl
-          < typename meta::primitive_of<typename meta::strip<Type>::type>::type
+          < typename meta::primitive_of<typename meta::strip<T>::type>::type
           , sizeof(typename meta::primitive_of
-                            < typename meta::strip<Type>::type >::type
+                            < typename meta::strip<T>::type >::type
                   )
           , Sign
-          , typename meta::factory_of<typename meta::strip<Type>::type>::type
+          , typename meta::factory_of<typename meta::strip<T>::type>::type
           >
   {
-    BOOST_DISPATCH_STATIC_ASSERT
-    ( ( is_fundamental
-        < typename meta::primitive_of<typename meta::strip<Type>::type>::type
-        >::value
+    //==========================================================================
+    /*
+     * A type with a non-fundamental primitive is used in 
+     * boost::dispatch::meta::downgrade.
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
+    ( (is_fundamental < typename
+                        meta::primitive_of<typename meta::strip<T>::type>::type
+                      >::value
       )
     , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_DOWNGRADE
-    , "A type with a non-fundamental primitive is used in boost::dispatch::meta::downgrade"
+    , (T&)
     );
   };
-
 } } }
 
 #endif

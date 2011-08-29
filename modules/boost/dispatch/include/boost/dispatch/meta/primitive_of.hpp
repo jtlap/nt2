@@ -12,8 +12,8 @@
  * \file
  * \brief Defines the boost::dispatch::meta::primitive_of \metafunction
  */
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/error/static_assert.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

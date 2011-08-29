@@ -66,45 +66,6 @@ NT2_TEST_CASE_TPL ( copysign_real__2_0,  BOOST_SIMD_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( copysign_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-  
-  using boost::simd::copysign;
-  using boost::simd::tag::copysign_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<copysign_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
-    NT2_CREATE_BUF(tab_a1,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_EQUAL( boost::simd::copysign(a0,a1),boost::simd::abs(a0)*boost::simd::signnz(a1));
-     }
-     
-   }
-} // end of test for unsigned_int_
-
 NT2_TEST_CASE_TPL ( copysign_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   

@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_INF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_INF_HPP_INCLUDED
-#include <boost/simd/include/functions/boolean.hpp>
+#include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

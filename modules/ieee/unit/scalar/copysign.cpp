@@ -64,30 +64,6 @@ NT2_TEST_CASE_TPL ( copysign_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(copysign(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( copysign_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
-{
-  
-  using nt2::copysign;
-  using nt2::tag::copysign_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<copysign_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(copysign(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>());
-  NT2_TEST_EQUAL(copysign(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for unsigned_int_
-
 NT2_TEST_CASE_TPL ( copysign_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   

@@ -1,11 +1,12 @@
 #if !BOOST_PP_IS_ITERATING
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef NT2_SDK_MEMORY_BLOCK_HPP_INCLUDED
 #define NT2_SDK_MEMORY_BLOCK_HPP_INCLUDED
 
@@ -15,7 +16,7 @@
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <boost/fusion/include/at.hpp>
-#include <boost/dispatch/extension/parameters.hpp>
+#include <boost/dispatch/details/parameters.hpp>
 #include <boost/fusion/include/nview.hpp>
 #include <nt2/sdk/error/static_assert.hpp>
 #include <boost/fusion/include/make_vector.hpp>
@@ -348,12 +349,12 @@ namespace nt2 { namespace memory
     typename boost::enable_if_c<Sz::value>::type
     check_index( Position const& p, Sz const&) const
     {
-      NT2_ASSERT(  boost::fusion::at_c<Sz::value-1>(p) >= lower<Sz::value>()
-                && "Index below lowest valid value"
-                );
-      NT2_ASSERT( boost::fusion::at_c<Sz::value-1>(p) <= upper<Sz::value>()
-                && "Index above greatest valid value"
-                );
+//      NT2_ASSERT(  boost::fusion::at_c<Sz::value-1>(p) >= lower<Sz::value>()
+//                && "Index below lowest valid value"
+//                );
+//      NT2_ASSERT( boost::fusion::at_c<Sz::value-1>(p) <= upper<Sz::value>()
+//                && "Index above greatest valid value"
+//                );
       check_index(p,boost::mpl::int_<Sz::value-1>() );
     }
 
@@ -372,12 +373,12 @@ namespace nt2 { namespace memory
     typename boost::enable_if_c<Sz::value==1,reference>::type
     access( Position const& p, Sz const& )
     {
-      NT2_ASSERT(  boost::fusion::at_c<0>(p) >= data<1>().lower()
-                && "Index below lowest valid value"
-                );
-      NT2_ASSERT(  boost::fusion::at_c<0>(p) <= data<1>().upper()
-                && "Index above greatest valid value"
-                );
+//      NT2_ASSERT(  boost::fusion::at_c<0>(p) >= data<1>().lower()
+//                && "Index below lowest valid value"
+//                );
+//      NT2_ASSERT(  boost::fusion::at_c<0>(p) <= data<1>().upper()
+//                && "Index above greatest valid value"
+//                );
 
       typedef typename boost::fusion::result_of::value_at_c<Position,0>::type type;
       type idx = boost::fusion::at_c<0>(p) - data<1>().lower();
@@ -390,12 +391,12 @@ namespace nt2 { namespace memory
     typename boost::enable_if_c<Sz::value==1,const_reference>::type
     access( Position const& p, Sz const& ) const
     {
-      NT2_ASSERT(  boost::fusion::at_c<0>(p) >= data<1>().lower()
-                && "Index below lowest valid value"
-                );
-      NT2_ASSERT(  boost::fusion::at_c<0>(p) <= data<1>().upper()
-                && "Index above greatest valid value"
-                );
+//      NT2_ASSERT(  boost::fusion::at_c<0>(p) >= data<1>().lower()
+//                && "Index below lowest valid value"
+//                );
+//      NT2_ASSERT(  boost::fusion::at_c<0>(p) <= data<1>().upper()
+//                && "Index above greatest valid value"
+//                );
 
       typedef typename boost::fusion::result_of::value_at_c<Position,0>::type type;
       type idx = boost::fusion::at_c<0>(p) - data<1>().lower();

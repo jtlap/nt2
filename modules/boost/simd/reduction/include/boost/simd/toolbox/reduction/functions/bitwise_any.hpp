@@ -10,14 +10,14 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_BITWISE_ANY_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/reduction/include.hpp>
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     struct bitwise_any_ {};
   }
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_any_, bitwise_any, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_any_, any_negative, 1)  
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_any_, any_negative, 1)
 } }
- 
+
 #endif
