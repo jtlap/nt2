@@ -19,9 +19,9 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template< class Type
+  template< class T
           , class Sign  = typename meta::
-                          sign_of < typename meta::strip<Type>::type >::type
+                          sign_of < typename meta::strip<T>::type >::type
           >
   struct  downgrade;
 } } }
