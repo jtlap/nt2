@@ -10,17 +10,18 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is type8_
+  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
                        (A0),
-                       ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                       ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
+    typedef boost::simd::uint32_t result_type;
       
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
@@ -28,24 +29,43 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is type16_
+  /////////////////////////////////////////////////////////////////////////////
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
+                       (A0),
+                       ((simd_<type16_<A0>,boost::simd::tag::sse_>))
+                      )
+  {
+    typedef boost::simd::uint32_t result_type;
+      
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      return _mm_movemask_epi8(a0);//TODO return the rigth value
+    }
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is type64
+  /////////////////////////////////////////////////////////////////////////////
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
                        (A0),
-                       ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                       ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
-      
-    BOOST_SIMD_FUNCTOR_CALL(1){ return _mm_movemask_pd(a0); }
+    typedef boost::simd::uint32_t result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+      {
+	typedef native<double, boost::simd::tag::sse_> vdouble; 
+	return _mm_movemask_pd(bitwise_cast<vdouble>(a0));
+      }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is type32
+  /////////////////////////////////////////////////////////////////////////////
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::sse2_,
@@ -53,9 +73,12 @@ namespace boost { namespace simd { namespace ext
                        ((simd_<float_<A0>,boost::simd::tag::sse_>))
                       )
   {
-      typedef typename dispatch::meta::as_integer<typename meta::scalar_of<A0>::type>::type result_type;
-      
-    BOOST_SIMD_FUNCTOR_CALL(1){ return _mm_movemask_ps(a0); }
+    typedef boost::simd::uint32_t result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+      {
+	typedef native<float, boost::simd::tag::sse_> vfloat; 
+	return _mm_movemask_ps(bitwise_cast<vfloat>(a0));
+      }
   };
 } } }
 #endif

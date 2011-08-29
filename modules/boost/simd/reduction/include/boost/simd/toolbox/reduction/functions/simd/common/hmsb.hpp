@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_HMSB_HPP_INCLUDED
+
 #include <boost/simd/include/functions/bits.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/shri.hpp>
-#include <iostream>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <climits>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -24,23 +24,17 @@ namespace boost { namespace simd { namespace ext
                       )
   {
       
-    typedef boost::simd::uint32_t result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    typedef boost::simd::int32_t result_type; 
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::scalar_of<A0>::type stype; 
-      typedef typename dispatch::meta::as_integer<stype,signed>::type sitype;
+      typedef typename meta::scalar_of<A0>::type stype;
       
- //      std::cout << "icitte" << std::endl; 
-//       const stype mask = Signmask<stype>(); 
-//       const result_type N = boost::simd::meta::cardinal_of<A0>::value; 
-      result_type z; //=boost::simd::uint32_t( boost::simd::bits(a0[0])&mask) >> N;
-//       for(result_type i = 1; i< N; ++i)
-//       {
-// 	std::cout << a0[i] << std::endl;
-// 	std::cout << b_and(a0[i], mask) << std::endl;
-// 	std::cout << shri(b_and(mask, a0[i]), N-i) << std::endl; 
-//         z |=shri(b_and(mask, a0[i])), N-i);
-//       }
+      result_type z = 0;
+      const result_type N = meta::cardinal_of<A0>::value;
+      for(result_type i = 0; i != N; ++i)
+      {
+        z |= bits(a0[i]) >> (sizeof(stype)*CHAR_BIT - 1) << (N-i-1);
+      }
       return z;
     }
   };

@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_MAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_MAX_HPP_INCLUDED
-
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/simd/extensions/specific/avx/binary_integer_overload.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
