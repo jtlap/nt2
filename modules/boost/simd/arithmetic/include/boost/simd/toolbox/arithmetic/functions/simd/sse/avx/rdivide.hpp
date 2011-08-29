@@ -24,20 +24,20 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::rdivide_, boost::simd::tag::avx_,
-                          (A0),
-                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                         )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      const A0 iseqza1 = is_eqz(a1);
-      const A0 c = b_and(eq(a0, Valmin<A0>()), eq(a1, Mone<A0>())); 
-      return ((a0-c)-(iseqza1&a0))/(a1+(iseqza1&One<A0>()));
-    }
-  };
+ //  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::rdivide_, boost::simd::tag::avx_,
+//                           (A0),
+//                           ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+//                           ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+//                          )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       const A0 iseqza1 = is_eqz(a1);
+//       const A0 c = b_and(eq(a0, Valmin<A0>()), eq(a1, Mone<A0>())); 
+//       return ((a0-c)-(iseqza1&a0))/(a1+(iseqza1&One<A0>()));
+//     }
+//   };
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is real_

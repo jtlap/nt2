@@ -8,7 +8,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type',
             },
-         'simd_types' : ['real_'],
+         'simd_types' : ['real_', 'unsigned_int_', 'signed_int_'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
@@ -38,22 +38,22 @@
                  'boost::simd::Zero<T>()' : 'boost::simd::Nan<T>()',
                 },
              'signed_int_' : {
-                 '2,3' : '0',
-                 '3,2' : '1',
+                 'T(2),T(3)' : 'T(0)',
+                 'T(3),T(2)' : 'T(1)',
                  'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',
                  'boost::simd::One<T>()' : 'boost::simd::One<T>()',
-                 'boost::simd::One<T>(),Zero<T>()' : 'boost::simd::Valmax<T>()',
-                 'boost::simd::Mone<T>(),Zero<T>()' : 'boost::simd::Valmin<T>()',
+                 'boost::simd::One<T>(),boost::simd::Zero<T>()' : 'boost::simd::Valmax<T>()',
+                 'boost::simd::Mone<T>(),boost::simd::Zero<T>()' : 'boost::simd::Valmin<T>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
-                 'boost::simd::Valmin<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmax<T>()';
-                 'boost::simd::Valmax<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmin<T>()';
+                 'boost::simd::Valmin<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmax<T>()',
+                 'boost::simd::Valmax<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmin<T>()',
                 },
              'unsigned_int_' : {
-                 '2,3' : '0',
-                 '3,2' : '1',
+                 'T(2),T(3)' : 'T(0)',
+                 'T(3),T(2)' : 'T(1)',
                  'boost::simd::One<T>()' : 'boost::simd::One<T>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
-                 'boost::simd::One<T>(),Zero<T>()' : 'boost::simd::Valmax<T>()',
+                 'boost::simd::One<T>(),boost::simd::Zero<T>()' : 'boost::simd::Valmax<T>()',
                  },
             },
          'verif_test' : {
