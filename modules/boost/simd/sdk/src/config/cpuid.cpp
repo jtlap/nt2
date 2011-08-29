@@ -7,7 +7,17 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 #include <boost/simd/sdk/config/details/cpuid.hpp>
+#include <boost/simd/sdk/config/os.hpp>
 #include <string>
+
+#if defined(BOOST_SIMD_OS_MAC_OS)
+#include <sys/sysctl.h>
+#include <sys/types.h>
+#elif defined(BOOST_SIMD_OS_LINUX)
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <linux/sysctl.h>
+#endif
 
 namespace boost { namespace simd { namespace config{ namespace details {
 

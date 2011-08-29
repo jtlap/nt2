@@ -19,21 +19,21 @@
 #include <boost/simd/sdk/config/details/get_vendor.hpp>
 #include <boost/mpl/int.hpp>
 
-namespace boost{ namespace simd{ namespace config{
+namespace boost{ namespace simd{
 
   template<class Tag>
   bool is_supported()
   {
-    switch(details::get_vendor())
+    switch(config::details::get_vendor())
     {
-    case details::intel : 
-      details::cpuid_mask<Tag, details::intel_> mIntel;
+    case config::details::intel : 
+      config::details::cpuid_mask<Tag, config::details::intel_> mIntel;
       return mIntel.get_support();
-    case details::amd :
-      details::cpuid_mask<Tag, details::amd_ > mAmd;
+    case config::details::amd :
+      config::details::cpuid_mask<Tag, config::details::amd_ > mAmd;
       return mAmd.get_support();
-    case details::ibm : 
-      details::cpuid_mask<Tag, details::ibm_> mIbm;
+    case config::details::ibm : 
+      config::details::cpuid_mask<Tag, config::details::ibm_> mIbm;
       return mIbm.get_support();
     default :
       return false;
@@ -41,6 +41,6 @@ namespace boost{ namespace simd{ namespace config{
 
   }
 
-} } }
+} } 
 
 #endif
