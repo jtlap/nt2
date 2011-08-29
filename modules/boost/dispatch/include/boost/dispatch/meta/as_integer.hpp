@@ -83,7 +83,7 @@ namespace boost { namespace dispatch { namespace meta
                       >::value
       )
     , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_INTEGER
-    , (T)
+    , (T&)
     );
   };
 } } }
