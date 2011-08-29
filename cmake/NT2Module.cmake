@@ -462,8 +462,13 @@ macro(nt2_module_tool_setup tool)
     message(STATUS "[nt2] building tool ${tool}")
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool})
   
+    set(BUILD_OPTION)
+    if(NOT CMAKE_CONFIGURATION_TYPES)
+      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=Release)
+    endif()
+
     execute_process(COMMAND ${CMAKE_COMMAND}
-                            -DCMAKE_BUILD_TYPE=Release
+                            ${BUILD_OPTION}
                             -G ${CMAKE_GENERATOR}
                             ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
@@ -535,10 +540,15 @@ macro(nt2_postconfigure_init)
              DESTINATION tools/postconfigure
              COMPONENT tools
            )
+
+    set(BUILD_OPTION)
+    if(NOT CMAKE_CONFIGURATION_TYPES)
+      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=Release)
+    endif()
              
     add_custom_target(postconfigure
                       COMMAND ${CMAKE_COMMAND}
-                              -DCMAKE_BUILD_TYPE=Release
+                              ${BUILD_OPTION}
                               -G ${CMAKE_GENERATOR}
                               ${NT2_SOURCE_ROOT}/tools/postconfigure
                            && ${CMAKE_COMMAND} --build . --config Release
