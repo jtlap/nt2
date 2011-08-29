@@ -9,24 +9,25 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/details/simd/sse/sse4_1/is_not_greater_equal.hpp>
+#include <boost/simd/include/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/complement.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, boost::simd::tag::avx_,
-                         (A0),
-                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                        )
+				    (A0),
+				    ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+				    ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+				    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return ~boost::simd::is_ge(a0, a1);
-    }
+      {
+	return boost::simd::lt(a0, a1);
+      }
   };
 
 /////////////////////////////////////////////////////////////////////////////
