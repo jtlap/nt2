@@ -40,9 +40,12 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 #if !defined(BOOST_SIMD_ARCH_POWERPC)
       BOOST_SIMD_DECLARE_X86_CPUID_CALL(this->function);
       if( str_match(regs_x86, INTEL) ) return intel;
-      else if( str_match(regs_x86, AMD) ) return amd;  
+      else if( str_match(regs_x86, AMD) ) return amd;
+      else return -1;
 #elif defined(BOOST_SIMD_ARCH_POWERPC)
       return ibm;
+#else
+      return -1;
 #endif
     }
   };
