@@ -11,9 +11,8 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shli.hpp>
-#include <boost/simd/include/functions/details/simd/sse/sse4_1/put_first.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

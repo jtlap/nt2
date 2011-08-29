@@ -11,7 +11,8 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
@@ -185,6 +186,17 @@ namespace boost { namespace simd { namespace ext
                                         , type1
                                         >::type result_type;
     
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+ //      typedef result_type rtype;
+//       typedef simd::native<boost::simd::int64_t,boost::simd::tag::sse_ >   htype;
+//       htype r0 = {_mm256_cvtpd_ps(a0)};
+//       htype r1 = {_mm256_cvtpd_ps(a1)};
+//       rtype r  = {_mm256_insertf128_ps(r, r0, 0)};
+//       r = _mm256_insertf128_ps(r, r1, 1);
+//       return r;
+      return Zero<result_type>(); //TODO
+    }
   };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -207,6 +219,14 @@ namespace boost { namespace simd { namespace ext
                                         , type1
                                         >::type result_type;
     
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+ //      typedef result_type rtype;
+//       typedef simd::native<boost::simd::uint32_t,boost::simd::tag::avx_ >   htype;
+//       htype r0 = bitwise_cast<htype>(a0);
+//       htype r1 = bitwise_cast<htype>(a1);
+      return Zero<result_type>(); //TODO
+    }
   };
 
 /////////////////////////////////////////////////////////////////////////////

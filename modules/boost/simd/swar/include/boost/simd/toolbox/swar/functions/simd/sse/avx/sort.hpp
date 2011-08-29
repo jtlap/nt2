@@ -10,10 +10,10 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_SORT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/dispatch/meta/as_real.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/details/simd/sse/sse4_1/sort.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/max.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -25,6 +25,10 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      return Zero<result_type>();//TODO
+    }    
   };
 } } }
 #endif
