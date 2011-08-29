@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
 	  svtype a00 = { _mm256_extractf128_si256(a0, 0)};
 	  svtype a01 = { _mm256_extractf128_si256(a0, 1)};
 	  return boost::simd::uint32_t(_mm_movemask_epi8(a00))|(boost::simd::uint32_t(_mm_movemask_epi8(a01)) << 16);
-	  //TODO change that when hsmd sse will be correct for 16bits type
+	  //TODO changeq that when hsmd sse will be correct for 16bits type
 	}
     };
   
