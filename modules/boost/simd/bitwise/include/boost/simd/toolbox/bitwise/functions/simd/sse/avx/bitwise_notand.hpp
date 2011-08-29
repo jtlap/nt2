@@ -30,8 +30,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef simd::native<double, boost::simd::tag::avx_> dtype; 
-      return simd::native_cast<A0>(b_andnot(simd::native_cast<dtype>(a0),
-					    simd::native_cast<dtype>(a1)));
+      return simd::native_cast<A0>(b_notand(bitwise_cast<dtype>(a0),
+					    bitwise_cast<dtype>(a1)));
     }
   };
 
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = {_mm256_andnot_pd(a1, a0)};
+      A0 that = {_mm256_andnot_pd(a0, a1)};
       return that;
     }
   };
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = {_mm256_andnot_ps(a1, a0)};
+      A0 that = {_mm256_andnot_ps(a0, a1)};
       return that;
     }
   }; 

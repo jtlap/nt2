@@ -35,8 +35,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef simd::native<double, boost::simd::tag::avx_> dtype; 
-      return simd::native_cast<A0>(b_andnot(simd::native_cast<dtype>(a0),
-					    simd::native_cast<dtype>(a1)));
+      return simd::native_cast<A0>(b_andnot(bitwise_cast<dtype>(a0),
+					    bitwise_cast<dtype>(a1)));
     }
   };
 
