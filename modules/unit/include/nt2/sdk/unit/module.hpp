@@ -58,7 +58,7 @@
 //==============================================================================
 // Embedded main for testing purpose
 //==============================================================================
-int NT2_UNIT_MAIN(int, char**)
+extern "C" int NT2_UNIT_MAIN(int, char**)
 {
   nt2::details::main_suite.process();
   return nt2::details::error_count() ? -1: 0;
