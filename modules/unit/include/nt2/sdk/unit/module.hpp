@@ -20,7 +20,6 @@
  * Define macro for building a Unit Test source file
  */
 
-#include <cstdio>
 #include <boost/preprocessor/cat.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
@@ -28,6 +27,8 @@
 #include <nt2/sdk/details/type_id.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
+#include <stdexcept>
+#include <cstdio>
 
 #if defined(DOXYGEN_ONLY)
 //==============================================================================
@@ -60,8 +61,21 @@
 //==============================================================================
 extern "C" int NT2_UNIT_MAIN(int, char**)
 {
-  nt2::details::main_suite.process();
-  return nt2::details::error_count() ? -1: 0;
+  try
+  {
+    nt2::details::main_suite.process();
+    return nt2::details::error_count() ? -1: 0;
+  }
+  catch(std::exception const& e)
+  {
+    std::cerr << "uncaught exception: " << e.what() << std::endl;
+    return 1;
+  }
+  catch(...)
+  {
+    std::cerr << "uncaught exception" << std::endl;
+    return 1;
+  }
 }
 
 //==============================================================================
