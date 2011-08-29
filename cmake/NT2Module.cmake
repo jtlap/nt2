@@ -262,7 +262,7 @@ macro(nt2_module_add_tests name)
        
     if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
       add_test(${prefix}.${basename}.${suffix} /bin/sh -c
-               "scp \"${PROJECT_BINARY_DIR}/${suffix}/${name}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${name} ${basename} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${name}"
+               "scp \"${PROJECT_BINARY_DIR}/${suffix}/${CMAKE_CFG_INTDIR}/${name}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${name} ${basename} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${name}"
               )
     else()
       add_test(${prefix}.${basename}.${suffix} ${PROJECT_BINARY_DIR}/${suffix}/${name} ${basename})
