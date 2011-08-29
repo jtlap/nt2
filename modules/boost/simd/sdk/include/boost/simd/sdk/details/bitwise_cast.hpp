@@ -113,7 +113,7 @@ namespace details
     BOOST_MPL_ASSERT_MSG
     ( (sizeof(From) == sizeof(To))
     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
-    , (From,To)
+    , (From&,To&)
     );  
     
     return details::bitwise_cast<To, From>::template call<To>(from);
@@ -132,7 +132,7 @@ namespace details
     BOOST_MPL_ASSERT_MSG
     ( (sizeof(From) == sizeof(To))
     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
-    , (From,To)
+    , (From&,To&)
     );   
 
     return reinterpret_cast<To const&>(from);
