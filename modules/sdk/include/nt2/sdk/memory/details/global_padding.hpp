@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
     typedef A2        arg2;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-    ( true_case, memory::align_on( slice<1>(s,memory::no_padding()) ) );
+    ( true_case, memory::align_on( slice<1>(s,memory::no_padding()), 0UL ) );
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( false_case , slice<arg2::value>(s,memory::no_padding()) );
@@ -60,23 +60,25 @@ namespace nt2 { namespace ext
                                           >::type             result_type;
 
     inline result_type
-    operator()(A0 const& a0, memory::global_padding const&, A2 const& ) const
+    operator()(A0 const& a0, memory::global_padding const& p, A2 const& ) const
     {
-      return eval(a0, boost::mpl::bool_<A2::value==1>() );
+      return eval(a0, p.value(), boost::mpl::bool_<A2::value==1>() );
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when size<A0> == A2
     ////////////////////////////////////////////////////////////////////////////
-    inline result_type eval( A0 const& a0, boost::mpl::true_ const&) const
+    inline result_type 
+    eval(A0 const& a0, std::size_t p,boost::mpl::true_ const&) const
     {
-      return memory::align_on( slice<1>(a0,memory::no_padding()) );
+      return memory::align_on( slice<1>(a0,memory::no_padding()), p );
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when size<A0> != A2
     ////////////////////////////////////////////////////////////////////////////
-    inline result_type eval( A0 const& a0, boost::mpl::false_ const&) const
+    inline result_type 
+    eval(A0 const& a0,std::size_t ,boost::mpl::false_ const&) const
     {
       return slice<A2::value>(a0,memory::no_padding());
     }
