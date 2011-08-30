@@ -7,14 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox arithmetic bench tests
-##############################################################################
-
-ADD_CUSTOM_TARGET(boost.simd.arithmetic.scalar.bench)
-ADD_CUSTOM_TARGET(boost.simd.arithmetic.simd.bench)
-ADD_DEPENDENCIES(boost.simd.arithmetic.bench boost.simd.arithmetic.scalar.bench boost.simd.arithmetic.simd.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

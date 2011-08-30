@@ -41,11 +41,5 @@ SET( SOURCES
 # List of scalar test files for toolbox operator
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(operator.scalar.${EXAMPLE}.cover ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(operator.scalar.cover ${SOURCES})
 

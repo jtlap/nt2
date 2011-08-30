@@ -24,10 +24,4 @@ SET( SOURCES
 # List of scalar test files for toolbox euler
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(euler.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(euler.scalar.bench ${SOURCES})

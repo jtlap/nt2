@@ -15,10 +15,4 @@ SET( SOURCES
 # List of scalar test files for toolbox combinatorial
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(combinatorial.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(combinatorial.scalar.bench ${SOURCES})

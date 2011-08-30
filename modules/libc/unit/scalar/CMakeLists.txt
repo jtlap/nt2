@@ -32,10 +32,4 @@ SET( SOURCES
 # List of scalar test files for toolbox libc
    )
 
-##****************************************************************************
-# For each filename
-##****************************************************************************
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(libc.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(libc.scalar.unit ${SOURCES})

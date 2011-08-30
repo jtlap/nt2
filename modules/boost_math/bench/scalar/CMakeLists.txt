@@ -88,10 +88,4 @@ SET( SOURCES
 # List of scalar test files for toolbox boost_math
    )
 
-##****************************************************************************
-# For each filename
-##****************************************************************************
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(boost_math.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(boost_math.scalar.bench ${SOURCES})

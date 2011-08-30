@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(bessel.scalar.cover)
-ADD_CUSTOM_TARGET(bessel.simd.cover)
-ADD_DEPENDENCIES(bessel.cover bessel.scalar.cover bessel.simd.cover)
-
-##############################################################################
-# Toolbox bessel cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates arithmetic trigonometric exponential cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
