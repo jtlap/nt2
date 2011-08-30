@@ -108,7 +108,7 @@ NT2_TEST_CASE_TPL ( rdivide_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(rdivide(boost::simd::Mone<T>(),boost::simd::Zero<T>()), boost::simd::Valmin<T>(), 0);
   NT2_TEST_ULP_EQUAL(rdivide(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(rdivide(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::Valmax<T>(), 0);
-  NT2_TEST_ULP_EQUAL(rdivide(boost::simd::Valmax<T>(),boost::simd::Mone<T>()), boost::simd::Valmin<T>(), 0);
+  NT2_TEST_ULP_EQUAL(rdivide(boost::simd::Valmax<T>(),boost::simd::Mone<T>()), boost::simd::Valmin<T>()+boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(rdivide(boost::simd::Valmin<T>(),boost::simd::Mone<T>()), boost::simd::Valmax<T>(), 0);
   NT2_TEST_ULP_EQUAL(rdivide(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
 } // end of test for signed_int_

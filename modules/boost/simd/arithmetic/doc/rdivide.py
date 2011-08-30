@@ -46,7 +46,7 @@
                  'boost::simd::Mone<T>(),boost::simd::Zero<T>()' : 'boost::simd::Valmin<T>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                  'boost::simd::Valmin<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmax<T>()',
-                 'boost::simd::Valmax<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmin<T>()',
+                 'boost::simd::Valmax<T>(),boost::simd::Mone<T>()': 'boost::simd::Valmin<T>()+boost::simd::One<T>()',
                 },
              'unsigned_int_' : {
                  'T(2),T(3)' : 'T(0)',

@@ -21,6 +21,7 @@
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -51,15 +52,23 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_real<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::scalar_of<A0>::type stype;
-      typedef typename dispatch::meta::as_integer<A0,signed>::type sint_type;
-      static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
-      const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
-      const sint_type a00 = simd::native_cast<sint_type>(a0);
-      result_type v1 = {_mm256_cvtepi32_ps(a00)};
-      result_type v2 = {_mm256_cvtepi32_ps((b_andnot(a00, hibitmask)))};
-      v2 = v2+offset;
-      return sel(isgez(a00),v1,v2);
+      typedef typename dispatch::meta::scalar_of<result_type>::type stype;
+      typedef native < stype, boost::simd::tag::sse_ > htype;
+      
+      htype h1 = make<htype>(a0[0],a0[1],a0[2],a0[3]);
+      htype h2 = make<htype>(a0[4],a0[5],a0[6],a0[7]);
+      result_type r = {_mm256_insertf128_ps(r, h1, 0)};
+      r =  _mm256_insertf128_ps(r, h2, 1);
+      return r; 
+//       typedef typename meta::scalar_of<A0>::type stype;
+//       typedef typename dispatch::meta::as_integer<A0,signed>::type sint_type;
+//       static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
+//       const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
+//       const sint_type a00 = simd::native_cast<sint_type>(a0);
+//       result_type v1 = {_mm256_cvtepi32_ps(a00)};
+//       result_type v2 = {_mm256_cvtepi32_ps((b_andnot(a00, hibitmask)))};
+//       v2 = v2+offset;
+//       return sel(isgez(a00),v1,v2);
     }
   };
 
@@ -102,9 +111,12 @@ namespace boost { namespace simd { namespace ext
       typedef native < stype, boost::simd::tag::sse_ > htype;
       
       htype h1 = make<htype>(a0[0],a0[1]);
+      std::cout << h1 << std::endl; 
       htype h2 = make<htype>(a0[2],a0[3]);
+      std::cout << h2 << std::endl; 
       result_type r = {_mm256_insertf128_pd(r, h1, 0)};
       r =  _mm256_insertf128_pd(r, h2, 1);
+      std::cout << r << std::endl; 
       //      result_type const v = make<result_type>(a0[0], a0[1], a0[2], a0[3]);//TODO make make working
       //      return v;
     }
