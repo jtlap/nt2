@@ -11,7 +11,11 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/make.hpp>
-
+#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/constants/inf.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -64,12 +68,12 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<float_<A0>,boost::simd::tag::avx_>))
                        )
   {
- typedef typename dispatch::meta::as_integer<A0>::type result_type; 
+    typedef typename dispatch::meta::as_integer<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef result_type type;
-      type that =  {_mm256_cvttps_epi32(a0)};
-      return  that;
+      A0 aa0 = b_andnot(a0, is_nan(a0)); 
+      result_type that =  {_mm256_cvttps_epi32(aa0)};
+      return  sel(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
     }
   };
 } } }

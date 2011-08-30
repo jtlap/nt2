@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOINT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/make.hpp>

@@ -74,8 +74,16 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_real<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      result_type const v = make<result_type>(a0[0], a0[1], a0[2], a0[3]);
-      return v;
+      typedef typename dispatch::meta::scalar_of<result_type>::type stype;
+      typedef native < stype, boost::simd::tag::sse_ > htype;
+      
+      htype h1 = make<htype>(a0[0],a0[1]);
+      htype h2 = make<htype>(a0[2],a0[3]);
+      result_type r = {_mm256_insertf128_pd(r, h1, 0)};
+      r =  _mm256_insertf128_pd(r, h2, 1);
+      return r; 
+      //      result_type const v = make<result_type>(a0[0], a0[1], a0[2], a0[3]);//TODO make make working
+      //      return v;
     }
   };
 
@@ -90,8 +98,15 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_real<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type const v = make<result_type>(a0[0], a0[1], a0[2], a0[3]);
-      return v;
+      typedef typename dispatch::meta::scalar_of<result_type>::type stype;
+      typedef native < stype, boost::simd::tag::sse_ > htype;
+      
+      htype h1 = make<htype>(a0[0],a0[1]);
+      htype h2 = make<htype>(a0[2],a0[3]);
+      result_type r = {_mm256_insertf128_pd(r, h1, 0)};
+      r =  _mm256_insertf128_pd(r, h2, 1);
+      //      result_type const v = make<result_type>(a0[0], a0[1], a0[2], a0[3]);//TODO make make working
+      //      return v;
     }
   };
 } } }
