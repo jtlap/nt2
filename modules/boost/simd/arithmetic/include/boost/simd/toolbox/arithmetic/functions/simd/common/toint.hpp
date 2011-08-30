@@ -6,19 +6,19 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOINT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOINT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/toint.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is integer_
+  /////////////////////////////////////////////////////////////////////////////
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<real_<A0>,X>))
+                            , ((simd_<integer_<A0>,X>))
                             )
   {
 

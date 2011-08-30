@@ -10,13 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_AVX_AVX_PLUS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
-////////////////////////////////////////////////////////////////////////////////
-// operator binary plus
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/toolbox/operator/functions/plus.hpp>
 
-/////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, boost::simd::tag::avx_
@@ -52,7 +47,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
 
 #endif
 #endif

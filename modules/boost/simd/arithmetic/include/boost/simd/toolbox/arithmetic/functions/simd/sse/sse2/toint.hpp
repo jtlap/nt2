@@ -9,21 +9,19 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOINT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/toint.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                            )
-  {
-    typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
-  };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, boost::simd::tag::sse2_ , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
