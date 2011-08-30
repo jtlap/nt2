@@ -34,9 +34,6 @@ SET(SOURCES
     upgrade.cpp
     )
 
-ADD_CUSTOM_TARGET(sdk.meta.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.meta.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

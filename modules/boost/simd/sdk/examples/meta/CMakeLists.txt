@@ -36,9 +36,6 @@ SET(SOURCES
     upgrade.cpp
     )
 
-ADD_CUSTOM_TARGET(boost.simd.sdk.meta.examples)
-ADD_DEPENDENCIES(boost.simd.sdk.examples boost.simd.sdk.meta.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

@@ -20,9 +20,6 @@ SET(SOURCES
     pp_strip.cpp
     )
 
-ADD_CUSTOM_TARGET(boost.simd.sdk.details.examples)
-ADD_DEPENDENCIES(boost.simd.sdk.examples boost.simd.sdk.details.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

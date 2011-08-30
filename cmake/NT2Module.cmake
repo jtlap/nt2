@@ -39,6 +39,31 @@ macro(nt2_module_source_setup module)
 
     nt2_module_install_setup()
 
+    # make dummy executable target with all sources for Visual Studio
+    if(CMAKE_GENERATOR MATCHES "Visual Studio")
+      option(NT2_USE_FOLDERS "Whether to use folders for Visual Studio solution (professional version only)" 0)
+      set_property(GLOBAL PROPERTY USE_FOLDERS ${NT2_USE_FOLDERS})
+    
+      file(GLOB_RECURSE files RELATIVE ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}
+           ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include/*.hpp ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include/*.h
+           *.hpp *.h
+           *.cpp *.c
+          )
+      set(files_full)
+      foreach(file ${files})
+        get_filename_component(dir ${file} PATH)
+        string(REPLACE "/" "\\" dir ${dir})
+        source_group(${dir} FILES ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/${file})
+        list(APPEND files_full ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/${file})
+      endforeach()
+
+      if(NOT EXISTS ${PROJECT_BINARY_DIR}/modules/dummy.cpp)
+        file(WRITE ${PROJECT_BINARY_DIR}/modules/dummy.cpp)
+      endif()
+      add_executable(${module}.sources ${PROJECT_BINARY_DIR}/modules/dummy.cpp ${files_full})
+      set_property(TARGET ${module}.sources PROPERTY FOLDER sources)
+    endif()
+
     # set up component
     cpack_add_component(${module}
                         DEPENDS ${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_EXTRA}
@@ -75,11 +100,13 @@ endmacro()
 
 function(nt2_module_target_parent target)
   string(REGEX REPLACE "[^.]+\\.([^.]+)$" "\\1" parent_target ${target})
-
+  string(REGEX REPLACE "^.*\\.([^.]+)$" "\\1" suffix ${parent_target})
+  
   if(NOT parent_target STREQUAL ${target})
     get_target_property(${parent_target}_exists ${parent_target} EXCLUDE_FROM_ALL)
     if(${parent_target}_exists MATCHES "NOTFOUND$")
       add_custom_target(${parent_target})
+      set_property(TARGET ${parent_target} PROPERTY FOLDER ${suffix})
     endif()
     add_dependencies(${parent_target} ${target})
   
@@ -91,6 +118,7 @@ endfunction()
 macro(nt2_module_dir dir)
   if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${dir})
       add_custom_target(${NT2_CURRENT_MODULE}.${dir})
+      set_property(TARGET ${NT2_CURRENT_MODULE}.${dir} PROPERTY FOLDER ${dir})
       nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
       add_subdirectory(${dir})
     endif()
@@ -157,7 +185,9 @@ macro(nt2_module_add_library libname)
     set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK ${BUILD_SHARED_LIBS})
   endif()
 
-  set_target_properties(${libname} PROPERTIES VERSION 3.0.0 SOVERSION 3)
+  set_property(TARGET ${libname} PROPERTY VERSION 3.0.0)
+  set_property(TARGET ${libname} PROPERTY SOVERSION 3)
+  set_property(TARGET ${libname} PROPERTY FOLDER lib)
   
   if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
     string(REPLACE "." "_" macro_name ${NT2_CURRENT_MODULE_U})
@@ -203,29 +233,7 @@ macro(nt2_module_use_modules)
 endmacro()
 
 macro(nt2_module_add_exe DIRECTORY EXECUTABLE)
-  string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
-  add_executable(${EXECUTABLE} EXCLUDE_FROM_ALL ${ARGN})
-  
-  set_property(TARGET ${EXECUTABLE} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
-  set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${DIRECTORY})
-endmacro()
-
-macro(nt2_module_add_test DIRECTORY EXECUTABLE)
-  nt2_module_add_exe(${DIRECTORY} ${EXECUTABLE} ${ARGN})
-
-  string(REGEX REPLACE "\\.([^.]+)\\.${DIRECTORY}$" ".${DIRECTORY}" suite ${EXECUTABLE})
-  string(REGEX REPLACE "\\.${DIRECTORY}$" "-${DIRECTORY}" TEST ${EXECUTABLE})
-  
-  add_dependencies(${suite} ${EXECUTABLE})
-  if(NOT CMAKE_CROSSCOMPILING_HOST AND DEFINED ENV{CMAKE_CROSSCOMPILING_HOST})
-    set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})
-  endif()
-  if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
-    add_test(${TEST} /bin/sh -c "scp ${PROJECT_BINARY_DIR}/${DIRECTORY}/${EXECUTABLE} ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${EXECUTABLE} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${EXECUTABLE}")
-  else()
-    add_test(${TEST} ${PROJECT_BINARY_DIR}/${DIRECTORY}/${EXECUTABLE})
-  endif()
 endmacro()
 
 macro(nt2_module_add_unit)
@@ -247,9 +255,10 @@ macro(nt2_module_add_tests name)
   endforeach()
   file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" "${DATA}")
   
-  add_executable(${name} ${${name}_files})
+  add_executable(${name} EXCLUDE_FROM_ALL ${${name}_files})
+  set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
   set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
-  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${suffix})
+  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/${suffix}")
   
   nt2_module_target_parent(${name})
     
@@ -265,29 +274,19 @@ macro(nt2_module_add_tests name)
                "scp \"${PROJECT_BINARY_DIR}/${suffix}/${CMAKE_CFG_INTDIR}/${name}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${name} ${basename} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${name}"
               )
     else()
-      add_test(${prefix}.${basename}.${suffix} ${PROJECT_BINARY_DIR}/${suffix}/${name} ${basename})
+      add_test(${prefix}.${basename}.${suffix} "${PROJECT_BINARY_DIR}/${suffix}/${name}" ${basename})
     endif()
   endforeach()
 endmacro()
 
-macro(nt2_module_add_cover)
-  nt2_module_add_test(cover ${ARGN})
-endmacro()
-
-macro(nt2_module_add_bench EXECUTABLE)
-  nt2_module_add_exe(bench ${EXECUTABLE} ${ARGN})
-
-  string(REGEX REPLACE "\\.([^.]+)\\.bench$" ".bench" suite ${EXECUTABLE})
-  
-  add_dependencies(${suite} ${EXECUTABLE})
-endmacro()
-
 macro(nt2_module_add_example EXECUTABLE)
-  nt2_module_add_exe(examples ${EXECUTABLE} ${ARGN})
+  add_executable(${EXECUTABLE} EXCLUDE_FROM_ALL ${ARGN})
+  set_property(TARGET ${EXECUTABLE} PROPERTY FOLDER examples)
+  set_property(TARGET ${EXECUTABLE} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
+  set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/examples")
 
-  string(REGEX REPLACE "\\.([^.]+)\\.sample$" ".examples" suite ${EXECUTABLE})
-  
-  add_dependencies(${suite} ${EXECUTABLE})
+  string(REGEX REPLACE "\\.sample$" ".examples" suite ${EXECUTABLE})
+  nt2_module_target_parent(${suite})
 endmacro()
 
 macro(nt2_module_install_file header)
@@ -554,6 +553,8 @@ macro(nt2_postconfigure_init)
                            && ${CMAKE_COMMAND} --build . --config Release
                       WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure
                      )
+    set_property(TARGET postconfigure PROPERTY FOLDER tools)
+
   endif()
 
 endmacro()

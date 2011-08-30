@@ -13,9 +13,6 @@ SET(SOURCES
     platform.cpp
    )
 
-ADD_CUSTOM_TARGET(sdk.config.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.config.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

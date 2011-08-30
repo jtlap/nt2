@@ -12,9 +12,6 @@ SET(SOURCES
     second_timer.cpp    
    )
 
-ADD_CUSTOM_TARGET(sdk.timing.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.timing.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

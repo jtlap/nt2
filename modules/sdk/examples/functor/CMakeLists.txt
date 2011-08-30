@@ -12,9 +12,6 @@ SET(SOURCES
  #   dominant.cpp
    )
 
-ADD_CUSTOM_TARGET(sdk.functor.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.functor.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

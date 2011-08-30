@@ -32,20 +32,6 @@ include(nt2.package)
 #                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc
 #                  )
 
-################################################################################
-# Enable testing if using Makefile generator or instructed to do so
-################################################################################
-if(CMAKE_GENERATOR MATCHES "Make")
-  set(NT2_WITH_TESTS_ 1)
-else()
-  set(NT2_WITH_TESTS_ 0)
-endif()
-
-option(NT2_WITH_TESTS "Enable benchmarks, unit and cover tests" ${NT2_WITH_TESTS_})
-if(NT2_WITH_TESTS)
-  ENABLE_TESTING()
-endif()
-
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 nt2_postconfigure_init()
 
