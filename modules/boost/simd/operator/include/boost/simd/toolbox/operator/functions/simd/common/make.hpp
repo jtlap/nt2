@@ -9,14 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MAKE_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// make for SIMD types
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/toolbox/operator/functions/make.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,13 +21,17 @@ namespace boost { namespace simd { namespace ext
                             , ((target_< simd_< arithmetic_<A0>, X > >))
                             )
   {
-    typedef simd::native<A0, X> result_type;
-    #define M0(z,n,t)                                                 \
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(n)                                        \
-    {                                                                 \
-      BOOST_SIMD_ALIGNED_TYPE(A0) tmp[n] = {  BOOST_PP_ENUM_PARAMS(n, a)  }; \
-      return load<simd::native<A0, X> >(&tmp[0], 0);                  \
-    }
+    typedef typename A0::type result_type;
+    typedef typename meta::scalar_of<result_type>::type stype;
+    
+    #define M0(z,n,t)                                                          \
+    inline result_type                                                         \
+    operator()(BOOST_PP_ENUM_PARAMS(n, stype const& a)) const                  \
+    {                                                                          \
+      BOOST_SIMD_ALIGNED_TYPE(stype) tmp[n] = { BOOST_PP_ENUM_PARAMS(n, a) };  \
+      return load<result_type>(&tmp[0], 0);                                    \
+    }                                                                          \
+    /**/
     
     BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
     #undef M0
