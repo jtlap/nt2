@@ -7,10 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(meta)
+SET( SOURCES
+     is_supported.cpp
+   )
 
-nt2_module_use_modules(boost.simd.operator)
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(simd)
-ADD_SUBDIRECTORY(config)
+nt2_module_add_tests(boost.simd.sdk.config.unit ${SOURCES})
