@@ -15,6 +15,7 @@
 #include <boost/simd/sdk/simd/extensions/sse.hpp>
 #include <boost/simd/sdk/simd/extensions/altivec.hpp>
 #include <boost/simd/sdk/simd/extensions/none.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 
 #include <boost/dispatch/functor/forward.hpp>
 namespace boost { namespace dispatch 

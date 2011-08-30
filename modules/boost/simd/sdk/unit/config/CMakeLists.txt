@@ -7,14 +7,18 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(NT2Module)
-nt2_module_source_setup(boost.simd.sdk)
-
-set(SOURCES
-    memory/allocate.cpp
-    memory/deallocate.cpp
-    memory/reallocate.cpp
-    config/cpuid.cpp
-    config/get_vendor.cpp
+SET( SOURCES
+     is_supported.cpp
    )
-nt2_module_add_library(boost_simd ${SOURCES})
+
+ADD_CUSTOM_TARGET(boost.simd.sdk.config.unit)
+ADD_DEPENDENCIES(boost.simd.sdk.unit boost.simd.sdk.config.unit)
+
+
+################################################################################
+# For each filename
+################################################################################
+FOREACH( EXAMPLE ${SOURCES})
+  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
+  nt2_module_add_unit(boost.simd.sdk.config.${EXAMPLE}.unit ${EXAMPLE}.cpp)
+ENDFOREACH()
