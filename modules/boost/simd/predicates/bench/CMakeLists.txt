@@ -7,14 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox predicates bench tests
-##############################################################################
-
-ADD_CUSTOM_TARGET(boost.simd.predicates.scalar.bench)
-ADD_CUSTOM_TARGET(boost.simd.predicates.simd.bench)
-ADD_DEPENDENCIES(boost.simd.predicates.bench boost.simd.predicates.scalar.bench boost.simd.predicates.simd.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

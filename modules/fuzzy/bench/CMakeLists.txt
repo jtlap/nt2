@@ -7,14 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox fuzzy bench tests
-##############################################################################
-
-ADD_CUSTOM_TARGET(fuzzy.scalar.bench)
-ADD_CUSTOM_TARGET(fuzzy.simd.bench)
-ADD_DEPENDENCIES(fuzzy.bench fuzzy.scalar.bench fuzzy.simd.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

@@ -7,12 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox swar bench tests
-##############################################################################
-
-ADD_CUSTOM_TARGET(swar.simd.bench)
-ADD_DEPENDENCIES(swar.bench swar.simd.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(simd)

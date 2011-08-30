@@ -7,16 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(trigonometric.scalar.exhaustive)
-ADD_CUSTOM_TARGET(trigonometric.simd.exhaustive)
-ADD_DEPENDENCIES(trigonometric.exhaustive trigonometric.scalar.exhaustive trigonometric.simd.exhaustive)
-
-##############################################################################
-# Toolbox trigonometric unit tests
-##############################################################################
 nt2_module_use_modules(unit standard libc crlibm)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

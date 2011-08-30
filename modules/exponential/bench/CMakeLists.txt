@@ -7,14 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox exponential bench tests
-##############################################################################
-
-ADD_CUSTOM_TARGET(exponential.scalar.bench)
-ADD_CUSTOM_TARGET(exponential.simd.bench)
-ADD_DEPENDENCIES(exponential.bench exponential.scalar.bench exponential.simd.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

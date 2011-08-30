@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(euler.scalar.cover)
-ADD_CUSTOM_TARGET(euler.simd.cover)
-ADD_DEPENDENCIES(euler.cover euler.scalar.cover euler.simd.cover)
-
-##############################################################################
-# Toolbox euler cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

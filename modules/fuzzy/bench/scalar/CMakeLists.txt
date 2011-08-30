@@ -24,10 +24,4 @@ SET( SOURCES
 # List of scalar test files for toolbox fuzzy
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(fuzzy.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(fuzzy.scalar.bench ${SOURCES})

@@ -7,16 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(hyperbolic.scalar.unit)
-ADD_CUSTOM_TARGET(hyperbolic.simd.unit)
-ADD_DEPENDENCIES(hyperbolic.unit hyperbolic.scalar.unit hyperbolic.simd.unit)
-
-##############################################################################
-# Toolbox hyperbolic unit tests
-##############################################################################
 nt2_module_use_modules(unit boost_math)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

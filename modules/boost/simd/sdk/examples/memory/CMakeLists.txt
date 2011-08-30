@@ -13,9 +13,6 @@ SET(SOURCES
     is_aligned.cpp
    )
 
-ADD_CUSTOM_TARGET(boost.simd.sdk.memory.examples)
-ADD_DEPENDENCIES(boost.simd.sdk.examples boost.simd.sdk.memory.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

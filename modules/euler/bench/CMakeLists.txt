@@ -7,14 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox euler bench tests
-##############################################################################
-
-ADD_CUSTOM_TARGET(euler.scalar.bench)
-ADD_CUSTOM_TARGET(euler.simd.bench)
-ADD_DEPENDENCIES(euler.bench euler.scalar.bench euler.simd.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

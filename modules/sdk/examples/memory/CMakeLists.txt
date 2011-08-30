@@ -13,9 +13,6 @@ SET(SOURCES
     is_aligned.cpp
    )
 
-ADD_CUSTOM_TARGET(sdk.memory.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.memory.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

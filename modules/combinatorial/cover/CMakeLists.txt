@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(combinatorial.scalar.cover)
-ADD_CUSTOM_TARGET(combinatorial.simd.cover)
-ADD_DEPENDENCIES(combinatorial.cover combinatorial.scalar.cover combinatorial.simd.cover)
-
-##############################################################################
-# Toolbox combinatorial cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates arithmetic reduction euler boost_math)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

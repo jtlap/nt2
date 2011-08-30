@@ -8,15 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(cephes.scalar.cover)
-ADD_DEPENDENCIES(cephes.cover cephes.scalar.cover)
-
-##############################################################################
-# Toolbox cephes cover tests
-##############################################################################
 nt2_module_use_modules(unit arithmetic euler
                             exponential trigonometric
                             bessel hyperbolic

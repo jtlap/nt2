@@ -37,6 +37,7 @@ macro(nt2_preprocess target)
     cmake_parse_arguments(ARG "" "" "DEPENDS;OPTIONS" ${ARGN})
     
     add_custom_target(${target})
+    set_property(TARGET ${target} PROPERTY FOLDER preprocess)
     
     set(prev 0)
     foreach(src ${ARG_UNPARSED_ARGUMENTS})
@@ -45,6 +46,7 @@ macro(nt2_preprocess target)
                         COMMAND echo "wave ${src}" && ${WAVE_EXECUTABLE}  --c++0x --timer ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
                         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/include
                        )
+      set_property(TARGET ${target}.${n} PROPERTY FOLDER preprocess)
       add_dependencies(${target} ${target}.${n})
       set(prev ${n})
     endforeach()
@@ -57,6 +59,7 @@ macro(nt2_preprocess target)
     get_target_property(preprocess_exists preprocess EXCLUDE_FROM_ALL)
     if(preprocess_exists MATCHES "NOTFOUND$")
       add_custom_target(preprocess)
+      set_property(TARGET preprocess PROPERTY FOLDER preprocess)
     endif()
     add_dependencies(preprocess ${target})
   endif()

@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(elliptic.scalar.cover)
-ADD_CUSTOM_TARGET(elliptic.simd.cover)
-ADD_DEPENDENCIES(elliptic.cover elliptic.scalar.cover elliptic.simd.cover)
-
-##############################################################################
-# Toolbox elliptic cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates arithmetic cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

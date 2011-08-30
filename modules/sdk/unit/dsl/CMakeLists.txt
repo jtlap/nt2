@@ -11,13 +11,4 @@ SET( SOURCES
     select.cpp
   )
 
-ADD_CUSTOM_TARGET(sdk.dsl.unit)
-ADD_DEPENDENCIES(sdk.unit sdk.dsl.unit)
-
-################################################################################
-# For each filename
-################################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(sdk.dsl.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(sdk.dsl.unit ${SOURCES})

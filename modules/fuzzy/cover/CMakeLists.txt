@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(fuzzy.scalar.cover)
-ADD_CUSTOM_TARGET(fuzzy.simd.cover)
-ADD_DEPENDENCIES(fuzzy.cover fuzzy.scalar.cover fuzzy.simd.cover)
-
-##############################################################################
-# Toolbox fuzzy cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
