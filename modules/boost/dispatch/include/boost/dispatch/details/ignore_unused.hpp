@@ -9,6 +9,8 @@
 #ifndef BOOST_DISPATCH_DETAILS_IGNORE_UNUSED_HPP_INCLUDED
 #define BOOST_DISPATCH_DETAILS_IGNORE_UNUSED_HPP_INCLUDED
 
+#include <boost/dispatch/attributes.hpp>
+
 /*!
  * \file
  * \brief Defined and implements the \ref boost::dispatch::ignore_unused utility function
@@ -28,7 +30,8 @@ namespace boost { namespace dispatch
    * \include ignore_unused.cpp
    */
   //============================================================================
-  template<class T> void ignore_unused( T const& )  {}
+  template<class T>
+  BOOST_DISPATCH_FORCE_INLINE void ignore_unused( T const& )  {}
 } }
 
 #endif
