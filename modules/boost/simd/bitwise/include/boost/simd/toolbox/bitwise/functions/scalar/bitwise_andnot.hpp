@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_ANDNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_ANDNOT_HPP_INCLUDED
-
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,14 +24,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type bts;
-      return bitwise_cast<A0, bts>(b_and(bitwise_cast<bts>(a0),
-					 b_not(bitwise_cast<bts>(a1))
-					 )
-				   ); 
+      return bitwise_cast<A0>(b_and(bitwise_cast<bts>(a0),
+				    b_not(bitwise_cast<bts>(a1))
+				    )
+			      ); 
     }
   };
 
