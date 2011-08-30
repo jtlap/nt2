@@ -14,9 +14,6 @@
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/reversebits.hpp>
 
-#ifndef COMPARE_LESS_HELPER
-#define COMPARE_LESS_HELPER
-
 ////////////////////////////////////////////////////////////////////////////////
 // Local shared helper
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +27,6 @@ namespace boost { namespace simd { namespace details
     return (mlt > mgt) && mlt; 
   }
 } } }
-#endif
 
 namespace boost { namespace simd { namespace ext
 {

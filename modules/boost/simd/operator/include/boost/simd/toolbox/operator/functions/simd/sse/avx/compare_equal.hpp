@@ -10,14 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_COMPARE_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/reversebits.hpp>
-#include <boost/simd/include/functions/compare_equal.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// Local shared helper
-////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/toolbox/operator/functions/compare_equal.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -55,15 +49,15 @@ namespace boost { namespace simd { namespace ext
       htype a00 = {_mm256_extractf128_si256(a0, 0)}; 
       htype a10 = {_mm256_extractf128_si256(a1, 0)};
       if (!compare_equal(a00, a10))
-	{
-	  return false;
-	} 
+      {
+        return false;
+      } 
       else
-	{
-	  htype a01 = {_mm256_extractf128_si256(a0, 1)};	
-	  htype a11 = {_mm256_extractf128_si256(a1, 1)}; 
-	  return  compare_equal(a01, a11);
-	}
+      {
+        htype a01 = {_mm256_extractf128_si256(a0, 1)};	
+        htype a11 = {_mm256_extractf128_si256(a1, 1)}; 
+        return  compare_equal(a01, a11);
+      }
     }
   };
 } } }
