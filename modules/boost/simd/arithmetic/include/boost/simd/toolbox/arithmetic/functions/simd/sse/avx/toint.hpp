@@ -39,14 +39,16 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<double_<A0>,boost::simd::tag::avx_>))
                        )
   {
- typedef typename dispatch::meta::as_integer<A0>::type result_type; 
+    typedef typename dispatch::meta::as_integer<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef native < double, boost::simd::tag::sse_ > htype;
+      typedef typename dispatch::meta::scalar_of<result_type>::type stype;
+      typedef native < stype, boost::simd::tag::sse_ > htype;
+      
       htype h1 = make<htype>(a0[0],a0[1]);
       htype h2 = make<htype>(a0[2],a0[3]);
-      result_type r = {_mm_insertf128_pd(r, h1, 0)};
-      r =  _mm_insertf128_pd(r, h2, 1);
+      result_type r = {_mm256_insertf128_si256(r, h1, 0)};
+      r =  _mm256_insertf128_si256(r, h2, 1);
       return r; 
       //return make<type>(a0[0],a0[1], a0[2],a0[3]); //TODO make working
     }
