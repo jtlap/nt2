@@ -137,7 +137,7 @@ NT2_TEST_CASE_TPL ( rdivide_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( boost::simd::rdivide(a0,a1),(a1!=0) ? (a0/(a1+((a1==0)?1:0))) : ((a0>0) ? boost::simd::Valmax<r_t>() : (a0<0) ? boost::simd::Valmin<r_t>() : 0),0);
+        NT2_TEST_ULP_EQUAL( boost::simd::rdivide(a0,a1),(a0==boost::simd::Valmin<T>() && a1==boost::simd::Mone<T>()) ? boost::simd::Valmax<r_t>(): (a1!=0) ? (a0/(a1+((a1==0)?1:0))) : ((a0>0) ? boost::simd::Valmax<r_t>() : (a0<0) ? boost::simd::Valmin<r_t>() : 0),0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
