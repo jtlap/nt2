@@ -143,14 +143,13 @@ macro(nt2_module_main module)
     set(NT2_WITH_TESTS_ 0)
   endif()
   option(NT2_WITH_TESTS "Enable benchmarks and unit tests" ${NT2_WITH_TESTS_})
+  option(NT2_WITH_TESTS_FULL "Use one executable per test" OFF)
+  option(NT2_WITH_TESTS_BENCH "Register benchmarks with ctest" OFF)
   option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
-  
-  if(NT2_WITH_TESTS_COVER AND NOT NT2_WITH_TESTS)
-    set(NT2_WITH_TESTS 1 CACHE BOOL "Enable benchmarks and unit tests" FORCE)
-  endif()
+  set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST} CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
 
   if(NT2_WITH_TESTS)
-    ENABLE_TESTING()
+    enable_testing()
     
     nt2_module_dir(bench)
     nt2_module_dir(examples)
@@ -232,61 +231,69 @@ macro(nt2_module_use_modules)
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
 endmacro()
 
-macro(nt2_module_add_exe DIRECTORY EXECUTABLE)
-
+macro(nt2_module_add_exe name)
+  string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\2" suffix ${name})
+  
+  add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
+  set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
+  set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
+  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${suffix})
+  nt2_module_target_parent(${name})
 endmacro()
 
-macro(nt2_module_add_unit)
-  nt2_module_add_test(unit ${ARGN})
+# like add_exe but slightly different suffix management
+macro(nt2_module_add_example name)
+  add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
+  set_property(TARGET ${name} PROPERTY FOLDER examples)
+  set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
+  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/examples)
+
+  string(REGEX REPLACE "\\.sample$" ".examples" suite ${name})
+  nt2_module_target_parent(${suite})
 endmacro()
 
 macro(nt2_module_add_tests name)  
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\1" prefix ${name})
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\2" suffix ${name})
   
-  create_test_sourcelist(${name}_files ${name}.cpp ${ARGN})
-  set_property(SOURCE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" PROPERTY COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS=1")
-  file(READ "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" DATA)
-  foreach(source ${ARGN})
-    string(REGEX REPLACE "^([^/]+).cpp$" "\\1" basename ${source})
-    string(REPLACE "int ${basename}(int, char*[]);" "extern \"C\" int nt2_test_${basename}(int, char*[]);" DATA "${DATA}")
-    string(REGEX REPLACE "\"${basename}\",([ \r\n]+)${basename}" "\"${basename}\",\\1nt2_test_${basename}" DATA "${DATA}")
-    set_property(SOURCE ${source} PROPERTY COMPILE_DEFINITIONS NT2_UNIT_MAIN=nt2_test_${basename})
-  endforeach()
-  file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" "${DATA}")
-  
-  add_executable(${name} EXCLUDE_FROM_ALL ${${name}_files})
-  set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
-  set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
-  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/${suffix}")
-  
-  nt2_module_target_parent(${name})
+  if(NOT NT2_WITH_TESTS_FULL)
+    create_test_sourcelist(${name}_files ${name}.cpp ${ARGN})
+    set_property(SOURCE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" PROPERTY COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS=1")
+    nt2_module_add_exe(${name} ${${name}_files})
     
-  if(NOT CMAKE_CROSSCOMPILING_HOST AND DEFINED ENV{CMAKE_CROSSCOMPILING_HOST})
-    set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})
+    file(READ "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" DATA)
   endif()
-    
+  
   foreach(source ${ARGN})
     string(REGEX REPLACE "^([^/]+).cpp$" "\\1" basename ${source})
-       
-    if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
-      add_test(${prefix}.${basename}.${suffix} /bin/sh -c
-               "scp \"${PROJECT_BINARY_DIR}/${suffix}/${CMAKE_CFG_INTDIR}/${name}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${name} ${basename} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${name}"
-              )
+    
+    if(NOT NT2_WITH_TESTS_FULL)
+      string(REPLACE "int ${basename}(int, char*[]);" "extern \"C\" int nt2_test_${basename}(int, char*[]);" DATA "${DATA}")
+      string(REGEX REPLACE "\"${basename}\",([ \r\n]+)${basename}" "\"${basename}\",\\1nt2_test_${basename}" DATA "${DATA}")
+      set_property(SOURCE ${source} PROPERTY COMPILE_DEFINITIONS NT2_UNIT_MAIN=nt2_test_${basename})
+      set(exe ${name})
+      set(arg ${basename})
     else()
-      add_test(${prefix}.${basename}.${suffix} "${PROJECT_BINARY_DIR}/${suffix}/${name}" ${basename})
+      nt2_module_add_exe(${prefix}.${basename}.${suffix} ${source})
+      set(exe ${prefix}.${basename}.${suffix})
+      set(arg)
+    endif()
+    
+    if(NOT suffix STREQUAL bench OR NT2_WITH_TESTS_BENCH)
+      if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
+        add_test(${prefix}.${basename}-${suffix} /bin/sh -c
+                 "scp \"${PROJECT_BINARY_DIR}/${suffix}/${CMAKE_CFG_INTDIR}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
+                )
+      else()
+        add_test(${prefix}.${basename}-${suffix} ${PROJECT_BINARY_DIR}/${suffix}/${exe} ${arg})
+      endif()
     endif()
   endforeach()
-endmacro()
-
-macro(nt2_module_add_example EXECUTABLE)
-  add_executable(${EXECUTABLE} EXCLUDE_FROM_ALL ${ARGN})
-  set_property(TARGET ${EXECUTABLE} PROPERTY FOLDER examples)
-  set_property(TARGET ${EXECUTABLE} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
-  set_property(TARGET ${EXECUTABLE} PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/examples")
-
-  string(REGEX REPLACE "\\.sample$" ".examples" suite ${EXECUTABLE})
-  nt2_module_target_parent(${suite})
+  
+  if(NOT NT2_WITH_TESTS_FULL)
+    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" "${DATA}")
+  endif()
+  
 endmacro()
 
 macro(nt2_module_install_file header)
