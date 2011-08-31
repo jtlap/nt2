@@ -19,9 +19,7 @@ SET( SOURCES
   is_equal_with_equal_nans.cpp
   sb2b.cpp
   majority.cpp
-  is_unord.cpp
-  is_true.cpp
-  is_positive.cpp
+  is_unord.cpp  is_positive.cpp
   is_ord.cpp
   is_odd.cpp
   is_not_less_equal.cpp
@@ -44,9 +42,7 @@ SET( SOURCES
   is_gtz.cpp
   is_gez.cpp
   is_flint.cpp
-  is_finite.cpp
-  is_false.cpp
-  is_even.cpp
+  is_finite.cpp  is_even.cpp
   is_eqz.cpp
   boolean.cpp
 # List of scalar test files for toolbox predicates
