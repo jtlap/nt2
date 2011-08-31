@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //============================================================================== 
-#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_INCLUDE_IS_NGT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_PREDICATES_INCLUDE_IS_NGT_HPP_INCLUDED
-#include <boost/simd/toolbox/predicates/include/functions/is_not_greater.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_INCLUDE_FUNCTIONS_IS_NGE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_PREDICATES_INCLUDE_FUNCTIONS_IS_NGE_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/include/functions/is_not_greater_equal.hpp>
 #endif

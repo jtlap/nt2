@@ -16,7 +16,8 @@ namespace boost { namespace simd { namespace tag
   {         
     struct is_eqz_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_eqz_, is_eqz, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_eqz_, is_eqz,   1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_eqz_, is_false, 1)
 } }
  
 #endif

@@ -10,11 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_EQUAL_TO_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/downgrade.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_equal.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -45,102 +41,35 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<ints8_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<ints8_<A0>,boost::simd::tag::avx_>))
+                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::scalar_of<A0>::type             sctype;
-      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a10 = { _mm256_extractf128_si256(a1, 0)};
-      svtype  r0 = { _mm_cmpeq_epi8(a00,a10) };
-      result_type that  = {_mm256_insertf128_si256(that, r0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      svtype a11 = { _mm256_extractf128_si256(a1, 1)};
-      svtype r1 = { _mm_cmpeq_epi8(a01,a11) };
-      that = _mm256_insertf128_si256(that, r1, 1);
-      return that; 
+      A0 that = { _mm_cmp_pd(a0,a1, _CMP_EQ_OQ) };
+      return that;
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<ints16_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<ints16_<A0>,boost::simd::tag::avx_>))
+                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<float_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::scalar_of<A0>::type             sctype;
-      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a10 = { _mm256_extractf128_si256(a1, 0)};
-      svtype  r0 = { _mm_cmpeq_epi16(a00,a10) };
-      result_type that  = {_mm256_insertf128_si256(that, r0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      svtype a11 = { _mm256_extractf128_si256(a1, 1)};
-      svtype r1 = { _mm_cmpeq_epi16(a01,a11) };
-      that = _mm256_insertf128_si256(that, r1, 1);
-      return that; 
+      A0 that = { _mm_cmp_ps(a0,a1, _CMP_EQ_OQ) };
+      return that;
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::avx_
-                            , (A0)
-                            , ((simd_<ints32_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<ints32_<A0>,boost::simd::tag::avx_>))
-                            )
-  {
-    typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      typedef typename meta::scalar_of<A0>::type             sctype;
-      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a10 = { _mm256_extractf128_si256(a1, 0)};
-      svtype  r0 = { _mm_cmpeq_epi32(a00,a10) };
-      result_type that  = {_mm256_insertf128_si256(that, r0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      svtype a11 = { _mm256_extractf128_si256(a1, 1)};
-      svtype r1 = { _mm_cmpeq_epi32(a01,a11) };
-      that = _mm256_insertf128_si256(that, r1, 1);
-      return that; 
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::avx_
-                            , (A0)
-                            , ((simd_<ints64_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<ints64_<A0>,boost::simd::tag::avx_>))
-                            )
-  {
-    typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      typedef typename meta::scalar_of<A0>::type             sctype;
-      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a10 = { _mm256_extractf128_si256(a1, 0)};
-      svtype  r0 = { _mm_cmpeq_epi64(a00,a10) };
-      result_type that  = {_mm256_insertf128_si256(that, r0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      svtype a11 = { _mm256_extractf128_si256(a1, 1)};
-      svtype r1 = { _mm_cmpeq_epi64(a01,a11) };
-      that = _mm256_insertf128_si256(that, r1, 1);
-      return that; 
-    }
-  };
 } } }
 
 #endif
