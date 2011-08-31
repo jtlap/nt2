@@ -122,7 +122,6 @@ namespace boost { namespace simd { namespace ext
 				  r1)
 			   )
 		    ); 
-
     }
   };
 

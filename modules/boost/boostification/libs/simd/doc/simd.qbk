@@ -1,0 +1,59 @@
+[library simd
+    [quickbook 1.5]
+    [authors [Falcou, Joel], [Gaunard, Mathias],[ Lapresté, Jean-Thierry]]
+        [copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Blaise Pascal]
+        [copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI]
+    [id simd]
+    [dirname simd]
+    [purpose
+        SIMD instructions abstraction
+    ]
+    [license Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        [@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+]
+
+[/
+
+[def __first__   [link simd.reduction.first `first`]]
+[def __maximum__ [link simd.reduction.maximum `maximum`]]
+[def __minimum__ [link simd.reduction.minimum `minimum`]]
+[def __prod__    [link simd.reduction.prod `prod`]]
+[def __second__  [link simd.reduction.second `second`]]
+[def __sum__     [link simd.reduction.sum `sum`]]
+[def __next__    [link simd.ieee.next `next`]]
+[def __successor__ [link simd.ieee.successor `successor`]]
+
+]
+
+[def __unspecified__ /unspecified/]
+
+[warning Boost.Dispatch is a library in development and is not part of Boost.]
+
+[include preface.qbk]
+
+[include getting_started.qbk]
+
+[include sdk.qbk]
+[include rationale.qbk]
+
+[/
+[include operator.qbk]
+[include arithmetic.qbk]
+[include bitwise.qbk]
+[include ieee.qbk]
+[include predicates.qbk]
+[include reduction.qbk]
+[include swar.qbk]
+/]
+
+[xinclude sdk_reference.xml]
+[xinclude operator.xml]
+[xinclude arithmetic.xml]
+[xinclude bitwise.xml]
+[xinclude constant.xml]
+[xinclude ieee.xml]
+[xinclude predicates.xml]
+[xinclude reduction.xml]
+[xinclude swar.xml]

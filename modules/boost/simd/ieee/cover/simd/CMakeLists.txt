@@ -49,11 +49,5 @@ SET( SOURCES
 # List of simd test files for toolbox ieee
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(ieee.simd.${EXAMPLE}.cover ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(ieee.simd.cover ${SOURCES})
 

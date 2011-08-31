@@ -19,11 +19,5 @@ SET( SOURCES
 # List of scalar test files for toolbox bessel
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(bessel.scalar.${EXAMPLE}.cover ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(bessel.scalar.cover ${SOURCES})
 

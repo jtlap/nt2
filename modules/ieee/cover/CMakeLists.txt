@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(ieee.scalar.cover)
-ADD_CUSTOM_TARGET(ieee.simd.cover)
-ADD_DEPENDENCIES(ieee.cover ieee.scalar.cover ieee.simd.cover)
-
-##############################################################################
-# Toolbox ieee cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates arithmetic)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

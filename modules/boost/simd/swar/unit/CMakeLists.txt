@@ -7,14 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(boost.simd.swar.simd.unit)
-ADD_DEPENDENCIES(boost.simd.swar.unit boost.simd.swar.simd.unit)
-
-##############################################################################
-# Toolbox swar unit tests
-##############################################################################
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(simd)

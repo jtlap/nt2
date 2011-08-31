@@ -36,6 +36,7 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( fast_hypot_real__2_0,  NT2_SIMD_REAL_TYPES)
@@ -64,6 +65,6 @@ NT2_TEST_CASE_TPL ( fast_hypot_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::Sqrt_2<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Sqrt_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Three<vT>(),nt2::Four <r_t>())[0], nt2::Five <sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Three<vT>(),nt2::Four<vT>())[0], nt2::Five <sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
 } // end of test for real_

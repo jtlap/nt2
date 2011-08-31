@@ -40,11 +40,5 @@ SET( SOURCES
   splat.cpp
   )
 
-################################################################################
-# For each filename
-################################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(operator.simd.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(operator.simd.unit ${SOURCES})
 

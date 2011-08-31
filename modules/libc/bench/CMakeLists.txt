@@ -7,12 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##****************************************************************************
-##*     Toolbox libc bench tests
-##****************************************************************************
-
-ADD_CUSTOM_TARGET(libc.scalar.bench)
-ADD_DEPENDENCIES(libc.bench libc.scalar.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)

@@ -7,14 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##############################################################################
-###     Toolbox bessel bench tests
-##############################################################################
-
-ADD_CUSTOM_TARGET(bessel.scalar.bench)
-ADD_CUSTOM_TARGET(bessel.simd.bench)
-ADD_DEPENDENCIES(bessel.bench bessel.scalar.bench bessel.simd.bench)
-
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

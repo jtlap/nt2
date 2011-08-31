@@ -15,7 +15,6 @@
  */
 
 #include <boost/mpl/placeholders.hpp>
-#include <boost/dispatch/error/static_assert.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

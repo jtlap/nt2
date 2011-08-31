@@ -8,18 +8,21 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SCALAR_IMPL_HORNER_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SCALAR_IMPL_HORNER_HPP_INCLUDED
-#include <boost/mpl/vector.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/mpl/pop_back.hpp>
+
 #include <boost/mpl/at.hpp>
+#include <boost/mpl/size.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/pop_back.hpp>
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/madd.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/tuple/to_seq.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <boost/dispatch/preprocessor/strip.hpp>
+
 namespace nt2
 {
   //////////////////////////////////////////////////////////////////////////////

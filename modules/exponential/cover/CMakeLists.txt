@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(exponential.scalar.cover)
-ADD_CUSTOM_TARGET(exponential.simd.cover)
-ADD_DEPENDENCIES(exponential.cover exponential.scalar.cover exponential.simd.cover)
-
-##############################################################################
-# Toolbox exponential cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates arithmetic cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

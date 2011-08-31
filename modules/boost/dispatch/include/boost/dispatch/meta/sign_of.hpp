@@ -14,6 +14,7 @@
 // signed and 'unsigned' otherwise.
 // See: http://nt2.metascale.org/sdk/meta/traits/sign_of.html
 //////////////////////////////////////////////////////////////////////////////
+#include <boost/mpl/assert.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/is_signed.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
@@ -47,13 +48,20 @@ namespace boost { namespace dispatch { namespace meta
   template<class T>
   struct  sign_of : details::sign_of < typename meta::strip<T>::type >
   {
-    BOOST_DISPATCH_STATIC_ASSERT
-    ( (is_fundamental < typename meta::
-                        primitive_of< typename meta::strip<T>::type >::type
-                      >::value)
+    //==========================================================================
+    /*
+     * A type with a non-fundamental primitive is used in 
+     * boost::dispatch::meta::sign_of.
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
+    ( (is_fundamental < typename
+                        meta::primitive_of<typename meta::strip<T>::type>::type
+                      >::value
+      )
     , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_SIGN_OF
-    , "A type with a non-fundamental primitive is used in boost::dispatch::meta::sign_of."
-    );
+    , (T&)
+    );        
   };
 } } }
 #endif

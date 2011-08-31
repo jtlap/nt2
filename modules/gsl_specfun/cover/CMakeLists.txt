@@ -8,15 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(gsl_specfun.scalar.cover)
-ADD_DEPENDENCIES(gsl_specfun.cover gsl_specfun.scalar.cover)
-
-##############################################################################
-# Toolbox gsl_specfun cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates)
 ADD_SUBDIRECTORY(scalar)
 

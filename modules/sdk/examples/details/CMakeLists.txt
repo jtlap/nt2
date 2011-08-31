@@ -16,9 +16,6 @@ SET(SOURCES
     display_type.cpp
     )
 
-ADD_CUSTOM_TARGET(sdk.details.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.details.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

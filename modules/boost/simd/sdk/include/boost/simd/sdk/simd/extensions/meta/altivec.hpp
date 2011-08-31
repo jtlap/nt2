@@ -14,19 +14,11 @@
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
-#include <boost/dispatch/functor/meta/hierarchy.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <climits>
-
-////////////////////////////////////////////////////////////////////////////////
-// Tag hierarchy for Altivec PPC extensions
-////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace tag
-{
-  BOOST_DISPATCH_HIERARCHY_CLASS(altivec_, boost::dispatch::tag::cpu_);
-} } }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Altivec PPC extensions overload

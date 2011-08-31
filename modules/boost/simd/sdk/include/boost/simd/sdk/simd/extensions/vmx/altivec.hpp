@@ -9,8 +9,6 @@
 #ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_VMX_ALTIVEC_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_VMX_ALTIVEC_HPP_INCLUDED
 
-#include <boost/simd/sdk/error/warning.hpp>
-
 #if defined(__ALTIVEC__) || defined(__VEC__)
 #  ifndef BOOST_SIMD_HAS_VMX_SUPPORT
 #    define BOOST_SIMD_HAS_VMX_SUPPORT
@@ -20,11 +18,6 @@
 #endif
 
 #if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_VMX_SUPPORT)
-
-////////////////////////////////////////////////////////////////////////////////
-// Report discovery of Altivec support
-////////////////////////////////////////////////////////////////////////////////
-BOOST_SIMD_WARNING(AltiVec SIMD extension detected)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Include the proper intrinsic include. Depending of the option used by the

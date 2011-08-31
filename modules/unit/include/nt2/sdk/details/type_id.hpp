@@ -64,7 +64,7 @@ namespace nt2 {  namespace details
     #endif
   }
   
-  std::ostream& indent(std::ostream& os, size_t depth)
+  inline std::ostream& indent(std::ostream& os, size_t depth)
   {
     for(size_t i=0; i<depth; ++i)
       os << "    ";

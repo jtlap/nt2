@@ -14,6 +14,7 @@
  * \brief Defines and implements \ref boost::dispatch::meta::as_signed
  */
 
+#include <boost/mpl/assert.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/is_fundamental.hpp>
 #include <boost/dispatch/meta/details/as_signed.hpp>
@@ -67,14 +68,20 @@ namespace boost { namespace dispatch { namespace meta
   struct  as_signed
         : details::as_signed_impl< typename meta::strip<T>::type >
   {
-    BOOST_DISPATCH_STATIC_ASSERT
+    //==========================================================================
+    /*
+     * A type with a non-fundamental primitive is used in 
+     * boost::dispatch::meta::as_signed.
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
     ( (is_fundamental < typename
                         meta::primitive_of<typename meta::strip<T>::type>::type
                       >::value
       )
     , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_SIGNED
-    , "A type with a non-fundamental primitive is used in boost::dispatch::meta::as_signed."
-    );
+    , (T&)
+    );    
   };
 } } }
 

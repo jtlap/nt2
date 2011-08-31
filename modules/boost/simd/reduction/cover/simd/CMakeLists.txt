@@ -11,7 +11,8 @@
 SET( SOURCES
   bitwise_any.cpp
   bitwise_all.cpp
-    none.cpp
+  is_simd_logical.cpp
+  none.cpp
   sum.cpp
   second.cpp
   prod.cpp
@@ -29,11 +30,5 @@ SET( SOURCES
 # List of simd test files for toolbox reduction
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(reduction.simd.${EXAMPLE}.cover ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(reduction.simd.cover ${SOURCES})
 

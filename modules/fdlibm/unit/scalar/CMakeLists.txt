@@ -82,10 +82,4 @@ SET( SOURCES
 # List of scalar test files for toolbox fdlibm
    )
 
-##****************************************************************************
-# For each filename
-##****************************************************************************
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(fdlibm.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(fdlibm.scalar.unit ${SOURCES})

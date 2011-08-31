@@ -14,5 +14,7 @@ set(SOURCES
     memory/allocate.cpp
     memory/deallocate.cpp
     memory/reallocate.cpp
+    config/cpuid.cpp
+    config/get_vendor.cpp
    )
 nt2_module_add_library(boost_simd ${SOURCES})

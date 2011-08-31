@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( fast_hypot_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::One<T>(), nt2::One<T>()), nt2::Sqrt_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Three<T>(),nt2::Four <r_t>()), nt2::Five <r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Three<T>(),nt2::Four<T>()), nt2::Five <r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
 } // end of test for real_
 
@@ -83,7 +83,7 @@ NT2_TEST_CASE_TPL ( fast_hypot_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::One<T>(), nt2::One<T>()), nt2::Sqrt_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Three<T>(),nt2::Four <r_t>()), nt2::Five <r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Three<T>(),nt2::Four <T>()), nt2::Five <r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
 } // end of test for unsigned_int_
 
@@ -109,6 +109,6 @@ NT2_TEST_CASE_TPL ( fast_hypot_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::One<T>(), nt2::One<T>()), nt2::Sqrt_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Three<T>(),nt2::Four <r_t>()), nt2::Five <r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Three<T>(),nt2::Four<T>()), nt2::Five <r_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_hypot(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
 } // end of test for signed_int_

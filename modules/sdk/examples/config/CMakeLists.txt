@@ -13,9 +13,6 @@ SET(SOURCES
     platform.cpp
    )
 
-ADD_CUSTOM_TARGET(sdk.config.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.config.examples)
-
 ################################################################################
 # For each filename
 ################################################################################
@@ -23,4 +20,3 @@ FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
   nt2_module_add_example(sdk.config.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
-

@@ -82,10 +82,4 @@ SET( SOURCES
 # List of simd test files for toolbox fdlibm
    )
 
-##****************************************************************************
-# For each filename
-##****************************************************************************
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(fdlibm.simd.${EXAMPLE}.bench ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(fdlibm.simd.bench ${SOURCES})

@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_FDLIBM_FUNCTIONS__IEEE754_COSH_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/fdlibm/include.hpp>
 
 namespace nt2 { namespace fdlibm { namespace tag
   {         

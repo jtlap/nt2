@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_FINITE_HPP_INCLUDED
+
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -24,10 +24,4 @@ SET( SOURCES
 # List of scalar test files for toolbox reduction
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(boost.simd.reduction.scalar.${EXAMPLE}.bench ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(boost.simd.reduction.scalar.bench ${SOURCES})

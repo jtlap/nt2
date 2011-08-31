@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_PACK_SUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_PACK_SUM_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/dispatch/dsl/terminal_of.hpp>
 

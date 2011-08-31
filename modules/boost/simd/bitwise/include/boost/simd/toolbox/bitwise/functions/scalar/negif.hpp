@@ -11,16 +11,16 @@
 
 #include <boost/simd/include/functions/is_true.hpp>
 
-#ifdef BOOST_MSVC
-  #pragma warning(push)
-  #pragma warning(disable: 4146) // unary minus applied to unsigned
-#endif
+// #ifdef BOOST_MSVC
+//   #pragma warning(push)
+//   #pragma warning(disable: 4146) // unary minus applied to unsigned
+// #endif
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negif_, tag::cpu_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
-                              (scalar_< fundamental_<A1> >)
+                              (scalar_< signed_<A1> >)
                             )
   {
     typedef A1 result_type;
@@ -28,8 +28,8 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
-#ifdef BOOST_MSVC
-  #pragma warning(pop)
-#endif
+// #ifdef BOOST_MSVC
+//   #pragma warning(pop)
+// #endif
 
 #endif

@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(hyperbolic.scalar.cover)
-ADD_CUSTOM_TARGET(hyperbolic.simd.cover)
-ADD_DEPENDENCIES(hyperbolic.cover hyperbolic.scalar.cover hyperbolic.simd.cover)
-
-##############################################################################
-# Toolbox hyperbolic cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates arithmetic exponential cephes libc boost_math)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

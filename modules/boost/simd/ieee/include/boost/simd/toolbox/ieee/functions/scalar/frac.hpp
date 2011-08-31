@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FRAC_HPP_INCLUDED
 #include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-
 #include <boost/simd/include/functions/trunc.hpp>
 
 
@@ -24,9 +23,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
@@ -46,13 +43,8 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< real_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return a0-boost::simd::trunc(a0);
-    }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0-boost::simd::trunc(a0); }
   };
 } } }
 

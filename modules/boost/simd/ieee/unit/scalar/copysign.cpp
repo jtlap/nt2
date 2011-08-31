@@ -57,31 +57,6 @@ NT2_TEST_CASE_TPL ( copysign_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(copysign(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( copysign_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-  
-  using boost::simd::copysign;
-  using boost::simd::tag::copysign_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<copysign_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(copysign(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(copysign(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for unsigned_int_
-
 NT2_TEST_CASE_TPL ( copysign_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   

@@ -27,15 +27,5 @@ SET( SOURCES
     upgrade.cpp
    )
 
-ADD_CUSTOM_TARGET(boost.simd.sdk.simd.unit)
-ADD_DEPENDENCIES(boost.simd.sdk.unit boost.simd.sdk.simd.unit)
-
-
-################################################################################
-# For each filename
-################################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(boost.simd.sdk.simd.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(boost.simd.sdk.simd.unit ${SOURCES})
 

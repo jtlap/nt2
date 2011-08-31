@@ -112,10 +112,4 @@ SET( SOURCES
 # List of scalar test files for toolbox crlibm
    )
 
-##****************************************************************************
-# For each filename
-##****************************************************************************
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(crlibm.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(crlibm.scalar.unit ${SOURCES})

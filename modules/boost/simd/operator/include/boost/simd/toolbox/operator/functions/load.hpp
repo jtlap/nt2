@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_LOAD_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/operator/include.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Load from memory functor and function

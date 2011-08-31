@@ -34,6 +34,7 @@
              'real_' : {
                  'T(0),T(0),iT(1)' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
                  'T(0),T(1),iT(1)' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
+                 'T(0),T(2),iT(1)' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

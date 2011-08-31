@@ -32,22 +32,10 @@ include(nt2.package)
 #                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc
 #                  )
 
-################################################################################
-# Enable testing if using Makefile generator or instructed to do so
-################################################################################
-if(CMAKE_GENERATOR MATCHES "Make")
-  set(NT2_WITH_TESTS_ 1)
-else()
-  set(NT2_WITH_TESTS_ 0)
-endif()
-
-option(NT2_WITH_TESTS "Enable benchmarks, unit and cover tests" ${NT2_WITH_TESTS_})
-if(NT2_WITH_TESTS)
-  ENABLE_TESTING()
-endif()
-
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 nt2_postconfigure_init()
+
+enable_testing()
 
 ################################################################################
 # Module inclusion
@@ -64,7 +52,10 @@ if(NOT NT2_MODULES)
   while(i LESS len)
     list(GET NT2_MODULES ${i} module)
     string(REPLACE "." "/" module_path ${module})
-    if(NOT EXISTS ${PROJECT_SOURCE_DIR}/modules/${module_path}/CMakeLists.txt)
+    if(${module} MATCHES boostification)
+      list(REMOVE_ITEM NT2_MODULES ${module})
+      list(LENGTH NT2_MODULES len)
+    elseif(NOT EXISTS ${PROJECT_SOURCE_DIR}/modules/${module_path}/CMakeLists.txt)
       list(REMOVE_ITEM NT2_MODULES ${module})
       file(GLOB NT2_MODULES_ RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/${module_path}/*/)
       if(NT2_MODULES_)

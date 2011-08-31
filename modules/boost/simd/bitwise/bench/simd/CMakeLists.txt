@@ -39,10 +39,4 @@ SET( SOURCES
 # List of simd test files for toolbox bitwise
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_bench(boost.simd.bitwise.simd.${EXAMPLE}.bench ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(boost.simd.bitwise.simd.bench ${SOURCES})
