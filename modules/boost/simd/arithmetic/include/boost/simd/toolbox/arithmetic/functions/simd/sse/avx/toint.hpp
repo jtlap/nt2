@@ -35,9 +35,9 @@ namespace boost { namespace simd { namespace ext
     {
       const A0 aa0 = b_andnot(a0, is_nan(a0)); 
       return select(eq(aa0, Inf<A0>()),
-		    Inf<result_type>(),
-		    make<result_type>(aa0[0],aa0[1],aa0[2],aa0[3])
-	);
+        Inf<result_type>(),
+        make<result_type>(aa0[0],aa0[1],aa0[2],aa0[3])
+      );
     }
   };
 

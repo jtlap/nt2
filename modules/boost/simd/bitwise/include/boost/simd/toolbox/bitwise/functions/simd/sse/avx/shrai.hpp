@@ -13,10 +13,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::avx_
-				     , (A0)(A1)
-				     , ((simd_<signed_<A0>,boost::simd::tag::avx_>))
-				       (scalar_< integer_<A1> >)
-				     )
+                            , (A0)(A1)
+                            , ((simd_<signed_<A0>,boost::simd::tag::avx_>))
+                              (scalar_< integer_<A1> >)
+                            )
   {
     typedef A0 result_type; 
     BOOST_SIMD_FUNCTOR_CALL(2)
@@ -31,10 +31,10 @@ namespace boost { namespace simd { namespace ext
      }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::avx_
-				     , (A0)(A1)
-				     , ((simd_<unsigned_<A0>,boost::simd::tag::avx_>))
-				       (scalar_< integer_<A1> >)
-				     )
+                            , (A0)(A1)
+                            , ((simd_<unsigned_<A0>,boost::simd::tag::avx_>))
+                              (scalar_< integer_<A1> >)
+                            )
   {
     typedef A0 result_type; 
     BOOST_SIMD_FUNCTOR_CALL(2)
