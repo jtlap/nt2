@@ -31,7 +31,7 @@
     typedef typename nt2::meta::scalar_of<r_t>::type sr_t;    \
     sr_t r1 = A;              \
     sr_t r2 = B;              \
-    ulpd = nt2::ulpdist(r1, r2);		\
+    ulpd = double(nt2::ulpdist(r1, r2));		\
     bool b;                 \
     b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,    \
               BOOST_CURRENT_FUNCTION,    \
