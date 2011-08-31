@@ -31,6 +31,8 @@ namespace boost { namespace simd { namespace config{ namespace details {
     return (abcd[1] == ((int*)(vendor))[0] && abcd[2] == ((int*)(vendor))[2] && abcd[3] == ((int*)(vendor))[1]);
   }
 
+} } } }
+
 #ifdef BOOST_SIMD_COMPILER_GNU_C
 
   void __cpuid( int CPUInfo[4],int InfoType)
@@ -62,5 +64,3 @@ namespace boost { namespace simd { namespace config{ namespace details {
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
 #include <intrin.h>
 #endif
-
-} } } }

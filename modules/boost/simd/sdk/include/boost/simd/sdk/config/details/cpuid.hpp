@@ -29,9 +29,12 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 ////////////////////////////////////////////////////////////////////////////////
 
   bool str_match(const int abcd[4], const char* vendor);
-  enum { eax,ebx,ecx,edx };
+
+} } } }
 
 #if defined(BOOST_SIMD_COMPILER_GNU_C)
+
+  enum { eax,ebx,ecx,edx };
 
   void __cpuid( int CPUInfo[4],int InfoType);
   void __cpuidex(int CPUInfo[4],int InfoType,int ECXValue);
@@ -39,9 +42,5 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
 #include <intrin.h>
 #endif
-
-
-} } } }
-
 
 #endif
