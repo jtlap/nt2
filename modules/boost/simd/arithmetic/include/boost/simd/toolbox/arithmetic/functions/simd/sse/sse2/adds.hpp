@@ -51,9 +51,10 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is uint8_t
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_
-			      , (A0)
-			      , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))((simd_<uint8_<A0>,boost::simd::tag::sse_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_, 
+				     (A0), 
+				     ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
+				     ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
 			      )
   {
     typedef A0 result_type; 
@@ -68,10 +69,11 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_t
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_
-			      , (A0)
-			      , ((simd_<int8_<A0>,boost::simd::tag::sse_>))((simd_<int8_<A0>,boost::simd::tag::sse_>))
-			      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_, 
+				     (A0), 
+				     ((simd_<int8_<A0>,boost::simd::tag::sse_>))
+				     ((simd_<int8_<A0>,boost::simd::tag::sse_>))
+				     )
   {
     typedef A0 result_type; 
 
