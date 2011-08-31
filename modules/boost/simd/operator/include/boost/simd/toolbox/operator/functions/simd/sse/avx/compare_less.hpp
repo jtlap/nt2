@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
       } 
       else if (compare_equal(a00, a10))
       {
-        htype a01 = {_mm256_extractf128_si256(a0, 1)};	
+        htype a01 = {_mm256_extractf128_si256(a0, 1)};  
         htype a11 = {_mm256_extractf128_si256(a1, 1)}; 
         return  compare_less(a01, a11);
       }

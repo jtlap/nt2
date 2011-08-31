@@ -9,13 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_DIVIDES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_DIVIDES_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/simd/toolbox/operator/functions/divides.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, boost::simd::tag::avx_
-                            , (A0)
+                              , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::avx_>))
                               ((simd_<double_<A0>,boost::simd::tag::avx_>))
                             )

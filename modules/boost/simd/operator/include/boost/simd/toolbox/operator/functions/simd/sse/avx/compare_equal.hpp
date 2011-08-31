@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
       } 
       else
       {
-        htype a01 = {_mm256_extractf128_si256(a0, 1)};	
+        htype a01 = {_mm256_extractf128_si256(a0, 1)};  
         htype a11 = {_mm256_extractf128_si256(a1, 1)}; 
         return  compare_equal(a01, a11);
       }

@@ -27,10 +27,10 @@ namespace boost { namespace simd { namespace ext
       using boost::simd::native_cast;
       typedef native<float, tag::avx_> ftype;
       A0 that = { native_cast<A0>
-		  ( _mm256_xor_ps ( native_cast<ftype>(a0), 
-				    native_cast<ftype>(a1)
-				    )
-		    )
+                  ( _mm256_xor_ps ( native_cast<ftype>(a0), 
+                                    native_cast<ftype>(a1)
+                                    )
+                    )
       };
       return that;
     }
