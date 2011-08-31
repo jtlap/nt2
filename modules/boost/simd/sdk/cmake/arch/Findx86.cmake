@@ -27,6 +27,13 @@ macro(nt2_simd_set_fpmath ext)
       if(HAS_GCC_MFPMATH_${ext_u})
         set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -mfpmath=${ext_l}")
       endif()
+      
+      if(ext_l STREQUAL avx)
+        check_cxx_compiler_flag("-fabi-version=4" HAS_GCC_FABI_VERSION_4)
+        if(HAS_GCC_FABI_VERSION_4)
+          set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -fabi-version=4")
+        endif()
+      endif()
 
   elseif(NT2_COMPILER_MSVC)
   
