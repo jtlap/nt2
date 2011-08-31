@@ -12,7 +12,6 @@
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
@@ -76,11 +75,9 @@ namespace boost { namespace simd { namespace ext
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       type v0 = {_mm_packs_epi32(a00, a01)};
-      //     std::cout  << "v0 "<< v0 << std::endl;
       htype a10 = {_mm256_extractf128_si256(a1, 0)};
       htype a11 = {_mm256_extractf128_si256(a1, 1)};
       type v1 = {_mm_packs_epi32(a10, a11)};
-      //      std::cout  << "v1 "<< v1 << std::endl;
       rtype r = {_mm256_insertf128_si256(r, v0, 0)};
       r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1));
       return r;
@@ -149,18 +146,15 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      //     typedef typename meta::same<A0,boost::simd::tag::sse_>::type htype;
       typedef simd::native<typename meta::scalar_of<A0>::type,boost::simd::tag::sse_ >   htype;
       typedef simd::native<typename meta::scalar_of<rtype>::type,boost::simd::tag::sse_ >   type;
-      //      typedef typename meta::same<rtype,boost::simd::tag::sse_>::type type;
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       type v0 = {_mm_packus_epi32(a00, a01)};
-      //std::cout  << "v0 "<< v0 << std::endl;
+
       htype a10 = {_mm256_extractf128_si256(a1, 0)};
       htype a11 = {_mm256_extractf128_si256(a1, 1)};
       type v1 = {_mm_packus_epi32(a10, a11)};
-      //std::cout  << "v1 "<< v1 << std::endl;
       rtype r = {_mm256_insertf128_si256(r, v0, 0)};
       r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1));
       return r;
