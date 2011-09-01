@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <iostream>
 
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
@@ -68,6 +69,28 @@ namespace boost { namespace simd { namespace ext
       return _mm256_movemask_pd(native_cast<vdouble>(a0));
     }
   };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Implementation when type A0 is type16
+  /////////////////////////////////////////////////////////////////////////////
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::avx_,
+                              (A0),
+                              ((simd_<type16_<A0>,boost::simd::tag::avx_>))
+                            )
+  {
+    typedef boost::simd::uint32_t result_type; 
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      
+      typedef typename meta::scalar_of<A0>::type             sctype;
+      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
+      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
+      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
+      std::cout << "hmsb(a00)  "<< hmsb(a00) << std::endl;
+      std::cout << "hmsb(a01)  "<< hmsb(a01) << std::endl;
+      return hmsb(a00)|(hmsb(a01)<<8);
+    }
+  };  
 } } }
 
 #endif
