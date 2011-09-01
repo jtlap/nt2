@@ -32,7 +32,7 @@
                  'boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
              'unsigned_int_' : {
-                 'boost::simd::Allbits<T>()' : {'result' : 'true','ulp_thresh' : '0',},
+                 'boost::simd::Mone<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },

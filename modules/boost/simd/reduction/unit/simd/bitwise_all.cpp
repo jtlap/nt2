@@ -100,10 +100,10 @@ NT2_TEST_CASE_TPL ( bitwise_all_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYP
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
- 
+
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::True<vT>()), true);
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::Mone<vT>()), true);
   NT2_TEST_EQUAL(bitwise_all(boost::simd::One<vT>()), false);
   NT2_TEST_EQUAL(bitwise_all(boost::simd::Zero<vT>()), false);
 } // end of test for unsigned_int_
