@@ -36,8 +36,7 @@ NT2_TEST_CASE_TPL ( split_lt_64__1_0, (boost::simd::int16_t)(boost::simd::uint16
   using boost::simd::load; 
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
-  //  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::tag::avx_ ext_t; 
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
