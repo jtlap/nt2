@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type bts;
-      return bitwise_cast<A0, bts>(b_and(b_not(bitwise_cast<bts>(a0)),
+      return bitwise_cast<A0>(b_and(b_not(bitwise_cast<bts>(a0)),
 					 bitwise_cast<bts>(a1)
 					 )
 				   ); 

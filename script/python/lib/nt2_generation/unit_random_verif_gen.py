@@ -118,7 +118,7 @@ class Random_verif_test_gen(Base_gen) :
 
     def expand_to_list(self,typ) :
 ##        print("typ ->>> %s"%typ)
-        return self.bg.Expansion_dict[self.platform][typ]
+        return self.bg.Expansion_dict[self.platform].get(typ,typ)
     
     def loads(self, beg, df, arity) :
         s = []

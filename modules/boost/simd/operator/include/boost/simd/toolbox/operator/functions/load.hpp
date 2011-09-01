@@ -11,7 +11,6 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Load from memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/functions/load.html

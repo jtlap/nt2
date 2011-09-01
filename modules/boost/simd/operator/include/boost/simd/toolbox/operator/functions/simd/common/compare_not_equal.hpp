@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_NOT_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_NOT_EQUAL_HPP_INCLUDED
-
 #include <boost/simd/include/functions/compare_equal.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,7 +18,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return !(a0==a1); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return !compare_equal(a0,a1); }
   };
 } } }
 

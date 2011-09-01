@@ -11,7 +11,8 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
@@ -24,9 +25,9 @@ namespace boost { namespace simd { namespace ext
                        )
   {
       typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename dispatch::meta::downgrade<stype>::type                          utype;
-      typedef simd::native<utype,simd::avx_>                                          type1;
-      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename dispatch::meta::downgrade<stype>::type                         utype;
+      typedef simd::native<utype,boost::simd::tag::avx_>                              type1;
+      typedef simd::native<float,boost::simd::tag::avx_>                              type2;
       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
                                         , type2
                                         , type1
@@ -55,10 +56,10 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<int32_<A0>,boost::simd::tag::avx_>))
                        )
   {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename dispatch::meta::downgrade<stype>::type                          utype;
-      typedef simd::native<utype,simd::avx_>                                          type1;
-      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename meta::scalar_of<A0>::type                        stype;
+      typedef typename dispatch::meta::downgrade<stype>::type           utype;
+      typedef simd::native<utype,boost::simd::tag::avx_>                type1;
+      typedef simd::native<float,boost::simd::tag::avx_>                type2;
       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
                                         , type2
                                         , type1
@@ -74,11 +75,9 @@ namespace boost { namespace simd { namespace ext
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       type v0 = {_mm_packs_epi32(a00, a01)};
-      std::cout  << "v0 "<< v0 << std::endl;
       htype a10 = {_mm256_extractf128_si256(a1, 0)};
       htype a11 = {_mm256_extractf128_si256(a1, 1)};
       type v1 = {_mm_packs_epi32(a10, a11)};
-      std::cout  << "v1 "<< v1 << std::endl;
       rtype r = {_mm256_insertf128_si256(r, v0, 0)};
       r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1));
       return r;
@@ -96,10 +95,10 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<int16_<A0>,boost::simd::tag::avx_>))
                        )
   {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename dispatch::meta::downgrade<stype>::type                          utype;
-      typedef simd::native<utype,simd::avx_>                                          type1;
-      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename meta::scalar_of<A0>::type                        stype;
+      typedef typename dispatch::meta::downgrade<stype>::type           utype;
+      typedef simd::native<utype,boost::simd::tag::avx_>                type1;
+      typedef simd::native<float,boost::simd::tag::avx_>                type2;
       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
                                         , type2
                                         , type1
@@ -135,10 +134,10 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
                        )
   {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename dispatch::meta::downgrade<stype>::type                          utype;
-      typedef simd::native<utype,simd::avx_>                                          type1;
-      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename meta::scalar_of<A0>::type                        stype;
+      typedef typename dispatch::meta::downgrade<stype>::type           utype;
+      typedef simd::native<utype,boost::simd::tag::avx_>                type1;
+      typedef simd::native<float,boost::simd::tag::avx_>                type2;
       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
                                         , type2
                                         , type1
@@ -147,18 +146,15 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      //     typedef typename meta::same<A0,boost::simd::tag::sse_>::type htype;
       typedef simd::native<typename meta::scalar_of<A0>::type,boost::simd::tag::sse_ >   htype;
       typedef simd::native<typename meta::scalar_of<rtype>::type,boost::simd::tag::sse_ >   type;
-      //      typedef typename meta::same<rtype,boost::simd::tag::sse_>::type type;
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       type v0 = {_mm_packus_epi32(a00, a01)};
-      std::cout  << "v0 "<< v0 << std::endl;
+
       htype a10 = {_mm256_extractf128_si256(a1, 0)};
       htype a11 = {_mm256_extractf128_si256(a1, 1)};
       type v1 = {_mm_packus_epi32(a10, a11)};
-      std::cout  << "v1 "<< v1 << std::endl;
       rtype r = {_mm256_insertf128_si256(r, v0, 0)};
       r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1));
       return r;
@@ -176,15 +172,32 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<int64_<A0>,boost::simd::tag::avx_>))
                        )
   {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename dispatch::meta::downgrade<stype>::type                          utype;
-      typedef simd::native<utype,simd::avx_>                                          type1;
-      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename meta::scalar_of<A0>::type                        stype;
+      typedef typename dispatch::meta::downgrade<stype>::type           utype;
+      typedef simd::native<utype,boost::simd::tag::avx_>                type1;
+      typedef simd::native<float,boost::simd::tag::avx_>                type2;
       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
                                         , type2
                                         , type1
                                         >::type result_type;
     
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef result_type rtype;
+      typedef simd::native<boost::simd::int32_t,boost::simd::tag::sse_ >   htype;
+      typedef simd::native<boost::simd::int32_t,boost::simd::tag::avx_ >  i32type; 
+      i32type r0 = native_cast < i32type>(a0);
+      i32type r1 = native_cast < i32type>(a1);
+      htype a00 = {_mm256_extractf128_si256(a0, 0)};
+      htype a01 = {_mm256_extractf128_si256(a0, 1)};
+      htype v0 = {_mm_packus_epi32(a00, a01)};
+      htype a10 = {_mm256_extractf128_si256(a1, 0)};
+      htype a11 = {_mm256_extractf128_si256(a1, 1)};
+      htype v1 = {_mm_packus_epi32(a10, a11)};
+      rtype r = {_mm256_insertf128_si256(r, v0, 0)};
+      r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1));
+      return r; 
+    }
   };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -198,15 +211,32 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
                        )
   {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename dispatch::meta::downgrade<stype>::type                          utype;
-      typedef simd::native<utype,simd::avx_>                                          type1;
-      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename meta::scalar_of<A0>::type                        stype;
+      typedef typename dispatch::meta::downgrade<stype>::type           utype;
+      typedef simd::native<utype,boost::simd::tag::avx_>                type1;
+      typedef simd::native<float,boost::simd::tag::avx_>                type2;
       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
                                         , type2
                                         , type1
                                         >::type result_type;
     
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      typedef result_type rtype;
+      typedef simd::native<boost::simd::uint32_t,boost::simd::tag::sse_ >   htype;
+      typedef simd::native<boost::simd::uint32_t,boost::simd::tag::avx_ >  ui32type; 
+      ui32type r0 = native_cast < ui32type>(a0);
+      ui32type r1 = native_cast < ui32type>(a1);
+      htype a00 = {_mm256_extractf128_si256(a0, 0)};
+      htype a01 = {_mm256_extractf128_si256(a0, 1)};
+      htype v0 = {_mm_packus_epi32(a00, a01)};
+      htype a10 = {_mm256_extractf128_si256(a1, 0)};
+      htype a11 = {_mm256_extractf128_si256(a1, 1)};
+      htype v1 = {_mm_packus_epi32(a10, a11)};
+      rtype r = {_mm256_insertf128_si256(r, v0, 0)};
+      r = simd::native_cast<rtype>(_mm256_insertf128_si256(r, v1, 1));
+      return r; 
+    }
   };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -220,10 +250,10 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<uint16_<A0>,boost::simd::tag::avx_>))
                        )
   {
-      typedef typename meta::scalar_of<A0>::type                                      stype;
-      typedef typename dispatch::meta::downgrade<stype>::type                          utype;
-      typedef simd::native<utype,simd::avx_>                                          type1;
-      typedef simd::native<typename meta::float_<A0>::type,simd::avx_>                type2;
+      typedef typename meta::scalar_of<A0>::type                        stype;
+      typedef typename dispatch::meta::downgrade<stype>::type           utype;
+      typedef simd::native<utype,boost::simd::tag::avx_>                type1;
+      typedef simd::native<float,boost::simd::tag::avx_>                type2;
       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
                                         , type2
                                         , type1

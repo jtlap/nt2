@@ -53,6 +53,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(tofloat(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(tofloat(boost::simd::Two<vT>())[0], boost::simd::Two<sr_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
@@ -74,6 +75,10 @@ NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES
   double ulpd;
   ulpd=0.0;
 
+  NT2_TEST_EQUAL(tofloat(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
+  NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(tofloat(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(tofloat(boost::simd::Two<vT>())[0], boost::simd::Two<sr_t>());
 
   // specific values tests
 } // end of test for int_convert_
@@ -97,6 +102,9 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYP
   double ulpd;
   ulpd=0.0;
 
+  NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(tofloat(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(tofloat(boost::simd::Two<vT>())[0], boost::simd::Two<sr_t>());
 
   // specific values tests
 } // end of test for uint_convert_

@@ -24,6 +24,7 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
 
 
 NT2_TEST_CASE_TPL ( bitwise_notand_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -50,8 +51,10 @@ NT2_TEST_CASE_TPL ( bitwise_notand_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(bitwise_notand(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(bitwise_notand(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(bitwise_notand(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(bitwise_notand(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<vT>(),boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
+  std::cout << bitwise_notand(boost::simd::Zero<vT>(),boost::simd::One<vT>()) << std::endl;
+  std::cout << boost::simd::One<sr_t>()<< std::endl;
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( bitwise_notand_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -76,6 +79,8 @@ NT2_TEST_CASE_TPL ( bitwise_notand_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES
 
   // specific values tests
   NT2_TEST_EQUAL(bitwise_notand(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(bitwise_notand(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<vT>(),boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
+  std::cout << bitwise_notand(boost::simd::Zero<vT>(),boost::simd::One<vT>()) << std::endl;
+  std::cout << boost::simd::One<sr_t>()<< std::endl;
 } // end of test for integer_

@@ -30,7 +30,7 @@
 
 NT2_TEST_CASE_TPL ( compare_greater_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using boost::simd::compare_greater;
+ //  using boost::simd::compare_greater;
   using boost::simd::tag::compare_greater_;
   using boost::simd::load; 
   using boost::simd::native;

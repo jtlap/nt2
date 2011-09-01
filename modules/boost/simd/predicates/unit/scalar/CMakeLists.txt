@@ -24,7 +24,6 @@ SET( SOURCES
   majority.cpp
   sb2b.cpp
   is_unord.cpp
-  is_true.cpp
   is_positive.cpp
   is_ord.cpp
   is_odd.cpp
@@ -44,7 +43,6 @@ SET( SOURCES
   is_gez.cpp
   is_flint.cpp
   is_finite.cpp
-  is_false.cpp
   is_even.cpp
   is_eqz.cpp
   boolean.cpp

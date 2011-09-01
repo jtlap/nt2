@@ -14,10 +14,12 @@
  * \brief Defines and implements the \ref boost::simd::bitwise_cast utility function
  */
 
-#include <cstring>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/dispatch/attributes.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <cstring>
 
 #ifdef BOOST_MSVC
 #define BOOST_SIMD_NO_STRICT_ALIASING
@@ -103,7 +105,12 @@ namespace details
    */
   //============================================================================
   template<typename To, typename From>
-  BOOST_DISPATCH_FORCE_INLINE To bitwise_cast(From const& from)
+  BOOST_DISPATCH_FORCE_INLINE
+  typename disable_if<
+    is_same<To, From>,
+    To
+  >::type
+  bitwise_cast(From const& from)
   {
     //==========================================================================
     /*
@@ -117,6 +124,14 @@ namespace details
     );  
     
     return details::bitwise_cast<To, From>::template call<To>(from);
+  }
+  
+  template<typename To>
+  BOOST_DISPATCH_FORCE_INLINE
+  To const&
+  bitwise_cast(typename mpl::identity<To>::type const& from)
+  {
+    return from;
   }
 
 #else
@@ -139,12 +154,6 @@ namespace details
   }
 
 #endif
-
-  template<typename To>
-  BOOST_DISPATCH_FORCE_INLINE To const& bitwise_cast(typename mpl::identity<To>::type const& from)
-  {
-	return from;
-  }
 
 } }
 #endif

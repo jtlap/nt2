@@ -8,22 +8,18 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE4_1_SELECT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE4_1_SELECT_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
+#include <boost/simd/include/functions/is_simd_logical.hpp>
 #include <boost/assert.hpp>
 
-#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
-#include <boost/simd/include/functions/is_simd_logical.hpp>
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::select_, boost::simd::tag::sse4_1_
-                            , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A1>,X>))
-                              ((simd_<arithmetic_<A1>,X>))
+                            , (A0)(A1)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
+                              ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
                             )
   {
     typedef A1 result_type;
@@ -38,14 +34,13 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::select_, boost::simd::tag::sse4_1_
-                            , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<float_<A1>,X>))
-                              ((simd_<float_<A1>,X>))
+                            , (A0)(A1)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<float_<A1>,boost::simd::tag::sse_>))
+                              ((simd_<float_<A1>,boost::simd::tag::sse_>))
                             )
   {
     typedef A1 result_type;
@@ -60,10 +55,10 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::select_, boost::simd::tag::sse4_1_
-                            , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<double_<A1>,X>))
-                              ((simd_<double_<A1>,X>))
+                            , (A0)(A1)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<double_<A1>,boost::simd::tag::sse_>))
+                              ((simd_<double_<A1>,boost::simd::tag::sse_>))
                             )
   {
     typedef A1 result_type;

@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_ADDS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/arithmetic/functions/simd/common/adds.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -18,16 +17,16 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, boost::simd::tag::sse2_,
-			     (A0),
-			     ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
-			     ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
-			     )
+                             (A0),
+                             ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
+                             ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
+                             )
   {
     typedef A0 result_type; 
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-	return simd::native_cast<A0>(_mm_adds_epu16(a0, a1)); 
+        return simd::native_cast<A0>(_mm_adds_epu16(a0, a1)); 
       }
   };
 
@@ -35,10 +34,10 @@ namespace boost { namespace simd { namespace ext
   // Implementation when type A0 is int16_t
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, boost::simd::tag::sse2_,
-			     (A0),
-			     ((simd_<int16_<A0>,boost::simd::tag::sse_>))
-			     ((simd_<int16_<A0>,boost::simd::tag::sse_>))
-			     )
+                             (A0),
+                             ((simd_<int16_<A0>,boost::simd::tag::sse_>))
+                             ((simd_<int16_<A0>,boost::simd::tag::sse_>))
+                             )
   {
     typedef A0 result_type; 
     
@@ -51,10 +50,11 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is uint8_t
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_
-			      , (A0)
-			      , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))((simd_<uint8_<A0>,boost::simd::tag::sse_>))
-			      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_, 
+                                     (A0), 
+                                     ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
+                              )
   {
     typedef A0 result_type; 
 
@@ -68,16 +68,17 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is int8_t
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_
-			      , (A0)
-			      , ((simd_<int8_<A0>,boost::simd::tag::sse_>))((simd_<int8_<A0>,boost::simd::tag::sse_>))
-			      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_, 
+                                     (A0), 
+                                     ((simd_<int8_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<int8_<A0>,boost::simd::tag::sse_>))
+                                     )
   {
     typedef A0 result_type; 
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-	return simd::native_cast<A0>(_mm_adds_epi8(a0, a1)); 
+        return simd::native_cast<A0>(_mm_adds_epi8(a0, a1)); 
       }
   };
 } } }
