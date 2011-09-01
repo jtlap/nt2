@@ -6,14 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_MASKS_FORWARD_HPP_INCLUDED
-#define BOOST_SIMD_SDK_CONFIG_DETAILS_MASKS_FORWARD_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
+
+/*!
+ *\file detect.hpp
+*/
+
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 
 namespace boost{ namespace simd{ namespace config{ namespace details{
 
-template<class Tag = void, class Vendor = void>
-struct cpuid_mask;
+  bool detect(tag::sse2_ const&   );
+  bool detect(tag::sse3_ const&   );
+  bool detect(tag::ssse3_ const&  );
+  bool detect(tag::sse4a_ const&  );
+  bool detect(tag::sse4_1_ const& );
+  bool detect(tag::sse4_2_ const& );
+  bool detect(tag::avx_ const&    );
+  bool detect(tag::altivec_ const&);
 
-} } } }
+} } } }  
 
 #endif

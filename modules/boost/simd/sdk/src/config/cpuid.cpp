@@ -8,16 +8,15 @@
 //==============================================================================
 #include <boost/simd/sdk/config/details/cpuid.hpp>
 #include <boost/simd/sdk/config/os.hpp>
-#include <string>
 
-#if defined(BOOST_SIMD_OS_MAC_OS)
-#include <sys/sysctl.h>
-#include <sys/types.h>
-#elif defined(BOOST_SIMD_OS_LINUX)
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <linux/sysctl.h>
-#endif
+
+#define BOOST_SIMD_DECLARE_MASK(x,y,z) static const int bit = x, function = y, register_id = z
+#define BOOST_SIMD_DECLARE_X86_CPUID_CALL(function) int regs_x86[4]; __cpuid(regs_x86, function)
+#define BOOST_SIMD_DECLARE_X86_DETECTION_CALL(bit, function, register_id)\
+BOOST_SIMD_DECLARE_MASK(bit, function, register_id)\
+BOOST_SIMD_DECLARE_X86_CPUID_CALL(function);\
+return has_bit_set(regs_x86[register_id-1], bit)
+
 
 namespace boost { namespace simd { namespace config{ namespace details {
 

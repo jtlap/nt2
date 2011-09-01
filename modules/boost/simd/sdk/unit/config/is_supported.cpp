@@ -11,7 +11,6 @@
 #include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/config/is_supported.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -54,9 +53,14 @@ NT2_TEST_CASE(is_supported)
 #else
   NT2_TEST_EQUAL( boost::simd::is_supported<boost::simd::tag::sse3_>(), false);
 #endif
-#if defined(BOOST_SIMD_HAS_SSE4_2_SUPPORT)
+#if defined(BOOST_SIMD_HAS_SSE2_SUPPORT)
   NT2_TEST_EQUAL( boost::simd::is_supported<boost::simd::tag::sse2_>(), true);
 #else
   NT2_TEST_EQUAL( boost::simd::is_supported<boost::simd::tag::sse2_>(), false);
+#endif
+#if defined(BOOST_SIMD_HAS_AVX_SUPPORT)
+  NT2_TEST_EQUAL( boost::simd::is_supported<boost::simd::tag::avx_>(), true);
+#else
+  NT2_TEST_EQUAL( boost::simd::is_supported<boost::simd::tag::avx_>(), false);
 #endif
 }

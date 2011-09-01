@@ -16,6 +16,7 @@
 
 namespace boost { namespace simd { namespace config{ namespace details {
 
+  enum{intel, amd, ibm};
   int get_vendor();
 
 } } } } 

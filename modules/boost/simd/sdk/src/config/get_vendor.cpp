@@ -6,15 +6,28 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <boost/simd/sdk/config/details/get_vendor.hpp>
 #include <boost/simd/sdk/config/details/cpuid.hpp>
-#include <boost/simd/sdk/config/details/masks.hpp>
+
+#define INTEL "GenuineIntel"
+#define AMD   "AuthenticAMD"
 
 namespace boost { namespace simd { namespace config{ namespace details {
 
   int get_vendor()
   {
-    cpuid_mask< details::get_vendor_ > mVendor;
-    return mVendor.get_support();
+#if !defined(BOOST_SIMD_ARCH_POWERPC)
+    static const int bit = 0, function = 0x00000000, register_id = 0;
+    int regs_x86[4]; 
+    __cpuid(regs_x86, function);
+    if( str_match(regs_x86, INTEL) ) return intel;
+    else if( str_match(regs_x86, AMD) ) return amd;
+    else return -1;
+#elif defined(BOOST_SIMD_ARCH_POWERPC)
+    return ibm;
+#else
+    return -1;
+#endif
   }
 
 
