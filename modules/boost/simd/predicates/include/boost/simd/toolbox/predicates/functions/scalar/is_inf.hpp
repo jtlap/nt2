@@ -8,9 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_INF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_INF_HPP_INCLUDED
-#include <boost/simd/include/constants/infinites.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+
+#include <boost/simd/toolbox/predicates/functions/is_inf.hpp>
 #include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/compare_equal.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/false.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
