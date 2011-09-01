@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_ALL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_ALL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <iostream>
 
 #include <boost/simd/toolbox/reduction/functions/bitwise_all.hpp>
 
@@ -22,6 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      std::cout << "zut" << std::endl; 
       return _mm_movemask_epi8(a0) == 0xFFFF;
     }
   };

@@ -1,7 +1,6 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -10,44 +9,67 @@
             },
          'special' : ['reduction'],  
          'type_defs' : [],
-         'types' : ['real_', 'signed_int_', 'unsigned_int_']
+         'simd_types' : ['real_','uint64_t','int64_t','uint32_t','int32_t','uint8_t','int8_t'],
+         'types' : ['real_']
         },
      'info' : 'manually modified',
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
              'included' : [],   
-             'simd_included' : ['#include <nt2/include/functions/bits.hpp>',
-                                '#include <nt2/include/functions/shri.hpp>'],
-             'cover_included' : ['#include <nt2/include/functions/bits.hpp>'],
+             'simd_included' : ['#include <boost/simd/include/functions/bits.hpp>',
+                                '#include <boost/simd/include/functions/shri.hpp>'],
+             'cover_included' : ['#include <boost/simd/include/functions/bits.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
-             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
+             'default' : [['boost::simd::Valmin<T>()', 'boost::simd::Valmax<T>()']],
             },
          'specific_values' : {
-             'signed_int_' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Signmask<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
-                 'nt2::Allbits<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+             'int32_t' : {
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Signmask<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
                 },
-             'unsigned_int_' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Allbits<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+             'int64_t' : {
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Signmask<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                },           
+             'int8_t' : {
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Signmask<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
                 },
-             'real_' : {
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::shri(nt2::Mone<nt2::int32_t>(),int(32-nt2::meta::cardinal_of<vT>::value))','ulp_thresh' : '0',},
-                 'nt2::Mone<T>()' : {'result' : 'nt2::shri(nt2::Mone<nt2::int32_t>(),int(32-nt2::meta::cardinal_of<vT>::value))','ulp_thresh' : '0',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::shri(nt2::Mone<nt2::int32_t>(),int(32-nt2::meta::cardinal_of<vT>::value))','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Signmask<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
-                 'nt2::Allbits<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+             'uint8_t' : {
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : '4294967295ull','ulp_thresh' : '0',},
+                },
+             'uint32_t' : {
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                },
+              'uint64_t' : {
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                },
+            'real_' : {
+                 'boost::simd::Inf<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Minf<T>()' : {'result' : 'boost::simd::shri(boost::simd::Mone<boost::simd::int32_t>(),int(32-boost::simd::meta::cardinal_of<vT>::value))','ulp_thresh' : '0',},
+                 'boost::simd::Mone<T>()' : {'result' : 'boost::simd::shri(boost::simd::Mone<boost::simd::int32_t>(),int(32-boost::simd::meta::cardinal_of<vT>::value))','ulp_thresh' : '0',},
+                 'boost::simd::Nan<T>()' : {'result' : 'boost::simd::shri(boost::simd::Mone<boost::simd::int32_t>(),int(32-boost::simd::meta::cardinal_of<vT>::value))','ulp_thresh' : '0',},
+                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Signmask<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1ul << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {
@@ -55,10 +77,10 @@
                  'default' : 'NT2_NB_RANDOM_TEST',
                 },
              'property_call' : {
-                 'default' : ['nt2::hmsb(a0)'],
+                 'default' : ['boost::simd::hmsb(a0)'],
                 },
              'property_value' : {
-                 'default' : ['nt2::b_and(a0, nt2::Signmask<r_t>()) != 0'],
+                 'default' : ['boost::simd::b_and(a0, boost::simd::Signmask<r_t>()) != 0'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],
@@ -69,7 +91,7 @@
                         "        int N = cardinal_of<n_t>::value;",
                         "        for(int i = 0; i< N; ++i)",
                         "        {",
-                        "          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);"
+                        "          z |= boost::simd::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);"
                         "        }",
                         "        NT2_TEST_EQUAL( v,z);",
                             ]

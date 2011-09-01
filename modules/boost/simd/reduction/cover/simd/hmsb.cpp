@@ -61,13 +61,247 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = hmsb(a0);
-        iT z = boost::simd::bits(a0[0])&1;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        int z = 0;
+        int N = cardinal_of<n_t>::value;
+        for(int i = 0; i< N; ++i)
         {
-          z |= boost::simd::bits(a0[i])&1<<i;
-        }
+          z |= boost::simd::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
         NT2_TEST_EQUAL( v,z);
       }
     
   }
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( hmsb_uint64_t_1_0,  (nt2::uint64_t))
+{
+  using boost::simd::hmsb;
+  using boost::simd::tag::hmsb_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<hmsb_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = hmsb(a0);
+        int z = 0;
+        int N = cardinal_of<n_t>::value;
+        for(int i = 0; i< N; ++i)
+        {
+          z |= boost::simd::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for uint64_t
+
+NT2_TEST_CASE_TPL ( hmsb_int64_t_1_0,  (nt2::int64_t))
+{
+  using boost::simd::hmsb;
+  using boost::simd::tag::hmsb_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<hmsb_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = hmsb(a0);
+        int z = 0;
+        int N = cardinal_of<n_t>::value;
+        for(int i = 0; i< N; ++i)
+        {
+          z |= boost::simd::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for int64_t
+
+NT2_TEST_CASE_TPL ( hmsb_uint32_t_1_0,  (nt2::uint32_t))
+{
+  using boost::simd::hmsb;
+  using boost::simd::tag::hmsb_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<hmsb_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = hmsb(a0);
+        int z = 0;
+        int N = cardinal_of<n_t>::value;
+        for(int i = 0; i< N; ++i)
+        {
+          z |= boost::simd::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for uint32_t
+
+NT2_TEST_CASE_TPL ( hmsb_int32_t_1_0,  (nt2::int32_t))
+{
+  using boost::simd::hmsb;
+  using boost::simd::tag::hmsb_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<hmsb_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = hmsb(a0);
+        int z = 0;
+        int N = cardinal_of<n_t>::value;
+        for(int i = 0; i< N; ++i)
+        {
+          z |= boost::simd::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for int32_t
+
+NT2_TEST_CASE_TPL ( hmsb_uint8_t_1_0,  (nt2::uint8_t))
+{
+  using boost::simd::hmsb;
+  using boost::simd::tag::hmsb_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<hmsb_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = hmsb(a0);
+        int z = 0;
+        int N = cardinal_of<n_t>::value;
+        for(int i = 0; i< N; ++i)
+        {
+          z |= boost::simd::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for uint8_t
+
+NT2_TEST_CASE_TPL ( hmsb_int8_t_1_0,  (nt2::int8_t))
+{
+  using boost::simd::hmsb;
+  using boost::simd::tag::hmsb_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<hmsb_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = hmsb(a0);
+        int z = 0;
+        int N = cardinal_of<n_t>::value;
+        for(int i = 0; i< N; ++i)
+        {
+          z |= boost::simd::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+        NT2_TEST_EQUAL( v,z);
+      }
+    
+  }
+} // end of test for int8_t
