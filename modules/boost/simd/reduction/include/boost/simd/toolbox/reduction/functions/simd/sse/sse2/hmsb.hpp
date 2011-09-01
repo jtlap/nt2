@@ -11,7 +11,8 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
-#include <boost/simd/include/functions/popcnt.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
