@@ -17,7 +17,7 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/select.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/bitwise_all.hpp>
 
 
 
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
       {
 	A0 x   =  nt2::abs(a0);
 	A0 lt2 = lt(x, Two < A0>());
-	if (all(lt2))
+	if (bitwise_all(lt2))
 	  return branch1(x);
 	else
 	  return select (lt2, branch1(x), branch2(x));

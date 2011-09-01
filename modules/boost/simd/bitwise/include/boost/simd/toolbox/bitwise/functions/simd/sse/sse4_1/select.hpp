@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      //      assert(all(is_simd_logical(a0)))
+      //      assert(bitwise_all(is_simd_logical(a0)))
       return boost::simd::native_cast<A1>(_mm_blendv_ps(a2, a1, boost::simd::native_cast<A1>(a0))); 
     }
   };
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
 
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      //      assert(all(is_simd_logical(a0)))
+      //      assert(bitwise_all(is_simd_logical(a0)))
       return boost::simd::native_cast<A1>(_mm_blendv_pd(a2, a1, boost::simd::native_cast<A1>(a0))); 
     }
   };

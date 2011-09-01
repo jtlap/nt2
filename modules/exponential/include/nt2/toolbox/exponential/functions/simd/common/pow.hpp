@@ -93,8 +93,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
         typedef A1                                          int_type;
-	typedef result_type             r_type;
-	r_type a00 =  tofloat(a0); 
+        typedef result_type             r_type;
+        r_type a00 =  tofloat(a0); 
         r_type sign_x = bitofsign(a00);
         r_type x = b_xor(a00, sign_x);//x = nt2::abs(a0)
         int_type sign_n = signnz( a1 );
@@ -109,19 +109,19 @@ namespace nt2 { namespace ext
         r_type w = x;
         n = shri(n,1);
         while( nt2::any(n) )
-          {
-            w =sqr( w);
-            n_oddf = tofloat(-is_odd(n));
-            y = y*madd(n_oddf,w,oneminus(n_oddf));
-            n = shri(n,1);
-          }
+        {
+          w =sqr( w);
+          n_oddf = tofloat(-is_odd(n));
+          y = y*madd(n_oddf,w,oneminus(n_oddf));
+          n = shri(n,1);
+        }
 
         w = b_xor(y, sign_x);
         y = madd(nf, w, (oneminus(nf))*y);
 
         w = rec(y);
-        x = tofloat(shri(oneplus(sign_n),1));  // 1 if positiv, else 0
-	r_type r = sel(is_even(a1), nt2::abs(a00), a00); 			
+        x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
+        r_type r = sel(is_even(a1), nt2::abs(a00), a00);
         return b_or(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
   };
