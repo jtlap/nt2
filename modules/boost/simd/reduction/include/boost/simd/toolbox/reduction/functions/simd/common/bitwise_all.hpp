@@ -30,20 +30,6 @@ namespace boost { namespace simd { namespace ext
       return hmsb(a0) == (1ul << meta::cardinal_of<A0>::value)-1;
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_all_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<type16_<A0>,X>))
-                            )
-  {
-
-    typedef bool result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      //TODO change that but only when hmsb will be correct for 16bits types
-      return hmsb(a0) == (1ul << (meta::cardinal_of<A0>::value*2))-1;
-    }
-  };
 } } }
 
 

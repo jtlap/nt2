@@ -42,11 +42,5 @@ SET( SOURCES
 # List of simd test files for toolbox bitwise
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(bitwise.simd.${EXAMPLE}.cover ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(bitwise.simd.cover ${SOURCES})
 

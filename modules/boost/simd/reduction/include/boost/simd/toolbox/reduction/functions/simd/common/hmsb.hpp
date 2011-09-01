@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                       )
   {
       
-    typedef boost::simd::int32_t result_type; 
+    typedef uint32_t result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type stype;

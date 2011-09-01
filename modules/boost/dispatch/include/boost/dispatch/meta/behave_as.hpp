@@ -17,7 +17,6 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
-#include <boost/dispatch/error/static_assert.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

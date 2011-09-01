@@ -18,11 +18,5 @@ SET( SOURCES
 # List of scalar test files for toolbox polynomials
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(polynomials.scalar.${EXAMPLE}.cover ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(polynomials.scalar.cover ${SOURCES})
 

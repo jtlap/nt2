@@ -10,17 +10,12 @@
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
-// Support for basic SIMD extensions - Note those are themselves extendables
-////////////////////////////////////////////////////////////////////////////////
-//#include <boost/simd/sdk/config.hpp>
-#include <boost/simd/sdk/error/warning.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
 // Regular SIMD extensions
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/simd/extensions/sse.hpp>
 #include <boost/simd/sdk/simd/extensions/altivec.hpp>
 #include <boost/simd/sdk/simd/extensions/none.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 
 #include <boost/dispatch/functor/forward.hpp>
 namespace boost { namespace dispatch 

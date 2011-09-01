@@ -21,9 +21,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< signed_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return (a0 == boost::simd::Valmin<A0>()) ? boost::simd::Valmax<A0>() : -a0; 

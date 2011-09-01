@@ -34,9 +34,6 @@ SET(SOURCES
     upgrade.cpp
     )
 
-ADD_CUSTOM_TARGET(sdk.meta.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.meta.examples)
-
 ################################################################################
 # For each filename
 ################################################################################
@@ -44,4 +41,5 @@ FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
   nt2_module_add_example(sdk.meta.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
+
 

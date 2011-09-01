@@ -11,8 +11,6 @@
 #include <boost/dispatch/meta/as_signed.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
@@ -20,16 +18,14 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::oneminus_, tag::cpu_,
 			     (A0),
-			     (scalar_<fundamental_<A0> > )
+			     (scalar_<signed_<A0> > )
 			     )
   {
-    typedef typename dispatch::meta::as_signed<A0>::type result_type;
-
+    typedef A0 result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return One<result_type>()-a0;
+      return A0(One<result_type>()-a0);
     }
-
   };
 } } }
 

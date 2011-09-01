@@ -14,6 +14,7 @@
  * \brief Defines and implements \ref boost::dispatch::meta::as_integer
  */
 
+#include <boost/mpl/assert.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/make_integer.hpp>
@@ -70,13 +71,19 @@ namespace boost { namespace dispatch { namespace meta
                         factory_of<typename meta::strip<T>::type>::type
                       >
   {
-    BOOST_DISPATCH_STATIC_ASSERT
+    //==========================================================================
+    /*
+     * A type with a non-fundamental primitive is used in 
+     * boost::dispatch::meta::as_integer.
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
     ( (is_fundamental < typename
                         meta::primitive_of<typename meta::strip<T>::type>::type
                       >::value
       )
     , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_AS_INTEGER
-    , "A type with a non-fundamental primitive is used in boost::dispatch::meta::as_integer."
+    , (T&)
     );
   };
 } } }

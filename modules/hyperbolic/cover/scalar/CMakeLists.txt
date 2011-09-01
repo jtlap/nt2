@@ -26,11 +26,5 @@ SET( SOURCES
 # List of scalar test files for toolbox hyperbolic
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(hyperbolic.scalar.${EXAMPLE}.cover ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(hyperbolic.scalar.cover ${SOURCES})
 

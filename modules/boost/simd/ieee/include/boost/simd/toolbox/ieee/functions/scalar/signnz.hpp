@@ -10,13 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
 #include <boost/simd/include/functions/is_negative.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
@@ -28,9 +26,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< signed_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_gez(a0)-is_ltz(a0);
@@ -49,9 +45,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< unsigned_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);
@@ -72,7 +66,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_nan(a0)?a0:is_positive(a0)-is_negative(a0);

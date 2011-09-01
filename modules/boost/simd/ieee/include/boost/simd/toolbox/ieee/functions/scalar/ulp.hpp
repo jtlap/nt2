@@ -19,7 +19,6 @@
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -31,7 +30,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       ignore_unused(a0);

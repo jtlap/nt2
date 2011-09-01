@@ -8,16 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(polynomials.scalar.cover)
-ADD_CUSTOM_TARGET(polynomials.simd.cover)
-ADD_DEPENDENCIES(polynomials.cover polynomials.scalar.cover polynomials.simd.cover)
-
-##############################################################################
-# Toolbox polynomials cover tests
-##############################################################################
 nt2_module_use_modules(unit predicates boost_math cephes)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

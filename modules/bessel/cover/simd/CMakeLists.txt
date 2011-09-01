@@ -19,11 +19,5 @@ SET( SOURCES
 # List of simd test files for toolbox bessel
    )
 
-##############################################################################
-# For each filename
-##############################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_cover(bessel.simd.${EXAMPLE}.cover ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(bessel.simd.cover ${SOURCES})
 

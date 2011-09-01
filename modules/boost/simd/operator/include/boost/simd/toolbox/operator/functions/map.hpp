@@ -11,7 +11,7 @@
 
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/operator/include.hpp>
+
 
 namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
 

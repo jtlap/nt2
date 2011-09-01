@@ -10,6 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_CUMSUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
+#include <boost/simd/toolbox/swar/functions/cumsum.hpp>
+#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -80,7 +86,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-//       cout << "pb lié à gcc 4.5 ?" << std::endl;
+//       cout << "pb de gcc 4.5 ?" << std::endl;
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
 //       std::cout << " == a0 " << a0 << std::endl;

@@ -13,9 +13,6 @@ SET(SOURCES
     platform.cpp
    )
 
-ADD_CUSTOM_TARGET(boost.simd.sdk.config.examples)
-ADD_DEPENDENCIES(boost.simd.sdk.examples boost.simd.sdk.config.examples)
-
 ################################################################################
 # For each filename
 ################################################################################

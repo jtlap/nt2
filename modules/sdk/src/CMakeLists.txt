@@ -11,7 +11,6 @@ include(NT2Module)
 nt2_module_source_setup(sdk)
 
 set(SOURCES
-    details/timestamp.cpp
     error/assert_exception.cpp
     error/exception.cpp
     timing/now.cpp

@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_STANDARD_FUNCTIONS_POW_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/standard/include.hpp>
 
 namespace nt2 { namespace standard { namespace tag
   {         

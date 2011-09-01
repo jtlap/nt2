@@ -22,14 +22,14 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
 
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::result_of<dispatch::meta::floating(result_type)>::type ftype;
       ftype r = ceil(ftype(a0)/ftype(a1));
@@ -43,16 +43,16 @@ namespace boost { namespace simd { namespace ext
   // Implementation when type A0 is unsigned_
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A1> >)
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
                             )
   {
     
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    typedef A0 result_type;
     
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (a1) ? rdivide((a0+(a1-One<result_type>())), a1) : Valmax<result_type>();
+      return (a1) ? rdivide(A0(a0+(a1-One<result_type>())), a1) : Valmax<result_type>();
     }
   };
   
@@ -60,14 +60,14 @@ namespace boost { namespace simd { namespace ext
   // Implementation when type A0 is real_
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivceil_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A1> > )
+                            , (A0)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A0> > )
                             )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type typ;
+    typedef A0 typ;
     typedef typename dispatch::meta::as_integer<typ>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return iceil(a0/a1);
     }

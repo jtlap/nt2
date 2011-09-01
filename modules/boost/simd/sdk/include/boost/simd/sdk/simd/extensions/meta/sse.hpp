@@ -14,27 +14,9 @@
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
-#include <boost/dispatch/functor/meta/hierarchy.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// Tag hierarchy for SSE extensions
-////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace tag
-{
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse_, boost::dispatch::tag::cpu_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse2_, sse_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse3_, sse2_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse4a_, sse3_);
-#ifdef BOOST_SIMD_ARCH_AMD
-  BOOST_DISPATCH_HIERARCHY_CLASS(ssse3_, sse4a_);
-#else
-  BOOST_DISPATCH_HIERARCHY_CLASS(ssse3_, sse3_);
-#endif
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse4_1_, ssse3_);
-  BOOST_DISPATCH_HIERARCHY_CLASS(sse4_2_, sse4_1_);
-} } }
 
 ////////////////////////////////////////////////////////////////////////////////
 // SSE extensions overload

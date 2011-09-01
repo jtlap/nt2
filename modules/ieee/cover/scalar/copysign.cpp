@@ -73,44 +73,6 @@ NT2_TEST_CASE_TPL ( copysign_real__2_0,  NT2_REAL_TYPES)
    }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( copysign_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
-{
-  
-  using nt2::copysign;
-  using nt2::tag::copysign_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<copysign_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
-    NT2_CREATE_BUF(tab_a1,T, NR, 0, 100);
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_EQUAL( nt2::copysign(a0,a1),nt2::abs(a0)*nt2::signnz(a1));
-     }
-     
-   }
-} // end of test for unsigned_int_
-
 NT2_TEST_CASE_TPL ( copysign_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   

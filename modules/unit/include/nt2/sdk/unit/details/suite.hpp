@@ -25,7 +25,7 @@ namespace nt2 { namespace details
     ////////////////////////////////////////////////////////////////////////////
     // Display the count of test/pass/fail
     ////////////////////////////////////////////////////////////////////////////
-    ~suite()
+    void report() const
     {
       #if !defined(NT2_TEST_SILENT)
       int t = details::test_count();
@@ -48,6 +48,7 @@ namespace nt2 { namespace details
       puts("===============================================================");
       #endif
       if(tests) tests->process();
+      report();
     }
 
     ////////////////////////////////////////////////////////////////////////////

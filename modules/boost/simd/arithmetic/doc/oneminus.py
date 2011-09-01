@@ -6,11 +6,11 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::dispatch::meta::as_signed<typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type>::type',
+             'default' : 'T',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
-         'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -40,10 +40,6 @@
                  'boost::simd::Mone<T>()' : 'boost::simd::Two<r_t>()',
                  'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::One<T>()',
-                },
-             'unsigned_int_' : {
-                 'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
-                 'boost::simd::Zero<T>()' : 'boost::simd::One<r_t>()',
                 },
             },
          'verif_test' : {

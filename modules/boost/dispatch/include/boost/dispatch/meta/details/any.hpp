@@ -21,7 +21,7 @@
 #include <boost/type_traits/is_same.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
-#include <boost/dispatch/extension/parameters.hpp>
+#include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>

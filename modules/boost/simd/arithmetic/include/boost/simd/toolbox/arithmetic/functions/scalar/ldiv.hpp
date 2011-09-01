@@ -17,14 +17,13 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldiv_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
+                            , (A0)
+                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
                             )
   {
 
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return a1/a0;
     }

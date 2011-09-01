@@ -8,15 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-################################################################################
-# Add global cover driver rules
-################################################################################
-ADD_CUSTOM_TARGET(libc.scalar.cover)
-ADD_DEPENDENCIES(libc.cover libc.scalar.cover)
-
-##############################################################################
-# Toolbox libc cover tests
-##############################################################################
 nt2_module_use_modules(unit arithmetic trigonometric hyperbolic exponential)
 ADD_SUBDIRECTORY(scalar)
 

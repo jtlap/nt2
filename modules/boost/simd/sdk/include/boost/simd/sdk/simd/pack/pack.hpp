@@ -37,14 +37,17 @@ namespace boost { namespace simd
                                  , (pack<Type,Cardinal>)
                                  , (domain<Type,boost::mpl::size_t<Cardinal> >))
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Pack must be sized with a power of 2
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_DISPATCH_STATIC_ASSERT ( (meta::is_power_of_2_c<Cardinal>::value)
-                      , INVALID_SIMD_PACK_CARDINAL
-                      , "SIMD pack instanciated with non-power of 2 Cardinal."
-                      );
-
+    //==========================================================================
+    /*
+     * SIMD pack instanciated with non-power of 2 Cardinal.
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
+    ( (meta::is_power_of_2_c<Cardinal>::value)
+    , INVALID_SIMD_PACK_CARDINAL
+    , (boost::mpl::int_<Cardinal>)
+    ); 
+    
     ////////////////////////////////////////////////////////////////////////////
     // Data holder of pack terminals
     ////////////////////////////////////////////////////////////////////////////

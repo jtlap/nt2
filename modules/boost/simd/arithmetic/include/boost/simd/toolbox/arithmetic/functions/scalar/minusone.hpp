@@ -10,8 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MINUSONE_HPP_INCLUDED
 #include <boost/dispatch/meta/as_signed.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-
-
+//TODO a minusone saturated
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -23,13 +22,11 @@ namespace boost { namespace simd { namespace ext
 			     (scalar_ < arithmetic_<A0> > )
 			     )
   {
-    typedef typename dispatch::meta::as_signed<A0>::type result_type;
-
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return result_type(a0)-One<result_type>();
+      return a0-One<result_type>();
     }
-
   };
 } } }
 

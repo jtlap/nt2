@@ -25,16 +25,16 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::anp_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
 
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+    typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::result_of<meta::floating(A0, A1)>::type type;
+      typedef typename meta::result_of<meta::floating(A0)>::type type;
       typedef result_type rtype;
       if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();
       if (lt(a0,a1)) return (rtype)Zero<type>();

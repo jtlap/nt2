@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_HPP_INCLUDED
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/functor/forward.hpp>
-
+#include <boost/simd/include/functions/min.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -27,9 +27,22 @@ namespace boost { namespace simd { namespace ext
     {
       typename dispatch::make_functor<Tag, A0>::type callee;
       const A0 z = callee( dispatch::meta::as_<A0>() );
-      return sel(gt(a0, z), z, sel(lt(a0, -z), -z, a0)); 
+      return sel(gt(a0, z), z, sel(lt(a0, unary_minus(z)), unary_minus(z), a0)); 
     }
   };
-  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag>
+                                   , tag::cpu_
+                                   , (A0)(Tag)
+                                   , (scalar_<unsigned_<A0> >)
+                                   )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typename dispatch::make_functor<Tag, A0>::type callee;
+      const A0 z = callee( dispatch::meta::as_<A0>() );
+      return min(a0, z); 
+    }
+  };  
 } } }
 #endif

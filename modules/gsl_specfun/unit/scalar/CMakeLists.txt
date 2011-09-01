@@ -9,7 +9,7 @@
 
 INCLUDE_DIRECTORIES(${GSL_INCLUDE_DIRS} ${GSLCBLAS_INCLUDE_DIRS})
 
-SET( SOURCESs
+SET( SOURCES
   gsl_sf_bessel_kl_scaled.cpp
   gsl_sf_bessel_j1.cpp
   gsl_sf_sinc.cpp
@@ -154,10 +154,4 @@ SET( SOURCESs
 # List of scalar test files for toolbox gsl_specfun
    )
 
-##****************************************************************************
-# For each filename
-##****************************************************************************
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(gsl_specfun.scalar.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(gsl_specfun.scalar.unit ${SOURCES})

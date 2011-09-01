@@ -12,9 +12,6 @@ SET(SOURCES
  #   dominant.cpp
    )
 
-ADD_CUSTOM_TARGET(sdk.functor.examples)
-ADD_DEPENDENCIES(sdk.examples sdk.functor.examples)
-
 ################################################################################
 # For each filename
 ################################################################################
@@ -22,4 +19,3 @@ FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
   nt2_module_add_example(sdk.functor.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
-

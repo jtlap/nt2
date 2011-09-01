@@ -7,14 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-################################################################################
-# Add global unit driver rules
-################################################################################
-ADD_CUSTOM_TARGET(reduction.simd.unit)
-ADD_DEPENDENCIES(reduction.unit reduction.simd.unit)
-
-##############################################################################
-# Toolbox reduction unit tests
-##############################################################################
 nt2_module_use_modules(unit bitwise)
 ADD_SUBDIRECTORY(simd)

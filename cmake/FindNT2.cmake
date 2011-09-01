@@ -364,6 +364,7 @@ function(nt2_find)
                 DOC "Root directory in which NT2 is installed"
                 NO_DEFAULT_PATH
               )
+    mark_as_advanced(NT2_ROOT)
     if(NT2_ROOT)
       nt2_find_log("found NT2 root ${NT2_ROOT}")
     endif()
@@ -381,6 +382,7 @@ function(nt2_find)
                   DOC "Root directory in which the NT2 headers are installed"
                   NO_DEFAULT_PATH
                 )
+      mark_as_advanced(NT2_INCLUDE_ROOT)
       if(NOT NT2_INCLUDE_ROOT)
         nt2_find_info("could find install but not include root, bad install?")
       else()
@@ -396,6 +398,7 @@ function(nt2_find)
                   DOC "Root directory in which the NT2 libraries are installed"
                   NO_DEFAULT_PATH
                 )
+      mark_as_advanced(NT2_LIBRARY_ROOT)
       if(NOT NT2_LIBRARY_ROOT)
         nt2_find_info("could find install but not library root, bad install?")
       else()

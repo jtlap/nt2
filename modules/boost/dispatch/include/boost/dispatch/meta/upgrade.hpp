@@ -15,13 +15,15 @@
 // If the primitive type is floating-point, sign is ignored.
 // See: http://nt2.metascale.org/sdk/meta/traits/upgrade.html
 //////////////////////////////////////////////////////////////////////////////
+
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/dispatch/meta/make_integer.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/is_fundamental.hpp>
-#include <boost/mpl/apply.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {
@@ -66,12 +68,21 @@ namespace boost { namespace dispatch { namespace meta
                           , typename meta::factory_of<typename meta::strip<T>::type>::type
                           >
   {
-    BOOST_DISPATCH_STATIC_ASSERT ( (is_fundamental<typename meta::primitive_of<typename meta::strip<T>::type>::type>::value)
-                      , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_DOWNGRADE
-                      , "A type with a non-fundamental primitive is used in boost::dispatch::meta::downgrade."
-                      );
+    //==========================================================================
+    /*
+     * A type with a non-fundamental primitive is used in 
+     * boost::dispatch::meta::upgrade.
+     */    
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
+    ( (is_fundamental < typename
+                        meta::primitive_of<typename meta::strip<T>::type>::type
+                      >::value
+      )
+    , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_UPGRADE
+    , (T&)
+    );    
   };
-
 } } }
 
 #endif

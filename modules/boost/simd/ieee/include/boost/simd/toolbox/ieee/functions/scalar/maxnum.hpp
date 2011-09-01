@@ -19,17 +19,12 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxnum_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return boost::simd::max(a0, a1);
-    }
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::max(a0, a1); }
   };
 } } }
 
@@ -40,19 +35,16 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxnum_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A1> >)
+                            , (A0)
+                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)
                             )
   {
-
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef result_type type;
-      if (is_nan(a0)) return type(a1);
-      else if (is_nan(a1)) return type(a0);
-      else return boost::simd::max(type(a0), type(a1));
+      if (is_nan(a0)) return a1;
+      else if (is_nan(a1)) return a0;
+      else return boost::simd::max(a0, a1);
     }
   };
 } } }

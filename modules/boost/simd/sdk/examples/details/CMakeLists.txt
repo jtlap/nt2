@@ -20,9 +20,6 @@ SET(SOURCES
     pp_strip.cpp
     )
 
-ADD_CUSTOM_TARGET(boost.simd.sdk.details.examples)
-ADD_DEPENDENCIES(boost.simd.sdk.examples boost.simd.sdk.details.examples)
-
 ################################################################################
 # For each filename
 ################################################################################
@@ -30,5 +27,4 @@ FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
   nt2_module_add_example(boost.simd.sdk.details.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
-
 
