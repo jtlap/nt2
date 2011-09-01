@@ -2,9 +2,11 @@
 #define FILESYSTEM_OPERATIONS_HPP
 
 #include <boost/system/api_config.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/assert.hpp>
-#include <string>
 #include <stdexcept>
+#include <string>
+#include <algorithm>
 #include <limits.h>
 
 #ifdef BOOST_WINDOWS_API
@@ -31,7 +33,7 @@ namespace filesystem
     
         char directory[ PATH_MAX ];
         if( file_path.size() >= PATH_MAX )
-            throw std::runtime_error ( "Path " + file_path + " is too long" );
+            BOOST_THROW_EXCEPTION( std::runtime_error ( "Path " + file_path + " is too long" ) );
         *std::copy(file_path.begin(), file_path.end(), directory) = '\0';
         
         std::string::size_type end_pos = file_path.find_first_of(separator);
@@ -47,7 +49,7 @@ namespace filesystem
             directory[end_pos] = '\0';
             
             if ( ( ::mkdir( directory FILESYSTEM_MKDIR_SUFFIX ) == -1 ) && ( errno != EEXIST ) )
-                throw std::runtime_error( std::string( "Error creating directory " ) + directory );
+                BOOST_THROW_EXCEPTION( std::runtime_error( std::string( "Error creating directory " ) + directory ) );
                 
             directory[end_pos] = old_char;
             if( !old_char )
@@ -61,7 +63,7 @@ namespace filesystem
     {
         char cwd[ PATH_MAX + 1 ];
         if( ::getcwd( cwd, sizeof cwd ) == 0 )
-            throw std::runtime_error("Error reading current path");
+            BOOST_THROW_EXCEPTION( std::runtime_error("Error reading current path") );
             
         return cwd;
     }
@@ -76,7 +78,7 @@ namespace filesystem
         int ec;
         current_path( directory, ec );
         if( ec )
-            throw std::runtime_error( std::string("Error setting ") + directory + " as current path (current path was " + current_path() + ")" );
+            BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error setting ") + directory + " as current path (current path was " + current_path() + ")" ) );
     }
     
     inline void current_path(std::string const & directory, int & ec)
