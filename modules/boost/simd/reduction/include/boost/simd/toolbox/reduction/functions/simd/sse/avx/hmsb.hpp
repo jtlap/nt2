@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-#include <iostream>
 
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
@@ -86,8 +85,6 @@ namespace boost { namespace simd { namespace ext
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      std::cout << "hmsb(a00)  "<< hmsb(a00) << std::endl;
-      std::cout << "hmsb(a01)  "<< hmsb(a01) << std::endl;
       return hmsb(a00)|(hmsb(a01)<<8);
     }
   };  

@@ -9,12 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
-#include <iostream>
 
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   /////////////////////////////////////////////////////////////////////////////
