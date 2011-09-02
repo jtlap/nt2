@@ -6,7 +6,7 @@
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {
-             'default' : 'boost::fusion::vector<ftype,ftype>',
+             'default' : 'boost::fusion::vector<T,T>',
             },
          'simd_types' : ['real_'],
          'type_defs' : ["typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;"],
