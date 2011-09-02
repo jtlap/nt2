@@ -20,7 +20,8 @@
 #include <nt2/include/functions/j1.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/select.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/bitwise_all.hpp>
+#include <nt2/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 
 
@@ -73,7 +74,7 @@ namespace nt2 { namespace ext
 	A0 a0lt2 = lt(a0, Two<A0>());
 	A0 q = rec(a0);
 	A0 p2;
-	if (nt2::any(a0lt2))
+	if (nt2::bitwise_any(a0lt2))
 	  {
 	    A0 z = sqr(a0);
 	    p2 = (z-single_constant<A0, 0x40954ae7> ())*a0*
@@ -86,7 +87,7 @@ namespace nt2 { namespace ext
 					  ) ) > (z);
 	    p2 = p2+single_constant<A0, 0x3f22f983>()*(j1(a0)*log(a0)-q);
 	    p2 = sel(is_eqz(a0), Minf<A0>(), p2);
-	    if (all(a0lt2)) return p2;
+	    if (bitwise_all(a0lt2)) return p2;
           }
 	A0 w = sqrt(q);
 	A0 p3 = w *

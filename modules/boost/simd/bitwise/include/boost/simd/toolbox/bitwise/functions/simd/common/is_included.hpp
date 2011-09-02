@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
 #include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/all.hpp>
+#include <boost/simd/include/functions/bitwise_all.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
 
 
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1) const
     {
-      return all(eq(a0|a1, a1));
+      return bitwise_all(eq(a0|a1, a1));
     }
   };
   

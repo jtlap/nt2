@@ -22,7 +22,7 @@
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/round.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/bitwise_all.hpp>
 #include <nt2/include/functions/select.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -51,11 +51,11 @@ namespace nt2 { namespace ext
       r =  select(eq(a00, Eleven<A0>()),  Fact_11<A0>(),r);
       r =  select(eq(a00, Twelve<A0>()),  Fact_12<A0>(),r);
       A0 test = le(a00, Twelve<A0>());
-      if (nt2::all(test))
-	return r;
+      if (nt2::bitwise_all(test))
+        return r;
       else
-	return select(test, r, 
-		 nt2::round(nt2::gamma(oneplus(a00))));
+        return select(test, r, 
+          nt2::round(nt2::gamma(oneplus(a00))));
     }
   };
   

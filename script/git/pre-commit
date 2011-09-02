@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if git diff --cached | grep -E '^\+.*	' > /dev/null
+then
+cat<<END;
+error: tabulations were found in staged changes, which is against
+the NT2 coding standards.
+
+If you *really* know what you are doing, you can force this commit
+with 'git commit --no-verify'
+
+Incriminated changes:
+END
+  git diff-index -u --cached -S'	' HEAD
+  exit 1
+fi

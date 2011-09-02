@@ -18,7 +18,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/polevl.hpp>
 #include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/is_lez.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
@@ -91,13 +91,13 @@ namespace nt2 { namespace ext
 	  }
 	// If x > 2 reduce to the interval [1,2]:
 	A0 cond;
-	while(nt2::any(cond = gt(x, Two<A0>())))
+	while(nt2::bitwise_any(cond = gt(x, Two<A0>())))
 	  {
 	    x      -= b_and(One<A0>(), cond);
 	    result += b_and(rec(x), cond);
 	  }
 	// If x < 1 use shift to > 1:
-	if(nt2::any(cond = lt(x, One<A0>())))
+	if(nt2::bitwise_any(cond = lt(x, One<A0>())))
 	  {
 	    result = sel(cond, -rec(x), result);
 	    x      += b_and(One<A0>(), cond);

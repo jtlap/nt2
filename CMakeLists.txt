@@ -12,15 +12,24 @@ cmake_minimum_required(VERSION 2.6)
 # Project nt2 that loads many modules
 # -- see modules/(<module>/+)CMakeLists.txt to build a single module.
 ################################################################################
-
 project(NT2)
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
+################################################################################
+# If GIT repo, verify pre-commit hooks are well set-up
+################################################################################
+if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/.git/hooks)
+  execute_process(COMMAND ${CMAKE_COMMAND} -E copy
+                  ${PROJECT_SOURCE_DIR}/script/git/pre-commit
+                  ${PROJECT_SOURCE_DIR}/.git/hooks
+                 )
+endif()
+
+################################################################################
+# Set-up NT2 CMake environment
+################################################################################
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 include(nt2.compiler.options)
 
-################################################################################
-# Global Options
-################################################################################
 set(NT2_VERSION "3.0.0")
 include(nt2.package)
 
