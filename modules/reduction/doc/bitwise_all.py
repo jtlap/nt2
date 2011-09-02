@@ -16,13 +16,14 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'included' : ['#include <boost/simd/sdk/meta/logical.hpp>'],
+             'included' : ['#include <nt2/sdk/meta/logical.hpp>',
+                           '#include <nt2/include/functions/is_nez.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },
          'ranges' : {
-             'default' : [['boost::simd::Valmin<T>()', 'boost::simd::Valmax<T>()']],
+             'default' : [['nt2::Valmin<T>()', 'nt2::Valmax<T>()']],
             },
          'specific_values' : {
              'signed_int_' : {
@@ -46,7 +47,7 @@
                  'default' : 'NT2_NB_RANDOM_TEST',
                 },
              'property_call' : {
-                 'default' : ['boost::simd::all(a0)'],
+                 'default' : ['nt2::bitwise_all(nt2::is_nez(a0))'],
                 },
              'property_value' : {
                  'default' : ['a0!=0'],

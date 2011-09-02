@@ -17,6 +17,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/simd/sdk/meta/logical.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -67,11 +68,11 @@ NT2_TEST_CASE_TPL ( bitwise_any_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = bitwise_any(a0);
-        bool z = true;
+        r_t v = nt2::bitwise_any(nt2::is_nez(a0));
+        bool z = false;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
-          z = z&&a0[i];
+          z = z||a0[i];
         }
         NT2_TEST_EQUAL( v,z);
       }
@@ -106,11 +107,11 @@ NT2_TEST_CASE_TPL ( bitwise_any_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = bitwise_any(a0);
-        bool z = true;
+        r_t v = nt2::bitwise_any(nt2::is_nez(a0));
+        bool z = false;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
-          z = z&&a0[i];
+          z = z||a0[i];
         }
         NT2_TEST_EQUAL( v,z);
       }
@@ -145,11 +146,11 @@ NT2_TEST_CASE_TPL ( bitwise_any_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = bitwise_any(a0);
-        bool z = true;
+        r_t v = nt2::bitwise_any(nt2::is_nez(a0));
+        bool z = false;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
-          z = z&&a0[i];
+          z = z||a0[i];
         }
         NT2_TEST_EQUAL( v,z);
       }

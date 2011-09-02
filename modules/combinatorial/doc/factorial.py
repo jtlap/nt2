@@ -68,7 +68,7 @@
                  'default' : ['nt2::factorial(a0)'],
                 },
              'property_value' : {
-                 'default' : ['(nt2::min(nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0))),nt2::Valmax<r_t>()))'],
+                 'default' : ['(nt2::min((r_t)nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0))),nt2::Valmax<r_t>()))'],
                 },
              'simd' : {
                 },

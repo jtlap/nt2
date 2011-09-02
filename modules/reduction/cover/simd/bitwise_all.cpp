@@ -16,7 +16,8 @@
 #include <nt2/toolbox/reduction/include/functions/bitwise_all.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
+#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -62,12 +63,12 @@ NT2_TEST_CASE_TPL ( bitwise_all_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = bitwise_all(a0);
+        r_t v = nt2::bitwise_all(nt2::is_nez(a0));
         bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
@@ -101,12 +102,12 @@ NT2_TEST_CASE_TPL ( bitwise_all_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = bitwise_all(a0);
+        r_t v = nt2::bitwise_all(nt2::is_nez(a0));
         bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {
@@ -140,12 +141,12 @@ NT2_TEST_CASE_TPL ( bitwise_all_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = bitwise_all(a0);
+        r_t v = nt2::bitwise_all(nt2::is_nez(a0));
         bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; ++i)
         {

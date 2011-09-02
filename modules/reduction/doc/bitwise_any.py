@@ -16,7 +16,8 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'included' : ['#include <boost/simd/sdk/meta/logical.hpp>'],
+             'included' : ['#include <boost/simd/sdk/meta/logical.hpp>',
+                           '#include <nt2/include/functions/is_nez.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
@@ -46,7 +47,7 @@
                  'default' : 'NT2_NB_RANDOM_TEST',
                 },
              'property_call' : {
-                 'default' : ['boost::simd::any(a0)'],
+                 'default' : ['nt2::bitwise_any(nt2::is_nez(a0))'],
                 },
              'property_value' : {
                  'default' : ['a0!=0'],
@@ -56,10 +57,10 @@
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        bool z = true;",
+                        "        bool z = false;",
                         "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
-                        "          z = z&&a0[i];",
+                        "          z = z||a0[i];",
                         "        }",
                         "        NT2_TEST_EQUAL( v,z);",
                             ]
