@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( factorial_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::factorial(a0),(nt2::min(r_t(nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0)))),nt2::Valmax<r_t>())),1);
+        NT2_TEST_ULP_EQUAL( nt2::factorial(a0),nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0))),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -103,7 +103,7 @@ NT2_TEST_CASE_TPL ( factorial_integer__1_0,  NT2_INTEGRAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::factorial(a0),(nt2::min(r_t(nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0)))),nt2::Valmax<r_t>())),1);
+        NT2_TEST_ULP_EQUAL( nt2::factorial(a0),(nt2::min((u_t)nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0))),(u_t)nt2::Valmax<r_t>())),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

@@ -360,9 +360,9 @@ class Random_verif_test_gen(Base_gen) :
                     else :
                         z = durac.get("simd_special",False)
                         if z :
-                            call = "   xxx     r_t v = "+z+";"
+                            call = "        r_t v = "+z+";"
                         else :
-                            call = "   yyy     r_t v = %s%s(%s);"%(name,istpl,g)
+                            call = "        r_t v = %s%s(%s);"%(name,istpl,g)
                         r = [
                             call,
                             "        for(int i = 0; i< cardinal_of<n_t>::value; i++)",
