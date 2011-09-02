@@ -52,12 +52,11 @@ namespace boost { namespace simd { namespace ext
                       (scalar_ < arithmetic_<A0> > )
                      )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type  etype;
-    typedef boost::fusion::vector<etype, etype>                               result_type;
+    typedef boost::fusion::vector<A0, A0>                               result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
-      boost::fusion::at_c<0>(res) = boost::simd::modf(a0, boost::fusion::at_c<1>(res));
+      boost::simd::modf(a0, boost::fusion::at_c<1>(res), boost::fusion::at_c<0>(res));
       return res;
     }
   };

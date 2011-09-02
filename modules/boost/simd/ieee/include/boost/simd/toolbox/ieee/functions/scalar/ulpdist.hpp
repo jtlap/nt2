@@ -20,6 +20,24 @@
 #include <boost/simd/include/functions/dist.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_
+				     , (A0)(A1)
+				     , (scalar_< arithmetic_<A0> >)
+				     (scalar_< arithmetic_<A1> >)
+				     )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return ulpdist(A0(a0), A0(a1));
+    }
+  };
+} } }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

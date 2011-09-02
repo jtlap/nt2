@@ -14,7 +14,6 @@
 #include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -61,8 +60,8 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
-                            , (A0)
-                            , (scalar_< real_<A0> >)(scalar_< integer_<A0> >)
+				     , (A0)(A1)
+                            , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
 
@@ -70,8 +69,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if (is_nan(a0)) return a0; 
-      return a0==Minf<A0>() ? a0 : bitfloating(bitinteger(a0)-boost::simd::abs(a1));
+      typedef typename dispatch::meta::as_integer<A0, signed>::type itype; 
+      if (is_nan(a0)) return a0;
+      return a0==Minf<A0>() ? a0 : bitfloating(bitinteger(a0)-itype(boost::simd::abs(a1)));
     }
   };
 } } }
