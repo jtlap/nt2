@@ -9,6 +9,16 @@
 #include <boost/simd/sdk/config/details/detect.hpp>
 #include <boost/simd/sdk/config/details/get_vendor.hpp>
 #include <boost/simd/sdk/config/details/cpuid.hpp>
+#include <boost/simd/sdk/config/arch.hpp>
+#include <boost/simd/sdk/config/os.hpp>
+
+#if defined(BOOST_SIMD_OS_LINUX) && defined(BOOST_SIMD_ARCH_POWERPC)
+#include <fcntl.h>
+#include <linux/auxvec.h>
+#include <asm/cputable.h>
+#elif defined(BOOST_SIMD_OS_MAC_OS) && defined(BOOST_SIMD_ARCH_POWERPC)
+#include <Gestalt.h>
+#endif
 
 #define BOOST_SIMD_DECLARE_X86_DETECTION_CALL(x, y, z)            \
 static const int bit = x, function = y, register_id = z;	  \
