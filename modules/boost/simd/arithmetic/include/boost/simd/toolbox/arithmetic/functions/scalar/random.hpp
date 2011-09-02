@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return iround(dist(a1-a0)*((double)rand()/RAND_MAX)+min(a0, a1)); //TO DO proper generator
+      return iround(dist(a1, a0)*((double)rand()/RAND_MAX)+min(a0, a1)); //TO DO proper generator
     }
   };
 } } }

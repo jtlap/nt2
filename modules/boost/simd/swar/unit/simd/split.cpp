@@ -29,7 +29,7 @@
 #include <boost/simd/include/functions/load.hpp>
 //COMMENTED
 
-NT2_TEST_CASE_TPL ( split_lt_64__1_0,  (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)(boost::simd::int8_t)(boost::simd::uint8_t)(float))
+NT2_TEST_CASE_TPL ( split_lt_64__1_0, (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)(boost::simd::int8_t)(boost::simd::uint8_t)(float))
 {
   using boost::simd::split;
   using boost::simd::tag::split_;
@@ -43,11 +43,18 @@ NT2_TEST_CASE_TPL ( split_lt_64__1_0,  (boost::simd::int16_t)(boost::simd::uint1
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<split_(vT)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<vT>::type   vu_t;
   typedef typename boost::dispatch::meta::call<split_(T)>::type sr_t;
   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
+  vT a = boost::simd::One<vT>(); 
+  vu_t a1, a2;
+  split(a, a1, a2); 
+  std::cout << a << std::endl;
+  std::cout << a1<< std::endl;
+  std::cout << a2<< std::endl; 
 
 //   // specific values tests
 //   typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_PACK_TOFLOAT_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/sdk/simd/pack/meta/retarget.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_real<T>::type real_type;
       return boost::proto::make_expr< boost::simd::tag::tofloat_
                                     , simd::domain<real_type,C>
                                     , A0 const&

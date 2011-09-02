@@ -9,25 +9,27 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_COMPARE_LESS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_COMPARE_LESS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/reversebits.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/common/details/compare_less_helper.hpp>
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Local shared helper
-////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace details
-{
-  template<class T>
-  inline bool compare_less_helper(T mask_lt, T mask_gt)
-  {
-    unsigned int mlt = boost::simd::reversebits(mask_lt);
-    unsigned int mgt = boost::simd::reversebits(mask_gt);
-    return (mlt > mgt) && mlt; 
-  }
-} } }
+// #ifndef NT2_COMPARE_LESS_HELPER
+// #define NT2_COMPARE_LESS_HELPER
+// ////////////////////////////////////////////////////////////////////////////////
+// // Local shared helper
+// ////////////////////////////////////////////////////////////////////////////////
+// namespace boost { namespace simd { namespace details
+// {
+//   template<class T>
+//   inline bool compare_less_helper(T mask_lt, T mask_gt)
+//   {
+//     unsigned int mlt = boost::simd::reversebits(mask_lt);
+//     unsigned int mgt = boost::simd::reversebits(mask_gt);
+//     return (mlt > mgt) && mlt; 
+//   }
+// } } }
+// #endif
 
 namespace boost { namespace simd { namespace ext
 {

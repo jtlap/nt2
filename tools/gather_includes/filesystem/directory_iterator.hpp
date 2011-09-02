@@ -2,6 +2,7 @@
 #define FILESYSTEM_DIRECTORY_ITERATOR_HPP
 
 #include <boost/system/api_config.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/assert.hpp>
 #include <stdexcept>
 #include <string>
@@ -28,7 +29,7 @@ namespace filesystem
             p_current_entry_name_( state_.cFileName                  )
         {
             if ( !handle_ )
-                throw std::runtime_error( std::string("Error opening directory ") + path );
+                BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error opening directory ") + path ) );
             skip_dots();
         }
     #else // POSIX
@@ -38,7 +39,7 @@ namespace filesystem
             p_current_entry_name_("<uninitialized>")
         {
             if ( !p_dir_ )
-                throw std::runtime_error( std::string("Error opening directory ") + path );
+                BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error opening directory ") + path ) );
             get_next_entry();
         }
     #endif // OS API
@@ -85,7 +86,7 @@ namespace filesystem
             #endif // OS API
     
             if ( failed )
-                throw std::runtime_error( "Error reading a directory" );
+                BOOST_THROW_EXCEPTION( std::runtime_error( "Error reading a directory" ) );
 
             skip_dots();
         }

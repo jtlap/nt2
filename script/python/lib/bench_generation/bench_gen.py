@@ -58,6 +58,7 @@ class Bench_gen() :
             "#include <nt2/sdk/unit/benchmark.hpp>",
             "#include <nt2/sdk/unit/bench_includes.hpp>",
             "#include <boost/dispatch/meta/as_integer.hpp>",
+            "#include <nt2/include/constants/digits.hpp>",
             "#include <cmath>",
             "" if mode=='scalar' else "typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;",
             "",

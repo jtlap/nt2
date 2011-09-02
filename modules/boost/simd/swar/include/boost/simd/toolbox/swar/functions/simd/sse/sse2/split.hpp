@@ -20,19 +20,19 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, boost::simd::tag::sse2_
-                                      , (A0)(A1)(X)
+                                      , (A0)(A1)
                                       , (boost::mpl::and_ <
                                             boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
                                             boost::is_same<A1, typename dispatch::meta::upgrade<A0>::type>
                                         >)
-                                      , (boost::simd::tag::split_(simd_<arithmetic_<A0>,X>
-                                                                 ,simd_<arithmetic_<A1>,X>
-                                                                 ,simd_<arithmetic_<A1>,X>
+                                      , (boost::simd::tag::split_(simd_<arithmetic_<A0>,boost::simd::tag::sse_>
+                                                                 ,simd_<arithmetic_<A1>,boost::simd::tag::sse_>
+                                                                 ,simd_<arithmetic_<A1>,boost::simd::tag::sse_>
                                                                  )
                                         ),
-                                        ((simd_<arithmetic_<A0>,X>))
-                                        ((simd_<arithmetic_<A1>,X>))
-                                        ((simd_<arithmetic_<A1>,X>))
+                                        ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                                        ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
+                                        ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
                                       ) 
   {
     typedef typename meta::scalar_of<A0>::type                                      stype;
@@ -53,51 +53,51 @@ namespace boost { namespace simd { namespace ext
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename boost::simd::meta::int16_t_<A0>::type,boost::simd::tag::sse_>&)const
     {
       typedef simd::native<typename  boost::simd::meta::int16_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi8(a0, is_ltz(a0)));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi8(a0, is_ltz(a0)));
+      r1 = bitwise_cast<rtype>(_mm_unpackhi_epi8(a0, is_ltz(a0)));
+      r0 = bitwise_cast<rtype>(_mm_unpacklo_epi8(a0, is_ltz(a0)));
     }
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::uint16_t_<A0>::type,boost::simd::tag::sse_ > &)const
     {
       typedef simd::native<typename  boost::simd::meta::uint16_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi8(a0, Zero<A0>()));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi8(a0, Zero<A0>()));
+      r1 = bitwise_cast<rtype>(_mm_unpackhi_epi8(a0, Zero<A0>()));
+      r0 = bitwise_cast<rtype>(_mm_unpacklo_epi8(a0, Zero<A0>()));
     }
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::int32_t_<A0>::type,boost::simd::tag::sse_ > &)const
     {
       typedef simd::native<typename  boost::simd::meta::int32_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi16(a0, is_ltz(a0)));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi16(a0, is_ltz(a0)));
+      r1 = bitwise_cast<rtype>(_mm_unpackhi_epi16(a0, is_ltz(a0)));
+      r0 = bitwise_cast<rtype>(_mm_unpacklo_epi16(a0, is_ltz(a0)));
     }
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::uint32_t_<A0>::type,boost::simd::tag::sse_ > &)const
     {
       typedef simd::native<typename  boost::simd::meta::uint32_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi16(a0, Zero<A0>()));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi16(a0, Zero<A0>()));
+      r1 = bitwise_cast<rtype>(_mm_unpackhi_epi16(a0, Zero<A0>()));
+      r0 = bitwise_cast<rtype>(_mm_unpacklo_epi16(a0, Zero<A0>()));
     }
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_ > &)const
     {
       typedef simd::native<typename  boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi32(a0, is_ltz(a0)));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi32(a0, is_ltz(a0)));
+      r1 = bitwise_cast<rtype>(_mm_unpackhi_epi32(a0, is_ltz(a0)));
+      r0 = bitwise_cast<rtype>(_mm_unpacklo_epi32(a0, is_ltz(a0)));
     }
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::uint64_t_<A0>::type,boost::simd::tag::sse_ > &)const
     {
       typedef simd::native<typename  boost::simd::meta::uint64_t_<A0>::type,boost::simd::tag::sse_> rtype;
-      r1 = simd::native_cast<rtype>(_mm_unpackhi_epi32(a0, Zero<A0>()));
-      r0 = simd::native_cast<rtype>(_mm_unpacklo_epi32(a0, Zero<A0>()));
+      r1 = bitwise_cast<rtype>(_mm_unpackhi_epi32(a0, Zero<A0>()));
+      r0 = bitwise_cast<rtype>(_mm_unpacklo_epi32(a0, Zero<A0>()));
     }
 
     template<class R0,class R1> inline void
     eval(A0 const& a0, R0& r0, R1& r1, const simd::native<typename  boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> &)const
     {
       typedef simd::native<typename boost::simd::meta::int32_t_<A0>::type,boost::simd::tag::sse_> itype;
-      r1 = simd::native_cast<R1>(_mm_cvtps_pd(simd::native_cast<A0>(_mm_srli_si128( simd::native_cast<itype>(a0), 8))));
-      r0 = simd::native_cast<R0>(_mm_cvtps_pd(a0));
+      r1 = bitwise_cast<R1>(_mm_cvtps_pd(bitwise_cast<A0>(_mm_srli_si128( bitwise_cast<itype>(a0), 8))));
+      r0 = bitwise_cast<R0>(_mm_cvtps_pd(a0));
     }
   };
 

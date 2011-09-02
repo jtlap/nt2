@@ -76,6 +76,7 @@ NT2_TEST_CASE_TPL ( bitwise_all_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNE
 
 
   // specific values tests
+  
   NT2_TEST_EQUAL(bitwise_all(boost::simd::Mone<vT>()), true);
   NT2_TEST_EQUAL(bitwise_all(boost::simd::One<vT>()), false);
   NT2_TEST_EQUAL(bitwise_all(boost::simd::Zero<vT>()), false);

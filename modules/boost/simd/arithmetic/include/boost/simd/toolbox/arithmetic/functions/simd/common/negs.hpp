@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_NEGS_HPP_INCLUDED
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/unary_minus.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is signed_
@@ -21,12 +22,10 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<signed_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return sel(eq(a0, boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), -a0); 
+      return sel(eq(a0, boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), unary_minus(a0)); 
     }
   };
 } } }
@@ -42,12 +41,10 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<real_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return -a0; 
+      return unary_minus(a0); 
     }
   };
 } } }

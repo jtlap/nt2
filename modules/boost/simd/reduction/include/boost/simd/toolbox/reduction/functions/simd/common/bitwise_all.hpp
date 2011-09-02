@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return hmsb(a0) == (1 << meta::cardinal_of<A0>::value)-1;
+      return hmsb(a0) == (1ul << meta::cardinal_of<A0>::value)-1;
     }
   };
 } } }

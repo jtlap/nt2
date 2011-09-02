@@ -11,7 +11,8 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
-#include <boost/simd/include/functions/popcnt.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/dispatch/meta/as_real.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                        ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                       )
   {
-    typedef int32_t result_type;
+    typedef uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_movemask_epi8(a0);
@@ -38,7 +39,7 @@ namespace boost { namespace simd { namespace ext
                        ((simd_<type32_<A0>,boost::simd::tag::sse_>))
                       )
   {
-    typedef int32_t result_type;
+    typedef uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_real<A0>::type type;
@@ -54,7 +55,7 @@ namespace boost { namespace simd { namespace ext
                        ((simd_<type64_<A0>,boost::simd::tag::sse_>))
                       )
   {
-    typedef int32_t result_type;
+    typedef uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_real<A0>::type type;

@@ -10,10 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_MAKE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/toolbox/operator/functions/make.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/details/make_helper.hpp>
 
 //==============================================================================
 // make for double
@@ -24,11 +22,7 @@ namespace boost { namespace simd { namespace ext
                             , ((target_< simd_< double_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A0::type result_type;
-
-    template<class I0, class I1>
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(I0 const& a0, I1 const& a1) const
+    BOOST_SIMD_MAKE_BODY(2)
     {
       result_type that = { _mm_setr_pd(a0, a1) };
       return that;
@@ -45,19 +39,18 @@ namespace boost { namespace simd { namespace ext
                             , ((target_< simd_< ints64_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A0::type result_type;
-
-    template<class I0, class I1>
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(I0 const& a0, I1 const& a1) const
+    BOOST_SIMD_MAKE_BODY(2)
     {
-      result_type
-      that =  { _mm_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
-                              , (uint64_t(a0) & 0xFFFFFFFF00000000ULL) >> 32
-                              , (uint64_t(a1) & 0x00000000FFFFFFFFULL)
-                              , (uint64_t(a1) & 0xFFFFFFFF00000000ULL) >> 32
-                            )
-              };
+#ifdef BOOST_SIMD_ARCH_X86_64
+      result_type that =  { _mm_set_epi64x(a1, a0) };
+#else
+      result_type that =  { _mm_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
+                                          , (uint64_t(a0) & 0xFFFFFFFF00000000ULL) >> 32
+                                          , (uint64_t(a1) & 0x00000000FFFFFFFFULL)
+                                          , (uint64_t(a1) & 0xFFFFFFFF00000000ULL) >> 32
+                                          )
+                          };
+#endif
       return that;
     }
   };
@@ -72,11 +65,7 @@ namespace boost { namespace simd { namespace ext
                             , ((target_< simd_< float_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A0::type result_type;
-
-    template<class I0, class I1,class I2,class I3>
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3) const
+    BOOST_SIMD_MAKE_BODY(4)
     {
       result_type that = { _mm_setr_ps(a0, a1, a2, a3) };
       return that;
@@ -93,11 +82,7 @@ namespace boost { namespace simd { namespace ext
                             , ((target_< simd_< ints32_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A0::type result_type;
-
-    template<class I0, class I1,class I2,class I3>
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3) const
+    BOOST_SIMD_MAKE_BODY(4)
     {
       result_type that = { _mm_setr_epi32(a0, a1, a2, a3) };
       return that;
@@ -114,15 +99,7 @@ namespace boost { namespace simd { namespace ext
                             , ((target_< simd_< ints16_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A0::type result_type;
-
-    template< class I0, class I1,class I2,class I3
-            , class I4, class I5,class I6,class I7
-            >
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()( I0 const& a0, I1 const& a1, I2 const& a2, I3 const& a3
-              , I4 const& a4, I5 const& a5, I6 const& a6, I7 const& a7
-              ) const
+    BOOST_SIMD_MAKE_BODY(8)
     {
       result_type that = { _mm_setr_epi16(a0, a1, a2, a3 , a4, a5, a6, a7 ) };
       return that;
@@ -139,22 +116,10 @@ namespace boost { namespace simd { namespace ext
                             , ((target_< simd_< ints8_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A0::type result_type;
-
-    template< class I0, class I1,class I2,class I3
-            , class I4, class I5,class I6,class I7
-            , class I8, class I9,class IA,class IB
-            , class IC, class ID,class IE,class IF
-            >
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()( I0 const& a0  , I1 const& a1  , I2 const& a2  , I3 const& a3
-              , I4 const& a4  , I5 const& a5  , I6 const& a6  , I7 const& a7
-              , I8 const& a8  , I9 const& a9  , IA const& a10 , IB const& a11
-              , IC const& a12 , ID const& a13 , IE const& a14 , IF const& a15
-              ) const
+    BOOST_SIMD_MAKE_BODY(16)
     {
       result_type
-      that =  { _mm_setr_epi8 ( a0, a1 , a2, a3  , a4 , a5 , a6 , a7
+      that =  { _mm_setr_epi8 ( a0, a1 , a2,  a3 ,  a4,  a5,  a6,  a7
                               , a8, a9, a10, a11 , a12, a13, a14, a15 )
               };
       return that;

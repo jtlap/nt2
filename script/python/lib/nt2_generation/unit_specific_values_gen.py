@@ -102,7 +102,7 @@ class Specific_values_test_gen(object) :
 
     def expand_to_list(self,typ) :
 ##        print("typ ->>> %s"%typ)
-        return self.bg.Expansion_dict[self.platform][typ]
+        return self.bg.Expansion_dict[self.platform].get(typ,typ)
     
     def __create_v_tests(self,dl,typ) :
         typs = self.expand_to_list(typ)

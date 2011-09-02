@@ -16,7 +16,8 @@ namespace boost { namespace simd { namespace tag
   {         
     struct is_nez_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nez_, is_nez, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nez_, is_nez,  1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nez_, is_true, 1)
 } }
  
 #endif

@@ -28,7 +28,7 @@ namespace boost { namespace simd
   typename boost::enable_if_c<meta::is_native<T>::value, T const&>::type
   native_cast( typename T::native_type const& a )
   {
-	  return reinterpret_cast<T const&>(a);
+    return reinterpret_cast<T const&>(a);
   }
 
 #ifdef BOOST_SIMD_NO_STRICT_ALIASING

@@ -56,8 +56,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0pa1 = a0+a1;
-      return b_or(a0pa1, lt(a0pa1, a0)); 
-     //      return sel(lt(a0pa1, boost::simd::max(a0, a1)), Valmax<A0>(), a0pa1); 
+      return select(lt(a0pa1, a0), Valmax<A0>(), a0pa1); 
     }
   };
 

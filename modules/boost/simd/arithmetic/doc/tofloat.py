@@ -8,7 +8,7 @@
          'rturn' : {
              'default' : 'typename boost::result_of<boost::dispatch::meta::floating(T)>::type',
             },
-         'simd_types' : ['real_','int_convert_','uint_convert_'],
+         'simd_types' : ['real_','uint64_t','int64_t','uint32_t','int32_t'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },

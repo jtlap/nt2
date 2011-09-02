@@ -80,8 +80,8 @@ namespace boost { namespace simd { namespace ext
       typedef simd::native<itype, X>              ivtype;
       ivtype a0l, a0h, a1l, a1h;
 
-      split(a0,a0l, a0h);
-      split(a1,a1l, a1h);
+      split(a0, a0l, a0h);
+      split(a1, a1l, a1h);
       return simd::native_cast<A0>(group( boost::simd::rdivide(a0l, a1l)
                                         , boost::simd::rdivide(a0h, a1h) ));
     }
