@@ -289,6 +289,7 @@ class Random_verif_test_gen(Base_gen) :
                     if not no_ulp : r.append(beg+"ulp0=nt2::max(ulpd,ulp0);")
                     return r
             else : ## simd
+                print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
                 if ret_arity > 1 :
                     dtmp = durac.get(typ,None)
                     if dtmp is None :
@@ -326,6 +327,7 @@ class Random_verif_test_gen(Base_gen) :
                         r+= dur['scalar_simul'].get(typ,dur['scalar_simul']['default'])
                     return r
                 else:
+                    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
                     dtmp = durac.get(typ,None)
                     if dtmp is None :
                         dtmp = durac.get(self.bg.orig_typ,durac.get("default",[]))
@@ -345,15 +347,22 @@ class Random_verif_test_gen(Base_gen) :
                     ULP = "" if no_ulp  else "ULP_"
                     THRESH = "" if no_ulp else (", "+thresh)
                     if df.get("special",[""])[0] in ['reduction','swar'] :
-                        r = ["        r_t v = %s%s(%s);"%(name,istpl,g)]
+                        print("kkkkkkkkkkkkkkkkk")
+                        print(durac)
+                        print("kkkkkkkkkkkkkkkkk")
+                        alternate_call = durac.get('default',None)
+                        if alternate_call is not None :
+                            r = ["        r_t v = "+ durac.get('default',None)[0]+";"]
+                        else :
+                            r = ["        r_t v = %s%s(%s);"%(name,istpl,g)]
 ##                        print(dur)
                         r+= dur['scalar_simul'].get(typ,dur['scalar_simul']['default'])
                     else :
                         z = durac.get("simd_special",False)
                         if z :
-                            call = "        r_t v = "+z+";"
+                            call = "   xxx     r_t v = "+z+";"
                         else :
-                            call = "        r_t v = %s%s(%s);"%(name,istpl,g)
+                            call = "   yyy     r_t v = %s%s(%s);"%(name,istpl,g)
                         r = [
                             call,
                             "        for(int i = 0; i< cardinal_of<n_t>::value; i++)",
