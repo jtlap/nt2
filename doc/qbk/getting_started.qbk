@@ -1,0 +1,146 @@
+[section Getting Started]
+
+[section Getting __NT2__]
+
+Installers are available for testing, but are not available on any regular
+website yet.
+
+__NT2__ being still in an active development stage, the best thing to do is
+to get a copy of the source from the [@http://git-scm.com/ Git] repository,
+hosted on [@https://github.com/MetaScale/nt2/ GitHub].
+
+Consult the [@http://progit.org/book/ Pro Git book] for information on how to
+set up and use Git. [br]
+If you wish to collaborate to __NT2__, create a GitHub account and consult
+the [@http://help.github.com/set-up-git-redirect GitHub documentation]
+on how to integrate it with your Git installation.
+
+[endsect]
+
+[section __NT2__ binary and source layouts]
+
+The layout of the __NT2__ distribution can be vastly different depending
+on whether you're looking at the source distribution or the binary distribution.
+
+The essential difference is that the source distribution is divided into a collection of modules,
+which can each add headers to the include path, library sources to be built, tests, etc.
+
+The binary distribution, on top of providing the libraries in a built binary form, also contains files
+that are automatically generated when the build system is configured, and has all module-specific files
+flattened into a module-less tree.
+
+[table Binary layout
+    [[Path]        [Description]]
+    [[=nt2/cmake=]   [CMake modules for __NT2__ usage, directory suitable to add to your `CMAKE_MODULE_PATH`]]
+    [[=nt2/doc=]     [__NT2__ HTML documentation]]
+    [[=nt2/include=] [__NT2__ headers, directory suitable to add to your include path]]
+    [[=nt2/lib=]     [__NT2__ library binaries, directory suitable to add to your linker path]]
+    [[=nt2/modules=] [Files used by __NT2__ to identity installed modules and their associated]]
+    [[=nt2/tools=]   [Programs that are used to manage a __NT2__ setup]]
+]
+
+[table Source layout
+    [[Path]          [Description]]
+    [[=nt2/CMakeLists.txt=] [__NT2__ CMake super-project]]
+    [[=nt2/cmake=]   [Global CMake modules for __NT2__ usage]]
+    [[=nt2/doc=]     [Global documentation source]]
+    [[=nt2/modules=] [Collection of modules]]
+    [[----] [----]]
+    [[[^nt2/modules/[~foo]]] [Module [~foo]]]
+    [[[^nt2/modules/[~foo]/CMakeLists.txt]] [Standalone CMake project for module [~foo]]]
+    [[[^nt2/modules/[~foo]/bench]] [Benchmarks for module [~foo]]]
+    [[[^nt2/modules/[~foo]/cmake]] [CMake modules specific to module [~foo]]]
+    [[[^nt2/modules/[~foo]/cover]] [Cover tests for module [~foo]]]
+    [[[^nt2/modules/[~foo]/exhaustive]] [Exhaustive tests for module [~foo]]]
+    [[[^nt2/modules/[~foo]/include]] [Headers specific to module [~foo], suitable to add to your include path]]
+    [[[^nt2/modules/[~foo]/src]] [Source files specific to module [~foo]]]
+    [[[^nt2/modules/[~foo]/unit]] [Unit tests for module [~foo]]]
+    [[----] [----]]
+    [[[^nt2/modules/[~bar]/[~baz]]] [Module [~bar].[~baz] ([~bar] must not be a module)]]
+    [[=nt2/scripts=] [[@http://www.python.org/ Python] and shell scripts used in the development of __NT2__]]
+    [[=nt2/tools=]   [Source of programs that are used to manage a __NT2__ setup]]
+]
+
+[endsect]
+
+[section Using __NT2__]
+
+The binary layout of __NT2__ is normally needed to use the library in 
+your project.
+
+However, if you happen to use CMake to build your project, if it also possible to
+use either of the binary and source distribution, with the library being built transparently
+in the latter case.
+
+If you use another build tool, you will have to get the binary distribution, or generate
+it from the source one.
+
+[section Using the __NT2__ binary distribution]
+
+To use the binary distribution, simply add
+=nt2/include= to the include path and link with the libraries you want
+from =nt2/lib=.
+
+Note that if you choose to use the shared libraries, you'll also need to
+define the `NT2_DYN_LINK` or `BOOST_SIMD_DYN_LINK` macros.
+
+Using the SIMD features of __NT2__ can require enabling them with the
+appropriate compiler flags. Certains compilers have no mechanism that
+can be used to introspect what type of SIMD to generate, in which case
+you must instruct the library the correct one using [^BOOST_SIMD_HAS_[~XXX]_SUPPORT]
+with [~XXX] the name of the SIMD extension.
+
+[endsect] [/ Using binary]
+
+[section Using __NT2__ within a CMake project]
+You can use the `FindNT2` CMake module to use __NT2__ in your CMake-enabled
+project.
+
+To do so, set the `CMAKE_MODULE_PATH` variable to contain the path to either
+the source or binary root of __NT2__. This variable is a list of directories
+used by CMake to lookup files to include.
+
+Then use the `find_package` command to find `NT2`; you can specify the list
+of modules you want with the `COMPONENTS` option: it defaults to all that were
+found.
+
+You may aid `FindNT2` by defining a `NT2_ROOT`, `NT2_INCLUDE_ROOT` and `NT2_LIBRARY_ROOT`
+for binary installations, or `NT2_SOURCE_ROOT` for the source distribution.
+Those variables can also be environment variables.
+
+Calling `find_package` will define various variables that can then be used to set-up
+the project that wants to use __NT2__.
+
+The __NT2__ source provides a /sandbox/ mini-project that demonstrates how to use
+the source; below is another example:
+
+[teletype]
+``
+project(myproject)
+
+# Allow CMake to find NT2
+set(NT2_SOURCE_ROOT /path/to/nt2/source)
+list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
+
+# Ask to find the arithmetic and trigonometric modules,
+# emit a fatal error if not found
+find_package(NT2 COMPONENTS arithmetic trigonometric REQUIRED)
+
+# Set the environment to use the include directories, libraries
+# and compiler flags required for the NT2 modules requested
+include_directories(${NT2_INCLUDE_DIR})
+link_libraries(${NT2_LIBRARIES})
+add_definitions(${NT2_FLAGS})
+
+# Build an executable using that environment
+add_executable(myexe mysource.cpp)
+``
+
+[endsect]
+
+[endsect] [/ Using]
+
+[section Building __NT2__]
+[endsect] [/ Building]
+
+[endsect] [/ Getting Started]
