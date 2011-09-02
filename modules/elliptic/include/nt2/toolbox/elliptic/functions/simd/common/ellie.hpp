@@ -22,7 +22,7 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 
 
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
 //       while(1)
 //         {
 //           A0 test = gt(abs(c),Eps<A0>()*abs(a));
-//           if (nt2::any(test))
+//           if (nt2::bitwise_any(test))
 //             {
 //             A0 temp = b/a;
 //             lphi = lphi + atan(t*temp) + mod * Pi < A0>();

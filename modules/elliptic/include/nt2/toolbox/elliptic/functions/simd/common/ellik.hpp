@@ -23,7 +23,7 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
 	//       A0 d = One<A0>();
 	//       A0 t = tan(phi);
 	//       A0 mod = ceil(phi/Pi<A0>());
-	//       while( nt2::any(gt(abs(c), nt2::abs(a)*Eps<A0>())) )
+	//       while( nt2::bitwise_any(gt(abs(c), nt2::abs(a)*Eps<A0>())) )
 	//       {
 	//         A0 temp = b/a;
 	//         phi = phi + atan(t*temp) + mod*Pi<A0>();

@@ -25,7 +25,7 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/bitwise_all.hpp>
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/constants/digits.hpp>
@@ -75,19 +75,19 @@ namespace nt2
         {
 	  const A0 x = { x_n };
           // x is always positive here
-          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (bitwise_all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
 	    {
 	      xr = x;
 	      xc = Zero<A0>();
 	      return Zero<int_type>(); 
 	    }
-          else if (all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (bitwise_all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
 	      return rem_pio2_straight(x, xr, xc);
-          else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
+          else if (bitwise_all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	      return rem_pio2_cephes(x, xr, xc);
-          else if (all(ismedium(x))) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
+          else if (bitwise_all(ismedium(x))) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
 	      return rem_pio2_medium(x, xr, xc);
-	  else if (conversion_allowed())//if (all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+	  else if (conversion_allowed())//if (bitwise_all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
 	    {
 	      typedef typename meta::upgrade<A0>::type uA0;
 	      typedef typename meta::upgrade<int_type>::type uint_type; 
@@ -109,15 +109,15 @@ namespace nt2
         {
 	  const A0 x = { x_n };
           // x is always positive here
-          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (bitwise_all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
 	    {
 	      xr = x;
 	      xc = Zero<A0>();
 	      return Zero<int_type>(); 
 	    }
-          else if (all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (bitwise_all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
 	      return rem_pio2_straight(x, xr, xc);
-          else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
+          else if (bitwise_all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	      return rem_pio2_cephes(x, xr, xc);
           else // correct only if all of x are in [0, 2^7*pi/2],  fdlibm medium way
 	      return rem_pio2_medium(x, xr, xc);
@@ -126,13 +126,13 @@ namespace nt2
         {
 	  const A0 x = { x_n };
           // x is always positive here
-          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (bitwise_all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
 	    {
 	      xr = x;
 	      xc = Zero<A0>();
 	      return Zero<int_type>(); 
 	    }
-          else if (all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (bitwise_all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
 	      return rem_pio2_straight(x, xr, xc);
           else //  correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
 	      return rem_pio2_cephes(x, xr, xc);

@@ -11,7 +11,7 @@
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/sdk/simd/tags.hpp>
@@ -61,7 +61,7 @@ namespace nt2
 	  A0 x = nt2::abs(a0);
 	  A0 z2 = {asin(a0)};
 	  A0 isgtxh = gt(x, Half<A0>());
-	  if (nt2::any(isgtxh))
+	  if (nt2::bitwise_any(isgtxh))
 	    {
 	      const A0 as = {asin(sqrt(oneminus(x)*Half<A0>()))};
 	      const A0 z1 = as*Two<A0>(); 

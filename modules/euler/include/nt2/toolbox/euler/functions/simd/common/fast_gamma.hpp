@@ -11,14 +11,13 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/bitwise_ornot.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
@@ -49,7 +48,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::fast_gamma_, tag::cpu_,
                              (A0)(X),
                              ((simd_<real_<A0>,X>))
-			     )
+                            )
   {
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
@@ -117,18 +116,18 @@ namespace nt2 { namespace ext
 	AA0 x =  sel(test, Five<A0>()/Two<A0>(), xx);
 	AA0 z = One<A0>();
 	AA0 test1;
-	while( nt2::any(test1 = ge(x,Three<A0>())) )
+	while( nt2::bitwise_any(test1 = ge(x,Three<A0>())) )
 	  {
 	    x = seladd(test1, x, Mone<A0>());
 	    z = sel(   test1, z*x, z);
 	  }
 	AA0 test2;
-	while( nt2::any(test2 = is_ltz(x)) )
+	while( nt2::bitwise_any(test2 = is_ltz(x)) )
 	  {
 	    z = sel(   test2, z/x, z);
 	    x = seladd(test2, x, One<A0>());
 	  }
-	while( nt2::any(test1 =lt(x,Two<A0>())) )
+	while( nt2::bitwise_any(test1 =lt(x,Two<A0>())) )
 	  {
 	    z = sel(   test1, z/x, z);
 	    x = seladd(test1, x, One<A0>());
