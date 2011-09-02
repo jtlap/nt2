@@ -14,7 +14,27 @@
 #include <boost/simd/include/functions/dist.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
+// Implementation when type A0 and A1 are not equal types
+// This oddity is due to the fact that many tests up to now
+// don't pass typed integer parameters to the macro NT2_CREATE_BUF
+/////////////////////////////////////////////////////////////////////////////
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::random_, tag::cpu_
+				     , (A0)(A1)
+				     , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+				     )
+  {
+    typedef A0 result_type;  //typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0, A1)>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
+      {
+	return boost::simd::random(result_type(a0), result_type(a1)); 
+      }
+  };
+} } }
+
+/////////////////////////////////////////////////////////////////////////////
+//Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
