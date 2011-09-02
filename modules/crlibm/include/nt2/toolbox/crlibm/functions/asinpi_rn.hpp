@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_CRLIBM_FUNCTIONS_ASINPI_RN_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/toolbox/crlibm/specific/tags.hpp>
+#include <nt2/toolbox/crlibm/specific/interface.hpp>
 
 namespace nt2 { namespace crlibm { namespace tag
   {
