@@ -26,15 +26,15 @@ namespace nt2 { namespace memory
           >
   struct linear_buffer
   {  
-    typedef Allocator                           allocator;    
-    typedef typename allocator::value_type      value_type;
-    typedef typename allocator::pointer         pointer;
-    typedef typename allocator::const_pointer   const_pointer;
-    typedef typename allocator::reference       reference;
-    typedef typename allocator::const_reference const_reference;
-    typedef typename allocator::size_type       size_type;
-    typedef typename allocator::difference_type difference_type;
-    typedef value_type*                         data_type;  
+    typedef typename Allocator::template rebind<Type>::other  allocator;
+    typedef typename allocator::value_type                    value_type;
+    typedef typename allocator::pointer                       pointer;
+    typedef typename allocator::const_pointer                 const_pointer;
+    typedef typename allocator::reference                     reference;
+    typedef typename allocator::const_reference               const_reference;
+    typedef typename allocator::size_type                     size_type;
+    typedef typename allocator::difference_type               difference_type;
+    typedef value_type*                                       data_type;  
 
     //==========================================================================
     /**
@@ -65,10 +65,11 @@ namespace nt2 { namespace memory
     template<typename Sizes, typename Bases> 
     linear_buffer ( Sizes const&      szs
                   , Bases const&      // bases are not needed in linear mode
+                  , Padding const&    p
                   , value_type*       shared
                   , Allocator const&  a = Allocator() 
                   )
-    : alloc_(a), begin_(shared), shared_(true);
+    : alloc_(a), begin_(shared), shared_(true)
     {
       size_type numel = slice<1>(szs,p);
       end_ = begin_ + numel;

@@ -6,9 +6,9 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::memory linear_buffer"
+#define NT2_UNIT_MODULE "nt2::memory iliffe_buffer"
 
-#include <nt2/core/container/memory/linear_buffer.hpp>
+#include <nt2/core/container/memory/iliffe_buffer.hpp>
 
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
@@ -25,19 +25,19 @@ using nt2::memory::lead_padding;
 using nt2::memory::global_padding;
 
 ////////////////////////////////////////////////////////////////////////////////
-// Build 1/2/3/4D linear_buffer with various padding strategies
+// Build 1/2/3/4D iliffe_buffer with various padding strategies
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( iliffe_ctor, (no_padding)(lead_padding)(global_padding) )
 {
   using nt2::slice;
   using nt2::memory::allocator;
-  using nt2::memory::linear_buffer;
+  using nt2::memory::iliffe_buffer;
   using boost::array;
   
-  typedef linear_buffer<1,double,T,allocator<double> > buffer1D;
-  typedef linear_buffer<2,double,T,allocator<double> > buffer2D;
-  typedef linear_buffer<3,double,T,allocator<double> > buffer3D;
-  typedef linear_buffer<4,double,T,allocator<double> > buffer4D;
+  typedef iliffe_buffer<1,double,T,allocator<double> > buffer1D;
+  typedef iliffe_buffer<2,double,T,allocator<double> > buffer2D;
+  typedef iliffe_buffer<3,double,T,allocator<double> > buffer3D;
+  typedef iliffe_buffer<4,double,T,allocator<double> > buffer4D;
 
   T padding;
   array<int,1> s1D = {{3}};

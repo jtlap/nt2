@@ -9,14 +9,8 @@
 
 SET( SOURCES
   linear_buffer.cpp
-#  nrc_buffer.cpp
+  iliffe_buffer.cpp
 # List of scalar test files for toolbox crlibm
    )
 
-##****************************************************************************
-# For each filename
-##****************************************************************************
-FOREACH( EXAMPLE ${SOURCES})
-  STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_unit(core.container.memory.${EXAMPLE}.unit ${EXAMPLE}.cpp)
-ENDFOREACH()
+nt2_module_add_tests(core.container.memory.unit ${SOURCES})

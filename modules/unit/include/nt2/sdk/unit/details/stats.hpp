@@ -17,28 +17,28 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   // Init-on-first-call value for error count
   //////////////////////////////////////////////////////////////////////////////
-  inline int& error_count() { static int x = 0; return x; }
+  static inline int& error_count() { static int x = 0; return x; }
 
   //////////////////////////////////////////////////////////////////////////////
   // Init-on-first-call value for test count
   //////////////////////////////////////////////////////////////////////////////
-  inline int& test_count() { static int x = 0; return x; }
+  static inline int& test_count() { static int x = 0; return x; }
 
   //////////////////////////////////////////////////////////////////////////////
   // Report a passed test
   //////////////////////////////////////////////////////////////////////////////
-  inline void pass(char const* x) { printf(" * Test `%s` **passed**\n",x); }
+  static inline void pass(char const* x) { printf(" * Test `%s` **passed**\n",x); }
 
   //////////////////////////////////////////////////////////////////////////////
   // Report a failed test & increment error count
   //////////////////////////////////////////////////////////////////////////////
-  inline void fail(char const* x, int ln, char const* fn)
+  static inline void fail(char const* x, int ln, char const* fn)
   {
     printf(" * Test `%s` **failed** in function `%s (%d)\n`", x,fn,ln);
     ++error_count();
   }
 
-  inline void error(char const* m, int ln, char const* fn)
+  static inline void error(char const* m, int ln, char const* fn)
   {
     printf(" * %s in function `%s (%d)\n`",m,fn,ln);
     ++error_count();

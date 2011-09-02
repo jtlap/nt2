@@ -7,9 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-
-##****************************************************************************
-##*     Toolbox core memory unit tests
-##****************************************************************************
 nt2_module_use_modules(unit sdk)
-#ADD_SUBDIRECTORY(container)
+ADD_SUBDIRECTORY(container)
