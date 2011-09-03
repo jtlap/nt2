@@ -29,7 +29,7 @@ namespace boost { namespace simd
     os << "{";
     for(std::size_t i=0;i<v.size()-1;++i)
       os << static_cast<display_type>(v[i]) << ",";
-    os << static_cast<display_type>(v[v.size()-1]) << "}";
+    os << static_cast<display_type>(v[v.size()-1UL]) << "}";
     return os;
   }
 } }
