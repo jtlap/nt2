@@ -31,52 +31,52 @@ using nt2::tag::shift_left_;
 namespace n1 {
   typedef nt2::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n2 {
   typedef nt2::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n3 {
   typedef nt2::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n4 {
   typedef nt2::int64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n5 {
   typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n6 {
   typedef nt2::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n7 {
   typedef nt2::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n8 {
   typedef nt2::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n9 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 namespace n10 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(sT)*8-1)))
+  NT2_TIMING(shift_left_,(RS(T,nt2::Valmin<T>()/2,nt2::Valmax<T>()/2))(RS(iT,0,sizeof(T)*8-1)))
 }
 
 #undef RS

@@ -45,6 +45,8 @@ class Bench_gen() :
         """
         name = self.bg.get_fct_name()
         tb_name = self.bg.get_tb_name()
+        package = 'boost/simd' if tb_name.find('.') != -1 else 'nt2'
+        nspce   = 'boost::simd'if tb_name.find('.') != -1 else 'nt2'
         mode = self.bg.get_fct_mode()
         nsp = "" if self.bg.get_tb_style()=="sys" else tb_name+'::'
         txt = [
@@ -55,17 +57,17 @@ class Bench_gen() :
             "//////////////////////////////////////////////////////////////////////////////",
             ""
             "#include <%s/include/%s.hpp>"%(self.bg.demangle(tb_name,'toolbox'),name.lower()),
-            "#include <nt2/sdk/unit/benchmark.hpp>",
-            "#include <nt2/sdk/unit/bench_includes.hpp>",
+            "#include <%s/sdk/unit/benchmark.hpp>"%package,
+            "#include <%s/sdk/unit/bench_includes.hpp>"%package,
             "#include <boost/dispatch/meta/as_integer.hpp>",
-            "#include <nt2/include/constants/digits.hpp>",
+            "#include <%s/include/constants/digits.hpp>"%package,
             "#include <cmath>",
             "" if mode=='scalar' else "typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;",
             "",
             "//////////////////////////////////////////////////////////////////////////////",
             "// %s runtime benchmark for functor<%s_> from %s"%(mode,name,tb_name),
             "//////////////////////////////////////////////////////////////////////////////",
-            "using nt2::%stag::%s_;"%(nsp,name.lower()),
+            "using %s::%stag::%s_;"%(nspce,nsp,name.lower()),
             "",
             "//////////////////////////////////////////////////////////////////////////////",
             "// range macro",

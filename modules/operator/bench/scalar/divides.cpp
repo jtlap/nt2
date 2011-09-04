@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <cmath>
 
 
