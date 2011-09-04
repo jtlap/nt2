@@ -14,7 +14,8 @@
 
 [section Preface]
 The Numerical Template Toolbox (__NT2__) is an open source C++ library aimed at easing the development
-of high-performance numerical computing applications. [br]
+of high-performance numerical computing applications.
+
 It does so with a high-level __MATLAB__-like syntax, which facilitates the transition from prototype
 to finished product.
 

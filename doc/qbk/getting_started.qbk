@@ -10,7 +10,8 @@ to get a copy of the source from the [@http://git-scm.com/ Git] repository,
 hosted on [@https://github.com/MetaScale/nt2/ GitHub].
 
 Consult the [@http://progit.org/book/ Pro Git book] for information on how to
-set up and use Git. [br]
+set up and use Git. 
+
 If you wish to collaborate to __NT2__, create a GitHub account and consult
 the [@http://help.github.com/set-up-git-redirect GitHub documentation]
 on how to integrate it with your Git installation.
