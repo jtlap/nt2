@@ -80,7 +80,7 @@
     }                                                                       \
   }                                                                         \
 /**/
-
+        
 namespace nt2 { namespace details
 {
   NT2_MAKE_TEST_NAN_FUNC(test_eq  , ==, !=  )
