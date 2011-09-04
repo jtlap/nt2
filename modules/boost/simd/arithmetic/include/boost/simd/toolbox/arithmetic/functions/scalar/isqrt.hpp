@@ -6,77 +6,67 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SQRT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SQRT_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_real.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/toint.hpp>
-#include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/sqr.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ISQRT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ISQRT_HPP_INCLUDED
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/sqrt.hpp>
+#include <math.h>
 
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
+                            , (A0)
+                            , (scalar_< unsigned_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return A0(sqrt(result_type(a0)));
+    }
+  };
+} } }
+
+/////////////////////////////////////////////////////////////////////////////
+// Implementation when type A0 is arithmetic_
+/////////////////////////////////////////////////////////////////////////////
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
+                            , (A0)
+                            , (scalar_< signed_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return (is_ltz(a0)) ?  Zero<A0>() : A0(sqrt(result_type(a0)));
+    }
+  };
+} } }
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, boost::simd::tag::sse2_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
                             , (A0)
-                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                            , (scalar_< real_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 that = { _mm_sqrt_pd(a0)}; return that;
+      return boost::simd::sqrt(a0);
     }
   };
 } } }
 
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      A0 that = { _mm_sqrt_ps(a0)}; return that;
-    }
-  };
-} } }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is integer
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
-                            )
-  {
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return sqrt(tofloat(a0));
-    }
-  };
-} } }
-
-
-
-
-
-
-#endif
 #endif
