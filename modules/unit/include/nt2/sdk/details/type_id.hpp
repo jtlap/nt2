@@ -88,7 +88,7 @@ namespace nt2
    *
    * \include type_id.cpp
    *
-   * This examples outpus:
+   * This examples output:
    *
    * \code
    * char [21]

@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
       a1 = _mm256_insertf128_si256(a1, ha000, 0);
       a1 = _mm256_insertf128_si256(a1, ha001, 1); 
       A1_sse_ ha010, ha011; 
-      split(a00, ha010, ha011);
+      split(a01, ha010, ha011);
       a2 = _mm256_insertf128_si256(a2, ha010, 0);
       a2 = _mm256_insertf128_si256(a2, ha011, 1); 
       return 0;

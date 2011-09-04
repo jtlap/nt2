@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
       A0 x = nt2::abs(a0);
       A0 lthalf = lt(x,Half<A0>());
       A0 x2 = nt2::sqr(x);
-      A0 z;
+      A0 z = Zero<A0>();
       uint32_t nb;
       if( ( nb = nbtrue(lthalf)) > 0)
         {

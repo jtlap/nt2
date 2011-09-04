@@ -11,11 +11,10 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-/*!
- * \file
- * \brief Defines the absolute value functor: abs
+/** \file
+ * \brief Defines the absolute value function: abs
  *
- * alias modulus
+ * \par Alias modulus
  *
  * the functor returns a value of the same type than the entry.
  * take care that for signed integers the absolute
@@ -25,8 +24,14 @@
  * To avoid this,  you can use the "abss" saturated functor
  * or convert the input parameter to a larger type before
  * taking the abs value.
+ *
+ * \fn *le prototype*
+ * \param pour les parametres
+ * \tparam pour les parametres tempaltes
  */
-
+/*un bloc doxy pour le tag
+ * un truc tre slaconique genre \brief Identification tag for the abs function
+ */
 namespace boost { namespace simd { namespace tag
   {         
     struct abs_ {};

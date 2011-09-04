@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_UNIT_DETAILS_TESTS_FUNC_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_TESTS_FUNC_HPP_INCLUDED
-
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/type_traits/common_type.hpp>
 #include <iostream>
 
@@ -25,6 +25,8 @@
     test_count()++;                                                         \
     volatile T tt(t);                                                       \
     volatile U uu(u);                                                       \
+    boost::dispatch::ignore_unused(tt);                                     \
+    boost::dispatch::ignore_unused(uu);                                     \
     typedef typename boost::common_type<T, U>::type R;                      \
     if( (R)tt OP (R)uu )                                                    \
     {                                                                       \
@@ -57,9 +59,11 @@
     test_count()++;                                                         \
     volatile T tt(t);                                                       \
     volatile U uu(u);                                                       \
-    typedef typename boost::common_type<T, U>::type R;			    \
-    if( (R(t) OP R(u)) || ((t != t) && (u != u)))			    \
-      {									    \
+    boost::dispatch::ignore_unused(tt);                                     \
+    boost::dispatch::ignore_unused(uu);                                     \
+    typedef typename boost::common_type<T, U>::type R;                      \
+    if( (R(t) OP R(u)) || ((t != t) && (u != u)))                           \
+      {                                                                     \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
                 << "` **passed**."                                          \

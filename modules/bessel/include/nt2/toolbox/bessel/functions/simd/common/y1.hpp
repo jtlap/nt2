@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
 	typedef typename meta::scalar_of<A0>::type sA0;
 	A0 a0lt2 = lt(a0, Two<A0>());
 	A0 q = rec(a0);
-	A0 p2;
+	A0 p2 = Zero<A0>();
 	if (nt2::bitwise_any(a0lt2))
 	  {
 	    A0 z = sqr(a0);

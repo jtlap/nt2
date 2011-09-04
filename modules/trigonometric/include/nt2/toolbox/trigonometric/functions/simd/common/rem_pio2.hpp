@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type          stype;
       typedef typename meta::scalar_of<result_type>::type itype; 
-      static const int size = meta::cardinal_of<result_type>::value;
+      static const nt2::uint32_t size = meta::cardinal_of<result_type>::value;
       NT2_ALIGNED_TYPE(itype) tmp[size];
       NT2_ALIGNED_TYPE(stype) txr[size];
       NT2_ALIGNED_TYPE(stype) txc[size];

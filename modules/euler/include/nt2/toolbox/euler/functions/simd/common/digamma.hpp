@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
 	    // Nan<A0>                   if a0 < 0  and remainder == 0
 	    // 0                         in any other cases
 	  }
-	A0 r1, r2;
+	A0 r1 = Zero<A0>(), r2= Zero<A0>();
 	test = gt(x, Digammalargelim<A0>());
 	if((nb = nbtrue(test)))
 	  { // If we're above the lower-limit for the asymptotic expansion then use it:

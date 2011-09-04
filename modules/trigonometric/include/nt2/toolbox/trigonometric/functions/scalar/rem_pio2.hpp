@@ -518,7 +518,7 @@ namespace nt2 { namespace ext
 	    pio2_3  =  2.02226624871116645580e-21, /* 0x3BA3198A, 0x2E000000 */
 	    pio2_3t =  8.47842766036889956997e-32; /* 0x397B839A, 0x252049C1 */
 	  
-	  A0 z,w,t,r,fn;
+	  A0 z = Zero<A0>(),w,t,r,fn;
 	  A0 tx[3];
 	  nt2::int32_t e0,i,j,nx,n,ix,hx;
 	  nt2::uint32_t low;
