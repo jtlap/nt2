@@ -160,6 +160,7 @@ class Bench_gen() :
                         r += ["namespace n%s {"%str(k) ]
                         k+=1;
                         r.append("  typedef %s T;"%t )
+                        r.append("  typedef T sT;")
                         r.append("  typedef boost::dispatch::meta::as_integer<T>::type iT;")
 ##                        r += ["  "+td for td in d1["type_defs"]]
                         if mode == "simd" :

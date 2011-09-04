@@ -3,6 +3,6 @@
 /*!
  * \defgroup sdk NT2 SDK
  *
- * This module gather various NT2 low-level component which are meant to be
- * used by contributors to build up new module and extended existing ones.
+ * This module gathers various NT2 low-level component which are meant to be
+ * used by contributors to build up new modules and extend existing ones.
  */

@@ -14,6 +14,7 @@
 #include <nt2/toolbox/operator/include/functions/modulo.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
