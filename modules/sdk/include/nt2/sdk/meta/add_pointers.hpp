@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_META_ADD_POINTERS_HPP_INCLUDED
 #define NT2_SDK_META_ADD_POINTERS_HPP_INCLUDED
 
-#include <boost/add_pointer.hpp>
+#include <boost/type_traits/add_pointer.hpp>
 
 namespace nt2 { namespace meta
 {
