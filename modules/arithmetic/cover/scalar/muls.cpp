@@ -31,6 +31,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
+
 NT2_TEST_CASE_TPL ( muls_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
