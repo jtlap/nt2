@@ -191,7 +191,7 @@ namespace nt2 { namespace memory
         end_   = begin_ + numel;
 
         // Recursively fills out the index
-        data_ = link( ptr, shared-boost::fusion::at_c<0>(bss)
+        data_ = link( ptr, shared - boost::fusion::at_c<0>(bss)
                     , szs, bss,p,boost::mpl::int_<Dimensions>()
                     );
       }
@@ -203,7 +203,6 @@ namespace nt2 { namespace memory
       * owns it and its indexing tables.
      **/
     //==========================================================================
-
     ~iliffe_buffer() 
     { 
       if(!shared_ && data_) 
@@ -213,6 +212,9 @@ namespace nt2 { namespace memory
     //==========================================================================
     /**
       * Give access to the underlying data storage of the buffer.
+      * begin() and end() are both returning un-biased pointer, making them
+      * suitable for a classical, STL like treatment.
+      *
       * \return A data_type value pointing to the beginning of the outermost
       * indexing table.
      **/
@@ -222,6 +224,9 @@ namespace nt2 { namespace memory
     //==========================================================================
     /**
       * Give access to the beginning of the values stored in the buffer.
+      * begin() and end() are both returning un-biased pointer, making them
+      * suitable for a classical, STL like treatment.
+      *
       * \return A pointer pointing to the beginning of the buffer segment
       * holding values.
      **/
@@ -364,13 +369,13 @@ namespace nt2 { namespace memory
                   , Padding const&    p
                   , Allocator const&  a = Allocator() 
                   )
-    : alloc_(a), begin_(0), end_(0), shared_(false), idx_(boost::fusion::at_c<0>(bss))
+    : alloc_(a), begin_(0), end_(0), shared_(false)
+    , idx_(boost::fusion::at_c<0>(bss)) 
     {
       size_type numel = slice<1>(szs,p);
       if(numel != 0) 
       {
         begin_  = alloc_.allocate( numel );
-        begin_ -= idx_;
         end_    = begin_ + numel;
       }
     }
@@ -382,7 +387,8 @@ namespace nt2 { namespace memory
                   , value_type*       shared
                   , Allocator const&  a = Allocator() 
                   )
-    : begin_(0), end_(0), idx_(boost::fusion::at_c<0>(bss)) 
+    : begin_(0), end_(0)
+    , idx_(boost::fusion::at_c<0>(bss)) 
     , shared_(true), alloc_(a)
     {      
       size_type numel = slice<1>(szs,p);
@@ -397,7 +403,7 @@ namespace nt2 { namespace memory
     { 
       if(!shared_ && begin_) 
       {
-        alloc_.deallocate( begin() + idx_, end() - begin() );
+        alloc_.deallocate( begin(), end() - begin() );
       }      
     }
   
@@ -406,8 +412,8 @@ namespace nt2 { namespace memory
     pointer       begin()       { return begin_; }
     const_pointer begin() const { return begin_; }
 
-    pointer       end()       { return end_; }
-    const_pointer end() const { return end_; }
+    pointer       end()         { return end_; }
+    const_pointer end() const   { return end_; }
 
     private:
     data_type       begin_,end_;

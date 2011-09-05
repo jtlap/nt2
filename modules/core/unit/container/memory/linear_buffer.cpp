@@ -55,11 +55,6 @@ NT2_TEST_CASE_TPL( linear_ctor, (no_padding)(lead_padding)(global_padding) )
   buffer3D b3(s3D,b3D,padding);
   buffer4D b4(s4D,b4D,padding);
   
-  NT2_TEST_EQUAL( b1.begin(), b1.data() );
-  NT2_TEST_EQUAL( b2.begin(), b2.data() );
-  NT2_TEST_EQUAL( b3.begin(), b3.data() );
-  NT2_TEST_EQUAL( b4.begin(), b4.data() );
-  
   NT2_TEST_EQUAL( (b1.end()-b1.begin()), slice<1>(s1D,padding) );
   NT2_TEST_EQUAL( (b2.end()-b2.begin()), slice<1>(s2D,padding) );
   NT2_TEST_EQUAL( (b3.end()-b3.begin()), slice<1>(s3D,padding) );
@@ -99,11 +94,6 @@ NT2_TEST_CASE_TPL( linear_ctor_shared, (no_padding)(lead_padding)(global_padding
   buffer3D b3(s3D,b3D,padding, &some_data[0]);
   buffer4D b4(s4D,b4D,padding, &some_data[0]);
   
-  NT2_TEST_EQUAL( b1.begin(), b1.data() );
-  NT2_TEST_EQUAL( b2.begin(), b2.data() );
-  NT2_TEST_EQUAL( b3.begin(), b3.data() );
-  NT2_TEST_EQUAL( b4.begin(), b4.data() );
-
   NT2_TEST_EQUAL( b1.begin(), &some_data[0] );
   NT2_TEST_EQUAL( b2.begin(), &some_data[0] );
   NT2_TEST_EQUAL( b3.begin(), &some_data[0] );

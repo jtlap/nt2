@@ -142,22 +142,16 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~linear_buffer() 
     { 
-      data_type ptr = data();
+      data_type ptr = begin();
       if(!shared_ && ptr) alloc_.deallocate(ptr, end_ - begin_ ); 
     }
 
     //==========================================================================
     /**
-      * Give access to the underlying data storage of the buffer
-      * \return A data_type value pointing to the beginning of the whole buffer
-      * data
-     **/
-    //==========================================================================
-    data_type     data() const  { return begin_; }
-    
-    //==========================================================================
-    /**
       * Give access to the beginning of the values stored in the buffer.
+      * begin() and end() are both returning un-biased pointer, making them
+      * suitable for a classical, STL like treatment.
+      *
       * \return A pointer pointing to the beginning of the buffer segment
       * holding values.
      **/
@@ -168,6 +162,9 @@ namespace nt2 { namespace memory
     //==========================================================================
     /**
       * Give access to the end of the values stored in the buffer.
+      * begin() and end() are both returning un-biased pointer, making them
+      * suitable for a classical, STL like treatment.
+      *
       * \return A pointer pointing past the last element of the buffer segment
       * holding values.
      **/
