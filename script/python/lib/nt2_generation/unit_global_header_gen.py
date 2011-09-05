@@ -129,7 +129,7 @@ class Global_header_gen() :
                 l = os.path.join(self.bg.demangle(self.bg.get_tb_name(),'toolbox',pos),"include/functions",self.bg.get_fct_name()+".hpp")
                 r.append("#include <"+l+">")
 ##                r.append("#include <nt2/toolbox/"+bg.demangle(self.bg.get_tb_name())+"/include/"+self.bg.get_fct_name()+".hpp>")
-                print(r[-1])
+##                print(r[-1])
             for d in dl :
                 df =  d.get('functor',False)
                 no_ulp =  df.get('no_ulp',False) if df else True
@@ -141,10 +141,12 @@ class Global_header_gen() :
         return r
     
     def add_includes(self,r,dl) :
-        print ("part = %s"%self.part)
+##        print ("part = %s"%self.part)
         include_src = ['included']
         if self.mode == 'simd':
             include_src.extend(['simd_included'])
+        else :   
+            include_src.extend(['scalar_included'])
         if self.part == 'cover':
             include_src.extend(['cover_included'])
         tuple_included = False
@@ -160,9 +162,12 @@ class Global_header_gen() :
                 tuple_included = True
                 r.append('#include <boost/fusion/tuple.hpp>')
             if isinstance(include_src,str ) : include_src = [include_src]
+            print("*********** %s"%include_src)
             for incl in include_src :
                 includes = dug.get(incl,False);
+                print("--%s=========== %s"%(incl,includes))
                 if includes :
+                    print("--%s=========== %s"%(incl,includes))
                     if isinstance(includes,str ) :
                         r.append(includes)
                     if isinstance(includes,list ) :
@@ -199,7 +204,7 @@ class Global_header_gen() :
     def __create_unit_txt(self) :
         dl = self.bg.get_fct_dict_list()
         if isinstance(dl,dict ) : dl = [dl]
-        print (dl)
+##        print (dl)
         self.__module = dl[0].get('functor',False).get("module",'default')
         r = self.add_header(dl)
         r = self.add_includes(r,dl)

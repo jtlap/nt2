@@ -19,6 +19,8 @@
 #include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_asinl(long double);}
 
+static const long double long_pi = 3.141592653589793238462643383279502884197l;
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -40,7 +42,7 @@ NT2_TEST_CASE_TPL ( asinpi_real__1_0,  NT2_REAL_TYPES)
   
   using nt2::asinpi;
   using nt2::tag::asinpi_;
-  static const long double long_pi = 3.141592653589793238462643383279502884197l;
+
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<asinpi_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -57,7 +59,6 @@ NT2_TEST_CASE_TPL ( asinpi_real__1_0,  NT2_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    static const long double long_pi = 3.141592653589793238462643383279502884197l;
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Zero<T>(), nt2::One<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     T a0;
@@ -78,7 +79,7 @@ NT2_TEST_CASE_TPL ( asinpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   
   using nt2::asinpi;
   using nt2::tag::asinpi_;
-  static const long double long_pi = 3.141592653589793238462643383279502884197l;
+
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<asinpi_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -99,7 +100,7 @@ NT2_TEST_CASE_TPL ( asinpi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   
   using nt2::asinpi;
   using nt2::tag::asinpi_;
-  static const long double long_pi = 3.141592653589793238462643383279502884197l;
+
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<asinpi_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;

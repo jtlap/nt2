@@ -70,9 +70,9 @@ NT2_TEST_CASE_TPL ( acscd_real__1_0,  NT2_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = acscd(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::acscd (tab_a0[k])), 7.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
@@ -109,9 +109,9 @@ NT2_TEST_CASE_TPL ( acscd_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = acscd(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::acscd (tab_a0[k])), 7.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
@@ -148,9 +148,9 @@ NT2_TEST_CASE_TPL ( acscd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = acscd(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::acscd (tab_a0[k])), 7.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }

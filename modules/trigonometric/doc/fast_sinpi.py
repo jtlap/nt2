@@ -9,13 +9,13 @@
             },
          'simd_types' : ['real_','int_convert_','uint_convert_'],
          'special' : ['trigonometric'],
-         'type_defs' : ['static const long double long_pi = 3.141592653589793238462643383279502884197l;'],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 11/02/2011',
+             'scalar_included' : ['static const long double long_pi = 3.141592653589793238462643383279502884197l;'],
              'included' : ['#include <nt2/toolbox/trigonometric/constants.hpp>',
                            'extern "C" {extern long double cephes_sinl(long double);}'],
              'notes' : [],
