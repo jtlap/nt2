@@ -66,9 +66,9 @@ NT2_TEST_CASE_TPL ( reversebits_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = reversebits(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::reversebits (tab_a0[k])));
         }
       }

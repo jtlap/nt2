@@ -72,9 +72,9 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_SIMD_REAL_TYPES)
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (tab_a0[k],tab_a1[k],tab_a2[k])));
         }
       }
@@ -91,9 +91,9 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_SIMD_REAL_TYPES)
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (tab_a0[k],tab_a1[k],tab_a2[k])));
         }
       }
@@ -133,9 +133,9 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (tab_a0[k],tab_a1[k],tab_a2[k])));
         }
       }
@@ -152,9 +152,9 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (tab_a0[k],tab_a1[k],tab_a2[k])));
         }
       }
@@ -194,9 +194,9 @@ NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (tab_a0[k],tab_a1[k],tab_a2[k])));
         }
       }
@@ -213,9 +213,9 @@ NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = nt2::selsub(nt2::is_nez(a0),a1,a2);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::selsub (tab_a0[k],tab_a1[k],tab_a2[k])));
         }
       }
