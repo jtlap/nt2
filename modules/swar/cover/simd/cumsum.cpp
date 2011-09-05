@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = cumsum(a0);
+        r_t v = nt2::cumsum(a0);
         NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
@@ -112,7 +112,7 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = cumsum(a0);
+        r_t v = nt2::cumsum(a0);
         NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {
@@ -157,7 +157,7 @@ NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = cumsum(a0);
+        r_t v = nt2::cumsum(a0);
         NT2_CREATE_BUF(z,T, cardinal_of<n_t>::value, T(0), T(0));
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) z[i]=0;
         for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++) {

@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( splatted_prod_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = splatted_prod(a0);
+        r_t v = nt2::splatted_prod(a0);
         T p= nt2::prod(a0);
         for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)
         {

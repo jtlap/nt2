@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  NT2_SIMD_GT16_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = sort(a0);
+        r_t v = nt2::sort(a0);
         T z[cardinal_of<r_t>::value];
         for(uint32_t i=0; i<cardinal_of<n_t>::value; i++) z[i]=a0[i];
         for(uint32_t i=0; i<cardinal_of<n_t>::value; i++){

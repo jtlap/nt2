@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( put_first_real__2_0,  NT2_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         iT a1 = tab_a1[j];
-        r_t v = put_first(a0,a1);
+        r_t v = nt2::put_first(a0,a1);
         NT2_TEST_EQUAL(v[0],a0[a1]);
       }
     
@@ -103,7 +103,7 @@ NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         iT a1 = tab_a1[j];
-        r_t v = put_first(a0,a1);
+        r_t v = nt2::put_first(a0,a1);
         NT2_TEST_EQUAL(v[0],a0[a1]);
       }
     
@@ -139,7 +139,7 @@ NT2_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         iT a1 = tab_a1[j];
-        r_t v = put_first(a0,a1);
+        r_t v = nt2::put_first(a0,a1);
         NT2_TEST_EQUAL(v[0],a0[a1]);
       }
     

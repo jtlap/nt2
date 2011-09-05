@@ -48,17 +48,17 @@
                  'default' : 'NT2_NB_RANDOM_TEST',
                 },
              'property_call' : {
-                 'default' : ['nt2::group(a0)'],
+                 'default' : ['nt2::group(a0,a1)'],
                 },
              'property_value' : {
-                 'default' : ['::cephes_groupl(a0)'],
+                 'default' : [''],
                 },
              'ulp_thresh' : {
                  'default' : ['0.5'],
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)",      
+                        "        for( nt2::uint32_t i = 0; i<cardinal_of<n_t>::value; i++)",      
                         "         {",      
                         "            NT2_TEST_EQUAL(v[i],ssr_t(a0[i]));",      
                         "            NT2_TEST_EQUAL(v[i+cardinal_of<n_t>::value],ssr_t(a1[i]));",      

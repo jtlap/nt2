@@ -56,12 +56,12 @@
              'property_value' : {
                  'default' : ['(a0)'],
                 },
-             'ulp_thresh' : {
+             'ulp_thresh' : {nt2::uint32_t
                  'default' : ['0.5'],
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        for(int i = 0; i< cardinal_of<n_t>::value/2; i++)",
+                        "        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value/2; i++)",
                         "        {",
                         "          NT2_TEST_EQUAL( boost::fusion::get<0>(v)[i],a0[i]);",
                         "          NT2_TEST_EQUAL( boost::fusion::get<1>(v)[i],a0[i+cardinal_of<n_t>::value/2]);",
