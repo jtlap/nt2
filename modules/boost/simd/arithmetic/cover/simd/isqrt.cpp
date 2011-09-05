@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - oneplus/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - isqrt/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // cover test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
 /// 
-#include <boost/simd/toolbox/arithmetic/include/functions/oneplus.hpp>
+#include <boost/simd/toolbox/arithmetic/include/functions/isqrt.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -28,10 +28,10 @@
 #include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( oneplus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( isqrt_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using boost::simd::oneplus;
-  using boost::simd::tag::oneplus_;
+  using boost::simd::isqrt;
+  using boost::simd::tag::isqrt_;
   using boost::simd::load; 
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( oneplus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<oneplus_(vT)>::type r_t;
+  typedef typename boost::dispatch::meta::call<isqrt_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
@@ -55,11 +55,11 @@ NT2_TEST_CASE_TPL ( oneplus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = oneplus(a0);
+        r_t v = isqrt(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::oneplus (tab_a0[k])), 2.5);
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::isqrt (tab_a0[k])), 2.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

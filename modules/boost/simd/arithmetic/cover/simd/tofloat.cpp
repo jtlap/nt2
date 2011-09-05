@@ -56,9 +56,9 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = tofloat(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
         }
       }
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   }
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
 {
   using boost::simd::tofloat;
   using boost::simd::tag::tofloat_;
@@ -94,17 +94,17 @@ NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = tofloat(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
         }
       }
     
   }
-} // end of test for int_convert_
+} // end of test for uint64_t
 
-NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( tofloat_int64_t_1_0,  (nt2::int64_t))
 {
   using boost::simd::tofloat;
   using boost::simd::tag::tofloat_;
@@ -132,12 +132,88 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYP
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = tofloat(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
         }
       }
     
   }
-} // end of test for uint_convert_
+} // end of test for int64_t
+
+NT2_TEST_CASE_TPL ( tofloat_uint32_t_1_0,  (nt2::uint32_t))
+{
+  using boost::simd::tofloat;
+  using boost::simd::tag::tofloat_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<tofloat_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = tofloat(a0);
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
+        }
+      }
+    
+  }
+} // end of test for uint32_t
+
+NT2_TEST_CASE_TPL ( tofloat_int32_t_1_0,  (nt2::int32_t))
+{
+  using boost::simd::tofloat;
+  using boost::simd::tag::tofloat_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<tofloat_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = tofloat(a0);
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::tofloat (tab_a0[k])));
+        }
+      }
+    
+  }
+} // end of test for int32_t
