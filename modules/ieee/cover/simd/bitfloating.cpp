@@ -68,9 +68,9 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = bitfloating(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::bitfloating (tab_a0[k])));
         }
       }
@@ -106,9 +106,9 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = bitfloating(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::bitfloating (tab_a0[k])));
         }
       }

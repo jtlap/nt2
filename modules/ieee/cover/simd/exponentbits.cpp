@@ -18,7 +18,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/exponent.hpp>
-#include <nt2/include/functions/bits.hpp>
+//TODO why this file is not found ? #include <nt2/include/functions/bits.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -70,9 +70,9 @@ NT2_TEST_CASE_TPL ( exponentbits_real__1_0,  NT2_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = exponentbits(a0);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::exponentbits (tab_a0[k])));
         }
       }
