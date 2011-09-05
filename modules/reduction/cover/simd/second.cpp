@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = second(a0);
+        r_t v = nt2::second(a0);
         NT2_TEST_EQUAL( v,a0[1]);
       }
     

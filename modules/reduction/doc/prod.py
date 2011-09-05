@@ -59,7 +59,7 @@
              'scalar_simul' :{
                     'default' : [
                         "        T z = a0[0];",
-                        "        for(int32_t i = 1; i< cardinal_of<n_t>::value; ++i)",
+                        "        for(nt2::uint32_t i = 1; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
                         "          z*=a0[i];",
                         "        }",

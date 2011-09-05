@@ -67,10 +67,10 @@ NT2_TEST_CASE_TPL ( posmax_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = posmax(a0);
+        r_t v = nt2::posmax(a0);
         T z = a0[0];
         uint32_t p = 0;
-        for(int i = 1; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 1; i< cardinal_of<n_t>::value; ++i)
         {
           if (a0[i]>z) {z=a0[i]; p=i;}
         }

@@ -63,14 +63,14 @@ NT2_TEST_CASE_TPL ( bitwise_any_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::bitwise_any(nt2::is_nez(a0));
         bool z = false;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           z = z||a0[i];
         }
@@ -102,14 +102,14 @@ NT2_TEST_CASE_TPL ( bitwise_any_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::bitwise_any(nt2::is_nez(a0));
         bool z = false;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           z = z||a0[i];
         }
@@ -141,14 +141,14 @@ NT2_TEST_CASE_TPL ( bitwise_any_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, boost::simd::Valmin<T>(), boost::simd::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::bitwise_any(nt2::is_nez(a0));
         bool z = false;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           z = z||a0[i];
         }

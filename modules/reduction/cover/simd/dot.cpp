@@ -69,9 +69,9 @@ NT2_TEST_CASE_TPL ( dot_real__2_0,  NT2_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
-        r_t v = dot(a0,a1);
+        r_t v = nt2::dot(a0,a1);
         T z = nt2::Zero<T>();
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           z += a0[i]*a1[i];
         }

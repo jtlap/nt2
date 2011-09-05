@@ -1,7 +1,6 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -65,9 +64,9 @@
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        int z = 0;",
-                        "        int N = cardinal_of<n_t>::value;",
-                        "        for(int i = 0; i< N; ++i)",
+                        "        nt2::int32_t z = 0;",
+                        "        nt2::uint32_t N = cardinal_of<n_t>::value;",
+                        "        for(nt2::uint32_t i = 0; i< N; ++i)",
                         "        {",
                         "          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);"
                         "        }",

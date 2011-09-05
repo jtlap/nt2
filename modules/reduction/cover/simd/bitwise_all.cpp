@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( bitwise_all_real__1_0,  NT2_SIMD_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::bitwise_all(nt2::is_nez(a0));
         bool z = true;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           z = z&&a0[i];
         }
@@ -109,7 +109,7 @@ NT2_TEST_CASE_TPL ( bitwise_all_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::bitwise_all(nt2::is_nez(a0));
         bool z = true;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           z = z&&a0[i];
         }
@@ -148,7 +148,7 @@ NT2_TEST_CASE_TPL ( bitwise_all_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::bitwise_all(nt2::is_nez(a0));
         bool z = true;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           z = z&&a0[i];
         }

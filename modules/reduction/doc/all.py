@@ -54,7 +54,7 @@
              'scalar_simul' :{
                     'default' : [
                         "        bool z = true;",
-                        "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
+                        "        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
                         "          z = z&&a0[i];",
                         "        }",

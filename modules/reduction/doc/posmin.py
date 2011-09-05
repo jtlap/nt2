@@ -62,7 +62,7 @@
                     'default' : [
                         "        T z = a0[0];",
                         "        uint32_t p = 0;",
-                        "        for(int i = 1; i< cardinal_of<n_t>::value; ++i)",
+                        "        for(nt2::uint32_t i = 1; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
                         "          if (a0[i]<z) {z=a0[i]; p=i;}",
                         "        }",

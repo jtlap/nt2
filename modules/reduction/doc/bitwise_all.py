@@ -27,19 +27,19 @@
             },
          'specific_values' : {
              'signed_int_' : {
-                 'boost::simd::Mone<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : 'true','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
              'unsigned_int_' : {
-                 'boost::simd::Mone<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::Mone<T>()' : {'result' : 'true','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
              'real_' : {
-                 'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
-                 'boost::simd::Nan<T>()' : {'result' : 'true','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
+                 'nt2::Nan<T>()' : {'result' : 'true','ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {
@@ -58,7 +58,7 @@
              'scalar_simul' :{
                     'default' : [
                         "        bool z = true;",
-                        "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
+                        "        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
                         "          z = z&&a0[i];",
                         "        }",

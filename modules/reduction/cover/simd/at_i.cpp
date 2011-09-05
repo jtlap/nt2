@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( at_i_real__2_0,  NT2_SIMD_REAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         iT a1 = tab_a1[j];
-        r_t v = at_i(a0,a1);
+        r_t v = nt2::at_i(a0,a1);
         NT2_TEST_EQUAL( v,a0[a1]);
       }
     
