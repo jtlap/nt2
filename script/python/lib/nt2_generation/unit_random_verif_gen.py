@@ -219,7 +219,7 @@ class Random_verif_test_gen(Base_gen) :
                     ##print("----------------no_ulp %s "%no_ulp)
                     if no_ulp :
                         tpl = "NT2_TEST_EQUAL( $property_call$,$property_value$);"
-                        Call = beg+"NT2_TEST_EQUAL( boost::fusion::get<$i$>(r), $property_value$);"
+                        Call = beg+"NT2_TEST_EQUAL( r$i$, $property_value$);"
                     else :
                         tpl = "NT2_TEST_TUPLE_ULP_EQUAL( $property_call$,$property_value$,$ulp_thresh$);"
 ##                        Call = beg+"NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(r), $property_value$, $ulp_thresh$);"
@@ -309,9 +309,9 @@ class Random_verif_test_gen(Base_gen) :
                     if not ( df.get("special",[""])[0] in ['swar']) :
                         r = [
                         "        r_t r = nt2::%s%s(%s);"%(name,istpl,g),
-                        "        for(int i = 0; i< cardinal_of<n_t>::value; i++)",
+                        "        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)",
                         "        {",
-                        "          int k = i+j*cardinal_of<n_t>::value;",
+                        "          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;",
                         "          sr_t sr =  nt2::%s%s(%s);"%(name,istpl,h),
                         "          NT2_TEST_%sEQUAL( boost::fusion::get<0>(r)[i],"%(ULP),
                         "                                    boost::fusion::get<0>(sr)%s);"%(THR),
@@ -365,9 +365,9 @@ class Random_verif_test_gen(Base_gen) :
                             call = "        r_t v = %s%s(%s);"%(name,istpl,g)
                         r = [
                             call,
-                            "        for(int i = 0; i< cardinal_of<n_t>::value; i++)",
+                            "        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)",
                             "        {",
-                            "          int k = i+j*cardinal_of<n_t>::value;",
+                            "          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;",
                             "          NT2_TEST_%sEQUAL( v[i]%s,ssr_t(nt2::%s%s (%s))%s);"%(ULP,pred_test,name,istpl,h,THRESH),
                             ]
                         if not no_ulp : r.append("          ulp0 = nt2::max(ulpd,ulp0);")
