@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_SIMD_REAL_TYPES)
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = compare_less(a0,a1);
         bool z = false;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}
@@ -113,7 +113,7 @@ NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPE
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = compare_less(a0,a1);
         bool z = false;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}
@@ -155,7 +155,7 @@ NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = compare_less(a0,a1);
         bool z = false;
-        for(int i = 0; i< cardinal_of<n_t>::value; ++i)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}

@@ -55,7 +55,7 @@
              'scalar_simul' :{
                     'default' : [
                         "        bool z = true;",
-                        "        for(int i = 0; i< cardinal_of<n_t>::value; ++i)",
+                        "        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
                         "          if (a0[i]>=a1[i]) {z=true;break;}",
                         "          else if (a0[i]<a1[i]){z=false; break;}",

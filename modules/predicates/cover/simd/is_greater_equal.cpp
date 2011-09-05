@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - is_greater_equal/simd Mode"
+#define NT2_UNIT_MODULE "nt2 predicates toolbox - is_greater_equal/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of operator components in simd mode
+// cover test behavior of predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
@@ -70,9 +70,9 @@ NT2_TEST_CASE_TPL ( is_greater_equal_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = is_greater_equal(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::is_greater_equal (tab_a0[k],tab_a1[k])));
         }
       }
@@ -110,9 +110,9 @@ NT2_TEST_CASE_TPL ( is_greater_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = is_greater_equal(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::is_greater_equal (tab_a0[k],tab_a1[k])));
         }
       }
