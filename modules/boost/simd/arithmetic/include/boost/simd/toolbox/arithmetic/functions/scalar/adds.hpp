@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace ext
       bool gtza0 = is_gtz(a0);
       bool gtza1 = is_gtz(a1);
       A0 a0pa1 = a0+a1;
-      if (gtza0 && gtza1 && (lt(a0pa1, boost::simd::max(a0, a1))))
+      if (gtza0 && gtza1 && (lt(a0pa1, a0)))//boost::simd::max(a0, a1))))
 	{
 	  return Valmax<A0>();
 	}

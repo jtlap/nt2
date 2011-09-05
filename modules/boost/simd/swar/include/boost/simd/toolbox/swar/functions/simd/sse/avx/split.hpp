@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     typedef boost::fusion::tuple<utype,utype>                    result_type;
     
 
-    inline int operator()(const A0 & a0)const
+    inline result_type operator()(const A0 & a0)const
     {
       result_type res; 
       split(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
@@ -99,7 +99,7 @@ namespace boost { namespace simd { namespace ext
     typedef boost::fusion::tuple<utype,utype>                    result_type;
     
 
-    inline int operator()(const A0 & a0)const
+    inline result_type operator()(const A0 & a0)const
     {
       result_type res; 
       split(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
