@@ -74,9 +74,9 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_SIMD_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = pow(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow (tab_a0[k],tab_a1[k])), 11);
           ulp0 = nt2::max(ulpd,ulp0);
         }
@@ -115,9 +115,9 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_SIMD_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         ivT a1 = load<ivT>(&tab_a1[0],j);
         r_t v = pow(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow (tab_a0[k],tab_a1[k])), 2.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
