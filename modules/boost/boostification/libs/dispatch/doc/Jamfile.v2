@@ -16,6 +16,7 @@ import toolset ;
 toolset.using doxygen ;
 
 path-constant images : html ;
+path-constant here : . ;
 import path ;
 
 project
@@ -54,6 +55,14 @@ xml dispatch
         dispatch.qbk
     :
         <dependency>tags
+        <dependency>reference
+    ;
+    
+doxygen reference
+    :
+        [ SORT [ path.glob-tree $(here)/../../../boost/dispatch : *.hpp : .svn details ] ]
+    :
+        <xsl:param>boost.doxygen.reftitle="Reference"
     ;
 
 install tags : [ glob tags.png ] : <location>../../../doc/html/dispatch ;

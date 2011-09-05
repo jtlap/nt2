@@ -255,4 +255,4 @@ A list of all properties available and how they relate to each other is listed b
 
 [section Defining functions] [endsect]
 [section Defining specializations] [endsect]
-[section Reference] [endsect]
+[xinclude reference.xml]
