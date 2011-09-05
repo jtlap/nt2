@@ -137,11 +137,148 @@ add_definitions(${NT2_FLAGS})
 add_executable(myexe mysource.cpp)
 ``
 
+[note The eight last variables from the
+[link nt2.getting_started.building___nt2__.configuration CMake configuration section]
+may also affect your usage of __NT2__.]
+
 [endsect]
 
 [endsect] [/ Using]
 
 [section Building __NT2__]
+
+__NT2__ uses [@http://www.cmake.org/ CMake] as its build system.
+
+CMake is actually a meta-build system, in the sense that it generates files
+for another build system (Make, NMake, Visual Studio projects, etc.).
+
+When you run CMake with a particular generator, it will configure the __NT2__
+project before generating the build files for the chosen generator.
+You may then edit the base configuration to change compiler
+settings, where to find the external libraries, or the __NT2__ options below,
+then re-generate.
+
+CMake supports /out-of-source/ builds which are *heavily recommended*.
+They allow you to keep your build tree entirely separate from your source tree,
+making it possible to have several build configurations against the same source
+and to keep the source clean of any generated files.
+
+[tip When developing software on remote machines with a relatively fast network,
+it can be interesting to put the source on a remote network directory
+shared across all machines, with the build directories on your local disk.
+You may also want to encode the name of the various configurations in the names of
+your build directories.]
+
+[section Requirements]
+
+__NT2__ requires a good C++ compiler and recent headers from the [@http://www.boost.org/ Boost C++ Libraries]
+(library binaries are not required).
+
+Here is the list of systems known to be working:
+
+* Linux, Mac OS X, Windows XP+ and Windows 7 x64
+* x86, x86-64, PPC, PPC64, Cell SPU
+* GCC 4.3+, Clang 2.9+, MSVC9+
+* CMake 2.6+
+* Boost 1.46+
+
+Additional software is required to generate unit tests (Python 2.6+) and to build
+documentation (Doxygen, the Boostbook toolchain and Quickbook).
+
+[endsect]
+
+[section Configuration]
+
+Running CMake is referred to as the ["configuration step].
+Below is the table of the various variables that affect the __NT2__
+super-project configuration.
+
+[table CMake Configuration Options
+    [[Option name] [Description]]
+    [[=NT2_MODULES=]   [List of __NT2__ modules to load (defaults to all modules present)]]
+    [[=NT2_MODULES_EXTRA=]   [List of extra __NT2__ modules to load]]
+    [[=NT2_MODULES_BLACKLIST=]  [List of modules present that should not be loaded]]
+    [[=NT2_WITH_TESTS=] [Whether tests and benchmarks should be enabled (defaults to =ON= on Makefile generators)]]
+    [[=NT2_WITH_TESTS_FULL=] [Whether tests and benchmarks should each generate one target instead of the default of having them aggregated into a couple of targets per module]]
+    [[=NT2_WITH_TESTS_BENCH=] [Whether benchmarks should behave like tests and register themselves to the test driver]]
+    [[=NT2_WITH_TESTS_COVER=] [Whether cover and exhaustive tests should be enabled]]
+    [[=NT2_USE_FOLDERS=] [Whether to use folders for the Visual Studio generator. Requires Visual Studio professional edition.]]
+    [[=NT2_EXTRA_WARNINGS=]    [Enable extra verbose warnings (will eventually become the default)]]
+    [[=NT2_FIND_REPOSITORIES=] [List of Git repositories in which to look for extra modules]]
+    [[=NT2_SIMD_FLAGS=] [Compiler flags to pass to the compiler for SIMD code generation. Defaults to best set of flags detected on host system]]
+    [[=BOOST_ROOT=] [Location of Boost, if not in the standard include directories]]
+    [[=CMAKE_BUILD_TYPE=] [Whether to build for Release or Debug. Does not affect build systems that support multiple configurations in a single project, like Visual Studio. Defaults to Release]]
+    [[=BUILD_SHARED_LIBS=] [Whether to build shared libraries instead of static ones. You may also control this in a per-module fashion by appropriately defining [^NT2_[~MODULE]_USE_STATIC_LIBS]]]
+    [[=CMAKE_INSTALL_PREFIX=] [Directory in which __NT2__ will be put when installing. Defaults to [^/usr/local] on Linux, and [^C:\Program Files] on Windows]]
+    [[=WAVE_EXECUTABLE=] [Path to the command-line driver for [@http://www.boost.org/doc/libs/release/libs/wave/index.html Wave], used to preprocess some files]]
+]
+
+[endsect] [/ Configuration]
+
+[section Building]
+
+Once __NT2__ has been configured, you may then build various targets,
+in a way that depends on the generator you've chosen.
+
+If you chose the Visual Studio generator, you can open the generated =NT2.sln=
+file, each target will be one project within the solution. You could also use =msbuild= to
+attack the =NT2.sln= or the per-target =vcxproj= files.
+
+If you chose the Makefile generator, you may do [^make [~target]] to build the target [~target].
+[^make help] will list all available targets.
+
+The default target, invoked by running =make= or by building =ALL_BUILD= or =all=, builds
+all __NT2__ sources into libraries.
+
+[caution If you pull new commits from Git, you may have to re-configure before you can build again.
+This is due to __NT2__ generating some files at the end of the configuration step.
+Re-configuring, however, unfortunately invalidates all targets, so a better solution will eventually
+be implemented.]
+
+[table Buildable targets
+    [[Target name] [Description]]
+    [[=all= or =BUILD_ALL=]    [Builds all libraries]]
+    [[[^[~name]]]   [Builds a library, where [~name] is the name of a library without the =lib= prefix]]
+    [[=preprocess=] [Re-generate the preprocessed versions of certain headers. Requires the command-line driver from Wave to have been detected on the system]]
+    [[=doc=] [Builds HTML documentation]]
+    [[=install=] [Copies files to =CMAKE_INSTALL_PREFIX=, may require administrator rights]]
+    [[=package=] [Generate zips and installers for the binary version of __NT2__]]
+    [[=examples=] [Builds all examples]]
+    [[=bench=]   [Builds all benchmarks (if enabled)]]
+    [[=unit=] [Builds all unit tests (if enabled)]]
+    [[=cover=] [Builds all cover tests (if enabled)]]
+    [[=exhaustive=] [Builds all exhaustive tests (if enabled)]]
+    [[[^[~module].unit]] [Builds all unit tests from module [~module]]]
+    [[[^[~module].[~suite].unit]] [Builds test suite [~suite] of module [~module] (similar targets exist for bench, cover, etc.) ]]
+    [[=test= or =RUN_TESTS=] [Runs all tests visible from current directory; they must have previously been built]]
+]
+
+Unit tests executable are copied to =unit/= in the build directory, cover tests to =cover/= etc.
+
+If using Makefile generators, you also get the [^[~target]/fast] variants for each target [~target],
+which avoids testing for dependencies (which can provide a significant speedup if =NT2_WITH_TESTS_FULL=
+is set to =ON=). [br]
+With those generators, you can also build [^[~file].i], and [^[~file].o], where [~file] is the name of a
+C++ source file without the =.cpp= extension, which is is quite interesting to build a single test when
+=NT2_WITH_TESTS_FULL= is set to =OFF=. Those targets however require to be in the working directory
+corresponding to that of the sources (e.g. `cd modules/arithmetic/unit/scalar && make fma.o`).
+
 [endsect] [/ Building]
+
+[section Testing]
+
+__NT2__ uses CTest to manages its test suites, so you can either use the
+=test= or =RUN_TESTS= targets to run all tests, or you can use the =ctest=
+command to do so which allows finer-grain test selection using regular expressions.
+
+Indeed,
+
+    ctest -R ^``[~module]``.*.unit$
+
+may be used to run all unit tests from module [~module].
+
+[endsect] [/ Testing]
+
+[endsect] [/ Building __NT2__]
 
 [endsect] [/ Getting Started]

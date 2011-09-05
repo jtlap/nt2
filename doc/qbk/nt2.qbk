@@ -25,17 +25,5 @@ the different kinds of parallelism found in modern hardware, such as SIMD, multi
 [endsect] [/ Preface]
 
 [include getting_started.qbk]
-
-[section User's Manual]
-[section SDK] [endsect]
-[section Toolboxes] [endsect]
-[endsect]
-
-[section Developer's Manual]
-[section The dispatch system: generic extensible functions] [endsect]
-[section Adding new specializations] [endsect]
-[section Adding new functions] [endsect]
-[section Dealing with ASTs] [endsect]
-[section Adding new types] [endsect]
-[section Adding new evaluation sites and strategies] [endsect]
-[endsect]
+[include users_manual.qbk]
+[include developers_manual.qbk]
