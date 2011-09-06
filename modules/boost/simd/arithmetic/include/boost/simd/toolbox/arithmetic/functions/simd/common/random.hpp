@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return a0; //map<random_>(a0, a1); //TO DO
+      return a0+a1; //map<random_>(a0, a1); //TO DO
     }
   };
 } } }

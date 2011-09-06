@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOAD_OFFSET_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOAD_OFFSET_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
@@ -45,6 +45,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(4)
     {
+      boost::dispatch::ignore_unused(a2);
+      boost::dispatch::ignore_unused(a3);
       return eval ( a0, a1
                   , typename is_periodic<A2,A3>::type()
                   , typename is_forward<A3>::type()

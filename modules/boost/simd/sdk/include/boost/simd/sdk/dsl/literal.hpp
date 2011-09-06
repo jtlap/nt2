@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename State::type result_type;
 
-    inline result_type operator()( Id const& v, State const&, Data const& ) const
+    inline result_type operator()( Id const& /*v*/, State const&, Data const& ) const
     {
       typename dispatch::make_functor<typename Id::type,Id>::type callee;
       return callee( dispatch::meta::as_<result_type>() );
@@ -85,7 +85,7 @@ namespace boost { namespace simd { namespace ext
 {
   typedef typename State::type::value_type result_type;
 
-  inline result_type operator()( Id const& v, State const&, Data const& ) const
+  inline result_type operator()( Id const& /*v*/, State const&, Data const& ) const
   {
     typename dispatch::make_functor<typename Id::type,Id>::type callee;
     return callee( dispatch::meta::as_<result_type>() );

@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SPLAT_HPP_INCLUDED
-
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
@@ -27,6 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
+      boost::dispatch::ignore_unused(a1);
       typedef typename meta::scalar_of<result_type>::type sA1;
       
       BOOST_SIMD_ALIGNED_TYPE(sA1) tmp[boost::simd::meta::cardinal_of<result_type>::value];
