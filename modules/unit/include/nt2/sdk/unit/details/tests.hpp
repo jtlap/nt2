@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_TESTS_HPP_INCLUDED
-
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
@@ -76,6 +76,7 @@ namespace nt2 { namespace details
 			   , V const & v				
 			   )						
   {									
+    boost::dispatch::ignore_unused(fn);                                     \
     test_count()++;							
     volatile T tt(t);							
     volatile U uu(u);							
