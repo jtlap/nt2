@@ -64,6 +64,6 @@ NT2_TEST_CASE_TPL ( isqrt_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Mone<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(isqrt(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Two<vT>())[0], boost::simd::Sqrt_2<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Two<vT>())[0], boost::simd::One<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
 } // end of test for real_
