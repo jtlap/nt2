@@ -18,7 +18,7 @@
 
 namespace boost{ namespace simd{ namespace config{ namespace details{
 
-  inline bool detect(dispatch::tag::cpu_ const&)
+  inline bool detect(dispatch::tag::cpu_ const& )
   {
     return false;
   }
@@ -35,10 +35,6 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
 
 #ifdef BOOST_SIMD_ARCH_POWERPC
   bool detect(tag::altivec_ const&);
-#endif
-
-#ifdef BOOST_SIMD_ARCH_ARM
-  bool detect(tag::neon_ const&);
 #endif
 
 } } } }  
