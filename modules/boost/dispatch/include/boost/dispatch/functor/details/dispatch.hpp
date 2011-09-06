@@ -24,6 +24,8 @@
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
@@ -101,7 +103,7 @@ identity< typename                                                          \
                        >::type                                              \
         >::type                                                             \
 dispatch( Tag, Site                                                         \
-        , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & a)                       \
+        , BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & BOOST_PP_INTERCEPT)      \
         )                                                                   \
 {                                                                           \
   typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type  that; \
