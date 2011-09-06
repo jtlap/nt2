@@ -257,7 +257,8 @@ Unit tests executable are copied to =unit/= in the build directory, cover tests 
 
 If using Makefile generators, you also get the [^[~target]/fast] variants for each target [~target],
 which avoids testing for dependencies (which can provide a significant speedup if =NT2_WITH_TESTS_FULL=
-is set to =ON=). [br]
+is set to =ON=). 
+
 With those generators, you can also build [^[~file].i], and [^[~file].o], where [~file] is the name of a
 C++ source file without the =.cpp= extension, which is is quite interesting to build a single test when
 =NT2_WITH_TESTS_FULL= is set to =OFF=. Those targets however require to be in the working directory

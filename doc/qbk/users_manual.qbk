@@ -12,7 +12,7 @@ All toolbox constants and functions use the
 [@http://svn.boost.org/svn/boost/sandbox/SOC/2011/simd/doc/html/dispatch.html Boost.Dispatch]
 system so that it is possible to specialize functions and constants on categories of types.
 
-The layout the toolbox headers is as follows:
+The layout of toolbox headers is as follows:
 [table Toolbox layout
     [[Path]  [Description]]
     [[[^nt2/toolbox/[~toolbox-name].hpp]] [Includes the whole toolbox [~toolbox-name]]]
@@ -31,7 +31,7 @@ The layout the toolbox headers is as follows:
 
 Some toolboxes are referred as being /sys/: all their functions are into the nt2
 namespace. Other toolboxes introduce their own namespace, i.e. all functions they define are in
-a namespace with the same name as the toolbox name.
+a namespace with the same name as the toolbox name (they are referred /usr/:).
 
 [endsect] [/ Function Toolboxes]
 

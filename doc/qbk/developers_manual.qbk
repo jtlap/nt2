@@ -6,7 +6,8 @@ The [link nt2.user_s_manual.functions Functions] section
 in the user's manual describes the user-facing layout of __NT2__ toolboxes.
 All those headers are actually computer-generated using the =gather_includes=
 program; for each file recursively present in a certain directory,
-a file that includes all files with the same name is generated. [br]
+a file that includes all files with the same name is generated. 
+
 This mechanism is used so that including a file [^[~foo].hpp] will
 include all other files named [^[~foo].hpp], hence including all
 specializations for that function.
@@ -40,8 +41,7 @@ or self-contained extensions.]
 
 [section Adding new specializations]
 
-At the moment, there is no clear policy of what to put in the modules that define a particular
-toolbox.
+At the moment, there is no clear policy of what to put in the modules that defines a particular toolbox.
 
 However, good practice would suggest that if you wish to a add specializations of some functions
 for a particular backend or user-defined type, you should do so in a module named after that
@@ -49,7 +49,8 @@ backend's name rather than in the module that defines the basic or fully generic
 
 Each file should include the file that define the function that forwards to Boost.Dispatch, and all of its dependencies.
 Specializations may then be injected in the in the `nt2::ext` namespace, using the `NT2_FUNCTION_IMPLEMENTATION` and
-other related macros. [br]
+other related macros. 
+
 Each file is responsible for disabling those specializations if the compiler does not have the necessary support
 for them.
 
@@ -63,7 +64,8 @@ except it uses the `boost::simd` namespace instead of `nt2`.
 Let us take the scenario that we want to add a specialization for the function =plus= on targets that support
 AVX (assuming it doesn't already exist).
 
-We therefore create the file [br]
+We therefore create the file 
+
 =nt2/modules/boost/simd/operator/include/boost/simd/toolbox/operator/functions/simd/sse/avx/plus.hpp=
 
 [c++]
@@ -117,7 +119,8 @@ namespace boost { namespace simd { namespace ext
 
 As you can see, a tag is associated to each function, so as to allow specialization. The __NT2__
 naming conventations are that, for a function [^[~foo]], the tag is [^tag::[~foo]_], while for constants
-no underscore is appended. [br]
+no underscore is appended. 
+
 The specialization then defines a function object that must conform to
 [@http://www.boost.org/doc/libs/release/libs/utility/utility.htm#result_of the =result_of= protocol].
 
@@ -143,7 +146,8 @@ of the free function must be translated into an argument.
 Let us consider we want to add a new function =pow_n<N>(a0)=, that elevates its argument to the compile-time
 known power =N=. We also want to allow =pow_n(a0, a1)=.
 
-We'll add that function to the arithmetic toolbox, but only in __NT2__:[br]
+We'll add that function to the arithmetic toolbox, but only in __NT2__:
+
 =nt2/modules/arithmetic/include/nt2/toolbox/arithmetic/functions/pow_n.hpp=
 
 [c++]
@@ -181,7 +185,8 @@ namespace nt2
 #endif
 ``
 
-We'll then provide at least a generic implementation in [br]
+We'll then provide at least a generic implementation in 
+
 =nt2/modules/arithmetic/include/nt2/toolbox/arithmetic/functions/generic/pow_n.hpp=
 ``
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_POW_N_HPP_INCLUDED
