@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace config{ namespace details {
   int get_vendor()
   {
 #if !defined(BOOST_SIMD_ARCH_POWERPC)
-    static const int bit = 0, function = 0x00000000, register_id = 0;
+    static const int function = 0x00000000;
     int regs_x86[4]; 
     __cpuid(regs_x86, function);
     if( str_match(regs_x86, INTEL) ) return intel;
