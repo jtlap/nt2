@@ -22,8 +22,7 @@ namespace boost{ namespace simd{
   template<class Tag>
   bool is_supported()
   {
-    Tag tag_;
-    return config::details::detect(tag_);
+    return config::details::detect(Tag());
   }
 
 } } 

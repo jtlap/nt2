@@ -19,7 +19,7 @@
 
 #include <boost/simd/sdk/config/compiler/gcc_xml.hpp>
 #include <boost/simd/sdk/config/compiler/gcc.hpp>
-#include <boost/simd/sdk/config/compiler/visualc.hpp>
+#include <boost/simd/sdk/config/compiler/msvc.hpp>
 #include <boost/simd/sdk/config/compiler/none.hpp>
 
 #endif

@@ -18,7 +18,7 @@
 #include <boost/config.hpp>
 #include <boost/version.hpp>
 
-#include <boost/simd/sdk/config/os/nix.hpp>
+#include <boost/simd/sdk/config/os/linux.hpp>
 #include <boost/simd/sdk/config/os/windows.hpp>
 #include <boost/simd/sdk/config/os/macos.hpp>
 #include <boost/simd/sdk/config/os/none.hpp>

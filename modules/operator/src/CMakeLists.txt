@@ -9,4 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(operator)
-nt2_module_configure_toolbox(operator 1)
+nt2_module_simd_toolbox(operator)

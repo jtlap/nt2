@@ -10,13 +10,11 @@
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_META_TAGS_HPP_INCLUDED
 
 #include <boost/dispatch/functor/meta/hierarchy.hpp>
-#include <boost/simd/sdk/config/arch.hpp>
+#include <boost/simd/sdk/config/arch/x86.hpp>
 
 namespace boost { namespace simd { namespace tag
 {
-////////////////////////////////////////////////////////////////////////////////
-// Tag hierarchy for SSE extensions
-////////////////////////////////////////////////////////////////////////////////
+  // x86
   BOOST_DISPATCH_HIERARCHY_CLASS(sse_, boost::dispatch::tag::cpu_);
   BOOST_DISPATCH_HIERARCHY_CLASS(sse2_, sse_);
   BOOST_DISPATCH_HIERARCHY_CLASS(sse3_, sse2_);
@@ -29,10 +27,15 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_HIERARCHY_CLASS(sse4_1_, ssse3_);
   BOOST_DISPATCH_HIERARCHY_CLASS(sse4_2_, sse4_1_);
   BOOST_DISPATCH_HIERARCHY_CLASS(avx_, sse4_2_);
-////////////////////////////////////////////////////////////////////////////////
-// Tag hierarchy for Altivec PPC extensions
-////////////////////////////////////////////////////////////////////////////////
+  BOOST_DISPATCH_HIERARCHY_CLASS(xop_, avx_);
+  BOOST_DISPATCH_HIERARCHY_CLASS(fma4_, xop_);
+  
+  // PowerPC
   BOOST_DISPATCH_HIERARCHY_CLASS(altivec_, boost::dispatch::tag::cpu_);
+  
+  // ARM
+  BOOST_DISPATCH_HIERARCHY_CLASS(neon_, boost::dispatch::tag::cpu_);
+  
 } } }
 
 #endif

@@ -9,5 +9,5 @@
 
 include(NT2Module)
 nt2_module_source_setup(bitwise)
-nt2_module_configure_toolbox(bitwise 1)
+nt2_module_simd_toolbox(bitwise)
 
