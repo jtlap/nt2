@@ -14,14 +14,8 @@ set(SOURCES
     memory/allocate.cpp
     memory/deallocate.cpp
     memory/reallocate.cpp
-    config/arm/detect-linux.cpp
-    config/arm/get_vendor.cpp
-    config/powerpc/detect-linux.cpp
-    config/powerpc/detect-macos.cpp
-    config/powerpc/get_vendor.cpp
-    config/x86/cpuid.cpp
-    config/x86/detect.cpp
-    config/x86/get_vendor.cpp
-    config/hwcap-linux.cpp
+    config/cpuid.cpp
+    config/get_vendor.cpp
+    config/detect.cpp
    )
 nt2_module_add_library(boost_simd ${SOURCES})
