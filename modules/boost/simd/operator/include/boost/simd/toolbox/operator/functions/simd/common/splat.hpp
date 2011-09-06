@@ -8,12 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SPLAT_HPP_INCLUDED
-#include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+
+#include <boost/simd/toolbox/operator/functions/splat.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
