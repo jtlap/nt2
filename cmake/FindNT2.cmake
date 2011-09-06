@@ -128,12 +128,12 @@ macro(nt2_find_module_dependencies _COMPONENT)
   nt2_find_module_path_push()
   include(nt2.download OPTIONAL RESULT_VARIABLE NT2_DOWNLOAD_CMAKE)
   nt2_find_module_path_pop()
-  if(NT2_DOWNLOAD_CMAKE AND NOT NT2_CURRENT_MODULE STREQUAL ${_COMPONENT} AND NOT NT2_${_COMPONENT_U}_ROOT)
+  if(NT2_DOWNLOAD_CMAKE AND NOT NT2_${_COMPONENT_U}_ROOT)
     nt2_download_module(${_COMPONENT})
   endif()
     
   # Source found
-  if(NT2_CURRENT_MODULE STREQUAL ${_COMPONENT} OR NT2_${_COMPONENT_U}_ROOT)
+  if(NT2_${_COMPONENT_U}_ROOT)
   
     nt2_find_log("${_COMPONENT} source found, testing dependencies")
     set(NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" ${NT2_MODULE_PATH} CACHE STRING "List of directories in which to search for NT2 CMake includes" FORCE)
