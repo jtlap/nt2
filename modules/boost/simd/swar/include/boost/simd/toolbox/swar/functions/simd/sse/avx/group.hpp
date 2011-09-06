@@ -186,8 +186,8 @@ namespace boost { namespace simd { namespace ext
       typedef result_type rtype;
       typedef simd::native<boost::simd::int32_t,boost::simd::tag::sse_ >   htype;
       typedef simd::native<boost::simd::int32_t,boost::simd::tag::avx_ >  i32type; 
-      i32type r0 = native_cast < i32type>(a0);
-      i32type r1 = native_cast < i32type>(a1);
+//       i32type r0 = native_cast < i32type>(a0);
+//       i32type r1 = native_cast < i32type>(a1);
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       htype v0 = {_mm_packus_epi32(a00, a01)};
@@ -225,8 +225,8 @@ namespace boost { namespace simd { namespace ext
       typedef result_type rtype;
       typedef simd::native<boost::simd::uint32_t,boost::simd::tag::sse_ >   htype;
       typedef simd::native<boost::simd::uint32_t,boost::simd::tag::avx_ >  ui32type; 
-      ui32type r0 = native_cast < ui32type>(a0);
-      ui32type r1 = native_cast < ui32type>(a1);
+//       ui32type r0 = native_cast < ui32type>(a0);
+//       ui32type r1 = native_cast < ui32type>(a1);
       htype a00 = {_mm256_extractf128_si256(a0, 0)};
       htype a01 = {_mm256_extractf128_si256(a0, 1)};
       htype v0 = {_mm_packus_epi32(a00, a01)};
