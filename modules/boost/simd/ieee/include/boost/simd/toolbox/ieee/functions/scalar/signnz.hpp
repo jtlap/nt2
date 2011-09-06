@@ -8,8 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
@@ -46,9 +45,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    inline result_type operator()(A0 const &)const
     {
-      ignore_unused(a0);
       return One<A0>();
     }
   };

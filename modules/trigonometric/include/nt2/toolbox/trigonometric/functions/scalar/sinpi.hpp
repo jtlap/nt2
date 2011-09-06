@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SINPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SINPI_HPP_INCLUDED
-
-#include <nt2/include/constants/digits.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -22,12 +21,9 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
+    inline result_type operator()(A0 const&)const 
     {
-      ignore_unused(a0);
       return Zero<A0>();
     }
   };

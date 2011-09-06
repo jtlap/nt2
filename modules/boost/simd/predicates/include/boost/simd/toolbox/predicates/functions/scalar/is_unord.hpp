@@ -10,8 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_UNORD_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/constants/false.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -25,11 +23,8 @@ namespace boost { namespace simd { namespace ext
   {
 
     typedef bool result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    inline result_type operator()(A0 const&, A0 const&)const 
     {
-      ignore_unused(a0);
-      ignore_unused(a1);
       return boost::simd::False<A0>();
     }
   };
@@ -42,7 +37,7 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_unord_, tag::cpu_
-				     , (A0)
+                                     , (A0)
                             , (scalar_< real_<A0> >)(scalar_< real_<A0> >)
                             )
   {

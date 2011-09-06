@@ -10,9 +10,8 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_TANPI_HPP_INCLUDED
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -26,10 +25,8 @@ namespace nt2 { namespace ext
   {
 
     typedef typename meta::as_real<A0>::type result_type;
-
-    NT2_FUNCTOR_CALL(1)
+    inline result_type operator()(A0 const&)const 
     {
-      ignore_unused(a0);
       return Zero<result_type>();
     }
   };

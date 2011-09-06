@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ORD_HPP_INCLUDED
-#include <boost/simd/include/functions/boolean.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/constants/true.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,10 +19,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    inline result_type operator()(A0 const&, A0 const&)const 
     {
-      ignore_unused(a0);
-      ignore_unused(a1);
       return boost::simd::True<A0>();
     }
   };

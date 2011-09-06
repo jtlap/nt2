@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_POSMIN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_POSMIN_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -22,12 +21,10 @@ namespace boost { namespace simd { namespace ext
                         (scalar_<fundamental_<A0> > )
                        )
   {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-    
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
+    inline result_type operator()(A0 const&)const 
     {
-      ignore_unused(a0);
-      return 0;
+      return Zero<result_type>();
     }
   };
 } } }

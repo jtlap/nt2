@@ -12,7 +12,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // load for SIMD packs
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
@@ -39,10 +38,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(3) {
-      boost::dispatch::ignore_unused(a2);
-      return result_type(a0,a1);
-    }
+    inline result_type operator()(A0 const& a0, A1 const&a1,
+                                  A2 const&)const 
+      {
+        return result_type(a0,a1);
+      }
   };
 } } }
 
@@ -68,8 +68,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A2::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(4) {
-      boost::dispatch::ignore_unused(a2);
+    inline result_type operator()(A0 const& a0, A1 const&a1,
+                                  A2 const&, A3 const& a3)const 
+    {
       return result_type(a0,a1,a3);
     }
   };

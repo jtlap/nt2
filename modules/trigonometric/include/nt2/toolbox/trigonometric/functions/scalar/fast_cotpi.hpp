@@ -8,9 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_FAST_COTPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_FAST_COTPI_HPP_INCLUDED
-#include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/functions/is_flint.hpp>
+#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/bitwise_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -25,9 +28,8 @@ namespace nt2 { namespace ext
 
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
 
-    NT2_FUNCTOR_CALL(1)
+    inline result_type operator()(A0 const&)const 
     {
-      ignore_unused(a0); 
       return Nan<result_type>();
     }
   };
@@ -57,3 +59,4 @@ namespace nt2 { namespace ext
 
 
 #endif
+

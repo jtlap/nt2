@@ -1,5 +1,5 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+///         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
 //                                                                              
 //          Distributed under the Boost Software License, Version 1.0.          
@@ -8,8 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_FLINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_FLINT_HPP_INCLUDED
-#include <boost/simd/include/functions/boolean.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/frac.hpp>
 
@@ -24,9 +22,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    inline result_type operator()(A0 const&)const 
     {
-      ignore_unused(a0);
       return boost::simd::True<A0>();
     }
   };
@@ -52,4 +49,4 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 
-#endif
+#endif 

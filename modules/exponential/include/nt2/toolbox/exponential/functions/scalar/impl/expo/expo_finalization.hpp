@@ -28,48 +28,47 @@ namespace nt2
 
       template < class A0, class speed_tag> struct exp_finalization < A0, natural_tag, speed_tag>
       {
-	static inline A0 finalize(const A0&, const A0& x,
-				  const A0& c, const A0 & k,
-				  const A0& hi,const A0& lo)
-	{
-	  A0 y =   oneminus(((lo-(x*c)/(Two<A0>()-c))-hi));
-	  return fast_ldexp(y, fast_toint(k));
-	}
+        static inline A0 finalize(const A0&, const A0& x,
+                                  const A0& c, const A0 & k,
+                                  const A0& hi,const A0& lo)
+        {
+          A0 y =   oneminus(((lo-(x*c)/(Two<A0>()-c))-hi));
+          return fast_ldexp(y, fast_toint(k));
+        }
       };
       template < class A0 > struct exp_finalization < A0, two_tag, fast_tag>
       {
-	static inline A0 finalize(const A0& a0, const A0& x,
-				  const A0& c, const A0 & k,
-				  const A0& ,const A0& )
-	{
-	  ignore_unused(a0);
-	  A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
-	  return fast_ldexp(y, fast_toint(k));
-	}
+        static inline A0 finalize(const A0&, const A0& x,
+                                  const A0& c, const A0 & k,
+                                  const A0& ,const A0& )
+        {
+          A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
+          return fast_ldexp(y, fast_toint(k));
+        }
       };
       template < class A0 > struct exp_finalization < A0, two_tag, accu_tag>
       {
-	static inline A0 finalize(const A0& a0, const A0& x,
-				  const A0& c, const A0 & k,
-				  const A0& ,const A0& )
-	{
-	  A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
-	  y = fast_ldexp(y, fast_toint(k));
-	  // adjust for 2^n n flint
-	  return  select(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
-	}
+        static inline A0 finalize(const A0& a0, const A0& x,
+                                  const A0& c, const A0 & k,
+                                  const A0& ,const A0& )
+        {
+          A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
+          y = fast_ldexp(y, fast_toint(k));
+          // adjust for 2^n n flint
+          return  select(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
+        }
       };
 
       template < class A0 > struct exp_finalization < A0, ten_tag, accu_tag>
       {
-	static inline A0 finalize(const A0& a0, const A0&  ,
-				  const A0& c , const A0& k,
-				  const A0&   , const A0& )
-	{
-	  A0 y = fast_ldexp(c, fast_toint(k));
-	  //adjust for 10^n n flint
-	  return  select(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
-	}
+        static inline A0 finalize(const A0& a0, const A0&  ,
+                                  const A0& c , const A0& k,
+                                  const A0&   , const A0& )
+        {
+          A0 y = fast_ldexp(c, fast_toint(k));
+          //adjust for 10^n n flint
+          return  select(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
+        }
       };
 
     }

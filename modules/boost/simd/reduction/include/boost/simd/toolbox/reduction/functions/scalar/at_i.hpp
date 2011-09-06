@@ -8,8 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_AT_I_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_AT_I_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
@@ -21,9 +20,8 @@ namespace boost { namespace simd { namespace ext
                    )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    inline result_type operator()(A0 const&)const 
     {
-      ignore_unused(a1);
       return a0;
     };
   };

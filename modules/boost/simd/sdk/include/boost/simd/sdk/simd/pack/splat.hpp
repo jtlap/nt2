@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_SPLAT_HPP_INCLUDED
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -27,9 +26,8 @@ namespace boost { namespace simd { namespace ext
   {
    typedef typename A1::type result_type;
 
-   BOOST_SIMD_FUNCTOR_CALL(2)
+    inline result_type operator()(A0 const& a0, A1 const&)const 
    {
-     boost::dispatch::ignore_unused(a1);
      result_type that;
      that.fill(a0);
      return that;
