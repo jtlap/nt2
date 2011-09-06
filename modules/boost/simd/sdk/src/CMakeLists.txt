@@ -16,5 +16,6 @@ set(SOURCES
     memory/reallocate.cpp
     config/cpuid.cpp
     config/get_vendor.cpp
+    config/detect.cpp
    )
 nt2_module_add_library(boost_simd ${SOURCES})

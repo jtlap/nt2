@@ -15,32 +15,15 @@
  * For detecting a new extenion from a new vendor you need to add a 
  * vendor case and provide the right specialization of cpuid_mask.  
 */
-
-#include <boost/simd/sdk/config/details/cpuid.hpp>
-#include <boost/simd/sdk/config/details/masks.hpp>
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
-#include <boost/mpl/int.hpp>
+#include <boost/simd/sdk/config/details/detect.hpp>
 
 namespace boost{ namespace simd{
 
   template<class Tag>
   bool is_supported()
   {
-    switch(config::details::get_vendor())
-    {
-    case config::details::intel : 
-      config::details::cpuid_mask<Tag, config::details::intel_> mIntel;
-      return mIntel.get_support();
-    case config::details::amd :
-      config::details::cpuid_mask<Tag, config::details::amd_ > mAmd;
-      return mAmd.get_support();
-    case config::details::ibm : 
-      config::details::cpuid_mask<Tag, config::details::ibm_> mIbm;
-      return mIbm.get_support();
-    default :
-      return false;
-    }
-
+    Tag tag_;
+    return config::details::detect(tag_);
   }
 
 } } 
