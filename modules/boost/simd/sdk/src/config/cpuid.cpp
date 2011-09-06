@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace config{ namespace details {
     : "a" (InfoType)
     );
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
-    __cpuid(CPUInfo,InfoType)
+    __cpuid(CPUInfo,InfoType);
 #endif
 
 #endif
