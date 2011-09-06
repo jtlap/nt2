@@ -7,12 +7,13 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #include <boost/simd/sdk/config/details/detect.hpp>
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
-#include <boost/simd/sdk/config/details/cpuid.hpp>
 #include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/sdk/config/os.hpp>
 
-#if defined(BOOST_SIMD_OS_LINUX) && defined(BOOST_SIMD_ARCH_POWERPC)
+#if defined(BOOST_SIMD_ARCH_X86)
+#include <boost/simd/sdk/config/details/cpuid.hpp>
+#include <boost/simd/sdk/config/details/get_vendor.hpp>
+#elif defined(BOOST_SIMD_OS_LINUX) && defined(BOOST_SIMD_ARCH_POWERPC)
 #include <fcntl.h>
 #include <linux/auxvec.h>
 #include <asm/cputable.h>
@@ -22,10 +23,12 @@
 
 #define BOOST_SIMD_DECLARE_X86_DETECTION_CALL(x, y, z)            \
 static const int bit = x, function = y, register_id = z;	  \
-int regs_x86[4]; __cpuid(regs_x86, function);			  \
-return config::details::has_bit_set(regs_x86[register_id-1], bit);
+int regs_x86[4]; boost::simd::config::details::cpuid(regs_x86, function); \
+return boost::simd::config::details::has_bit_set(regs_x86[register_id-1], bit);
 
 namespace boost{ namespace simd{ namespace config{ namespace details{
+
+#if defined(BOOST_SIMD_ARCH_X86)
 
   bool detect(tag::sse2_ const&   )
   {
@@ -75,53 +78,54 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
     else return false;
   }
 
+#endif
+
+#if defined(BOOST_SIMD_ARCH_POWERPC)
   bool detect(tag::altivec_ const&)
   {
-    if(get_vendor() == ibm) 
+
+#if defined(BOOST_SIMD_OS_LINUX)
+    bool hasAltiVec = false;
+    unsigned long buf[64];
+    ssize_t count;
+    int fd, i;
+    fd = open("/proc/self/auxv", O_RDONLY);
+    if (fd < 0) { return false; }
+    do 
     {
-#if defined(BOOST_SIMD_OS_LINUX) && defined(BOOST_SIMD_ARCH_POWERPC)
-      
-      bool hasAltiVec = false;
-      unsigned long buf[64];
-      ssize_t count;
-      int fd, i;
-      fd = open("/proc/self/auxv", O_RDONLY);
-      if (fd < 0) { return false; }
-      do 
+      count = read(fd, buf, sizeof(buf));
+      if (count < 0) { break; }
+      for (i=0; i < (count / sizeof(unsigned long)); i += 2) 
       {
-	count = read(fd, buf, sizeof(buf));
-	if (count < 0) { break; }
-	for (i=0; i < (count / sizeof(unsigned long)); i += 2) 
-	{
-	  if (buf[i] == AT_HWCAP) 
-	  {
-	    hasAltiVec = !!(buf[i+1] & PPC_FEATURE_HAS_ALTIVEC);
-	    close(fd);
-	    return hasAltiVec;
-	  } 
-	  else if (buf[i] == AT_NULL)
-	  {
-	    close(fd);
-	    return hasAltiVec;
-	  }
-	}
-      } while (count == sizeof(buf));
-      return hasAltiVec;
+        if (buf[i] == AT_HWCAP) 
+        {
+          hasAltiVec = !!(buf[i+1] & PPC_FEATURE_HAS_ALTIVEC);
+          close(fd);
+          return hasAltiVec;
+        } 
+        else if (buf[i] == AT_NULL)
+        {
+          close(fd);
+          return hasAltiVec;
+        }
+      }
+    } while (count == sizeof(buf));
+    return hasAltiVec;
 
-#elif defined(BOOST_SIMD_OS_MAC_OS) && defined(BOOST_SIMD_ARCH_POWERPC)
+#elif defined(BOOST_SIMD_OS_MAC_OS)
 
-      long cpuAttributes;
-      bool hasAltiVec = false;
-      OSErr err = Gestalt( gestaltPowerPCProcessorFeatures, &cpuAttributes );
-      if( noErr == err ) { hasAltiVec = ( 1 << gestaltPowerPCHasVectorInstructions) & cpuAttributes; }
-      return hasAltiVec;
+    long cpuAttributes;
+    bool hasAltiVec = false;
+    OSErr err = Gestalt( gestaltPowerPCProcessorFeatures, &cpuAttributes );
+    if( noErr == err ) { hasAltiVec = ( 1 << gestaltPowerPCHasVectorInstructions) & cpuAttributes; }
+    return hasAltiVec;
 
 #else
       return false;
 #endif
-    }
-    else return false;
+
   }
 
+#endif
 
 } } } }  

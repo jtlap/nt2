@@ -13,10 +13,17 @@
  *\file detect.hpp
 */
 
+#include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 
 namespace boost{ namespace simd{ namespace config{ namespace details{
 
+  inline bool detect(dispatch::tag::cpu_ const& )
+  {
+    return false;
+  }
+
+#ifdef BOOST_SIMD_ARCH_X86
   bool detect(tag::sse2_ const&   );
   bool detect(tag::sse3_ const&   );
   bool detect(tag::ssse3_ const&  );
@@ -24,7 +31,11 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
   bool detect(tag::sse4_1_ const& );
   bool detect(tag::sse4_2_ const& );
   bool detect(tag::avx_ const&    );
+#endif
+
+#ifdef BOOST_SIMD_ARCH_POWERPC
   bool detect(tag::altivec_ const&);
+#endif
 
 } } } }  
 

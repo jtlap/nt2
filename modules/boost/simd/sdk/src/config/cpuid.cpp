@@ -9,14 +9,9 @@
 #include <boost/simd/sdk/config/details/cpuid.hpp>
 #include <boost/simd/sdk/config/os.hpp>
 
-
-#define BOOST_SIMD_DECLARE_MASK(x,y,z) static const int bit = x, function = y, register_id = z
-#define BOOST_SIMD_DECLARE_X86_CPUID_CALL(function) int regs_x86[4]; __cpuid(regs_x86, function)
-#define BOOST_SIMD_DECLARE_X86_DETECTION_CALL(bit, function, register_id)\
-BOOST_SIMD_DECLARE_MASK(bit, function, register_id)\
-BOOST_SIMD_DECLARE_X86_CPUID_CALL(function);\
-return has_bit_set(regs_x86[register_id-1], bit)
-
+#if defined(BOOST_SIMD_COMPILER_MSVC)
+#include <intrin.h>
+#endif
 
 namespace boost { namespace simd { namespace config{ namespace details {
 
@@ -25,18 +20,12 @@ namespace boost { namespace simd { namespace config{ namespace details {
     return (value & (1<<bit)) != 0;
   }
 
-  bool str_match(const int abcd[4], const char* vendor)
+  void cpuid(int CPUInfo[4],int InfoType)
   {
-    return (abcd[1] == ((int*)(vendor))[0] && abcd[2] == ((int*)(vendor))[2] && abcd[3] == ((int*)(vendor))[1]);
-  }
+#if defined(BOOST_SIMD_ARCH_X86)
 
-} } } }
-
-#ifdef BOOST_SIMD_COMPILER_GNU_C
-
-  void __cpuid( int CPUInfo[4],int InfoType)
-  {
-#if !defined(BOOST_SIMD_ARCH_POWERPC)
+#if defined(BOOST_SIMD_COMPILER_GNU_C)
+    enum { eax,ebx,ecx,edx };
     __asm__ __volatile__
     (
       "cpuid":\
@@ -44,22 +33,13 @@ namespace boost { namespace simd { namespace config{ namespace details {
     , "=c" (CPUInfo[ecx]), "=d" (CPUInfo[edx])
     : "a" (InfoType)
     );
-#endif
-  }
-
-  void __cpuidex(int CPUInfo[4],int InfoType,int ECXValue)
-  {
-#if !defined(BOOST_SIMD_ARCH_POWERPC)
-    __asm__ __volatile__
-    (
-      "cpuid":\
-      "=a" (CPUInfo[eax]), "=b" (CPUInfo[ebx])
-    , "=c" (CPUInfo[ecx]), "=d" (CPUInfo[edx])
-    : "a" (InfoType), "c" (ECXValue)
-    );
-#endif
-  }
-
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
-#include <intrin.h>
+    __cpuid(CPUInfo,InfoType)
 #endif
+
+#endif
+  }
+
+} } } }
+
+
