@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //============================================================================== 
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_INCLUDE_ITRUNC_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_INCLUDE_ITRUNC_HPP_INCLUDED
-#include <boost/simd/toolbox/arithmetic/include/functions/toint.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_INCLUDE_FUNCTIONS_FAM_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_INCLUDE_FUNCTIONS_FAM_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/include/functions/fma.hpp>
 #endif
