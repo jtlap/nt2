@@ -126,7 +126,9 @@ endmacro()
 
 macro(nt2_module_main module)
   string(TOUPPER ${module} NT2_CURRENT_MODULE_U)
-  set(NT2_${NT2_CURRENT_MODULE_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+  set(NT2_${NT2_CURRENT_MODULE_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR}
+      CACHE PATH "Root directory of the ${module} module's source" FORCE
+     )
     
   if(CMAKE_CURRENT_SOURCE_DIR STREQUAL ${PROJECT_SOURCE_DIR})
     project(NT2_${NT2_CURRENT_MODULE_U})
