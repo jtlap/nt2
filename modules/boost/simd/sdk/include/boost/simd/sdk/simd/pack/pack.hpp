@@ -11,6 +11,7 @@
 
 #include <boost/proto/core.hpp>
 #include <boost/dispatch/dsl/call.hpp>
+#include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
 #include <boost/simd/sdk/simd/pack/evaluation.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
@@ -25,7 +26,7 @@ namespace boost { namespace simd
   // PODness of pack throughout the whole system.
   ////////////////////////////////////////////////////////////////////////////
   template<class Type,std::size_t Cardinal,class Dummy>
-  struct  pack
+  struct BOOST_SIMD_MAY_ALIAS pack
   {
     BOOST_PROTO_BASIC_EXTENDS_TPL( (typename boost::proto::
                                     terminal< typename meta::
