@@ -28,12 +28,13 @@ void timing_test( Func callee, size_t size
   typedef T0                                      r_in0;
   typedef typename nt2::meta::scalar_of<T0>::type t_in0;
 
-  // output value
-  typedef typename nt2::meta::result_of<Func(r_in0)>::type  out_t;
-  static out_t out;
-
   // Input samples
   static std::vector<t_in0, nt2::memory::allocator<t_in0> >  in0(size);
+  
+  // Output samples
+  typedef typename nt2::meta::result_of<Func(r_in0)>::type   r_out;
+  typedef typename nt2::meta::scalar_of<r_out>::type         t_out;
+  static std::vector<t_out, nt2::memory::allocator<t_out> >  out(size);
 
   // Filling samples randomly
   for(size_t i=0; i<size; ++i) in0[i] = roll<t_in0>(min0,max0);
@@ -53,7 +54,10 @@ void timing_test( Func callee, size_t size
       nt2::ctic();
       for(size_t i=0; i<size/nt2::meta::cardinal_of<r_in0>::value; i++)
       {
-        out = callee(nt2::load<r_in0>(&in0[0],i));
+        nt2::store(
+          callee( nt2::load<r_in0>(&in0[0],i) )
+        , &out[0],i
+        );
       }
       c = nt2::ctoc(false) / double(size);
     }

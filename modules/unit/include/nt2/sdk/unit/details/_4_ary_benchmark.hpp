@@ -21,17 +21,17 @@
 #include <nt2/sdk/memory/allocator.hpp>
 
 template<class T0,class T1, class T2, class T3
-	 ,class Dummy,class Func
-	 , class MN0, class MX0
-	 , class MN1, class MX1
-	 , class MN2, class MX2
-	 , class MN3, class MX3
+        ,class Dummy,class Func
+        ,class MN0, class MX0
+        ,class MN1, class MX1
+        ,class MN2, class MX2
+        ,class MN3, class MX3
         >
 void timing_test( Func callee, size_t size
                 , MN0 min0, MX0 max0
                 , MN1 min1, MX1 max1
                 , MN2 min2, MX2 max2
-		, MN3 min3, MX3 max3   
+                , MN3 min3, MX3 max3   
                 , const char* name = NULL )
 {
   typedef T0                                      r_in0;
@@ -43,15 +43,16 @@ void timing_test( Func callee, size_t size
   typedef typename nt2::meta::scalar_of<T2>::type t_in2;
   typedef typename nt2::meta::scalar_of<T3>::type t_in3;
 
-  // output value
-  typedef typename nt2::meta::result_of<Func(r_in0,r_in1,r_in2,r_in3)>::type out_t;
-  static out_t                                                        out;
-
   // Input samples
   static std::vector<t_in0, nt2::memory::allocator<t_in0> >  in0(size);
   static std::vector<t_in1, nt2::memory::allocator<t_in1> >  in1(size);
   static std::vector<t_in2, nt2::memory::allocator<t_in2> >  in2(size);
   static std::vector<t_in3, nt2::memory::allocator<t_in3> >  in3(size);
+  
+  // Output samples
+  typedef typename nt2::meta::result_of<Func(r_in0,r_in1,r_in2,r_in3)>::type  r_out;
+  typedef typename nt2::meta::scalar_of<r_out>::type         t_out;
+  static std::vector<t_out, nt2::memory::allocator<t_out> >  out(size);
 
   // Filling samples randomly
   for(size_t i=0; i<size; ++i)
@@ -87,11 +88,14 @@ void timing_test( Func callee, size_t size
       nt2::ctic();
       for(size_t i=0; i<size/nb; i++)
       {
-        out = callee( nt2::load<r_in0>(&in0[0],i)
-                    , nt2::load<r_in1>(&in1[0],i)
-                    , nt2::load<r_in2>(&in2[0],i)
-                    , nt2::load<r_in3>(&in3[0],i)
-                    );
+        nt2::store(
+          callee( nt2::load<r_in0>(&in0[0],i)
+                , nt2::load<r_in1>(&in1[0],i)
+                , nt2::load<r_in2>(&in2[0],i)
+                , nt2::load<r_in3>(&in3[0],i)
+                )
+        , &out[0], i
+        );
       }
       c = nt2::ctoc(false) / double(size);
     }
