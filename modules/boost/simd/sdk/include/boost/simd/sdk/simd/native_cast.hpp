@@ -17,13 +17,9 @@
 
 namespace boost { namespace simd
 {
-  template<class T, class U> BOOST_DISPATCH_FORCE_INLINE
-  typename boost::enable_if_c<
-     meta::is_native<T>::value
-  && ( (meta::is_native<U>::value && is_same<typename T::extension_type, typename U::extension_type>::value)
-    || meta::is_simd_specific<U, typename T::extension_type>::value
-     )
-  , T const&>::type
+  template<class T, class U>
+  BOOST_DISPATCH_FORCE_INLINE
+  T const&
   native_cast( U const& a )
   {
     return reinterpret_cast<T const&>(a);
