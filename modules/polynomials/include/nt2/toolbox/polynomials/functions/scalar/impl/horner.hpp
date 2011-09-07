@@ -17,7 +17,6 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/madd.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/tuple/to_seq.hpp>
@@ -43,10 +42,10 @@ namespace nt2
       operator()(T const& x) const
       {
         static_horner_<N-1,typename boost::mpl::pop_back<Seq>::type> callee;
-        return madd ( x
-                    , callee(x)
-                    , Const<T,boost::mpl::at_c<Seq,N-1>::type::value>()
-                    );
+        return fma( x
+                  , callee(x)
+                  , Const<T,boost::mpl::at_c<Seq,N-1>::type::value>()
+                  );
       }
     };
 
