@@ -11,7 +11,7 @@
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -23,10 +23,8 @@ namespace boost { namespace simd { namespace ext
                                  )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    inline result_type operator()(const A0&)const
     {
-      typedef result_type type;
-      ignore_unused(a0);
       return boost::simd::True<A0>();
     }
   };
