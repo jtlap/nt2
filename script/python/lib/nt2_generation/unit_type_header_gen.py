@@ -63,6 +63,7 @@ class Type_header_test_gen() :
             "  std::cout << std::endl; ",
             "  double ulpd;",
             "  ulpd=0.0;",
+            "  boost::dispatch::ignore_unused(ulpd);"    
             "",
             ],
         "simd" :
@@ -87,6 +88,7 @@ class Type_header_test_gen() :
             "  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;",
             "  double ulpd;",
             "  ulpd=0.0;",
+            "  boost::dispatch::ignore_unused(ulpd);"    
             "",
             ]
         },
@@ -114,6 +116,7 @@ class Type_header_test_gen() :
             "  std::cout << std::endl; ",
             "  double ulpd;",
             "  ulpd=0.0;",
+            "  boost::dispatch::ignore_unused(ulpd);"    
             "",
             ],
         "simd" :
@@ -138,6 +141,7 @@ class Type_header_test_gen() :
             "  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;",
             "  double ulpd;",
             "  ulpd=0.0;",
+            "  boost::dispatch::ignore_unused(ulpd);"    
             "",
             ]
         },
