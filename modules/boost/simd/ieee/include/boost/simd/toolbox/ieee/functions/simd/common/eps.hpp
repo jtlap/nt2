@@ -13,8 +13,6 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/select.hpp>
@@ -34,14 +32,11 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      ignore_unused(a0);
-      return One<A0>();
-    }
+    inline result_type operator()(const A0&)const
+      {
+        return One<A0>();
+      }
   };
 } } }
 
