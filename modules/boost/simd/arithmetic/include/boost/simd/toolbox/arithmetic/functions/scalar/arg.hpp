@@ -8,9 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ARG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ARG_HPP_INCLUDED
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-
+#include <boost/simd/include/constants/pi.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
@@ -50,9 +49,8 @@ namespace boost { namespace simd { namespace ext
 
     typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    inline result_type operator()(const A0&)const
     {
-      ignore_unused(a0);
       return Zero<result_type>();
     }
   };

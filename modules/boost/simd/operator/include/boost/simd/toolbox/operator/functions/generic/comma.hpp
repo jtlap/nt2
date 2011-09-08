@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_COMMA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_COMMA_HPP_INCLUDED
-
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,7 +18,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A1 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { ignore_unused(a0); return a1;}
+    inline result_type operator()(const A0&, const A1& a1) const
+    {
+      return a1;
+    }
   };
 } } }
 

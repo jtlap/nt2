@@ -15,7 +15,6 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,9 +26,8 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A1::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    inline result_type operator()(const A0& a0, const A1&) const
     {
-      boost::dispatch::ignore_unused(a1);
       typedef typename meta::scalar_of<result_type>::type sA1;
       
       BOOST_SIMD_ALIGNED_TYPE(sA1) tmp[boost::simd::meta::cardinal_of<result_type>::value];

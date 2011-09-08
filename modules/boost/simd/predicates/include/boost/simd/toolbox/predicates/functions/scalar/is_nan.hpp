@@ -8,9 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NAN_HPP_INCLUDED
-
 #include <boost/simd/include/constants/false.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
@@ -23,9 +21,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    inline result_type operator()(const A0&) const
     {
-      ignore_unused(a0);
       return boost::simd::False<A0>();
     }
   };

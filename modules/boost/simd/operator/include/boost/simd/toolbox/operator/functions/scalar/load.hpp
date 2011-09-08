@@ -26,9 +26,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
-      ignore_unused(a2);
       A0 that = a0;
       std::advance(that,a1);
       return *that;
@@ -50,10 +49,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(4)
+    inline result_type operator()(const A0& a0, const A1& a1,
+                                  const A2&, const A3&) const
+
     {
-      ignore_unused(a2);
-      ignore_unused(a3);
       A0 that = a0;
       std::advance(that,a1+A3::value);
       return *that;

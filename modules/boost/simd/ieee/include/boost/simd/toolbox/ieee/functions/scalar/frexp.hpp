@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef int result_type;
     inline int operator()(A0 const& a0,A0 & a1,A2 & a2) const
     {
-      boost::simd::int32_t aa2; 
+      boost::simd::int32_t aa2 = 0; 
       a1 = ::frexp(a0, &aa2);
       a2 =  aa2; 
       return 0; 

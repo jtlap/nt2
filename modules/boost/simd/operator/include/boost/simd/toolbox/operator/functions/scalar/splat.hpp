@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_SPLAT_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,9 +19,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A1::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    inline result_type operator()(const A0& a0, const A1&) const
     {
-      ignore_unused(a1); 
       result_type that = static_cast<result_type>(a0);
       return that;
     }
