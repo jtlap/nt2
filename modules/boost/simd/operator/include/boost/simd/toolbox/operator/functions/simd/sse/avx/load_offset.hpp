@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     {};
 
     inline result_type operator()(const A0& a0, const A1& a1,
-                                  const A2&, const A2&)const
+                                  const A2&, const A3&)const
     {
       return eval( a0, a1, typename is_periodic<A2,A3>::type() );
     }

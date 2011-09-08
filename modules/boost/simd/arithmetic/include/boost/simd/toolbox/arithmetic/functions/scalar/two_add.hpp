@@ -11,6 +11,7 @@
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
+#include <boost/simd/include/constants/zero.hpp>
   //TODO ref implementation
 
 /////////////////////////////////////////////////////////////////////////////
