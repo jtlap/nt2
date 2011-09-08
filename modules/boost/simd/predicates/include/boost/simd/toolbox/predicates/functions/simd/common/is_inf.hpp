@@ -12,7 +12,6 @@
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,7 +20,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { ignore_unused(a0); return boost::simd::False<A0>(); }
+    inline result_type operator()(const A0&)const
+    { return boost::simd::False<A0>(); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_inf_, tag::cpu_, (A0)(X)

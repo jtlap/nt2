@@ -83,9 +83,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    inline result_type operator()(const A0&, const A1&)const
     {
-      ignore_unused((a0,a1));
       return boost::simd::meta::is_aligned<A0,A1>::value;
     }
   };
