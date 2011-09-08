@@ -9,15 +9,27 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_ISQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_ISQRT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/isqrt.hpp>
 #include <boost/simd/include/constants/digits.hpp>
+//#include <boost/simd/include/functions/sqr.hpp>
+//#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/toint.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/toint.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/sqr.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
+#include <boost/simd/include/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
@@ -66,7 +78,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, boost::simd::tag::sse2_
                             , (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<int_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -78,25 +90,6 @@ namespace boost { namespace simd { namespace ext
                   , simd::
                     native_cast<int_type>(isqrt( simd::native_cast<uint_type>(a0)))
                   );
-    }
-  };
-} } }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, boost::simd::tag::sse2_
-                            , (A0)
-                            , ((simd_<real_<A0>,boost::simd::tag::sse_>))
-                            )
-  {
-    typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return itrunc(boost::simd::sqrt(a0));
     }
   };
 } } }

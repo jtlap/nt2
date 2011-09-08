@@ -58,12 +58,65 @@ NT2_TEST_CASE_TPL ( isqrt_real__1_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Four<vT>())[0], boost::simd::Two<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Mone<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Two<vT>())[0], boost::simd::One<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(isqrt(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Four<vT>())[0], nt2::Two<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Inf<vT>())[0], nt2::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Mone<vT>())[0], nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Two<vT>())[0], nt2::One<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( isqrt_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
+{
+  using nt2::isqrt;
+  using nt2::tag::isqrt_;
+  using nt2::load; 
+  using boost::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<isqrt_(vT)>::type r_t;
+  typedef typename nt2::meta::call<isqrt_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Four<vT>())[0], nt2::Two<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
+} // end of test for unsigned_int_
+
+NT2_TEST_CASE_TPL ( isqrt_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  using nt2::isqrt;
+  using nt2::tag::isqrt_;
+  using nt2::load; 
+  using boost::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<isqrt_(vT)>::type r_t;
+  typedef typename nt2::meta::call<isqrt_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Four<vT>())[0], nt2::Two<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Mone<vT>())[0], nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(isqrt(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
+} // end of test for signed_int_

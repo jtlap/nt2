@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  isqrt.cpp
   negs.cpp
   fast_toint.cpp
   abss.cpp
