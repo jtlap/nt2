@@ -15,9 +15,6 @@
 #include <nt2/include/functions/tanh.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
-#include <iostream>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -55,7 +52,6 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      std::cout << a0 << "  " << tanh(a0) << "  " <<  rec(tanh(a0)) << std::endl; 
       return rec(tanh(a0));
     }
   };

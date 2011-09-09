@@ -14,9 +14,6 @@
 #include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/sign.hpp>
-#include <iostream>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

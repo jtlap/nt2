@@ -11,7 +11,6 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/toolbox/operator/functions/divides.hpp>
 #include <boost/simd/include/functions/none.hpp>
-//#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
