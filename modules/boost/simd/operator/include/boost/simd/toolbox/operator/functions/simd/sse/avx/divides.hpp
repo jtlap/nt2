@@ -24,13 +24,13 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      #ifdef BOOST_SIMD_COMPILER_GNU_C
+#ifdef __GNUG__
       //================================================================
       // this is a workaround for a possible gcc over-optimisation
       // that produce zero/zero -> zero instead of nan
       if (none(a0)&&none(a1)) return Nan<result_type>();
       //================================================================
-      #endif
+#endif
       A0 const that = { _mm256_div_pd(a0,a1) };
       return that;
     }
@@ -46,13 +46,13 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      #ifdef BOOST_SIMD_COMPILER_GNU_C
+#ifdef __GNUG__
       //================================================================
       // this is a workaround for a possible gcc over-optimisation
       // that produce zero/zero -> zero instead of nan
       if (none(a0)&&none(a1)) return Nan<result_type>();
       //================================================================ 
-      #endif
+#endif
       A0 const that = { _mm256_div_ps(a0,a1) };
       return that;
     }
