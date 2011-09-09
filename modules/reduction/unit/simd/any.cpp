@@ -68,3 +68,28 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::any(nt2::One<vT>()), nt2::One<sr_t>());
   NT2_TEST_EQUAL(nt2::any(nt2::Zero<vT>()), nt2::Zero<sr_t>());
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( any_int__1_0,  NT2_INTEGRAL_TYPES)
+{
+  //  using nt2::any;
+  using nt2::tag::any_;
+  using nt2::load; 
+  using boost::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<any_(vT)>::type r_t;
+  typedef typename nt2::meta::call<any_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  NT2_TEST_EQUAL(nt2::any(nt2::One<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(nt2::any(nt2::Zero<vT>()), nt2::Zero<sr_t>());
+} // end of test for real_

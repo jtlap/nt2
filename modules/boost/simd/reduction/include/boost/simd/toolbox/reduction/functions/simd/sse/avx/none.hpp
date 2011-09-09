@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_NONE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/include/constants/false.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,28 +22,130 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type             sctype;
-      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      if  (any(a00)) return false;
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      return none(a01);
-
+      //      std::cout << "arith" << _mm256_testz_si256(is_nez(a0), True<A0>()) << std::endl; 
+      return _mm256_testz_si256(is_nez(a0), True<A0>());
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
                         (A0),
-                        ((simd_<real_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<uint8_<A0>,boost::simd::tag::avx_>))
                        )
   {
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_integer<A0>::type iA0; 
-      return none(bitwise_cast<iA0>(a0)) ;
+      return _mm256_testz_si256(is_nez(a0), True<A0>());
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+                        (A0),
+                        ((simd_<int8_<A0>,boost::simd::tag::avx_>))
+                       )
+  {
+    typedef bool result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return _mm256_testz_si256(is_nez(a0), True<A0>());
+    }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+                        (A0),
+                        ((simd_<float_<A0>,boost::simd::tag::avx_>))
+                       )
+  {
+    typedef bool result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      //     std::cout << "ps" << _mm256_testz_ps(is_nez(a0), True<A0>()) << std::endl; 
+      return _mm256_testz_ps(is_nez(a0), True<A0>());
+    }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+                        (A0),
+                        ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                       )
+  {
+    typedef bool result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      //      std::cout << "pd" << _mm256_testz_pd(is_nez(a0), True<A0>()) << std::endl; 
+      return _mm256_testz_pd(is_nez(a0), True<A0>());
     }
   };
 } } }  
 #endif
 #endif
+
+// namespace boost { namespace simd { namespace ext
+// {
+//    BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+//                         (A0),
+//                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+//                        )
+//   {
+//     typedef bool result_type;
+//     BOOST_SIMD_FUNCTOR_CALL(1)
+//     {
+//       typedef typename meta::scalar_of<A0>::type             sctype;
+//       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
+//       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
+//       if  (any(a00)) return false;
+//       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
+//       return none(a01);
+//     }
+//   };
+  
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+//                         (A0),
+//                         ((simd_<real_<A0>,boost::simd::tag::avx_>))
+//                        )
+//   {
+//     typedef bool result_type;
+//     BOOST_SIMD_FUNCTOR_CALL(1)
+//     {
+//       typedef typename dispatch::meta::as_integer<A0>::type iA0; 
+//       return none(bitwise_cast<iA0>(a0)) ;
+//     }
+//   };
+// //   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+// //                         (A0),
+// //                         ((simd_<float_<A0>,boost::simd::tag::avx_>))
+// //                        )
+// //   {
+// //     typedef bool result_type;
+// //     BOOST_SIMD_FUNCTOR_CALL(1)
+// //     {
+// //       return _mm256_testz_ps(a0, True<A0>());
+// //     }
+// //   };
+// //   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+// //                         (A0),
+// //                         ((simd_<double_<A0>,boost::simd::tag::avx_>))
+// //                        )
+// //   {
+// //     typedef bool result_type;
+// //     BOOST_SIMD_FUNCTOR_CALL(1)
+// //     {
+// //       return _mm256_testz_pd(a0, True<A0>());
+// //     }
+// //   };
+// //   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
+// //                         (A0),
+// //                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+// //                        )
+// //   {
+// //     typedef bool result_type;
+// //     BOOST_SIMD_FUNCTOR_CALL(1)
+// //     {
+// //       typedef native <float, boost::simd::tag::avx_> ftype; 
+// //       return none(bitwise_cast<ftype>(a0)) ;
+// //     }
+// //   };
+  
+// } } }  
+// #endif
+// #endif

@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/true.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,6 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      //      std::cout << "arith" << !_mm256_testz_si256(is_nez(a0), True<A0>()) << std::endl; 
       return !_mm256_testz_si256(is_nez(a0), True<A0>());
     }
   };
@@ -58,6 +60,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      //      std::cout << "ps" << !_mm256_testz_ps(is_nez(a0), True<A0>()) << std::endl; 
       return !_mm256_testz_ps(is_nez(a0), True<A0>());
     }
   };
@@ -70,6 +73,7 @@ namespace boost { namespace simd { namespace ext
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      //      std::cout << "pd" << !_mm256_testz_pd(is_nez(a0), True<A0>()) << std::endl; 
       return !_mm256_testz_pd(is_nez(a0), True<A0>());
     }
   };
