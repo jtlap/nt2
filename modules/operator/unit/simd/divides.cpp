@@ -62,47 +62,8 @@ NT2_TEST_CASE_TPL ( divides_real__2_0,  (double))//NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(divides(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(divides(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::Inf<sr_t>());
   NT2_TEST_EQUAL(divides(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Nan<sr_t>());
-  vT z = {{0.0, 1.0, 2.0, 3.0}};
-  vT z1= {{ 0.0, 1.0, 2.0, 3.0}};  
-  NT2_TEST_EQUAL(divides(z, z1)[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(divides(z, z1)[1], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(divides(z, nt2::Zero<vT>())[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(divides(z, nt2::Zero<vT>())[1], nt2::Inf<sr_t>());
 } // end of test for real_
 
-NT2_TEST_CASE_TPL ( divides_float__2_0,  (float))
-{
-  using nt2::divides;
-  using nt2::tag::divides_;
-  using nt2::load; 
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<divides_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<divides_(T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(divides(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(divides(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(divides(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(divides(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::Inf<sr_t>());
-  NT2_TEST_EQUAL(divides(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Nan<sr_t>());
-  vT z = {{0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0}};
-  vT z1= {{ 0.0, 1.0, 2.0, 3.0, 0.0, 1.0, 2.0, 3.0}};  
-  NT2_TEST_EQUAL(divides(z, z1)[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(divides(z, z1)[1], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(divides(z, nt2::Zero<vT>())[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(divides(z, nt2::Zero<vT>())[1], nt2::Inf<sr_t>());
-} // end of test for real_
 
 NT2_TEST_CASE_TPL ( divides_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
