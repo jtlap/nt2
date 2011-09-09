@@ -10,6 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_DIVIDES_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/toolbox/operator/functions/divides.hpp>
+#include <boost/simd/include/functions/none.hpp>
+//#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,6 +25,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      //================================================================
+      // this is a workaround for a possible gcc over-optimisation
+      // that produce zero/zero -> zero instead of nan
+      if (none(a0)&&none(a1)) return Nan<result_type>();
+      //================================================================      
       A0 const that = { _mm256_div_pd(a0,a1) };
       return that;
     }
@@ -38,7 +45,12 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 const that = { _mm256_div_ps(a0,a1) };
+      //================================================================
+      // this is a workaround for a possible gcc over-optimisation
+      // that produce zero/zero -> zero instead of nan
+      if (none(a0)&&none(a1)) return Nan<result_type>();
+      //================================================================ 
+       A0 const that = { _mm256_div_ps(a0,a1) };
       return that;
     }
   };
