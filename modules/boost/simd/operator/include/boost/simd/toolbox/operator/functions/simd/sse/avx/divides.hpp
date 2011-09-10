@@ -9,8 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_DIVIDES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_DIVIDES_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/toolbox/operator/functions/divides.hpp>
+#include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/include/functions/none.hpp>
+#include <boost/simd/include/constants/nan.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-#ifdef __GNUG__
+#ifdef BOOST_SIMD_COMPILER_GCC
       //================================================================
       // this is a workaround for a possible gcc over-optimisation
       // that produce zero/zero -> zero instead of nan
@@ -46,7 +49,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-#ifdef __GNUG__
+#ifdef BOOST_SIMD_COMPILER_GCC
       //================================================================
       // this is a workaround for a possible gcc over-optimisation
       // that produce zero/zero -> zero instead of nan

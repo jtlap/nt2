@@ -16,7 +16,7 @@ macro(nt2_simd_set_fpmath ext)
   string(TOLOWER ${ext} ext_l)
   set(ext_u ${ext})
 
-  if(NT2_COMPILER_GNU_C)
+  if(NT2_COMPILER_GCC)
       
       if(NOT ext_l STREQUAL avx)
         set(ext_l sse)

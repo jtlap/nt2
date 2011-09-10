@@ -12,8 +12,8 @@
 #if !defined(NT2_COMPILER)
   #if defined(__GCCXML__) || defined(DOXYGEN_ONLY)
 
-    #define NT2_COMPILER_GNU_C
-    #define NT2_COMPILER_GNU_C_XML
+    #define NT2_COMPILER_GCC
+    #define NT2_COMPILER_GCC_XML
     #define NT2_COMPILER BOOST_COMPILER
 
   #endif
