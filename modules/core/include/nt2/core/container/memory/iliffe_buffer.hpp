@@ -21,6 +21,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <nt2/sdk/meta/add_pointers.hpp>
+#include <nt2/core/container/memory/adapted/iliffe_buffer.hpp>
 
 namespace nt2 { namespace memory
 {  
