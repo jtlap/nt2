@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_DSL_SELECT_HPP_INCLUDED
-#define NT2_SDK_DSL_SELECT_HPP_INCLUDED
+#ifndef BOOST_PROTO_SELECT_HPP_INCLUDED
+#define BOOST_PROTO_SELECT_HPP_INCLUDED
 
 #include <boost/mpl/apply.hpp>
 #include <boost/proto/core.hpp>
