@@ -9,6 +9,7 @@
 
 SET( SOURCES
   iliffe_buffer.cpp
+  dimensions_of.cpp
 # List of scalar test files for toolbox crlibm
    )
 

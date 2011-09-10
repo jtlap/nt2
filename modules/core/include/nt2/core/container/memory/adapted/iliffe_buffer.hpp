@@ -27,7 +27,7 @@ namespace nt2 { namespace memory
 namespace nt2 { namespace meta
 {
   template<unsigned D, typename T, typename P, typename A>
-  struct  dimensions_of< iliffe_buffer<D,T,P,A> > : boost::mpl::size_t<D> 
+  struct dimensions_of< memory::iliffe_buffer<D,T,P,A> > : boost::mpl::size_t<D> 
   {};
 } }
 
