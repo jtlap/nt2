@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  linear_buffer.cpp
   iliffe_buffer.cpp
 # List of scalar test files for toolbox crlibm
    )
