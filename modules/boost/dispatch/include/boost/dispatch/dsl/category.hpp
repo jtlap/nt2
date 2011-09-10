@@ -24,51 +24,23 @@ namespace boost { namespace dispatch { namespace tag
 namespace boost { namespace dispatch { namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Proto domain hierarchy is itself. parent domain is computed from
-  // proto_super_domain. If no super_domain exist, we forward to unspecified
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct  domain_
-        : boost::mpl::if_< boost::is_same < typename T::proto_super_domain
-                                          , boost::proto::detail::not_a_domain
-                                          >
-        , unspecified_<T>
-        , domain_<typename T::proto_super_domain>
-        >::type
-  {
-    typedef
-    typename boost::mpl::if_< boost::is_same< typename T::proto_super_domain
-                                            , boost::proto::detail::not_a_domain
-                                            >
-                            , unspecified_<T>
-                            , domain_<typename T::proto_super_domain>
-                            >::type                 parent;
-  };
-
-  template<class T>
-  struct  domain_< unknown_<T> > : unknown_<T>
-  {
-    typedef unknown_<T> parent;
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
   // Proto expression hierarchy depends of the EDSL nature. They however has
-  // the same inheritance scheme based on domain
+  // the same inheritance scheme based on semantic
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct ast_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
   };
   
-  template<class T, class Domain, class Tag, class Semantic>
+  template<class T, class Domain, class Tag>
   struct  expr_
-        : expr_<T, typename Domain::parent, Tag, Semantic>
+        : expr_<typename T::parent, Domain, Tag>
   {
-    typedef expr_<T, typename Domain::parent, Tag, Semantic>  parent;
+    typedef expr_<typename T::parent, Domain, Tag>  parent;
   };
 
-  template<class T, class Domain, class Tag, class Semantic>
-  struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : ast_<T>
+  template<class T, class Domain, class Tag>
+  struct  expr_< unspecified_<T>, Domain, Tag > : ast_<T>
   {
     typedef unspecified_<T> parent;
   };
@@ -77,25 +49,14 @@ namespace boost { namespace dispatch { namespace meta
 namespace boost { namespace dispatch { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Proto domain hierarchy specialization
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Origin>
-  struct hierarchy_of<T, Origin,typename T::proto_is_domain_>
-  {
-    typedef meta::domain_<T> type;
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
   // Proto expression hierarchy computation
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct hierarchy_of_expr
   {
-    typedef typename boost::proto::domain_of<T>::type domain_type;
+    typedef typename meta::semantic_of<T>::type       semantic_type;
     typedef typename boost::proto::tag_of<T>::type    tag_type;
-    typedef meta::expr_ < T
-                        , typename meta::hierarchy_of<domain_type>::type
+    typedef meta::expr_ < typename meta::hierarchy_of<semantic_type, T>::type
                         , tag_type
-                        , typename meta::semantic_of<T>::type
                         > type;
   };
 } } }

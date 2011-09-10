@@ -9,23 +9,56 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_GENERATOR_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_GENERATOR_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/proto/select.hpp>
+#include <boost/proto/traits.hpp>
+
 namespace boost { namespace simd
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // SIMD Expression use a template parameters so proto generator is extended
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Type,class Cardinal> struct generator
+  namespace details
   {
-    template<class Sig> struct result;
-    template<class This, class Expr>
-    struct result<This(Expr)> { typedef expression<Expr,Type,Cardinal> type; };
-
-    template<class Expr>
-    expression<Expr,Type,Cardinal> const operator()(Expr const &xpr) const
+    struct generator_cases
     {
-      expression<Expr,Type,Cardinal> const that = {xpr};
-      return that;
-    }
+      template<int N>
+      struct case_c_;
+        
+      template<class N>
+      struct case_ : case_c_<N::value> {};
+    };
+    
+    #define M0(z, n, t)                                                        \
+    template<>                                                                 \
+    struct generator_cases::case_c_<n>                                         \
+    {                                                                          \
+      template<class Sig>                                                      \
+      struct result;                                                           \
+                                                                               \
+      template<class This, class Expr>                                         \
+      struct result<This(Expr)>                                                \
+      {                                                                        \
+        typedef expression< Expr                                               \
+                          , typename dispatch::meta:                           \
+                                     call< typename proto::tag_of<Expr>::type  \
+                                           (                                   \
+                                             BOOST_PP_ENUM(n, M1, ~)           \
+                                           )                                   \
+                                         >::type                               \
+                          > type;                                              \
+      };                                                                       \
+    };
+    
+    #define M1(z, n, t) typename proto::result_of::child_c<Expr, n>::type::result_type
+    
+    BOOST_PP_REPEAT(BOOST_DISPATCH_MAX_ARITY, M0, ~)
+    
+    #undef M1
+    #undef M0
+  }
+  
+  struct generator
+    : proto::select_< generator_cases, proto::arity_of<proto::_>() >
+  {
   };
 } }
 

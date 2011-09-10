@@ -9,19 +9,19 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_DOMAIN_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_DOMAIN_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/proto/domain.hpp>
+
 namespace boost { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////
   // Tell proto that in the simd::domain, all expressions should be
   // wrapped in simd::expr<> using simd::generator
   ////////////////////////////////////////////////////////////////////////////
-  template<class Type,class Cardinal>
-  struct domain : boost::proto::domain< generator<Type,Cardinal>
-                                      , grammar<Type,Cardinal>
+  struct domain : boost::proto::domain< generator
+                                      , grammar
                                       >
   {
-    typedef Type      simd_type;
-    typedef Cardinal  cardinal_type;
   };
 } }
 

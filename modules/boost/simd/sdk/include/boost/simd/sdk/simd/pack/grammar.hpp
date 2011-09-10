@@ -9,73 +9,30 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 
-#include <boost/proto/proto.hpp>
-#include <boost/simd/sdk/constant/category.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/proto/matches.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
-#include <boost/simd/sdk/dsl/is_comparison_expression.hpp>
 
 namespace boost { namespace simd
 {
-  template<class T, class N> struct grammar;
-
-  ////////////////////////////////////////////////////////////////////////////
-  // grammar_cases is the switch cases for the SIMD proto grammar
-  ////////////////////////////////////////////////////////////////////////////
-  template<class T, class N> struct grammar_cases
-  {
-    template<typename Tag, typename Dummy = void> struct  case_;
-  };
-
-  template<class T, class N> template<class Tag,class Dummy>
-  struct  grammar_cases<T,N>::case_
+  struct  grammar
         : boost::proto::
           and_< boost::proto::
                 nary_expr < boost::proto::_
-                          , boost::proto::vararg< grammar<T,N> >
+                          , boost::proto::vararg< grammar >
                           >
               , boost::proto::
                 not_< boost::proto::or_ < boost::proto::
-                                          address_of< grammar<T,N> >
+                                          address_of< grammar >
                                         , boost::proto::
-                                          dereference< grammar<T,N> >
+                                          dereference< grammar >
                                         , boost::proto::
-                                          comma < grammar<T,N>
-                                                , grammar<T,N>
+                                          comma < grammar
+                                                , grammar
                                                 >
                                         , meta::assignment_operators
-                                        , meta::comparison_operators
                                         >
                     >
               > {};
-
-  template<class T, class N> template<class Dummy>
-  struct  grammar_cases<T,N>::case_<dispatch::tag::terminal_, Dummy>
-        : boost::proto::
-          or_ < boost::proto::terminal< native<T,boost::proto::_> >
-              , boost::proto::
-                and_< boost::proto::terminal<boost::proto::_>
-                    , boost::proto::if_ < boost::dispatch::details::
-                                         is_array<boost::proto::_value>()>
-                    >
-              , boost::proto::terminal< dispatch::meta::constant_<boost::proto::_> >
-              , boost::proto::
-                and_< boost::proto::terminal<boost::proto::_>
-                    , boost::proto::if_ < boost::
-                                          is_arithmetic<boost::proto::_value>()
-                                        >
-                    >
-              >
-  {};
-
-  ////////////////////////////////////////////////////////////////////////////
-  // grammar is a template class to avoid a complex, recursive type matching
-  // to ensure that SIMD expression of different T/N are not mixed.
-  ////////////////////////////////////////////////////////////////////////////
-  template<class T, class N>
-  struct grammar
-    : boost::proto::switch_< grammar_cases<T,N> >
-  {};
 } }
 
 #endif
