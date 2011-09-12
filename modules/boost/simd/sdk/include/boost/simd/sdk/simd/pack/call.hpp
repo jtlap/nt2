@@ -9,29 +9,36 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 
-#include <boost/simd/sdk/dsl/literal.hpp>
+template<class T>
+struct bar { unsigned : 80; };
 
-////////////////////////////////////////////////////////////////////////////////
-// Register terminal handlers for SIMD expression - native case
-////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
+  // default case
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
-                            , (Value)(State)(Data)(X)
-                            , ((simd_<arithmetic_<Value>,X>))
-                              ((target_<simd_<arithmetic_<State>,X> >))
-                              (scalar_< integer_<Data> >)
+                            , (A0)
+                            , (generic_<unspecified_<A0> >)
                             )
   {
-    typedef Value result_type;
-
-    inline result_type
-    operator()( Value const& v, State const& , Data const& ) const
+      
+    template<class Sig>
+    struct result;
+    
+    template<class This, class A0_>
+    struct result<This(A0_)>
+      : add_reference<A0_>
     {
-      return v;
+    };
+
+    template<class A0_>
+    BOOST_DISPATCH_FORCE_INLINE A0_&
+    operator()(A0_& a0) const
+    {
+      return a0;
     }
   };
 
+  // array case
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
                                   (class Data)(std::size_t N)

@@ -9,14 +9,14 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
-#include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
 #include <boost/simd/sdk/simd/pack/evaluation.hpp>
+#include <boost/simd/include/functions/assign.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
-#include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <boost/dispatch/meta/is_iterator.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
+#include <boost/dispatch/dsl/call.hpp>
+#include <boost/simd/sdk/simd/pack/call.hpp>
+#include <boost/proto/extends.hpp>
 
 namespace boost { namespace simd
 {
@@ -24,17 +24,14 @@ namespace boost { namespace simd
   // pack, implemented in terms of simd::expr via non-inheritance to preserve
   // PODness of pack throughout the whole system.
   ////////////////////////////////////////////////////////////////////////////
-  template<class Type,std::size_t Cardinal,class Dummy>
+  template<class Type, std::size_t Cardinal, class Dummy>
   struct  pack
   {
     typedef typename
     meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type data_type;
     typedef typename proto::terminal<data_type>::type expr_type;
     
-    BOOST_PROTO_BASIC_EXTENDS_TPL( (expr_type)
-                                 , (pack<Type,Cardinal>)
-                                 , (domain)
-                                 )
+    BOOST_PROTO_BASIC_EXTENDS(expr_type, pack, domain)
 
     //==========================================================================
     /*
@@ -50,30 +47,36 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // expression hierarchy of simd:::expression
     ////////////////////////////////////////////////////////////////////////////
+    typedef data_type                                 dispatch_semantic_tag;
     typedef typename
     dispatch::details::hierarchy_of_expr<pack>::type  dispatch_hierarchy_tag;
-    typedef typename expr_type::result_type           dispatch_semantic_tag;
 
     // Assignment operators force evaluation
     BOOST_DISPATCH_FORCE_INLINE
-    pack& operator=(pack const& src)
+    pack& operator=(pack const& xpr)
     {
-      return boost::simd::evaluate(proto::make_expr<tag::assign_>(*this, xpr));
+      boost::simd::evaluate(
+        assign(*this, xpr)
+      );
+      return *this;
     }
     
     template<class Xpr>
     BOOST_DISPATCH_FORCE_INLINE
     pack& operator=(Xpr const& xpr)
     {
-      return boost::simd::evaluate(proto::make_expr<tag::assign_>(*this, xpr));
+      boost::simd::evaluate(
+        assign(*this, xpr)
+      );
+      return *this;
     }
 
     #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                               \
     template<class X>                                                   \
     BOOST_DISPATCH_FORCE_INLINE                                         \
-    pack& operator BOOST_PP_CAT(OP,=)(X const& xpr )                    \
+    pack& operator BOOST_PP_CAT(OP,=)(X const& xpr)                     \
     {                                                                   \
-      return *this = *this OP expr;                                     \
+      return *this = *this OP xpr;                                      \
     }                                                                   \
     /**/
 

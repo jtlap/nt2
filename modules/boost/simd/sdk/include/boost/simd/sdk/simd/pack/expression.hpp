@@ -10,45 +10,52 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/simd/sdk/simd/pack/domain.hpp>
 #include <boost/simd/sdk/simd/pack/evaluation.hpp>
-#include <boost/dispatch/dsl/proto/extends.hpp>
+#include <boost/simd/include/functions/assign.hpp>
 #include <boost/dispatch/dsl/category.hpp>
+#include <boost/proto/extends.hpp>
 
 namespace boost { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////
   // Here is the domain-specific expression wrapper
   ////////////////////////////////////////////////////////////////////////////
-  template<class Expr, class ResultType>
+  template<class Expr, class ResultType, class Dummy>
   struct  expression
   {
-    BOOST_PROTO_BASIC_EXTENDS_TPL(Expr, (expression<Expr, ResultType>)
-                                      , (domain))
+    BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
 
+    typedef ResultType                                     dispatch_semantic_tag;
     typedef typename
     dispatch::details::hierarchy_of_expr<expression>::type dispatch_hierarchy_tag;
-    typedef ResultType                                     dispatch_semantic_tag;
 
     // Assignment operators force evaluation
     BOOST_DISPATCH_FORCE_INLINE
-    expression& operator=(expression const& src)
+    expression& operator=(expression const& xpr)
     {
-      return boost::simd::evaluate(proto::make_expr<tag::assign_>(*this, xpr));
+      boost::simd::evaluate(
+        assign(*this, xpr)
+      );
+      return *this;
     }
     
     template<class Xpr>
     BOOST_DISPATCH_FORCE_INLINE
     expression& operator=(Xpr const& xpr)
     {
-      return boost::simd::evaluate(proto::make_expr<tag::assign_>(*this, xpr));
+      boost::simd::evaluate(
+        assign(*this, xpr)
+      );
+      return *this;
     }
 
     #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                               \
     template<class X>                                                   \
     BOOST_DISPATCH_FORCE_INLINE                                         \
-    expression& operator BOOST_PP_CAT(OP,=)(X const& xpr )              \
+    expression& operator BOOST_PP_CAT(OP,=)(X const& xpr)               \
     {                                                                   \
-      return *this = *this OP expr;                                     \
+      return *this = *this OP xpr;                                      \
     }                                                                   \
     /**/
 

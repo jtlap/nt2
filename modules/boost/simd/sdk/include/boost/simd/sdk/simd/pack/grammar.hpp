@@ -15,7 +15,7 @@
 namespace boost { namespace simd
 {
   struct  grammar
-        : boost::proto::
+        : boost::proto::_ {};/*
           and_< boost::proto::
                 nary_expr < boost::proto::_
                           , boost::proto::vararg< grammar >
@@ -32,7 +32,7 @@ namespace boost { namespace simd
                                         , meta::assignment_operators
                                         >
                     >
-              > {};
+              > {};*/
 } }
 
 #endif
