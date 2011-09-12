@@ -16,7 +16,7 @@
 namespace boost { namespace dispatch { namespace details
 {
   template<class Scalar,class Extension, class Origin>
-  struct hierarchy_of< simd::native<Scalar,Extension>, Origin >
+  struct hierarchy_of< boost::simd::native<Scalar,Extension>, Origin >
   {
     typedef meta::simd_ < typename meta::
                           hierarchy_of< Scalar
@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace details
   };
 
   template<class Scalar,class Extension, class Origin>
-  struct  property_of< simd::native<Scalar,Extension>, Origin >
+  struct  property_of< boost::simd::native<Scalar,Extension>, Origin >
         : property_of< Scalar, Origin > {};
 } } }
 
