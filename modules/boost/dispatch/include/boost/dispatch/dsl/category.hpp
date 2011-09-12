@@ -13,21 +13,14 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/proto/domain.hpp>
 
-namespace boost { namespace dispatch { namespace tag
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Degenerate Expression category tag
-  //////////////////////////////////////////////////////////////////////////////
-  struct ast_ {};
-} } }
-
 namespace boost { namespace dispatch { namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
   // Proto expression hierarchy depends of the EDSL nature. They however has
   // the same inheritance scheme based on semantic
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct ast_ : unspecified_<T>
+  template<class T>
+  struct ast_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
   };
@@ -53,9 +46,11 @@ namespace boost { namespace dispatch { namespace details
   //////////////////////////////////////////////////////////////////////////////
   template<class T> struct hierarchy_of_expr
   {
-    typedef typename meta::semantic_of<T>::type       semantic_type;
-    typedef typename boost::proto::tag_of<T>::type    tag_type;
+    typedef typename meta::semantic_of<T>::type  semantic_type;
+    typedef typename proto::domain_of<T>::type   domain_type;
+    typedef typename proto::tag_of<T>::type      tag_type;
     typedef meta::expr_ < typename meta::hierarchy_of<semantic_type, T>::type
+                        , domain_type
                         , tag_type
                         > type;
   };
