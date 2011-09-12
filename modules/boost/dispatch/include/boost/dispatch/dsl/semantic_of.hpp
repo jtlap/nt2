@@ -10,6 +10,7 @@
 #define BOOST_DISPATCH_DSL_SEMANTIC_OF_HPP_INCLUDED
 
 #include <boost/dispatch/meta/enable_if_type.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // For a given proto expression class, retrieves its semantic info as a type
@@ -28,10 +29,10 @@ namespace boost { namespace dispatch { namespace meta
   template< class Expr >
   struct semantic_of< Expr
                     , typename
-                      enable_if_type<typename Expr::dispatch_semantic_tag>::type
+                      enable_if_type<typename meta::strip<Expr>::type::dispatch_semantic_tag>::type
                     >
   {
-    typedef typename Expr::boost_dispatch_semantic_type type;
+    typedef typename meta::strip<Expr>::type::dispatch_semantic_tag type;
   };
 } } }
 
