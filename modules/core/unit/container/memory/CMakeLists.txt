@@ -8,8 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
-  iliffe_buffer.cpp
+  array_as_buffer.cpp
   dimensions_of.cpp
+  iliffe_buffer.cpp
 # List of scalar test files for toolbox crlibm
    )
 
