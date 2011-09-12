@@ -548,6 +548,7 @@ macro(nt2_postconfigure_init)
     install( FILES ${PROJECT_BINARY_DIR}/tools/postconfigure/postconfigure${CMAKE_EXECUTABLE_SUFFIX}
              DESTINATION tools/postconfigure
              COMPONENT tools
+             OPTIONAL
            )
 
     set(BUILD_OPTION)
