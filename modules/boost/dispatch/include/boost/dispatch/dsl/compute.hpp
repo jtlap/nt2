@@ -28,18 +28,6 @@ namespace boost { namespace dispatch { namespace meta
                                             )
               >
   {};
-
-  template<class Target>
-  struct  compute<tag::terminal_,Target>
-        : boost::proto::
-          call< functor < boost::proto::tag::terminal
-                        , Target
-                        > ( boost::proto::_value
-                          , boost::proto::_state
-                          , boost::proto::_data
-                          )
-              >
-  {};
 } } }
 
 namespace boost { namespace proto
