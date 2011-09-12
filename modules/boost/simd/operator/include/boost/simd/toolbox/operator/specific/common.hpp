@@ -45,26 +45,28 @@ namespace boost { namespace simd { namespace details
 ////////////////////////////////////////////////////////////////////////////////
 // Register all tag and extension agnostic call for common code sharing
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) (generic_< unspecified_<A0> >)
+#define M0(z,n,t) (A##n)
+#define M1(z,n,t) (generic_< unspecified_<A##n> >)
 
-#define M1(z,n,t)                                            \
-BOOST_SIMD_REGISTER_DISPATCH ( Tag , tag::cpu_, (A0)(Tag)    \
-                             , BOOST_PP_REPEAT(n,M0,~)       \
+#define M2(z,n,t)                                            \
+BOOST_SIMD_REGISTER_DISPATCH ( Tag , tag::cpu_, (Tag)BOOST_PP_REPEAT(n,M0,~) \
+                             , BOOST_PP_REPEAT(n,M1,~)       \
                              )                               \
 /**/
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M1,~)
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M2,~)
 } } }
 
-#undef M0
+#undef M2
 #undef M1
+#undef M0
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate all the common map calls over Tag using boost::simd::map
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) generic_< unspecified_<BOOST_PP_CAT(A,n)> >
+#define M0(z,n,t) generic_< unspecified_<A##n> >
 
 #define M1(z,n,t)                                                           \
 namespace boost { namespace simd { namespace ext                            \
