@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// 
-/// 
+///
+///
 #include <boost/simd/toolbox/reduction/include/functions/second.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::second;
   using boost::simd::tag::second_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::scalar_of<T>::type sT;
@@ -46,12 +46,14 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
-  // specific values tests
-  NT2_TEST_EQUAL(second(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(second(boost::simd::Minf<vT>()), boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(second(boost::simd::Mone<vT>()), boost::simd::Mone<sr_t>());
-  NT2_TEST_EQUAL(second(boost::simd::Nan<vT>()), boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(second(boost::simd::One<vT>()), boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(second(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
+  if(cardinal_of<vT>::value != 1)
+  {
+    // specific values tests
+    NT2_TEST_EQUAL(second(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>());
+    NT2_TEST_EQUAL(second(boost::simd::Minf<vT>()), boost::simd::Minf<sr_t>());
+    NT2_TEST_EQUAL(second(boost::simd::Mone<vT>()), boost::simd::Mone<sr_t>());
+    NT2_TEST_EQUAL(second(boost::simd::Nan<vT>()), boost::simd::Nan<sr_t>());
+    NT2_TEST_EQUAL(second(boost::simd::One<vT>()), boost::simd::One<sr_t>());
+    NT2_TEST_EQUAL(second(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
+  }
 } // end of test for real_
