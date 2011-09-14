@@ -17,6 +17,9 @@
 //==============================================================================
 namespace nt2 { namespace details
 {
+  //============================================================================
+  // Recursively apply [] on the buffer
+  //============================================================================
   template< std::size_t Level, std::size_t Dims>
   struct dereference
   {
@@ -58,6 +61,11 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace memory
 {
+  //============================================================================
+  /**
+    *  
+   **/
+  //============================================================================
   template<std::size_t Level, typename Buffer, typename Position>
   inline typename meta::reference_<Buffer,Level>::type 
   dereference( Buffer& b, Position const& p )

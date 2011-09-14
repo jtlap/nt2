@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_HPP
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_HPP
 
-#include <boost/mpl/min.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/assert.hpp>
@@ -75,32 +74,7 @@ namespace nt2 { namespace memory
   // boost::array initialize - Part of Buffer Concept
   //============================================================================
   template<typename T, std::size_t N, typename Sizes, typename Bases>
-  inline void initialize( boost::array<T,N>&, Sizes const&, Bases const&)
-  {
-    //==========================================================================
-    // A boost::array is already initialized, we just check that we don't
-    // try to instanciated it with too few or too much dimensions.
-    //==========================================================================
-    BOOST_MPL_ASSERT_MSG
-    ( (   meta::dimensions_of<boost::array<T,N> >::value 
-      ==  boost::mpl::size<Sizes>::value
-      ) 
-    , NT2_CORE_CONTAINER_MEMORY_INITIALIZATION_SIZE_MISMATCH
-    , (Sizes, boost::array<T,N>)
-    );
-
-    //==========================================================================
-    // A boost::array is already initialized, we just check that we don't
-    // try to instanciated it with too few or too much base indices.
-    //==========================================================================
-    BOOST_MPL_ASSERT_MSG
-    ( (   meta::dimensions_of<boost::array<T,N> >::value 
-      ==  boost::mpl::size<Bases>::value
-      ) 
-    , NT2_CORE_CONTAINER_MEMORY_INITIALIZATION_BASES_MISMATCH
-    , (Bases, boost::array<T,N>)
-    );
-  }
+  inline void initialize( boost::array<T,N>&, Sizes const&, Bases const&) {}
 } }
 
 #endif

@@ -158,5 +158,3 @@ NT2_TEST_CASE( std_array_3D_as_buffer )
       for(pos[0]=0;pos[0]<2;++pos[0])
     NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
 }
-
-
