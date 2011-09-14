@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOAD_OFFSET_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOAD_OFFSET_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 

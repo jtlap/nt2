@@ -88,7 +88,7 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 
-#include <boost/simd/toolbox/operator/functions/simd/sse/sse2/load_offset.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/sse/sse2/details/load_offset.hpp>
 
 #endif
 #endif
