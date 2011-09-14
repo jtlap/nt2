@@ -6,20 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_BITWISE_OR_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_BITWISE_OR_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_BITWISE_AND_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_BITWISE_AND_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/include/functions/bitwise_or.hpp>
+#include <boost/simd/toolbox/operator/functions/bitwise_and.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::bitwise_or_;
+    using boost::simd::tag::bitwise_and_;
   }
 
-  using boost::simd::bitwise_or;
-  using boost::simd::b_or;
+  using boost::simd::bitwise_and;
+  using boost::simd::b_and;
 }
 
 #endif

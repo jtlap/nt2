@@ -6,19 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_CONSTANT_INCLUDE_CONSTANTS_INT_SPLAT_HPP_INCLUDED
-#define NT2_TOOLBOX_CONSTANT_INCLUDE_CONSTANTS_INT_SPLAT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_CONSTANT_INCLUDE_CONSTANTS_REAL_SPLAT_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_INCLUDE_CONSTANTS_REAL_SPLAT_HPP_INCLUDED
 
-#include <boost/simd/toolbox/constant/include/constants/int_splat.hpp>
+#include <boost/simd/toolbox/constant/constants/real_splat.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::Intpattern;
+    using boost::simd::tag::Realpattern;
   }
   
-  using boost::simd::integral_constant;
+  using boost::simd::real_constant;
+  using boost::simd::single_constant;
+  using boost::simd::double_constant;
+  using boost::simd::Const;
 }
 
 #endif

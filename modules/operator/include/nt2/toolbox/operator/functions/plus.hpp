@@ -6,20 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_DIVIDES_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_DIVIDES_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_PLUS_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_PLUS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/include/functions/divides.hpp>
+#include <boost/simd/toolbox/operator/functions/plus.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::divides_;
+    using boost::simd::tag::plus_;
   }
 
-  using boost::simd::divides;
-  using boost::simd::rdiv; 
+  using boost::simd::plus;
+  using boost::simd::add;
 }
 
 #endif

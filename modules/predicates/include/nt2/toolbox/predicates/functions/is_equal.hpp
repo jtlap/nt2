@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_PREDICATES_INCLUDE_FUNCTIONS_IS_EQUAL_HPP_INCLUDED
-#define NT2_TOOLBOX_PREDICATES_INCLUDE_FUNCTIONS_IS_EQUAL_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_PREDICATES_FUNCTIONS_IS_EQUAL_HPP_INCLUDED
+#define NT2_TOOLBOX_PREDICATES_FUNCTIONS_IS_EQUAL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/predicates/include/functions/is_equal.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_equal.hpp>
 
 namespace nt2
 {

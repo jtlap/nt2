@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_ARITHMETIC_INCLUDE_FUNCTIONS_FMA_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_INCLUDE_FUNCTIONS_FMA_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_FMA_HPP_INCLUDED
+#define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_FMA_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/include/functions/fma.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/fma.hpp>
 
 namespace nt2
 {

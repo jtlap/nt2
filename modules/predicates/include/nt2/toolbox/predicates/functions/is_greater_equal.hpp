@@ -6,20 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_PLUS_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_PLUS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_PREDICATES_FUNCTIONS_IS_GREATER_EQUAL_HPP_INCLUDED
+#define NT2_TOOLBOX_PREDICATES_FUNCTIONS_IS_GREATER_EQUAL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/include/functions/plus.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_greater_equal.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::plus_;
+    using boost::simd::tag::is_greater_equal_;
   }
 
-  using boost::simd::plus;
-  using boost::simd::add;
+  using boost::simd::is_greater_equal;
+  using boost::simd::ge;
 }
 
 #endif

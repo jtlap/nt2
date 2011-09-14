@@ -6,20 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_BITWISE_AND_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_BITWISE_AND_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_DIVIDES_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_DIVIDES_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/include/functions/bitwise_and.hpp>
+#include <boost/simd/toolbox/operator/functions/divides.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::bitwise_and_;
+    using boost::simd::tag::divides_;
   }
 
-  using boost::simd::bitwise_and;
-  using boost::simd::b_and;
+  using boost::simd::divides;
+  using boost::simd::rdiv; 
 }
 
 #endif

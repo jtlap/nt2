@@ -6,20 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_BITWISE_INCLUDE_FUNCTIONS_SELECT_HPP_INCLUDED
-#define NT2_TOOLBOX_BITWISE_INCLUDE_FUNCTIONS_SELECT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_PREDICATES_FUNCTIONS_IS_LESS_HPP_INCLUDED
+#define NT2_TOOLBOX_PREDICATES_FUNCTIONS_IS_LESS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/include/functions/select.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_less.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::select_;
+    using boost::simd::tag::is_less_;
   }
 
-  using boost::simd::select;
-  using boost::simd::sel; 
+  using boost::simd::is_less;
+  using boost::simd::lt;
 }
 
 #endif

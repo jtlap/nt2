@@ -6,20 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_BITWISE_XOR_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_BITWISE_XOR_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_MULTIPLIES_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_MULTIPLIES_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/include/functions/bitwise_xor.hpp>
+#include <boost/simd/toolbox/operator/functions/multiplies.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::bitwise_xor_;
+    using boost::simd::tag::multiplies_;
   }
 
-  using boost::simd::bitwise_xor;
-  using boost::simd::b_xor;
+  using boost::simd::multiplies;
+  using boost::simd::mul;
 }
 
 #endif

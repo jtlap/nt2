@@ -6,21 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_PREDICATES_INCLUDE_FUNCTIONS_IS_NOT_EQUAL_HPP_INCLUDED
-#define NT2_TOOLBOX_PREDICATES_INCLUDE_FUNCTIONS_IS_NOT_EQUAL_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_BITWISE_OR_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_BITWISE_OR_HPP_INCLUDED
 
-#include <boost/simd/toolbox/predicates/include/functions/is_not_equal.hpp>
+#include <boost/simd/toolbox/operator/functions/bitwise_or.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    using boost::simd::tag::is_not_equal_;
+    using boost::simd::tag::bitwise_or_;
   }
 
-  using boost::simd::is_not_equal;
-  using boost::simd::ne;
-  using boost::simd::neq;
+  using boost::simd::bitwise_or;
+  using boost::simd::b_or;
 }
 
 #endif
