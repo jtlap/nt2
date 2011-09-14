@@ -11,6 +11,7 @@ SET( SOURCES
   array_as_buffer.cpp
   dimensions_of.cpp
   iliffe_buffer.cpp
+  vector_as_buffer.cpp
 # List of scalar test files for toolbox crlibm
    )
 
