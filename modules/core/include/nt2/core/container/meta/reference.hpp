@@ -17,11 +17,34 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  template<typename Buffer, std::size_t Level = 1UL> 
-  struct reference_;
-
-  template<typename Buffer, std::size_t Level = 1UL> 
-  struct const_reference_;
+  template<typename Buffer, std::size_t Level> struct dereference_;
 } }
 
+////////////////////////////////////////////////////////////////////////////////
+// Helper for derefrenceing containers
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace details
+{
+  template<typename Container, std::size_t Level> struct dereference_container;
+
+  template<typename Container, std::size_t Level> 
+  struct dereference_container<Container&,Level>
+  {
+    typedef typename Container::reference  base;
+    typedef typename dereference_container<base,Level-1>::type type;
+  };
+
+  template<typename Container, std::size_t Level> 
+  struct dereference_container<Container const&,Level>
+  {
+    typedef typename Container::const_reference  base;
+    typedef typename dereference_container<base,Level-1>::type type;  
+  };
+
+  template<typename Container> 
+  struct dereference_container<Container&,0UL> { typedef Container& type; };
+
+  template<typename Container> 
+  struct dereference_container<Container const&,0UL> { typedef Container const& type; };
+} }
 #endif
