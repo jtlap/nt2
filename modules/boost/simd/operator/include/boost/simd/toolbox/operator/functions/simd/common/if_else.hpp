@@ -9,8 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
 
-#include <boost/simd/toolbox/bitwise/include/functions/select.hpp>
-#include <boost/simd/toolbox/predicates/include/functions/is_eqz.hpp>
+#include <boost/simd/toolbox/operator/functions/if_else.hpp>
+#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
