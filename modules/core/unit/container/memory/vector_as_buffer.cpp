@@ -10,6 +10,7 @@
 
 #include <nt2/core/container/memory/adapted/vector.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <vector>
 
@@ -36,29 +37,17 @@ NT2_TEST_CASE( std_vector_reference )
 {
   using std::vector;
   using boost::is_same;
-  using nt2::meta::reference_;
+  using nt2::meta::dereference_;
 
   typedef vector<vector<vector<int> > > base;
 
-  NT2_TEST((is_same< reference_<base,1>::type, vector< vector<int> >& >::value) );
-  NT2_TEST((is_same< reference_<base,2>::type, vector<int>& >::value) );
-  NT2_TEST((is_same< reference_<base,3>::type, int& >::value) );
-}
+  NT2_TEST((is_same< dereference_<base&,1>::type, vector< vector<int> >& >::value) );
+  NT2_TEST((is_same< dereference_<base&,2>::type, vector<int>& >::value) );
+  NT2_TEST((is_same< dereference_<base&,3>::type, int& >::value) );
 
-////////////////////////////////////////////////////////////////////////////////
-// vector type has some cref
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_vector_const_reference )
-{
-  using std::vector;
-  using boost::is_same;
-  using nt2::meta::const_reference_;
-
-  typedef vector<vector<vector<int> > > base;
-
-  NT2_TEST((is_same< const_reference_<base,1>::type, vector< vector<int> > const& >::value) );
-  NT2_TEST((is_same< const_reference_<base,2>::type, vector<int> const& >::value) );
-  NT2_TEST((is_same< const_reference_<base,3>::type, int const& >::value) );
+  NT2_TEST((is_same< dereference_<base const&,1>::type, vector< vector<int> > const& >::value) );
+  NT2_TEST((is_same< dereference_<base const&,2>::type, vector<int> const& >::value) );
+  NT2_TEST((is_same< dereference_<base const&,3>::type, int const& >::value) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +68,7 @@ NT2_TEST_CASE( std_vector_1D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases);
+  initialize(tab, sizes, bases, nt2::memory::no_padding() );
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
@@ -109,7 +98,7 @@ NT2_TEST_CASE( std_vector_2D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases);
+  initialize(tab, sizes, bases, nt2::memory::no_padding() );
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
@@ -141,7 +130,7 @@ NT2_TEST_CASE( std_vector_3D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases);
+  initialize(tab, sizes, bases, nt2::memory::no_padding() );
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position

@@ -25,36 +25,17 @@ namespace nt2 { namespace meta
   {};
 
   //============================================================================
-  // reference_ specialization
+  // dereference_ specialization
   //============================================================================
-  template<typename T, typename A, std::size_t Level> 
-  struct reference_<std::vector<T,A>,Level>
-  {
-    typedef typename std::vector<T,A>::value_type  base;
-    typedef typename reference_<base,Level-1>::type type;
-  };
+  template<typename T, typename A, std::size_t Level>
+  struct  dereference_<std::vector<T,A>&,Level>
+        : details::dereference_container<std::vector<T,A>&,Level>
+  {};
 
-  template<typename T, typename A> 
-  struct reference_<std::vector<T,A>,1UL>
-  {
-    typedef typename std::vector<T,A>::reference type;
-  };
-
-  //============================================================================
-  // const_reference_ specialization
-  //============================================================================
-  template<typename T, typename A, std::size_t Level> 
-  struct const_reference_<std::vector<T,A>,Level>
-  {
-    typedef typename std::vector<T,A>::value_type        base;
-    typedef typename const_reference_<base,Level-1>::type type;
-  };
-
-  template<typename T, typename A> 
-  struct const_reference_<std::vector<T,A>,1UL>
-  {
-    typedef typename std::vector<T,A>::const_reference type;
-  };
+  template<typename T, typename A, std::size_t Level>
+  struct  dereference_<std::vector<T,A> const&,Level>
+        : details::dereference_container<std::vector<T,A> const&,Level>
+  {};
 } }
 
 namespace nt2 { namespace details
@@ -86,8 +67,12 @@ namespace nt2 { namespace memory
   //============================================================================
   // std::vector initialize - Part of Buffer Concept
   //============================================================================
-  template<typename T, typename A, typename Sizes, typename Bases>
-  inline void initialize( std::vector<T,A>& v, Sizes const& s, Bases const&)
+    template< typename T, typename A
+            , typename Sizes, typename Bases, typename Padding
+            >
+  inline void initialize( std::vector<T,A>& v
+                        , Sizes const& s, Bases const&, Padding const&
+                        ) 
   {
     //==========================================================================
     // Recursively allocate all level of the current std::vector
@@ -95,4 +80,5 @@ namespace nt2 { namespace memory
     details::build<meta::dimensions_of<std::vector<T,A> >::value>::apply(v,s);
   }
 } }
+
 #endif
