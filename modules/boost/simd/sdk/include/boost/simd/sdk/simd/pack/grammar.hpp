@@ -9,30 +9,50 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 
-#include <boost/proto/matches.hpp>
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
+#include <boost/type_traits/is_arithmetic.hpp>
+#include <boost/proto/matches.hpp>
 
 namespace boost { namespace simd
 {
   struct  grammar
-        : boost::proto::_ {};/*
-          and_< boost::proto::
-                nary_expr < boost::proto::_
-                          , boost::proto::vararg< grammar >
-                          >
-              , boost::proto::
-                not_< boost::proto::or_ < boost::proto::
-                                          address_of< grammar >
-                                        , boost::proto::
-                                          dereference< grammar >
-                                        , boost::proto::
-                                          comma < grammar
-                                                , grammar
-                                                >
-                                        , meta::assignment_operators
-                                        >
-                    >
-              > {};*/
+    : boost::proto::
+      or_< boost::proto::
+           and_< boost::proto::
+                 nary_expr < boost::proto::_
+                           , boost::proto::vararg< grammar >
+                           >
+               , boost::proto::
+                 not_< boost::proto::or_ < boost::proto::
+                                           address_of< grammar >
+                                         , boost::proto::
+                                           dereference< grammar >
+                                         , boost::proto::
+                                           comma < grammar
+                                                 , grammar
+                                                 >
+                                         , meta::assignment_operators
+                                         >
+                     >
+               >
+         , boost::proto::terminal< native<boost::proto::_, boost::proto::_> >
+         , boost::proto::
+           and_< boost::proto::terminal<boost::proto::_>
+               , boost::proto::if_ < boost::dispatch::details::
+                                     is_array<boost::proto::_value>()
+                                   >
+               >
+         , boost::proto::
+           and_< boost::proto::terminal<boost::proto::_>
+               , boost::proto::if_ < boost::
+                                     is_arithmetic<boost::proto::_value>()
+                                   >
+               >
+         >
+  {
+  };
 } }
 
 #endif

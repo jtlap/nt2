@@ -88,7 +88,7 @@ namespace boost { namespace simd
                                   tag_of<typename impl::expr>::type
                                   (
                                     typename proto::result_of::
-                                    value<Expr>::type
+                                    value<typename impl::expr>::type
                                   )
                                 >::type
                           > result_type;
