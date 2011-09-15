@@ -18,6 +18,8 @@ namespace nt2 { namespace meta
         : add_pointers< typename boost::add_pointer<T>::type, N-1>
   {};
 
+  template<typename T> struct add_pointers<T,1> : boost::add_pointer<T> {};
+
   template<typename T> struct add_pointers<T,0> { typedef T type; };
 } } 
 
