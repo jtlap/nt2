@@ -18,9 +18,7 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
-
 #include <boost/array.hpp>
-#include <boost/simd/sdk/simd/meta/is_native.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -80,7 +78,6 @@ namespace boost { namespace dispatch { namespace details
                         ::enable_if_c < boost::fusion
                                         ::traits::is_sequence<T>::value
                                         && !is_array<T>::value
-                                        && !boost::simd::meta::is_native<T>::value
                                       >::type
                       >
   {

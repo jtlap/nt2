@@ -87,20 +87,21 @@ NT2_TEST_CASE(simd_category)
 NT2_TEST_CASE_TPL(simd_expr_category, (double))
 {
   using boost::simd::pack;
-  using boost::dispatch::meta::hierarchy_of;
   using boost::is_same;
-  using namespace boost;
+  using namespace boost::dispatch::meta;
 
   pack<T> x,y;
-
+  
   BOOST_DISPATCH_DECLTYPE(x+y, type_t_);
-  typedef typename boost::dispatch::meta::strip<type_t_>::type type_t;
+  typedef typename strip<type_t_>::type type_t;
   typedef typename boost::proto::domain_of<type_t>::type domain_t;
+  typedef typename semantic_of<type_t>::type semantic_t;
 
   NT2_TEST(( is_same< typename hierarchy_of<type_t>::type
-                    , boost::dispatch::meta::expr_< type_t , boost::dispatch::meta::domain_<domain_t>
-                                      , boost::proto::tag::plus , void
-                                      >
+                    , expr_< typename hierarchy_of<semantic_t, type_t>::type
+                           , domain_t
+                           , boost::proto::tag::plus
+                           >
                     >::value
           ));
 }
