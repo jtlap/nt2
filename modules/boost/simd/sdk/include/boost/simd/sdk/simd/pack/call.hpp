@@ -9,9 +9,6 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 
-template<class T>
-struct bar { unsigned : 80; };
-
 namespace boost { namespace simd { namespace ext
 {
   // default case
