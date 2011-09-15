@@ -11,8 +11,9 @@ SET( SOURCES
   array_as_buffer.cpp
   dimensions_of.cpp
   iliffe_buffer.cpp
+  pointer_as_buffer.cpp
   vector_as_buffer.cpp
-# List of scalar test files for toolbox crlibm
+# List of scalar test files for toolbox core.memory
    )
 
 nt2_module_add_tests(core.container.memory.unit ${SOURCES})
