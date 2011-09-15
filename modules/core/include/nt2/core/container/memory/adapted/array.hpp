@@ -39,33 +39,14 @@ namespace nt2 { namespace meta
   // reference_ specialization
   //============================================================================
   template<typename T, std::size_t N, std::size_t Level> 
-  struct reference_<boost::array<T,N>,Level>
-  {
-    typedef typename boost::array<T,N>::value_type  base;
-    typedef typename reference_<base,Level-1>::type type;
-  };
+  struct  dereference_<boost::array<T,N>&,Level>
+        : details::dereference_container<boost::array<T,N>&,Level>
+  {};
 
-  template<typename T, std::size_t N> 
-  struct reference_<boost::array<T,N>,1UL>
-  {
-    typedef typename boost::array<T,N>::reference type;
-  };
-
-  //============================================================================
-  // const_reference_ specialization
-  //============================================================================
   template<typename T, std::size_t N, std::size_t Level> 
-  struct const_reference_<boost::array<T,N>,Level>
-  {
-    typedef typename boost::array<T,N>::value_type        base;
-    typedef typename const_reference_<base,Level-1>::type type;
-  };
-
-  template<typename T, std::size_t N> 
-  struct const_reference_<boost::array<T,N>,1UL>
-  {
-    typedef typename boost::array<T,N>::const_reference type;
-  };
+  struct  dereference_<boost::array<T,N> const&,Level>
+        : details::dereference_container<boost::array<T,N> const&,Level>
+  {};
 } }
 
 namespace nt2 { namespace memory
@@ -73,8 +54,13 @@ namespace nt2 { namespace memory
   //============================================================================
   // boost::array initialize - Part of Buffer Concept
   //============================================================================
-  template<typename T, std::size_t N, typename Sizes, typename Bases>
-  inline void initialize( boost::array<T,N>&, Sizes const&, Bases const&) {}
+  template< typename T, std::size_t N
+          , typename Sizes, typename Bases, typename Padding
+          >
+  inline void initialize( boost::array<T,N>&
+                        , Sizes const&, Bases const&, Padding const&
+                        ) 
+  {}
 } }
 
 #endif

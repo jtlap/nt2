@@ -10,6 +10,7 @@
 
 #include <nt2/core/container/memory/adapted/array.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/array.hpp>
 
@@ -37,29 +38,17 @@ NT2_TEST_CASE( std_array_reference )
 {
   using boost::array;
   using boost::is_same;
-  using nt2::meta::reference_;
+  using nt2::meta::dereference_;
 
   typedef array<array<array<int,2>,3>,4> base;
 
-  NT2_TEST((is_same< reference_<base,1>::type, array<array<int,2>,3>& >::value) );
-  NT2_TEST((is_same< reference_<base,2>::type, array<int,2>& >::value) );
-  NT2_TEST((is_same< reference_<base,3>::type, int& >::value) );
-}
+  NT2_TEST((is_same< dereference_<base&,1>::type, array<array<int,2>,3>& >::value) );
+  NT2_TEST((is_same< dereference_<base&,2>::type, array<int,2>& >::value) );
+  NT2_TEST((is_same< dereference_<base&,3>::type, int& >::value) );
 
-////////////////////////////////////////////////////////////////////////////////
-// array type has some dimensions
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_array_const_reference )
-{
-  using boost::array;
-  using boost::is_same;
-  using nt2::meta::const_reference_;
-
-  typedef array<array<array<int,2>,3>,4> base;
-
-  NT2_TEST((is_same< const_reference_<base,1>::type, array<array<int,2>,3> const& >::value) );
-  NT2_TEST((is_same< const_reference_<base,2>::type, array<int,2> const& >::value) );
-  NT2_TEST((is_same< const_reference_<base,3>::type, int const& >::value) );
+  NT2_TEST((is_same< dereference_<base const&,1>::type, array<array<int,2>,3> const& >::value) );
+  NT2_TEST((is_same< dereference_<base const&,2>::type, array<int,2> const& >::value) );
+  NT2_TEST((is_same< dereference_<base const&,3>::type, int const& >::value) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +69,7 @@ NT2_TEST_CASE( std_array_1D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases);
+  initialize(tab, sizes, bases, nt2::memory::no_padding() );
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
@@ -110,7 +99,7 @@ NT2_TEST_CASE( std_array_2D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases);
+  initialize(tab, sizes, bases, nt2::memory::no_padding() );
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
@@ -143,7 +132,7 @@ NT2_TEST_CASE( std_array_3D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases);
+  initialize(tab, sizes, bases, nt2::memory::no_padding() );
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
