@@ -88,7 +88,7 @@ namespace boost { namespace simd
 
     // Conversion operator forces evaluation
     BOOST_DISPATCH_FORCE_INLINE
-    operator data_type()
+    operator data_type() const
     {
       return boost::simd::evaluate(*this);
     }

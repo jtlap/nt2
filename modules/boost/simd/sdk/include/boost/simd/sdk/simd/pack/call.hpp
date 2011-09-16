@@ -34,6 +34,28 @@ namespace boost { namespace simd { namespace ext
       return a0;
     }
   };
+  
+  // workaround, constant functors need to be made less general
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_, tag::cpu_, (A0)(X)
+                            , ((target_< simd_< arithmetic_<A0>,X> >))
+                            )
+  {
+    template<class Sig>
+    struct result;
+    
+    template<class This, class A0_>
+    struct result<This(A0_)>
+      : add_reference<A0_>
+    {
+    };
+
+    template<class A0_>
+    BOOST_DISPATCH_FORCE_INLINE A0_&
+    operator()(A0_& a0) const
+    {
+      return a0;
+    }
+  };
 
   // array case
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_

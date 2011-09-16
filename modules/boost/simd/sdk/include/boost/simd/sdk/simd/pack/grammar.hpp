@@ -11,6 +11,7 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
+#include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/proto/matches.hpp>
@@ -50,6 +51,7 @@ namespace boost { namespace simd
                                      is_arithmetic<boost::proto::_value>()
                                    >
                >
+         , boost::proto::terminal< dispatch::meta::as_< grammar > >
          >
   {
   };
