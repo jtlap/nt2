@@ -10,7 +10,6 @@
 #define BOOST_SIMD_SDK_SIMD_CATEGORY_HPP_INCLUDED
 
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/dispatch/meta/property_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -18,15 +17,13 @@ namespace boost { namespace dispatch { namespace meta
   struct simd_ : simd_< typename T::parent, X >
   {
     typedef simd_< typename T::parent, X >  parent;
-    typedef T                               base;
   };
 
   template<class T,class X>
   struct  simd_< unspecified_<T>, X >
-        : generic_< typename property_of<T>::type >
+        : generic_< typename hierarchy_of<T>::base >
   {
-    typedef generic_< typename property_of<T>::type > parent;
-    typedef unspecified_<T>                           base;
+    typedef generic_< typename hierarchy_of<T>::base > parent;
   };
 } } }
 

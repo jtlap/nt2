@@ -9,9 +9,6 @@
 #ifndef BOOST_DISPATCH_DSL_SEMANTIC_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_DSL_SEMANTIC_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/enable_if_type.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
 ////////////////////////////////////////////////////////////////////////////////
 // For a given proto expression class, retrieves its semantic info as a type
 // Expression semantic info is void by design while SemanticRichExpression
@@ -24,15 +21,6 @@ namespace boost { namespace dispatch { namespace meta
   struct semantic_of
   {
     typedef void type;
-  };
-
-  template< class Expr >
-  struct semantic_of< Expr
-                    , typename
-                      enable_if_type<typename meta::strip<Expr>::type::dispatch_semantic_tag>::type
-                    >
-  {
-    typedef typename meta::strip<Expr>::type::dispatch_semantic_tag type;
   };
 } } }
 

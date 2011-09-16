@@ -13,7 +13,6 @@
 #include <boost/simd/sdk/simd/pack/domain.hpp>
 #include <boost/simd/sdk/simd/pack/evaluation.hpp>
 #include <boost/simd/include/functions/assign.hpp>
-#include <boost/dispatch/dsl/category.hpp>
 #include <boost/proto/extends.hpp>
 
 namespace boost { namespace simd
@@ -25,10 +24,6 @@ namespace boost { namespace simd
   struct  expression
   {
     BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
-
-    typedef ResultType                                     dispatch_semantic_tag;
-    typedef typename
-    dispatch::details::hierarchy_of_expr<expression>::type dispatch_hierarchy_tag;
 
     // Assignment operators force evaluation
     BOOST_DISPATCH_FORCE_INLINE
@@ -74,7 +69,7 @@ namespace boost { namespace simd
 
     // Conversion operator forces evaluation
     BOOST_DISPATCH_FORCE_INLINE
-    operator dispatch_semantic_tag()
+    operator ResultType()
     {
       return boost::simd::evaluate(*this);
     }

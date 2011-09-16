@@ -44,13 +44,6 @@ namespace boost { namespace simd
     , (boost::mpl::int_<Cardinal>)
     );
 
-    ////////////////////////////////////////////////////////////////////////////
-    // expression hierarchy of simd:::expression
-    ////////////////////////////////////////////////////////////////////////////
-    typedef data_type                                 dispatch_semantic_tag;
-    typedef typename
-    dispatch::details::hierarchy_of_expr<pack>::type  dispatch_hierarchy_tag;
-
     // Assignment operators force evaluation
     BOOST_DISPATCH_FORCE_INLINE
     pack& operator=(pack const& xpr)
@@ -95,7 +88,7 @@ namespace boost { namespace simd
 
     // Conversion operator forces evaluation
     BOOST_DISPATCH_FORCE_INLINE
-    operator dispatch_semantic_tag()
+    operator data_type()
     {
       return boost::simd::evaluate(*this);
     }

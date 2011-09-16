@@ -9,6 +9,8 @@
 #ifndef BOOST_DISPATCH_META_DETAILS_GENERIC_HPP_INCLUDED
 #define BOOST_DISPATCH_META_DETAILS_GENERIC_HPP_INCLUDED
 
+#include <boost/dispatch/meta/details/hierarchy_base.hpp>
+
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T> struct generic_ : generic_< typename T::parent >
