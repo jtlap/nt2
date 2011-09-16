@@ -56,22 +56,15 @@ namespace boost { namespace dispatch { namespace meta
     //==========================================================================
     // Required for Hierarchizable
     //==========================================================================
-    struct dispatch_hierarchy_tag
-    {
-      template<class Origin>
-      struct apply
-      {
-        typedef target_< typename hierarchy_of<T, Origin>::type > type;
-      };
-    };
-    typedef T                                                     type;
+    typedef target_< typename hierarchy_of<T, as_>::type >  dispatch_hierarchy_tag;
+    typedef T                                               type;
   };
 
   //============================================================================
   // Same property than T
   //============================================================================
-  template<class T, class Origin>
-  struct  property_of< as_<T>, Origin > : property_of< T, Origin > {};
+  template<class T>
+  struct  property_of< as_<T> > : property_of< T, as_<T> > {};
 
   //============================================================================
   // Requirements for Buildable

@@ -10,8 +10,6 @@
 #define BOOST_DISPATCH_META_DETAILS_SCALAR_HPP_INCLUDED
 
 #include <boost/dispatch/meta/details/generic.hpp>
-#include <boost/dispatch/meta/details/hierarchy_base.hpp>
-#include <boost/dispatch/meta/property_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

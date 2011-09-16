@@ -49,18 +49,10 @@ namespace boost { namespace dispatch { namespace details
     typedef typename meta::semantic_of<T>::type  semantic_type;
     typedef typename proto::domain_of<T>::type   domain_type;
     typedef typename proto::tag_of<T>::type      tag_type;
-    
-    struct type
-    {
-      template<class Origin>
-      struct apply
-      {
-        typedef meta::expr_ < typename meta::hierarchy_of<semantic_type, Origin>::type
-                            , domain_type
-                            , tag_type
-                            > type;
-      };
-    };
+    typedef meta::expr_ < typename meta::hierarchy_of<semantic_type, T>::type
+                        , domain_type
+                        , tag_type
+                        > type;
   };
 } } }
 

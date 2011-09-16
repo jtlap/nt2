@@ -9,13 +9,11 @@
 #ifndef BOOST_DISPATCH_META_DETAILS_HIERARCHY_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_DETAILS_HIERARCHY_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/details/scalar.hpp>
-#include <boost/dispatch/meta/details/hierarchy_base.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/details/scalar.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
-#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {

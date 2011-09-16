@@ -21,10 +21,10 @@
 // select at each lattice node which ancestor to use.
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/dispatch/meta/details/hierarchy_of.hpp>
-#include <boost/dispatch/meta/enable_if_type.hpp>
+#include <climits>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/mpl/apply.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
+#include <boost/dispatch/meta/details/hierarchy_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -51,11 +51,7 @@ namespace boost { namespace dispatch { namespace meta
                                       >::type
                       >
   {
-    typedef typename mpl::
-            apply1< typename meta::strip<T>::type::
-                    dispatch_hierarchy_tag
-                  , Origin
-                  >::type type;
+    typedef typename meta::strip<T>::type::dispatch_hierarchy_tag type;
   };
 } } }
 

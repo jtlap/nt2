@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/details/native/meta/hierarchy_of.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/factory_of.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/primitive_of.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/scalar_of.hpp>

@@ -11,21 +11,12 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/meta/property_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
 #include <boost/simd/sdk/simd/details/native/fusion.hpp>
 #include <boost/simd/sdk/simd/details/native/operators.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
-
-namespace boost { namespace dispatch { namespace details
-{
-  template<class T, class X, class Origin>
-  struct property_of< simd::native<T, X>, Origin>
-    : property_of<T, Origin>
-  {
-  };
-} } }
 
 namespace boost { namespace simd
 {
@@ -35,21 +26,6 @@ namespace boost { namespace simd
   template<class Scalar,class Extension>
   union native
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // native<S,E> is in the simd hierarchy
-    ////////////////////////////////////////////////////////////////////////////
-    struct dispatch_hierarchy_tag
-    {
-      template<class Origin>
-      struct apply
-      {
-        typedef ext::simd_< typename dispatch::meta::
-                            property_of<Scalar, Origin>::type
-                          , Extension
-                          >                                 type;
-      };
-    };
-      
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> is a SIMD type encapsulation
     ////////////////////////////////////////////////////////////////////////////
