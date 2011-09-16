@@ -35,7 +35,7 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Domain, class Tag>
   struct  expr_< unspecified_<T>, Domain, Tag > : ast_<T>
   {
-    typedef unspecified_<T> parent;
+    typedef ast_<T> parent;
   };
 } } }
 
