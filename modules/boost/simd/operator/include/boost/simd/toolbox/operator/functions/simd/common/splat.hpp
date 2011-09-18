@@ -32,12 +32,11 @@ namespace boost { namespace simd { namespace ext
 
       BOOST_SIMD_ALIGNED_TYPE(sA1) tmp[boost::simd::meta::cardinal_of<result_type>::value];
       for(int i = 0; i != boost::simd::meta::cardinal_of<result_type>::value; ++i)
-        tmp[i] = a0;
+        tmp[i] = static_cast<sA1>(a0);
 
       return load<result_type>(&tmp[0], 0);
     }
   };
 } } }
-
 
 #endif
