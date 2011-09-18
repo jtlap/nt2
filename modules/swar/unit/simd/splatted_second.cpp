@@ -12,7 +12,7 @@
 // unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/swar/include/functions/splatted_second.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( splatted_second_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::splatted_second;
   using nt2::tag::splatted_second_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -55,12 +55,14 @@ NT2_TEST_CASE_TPL ( splatted_second_real__1_0,  NT2_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Inf<vT>())[0], nt2::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Minf<vT>())[0], nt2::Minf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Mone<vT>())[0], nt2::Mone<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(splatted_second(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
+  if(cardinal_of<vT>::value != 1)
+  {
+    // specific values tests
+    NT2_TEST_ULP_EQUAL(splatted_second(nt2::Inf<vT>())[0], nt2::Inf<sr_t>(), 0);
+    NT2_TEST_ULP_EQUAL(splatted_second(nt2::Minf<vT>())[0], nt2::Minf<sr_t>(), 0);
+    NT2_TEST_ULP_EQUAL(splatted_second(nt2::Mone<vT>())[0], nt2::Mone<sr_t>(), 0);
+    NT2_TEST_ULP_EQUAL(splatted_second(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
+    NT2_TEST_ULP_EQUAL(splatted_second(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
+    NT2_TEST_ULP_EQUAL(splatted_second(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
+  }
 } // end of test for real_

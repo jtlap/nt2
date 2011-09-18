@@ -18,8 +18,8 @@
 #define BOOST_IS_SUPPORTED_CALL(tag) boost::simd::is_supported<tag>();
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test if the runtime detection of SIMD extensions works according to 
-// the highest SIMD level detected statically  
+// Test if the runtime detection of SIMD extensions works according to
+// the highest SIMD level detected statically
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_supported)
 {

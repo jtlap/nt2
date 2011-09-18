@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(lt(a1,a0), is_unord(a0, a1));
+      return b_or(lt(a0,a1), is_unord(a0, a1));
     }
   };
   

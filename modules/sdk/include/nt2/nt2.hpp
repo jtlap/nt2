@@ -18,7 +18,6 @@
  * recommend you to look at the main user manual.
  */
 //==============================================================================
-#include <nt2/include/config.hpp>
 #include <nt2/include/error.hpp>
 #include <nt2/include/timing.hpp>
 #include <nt2/include/functor.hpp>
