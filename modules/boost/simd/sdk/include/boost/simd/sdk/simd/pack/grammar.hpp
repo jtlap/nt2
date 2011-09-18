@@ -13,46 +13,27 @@
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
+#include <boost/dispatch/meta/lambda_terminal.hpp>
 #include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/proto/matches.hpp>
 
 namespace boost { namespace simd
 {
   struct  grammar
-    : boost::proto::
-      or_< boost::proto::
-           and_< boost::proto::
-                 nary_expr < boost::proto::_
-                           , boost::proto::vararg< grammar >
-                           >
-               , boost::proto::
-                 not_< boost::proto::or_ < boost::proto::
-                                           address_of< grammar >
-                                         , boost::proto::
-                                           dereference< grammar >
-                                         , boost::proto::
-                                           comma < grammar
-                                                 , grammar
-                                                 >
-                                         , meta::assignment_operators
-                                         >
-                     >
-               >
-         , boost::proto::terminal< native<boost::proto::_, boost::proto::_> >
-         , boost::proto::
-           and_< boost::proto::terminal<boost::proto::_>
-               , boost::proto::if_ < boost::dispatch::details::
-                                     is_array<boost::proto::_value>()
-                                   >
-               >
-         , boost::proto::
-           and_< boost::proto::terminal<boost::proto::_>
-               , boost::proto::if_ < boost::
-                                     is_arithmetic<boost::proto::_value>()
-                                   >
-               >
-         , boost::proto::terminal< dispatch::meta::as_< grammar > >
-         >
+    : proto::or_< 
+        proto::and_ < proto::nary_expr< proto::_, proto::vararg<grammar> >
+                    , proto::not_< proto::or_ < proto::address_of<grammar>
+                                              , proto::dereference<grammar>
+                                              , proto::comma<grammar,grammar>
+                                              , meta::assignment_operators
+                                              >
+                                  >
+                    >
+         , proto::terminal< native<proto::_, proto::_> >
+         , dispatch::lambda_terminal<dispatch::details::is_array<proto::_value> >
+         , dispatch::lambda_terminal<is_arithmetic<proto::_value> >
+         , proto::terminal< dispatch::meta::as_< native<proto::_, proto::_> > >
+                >
   {
   };
 } }
