@@ -14,6 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/proto/make_expr.hpp>
 #include <boost/dispatch/meta/any.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -31,28 +32,6 @@
 namespace boost { namespace dispatch { namespace tag
 {
   struct ast_ {};
-}
-
-namespace meta
-{
-  template<class T>
-  struct as_ref
-  {
-    typedef T const& type;
-  };
-  
-  template<class T>
-  struct as_ref<T&>
-  {
-    typedef T& type;
-  };
-  
-  template<class T>
-  struct as_ref<T const>
-  {
-    typedef T const& type;
-  };
-    
 } } }
 
 ////////////////////////////////////////////////////////////////////////////////
