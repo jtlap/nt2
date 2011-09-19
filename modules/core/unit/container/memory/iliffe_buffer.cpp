@@ -9,98 +9,123 @@
 #define NT2_UNIT_MODULE "nt2::memory iliffe_buffer"
 
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
+#include <nt2/core/container/memory/dereference.hpp>
 
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <nt2/sdk/memory/lead_padding.hpp>
 #include <nt2/sdk/memory/global_padding.hpp>
+
 #include <boost/array.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-using nt2::memory::no_padding;
-using nt2::memory::lead_padding;
-using nt2::memory::global_padding;
+#define PADDING                                                                   \
+(nt2::memory::no_padding)(nt2::memory::lead_padding)(nt2::memory::global_padding) \
+/**/
 
 ////////////////////////////////////////////////////////////////////////////////
-// Build 1/2/3/4D iliffe_buffer with various padding strategies
+// iliffe_buffer type has some dimensions
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_ctor, (no_padding)(lead_padding)(global_padding) )
+NT2_TEST_CASE_TPL( iliffe_buffer_dimensions, PADDING )
 {
-  using nt2::slice;
   using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
-  using boost::array;
-  
-  typedef iliffe_buffer<1,double,T,allocator<double> > buffer1D;
-  typedef iliffe_buffer<2,double,T,allocator<double> > buffer2D;
-  typedef iliffe_buffer<3,double,T,allocator<double> > buffer3D;
-  typedef iliffe_buffer<4,double,T,allocator<double> > buffer4D;
+  using nt2::meta::dimensions_of;
 
-  T padding;
-  array<int,1> s1D = {{3}};
-  array<int,2> s2D = {{3,2}};
-  array<int,3> s3D = {{3,2,2}};
-  array<int,4> s4D = {{3,2,2,2}};
-  
-  array<int,1> b1D = {{-1}};
-  array<int,2> b2D = {{-1,-2}};
-  array<int,3> b3D = {{-1,-2,-3}};
-  array<int,4> b4D = {{-1,-2,-3,-4}};
-
-  buffer1D b1(s1D,b1D,padding);
-  buffer2D b2(s2D,b2D,padding);
-  buffer3D b3(s3D,b3D,padding);
-  buffer4D b4(s4D,b4D,padding);
-  
-  NT2_TEST_EQUAL( (b1.end()-b1.begin()), slice<1>(s1D,padding) );
-  NT2_TEST_EQUAL( (b2.end()-b2.begin()), slice<1>(s2D,padding) );
-  NT2_TEST_EQUAL( (b3.end()-b3.begin()), slice<1>(s3D,padding) );
-  NT2_TEST_EQUAL( (b4.end()-b4.begin()), slice<1>(s4D,padding) );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,T,allocator<int> > >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,T,allocator<int> > >::value), 2UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,T,allocator<int> > >::value), 3UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<4,int,T,allocator<int> > >::value), 4UL );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Build 1/2/3/4D linear_buffer with various padding strategies sharing data
+// iliffe_buffer has some reference
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_ctor_shared, (no_padding)(lead_padding)(global_padding) )
+NT2_TEST_CASE_TPL( iliffe_buffer_reference, PADDING )
 {
-  using nt2::slice;
+  using boost::is_same;
   using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
-  using boost::array;
-  
-  typedef iliffe_buffer<1,double,T,allocator<double> > buffer1D;
-  typedef iliffe_buffer<2,double,T,allocator<double> > buffer2D;
-  typedef iliffe_buffer<3,double,T,allocator<double> > buffer3D;
-  typedef iliffe_buffer<4,double,T,allocator<double> > buffer4D;
+  using nt2::meta::dereference_;
 
-  double some_data[32];
+  typedef iliffe_buffer<3,int,T,allocator<int> > base;
 
-  T padding;
-  array<int,1> s1D = {{3}};
-  array<int,2> s2D = {{3,2}};
-  array<int,3> s3D = {{3,2,2}};
-  array<int,4> s4D = {{3,2,2,2}};
-  
-  array<int,1> b1D = {{-1}};
-  array<int,2> b2D = {{-1,-1}};
-  array<int,3> b3D = {{-1,-1,-1}};
-  array<int,4> b4D = {{-1,-1,-1,-1}};
+  NT2_TEST((is_same< dereference_<base&,1>::type, int**>::value) );
+  NT2_TEST((is_same< dereference_<base&,2>::type, int* >::value) );
+  NT2_TEST((is_same< dereference_<base&,3>::type, int& >::value) );
 
-  buffer1D b1(s1D,b1D,padding, &some_data[0]);
-  buffer2D b2(s2D,b2D,padding, &some_data[0]);
-  buffer3D b3(s3D,b3D,padding, &some_data[0]);
-  buffer4D b4(s4D,b4D,padding, &some_data[0]);
-  
-  NT2_TEST_EQUAL( b1.begin(), &some_data[0] );
-  NT2_TEST_EQUAL( b2.begin(), &some_data[0] );
-  NT2_TEST_EQUAL( b3.begin(), &some_data[0] );
-  NT2_TEST_EQUAL( b4.begin(), &some_data[0] );
-  
-  NT2_TEST_EQUAL( (b1.end()-b1.begin()), slice<1>(s1D,padding) );
-  NT2_TEST_EQUAL( (b2.end()-b2.begin()), slice<1>(s2D,padding) );
-  NT2_TEST_EQUAL( (b3.end()-b3.begin()), slice<1>(s3D,padding) );
-  NT2_TEST_EQUAL( (b4.end()-b4.begin()), slice<1>(s4D,padding) );
+  NT2_TEST((is_same< dereference_<base const&,1>::type, int const**>::value) );
+  NT2_TEST((is_same< dereference_<base const&,2>::type, int const* >::value) );
+  NT2_TEST((is_same< dereference_<base const&,3>::type, int const& >::value) );
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// iliffe_buffer models Buffer Concept
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, PADDING )
+{
+  using nt2::memory::allocator;
+  using nt2::memory::initialize;
+  using nt2::memory::dereference;
+  using nt2::memory::iliffe_buffer;
+
+  iliffe_buffer<1,int,T,allocator<int> > tab;
+
+  boost::array<std::size_t,1> sizes = {{5}};
+  boost::array<std::size_t,1> bases = {{-2}};
+  boost::array<std::ptrdiff_t,1> pos;
+
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports being initialized externally
+  //////////////////////////////////////////////////////////////////////////////
+  initialize(tab, sizes, bases, T() );
+  
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports R/W access through Position
+  //////////////////////////////////////////////////////////////////////////////
+  for(pos[0]=-2;pos[0]<=2;++pos[0]) 
+    dereference<1UL>(tab,pos) = 10*(1+pos[0]);
+
+  for(pos[0]=-2;pos[0]<=2;++pos[0])
+    NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
+}
+
+/*
+////////////////////////////////////////////////////////////////////////////////
+// iliffe_buffer models Buffer Concept
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
+{
+  using nt2::memory::allocator;
+  using nt2::memory::initialize;
+  using nt2::memory::dereference;
+  using nt2::memory::iliffe_buffer;
+
+  iliffe_buffer<2,int,T,allocator<int> > tab;
+
+  boost::array<std::size_t,2> sizes = {{5,2}};
+  boost::array<std::size_t,2> bases = {{-2,0}};
+  boost::array<std::ptrdiff_t,2> pos;
+
+  //////////////////////////////////////////////////////////////////////////////
+  // iliffe_buffer supports being initialized externally
+  //////////////////////////////////////////////////////////////////////////////
+  initialize(tab, sizes, bases, T() );
+
+  //////////////////////////////////////////////////////////////////////////////
+  // iliffe_buffer supports R/W access through Position
+  //////////////////////////////////////////////////////////////////////////////
+  for(pos[1]=0;pos[1]<=1;++pos[1])
+    for(pos[0]=-2;pos[0]<=-2;++pos[0])
+      dereference<2UL>(tab,pos) = 10*(1+pos[1]) + (1+pos[0]);
+
+  for(pos[1]=0;pos[1]<=1;++pos[1])
+    for(pos[0]=-2;pos[0]<=-2;++pos[0])
+    NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
+}
+*/

@@ -70,6 +70,16 @@ namespace nt2 { namespace memory
     typedef typename Allocator::const_pointer                 const_pointer;
 
     //==========================================================================
+    /** Type of the iterator to the iliffe_buffer values                      */
+    //==========================================================================
+    typedef typename Allocator::pointer                       iterator;
+
+    //==========================================================================
+    /** Type of the const_iterator to the iliffe_buffer values                */
+    //==========================================================================
+    typedef typename Allocator::const_pointer                 const_iterator;
+
+    //==========================================================================
     /** Type of reference to a value                                          */
     //==========================================================================
     typedef typename Allocator::reference                     reference;
@@ -93,10 +103,21 @@ namespace nt2 { namespace memory
     /** Type of the pointer to buffer storage area                            */
     //==========================================================================
     typedef typename meta::add_pointers<Type,Dimensions>::type  data_type;      
-    
+
+    typedef typename meta::add_pointers<Type,Dimensions-1>::type  sub_data_type;      
+    typedef typename meta::add_pointers<Type const,Dimensions-1>::type  const_sub_data_type;      
+
     //==========================================================================
     /**
-      * Constructs a Iliffe buffer by allocating memory for its own ownership.
+      * Default constructor yields an empty iliffe buffer
+     **/
+    //==========================================================================
+    iliffe_buffer(Allocator const&  a = Allocator()) 
+      : data_(0), begin_(0), end_(0), numel_(0), shared_(false), alloc_(a) {}    
+
+    //==========================================================================
+    /**
+      * Initializes a Iliffe buffer by allocating memory for its own ownership.
       * For a given number of dimensions \c N , the constructor will allocate 
       * enough memory to store N indexing tables and the actual data size as
       * defined by the sizes and padding parameters.
@@ -109,16 +130,15 @@ namespace nt2 { namespace memory
       * \param a   Allocator instance used by the buffer
      **/
     //==========================================================================
-    template<typename Sizes, typename Bases> 
-    iliffe_buffer ( Sizes const&      szs
-                  , Bases const&      bss
-                  , Padding const&    p
-                  , Allocator const&  a = Allocator() 
-                  )
-    : data_(0), begin_(0), end_(0)
-    , idx_(boost::fusion::at_c<Dimensions-1>(bss))
-    , numel_(0), shared_(false), alloc_(a)
+    template<typename Sizes, typename Bases> inline void
+    initialize( Sizes const&      szs
+              , Bases const&      bss
+              , Padding const&    p
+              )
     {      
+      shared_ = false;
+      idx_ = boost::fusion::at_c<Dimensions-1>(bss);
+
       // Computes the number of values to store
       size_type numel = slice<1>(szs,p);
 
@@ -163,6 +183,7 @@ namespace nt2 { namespace memory
       * \param a   Allocator instance used by the buffer
      **/
     //==========================================================================
+    /*
     template<typename Sizes, typename Bases> 
     iliffe_buffer ( Sizes const&      szs
                   , Bases const&      bss
@@ -197,7 +218,8 @@ namespace nt2 { namespace memory
                     );
       }
     }
-    
+    */
+
     //==========================================================================
     /**
       * Destructs a iliffe_buffer by deallocating its data segment if it actually
@@ -221,6 +243,9 @@ namespace nt2 { namespace memory
      **/
     //==========================================================================
     data_type     data()  const { return data_; }
+
+    sub_data_type       operator[](std::ptrdiff_t i)       { return data_[i]; }
+    const_sub_data_type operator[](std::ptrdiff_t i) const { return data_[i]; }
 
     //==========================================================================
     /**
@@ -356,70 +381,48 @@ namespace nt2 { namespace memory
   {  
     typedef typename Allocator::template rebind<memory::byte>::other  allocator;
     typedef typename Allocator::value_type      value_type;
-    typedef typename Allocator::pointer         pointer;
-    typedef typename Allocator::const_pointer   const_pointer;
+    typedef typename Allocator::pointer         iterator;
+    typedef typename Allocator::const_pointer   const_iterator;
     typedef typename Allocator::reference       reference;
     typedef typename Allocator::const_reference const_reference;
     typedef typename Allocator::size_type       size_type;
     typedef typename Allocator::difference_type difference_type;
     typedef value_type*                         data_type;         
 
+    iliffe_buffer(Allocator const&  a = Allocator()) 
+    : data_(0), begin_(0), end_(0), alloc_(a) {}    
+
     template<typename Sizes, typename Bases> 
-    iliffe_buffer ( Sizes const&      szs
-                  , Bases const&      bss
-                  , Padding const&    p
-                  , Allocator const&  a = Allocator() 
-                  )
-    : alloc_(a), begin_(0), end_(0), shared_(false)
-    , idx_(boost::fusion::at_c<0>(bss)) 
+    void initialize ( Sizes const&      szs
+                    , Bases const&      bss
+                    , Padding const&    p
+                    )   
     {
       size_type numel = slice<1>(szs,p);
       if(numel != 0) 
       {
         begin_  = alloc_.allocate( numel );
         end_    = begin_ + numel;
-      }
-    }
-    
-    template<typename Sizes, typename Bases> 
-    iliffe_buffer ( Sizes const&      szs
-                  , Bases const&      bss
-                  , Padding const&    p
-                  , value_type*       shared
-                  , Allocator const&  a = Allocator() 
-                  )
-    : begin_(0), end_(0)
-    , idx_(boost::fusion::at_c<0>(bss)) 
-    , shared_(true), alloc_(a)
-    {      
-      size_type numel = slice<1>(szs,p);
-      if(shared != 0) 
-      {
-        begin_ = shared;
-        end_   = begin_ + numel;
+        data_   = begin_ - boost::fusion::at_c<0>(bss);
       }
     }
     
     ~iliffe_buffer() 
     { 
-      if(!shared_ && begin_) 
-      {
-        alloc_.deallocate( begin(), end() - begin() );
-      }      
+      if(begin_) alloc_.deallocate( begin(), end() - begin() );
     }
   
-    data_type     data() const { return begin_ - idx_; }
+    reference       operator[](std::ptrdiff_t i)       { return data_[i]; }
+    const_reference operator[](std::ptrdiff_t i) const { return data_[i]; }
 
-    pointer       begin()       { return begin_; }
-    const_pointer begin() const { return begin_; }
+    iterator        begin()       { return begin_;  }
+    iterator        end()         { return end_;    }
 
-    pointer       end()         { return end_; }
-    const_pointer end() const   { return end_; }
+    const_iterator  begin() const { return begin_;  }
+    const_iterator  end()   const { return end_;    }
 
     private:
-    data_type       begin_,end_;
-    std::ptrdiff_t  idx_;
-    bool            shared_;
+    data_type       data_,begin_,end_;
     Allocator       alloc_;
   };
 } }
