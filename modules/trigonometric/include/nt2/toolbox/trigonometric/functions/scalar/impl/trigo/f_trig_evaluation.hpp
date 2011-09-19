@@ -12,6 +12,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 

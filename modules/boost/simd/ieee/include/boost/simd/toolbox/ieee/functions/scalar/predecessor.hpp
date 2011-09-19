@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/is_nan.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

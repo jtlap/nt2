@@ -11,6 +11,11 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/functor/forward.hpp>
 #include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
+#include <boost/simd/include/functions/unary_minus.hpp>
+#include <boost/simd/include/functions/is_less.hpp>
+#include <boost/simd/include/functions/select.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

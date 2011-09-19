@@ -13,6 +13,7 @@
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITFLOATING_HPP_INCLUDED
 #include <boost/dispatch/meta/as_real.hpp>
 #include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/functions/shli.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

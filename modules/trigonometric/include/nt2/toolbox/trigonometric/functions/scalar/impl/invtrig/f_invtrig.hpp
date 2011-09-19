@@ -15,6 +15,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/sign.hpp>
