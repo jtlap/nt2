@@ -17,6 +17,7 @@
 #include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/simd/pack/call.hpp>
 #include <boost/proto/extends.hpp>
+#include <boost/proto/operators.hpp>
 
 namespace boost { namespace simd
 {

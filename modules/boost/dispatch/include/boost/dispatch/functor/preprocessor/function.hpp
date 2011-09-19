@@ -18,6 +18,10 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
+#include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/seq/size.hpp>
+#include <boost/preprocessor/cat.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a function prototype from NAME, TAG and Number of parameters

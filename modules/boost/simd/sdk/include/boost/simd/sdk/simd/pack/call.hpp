@@ -9,6 +9,10 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/proto/make_expr.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   // default terminal
