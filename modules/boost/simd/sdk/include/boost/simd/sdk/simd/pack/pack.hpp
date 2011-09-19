@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/pack/meta.hpp>
-#include <boost/simd/sdk/simd/pack/evaluation.hpp>
+#include <boost/simd/sdk/simd/pack/evaluate.hpp>
 #include <boost/simd/include/functions/assign.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>

@@ -6,16 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_PACK_EVALUATION_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_PACK_EVALUATION_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_PACK_EVALUATE_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_PACK_EVALUATE_HPP_INCLUDED
 
-#include <boost/dispatch/dsl/compute.hpp>
-#include <boost/dispatch/dsl/category.hpp>
-#include <boost/dispatch/dsl/semantic_of.hpp>
-#include <boost/simd/sdk/dsl/evaluation.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/simd/sdk/dsl/evaluate.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/dsl/compute.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
 
 //==============================================================================
 // Evaluation of simd native pack
