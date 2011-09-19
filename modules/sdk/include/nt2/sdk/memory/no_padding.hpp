@@ -25,7 +25,7 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   struct no_padding
   {
-    typedef ext::padding_<no_padding> dispatch_hierarchy_tag;
+    std::size_t value() const { return 1; }    
   };
 } }
 

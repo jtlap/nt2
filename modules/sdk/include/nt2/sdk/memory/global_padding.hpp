@@ -25,7 +25,10 @@ namespace nt2 { namespace memory
   //////////////////////////////////////////////////////////////////////////////
   struct global_padding
   {
-    typedef ext::padding_<global_padding> dispatch_hierarchy_tag;
+    global_padding( std::size_t v = BOOST_SIMD_CONFIG_ALIGNMENT ) : value_(v) {}
+    
+    std::size_t value() const { return value_; }    
+    std::size_t value_;
   };
 } }
 

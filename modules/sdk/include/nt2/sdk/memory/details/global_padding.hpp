@@ -20,6 +20,16 @@
 #include <nt2/sdk/memory/details/no_padding.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class Origin>
+  struct hierarchy_of< nt2::memory::global_padding, Origin>
+  {
+    typedef nt2::ext::padding_<nt2::memory::global_padding>  base;
+    typedef nt2::ext::padding_<nt2::memory::global_padding>  type;
+  };
+} } }
+
 ////////////////////////////////////////////////////////////////////////////////
 // slice implementation for global_padding strategy
 ////////////////////////////////////////////////////////////////////////////////

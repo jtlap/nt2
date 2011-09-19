@@ -21,6 +21,16 @@
 #include <boost/fusion/include/size.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class Origin>
+  struct hierarchy_of< nt2::memory::no_padding, Origin>
+  {
+    typedef nt2::ext::padding_<nt2::memory::no_padding>  base;
+    typedef nt2::ext::padding_<nt2::memory::no_padding>  type;
+  };
+} } }
+
 ////////////////////////////////////////////////////////////////////////////////
 // slice implementation for no_padding strategy
 ////////////////////////////////////////////////////////////////////////////////

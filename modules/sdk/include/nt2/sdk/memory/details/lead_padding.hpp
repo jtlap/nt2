@@ -20,6 +20,17 @@
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class Origin>
+  struct hierarchy_of< nt2::memory::lead_padding, Origin>
+  {
+    typedef nt2::ext::padding_<nt2::memory::lead_padding>  base;
+    typedef nt2::ext::padding_<nt2::memory::lead_padding>  type;
+  };
+} } }
+
+
 namespace nt2 { namespace ext
 {
   template<class A0, class A2, class Dummy>
