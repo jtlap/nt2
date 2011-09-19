@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 
-#include <nt2/sdk/meta/logical.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/rem_pio2_medium.hpp>
@@ -48,10 +47,10 @@ namespace nt2
     namespace internal
     {
       template< class A0
-		, class unit_tag
-		, class style
-		, class mode
-		, class base_A0 = typename meta::scalar_of<A0>::type
+                , class unit_tag
+                , class style
+                , class mode
+                , class base_A0 = typename meta::scalar_of<A0>::type
       >
       struct trig_reduction;
     }
@@ -106,20 +105,19 @@ namespace nt2
       struct trig_reduction < A0, radian_tag,  tag::not_simd_type, mode, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
-        typedef typename meta::logical<A0>::type               logic;
-	
-        static inline logic isalreadyreduced(const A0&a0) { return le(a0, Pio_4<A0>()); }
+        
+        static inline bool isalreadyreduced(const A0&a0) { return le(a0, Pio_4<A0>()); }
 
-        static inline logic ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
-        static inline logic issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
-        static inline logic islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
-        static inline logic conversion_allowed(){
-	  typedef typename meta::upgrade<A0>::type uA0;
-	  return boost::mpl::not_<boost::is_same<A0,uA0> >::value; 
-	}
+        static inline bool ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
+        static inline bool issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
+        static inline bool islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
+        static inline bool conversion_allowed(){
+          typedef typename meta::upgrade<A0>::type uA0;
+          return boost::mpl::not_<boost::is_same<A0,uA0> >::value; 
+        }
 
-	static inline logic cot_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
-	static inline logic tan_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
+        static inline bool cot_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
+        static inline bool tan_invalid(const A0& x) { return False<A0>()/*is_invalid(x)*/; }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
@@ -127,106 +125,106 @@ namespace nt2
         {
           // x is always positive here
           if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
-	    {
-	      xr = x;
-	      xc = Zero<A0>();
-	      return Zero<int_type>(); 
-	    }
+            {
+              xr = x;
+              xc = Zero<A0>();
+              return Zero<int_type>(); 
+            }
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-	    return rem_pio2_straight(x, xr, xc);
+            return rem_pio2_straight(x, xr, xc);
           else if (issmall(x)) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-	    return rem_pio2_cephes(x, xr, xc);
+            return rem_pio2_cephes(x, xr, xc);
           else if (ismedium(x)) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
-	    return rem_pio2_medium(x, xr, xc);
+            return rem_pio2_medium(x, xr, xc);
           else if (conversion_allowed())  // all of x are in [0, 2^18*pi],  conversion to double is used to reduce if available
-	    {
-	      typedef typename meta::upgrade<A0>::type uA0; 
-	      typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
-	      uA0 ux = x, uxr, uxc; 
-	      int_type n = aux_reduction::reduce(ux, uxr, uxc);
-	      xr = uxr;
-	      xc = (uxr-xr)+uxc;
-	      return n; 
-	    }
+            {
+              typedef typename meta::upgrade<A0>::type uA0; 
+              typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
+              uA0 ux = x, uxr, uxc; 
+              int_type n = aux_reduction::reduce(ux, uxr, uxc);
+              xr = uxr;
+              xc = (uxr-xr)+uxc;
+              return n; 
+            }
           else  // all of x are in [0, inf],  standard big way // too long
-	    return rem_pio2(x, xr, xc);
+            return rem_pio2(x, xr, xc);
         }
 
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const medium&)
         {
           // x is always positive here
           if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
-	    {
-	      xr = x;
-	      xc = Zero<A0>();
-	      return Zero<int_type>(); 
-	    }
+            {
+              xr = x;
+              xc = Zero<A0>();
+              return Zero<int_type>(); 
+            }
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-	    {
-	      return rem_pio2_straight(x, xr, xc);
-	    }
+            {
+              return rem_pio2_straight(x, xr, xc);
+            }
           else if (issmall(x)) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-	    {
-	      return rem_pio2_cephes(x, xr, xc);
-	    }
+            {
+              return rem_pio2_cephes(x, xr, xc);
+            }
           else  // correct only if all of x are in [0, 2^7*pi/2],  fdlibm medium way
-	    {
-	      return rem_pio2_medium(x, xr, xc);
-	    }
+            {
+              return rem_pio2_medium(x, xr, xc);
+            }
         }
-	
+        
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const small&)
         {
           // x is always positive here
           if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
-	    {
-	      xr = x;
-	      xc = Zero<A0>();
-	      return Zero<int_type>(); 
-	    }
+            {
+              xr = x;
+              xc = Zero<A0>();
+              return Zero<int_type>(); 
+            }
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
-	    return rem_pio2_straight(x, xr, xc);
+            return rem_pio2_straight(x, xr, xc);
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
-	    return rem_pio2_cephes(x, xr, xc);
+            return rem_pio2_cephes(x, xr, xc);
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_small&)
         {
-	  return rem_pio2_cephes(x, xr, xc);
+          return rem_pio2_cephes(x, xr, xc);
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_medium&)
         {
-	  return rem_pio2_medium(x, xr, xc);
+          return rem_pio2_medium(x, xr, xc);
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
         {
-	  if (conversion_allowed()) // conversion to double is used to reduce time, if available
-	    {
-	      typedef typename meta::upgrade<A0>::type uA0; 
-	      typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
-	      uA0 ux = x, uxr, uxc; 
-	      int_type n = aux_reduction::reduce(ux, uxr, uxc);
-	      xr = uxr;
-	      xc = (uxr-xr)+uxc;
-	      return n; 
-	    }
+          if (conversion_allowed()) // conversion to double is used to reduce time, if available
+            {
+              typedef typename meta::upgrade<A0>::type uA0; 
+              typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
+              uA0 ux = x, uxr, uxc; 
+              int_type n = aux_reduction::reduce(ux, uxr, uxc);
+              xr = uxr;
+              xc = (uxr-xr)+uxc;
+              return n; 
+            }
           else
-	    return nt2::rem_pio2(x, xr, xc);
+            return nt2::rem_pio2(x, xr, xc);
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
         {
-	  xr = select(isalreadyreduced(x), x, Nan<A0>());
-	  xc = Zero<A0>();
-	  return Zero<int_type>(); 
+          xr = select(isalreadyreduced(x), x, Nan<A0>());
+          xc = Zero<A0>();
+          return Zero<int_type>(); 
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
         {
-	  xr = select(issmall(x), x, Nan<A0>());
-	  return inner_reduce(xr, xr, xc, small()); 
+          xr = select(issmall(x), x, Nan<A0>());
+          return inner_reduce(xr, xr, xc, small()); 
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
         {
-	  xr = select(ismedium(x), x, Nan<A0>());
-	  return inner_reduce(xr, xr, xc, medium()); 
+          xr = select(ismedium(x), x, Nan<A0>());
+          return inner_reduce(xr, xr, xc, medium()); 
         }
       };
 
@@ -234,35 +232,34 @@ namespace nt2
       struct trig_reduction<A0,degree_tag, tag::not_simd_type,big, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
-        typedef typename meta::logical<A0>::type            logic;
 
-        static inline logic cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x/_180<A0>())); }
-        static inline logic tan_invalid(const A0& x) { return is_flint((x-_90<A0>())/_180<A0>()); }
+        static inline bool cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x/_180<A0>())); }
+        static inline bool tan_invalid(const A0& x) { return is_flint((x-_90<A0>())/_180<A0>()); }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
         {
           A0 xi = round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
           A0 x2 = x - xi * _90<A0>();
-	  
+          
           xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
           xc = Zero<A0>();
           return toint(xi);
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
         {
-	  xr = select(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
-	  xc = Zero<A0>();
-	  return Zero<int_type>(); 
+          xr = select(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
+          xc = Zero<A0>();
+          return Zero<int_type>(); 
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
         {
-	  x = select(issmall(nt2::abs(x)), x, Nan<A0>());
-	  return inner_reduce(x, xr, xc, small()); 
+          x = select(issmall(nt2::abs(x)), x, Nan<A0>());
+          return inner_reduce(x, xr, xc, small()); 
         }
-	static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
         {
-	  x = select(ismedium(nt2::abs(x)), x, Nan<A0>());
-	  return inner_reduce(x, xr, xc, medium()); 
+          x = select(ismedium(nt2::abs(x)), x, Nan<A0>());
+          return inner_reduce(x, xr, xc, medium()); 
         }
       };
 
@@ -270,38 +267,9 @@ namespace nt2
        struct trig_reduction < A0, pi_tag,  tag::not_simd_type, big, float>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
-        typedef typename meta::logical<A0>::type            logic;
 
-        ////////////////////////////////////////////////////////////////////////
-        // floats x greater than 2^23 are integers so
-        // sin(pi*x) and tan(pi*x) are thus 0
-        // cos(pi*x) is thus (-1)^x
-        // cotpi*x) is thus Nan
-        ////////////////////////////////////////////////////////////////////////
-//         static inline logic replacement_needed(const A0& a0)
-//         {
-//           return b_andnot(gt(a0,single_constant<A0,0x4b000000>()), is_invalid(a0)); //2^23
-//           // TODO: isn't it a registered constant ^
-//         }
-
-//         static inline logic replacement_available() { return True<A0>(); }
-
-//         static inline A0 cos_replacement(const A0& a0)
-//         {
-//           return One<A0>()-(is_odd(a0)<<1); // TODO << 1 is maybe bad in SSEx
-//         }
-
-//         static inline A0 sin_replacement(const A0& )  { return Zero<A0>(); }
-//         static inline A0 tan_replacement(const A0& )  { return Zero<A0>(); }
-//         static inline A0 cot_replacement(const A0& )  { return Nan<A0>();  }
-
-//         static inline void sincos_replacement(const A0& a0, A0&s, A0&c)
-//         {
-//           c = cos_replacement(a0);
-//           s = sin_replacement(a0);
-//         }
-        static inline logic cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_flint(x)); }
-        static inline logic tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_flint(x-Half<A0>()) ; }
+        static inline bool cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_flint(x)); }
+        static inline bool tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_flint(x-Half<A0>()) ; }
 
         static inline int_type reduce(const A0& x,  A0& xr, A0&xc)
         {
