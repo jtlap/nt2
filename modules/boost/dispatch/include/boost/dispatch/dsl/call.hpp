@@ -31,29 +31,10 @@
 namespace boost { namespace dispatch { namespace tag
 {
   struct ast_ {};
-} } }
+}
 
-namespace boost { namespace dispatch { namespace meta
+namespace meta
 {
-  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION((boost)(dispatch)(meta), Func, tag::formal_
-                        , (Func)(A0)
-                        , (target_< ast_<A0> >)
-                        )
-  {
-    typedef typename proto::domain_of<typename A0::type>::type  domain;
-    typedef as_<typename semantic_of<typename A0::type>::type>  value;
-   
-    typedef typename proto::result_of::
-            make_expr<Func, domain, const value&>::type         result_type;
-   
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(A0 const& a0) const
-    {
-      return boost::proto::detail::
-             make_expr_<Func, domain, const value&>()(value());
-    }
-  };
-  
   template<class T>
   struct as_ref
   {
@@ -107,7 +88,7 @@ struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
   typedef typename boost::proto::result_of::                                   \
   make_expr < Func                                                             \
             , boost::proto::deduce_domain                                      \
-            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename as_ref<A, >::type BOOST_PP_INTERCEPT)                                       \
+            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename as_ref<A, >::type BOOST_PP_INTERCEPT) \
             >::type type;                                                      \
 };                                                                             \
 template<BOOST_PP_ENUM_PARAMS(n,class A)>                                      \
