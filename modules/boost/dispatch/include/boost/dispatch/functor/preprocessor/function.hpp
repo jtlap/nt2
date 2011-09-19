@@ -13,9 +13,11 @@
 // Various macro for boilerplating function code writing
 // Documentation: http://nt2.lri.fr/sdk/functor/macros/function.html
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/make_functor.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/dispatch/attributes.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a function prototype from NAME, TAG and Number of parameters

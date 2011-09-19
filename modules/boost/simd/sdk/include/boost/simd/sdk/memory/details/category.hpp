@@ -40,32 +40,20 @@ namespace boost { namespace dispatch { namespace details
                       >
   {
     typedef typename boost::pointee<T>::type                        pointee_type;
+    typedef typename meta::hierarchy_of<pointee_type, Origin>::base base;
     typedef meta::iterator_ < typename
                               meta::hierarchy_of<pointee_type,Origin>::type > type;
   };
+}
 
-  template<> struct  hierarchy_of<void*>
+namespace meta
+{
+  template<class Origin>
+  struct  hierarchy_of<void*, Origin>
   {
-    typedef meta::iterator_< meta::hierarchy_of<void,void*>::type > type;
+    typedef meta::void_<Origin>                       base;
+    typedef meta::iterator_<meta::generic_<base> >    type;
   };
 } } }
 
-namespace boost { namespace dispatch { namespace meta
-{
-  //============================================================================
-  // Same property than T
-  //============================================================================
-  template<class T, class Origin>
-  struct  property_of < T
-                      , Origin
-                      , typename boost::
-                        enable_if< is_iterator<T> >::type
-                      >
-        : property_of<typename boost::pointee<T>::type, Origin>
-  {};
-
-  template<class Origin>
-  struct  property_of<void*, Origin> : property_of<void, Origin>
-  {};
-} } }
 #endif

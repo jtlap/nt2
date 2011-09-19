@@ -9,68 +9,69 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
 
-#include <boost/dispatch/dsl/category.hpp>
-#include <boost/dispatch/dsl/proto/extends.hpp>
-#include <boost/simd/sdk/simd/meta/extension_of.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/simd/sdk/simd/pack/domain.hpp>
+#include <boost/simd/sdk/simd/pack/evaluate.hpp>
+#include <boost/simd/include/functions/assign.hpp>
+#include <boost/proto/extends.hpp>
 
 namespace boost { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////
   // Here is the domain-specific expression wrapper
   ////////////////////////////////////////////////////////////////////////////
-  template<class Expr,class Type,class Cardinal,class Dummy>
+  template<class Expr, class ResultType, class Dummy>
   struct  expression
   {
-    BOOST_PROTO_BASIC_EXTENDS_TPL(Expr, (expression<Expr, Type, Cardinal>)
-                                      , (domain<Type, Cardinal>))
+    BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
 
-    ////////////////////////////////////////////////////////////////////////////
-    // expression hierarchy of simd:::expression
-    ////////////////////////////////////////////////////////////////////////////
-    typedef typename
-    dispatch::details::hierarchy_of_expr<expression>::type dispatch_hierarchy_tag;
-
-    ////////////////////////////////////////////////////////////////////////////
-    // FusionRandomAccessSequence interface
-    ////////////////////////////////////////////////////////////////////////////
-    typedef pack<Type,Cardinal::value>              data_type;
-    typedef typename data_type::value_type          value_type;
-    typedef typename data_type::reference           reference;
-    typedef typename data_type::const_reference     const_reference;
-    typedef typename data_type::size_type           size_type;
-    typedef typename data_type::iterator            iterator;
-    typedef typename data_type::const_iterator      const_iterator;
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Array interface
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_STATIC_CONSTANT(size_type, static_size = Cardinal::value);
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Range interface
-    ////////////////////////////////////////////////////////////////////////////
-    const_iterator  begin()  const
+    // Assignment operators force evaluation
+    BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(expression const& xpr)
     {
-      data_type that;
-      that.evaluate(*this);
-      return that.begin();
+      boost::simd::evaluate(
+        assign(*this, xpr)
+      );
+      return *this;
+    }
+    
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(Xpr const& xpr)
+    {
+      boost::simd::evaluate(
+        assign(*this, xpr)
+      );
+      return *this;
     }
 
-    const_iterator  end()    const
-    {
-      data_type that;
-      that.evaluate(*this);
-      return that.end();
-    }
+    #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                               \
+    template<class X>                                                   \
+    BOOST_DISPATCH_FORCE_INLINE                                         \
+    expression& operator BOOST_PP_CAT(OP,=)(X const& xpr)               \
+    {                                                                   \
+      return *this = *this OP xpr;                                      \
+    }                                                                   \
+    /**/
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Extract element
-    ////////////////////////////////////////////////////////////////////////////
-    const_reference operator[](int i)     const
+    BOOST_SIMD_MAKE_ASSIGN_OP(+)
+    BOOST_SIMD_MAKE_ASSIGN_OP(-)
+    BOOST_SIMD_MAKE_ASSIGN_OP(*)
+    BOOST_SIMD_MAKE_ASSIGN_OP(/)
+    BOOST_SIMD_MAKE_ASSIGN_OP(%)
+    BOOST_SIMD_MAKE_ASSIGN_OP(^)
+    BOOST_SIMD_MAKE_ASSIGN_OP(&)
+    BOOST_SIMD_MAKE_ASSIGN_OP(|)
+    BOOST_SIMD_MAKE_ASSIGN_OP(>>)
+    BOOST_SIMD_MAKE_ASSIGN_OP(<<)
+
+    #undef BOOST_SIMD_MAKE_ASSIGN_OP
+
+    // Conversion operator forces evaluation
+    BOOST_DISPATCH_FORCE_INLINE
+    operator ResultType() const
     {
-      data_type that;
-      that.evaluate(*this);
-      return that[i];
+      return boost::simd::evaluate(*this);
     }
   };
 } }

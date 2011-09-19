@@ -9,23 +9,14 @@
 #ifndef BOOST_DISPATCH_META_DETAILS_HIERARCHY_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_DETAILS_HIERARCHY_OF_HPP_INCLUDED
 
-#include <boost/utility/enable_if.hpp>
+#include <boost/dispatch/meta/details/scalar.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
-#include <boost/dispatch/meta/details/scalar.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {
-  //============================================================================
-  // Base case for unknown types
-  //============================================================================
-  template<class T, class Origin = T, class Enable = void>
-  struct  hierarchy_of
-  {
-    typedef meta::unspecified_<typename meta::strip<Origin>::type> type;
-  };
-
   //============================================================================
   // Overload for fundamental types
   //============================================================================
@@ -36,7 +27,8 @@ namespace boost { namespace dispatch { namespace details
                         boost::enable_if< boost::is_fundamental<T> >::type
                       >
   {
-    typedef meta::scalar_< typename property_of<T,Origin>::type > type;
+    typedef typename meta::property_of<T, Origin>::type  base;
+    typedef meta::scalar_<base>                          type;
   };
 } } }
 

@@ -9,23 +9,107 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_GENERATOR_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_GENERATOR_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/proto/select.hpp>
+#include <boost/proto/traits.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+
 namespace boost { namespace simd
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // SIMD Expression use a template parameters so proto generator is extended
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Type,class Cardinal> struct generator
+  namespace details
   {
-    template<class Sig> struct result;
-    template<class This, class Expr>
-    struct result<This(Expr)> { typedef expression<Expr,Type,Cardinal> type; };
-
-    template<class Expr>
-    expression<Expr,Type,Cardinal> const operator()(Expr const &xpr) const
+    struct generator_cases
     {
-      expression<Expr,Type,Cardinal> const that = {xpr};
-      return that;
-    }
+      template<int N>
+      struct case_c_;
+        
+      template<class N>
+      struct case_ : case_c_<N::value> {};
+    };
+    
+    #define M0(z, n, t)                                                        \
+    template<>                                                                 \
+    struct generator_cases::case_c_<n>                                         \
+     : proto::transform<generator_cases::case_c_<n> >                          \
+    {                                                                          \
+      template<class Expr, class State, class Data>                            \
+      struct impl : proto::transform_impl<Expr, State, Data>                   \
+      {                                                                        \
+        typedef expression< typename impl::expr                                \
+                          , typename dispatch::meta::                          \
+                            call< typename proto::                             \
+                                  tag_of<typename impl::expr>::type            \
+                                  (                                            \
+                                    BOOST_PP_ENUM(n, M1, ~)                    \
+                                  )                                            \
+                                >::type                                        \
+                          > result_type;                                       \
+                                                                               \
+        BOOST_DISPATCH_FORCE_INLINE                                            \
+        result_type                                                            \
+        operator()( typename impl::expr_param e                                \
+                  , typename impl::state_param s                               \
+                  , typename impl::data_param d                                \
+                  ) const                                                      \
+        {                                                                      \
+          result_type const that = {e};                                        \
+          return that;                                                         \
+        }                                                                      \
+      };                                                                       \
+    };                                                                         \
+    /**/
+    
+    #define M1(z, n, t)                                                        \
+    typename dispatch::meta::                                                  \
+    semantic_of< typename proto::result_of::                                   \
+                 child_c<typename impl::expr, n>::type                         \
+               >::type                                                         \
+    /**/
+    
+    BOOST_PP_REPEAT_FROM_TO(1, BOOST_DISPATCH_MAX_ARITY, M0, ~)
+    
+    #undef M1
+    #undef M0
+    
+    // terminal case
+    template<>
+    struct generator_cases::case_c_<0>
+     : proto::transform<generator_cases::case_c_<0> >
+    {
+      template<class Expr, class State, class Data>
+      struct impl : proto::transform_impl<Expr, State, Data>
+      {
+        typedef expression< typename impl::expr
+                          , typename dispatch::meta::
+                            call< typename proto::
+                                  tag_of<typename impl::expr>::type
+                                  (
+                                    typename proto::result_of::
+                                    value<typename impl::expr>::type
+                                  )
+                                >::type
+                          > result_type;
+
+        BOOST_DISPATCH_FORCE_INLINE
+        result_type
+        operator()( typename impl::expr_param e
+                  , typename impl::state_param s
+                  , typename impl::data_param d
+                  ) const
+        {
+          result_type const that = {e};
+          return that;
+        }
+      };
+    };
+  }
+  
+  struct generator
+    : proto::select_< details::generator_cases, proto::arity_of<proto::_>() >
+  {
   };
 } }
 

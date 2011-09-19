@@ -9,14 +9,14 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
-#include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
-#include <boost/simd/sdk/simd/pack/evaluation.hpp>
+#include <boost/simd/sdk/simd/pack/evaluate.hpp>
+#include <boost/simd/include/functions/assign.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
-#include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <boost/dispatch/meta/is_iterator.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
+#include <boost/dispatch/dsl/call.hpp>
+#include <boost/simd/sdk/simd/pack/call.hpp>
+#include <boost/proto/extends.hpp>
 
 namespace boost { namespace simd
 {
@@ -24,18 +24,14 @@ namespace boost { namespace simd
   // pack, implemented in terms of simd::expr via non-inheritance to preserve
   // PODness of pack throughout the whole system.
   ////////////////////////////////////////////////////////////////////////////
-  template<class Type,std::size_t Cardinal,class Dummy>
+  template<class Type, std::size_t Cardinal, class Dummy>
   struct  pack
   {
-    BOOST_PROTO_BASIC_EXTENDS_TPL( (typename boost::proto::
-                                    terminal< typename meta::
-                                                       vector_of< Type
-                                                                , boost::mpl::
-                                                                         size_t<Cardinal>::value
-                                                                >::type
-                                            >::type)
-                                 , (pack<Type,Cardinal>)
-                                 , (domain<Type,boost::mpl::size_t<Cardinal> >))
+    typedef typename
+    meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type data_type;
+    typedef typename proto::terminal<data_type>::type expr_type;
+    
+    BOOST_PROTO_BASIC_EXTENDS(expr_type, pack, domain)
 
     //==========================================================================
     /*
@@ -46,96 +42,34 @@ namespace boost { namespace simd
     ( (meta::is_power_of_2_c<Cardinal>::value)
     , INVALID_SIMD_PACK_CARDINAL
     , (boost::mpl::int_<Cardinal>)
-    ); 
-    
-    ////////////////////////////////////////////////////////////////////////////
-    // Data holder of pack terminals
-    ////////////////////////////////////////////////////////////////////////////
-    typedef typename
-    meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type data_type;
+    );
 
-    ////////////////////////////////////////////////////////////////////////////
-    // expression hierarchy of simd:::expression
-    ////////////////////////////////////////////////////////////////////////////
-    typedef typename
-    dispatch::details::hierarchy_of_expr<pack>::type  dispatch_hierarchy_tag;
-    typedef data_type                                 dispatch_semantic_tag;
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Range interface
-    ////////////////////////////////////////////////////////////////////////////
-    typedef typename data_type::value_type      value_type;
-    typedef typename data_type::reference       reference;
-    typedef typename data_type::const_reference const_reference;
-    typedef typename data_type::size_type       size_type;
-    typedef typename data_type::iterator        iterator;
-    typedef typename data_type::const_iterator  const_iterator;
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Array interface
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_STATIC_CONSTANT(size_type, static_size = data_type::static_size);
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Assignments
-    ////////////////////////////////////////////////////////////////////////////
-    pack& operator=(pack const& src)
+    // Assignment operators force evaluation
+    BOOST_DISPATCH_FORCE_INLINE
+    pack& operator=(pack const& xpr)
     {
-      boost::proto::value(*this) = boost::proto::value(src);
+      boost::simd::evaluate(
+        assign(*this, xpr)
+      );
       return *this;
     }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Array Interface
-    ////////////////////////////////////////////////////////////////////////////
-    reference  operator[](int i)
+    
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE
+    pack& operator=(Xpr const& xpr)
     {
-      return boost::proto::value(*this)[i];
-    }
-
-    const_reference  operator[](int i) const
-    {
-      return boost::proto::value(*this)[i];
-    }
-
-    void fill(Type const& a0)
-    {
-      fill(a0, typename meta::is_native<data_type>::type());
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Range interface
-    ////////////////////////////////////////////////////////////////////////////
-    iterator        begin()         { return boost::proto::value(*this).begin(); }
-    iterator        end()           { return boost::proto::value(*this).end();   }
-    const_iterator  begin()  const  { return boost::proto::value(*this).begin(); }
-    const_iterator  end()    const  { return boost::proto::value(*this).end();   }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Immutable access to underlying value
-    ////////////////////////////////////////////////////////////////////////////
-    data_type const& value() const { return boost::proto::value(*this); }
-
-    template<class X> void evaluate(X const& xpr)
-    {
-      boost::simd::evaluate(boost::proto::value(*this), xpr);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // SIMD expression evaluates as pack in assignment context
-    // TODO: fix to use obliviosu AST evaluation
-    ////////////////////////////////////////////////////////////////////////////
-    template<class X> pack& operator=(X const& xpr )
-    {
-      evaluate(xpr);
+      boost::simd::evaluate(
+        assign(*this, xpr)
+      );
       return *this;
     }
 
     #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                               \
-    template<class X> pack& operator BOOST_PP_CAT(OP,=)(X const& xpr )  \
+    template<class X>                                                   \
+    BOOST_DISPATCH_FORCE_INLINE                                         \
+    pack& operator BOOST_PP_CAT(OP,=)(X const& xpr)                     \
     {                                                                   \
-      evaluate(*this OP xpr);                                           \
-      return *this;                                                     \
+      return *this = *this OP xpr;                                      \
     }                                                                   \
     /**/
 
@@ -152,16 +86,11 @@ namespace boost { namespace simd
 
     #undef BOOST_SIMD_MAKE_ASSIGN_OP
 
-    private :
-
-    void fill(Type const& a0, boost::mpl::true_ const&)
+    // Conversion operator forces evaluation
+    BOOST_DISPATCH_FORCE_INLINE
+    operator data_type() const
     {
-      boost::proto::value(*this) = splat<data_type>(a0);
-    }
-
-    void fill(Type const& a0, boost::mpl::false_ const&)
-    {
-      boost::proto::value(*this).fill(a0);
+      return boost::simd::evaluate(*this);
     }
   };
 } }

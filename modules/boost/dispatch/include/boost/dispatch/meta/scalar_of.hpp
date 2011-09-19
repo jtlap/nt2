@@ -11,13 +11,18 @@
 
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {
-  template<class T, class Hierarchy> struct scalar_of_impl { typedef T type; };
-} } }
+  template<class T, class Hierarchy>
+  struct scalar_of_impl
+    : meta::primitive_of<T>
+  {
+  };
+}
 
-namespace boost { namespace dispatch { namespace meta
+namespace meta
 {
   template<class T>
   struct  scalar_of

@@ -6,24 +6,21 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_COMMA_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_COMMA_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_PACK_META_CARDINAL_OF_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_PACK_META_CARDINAL_OF_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/functions/comma.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/mpl/size_t.hpp>
 
-namespace boost { namespace simd { namespace ext
+namespace boost { namespace simd { namespace meta
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::comma_, tag::cpu_, (A0)(A1)
-                            , (generic_<unspecified_<A0> >)
-                              (generic_<unspecified_<A1> >)
-                            )
+  template< class Type
+          , std::size_t Cardinal
+          >
+  struct cardinal_of< boost::simd::pack<Type, Cardinal> >
+    : mpl::size_t<Cardinal>
   {
-    typedef A1 result_type;
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0&, const A1& a1) const
-    {
-      return a1;
-    }
   };
 } } }
 

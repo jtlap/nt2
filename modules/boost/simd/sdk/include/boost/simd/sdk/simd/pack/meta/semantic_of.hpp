@@ -6,30 +6,30 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_CATEGORY_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_CATEGORY_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_PACK_META_SEMANTIC_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_PACK_META_SEMANTIC_HPP_INCLUDED
 
-#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T, class X>
-  struct simd_ : simd_< typename T::parent, X >
+  template< class Expression
+          , class ResultType
+          >
+  struct semantic_of< simd::expression<Expression, ResultType> >
   {
-    typedef simd_< typename T::parent, X >  parent;
+    typedef ResultType type;
   };
 
-  template<class T,class X>
-  struct  simd_< unspecified_<T>, X >
-        : generic_< typename hierarchy_of<T>::base >
+  template< class Type
+          , std::size_t Cardinal
+          >
+  struct semantic_of< simd::pack<Type, Cardinal> >
   {
-    typedef generic_< typename hierarchy_of<T>::base > parent;
+    typedef typename simd::pack<Type, Cardinal>::data_type type;
   };
-} } }
-
-namespace boost { namespace simd { namespace ext
-{
-  using boost::dispatch::meta::simd_;
+  
 } } }
 
 #endif

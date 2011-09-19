@@ -71,7 +71,6 @@ namespace ext
   
   using boost::dispatch::meta::ast_;
   using boost::dispatch::meta::expr_;
-  using boost::dispatch::meta::domain_;
   
   using boost::dispatch::meta::array_;
   using boost::dispatch::meta::fusion_sequence_;

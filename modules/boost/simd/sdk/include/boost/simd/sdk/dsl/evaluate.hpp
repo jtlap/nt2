@@ -6,16 +6,18 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_DSL_EVALUATION_HPP_INCLUDED
-#define BOOST_SIMD_SDK_DSL_EVALUATION_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_DSL_EVALUATE_HPP_INCLUDED
+#define BOOST_SIMD_SDK_DSL_EVALUATE_HPP_INCLUDED
 
-#include <boost/dispatch/functor/functor.hpp>
+#include <boost/dispatch/functor/preprocessor/function.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag { struct evaluate_ {}; }
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::evaluate_, evaluate, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::evaluate_, evaluate, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::evaluate_, evaluate, (A0 const&)(A1&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::evaluate_, evaluate, (A0 const&)(A1&)(A2 const&), 3)
 } }
 
 #endif

@@ -25,24 +25,28 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
-                            , (A0)(A1)(A2)(T)(C)(Sema)
+                            , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< expr_< A2
-                                              , domain_< boost::simd::domain<T,C> >
-                                              , tag::terminal_
-                                              , Sema
-                                              >
-                                       >
-                              ))
+                              (target_< ast_<A2> >)
                             )
   {
-    typedef typename A2::type result_type;
-    inline result_type operator()(A0 const& a0, A1 const&a1,
-                                  A2 const&)const 
-      {
-        return result_type(a0,a1);
-      }
+    typedef typename proto::domain_of<typename A2::type>::type  domain;
+    typedef dispatch::meta::
+            as_<typename dispatch::meta::
+                semantic_of<typename A2::type>::type
+               >  value;
+   
+    typedef typename proto::result_of::
+            make_expr<tag::load_, domain, const A0&, const A1&, const value&>::type
+    result_type;
+   
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(A0 const& a0, A1 const& a1, A2 const&) const
+    {
+      return boost::proto::detail::
+             make_expr_<tag::load_, domain, const A0&, const A1&, const value&>()(a0, a1, value());
+    }
   };
 } } }
 
@@ -53,25 +57,28 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
-                            , (A0)(A1)(A2)(T)(C)(Sema)(A3)
+                            , (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< expr_< A2
-                                              , domain_< boost::simd::domain<T,C> >
-                                              , tag::terminal_
-                                              , Sema
-                                              >
-                                       >
-                              ))
+                              (target_< ast_<A2> >)
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
-    typedef typename A2::type result_type;
-
-    inline result_type operator()(A0 const& a0, A1 const&a1,
-                                  A2 const&, A3 const& a3)const 
+    typedef typename proto::domain_of<typename A2::type>::type  domain;
+    typedef dispatch::meta::
+            as_<typename dispatch::meta::
+                semantic_of<typename A2::type>::type
+               >  value;
+   
+    typedef typename proto::result_of::
+            make_expr<tag::load_, domain, const A0&, const A1&, const value&, const A3&>::type
+    result_type;
+   
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(A0 const& a0, A1 const& a1, A2 const&, A3 const& a3) const
     {
-      return result_type(a0,a1,a3);
+      return boost::proto::detail::
+             make_expr_<tag::load_, domain, const A0&, const A1&, const value&, const A3&>()(a0, a1, value(), a3);
     }
   };
 } } }

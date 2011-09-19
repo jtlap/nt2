@@ -23,7 +23,6 @@ SET( SOURCES
     native_cast.cpp
     scalar_of.cpp
     sign_of.cpp
-    terminal_of.cpp
     upgrade.cpp
    )
 

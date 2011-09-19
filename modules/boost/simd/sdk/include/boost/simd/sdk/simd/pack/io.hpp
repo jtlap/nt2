@@ -10,36 +10,28 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_IO_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/io.hpp>
+#include <boost/simd/sdk/simd/pack/evaluate.hpp>
 
 namespace boost { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////
   // Stream insertion for pack<T,C>
   ////////////////////////////////////////////////////////////////////////////
-  template<class T,std::size_t C> inline std::ostream&
-  operator<<(std::ostream& os, pack<T,C> const& v )
+  template<class T,std::size_t C>
+  BOOST_DISPATCH_FORCE_INLINE
+  std::ostream& operator<<(std::ostream& os, pack<T,C> const& v )
   {
-    // We want to display (u)int8_t as a number
-    typedef typename
-            boost::mpl::if_c< (sizeof(T)==1), int, T>::type display_type;
-
-    os << "{";
-    for(std::size_t i=0;i<C-1;++i)
-      os << static_cast<display_type>(v[i]) << ",";
-    os << static_cast<display_type>(v[C-1]) << "}";
-    return os;
+    return os << evaluate(v);
   }
-
 
   ////////////////////////////////////////////////////////////////////////////
   // Stream insertion for SIMD expression
   ////////////////////////////////////////////////////////////////////////////
-  template<class X,class T,class C> inline std::ostream&
-  operator<<(std::ostream& os, expression<X,T,C> const& v )
+  template<class X,class T,class C>
+  BOOST_DISPATCH_FORCE_INLINE
+  std::ostream& operator<<(std::ostream& os, expression<X,T,C> const& v )
   {
-    pack<T,C::value> that(v);
-    os << that;
-    return os;
+    return os << evaluate(v);
   }
 
 } }

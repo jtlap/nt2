@@ -6,23 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_COMMA_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_COMMA_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_ASSIGN_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_ASSIGN_HPP_INCLUDED
 
-#include <boost/simd/toolbox/operator/functions/comma.hpp>
+#include <boost/simd/toolbox/operator/functions/assign.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::comma_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::assign_, tag::cpu_, (A0)(A1)
                             , (generic_<unspecified_<A0> >)
                               (generic_<unspecified_<A1> >)
                             )
   {
-    typedef A1 result_type;
+    typedef A0& result_type;
+    
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0&, const A1& a1) const
+    result_type operator()(A0& a0, const A1& a1) const
     {
-      return a1;
+      return a0 = a1;
     }
   };
 } } }

@@ -21,38 +21,39 @@
 // select at each lattice node which ancestor to use.
 //////////////////////////////////////////////////////////////////////////////
 
-#include <climits>
+#include <boost/dispatch/meta/details/hierarchy_base.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/meta/enable_if_type.hpp>
-#include <boost/dispatch/meta/details/hierarchy_of.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch { namespace details
+{
+  template<class T, class Origin = T, class Enable = void>
+  struct  hierarchy_of
+  {
+    typedef meta::unspecified_<Origin> base;
+    typedef meta::unspecified_<Origin> type;
+  };
+}
+    
+namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
   // hierarchy_of computes the entry point of a given type inside the type
   // hierarchy lattice.
   //////////////////////////////////////////////////////////////////////////////
-  template<class T, class Origin = T, class Enable = void>
+  template<class T, class Origin = T>
   struct  hierarchy_of
-        : details::hierarchy_of < typename meta::strip<T>::type
-                                , typename meta::strip<Origin>::type
-                                >
+        : details::hierarchy_of< typename meta::strip<T>::type
+                               , typename meta::strip<Origin>::type
+                               >
   {};
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Overload for types with inner hierarchy tag
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Origin>
-  struct  hierarchy_of< T
-                      , Origin
-                      , typename
-                        enable_if_type<typename meta::strip<T>::type
-                                                    ::dispatch_hierarchy_tag
-                                      >::type
-                      >
-  {
-    typedef typename meta::strip<T>::type::dispatch_hierarchy_tag type;
-  };
+  template<class T, class Origin>
+  struct  hierarchy_of<T&, Origin> : hierarchy_of<T, typename meta::strip<Origin>::type> {};
+  
+  template<class T, class Origin>
+  struct  hierarchy_of<T const, Origin> : hierarchy_of<T, typename meta::strip<Origin>::type> {};
 } } }
+
+#include <boost/dispatch/meta/details/hierarchy_of.hpp>
 
 #endif

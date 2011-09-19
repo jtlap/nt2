@@ -11,6 +11,8 @@
 
 #include <boost/simd/sdk/simd/pack/meta/factory_of.hpp>
 #include <boost/simd/sdk/simd/pack/meta/primitive_of.hpp>
+#include <boost/simd/sdk/simd/pack/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/pack/meta/semantic_of.hpp>
 #include <boost/simd/sdk/simd/pack/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/pack/meta/downgrade.hpp>
 
