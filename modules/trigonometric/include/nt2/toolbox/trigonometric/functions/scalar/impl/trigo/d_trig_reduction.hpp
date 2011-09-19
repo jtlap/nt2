@@ -16,6 +16,7 @@
 #include <nt2/include/functions/rem_pio2.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/is_even.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/rec.hpp>

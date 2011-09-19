@@ -11,6 +11,7 @@
 
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

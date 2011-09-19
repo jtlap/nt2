@@ -11,8 +11,7 @@
 #include <nt2/include/functions/powi.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/is_odd.hpp>
-
-
+#include <nt2/include/functions/is_flint.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_

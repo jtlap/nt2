@@ -23,6 +23,11 @@
 #include <nt2/include/functions/select.hpp>  
 #include <nt2/include/functions/is_not_less.hpp>
 #include <nt2/include/functions/is_not_greater.hpp>
+#include <nt2/include/functions/is_greater_equal.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
+#include <nt2/include/functions/is_greater_equal.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/bitwise_andnot.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
