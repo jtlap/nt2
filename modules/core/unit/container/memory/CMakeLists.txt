@@ -13,6 +13,7 @@ SET( SOURCES
   iliffe_buffer.cpp
   pointer_as_buffer.cpp
   vector_as_buffer.cpp
+  sharing.cpp
 # List of scalar test files for toolbox core.memory
    )
 
