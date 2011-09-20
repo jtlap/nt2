@@ -31,11 +31,14 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( all_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -56,7 +59,7 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(all(nt2::Inf<vT>()), nt2::One<sr_t>());
@@ -66,3 +69,28 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(all(nt2::One<vT>()), nt2::One<sr_t>());
   NT2_TEST_EQUAL(all(nt2::Zero<vT>()), nt2::Zero<sr_t>());
 } // end of test for real_
+
+NT2_TEST_CASE_TPL ( all_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
+{
+  using nt2::all;
+  using nt2::tag::all_;
+  using nt2::load; 
+  using boost::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<all_(vT)>::type r_t;
+  typedef typename nt2::meta::call<all_(T)>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+  boost::dispatch::ignore_unused(ulpd);
+
+  // specific values tests
+  NT2_TEST_EQUAL(all(nt2::One<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(all(nt2::Zero<vT>()), nt2::Zero<sr_t>());
+} // end of test for integer_

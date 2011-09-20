@@ -8,7 +8,7 @@
          'rturn' : {
              'default' : 'typename boost::dispatch::meta::logical<T>::type',
             },
-         'simd_types' : ['real_'],
+         'simd_types' : ['real_','integer_'],
          'special' : ['reduction'],  
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
