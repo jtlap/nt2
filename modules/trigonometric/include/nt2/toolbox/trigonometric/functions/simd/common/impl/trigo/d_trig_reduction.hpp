@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMMON_SIMD_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMMON_SIMD_IMPL_TRIGO_D_TRIG_REDUCTION_HPP_INCLUDED
 
-#include <nt2/sdk/meta/logical.hpp>
 #include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/rem_pio2_straight.hpp>
