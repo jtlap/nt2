@@ -11,72 +11,24 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/any.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/constants/true.hpp>
-// take care that is_nez is NECESSARY because the documentation of _mm256_testz_si256/ps/pd
-// is far from being accurate...
-//#include <iostream>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
- {
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::avx_,
-                                     (A0),
-                                     ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                                     )
-   {
-     typedef bool result_type;
-     BOOST_SIMD_FUNCTOR_CALL(1)
-       {
-         //      std::cout << "arith" << !_mm256_testz_si256(is_nez(a0), True<A0>()) << std::endl; 
-         return !_mm256_testz_si256(is_nez(a0), True<A0>());
-       }
-   };
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::avx_,
-                                     (A0),
-                                     ((simd_<uint8_<A0>,boost::simd::tag::avx_>))
-                                     )
-   {
-     typedef bool result_type;
-     BOOST_SIMD_FUNCTOR_CALL(1)
-       {
-         return !_mm256_testz_si256(is_nez(a0), True<A0>());
-       }
-   };
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::avx_,
-                                     (A0),
-                                     ((simd_<int8_<A0>,boost::simd::tag::avx_>))
-                                     )
-   {
-     typedef bool result_type;
-     BOOST_SIMD_FUNCTOR_CALL(1)
-       {
-         return !_mm256_testz_si256(is_nez(a0), True<A0>());
-       }
-   };
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::avx_,
-                                     (A0),
-                                     ((simd_<float_<A0>,boost::simd::tag::avx_>))
-                                     )
-   {
-     typedef bool result_type;
-     BOOST_SIMD_FUNCTOR_CALL(1)
-       {
-         //      std::cout << "ps" << !_mm256_testz_ps(is_nez(a0), True<A0>()) << std::endl; 
-         return !_mm256_testz_ps(is_nez(a0), True<A0>());
-       }
-   };
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::avx_,
-                                     (A0),
-                                     ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                                     )
-   {
-     typedef bool result_type;
-     BOOST_SIMD_FUNCTOR_CALL(1)
-       {
-         //      std::cout << "pd" << !_mm256_testz_pd(is_nez(a0), True<A0>()) << std::endl; 
-         return !_mm256_testz_pd(is_nez(a0), True<A0>());
-       }
-   };
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::avx_,
+                        (A0),
+                        ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                       )
+  {
+    typedef bool result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typedef typename dispatch::meta::as_integer<A0>::type itype;
+      return !_mm256_testz_si256(native_cast<itype>(a0), True<itype>());
+    }
+  };
 } } }  
 #endif
 #endif
