@@ -15,6 +15,7 @@
   * \brief Defines and implements the \c nt2::memory::dereference class
   **/
 //==============================================================================
+#include <boost/fusion/include/at_c.hpp>
 #include <nt2/core/container/meta/reference.hpp>
 
 namespace nt2 { namespace details
