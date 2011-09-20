@@ -390,7 +390,7 @@ namespace nt2 { namespace memory
     typedef value_type*                         data_type;         
 
     iliffe_buffer(Allocator const&  a = Allocator()) 
-    : data_(0), begin_(0), end_(0), alloc_(a) {}    
+    : data_(0), begin_(0), end_(0), sharing_(false),  alloc_(a) {}    
 
     template<typename Sizes, typename Bases> 
     void initialize ( Sizes const&      szs
@@ -407,9 +407,26 @@ namespace nt2 { namespace memory
       }
     }
     
+    template<typename Sizes, typename Bases> 
+    void initialize ( Sizes const&      szs
+                    , Bases const&      bss
+                    , Padding const&    p
+                    , const_iterator const& data
+                    )   
+    {
+      size_type numel = slice<1>(szs,p);
+      if(numel != 0 && data) 
+      {
+        begin_  = data
+        end_    = begin_ + numel;
+        data_   = data - boost::fusion::at_c<0>(bss);
+        sharing_ = true;
+      }
+    }
+    
     ~iliffe_buffer() 
     { 
-      if(begin_) alloc_.deallocate( begin(), end() - begin() );
+      if(!sharing_) alloc_.deallocate( begin(), end() - begin() );
     }
   
     reference       operator[](std::ptrdiff_t i)       { return data_[i]; }
@@ -422,8 +439,9 @@ namespace nt2 { namespace memory
     const_iterator  end()   const { return end_;    }
 
     private:
-    data_type       data_,begin_,end_;
-    Allocator       alloc_;
+    data_type data_,begin_,end_;
+    bool      sharing_;
+    Allocator alloc_;
   };
 } }
 
