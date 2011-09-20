@@ -25,7 +25,7 @@ NT2_TEST_CASE( not_a_buffer )
   using nt2::meta::dimensions_of;
 
   NT2_TEST_EQUAL( dimensions_of<int>::value, 0UL );
-  NT2_TEST_EQUAL( dimensions_of<void*>::value, 0UL );
+  NT2_TEST_EQUAL( dimensions_of<long&>::value, 0UL );
   NT2_TEST_EQUAL( dimensions_of<float const&>::value, 0UL );
 }
 
