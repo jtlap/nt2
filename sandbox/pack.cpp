@@ -18,8 +18,8 @@ int main()
 {
   int array[4] = {1, 2, 3, 4};
     
-  boost::simd::pack<float> r;
-  boost::simd::pack<int>* v = reinterpret_cast<boost::simd::pack<int>*>(array);
+  boost::simd::pack<float, 4> r;
+  boost::simd::pack<int, 4>* v = reinterpret_cast<boost::simd::pack<int, 4>*>(array);
 
   // testing element-wise operations, reductions, display
   r = nt2::tofloat(*v);
@@ -29,7 +29,8 @@ int main()
   std::cout << sum << "\n";
   
   typedef boost::simd::native<float, boost::simd::tag::sse_> native;
-  typedef boost::simd::pack<float> pack;
+  typedef boost::simd::pack<float, 4> pack;
+  typedef boost::simd::pack<int, 4> packi;
   
   // testing functions which return a tuple (compile but doesn't do the right thing)
   boost::fusion::vector2<native, native> t = nt2::sincos(evaluate(r));
@@ -41,23 +42,23 @@ int main()
   std::cout << s << " " << c << std::endl;
 
   // testing constants
-  boost::simd::pack<float> r2;
-  r2 = nt2::Ten<boost::simd::pack<float> >();  
-  r = nt2::tofloat(*v+2)*nt2::Ten<boost::simd::pack<float> >();
+  pack r2;
+  r2 = nt2::Ten<pack>();  
+  r = nt2::tofloat(*v+2)*nt2::Ten<pack>();
   std::cout << r << "\n";
   
   // testing load, store, splat and make
-  boost::simd::pack<int> p;
-  p = boost::simd::load< boost::simd::pack<int> >(&array[0], 0);
+  packi p;
+  p = boost::simd::load<packi>(&array[0], 0);
   std::cout << p << "\n";
   p = p+1;
   boost::simd::store(p, &array[0], 0);
   std::cout << "{ " << array[0] << ", " << array[1] << ", " << array[2] << ", " << array[3] << " }\n";
   
-  p = boost::simd::splat< boost::simd::pack<int> >(0.);
+  p = boost::simd::splat<packi>(0);
   std::cout << p << "\n";
   
-  p = boost::simd::make< boost::simd::pack<int> >(1, 2, 3, 4);
+  p = boost::simd::make<packi>(1, 2, 3, 4);
   std::cout << p << "\n";
   
   // testing cardinal

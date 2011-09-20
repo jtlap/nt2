@@ -19,10 +19,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::avx_
-                            , (A0)(A1)(A2)(A3)(X)
+                            , (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< fundamental_<A2>, X > >))
+                              ((target_< simd_< fundamental_<A2>, boost::simd::tag::avx_ > >))
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
