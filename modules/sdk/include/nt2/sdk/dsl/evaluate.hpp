@@ -18,7 +18,7 @@ namespace nt2
     using boost::simd::tag::evaluate_;
   }
 
-  using boost::simd::evaluate_;
+  using boost::simd::evaluate;
 }
 
 #endif
