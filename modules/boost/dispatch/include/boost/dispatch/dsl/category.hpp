@@ -40,9 +40,9 @@ namespace boost { namespace dispatch { namespace meta
 
   template<class T, class Domain, class Tag>
   struct  expr_< unspecified_<T>, Domain, Tag > 
-    : ast_<typename hierarchy_of<typename semantic_of<T>::type>::type>
+    : ast_<typename hierarchy_of<typename semantic_of<T>::type, T>::type>
   {
-    typedef ast_<typename hierarchy_of<typename semantic_of<T>::type>::type> parent;
+    typedef ast_<typename hierarchy_of<typename semantic_of<T>::type, T>::type> parent;
   };
 } } }
 
