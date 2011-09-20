@@ -17,6 +17,7 @@
 //==============================================================================
 
 #include <nt2/sdk/memory/slice.hpp>
+#include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/memory/config.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
@@ -144,6 +145,7 @@ namespace nt2 { namespace memory
               , Padding const&    p
               )
     {      
+      // Stores the outer base index required for proper deallocation
       idx_ = boost::fusion::at_c<Dimensions-1>(bss);
 
       // Computes the number of values to store
@@ -167,9 +169,9 @@ namespace nt2 { namespace memory
         end_   = begin_ + numel; 
 
         // Recursively fills out the index
-        data_ = link( ptr
-                    , begin_ - boost::fusion::at_c<0>(bss)
-                    , szs , bss, p ,boost::mpl::int_<Dimensions>()
+        data_ = link( ptr, begin_ - boost::fusion::at_c<0>(bss)
+                    , szs , bss, p 
+                    , boost::mpl::int_<Dimensions>()
                     );
       }
     }    
@@ -198,6 +200,9 @@ namespace nt2 { namespace memory
                     )
 
     {      
+      // Stores the outer base index required for proper deallocation
+      idx_ = boost::fusion::at_c<Dimensions-1>(bss);
+
       // Computes the number of values to store
       size_type numel = slice<1>(szs,p);
 
@@ -212,7 +217,8 @@ namespace nt2 { namespace memory
         // Recursively fills out the index
         data_ = link( alloc_.allocate(numel_)
                     , begin_ - boost::fusion::at_c<0>(bss)
-                    , szs, bss,p,boost::mpl::int_<Dimensions>()
+                    , szs, bss, p
+                    , boost::mpl::int_<Dimensions>()
                     );
       }
     }
@@ -311,12 +317,12 @@ namespace nt2 { namespace memory
       ptr_type ptr = reinterpret_cast<ptr_type>(p);
       
       // Retrieve the underlying indexed part
-      size_type offset = slice<D>(szs,no_padding())*sizeof(void*);
+      size_type offset = slice<D>(szs,pd)*sizeof(void*);
       ptr[0] = link(p+offset,base,szs,bss,pd,boost::mpl::int_<D-1>());
         
       // Fill out the remaining indices
-      size_type local_size = boost::fusion::at_c<D-2>(szs);
-      for(int i=1; i < slice<D>(szs,no_padding());++i)
+      size_type local_size = stride<D-1>(szs,pd);
+      for(std::size_t i=1; i < slice<D>(szs,pd);++i)
         ptr[i] = ptr[i-1] + local_size;
         
       // Rebase the index        
@@ -342,8 +348,8 @@ namespace nt2 { namespace memory
       ptr[0] = base;
       
       // Fill out the remaining indices
-      std::size_t local_size = align_on(boost::fusion::at_c<0>(szs),pd.value());
-      for(int i=1; i < slice<2>(szs,no_padding());++i)
+      std::size_t local_size = stride<1>(szs,pd);
+      for(std::size_t i=1; i < slice<2>(szs,pd);++i)
         ptr[i] = ptr[i-1] + local_size;
         
       // Rebase the index
@@ -402,7 +408,7 @@ namespace nt2 { namespace memory
     void initialize ( Sizes const&      szs
                     , Bases const&      bss
                     , Padding const&    p
-                    , const_iterator const& data
+                    , iterator const& data
                     )   
     {
       size_type numel = slice<1>(szs,p);

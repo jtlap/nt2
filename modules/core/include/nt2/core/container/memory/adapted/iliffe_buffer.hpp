@@ -63,7 +63,7 @@ namespace nt2 { namespace meta
 namespace nt2 { namespace memory
 {
   //============================================================================
-  // std::vector initialize - Part of Buffer Concept
+  // iliffe_buffer initialize - Part of Buffer Concept
   //============================================================================
   template< unsigned D, typename T, typename P, typename A
           , typename Sizes, typename Bases
@@ -74,6 +74,21 @@ namespace nt2 { namespace memory
   {
     v.initialize(s,b,p);
   }
+
+  //============================================================================
+  // iliffe_buffer share - Part of SharingBuffer Concept
+  //============================================================================
+  template< unsigned D, typename T, typename P, typename A
+          , typename Sizes, typename Bases, typename Target
+          >
+  inline void share( iliffe_buffer<D,T,P,A>& v
+                   , Sizes const& s, Bases const& b, P const& p
+                   , Target const& t
+                   )
+  {
+    v.initialize(s,b,p,t);
+  }
+
 } }
 
 #endif

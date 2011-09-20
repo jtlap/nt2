@@ -120,11 +120,11 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   // iliffe_buffer supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
   for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=-2;++pos[0])
+    for(pos[0]=-2;pos[0]<=2;++pos[0])
       dereference<2UL>(tab,pos) = 10*(1+pos[1]) + (1+pos[0]);
 
   for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=-2;++pos[0])
+    for(pos[0]=-2;pos[0]<=2;++pos[0])
     NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
 }
 
