@@ -38,13 +38,13 @@ namespace nt2 { namespace meta
   template<unsigned D, typename T, typename P, typename A, std::size_t Level> 
   struct dereference_<memory::iliffe_buffer<D,T,P,A>&,Level>
   {
-    typedef typename add_pointers<T,D-Level>::type  type;
+    typedef typename add_pointers<T,D-Level>::type&  type;
   };
 
   template<unsigned D, typename T, typename P, typename A, std::size_t Level> 
   struct dereference_<memory::iliffe_buffer<D,T,P,A> const&,Level>
   {
-    typedef typename add_pointers<T const,D-Level>::type  type;
+    typedef typename add_pointers<T,D-Level>::type const&  type;
   };
 
   template<unsigned D, typename T, typename P, typename A> 

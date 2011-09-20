@@ -104,8 +104,16 @@ namespace nt2 { namespace memory
     //==========================================================================
     typedef typename meta::add_pointers<Type,Dimensions>::type  data_type;      
 
-    typedef typename meta::add_pointers<Type,Dimensions-1>::type  sub_data_type;      
-    typedef typename meta::add_pointers<Type const,Dimensions-1>::type  const_sub_data_type;      
+    //==========================================================================
+    /** Type of the pointer to buffer indices                                 */
+    //==========================================================================
+    typedef typename meta::add_pointers<Type,Dimensions-1>::type&  sub_data_type;      
+
+    //==========================================================================
+    /** Type of the constant pointer to buffer indices                        */
+    //==========================================================================
+    typedef typename meta::add_pointers<Type const,Dimensions-1>::type& 
+                                                            const_sub_data_type;      
 
     //==========================================================================
     /**
@@ -113,7 +121,7 @@ namespace nt2 { namespace memory
      **/
     //==========================================================================
     iliffe_buffer(Allocator const&  a = Allocator()) 
-      : data_(0), begin_(0), end_(0), numel_(0), shared_(false), alloc_(a) {}    
+      : data_(0), begin_(0), end_(0), numel_(0), alloc_(a) {}    
 
     //==========================================================================
     /**
@@ -136,7 +144,6 @@ namespace nt2 { namespace memory
               , Padding const&    p
               )
     {      
-      shared_ = false;
       idx_ = boost::fusion::at_c<Dimensions-1>(bss);
 
       // Computes the number of values to store
@@ -183,42 +190,32 @@ namespace nt2 { namespace memory
       * \param a   Allocator instance used by the buffer
      **/
     //==========================================================================
-    /*
     template<typename Sizes, typename Bases> 
-    iliffe_buffer ( Sizes const&      szs
-                  , Bases const&      bss
-                  , Padding const&    p
-                  , value_type*       shared
-                  , Allocator const&  a = Allocator() 
-                  )
-    : data_(0), begin_(shared), end_(0)
-    , idx_(boost::fusion::at_c<Dimensions-1>(bss))
-    , numel_(0), shared_(false), alloc_(a)
+    void initialize ( Sizes const&      szs
+                    , Bases const&      bss
+                    , Padding const&    p
+                    , value_type*       data
+                    )
+
     {      
       // Computes the number of values to store
       size_type numel = slice<1>(szs,p);
 
       // If non-empty and if we dont try to share empty data
-      if(shared && numel)
+      if(data && numel)
       {
-        // Mark as shared buffer
-        shared_ = true;
-        
-        // Only allocate the index
-        size_type idx_size = index_size(szs,p);
-        memory::byte* ptr = alloc_.allocate(idx_size);
-        
         // Setup other pointer and size information
-        numel_ = idx_size;
+        numel_ = index_size(szs,p);
+        begin_ = data;
         end_   = begin_ + numel;
 
         // Recursively fills out the index
-        data_ = link( ptr, shared - boost::fusion::at_c<0>(bss)
+        data_ = link( alloc_.allocate(numel_)
+                    , begin_ - boost::fusion::at_c<0>(bss)
                     , szs, bss,p,boost::mpl::int_<Dimensions>()
                     );
       }
     }
-    */
 
     //==========================================================================
     /**
@@ -228,22 +225,17 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~iliffe_buffer() 
     { 
-      if(!shared_ && data_) 
+      if(data_) 
         alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
     }
 
     //==========================================================================
     /**
-      * Give access to the underlying data storage of the buffer.
-      * begin() and end() are both returning un-biased pointer, making them
-      * suitable for a classical, STL like treatment.
-      *
-      * \return A data_type value pointing to the beginning of the outermost
-      * indexing table.
+      * Random access operator to the underlying indexed values.
+      * \param i outer dimension index to access.
+      * \return Current sub-index table at offset i.
      **/
     //==========================================================================
-    data_type     data()  const { return data_; }
-
     sub_data_type       operator[](std::ptrdiff_t i)       { return data_[i]; }
     const_sub_data_type operator[](std::ptrdiff_t i) const { return data_[i]; }
 
@@ -364,7 +356,6 @@ namespace nt2 { namespace memory
     pointer         begin_, end_;
     std::ptrdiff_t  idx_;
     std::size_t     numel_;
-    bool            shared_;
     allocator       alloc_;
   };
   
@@ -417,7 +408,7 @@ namespace nt2 { namespace memory
       size_type numel = slice<1>(szs,p);
       if(numel != 0 && data) 
       {
-        begin_  = data
+        begin_  = data;
         end_    = begin_ + numel;
         data_   = data - boost::fusion::at_c<0>(bss);
         sharing_ = true;
