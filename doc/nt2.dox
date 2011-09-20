@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 #         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
 #         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
 #
@@ -58,6 +58,8 @@ ALIASES += "singlepassrange=<a href=\"http://www.boost.org/doc/libs/release/libs
 ALIASES += "usage=\par Example Usage:"
 ALIASES += "semantic=\par Semantic:"
 ALIASES += "model=\par Model:"
+ALIASES += "synopsis=\par Synopsis:"
+ALIASES += "description=\par Description:"
 ALIASES += "matlab=<span style=\"font-variant: small-caps;\">Matlab</span>"
 ALIASES += "nt2=<b>NT²</b>"
 ALIASES += "container=<a href=\"http://www.sgi.com/tech/stl/Container.html\">Container</a>"
@@ -112,7 +114,7 @@ SHOW_DIRECTORIES       = NO
 SHOW_FILES             = YES
 SHOW_NAMESPACES        = YES
 FILE_VERSION_FILTER    =
-LAYOUT_FILE            =
+LAYOUT_FILE            = nt2.xml
 
 ################################################################################
 # configuration options related to warning and progress messages
