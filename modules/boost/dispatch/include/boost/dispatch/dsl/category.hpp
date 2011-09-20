@@ -20,7 +20,13 @@ namespace boost { namespace dispatch { namespace meta
   // the same inheritance scheme based on semantic
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct ast_ : unspecified_<T>
+  struct ast_ : ast_<typename T::parent>
+  {
+    typedef ast_<typename T::parent> parent;
+  };
+  
+  template<class T>
+  struct ast_< unspecified_<T> > : unspecified_<T>
   {
     typedef unspecified_<T> parent;
   };
@@ -33,9 +39,10 @@ namespace boost { namespace dispatch { namespace meta
   };
 
   template<class T, class Domain, class Tag>
-  struct  expr_< unspecified_<T>, Domain, Tag > : ast_<T>
+  struct  expr_< unspecified_<T>, Domain, Tag > 
+    : ast_<typename hierarchy_of<typename semantic_of<T>::type>::type>
   {
-    typedef ast_<T> parent;
+    typedef ast_<typename hierarchy_of<typename semantic_of<T>::type>::type> parent;
   };
 } } }
 
