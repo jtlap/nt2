@@ -42,7 +42,7 @@ namespace nt2 { namespace meta
   template<typename T, std::size_t Level> 
   struct dereference_<T* const&,Level>
   {
-    typedef typename meta::remove_pointers<T*,Level>::type const & type;
+    typedef typename meta::remove_pointers<T const*,Level>::type& type;
   };
 } }
 
