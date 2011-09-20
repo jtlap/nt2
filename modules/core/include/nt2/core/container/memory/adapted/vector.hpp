@@ -11,8 +11,9 @@
 
 #include <vector>
 #include <boost/mpl/size_t.hpp>
-#include <nt2/core/container/meta/dimensions_of.hpp>
+#include <boost/fusion/include/at_c.hpp>
 #include <nt2/core/container/meta/reference.hpp>
+#include <nt2/core/container/meta/dimensions_of.hpp>
 
 //==============================================================================
 // Fill out the Buffer concepts for std::vector
