@@ -438,13 +438,17 @@ hierarchies are chained together.]
 
 [endsect]
 
-[section Scalar hierarchy and fundamental properties]
+[section Built-in hierarchies]
+
+[section Scalar hierarchy]
 
 The hierarchy of a built-in fundamental type `T` is the composite `scalar_< typename property_of<T>::type >`. [br]
 Properties are decoupled from `scalar_` so that it is easy to create new hierarchies such as `simd_< integer_<T> >` etc.
 
 If you wish to extend this hierarchy, specialize `boost::dispatch::meta::property_of` or `boost::dispatch::details::property_of` instead
 of the `hierarchy_of` equivalents.
+
+Once `scalar_< unspecified_<T> >` is reached, the hierarchy then goes into `generic_< typename property_of<T> >`.
 
 A list of all properties available and how they relate to each other is listed below:
 
@@ -482,6 +486,23 @@ A list of all properties available and how they relate to each other is listed b
 ]
 
 [endsect] [/Scalar]
+
+[section Target hierarchy]
+[endsect]
+
+[section Array hierarchy]
+[endsect]
+
+[section Fusion hierarchy]
+[endsect]
+
+[section AST hierarchy]
+[endsect]
+
+[endsect] [/Built-in hierarchies]
+
+[section Generic scalar adaptors]
+[endsect]
 
 [section Defining functions]
 
