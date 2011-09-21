@@ -64,10 +64,11 @@ class Py_doc() :
             return it
             """
         if d is None :
+            print("arity = %s index = %s"%(arity,index))
             dl = self.bg.get_fct_dict_list()
             if arity is None :
                 if index is None or not isinstance(index,int):
-                    print("Insufficient informations to choose dicrectory")
+                    print("Insufficient informations to choose dictionary")
                     print("Aborting")
                     raise SystemExit
                 elif index >= len(dl) or index < 0:    

@@ -12,7 +12,8 @@
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
-/**
+/*!
+ * \internal functor \endinternal
  * \ingroup euler
  * \defgroup euler_beta Euler beta function
  *
@@ -47,9 +48,11 @@ namespace nt2
 { 
   namespace tag 
   {         
-    /**
+    /*!
+     * \internal tag \endinternal
      * \ingroup euler
      * \brief Tag designing the nt2::beta function
+     *          in zzz
      **/
     struct beta_ {};
   }
