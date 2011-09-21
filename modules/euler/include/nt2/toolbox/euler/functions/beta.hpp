@@ -21,6 +21,12 @@
  * by Euler and Legendre and was given its name by Jacques Binet; its symbol 
  * B is a Greek capital beta rather than the similar Latin capital b.
  *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/beta.hpp>
+ * \endcode
+ * 
  * \synopsis
  *
  * \code
