@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['return the elementwise unary plus of the parameter',
+                          "Infix notation can be used with operator '+'",
+                          "This is in fact identity."],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

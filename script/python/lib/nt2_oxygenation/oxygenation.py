@@ -174,15 +174,22 @@ class Nt2_oxygenation(Oxgen) :
   
     def compose_call(self) :
         ## up to now suppose all parameters have same type
+        equalparams = self.df.get("equalparams",True)
         arity = int(self.df.get("arity",'1'))
         is_template = self.df.get("template",False)
         tpl = "class T," if is_template  else ""
-        tpl_list =  self.strlist('class A%d',sep=',',arity=1)
+        if equalparams :
+            tpl_list =  self.strlist('class A%d',sep=',',arity=1)
+            type_list =  self.strlist('A0',sep=',',arity=int(arity),n=0)
+            param_list =  self.strlist('const A0 & a%d',sep=',',arity=int(arity),n=1)
+        else :
+            tpl_list =  self.strlist('class A%d',sep=',',arity=arity)
+            type_list =  self.strlist('A%d',sep=',',arity=int(arity),n=1)
+            param_list =  self.strlist('const A%d & a%d',sep=',',arity=int(arity),n=2)
         tpl_str  = "template <" + tpl + tpl_list +">"
-        type_list =  self.strlist('A0',sep=',',arity=int(arity),n=0)
         result_str = "  meta::call<tag::"+self.fct+'_('+type_list+')>::type'
-        param_list =  self.strlist('const A0 & a%d',sep=',',arity=int(arity),n=1)
         param_str  =  "  "+self.fct+"("+param_list+");"
+ 
         res = [ tpl_str,result_str,param_str]
         return '\n'.join(self.starize(self.indent(res,2)))
    
@@ -191,8 +198,15 @@ class Nt2_oxygenation(Oxgen) :
         is_template = self.df.get("template",False)
         res = []
         for i in range(0,arity) :
-            res.append("\\\\param a%s is the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct))
-        res.append("\\\\return a value of the common type of the parameters")
+            parami =  self.df.get("param_"+str(i),"")
+            param ="\\\\param a%s is the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct)
+            if len(parami) : param += ', '+'\n'.join(parami)
+            res.append(param)
+        ret =  self.df.get("return",[])
+        if len(ret) :
+            res.append("\\\\return "+'\n'.join(ret))
+        else:    
+            res.append("\\\\return a value of the common type of the parameters")
         return '\n'.join(self.starize(res))+'\n'
 
     
@@ -201,8 +215,8 @@ class Nt2_oxygenation(Oxgen) :
             "",
             "/*!",
             " * \\internal functor \\endinternal",
-            " * \\ingroup $tb_name$",
-            " * \\defgroup euler_beta Euler beta function",
+            " * \\ingroup %s"%self.tb_name.replace('.','_'),
+            " * \\defgroup $fct$ $fct$ function",
             " *",
             " * \\par Description",
             "$description$",
@@ -213,7 +227,7 @@ class Nt2_oxygenation(Oxgen) :
             " * #include <nt2/include/functions/$fct$.hpp>",
             " * \\endcode",
             " * ",
-            " * $alias$",
+            "$alias$",
             " * ",
             " * \\synopsis",
             " *",
@@ -231,7 +245,8 @@ class Nt2_oxygenation(Oxgen) :
             "",
             ]
         aliases=self.list_aliases()
-        self.alias = "\\\\alias "+', '.join(aliases) if len(aliases) else "" 
+        plural = "es" if len(aliases) > 1 else ""
+        self.alias = " * \\\\b Alias"+plural+"\n *   "+'\n *   '.join(aliases) if len(aliases) else "" 
         self.description = self.get_description()
         self.parameters  = self.compose_parameters()
         self.call        = self.compose_call()
@@ -273,77 +288,7 @@ class Nt2_oxygenation(Oxgen) :
       elif i==5 : return "fith"
       else :      return str(i)+"th"
       
-##    def create_units(self) :
-##        for fct in self.fcts :
-##            for mode in self.modes :
-##                if self.verbose : print("fct=%s,mode=%s"%(fct,mode))
-##                for part in self.parts :
-##                    if self.verbose : print("fct=%s,part=%s"%(fct,part))
-##                    r= self.create_one_unit(fct,mode,part,self.platform)
-##                    if r is None :
-##                        print('error for %s' % fct)
-##                    elif not r or len(r)==0 :
-##                        print('no regeneration possible for %s %s-tests, please do it manually' % (fct,mode))
-##                    etxt_liste :
-##                        just = "just" if show and not self.write_files etxt_liste ""
-##                        if show : 
-##                            print("%s showing text of %s.cpp for %s-test: %s"% (just,fct,mode,part))
-##                            print("<"+"="*40)
-##                            PrettyPrinter().pprint(r)            
-##                            print("="*40+">")
-##                        if self.write_files :
-##                            print("writing text of %s.cpp for %s-test"% (fct,mode))
-##                            self.write_unit(fct,mode,part,r)
-
-
-##    def write_unit(self,
-##                   fct_name,
-##                   mode,
-##                   part,
-##                   s) :
-##        def test_immutable(p) :
-##            s= '\n'.join(read(p))
-##            return s.find('//COMMENTED') != -1
-            
-##        nfp = Nt2_fct_props(self.tb_name,fct_name,mode)
-##        p = nfp.get_fct_unit_path(mode,part)
-##        if exist(os.path.split(p)[0]) :
-##            if self.verbose : print ('path = %s'%p)
-##            print("---%s"%exist(p))
-##            if exist(p) and test_immutable(p) :
-##                print("%s has been marked as immutable"%p )
-##                return
-##            if self.backup_on_write and exist(p) :
-##                if self.verbose : print("backing up %s" %fct_name)
-##                i = 1;
-##                while True :
-##                    pi = p+'.'+str(i)+'.bak'
-##                    if not(exist(pi)) : break
-##                    i += 1
-##                if self.verbose : print("to %s"% pi)
-##                shutil.copy(p,pi)
-##            elif self.verbose : print "writing to %s"%p
-##            write(p,s,self.check_on_write)
-##            p1 = os.path.join(os.path.split(p)[0],'CMakeLists.txt')
-##            addline=Add_line(p1,fct_name)
-##            addline.update_file("SET\( *SOURCES")
-##        elif self.verbose : 
-##            print("%s directory\n  does not exist " %os.path.split(p)[0])
-
- 
 
         
-##if __name__ == "__main__" :
-##    tb_name = "operator"
-##    fcts = Nt2_tb_props(tb_name).get_fcts_list()
-##    fcts = ["splat"]
-##    ct = Create_tests(tb_name,
-##                     fcts,
-##                     modes=['scalar','simd'],
-##                     parts= ["unit"],
-##                     show=True,
-##                     write_files=Fatxt_liste,
-##                     check_on_write=True,
-##                     backup_on_write=True,
-##                     verbose=Fatxt_liste) 
-##    ct.create_units()
+if __name__ == "__main__" :
+    pass

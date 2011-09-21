@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+        'description' : ['return a bool that is the result of the lexicographic',
+                          'test for != on elements of the entries',
+                          'It is probably not what you wish. Have a look to is_not_equal',
+                          "Infix notation can be used with operator '!='"],
+          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

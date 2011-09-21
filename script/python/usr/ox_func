@@ -126,9 +126,9 @@ if __name__ == "__main__" :
                       help="""does not write the files to disk (this option overcomes -b and -c)
                       This is the default.
                       """)
-    namespace = parser.parse_args( "-m=boost.simd.operator -f=minus -w".split())
+##    namespace = parser.parse_args( "-m=boost.simd.operator -f=minus -w".split())
 ##    namespace = parser.parse_args( "-m=exponential -f=exp".split())
-##    namespace = parser.parse_args()
+    namespace = parser.parse_args()
 
     modules        = listify(namespace.modules)
     show           =         namespace.show
