@@ -11,7 +11,7 @@
 
 //==============================================================================
 /**
-  * \file 
+  * \file
   * \brief Defines and implements the \c nt2::memory::iliffe_buffer class
   **/
 //==============================================================================
@@ -25,7 +25,7 @@
 #include <nt2/core/container/memory/adapted/iliffe_buffer.hpp>
 
 namespace nt2 { namespace memory
-{  
+{
   //============================================================================
   /**
     * \brief Hierarchically allocated memory buffer.
@@ -37,7 +37,7 @@ namespace nt2 { namespace memory
     * iliffe_buffer uses the Iliffe vector allocation scheme to allow fast
     * multi-dimensionnal access by precomputing index tables of nD pointers. This
     * precomputation allows the memory access to be performed as a simple chain
-    * of operator[] calls. Base indices also have no runtime cost as they are 
+    * of operator[] calls. Base indices also have no runtime cost as they are
     * precomputed as offset on the original addresses.
     *
     * \tparam Dimensions  Number of dimensions stored in this Buffer
@@ -46,13 +46,13 @@ namespace nt2 { namespace memory
     * \tparam Allocator   Memory allocator used by this Buffer
    **/
   //============================================================================
-  template< unsigned Dimensions
+  template< std::size_t Dimensions
           , typename Type
           , typename Padding
-          , typename Allocator          
+          , typename Allocator
           >
   struct iliffe_buffer
-  {  
+  {
     typedef typename Allocator::template rebind<memory::byte>::other  allocator;
 
     //==========================================================================
@@ -103,36 +103,36 @@ namespace nt2 { namespace memory
     //==========================================================================
     /** Type of the pointer to buffer storage area                            */
     //==========================================================================
-    typedef typename meta::add_pointers<Type,Dimensions>::type  data_type;      
+    typedef typename meta::add_pointers<Type,Dimensions>::type  data_type;
 
     //==========================================================================
     /** Type of the pointer to buffer indices                                 */
     //==========================================================================
-    typedef typename meta::add_pointers<Type,Dimensions-1>::type&  sub_data_type;      
+    typedef typename meta::add_pointers<Type,Dimensions-1>::type&  sub_data_type;
 
     //==========================================================================
     /** Type of the constant pointer to buffer indices                        */
     //==========================================================================
-    typedef typename meta::add_pointers<Type const,Dimensions-1>::type& 
-                                                            const_sub_data_type;      
+    typedef typename meta::add_pointers<Type const,Dimensions-1>::type&
+                                                            const_sub_data_type;
 
     //==========================================================================
     /**
       * Default constructor yields an empty iliffe buffer
      **/
     //==========================================================================
-    iliffe_buffer(Allocator const&  a = Allocator()) 
-      : data_(0), begin_(0), end_(0), numel_(0), alloc_(a) {}    
+    iliffe_buffer(Allocator const&  a = Allocator())
+      : data_(0), begin_(0), end_(0), numel_(0), alloc_(a) {}
 
     //==========================================================================
     /**
       * Initializes a Iliffe buffer by allocating memory for its own ownership.
-      * For a given number of dimensions \c N , the constructor will allocate 
+      * For a given number of dimensions \c N , the constructor will allocate
       * enough memory to store N indexing tables and the actual data size as
       * defined by the sizes and padding parameters.
       *
       * \param szs FusionRandomAccessSequence containing the dimensions of the
-      *            buffer 
+      *            buffer
       * \param bss FusionRandomAccessSequence containing the base indices of the
       *            buffer
       * \param p   Padding strategy of the buffer
@@ -144,7 +144,7 @@ namespace nt2 { namespace memory
               , Bases const&      bss
               , Padding const&    p
               )
-    {      
+    {
       // Stores the outer base index required for proper deallocation
       idx_ = boost::fusion::at_c<Dimensions-1>(bss);
 
@@ -157,25 +157,25 @@ namespace nt2 { namespace memory
         // Computes the number of bytes for the data and the indexing
         size_type data_size = numel * sizeof(value_type);
         size_type idx_size  = index_size(szs,p);
-        
+
         // Fix numel_ to store the proper number of aligned data
         numel_ = idx_size+data_size;
 
         // Allocate that much bytes
         memory::byte* ptr = alloc_.allocate(numel_);
-        
+
         // Points to the begining of the data block
         begin_ = reinterpret_cast<value_type*>(ptr+idx_size);
-        end_   = begin_ + numel; 
+        end_   = begin_ + numel;
 
         // Recursively fills out the index
         data_ = link( ptr, begin_ - boost::fusion::at_c<0>(bss)
-                    , szs , bss, p 
+                    , szs , bss, p
                     , boost::mpl::int_<Dimensions>()
                     );
       }
-    }    
-    
+    }
+
     //==========================================================================
     /**
       * Constructs a Iliffe buffer from an existing data block without any transfer
@@ -184,7 +184,7 @@ namespace nt2 { namespace memory
       * nor deallocation.
       *
       * \param szs FusionRandomAccessSequence containing the dimensions of the
-      *            buffer 
+      *            buffer
       * \param bss FusionRandomAccessSequence containing the base indices of the
       *            buffer
       * \param p   Padding strategy of the buffer
@@ -192,14 +192,14 @@ namespace nt2 { namespace memory
       * \param a   Allocator instance used by the buffer
      **/
     //==========================================================================
-    template<typename Sizes, typename Bases> 
+    template<typename Sizes, typename Bases>
     void initialize ( Sizes const&      szs
                     , Bases const&      bss
                     , Padding const&    p
                     , value_type*       data
                     )
 
-    {      
+    {
       // Stores the outer base index required for proper deallocation
       idx_ = boost::fusion::at_c<Dimensions-1>(bss);
 
@@ -229,9 +229,9 @@ namespace nt2 { namespace memory
       * owns it and its indexing tables.
      **/
     //==========================================================================
-    ~iliffe_buffer() 
-    { 
-      if(data_) 
+    ~iliffe_buffer()
+    {
+      if(data_)
         alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
     }
 
@@ -281,17 +281,17 @@ namespace nt2 { namespace memory
     {
       // The index section is the sum of all required index aligned
       // globally on the boundary value provided by p
-      return align_on( index_size(s,boost::mpl::size_t<2>()), p.value() );  
+      return align_on( index_size(s,boost::mpl::size_t<2>()), p.value() );
     }
-    
-    template<class Seq,unsigned Index> inline std::size_t     
+
+    template<class Seq,std::size_t Index> inline std::size_t
     index_size(Seq const& s, boost::mpl::size_t<Index> const&) const
     {
-        return  slice<Index>(s,no_padding()) * sizeof(void*) 
+        return  slice<Index>(s,no_padding()) * sizeof(void*)
               + index_size(s,boost::mpl::size_t<Index+1>());
     }
 
-    template<class Seq> inline std::size_t     
+    template<class Seq> inline std::size_t
     index_size(Seq const& s, boost::mpl::size_t<Dimensions> const&) const
     {
       return slice<Dimensions>(s,no_padding()) * sizeof(void*);
@@ -299,7 +299,7 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /*
-     * link performs the indexing of the Iliffe vector 
+     * link performs the indexing of the Iliffe vector
      */
     //==========================================================================
     template<typename Sizes, typename Bases, int D>
@@ -313,50 +313,50 @@ namespace nt2 { namespace memory
         )
     {
       // Retrieve the current pointer in the index
-      typedef typename meta::add_pointers<Type,D>::type ptr_type;      
+      typedef typename meta::add_pointers<Type,D>::type ptr_type;
       ptr_type ptr = reinterpret_cast<ptr_type>(p);
-      
+
       // Retrieve the underlying indexed part
       size_type offset = slice<D>(szs,pd)*sizeof(void*);
       ptr[0] = link(p+offset,base,szs,bss,pd,boost::mpl::int_<D-1>());
-        
+
       // Fill out the remaining indices
       size_type local_size = stride<D-1>(szs,pd);
       for(std::size_t i=1; i < slice<D>(szs,pd);++i)
         ptr[i] = ptr[i-1] + local_size;
-        
-      // Rebase the index        
+
+      // Rebase the index
       ptr -= boost::fusion::at_c<D-1>(bss);
       return ptr;
     }
-    
+
     template<typename Sizes, typename Bases>
     typename meta::add_pointers<Type,2>::type
     link( memory::byte*   p
         , value_type*     base
-        , Sizes const&    szs 
-        , Bases const&    bss        
+        , Sizes const&    szs
+        , Bases const&    bss
         , Padding const&  pd
         , boost::mpl::int_<2> const&
         )
     {
-      // Retrieve the current pointer in the index           
-      typedef typename meta::add_pointers<Type,2>::type ptr_type;     
+      // Retrieve the current pointer in the index
+      typedef typename meta::add_pointers<Type,2>::type ptr_type;
       ptr_type ptr = reinterpret_cast<ptr_type>(p);
-      
+
       // Points to the beginning of the data block
       ptr[0] = base;
-      
+
       // Fill out the remaining indices
       std::size_t local_size = stride<1>(szs,pd);
       for(std::size_t i=1; i < slice<2>(szs,pd);++i)
         ptr[i] = ptr[i-1] + local_size;
-        
+
       // Rebase the index
       ptr -= boost::fusion::at_c<1>(bss);
-      return ptr;    
+      return ptr;
     }
-    
+
     private:
     data_type       data_;
     pointer         begin_, end_;
@@ -364,7 +364,7 @@ namespace nt2 { namespace memory
     std::size_t     numel_;
     allocator       alloc_;
   };
-  
+
   //============================================================================
   /**
    * iliffe_buffer is specialized for 1D case to not allocate any indexing table
@@ -372,10 +372,10 @@ namespace nt2 { namespace memory
   //============================================================================
   template< typename Type
           , typename Padding
-          , typename Allocator          
+          , typename Allocator
           >
   struct iliffe_buffer<1,Type,Padding,Allocator>
-  {  
+  {
     typedef typename Allocator::template rebind<memory::byte>::other  allocator;
     typedef typename Allocator::value_type      value_type;
     typedef typename Allocator::pointer         iterator;
@@ -384,35 +384,35 @@ namespace nt2 { namespace memory
     typedef typename Allocator::const_reference const_reference;
     typedef typename Allocator::size_type       size_type;
     typedef typename Allocator::difference_type difference_type;
-    typedef value_type*                         data_type;         
+    typedef value_type*                         data_type;
 
-    iliffe_buffer(Allocator const&  a = Allocator()) 
-    : data_(0), begin_(0), end_(0), sharing_(false),  alloc_(a) {}    
+    iliffe_buffer(Allocator const&  a = Allocator())
+    : data_(0), begin_(0), end_(0), sharing_(false),  alloc_(a) {}
 
-    template<typename Sizes, typename Bases> 
+    template<typename Sizes, typename Bases>
     void initialize ( Sizes const&      szs
                     , Bases const&      bss
                     , Padding const&    p
-                    )   
+                    )
     {
       size_type numel = slice<1>(szs,p);
-      if(numel != 0) 
+      if(numel != 0)
       {
         begin_  = alloc_.allocate( numel );
         end_    = begin_ + numel;
         data_   = begin_ - boost::fusion::at_c<0>(bss);
       }
     }
-    
-    template<typename Sizes, typename Bases> 
+
+    template<typename Sizes, typename Bases>
     void initialize ( Sizes const&      szs
                     , Bases const&      bss
                     , Padding const&    p
                     , iterator const& data
-                    )   
+                    )
     {
       size_type numel = slice<1>(szs,p);
-      if(numel != 0 && data) 
+      if(numel != 0 && data)
       {
         begin_  = data;
         end_    = begin_ + numel;
@@ -420,12 +420,12 @@ namespace nt2 { namespace memory
         sharing_ = true;
       }
     }
-    
-    ~iliffe_buffer() 
-    { 
+
+    ~iliffe_buffer()
+    {
       if(!sharing_) alloc_.deallocate( begin(), end() - begin() );
     }
-  
+
     reference       operator[](std::ptrdiff_t i)       { return data_[i]; }
     const_reference operator[](std::ptrdiff_t i) const { return data_[i]; }
 
@@ -442,4 +442,4 @@ namespace nt2 { namespace memory
   };
 } }
 
-#endif 
+#endif

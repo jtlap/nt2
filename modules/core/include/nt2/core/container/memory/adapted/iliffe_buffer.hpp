@@ -18,8 +18,8 @@
 // Forward declaration
 //==============================================================================
 namespace nt2 { namespace memory
-{  
-  template<unsigned D, typename T, typename P, typename A>
+{
+  template<std::size_t D, typename T, typename P, typename A>
   struct iliffe_buffer;
 } }
 
@@ -28,32 +28,32 @@ namespace nt2 { namespace memory
 //==============================================================================
 namespace nt2 { namespace meta
 {
-  template<unsigned D, typename T, typename P, typename A>
-  struct dimensions_of< memory::iliffe_buffer<D,T,P,A> > : boost::mpl::size_t<D> 
+  template<std::size_t D, typename T, typename P, typename A>
+  struct dimensions_of< memory::iliffe_buffer<D,T,P,A> > : boost::mpl::size_t<D>
   {};
 
   //============================================================================
   // dereference_ specialization
   //============================================================================
-  template<unsigned D, typename T, typename P, typename A, std::size_t Level> 
+  template<std::size_t D, typename T, typename P, typename A, std::size_t Level>
   struct dereference_<memory::iliffe_buffer<D,T,P,A>&,Level>
   {
     typedef typename add_pointers<T,D-Level>::type&  type;
   };
 
-  template<unsigned D, typename T, typename P, typename A, std::size_t Level> 
+  template<std::size_t D, typename T, typename P, typename A, std::size_t Level>
   struct dereference_<memory::iliffe_buffer<D,T,P,A> const&,Level>
   {
     typedef typename add_pointers<T,D-Level>::type const&  type;
   };
 
-  template<unsigned D, typename T, typename P, typename A> 
+  template<std::size_t D, typename T, typename P, typename A>
   struct dereference_<memory::iliffe_buffer<D,T,P,A>&,D>
   {
     typedef typename memory::iliffe_buffer<D,T,P,A>::reference type;
   };
 
-  template<unsigned D, typename T, typename P, typename A> 
+  template<std::size_t D, typename T, typename P, typename A>
   struct dereference_<memory::iliffe_buffer<D,T,P,A> const&,D>
   {
     typedef typename memory::iliffe_buffer<D,T,P,A>::const_reference type;
@@ -65,7 +65,7 @@ namespace nt2 { namespace memory
   //============================================================================
   // iliffe_buffer initialize - Part of Buffer Concept
   //============================================================================
-  template< unsigned D, typename T, typename P, typename A
+  template< std::size_t D, typename T, typename P, typename A
           , typename Sizes, typename Bases
           >
   inline void initialize( iliffe_buffer<D,T,P,A>& v
@@ -78,7 +78,7 @@ namespace nt2 { namespace memory
   //============================================================================
   // iliffe_buffer share - Part of SharingBuffer Concept
   //============================================================================
-  template< unsigned D, typename T, typename P, typename A
+  template< std::size_t D, typename T, typename P, typename A
           , typename Sizes, typename Bases, typename Target
           >
   inline void share( iliffe_buffer<D,T,P,A>& v
