@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 that = { _mm256_floor_pd(a0)};
+      A0 that = { _mm256_round_pd(a0, _MM_FROUND_FLOOR) };
       return that;
     }
   };
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 that = { _mm256_floor_ps(a0)};
+      A0 that = { _mm256_round_ps(a0, _MM_FROUND_FLOOR)};
       return that;
     }
   };  
