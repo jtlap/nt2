@@ -9,6 +9,7 @@
 
 SET( SOURCES
   array_as_buffer.cpp
+  composite_buffer.cpp
   dimensions_of.cpp
   iliffe_buffer.cpp
   pointer_as_buffer.cpp
