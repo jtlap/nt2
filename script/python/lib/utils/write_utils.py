@@ -48,15 +48,10 @@ class Write_file(object) :
         self.p =p
         self.name = name
         self.txt = txt
-##        print(self.name)
-##        print(self.p)
-##        print(self.write_files)
-##        print("here")
         if exist(self.p) :
             if self.verbose : print ('path = %s'%self.p)
             tp = os.path.join(self.p,self.name)
             if exist(tp) :
-                if self.show : show(self.txt)
                 if not self.write_files :
                     return False
             if self.backup_on_write and exist(tp) :
@@ -67,7 +62,6 @@ class Write_file(object) :
                     if not(exist(tpi)) : break
                     i += 1
                 if self.verbose : print("to %s"% tpi)
-                print("here1")
                 shutil.copy(tp,tpi)
             elif not self.write_files :
                 print "%s is not written"%tp

@@ -59,8 +59,9 @@ class Oxgen(Py_doc,Substitute) :
         self.df      = self.d.get("functor",{})       
 
 class Nt2_oxygenation(Oxgen) :
-    def __init__(self, base_gen) :
+    def __init__(self, base_gen,strip=True) :
         Oxgen.__init__(self,base_gen)
+        self.strip = strip
 ##        self.save = True
 ##        self.p = None
 ##        self.fct = None
@@ -79,13 +80,19 @@ class Nt2_oxygenation(Oxgen) :
         else :
             self.txt_list = read(self.fich)
             self.txt ='\n'.join(self.txt_list)
+            print("icitte")
             if self.is_immutable(self.txt) :
                 print("%s has been marked as immutable"%self.txt )
                 self.save = False
                 return
-            if find('\*!',self.txt) != -1 :
+            print("latte")
+            if self.txt.find('/*!') != -1 :
+                print("latte2")
                 print("%s file was already oxygenated"%self.fct)
-                self.suppress_old()
+                if not self.strip :
+                    return
+                else :
+                    self.txt_list = self.strip_old()
         self.txt_list = self.make_functor_ox()
         self.txt      = '\n'.join(self.txt_list)
 ##        show(self.txt_list)
@@ -128,7 +135,7 @@ class Nt2_oxygenation(Oxgen) :
             " * \\brief $action$ the tag $fct$_ of functor $fct$ ",
             " *        in namespace $namespace$::tag",
             " * \internal end_tag \endinternal",
-            " */"
+            "**/"
             ]
         self.action = "Define" if self.txt.find("boost::simd::"+self.fct) == -1 else "Bring"
         pattern = re.compile("namespace\s*tag")
@@ -219,7 +226,6 @@ class Nt2_oxygenation(Oxgen) :
     
     def make_functor_ox(self) :
         Functor_ox = [
-            "",
             "/*!",
             " * \\internal functor \\endinternal",
             " * \\ingroup %s"%self.tb_name.replace('.','_'),
@@ -249,7 +255,7 @@ class Nt2_oxygenation(Oxgen) :
             " *  ",
             " * \\internal end_functor \endinternal",
             "**/",
-            "",
+            " ",
             ]
         aliases=self.list_aliases()
         plural = "es" if len(aliases) > 1 else ""
@@ -265,7 +271,7 @@ class Nt2_oxygenation(Oxgen) :
                 break
         l = len(self.txt_list[j-1])-len(self.txt_list[j-1].lstrip())
         functor_ox = self.indent(Functor_ox,l)
-        functor_ox = self.prepare(functor_ox)
+        functor_ox = self.suppress_blank(self.prepare(functor_ox))
         del self.parameters
         del self.call
         del self.description
@@ -297,18 +303,21 @@ class Nt2_oxygenation(Oxgen) :
       
     def strip_old(self) :
         r = []
+        pattern1 = re.compile("\s*/\*!")
+        pattern2 = re.compile("\s*\*\*/") 
         in_dox = False
         for l in self.txt_list :
             if not in_dox :
-                in_dox = l[:3]=='/*!'
+                in_dox = pattern1.match(l) ##l[:3]=='/*!'
             if not in_dox :
                 r.append(l)
             if in_dox :
-                in_dox = not(l[:3]=='**/!')
+                in_dox = not(pattern2.match(l)) ##l[:3]=='**/')
         return r        
              
-                
-          
+    def suppress_blank(self,txt_list) :            
+        return [l for l in txt_list if len(l)]
+    
         
 if __name__ == "__main__" :
     pass

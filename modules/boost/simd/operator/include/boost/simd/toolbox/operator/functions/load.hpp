@@ -18,7 +18,6 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -70,15 +69,16 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct load_ {}; }
+  namespace tag {
     /*!
      * \internal tag \endinternal
      * \file
      * \brief Define the tag load_ of functor load 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
-
+     **/
+    struct load_ {};
+  }
   //////////////////////////////////////////////////////////////////////////////
   // Load a data of type T from the memory zone given by (a0,a1)
   //////////////////////////////////////////////////////////////////////////////
