@@ -15,10 +15,57 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup compare_not_equal compare_not_equal function
+ *
+ * \par Description
+ * return a bool that is the result of the lexicographic
+ * test for != on elements of the entries
+ * It is probably not what you wish. Have a look to is_not_equal
+ * Infix notation can be used with operator '!='
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/compare_not_equal.hpp>
+ * \endcode
+ * 
+ * \b Alias
+ *   compare_neq
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::compare_not_equal_(A0,A0)>::type
+ *     compare_not_equal(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of compare_not_equal
+ * \param a1 is the second parameter of compare_not_equal
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag compare_not_equal_ of functor compare_not_equal 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::not_equal_to compare_not_equal_;
   }
     

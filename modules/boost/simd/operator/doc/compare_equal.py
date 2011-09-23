@@ -2,8 +2,10 @@
     {
      'functor' : {
          'description' : ['return a bool that is the result of the lexicographic',
-                          'test for euality of all elements of the entries',
-                          'It is probably not what you wish. Have a look to is_equal',
+                          'test for equality of all elements of the entries',
+                          'I.e. return true if and only if all corresponding entries',
+                          'elements are equal'.
+                          'It is probably not what you wish. Have a look to <tt>is_equal</tt>',
                           "Infix notation can be used with operator '=='",
                           ],
          'arity' : '2',

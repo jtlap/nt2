@@ -15,10 +15,54 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup unary_minus unary_minus function
+ *
+ * \par Description
+ * return the elementwise unary minus of the parameter
+ * Infix notation can be used with operator '-'
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/unary_minus.hpp>
+ * \endcode
+ * 
+ * \b Alias
+ *   neg
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::unary_minus_(A0)>::type
+ *     unary_minus(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of unary_minus
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag unary_minus_ of functor unary_minus 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::negate unary_minus_;
   }
   

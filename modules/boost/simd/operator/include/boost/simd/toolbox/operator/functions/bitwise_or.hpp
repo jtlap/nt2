@@ -15,10 +15,59 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup bitwise_or bitwise_or function
+ *
+ * \par Description
+ * return the bitwise or of the two parameters
+ * the operands must share the same bit size and
+ * the result type is the one of the first operand
+ * Infix notation can be used with operator '|',
+ * but this will not work in scalar mode if any
+ * operand is floating point because of C++ limitations.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/bitwise_or.hpp>
+ * \endcode
+ * 
+ * \b Alias
+ *   b_or
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0,class A1>
+ *     meta::call<tag::bitwise_or_(A0,A1)>::type
+ *     bitwise_or(const A0 & a0,const A1 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of bitwise_or
+ * \param a1 is the second parameter of bitwise_or
+ * 
+ * \return a value of the type of the first parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag bitwise_or_ of functor bitwise_or 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::bitwise_or bitwise_or_;
   }
   

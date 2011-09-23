@@ -15,10 +15,55 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup modulo modulo function
+ *
+ * \par Description
+ * return the elementwise modulo of the two parameters
+ * Infix notation can be used with operator '%'
+ * Does not work for floating point entries.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/modulo.hpp>
+ * \endcode
+ * 
+
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::modulo_(A0,A0)>::type
+ *     modulo(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of modulo
+ * \param a1 is the second parameter of modulo
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag modulo_ of functor modulo 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::modulus modulo_;
   }
   

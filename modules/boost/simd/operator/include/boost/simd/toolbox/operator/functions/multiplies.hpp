@@ -15,10 +15,55 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup multiplies multiplies function
+ *
+ * \par Description
+ * return the elementwise multiplication of the two parameters
+ * Infix notation can be used with operator '*'
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/multiplies.hpp>
+ * \endcode
+ * 
+ * \b Alias
+ *   mul
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::multiplies_(A0,A0)>::type
+ *     multiplies(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of multiplies
+ * \param a1 is the second parameter of multiplies
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag multiplies_ of functor multiplies 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::multiplies multiplies_;
   }
   

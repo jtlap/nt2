@@ -12,10 +12,52 @@
 
 #include <boost/dispatch/meta/as.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup splat splat function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/splat.hpp>
+ * \endcode
+ * 
+
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::splat_(A0)>::type
+ *     splat(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of splat
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag splat_ of functor splat 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     struct splat_  {};
   }
   

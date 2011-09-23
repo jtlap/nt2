@@ -18,9 +18,66 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup load load function
+ *
+ * \par Description
+ * Load a data of type T from the memory zone given by (a0,a1)
+ * with or without a sub-type level offset
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/load.hpp>
+ * \endcode
+ * 
+
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template<class T,class A0,class A1> inline
+ *   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
+ *                                                 , boost::dispatch::meta::as_<T>
+ *                                                 )
+ *                                       >::type
+ *   load(A0 const& a0,A1 const& a1 );
+ *
+ *   template<class T,int Offset,class A0,class A1> inline
+ *   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
+ *                                                 , boost::dispatch::meta::as_<T>
+ *                                                 , boost::mpl::int_<Offset>
+ *                                                 )
+ *                                       >::type
+ *   load(A0 const& a0,A1 const& a1 ); 
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of load
+ * \param a1 is the second parameter of load
+ * 
+ * \param T is a template parameter of load
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag { struct load_ {}; }
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag load_ of functor load 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
 
   //////////////////////////////////////////////////////////////////////////////
   // Load a data of type T from the memory zone given by (a0,a1)

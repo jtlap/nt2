@@ -15,10 +15,55 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup complement complement function
+ *
+ * \par Description
+ * return the bitwise complement of the entry
+ * Infix notation can be used with operator '~'
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/complement.hpp>
+ * \endcode
+ * 
+ * \b Aliases
+ *   bitwise_not
+ *   b_not
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::complement_(A0)>::type
+ *     complement(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of complement
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag complement_ of functor complement 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::complement complement_;
   }
   

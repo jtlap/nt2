@@ -81,11 +81,11 @@ class Nt2_oxygenation(Oxgen) :
             self.txt ='\n'.join(self.txt_list)
             if self.is_immutable(self.txt) :
                 print("%s has been marked as immutable"%self.txt )
-                return False
+                self.save = False
+                return
             if find('\*!',self.txt) != -1 :
                 print("%s file was already oxygenated"%self.fct)
-                self.save =False
-                return 
+                self.suppress_old()
         self.txt_list = self.make_functor_ox()
         self.txt      = '\n'.join(self.txt_list)
 ##        show(self.txt_list)
@@ -295,7 +295,20 @@ class Nt2_oxygenation(Oxgen) :
       elif i==5 : return "fith"
       else :      return str(i)+"th"
       
-
+    def strip_old(self) :
+        r = []
+        in_dox = False
+        for l in self.txt_list :
+            if not in_dox :
+                in_dox = l[:3]=='/*!'
+            if not in_dox :
+                r.append(l)
+            if in_dox :
+                in_dox = not(l[:3]=='**/!')
+        return r        
+             
+                
+          
         
 if __name__ == "__main__" :
     pass

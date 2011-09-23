@@ -18,9 +18,54 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup store store function
+ *
+ * \par Description
+ * Store a data from a0 to the memory zone given by a1 and offset a2
+ * and return a0. This is mentally equivalent to:
+ * <tt>std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);</tt>
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/store.hpp>
+ * \endcode
+ * 
+
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::store_(A0,A0)>::type
+ *     store(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of store
+ * \param a1 is the second parameter of store
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag { struct store_ {}; }
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag store_ of functor store 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
 } }
 

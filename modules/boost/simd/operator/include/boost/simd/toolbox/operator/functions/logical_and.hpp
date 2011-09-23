@@ -15,10 +15,57 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup logical_and logical_and function
+ *
+ * \par Description
+ * return the logical and of the two parameters
+ * the operands must of the same type
+ * the result type is the common one or bool in scalar case
+ * Infix notation can be used with operator '&&'
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/logical_and.hpp>
+ * \endcode
+ * 
+ * \b Alias
+ *   l_and
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::logical_and_(A0,A0)>::type
+ *     logical_and(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of logical_and
+ * \param a1 is the second parameter of logical_and
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag logical_and_ of functor logical_and 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::logical_and logical_and_;
   }
   

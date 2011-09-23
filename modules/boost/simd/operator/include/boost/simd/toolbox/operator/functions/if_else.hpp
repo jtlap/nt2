@@ -15,10 +15,58 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup if_else if_else function
+ *
+ * \par Description
+ * return the elementwise selected element from the second and third operand
+ * according to the non nullity of the first operand.
+ * parameters 2 and 3 must share the same type and also the same element size
+ * as parameter 1
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/if_else.hpp>
+ * \endcode
+ * 
+ * \b Alias
+ *   where
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0,class A1,class A2>
+ *     meta::call<tag::if_else_(A0,A1,A2)>::type
+ *     if_else(const A0 & a0,const A1 & a1,const A2 & a2);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of if_else
+ * \param a1 is the second parameter of if_else
+ * \param a2 is the third parameter of if_else
+ * 
+ * \return a value of the common type of the second and third  parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag if_else_ of functor if_else 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::if_else_ if_else_;
   }
   

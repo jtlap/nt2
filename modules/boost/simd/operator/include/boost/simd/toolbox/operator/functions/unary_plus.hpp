@@ -15,10 +15,56 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup unary_plus unary_plus function
+ *
+ * \par Description
+ * return the elementwise unary plus of the parameter
+ * Infix notation can be used with operator '+'
+ * This is in fact identity.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/unary_plus.hpp>
+ * \endcode
+ * 
+ * \b Aliases
+ *   identity
+ *   id
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::unary_plus_(A0)>::type
+ *     unary_plus(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of unary_plus
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag unary_plus_ of functor unary_plus 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::unary_plus unary_plus_;
   }
   

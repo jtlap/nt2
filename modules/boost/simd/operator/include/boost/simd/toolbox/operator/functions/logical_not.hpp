@@ -15,10 +15,55 @@
 
 #include <boost/proto/tags.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup logical_not logical_not function
+ *
+ * \par Description
+ * return the logical negation of the parameter,
+ * i.e. True or False of the entry type according that 
+ * the input is zero or non zero
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/logical_not.hpp>
+ * \endcode
+ * 
+ * \b Alias
+ *   l_not
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::logical_not_(A0)>::type
+ *     logical_not(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of logical_not
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag logical_not_ of functor logical_not 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     typedef boost::proto::tag::logical_not logical_not_;
   }
   

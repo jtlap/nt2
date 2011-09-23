@@ -13,10 +13,53 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
+
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_operator
+ * \defgroup make make function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/make.hpp>
+ * \endcode
+ * 
+
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::make_(A0,A0)>::type
+ *     make(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of make
+ * \param a1 is the second parameter of make
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag make_ of functor make 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+     */
     struct make_ {};
   }
 } }
