@@ -36,11 +36,11 @@ namespace boost { namespace simd
 
     //==========================================================================
     /*
-     * SIMD pack instanciated with non-power of 2 Cardinal.
+     * SIMD pack instanciated with non-power of 2 Cardinal or a Cardinal of 1.
      */    
     //==========================================================================
     BOOST_MPL_ASSERT_MSG
-    ( (meta::is_power_of_2_c<Cardinal>::value)
+    ( (meta::is_power_of_2_c<Cardinal>::value && Cardinal != 1)
     , INVALID_SIMD_PACK_CARDINAL
     , (boost::mpl::int_<Cardinal>)
     );
