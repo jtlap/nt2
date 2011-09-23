@@ -11,6 +11,7 @@
 
 #include <boost/mpl/size_t.hpp>
 #include <nt2/core/container/meta/reference.hpp>
+#include <nt2/core/container/memory/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
 #include <nt2/core/container/memory/adapted/pointer.hpp>
 
@@ -42,6 +43,12 @@ namespace nt2 { namespace meta
   };
 
   template<std::size_t D, typename T, typename P, typename A, std::size_t Level>
+  struct dereference_<memory::iliffe_buffer<D,T,P,A>,Level>
+  {
+    typedef typename add_pointers<T,D-Level>::type  type;
+  };
+
+  template<std::size_t D, typename T, typename P, typename A, std::size_t Level>
   struct dereference_<memory::iliffe_buffer<D,T,P,A> const&,Level>
   {
     typedef typename add_pointers<T,D-Level>::type const&  type;
@@ -57,6 +64,12 @@ namespace nt2 { namespace meta
   struct dereference_<memory::iliffe_buffer<D,T,P,A> const&,D>
   {
     typedef typename memory::iliffe_buffer<D,T,P,A>::const_reference type;
+  };
+  
+  template<std::size_t D, typename T, typename P, typename A>
+  struct dereference_<memory::iliffe_buffer<D,T,P,A>,D>
+  {
+    typedef typename memory::iliffe_buffer<D,T,P,A>::value_type type;
   };
 } }
 
