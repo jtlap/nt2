@@ -76,7 +76,7 @@ NT2_TEST_CASE( pointer_1D_as_buffer )
   initialize(tab, sizes, bases, nt2::memory::no_padding() );
 
   for(pos[0]=0;pos[0]<5;++pos[0]) 
-    dereference<1UL>(tab,pos) = 10*(1+pos[0]);
+    dereference<1UL>(tab,pos) = double(10*(1+pos[0]));
 
   for(pos[0]=0;pos[0]<5;++pos[0])
     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
@@ -106,7 +106,7 @@ NT2_TEST_CASE( pointer_2D_as_buffer )
 
   for(pos[1]=0;pos[1]<2;++pos[1])
     for(pos[0]=0;pos[0]<5;++pos[0])
-      dereference<2UL>(tab,pos) = 10*(1+pos[1]) + (1+pos[0]);
+      dereference<2UL>(tab,pos) = double(10*(1+pos[1]) + (1+pos[0]));
 
   for(pos[1]=0;pos[1]<2;++pos[1])
     for(pos[0]=0;pos[0]<5;++pos[0])
@@ -151,7 +151,7 @@ NT2_TEST_CASE( pointer_3D_as_buffer )
   for(pos[2]=0;pos[2]<2;++pos[2])
     for(pos[1]=0;pos[1]<3;++pos[1])
       for(pos[0]=0;pos[0]<4;++pos[0])
-      dereference<3UL>(tab,pos) = 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]);
+      dereference<3UL>(tab,pos) = double(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
 
   for(pos[2]=0;pos[2]<2;++pos[2])
     for(pos[1]=0;pos[1]<3;++pos[1])

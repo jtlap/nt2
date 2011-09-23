@@ -89,7 +89,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, PADDING )
   // array type supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
   for(pos[0]=-2;pos[0]<=2;++pos[0]) 
-    dereference<1UL>(tab,pos) = 10*(1+pos[0]);
+    dereference<1UL>(tab,pos) = int(10*(1+pos[0]));
 
   for(pos[0]=-2;pos[0]<=2;++pos[0])
     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
@@ -121,7 +121,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   //////////////////////////////////////////////////////////////////////////////
   for(pos[1]=0;pos[1]<=1;++pos[1])
     for(pos[0]=-2;pos[0]<=2;++pos[0])
-      dereference<2UL>(tab,pos) = 10*(1+pos[1]) + (1+pos[0]);
+      dereference<2UL>(tab,pos) = int(10*(1+pos[1]) + (1+pos[0]));
 
   for(pos[1]=0;pos[1]<=1;++pos[1])
     for(pos[0]=-2;pos[0]<=2;++pos[0])
@@ -156,7 +156,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
   for(pos[2]=0;pos[2]<2;++pos[2])
     for(pos[1]=0;pos[1]<2;++pos[1])
       for(pos[0]=0;pos[0]<2;++pos[0])
-      dereference<3UL>(tab,pos) = 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]);
+      dereference<3UL>(tab,pos) = int(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
 
   for(pos[2]=0;pos[2]<2;++pos[2])
     for(pos[1]=0;pos[1]<2;++pos[1])

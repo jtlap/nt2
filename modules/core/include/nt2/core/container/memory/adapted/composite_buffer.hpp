@@ -58,7 +58,7 @@ namespace nt2 { namespace meta
     typedef typename boost::mpl::
             transform < typename memory::composite_buffer<B>::data_type
                       , local
-                      >::type                                               type;
+                      >::type                                             type;
   };
 
   template<typename B, std::size_t Level>
@@ -75,7 +75,7 @@ namespace nt2 { namespace meta
     typedef typename boost::mpl::
             transform < typename memory::composite_buffer<B>::data_type
                       , local
-                      >::type                                               type;
+                      >::type                                             type;
   };
 } }
 
