@@ -16,6 +16,8 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/array.hpp>
 
+#include <boost/fusion/include/io.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -86,10 +88,17 @@ NT2_TEST_CASE( composite_buffer_1D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
-/*  for(pos[0]=0;pos[0]<5;++pos[0])
-    dereference<1UL>(tab,pos) = 10*(1+pos[0]);
-
   for(pos[0]=0;pos[0]<5;++pos[0])
+  {
+    boost::fusion::at_c<0>(dereference<1UL>(tab,pos)) = 1./pos[0];
+    boost::fusion::at_c<1>(dereference<1UL>(tab,pos)) = 1./(1+pos[0]);
+    boost::fusion::at_c<2>(dereference<1UL>(tab,pos)) = 'A' + pos[0];
+        
+    std::cout << dereference<1UL>(tab,pos) << "\n";// = 10*(1+pos[0]);
+  }
+    
+
+/*for(pos[0]=0;pos[0]<5;++pos[0])
     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );*/
 }
 
