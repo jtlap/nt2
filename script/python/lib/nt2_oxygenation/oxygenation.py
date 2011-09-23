@@ -173,24 +173,26 @@ class Nt2_oxygenation(Oxgen) :
         return s
   
     def compose_call(self) :
-        ## up to now suppose all parameters have same type
-        equalparams = self.df.get("equalparams",True)
-        arity = int(self.df.get("arity",'1'))
-        is_template = self.df.get("template",False)
-        tpl = "class T," if is_template  else ""
-        if equalparams :
-            tpl_list =  self.strlist('class A%d',sep=',',arity=1)
-            type_list =  self.strlist('A0',sep=',',arity=int(arity),n=0)
-            param_list =  self.strlist('const A0 & a%d',sep=',',arity=int(arity),n=1)
+        special_synopsis = self.df.get("special_synopsis",False)
+        if special_synopsis :
+            res = special_synopsis
         else :
-            tpl_list =  self.strlist('class A%d',sep=',',arity=arity)
-            type_list =  self.strlist('A%d',sep=',',arity=int(arity),n=1)
-            param_list =  self.strlist('const A%d & a%d',sep=',',arity=int(arity),n=2)
-        tpl_str  = "template <" + tpl + tpl_list +">"
-        result_str = "  meta::call<tag::"+self.fct+'_('+type_list+')>::type'
-        param_str  =  "  "+self.fct+"("+param_list+");"
- 
-        res = [ tpl_str,result_str,param_str]
+            equalparams = self.df.get("equalparams",True)
+            arity = int(self.df.get("arity",'1'))
+            is_template = self.df.get("template",False)
+            tpl = "class T," if is_template  else ""
+            if equalparams :
+                tpl_list =  self.strlist('class A%d',sep=',',arity=1)
+                type_list =  self.strlist('A0',sep=',',arity=int(arity),n=0)
+                param_list =  self.strlist('const A0 & a%d',sep=',',arity=int(arity),n=1)
+            else :
+                tpl_list =  self.strlist('class A%d',sep=',',arity=arity)
+                type_list =  self.strlist('A%d',sep=',',arity=int(arity),n=1)
+                param_list =  self.strlist('const A%d & a%d',sep=',',arity=int(arity),n=2)
+            tpl_str  = "template <" + tpl + tpl_list +">"
+            result_str = "  meta::call<tag::"+self.fct+'_('+type_list+')>::type'
+            param_str  =  "  "+self.fct+"("+param_list+");"
+            res = [ tpl_str,result_str,param_str]
         return '\n'.join(self.starize(self.indent(res,2)))
    
     def compose_parameters(self) :
@@ -199,10 +201,15 @@ class Nt2_oxygenation(Oxgen) :
         res = []
         for i in range(0,arity) :
             parami =  self.df.get("param_"+str(i),"")
-            param ="\\\\param a%s is the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct)
+            param = "\\\\param a%s is the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct)
             if len(parami) : param += ', '+'\n'.join(parami)
             res.append(param)
+        if is_template :
+            res.append("")
+            tpl_param = "\\\\param T is a template parameter of %s"%self.fct
+            res.append(tpl_param)
         ret =  self.df.get("return",[])
+        res.append("")
         if len(ret) :
             res.append("\\\\return "+'\n'.join(ret))
         else:    

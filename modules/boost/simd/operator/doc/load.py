@@ -1,6 +1,26 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Load a data of type T from the memory zone given by (a0,a1)',
+                          'with or without a sub-type level offset'],
+         'template' : True,
+         'param_3'  : ['this offset is optionnal'],
+         'equalparams' : False,
+         'special_synopsis' : [
+                "template<class T,class A0,class A1> inline",
+                "typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&",
+                "                                              , boost::dispatch::meta::as_<T>",
+                "                                              )",
+                "load(A0 const& a0,A1 const& a1 )",
+                ""
+                "  template<class T,int Offset, class A0,class A1> inline",
+                "typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&",
+                "                                , boost::dispatch::meta::as_<T>",
+                "                                , boost::mpl::int_<Offset>",
+                "                               )",
+                "            >::type",
+                "load(A0 const& a0,A1 const& a1 )",
+                ],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
