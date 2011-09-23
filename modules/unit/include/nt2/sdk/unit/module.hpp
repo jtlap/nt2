@@ -27,6 +27,7 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <stdexcept>
 #include <cstdio>
 
@@ -130,6 +131,44 @@ void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                       
   BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_CASES,Name,Types);                                    \
 }                                                                                        \
 template<class T> void BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,Name))()          \
+/**/
+
+//==============================================================================
+/*!
+ * \ingroup umodules
+ * This macro declares a new set of test case functions containing user-defined
+ * test sequences working on a list of type passed as template parameters to the
+ * test function, and only enables those tests if a compile-time condition is veried
+ *
+ * \param Name Name of the Test Case to generate
+ * \param Types a Preprocessor sequences of type to be used for generating the
+ * Test Cases.
+ * \param Cond Meta-function on \c T that must be true for the test to be enabled
+ */
+//==============================================================================
+#define NT2_TEST_CASE_TPL_IF(Name, Types, Cond)                                          \
+template<class T>                                                                        \
+typename boost::enable_if<BOOST_DISPATCH_PP_STRIP(Cond)>::type                           \
+BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,Name))();                                \
+                                                                                         \
+template<class T>                                                                        \
+typename boost::disable_if<BOOST_DISPATCH_PP_STRIP(Cond)>::type                          \
+BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,Name))() {}                              \
+                                                                                         \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)();                                               \
+nt2::details::test const                                                                 \
+BOOST_PP_CAT(Name,NT2_UNIT_PREFIX) = { BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)                \
+                                     , BOOST_PP_STRINGIZE(BOOST_PP_CAT(Name,_test))      \
+                                     , nt2::details                                      \
+                               ::main_suite.link(&BOOST_PP_CAT(Name,NT2_UNIT_PREFIX)) }; \
+void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                                \
+{                                                                                        \
+  BOOST_PP_SEQ_FOR_EACH(NT2_PP_TPL_CASES,Name,Types);                                    \
+}                                                                                        \
+                                                                                         \
+template<class T>                                                                        \
+typename boost::enable_if<BOOST_DISPATCH_PP_STRIP(Cond)>::type                           \
+BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,Name))()                                 \
 /**/
 
 #endif
