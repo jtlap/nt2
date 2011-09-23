@@ -12,11 +12,11 @@
 #if !defined(BOOST_SIMD_DETECTED)
 #define BOOST_SIMD_NO_SIMD
 
-#define BOOST_SIMD_BYTES      8
-#define BOOST_SIMD_BITS       64
+#define BOOST_SIMD_BYTES      16
+#define BOOST_SIMD_BITS       128
 #define BOOST_SIMD_STRING     "simd_emulation"
-#define BOOST_SIMD_CARDINALS (1)(2)(4)(8)
-#define BOOST_SIMD_DEFAULT_EXTENSION ::boost::simd::tag::simd_emulation_<boost::mpl::size_t<8> >
+#define BOOST_SIMD_CARDINALS  (2)(4)(8)(16)
+#define BOOST_SIMD_DEFAULT_EXTENSION ::boost::simd::tag::simd_emulation_<boost::mpl::size_t<16> >
 #define BOOST_SIMD_DEFAULT_SITE ::boost::dispatch::tag::cpu_
 
 #if !defined(BOOST_SIMD_SIMD_TYPES)

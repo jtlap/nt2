@@ -46,14 +46,11 @@ NT2_TEST_CASE_TPL ( splatted_second_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  if(cardinal_of<vT>::value != 1)
-  {
-    // specific values tests
-    NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-    NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>(), 0);
-    NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
-    NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-    NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
-    NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
-  }
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
 } // end of test for real_

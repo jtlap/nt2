@@ -56,14 +56,11 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  NT2_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  if(cardinal_of<vT>::value != 1)
-  {
-    // specific values tests
-    NT2_TEST_EQUAL(second(nt2::Inf<vT>()), nt2::Inf<sr_t>());
-    NT2_TEST_EQUAL(second(nt2::Minf<vT>()), nt2::Minf<sr_t>());
-    NT2_TEST_EQUAL(second(nt2::Mone<vT>()), nt2::Mone<sr_t>());
-    NT2_TEST_EQUAL(second(nt2::Nan<vT>()), nt2::Nan<sr_t>());
-    NT2_TEST_EQUAL(second(nt2::One<vT>()), nt2::One<sr_t>());
-    NT2_TEST_EQUAL(second(nt2::Zero<vT>()), nt2::Zero<sr_t>());
-  }
+  // specific values tests
+  NT2_TEST_EQUAL(second(nt2::Inf<vT>()), nt2::Inf<sr_t>());
+  NT2_TEST_EQUAL(second(nt2::Minf<vT>()), nt2::Minf<sr_t>());
+  NT2_TEST_EQUAL(second(nt2::Mone<vT>()), nt2::Mone<sr_t>());
+  NT2_TEST_EQUAL(second(nt2::Nan<vT>()), nt2::Nan<sr_t>());
+  NT2_TEST_EQUAL(second(nt2::One<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(second(nt2::Zero<vT>()), nt2::Zero<sr_t>());
 } // end of test for real_
