@@ -24,19 +24,6 @@ namespace nt2 { namespace meta
   struct  dimensions_of< std::vector<T,A> > 
         : boost::mpl::size_t<1 + dimensions_of<T>::value> 
   {};
-
-  //============================================================================
-  // dereference_ specialization
-  //============================================================================
-  template<typename T, typename A, std::size_t Level>
-  struct  dereference_<std::vector<T,A>&,Level>
-        : details::dereference_container<std::vector<T,A>&,Level>
-  {};
-
-  template<typename T, typename A, std::size_t Level>
-  struct  dereference_<std::vector<T,A> const&,Level>
-        : details::dereference_container<std::vector<T,A> const&,Level>
-  {};
 } }
 
 namespace nt2 { namespace details

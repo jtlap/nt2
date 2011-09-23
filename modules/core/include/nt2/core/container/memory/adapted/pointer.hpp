@@ -44,6 +44,13 @@ namespace nt2 { namespace meta
   {
     typedef typename meta::remove_pointers<T*,Level>::type const& type;
   };
+
+  template<typename T, std::size_t Level> 
+  struct dereference_<T*,Level>
+  {
+    typedef typename meta::remove_pointers<T*,Level>::type type;
+  };
+
 } }
 
 namespace nt2 { namespace memory

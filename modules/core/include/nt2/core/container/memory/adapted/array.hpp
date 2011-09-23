@@ -34,19 +34,6 @@ namespace nt2 { namespace meta
   struct  dimensions_of< boost::array<T,N> > 
         : boost::mpl::size_t<1 + dimensions_of<T>::value> 
   {};  
-
-  //============================================================================
-  // reference_ specialization
-  //============================================================================
-  template<typename T, std::size_t N, std::size_t Level> 
-  struct  dereference_<boost::array<T,N>&,Level>
-        : details::dereference_container<boost::array<T,N>&,Level>
-  {};
-
-  template<typename T, std::size_t N, std::size_t Level> 
-  struct  dereference_<boost::array<T,N> const&,Level>
-        : details::dereference_container<boost::array<T,N> const&,Level>
-  {};
 } }
 
 namespace nt2 { namespace memory
