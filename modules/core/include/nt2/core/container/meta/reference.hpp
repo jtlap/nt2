@@ -6,26 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_IS_COMPOSITE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_IS_COMPOSITE_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_META_REFERENCE_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_META_REFERENCE_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// For a given type, return a reference or const reference type that can be
-// returned after Level dereferencing
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  template<typename Buffer, std::size_t Level> struct dereference_;
-} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Helper for derefrenceing containers
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace details
 {
-  template<typename Container, std::size_t Level> struct dereference_container;
+  template<typename Container, std::size_t Level> 
+  struct dereference_container
+  {
+    typedef typename Container::value_type  base;
+    typedef typename dereference_container<base,Level-1>::type type;  
+  };
 
   template<typename Container, std::size_t Level> 
   struct dereference_container<Container&,Level>
@@ -41,10 +37,26 @@ namespace nt2 { namespace details
     typedef typename dereference_container<base,Level-1>::type type;  
   };
 
-  template<typename Container> 
+  template<typename Container>
   struct dereference_container<Container&,0UL> { typedef Container& type; };
 
-  template<typename Container> 
+  template<typename Container>
   struct dereference_container<Container const&,0UL> { typedef Container const& type; };
+
+  template<typename Container>
+  struct dereference_container<Container,0UL> { typedef Container type; };
 } }
+
+////////////////////////////////////////////////////////////////////////////////
+// For a given type, return a reference or const reference type that can be
+// returned after Level dereferencing
+////////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace meta
+{
+  template<typename Buffer, std::size_t Level> 
+  struct  dereference_
+        : details::dereference_container<Buffer,Level>
+  {};
+} }
+
 #endif
