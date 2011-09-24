@@ -170,7 +170,7 @@ static float S[5] = {
 
 extern float MACHEPF, PIO2F, MAXNUMF, PIF;
 
-#ifndef ANSIC
+#ifdef ANSIC
 float cephes_sinf(), cephes_floorf(), cephes_gammaf(), cephes_powf(), cephes_expf();
 float cephes_polevlf(), cephes_p1evlf();
 #endif

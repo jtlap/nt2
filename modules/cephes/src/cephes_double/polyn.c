@@ -59,8 +59,8 @@
  *
  */
 
-#include <stdio.h>
 #include "mconf.h"
+#include <stdio.h>
 #if ANSIPROT
 void exit (int);
 extern void * malloc ( long );

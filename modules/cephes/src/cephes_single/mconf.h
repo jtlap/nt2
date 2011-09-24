@@ -180,4 +180,11 @@ extern int merror;
 static const float ZEROF = 0.0f;
 static const double ZERO = 0.0;
 
+/* Disable some MSVC warnings */
+#ifdef _MSC_VER
+#pragma warning(disable: 4305) // 'initializing' : truncation from 'double' to 'float'
+#pragma warning(disable: 4244) // '=' : conversion from 'double' to 'float', possible loss of data
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #endif /* _MCONF_H_SINGLE_INCLUDED_ */
