@@ -30,6 +30,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <stdexcept>
 #include <cstdio>
+#include <cstdlib>
 
 #if defined(DOXYGEN_ONLY)
 //==============================================================================
@@ -78,6 +79,17 @@ extern "C" int NT2_UNIT_MAIN(int, char**)
     return 1;
   }
 }
+
+#ifdef BOOST_NO_EXCEPTIONS
+namespace boost
+{
+  extern inline void throw_exception(std::exception const& e)
+  {
+    std::cerr << "uncaught exception: " << e.what() << std::endl;
+    std::exit(1);
+  }
+}
+#endif
 
 //==============================================================================
 /*!
