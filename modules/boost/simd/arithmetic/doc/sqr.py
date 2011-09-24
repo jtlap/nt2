@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["return the square of the entry"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

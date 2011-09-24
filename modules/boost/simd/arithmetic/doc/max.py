@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ["return the greatest of the two entries"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

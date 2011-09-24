@@ -1,6 +1,13 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["The function computes the remainder of dividing a0 by a1.",
+                          "The return value is a0-n*a1, where n is the value a0/a1,",
+                          "rounded to the nearest integer.",
+                          "If the absolute value of a0-n*a1 is 0.5, n is chosen to be even.",
+                          "\par",
+                          "if one prefer: if a1 is zero returns a0, else return",
+                          "a0-divround(a0,a1)*a1"],   
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

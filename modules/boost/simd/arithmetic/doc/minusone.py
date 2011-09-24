@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["return the entry minus one saturated"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

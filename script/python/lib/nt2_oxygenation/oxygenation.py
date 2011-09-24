@@ -108,7 +108,7 @@ class Nt2_oxygenation(Oxgen) :
         pattern = re.compile("\(tag::"+self.fct+'_\s*,(.*),.*\)$')
         aliases=[]
         for l in self.txt_list :
-            if l.find("(tag::"+self.fct+'_') != -1 :
+            if (l.find("(tag::"+self.fct+'_') != -1) and (l.find("_TPL")==-1) :
                 m = pattern.search(l)
                 if m :
                     s = (m.group(1)).strip()
@@ -206,11 +206,16 @@ class Nt2_oxygenation(Oxgen) :
         arity = int(self.df.get("arity",'1'))
         is_template = self.df.get("template",False)
         res = []
-        for i in range(0,arity) :
-            parami =  self.df.get("param_"+str(i),"")
-            param = "\\\\param a%s is the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct)
-            if len(parami) : param += ', '+'\n'.join(parami)
+        if arity == 1 :
+            param_0 =  self.df.get("param_0","")
+            param = "\\\\param a0 is the unique parameter of %s"%self.fct
             res.append(param)
+        else :    
+            for i in range(0,arity) :
+                parami =  self.df.get("param_"+str(i),"")
+                param = "\\\\param a%s is the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct)
+                if len(parami) : param += ', '+'\n'.join(parami)
+                res.append(param)
         if is_template :
             res.append("")
             tpl_param = "\\\\param T is a template parameter of %s"%self.fct
@@ -219,7 +224,11 @@ class Nt2_oxygenation(Oxgen) :
         res.append("")
         if len(ret) :
             res.append("\\\\return "+'\n'.join(ret))
-        else:    
+        elif self.fct[0]=='i' :
+            res.append("\\\\return an integer value")
+        elif arity == 1 :
+            res.append("\\\\return a value of the same type as the parameter")
+        else :
             res.append("\\\\return a value of the common type of the parameters")
         return '\n'.join(self.starize(res))+'\n'
 
@@ -259,7 +268,7 @@ class Nt2_oxygenation(Oxgen) :
             ]
         aliases=self.list_aliases()
         plural = "es" if len(aliases) > 1 else ""
-        self.alias = " * \\\\b Alias"+plural+"\n *   "+'\n *   '.join(aliases) if len(aliases) else "" 
+        self.alias = " * \\\\par Alias"+plural+" \n * \\\\arg "+'\n * \\\\arg '.join(aliases) if len(aliases) else "" 
         self.description = self.get_description()
         self.parameters  = self.compose_parameters()
         self.call        = self.compose_call()
@@ -303,8 +312,8 @@ class Nt2_oxygenation(Oxgen) :
       
     def strip_old(self) :
         r = []
-        pattern1 = re.compile("\s*/\*!")
-        pattern2 = re.compile("\s*\*\*/") 
+        pattern1 = re.compile("\s*/\*[!\*]")
+        pattern2 = re.compile("\s*\*{1,2}/") 
         in_dox = False
         for l in self.txt_list :
             if not in_dox :

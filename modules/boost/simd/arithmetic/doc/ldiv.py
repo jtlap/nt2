@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["returns the left division of a1 by a0, i.e. a1/a0"],  
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

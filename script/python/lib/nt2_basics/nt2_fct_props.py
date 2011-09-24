@@ -125,6 +125,7 @@ class Nt2_fct_props(Nt2_tb_props) :
             print("=============================================")
             print(s)
             print("=============================================")
+        print("executing %s"%self.get_fct_name())
         exec("d = "+s)
         return d
 
