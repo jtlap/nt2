@@ -10,7 +10,7 @@
 #define NT2_SDK_TIMING_TIMER_HPP_INCLUDED
 
 #include <stack>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2
 {
