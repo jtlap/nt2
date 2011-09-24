@@ -12,8 +12,69 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup iceil iceil function
+ *
+ * \par Description
+ * return a value of integer type of the same size and signedness than the entry.
+ * The value returned is the smallest integer greater or equal to the entry
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/iceil.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::iceil_(A0)>::type
+ *     iceil(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of iceil
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag iceil_ of functor iceil 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct iceil_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iceil_, iceil, 1)

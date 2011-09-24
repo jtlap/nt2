@@ -12,8 +12,73 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup remainder remainder function
+ *
+ * \par Description
+ * The function computes the remainder of dividing a0 by a1.
+ * The return value is a0-n*a1, where n is the value a0/a1,
+ * rounded to the nearest integer.
+ * If the absolute value of a0-n*a1 is 0.5, n is chosen to be even.
+ * \par
+ * if one prefer: if a1 is zero returns a0, else return
+ * a0-divround(a0,a1)*a1
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/remainder.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg drem
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::remainder_(A0,A0)>::type
+ *     remainder(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of remainder
+ * \param a1 is the second parameter of remainder
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag remainder_ of functor remainder 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct remainder_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remainder_, remainder, 2)

@@ -12,8 +12,62 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup tofloat tofloat function
+ *
+ * \par Description
+ * convert an entry to floating points.
+ * In SIMD not all integer types can be so converted
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/tofloat.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::tofloat_(A0)>::type
+ *     tofloat(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of tofloat
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag tofloat_ of functor tofloat 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct tofloat_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tofloat_, tofloat, 1)

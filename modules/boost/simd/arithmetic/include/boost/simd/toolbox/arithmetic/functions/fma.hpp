@@ -12,8 +12,76 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup fma fma function
+ *
+ * \par Description
+ * computes \c a0*a1+a2, but the computation with only one rounding operation
+ * is only done on architectures possessing this hard wired capability
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/fma.hpp>
+ * \endcode
+ * 
+ * \par Aliases 
+ * \arg madd
+ * \arg fam
+ * \arg amul
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::fma_(A0,A0,A0)>::type
+ *     fma(const A0 & a0,const A0 & a1,const A0 & a2);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of fma
+ * \param a1 is the second parameter of fma
+ * \param a2 is the third parameter of fma
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag fma_ of functor fma 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct fma_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fma_, fma, 3)

@@ -12,8 +12,64 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup toint toint function
+ *
+ * \par Description
+ * convert an entry to integer by truncation.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/toint.hpp>
+ * \endcode
+ * 
+ * \par Aliases 
+ * \arg ifix
+ * \arg itrunc
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::toint_(A0)>::type
+ *     toint(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of toint
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag toint_ of functor toint 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct toint_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, toint, 1)

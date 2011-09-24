@@ -12,8 +12,69 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup iround iround function
+ *
+ * \par Description
+ * return a value of integer type of the same size and signedness than the entry.
+ * The value returned is the nearest integer to the entry
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/iround.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::iround_(A0)>::type
+ *     iround(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of iround
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag iround_ of functor iround 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct iround_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iround_, iround, 1)

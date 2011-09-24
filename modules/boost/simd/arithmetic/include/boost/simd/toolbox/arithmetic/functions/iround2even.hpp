@@ -12,8 +12,69 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup iround2even iround2even function
+ *
+ * \par Description
+ * return a value of integer type of the same size and signedness than the entry.
+ * The value returned is the nearest integer to the entry
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/iround2even.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::iround2even_(A0)>::type
+ *     iround2even(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of iround2even
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag iround2even_ of functor iround2even 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct iround2even_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iround2even_, iround2even, 1)

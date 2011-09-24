@@ -12,8 +12,63 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup sqrt sqrt function
+ *
+ * \par Description
+ * return a floating point value which is the square root of the entry
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/sqrt.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::sqrt_(A0)>::type
+ *     sqrt(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of sqrt
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag sqrt_ of functor sqrt 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct sqrt_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqrt_, sqrt, 1)

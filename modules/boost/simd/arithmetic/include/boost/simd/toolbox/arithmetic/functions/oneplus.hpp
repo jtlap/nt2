@@ -12,8 +12,64 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup oneplus oneplus function
+ *
+ * \par Description
+ * returns the saturated $1+a_0$
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/oneplus.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::oneplus_(A0)>::type
+ *     oneplus(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of oneplus
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag oneplus_ of functor oneplus 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct oneplus_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::oneplus_, oneplus, 1)

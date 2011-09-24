@@ -12,8 +12,63 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup sqr sqr function
+ *
+ * \par Description
+ * return the square of the entry
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/sqr.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::sqr_(A0)>::type
+ *     sqr(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of sqr
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag sqr_ of functor sqr 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct sqr_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqr_, sqr, 1)

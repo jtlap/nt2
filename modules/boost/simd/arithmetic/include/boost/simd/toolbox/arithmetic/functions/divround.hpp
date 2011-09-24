@@ -12,9 +12,76 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup divround divround function
+ *
+ * \par Description
+ * return the \c round of the operands real divisionin the input type
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/divround.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::divround_(A0,A0)>::type
+ *     divround(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of divround
+ * \param a1 is the second parameter of divround
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag divround_ of functor divround 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct divround_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divround_, divround, 2)

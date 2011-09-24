@@ -6,8 +6,8 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_FLOOR_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_FLOOR_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_LDIV_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_LDIV_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
@@ -15,16 +15,15 @@
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
- * \defgroup floor floor function
+ * \defgroup ldiv ldiv function
  *
  * \par Description
- * return a value of the same type of the entry
- * which is the greatest integer less or equal to the entry
+ * returns the left division of a1 by a0, i.e. a1/a0
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/floor.hpp>
+ * #include <nt2/include/functions/ldiv.hpp>
  * \endcode
  * 
  * 
@@ -34,20 +33,18 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::floor_(A0)>::type
- *     floor(const A0 & a0);
+ *     meta::call<tag::ldiv_(A0,A0)>::type
+ *     ldiv(const A0 & a0,const A0 & a1);
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of floor
+ * \param a0 is the first parameter of ldiv
+ * \param a1 is the second parameter of ldiv
  * 
- * \return a value of the same type as the parameter
+ * \return a value of the common type of the parameters
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
- 
  
  
  
@@ -73,13 +70,13 @@ namespace boost { namespace simd { namespace tag
     /*!
      * \internal tag \endinternal
      * \file
-     * \brief Define the tag floor_ of functor floor 
+     * \brief Define the tag ldiv_ of functor ldiv 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
     **/
-    struct floor_ {};
+    struct ldiv_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::floor_, floor, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ldiv_, ldiv, 2)
 } }
  
 #endif

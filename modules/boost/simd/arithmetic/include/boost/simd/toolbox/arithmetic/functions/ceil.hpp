@@ -12,8 +12,77 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup ceil ceil function
+ *
+ * \par Description
+ * return a value of the same type of the entry
+ * which is the smallest integer greater or equal to the entry
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/ceil.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::ceil_(A0)>::type
+ *     ceil(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of ceil
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag ceil_ of functor ceil 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct ceil_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ceil_, ceil, 1)

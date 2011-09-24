@@ -12,8 +12,64 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup rec rec function
+ *
+ * \par Description
+ * return the inverse of the input as a floating point value.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/rec.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::rec_(A0)>::type
+ *     rec(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of rec
+ * 
+ * \return always return floating point values
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag rec_ of functor rec 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct rec_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rec_, rec, 1)

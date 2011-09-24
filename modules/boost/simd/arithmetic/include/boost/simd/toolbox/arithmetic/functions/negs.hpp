@@ -12,9 +12,69 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup negs negs function
+ *
+ * \par Description
+ * returns saturation of $-a_0$ in the input type.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/negs.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg saturated_neg
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::negs_(A0)>::type
+ *     negs(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of negs
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag negs_ of functor negs 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct negs_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, negs, 1)

@@ -12,8 +12,68 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup minmod minmod function
+ *
+ * \par Description
+ * return the minimum of the two entries
+ *  if they have the same sign, otherwise 0
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/minmod.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::minmod_(A0,A0)>::type
+ *     minmod(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of minmod
+ * \param a1 is the second parameter of minmod
+ * 
+ * \return a value of the common type of the parameters
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag minmod_ of functor minmod 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct minmod_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minmod_, minmod, 2)

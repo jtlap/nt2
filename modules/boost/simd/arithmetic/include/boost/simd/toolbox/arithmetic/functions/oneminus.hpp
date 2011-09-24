@@ -12,8 +12,64 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup oneminus oneminus function
+ *
+ * \par Description
+ * returns the saturated $1-a_0$
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/oneminus.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::oneminus_(A0)>::type
+ *     oneminus(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of oneminus
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag oneminus_ of functor oneminus 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct oneminus_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::oneminus_, oneminus, 1)

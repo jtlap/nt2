@@ -12,8 +12,69 @@
 #include <boost/dispatch/include/functor.hpp>
 
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_arithmetic
+ * \defgroup idivfix idivfix function
+ *
+ * \par Description
+ * return the \c truncation of the operands real divisionin the corresponding integer type
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/idivfix.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::idivfix_(A0,A0)>::type
+ *     idivfix(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of idivfix
+ * \param a1 is the second parameter of idivfix
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag idivfix_ of functor idivfix 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct idivfix_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::idivfix_, idivfix, 2)
