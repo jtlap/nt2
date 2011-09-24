@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_TIMING_IMPL_CYCLES_HPP_INCLUDED
 #define NT2_SDK_TIMING_IMPL_CYCLES_HPP_INCLUDED
 
+#include <boost/config.hpp>
 #include <nt2/sdk/config/arch.hpp>
 #include <nt2/sdk/config/types.hpp>
 
@@ -28,25 +29,16 @@ namespace nt2
     }
   }
 }
-#elif defined(BOOST_MSVC) && (_MSC_VER >= 1200 && _M_IX86 >= 500)
+#elif defined(BOOST_MSVC)
+#include <intrin.h>
+
 namespace nt2
 {
   namespace details
   {
     inline cycles_t read_cycles()
     {
-      nt2::uint32_t hi = 0, lo = 0;
-  
-      __asm
-      {
-        __asm __emit 0fh __asm __emit 031h
-        mov hi, edx
-        mov lo, eax
-      }
-  
-      cycles_t that =   static_cast<cycles_t>(lo)
-                    | ( static_cast<cycles_t>(hi)<<32 );
-      return that;
+      return __rdtsc();
     }
   }
 }
