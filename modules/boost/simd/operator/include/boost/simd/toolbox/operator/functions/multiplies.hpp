@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -31,8 +32,8 @@
  * #include <nt2/include/functions/multiplies.hpp>
  * \endcode
  * 
- * \b Alias
- *   mul
+ * \par Alias 
+ * \arg mul
  * 
  * \synopsis
  *
@@ -52,7 +53,8 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -63,7 +65,7 @@ namespace boost { namespace simd
      * \brief Define the tag multiplies_ of functor multiplies 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::multiplies multiplies_;
   }
   

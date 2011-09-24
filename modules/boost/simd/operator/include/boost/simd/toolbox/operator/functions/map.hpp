@@ -14,6 +14,7 @@
 
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -28,7 +29,6 @@
  * #include <nt2/include/functions/map.hpp>
  * \endcode
  * 
-
  * 
  * \synopsis
  *
@@ -48,7 +48,8 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
   /*!
    * \internal tag \endinternal
@@ -56,7 +57,7 @@ namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
    * \brief Define the tag map_ of functor map 
    *        in namespace boost::simd::tag
    * \internal end_tag \endinternal
-   */
+  **/
 
 namespace boost { namespace simd
 {

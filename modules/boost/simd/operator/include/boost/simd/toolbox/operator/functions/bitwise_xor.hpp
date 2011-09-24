@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -35,8 +36,8 @@
  * #include <nt2/include/functions/bitwise_xor.hpp>
  * \endcode
  * 
- * \b Alias
- *   b_xor
+ * \par Alias 
+ * \arg b_xor
  * 
  * \synopsis
  *
@@ -56,7 +57,10 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -67,7 +71,7 @@ namespace boost { namespace simd
      * \brief Define the tag bitwise_xor_ of functor bitwise_xor 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::bitwise_xor bitwise_xor_;
   }
   

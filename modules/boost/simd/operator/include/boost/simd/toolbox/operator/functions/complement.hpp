@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -31,9 +32,9 @@
  * #include <nt2/include/functions/complement.hpp>
  * \endcode
  * 
- * \b Aliases
- *   bitwise_not
- *   b_not
+ * \par Aliases 
+ * \arg bitwise_not
+ * \arg b_not
  * 
  * \synopsis
  *
@@ -46,13 +47,14 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of complement
+ * \param a0 is the unique parameter of complement
  * 
- * \return a value of the common type of the parameters
+ * \return a value of the same type as the parameter
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -63,7 +65,7 @@ namespace boost { namespace simd
      * \brief Define the tag complement_ of functor complement 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::complement complement_;
   }
   

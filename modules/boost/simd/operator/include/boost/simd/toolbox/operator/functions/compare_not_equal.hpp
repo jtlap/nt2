@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -24,7 +25,11 @@
  * \par Description
  * return a bool that is the result of the lexicographic
  * test for != on elements of the entries
- * It is probably not what you wish. Have a look to is_not_equal
+ * I.e. return true if and only if two corresponding entries
+ * elements are not equal.
+ * \par
+ * It is probably not what you wish. Have a look to <tt>is_not_equal</tt>
+ * \par
  * Infix notation can be used with operator '!='
  *
  * \par Header file
@@ -33,8 +38,8 @@
  * #include <nt2/include/functions/compare_not_equal.hpp>
  * \endcode
  * 
- * \b Alias
- *   compare_neq
+ * \par Alias 
+ * \arg compare_neq
  * 
  * \synopsis
  *
@@ -54,7 +59,8 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -65,7 +71,7 @@ namespace boost { namespace simd
      * \brief Define the tag compare_not_equal_ of functor compare_not_equal 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::not_equal_to compare_not_equal_;
   }
     

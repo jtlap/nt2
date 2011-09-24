@@ -15,6 +15,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -29,8 +30,8 @@
  * #include <nt2/include/functions/comma.hpp>
  * \endcode
  * 
- * \b Alias
- *   then
+ * \par Alias 
+ * \arg then
  * 
  * \synopsis
  *
@@ -50,7 +51,10 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -61,7 +65,7 @@ namespace boost { namespace simd
      * \brief Define the tag comma_ of functor comma 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::comma comma_;
   }
   

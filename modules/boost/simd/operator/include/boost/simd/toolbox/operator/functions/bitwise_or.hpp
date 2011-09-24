@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -35,8 +36,8 @@
  * #include <nt2/include/functions/bitwise_or.hpp>
  * \endcode
  * 
- * \b Alias
- *   b_or
+ * \par Alias 
+ * \arg b_or
  * 
  * \synopsis
  *
@@ -56,7 +57,10 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -67,7 +71,7 @@ namespace boost { namespace simd
      * \brief Define the tag bitwise_or_ of functor bitwise_or 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::bitwise_or bitwise_or_;
   }
   

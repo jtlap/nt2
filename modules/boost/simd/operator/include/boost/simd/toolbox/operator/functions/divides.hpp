@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -31,9 +32,9 @@
  * #include <nt2/include/functions/divides.hpp>
  * \endcode
  * 
- * \b Aliases
- *   div
- *   rdiv
+ * \par Aliases 
+ * \arg div
+ * \arg rdiv
  * 
  * \synopsis
  *
@@ -53,7 +54,9 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -64,7 +67,7 @@ namespace boost { namespace simd
      * \brief Define the tag divides_ of functor divides 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::divides divides_;
   }
   

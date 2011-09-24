@@ -18,6 +18,7 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -33,7 +34,6 @@
  * #include <nt2/include/functions/load.hpp>
  * \endcode
  * 
-
  * 
  * \synopsis
  *
@@ -43,17 +43,16 @@
  *   template<class T,class A0,class A1> inline
  *   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
  *                                                 , boost::dispatch::meta::as_<T>
- *                                                 )
+ *                                                  )
  *                                       >::type
  *   load(A0 const& a0,A1 const& a1 );
- *
  *   template<class T,int Offset,class A0,class A1> inline
  *   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
  *                                                 , boost::dispatch::meta::as_<T>
  *                                                 , boost::mpl::int_<Offset>
  *                                                 )
- *                                       >::type
- *   load(A0 const& a0,A1 const& a1 ); 
+ *                                        >::type
+ *   load(A0 const& a0,A1 const& a1 );
  * }
  * \endcode
  *
@@ -66,7 +65,8 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag {
@@ -76,7 +76,7 @@ namespace boost { namespace simd
      * \brief Define the tag load_ of functor load 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     **/
+    **/
     struct load_ {};
   }
   //////////////////////////////////////////////////////////////////////////////

@@ -13,6 +13,7 @@
 #include <boost/dispatch/meta/as.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -27,7 +28,6 @@
  * #include <nt2/include/functions/splat.hpp>
  * \endcode
  * 
-
  * 
  * \synopsis
  *
@@ -40,13 +40,14 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of splat
+ * \param a0 is the unique parameter of splat
  * 
- * \return a value of the common type of the parameters
+ * \return a value of the same type as the parameter
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -57,7 +58,7 @@ namespace boost { namespace simd
      * \brief Define the tag splat_ of functor splat 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     struct splat_  {};
   }
   

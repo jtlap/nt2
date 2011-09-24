@@ -14,6 +14,7 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -28,7 +29,6 @@
  * #include <nt2/include/functions/make.hpp>
  * \endcode
  * 
-
  * 
  * \synopsis
  *
@@ -48,7 +48,8 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -59,7 +60,7 @@ namespace boost { namespace simd
      * \brief Define the tag make_ of functor make 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     struct make_ {};
   }
 } }

@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -32,8 +33,8 @@
  * #include <nt2/include/functions/logical_not.hpp>
  * \endcode
  * 
- * \b Alias
- *   l_not
+ * \par Alias 
+ * \arg l_not
  * 
  * \synopsis
  *
@@ -46,13 +47,14 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of logical_not
+ * \param a0 is the unique parameter of logical_not
  * 
- * \return a value of the common type of the parameters
+ * \return a value of the same type as the parameter
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -63,7 +65,7 @@ namespace boost { namespace simd
      * \brief Define the tag logical_not_ of functor logical_not 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::logical_not logical_not_;
   }
   

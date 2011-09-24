@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -24,7 +25,9 @@
  * \par Description
  * return a bool that is the result of the lexicographic
  * test for >= on all elements of the entries
- * It is probably not what you wish. Have a look to is_greater_equal
+ * \par
+ * It is probably not what you wish. Have a look to is_greater_equal.
+ * \par
  * Infix notation can be used with operator '>='
  *
  * \par Header file
@@ -33,8 +36,8 @@
  * #include <nt2/include/functions/compare_greater_equal.hpp>
  * \endcode
  * 
- * \b Alias
- *   compare_ge
+ * \par Alias 
+ * \arg compare_ge
  * 
  * \synopsis
  *
@@ -54,7 +57,8 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -65,7 +69,7 @@ namespace boost { namespace simd
      * \brief Define the tag compare_greater_equal_ of functor compare_greater_equal 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::greater_equal compare_greater_equal_;
   }
     

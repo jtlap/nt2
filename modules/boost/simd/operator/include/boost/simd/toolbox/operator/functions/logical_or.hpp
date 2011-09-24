@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -33,8 +34,8 @@
  * #include <nt2/include/functions/logical_or.hpp>
  * \endcode
  * 
- * \b Alias
- *   l_or
+ * \par Alias 
+ * \arg l_or
  * 
  * \synopsis
  *
@@ -54,7 +55,8 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -65,7 +67,7 @@ namespace boost { namespace simd
      * \brief Define the tag logical_or_ of functor logical_or 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::logical_or logical_or_;
   }
   

@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -32,9 +33,9 @@
  * #include <nt2/include/functions/unary_plus.hpp>
  * \endcode
  * 
- * \b Aliases
- *   identity
- *   id
+ * \par Aliases 
+ * \arg identity
+ * \arg id
  * 
  * \synopsis
  *
@@ -47,13 +48,14 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of unary_plus
+ * \param a0 is the unique parameter of unary_plus
  * 
- * \return a value of the common type of the parameters
+ * \return a value of the same type as the parameter
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -64,7 +66,7 @@ namespace boost { namespace simd
      * \brief Define the tag unary_plus_ of functor unary_plus 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::unary_plus unary_plus_;
   }
   

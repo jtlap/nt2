@@ -16,6 +16,7 @@
 #include <boost/proto/tags.hpp>
 
 
+
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -23,8 +24,12 @@
  *
  * \par Description
  * return a bool that is the result of the lexicographic
- * test for euality of all elements of the entries
- * It is probably not what you wish. Have a look to is_equal
+ * test for equality of all elements of the entries
+ * I.e. return true if and only if all corresponding entries
+ * elements are equal.
+ * \par
+ * It is probably not what you wish. Have a look to <tt>is_equal</tt>
+ * \par
  * Infix notation can be used with operator '=='
  *
  * \par Header file
@@ -33,8 +38,8 @@
  * #include <nt2/include/functions/compare_equal.hpp>
  * \endcode
  * 
- * \b Alias
- *   compare_eq
+ * \par Alias 
+ * \arg compare_eq
  * 
  * \synopsis
  *
@@ -54,7 +59,8 @@
  *  
  * \internal end_functor \endinternal
 **/
-
+ 
+ 
 namespace boost { namespace simd
 {
   namespace tag
@@ -65,7 +71,7 @@ namespace boost { namespace simd
      * \brief Define the tag compare_equal_ of functor compare_equal 
      *        in namespace boost::simd::tag
      * \internal end_tag \endinternal
-     */
+    **/
     typedef boost::proto::tag::equal_to compare_equal_;
   }
     
