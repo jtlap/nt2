@@ -80,14 +80,11 @@ class Nt2_oxygenation(Oxgen) :
         else :
             self.txt_list = read(self.fich)
             self.txt ='\n'.join(self.txt_list)
-            print("icitte")
             if self.is_immutable(self.txt) :
                 print("%s has been marked as immutable"%self.txt )
                 self.save = False
                 return
-            print("latte")
             if self.txt.find('/*!') != -1 :
-                print("latte2")
                 print("%s file was already oxygenated"%self.fct)
                 if not self.strip :
                     return
@@ -98,7 +95,7 @@ class Nt2_oxygenation(Oxgen) :
 ##        show(self.txt_list)
         self.txt_list = self.make_tag_ox()
         self.txt      = '\n'.join(self.txt_list) 
-##        show(self.txt_list)
+        self.txt_list =self.suppress_double_blank(self.txt_list)
         return self.txt_list
     
     def is_boost(self) :
@@ -327,6 +324,13 @@ class Nt2_oxygenation(Oxgen) :
     def suppress_blank(self,txt_list) :            
         return [l for l in txt_list if len(l)]
     
-        
+    def suppress_double_blank(self,txt_list) :
+        for i,l in enumerate(txt_list) :
+            if re.match('\s*$',l) : txt_list[i]=""
+        pattern =re.compile("\n{3,}")
+        txt = '\n'.join(txt_list)
+        txt = re.sub(pattern,"\n\n",txt)
+        return txt.split('\n')
+    
 if __name__ == "__main__" :
     pass
