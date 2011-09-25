@@ -11,14 +11,55 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_bitwise
+ * \defgroup rrol rrol function
+ *
+ * \par Description
+ * The function returns the first entry rotated left or right
+ * by the absolute value of second entry according to its sign.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/rrol.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::rrol_(A0,A0)>::type
+ *     rrol(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of rrol
+ * \param a1 is the second parameter of rrol, must be an integer value
+ * 
+ * \return returns a value of the type of the first parameter
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag rrol_ of functor rrol 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct rrol_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rrol_, rrol, 2)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

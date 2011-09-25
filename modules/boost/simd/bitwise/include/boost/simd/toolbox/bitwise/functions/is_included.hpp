@@ -11,9 +11,52 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_bitwise
+ * \defgroup is_included is_included function
+ *
+ * \par Description
+ * The function returns the a bool
+ * true is only if all bits set in a0 are also set in a1
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/is_included.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg testz
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::is_included_(A0,A0)>::type
+ *     is_included(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of is_included
+ * \param a1 is the second parameter of is_included
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag is_included_ of functor is_included 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct is_included_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_, is_included, 2)
@@ -21,5 +64,4 @@ namespace boost { namespace simd { namespace tag
 } }
 
 #endif
-
 

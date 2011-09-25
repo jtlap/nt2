@@ -11,14 +11,54 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_bitwise
+ * \defgroup lo lo function
+ *
+ * \par Description
+ * The function returns the low part of the entry
+ * as an integer of the same size as the input.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/lo.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::lo_(A0)>::type
+ *     lo(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of lo
+ * 
+ * \return always returns an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag lo_ of functor lo 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct lo_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::lo_, lo, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

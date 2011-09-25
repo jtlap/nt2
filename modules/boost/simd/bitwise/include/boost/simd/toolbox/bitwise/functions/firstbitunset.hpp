@@ -11,14 +11,55 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_bitwise
+ * \defgroup firstbitunset firstbitunset function
+ *
+ * \par Description
+ * The function  find the first bit unset (beginning with the least
+ * significant bit) in a0, and return the bit pattern in which
+ * this bit is the only bit set.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/firstbitunset.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::firstbitunset_(A0)>::type
+ *     firstbitunset(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of firstbitunset
+ * 
+ * \return always returns an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag firstbitunset_ of functor firstbitunset 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct firstbitunset_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::firstbitunset_, firstbitunset, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

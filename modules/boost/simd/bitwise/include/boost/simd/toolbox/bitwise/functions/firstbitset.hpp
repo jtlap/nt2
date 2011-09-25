@@ -11,14 +11,55 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_bitwise
+ * \defgroup firstbitset firstbitset function
+ *
+ * \par Description
+ * The function  find the first bit set (beginning with the least
+ * significant bit) in a0, and return the bit pattern in which
+ * this bit is the only bit set.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/firstbitset.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::firstbitset_(A0)>::type
+ *     firstbitset(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of firstbitset
+ * 
+ * \return always returns an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag firstbitset_ of functor firstbitset 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct firstbitset_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::firstbitset_, firstbitset, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010
