@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['The function conditionnaly to a0 returns a1 or -a1'],
+         'return' : ['always of the type of the second parameter'],   
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

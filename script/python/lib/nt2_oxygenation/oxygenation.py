@@ -62,9 +62,6 @@ class Nt2_oxygenation(Oxgen) :
     def __init__(self, base_gen,strip=True) :
         Oxgen.__init__(self,base_gen)
         self.strip = strip
-##        self.save = True
-##        self.p = None
-##        self.fct = None
         self.namespace = "boost::simd" if self.is_boost() else "nt2" 
         
     def path(self) : return self.p
@@ -156,6 +153,7 @@ class Nt2_oxygenation(Oxgen) :
     def get_description(self) :
        desc = self.df.get("description",
                           ["TODO Put description here"])
+       print(self.df)
 ##                           "this can be done by editing %s.py"%self.fct,
 ##                           "and adding a description section in the ",
 ##                           "functor part of the python dictionnary"])

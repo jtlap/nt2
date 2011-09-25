@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : [ "The function return unsigned integer value with the same bits of the input"],
+         'return' : ["an unsigned integer"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

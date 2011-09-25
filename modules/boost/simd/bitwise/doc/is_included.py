@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['The function returns the a bool',
+                          'true is only if all bits set in a0 are also set in a1'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
