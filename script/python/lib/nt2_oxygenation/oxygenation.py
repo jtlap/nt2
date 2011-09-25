@@ -180,7 +180,7 @@ class Nt2_oxygenation(Oxgen) :
             res = special_synopsis
         else :
             equalparams = self.df.get("equalparams",True)
-            arity = int(self.df.get("arity",'1'))
+            arity = int(self.df.get("max_arity",self.df.get("arity",'1')))
             is_template = self.df.get("template",False)
             tpl = "class T," if is_template  else ""
             if equalparams :
@@ -198,7 +198,7 @@ class Nt2_oxygenation(Oxgen) :
         return '\n'.join(self.starize(self.indent(res,2)))
    
     def compose_parameters(self) :
-        arity = int(self.df.get("arity",'1'))
+        arity = int(self.df.get("max_arity",self.df.get("arity",'1')))
         is_template = self.df.get("template",False)
         res = []
         if arity == 1 :
