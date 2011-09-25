@@ -8,17 +8,17 @@
                           ],
           'special_synopsis' : [
                 "template<class A0> inline",
-                "typename boost::dispatch::meta::call<tag::remquo_ ( A0 const&, A0 const&)",
+                "typename boost::dispatch::meta::call<tag::remquo_(A0 const&,A0 const&)",
                 "                                    >::type",
                 "remquo(A0 const& a0,A0 const& a1 );",
                 " "
                 "template<class A0> inline",
-                "typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&, A0&)",
+                "typename boost::dispatch::meta::call<tag::remquo_(A0 const&,A1 const&, A0&)",
                 "                                     >::type",
-                "remquo(A0 const& a0,A1 const& a1, A0& a2 );",
+                "remquo(A0 const& a0,A1const& a1,A0& a2);",
                 " "
                 "template<class A0,class A1> inline",
-                "int load(A0 const& a0,A1 const& a1, A0& a2,A1& a3);",
+                "int remquo(A0 const& a0,A1 const& a1,A0& a2,A1& a3);",
                  ],
          'module' : 'boost',
          'arity' : '2',
