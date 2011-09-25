@@ -15,8 +15,6 @@
 
 #include <boost/proto/tags.hpp>
 
-
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -56,8 +54,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
+
 namespace boost { namespace simd
 {
   namespace tag
@@ -71,7 +68,7 @@ namespace boost { namespace simd
     **/
     typedef boost::proto::tag::if_else_ if_else_;
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , if_else         , 3 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , where           , 3 )
 

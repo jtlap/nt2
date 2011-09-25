@@ -12,8 +12,6 @@
 
 #include <boost/dispatch/meta/as.hpp>
 
-
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -46,8 +44,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
+
 namespace boost { namespace simd
 {
   namespace tag
@@ -61,7 +58,7 @@ namespace boost { namespace simd
     **/
     struct splat_  {};
   }
-  
+
   template<class T, class A0> inline
   typename boost::dispatch::meta::call<tag::splat_(A0, boost::dispatch::meta::as_<T>)>::type
   splat(A0 const& a0)

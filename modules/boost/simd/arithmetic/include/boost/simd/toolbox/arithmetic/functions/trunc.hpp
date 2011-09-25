@@ -11,7 +11,6 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
@@ -46,20 +45,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
 namespace boost { namespace simd { namespace tag
   {         
     /*!
@@ -74,7 +60,7 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, trunc, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, fix, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

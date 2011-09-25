@@ -15,8 +15,6 @@
 
 #include <boost/proto/tags.hpp>
 
-
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -53,8 +51,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
+
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup minus Minus operator
@@ -101,7 +98,7 @@ namespace boost { namespace simd
     **/
     typedef boost::proto::tag::minus minus_;
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minus_             , minus            , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minus_             , sub              , 2 )
 } }

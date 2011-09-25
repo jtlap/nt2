@@ -11,7 +11,6 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
@@ -51,28 +50,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
 namespace boost { namespace simd { namespace tag
   {         
     /*!
@@ -86,19 +64,19 @@ namespace boost { namespace simd { namespace tag
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fma_, fma, 3)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fma_, madd, 3)
-  
+
   BOOST_DISPATCH_FUNCTION_INTERFACE(tag::fma_, fam, 3)
   {
     typename boost::dispatch::make_functor<tag::fma_, A0>::type callee;
     return callee(a1, a2, a0);
   }
-  
+
   BOOST_DISPATCH_FUNCTION_INTERFACE(tag::fma_, amul, 3)
   {
     typename boost::dispatch::make_functor<tag::fma_, A0>::type callee;
     return callee(a1, a2, a0);
   }
-  
+
 } }
- 
+
 #endif

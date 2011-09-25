@@ -15,8 +15,6 @@
 
 #include <boost/proto/tags.hpp>
 
-
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -53,8 +51,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
+
 namespace boost { namespace simd
 {
   namespace tag
@@ -68,7 +65,7 @@ namespace boost { namespace simd
     **/
     typedef boost::proto::tag::complement complement_;
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , complement  , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , bitwise_not , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , b_not       , 1 )

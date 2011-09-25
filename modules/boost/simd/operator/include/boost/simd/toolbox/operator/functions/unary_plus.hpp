@@ -15,8 +15,6 @@
 
 #include <boost/proto/tags.hpp>
 
-
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -54,8 +52,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
+
 namespace boost { namespace simd
 {
   namespace tag
@@ -69,7 +66,7 @@ namespace boost { namespace simd
     **/
     typedef boost::proto::tag::unary_plus unary_plus_;
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , unary_plus  , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , identity    , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , id          , 1 )

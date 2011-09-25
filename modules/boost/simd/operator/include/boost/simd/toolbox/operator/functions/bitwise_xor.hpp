@@ -15,8 +15,6 @@
 
 #include <boost/proto/tags.hpp>
 
-
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -57,10 +55,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
- 
- 
+
 namespace boost { namespace simd
 {
   namespace tag
@@ -74,7 +69,7 @@ namespace boost { namespace simd
     **/
     typedef boost::proto::tag::bitwise_xor bitwise_xor_;
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_xor_      , bitwise_xor     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_xor_      , b_xor           , 2 )
 } }

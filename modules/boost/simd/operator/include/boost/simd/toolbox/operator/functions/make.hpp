@@ -13,8 +13,6 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
-
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -48,8 +46,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
+
 namespace boost { namespace simd
 {
   namespace tag
@@ -75,7 +72,7 @@ namespace boost { namespace dispatch
   m(16, 16, data)                                                                          \
   m(32, 32, data)                                                                          \
   m(64, 64, data)
-    
+
   /* We specialize functor directly due to arity limitations, and we only dispatch on the target.
    * We also avoid having to dispatch return type deduction, and we cast all arguments to the scalar
    * matching the target. */
@@ -84,9 +81,9 @@ namespace boost { namespace dispatch
   {
     template<class Sig>
     struct result;
-    
+
     #define M1(z,n,t) static_cast<typename meta::scalar_of<typename Target::type>::type>(a##n)
-    
+
     #define M0(z,n,t)                                                                      \
     template<class This, BOOST_PP_ENUM_PARAMS(n, class A), class Target>                   \
     struct result<This(BOOST_PP_ENUM_PARAMS(n, A), Target)>                                \
@@ -101,7 +98,7 @@ namespace boost { namespace dispatch
       typename meta::dispatch_call<boost::simd::tag::make_(Target), Site>::type callee;    \
       return callee(BOOST_PP_ENUM(n, M1, ~));                                              \
     }
-    
+
     BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
     #undef M0
     #undef M1

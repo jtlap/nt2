@@ -18,7 +18,6 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_operator
@@ -65,8 +64,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
+
 namespace boost { namespace simd
 {
   namespace tag {

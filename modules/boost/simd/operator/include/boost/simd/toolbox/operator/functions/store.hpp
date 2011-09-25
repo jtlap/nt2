@@ -11,14 +11,11 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Store a value in memory functor and function
 // Documentation: http://nt2.lri.fr/sdk/memory/functions/store.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/dispatch/functor/preprocessor/function.hpp>
-
-
 
 /*!
  * \internal functor \endinternal
@@ -55,8 +52,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
+
 namespace boost { namespace simd
 {
   namespace tag { struct store_ {}; }

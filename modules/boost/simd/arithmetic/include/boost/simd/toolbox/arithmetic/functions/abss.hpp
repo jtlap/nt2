@@ -11,7 +11,6 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-
 /*!
  * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
@@ -47,39 +46,7 @@
  *  
  * \internal end_functor \endinternal
 **/
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
 namespace boost { namespace simd {
   namespace tag
   {
