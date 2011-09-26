@@ -39,7 +39,7 @@
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0>
-//     struct result<This(A0)> : meta::as_real<A0>{};
+//     struct result<This(A0)> : meta::as_floating<A0>{};
 
 //     NT2_FUNCTOR_CALL(1)
 //     {
@@ -64,7 +64,7 @@
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0>
-//     struct result<This(A0)> : meta::as_real<A0>{};
+//     struct result<This(A0)> : meta::as_floating<A0>{};
 
 //     NT2_FUNCTOR_CALL(1)
 //     {

@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOS_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
                          ((simd_<arithmetic_<A0>,X>))
                         )
   {
-      typedef typename meta::as_real<A0>::type  rtype;
+      typedef typename meta::as_floating<A0>::type  rtype;
       typedef boost::fusion::tuple<rtype, rtype> result_type;
     
     NT2_FUNCTOR_CALL(1)

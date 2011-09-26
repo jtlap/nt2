@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_real<T>::type',
+             'default' : 'typename nt2::meta::as_floating<T>::type',
             },
          'simd_types' : ["int_convert_","uint_convert_"],
          'type_defs' : [],

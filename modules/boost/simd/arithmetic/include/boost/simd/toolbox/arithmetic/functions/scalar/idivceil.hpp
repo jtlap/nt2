@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/iceil.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

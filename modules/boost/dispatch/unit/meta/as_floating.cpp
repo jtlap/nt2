@@ -9,24 +9,24 @@
 #define NT2_UNIT_MODULE "boost::dispatch::meta::as_real"
 
 #include <boost/simd/sdk/config/types.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test that as_real is correct w/r to original sign
+// Test that as_floating is correct w/r to original sign
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(as_real)
+NT2_TEST_CASE(as_floating)
 {
-  using boost::dispatch::meta::as_real;
+  using boost::dispatch::meta::as_floating;
   using boost::is_same;
 
-  NT2_TEST( (is_same<as_real<double       >::type,double  >::value ));
-  NT2_TEST( (is_same<as_real<float        >::type,float   >::value ));
-  NT2_TEST( (is_same<as_real<boost::simd::int64_t >::type,double  >::value ));
-  NT2_TEST( (is_same<as_real<boost::simd::int32_t >::type,float   >::value ));
-  NT2_TEST( (is_same<as_real<boost::simd::uint64_t>::type,double  >::value ));
-  NT2_TEST( (is_same<as_real<boost::simd::uint32_t>::type,float   >::value ));
+  NT2_TEST( (is_same<as_floating<double       >::type,double  >::value ));
+  NT2_TEST( (is_same<as_floating<float        >::type,float   >::value ));
+  NT2_TEST( (is_same<as_floating<boost::simd::int64_t >::type,double  >::value ));
+  NT2_TEST( (is_same<as_floating<boost::simd::int32_t >::type,float   >::value ));
+  NT2_TEST( (is_same<as_floating<boost::simd::uint64_t>::type,double  >::value ));
+  NT2_TEST( (is_same<as_floating<boost::simd::uint32_t>::type,float   >::value ));
 }

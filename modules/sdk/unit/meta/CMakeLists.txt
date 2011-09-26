@@ -12,7 +12,7 @@ SET( SOURCES
     any.cpp
     as.cpp
     as_integer.cpp
-    as_real.cpp
+    as_floating.cpp
     as_signed.cpp
     as_unsigned.cpp
     cardinal_of.cpp
@@ -25,7 +25,7 @@ SET( SOURCES
     is_signed.cpp
     m_arithmetic.cpp
     make_integer.cpp
-    make_real.cpp
+    make_floating.cpp
     scalar_of.cpp
     sign_of.cpp
     strip.cpp

@@ -17,7 +17,7 @@
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/divides.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A1>::type result_type;
+    typedef typename meta::as_floating<A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

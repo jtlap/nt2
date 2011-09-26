@@ -12,7 +12,7 @@
 
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     typedef uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_real<A0>::type type;
+      typedef typename dispatch::meta::as_floating<A0>::type type;
       return _mm_movemask_ps(native_cast<type>(a0));
     }
   };
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
     typedef uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_real<A0>::type type;
+      typedef typename dispatch::meta::as_floating<A0>::type type;
       return _mm_movemask_pd(native_cast<type>(a0));
     }
   };

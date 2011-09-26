@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SQRT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/toint.hpp>
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return sqrt(tofloat(a0));

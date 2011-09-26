@@ -17,7 +17,7 @@
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {

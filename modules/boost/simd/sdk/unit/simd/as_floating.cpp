@@ -6,27 +6,31 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::meta::as_real"
+#define NT2_UNIT_MODULE "boost::simd::meta::as_floating SIMD"
 
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test that as_real is correct w/r to original sign
+// Test that as_floating on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(as_real)
+NT2_TEST_CASE_TPL(as_real_simd, BOOST_SIMD_REAL_TYPES)
 {
-  using nt2::meta::as_real;
+  using boost::simd::native;
+  using boost::dispatch::meta::as_floating;
   using boost::is_same;
+  using boost::mpl::_;
 
-  NT2_TEST( (is_same<as_real<double       >::type,double  >::value ));
-  NT2_TEST( (is_same<as_real<float        >::type,float   >::value ));
-  NT2_TEST( (is_same<as_real<nt2::int64_t >::type,double  >::value ));
-  NT2_TEST( (is_same<as_real<nt2::int32_t >::type,float   >::value ));
-  NT2_TEST( (is_same<as_real<nt2::uint64_t>::type,double  >::value ));
-  NT2_TEST( (is_same<as_real<nt2::uint32_t>::type,float   >::value ));
+  typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
+  typedef native<typename as_floating<T>::type,ext_t> dst_t;
+
+  NT2_TEST( (is_same< typename as_floating< native<T,ext_t> >::type
+                    , dst_t
+                    >::value
+            )
+          );
 }

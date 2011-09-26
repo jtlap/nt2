@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
                                 ((simd_<arithmetic_<A0>,X>))
                                )
   {
-      typedef typename meta::as_real<A0>::type  rtype;
+      typedef typename meta::as_floating<A0>::type  rtype;
       typedef boost::fusion::tuple<rtype, rtype> result_type;
       
       NT2_FUNCTOR_CALL(1)

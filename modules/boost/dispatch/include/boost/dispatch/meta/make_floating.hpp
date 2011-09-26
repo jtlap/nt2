@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Meta-function that creates a standard real type from a size in bytes.
 // As all make_xxx, also provides an optional lambda to apply to the result.
-// See: http://nt2.metascale.org/sdk/meta/traits/make_real.html
+// See: http://nt2.metascale.org/sdk/meta/traits/make_floating.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/apply.hpp>
 #include <boost/dispatch/meta/na.hpp>
@@ -20,17 +20,17 @@
 namespace boost { namespace dispatch { namespace meta
 {
   template<std::size_t Size, class Transform = na_>
-  struct  make_real;
+  struct  make_floating;
 
-  template<> struct  make_real<sizeof(double) , na_ > { typedef double  type; };
-  template<> struct  make_real<sizeof(float)  , na_ > { typedef float   type; };
+  template<> struct  make_floating<sizeof(double) , na_ > { typedef double  type; };
+  template<> struct  make_floating<sizeof(float)  , na_ > { typedef float   type; };
 
   template<class Transform>
-  struct  make_real<sizeof(double),Transform>
+  struct  make_floating<sizeof(double),Transform>
         : boost::mpl::apply<Transform,double> {};
 
   template<class Transform>
-  struct  make_real<sizeof(float),Transform>
+  struct  make_floating<sizeof(float),Transform>
         : boost::mpl::apply<Transform,float> {};
 } } }
 

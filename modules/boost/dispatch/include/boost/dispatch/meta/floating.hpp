@@ -14,7 +14,7 @@
  * \brief Defines and implements the meta::arithmetic \metafunction
  */
 
-#include <boost/dispatch/meta/make_real.hpp>
+#include <boost/dispatch/meta/make_floating.hpp>
 
 #if defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/details/parameters.hpp>
@@ -43,7 +43,7 @@ namespace boost { namespace dispatch  { namespace meta
    * is equivalent to:
    *
    * \code
-   * typedef boost::dispatch::meta:::make_real< max<sizeof(float),...,sizeof(Tn)>::value >::type type;
+   * typedef boost::dispatch::meta:::make_floating< max<sizeof(float),...,sizeof(Tn)>::value >::type type;
    * \endcode
    *
    * \usage:
@@ -62,7 +62,7 @@ namespace boost { namespace dispatch  { namespace meta
                             , value = (sizeof(A0) > sizeof(base_real))
                                     ?  sizeof(A0) : sizeof(base_real)
                             );
-      typedef typename meta::make_real<value>::type type;
+      typedef typename meta::make_floating<value>::type type;
     };
 
 #if !defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
@@ -90,7 +90,7 @@ namespace boost { namespace dispatch  { namespace meta
       BOOST_STATIC_CONSTANT ( std::size_t, value0 =  sizeof(base_real) ); \
       BOOST_PP_REPEAT(n,M1,~)                                             \
       typedef typename                                                    \
-      meta::make_real<BOOST_PP_CAT(value,n)>::type type;                  \
+      meta::make_floating<BOOST_PP_CAT(value,n)>::type type;                  \
     };                                                                    \
      /**/
 

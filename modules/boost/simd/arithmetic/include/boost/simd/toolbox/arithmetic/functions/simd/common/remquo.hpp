@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
 			     ((simd_<arithmetic_<A0>,X>))
 			     )
   {
-    typedef typename dispatch::meta::as_real<A0>::type               stA0;
+    typedef typename dispatch::meta::as_floating<A0>::type               stA0;
     typedef typename dispatch::meta::as_integer<A0, signed>::type     iA0;             
     typedef boost::fusion::tuple<stA0,iA0>          result_type;
     

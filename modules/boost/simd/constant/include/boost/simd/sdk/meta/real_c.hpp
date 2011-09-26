@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_META_REAL_C_HPP_INCLUDED
 
 #include <boost/config.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/details/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace meta
@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace meta
  {
    BOOST_STATIC_CONSTANT(Type, value = Value);
    typedef real_c                                       type;
-   typedef typename dispatch::meta::as_real<Type>::type value_type;
+   typedef typename dispatch::meta::as_floating<Type>::type value_type;
    
    operator value_type() const
    {

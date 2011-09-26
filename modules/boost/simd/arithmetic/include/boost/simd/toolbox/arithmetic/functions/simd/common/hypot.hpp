@@ -32,7 +32,7 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
@@ -90,7 +90,7 @@ namespace boost { namespace simd { namespace ext
       static inline int_type M1(){ return boost::simd::integral_constant<int_type, 0xffffffff00000000ll>();};
     };
 
-    typedef typename dispatch::meta::as_real<A0>::type result_type; 
+    typedef typename dispatch::meta::as_floating<A0>::type result_type; 
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {

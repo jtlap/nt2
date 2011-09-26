@@ -22,7 +22,7 @@
 #include <boost/simd/include/functions/divides.hpp>
 #include <boost/simd/include/constants/eps.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {

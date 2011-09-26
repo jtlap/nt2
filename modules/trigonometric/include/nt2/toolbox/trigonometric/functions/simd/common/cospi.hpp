@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_COSPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_COSPI_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return tofloat(One<A0>()+Two<A0>()*is_odd(a0));
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
                             , ((simd_<uint_<A0>,X>))
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return selsub(is_odd(a0), One<result_type>(), Two<result_type>());

@@ -48,7 +48,7 @@ namespace boost { namespace dispatch { namespace meta
    * is equivalent to:
    *
    * \code
-   * typedef make_real< max< sizeof(primitive_of<T>::type)/2
+   * typedef make_floating< max< sizeof(primitive_of<T>::type)/2
    *                       , sizeof(float)
    *                       >::value
    *                  , factory_of<T>::type

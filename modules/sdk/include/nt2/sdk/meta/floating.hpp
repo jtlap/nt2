@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_META_FLOATING_HPP_INCLUDED
 #define NT2_SDK_META_FLOATING_HPP_INCLUDED
 
-#include <boost/dispatch/meta/make_real.hpp>
+#include <boost/dispatch/meta/make_floating.hpp>
 #include <boost/dispatch/meta/floating.hpp>
 
 namespace nt2 { namespace meta

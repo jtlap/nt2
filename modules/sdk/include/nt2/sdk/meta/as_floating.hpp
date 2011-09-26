@@ -10,16 +10,16 @@
 #define NT2_SDK_META_AS_REAL_HPP_INCLUDED
 
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/meta/make_real.hpp>
+#include <nt2/sdk/meta/make_floating.hpp>
 #include <nt2/sdk/meta/factory_of.hpp>
 #include <nt2/sdk/meta/primitive_of.hpp>
 #include <nt2/sdk/meta/is_fundamental.hpp>
 
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace nt2 { namespace meta
 {
-  using boost::dispatch::meta::as_real;
+  using boost::dispatch::meta::as_floating;
 } }
 
 #endif

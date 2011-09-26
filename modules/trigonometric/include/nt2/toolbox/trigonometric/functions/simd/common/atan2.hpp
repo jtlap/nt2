@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
     inline result_type operator()(const typename A0::native_type a0_n,
 				  const typename A0::native_type a1_n) const
     {

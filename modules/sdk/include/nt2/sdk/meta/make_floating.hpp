@@ -10,11 +10,11 @@
 #define NT2_SDK_META_MAKE_REAL_HPP_INCLUDED
 
 #include <nt2/sdk/meta/na.hpp>
-#include <boost/dispatch/meta/make_real.hpp>
+#include <boost/dispatch/meta/make_floating.hpp>
 
 namespace nt2 { namespace meta
 {
-  using boost::dispatch::meta::make_real;
+  using boost::dispatch::meta::make_floating;
 } }
 
 #endif

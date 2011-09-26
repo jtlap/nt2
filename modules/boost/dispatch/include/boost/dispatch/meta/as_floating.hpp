@@ -11,12 +11,12 @@
 
 /*!
  * \file
- * \brief Defines and implements \ref boost::dispatch::meta::as_real
+ * \brief Defines and implements \ref boost::dispatch::meta::as_floating
  */
 
 #include <boost/mpl/assert.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/meta/make_real.hpp>
+#include <boost/dispatch/meta/make_floating.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/is_fundamental.hpp>
@@ -41,26 +41,26 @@ namespace boost { namespace dispatch { namespace meta
    * For any type \c T,
    *
    * \code
-   * typedef as_real<T>::type type;
+   * typedef as_floating<T>::type type;
    * \endcode
    *
    * is equivalent to:
    *
    * \code
-   *  typedef make_real< sizeof(primitive_of<T>::type)
+   *  typedef make_floating< sizeof(primitive_of<T>::type)
    *                   , factory_of<T>::type
    *                   >::type                           type;
    * \endcode
    *
    * \par Example usage:
    *
-   * \include as_real.cpp
+   * \include as_floating.cpp
    */
   //============================================================================
   template<class T>
-  struct  as_real
+  struct  as_floating
         : meta::
-          make_real < sizeof( typename meta::
+          make_floating < sizeof( typename meta::
                               primitive_of<typename meta::strip<T>::type>::type
                             )
                    , typename meta::
@@ -70,7 +70,7 @@ namespace boost { namespace dispatch { namespace meta
     //==========================================================================
     /*
      * A type with a non-fundamental primitive is used in 
-     * boost::dispatch::meta::as_real.
+     * boost::dispatch::meta::as_floating.
      */    
     //==========================================================================
     BOOST_MPL_ASSERT_MSG

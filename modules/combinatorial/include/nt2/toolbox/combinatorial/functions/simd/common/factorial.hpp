@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
       {
 	using boost::simd::bitwise_cast; 
-	typedef typename meta::as_real<A0>::type ftype;
+	typedef typename meta::as_floating<A0>::type ftype;
 	ftype r = nt2::factorial(nt2::tofloat(a0));
 	return select(gt(r,tofloat(Valmax<A0>())), Valmax<A0>(), bitwise_cast<A0>(nt2::toint(r))); 
       }

@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return boost::simd::native_cast<result_type>(One<A0>()+is_eqz(a0));

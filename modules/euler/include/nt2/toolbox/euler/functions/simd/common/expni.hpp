@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A1>::type result_type;
+    typedef typename meta::as_floating<A1>::type result_type;
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {

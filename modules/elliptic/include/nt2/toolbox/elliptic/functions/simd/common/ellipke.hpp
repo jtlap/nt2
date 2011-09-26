@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLIPKE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLIPKE_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/ldexp.hpp>
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
-	typedef typename meta::as_real<A0>::type         etype;
+	typedef typename meta::as_floating<A0>::type         etype;
 	typedef boost::fusion::tuple<etype, etype> result_type;
       
     NT2_FUNCTOR_CALL(1)
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
 			     ((scalar_<floating_<A1> >))
 			     )
   {
-    typedef typename meta::as_real<A0>::type         etype;
+    typedef typename meta::as_floating<A0>::type         etype;
     typedef boost::fusion::tuple<etype, etype> result_type;
     
     NT2_FUNCTOR_CALL(2)
