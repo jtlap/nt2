@@ -11,14 +11,57 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup bitinteger bitinteger function
+ *
+ * \par Description
+ * This function is mainly for inner usage and allows
+ * speedy writing of \c next, \c nextafter and like functions
+ * It transforms a floating point value in a pattern of bits
+ * stored in an integer with different formulas according to
+ * the floating point sign (it is the converse of bitfloating)
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/bitinteger.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::bitinteger_(A0)>::type
+ *     bitinteger(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of bitinteger
+ * 
+ * \return always an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag bitinteger_ of functor bitinteger 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct bitinteger_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitinteger_, bitinteger, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

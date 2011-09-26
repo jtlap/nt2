@@ -11,14 +11,53 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup signnz signnz function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/signnz.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::signnz_(A0)>::type
+ *     signnz(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of signnz
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag signnz_ of functor signnz 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct signnz_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::signnz_, signnz, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

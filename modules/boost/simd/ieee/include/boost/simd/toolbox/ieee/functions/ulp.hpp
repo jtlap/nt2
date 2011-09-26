@@ -11,14 +11,53 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup ulp ulp function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/ulp.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::ulp_(A0)>::type
+ *     ulp(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of ulp
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag ulp_ of functor ulp 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct ulp_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ulp_, ulp, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

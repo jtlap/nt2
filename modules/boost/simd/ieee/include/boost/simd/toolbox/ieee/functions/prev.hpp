@@ -11,14 +11,53 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup prev prev function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/prev.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::prev_(A0)>::type
+ *     prev(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of prev
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag prev_ of functor prev 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct prev_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prev_, prev, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

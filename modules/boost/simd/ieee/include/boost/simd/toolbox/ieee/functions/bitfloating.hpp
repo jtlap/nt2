@@ -11,14 +11,57 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup bitfloating bitfloating function
+ *
+ * \par Description
+ * This function is mainly for inner usage and allows
+ * speedy writing of \c next, \c nextafter and like functions
+ * It transform a pattern of bits stored in an integer value
+ * in a floating point with different formulas according to
+ * the integer sign (it is the converse of bitinteger)
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/bitfloating.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::bitfloating_(A0)>::type
+ *     bitfloating(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of bitfloating
+ * 
+ * \return always a floating point value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag bitfloating_ of functor bitfloating 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct bitfloating_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitfloating_, bitfloating, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

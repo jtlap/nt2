@@ -11,16 +11,67 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup frexp frexp function
+ *
+ * \par Description
+ * Split a floating entry in signed mantissa m and exponent e
+ * \f$a = m\times 2^e\f$, with absolute value of m
+ * between one half and one
+ * \parAs demonstrated in the synopsis this function can be called in various ways.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/frexp.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template<class A0> inline
+ *   typename boost::dispatch::meta::call<tag::frexp_(A0 const&)
+ *                                       >::type
+ *   frexp(A0 const& a0);
+ *    template<class A0> inline
+ *   typename boost::dispatch::meta::call<tag::frexp_(A0 const&,A0&)
+ *                                        >::type
+ *   frexp(A0 const& a0,A1& a2);
+ *    template<class A0,class A1> inline
+ *   int frexp(A0 const& a0,A0& a2,A1& a3);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of frexp
+ * \param a1 is the second parameter of frexp, if not present, the function return a boost::fusion sequence
+ * \param a2 is the third parameter of frexp, if present will contain the mantissa of a0
+ * 
+ * \return with one parameter the returned result is a fusion sequence of the two results, with two parameters the returned result is the mantissa, with three parameters the returned result is always 0
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag frexp_ of functor frexp 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct frexp_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::frexp_, frexp, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&)(A2&),3)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&),2) 
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

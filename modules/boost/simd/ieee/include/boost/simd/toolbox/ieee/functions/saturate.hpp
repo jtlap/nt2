@@ -11,11 +11,50 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup saturate saturate function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/saturate.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::saturate_(A0)>::type
+ *     saturate(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of saturate
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag saturate_ of functor saturate 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     template <class T>
     struct saturate_ {};
   }

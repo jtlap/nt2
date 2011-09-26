@@ -11,15 +11,61 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup predecessor predecessor function
+ *
+ * \par Description
+ * With one parameter it is equivalent to \c next
+ * It is in the type \c A0, the least  \c A0 elementwise strictly greater than  \c a0.
+ * \par
+ * With two parameters, the second is an integer value  \c n
+ * and the result is equivalent to applying \c next \c abs(n) times to  \c a0.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/predecessor.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template<class A0> inline
+ *   A0 predecessor(A0 const& a0);
+ *    
+ *   template<class A0,class A1> inline
+ *   A0 predecessor(A0 const& a0,A1& n);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of predecessor
+ * \param a1 is the second parameter of predecessor
+ * 
+ * \return a value of type A0
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag predecessor_ of functor predecessor 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct predecessor_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::predecessor_, predecessor, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::predecessor_, predecessor, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

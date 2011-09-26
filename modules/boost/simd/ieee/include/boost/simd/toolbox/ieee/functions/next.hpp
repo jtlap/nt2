@@ -11,14 +11,53 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_ieee
+ * \defgroup next next function
+ *
+ * \par Description
+ * in the type A0 of a0, the least A0 strictly greater than a0
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/next.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::next_(A0)>::type
+ *     next(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of next
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag next_ of functor next 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct next_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::next_, next, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010
