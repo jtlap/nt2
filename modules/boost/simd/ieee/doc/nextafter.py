@@ -1,6 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['in the type A0 of a0, the next element in the a1 direction.',
+                         '\par',
+                         '\arg if a1 is greater than a0 this is next(a0)',
+                         '\arg if a1 is equal to a0 this is a0',
+                         '\arg if a1 is less than a0 this is prev(a0)',
+                         ],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

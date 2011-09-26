@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : [ "The function return signed integer value which has the same bits of the input"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns a0 with the sign of a1',
+                          'which must be of the same type.'],   
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

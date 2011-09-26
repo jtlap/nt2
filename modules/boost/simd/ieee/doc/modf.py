@@ -1,7 +1,28 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['Computes the integer part and the fractionnal part of the input',
+                         '\par'
+                         'As demonstrated in the synopsis this function can be called in various ways.'
+                          ],
+          'special_synopsis' : [
+                "template<class A0> inline",
+                "typename boost::dispatch::meta::call<tag::modf_(A0 const&)",
+                "                                    >::type",
+                "modf(A0 const& a0);",
+                " "
+                "template<class A0> inline",
+                "typename boost::dispatch::meta::call<tag::modf_(A0 const&,A0&)",
+                "                                     >::type",
+                "modf(A0 const& a0,A1& a2);",
+                " "
+                "template<class A0> inline",
+                "int modf(A0 const& a0,A0& a2,A0& a3);",
+                 ],
+         'return'  : ['with one parameter the returned result is a fusion sequence of the two results, '
+                      'with two parameters the returned result is the intrger part, '
+                      'with three parameters the returned result is always 0'],
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '2',

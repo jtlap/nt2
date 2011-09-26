@@ -1,6 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['This function is mainly for inner usage and allows',
+                         'speedy writing of \c next, \c nextafter and like functions',
+                         'It transforms a floating point value in a pattern of bits',
+                         'stored in an integer with different formulas according to',
+                         'the floating point sign (it is the converse of bitfloating)'],
+         'return' : ['always an integer value'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

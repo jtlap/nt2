@@ -1,7 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['Returns ulp distance of the two values.','\par',
+                          '\arg If the common type is integer it is the same as \dist',
+                          '\arg If the common type is floating point'],   
+          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

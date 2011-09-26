@@ -1,6 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns a value of the same type as the input',
+                          'with all bits set to zero',
+                          'except the bit of sign which is preserved.',
+                          'Returns always zero for unsigned types'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
