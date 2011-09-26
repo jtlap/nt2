@@ -37,7 +37,7 @@ struct TAG                                                                \
     : boost::simd::meta::int_c<T,INT> {};                                 \
 };                                                                        \
 template<class D> struct TAG::apply<float,D>                              \
-  : boost::simd::meta::float_<FLOAT> {};                                  \
+  : boost::simd::meta::single_<FLOAT> {};                                  \
 template<class D> struct TAG::apply<double,D>                             \
   : boost::simd::meta::double_<DOUBLE> {};                                \
 /**/

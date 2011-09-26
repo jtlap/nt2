@@ -81,4 +81,4 @@ NT2_TEST_CASE_TPL ( hermite_real__2_0,  NT2_SIMD_REAL_TYPES)
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl;
   }
-} // end of test for real_
+} // end of test for floating_

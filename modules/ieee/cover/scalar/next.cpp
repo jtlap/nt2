@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_REAL_TYPES)
      }
      
    }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

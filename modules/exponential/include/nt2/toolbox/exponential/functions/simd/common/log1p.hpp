@@ -88,7 +88,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<float_<A0>,X>))
+                            , ((simd_<single_<A0>,X>))
                             )
   {
 

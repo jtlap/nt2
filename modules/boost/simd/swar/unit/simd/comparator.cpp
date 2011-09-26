@@ -92,5 +92,5 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
   }
-} // end of test for real_
+} // end of test for floating_
  

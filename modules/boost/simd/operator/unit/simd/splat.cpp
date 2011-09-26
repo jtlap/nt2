@@ -55,4 +55,4 @@ NT2_TEST_CASE_TPL ( splat_real__1_0,  BOOST_SIMD_REAL_TYPES)
 //   NT2_TEST_EQUAL(splat(boost::simd::Nan<T>())[0], boost::simd::Nan<sr_t>());
 //   NT2_TEST_EQUAL(splat(boost::simd::One<T>())[0], boost::simd::One<sr_t>());
 //   NT2_TEST_EQUAL(splat(boost::simd::Zero<T>())[0], boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

@@ -63,4 +63,4 @@ NT2_TEST_CASE_TPL ( ellie_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(ellie(nt2::One<vT>(),nt2::splat<vT>(0))[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(ellie(nt2::Pio_2<vT>(),nt2::splat<vT>(0))[0], nt2::Pio_2<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(ellie(nt2::Zero<vT>(),nt2::splat<vT>(0))[0], nt2::Zero<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

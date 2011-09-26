@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(negif(nt2::Minf<vT>(),nt2::splat<vT>(1))[0], -1);
   NT2_TEST_EQUAL(negif(nt2::Nan<vT>(),nt2::splat<vT>(1))[0], -1);
   NT2_TEST_EQUAL(negif(nt2::Zero<vT>(),nt2::splat<vT>(1))[0], 1);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {

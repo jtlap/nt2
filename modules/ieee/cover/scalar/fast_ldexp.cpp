@@ -70,4 +70,4 @@ NT2_TEST_CASE_TPL ( fast_ldexp_real__2_0,  NT2_REAL_TYPES)
      }
      
    }
-} // end of test for real_
+} // end of test for floating_

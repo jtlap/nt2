@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_toint_, boost::simd::tag::sse2_
                             , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;

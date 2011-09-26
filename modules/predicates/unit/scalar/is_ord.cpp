@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( is_ord_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(is_ord(nt2::Quarter<T>(), nt2::Quarter<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(is_ord(nt2::Two<T>(), nt2::Two<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(is_ord(nt2::Zero<T>(), nt2::Zero<T>()), nt2::True<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_ord_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

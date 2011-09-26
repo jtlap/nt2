@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(logical_xor(nt2::Nan<T>(), nt2::Nan<T>()), false, 0);
   NT2_TEST_ULP_EQUAL(logical_xor(nt2::One<T>(), nt2::One<T>()), false, 0);
   NT2_TEST_ULP_EQUAL(logical_xor(nt2::Zero<T>(), nt2::Zero<T>()), false, 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {

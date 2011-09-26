@@ -72,4 +72,4 @@ NT2_TEST_CASE_TPL ( shift_right_real__2_0,  BOOST_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(shift_right(boost::simd::One<T>(),boost::simd::Zero<iT>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(shift_right(boost::simd::Zero<T>(),boost::simd::One<iT>()), boost::simd::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_

@@ -41,13 +41,13 @@ namespace nt2 { namespace ext
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tchebeval_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<real_<A0>,X>))(fusion_sequence_<A1>)
+                            , ((simd_<floating_<A0>,X>))(fusion_sequence_<A1>)
                             )
   {
 

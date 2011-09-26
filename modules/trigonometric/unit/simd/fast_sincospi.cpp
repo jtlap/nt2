@@ -79,4 +79,4 @@ NT2_TEST_CASE_TPL ( fast_sincospi_real__1_0,  NT2_SIMD_REAL_TYPES)
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res)[0], nt2::Zero<r_t0>()[0], 0.75);
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::One<r_t0>()[0], 0.75);
   }
-} // end of test for real_
+} // end of test for floating_

@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( ldiv_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(ldiv(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(ldiv(nt2::One<T>(), nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(ldiv(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Nan<T>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( ldiv_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {

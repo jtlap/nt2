@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( dist_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(dist(nt2::One<T>(),nt2::Two<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(nt2::Two<T>(),nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( dist_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

@@ -84,4 +84,4 @@ NT2_TEST_CASE_TPL ( is_greater_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(is_greater(nt2::Nan<T>(), nt2::Nan<T>()), false);
   NT2_TEST_EQUAL(is_greater(nt2::One<T>(),nt2::Zero<T>()), true);
   NT2_TEST_EQUAL(is_greater(nt2::Zero<T>(), nt2::Zero<T>()), false);
-} // end of test for real_
+} // end of test for floating_

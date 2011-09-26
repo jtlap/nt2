@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL ( nthroot_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nthroot(nt2::One<vT>(),nt2::splat<ivT>(4))[0], nt2::One<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Zero<vT>(),nt2::splat<ivT>(3))[0], nt2::Zero<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(nthroot(nt2::Zero<vT>(),nt2::splat<ivT>(4))[0], nt2::Zero<sr_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( nthroot_sintgt_16__2_0,  NT2_SIMD_SIGNED_INT_GT_16_TYPES)
 {

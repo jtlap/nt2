@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::avx_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::avx_>))
                             )
   {
     typedef A0 result_type;

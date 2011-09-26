@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( negs_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(negs(boost::simd::Valmax<vT>())[0], boost::simd::Valmin<T>());
   NT2_TEST_EQUAL(negs(boost::simd::Valmin<vT>())[0], boost::simd::Valmax<T>());
   NT2_TEST_EQUAL(negs(boost::simd::Zero<vT>())[0], boost::simd::Zero<T>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( negs_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {

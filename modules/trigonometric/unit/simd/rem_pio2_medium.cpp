@@ -81,4 +81,4 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_SIMD_REAL_TYPES)
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res)[0], nt2::Zero<r_t1>()[0], 0.5);
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<2>(res)[0], nt2::Zero<r_t2>()[0], 0.5);
   }
-} // end of test for real_
+} // end of test for floating_

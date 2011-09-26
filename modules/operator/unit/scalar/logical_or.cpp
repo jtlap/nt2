@@ -84,4 +84,4 @@ NT2_TEST_CASE_TPL ( logical_or_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(logical_or(nt2::Nan<T>(), nt2::Nan<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(logical_or(nt2::One<T>(),nt2::Zero<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(logical_or(nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<r_t>());
-} // end of test for real_
+} // end of test for floating_

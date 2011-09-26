@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( nthroot_real__2_0,  NT2_SIMD_REAL_TYPES)
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl;
   }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( nthroot_sintgt_16__2_0,  NT2_SIMD_SIGNED_INT_GT_16_TYPES)
 {

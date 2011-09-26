@@ -62,4 +62,4 @@ NT2_TEST_CASE_TPL ( nextpow2_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nextpow2(nt2::Mone<vT>())[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(nextpow2(nt2::One<vT>())[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(nextpow2(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

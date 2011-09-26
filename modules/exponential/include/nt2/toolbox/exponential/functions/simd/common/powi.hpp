@@ -48,13 +48,13 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is real_
+// Implementation when type  is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::powi_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<real_<A0>,X>))(scalar_< integer_<A1> >)
+                            , ((simd_<floating_<A0>,X>))(scalar_< integer_<A1> >)
                             )
   {
 

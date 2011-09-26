@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( floor_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(floor(nt2::Nan<T>()), nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(floor(nt2::One<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(floor(nt2::Zero<T>()), nt2::Zero<T>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( floor_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

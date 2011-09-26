@@ -29,7 +29,7 @@ namespace boost { namespace simd
     };
     
     template<class Dummy>
-    struct Inf::apply<float,Dummy>  : meta::float_<0x7F800000> {};
+    struct Inf::apply<float,Dummy>  : meta::single_<0x7F800000> {};
 
     template<class Dummy>
     struct Inf::apply<double,Dummy> : meta::double_<0x7FF0000000000000ULL> {};

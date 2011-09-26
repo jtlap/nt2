@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( predecessor_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(predecessor(nt2::One<vT>())[0], nt2::One<sr_t>()-nt2::Eps<sr_t>()/2);
   NT2_TEST_EQUAL(predecessor(nt2::Valmin<vT>())[0], nt2::Minf<sr_t>());
   NT2_TEST_EQUAL(predecessor(nt2::Zero<vT>())[0], -nt2::Mindenormal<T>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( predecessor_real__2_1,  NT2_SIMD_REAL_TYPES)
 {
@@ -92,4 +92,4 @@ NT2_TEST_CASE_TPL ( predecessor_real__2_1,  NT2_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_

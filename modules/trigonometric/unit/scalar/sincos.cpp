@@ -73,4 +73,4 @@ NT2_TEST_CASE_TPL ( sincos_real__1_0,  NT2_REAL_TYPES)
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.75);
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>(), 0.75);
   }
-} // end of test for real_
+} // end of test for floating_

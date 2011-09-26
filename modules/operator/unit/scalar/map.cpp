@@ -73,4 +73,4 @@ NT2_TEST_CASE_TPL ( map_integer__2_0,  NT2_INTEGRAL_TYPES)
 //   NT2_TEST_EQUAL(map(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>());
 //   NT2_TEST_EQUAL(map(nt2::One<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
 //   NT2_TEST_EQUAL(map(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_

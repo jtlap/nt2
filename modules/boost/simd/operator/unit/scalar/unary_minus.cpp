@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(unary_minus(boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(unary_minus(boost::simd::One<T>()), boost::simd::Mone<r_t>());
   NT2_TEST_EQUAL(unary_minus(boost::simd::Zero<T>()), boost::simd::Mzero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

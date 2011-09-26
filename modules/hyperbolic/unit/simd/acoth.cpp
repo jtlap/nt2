@@ -65,4 +65,4 @@ NT2_TEST_CASE_TPL ( acoth_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acoth(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acoth(nt2::One<vT>())[0], nt2::Inf<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acoth(nt2::Zero<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_

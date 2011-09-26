@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( bitwise_notor_real__2_0,  BOOST_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitwise_notor_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

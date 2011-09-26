@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( exp_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(exp(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.75);
   NT2_TEST_ULP_EQUAL(exp(nt2::One<T>()), nt2::Exp_1<r_t>(), 0.75);
   NT2_TEST_ULP_EQUAL(exp(nt2::Zero<T>()), nt2::One<r_t>(), 0.75);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( exp_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

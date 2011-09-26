@@ -52,4 +52,4 @@ NT2_TEST_CASE_TPL ( digamma_real__1_0,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(digamma(nt2::One<T>()), T(-0.57721566490153286555), 0.5);
-} // end of test for real_
+} // end of test for floating_

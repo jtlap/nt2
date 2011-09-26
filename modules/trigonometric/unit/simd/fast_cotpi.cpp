@@ -70,4 +70,4 @@ NT2_TEST_CASE_TPL ( fast_cotpi_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_cotpi(nt2::One<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cotpi(nt2::Quarter<vT>())[0], nt2::One<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cotpi(nt2::Zero<vT>())[0], nt2::Inf<sr_t>(), 1.0);
-} // end of test for real_
+} // end of test for floating_

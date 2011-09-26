@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {

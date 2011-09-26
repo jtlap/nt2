@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( fma_real__3_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fma(boost::simd::Nan<T>(), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(boost::simd::One<T>(), boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Two<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(boost::simd::Zero<T>(), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( fma_unsigned_int__3_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {

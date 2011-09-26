@@ -64,4 +64,4 @@ NT2_TEST_CASE_TPL ( ldivide_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(ldivide(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(ldivide(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(ldivide(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Nan<T>(), 0);
-} // end of test for real_
+} // end of test for floating_

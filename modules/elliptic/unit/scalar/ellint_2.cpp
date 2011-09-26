@@ -56,4 +56,4 @@ NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(ellint_2(nt2::One<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(ellint_2(nt2::Zero<T>()), nt2::Pi<r_t>()/2, 0);
-} // end of test for real_
+} // end of test for floating_

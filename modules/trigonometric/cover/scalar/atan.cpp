@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( atan_real__1_0,  NT2_REAL_TYPES)
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
    }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( atan_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

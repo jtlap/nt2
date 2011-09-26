@@ -63,4 +63,4 @@ NT2_TEST_CASE_TPL ( eps_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(eps(nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(eps(nt2::One<vT>())[0], nt2::Eps<sr_t>());
   NT2_TEST_EQUAL(eps(nt2::Zero<vT>())[0], nt2::Mindenormal<sr_t>());
-} // end of test for real_
+} // end of test for floating_

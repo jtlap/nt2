@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( bitwise_notand_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(bitwise_notand(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(bitwise_notand(nt2::One<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(bitwise_notand(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitwise_notand_integer__2_0,  NT2_INTEGRAL_TYPES)
 {

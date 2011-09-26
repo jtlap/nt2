@@ -64,4 +64,4 @@ NT2_TEST_CASE_TPL ( fast_tan_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Pi<T>()/T(2)), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Pi<T>()/T(4)), nt2::One<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_tan(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_

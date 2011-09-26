@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( complement_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(complement(boost::simd::Nan<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(complement(boost::simd::Zero<vT>())[0], boost::simd::Nan<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( complement_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {

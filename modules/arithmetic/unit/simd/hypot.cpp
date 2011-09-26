@@ -65,4 +65,4 @@ NT2_TEST_CASE_TPL ( hypot_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(hypot(nt2::One<vT>(), nt2::One<vT>())[0], nt2::Sqrt_2<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(hypot(nt2::Three<vT>(),nt2::Four <vT>())[0], nt2::Five <sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(hypot(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<T>(), 0);
-} // end of test for real_
+} // end of test for floating_

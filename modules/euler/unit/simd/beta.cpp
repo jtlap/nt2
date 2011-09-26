@@ -59,4 +59,4 @@ NT2_TEST_CASE_TPL ( beta_real__2_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(beta(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(beta(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

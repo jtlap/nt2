@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( fast_toint_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(fast_toint(nt2::Mone<vT>())[0], nt2::Mone<sr_t>());
   NT2_TEST_EQUAL(fast_toint(nt2::One<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(fast_toint(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( fast_toint_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {

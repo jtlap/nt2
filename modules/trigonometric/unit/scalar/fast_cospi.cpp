@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( fast_cospi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_cospi(nt2::One<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cospi(nt2::Quarter<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cospi(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( fast_cospi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

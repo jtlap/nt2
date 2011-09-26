@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( eps_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(eps(nt2::Nan<T>()), nt2::Nan<r_t>());
   NT2_TEST_EQUAL(eps(nt2::One<T>()), nt2::Eps<r_t>());
   NT2_TEST_EQUAL(eps(nt2::Zero<T>()), nt2::Mindenormal<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( eps_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

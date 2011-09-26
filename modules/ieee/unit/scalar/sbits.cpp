@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( sbits_real__1_0,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(sbits(nt2::Nan<T>()), nt2::Mone<r_t>());
   NT2_TEST_EQUAL(sbits(nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( sbits_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

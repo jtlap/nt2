@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( isqrt_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(isqrt(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(isqrt(nt2::Two<vT>())[0], nt2::One<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(isqrt(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( isqrt_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {

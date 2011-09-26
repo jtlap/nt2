@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

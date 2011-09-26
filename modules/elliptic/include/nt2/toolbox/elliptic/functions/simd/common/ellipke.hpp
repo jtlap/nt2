@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0)(A1)(X),
 			     ((simd_<arithmetic_<A0>,X>))
-			     ((scalar_<real_<A1> >))
+			     ((scalar_<floating_<A1> >))
 			     )
   {
     typedef typename meta::as_real<A0>::type         etype;
@@ -66,8 +66,8 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0)(A1)(X),
-			     ((simd_<real_<A0>,X>))
-			     ((scalar_<real_<A1> >))
+			     ((simd_<floating_<A0>,X>))
+			     ((scalar_<floating_<A1> >))
 			     )
   {
     typedef typename meta::strip<A0>::type              etype;
@@ -87,8 +87,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
 			       (A0)(A1)(X), 
 			       ((simd_<arithmetic_<A0>,X >))
-			       ((simd_<real_<A1>,X>))
-			       ((simd_<real_<A1>,X>))
+			       ((simd_<floating_<A1>,X>))
+			       ((simd_<floating_<A1>,X>))
 			       )
   {
     typedef void result_type;    
@@ -110,15 +110,15 @@ namespace nt2 { namespace ext
 				), 
                                 ( nt2::tag::ellipke_
                                           ( simd_<arithmetic_<A0>,X> 
-					  , scalar_<real_<A1> >
-				          , simd_<real_<A2>,X>
-				          , simd_<real_<A2>,X>
+					  , scalar_<floating_<A1> >
+				          , simd_<floating_<A2>,X>
+				          , simd_<floating_<A2>,X>
                                           )
                                 ), 
 				((simd_<arithmetic_<A0>,X >))
-				((scalar_<real_<A1> >))
-				((simd_<real_<A2>,X >))
-				((simd_<real_<A2>,X >))
+				((scalar_<floating_<A1> >))
+				((simd_<floating_<A2>,X >))
+				((simd_<floating_<A2>,X >))
 			     )
   {
     typedef void result_type;    
@@ -134,10 +134,10 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
 				(A0)(A1)(X), 
-				((simd_<real_<A0>,X >))
-				((scalar_<real_<A1> >))
-				((simd_<real_<A0>,X >))
-				((simd_<real_<A0>,X >))
+				((simd_<floating_<A0>,X >))
+				((scalar_<floating_<A1> >))
+				((simd_<floating_<A0>,X >))
+				((simd_<floating_<A0>,X >))
 				)
   {
     typedef void result_type;    

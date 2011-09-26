@@ -23,13 +23,13 @@ namespace nt2 { namespace ext
   			                           nt2::meta::cardinal_of<A1> >), 
                              ( nt2::tag::sincospi_
                                           ( simd_<arithmetic_<A0>,X> 
-					  , simd_<real_<A1>,X>
-				          , simd_<real_<A1>,X>
+					  , simd_<floating_<A1>,X>
+				          , simd_<floating_<A1>,X>
                                           )
                                 ), 
 			     ((simd_ < arithmetic_<A0>,X >))
-			     ((simd_ < real_<A1>,X>))
-			     ((simd_ < real_<A1>,X>))
+			     ((simd_ < floating_<A1>,X>))
+			     ((simd_ < floating_<A1>,X>))
 			     )
   {
     typedef void result_type;    
@@ -47,11 +47,11 @@ namespace nt2 { namespace ext
 				), 
                                 ( nt2::tag::sincospi_
 				  ( simd_<arithmetic_<A0>,X> 
-				    , simd_<real_<A1>,X>
+				    , simd_<floating_<A1>,X>
 				    )
 				  ), 
 				((simd_ < arithmetic_<A0>,X > ))
-				((simd_ < real_<A1>,X > ))
+				((simd_ < floating_<A1>,X > ))
 			     )
   {
     typedef A1 result_type;    

@@ -63,4 +63,4 @@ NT2_TEST_CASE_TPL ( powi_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(powi(nt2::One<T>(),4), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(powi(nt2::Zero<T>(),3), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(powi(nt2::Zero<T>(),4), nt2::Zero<r_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

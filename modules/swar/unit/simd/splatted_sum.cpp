@@ -65,4 +65,4 @@ NT2_TEST_CASE_TPL ( splatted_sum_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(splatted_sum(nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(splatted_sum(nt2::One<vT>())[0], cardinal_of<n_t>());
   NT2_TEST_EQUAL(splatted_sum(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

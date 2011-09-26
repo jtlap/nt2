@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( fma_real__3_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fma(nt2::One<T>(), nt2::One<T>(), nt2::One<T>()), nt2::Two<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(nt2::Two<T>(),nt2::Two<T>(),nt2::Three<T>()), nt2::Seven<T>(), 0);
   NT2_TEST_ULP_EQUAL(fma(nt2::Zero<T>(), nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( fma_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
 {

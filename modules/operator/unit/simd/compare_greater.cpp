@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( compare_greater_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(compare_greater(nt2::Nan<vT>(), nt2::Nan<vT>()), false);
   NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(),nt2::Two<vT>()), false);
   NT2_TEST_EQUAL(compare_greater(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_greater_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {

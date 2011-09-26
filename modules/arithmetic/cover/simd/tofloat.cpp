@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {

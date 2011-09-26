@@ -58,4 +58,4 @@ NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(expni(1,nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(expni(1,nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(expni(1,nt2::Zero<T>()), nt2::Inf<r_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

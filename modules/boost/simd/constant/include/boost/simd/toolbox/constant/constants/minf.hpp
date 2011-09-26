@@ -30,7 +30,7 @@ namespace boost { namespace simd
     
     template<class Dummy>
     struct  Minf::apply<float,Dummy> 
-          : meta::float_<0xFF800000> {};
+          : meta::single_<0xFF800000> {};
 
     template<class Dummy>
     struct  Minf::apply<double,Dummy> 

@@ -78,4 +78,4 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(if_else(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(if_else(boost::simd::One<vT>(),boost::simd::Zero<vT>(),boost::simd::Two<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(if_else(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

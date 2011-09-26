@@ -90,4 +90,4 @@ NT2_TEST_CASE_TPL ( is_less_real__2_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_

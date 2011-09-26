@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_not_greater_equal(nt2::Quarter<vT>(), nt2::Quarter<vT>())[0]!=0, nt2::False<sr_t>());
   NT2_TEST_EQUAL(is_not_greater_equal(nt2::Two<vT>(), nt2::Two<vT>())[0]!=0, nt2::False<sr_t>());
   NT2_TEST_EQUAL(is_not_greater_equal(nt2::Zero<vT>(), nt2::Zero<vT>())[0]!=0, nt2::False<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_not_greater_equal_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {

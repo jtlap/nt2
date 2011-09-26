@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(gcd(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(gcd(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(gcd(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<T>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( gcd_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {

@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( cotangent_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(cotangent<nt2::medium>(nt2::Pi<T>()/T(2)), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cotangent<nt2::medium>(nt2::Pi<T>()/T(4)), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cotangent<nt2::medium>(nt2::Zero<T>()), nt2::Inf<r_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( cotangent_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

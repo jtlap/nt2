@@ -63,4 +63,4 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
      }
      
    }
-} // end of test for real_
+} // end of test for floating_

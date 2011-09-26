@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( popcnt_real__1_0,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(popcnt(nt2::Nan<T>()), sizeof(T)*8);
   NT2_TEST_EQUAL(popcnt(nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( popcnt_integer__1_0,  NT2_INTEGRAL_TYPES)
 {

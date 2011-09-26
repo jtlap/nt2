@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( bitwise_any_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(bitwise_any(boost::simd::Nan<vT>()), true);
   NT2_TEST_EQUAL(bitwise_any(boost::simd::One<vT>()), false);
   NT2_TEST_EQUAL(bitwise_any(boost::simd::Zero<vT>()), false);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitwise_any_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {

@@ -56,4 +56,4 @@ NT2_TEST_CASE_TPL ( ellpe_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(ellpe(nt2::One<T>()), nt2::Pio_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(ellpe(nt2::Pio_2<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(ellpe(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_

@@ -93,7 +93,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 // NT2_REGISTER_DISPATCH(tag::stirling_, tag::cpu_,
 //                            (A0)(X),
-//                            ((simd_<float_<A0>,X>))
+//                            ((simd_<single_<A0>,X>))
 //                           );
 
 // namespace nt2 { namespace ext

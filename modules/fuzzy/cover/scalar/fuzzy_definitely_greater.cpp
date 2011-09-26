@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_greater_real__3_0,  NT2_REAL_TYPES)
      }
      
    }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( fuzzy_definitely_greater_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

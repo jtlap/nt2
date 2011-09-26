@@ -49,11 +49,11 @@
 // } }
 
 // /////////////////////////////////////////////////////////////////////////////
-// // Implementation when type A0 is real_
+// // Implementation when type A0 is floating_
 // /////////////////////////////////////////////////////////////////////////////
 // NT2_REGISTER_DISPATCH(tag::dawson_, tag::cpu_,
 //                          (A0)(X),
-//                          ((simd_<real_<A0>,X>))
+//                          ((simd_<floating_<A0>,X>))
 //                         );
 
 // namespace nt2 { namespace ext

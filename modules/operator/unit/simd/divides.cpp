@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( divides_real__2_0,  (double))//NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(divides(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(divides(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::Inf<sr_t>());
   NT2_TEST_EQUAL(divides(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Nan<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 
 NT2_TEST_CASE_TPL ( divides_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)

@@ -18,8 +18,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::fast_sincos_, tag::cpu_,
 			     (A0)(A1),
 			     (scalar_ < arithmetic_<A0> > )
-			     (scalar_ < real_<A1> > )
-			     (scalar_ < real_<A1> > )
+			     (scalar_ < floating_<A1> > )
+			     (scalar_ < floating_<A1> > )
 			     )
   {
     typedef int result_type;    
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::fast_sincos_, tag::cpu_,
 			     (A0)(A1),
 			     (scalar_ < arithmetic_<A0> > )
-			     (scalar_ < real_<A1> > )
+			     (scalar_ < floating_<A1> > )
 			     )
   {
     typedef A1 result_type;    
@@ -62,13 +62,13 @@ namespace nt2 { namespace ext
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is real_
+// Implementation when type  is floating_
 /////////////////////////////////////////////////////////////////////////////
 
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::fast_sincos_, tag::cpu_,
                              (A0),
-                             (scalar_ < real_<A0> > )
+                             (scalar_ < floating_<A0> > )
                             )
   {
       typedef typename meta::strip<A0>::type           etype;

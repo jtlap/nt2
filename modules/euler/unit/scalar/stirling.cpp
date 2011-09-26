@@ -51,4 +51,4 @@ NT2_TEST_CASE_TPL ( stirling_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-} // end of test for real_
+} // end of test for floating_

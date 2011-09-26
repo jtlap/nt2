@@ -57,4 +57,4 @@ NT2_TEST_CASE_TPL ( ellik_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(ellik(nt2::One<T>(),T(0)), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(ellik(nt2::Pio_2<T>(),T(0)), nt2::Pio_2<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(ellik(nt2::Zero<T>(),T(0)), nt2::Zero<r_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( bitwise_notand_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(bitwise_notand(boost::simd::Zero<vT>(),boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   std::cout << bitwise_notand(boost::simd::Zero<vT>(),boost::simd::One<vT>()) << std::endl;
   std::cout << boost::simd::One<sr_t>()<< std::endl;
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitwise_notand_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {

@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( copysign_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(copysign(nt2::One<T>(), -nt2::Zero<T>()), -nt2::One<r_t>());
   NT2_TEST_EQUAL(copysign(nt2::One<T>(), nt2::Zero<T>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(copysign(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( copysign_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

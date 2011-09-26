@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( tanpi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(tanpi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(tanpi(nt2::Quarter<T>()), nt2::One<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(tanpi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( tanpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

@@ -69,4 +69,4 @@ NT2_TEST_CASE_TPL ( copysign_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(copysign(nt2::One<vT>(), -nt2::Zero<vT>())[0], -nt2::One<sr_t>());
   NT2_TEST_EQUAL(copysign(nt2::One<vT>(), nt2::Zero<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(copysign(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

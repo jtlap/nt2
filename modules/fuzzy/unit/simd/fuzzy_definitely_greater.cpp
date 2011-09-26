@@ -61,4 +61,4 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_greater_real__3_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(fuzzy_definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<vT>(1))[0]!=0, nt2::False<sr_t>());
   NT2_TEST_EQUAL(fuzzy_definitely_greater(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(1))[0]!=0, nt2::False<sr_t>());
-} // end of test for real_
+} // end of test for floating_

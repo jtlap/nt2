@@ -91,4 +91,4 @@ NT2_TEST_CASE_TPL ( is_less_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_less_equal(nt2::Nan<vT>(), nt2::Nan<vT>())[0]!=0, false);
   NT2_TEST_EQUAL(is_less_equal(nt2::One<vT>(),nt2::Zero<vT>())[0]!=0, false);
   NT2_TEST_EQUAL(is_less_equal(nt2::Zero<vT>(), nt2::Zero<vT>())[0]!=0, true);
-} // end of test for real_
+} // end of test for floating_

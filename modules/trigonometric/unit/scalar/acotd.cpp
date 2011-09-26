@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( acotd_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(acotd(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(acotd(nt2::One<T>()), 45, 0.5);
   NT2_TEST_ULP_EQUAL(acotd(nt2::Zero<T>()), 90, 0.5);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( acotd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
 

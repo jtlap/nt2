@@ -55,7 +55,7 @@ namespace meta
   template<class Origin>
   struct property_of<float, Origin>
   {
-    typedef meta::float_<Origin>  type;
+    typedef meta::single_<Origin>  type;
   };
 
   template<class Origin>

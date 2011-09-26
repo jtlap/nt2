@@ -69,4 +69,4 @@ NT2_TEST_CASE_TPL ( indeg_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(indeg(nt2::Pi<vT>()/nt2::splat<vT>(2))[0], nt2::_90<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(indeg(nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::_45<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(indeg(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_

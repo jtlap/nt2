@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( minus_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(minus(nt2::One<T>(),nt2::Zero<T>()), nt2::One<r_t>());
   NT2_TEST_EQUAL(minus(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(minus(nt2::Zero<T>(),nt2::One<T>()), nt2::Mone<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( minus_integer__2_0,  NT2_INTEGRAL_TYPES)
 {

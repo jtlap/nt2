@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(lo(nt2::Nan<vT>())[0], nt2::Mone<sr_t>());
   NT2_TEST_EQUAL(lo(nt2::One<vT>())[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(lo(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( lo_sintgt_8__1_0,  NT2_SIMD_SIGNED_INT_GT_8_TYPES)
 {

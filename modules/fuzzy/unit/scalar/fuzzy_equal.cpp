@@ -56,4 +56,4 @@ NT2_TEST_CASE_TPL ( fuzzy_equal_real__3_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(fuzzy_equal(T(0),T(0),T(1)), nt2::True<r_t>());
   NT2_TEST_EQUAL(fuzzy_equal(T(0),T(1),T(1)), nt2::True<r_t>());
   NT2_TEST_EQUAL(fuzzy_equal(T(0),T(2),T(0.25)), nt2::False<r_t>());
-} // end of test for real_
+} // end of test for floating_

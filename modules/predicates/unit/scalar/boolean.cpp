@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( boolean_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(boolean(nt2::Quarter<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(boolean(nt2::Two<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(boolean(nt2::Zero<T>()), nt2::False<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( boolean_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

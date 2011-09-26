@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(any(nt2::Nan<vT>()), nt2::One<sr_t>());
   NT2_TEST_EQUAL(any(nt2::One<vT>()), nt2::One<sr_t>());
   NT2_TEST_EQUAL(any(nt2::Zero<vT>()), nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( any_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {

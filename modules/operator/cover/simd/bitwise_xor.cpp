@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( bitwise_xor_real__2_0,  NT2_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitwise_xor_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {

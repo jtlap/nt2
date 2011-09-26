@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(selsub(nt2::Nan<T>(),nt2::Minf<T>(),nt2::Minf<T>()), nt2::Nan<r_t>());
   NT2_TEST_EQUAL(selsub(nt2::Nan<T>(),nt2::Nan<T>(),nt2::Nan<T>()), nt2::Nan<r_t>());
   NT2_TEST_EQUAL(selsub(nt2::Nan<T>(),nt2::Zero<T>(),nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

@@ -56,4 +56,4 @@ NT2_TEST_CASE_TPL ( y1_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(y1(nt2::Inf<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(y1(nt2::One<T>()), r_t(-7.812128213002889e-01), 1.5);
   NT2_TEST_ULP_EQUAL(y1(nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

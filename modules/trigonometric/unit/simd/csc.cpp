@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( csc_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(csc(nt2::Pi<vT>()/nt2::splat<vT>(2))[0], nt2::One<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(csc(nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::Sqrt_2<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(csc(nt2::Zero<vT>())[0], nt2::Inf<sr_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( csc_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {

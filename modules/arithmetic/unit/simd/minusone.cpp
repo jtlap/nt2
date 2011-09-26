@@ -64,4 +64,4 @@ NT2_TEST_CASE_TPL ( minusone_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(minusone(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(minusone(nt2::One<vT>())[0], nt2::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(minusone(nt2::Zero<vT>())[0], nt2::Mone<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

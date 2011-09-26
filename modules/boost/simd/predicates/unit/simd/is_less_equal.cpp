@@ -80,4 +80,4 @@ NT2_TEST_CASE_TPL ( is_less_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_less_equal(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, false);
   NT2_TEST_EQUAL(is_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, false);
   NT2_TEST_EQUAL(is_less_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, true);
-} // end of test for real_
+} // end of test for floating_

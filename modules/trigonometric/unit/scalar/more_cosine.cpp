@@ -158,4 +158,4 @@ int main()
 //   NT2_TEST_ULP_EQUAL( cosine<nt2::direct_small>(nt2::Zero<T>()),    nt2::One<r_t>(), 0.5);	    
 //   NT2_TEST_ULP_EQUAL(        cosine<nt2::small>(nt2::Zero<T>()),    nt2::One<r_t>(), 0.5);	    
 
-// } // end of test for real_
+// } // end of test for floating_

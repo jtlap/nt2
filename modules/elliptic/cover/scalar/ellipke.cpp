@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( ellipke_real__1_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_REAL_TYPES)
 {
@@ -81,4 +81,4 @@ NT2_TEST_CASE_TPL ( ellipke_real__2_1,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_

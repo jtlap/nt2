@@ -69,8 +69,8 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // BOOST_SIMD_REGISTER_DISPATCH(boost::simd::tag::group_, boost::simd::tag::sse2_,
 //                         (A0),
-//                         ((simd_<float_<A0>,boost::simd::tag::sse_>))
-//                         ((simd_<float_<A0>,boost::simd::tag::sse_>))
+//                         ((simd_<single_<A0>,boost::simd::tag::sse_>))
+//                         ((simd_<single_<A0>,boost::simd::tag::sse_>))
 //                        );
 // namespace boost { namespace ext
 // {
@@ -86,7 +86,7 @@ namespace boost { namespace simd { namespace ext
 //       typedef typename meta::scalar_of<A0>::type                                      stype;
 //       typedef typename dispatch::meta::downgrade<stype>::type                                   utype;
 //       typedef simd::native<utype,boost::simd::tag::sse_>                                           type1;
-//       typedef simd::native<typename meta::float_<A0>::type,boost::simd::tag::sse_>                 type2;
+//       typedef simd::native<typename meta::single_<A0>::type,boost::simd::tag::sse_>                 type2;
 //       typedef typename boost::mpl::if_c < boost::is_same<stype,double>::value
 //                                         , type2
 //                                         , type1

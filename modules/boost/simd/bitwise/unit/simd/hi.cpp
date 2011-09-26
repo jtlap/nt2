@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(hi(boost::simd::Nan<vT>())[0], boost::simd::Mone<dtype>());
   NT2_TEST_EQUAL(hi(boost::simd::Zero<vT>())[0], boost::simd::Zero<dtype>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES)
 {

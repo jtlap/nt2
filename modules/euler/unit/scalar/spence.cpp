@@ -57,4 +57,4 @@ NT2_TEST_CASE_TPL ( spence_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(spence(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(spence(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(spence(nt2::Zero<T>()), 1.6449340668482264061, 0.5);
-} // end of test for real_
+} // end of test for floating_

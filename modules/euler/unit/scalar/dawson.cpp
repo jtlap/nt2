@@ -57,4 +57,4 @@ NT2_TEST_CASE_TPL ( dawson_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(dawson(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(dawson(nt2::One<T>()), 0.53807950691276840161, 0);
   NT2_TEST_ULP_EQUAL(dawson(nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

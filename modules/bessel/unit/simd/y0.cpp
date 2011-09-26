@@ -61,4 +61,4 @@ NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(y0(nt2::One<vT>())[0], sr_t( 8.825696421567700e-02), 1.5);
   NT2_TEST_ULP_EQUAL(y0(nt2::Zero<vT>())[0], nt2::Minf<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

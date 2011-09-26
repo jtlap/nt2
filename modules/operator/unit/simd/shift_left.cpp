@@ -88,4 +88,4 @@ NT2_TEST_CASE_TPL ( shift_left_real__2_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(shift_left(nt2::One<vT>(),nt2::Zero<ivT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(shift_left(nt2::Zero<vT>(),nt2::One<ivT>())[0], nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

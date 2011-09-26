@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, boost::simd::tag::sse4_1_
                             , (A0)(X)
-                            , ((simd_<float_<A0>,X>))
+                            , ((simd_<single_<A0>,X>))
                             )
   {
     typedef A0 result_type;

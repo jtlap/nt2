@@ -156,4 +156,4 @@ NT2_TEST_CASE_TPL ( shift_right_real__2_0,  NT2_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_

@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(abs(nt2::Valmax<T>()), nt2::Valmax<T>());
   NT2_TEST_EQUAL(abs(nt2::Valmin<T>()), nt2::Valmax<T>());
   NT2_TEST_EQUAL(abs(nt2::Zero<T>()), nt2::Zero<T>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( abs_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

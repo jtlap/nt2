@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( is_gtz_real__1_0,  NT2_REAL_TYPES)
      }
      
    }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_gtz_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

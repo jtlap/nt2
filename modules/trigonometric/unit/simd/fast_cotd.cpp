@@ -71,4 +71,4 @@ NT2_TEST_CASE_TPL ( fast_cotd_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_180<vT>())[0], nt2::Nan<sr_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<vT>())[0], nt2::One<sr_t>(), 4.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_90<vT>())[0], nt2::Nan<sr_t>(), 1.0);
-} // end of test for real_
+} // end of test for floating_

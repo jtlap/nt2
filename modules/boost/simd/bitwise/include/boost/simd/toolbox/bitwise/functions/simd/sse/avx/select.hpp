@@ -18,8 +18,8 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::select_, boost::simd::tag::avx_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>, boost::simd::tag::avx_>))
-                              ((simd_<float_<A1>, boost::simd::tag::avx_>))
-                              ((simd_<float_<A1>, boost::simd::tag::avx_>))
+                              ((simd_<single_<A1>, boost::simd::tag::avx_>))
+                              ((simd_<single_<A1>, boost::simd::tag::avx_>))
                             )
   {
     typedef A1 result_type;

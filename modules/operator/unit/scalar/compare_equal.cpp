@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( compare_equal_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(compare_equal(nt2::Nan<T>(), nt2::Nan<T>()), false);
   NT2_TEST_EQUAL(compare_equal(nt2::One<T>(),nt2::Zero<T>()), false);
   NT2_TEST_EQUAL(compare_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 {

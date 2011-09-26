@@ -67,4 +67,4 @@ NT2_TEST_CASE_TPL ( minimum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_

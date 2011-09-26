@@ -36,12 +36,12 @@ namespace ext
   using boost::dispatch::meta::integer_;
   using boost::dispatch::meta::unsigned_;
   using boost::dispatch::meta::signed_;
-  using boost::dispatch::meta::real_;
+  using boost::dispatch::meta::floating_;
   using boost::dispatch::meta::int_;
   using boost::dispatch::meta::uint_;
   using boost::dispatch::meta::type8_;
   using boost::dispatch::meta::type16_;
-  using boost::dispatch::meta::real_sized_;
+  using boost::dispatch::meta::floating_sized_;
   using boost::dispatch::meta::type32_;
   using boost::dispatch::meta::type64_;
   using boost::dispatch::meta::ints8_;
@@ -57,7 +57,7 @@ namespace ext
   using boost::dispatch::meta::uint32_;
   using boost::dispatch::meta::uint64_;
   using boost::dispatch::meta::double_;
-  using boost::dispatch::meta::float_;
+  using boost::dispatch::meta::single_;
   using boost::dispatch::meta::long_double_;
 } }
 

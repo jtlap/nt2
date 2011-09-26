@@ -49,7 +49,7 @@ NT2_TEST_CASE(simd_category)
   #endif
 
   NT2_TEST((is_same<  hierarchy_of<native<float,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::float_< native<float,ext_t> >,ext_t>
+                    , boost::dispatch::meta::simd_< boost::dispatch::meta::single_< native<float,ext_t> >,ext_t>
                     >::value
           ));
 

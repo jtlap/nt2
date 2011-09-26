@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( almost_equal_real__3_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(almost_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
   NT2_TEST_EQUAL(almost_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( almost_equal_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {

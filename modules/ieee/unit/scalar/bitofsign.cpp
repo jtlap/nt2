@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( bitofsign_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(bitofsign(nt2::Minf<T>()), -nt2::Zero<r_t>());
   NT2_TEST_EQUAL(bitofsign(nt2::One<T>()), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(bitofsign(nt2::Zero<T>()), nt2::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitofsign_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( abss_real__1_0,  NT2_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {

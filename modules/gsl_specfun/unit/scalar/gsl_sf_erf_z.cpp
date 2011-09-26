@@ -49,4 +49,4 @@ NT2_TEST_CASE_TPL ( gsl_sf_erf_z_real__1_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_

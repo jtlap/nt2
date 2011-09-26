@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(oneminus(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(oneminus(nt2::One<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(oneminus(nt2::Zero<T>()), nt2::One<r_t>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( oneminus_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

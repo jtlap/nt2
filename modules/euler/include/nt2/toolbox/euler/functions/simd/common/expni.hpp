@@ -51,12 +51,12 @@ namespace nt2 { namespace ext
   };
   
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is real_
+  // Implementation when type A1 is floating_
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::expni_, tag::cpu_,
                       (A0)(A1)(X),
                       ((scalar_<integer_<A0> > ))
-                      ((simd_<real_<A1>,X>))
+                      ((simd_<floating_<A1>,X>))
                     )
   {
     typedef A1 result_type; 

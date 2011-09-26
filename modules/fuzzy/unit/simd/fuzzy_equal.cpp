@@ -62,4 +62,4 @@ NT2_TEST_CASE_TPL ( fuzzy_equal_real__3_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(fuzzy_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<vT>(1))[0]!=0, nt2::True<sr_t>());
   NT2_TEST_EQUAL(fuzzy_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(1))[0]!=0, nt2::True<sr_t>());
   NT2_TEST_EQUAL(fuzzy_equal(nt2::splat<vT>(0),nt2::splat<vT>(2),nt2::splat<vT>(0.25))[0]!=0, nt2::False<sr_t>());
-} // end of test for real_
+} // end of test for floating_

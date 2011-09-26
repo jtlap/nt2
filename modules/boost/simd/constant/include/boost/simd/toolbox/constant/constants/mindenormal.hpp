@@ -27,7 +27,7 @@ namespace boost { namespace simd
     };
     
     template<class Dummy>
-    struct Mindenormal::apply<float,Dummy> : meta::float_<1> {};
+    struct Mindenormal::apply<float,Dummy> : meta::single_<1> {};
 
     template<class Dummy>
     struct Mindenormal::apply<double,Dummy> : meta::double_<1> {};

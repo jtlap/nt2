@@ -34,7 +34,7 @@ namespace boost { namespace simd
     
     template<class Dummy>
     struct  Valmin::apply<float,Dummy> 
-          : meta::float_<0xFF7FFFFFUL> {};
+          : meta::single_<0xFF7FFFFFUL> {};
 
     template<class Dummy>
     struct  Valmin::apply<double,Dummy> 
