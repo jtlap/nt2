@@ -54,8 +54,7 @@ class Py_doc() :
 ##        self.repfunc = self.bg.get_fct_name()+'_rn' if repfunc is None else repfunc
 ##        self.repinclude = "#include <nt2/toolbox/crlibm/functions/"+self.repfunc+'.hpp>' if repinclude is None else repinclude
         self.prefix = "nt2" if self.bg.get_tb_name().find('.')==-1 else '::'.join(self.bg.get_tb_name().split('.')[0:-1])
-
-
+    
     def __get_dict(self,d,index,arity) :
         """ if d is not None return simply d
             else if arity is None index must be in the correct range
@@ -64,7 +63,6 @@ class Py_doc() :
             return it
             """
         if d is None :
-            print("arity = %s index = %s"%(arity,index))
             dl = self.bg.get_fct_dict_list()
             if arity is None :
                 if index is None or not isinstance(index,int):

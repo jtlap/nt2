@@ -56,8 +56,19 @@ class Oxgen(Py_doc,Substitute) :
         self.collect_functor_data()
         
     def collect_functor_data(self) :
-        self.df      = self.d.get("functor",{})       
-
+        self.df      = self.d.get("functor",{})
+        
+    def get_description(self) :
+        desc = self.df.get("description",
+                           ["TODO Put description here"])
+##                           "this can be done by editing %s.py"%self.fct,
+##                           "and adding a description section in the ",
+##                           "functor part of the python dictionnary"])
+        if isinstance(desc,str) : desc = desc.split('\n')
+        desc = [ " * "+l for l in desc]    
+        if isinstance(desc,list) : desc = '\n'.join(desc)
+        return desc
+        
 class Nt2_oxygenation(Oxgen) :
     def __init__(self, base_gen,strip=True) :
         Oxgen.__init__(self,base_gen)
@@ -149,20 +160,6 @@ class Nt2_oxygenation(Oxgen) :
         ll.extend(self.txt_list[j:])
         del self.action
         return ll
-
-    def get_description(self) :
-       desc = self.df.get("description",
-                          ["TODO Put description here"])
-       print(self.df)
-##                           "this can be done by editing %s.py"%self.fct,
-##                           "and adding a description section in the ",
-##                           "functor part of the python dictionnary"])
-       if isinstance(desc,str) :
-           desc = desc.split('\n')
-       desc = [ " * "+l for l in desc]    
-       if isinstance(desc,list) :
-           desc = '\n'.join(desc)
-       return desc
 
 
     def strlist(self,tpl,n=1,sep = ", ",arity=1) :

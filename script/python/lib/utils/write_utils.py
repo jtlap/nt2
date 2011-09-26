@@ -49,7 +49,7 @@ class Write_file(object) :
         self.name = name
         self.txt = txt
         if exist(self.p) :
-            if self.verbose : print ('path = %s'%self.p)
+##            if self.verbose : print ('path = %s'%self.p)
             tp = os.path.join(self.p,self.name)
             if exist(tp) :
                 if not self.write_files :
