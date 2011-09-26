@@ -166,7 +166,7 @@ typedef struct
 #define ANSIC 1
 
 /* Get ANSI function prototypes, if you want them. */
-#ifdef __STDC__
+#if defined(__STDC__) || defined(ANSIC)
 #define ANSIPROT
 #include "protos.h"
 #else
