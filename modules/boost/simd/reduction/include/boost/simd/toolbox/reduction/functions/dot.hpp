@@ -11,12 +11,64 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_reduction
+ * \defgroup dot dot function
+ *
+ * \par Description
+ * returns the dot product of the two SIMD vector arguments
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/dot.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::dot_(A0,A0)>::type
+ *     dot(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of dot
+ * \param a1 is the second parameter of dot
+ * 
+ * \return always a scalar value
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ * This is a reduction operation. As such it has not real interest outside
+ * SIMD mode.
+ * \par
+ * Such an operation has always a scalar result which translate a property.
+ * of the whole SIMD vector.
+ * \par
+ * If usable and used in scalar mode, it reduces to the operation as acting
+ * on a one element vector.
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag dot_ of functor dot 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct dot_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::dot_, dot, 2)
 } }
- 
+
 #endif

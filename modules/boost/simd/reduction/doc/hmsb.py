@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns a scalar integer value composed by the highiest bits.',
+                          'of each vector element'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
