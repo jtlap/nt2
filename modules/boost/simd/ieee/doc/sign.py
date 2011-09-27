@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : [ "Returns the sign of a0. I.e. -1, 0 or 1, according",
-                           "a0 is lessthan zero, zero or greter than zero.],
+                           "a0 is less than zero, zero or greater than zero."],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

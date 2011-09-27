@@ -3,7 +3,10 @@
      'functor' : {
          'description' : ['Returns ulp distance of the two values.','\par',
                           '\arg If the common type is integer it is the same as \dist',
-                          '\arg If the common type is floating point'],   
+                          '\arg If the common type is floating point the ulpdist is is computed',
+                          'by reducing the two arguments mantissae to the same exponent,',
+                          'then returning the absolute value of the mantissae differences',
+                          'by eps'],   
           'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
