@@ -11,14 +11,57 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_predicates
+ * \defgroup is_not_equal is_not_equal function
+ *
+ * \par Description
+ * Returns True<A0>() if a0 and a1 are not equal else False<A0>().
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/is_not_equal.hpp>
+ * \endcode
+ * 
+ * \par Aliases 
+ * \arg neq
+ * \arg ne
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::is_not_equal_(A0,A0)>::type
+ *     is_not_equal(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of is_not_equal
+ * \param a1 is the second parameter of is_not_equal
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag is_not_equal_ of functor is_not_equal 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct is_not_equal_ {};
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_, is_not_equal , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_, neq          , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_, ne           , 2 )

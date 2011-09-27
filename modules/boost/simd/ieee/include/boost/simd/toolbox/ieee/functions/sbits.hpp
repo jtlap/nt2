@@ -17,7 +17,7 @@
  * \defgroup sbits sbits function
  *
  * \par Description
- * TODO Put description here
+ * The function return signed integer value which has the same bits of the input
  *
  * \par Header file
  * 

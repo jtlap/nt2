@@ -17,7 +17,13 @@
  * \defgroup ulpdist ulpdist function
  *
  * \par Description
- * TODO Put description here
+ * Returns ulp distance of the two values.
+ * \par
+ * rg If the common type is integer it is the same as \dist
+ * rg If the common type is floating point the ulpdist is is computed
+ * by reducing the two arguments mantissae to the same exponent,
+ * then returning the absolute value of the mantissae differences
+ * by eps
  *
  * \par Header file
  * 

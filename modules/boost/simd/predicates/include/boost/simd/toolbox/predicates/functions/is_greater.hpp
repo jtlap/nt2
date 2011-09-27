@@ -11,14 +11,56 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_predicates
+ * \defgroup is_greater is_greater function
+ *
+ * \par Description
+ * Returns True<A0>() or False<A0>() according a0 is greater than a1 or not.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/is_greater.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg gt
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::is_greater_(A0,A0)>::type
+ *     is_greater(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of is_greater
+ * \param a1 is the second parameter of is_greater
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag is_greater_ of functor is_greater 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct is_greater_ {};
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_, is_greater , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_, gt         , 2 )
 } }

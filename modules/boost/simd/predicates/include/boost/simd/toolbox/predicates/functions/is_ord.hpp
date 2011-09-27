@@ -11,14 +11,54 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_predicates
+ * \defgroup is_ord is_ord function
+ *
+ * \par Description
+ * Returns True<A0>() if neither a0 and a1 is nan.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/is_ord.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::is_ord_(A0,A0)>::type
+ *     is_ord(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of is_ord
+ * \param a1 is the second parameter of is_ord
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag is_ord_ of functor is_ord 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct is_ord_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_ord_, is_ord, 2)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

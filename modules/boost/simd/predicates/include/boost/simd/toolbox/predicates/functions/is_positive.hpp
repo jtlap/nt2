@@ -11,14 +11,61 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_predicates
+ * \defgroup is_positive is_positive function
+ *
+ * \par Description
+ * Returns True<A0>() if a0 is positive else False<A0>().
+ * \par
+ * This function differs from is_gtz from floating point argument,
+ * because Zero<A0>() is positive but not greater than zero,
+ * and Mzero<A0>() is not positive and not greater than zero,
+ * \par
+ * Mzero<A0>() is the floating point 'minus zero',
+ * i.e. all bits are zero but the sign bit.
+ * Such a value is treated as zero by ieee standards.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/is_positive.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::is_positive_(A0)>::type
+ *     is_positive(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of is_positive
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag is_positive_ of functor is_positive 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct is_positive_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_positive_, is_positive, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

@@ -17,7 +17,8 @@
  * \defgroup saturate saturate function
  *
  * \par Description
- * TODO Put description here
+ * saturate the value a0 in the template parameter type T,
+ * but the value returned is of type A0
  *
  * \par Header file
  * 
@@ -31,13 +32,15 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0>
+ *   template <class T,class A0>
  *     meta::call<tag::saturate_(A0)>::type
  *     saturate(const A0 & a0);
  * }
  * \endcode
  *
  * \param a0 is the unique parameter of saturate
+ * 
+ * \param T is a template parameter of saturate
  * 
  * \return a value of the same type as the parameter
  *  

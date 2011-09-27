@@ -17,7 +17,7 @@
  * \defgroup ulp ulp function
  *
  * \par Description
- * TODO Put description here
+ * Returns the distance to the nearest (distinct) element of the same type.
  *
  * \par Header file
  * 

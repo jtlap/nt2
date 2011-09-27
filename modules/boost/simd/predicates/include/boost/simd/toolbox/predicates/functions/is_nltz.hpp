@@ -11,14 +11,55 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_predicates
+ * \defgroup is_nltz is_nltz function
+ *
+ * \par Description
+ * Returns True<A0>() if a0 is not less than zero else returns False<A0>().
+ * \par
+ * Due to existence of nan, this is not equivalent to \c not(is_ltz(a0))
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/is_nltz.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::is_nltz_(A0)>::type
+ *     is_nltz(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 is the unique parameter of is_nltz
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag is_nltz_ of functor is_nltz 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct is_nltz_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nltz_, is_nltz, 1)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

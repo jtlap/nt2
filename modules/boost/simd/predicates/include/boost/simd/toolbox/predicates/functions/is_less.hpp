@@ -11,14 +11,56 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_predicates
+ * \defgroup is_less is_less function
+ *
+ * \par Description
+ * Returns True<A0>() or False<A0>() according a0 is less than a1 or not.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/is_less.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg lt
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::is_less_(A0,A0)>::type
+ *     is_less(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of is_less
+ * \param a1 is the second parameter of is_less
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag is_less_ of functor is_less 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct is_less_ {};
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_, is_less , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_, lt      , 2 )
 } }

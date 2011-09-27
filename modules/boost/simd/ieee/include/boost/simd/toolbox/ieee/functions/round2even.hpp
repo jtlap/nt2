@@ -17,7 +17,7 @@
  * \defgroup round2even round2even function
  *
  * \par Description
- * TODO Put description here
+ * round to the nearest integer
  *
  * \par Header file
  * 

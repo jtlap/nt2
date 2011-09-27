@@ -17,7 +17,7 @@
  * \defgroup prev prev function
  *
  * \par Description
- * TODO Put description here
+ * in the type A0 of a0, the greatest A0 strictly less than a0
  *
  * \par Header file
  * 

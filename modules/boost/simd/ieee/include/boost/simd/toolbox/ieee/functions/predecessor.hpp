@@ -17,11 +17,11 @@
  * \defgroup predecessor predecessor function
  *
  * \par Description
- * With one parameter it is equivalent to \c next
- * It is in the type \c A0, the least  \c A0 elementwise strictly greater than  \c a0.
+ * With one parameter it is equivalent to \c prev
+ * It is in the type \c A0, the greatest  \c A0 elementwise strictly less than  \c a0.
  * \par
  * With two parameters, the second is an integer value  \c n
- * and the result is equivalent to applying \c next \c abs(n) times to  \c a0.
+ * and the result is equivalent to applying \c prev \c abs(n) times to  \c a0.
  *
  * \par Header file
  * 
@@ -39,7 +39,7 @@
  *   A0 predecessor(A0 const& a0);
  *    
  *   template<class A0,class A1> inline
- *   A0 predecessor(A0 const& a0,A1& n);
+ *   A0 predecessor(A0 const& a0,const A1& n);
  * }
  * \endcode
  *

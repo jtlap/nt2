@@ -11,9 +11,53 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
+/*!
+ * \internal functor \endinternal
+ * \ingroup boost_simd_predicates
+ * \defgroup is_not_greater is_not_greater function
+ *
+ * \par Description
+ * Returns True<A0>() if a0 is not greater than a1 else returns False<A0>().
+ * \par
+ * Due to existence of nan, this is not equivalent to \c not(is_greater(a0,a1))
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/is_not_greater.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg is_ngt
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::is_not_greater_(A0,A0)>::type
+ *     is_not_greater(const A0 & a0,const A0 & a1);
+ * }
+ * \endcode
+ *
+ * \param a0 is the first parameter of is_not_greater
+ * \param a1 is the second parameter of is_not_greater
+ * 
+ * \return an integer value
+ *  
+ * \internal end_functor \endinternal
+**/
 
 namespace boost { namespace simd { namespace tag
   {         
+    /*!
+     * \internal tag \endinternal
+     * \file
+     * \brief Define the tag is_not_greater_ of functor is_not_greater 
+     *        in namespace boost::simd::tag
+     * \internal end_tag \endinternal
+    **/
     struct is_not_greater_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_not_greater, 2)

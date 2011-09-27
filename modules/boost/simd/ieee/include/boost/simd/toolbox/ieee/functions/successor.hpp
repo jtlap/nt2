@@ -18,7 +18,10 @@
  *
  * \par Description
  * With one parameter it is equivalent to \c next
- * It is in the type A0, the least A0 elementwise strictly greater than a0
+ * It is in the type \c A0, the least  \c A0 elementwise strictly greater than  \c a0.
+ * \par
+ * With two parameters, the second is an integer value  \c n
+ * and the result is equivalent to applying \c next \c abs(n) times to  \c a0.
  *
  * \par Header file
  * 
@@ -32,15 +35,18 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0>
- *     meta::call<tag::successor_(A0)>::type
- *     successor(const A0 & a0);
+ *   template<class A0> inline
+ *   A0 predecessor(A0 const& a0);
+ *    
+ *   template<class A0,class A1> inline
+ *   A0 predecessor(A0 const& a0,const A1& n);
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of successor
+ * \param a0 is the first parameter of successor
+ * \param a1 is the second parameter of successor
  * 
- * \return a value of the same type as the parameter
+ * \return a value of type A0
  *  
  * \internal end_functor \endinternal
 **/
