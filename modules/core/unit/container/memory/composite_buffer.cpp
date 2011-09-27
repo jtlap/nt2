@@ -90,16 +90,17 @@ NT2_TEST_CASE( composite_buffer_1D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   for(pos[0]=0;pos[0]<5;++pos[0])
   {
-    boost::fusion::at_c<0>(dereference<1UL>(tab,pos)) = 1./pos[0];
-    boost::fusion::at_c<1>(dereference<1UL>(tab,pos)) = 1.f/(1+pos[0]);
+    boost::fusion::at_c<0>(dereference<1UL>(tab,pos)) = double(pos[0]);
+    boost::fusion::at_c<1>(dereference<1UL>(tab,pos)) = float(1+pos[0]);
     boost::fusion::at_c<2>(dereference<1UL>(tab,pos)) = char('A' + pos[0]);
-        
-    std::cout << dereference<1UL>(tab,pos) << "\n";// = 10*(1+pos[0]);
   }
-    
-
-/*for(pos[0]=0;pos[0]<5;++pos[0])
-    NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );*/
+  
+  for(pos[0]=0;pos[0]<5;++pos[0])
+  {
+    NT2_TEST_EQUAL(boost::fusion::at_c<0>(dereference<1UL>(tab,pos)), double(pos[0]));
+    NT2_TEST_EQUAL(boost::fusion::at_c<1>(dereference<1UL>(tab,pos)), float(1+pos[0]));
+    NT2_TEST_EQUAL(boost::fusion::at_c<2>(dereference<1UL>(tab,pos)), char('A' + pos[0]));
+  }
 }
 
 /*
