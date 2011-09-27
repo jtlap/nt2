@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns True<A0>() if a0 is not greater or equal to zero else returns False<A0>().','\par',
+                          'Due to existence of nan, this is not equivalent to \c not(is_gez(a0))'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

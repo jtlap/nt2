@@ -1,6 +1,13 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns True<A0>() if a0 is positive else False<A0>().','\par',
+                          'This function differs from is_gtz from floating point argument,',
+                          'because Zero<A0>() is positive but not greater than zero,',
+                          'and Mzero<A0>() is not positive and not greater than zero,','\par',
+                          "Mzero<A0>() is the floating point 'minus zero',",
+                          "i.e. all bits are zero but the sign bit.",
+                          'Such a value is treated as zero by ieee standards.'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
