@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
 // /////////////////////////////////////////////////////////////////////////////
 // NT2_REGISTER_DISPATCH(cephes::tag::incbps_, tag::cpu_,
 //                         (A0)(A1)(A2),
-//                         (float_<A0>)(float_<A1>)(float_<A2>)
+//                         (single_<A0>)(single_<A1>)(single_<A2>)
 //                        )
 
 // namespace nt2 { namespace ext

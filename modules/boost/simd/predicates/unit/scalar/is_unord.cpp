@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( is_unord_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_unord(boost::simd::Quarter<T>(), boost::simd::Quarter<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(is_unord(boost::simd::Two<T>(), boost::simd::Two<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(is_unord(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_unord_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

@@ -75,14 +75,14 @@ namespace boost { namespace simd { namespace ext
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
                           (A0),
-                          ((simd_<real_<A0>,boost::simd::tag::sse_>))
-                          ((simd_<real_<A0>,boost::simd::tag::sse_>))
+                          ((simd_<floating_<A0>,boost::simd::tag::sse_>))
+                          ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                          )
   {
     typedef A0 result_type;

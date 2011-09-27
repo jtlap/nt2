@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_real<A0>::type rtype;
+      typedef typename dispatch::meta::as_floating<A0>::type rtype;
       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
       rtype m;
       itype p;
@@ -126,13 +126,13 @@ namespace boost { namespace simd { namespace ext
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
                             )
   {
 

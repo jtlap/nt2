@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
 			     ((simd_<arithmetic_<A0>,X>))
 			     )
   {
-    typedef typename dispatch::meta::as_real<A0>::type               stA0;
+    typedef typename dispatch::meta::as_floating<A0>::type               stA0;
     typedef typename dispatch::meta::as_integer<A0, signed>::type     iA0;             
     typedef boost::fusion::tuple<stA0,iA0>          result_type;
     
@@ -59,12 +59,12 @@ namespace boost { namespace simd { namespace ext
 				    ( simd_<arithmetic_<A0>,X> 
 				      , simd_<arithmetic_<A1>,X>
 				      , simd_<integer_<A2>,X>  
-				      , simd_<real_<A3>,X>
+				      , simd_<floating_<A3>,X>
 				      )
 				    ) 
                                , ((simd_<arithmetic_<A0>,X>))
 				 ((simd_<arithmetic_<A1>,X>))
-                                 ((simd_<real_<A2>,X>))
+                                 ((simd_<floating_<A2>,X>))
                                  ((simd_<integer_<A3>,X>))
 			     )
   {
@@ -83,15 +83,15 @@ namespace boost { namespace simd { namespace ext
 				  ,( boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A1> >)
 				  , ( boost::simd::tag::remquo_
-				      ( simd_<real_<A0>,X> 
-					, simd_<real_<A0>,X>
-					, simd_<real_<A0>,X>
+				      ( simd_<floating_<A0>,X> 
+					, simd_<floating_<A0>,X>
+					, simd_<floating_<A0>,X>
 					, simd_<integer_<A1>,X>  
 					)
 				      ) 
-				  , ((simd_<real_<A0>,X>))
-				  ((simd_<real_<A0>,X>))
-				  ((simd_<real_<A0>,X>))
+				  , ((simd_<floating_<A0>,X>))
+				  ((simd_<floating_<A0>,X>))
+				  ((simd_<floating_<A0>,X>))
 				  ((simd_<integer_<A1>,X>))
 			     )
   {

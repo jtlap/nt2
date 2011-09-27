@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( is_nan_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_nan(boost::simd::Quarter<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(is_nan(boost::simd::Two<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(is_nan(boost::simd::Zero<T>()), boost::simd::False<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_nan_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

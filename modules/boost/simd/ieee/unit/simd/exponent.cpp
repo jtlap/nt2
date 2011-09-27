@@ -54,4 +54,4 @@ NT2_TEST_CASE_TPL ( exponent_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(exponent(boost::simd::Mone<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(exponent(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(exponent(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

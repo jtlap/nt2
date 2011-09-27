@@ -21,7 +21,7 @@ extern "C" {extern long double cephes_asinl(long double);}
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( asinpi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(asinpi(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(asinpi(nt2::One<T>()), 0.5, 0.5);
   NT2_TEST_ULP_EQUAL(asinpi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( asinpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {

@@ -12,7 +12,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/maximum.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
 
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-	//       typedef typename dispatch::meta::as_real<A0>::type ftype;
+	//       typedef typename dispatch::meta::as_floating<A0>::type ftype;
 	//       A0 a00  =  simd::native_cast<A0>(_mm_shuffle_pd(simd::native_cast<ftype>(a0),
 	//                                           simd::native_cast<ftype>(a0),0x01));
 	//       return  max(a0, a00);
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::splatted_maximum_, boost::simd::tag::sse2_,
 			     (A0),
-			     ((simd_<float_<A0>,boost::simd::tag::sse_>))
+			     ((simd_<single_<A0>,boost::simd::tag::sse_>))
 			     )
   {
     typedef A0 result_type;

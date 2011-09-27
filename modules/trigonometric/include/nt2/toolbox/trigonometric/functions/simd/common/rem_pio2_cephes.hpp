@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_cephes_, tag::cpu_,
                       (A0)(X),
-                      ((simd_ < real_<A0>,X > ))
+                      ((simd_ < floating_<A0>,X > ))
                     )
   {
     typedef typename meta::as_integer<A0>::type            itype;    
@@ -49,9 +49,9 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_cephes_, tag::cpu_,
                         (A0)(X),
-                        ((simd_ < real_<A0>, X > ))
-                        ((simd_ < real_<A0>, X > ))
-                        ((simd_ < real_<A0>, X > ))
+                        ((simd_ < floating_<A0>, X > ))
+                        ((simd_ < floating_<A0>, X > ))
+                        ((simd_ < floating_<A0>, X > ))
                       )
   {
     typedef typename meta::as_integer<A0>::type result_type;    

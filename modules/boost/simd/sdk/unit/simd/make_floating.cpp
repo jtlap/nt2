@@ -6,29 +6,29 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "boost::simd::meta::as_real SIMD"
+#define NT2_UNIT_MODULE "boost::simd::meta::make_floating SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/make_floating.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test that as_real on SIMD
+// Test that make_floating on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(as_real_simd, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(make_real_simd, BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
-  using boost::dispatch::meta::as_real;
+  using boost::dispatch::meta::make_floating;
   using boost::is_same;
-  using boost::mpl::_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
-  typedef native<typename as_real<T>::type,ext_t> dst_t;
+  typedef native<typename make_floating<sizeof(T)>::type,ext_t> dst_t;
+  typedef typename boost::dispatch::meta::factory_of<dst_t>::type fact_t;
 
-  NT2_TEST( (is_same< typename as_real< native<T,ext_t> >::type
+  NT2_TEST( (is_same< typename make_floating<sizeof(T), fact_t>::type
                     , dst_t
                     >::value
             )

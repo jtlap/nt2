@@ -42,18 +42,18 @@ namespace nt2 { namespace ext
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 
 
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::almost_equal_, tag::cpu_,
 			 (A0)(A2)(X),
 			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A2> >),
-			 (nt2::tag::almost_equal_(simd_<real_<A0>,X>,
-					     simd_<real_<A0>,X>,
+			 (nt2::tag::almost_equal_(simd_<floating_<A0>,X>,
+					     simd_<floating_<A0>,X>,
 			  		     simd_<integer_<A2>,X>)),
-			 ((simd_<real_<A0>,X>))
-			 ((simd_<real_<A0>,X>))
+			 ((simd_<floating_<A0>,X>))
+			 ((simd_<floating_<A0>,X>))
 			 ((simd_<integer_<A2>,X>))
                        )
   {

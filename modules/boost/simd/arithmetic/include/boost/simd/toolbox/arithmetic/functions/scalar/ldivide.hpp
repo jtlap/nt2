@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 #ifdef BOOST_MSVC
   #pragma warning(push)
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldivide_, tag::cpu_
                             , (A0)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)
+                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;

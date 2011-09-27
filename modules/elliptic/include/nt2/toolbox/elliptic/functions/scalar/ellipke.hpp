@@ -60,12 +60,12 @@ namespace nt2 { namespace ext
   };
   
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
+  // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
 			     (A0),
-			     (scalar_<real_<A0> >)
-			     (scalar_<real_<A0> >)
+			     (scalar_<floating_<A0> >)
+			     (scalar_<floating_<A0> >)
 			     )
   {
     typedef boost::fusion::tuple<A0, A0> result_type;
@@ -83,9 +83,9 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
 			       (A0), 
-			       (scalar_<real_<A0> >)
-			       (scalar_<real_<A0> >)
-			       (scalar_<real_<A0> >)
+			       (scalar_<floating_<A0> >)
+			       (scalar_<floating_<A0> >)
+			       (scalar_<floating_<A0> >)
 			       )
   {
     typedef int result_type;    
@@ -100,10 +100,10 @@ namespace nt2 { namespace ext
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,(A0), 
-			       (scalar_<real_<A0> >)
-			       (scalar_<real_<A0> >)
-			       (scalar_<real_<A0> >)
-			       (scalar_<real_<A0> >)
+			       (scalar_<floating_<A0> >)
+			       (scalar_<floating_<A0> >)
+			       (scalar_<floating_<A0> >)
+			       (scalar_<floating_<A0> >)
 			       )
   {
     typedef int result_type;    

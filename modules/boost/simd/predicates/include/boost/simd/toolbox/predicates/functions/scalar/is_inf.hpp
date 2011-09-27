@@ -34,13 +34,13 @@ namespace boost { namespace simd { namespace ext
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_inf_, tag::cpu_
                             , (A0)
-                            , (scalar_< real_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
     typedef bool result_type;

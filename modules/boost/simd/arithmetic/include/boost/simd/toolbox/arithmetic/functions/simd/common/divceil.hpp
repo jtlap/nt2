@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/functions/iceil.hpp>
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return ceil(tofloat(a0)/tofloat(a1)); }
   };
 
@@ -76,8 +76,8 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divceil_, tag::cpu_, (A0)(X)
-                            , ((simd_<real_<A0>,X>))
-                              ((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
+                              ((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;

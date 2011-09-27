@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, boost::simd::tag::avx_,
 				    (A0)(A1),
-				    ((simd_<float_<A0>,boost::simd::tag::avx_>))
+				    ((simd_<single_<A0>,boost::simd::tag::avx_>))
 				    ((simd_<double_<A1>,boost::simd::tag::avx_>))
 				    ((simd_<double_<A1>,boost::simd::tag::avx_>))
 				    )
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, boost::simd::tag::avx_,
 				    (A0),
-				    ((simd_<float_<A0>,boost::simd::tag::avx_>))
+				    ((simd_<single_<A0>,boost::simd::tag::avx_>))
 				    )
   {
     typedef typename dispatch::meta::upgrade<A0>::type                 utype;

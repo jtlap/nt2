@@ -54,11 +54,11 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (boost::simd::tag::ldexp_( simd_<real_<A0>,X>
+                                , (boost::simd::tag::ldexp_( simd_<floating_<A0>,X>
                                               , simd_<integer_<A1>,X>
                                               )
                                   )
-                                , ((simd_<real_<A0>,X>))
+                                , ((simd_<floating_<A0>,X>))
                                   ((simd_<integer_<A1>,X>))
                                 )
   {
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
-                            , ((simd_<real_<A0>,X>))(scalar_< integer_<A1> >)
+                            , ((simd_<floating_<A0>,X>))(scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;

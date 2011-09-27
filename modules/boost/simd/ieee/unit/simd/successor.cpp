@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(successor(boost::simd::One<vT>())[0], boost::simd::One<sr_t>()+boost::simd::Eps<sr_t>());
   NT2_TEST_EQUAL(successor(boost::simd::Valmax<vT>())[0], boost::simd::Inf<sr_t>());
   NT2_TEST_EQUAL(successor(boost::simd::Zero<vT>())[0], boost::simd::Mindenormal<T>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( successor_real__2_1,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
@@ -81,4 +81,4 @@ NT2_TEST_CASE_TPL ( successor_real__2_1,  BOOST_SIMD_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_

@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POWI_HPP_INCLUDED
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/signnz.hpp>
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -48,13 +48,13 @@ namespace nt2 { namespace ext
 } }
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is real_
+// Implementation when type  is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::powi_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<real_<A0>,X>))(scalar_< integer_<A1> >)
+                            , ((simd_<floating_<A0>,X>))(scalar_< integer_<A1> >)
                             )
   {
 

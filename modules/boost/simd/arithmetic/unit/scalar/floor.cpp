@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( floor_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(floor(boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(floor(boost::simd::One<T>()), boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(floor(boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( floor_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {

@@ -15,7 +15,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::Zero, boost::simd::tag::sse2_, (A0)
-                                    , ((target_< simd_< float_<A0>, boost::simd::tag::sse_> >))
+                                    , ((target_< simd_< single_<A0>, boost::simd::tag::sse_> >))
                                     )
   {
     typedef typename A0::type result_type;

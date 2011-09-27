@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( rdivide_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl;
   }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( rdivide_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {

@@ -15,11 +15,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of real_c constants for every base real types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( float_ )
+NT2_TEST_CASE( single_ )
 {
-  using boost::simd::meta::float_;
+  using boost::simd::meta::single_;
   
-  float_<0x3F800000UL>          one_fc;
+  single_<0x3F800000UL>          one_fc;
   float  one_f = 1.f;
   
   NT2_TEST_EQUAL( one_f, float(one_fc)  );

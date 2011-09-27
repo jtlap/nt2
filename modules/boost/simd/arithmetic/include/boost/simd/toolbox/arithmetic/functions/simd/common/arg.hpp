@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ARG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ARG_HPP_INCLUDED
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/strip.hpp>
@@ -33,13 +33,13 @@ namespace boost { namespace simd { namespace ext
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::arg_, tag::cpu_,
                       (A0)(X),
-                      ((simd_<real_<A0>,X>))
+                      ((simd_<floating_<A0>,X>))
                      )
   {
     typedef A0 result_type;

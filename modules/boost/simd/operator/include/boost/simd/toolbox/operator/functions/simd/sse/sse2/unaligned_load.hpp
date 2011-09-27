@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
                             , (A0)(A1)(A2)(X)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< float_<A2>, X > >))
+                              ((target_< simd_< single_<A2>, X > >))
                             )
   {
     typedef typename A2::type result_type;

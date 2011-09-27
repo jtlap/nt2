@@ -193,7 +193,7 @@ BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(,
     f_,
     tag::cpu_,
     (A0),
-    (scalar_< real_<A0> >)
+    (scalar_< floating_<A0> >)
 )
 {
     typedef int result_type;

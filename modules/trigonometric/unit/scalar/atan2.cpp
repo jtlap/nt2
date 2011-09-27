@@ -20,7 +20,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( atan2_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(atan2(nt2::One<T>(),nt2::Inf<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::One<T>(),nt2::Minf<T>()), nt2::Pi<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( atan2_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {

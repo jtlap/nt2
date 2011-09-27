@@ -59,4 +59,4 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(sb2b(boost::simd::Quarter<vT>())[0]!=0, boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(sb2b(boost::simd::Two<vT>())[0]!=0, boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(sb2b(boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
-} // end of test for real_
+} // end of test for floating_

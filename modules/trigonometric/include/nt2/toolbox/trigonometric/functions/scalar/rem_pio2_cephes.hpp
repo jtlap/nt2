@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_cephes_, tag::cpu_,
 			     (A0),
-			     (scalar_ < real_<A0> > )
+			     (scalar_ < floating_<A0> > )
 			     )
   {
     typedef boost::fusion::tuple<A0,A0,nt2::int32_t>           result_type;
@@ -39,9 +39,9 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_cephes_, tag::cpu_,
 			     (A0),
-			     (scalar_< real_<A0> >)
-			     (scalar_< real_<A0> >)
-			     (scalar_< real_<A0> >)
+			     (scalar_< floating_<A0> >)
+			     (scalar_< floating_<A0> >)
+			     (scalar_< floating_<A0> >)
 			     )
   {
     typedef nt2::int32_t result_type;    

@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( copysign_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(copysign(boost::simd::One<T>(), -boost::simd::Zero<T>()), -boost::simd::One<r_t>());
   NT2_TEST_EQUAL(copysign(boost::simd::One<T>(), boost::simd::Zero<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(copysign(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( copysign_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

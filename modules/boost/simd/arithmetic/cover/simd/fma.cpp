@@ -69,4 +69,4 @@ NT2_TEST_CASE_TPL ( fma_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl;
   }
-} // end of test for real_
+} // end of test for floating_

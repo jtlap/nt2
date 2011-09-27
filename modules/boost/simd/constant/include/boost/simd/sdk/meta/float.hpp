@@ -14,7 +14,7 @@
 namespace boost { namespace simd { namespace meta
 {
  template<boost::simd::uint32_t Value> 
- struct float_ : real_c<boost::simd::uint32_t,Value> {}; 
+ struct single_ : real_c<boost::simd::uint32_t,Value> {}; 
 } } }
 
 #endif

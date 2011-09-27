@@ -13,7 +13,7 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/constants/radindeg.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

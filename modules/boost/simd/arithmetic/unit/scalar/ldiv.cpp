@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( ldiv_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(ldiv(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(ldiv(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(ldiv(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Nan<T>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( ldiv_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {

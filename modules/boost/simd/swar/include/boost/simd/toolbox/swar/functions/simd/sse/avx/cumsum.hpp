@@ -80,7 +80,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::cumsum_, boost::simd::tag::avx_,
                          (A0),
-                         ((simd_<float_<A0>,boost::simd::tag::avx_>))
+                         ((simd_<single_<A0>,boost::simd::tag::avx_>))
                         )
   {
     typedef A0 result_type;

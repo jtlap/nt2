@@ -44,4 +44,4 @@ NT2_TEST_CASE_TPL ( two_prod_real__2_0,  BOOST_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_

@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -52,11 +52,11 @@ namespace nt2 { namespace ext
   };
   
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
+  // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::digamma_, tag::cpu_,
 			     (A0)(X),
-			     ((simd_<real_<A0>,X>))
+			     ((simd_<floating_<A0>,X>))
 			     )
   {
     typedef A0 result_type; 

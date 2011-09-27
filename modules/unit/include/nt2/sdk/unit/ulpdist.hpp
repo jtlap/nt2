@@ -16,7 +16,7 @@
     
 //     struct other_ {};
 //     struct double_{};
-//     struct float_ {}; 
+//     struct single_ {}; 
 //     template < class T > T nt2_ulpdist(T a0, T a1,  double_ )
 //     {
 //       typedef int32_t itype;
@@ -58,7 +58,7 @@
     
 //     template <class T> struct classif  { typedef   other_ type; };
 //     template <> struct classif<double> { typedef  double_ type; };
-//     template <> struct classif<float>  { typedef   float_ type; };
+//     template <> struct classif<float>  { typedef   single_ type; };
 //   }    
 
 //   template < class T > T  nt2_ulpdist(T a0, T a1)

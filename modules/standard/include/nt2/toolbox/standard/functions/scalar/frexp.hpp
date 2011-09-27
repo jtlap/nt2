@@ -15,7 +15,7 @@
 #include <cmath>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is real_
+// Implementation when type  is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
@@ -24,7 +24,7 @@ namespace nt2 { namespace meta
 /////////////////////////////////////////////////////////////////////////////
 NT2_FUNCTOR_IMPLEMENTATION(nt2::standard::tag::frexp_, tag::cpu_,
 			   (A0)(A1),
-			   (scalar_<real_<A0> >)
+			   (scalar_<floating_<A0> >)
 			   (scalar_<int32_<A1> >)	     
 			   )
   {
@@ -37,7 +37,7 @@ NT2_FUNCTOR_IMPLEMENTATION(nt2::standard::tag::frexp_, tag::cpu_,
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::standard::tag::frexp_, tag::cpu_,
                        (A0),
-                       (scalar_<real_<A0> >)
+                       (scalar_<floating_<A0> >)
                       )
   {
     typedef boost::fusion::vector<A0,nt2::int32_t>             result_type;

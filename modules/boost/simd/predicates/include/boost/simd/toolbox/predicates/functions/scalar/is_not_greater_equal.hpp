@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_greater_equal_, tag::cpu_
                             , (A0)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)
+                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
                             )
   {
     typedef bool result_type;

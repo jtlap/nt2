@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ILOGB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ILOGB_HPP_INCLUDED
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ilogb_, tag::cpu_
                             , (A0)
-                            , (scalar_< float_<A0> >)
+                            , (scalar_< single_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
@@ -78,13 +78,13 @@ namespace boost { namespace simd { namespace ext
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ilogb_, tag::cpu_
                             , (A0)
-                            , (scalar_< real_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
 

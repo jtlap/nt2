@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( genmask_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(genmask(boost::simd::Minf<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(genmask(boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(genmask(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( genmask_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {

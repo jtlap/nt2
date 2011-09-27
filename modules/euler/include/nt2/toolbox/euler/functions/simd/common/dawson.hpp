@@ -39,7 +39,7 @@
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0>
-//     struct result<This(A0)> : meta::as_real<A0>{};
+//     struct result<This(A0)> : meta::as_floating<A0>{};
 
 //     NT2_FUNCTOR_CALL(1)
 //     {
@@ -49,11 +49,11 @@
 // } }
 
 // /////////////////////////////////////////////////////////////////////////////
-// // Implementation when type A0 is real_
+// // Implementation when type A0 is floating_
 // /////////////////////////////////////////////////////////////////////////////
 // NT2_REGISTER_DISPATCH(tag::dawson_, tag::cpu_,
 //                          (A0)(X),
-//                          ((simd_<real_<A0>,X>))
+//                          ((simd_<floating_<A0>,X>))
 //                         );
 
 // namespace nt2 { namespace ext
@@ -64,7 +64,7 @@
 //   {
 //     template<class Sig> struct result;
 //     template<class This,class A0>
-//     struct result<This(A0)> : meta::as_real<A0>{};
+//     struct result<This(A0)> : meta::as_floating<A0>{};
 
 //     NT2_FUNCTOR_CALL(1)
 //     {

@@ -21,7 +21,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( fast_cotd_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_180<T>()), nt2::Nan<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_45<T>()), nt2::One<r_t>(), 4.0);
   NT2_TEST_ULP_EQUAL(fast_cotd(nt2::_90<T>()), nt2::Nan<r_t>(), 1.0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( fast_cotd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
