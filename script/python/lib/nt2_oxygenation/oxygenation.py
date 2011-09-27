@@ -224,7 +224,19 @@ class Nt2_oxygenation(Oxgen) :
             res.append("\\\\return a value of the common type of the parameters")
         return '\n'.join(self.starize(res))+'\n'
 
-    
+    def compose_notes(self) :
+        res = ['\par Notes',
+               'In SIMD mode, this function acts elementwise on the inputs values','\par']
+        special = self.df.get("special",False)
+        if "predicate" in special :
+            res.extend(["This is a predicate operation. Such operations return bool in scalar mode,",
+                        "but not in SIMD mode.","\par",
+                        "The return type in SIMD mode is the common type of the parameters and is",
+                        "a 'signed boolean' type. This means that in this case True has all its bits",
+                        "sets to one. This is to facilitate masking operations. You are invited to",
+                        "consult the rationale."])
+        return '\n'.join(self.starize(res))+'\n'
+        
     def make_functor_ox(self) :
         Functor_ox = [
             "/*!",
@@ -254,6 +266,8 @@ class Nt2_oxygenation(Oxgen) :
             " *",
             "$parameters$"
             " *  ",
+            "$notes$"
+            " *  ",
             " * \\internal end_functor \endinternal",
             "**/",
             " ",
@@ -264,6 +278,7 @@ class Nt2_oxygenation(Oxgen) :
         self.description = self.get_description()
         self.parameters  = self.compose_parameters()
         self.call        = self.compose_call()
+        self.notes       = self.compose_notes()
         j=0
         for ss in self.txt_list :
             if not len(ss) or (ss[0] in '/#') :
