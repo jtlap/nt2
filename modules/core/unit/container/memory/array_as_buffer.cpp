@@ -32,6 +32,38 @@ NT2_TEST_CASE( std_array_dimensions )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// array type has some value
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( std_array_values )
+{
+  using boost::array;
+  using boost::is_same;
+  using nt2::meta::value_of;
+
+  NT2_TEST((is_same< value_of< array<int,4> >::type, int>::value ));
+  NT2_TEST((is_same< value_of< array<array<int,4>,4> >::type, int>::value ));
+  NT2_TEST((is_same< value_of< array<array<array<int,4>,4>,4> >::type, int>::value ));
+}
+////////////////////////////////////////////////////////////////////////////////
+// array type has a model
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( std_array_model )
+{
+  using boost::array;
+  using boost::mpl::apply;
+  using boost::is_same;
+  using nt2::meta::model_of;
+
+  typedef model_of< array<int,4> >::type model1d;
+  typedef model_of< array<array<int,4>,3> >::type model2d;
+  typedef model_of< array<array<array<int,4>,3>,2> >::type model3d;
+
+  NT2_TEST((is_same<apply<model1d,float>::type, array<float,4> >::value ));
+  NT2_TEST((is_same<apply<model2d,float>::type, array<array<float,4>,3> >::value ));
+  NT2_TEST((is_same<apply<model3d,float>::type, array<array<array<float,4>,3>,2> >::value ));
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // array type has some dimensions
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( std_array_reference )
@@ -74,7 +106,7 @@ NT2_TEST_CASE( std_array_1D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
-  for(pos[0]=0;pos[0]<5;++pos[0]) 
+  for(pos[0]=0;pos[0]<5;++pos[0])
     dereference<1UL>(tab,pos) = double(10*(1+pos[0]));
 
   for(pos[0]=0;pos[0]<5;++pos[0])
