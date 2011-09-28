@@ -22,6 +22,19 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef void type;
   };
+  
+  template<class Expr>
+  struct semantic_of<const Expr>
+    : semantic_of<Expr>
+  {
+  };
+  
+  template<class Expr>
+  struct semantic_of<Expr&>
+    : semantic_of<Expr>
+  {
+  };
+  
 } } }
 
 #endif

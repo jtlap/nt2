@@ -29,9 +29,39 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #endif
 
-namespace boost { namespace dispatch { namespace tag
+namespace boost { namespace dispatch
 {
+namespace tag
+{  
   struct ast_ {};
+}
+
+namespace meta
+{
+  BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION((boost)(dispatch)(meta)
+                                , tag::terminal_, tag::formal_
+                                , (Expr)
+                                , (ast_< unspecified_<Expr> >)
+                                )
+  {
+    template<class Sig>
+    struct result;
+    
+    template<class This, class A0>
+    struct result<This(A0)>
+    {
+      typedef typename as_ref<A0>::type type;
+    };
+    
+    template<class A0>
+    BOOST_DISPATCH_FORCE_INLINE
+    typename result<implement(A0&)>::type
+    operator()(A0& expr) const
+    {
+        return expr;
+    }
+  };
+    
 } } }
 
 ////////////////////////////////////////////////////////////////////////////////

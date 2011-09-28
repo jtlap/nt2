@@ -42,8 +42,8 @@ namespace boost { namespace proto
     #undef BOOST_PROTO_CHILD_E_N
 
     #define BOOST_PROTO_ARITY 0
-    #define BOOST_PROTO_CHILD_N(_, N, __)   proto::_value
-    #define BOOST_PROTO_CHILD_E_N(_, N, __) proto::_value
+    #define BOOST_PROTO_CHILD_N(_, N, __)   proto::_expr
+    #define BOOST_PROTO_CHILD_E_N(_, N, __) proto::_expr
     
     #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, 1, "boost/dispatch/dsl/proto/unpack.hpp"))
     #include BOOST_PP_ITERATE()

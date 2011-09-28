@@ -18,54 +18,7 @@ namespace boost { namespace simd { namespace ext
   // default terminal
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
                             , (A0)
-                            , (unspecified_<A0>)
-                            )
-  {
-      
-    template<class Sig>
-    struct result;
-    
-    template<class This, class A0_>
-    struct result<This(A0_)>
-      : add_reference<A0_>
-    {
-    };
-
-    template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE A0_&
-    operator()(A0_& a0) const
-    {
-      return a0;
-    }
-  };
-  
-  // need generic_ to avoid map specialization
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
-                            , (A0)
-                            , (generic_<unspecified_<A0> >)
-                            )
-  {
-      
-    template<class Sig>
-    struct result;
-    
-    template<class This, class A0_>
-    struct result<This(A0_)>
-      : add_reference<A0_>
-    {
-    };
-
-    template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE A0_&
-    operator()(A0_& a0) const
-    {
-      return a0;
-    }
-  };
-  
-  // workaround, constant functors need to be made less general
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_, tag::cpu_, (A0)(X)
-                            , ((target_< simd_< arithmetic_<A0>,X> >))
+                            , (ast_< unspecified_<A0> >)
                             )
   {
     template<class Sig>
@@ -73,15 +26,15 @@ namespace boost { namespace simd { namespace ext
     
     template<class This, class A0_>
     struct result<This(A0_)>
-      : add_reference<A0_>
+      : proto::result_of::value<A0_>
     {
     };
-
+    
     template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE A0_&
+    typename result<implement(A0_&)>::type
     operator()(A0_& a0) const
     {
-      return a0;
+      return boost::proto::value(a0);
     }
   };
   
