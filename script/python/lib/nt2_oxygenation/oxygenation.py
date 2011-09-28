@@ -135,11 +135,8 @@ class Nt2_oxygenation(Oxgen) :
     def make_tag_ox(self) :
         Tag_ox = [
             "/*!",
-            " * \internal tag \endinternal",
-            " * \\file",
             " * \\brief $action$ the tag $fct$_ of functor $fct$ ",
             " *        in namespace $namespace$::tag",
-            " * \internal end_tag \endinternal",
             "**/"
             ]
         self.action = "Define" if self.txt.find("boost::simd::"+self.fct) == -1 else "Bring"
@@ -195,22 +192,23 @@ class Nt2_oxygenation(Oxgen) :
         return '\n'.join(self.starize(self.indent(res,2)))
    
     def compose_parameters(self) :
+        special = self.df.get("special",[])
         arity = int(self.df.get("max_arity",self.df.get("arity",'1')))
         is_template = self.df.get("template",False)
         res = []
         if arity == 1 :
             param_0 =  self.df.get("param_0","")
-            param = "\\\\param a0 is the unique parameter of %s"%self.fct
+            param = "\\\\param a0 the unique parameter of %s"%self.fct
             res.append(param)
         else :    
             for i in range(0,arity) :
                 parami =  self.df.get("param_"+str(i),"")
-                param = "\\\\param a%s is the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct)
+                param = "\\\\param a%s the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct)
                 if len(parami) : param += ', '+'\n'.join(parami)
                 res.append(param)
         if is_template :
             res.append("")
-            tpl_param = "\\\\param T is a template parameter of %s"%self.fct
+            tpl_param = "\\\\param T a template parameter of %s"%self.fct
             res.append(tpl_param)
         ret =  self.df.get("return",[])
         res.append("")
@@ -218,6 +216,8 @@ class Nt2_oxygenation(Oxgen) :
             res.append("\\\\return "+'\n'.join(ret))
         elif self.fct[0]=='i' :
             res.append("\\\\return an integer value")
+        elif "reduction" in special :    
+            res.append("\\\\return always a scalar value")
         elif arity == 1 :
             res.append("\\\\return a value of the same type as the parameter")
         else :
@@ -226,8 +226,8 @@ class Nt2_oxygenation(Oxgen) :
 
     def compose_notes(self) :
         res = ['\par Notes',
-               'In SIMD mode, this function acts elementwise on the inputs values','\par']
-        special = self.df.get("special",False)
+               'In SIMD mode, this function acts elementwise on the inputs vectors elements','\par']
+        special = self.df.get("special",[])
         if "predicate" in special :
             res.extend(["This is a predicate operation. Such operations return bool in scalar mode,",
                         "but not in SIMD mode.","\par",
@@ -235,12 +235,26 @@ class Nt2_oxygenation(Oxgen) :
                         "a 'signed boolean' type. This means that in this case True has all its bits",
                         "sets to one. This is to facilitate masking operations. You are invited to",
                         "consult the rationale."])
+        if "reduction" in special :
+            res.extend(["This is a reduction operation. As such it has not real interest outside",
+                        "SIMD mode.","\par",
+                        "Such an operation has always a scalar result which translate a property",
+                        "of the whole SIMD vector.","\par",
+                        "If usable and used in scalar mode, it reduces to the operation as acting",
+                        "on a one element vector."])
+        if "swar" in special :
+            res.extend(["This is a swar operation. As such it has not real interest outside",
+                        "SIMD mode.","\par",
+                        "Such an operation is a transform of an SIMD vector,that will return",
+                        "vectors obtained on a non necessarily elementwise basis from the inputs"
+                        "elements","\par",
+                        "If usable and used in scalar mode, it reduces to the operation",
+                        "on a one element vector."])             
         return '\n'.join(self.starize(res))+'\n'
         
     def make_functor_ox(self) :
         Functor_ox = [
             "/*!",
-            " * \\internal functor \\endinternal",
             " * \\ingroup %s"%self.tb_name.replace('.','_'),
             " * \\defgroup $fct$ $fct$ function",
             " *",
@@ -268,13 +282,12 @@ class Nt2_oxygenation(Oxgen) :
             " *  ",
             "$notes$"
             " *  ",
-            " * \\internal end_functor \endinternal",
             "**/",
             " ",
             ]
         aliases=self.list_aliases()
         plural = "es" if len(aliases) > 1 else ""
-        self.alias = " * \\\\par Alias"+plural+" \n * \\\\arg "+'\n * \\\\arg '.join(aliases) if len(aliases) else "" 
+        self.alias = " * \par Alias"+plural+" \n * \\\\arg "+'\n * \\\\arg '.join(aliases) if len(aliases) else "" 
         self.description = self.get_description()
         self.parameters  = self.compose_parameters()
         self.call        = self.compose_call()
