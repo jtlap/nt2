@@ -262,7 +262,7 @@ class Nt2_oxygenation(Oxgen) :
             ]
         j=0
         for ss in self.txt_list :
-            if (ss[0] in '#') :
+            if (len(ss) and ss[0] in '#') :
                 break
             else :
                 j=j+1

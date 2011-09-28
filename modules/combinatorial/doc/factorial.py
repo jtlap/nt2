@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '1',
+        'description' :['Saturated factorial in the A0 type','\par',
+                        'be aware that the result is never exact if a0>12',
+                        'and that the result is saturated in the input type!'
+                        ],
+          'arity' : '1',
         'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
