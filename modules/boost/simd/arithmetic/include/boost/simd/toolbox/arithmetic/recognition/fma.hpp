@@ -16,8 +16,8 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::recognition_, (A0)(A1)(Dom)(Sema)
-                                   , ((expr_<A0,Dom,boost::simd::tag::multiplies_,Sema>))(unspecified_<A1>)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::recognition_, (A0)(A1)(Dom)
+                                   , ((expr_< unspecified_<A0>,Dom,boost::simd::tag::multiplies_>))(unspecified_<A1>)
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
@@ -32,8 +32,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::recognition_, (A0)(A1)(Dom)(Sema)
-                                   , (unspecified_<A0>)((expr_<A1,Dom,boost::simd::tag::multiplies_,Sema>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::recognition_, (A0)(A1)(Dom)
+                                   , (unspecified_<A0>)((expr_< unspecified_<A1>,Dom,boost::simd::tag::multiplies_>))
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
