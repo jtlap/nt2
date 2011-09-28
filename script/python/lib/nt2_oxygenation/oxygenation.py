@@ -104,6 +104,8 @@ class Nt2_oxygenation(Oxgen) :
         self.txt_list = self.make_tag_ox()
         self.txt      = '\n'.join(self.txt_list) 
         self.txt_list =self.suppress_double_blank(self.txt_list)
+        self.txt_list = self.make_file_ox()
+        self.txt      = '\n'.join(self.txt_list)
         return self.txt_list
     
     def is_boost(self) :
@@ -252,6 +254,23 @@ class Nt2_oxygenation(Oxgen) :
                         "on a one element vector."])             
         return '\n'.join(self.starize(res))+'\n'
         
+    def make_file_ox(self) :
+        File_ox = [
+            "/*!",
+            " * \\file",
+            "**/",
+            ]
+        j=0
+        for ss in self.txt_list :
+            if (ss[0] in '#') :
+                break
+            else :
+                j=j+1
+        r =self.txt_list[:j]
+        r.extend(File_ox)
+        r.extend(self.txt_list[j:])
+        return r
+    
     def make_functor_ox(self) :
         Functor_ox = [
             "/*!",

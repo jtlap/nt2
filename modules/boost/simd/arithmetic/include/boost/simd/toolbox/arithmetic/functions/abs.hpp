@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_ABS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -17,9 +20,9 @@
  *
  * \par Description
  * The function always returns a value of the same type than the entry.
+ * \par
  * Take care that for signed integers the absolute value of Valmin is Valmin
  * (thus negative!).
- * \par
  * This is a side effect of the 2-complement representation  of integers.
  * To avoid this,  you can use the \c abss saturated functor or convert the
  * input parameter to a larger type before taking the abs value.
