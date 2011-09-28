@@ -14,6 +14,8 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <nt2/sdk/meta/remove_pointers.hpp>
+#include <nt2/core/container/meta/model_of.hpp>
+#include <nt2/core/container/meta/value_of.hpp>
 #include <nt2/core/container/meta/reference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
 
@@ -26,26 +28,41 @@ namespace nt2 { namespace meta
   // dimensions_of specialization
   //============================================================================
   template<typename T>
-  struct  dimensions_of< T* > 
-        : boost::mpl::size_t<1 + dimensions_of<T>::value> 
-  {};  
+  struct  dimensions_of< T* >
+        : boost::mpl::size_t<1 + dimensions_of<T>::value>
+  {};
+
+  //============================================================================
+  // value_of specialization
+  //============================================================================
+  template<typename T> struct value_of< T* > : value_of<T> {};
+
+  //============================================================================
+  // model_of specialization
+  //============================================================================
+  template<typename T>
+  struct model_of< T* >
+  {
+    typedef typename model_of<T>::type  base;
+    //typedef boost::add_pointer<base>    type;
+  };
 
   //============================================================================
   // reference_ specialization
-  //============================================================================ 
-  template<typename T, std::size_t Level> 
+  //============================================================================
+  template<typename T, std::size_t Level>
   struct dereference_<T*&,Level>
   {
     typedef typename meta::remove_pointers<T*,Level>::type& type;
-  };  
-  
-  template<typename T, std::size_t Level> 
+  };
+
+  template<typename T, std::size_t Level>
   struct dereference_<T* const&,Level>
   {
     typedef typename meta::remove_pointers<T*,Level>::type const& type;
   };
 
-  template<typename T, std::size_t Level> 
+  template<typename T, std::size_t Level>
   struct dereference_<T*,Level>
   {
     typedef typename meta::remove_pointers<T*,Level>::type type;

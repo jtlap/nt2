@@ -10,6 +10,9 @@
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ILIFFE_BUFFER_HPP
 
 #include <boost/mpl/size_t.hpp>
+#include <nt2/core/container/meta/model_of.hpp>
+#include <nt2/core/container/meta/value_of.hpp>
+#include <nt2/core/container/meta/reference.hpp>
 #include <nt2/core/container/meta/reference.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
@@ -32,6 +35,25 @@ namespace nt2 { namespace meta
   template<std::size_t D, typename T, typename P, typename A>
   struct dimensions_of< memory::iliffe_buffer<D,T,P,A> > : boost::mpl::size_t<D>
   {};
+
+  //============================================================================
+  // value_of specialization
+  //============================================================================
+  template<std::size_t D, typename T, typename P, typename A>
+  struct value_of< memory::iliffe_buffer<D,T,P,A> >
+  {
+    typedef T type;
+  };
+
+  //============================================================================
+  // model_of specialization
+  //============================================================================
+  template<std::size_t D, typename T, typename P, typename A>
+  struct model_of< memory::iliffe_buffer<D,T,P,A> >
+  {
+    typedef typename A::template rebind<boost::mpl::_>::other alloc;
+    typedef  memory::iliffe_buffer<D,boost::mpl::_,P,alloc>   type;
+  };
 
   //============================================================================
   // dereference_ specialization
@@ -65,7 +87,7 @@ namespace nt2 { namespace meta
   {
     typedef typename memory::iliffe_buffer<D,T,P,A>::const_reference type;
   };
-  
+
   template<std::size_t D, typename T, typename P, typename A>
   struct dereference_<memory::iliffe_buffer<D,T,P,A>,D>
   {
