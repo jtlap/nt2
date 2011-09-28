@@ -16,7 +16,6 @@
 #include <boost/proto/tags.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup unary_minus unary_minus function
  *
@@ -44,11 +43,14 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of unary_minus
+ * \param a0 the unique parameter of unary_minus
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd
@@ -56,11 +58,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag unary_minus_ of functor unary_minus 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     typedef boost::proto::tag::negate unary_minus_;
   }

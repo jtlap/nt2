@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ['returns the maximum of a0 splatted in a vector'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

@@ -16,7 +16,6 @@
 #include <boost/proto/tags.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup logical_not logical_not function
  *
@@ -45,11 +44,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of logical_not
+ * \param a0 the unique parameter of logical_not
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ * This is a predicate operation. Such operations return bool in scalar mode,
+ * but not in SIMD mode.
+ * \par
+ * The return type in SIMD mode is the common type of the parameters and is
+ * a 'signed boolean' type. This means that in this case True has all its bits
+ * sets to one. This is to facilitate masking operations. You are invited to
+ * consult the rationale.
+ *  
 **/
 
 namespace boost { namespace simd
@@ -57,11 +66,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag logical_not_ of functor logical_not 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     typedef boost::proto::tag::logical_not logical_not_;
   }

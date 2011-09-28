@@ -16,7 +16,6 @@
 #include <boost/proto/tags.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup shift_left shift_left function
  *
@@ -46,12 +45,15 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of shift_left
- * \param a1 is the second parameter of shift_left, must be integer
+ * \param a0 the first parameter of shift_left
+ * \param a1 the second parameter of shift_left, must be integer
  * 
  * \return a value of the type of the first parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd
@@ -59,11 +61,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag shift_left_ of functor shift_left 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     typedef boost::proto::tag::shift_left shift_left_;
   }

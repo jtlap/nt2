@@ -14,7 +14,6 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup make make function
  *
@@ -39,12 +38,15 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of make
- * \param a1 is the second parameter of make
+ * \param a0 the first parameter of make
+ * \param a1 the second parameter of make
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd
@@ -52,11 +54,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag make_ of functor make 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct make_ {};
   }

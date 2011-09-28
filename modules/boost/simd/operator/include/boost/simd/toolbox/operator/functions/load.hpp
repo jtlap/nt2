@@ -19,7 +19,6 @@
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup load load function
  *
@@ -55,25 +54,25 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of load
- * \param a1 is the second parameter of load
+ * \param a0 the first parameter of load
+ * \param a1 the second parameter of load
  * 
- * \param T is a template parameter of load
+ * \param T a template parameter of load
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd
 {
   namespace tag {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag load_ of functor load 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct load_ {};
   }

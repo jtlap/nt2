@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_reduction
  * \defgroup hmsb hmsb function
  *
@@ -38,7 +37,7 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of hmsb
+ * \param a0 the unique parameter of hmsb
  * 
  * \return always a scalar value
  *  
@@ -48,23 +47,19 @@
  * This is a reduction operation. As such it has not real interest outside
  * SIMD mode.
  * \par
- * Such an operation has always a scalar result which translate a property.
+ * Such an operation has always a scalar result which translate a property
  * of the whole SIMD vector.
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
  *  
- * \internal end_functor \endinternal
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag hmsb_ of functor hmsb 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct hmsb_ {};
   }

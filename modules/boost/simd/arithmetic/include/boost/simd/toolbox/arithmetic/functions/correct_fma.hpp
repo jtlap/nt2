@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup correct_fma correct_fma function
  *
@@ -41,23 +40,23 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of correct_fma
- * \param a1 is the second parameter of correct_fma
- * \param a2 is the third parameter of correct_fma
+ * \param a0 the first parameter of correct_fma
+ * \param a1 the second parameter of correct_fma
+ * \param a2 the third parameter of correct_fma
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag correct_fma_ of functor correct_fma 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct correct_fma_ {};
   }

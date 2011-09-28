@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup tofloat tofloat function
  *
@@ -38,21 +37,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of tofloat
+ * \param a0 the unique parameter of tofloat
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag tofloat_ of functor tofloat 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct tofloat_ {};
   }

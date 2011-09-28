@@ -16,7 +16,6 @@
 #include <boost/proto/tags.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup compare_less compare_less function
  *
@@ -48,12 +47,23 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of compare_less
- * \param a1 is the second parameter of compare_less
+ * \param a0 the first parameter of compare_less
+ * \param a1 the second parameter of compare_less
  * 
- * \return a value of the common type of the parameters
+ * \return always a scalar value
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ * This is a reduction operation. As such it has not real interest outside
+ * SIMD mode.
+ * \par
+ * Such an operation has always a scalar result which translate a property
+ * of the whole SIMD vector.
+ * \par
+ * If usable and used in scalar mode, it reduces to the operation as acting
+ * on a one element vector.
+ *  
 **/
 
 namespace boost { namespace simd
@@ -61,11 +71,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag compare_less_ of functor compare_less 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     typedef boost::proto::tag::less compare_less_;
   }

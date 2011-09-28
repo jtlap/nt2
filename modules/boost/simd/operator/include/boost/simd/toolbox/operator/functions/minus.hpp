@@ -16,7 +16,6 @@
 #include <boost/proto/tags.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup minus minus function
  *
@@ -44,12 +43,15 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of minus
- * \param a1 is the second parameter of minus
+ * \param a0 the first parameter of minus
+ * \param a1 the second parameter of minus
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
  * \internal functor \endinternal
@@ -90,11 +92,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag minus_ of functor minus 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     typedef boost::proto::tag::minus minus_;
   }

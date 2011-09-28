@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_predicates
  * \defgroup majority majority function
  *
@@ -37,23 +36,30 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of majority
- * \param a1 is the second parameter of majority
- * \param a2 is the third parameter of majority
+ * \param a0 the first parameter of majority
+ * \param a1 the second parameter of majority
+ * \param a2 the third parameter of majority
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ * This is a predicate operation. Such operations return bool in scalar mode,
+ * but not in SIMD mode.
+ * \par
+ * The return type in SIMD mode is the common type of the parameters and is
+ * a 'signed boolean' type. This means that in this case True has all its bits
+ * sets to one. This is to facilitate masking operations. You are invited to
+ * consult the rationale.
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag majority_ of functor majority 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct majority_ {};
   }

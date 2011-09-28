@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup iround iround function
  *
@@ -38,21 +37,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of iround
+ * \param a0 the unique parameter of iround
  * 
  * \return an integer value
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag iround_ of functor iround 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct iround_ {};
   }

@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup iround2even iround2even function
  *
@@ -38,21 +37,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of iround2even
+ * \param a0 the unique parameter of iround2even
  * 
  * \return an integer value
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag iround2even_ of functor iround2even 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct iround2even_ {};
   }

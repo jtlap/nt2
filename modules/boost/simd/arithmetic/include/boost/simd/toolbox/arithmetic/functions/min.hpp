@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup min min function
  *
@@ -37,22 +36,22 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of min
- * \param a1 is the second parameter of min
+ * \param a0 the first parameter of min
+ * \param a1 the second parameter of min
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag min_ of functor min 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct min_ {};
   }

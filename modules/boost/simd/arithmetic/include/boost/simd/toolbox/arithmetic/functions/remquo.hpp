@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup remquo remquo function
  *
@@ -34,34 +33,34 @@
  * namespace boost::simd
  * {
  *   template<class A0> inline
- *   typename boost::dispatch::meta::call<tag::remquo_ ( A0 const&, A0 const&)
+ *   typename boost::dispatch::meta::call<tag::remquo_(A0 const&,A0 const&)
  *                                       >::type
  *   remquo(A0 const& a0,A0 const& a1 );
  *    template<class A0> inline
- *   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&, A0&)
+ *   typename boost::dispatch::meta::call<tag::remquo_(A0 const&,A1 const&, A0&)
  *                                        >::type
- *   remquo(A0 const& a0,A1 const& a1, A0& a2 );
+ *   remquo(A0 const& a0,A1const& a1,A0& a2);
  *    template<class A0,class A1> inline
- *   int load(A0 const& a0,A1 const& a1, A0& a2,A1& a3);
+ *   int remquo(A0 const& a0,A1 const& a1,A0& a2,A1& a3);
  * }
  * \endcode
  *
- * \param a0 is the first parameter of remquo
- * \param a1 is the second parameter of remquo
+ * \param a0 the first parameter of remquo
+ * \param a1 the second parameter of remquo
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag remquo_ of functor remquo 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct remquo_ {};
   }

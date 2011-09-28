@@ -16,7 +16,6 @@
 #include <boost/proto/tags.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_operator
  * \defgroup bitwise_and bitwise_and function
  *
@@ -48,12 +47,15 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of bitwise_and
- * \param a1 is the second parameter of bitwise_and
+ * \param a0 the first parameter of bitwise_and
+ * \param a1 the second parameter of bitwise_and
  * 
  * \return a value of the type of the first parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd
@@ -61,11 +63,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag bitwise_and_ of functor bitwise_and 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     typedef boost::proto::tag::bitwise_and bitwise_and_;
   }

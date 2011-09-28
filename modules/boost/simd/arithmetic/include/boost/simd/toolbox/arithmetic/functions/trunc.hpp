@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup trunc trunc function
  *
@@ -39,21 +38,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of trunc
+ * \param a0 the unique parameter of trunc
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag trunc_ of functor trunc 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct trunc_ {};
   }

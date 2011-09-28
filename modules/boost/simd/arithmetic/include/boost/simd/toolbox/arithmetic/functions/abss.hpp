@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup abss abss function
  *
@@ -40,22 +39,22 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of abss
+ * \param a0 the unique parameter of abss
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag abss_ of functor abss 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct abss_ {};
   }

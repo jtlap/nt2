@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup rec rec function
  *
@@ -37,21 +36,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of rec
+ * \param a0 the unique parameter of rec
  * 
  * \return always return floating point values
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag rec_ of functor rec 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct rec_ {};
   }

@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_arithmetic
  * \defgroup toint toint function
  *
@@ -40,21 +39,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of toint
+ * \param a0 the unique parameter of toint
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag toint_ of functor toint 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct toint_ {};
   }

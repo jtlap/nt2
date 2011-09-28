@@ -12,7 +12,6 @@
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_reduction
  * \defgroup is_simd_logical is_simd_logical function
  *
@@ -37,7 +36,7 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of is_simd_logical
+ * \param a0 the unique parameter of is_simd_logical
  * 
  * \return an integer value
  *  
@@ -47,23 +46,19 @@
  * This is a reduction operation. As such it has not real interest outside
  * SIMD mode.
  * \par
- * Such an operation has always a scalar result which translate a property.
+ * Such an operation has always a scalar result which translate a property
  * of the whole SIMD vector.
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
  *  
- * \internal end_functor \endinternal
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag is_simd_logical_ of functor is_simd_logical 
      *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
     **/
     struct is_simd_logical_ {};
   }

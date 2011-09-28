@@ -1,6 +1,24 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['Compute the min and the max of the first two inputs if the third non zero,',
+                         ' or by the max and the min if the third is zero.'
+                         'The function returns a value indicating if anything has changed',    
+                           ],
+            'return' :[ 'a bool value or a fusion vector of the bool and the two other results'],
+            'param_2':['a scalar integer value'],
+            'param_3':['min or max of a0 and a1, according a2 is non zero'],
+            'param_4':['max or min of a0 and a1, according a2 is non zero'],
+          'special_synopsis' : [
+                "template<class A0,class A1> inline",
+                "typename boost::dispatch::meta::call<tag::comparator_(A0 const&,A0 const&,A1 const&)",
+                "                                    >::type",
+                "comparator(A0 const& a0,A0 const& a1,A1 const& a2);",
+                " ",
+                "template<class A0,class A1> inline",
+                "bool comparator(A0 const& a0,A0 const& a1,A1& a2,A0& a3,A0& a4);",
+                 ],
+            'max_arity' :'5',
          'module' : 'boost',
          'arity' : '3',
          'call_types' : ['T', 'T', 'iT'],
