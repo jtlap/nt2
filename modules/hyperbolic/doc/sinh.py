@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+          'description' :['hyperbolic sine: \\\\f$\\\\frac{e^{a_0}-e^{-a_0}}2\\\\f$.'] ,
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

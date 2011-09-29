@@ -6,19 +6,60 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_ACOSH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_ACOSH_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
+/*!
+ * \ingroup hyperbolic
+ * \defgroup acosh acosh function
+ *
+ * \par Description
+ * hyperbolic cosine argument: \f$\log(a_0+\sqrt{a_0^2-1})\f$.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/acosh.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace nt2
+ * {
+ *   template <class A0>
+ *     meta::call<tag::acosh_(A0)>::type
+ *     acosh(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of acosh
+ * 
+ * \return nan for a0 less than one
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
 namespace nt2 { namespace tag
   {         
+    /*!
+     * \brief Define the tag acosh_ of functor acosh 
+     *        in namespace nt2::tag
+    **/
     struct acosh_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::acosh_, acosh, 1)
 }
- 
- 
+
 #endif
 
 // modified by jt the 25/12/2010
