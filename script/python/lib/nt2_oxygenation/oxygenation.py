@@ -210,7 +210,9 @@ class Nt2_oxygenation(Oxgen) :
                 res.append(param)
         if is_template :
             res.append("")
-            tpl_param = "\\\\param T a template parameter of %s"%self.fct
+            param_t =  self.df.get("param_t","")
+            tpl_param = "\\\\param T template parameter of %s"%self.fct
+            if len(param_t) : tpl_param += ', '+'\n'.join(param_t)
             res.append(tpl_param)
         ret =  self.df.get("return",[])
         res.append("")

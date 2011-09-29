@@ -6,12 +6,51 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINE_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINE_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 //////////////////////////////////////////////////////////////////////////////
 /*
+
+/*!
+ * \ingroup trigonometric
+ * \defgroup sine sine function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/sine.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace nt2
+ * {
+ *   template <class A0>
+ *     meta::call<tag::sine_(A0)>::type
+ *     sine(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of sine
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
   sine if a templated version of sin
   the template parameter "mode" allows some control on the computation
   accuracy
@@ -22,7 +61,7 @@
   cover test one ulp of difference with the according crlibm result.
 
   Each one covers respectively intervals [-A, A] with :
-  
+
   ****************************************************
   *              *   float  A        * double  A     *
   ****************************************************
@@ -71,7 +110,7 @@
 
     they will be accurate for their proper range and degrade (or not)
     with greater values (even can return nan)
-    
+
     After that the choice of direct or not  relies on probabilities
     computations:
     assuming that a vector contains k elements and that testing all
@@ -98,11 +137,11 @@
        1.759218604441600e+13 falling in the small case...
        Even sorting will do no good because the sort sint will be against 
        s1 over 2048 successful quadruplets
-       
+
        Contrarily if your angles have a gaussian distribution with 0 mean and
        10*pi standard deviation,  80% of the intervals will be in the small
        case (95% of the values).
-		  
+
     Finally for those that are sure of their angles taking place in a fixed
     range and want speed,  they can use three other template tags
 
@@ -115,13 +154,16 @@
 
 namespace nt2 { namespace tag
   {         
+    /*!
+     * \brief Define the tag sine_ of functor sine 
+     *        in namespace nt2::tag
+    **/
     template <class T> struct sine_ {};
   }
 
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sine_<A0> , sine, (A1 const&), 2)
 }
- 
- 
+
 #endif
 
 // modified by jt the 25/12/2010

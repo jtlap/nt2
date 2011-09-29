@@ -6,19 +6,60 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_CSC_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_CSC_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
+/*!
+ * \ingroup trigonometric
+ * \defgroup csc csc function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/csc.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace nt2
+ * {
+ *   template <class A0>
+ *     meta::call<tag::csc_(A0)>::type
+ *     csc(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of csc
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
 namespace nt2 { namespace tag
   {         
+    /*!
+     * \brief Define the tag csc_ of functor csc 
+     *        in namespace nt2::tag
+    **/
     struct csc_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::csc_, csc, 1)
 }
- 
- 
+
 #endif
 
 // modified by jt the 25/12/2010

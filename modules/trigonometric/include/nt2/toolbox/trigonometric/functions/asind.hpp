@@ -6,19 +6,60 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_ASIND_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_ASIND_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
+/*!
+ * \ingroup trigonometric
+ * \defgroup asind asind function
+ *
+ * \par Description
+ * inverse sine in degree.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/asind.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace nt2
+ * {
+ *   template <class A0>
+ *     meta::call<tag::asind_(A0)>::type
+ *     asind(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of asind
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
 namespace nt2 { namespace tag
   {         
+    /*!
+     * \brief Define the tag asind_ of functor asind 
+     *        in namespace nt2::tag
+    **/
     struct asind_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::asind_, asind, 1)
 }
- 
- 
+
 #endif
 
 // modified by jt the 25/12/2010

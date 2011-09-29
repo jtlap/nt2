@@ -6,19 +6,60 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_FAST_TAN_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_FAST_TAN_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
+/*!
+ * \ingroup trigonometric
+ * \defgroup fast_tan fast_tan function
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/fast_tan.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace nt2
+ * {
+ *   template <class A0>
+ *     meta::call<tag::fast_tan_(A0)>::type
+ *     fast_tan(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of fast_tan
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
 namespace nt2 { namespace tag
   {         
+    /*!
+     * \brief Define the tag fast_tan_ of functor fast_tan 
+     *        in namespace nt2::tag
+    **/
     struct fast_tan_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_tan_, fast_tan, 1)
 }
- 
- 
+
 #endif
 
 // modified by jt the 25/12/2010
