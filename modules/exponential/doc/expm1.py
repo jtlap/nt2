@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['exponential function minus one: \f$e^{a_0}-1\f$','\par',
+                         'result is accurate even for small a0'] ,  
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

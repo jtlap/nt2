@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['base two exponential function: \f$2^{a_0}\f$','\par',
+                         'provisions are made for otaining a flint result from a flint input'] ,  
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
