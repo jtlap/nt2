@@ -1,7 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '1',
+         'description' :['inverse cosine.'] ,
+          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {

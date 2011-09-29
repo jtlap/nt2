@@ -1,6 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['templated cosine.','\par',
+                         'see cosine for details'],
+         'template' : True ,
+         'param_t' : ['used to control accuracy and speed'],   
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['inverse cosine in \\\\f$\pi\\\\f$ multiples.'] ,
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
