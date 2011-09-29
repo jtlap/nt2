@@ -20,10 +20,10 @@
  *
  * \par Description
  * number of combination of p elements among n
- * \par
- * \f[C_n^p = \frac{n!}{(n-p)!}\f[
  * If a0 (n) and a1 (p) are not of integer type
  * they are rounded to nearest integer before computation.
+ * \par Formula
+ * \f[C_n^p = \frac{n!}{p!(n-p)!}\f]
  *
  * \par Header file
  * 
