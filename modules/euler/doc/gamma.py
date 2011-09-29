@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+           'description' :['Gamma function','\par Formula',
+                            '\\\\f[ \Gamma(a_0)=\int_0^\infty t^{a_0-1}e^{-t}dt\\\\f]'
+                           ],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

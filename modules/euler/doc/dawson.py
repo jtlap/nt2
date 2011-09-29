@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' :['Dawson function','\par Formula',
+                            '\\\\f[ D(a_0)=e^{-x^2}\int_0^{a_0} e^{-t^2}}dt'],
+             
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

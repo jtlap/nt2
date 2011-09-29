@@ -1,4 +1,4 @@
 /**
- * \defgroup euler Euler functions
+ * \defgroup euler euler functions
  * \brief Defines euler functions
  **/

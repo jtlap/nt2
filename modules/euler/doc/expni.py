@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '2',
+            'description' :['exponential integral function','\par Formula',
+                            '\\\\f[ E_a_0(a_1)=\int_0^\infty \frac{e^{-a_1t)}{t^a_0}dt\\\\f]'],
+            'param_0': ['must be scalar integer'],
+            'param_1': ['must be non negative'],
+        'arity' : '2',
          'call_types' : ['iT', 'T'],
          'ret_arity' : '0',
          'rturn' : {
