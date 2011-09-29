@@ -1,7 +1,29 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '1',
+          'description':['Complete elliptic integrals of first and second kind',
+                         '\\\\arg k = ellipke(m) returns the complete elliptic integral of the first kind of m.',
+                         '\\\\arg tie(k,e) = ellipke(m) returns the complete elliptic integral of the first and second kinds.',
+                         '\\\\arg tie(k,e) = ellipke(m,tol) computes the complete elliptic integral to accuracy tol.',
+                         ' The default is Eps<A0>()',
+                         'tol allows a compromise between less accurate but more quickly computed answer.','\par',
+                         'the function also be called as indicated in the synopsis: ellipke(m,tol,k,e)'],
+            'max_arity' : '4',
+            'param_0' : ['outside of \f$[0,1]\f$ the result is nan'],
+            'param_1' : ['optional tolerance'],
+            'param_2' : ['if present, first kind result'],
+            'param_3' : ['if present, second kind result'],
+            'return'  : ['depends of the parameter number'],
+          'special_synopsis' : [
+                "template<class A0> inline",
+                "typename boost::dispatch::meta::call<tag::ellipke_(A0 const&,A0 const&)",
+                "                                    >::type",
+                "ellipke(A0 const& m,A0 const& tol=Eps<A0>());",
+                " ",
+                "template<class A0> inline",
+                "int ellipke(A0 const& m,A0 const& tol,A0& k,A0&e);",
+                 ],
+            'arity' : '1',
          'call_types' : ['T'],
          'ret_arity' : '2',
          'rturn' : {
