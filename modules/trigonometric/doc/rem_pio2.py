@@ -1,6 +1,16 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['compute the remainder modulo \\\\f$pi/2\\\\f$.','\par',
+                         'This is the always accurate super costly version.',
+                         'This function is mainly for internal purposes',
+                         '\par',
+                         'The reduction of the argument modulo \\\\f$pi/2\\\\f$ is generally',
+                         'the most difficult part of trigonometric evaluations.',
+                         'The accurate algorithm is over costly and implies the knowledge',
+                         'of a few hundred \\\\f$pi\\\\f$ decimals',
+                         'some simpler algorithms',
+                         'can be used, but the precision is only insured on smaller intervals.'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '3',

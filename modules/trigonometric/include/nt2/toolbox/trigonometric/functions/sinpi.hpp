@@ -19,7 +19,7 @@
  * \defgroup sinpi sinpi function
  *
  * \par Description
- * TODO Put description here
+ * sine of angle in \f$\pi\f$ multiples: \f$\sin(\pi a_0)\f$.
  *
  * \par Header file
  * 

@@ -19,7 +19,11 @@
  * \defgroup fast_sincospi fast_sincospi function
  *
  * \par Description
- * TODO Put description here
+ * simultaneous sine and cosine from angle in \f$\pi\f$ multiples
+ * in the interval \f$[-1/4,1/45]\f$, nan outside.
+ * \arg tie(si,co) = fast_sincospi(a) returns the sine and cosine of a.
+ * \arg si = fast_sincospi(a,co) returns the sine of a and put the cosine of a in co.
+ * \arg fast_sincospi(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.
  *
  * \par Header file
  * 
@@ -33,9 +37,16 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
- *     meta::call<tag::fast_sincospi_(A0)>::type
- *     fast_sincospi(const A0 & a0);
+ *   template<class A0> inline
+ *   typename boost::dispatch::meta::call<tag::fast_sincospi(A0 const&,A0 const&)
+ *                                       >::type
+ *   fast_sincospi(A0 const& a);
+ *    
+ *   template<class A0> inline
+ *   A0 fast_sincospi(A0 const& a,A0,A0& si);
+ *    
+ *   template<class A0> inline
+ *   int fast_sincospi(A0 const& a,A0,A0& si,A0& co);
  * }
  * \endcode
  *

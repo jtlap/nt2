@@ -19,7 +19,7 @@
  * \defgroup inrad inrad function
  *
  * \par Description
- * TODO Put description here
+ * convert degree to radian.
  *
  * \par Header file
  * 

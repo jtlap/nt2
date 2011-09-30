@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['cosine in the interval \\\\f$[-\pi/4, \pi/4]\\\\f$, nan outside.'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

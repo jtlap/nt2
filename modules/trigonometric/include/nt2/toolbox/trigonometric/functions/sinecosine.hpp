@@ -19,7 +19,11 @@
  * \defgroup sinecosine sinecosine function
  *
  * \par Description
- * TODO Put description here
+ * templatized simultaneous sine and cosine.
+ * \arg tie(si,co) = sinecosine<T>(a) returns the sine and cosine of a.
+ * \arg si = sinecosine<T>(a,co) returns the sine of a and put the cosine of a in co.
+ * \arg sinecosine<T>(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.
+ * \par please consult cosine or sine documentation for the use of the T mode template parameter
  *
  * \par Header file
  * 
@@ -33,13 +37,22 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
- *     meta::call<tag::sinecosine_(A0)>::type
- *     sinecosine(const A0 & a0);
+ *   template<class T,class A0> inline
+ *   typename boost::dispatch::meta::call<tag::sinecosine(A0 const&,A0 const&)
+ *                                       >::type
+ *   sinecosine(A0 const& a);
+ *    
+ *   template<class T,class A0> inline
+ *   A0 sinecosine(A0 const& a,A0,A0& si);
+ *    
+ *   template<class T,class A0> inline
+ *   int sinecosine(A0 const& a,A0,A0& si,A0& co);
  * }
  * \endcode
  *
  * \param a0 the unique parameter of sinecosine
+ * 
+ * \param T template parameter of sinecosine, used to control accuracy and speed
  * 
  * \return a value of the same type as the parameter
  *  

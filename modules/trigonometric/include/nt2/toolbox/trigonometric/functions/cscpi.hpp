@@ -19,7 +19,7 @@
  * \defgroup cscpi cscpi function
  *
  * \par Description
- * TODO Put description here
+ * cosecant of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.
  *
  * \par Header file
  * 

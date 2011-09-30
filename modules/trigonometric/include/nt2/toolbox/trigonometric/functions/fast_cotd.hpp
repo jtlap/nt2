@@ -19,7 +19,7 @@
  * \defgroup fast_cotd fast_cotd function
  *
  * \par Description
- * TODO Put description here
+ * cotangent of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
  *
  * \par Header file
  * 

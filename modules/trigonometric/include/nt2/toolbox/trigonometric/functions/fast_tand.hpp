@@ -19,7 +19,7 @@
  * \defgroup fast_tand fast_tand function
  *
  * \par Description
- * TODO Put description here
+ * tangent of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
  *
  * \par Header file
  * 

@@ -1,6 +1,24 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['simultaneous sine and cosine from angle in \\\\f$\pi\\\\f$ multiples',
+                         '\\\\arg tie(si,co) = sincospi(a) returns the sine and cosine of a.',
+                         '\\\\arg si = sincospi(a,co) returns the sine of a and put the cosine of a in co.',
+                         '\\\\arg sincospi(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.',
+                         ],
+         'param_0' : ['angle in \\\\f$\pi\\\\f$ multiples'],   
+          'special_synopsis' : [
+                "template<class A0> inline",
+                "typename boost::dispatch::meta::call<tag::sincospi(A0 const&,A0 const&)",
+                "                                    >::type",
+                "sincospi(A0 const& a);",
+                " ",
+                "template<class A0> inline",
+                "A0 sincospi(A0 const& a,A0,A0& si);",
+                " ",
+                "template<class A0> inline",
+                "int sincospi(A0 const& a,A0,A0& si,A0& co);",
+                 ],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '2',

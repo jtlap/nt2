@@ -19,7 +19,7 @@
  * \defgroup fast_cos fast_cos function
  *
  * \par Description
- * TODO Put description here
+ * cosine in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
  *
  * \par Header file
  * 

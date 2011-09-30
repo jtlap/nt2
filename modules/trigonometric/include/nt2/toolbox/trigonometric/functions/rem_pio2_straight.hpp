@@ -19,7 +19,17 @@
  * \defgroup rem_pio2_straight rem_pio2_straight function
  *
  * \par Description
- * TODO Put description here
+ * compute the remainder modulo \f$\pi/2\f$ with cephes algorthm.
+ * \par
+ * This is a very quick version accurate if the input
+ * is in \f$[-\pi/2,\pi/2\f$.
+ * \par
+ * The reduction of the argument modulo \f$pi/2\f$ is generally
+ * the most difficult part of trigonometric evaluations.
+ * The accurate algorithm is over costly and implies the knowledge
+ * of a few hundred \f$pi\f$ decimals
+ * some simpler algorithms as this one
+ * can be used, but the precision is only insured on small intervals.
  *
  * \par Header file
  * 

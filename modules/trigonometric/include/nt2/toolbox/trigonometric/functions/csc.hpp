@@ -19,7 +19,7 @@
  * \defgroup csc csc function
  *
  * \par Description
- * TODO Put description here
+ * cosecante.
  *
  * \par Header file
  * 

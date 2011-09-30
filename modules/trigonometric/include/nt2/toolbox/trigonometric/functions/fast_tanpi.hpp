@@ -19,7 +19,7 @@
  * \defgroup fast_tanpi fast_tanpi function
  *
  * \par Description
- * TODO Put description here
+ * tangent of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.
  *
  * \par Header file
  * 

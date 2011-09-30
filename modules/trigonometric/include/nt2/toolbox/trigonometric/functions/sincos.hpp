@@ -19,7 +19,10 @@
  * \defgroup sincos sincos function
  *
  * \par Description
- * TODO Put description here
+ * simultaneous sine and cosine.
+ * \arg tie(si,co) = sincos(a) returns the sine and cosine of a.
+ * \arg si = sincos(a,co) returns the sine of a and put the cosine of a in co.
+ * \arg sincos(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.
  *
  * \par Header file
  * 
@@ -33,9 +36,16 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
- *     meta::call<tag::sincos_(A0)>::type
- *     sincos(const A0 & a0);
+ *   template<class A0> inline
+ *   typename boost::dispatch::meta::call<tag::sincos(A0 const&,A0 const&)
+ *                                       >::type
+ *   sincos(A0 const& a);
+ *    
+ *   template<class A0> inline
+ *   A0 sincos(A0 const& a,A0,A0& si);
+ *    
+ *   template<class A0> inline
+ *   int sincos(A0 const& a,A0,A0& si,A0& co);
  * }
  * \endcode
  *

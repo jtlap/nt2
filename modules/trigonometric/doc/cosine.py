@@ -59,15 +59,16 @@
                          '\\\\f[N(direct_i)\\\\f]',
                          'On the other side the number of cycles for the non-direct methods will have a more',
                          'complicated expression :',
-                         '\\\\f[\sum_{i=1}^{m} ( p(Ai-1, A_i)^k N(direct_i)\\\\f]',
+                         '\\\\f[\sum_{i=1}^{m} p(Ai-1, A_i)^k N(direct_i)\\\\f]',
                          'So the non direct methods will be interesting only if you want accurate',
                          'results everywhere and have anyhow a big proportion of small angles.',
                          'This is even more true (if possible) in simd and the more k is big, because',
                          'of the kth power',
                          '\par'
                          'For instance in the medium float case:',
-                         '\\\\arg  if angles are equidistributed  on [0 2^16*pi],  the p(0, 20*pi) will be',
-                         'less than 2^11 and thus in sse2 there will be 1 quadruple over',
+                         '\\\\arg  if angles are equidistributed  on \\\\f$[0 2^16*\pi]\\\\f$,',
+                         'the \\\\f$p(0, 20*\pi)\\\\f$ will be',
+                         'less than \\\\f$2^11\\\\f$ and thus in sse2 there will be 1 quadruple over',
                          '1.76e+13 falling in the small case...',
                          'Even sorting will do no good because the sort cost will be against ',
                          'the ratio of 1 successful quadruplet over 2048.',
@@ -141,6 +142,7 @@
 ##  */ 
 ##//////////////////////////////////////////////////////////////////////////////
          'template' : True ,  
+         'param_0' : ['angle in radian'],
          'param_t' : ['used to control accuracy and speed'],   
          'arity' : '1',
          'call_types' : [],

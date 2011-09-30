@@ -19,7 +19,7 @@
  * \defgroup sind sind function
  *
  * \par Description
- * TODO Put description here
+ * sine of the angle in degree.
  *
  * \par Header file
  * 

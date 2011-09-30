@@ -19,7 +19,7 @@
  * \defgroup fast_cotpi fast_cotpi function
  *
  * \par Description
- * TODO Put description here
+ * cotangent of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.
  *
  * \par Header file
  * 

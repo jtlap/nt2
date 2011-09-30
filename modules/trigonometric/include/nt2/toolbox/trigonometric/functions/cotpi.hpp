@@ -19,7 +19,7 @@
  * \defgroup cotpi cotpi function
  *
  * \par Description
- * TODO Put description here
+ * cotangent of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.
  *
  * \par Header file
  * 

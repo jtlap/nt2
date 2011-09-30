@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['tangent of the angle in pi multiples, in the interval \\\\f$[-1/4, 1/4]\\\\f$, nan outside.'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

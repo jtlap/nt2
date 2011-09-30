@@ -19,7 +19,7 @@
  * \defgroup indeg indeg function
  *
  * \par Description
- * TODO Put description here
+ * convert radian to degree.
  *
  * \par Header file
  * 

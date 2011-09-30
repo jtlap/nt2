@@ -19,7 +19,7 @@
  * \defgroup cot cot function
  *
  * \par Description
- * TODO Put description here
+ * cotangent.
  *
  * \par Header file
  * 

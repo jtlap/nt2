@@ -19,7 +19,7 @@
  * \defgroup fast_sind fast_sind function
  *
  * \par Description
- * TODO Put description here
+ * sine of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
  *
  * \par Header file
  * 

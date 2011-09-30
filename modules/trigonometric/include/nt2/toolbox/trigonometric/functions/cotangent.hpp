@@ -19,7 +19,9 @@
  * \defgroup cotangent cotangent function
  *
  * \par Description
- * TODO Put description here
+ * templated cosine.
+ * \par
+ * see cosine for details
  *
  * \par Header file
  * 
@@ -33,13 +35,15 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
+ *   template <class T,class A0>
  *     meta::call<tag::cotangent_(A0)>::type
  *     cotangent(const A0 & a0);
  * }
  * \endcode
  *
  * \param a0 the unique parameter of cotangent
+ * 
+ * \param T template parameter of cotangent, used to control accuracy and speed
  * 
  * \return a value of the same type as the parameter
  *  

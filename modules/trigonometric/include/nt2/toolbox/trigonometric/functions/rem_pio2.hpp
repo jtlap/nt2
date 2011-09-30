@@ -19,7 +19,17 @@
  * \defgroup rem_pio2 rem_pio2 function
  *
  * \par Description
- * TODO Put description here
+ * compute the remainder modulo \f$pi/2\f$.
+ * \par
+ * This is the always accurate super costly version.
+ * This function is mainly for internal purposes
+ * \par
+ * The reduction of the argument modulo \f$pi/2\f$ is generally
+ * the most difficult part of trigonometric evaluations.
+ * The accurate algorithm is over costly and implies the knowledge
+ * of a few hundred \f$pi\f$ decimals
+ * some simpler algorithms
+ * can be used, but the precision is only insured on smaller intervals.
  *
  * \par Header file
  * 

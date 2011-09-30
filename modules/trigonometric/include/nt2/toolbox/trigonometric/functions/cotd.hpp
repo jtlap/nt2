@@ -19,7 +19,7 @@
  * \defgroup cotd cotd function
  *
  * \par Description
- * TODO Put description here
+ * cotangent of angle in degree.
  *
  * \par Header file
  * 

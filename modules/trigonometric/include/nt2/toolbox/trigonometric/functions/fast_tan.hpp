@@ -19,7 +19,7 @@
  * \defgroup fast_tan fast_tan function
  *
  * \par Description
- * TODO Put description here
+ * tangent in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
  *
  * \par Header file
  * 

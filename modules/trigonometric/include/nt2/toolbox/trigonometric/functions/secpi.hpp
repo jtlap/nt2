@@ -19,7 +19,7 @@
  * \defgroup secpi secpi function
  *
  * \par Description
- * TODO Put description here
+ * secant of the angle in pi multiples.
  *
  * \par Header file
  * 

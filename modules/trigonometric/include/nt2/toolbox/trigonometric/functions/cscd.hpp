@@ -19,7 +19,7 @@
  * \defgroup cscd cscd function
  *
  * \par Description
- * TODO Put description here
+ * cosecante in degree.
  *
  * \par Header file
  * 

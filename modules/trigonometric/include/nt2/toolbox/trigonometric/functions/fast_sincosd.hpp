@@ -19,7 +19,10 @@
  * \defgroup fast_sincosd fast_sincosd function
  *
  * \par Description
- * TODO Put description here
+ * simultaneous sine and cosine from angle in degree in the interval \f$[-45, 45]\f$, nan outside.
+ * \arg tie(si,co) = fast_sincosd(a) returns the sine and cosine of a.
+ * \arg si = fast_sincosd(a,co) returns the sine of a and put the cosine of a in co.
+ * \arg fast_sincosd(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.
  *
  * \par Header file
  * 
@@ -33,9 +36,16 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
- *     meta::call<tag::fast_sincosd_(A0)>::type
- *     fast_sincosd(const A0 & a0);
+ *   template<class A0> inline
+ *   typename boost::dispatch::meta::call<tag::fast_sincosd(A0 const&,A0 const&)
+ *                                       >::type
+ *   fast_sincosd(A0 const& a);
+ *    
+ *   template<class A0> inline
+ *   A0 fast_sincosd(A0 const& a,A0,A0& si);
+ *    
+ *   template<class A0> inline
+ *   int fast_sincosd(A0 const& a,A0,A0& si,A0& co);
  * }
  * \endcode
  *

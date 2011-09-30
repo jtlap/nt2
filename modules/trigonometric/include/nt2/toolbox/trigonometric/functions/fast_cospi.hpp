@@ -19,7 +19,7 @@
  * \defgroup fast_cospi fast_cospi function
  *
  * \par Description
- * TODO Put description here
+ * cosine of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.
  *
  * \par Header file
  * 

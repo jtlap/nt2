@@ -19,7 +19,7 @@
  * \defgroup tan tan function
  *
  * \par Description
- * TODO Put description here
+ * tangent.
  *
  * \par Header file
  * 

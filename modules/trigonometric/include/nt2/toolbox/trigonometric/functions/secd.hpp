@@ -19,7 +19,7 @@
  * \defgroup secd secd function
  *
  * \par Description
- * TODO Put description here
+ * secant of the angle in degree.
  *
  * \par Header file
  * 

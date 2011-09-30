@@ -19,7 +19,7 @@
  * \defgroup fast_cosd fast_cosd function
  *
  * \par Description
- * TODO Put description here
+ * cosine of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
  *
  * \par Header file
  * 

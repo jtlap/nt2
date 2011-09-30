@@ -19,7 +19,7 @@
  * \defgroup fast_cot fast_cot function
  *
  * \par Description
- * TODO Put description here
+ * cotangent in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
  *
  * \par Header file
  * 

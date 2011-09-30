@@ -19,7 +19,7 @@
  * \defgroup sin sin function
  *
  * \par Description
- * TODO Put description here
+ * sine
  *
  * \par Header file
  * 

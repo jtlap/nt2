@@ -19,7 +19,7 @@
  * \defgroup tangent tangent function
  *
  * \par Description
- * TODO Put description here
+ * tangent.
  *
  * \par Header file
  * 

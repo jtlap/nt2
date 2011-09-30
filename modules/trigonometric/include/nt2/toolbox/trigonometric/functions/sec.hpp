@@ -19,7 +19,7 @@
  * \defgroup sec sec function
  *
  * \par Description
- * TODO Put description here
+ * secant.
  *
  * \par Header file
  * 
