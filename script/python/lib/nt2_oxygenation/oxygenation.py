@@ -54,13 +54,49 @@ class Oxgen(Py_doc,Substitute) :
         self.types   = self.get_types()
 ##        self.collect_py_doc_global_data()
         self.collect_functor_data()
-        
+        self.external_toolbox_list = ['libc','cephes','standard','fdlibm','crlibm']
+        self.tb_style = self.nfp.get_tb_style()
+        self.prefix= "" if self.tb_style =='sys' else self.tb_name+'_'
+        self.usrpath = "" if self.tb_style =='sys' else "/toolbox/"+self.tb_name
     def collect_functor_data(self) :
         self.df      = self.d.get("functor",{})
         
     def get_description(self) :
-        desc = self.df.get("description",
-                           ["TODO Put description here"])
+        special = self.df.get("special",[])
+        desc = self.df.get("description",False)
+        if special[0] in self.external_toolbox_list :
+            desc = ['Please for details consult the proper documentation of the external',
+                    'library %s.'%self.tb_name ]
+            if   special[0] =='crlibm' :
+                print(self.fct[-3])
+                if self.fct[-3]!='_' :
+                    desc.extend(['\par',
+                                 'The template parameter T is used to choose the rounding',
+                                 'mode used by the function %s.'%self.fct,
+                                 'It can be choosen between:',
+                                 '\\\\arg nt2::rn i.e. round to nearest',
+                                 '\\\\arg nt2::rd i.e. round to \\\\f$-\infty\\\\f$',
+                                 '\\\\arg nt2::ru i.e. round to \\\\f$\infty\\\\f$',
+                                 '\\\\arg nt2::rz i.e. round to zero',
+                                 ])
+                else :
+                    def rounding_signification(s) :
+                         if s=='rn' : return 'nearest'
+                         if s=='rd' : return '\\\\f$-\infty\\\\f$'
+                         if s=='ru' : return '\\\\f$\infty\\\\f$'
+                         if s=='rz' : return 'zero'
+                    desc.extend(['\par',
+                                 'The suffix _%s is used to choose the rounding'%self.fct[-2:],
+                                 'means rouding to %s'%rounding_signification(self.fct[-2:]),
+                                  ])
+            if special[0] =='standard' :
+                desc.extend(['\par',
+                             'The call is transfered to the standard C++ library function std::%s'%self.fct
+                             ])
+                     
+                
+        elif not desc :
+            desc = ["TODO Put description here"]
 ##                           "this can be done by editing %s.py"%self.fct,
 ##                           "and adding a description section in the ",
 ##                           "functor part of the python dictionnary"])
@@ -73,7 +109,14 @@ class Nt2_oxygenation(Oxgen) :
     def __init__(self, base_gen,strip=True) :
         Oxgen.__init__(self,base_gen)
         self.strip = strip
-        self.namespace = "boost::simd" if self.is_boost() else "nt2" 
+        if self.is_boost() :
+            self.namespace = "boost::simd"
+        else :
+            self.namespace = "nt2" 
+        if self.nfp.get_tb_style() == 'usr' :
+             self.tagnamespace = "nt2::%s"%self.tb_name
+        else :
+             self.tagnamespace = self.namespace
         
     def path(self) : return self.p
     
@@ -138,7 +181,7 @@ class Nt2_oxygenation(Oxgen) :
         Tag_ox = [
             "/*!",
             " * \\brief $action$ the tag $fct$_ of functor $fct$ ",
-            " *        in namespace $namespace$::tag",
+            " *        in namespace $tagnamespace$::tag for toolbox $tb_name$",
             "**/"
             ]
         self.action = "Define" if self.txt.find("boost::simd::"+self.fct) == -1 else "Bring"
@@ -177,7 +220,7 @@ class Nt2_oxygenation(Oxgen) :
         else :
             equalparams = self.df.get("equalparams",True)
             arity = int(self.df.get("max_arity",self.df.get("arity",'1')))
-            is_template = self.df.get("template",False)
+            is_template = self.df.get("template",False) or self.df.get("tpl",False)
             tpl = "class T," if is_template  else ""
             if equalparams :
                 tpl_list =  self.strlist('class A%d',sep=',',arity=1)
@@ -191,8 +234,11 @@ class Nt2_oxygenation(Oxgen) :
             result_str = "  meta::call<tag::"+self.fct+'_('+type_list+')>::type'
             param_str  =  "  "+self.fct+"("+param_list+");"
             res = [ tpl_str,result_str,param_str]
-        return '\n'.join(self.starize(self.indent(res,2)))
-   
+        if  self.tb_style == 'usr' :   
+            res = '\n'.join(self.starize(self.indent(res,4)))
+            return ' *   namespace %s\n *   {\n'%self.tb_name+res+ '\n *   }'
+        else :
+            return '\n'.join(self.starize(self.indent(res,2)))
     def compose_parameters(self) :
         special = self.df.get("special",[])
         arity = int(self.df.get("max_arity",self.df.get("arity",'1')))
@@ -253,7 +299,25 @@ class Nt2_oxygenation(Oxgen) :
                         "vectors obtained on a non necessarily elementwise basis from the inputs"
                         "elements","\par",
                         "If usable and used in scalar mode, it reduces to the operation",
-                        "on a one element vector."])             
+                        "on a one element vector."])
+        if special[0] in  self.external_toolbox_list :
+            res.extend(['When calling external library, nt2 simply encapsulates the',
+                        'original proper call to provide easy use.',"\par",
+                        'Remenber that SIMD implementation is therefore merely',
+                        'mapping the scalar function to each SIMD vectors elements',
+                        'and will not provide acceleration, but ease.']
+                       )
+        if special[0] in  ['libc','cephes','gsl_specfun'] :
+            res.extend(["\par",
+                        '%s library defines functions for float and double entries.'% self.tb_name,"\par",
+                        'As they are written in C the original name of the float version is',
+                        "generally terminated by and extra 'f',",
+                        "this is not the case for the nt2 version which dispatch to",
+                        'the correct function according to the inputs types.']
+                        )
+        if special[0] in  ['fdlibm','crlibm'] :
+            res.extend(["\par",'%s library defines functions for double entries only.'% self.tb_name] 
+                       )
         return '\n'.join(self.starize(res))+'\n'
         
     def make_file_ox(self) :
@@ -277,7 +341,7 @@ class Nt2_oxygenation(Oxgen) :
         Functor_ox = [
             "/*!",
             " * \\ingroup %s"%self.tb_name.replace('.','_'),
-            " * \\defgroup $fct$ $fct$ function",
+            " * \\defgroup $prefix$$fct$ $fct$ function",
             " *",
             " * \\par Description",
             "$description$",
@@ -285,7 +349,7 @@ class Nt2_oxygenation(Oxgen) :
             " * \\par Header file",
             " * ",
             " * \\code",
-            " * #include <nt2/include/functions/$fct$.hpp>",
+            " * #include <nt2$usrpath$/include/functions/$fct$.hpp>",
             " * \\endcode",
             " * ",
             "$alias$",
