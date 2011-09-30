@@ -9,11 +9,9 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_POINTER_HPP
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_POINTER_HPP
 
-#include <boost/mpl/size.hpp>
-#include <boost/mpl/size_t.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/fusion/include/mpl.hpp>
+#include <boost/mpl/apply.hpp>
 #include <nt2/sdk/meta/remove_pointers.hpp>
+#include <boost/type_traits/add_pointer.hpp>
 #include <nt2/core/container/meta/model_of.hpp>
 #include <nt2/core/container/meta/value_of.hpp>
 #include <nt2/core/container/meta/reference.hpp>
@@ -43,8 +41,15 @@ namespace nt2 { namespace meta
   template<typename T>
   struct model_of< T* >
   {
-    typedef typename model_of<T>::type  base;
-    //typedef boost::add_pointer<base>    type;
+    typedef struct make
+    {
+      template<class X> struct apply
+      {
+        typedef typename  boost::mpl::
+                          apply<typename model_of<T>::type,X>::type base;
+        typedef typename boost::add_pointer<base>::type             type;
+      };
+    } type;
   };
 
   //============================================================================
