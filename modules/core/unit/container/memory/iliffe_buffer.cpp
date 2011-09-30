@@ -44,6 +44,41 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dimensions, PADDING )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// array type has some value
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( iliffe_buffer_values, PADDING )
+{
+  using boost::is_same;
+  using nt2::meta::value_of;
+  using nt2::memory::allocator;
+  using nt2::memory::iliffe_buffer;
+
+  NT2_TEST((is_same< typename value_of< iliffe_buffer<1,int,T,allocator<int> > >::type, int>::value ));
+  NT2_TEST((is_same< typename value_of< iliffe_buffer<2,int,T,allocator<int> > >::type, int>::value ));
+  NT2_TEST((is_same< typename value_of< iliffe_buffer<3,int,T,allocator<int> > >::type, int>::value ));
+  NT2_TEST((is_same< typename value_of< iliffe_buffer<4,int,T,allocator<int> > >::type, int>::value ));
+}
+////////////////////////////////////////////////////////////////////////////////
+// array type has a model
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( iliffe_buffer_models, PADDING )
+{
+  using boost::is_same;
+  using nt2::meta::model_of;
+  using nt2::memory::allocator;
+  using nt2::memory::iliffe_buffer;
+  using boost::mpl::apply;
+
+  typedef typename model_of< iliffe_buffer<1,int,T,allocator<int> > >::type model1d;
+  typedef typename model_of< iliffe_buffer<2,int,T,allocator<int> > >::type model2d;
+  typedef typename model_of< iliffe_buffer<3,int,T,allocator<int> > >::type model3d;
+    
+  NT2_TEST((is_same<typename apply<model1d,float>::type, iliffe_buffer<1,float,T,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model2d,float>::type, iliffe_buffer<2,float,T,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model3d,float>::type, iliffe_buffer<3,float,T,allocator<float> > >::value ));
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // iliffe_buffer has some reference
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( iliffe_buffer_reference, PADDING )

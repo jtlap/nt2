@@ -51,10 +51,16 @@ namespace nt2 { namespace meta
   template<std::size_t D, typename T, typename P, typename A>
   struct model_of< memory::iliffe_buffer<D,T,P,A> >
   {
-    typedef typename A::template rebind<boost::mpl::_>::other alloc;
-    typedef  memory::iliffe_buffer<D,boost::mpl::_,P,alloc>   type;
+    typedef struct make
+    {
+      template<class X> struct apply
+      {
+        typedef typename A::template rebind<X>::other alloc;
+        typedef memory::iliffe_buffer<D,X,P,alloc>    type;
+      };
+    } type;  
   };
-
+  
   //============================================================================
   // dereference_ specialization
   //============================================================================
