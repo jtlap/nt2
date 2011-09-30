@@ -32,7 +32,7 @@ NT2_TEST_CASE( std_vector_dimensions )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// array type has some value
+// vector type has some value
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( std_vector_values )
 {
@@ -44,8 +44,9 @@ NT2_TEST_CASE( std_vector_values )
   NT2_TEST((is_same< value_of< vector<vector<int> > >::type, int>::value ));
   NT2_TEST((is_same< value_of< vector<vector<vector<int> > > >::type, int>::value ));
 }
+
 ////////////////////////////////////////////////////////////////////////////////
-// array type has a model
+// vector type has a model
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( std_vector_model )
 {
@@ -106,7 +107,7 @@ NT2_TEST_CASE( std_vector_1D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
-  for(pos[0]=0;pos[0]<5;++pos[0]) 
+  for(pos[0]=0;pos[0]<5;++pos[0])
     dereference<1UL>(tab,pos) = double(10*(1+pos[0]));
 
   for(pos[0]=0;pos[0]<5;++pos[0])
@@ -118,7 +119,7 @@ NT2_TEST_CASE( std_vector_1D_as_buffer )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( std_vector_2D_as_buffer )
 {
-  using std::vector;  
+  using std::vector;
   using nt2::memory::initialize;
   using nt2::memory::dereference;
 
@@ -150,7 +151,7 @@ NT2_TEST_CASE( std_vector_2D_as_buffer )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( std_vector_3D_as_buffer )
 {
-  using std::vector;  
+  using std::vector;
   using nt2::memory::initialize;
   using nt2::memory::dereference;
 
