@@ -10,6 +10,7 @@
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_VECTOR_HPP
 
 #include <vector>
+#include <boost/mpl/apply.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <nt2/core/container/meta/model_of.hpp>
@@ -40,9 +41,18 @@ namespace nt2 { namespace meta
   template<typename T, typename A>
   struct model_of< std::vector<T,A> >
   {
-    typedef typename model_of<T>::type                base;
-    typedef typename A::template rebind<base>::other  alloc;
-    typedef std::vector<base,alloc>                   type;
+    typedef struct make
+    {
+      template<class X> struct apply
+      {
+        // This recursive build is required to properly handle vector of vector
+        // cases and other similar recursive structure
+        typedef typename  boost::mpl::
+                          apply<typename model_of<T>::type,X>::type base;
+        typedef typename A::template rebind<base>::other            alloc;
+        typedef std::vector<base,alloc>                             type;
+      };
+    } type;  
   };
 } }
 
