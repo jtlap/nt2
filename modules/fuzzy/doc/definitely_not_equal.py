@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ['\\\\f$ a0 \\\\notin [a_1-\mathop{\mathrm{predecessor}}(a1,|a_2|),a_1-\mathop{\mathrm{successor}}(a1,|a_2|)]\\\\f$'],
          'arity' : '3',
          'call_types' : ['T','T','iT'],
          'ret_arity' : '0',

@@ -232,7 +232,7 @@ class Nt2_oxygenation(Oxgen) :
         res = ['\par Notes',
                'In SIMD mode, this function acts elementwise on the inputs vectors elements','\par']
         special = self.df.get("special",[])
-        if "predicate" in special :
+        if "predicate" in special or "fuzzy" in special :
             res.extend(["This is a predicate operation. Such operations return bool in scalar mode,",
                         "but not in SIMD mode.","\par",
                         "The return type in SIMD mode is the common type of the parameters and is",
