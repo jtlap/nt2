@@ -1,4 +1,5 @@
+#error "This file is for documentation purpose only."
 /**
- * \defgroup hyperbolic hyperbolic functions
+ * \defgroup hyperbolic nt2 module for hyperbolic functions computations
  * \brief Defines hyperbolic functions
  **/

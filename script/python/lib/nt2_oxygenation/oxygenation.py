@@ -315,8 +315,10 @@ class Nt2_oxygenation(Oxgen) :
                         "this is not the case for the nt2 version which dispatch to",
                         'the correct function according to the inputs types.']
                         )
-        if special[0] in  ['fdlibm','crlibm'] :
-            res.extend(["\par",'%s library defines functions for double entries only.'% self.tb_name] 
+        if special[0] in  ['fdlibm','crlibm','gsl_specfun'] :
+            res.extend(["\par",'%s library defines functions for double entries only.'% self.tb_name, 
+                        'Nevertheless, they can be called with float entries under nt2 calls',
+                        'to return float outputs."] 
                        )
         return '\n'.join(self.starize(res))+'\n'
         

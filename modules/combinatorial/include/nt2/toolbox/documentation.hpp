@@ -1,4 +1,5 @@
+#error "This file is for documentation purpose only."
 /*!
- * \defgroup combinatorial  combinatorial functions
- * \brief Defines combinatorial functions
+ * \defgroup combinatorial nt2 module for combinatorial functions computations
+ * \brief Defines some combinatorial functions
  **/
