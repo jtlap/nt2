@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MSIX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MSIX_HPP_INCLUDED
 
@@ -14,10 +17,47 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup msix Msix function
+ *
+ * \par Description
+ * Constant Msix
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/msix.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::msix_(A0)>::type
+ *     Msix();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Msix
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Msix of functor Msix 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Msix, int, -6
                                 , 0xc0c00000UL, 0xc018000000000000ULL
                                 );
@@ -26,5 +66,4 @@ namespace boost { namespace simd
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Msix, Msix)
 } }
 #endif
-
 

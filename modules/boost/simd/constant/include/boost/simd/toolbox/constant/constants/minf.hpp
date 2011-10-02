@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MINF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MINF_HPP_INCLUDED
 
@@ -17,17 +20,54 @@
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <boost/simd/toolbox/constant/include/constants/valmin.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup minf Minf function
+ *
+ * \par Description
+ * Constant Minf
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/minf.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::minf_(A0)>::type
+ *     Minf();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Minf
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Minf of functor Minf 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     struct Minf 
     { 
       typedef double default_type;
       template<class Target, class Dummy=void> 
       struct apply : Valmin::apply<Target,Dummy> {};  
     };
-    
+
     template<class Dummy>
     struct  Minf::apply<float,Dummy> 
           : meta::single_<0xFF800000> {};
@@ -36,7 +76,7 @@ namespace boost { namespace simd
     struct  Minf::apply<double,Dummy> 
           : meta::double_<0xFFF0000000000000ULL> {};
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minf, Minf)
 } }
 

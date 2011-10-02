@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_VALMAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_VALMAX_HPP_INCLUDED
 
@@ -16,10 +19,47 @@
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup valmax Valmax function
+ *
+ * \par Description
+ * Constant Valmax
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/valmax.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::valmax_(A0)>::type
+ *     Valmax();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Valmax
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Valmax of functor Valmax 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     struct Valmax 
     { 
       typedef double default_type;
@@ -30,7 +70,7 @@ namespace boost { namespace simd
                           > 
       {};
     };
-    
+
     template<class Dummy>
     struct  Valmax::apply<float,Dummy> 
           : meta::single_<0x7F7FFFFF> {};
@@ -42,15 +82,15 @@ namespace boost { namespace simd
     template<class Dummy>
     struct  Valmax::apply<boost::simd::uint8_t,Dummy> 
           : meta::int_c<boost::simd::uint8_t,0xFF> {};
-        
+
     template<class Dummy>
     struct  Valmax::apply<boost::simd::uint16_t,Dummy> 
           : meta::int_c<boost::simd::uint16_t,0xFFFF> {};
-        
+
     template<class Dummy>
     struct  Valmax::apply<boost::simd::uint32_t,Dummy> 
           : meta::int_c<boost::simd::uint32_t,0xFFFFFFFFUL> {};
-        
+
     template<class Dummy>
     struct  Valmax::apply<boost::simd::uint64_t,Dummy> 
           : meta::int_c<boost::simd::uint64_t,0xFFFFFFFFFFFFFFFFULL> {};
@@ -71,7 +111,7 @@ namespace boost { namespace simd
     struct  Valmax::apply<boost::simd::int64_t,Dummy> 
           : meta::int_c<boost::simd::int64_t,9223372036854775807ULL> {};
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmax, Valmax)
 } }
 

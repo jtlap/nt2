@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MEIGHT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MEIGHT_HPP_INCLUDED
 
@@ -14,10 +17,47 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup meight Meight function
+ *
+ * \par Description
+ * Constant Meight
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/meight.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::meight_(A0)>::type
+ *     Meight();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Meight
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Meight of functor Meight 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Meight, int, -8
                                 , 0xc1000000UL,0xc020000000000000ULL
                                 ); 
@@ -26,5 +66,4 @@ namespace boost { namespace simd
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Meight, Meight)
 } }
 #endif
-
 

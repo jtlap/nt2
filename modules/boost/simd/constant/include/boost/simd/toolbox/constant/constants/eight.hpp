@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_EIGHT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_EIGHT_HPP_INCLUDED
 
@@ -14,15 +17,51 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup eight Eight function
+ *
+ * \par Description
+ * Constant Eight
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/eight.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::eight_(A0)>::type
+ *     Eight();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Eight
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Eight of functor Eight 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER(Eight,int,8,0x41000000UL,0x4020000000000000ULL);
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Eight, Eight)
 } }
 #endif
-
 

@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MZERO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MZERO_HPP_INCLUDED
 
@@ -14,15 +17,52 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup mzero Mzero function
+ *
+ * \par Description
+ * Constant Mzero
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/mzero.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::mzero_(A0)>::type
+ *     Mzero();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Mzero
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Mzero of functor Mzero 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Mzero, double, 0
                                 , 0x80000000, 0x8000000000000000ULL
                                 );
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mzero, Mzero)
 } }
 

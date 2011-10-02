@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_NBEXPONENTBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_NBEXPONENTBITS_HPP_INCLUDED
 
@@ -14,16 +17,53 @@
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup nbexponentbits Nbexponentbits function
+ *
+ * \par Description
+ * Constant Nbexponentbits
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/nbexponentbits.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::nbexponentbits_(A0)>::type
+ *     Nbexponentbits();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Nbexponentbits
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Nbexponentbits of functor Nbexponentbits 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     struct Nbexponentbits 
     { 
       template<class Target, class Dummy=void> 
       struct  apply : meta::int_c<Target,0> {}; 
     };
-    
+
     template<class Dummy>
     struct  Nbexponentbits::apply<float,Dummy> 
           : meta::int_c<boost::simd::int32_t,8> {};
@@ -32,7 +72,7 @@ namespace boost { namespace simd
     struct  Nbexponentbits::apply<double,Dummy> 
           : meta::int_c<boost::simd::int64_t,11> {};
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nbexponentbits, Nbexponentbits)
 } }
 

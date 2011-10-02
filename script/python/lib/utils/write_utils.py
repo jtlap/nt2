@@ -48,7 +48,7 @@ class Write_file(object) :
         self.p =p
         self.name = name
         self.txt = txt
-        if exist(self.p) :
+        if isinstance(p,str) and exist(self.p) :
 ##            if self.verbose : print ('path = %s'%self.p)
             tp = os.path.join(self.p,self.name)
             if exist(tp) :
@@ -70,7 +70,10 @@ class Write_file(object) :
             if write(tp,self.txt,self.check_on_write) :
                 print "%s is written"%tp
                 return True;
-        elif self.verbose : 
+        elif self.verbose and  isinstance(p,str) : 
             print("%s directory\n  does not exist " %os.path.split(p)[0])
+        else :
+            print("no path found")
+            
         return False
  

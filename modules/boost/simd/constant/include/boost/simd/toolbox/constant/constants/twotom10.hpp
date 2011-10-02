@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_TWOTOM10_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_TWOTOM10_HPP_INCLUDED
 
@@ -14,15 +17,52 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup twotom10 Twotom10 function
+ *
+ * \par Description
+ * Constant Twotom10
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/twotom10.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::twotom10_(A0)>::type
+ *     Twotom10();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Twotom10
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Twotom10 of functor Twotom10 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Twotom10, double, 0
                                 , 0x3A800000, 0x3F50000000000000ULL
                                 );
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Twotom10, Twotom10)
 } }
 

@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_THREEEPS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_THREEEPS_HPP_INCLUDED
 
@@ -14,15 +17,52 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup threeeps Threeeps function
+ *
+ * \par Description
+ * Constant Threeeps
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/threeeps.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::threeeps_(A0)>::type
+ *     Threeeps();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Threeeps
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Threeeps of functor Threeeps 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Threeeps, double, 3
                                 , 0x34C00000, 0x3CC8000000000000ULL
                                 );
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Threeeps, Threeeps)
 } }
 

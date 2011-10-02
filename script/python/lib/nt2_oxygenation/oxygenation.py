@@ -54,20 +54,22 @@ class Oxgen(Py_doc,Substitute) :
         self.types   = self.get_types()
 ##        self.collect_py_doc_global_data()
         self.collect_functor_data()
+        self.special = self.df.get("special",["nope"])
+        self.Fct    = self.fct.capitalize() if 'constant' in self.special else self.fct
         self.external_toolbox_list = ['libc','cephes','standard','fdlibm','crlibm','boost_math']
         self.tb_style = self.nfp.get_tb_style()
-        self.prefix= "" if self.tb_style =='sys' else self.tb_name+'_'
+        self.prefix= "" if self.tb_style =='sys' else self.tb_name.replace('.','_')+'_'
         self.usrpath = "" if self.tb_style =='sys' else "/toolbox/"+self.tb_name
     def collect_functor_data(self) :
         self.df      = self.d.get("functor",{})
         
     def get_description(self) :
-        special = self.df.get("special",[])
+##        special = self.df.get("special",[])
         desc = self.df.get("description",False)
-        if special[0] in self.external_toolbox_list :
+        if self.special[0] in self.external_toolbox_list :
             desc = ['Please for details consult the proper documentation of the external',
                     'library %s.'%self.tb_name ]
-            if   special[0] =='crlibm' :
+            if self.special[0] =='crlibm' :
                 print(self.fct[-3])
                 if self.fct[-3]!='_' :
                     desc.extend(['\par',
@@ -89,7 +91,7 @@ class Oxgen(Py_doc,Substitute) :
                                  'The suffix _%s is used to choose the rounding'%self.fct[-2:],
                                  'means rouding to %s'%rounding_signification(self.fct[-2:]),
                                   ])
-            if special[0] =='standard' :
+            if self.special[0] =='standard' :
                 desc.extend(['\par',
                              'The call is transfered to the standard C++ library function std::%s'%self.fct
                              ])
@@ -113,8 +115,11 @@ class Nt2_oxygenation(Oxgen) :
             self.namespace = "boost::simd"
         else :
             self.namespace = "nt2" 
-        if self.nfp.get_tb_style() == 'usr' :
+        if self.nfp.get_tb_style() == 'usr'  and  'constant' not in self.special :
              self.tagnamespace = "nt2::%s"%self.tb_name
+        elif 'constant' in self.special :
+             self.tagnamespace = self.namespace
+            
         else :
              self.tagnamespace = self.namespace
         
@@ -172,15 +177,21 @@ class Nt2_oxygenation(Oxgen) :
         if not exist(self.fich) :
             print("file: %s does not exist"%self.fich)
             self.p = self.nfp.get_redef_path()
-            self.fich = os.path.join(self.get_redef_path(),self.fct+'.hpp')
-        if not exist(self.fich) :
-            print("and file: %s neither exist"%self.fich)
-            self.p=None
-    
+            self.fich = os.path.join(self.nfp.get_redef_path(),self.fct+'.hpp')
+            if not exist(self.fich) :
+                print("and file: %s neither exist"%self.fich)
+                self.p = self.nfp.get_const_path()
+                self.fich = os.path.join(self.p,self.fct+'.hpp')
+                if not exist(self.fich) :
+                    print("and file: %s neither exist"%self.fich)
+                    self.p=None
+                else :
+                     print("but file: %s exists"%self.fich)
+                   
     def make_tag_ox(self) :
         Tag_ox = [
             "/*!",
-            " * \\brief $action$ the tag $fct$_ of functor $fct$ ",
+            " * \\brief $action$ the tag $Fct$%s of functor $Fct$ "% "" if 'constant' in self.special else '_',
             " *        in namespace $tagnamespace$::tag for toolbox $tb_name$",
             "**/"
             ]
@@ -214,6 +225,8 @@ class Nt2_oxygenation(Oxgen) :
         return s
   
     def compose_call(self) :
+##        special = self.df.get("special",[])
+        is_constant = 'constant' in self.special
         special_synopsis = self.df.get("special_synopsis",False)
         if special_synopsis :
             res = special_synopsis
@@ -230,17 +243,19 @@ class Nt2_oxygenation(Oxgen) :
                 tpl_list =  self.strlist('class A%d',sep=',',arity=arity)
                 type_list =  self.strlist('A%d',sep=',',arity=int(arity),n=1)
                 param_list =  self.strlist('const A%d & a%d',sep=',',arity=int(arity),n=2)
+            if is_constant : param_list =""    
             tpl_str  = "template <" + tpl + tpl_list +">"
             result_str = "  meta::call<tag::"+self.fct+'_('+type_list+')>::type'
-            param_str  =  "  "+self.fct+"("+param_list+");"
+            param_str  =  "  "+self.Fct+"("+param_list+");"
             res = [ tpl_str,result_str,param_str]
+        print(     self.tb_style)
         if  self.tb_style == 'usr' :   
             res = '\n'.join(self.starize(self.indent(res,4)))
             return ' *   namespace %s\n *   {\n'%self.tb_name+res+ '\n *   }'
         else :
             return '\n'.join(self.starize(self.indent(res,2)))
     def compose_parameters(self) :
-        special = self.df.get("special",[])
+##        special = self.df.get("special",[])
         arity = int(self.df.get("max_arity",self.df.get("arity",'1')))
         is_template = self.df.get("template",False)
         res = []
@@ -257,7 +272,7 @@ class Nt2_oxygenation(Oxgen) :
         if is_template :
             res.append("")
             param_t =  self.df.get("param_t","")
-            tpl_param = "\\\\param T template parameter of %s"%self.fct
+            tpl_param = "\\\\param T template parameter of %s"%self.Fct
             if len(param_t) : tpl_param += ', '+'\n'.join(param_t)
             res.append(tpl_param)
         ret =  self.df.get("return",[])
@@ -266,7 +281,7 @@ class Nt2_oxygenation(Oxgen) :
             res.append("\\\\return "+'\n'.join(ret))
         elif self.fct[0]=='i' :
             res.append("\\\\return an integer value")
-        elif "reduction" in special :    
+        elif "reduction" in self.special :    
             res.append("\\\\return always a scalar value")
         elif arity == 1 :
             res.append("\\\\return a value of the same type as the parameter")
@@ -275,6 +290,9 @@ class Nt2_oxygenation(Oxgen) :
         return '\n'.join(self.starize(res))+'\n'
 
     def compose_notes(self) :
+        if 'constant' in self.special :
+            res = ""
+            return res
         res = ['\par Notes',
                'In SIMD mode, this function acts elementwise on the inputs vectors elements','\par']
         special = self.df.get("special",[])
@@ -292,7 +310,7 @@ class Nt2_oxygenation(Oxgen) :
                         "of the whole SIMD vector.","\par",
                         "If usable and used in scalar mode, it reduces to the operation as acting",
                         "on a one element vector."])
-        if "swar" in special :
+        if "swar" in self.special :
             res.extend(["This is a swar operation. As such it has not real interest outside",
                         "SIMD mode.","\par",
                         "Such an operation is a transform of an SIMD vector,that will return",
@@ -300,14 +318,14 @@ class Nt2_oxygenation(Oxgen) :
                         "elements","\par",
                         "If usable and used in scalar mode, it reduces to the operation",
                         "on a one element vector."])
-        if special[0] in  self.external_toolbox_list :
+        if self.special[0] in  self.external_toolbox_list :
             res.extend(['When calling external library, nt2 simply encapsulates the',
                         'original proper call to provide easy use.',"\par",
                         'Remenber that SIMD implementation is therefore merely',
                         'mapping the scalar function to each SIMD vectors elements',
                         'and will not provide acceleration, but ease.']
                        )
-        if special[0] in  ['libc','cephes','gsl_specfun'] :
+        if self.special[0] in  ['libc','cephes','gsl_specfun'] :
             res.extend(["\par",
                         '%s library defines functions for float and double entries.'% self.tb_name,"\par",
                         'As they are written in C the original name of the float version is',
@@ -315,7 +333,7 @@ class Nt2_oxygenation(Oxgen) :
                         "this is not the case for the nt2 version which dispatch to",
                         'the correct function according to the inputs types.']
                         )
-        if special[0] in  ['fdlibm','crlibm','gsl_specfun'] :
+        if self.special[0] in  ['fdlibm','crlibm','gsl_specfun'] :
             res.extend(["\par",'%s library defines functions for double entries only.'% self.tb_name, 
                         'Nevertheless, they can be called with float entries under nt2 calls',
                         'to return float outputs.'] 
@@ -343,7 +361,7 @@ class Nt2_oxygenation(Oxgen) :
         Functor_ox = [
             "/*!",
             " * \\ingroup %s"%self.tb_name.replace('.','_'),
-            " * \\defgroup $prefix$$fct$ $fct$ function",
+            " * \\defgroup $prefix$$fct$ $Fct$ function",
             " *",
             " * \\par Description",
             "$description$",

@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_VALMIN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_VALMIN_HPP_INCLUDED
 
@@ -21,17 +24,54 @@
 #pragma warning(disable: 4146)
 #endif
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup valmin Valmin function
+ *
+ * \par Description
+ * Constant Valmin
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/valmin.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::valmin_(A0)>::type
+ *     Valmin();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Valmin
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Valmin of functor Valmin 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     struct Valmin
     { 
       typedef double default_type;
       template<class Target, class Dummy=void> 
       struct apply : meta::int_c<Target,0> {}; 
     };
-    
+
     template<class Dummy>
     struct  Valmin::apply<float,Dummy> 
           : meta::single_<0xFF7FFFFFUL> {};
@@ -56,7 +96,7 @@ namespace boost { namespace simd
     struct  Valmin::apply<boost::simd::int64_t,Dummy> 
           : meta::int_c<boost::simd::int64_t,-boost::simd::uint64_t(9223372036854775808ULL)> {};
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmin, Valmin)
 } }
 

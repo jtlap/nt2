@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FACT_11_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FACT_11_HPP_INCLUDED
 
@@ -14,10 +17,47 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup fact_11 Fact_11 function
+ *
+ * \par Description
+ * Constant Fact_11
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/fact_11.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::fact_11_(A0)>::type
+ *     Fact_11();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Fact_11
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Fact_11 of functor Fact_11 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER(Fact_11,int,39916800,0x4c184540,0x418308a800000000ll)
   }
 

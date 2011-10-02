@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_INT_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_INT_SPLAT_HPP_INCLUDED
 
@@ -14,10 +17,47 @@
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup int_splat Int_splat function
+ *
+ * \par Description
+ * Constant Int_splat
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/int_splat.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::int_splat_(A0)>::type
+ *     Int_splat();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Int_splat
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Int_splat of functor Int_splat 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     template<boost::simd::int64_t I>
     struct Intpattern 
     { 

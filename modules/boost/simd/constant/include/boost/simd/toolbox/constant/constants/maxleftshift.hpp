@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MAXLEFTSHIFT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MAXLEFTSHIFT_HPP_INCLUDED
 
@@ -15,10 +18,47 @@
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup maxleftshift Maxleftshift function
+ *
+ * \par Description
+ * Constant Maxleftshift
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/maxleftshift.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::maxleftshift_(A0)>::type
+ *     Maxleftshift();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Maxleftshift
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Maxleftshift of functor Maxleftshift 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     struct Maxleftshift 
     { 
       template<class Target, class Dummy=void> 
@@ -29,7 +69,7 @@ namespace boost { namespace simd
                           > {};  
     };
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Maxleftshift, Maxleftshift)
 } }
 

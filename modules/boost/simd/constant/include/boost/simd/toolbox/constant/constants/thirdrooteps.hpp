@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_THIRDROOTEPS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_THIRDROOTEPS_HPP_INCLUDED
 
@@ -14,15 +17,52 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup thirdrooteps Thirdrooteps function
+ *
+ * \par Description
+ * Constant Thirdrooteps
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/thirdrooteps.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::thirdrooteps_(A0)>::type
+ *     Thirdrooteps();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Thirdrooteps
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Thirdrooteps of functor Thirdrooteps 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER( Thirdrooteps, double, 1
                                 , 0x3BA14518, 0x3ED965FEA53D6E42ULL
                                 );
   }
-  
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Thirdrooteps, Thirdrooteps)
 } }
 
