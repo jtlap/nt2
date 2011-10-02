@@ -11,6 +11,7 @@
 #include <boost/simd/include/simd.hpp>
 
 #include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd
 {
