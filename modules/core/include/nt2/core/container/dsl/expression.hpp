@@ -1,100 +1,111 @@
-/*******************************************************************************
- *         Copyright 2003-2010 LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2009-2010 LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#ifndef NT2_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
-#define NT2_SDK_SIMD_PACK_EXPRESSION_HPP_INCLUDED
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#ifndef NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 
-#include <boost/proto/proto.hpp>
-#include <nt2/sdk/dsl/category.hpp>
-#include <nt2/sdk/dsl/is_assignment_expression.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/core/container/dsl/evaluate.hpp>
+#include <nt2/include/functions/assign.hpp>
+#include <boost/proto/extends.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
+
+// Semantic of NT2 expression lies in its ResultType template parameter
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class Expr, class ResultType>
+  struct semantic_of< nt2::container::expression<Expr, ResultType> >
+  {
+    typedef ResultType type;
+  };
+} } }
 
 namespace nt2 { namespace container
 {
-  ////////////////////////////////////////////////////////////////////////////
-  // Here is the domain-specific expression wrapper for table_ expression
-  ////////////////////////////////////////////////////////////////////////////
-  template<class Expr, class Dims>
-  struct  expression<Expr,tag::table_,Dims>
+  template<class Expr, class ResultType>
+  struct  expression
         : boost::proto::extends < Expr
-                                , expression<Expr,tag::table_,Dims>
-                                , container::domain<tag::table_,Dims>
+                                , expression<Expr, ResultType>
+                                , container::domain
                                 >
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // Internal proto related types
-    ////////////////////////////////////////////////////////////////////////////
     typedef boost::proto::extends < Expr
-                                  , expression<Expr,tag::table_,Dims>
-                                  , container::domain<tag::table_,Dims>
-                                  >                                     parent;
+                                  , expression<Expr, ResultType>
+                                  , container::domain
+                                  >                             parent;
 
-    ////////////////////////////////////////////////////////////////////////////
-    // expression hierarchy and semantic of container:::expression
-    ////////////////////////////////////////////////////////////////////////////
-    typedef typename
-    details::hierarchy_of_expr<expression>::type dispatch_hierarchy_tag;
+    using parent::operator();
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Default explicit constructor
-    ////////////////////////////////////////////////////////////////////////////
-    explicit  expression( Expr const& xpr = Expr() )
-            : parent(xpr), is_silent(false)
+    // expression initialization called from generator
+    BOOST_DISPATCH_FORCE_INLINE
+    expression(Expr const& xpr = Expr()) : parent(xpr)
     {
-      // If Expr is an assignment node, set xpr.is_evaluable to false
-      //if(meta::is_assignment_expression<Expr>::value)
-      //  boost::proto::right(*this).silence();
+      NT2_ASSERT( check_size(xpr)
+                  && "Dynamic size mismatch in container expression"
+                );
+    }
+    
+    // Construction from arbitrary expression is same as assignment
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE
+    expression(Xpr const& xpr)
+    {
+      *this = xpr;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Destructor performs evaluation if required
-    ////////////////////////////////////////////////////////////////////////////
-    ~expression()
+    // Assignment operators force evaluation
+    BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(expression const& xpr)
     {
-      // If *this is not silent, evaluates it
-      if(!is_silent) (*this)();
+      nt2::evaluate(
+        assign(*this, xpr)
+      );
+      return *this;
     }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // table expression are read-only Ranges
-    ////////////////////////////////////////////////////////////////////////////
-
-    ////////////////////////////////////////////////////////////////////////////
-    // table expression have a n-ary operator()
-    ////////////////////////////////////////////////////////////////////////////
-
-    ////////////////////////////////////////////////////////////////////////////
-    // table expression have a nullary operator() that evaluates itself
-    ////////////////////////////////////////////////////////////////////////////
-    void operator()()
+    
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(Xpr const& xpr)
     {
-      // current_target::evaluate(*this);
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // table expression have an operator[] that adds specific settings
-    ////////////////////////////////////////////////////////////////////////////
-    template<class Settings>
-    expression& operator[](Settings const& )
-    {
-      // ????
+      nt2::evaluate(
+        assign(*this, xpr)
+      );
       return *this;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // External accessor for evaluation trigger
-    ////////////////////////////////////////////////////////////////////////////
-    void silence() const { is_silent = true; }
+    #define NT2_MAKE_ASSIGN_OP(OP)                                      \
+    template<class X>                                                   \
+    BOOST_DISPATCH_FORCE_INLINE                                         \
+    expression& operator BOOST_PP_CAT(OP,=)(X const& xpr)               \
+    {                                                                   \
+      return *this = *this OP xpr;                                      \
+    }                                                                   \
+    /**/
 
-    protected:
-    ////////////////////////////////////////////////////////////////////////////
-    // Trigger for non-evaluation at destruction-time.
-    ////////////////////////////////////////////////////////////////////////////
-    mutable bool is_silent;
+    NT2_MAKE_ASSIGN_OP(+)
+    NT2_MAKE_ASSIGN_OP(-)
+    NT2_MAKE_ASSIGN_OP(*)
+    NT2_MAKE_ASSIGN_OP(/)
+    NT2_MAKE_ASSIGN_OP(%)
+    NT2_MAKE_ASSIGN_OP(^)
+    NT2_MAKE_ASSIGN_OP(&)
+    NT2_MAKE_ASSIGN_OP(|)
+    NT2_MAKE_ASSIGN_OP(>>)
+    NT2_MAKE_ASSIGN_OP(<<)
+
+    #undef NT2_MAKE_ASSIGN_OP
+
+    // Conversion operator forces evaluation
+    BOOST_DISPATCH_FORCE_INLINE
+    operator ResultType() const
+    {
+      return nt2::evaluate(*this);
+    }
   };
 } }
 

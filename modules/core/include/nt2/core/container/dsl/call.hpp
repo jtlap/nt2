@@ -6,20 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_DOMAIN_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_DOMAIN_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DSL_CALL_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_CALL_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <boost/proto/domain.hpp>
+#include <nt2/sdk/functor/hierarchy.hpp>
+#include <nt2/sdk/functor/preprocessor/call.hpp>
 
-namespace nt2 { namespace container
+//==============================================================================
+// Semantic of expressions
+//==============================================================================
+namespace nt2 { namespace ext
 {
-  struct  domain
-        : boost::proto::domain< container::generator
-                              , container::grammar
-                              >
-  {};
+  // TODO
 } }
 
 #endif
