@@ -6,10 +6,10 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_PACK_META_FACTORY_OF_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_PACK_META_FACTORY_OF_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_PACK_META_MODEL_OF_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_PACK_META_MODEL_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -17,7 +17,7 @@ namespace boost { namespace dispatch { namespace meta
   template< class Type
           , std::size_t Cardinal
           >
-  struct factory_of< boost::simd::pack<Type, Cardinal> >
+  struct model_of< boost::simd::pack<Type, Cardinal> >
   {
       typedef factory_of< boost::simd::pack<Type, Cardinal> > type;
       

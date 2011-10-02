@@ -14,9 +14,9 @@
  * \brief Defines and implement the \ref boost::dispatch::meta::as_ generic type wrapper
  */
 
-#include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
 
 #if defined(DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
@@ -75,7 +75,7 @@ namespace boost { namespace dispatch { namespace meta
   };
 
   template<class T>
-  struct factory_of< as_<T> >
+  struct model_of< as_<T> >
   {
     struct type
     {
