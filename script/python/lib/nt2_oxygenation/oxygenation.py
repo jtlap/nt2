@@ -54,7 +54,7 @@ class Oxgen(Py_doc,Substitute) :
         self.types   = self.get_types()
 ##        self.collect_py_doc_global_data()
         self.collect_functor_data()
-        self.external_toolbox_list = ['libc','cephes','standard','fdlibm','crlibm']
+        self.external_toolbox_list = ['libc','cephes','standard','fdlibm','crlibm','boost_math']
         self.tb_style = self.nfp.get_tb_style()
         self.prefix= "" if self.tb_style =='sys' else self.tb_name+'_'
         self.usrpath = "" if self.tb_style =='sys' else "/toolbox/"+self.tb_name
@@ -318,7 +318,7 @@ class Nt2_oxygenation(Oxgen) :
         if special[0] in  ['fdlibm','crlibm','gsl_specfun'] :
             res.extend(["\par",'%s library defines functions for double entries only.'% self.tb_name, 
                         'Nevertheless, they can be called with float entries under nt2 calls',
-                        'to return float outputs."] 
+                        'to return float outputs.'] 
                        )
         return '\n'.join(self.starize(res))+'\n'
         

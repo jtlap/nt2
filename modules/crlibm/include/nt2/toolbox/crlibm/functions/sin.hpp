@@ -59,7 +59,7 @@
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- * When calling external library, nt2 simply encapsulate the
+ * When calling external library, nt2 simply encapsulates the
  * original proper call to provide easy use.
  * \par
  * Remenber that SIMD implementation is therefore merely
@@ -67,6 +67,8 @@
  * and will not provide acceleration, but ease.
  * \par
  * crlibm library defines functions for double entries only.
+ * Nevertheless, they can be called with float entries under nt2 calls
+ * to return float outputs.
  *  
 **/
 
