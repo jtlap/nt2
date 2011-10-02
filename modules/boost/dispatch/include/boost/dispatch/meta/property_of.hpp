@@ -21,22 +21,29 @@
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T, class Origin = T>
+  struct property_of;
+}
+
+namespace details
 {
   template<class T, class Origin = T, class Enable = void>
   struct  property_of
+   : meta::property_of<typename meta::primitive_of<T>::type, Origin>
   {
-    typedef typename meta::hierarchy_of<T, Origin>::base type;
   };
 }
-    
+
 namespace meta
 {
-  template<class T, class Origin = T>
+  template<class T, class Origin>
   struct  property_of
-        : details::property_of< typename meta::strip<T>::type
+        : details::property_of< T
                               , typename meta::strip<Origin>::type
                               >
   {};

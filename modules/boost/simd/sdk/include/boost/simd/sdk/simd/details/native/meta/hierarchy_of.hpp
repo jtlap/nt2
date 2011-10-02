@@ -12,14 +12,14 @@
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T, class X, class Origin>
   struct hierarchy_of< simd::native<T, X>, Origin>
   {
-    typedef typename hierarchy_of<T, Origin>::base  base;
-    typedef typename simd::ext::simd_<base, X>      type;
+    typedef typename simd::ext::simd_<typename property_of<T, Origin>::type, X> type;
   };
 } } }
 

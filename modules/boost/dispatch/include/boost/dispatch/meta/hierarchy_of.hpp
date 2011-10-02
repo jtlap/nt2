@@ -29,7 +29,6 @@ namespace boost { namespace dispatch { namespace details
   template<class T, class Origin = T, class Enable = void>
   struct  hierarchy_of
   {
-    typedef meta::unspecified_<Origin> base;
     typedef meta::unspecified_<Origin> type;
   };
 }
@@ -42,7 +41,7 @@ namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T, class Origin = T>
   struct  hierarchy_of
-        : details::hierarchy_of< typename meta::strip<T>::type
+        : details::hierarchy_of< T
                                , typename meta::strip<Origin>::type
                                >
   {};

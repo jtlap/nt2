@@ -27,8 +27,7 @@ namespace boost { namespace dispatch { namespace details
                         boost::enable_if< boost::is_fundamental<T> >::type
                       >
   {
-    typedef typename meta::property_of<T, Origin>::type  base;
-    typedef meta::scalar_<base>                          type;
+    typedef meta::scalar_<typename meta::property_of<T, Origin>::type>  type;
   };
 } } }
 

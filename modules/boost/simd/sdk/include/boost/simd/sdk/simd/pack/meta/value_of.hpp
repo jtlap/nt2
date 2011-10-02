@@ -6,19 +6,22 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_PRIMITIVE_OF_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_PRIMITIVE_OF_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_PACK_META_VALUE_OF_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_PACK_META_VALUE_OF_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/native_fwd.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class Type,class Extension>
-  struct primitive_of< simd::native<Type,Extension> >
+  template< class Type
+          , std::size_t Cardinal
+          >
+  struct value_of< boost::simd::pack<Type, Cardinal> >
   {
     typedef Type type;
   };
 } } }
 
 #endif
+

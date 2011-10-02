@@ -16,7 +16,7 @@
 
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 
 #if defined(DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
@@ -62,7 +62,6 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Origin>
   struct hierarchy_of< as_<T>, Origin>
   {
-    typedef typename hierarchy_of<T, Origin>::base           base;
     typedef target_<typename hierarchy_of<T, Origin>::type>  type;
   };
 
@@ -70,10 +69,23 @@ namespace boost { namespace dispatch { namespace meta
   // Requirements for Buildable
   //============================================================================
   template<class T>
-  struct primitive_of< as_<T> > : primitive_of<T> {};
+  struct value_of< as_<T> >
+  {
+    typedef T type;
+  };
 
   template<class T>
-  struct factory_of< as_<T> > { typedef as_<boost::mpl::_1> type; };
+  struct factory_of< as_<T> >
+  {
+    struct type
+    {
+      template<class X>
+      struct apply
+      {
+        typedef as_<X> type;
+      };
+    };
+  };
 } } }
 
 #endif

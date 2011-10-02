@@ -51,7 +51,10 @@ namespace boost { namespace dispatch { namespace meta
   // Requirements for Buildable
   //============================================================================
   template<class T, std::size_t N>
-  struct primitive_of< boost::array<T,N> > : primitive_of<T> {};
+  struct value_of< boost::array<T,N> >
+  {
+    typedef T type;
+  };
 
   template<class T, std::size_t N>
   struct factory_of< boost::array<T,N> > { typedef boost::array<boost::mpl::_1,N> type; };
@@ -76,7 +79,6 @@ namespace details
                                       >::type
                       >
   {
-    typedef meta::unspecified_<T>     base;
     typedef meta::fusion_sequence_<T> type;
   };
   
@@ -89,9 +91,7 @@ namespace meta
                       , Origin
                       >
   {
-    typedef typename hierarchy_of<T, Origin>::base            base;
-    typedef meta::
-            array_<typename hierarchy_of<T, Origin>::type, N> type;
+    typedef array_<typename hierarchy_of<T, Origin>::type, N> type;
   };
   
 } } }

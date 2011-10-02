@@ -20,7 +20,28 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch { namespace details
+{
+  struct is_floating_point_impl
+  {
+    template<class T>
+    struct apply
+     : boost::is_floating_point<T>
+    {
+    };
+  };
+  
+  struct is_integral_impl
+  {
+    template<class T>
+    struct apply
+     : boost::is_integral<T>
+    {
+    };
+  };
+}
+    
+namespace meta
 {
   //============================================================================
   /*!
@@ -50,9 +71,9 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   template<class T>
   struct  is_floating_point
-        : behave_as  < boost::is_floating_point<boost::mpl::_>
-                    , typename strip<T>::type
-                    > {};
+        : behave_as  < details::is_floating_point_impl
+                     , T
+                     > {};
 
   //============================================================================
   /*!
@@ -82,9 +103,9 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   template<class T>
   struct  is_integral
-        : behave_as< boost::is_integral<boost::mpl::_>
-                    , typename strip<T>::type
-                    > {};
+        : behave_as  < details::is_integral_impl
+                     , T
+                     > {};
 } } }
 
 #endif
