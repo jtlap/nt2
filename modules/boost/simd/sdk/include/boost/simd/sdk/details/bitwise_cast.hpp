@@ -14,12 +14,12 @@
  * \brief Defines and implements the \ref boost::simd::bitwise_cast utility function
  */
 
-#include <boost/dispatch/attributes.hpp>
+#include <cstring>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <cstring>
+#include <boost/dispatch/attributes.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #ifdef BOOST_MSVC
 #define BOOST_SIMD_NO_STRICT_ALIASING

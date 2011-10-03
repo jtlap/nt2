@@ -40,7 +40,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef array_<typename T::parent, N> parent;
   };
- 
+
   template<class T, std::size_t N>
   struct array_<unspecified_<T>, N> : fusion_sequence_<T>
   {
@@ -51,13 +51,22 @@ namespace boost { namespace dispatch { namespace meta
   // Requirements for Buildable
   //============================================================================
   template<class T, std::size_t N>
-  struct value_of< boost::array<T,N> >
-  {
-    typedef T type;
-  };
+  struct value_of< boost::array<T,N> > : value_of<T> {};
 
   template<class T, std::size_t N>
-  struct factory_of< boost::array<T,N> > { typedef boost::array<boost::mpl::_1,N> type; };
+  struct model_of< boost::array<T,N> >
+  {
+    struct type
+    {
+      template<class X> struct apply
+      {
+        // This recursive build is required to properly handle array of array
+        // cases and other similar recursive structure
+        typedef typename mpl::apply<typename model_of<T>::type,X>::type base;
+        typedef boost::array<base,N>                                    type;
+      };
+    };
+  };
 }
 
 namespace details
@@ -81,7 +90,7 @@ namespace details
   {
     typedef meta::fusion_sequence_<T> type;
   };
-  
+
 }
 
 namespace meta
@@ -93,7 +102,7 @@ namespace meta
   {
     typedef array_<typename hierarchy_of<T, Origin>::type, N> type;
   };
-  
+
 } } }
 
 #endif
