@@ -101,7 +101,6 @@ NT2_TEST_CASE( composite_buffer_1D_as_buffer )
   }
 }
 
-/*
 ////////////////////////////////////////////////////////////////////////////////
 // composite_buffer models Buffer Concept
 ////////////////////////////////////////////////////////////////////////////////
@@ -133,40 +132,3 @@ NT2_TEST_CASE( std_array_2D_as_buffer )
     for(pos[0]=0;pos[0]<5;++pos[0])
     NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
 }
-*/
-
-/*
-////////////////////////////////////////////////////////////////////////////////
-// composite_buffer models Buffer Concept
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_array_3D_as_buffer )
-{
-  using boost::array;
-  using nt2::memory::initialize;
-  using nt2::memory::dereference;
-
-  boost::array<boost::array<boost::array<double,2>,2>,3> tab;
-
-  boost::array<std::size_t,3> sizes = {{2,2,2}};
-  boost::array<std::size_t,3> bases = {{0,0,0}};
-  boost::array<std::size_t,3> pos;
-
-  //////////////////////////////////////////////////////////////////////////////
-  // array type supports being initialized externally
-  //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases, nt2::memory::no_padding() );
-
-  //////////////////////////////////////////////////////////////////////////////
-  // array type supports R/W access through Position
-  //////////////////////////////////////////////////////////////////////////////
-  for(pos[2]=0;pos[2]<3;++pos[2])
-    for(pos[1]=0;pos[1]<2;++pos[1])
-      for(pos[0]=0;pos[0]<2;++pos[0])
-      dereference<3UL>(tab,pos) = 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]);
-
-  for(pos[2]=0;pos[2]<3;++pos[2])
-    for(pos[1]=0;pos[1]<2;++pos[1])
-      for(pos[0]=0;pos[0]<2;++pos[0])
-    NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
-}
-*/
