@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup ldexpmask Ldexpmask function
+ * \defgroup boost_simd_constant_ldexpmask Ldexpmask constant
  *
  * \par Description
  * Constant Ldexpmask
@@ -28,8 +28,8 @@
  * \par
  * Its value depends of the type of the template parameter
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

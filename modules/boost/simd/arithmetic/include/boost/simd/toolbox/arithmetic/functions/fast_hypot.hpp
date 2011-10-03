@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup fast_hypot fast_hypot function
+ * \defgroup boost_simd_arithmetic_fast_hypot fast_hypot function
  *
  * \par Description
  * computes $(a_0^2 + a_1^2)^{1/2}$ in a quicker,
@@ -54,8 +54,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_hypot_ of functor fast_hypot 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct fast_hypot_ {};
   }

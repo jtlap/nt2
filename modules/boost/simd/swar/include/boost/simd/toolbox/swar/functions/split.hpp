@@ -6,6 +6,9 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLIT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -13,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup split split function
+ * \defgroup boost_simd_swar_split split function
  *
  * \par Description
  * takes one SIMD vector of elements of size n
@@ -63,8 +66,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag split_ of functor split 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct split_ {};
   }

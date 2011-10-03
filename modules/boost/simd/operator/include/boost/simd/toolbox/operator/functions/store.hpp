@@ -22,7 +22,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup store store function
+ * \defgroup boost_simd_operator_store store function
  *
  * \par Description
  * Store a data from a0 to the memory zone given by a1 and offset a2
@@ -62,8 +62,8 @@ namespace boost { namespace simd
 {
   namespace tag { struct store_ {}; }
     /*!
-     * \brief Define the tag store_ of functor store 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
 } }

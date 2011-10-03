@@ -6,6 +6,9 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_GROUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_GROUP_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -13,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup group group function
+ * \defgroup boost_simd_swar_group group function
  *
  * \par Description
  * take two SIMD vectors of same type and elements of size n
@@ -63,8 +66,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag group_ of functor group 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct group_ {};
   }

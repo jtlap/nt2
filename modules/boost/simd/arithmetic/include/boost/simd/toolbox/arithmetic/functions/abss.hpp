@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup abss abss function
+ * \defgroup boost_simd_arithmetic_abss abss function
  *
  * \par Description
  * This is generally equivalent to abs except for signed integer
@@ -56,8 +56,8 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag abss_ of functor abss 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct abss_ {};
   }

@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup mfour Mfour function
+ * \defgroup boost_simd_constant_mfour Mfour constant
  *
  * \par Description
  * Constant Mfour = -4

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup negs negs function
+ * \defgroup boost_simd_arithmetic_negs negs function
  *
  * \par Description
  * returns saturation of $-a_0$ in the input type.
@@ -55,8 +55,8 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag negs_ of functor negs 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct negs_ {};
   }

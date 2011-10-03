@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup muls muls function
+ * \defgroup boost_simd_arithmetic_muls muls function
  *
  * \par Description
  * return the saturated multiplication of a0 by a1
@@ -54,8 +54,8 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag muls_ of functor muls 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct muls_ {};
   }

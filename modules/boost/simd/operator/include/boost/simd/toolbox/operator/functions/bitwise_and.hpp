@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup bitwise_and bitwise_and function
+ * \defgroup boost_simd_operator_bitwise_and bitwise_and function
  *
  * \par Description
  * return the bitwise and of the two parameters
@@ -66,8 +66,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag bitwise_and_ of functor bitwise_and 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::bitwise_and bitwise_and_;
   }

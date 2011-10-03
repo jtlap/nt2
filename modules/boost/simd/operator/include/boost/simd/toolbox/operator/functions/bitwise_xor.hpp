@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup bitwise_xor bitwise_xor function
+ * \defgroup boost_simd_operator_bitwise_xor bitwise_xor function
  *
  * \par Description
  * return the bitwise xor of the two parameters
@@ -66,8 +66,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag bitwise_xor_ of functor bitwise_xor 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::bitwise_xor bitwise_xor_;
   }

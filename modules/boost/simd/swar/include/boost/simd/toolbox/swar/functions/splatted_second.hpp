@@ -6,6 +6,9 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLATTED_SECOND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLATTED_SECOND_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -13,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup splatted_second splatted_second function
+ * \defgroup boost_simd_swar_splatted_second splatted_second function
  *
  * \par Description
  * returns the second element of a0 splatted in a vector
@@ -57,8 +60,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag splatted_second_ of functor splatted_second 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct splatted_second_ {};
   }

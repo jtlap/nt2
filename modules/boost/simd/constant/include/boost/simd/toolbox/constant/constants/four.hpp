@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup four Four function
+ * \defgroup boost_simd_constant_four Four constant
  *
  * \par Description
  * Constant Four = 4

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup is_eqz is_eqz function
+ * \defgroup boost_simd_predicates_is_eqz is_eqz function
  *
  * \par Description
  * Returns True<A0>() or False<A0>() according a0 is zero or not.
@@ -61,8 +61,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag is_eqz_ of functor is_eqz 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_eqz_ {};
   }

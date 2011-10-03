@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup minusone minusone function
+ * \defgroup boost_simd_arithmetic_minusone minusone function
  *
  * \par Description
  * return the entry minus one saturated
@@ -52,8 +52,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag minusone_ of functor minusone 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct minusone_ {};
   }

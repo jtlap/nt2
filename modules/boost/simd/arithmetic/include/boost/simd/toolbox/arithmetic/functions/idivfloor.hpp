@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup idivfloor idivfloor function
+ * \defgroup boost_simd_arithmetic_idivfloor idivfloor function
  *
  * \par Description
  * return the \c floor of the operands real divisionin the corresponding integer type
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag idivfloor_ of functor idivfloor 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct idivfloor_ {};
   }

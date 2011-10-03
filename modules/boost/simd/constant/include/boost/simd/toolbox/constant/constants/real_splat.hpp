@@ -20,10 +20,10 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup real_splat Real_splat function
+ * \defgroup boost_simd_constant_real_splat Real_splat constant
  *
  * \par Description
- * Constant Real_splat
+ * TODO Put description here
  *
  * \par Header file
  * 

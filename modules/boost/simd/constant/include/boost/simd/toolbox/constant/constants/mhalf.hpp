@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup mhalf Mhalf function
+ * \defgroup boost_simd_constant_mhalf Mhalf constant
  *
  * \par Description
  * Constant Mhalf = -\f$\frac12\f$

@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup logical_and logical_and function
+ * \defgroup boost_simd_operator_logical_and logical_and function
  *
  * \par Description
  * return the logical and of the two parameters
@@ -71,8 +71,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag logical_and_ of functor logical_and 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::logical_and logical_and_;
   }

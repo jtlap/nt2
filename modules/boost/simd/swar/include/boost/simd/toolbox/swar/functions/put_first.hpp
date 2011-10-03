@@ -6,6 +6,9 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_PUT_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_PUT_FIRST_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -15,7 +18,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup put_first put_first function
+ * \defgroup boost_simd_swar_put_first put_first function
  *
  * \par Description
  * returns a vector equal to a0 except that
@@ -62,8 +65,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag put_first_ of functor put_first 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct put_first_ {};
   }

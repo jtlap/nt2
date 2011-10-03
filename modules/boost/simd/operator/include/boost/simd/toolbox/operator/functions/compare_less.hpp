@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup compare_less compare_less function
+ * \defgroup boost_simd_operator_compare_less compare_less function
  *
  * \par Description
  * return a bool that is the result of the lexicographic
@@ -74,8 +74,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag compare_less_ of functor compare_less 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::less compare_less_;
   }

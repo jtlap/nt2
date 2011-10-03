@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup msix Msix function
+ * \defgroup boost_simd_constant_msix Msix constant
  *
  * \par Description
  * Constant Msix = -6

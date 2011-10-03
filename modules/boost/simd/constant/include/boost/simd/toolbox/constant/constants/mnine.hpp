@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup mnine Mnine function
+ * \defgroup boost_simd_constant_mnine Mnine constant
  *
  * \par Description
  * Constant Mnine= -9

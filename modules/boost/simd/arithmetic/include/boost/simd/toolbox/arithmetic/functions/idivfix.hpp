@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup idivfix idivfix function
+ * \defgroup boost_simd_arithmetic_idivfix idivfix function
  *
  * \par Description
  * return the \c truncation of the operands real divisionin the corresponding integer type
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag idivfix_ of functor idivfix 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct idivfix_ {};
   }

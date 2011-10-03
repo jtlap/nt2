@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup tofloat tofloat function
+ * \defgroup boost_simd_arithmetic_tofloat tofloat function
  *
  * \par Description
  * convert an entry to floating points.
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag tofloat_ of functor tofloat 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct tofloat_ {};
   }

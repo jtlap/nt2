@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup mfive Mfive function
+ * \defgroup boost_simd_constant_mfive Mfive constant
  *
  * \par Description
  * Constant Mfive = -5

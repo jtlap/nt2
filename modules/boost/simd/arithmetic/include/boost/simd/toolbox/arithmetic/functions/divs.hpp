@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup divs divs function
+ * \defgroup boost_simd_arithmetic_divs divs function
  *
  * \par Description
  * return the saturated  division of the operandsin the input type
@@ -58,8 +58,8 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag divs_ of functor divs 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct divs_ {};
   }

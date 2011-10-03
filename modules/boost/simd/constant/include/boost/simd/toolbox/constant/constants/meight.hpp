@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup meight Meight function
+ * \defgroup boost_simd_constant_meight Meight constant
  *
  * \par Description
  * Constant Meight = -8

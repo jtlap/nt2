@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup mthree Mthree function
+ * \defgroup boost_simd_constant_mthree Mthree constant
  *
  * \par Description
  * Constant Mthree = -3

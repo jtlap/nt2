@@ -6,6 +6,9 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLATTED_MAXIMUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLATTED_MAXIMUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -13,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup splatted_maximum splatted_maximum function
+ * \defgroup boost_simd_swar_splatted_maximum splatted_maximum function
  *
  * \par Description
  * TODO Put description here
@@ -57,8 +60,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag splatted_maximum_ of functor splatted_maximum 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct splatted_maximum_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup random random function
+ * \defgroup boost_simd_arithmetic_random random function
  *
  * \par Description
  * return uniform random numbers of the common type of the entries and
@@ -54,8 +54,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag random_ of functor random 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct random_ {};
   }

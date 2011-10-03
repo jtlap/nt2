@@ -6,6 +6,9 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLATTED_SUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SPLATTED_SUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -13,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup splatted_sum splatted_sum function
+ * \defgroup boost_simd_swar_splatted_sum splatted_sum function
  *
  * \par Description
  * returns the sum of a0 elements splatted in a vector
@@ -57,8 +60,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag splatted_sum_ of functor splatted_sum 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct splatted_sum_ {};
   }

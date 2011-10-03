@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup splat splat function
+ * \defgroup boost_simd_operator_splat splat function
  *
  * \par Description
  * TODO Put description here
@@ -55,8 +55,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag splat_ of functor splat 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct splat_  {};
   }

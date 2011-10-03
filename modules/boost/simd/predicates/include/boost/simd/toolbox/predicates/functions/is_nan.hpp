@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup is_nan is_nan function
+ * \defgroup boost_simd_predicates_is_nan is_nan function
  *
  * \par Description
  * Returns True<A0>() or False<A0>() according a0 is nan or not.
@@ -59,8 +59,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag is_nan_ of functor is_nan 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_nan_ {};
   }

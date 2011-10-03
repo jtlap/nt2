@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup two_split two_split function
+ * \defgroup boost_simd_arithmetic_two_split two_split function
  *
  * \par Description
  * TODO Put description here
@@ -52,8 +52,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag two_split_ of functor two_split 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct two_split_ {};
   }

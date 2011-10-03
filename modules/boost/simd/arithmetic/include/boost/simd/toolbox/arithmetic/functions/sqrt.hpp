@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup sqrt sqrt function
+ * \defgroup boost_simd_arithmetic_sqrt sqrt function
  *
  * \par Description
  * return a floating point value which is the square root of the entry
@@ -52,8 +52,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag sqrt_ of functor sqrt 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct sqrt_ {};
   }

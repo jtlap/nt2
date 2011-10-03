@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup modulo modulo function
+ * \defgroup boost_simd_operator_modulo modulo function
  *
  * \par Description
  * return the elementwise modulo of the two parameters
@@ -61,8 +61,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag modulo_ of functor modulo 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::modulus modulo_;
   }

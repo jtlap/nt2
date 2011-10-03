@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup shift_right shift_right function
+ * \defgroup boost_simd_operator_shift_right shift_right function
  *
  * \par Description
  * return right shift of the first operand by the second
@@ -64,8 +64,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag shift_right_ of functor shift_right 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::shift_right shift_right_;
   }

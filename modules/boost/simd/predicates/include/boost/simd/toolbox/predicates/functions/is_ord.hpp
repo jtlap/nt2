@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup is_ord is_ord function
+ * \defgroup boost_simd_predicates_is_ord is_ord function
  *
  * \par Description
  * Returns True<A0>() if neither a0 and a1 is nan.
@@ -60,8 +60,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag is_ord_ of functor is_ord 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_ord_ {};
   }

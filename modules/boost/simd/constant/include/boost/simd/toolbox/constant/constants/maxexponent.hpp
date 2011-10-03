@@ -19,14 +19,14 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup maxexponent Maxexponent function
+ * \defgroup boost_simd_constant_maxexponent Maxexponent constant
  *
  * \par Description
  * Constant Maxexponent, this is the maximum exposant
  * for floating point numbers, i.e. 127 for float , 1023 for double
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup compare_not_equal compare_not_equal function
+ * \defgroup boost_simd_operator_compare_not_equal compare_not_equal function
  *
  * \par Description
  * return a bool that is the result of the lexicographic
@@ -76,8 +76,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag compare_not_equal_ of functor compare_not_equal 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::not_equal_to compare_not_equal_;
   }

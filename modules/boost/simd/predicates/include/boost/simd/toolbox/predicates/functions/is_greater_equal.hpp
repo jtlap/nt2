@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup is_greater_equal is_greater_equal function
+ * \defgroup boost_simd_predicates_is_greater_equal is_greater_equal function
  *
  * \par Description
  * Returns True<A0>() or False<A0>() according a0 is greater or equal to a1 or not.
@@ -64,8 +64,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag is_greater_equal_ of functor is_greater_equal 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_greater_equal_ {};
   }

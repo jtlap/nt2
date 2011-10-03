@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup cgold Cgold function
+ * \defgroup boost_simd_constant_cgold Cgold constant
  *
  * \par Description
  * Constant Cgold \f$= \frac{1-\sqrt5}{2}\f$

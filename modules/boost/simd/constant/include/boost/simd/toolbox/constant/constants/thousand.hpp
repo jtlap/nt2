@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup thousand Thousand function
+ * \defgroup boost_simd_constant_thousand Thousand constant
  *
  * \par Description
  * Constant Thousand= 1000

@@ -20,15 +20,15 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup maxleftshift Maxleftshift function
+ * \defgroup boost_simd_constant_maxleftshift Maxleftshift constant
  *
  * \par Description
  * Constant Maxleftshift
  * It is senseless to shift a value of more bits than the number of bits - 1 
  * of the value type: this is that number.
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup divides divides function
+ * \defgroup boost_simd_operator_divides divides function
  *
  * \par Description
  * return the elementwise division of the two parameters
@@ -63,8 +63,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag divides_ of functor divides 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::divides divides_;
   }

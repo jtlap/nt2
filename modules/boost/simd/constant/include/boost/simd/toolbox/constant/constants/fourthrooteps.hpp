@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup fourthrooteps Fourthrooteps function
+ * \defgroup boost_simd_constant_fourthrooteps Fourthrooteps constant
  *
  * \par Description
  * Constant Fourthrooteps
@@ -28,8 +28,8 @@
  * \arg \f$ 2^{-13}\f$ for double
  * \arg \f$ 2^{-5.75}\f$ for float
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

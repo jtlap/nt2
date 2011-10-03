@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup map map function
+ * \defgroup boost_simd_operator_map map function
  *
  * \par Description
  * TODO Put description here
@@ -53,8 +53,8 @@
 
 namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
   /*!
-   * \brief Define the tag map_ of functor map 
-   *        in namespace boost::simd::tag
+  _
+   *        in namespace boost::simd::tag for toolbox boost.simd.operator
   **/
 
 namespace boost { namespace simd

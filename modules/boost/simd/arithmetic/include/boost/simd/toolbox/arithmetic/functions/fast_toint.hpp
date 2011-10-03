@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup fast_toint fast_toint function
+ * \defgroup boost_simd_arithmetic_fast_toint fast_toint function
  *
  * \par Description
  * TODO Put description here
@@ -53,8 +53,8 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag fast_toint_ of functor fast_toint 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct fast_toint_ {};
   }

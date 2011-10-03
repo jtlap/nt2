@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup smallestposval Smallestposval function
+ * \defgroup boost_simd_constant_smallestposval Smallestposval constant
  *
  * \par Description
  * Constant Smallestposval : the least non zero positive value of floating point numbers,

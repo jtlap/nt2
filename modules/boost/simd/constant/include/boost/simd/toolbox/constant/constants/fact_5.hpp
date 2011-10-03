@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup fact_5 Fact_5 function
+ * \defgroup boost_simd_constant_fact_5 Fact_5 constant
  *
  * \par Description
  * Constant Fact_5 120

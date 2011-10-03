@@ -6,6 +6,9 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_COMPARATOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_COMPARATOR_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -13,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup comparator comparator function
+ * \defgroup boost_simd_swar_comparator comparator function
  *
  * \par Description
  * Compute the min and the max of the first two inputs if the third non zero,
@@ -47,7 +50,7 @@
  * \param a3 the fourth parameter of comparator, min or max of a0 and a1, according a2 is non zero
  * \param a4 the fith parameter of comparator, max or min of a0 and a1, according a2 is non zero
  * 
- * \return a bool value
+ * \return a bool value or a fusion vector of the bool and the two other results
  *  
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
@@ -69,8 +72,8 @@ namespace boost { namespace simd {
   namespace tag
   {         
     /*!
-     * \brief Define the tag comparator_ of functor comparator 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct comparator_ {};
   }

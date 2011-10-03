@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup logical_xor logical_xor function
+ * \defgroup boost_simd_arithmetic_logical_xor logical_xor function
  *
  * \par Description
  * returns the logical xor of  a0 and a1, i.e. returns true 
@@ -61,8 +61,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag logical_xor_ of functor logical_xor 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct logical_xor_ {};
   }

@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup mzero Mzero function
+ * \defgroup boost_simd_constant_mzero Mzero constant
  *
  * \par Description
  * Constant Mzero = -0

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup remquo remquo function
+ * \defgroup boost_simd_arithmetic_remquo remquo function
  *
  * \par Description
  * compute the quotient and at least 3 bits of the remainder of the division
@@ -62,8 +62,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag remquo_ of functor remquo 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct remquo_ {};
   }

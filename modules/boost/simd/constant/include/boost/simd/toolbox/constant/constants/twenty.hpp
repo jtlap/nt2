@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup twenty Twenty function
+ * \defgroup boost_simd_constant_twenty Twenty constant
  *
  * \par Description
  * Constant Twenty= twenty

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup sb2b sb2b function
+ * \defgroup boost_simd_predicates_sb2b sb2b function
  *
  * \par Description
  * converts signed boolean to bool.
@@ -59,8 +59,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag sb2b_ of functor sb2b 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct sb2b_ {};
   }

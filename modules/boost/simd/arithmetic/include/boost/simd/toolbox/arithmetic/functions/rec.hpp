@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup rec rec function
+ * \defgroup boost_simd_arithmetic_rec rec function
  *
  * \par Description
  * return the inverse of the input as a floating point value.
@@ -52,8 +52,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag rec_ of functor rec 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct rec_ {};
   }

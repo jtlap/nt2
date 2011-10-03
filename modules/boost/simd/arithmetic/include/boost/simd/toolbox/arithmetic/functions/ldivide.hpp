@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup ldivide ldivide function
+ * \defgroup boost_simd_arithmetic_ldivide ldivide function
  *
  * \par Description
  * TODO Put description here
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag ldivide_ of functor ldivide 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct ldivide_ {};
   }

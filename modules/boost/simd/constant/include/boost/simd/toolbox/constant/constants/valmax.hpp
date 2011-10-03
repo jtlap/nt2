@@ -21,7 +21,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup valmax Valmax function
+ * \defgroup boost_simd_constant_valmax Valmax constant
  *
  * \par Description
  * Constant Valmax, maximum value of a type.
@@ -30,8 +30,8 @@
  * \arg int32 2147483647, uint32 4294967295,
  * \arg int64 9223372036854775807, uint64 18446744073709551615,\arg float \f$\infty\f$, double \f$\infty\f$,
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

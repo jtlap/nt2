@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup two_prod two_prod function
+ * \defgroup boost_simd_arithmetic_two_prod two_prod function
  *
  * \par Description
  * TODO Put description here
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag two_prod_ of functor two_prod 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct two_prod_ {};
   }

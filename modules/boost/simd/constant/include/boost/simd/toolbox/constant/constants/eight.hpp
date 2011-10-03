@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup eight Eight function
+ * \defgroup boost_simd_constant_eight Eight constant
  *
  * \par Description
  * Constant Eight = 8

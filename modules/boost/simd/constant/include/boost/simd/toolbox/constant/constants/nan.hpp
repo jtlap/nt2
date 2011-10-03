@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup nan Nan function
+ * \defgroup boost_simd_constant_nan Nan constant
  *
  * \par Description
  * Constant Nan not a number for floating point value.
@@ -28,8 +28,8 @@
  * \par
  * For integer types the constant value is zero, the rationale being the C case.
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

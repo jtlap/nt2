@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boolean boolean function
+ * \defgroup boost_simd_predicates_boolean boolean function
  *
  * \par Description
  * Returns a boolean value but of the type of the input.
@@ -60,8 +60,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag boolean_ of functor boolean 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct boolean_ {};
   }

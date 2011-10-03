@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup ldiv ldiv function
+ * \defgroup boost_simd_arithmetic_ldiv ldiv function
  *
  * \par Description
  * returns the left division of a1 by a0, i.e. a1/a0
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag ldiv_ of functor ldiv 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct ldiv_ {};
   }

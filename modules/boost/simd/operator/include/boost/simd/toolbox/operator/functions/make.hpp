@@ -18,7 +18,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup make make function
+ * \defgroup boost_simd_operator_make make function
  *
  * \par Description
  * TODO Put description here
@@ -57,8 +57,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag make_ of functor make 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct make_ {};
   }

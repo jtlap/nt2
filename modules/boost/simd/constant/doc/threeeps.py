@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$ = 3\\\\f$\times\\\\f$ Eps<T>()",
+         'description' : [ "Constant $Fct$ = 3\\\\f$\\\\times\\\\f$ Eps<T>()",
                            "\\\\arg 3 for integer types",
                            "\\\\arg 6.661338147750939e-16 for double",
                            "\\\\arg 3.5762787e-07 for float"],                           

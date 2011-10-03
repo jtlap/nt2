@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup unary_minus unary_minus function
+ * \defgroup boost_simd_operator_unary_minus unary_minus function
  *
  * \par Description
  * return the elementwise unary minus of the parameter
@@ -61,8 +61,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag unary_minus_ of functor unary_minus 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::negate unary_minus_;
   }

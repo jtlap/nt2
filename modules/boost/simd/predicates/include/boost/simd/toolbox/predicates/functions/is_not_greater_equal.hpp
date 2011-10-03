@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup is_not_greater_equal is_not_greater_equal function
+ * \defgroup boost_simd_predicates_is_not_greater_equal is_not_greater_equal function
  *
  * \par Description
  * Returns True<A0>() if a0 is not greater or equal to a1 else returns False<A0>().
@@ -66,8 +66,8 @@ namespace boost { namespace simd
   namespace tag
   {         
     /*!
-     * \brief Define the tag is_not_greater_equal_ of functor is_not_greater_equal 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_greater_equal_ {};
   }

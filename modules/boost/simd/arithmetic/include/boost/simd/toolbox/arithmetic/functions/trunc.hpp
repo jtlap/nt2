@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup trunc trunc function
+ * \defgroup boost_simd_arithmetic_trunc trunc function
  *
  * \par Description
  * TODO Put description here
@@ -54,8 +54,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag trunc_ of functor trunc 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct trunc_ {};
   }

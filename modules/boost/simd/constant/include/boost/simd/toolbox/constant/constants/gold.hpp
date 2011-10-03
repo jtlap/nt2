@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup gold Gold function
+ * \defgroup boost_simd_constant_gold Gold constant
  *
  * \par Description
  * Constant Gold \f$= \frac{1+\sqrt5}{2}\f$

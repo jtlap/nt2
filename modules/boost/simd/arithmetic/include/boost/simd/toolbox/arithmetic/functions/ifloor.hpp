@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup ifloor ifloor function
+ * \defgroup boost_simd_arithmetic_ifloor ifloor function
  *
  * \par Description
  * return a value of integer type of the same size and signedness than the entry.
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag ifloor_ of functor ifloor 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct ifloor_ {};
   }

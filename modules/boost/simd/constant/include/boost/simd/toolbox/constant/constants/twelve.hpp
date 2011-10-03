@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup twelve Twelve function
+ * \defgroup boost_simd_constant_twelve Twelve constant
  *
  * \par Description
  * Constant Twelve = 12

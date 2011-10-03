@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup quarter Quarter function
+ * \defgroup boost_simd_constant_quarter Quarter constant
  *
  * \par Description
  * Constant Quarter = \f$\frac14\f$

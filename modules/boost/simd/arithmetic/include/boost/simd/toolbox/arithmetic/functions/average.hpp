@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup average average function
+ * \defgroup boost_simd_arithmetic_average average function
  *
  * \par Description
  * The function always returns a value of the same type than the entry.
@@ -56,8 +56,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag average_ of functor average 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct average_ {};
   }

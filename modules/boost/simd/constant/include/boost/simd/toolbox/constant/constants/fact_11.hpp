@@ -19,14 +19,14 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup fact_11 Fact_11 function
+ * \defgroup boost_simd_constant_fact_11 Fact_11 constant
  *
  * \par Description
  * Constant Fact_11  11! = 39916800, saturated factorial value is
  * min(Valmax<T>(),39916800)
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

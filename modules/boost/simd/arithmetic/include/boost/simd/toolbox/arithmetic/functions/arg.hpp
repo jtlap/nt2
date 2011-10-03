@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup arg arg function
+ * \defgroup boost_simd_arithmetic_arg arg function
  *
  * \par Description
  * The result is the argument of the input
@@ -54,8 +54,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag arg_ of functor arg 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct arg_ {};
   }

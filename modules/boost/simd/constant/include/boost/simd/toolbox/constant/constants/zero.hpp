@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup zero Zero function
+ * \defgroup boost_simd_constant_zero Zero constant
  *
  * \par Description
  * Constant Zero = 0

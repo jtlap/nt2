@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup majority majority function
+ * \defgroup boost_simd_predicates_majority majority function
  *
  * \par Description
  * Returns True<A0>() if at least two inputs are not zero else False<A0>().
@@ -61,8 +61,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag majority_ of functor majority 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct majority_ {};
   }

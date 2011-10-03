@@ -23,7 +23,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup load load function
+ * \defgroup boost_simd_operator_load load function
  *
  * \par Description
  * Load a data of type T from the memory zone given by (a0,a1)
@@ -60,7 +60,7 @@
  * \param a0 the first parameter of load
  * \param a1 the second parameter of load
  * 
- * \param T a template parameter of load
+ * \param T template parameter of load
  * 
  * \return a value of the common type of the parameters
  *  
@@ -74,8 +74,8 @@ namespace boost { namespace simd
 {
   namespace tag {
     /*!
-     * \brief Define the tag load_ of functor load 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct load_ {};
   }

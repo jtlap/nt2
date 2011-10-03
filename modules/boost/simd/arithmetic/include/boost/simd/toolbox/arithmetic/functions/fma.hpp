@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup fma fma function
+ * \defgroup boost_simd_arithmetic_fma fma function
  *
  * \par Description
  * computes \c a0*a1+a2, but the computation with only one rounding operation
@@ -59,8 +59,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag fma_ of functor fma 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct fma_ {};
   }

@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup five Five function
+ * \defgroup boost_simd_constant_five Five constant
  *
  * \par Description
  * Constant Five = 5

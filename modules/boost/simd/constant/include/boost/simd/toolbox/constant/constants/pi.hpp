@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup pi Pi function
+ * \defgroup boost_simd_constant_pi Pi constant
  *
  * \par Description
  * Constant Pi = half length of a circle of radius one

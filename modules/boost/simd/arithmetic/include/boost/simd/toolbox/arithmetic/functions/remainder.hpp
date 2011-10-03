@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup remainder remainder function
+ * \defgroup boost_simd_arithmetic_remainder remainder function
  *
  * \par Description
  * The function computes the remainder of dividing a0 by a1.
@@ -61,8 +61,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag remainder_ of functor remainder 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct remainder_ {};
   }

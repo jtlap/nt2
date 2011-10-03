@@ -26,7 +26,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup valmin Valmin function
+ * \defgroup boost_simd_constant_valmin Valmin constant
  *
  * \par Description
  * Constant Valmin, maximum value of a type.
@@ -35,8 +35,8 @@
  * \arg int32 -2147483648, uint32 0,
  * \arg int64 -9223372036854775808, uint64 0,\arg float \f$-\infty\f$, double \f$-\infty\f$,
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

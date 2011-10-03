@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup complement complement function
+ * \defgroup boost_simd_operator_complement complement function
  *
  * \par Description
  * return the bitwise complement of the entry
@@ -62,8 +62,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag complement_ of functor complement 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::complement complement_;
   }

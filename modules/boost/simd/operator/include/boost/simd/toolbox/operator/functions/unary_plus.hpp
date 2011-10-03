@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup unary_plus unary_plus function
+ * \defgroup boost_simd_operator_unary_plus unary_plus function
  *
  * \par Description
  * return the elementwise unary plus of the parameter
@@ -63,8 +63,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag unary_plus_ of functor unary_plus 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::unary_plus unary_plus_;
   }

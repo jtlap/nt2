@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup compare_greater compare_greater function
+ * \defgroup boost_simd_operator_compare_greater compare_greater function
  *
  * \par Description
  * return a bool that is the result of the lexicographic
@@ -74,8 +74,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag compare_greater_ of functor compare_greater 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::greater compare_greater_;
   }

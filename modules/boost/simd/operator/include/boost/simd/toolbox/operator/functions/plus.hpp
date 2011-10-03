@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup plus plus function
+ * \defgroup boost_simd_operator_plus plus function
  *
  * \par Description
  * return the elementwise sum of the two parameters
@@ -62,8 +62,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag plus_ of functor plus 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::plus plus_;
   }

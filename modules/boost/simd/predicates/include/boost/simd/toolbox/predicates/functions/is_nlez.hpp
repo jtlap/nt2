@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup is_nlez is_nlez function
+ * \defgroup boost_simd_predicates_is_nlez is_nlez function
  *
  * \par Description
  * Returns True<A0>() if a0 is not less or equal to zero else returns False<A0>().
@@ -61,8 +61,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag is_nlez_ of functor is_nlez 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_nlez_ {};
   }

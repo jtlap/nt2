@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup idivceil idivceil function
+ * \defgroup boost_simd_arithmetic_idivceil idivceil function
  *
  * \par Description
  * return the \c ceil of the operands real divisionin the corresponding integer type
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag idivceil_ of functor idivceil 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct idivceil_ {};
   }

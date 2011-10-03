@@ -21,14 +21,14 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup signmask Signmask function
+ * \defgroup boost_simd_constant_signmask Signmask constant
  *
  * \par Description
  * Constant Signmask : is a mask with the lone most significand bit set to one
  * (even if the type is unsigned).
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

@@ -19,16 +19,16 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup threeeps Threeeps function
+ * \defgroup boost_simd_constant_threeeps Threeeps constant
  *
  * \par Description
- * Constant Threeeps = 3*Eps<T>()
+ * Constant Threeeps = 3\f$\times\f$ Eps<T>()
  * \arg 3 for integer types
  * \arg 6.661338147750939e-16 for double
  * \arg 3.5762787e-07 for float
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

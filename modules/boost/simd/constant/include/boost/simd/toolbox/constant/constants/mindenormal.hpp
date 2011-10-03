@@ -21,14 +21,14 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup mindenormal Mindenormal function
+ * \defgroup boost_simd_constant_mindenormal Mindenormal constant
  *
  * \par Description
  * Constant Mindenormal : the least non zero positive value of floating point numbers,
  * i.e. 4.940656458412465e-324 for double and 1.4012985e-45 for float
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup dist dist function
+ * \defgroup boost_simd_arithmetic_dist dist function
  *
  * \par Description
  * this is $\|a_0-a_1\|$, and is always properly computed
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag dist_ of functor dist 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct dist_ {};
   }

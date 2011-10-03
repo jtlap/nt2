@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup divround divround function
+ * \defgroup boost_simd_arithmetic_divround divround function
  *
  * \par Description
  * return the \c round of the operands real divisionin the input type
@@ -54,8 +54,8 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag divround_ of functor divround 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct divround_ {};
   }

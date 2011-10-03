@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup abs abs function
+ * \defgroup boost_simd_arithmetic_abs abs function
  *
  * \par Description
  * The function always returns a value of the same type than the entry.
@@ -60,8 +60,8 @@
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag abs_ of functor abs 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct abs_ {};
   }

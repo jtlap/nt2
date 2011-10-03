@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup floor floor function
+ * \defgroup boost_simd_arithmetic_floor floor function
  *
  * \par Description
  * return a value of the same type of the entry
@@ -53,8 +53,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag floor_ of functor floor 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct floor_ {};
   }

@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup logical_not logical_not function
+ * \defgroup boost_simd_operator_logical_not logical_not function
  *
  * \par Description
  * return the logical negation of the parameter,
@@ -69,8 +69,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag logical_not_ of functor logical_not 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::logical_not logical_not_;
   }

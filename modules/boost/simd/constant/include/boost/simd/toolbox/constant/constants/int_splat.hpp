@@ -19,10 +19,10 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup int_splat Int_splat function
+ * \defgroup boost_simd_constant_int_splat Int_splat constant
  *
  * \par Description
- * Constant Int_splat
+ * TODO Put description here
  *
  * \par Header file
  * 

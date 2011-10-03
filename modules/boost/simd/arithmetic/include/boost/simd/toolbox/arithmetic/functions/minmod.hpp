@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup minmod minmod function
+ * \defgroup boost_simd_arithmetic_minmod minmod function
  *
  * \par Description
  * return the minimum of the two entries
@@ -54,8 +54,8 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag minmod_ of functor minmod 
-     *        in namespace boost::simd::tag
+    _
+     *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct minmod_ {};
   }

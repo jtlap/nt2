@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup halfeps Halfeps function
+ * \defgroup boost_simd_constant_halfeps Halfeps constant
  *
  * \par Description
  * Constant Halfeps
@@ -27,8 +27,8 @@
  * \arg \f$= \2^{-53}\f$ for double
  * \arg \f$= \2^{-24}\f$ for float
  * \par
- * The value of this constant are type dependant. This means that for different
- * types they do not represent the same mathematical number.
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
  *
  * \par Header file
  * 
