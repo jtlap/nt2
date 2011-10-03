@@ -6,10 +6,10 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_SETTINGS_META_SETTINGS_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_META_SETTINGS_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_CORE_SETTINGS_META_SETTINGS_HPP_INCLUDED
+#define BOOST_DISPATCH_CORE_SETTINGS_META_SETTINGS_HPP_INCLUDED
 
-#include <boost/dispatch/extension/parameters.hpp>
+#include <boost/dispatch/details/parameters.hpp>
 #include <nt2/core/settings/meta/option.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -62,7 +62,7 @@ namespace nt2 { namespace meta
   };                                                                      \
   /**/
 
-  BOOST_PP_REPEAT_FROM_TO(2,NT2_MAX_META_ARITY,M0,~)
+  BOOST_PP_REPEAT_FROM_TO(2,BOOST_DISPATCH_MAX_META_ARITY,M0,~)
 } }
 
 ////////////////////////////////////////////////////////////////////////////////

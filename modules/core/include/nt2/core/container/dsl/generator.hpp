@@ -12,13 +12,14 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <boost/simd/sdk/dsl/lambda_generator.hpp>
 #include <boost/simd/sdk/dsl/typed_expression.hpp>
+#include <boost/mpl/lambda.hpp>
 
 namespace nt2 { namespace container
 {
   typedef boost::simd::meta::
           lambda_generator< boost::simd::meta::
-                            typed_expression< typename mpl::
-                                              lambda< expression<mpl::_1, mpl::_2> >::type
+                            typed_expression< typename boost::mpl::
+                                              lambda< expression<boost::mpl::_1, boost::mpl::_2> >::type
                                             >
                           > generator;
 } }

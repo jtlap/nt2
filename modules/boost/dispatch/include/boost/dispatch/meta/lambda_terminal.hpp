@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Defines a terminal fitting a lambda function
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/proto/matches.hpp>
 #include <boost/proto/transform.hpp>
 
 namespace boost { namespace dispatch
@@ -20,7 +21,7 @@ namespace boost { namespace dispatch
   struct  lambda_terminal
         : boost::proto::
            and_< boost::proto::terminal<boost::proto::_>
-               , boost::proto::if_ < Lambda() >
+               , boost::proto::if_< Lambda() >
                >
   {};
 } }

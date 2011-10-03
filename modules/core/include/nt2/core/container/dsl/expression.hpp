@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/dsl/evaluate.hpp>
+#include <nt2/include/functions/evaluate.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <boost/proto/extends.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>

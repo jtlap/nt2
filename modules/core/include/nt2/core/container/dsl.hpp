@@ -6,19 +6,14 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_DSL_EVALUATE_HPP_INCLUDED
-#define NT2_SDK_DSL_EVALUATE_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DSL_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_HPP_INCLUDED
 
-#include <boost/simd/sdk/dsl/evaluate.hpp>
-
-namespace nt2
-{
-  namespace tag
-  {
-    using boost::simd::tag::evaluate_;
-  }
-
-  using boost::simd::evaluate;
-}
+#include <boost/dispatch/dsl/call.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/core/container/dsl/grammar.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/domain.hpp>
+#include <nt2/core/container/dsl/expression.hpp>
 
 #endif

@@ -6,23 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_PREPROCESS_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_PREPROCESS_HPP_INCLUDED
+#ifndef BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
+#define BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
 
-#include <nt2/sdk/dsl/preprocess.hpp>
+#include <boost/simd/dsl/functions/schedule.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 
 //==============================================================================
-// Preprocessing of expressions (no-op for now)
+// Splitting of non-combinable expressions (no-op by default)
 //==============================================================================
-namespace nt2 { namespace ext
+namespace boost { nammespace simd { namespace ext
 {
-  NT2_REGISTER_DISPATCH_TO( nt2::tag::preprocess_, tag::formal_
+  NT2_REGISTER_DISPATCH_TO( boost::simd::tag::schedule_, tag::formal_
                           , (A0)
                           , (unspecified_<A0>)
-                          , tag::identity_
+                          , identity
                           )
-} }
+} } }
 
 #endif

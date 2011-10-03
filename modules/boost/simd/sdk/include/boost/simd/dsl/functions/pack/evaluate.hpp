@@ -6,27 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_EVALUATE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_EVALUATE_HPP_INCLUDED
+#ifndef BOOST_SIMD_DSL_FUNCTIONS_PACK_EVALUATE_HPP_INCLUDED
+#define BOOST_SIMD_DSL_FUNCTIONS_PACK_EVALUATE_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/dsl/recognize.hpp>
-#include <nt2/core/container/dsl/preprocess.hpp>
-#include <nt2/core/container/dsl/compile.hpp>
-#include <nt2/sdk/dsl/evaluate.hpp>
-
-#include <nt2/sdk/functor/hierarchy.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <boost/simd/dsl/functions/evaluate.hpp>
+#include <boost/simd/include/functions/terminal.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/dsl/compute.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 
 //==============================================================================
-// Evaluation of container expressions
+// Evaluation of simd native pack
 //==============================================================================
-namespace nt2 { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::evaluate_, tag::formal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::evaluate_, tag::formal_
                             , (A0)(Tag)
-                            , ((expr_< unspecified_<A0>, nt2::container::domain, Tag >))
+                            , ((expr_< unspecified_<A0>, boost::simd::domain, Tag >))
                             )
   {
     typedef typename dispatch::meta::semantic_of<A0>::type result_type;
@@ -34,9 +32,9 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      return compile(preprocess(recognize(a0)))(a0);
+      return dispatch::meta::compute<BOOST_SIMD_DEFAULT_SITE>()(a0);
     }
   };
-} }
+} } }
 
 #endif

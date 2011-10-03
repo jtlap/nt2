@@ -22,6 +22,7 @@ set( SOURCES
 #    foo.cpp
 #    table_dim.cpp
      transform_pass.cpp
+     table.cpp
    )
 
 foreach(src ${SOURCES})

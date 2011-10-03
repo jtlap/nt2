@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_SETTINGS_META_OPTION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_META_OPTION_HPP_INCLUDED
 
-#include <nt2/sdk/error/static_assert.hpp>
+#include <boost/mpl/assert.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -19,14 +19,15 @@ namespace nt2 { namespace meta
   template<class Type, class Option, class Default, class Enable = void>
   struct option
   {
-    NT2_STATIC_ASSERT ( sizeof(Enable*) == 0
-                      , NT2_UNKNOWN_OPTION_TAG
-                      , "An attempt has been made to recover a container setting "
-                        "using an unregistered option tag. Check your option<> "
-                        "calls for any typos in the Option parameters or, if you "
-                        "are using a custom option tag, check for its Option "
-                        "Concept conformance."
-                      );
+    /* An attempt has been made to recover a container setting
+     * using an unregistered option tag. Check your option<>
+     * calls for any typos in the Option parameters or, if you
+     * are using a custom option tag, check for its Option
+     * Concept conformance. */
+    BOOST_MPL_ASSERT_MSG( sizeof(Enable*) == 0
+                        , NT2_UNKNOWN_OPTION_TAG
+                        , (Type)
+                        );
   };
 
   //////////////////////////////////////////////////////////////////////////////

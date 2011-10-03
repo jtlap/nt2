@@ -6,23 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_RECOGNIZE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_RECOGNIZE_HPP_INCLUDED
+#ifndef BOOST_SIMD_DSL_FUNCTIONS_OPTIMIZE_HPP_INCLUDED
+#define BOOST_SIMD_DSL_FUNCTIONS_OPTIMIZE_HPP_INCLUDED
 
-#include <nt2/sdk/dsl/recognize.hpp>
+#include <boost/simd/dsl/functions/optimize.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 
 //==============================================================================
-// Recognition of expressions (no-op for now)
+// Recognition of expressions (no-op by default)
 //==============================================================================
-namespace nt2 { namespace ext
+namespace boost { nammespace simd { namespace ext
 {
-  NT2_REGISTER_DISPATCH_TO( nt2::tag::recognize_, tag::formal_
+  NT2_REGISTER_DISPATCH_TO( boost::simd::tag::optimize_, tag::formal_
                           , (A0)
                           , (unspecified_<A0>)
-                          , tag::identity_
+                          , identity
                           )
-} }
+} } }
 
 #endif
