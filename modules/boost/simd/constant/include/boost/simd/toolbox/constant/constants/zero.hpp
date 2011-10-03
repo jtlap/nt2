@@ -22,7 +22,7 @@
  * \defgroup zero Zero function
  *
  * \par Description
- * Constant Zero
+ * Constant Zero = 0
  *
  * \par Header file
  * 

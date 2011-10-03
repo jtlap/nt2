@@ -1,8 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$, this is the maximum exposant",
+                           "for floating point numbers, i.e. 127 for float , 1023 for double"],
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

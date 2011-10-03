@@ -1,6 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : [ "Constant $Fct$",
+                           "\\\\arg Minimum value of the type for integer types",
+                           "\\\\arg \\\\f$= -\infty \\\\f$ for floating points"],
+         'return' : ["type T value"],
+         'type_dependant' : True,   
          'description' : [ "Constant $Fct$"],
          'return' : ["type T value"],
          'template' : True,   

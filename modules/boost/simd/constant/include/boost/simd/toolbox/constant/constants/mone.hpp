@@ -22,7 +22,7 @@
  * \defgroup mone Mone function
  *
  * \par Description
- * Constant Mone
+ * Constant Mone = -1
  *
  * \par Header file
  * 

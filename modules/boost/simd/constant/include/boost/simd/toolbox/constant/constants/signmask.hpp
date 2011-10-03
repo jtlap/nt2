@@ -24,7 +24,11 @@
  * \defgroup signmask Signmask function
  *
  * \par Description
- * Constant Signmask
+ * Constant Signmask : is a mask with the lone most significand bit set to one
+ * (even if the type is unsigned).
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

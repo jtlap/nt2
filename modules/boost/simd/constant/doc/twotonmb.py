@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ two to the number of mantissa bits."],
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

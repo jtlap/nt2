@@ -1,8 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$", "square root of constant eps",
+                           "\\\\arg 1 for integer types",
+                           "\\\\arg \\\\f$2^{-26}\\\\f$ for double",
+                           "\\\\arg \\\\f$2^{-11.5}\\\\f$ for float"],                           
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

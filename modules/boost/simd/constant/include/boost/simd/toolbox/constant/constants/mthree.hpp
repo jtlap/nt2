@@ -22,7 +22,7 @@
  * \defgroup mthree Mthree function
  *
  * \par Description
- * Constant Mthree
+ * Constant Mthree = -3
  *
  * \par Header file
  * 

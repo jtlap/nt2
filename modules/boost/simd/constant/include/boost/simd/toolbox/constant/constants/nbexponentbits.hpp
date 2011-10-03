@@ -22,7 +22,11 @@
  * \defgroup nbexponentbits Nbexponentbits function
  *
  * \par Description
- * Constant Nbexponentbits
+ * Constant Nbexponentbits, The number of exponent bits of a floating point number,
+ * i.e. 11 for double and 8 for float.
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

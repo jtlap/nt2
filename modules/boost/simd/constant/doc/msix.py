@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ = -6"],
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

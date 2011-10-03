@@ -22,7 +22,7 @@
  * \defgroup thousand Thousand function
  *
  * \par Description
- * Constant Thousand
+ * Constant Thousand= 1000
  *
  * \par Header file
  * 

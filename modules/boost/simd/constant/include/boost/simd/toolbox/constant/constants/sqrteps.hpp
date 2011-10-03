@@ -23,6 +23,13 @@
  *
  * \par Description
  * Constant Sqrteps
+ * square root of constant eps
+ * \arg 1 for integer types
+ * \arg \f$2^{-26}\f$ for double
+ * \arg \f$2^{-11.5}\f$ for float
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

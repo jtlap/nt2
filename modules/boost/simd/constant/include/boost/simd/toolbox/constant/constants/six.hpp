@@ -22,7 +22,7 @@
  * \defgroup six Six function
  *
  * \par Description
- * Constant Six
+ * Constant Six = 6
  *
  * \par Header file
  * 

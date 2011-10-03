@@ -22,7 +22,11 @@
  * \defgroup nbmantissabits Nbmantissabits function
  *
  * \par Description
- * Constant Nbmantissabits
+ * Constant Nbmantissabits, The number of mantissa bits of a floating point number,
+ * i.e. 53 for double and 24 for float.
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

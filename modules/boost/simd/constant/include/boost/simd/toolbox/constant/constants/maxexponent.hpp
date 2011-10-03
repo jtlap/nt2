@@ -22,7 +22,11 @@
  * \defgroup maxexponent Maxexponent function
  *
  * \par Description
- * Constant Maxexponent
+ * Constant Maxexponent, this is the maximum exposant
+ * for floating point numbers, i.e. 127 for float , 1023 for double
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

@@ -3,9 +3,10 @@
      'functor' : {
          'description' : [ "Constant $Fct$",
                            "\\\\arg 1 for integer types",
-                           "\\\\arg \\\\f$= \\\\2^{-52}\\\\f$ for double",
-                           "\\\\arg \\\\f$= \\\\2^{-23}\\\\f$ for float"],
+                           "\\\\arg \\\\f$ 2^{-52}\\\\f$ for double",
+                           "\\\\arg \\\\f$ 2^{-23}\\\\f$ for float"],
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

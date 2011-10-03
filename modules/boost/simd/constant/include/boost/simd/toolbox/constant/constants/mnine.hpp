@@ -22,7 +22,7 @@
  * \defgroup mnine Mnine function
  *
  * \par Description
- * Constant Mnine
+ * Constant Mnine= -9
  *
  * \par Header file
  * 

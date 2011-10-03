@@ -22,7 +22,7 @@
  * \defgroup mfive Mfive function
  *
  * \par Description
- * Constant Mfive
+ * Constant Mfive = -5
  *
  * \par Header file
  * 

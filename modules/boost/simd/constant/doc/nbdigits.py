@@ -1,9 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$, The number of mantissa bits of a floating point number,",
+                           "i.e. 53 for double and 24 for float."],
          'return' : ["type T value"],
          'template' : True,   
+         'type_dependant' : True,   
          'module' : 'boost',
          'special' : ['constant'],   
          'arity' : '0',

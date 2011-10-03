@@ -1,7 +1,13 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ = -0",
+                           "This is a special constant as it can be used and considered",
+                           "identical to zero, except that for floating point numbers,",
+                           "there is two different representation of zero with different bit of sign."
+                           "\par", "The existence of the sign can be used in special circumstances as",
+                           "choosing between \\\\f$\pm\infty\\\\f$ instead of nan in computing 1/0.",
+                           "\par", "The sign of zero can be accessed through the is_negative and is_positive predicates."],
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

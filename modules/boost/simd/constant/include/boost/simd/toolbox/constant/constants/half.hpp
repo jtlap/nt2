@@ -22,7 +22,7 @@
  * \defgroup half Half function
  *
  * \par Description
- * Constant Half
+ * Constant Half = \f$\frac12\f$ is not defined for integer types
  *
  * \par Header file
  * 

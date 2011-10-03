@@ -4,6 +4,7 @@
          'description' : [ "Constant $Fct$,  8! = 40320, the saturated factorial value is",
                            "min(Valmax<T>(),40320)"],
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

@@ -22,7 +22,7 @@
  * \defgroup twenty Twenty function
  *
  * \par Description
- * Constant Twenty
+ * Constant Twenty= twenty
  *
  * \par Header file
  * 

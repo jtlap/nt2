@@ -1,9 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$ saturated factorial value
-                           "min(Valmax<T>(),11!)"],
+         'description' : [ "Constant $Fct$  11! = 39916800, saturated factorial value is",
+                           "min(Valmax<T>(),39916800)"],
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

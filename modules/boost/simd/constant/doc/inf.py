@@ -3,8 +3,9 @@
      'functor' : {
          'description' : [ "Constant $Fct$",
                            "\\\\arg Maximum value of the type for integer types",
-                           "\\\\arg \\\\f$= \infty \\\\f$ for floating points",
+                           "\\\\arg \\\\f$= \infty \\\\f$ for floating points"],
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

@@ -22,7 +22,7 @@
  * \defgroup ten Ten function
  *
  * \par Description
- * Constant Ten
+ * Constant Ten = 10
  *
  * \par Header file
  * 

@@ -24,6 +24,11 @@
  *
  * \par Description
  * Constant Maxleftshift
+ * It is senseless to shift a value of more bits than the number of bits - 1 
+ * of the value type: this is that number.
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

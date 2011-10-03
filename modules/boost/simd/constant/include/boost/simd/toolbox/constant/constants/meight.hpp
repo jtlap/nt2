@@ -22,7 +22,7 @@
  * \defgroup meight Meight function
  *
  * \par Description
- * Constant Meight
+ * Constant Meight = -8
  *
  * \par Header file
  * 

@@ -22,7 +22,14 @@
  * \defgroup mzero Mzero function
  *
  * \par Description
- * Constant Mzero
+ * Constant Mzero = -0
+ * This is a special constant as it can be used and considered
+ * identical to zero, except that for floating point numbers,
+ * there is two different representation of zero with different bit of sign.\par
+ * The existence of the sign can be used in special circumstances as
+ * choosing between \f$\pm\infty\f$ instead of nan in computing 1/0.
+ * \par
+ * The sign of zero can be accessed through the is_negative and is_positive predicates.
  *
  * \par Header file
  * 

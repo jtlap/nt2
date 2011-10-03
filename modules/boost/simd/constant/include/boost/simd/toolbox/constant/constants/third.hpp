@@ -22,7 +22,7 @@
  * \defgroup third Third function
  *
  * \par Description
- * Constant Third
+ * Constant Third= \f$\frac13\f$
  *
  * \par Header file
  * 

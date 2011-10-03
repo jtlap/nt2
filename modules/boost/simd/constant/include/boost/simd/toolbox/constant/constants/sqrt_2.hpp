@@ -22,7 +22,7 @@
  * \defgroup sqrt_2 Sqrt_2 function
  *
  * \par Description
- * Constant Sqrt_2
+ * Constant Sqrt_2 = \f$\sqrt2\f$
  *
  * \par Header file
  * 

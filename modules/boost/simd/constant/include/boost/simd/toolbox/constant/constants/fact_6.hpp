@@ -22,7 +22,11 @@
  * \defgroup fact_6 Fact_6 function
  *
  * \par Description
- * Constant Fact_6
+ * Constant Fact_6, 6! = 720, the saturated factorial value is
+ * min(Valmax<T>(),720)
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

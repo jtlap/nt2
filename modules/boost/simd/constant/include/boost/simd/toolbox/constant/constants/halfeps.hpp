@@ -23,6 +23,12 @@
  *
  * \par Description
  * Constant Halfeps
+ * \arg 1 for integer types
+ * \arg \f$= \2^{-53}\f$ for double
+ * \arg \f$= \2^{-24}\f$ for float
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

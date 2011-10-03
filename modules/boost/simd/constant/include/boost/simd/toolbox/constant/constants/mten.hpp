@@ -22,7 +22,7 @@
  * \defgroup mten Mten function
  *
  * \par Description
- * Constant Mten
+ * Constant Mten = -10
  *
  * \par Header file
  * 

@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ = \\\\f$ \\\\frac{\sqrt2}2\\\\f$"],
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

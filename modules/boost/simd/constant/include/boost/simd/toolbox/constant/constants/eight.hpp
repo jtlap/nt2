@@ -22,7 +22,7 @@
  * \defgroup eight Eight function
  *
  * \par Description
- * Constant Eight
+ * Constant Eight = 8
  *
  * \par Header file
  * 

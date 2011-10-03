@@ -1,7 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ = half length of a circle of radius one",
+                           "... in normal temperature and pressure conditions."],
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

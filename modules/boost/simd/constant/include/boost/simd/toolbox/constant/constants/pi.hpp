@@ -22,7 +22,8 @@
  * \defgroup pi Pi function
  *
  * \par Description
- * Constant Pi
+ * Constant Pi = half length of a circle of radius one
+ * ... in normal temperature and pressure conditions.
  *
  * \par Header file
  * 

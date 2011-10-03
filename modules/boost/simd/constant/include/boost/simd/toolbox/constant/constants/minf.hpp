@@ -26,6 +26,9 @@
  *
  * \par Description
  * Constant Minf
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

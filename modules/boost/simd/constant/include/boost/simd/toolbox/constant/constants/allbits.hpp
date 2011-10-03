@@ -24,7 +24,10 @@
  * \defgroup allbits Allbits function
  *
  * \par Description
- * Constant Allbits
+ * Constant Allbits : all bits set to 1.
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

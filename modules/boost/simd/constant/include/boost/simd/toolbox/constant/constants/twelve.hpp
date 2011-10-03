@@ -22,7 +22,7 @@
  * \defgroup twelve Twelve function
  *
  * \par Description
- * Constant Twelve
+ * Constant Twelve = 12
  *
  * \par Header file
  * 

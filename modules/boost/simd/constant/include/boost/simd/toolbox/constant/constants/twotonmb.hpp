@@ -22,7 +22,7 @@
  * \defgroup twotonmb Twotonmb function
  *
  * \par Description
- * Constant Twotonmb
+ * Constant Twotonmb two to the number of mantissa bits.
  *
  * \par Header file
  * 

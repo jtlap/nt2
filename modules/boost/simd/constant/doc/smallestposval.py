@@ -1,7 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ : the least non zero positive value of floating point numbers,",
+                           "i.e. 2.225073858507201e-308 for double and  1.1754944e-38 for float"],
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

@@ -22,7 +22,7 @@
  * \defgroup quarter Quarter function
  *
  * \par Description
- * Constant Quarter
+ * Constant Quarter = \f$\frac14\f$
  *
  * \par Header file
  * 

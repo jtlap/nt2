@@ -22,7 +22,7 @@
  * \defgroup three Three function
  *
  * \par Description
- * Constant Three
+ * Constant Three = 3
  *
  * \par Header file
  * 

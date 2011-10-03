@@ -29,7 +29,14 @@
  * \defgroup valmin Valmin function
  *
  * \par Description
- * Constant Valmin
+ * Constant Valmin, maximum value of a type.
+ * \arg int8    -128, uint8    0,
+ * \arg int16 -32768, uint16 0,
+ * \arg int32 -2147483648, uint32 0,
+ * \arg int64 -9223372036854775808, uint64 0,\arg float \f$-\infty\f$, double \f$-\infty\f$,
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

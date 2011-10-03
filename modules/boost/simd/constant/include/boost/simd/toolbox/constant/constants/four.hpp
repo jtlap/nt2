@@ -22,7 +22,7 @@
  * \defgroup four Four function
  *
  * \par Description
- * Constant Four
+ * Constant Four = 4
  *
  * \par Header file
  * 

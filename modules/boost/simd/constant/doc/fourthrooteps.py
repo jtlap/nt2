@@ -3,9 +3,10 @@
      'functor' : {
          'description' : [ "Constant $Fct$", "the 4th root of constant eps",
                            "\\\\arg 1 for integer types",
-                           "\\\\arg \\\\f$= \\\\2^{-13}\\\\f$ for double",
-                           "\\\\arg \\\\f$= \\\\2^{-5.75}\\\\f$ for float"],                           
+                           "\\\\arg \\\\f$ 2^{-13}\\\\f$ for double",
+                           "\\\\arg \\\\f$ 2^{-5.75}\\\\f$ for float"],                           
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

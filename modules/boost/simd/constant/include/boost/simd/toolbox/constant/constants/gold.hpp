@@ -22,7 +22,7 @@
  * \defgroup gold Gold function
  *
  * \par Description
- * Constant Gold
+ * Constant Gold \f$= \frac{1+\sqrt5}{2}\f$
  *
  * \par Header file
  * 

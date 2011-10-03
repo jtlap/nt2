@@ -22,7 +22,7 @@
  * \defgroup cgold Cgold function
  *
  * \par Description
- * Constant Cgold
+ * Constant Cgold \f$= \frac{1-\sqrt5}{2}\f$
  *
  * \par Header file
  * 

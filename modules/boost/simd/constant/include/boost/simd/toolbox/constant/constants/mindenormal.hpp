@@ -24,7 +24,11 @@
  * \defgroup mindenormal Mindenormal function
  *
  * \par Description
- * Constant Mindenormal
+ * Constant Mindenormal : the least non zero positive value of floating point numbers,
+ * i.e. 4.940656458412465e-324 for double and 1.4012985e-45 for float
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

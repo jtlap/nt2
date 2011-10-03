@@ -1,7 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ is quite system specific as",
+                           "this value is type dependant at the SIMD level.","\par",
+                           "\\\\arg For scalar it is the standard bool value \c true,",
+                           "\\\\arg for ssex and avx system it is a all bits set to one value in the type T,",
+                           "\\\\arg for larrabee system it is an 32 integer mask with all bits set to one,",
+                           "\\\\arg etc."],
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

@@ -1,7 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ : all bits set to 1."],
+         'type_dependant' : True,   
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

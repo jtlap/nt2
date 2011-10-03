@@ -22,7 +22,7 @@
  * \defgroup five Five function
  *
  * \par Description
- * Constant Five
+ * Constant Five = 5
  *
  * \par Header file
  * 

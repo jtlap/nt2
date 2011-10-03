@@ -22,7 +22,7 @@
  * \defgroup mseven Mseven function
  *
  * \par Description
- * Constant Mseven
+ * Constant Mseven = -7
  *
  * \par Header file
  * 

@@ -22,7 +22,8 @@
  * \defgroup smallestposval Smallestposval function
  *
  * \par Description
- * Constant Smallestposval
+ * Constant Smallestposval : the least non zero positive value of floating point numbers,
+ * i.e. 2.225073858507201e-308 for double and  1.1754944e-38 for float
  *
  * \par Header file
  * 

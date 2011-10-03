@@ -22,7 +22,7 @@
  * \defgroup sqrt_2o_2 Sqrt_2o_2 function
  *
  * \par Description
- * Constant Sqrt_2o_2
+ * Constant Sqrt_2o_2 = \f$ \frac{\sqrt2}2\f$
  *
  * \par Header file
  * 

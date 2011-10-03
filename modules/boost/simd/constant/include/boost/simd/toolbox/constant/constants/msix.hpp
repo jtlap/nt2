@@ -22,7 +22,7 @@
  * \defgroup msix Msix function
  *
  * \par Description
- * Constant Msix
+ * Constant Msix = -6
  *
  * \par Header file
  * 

@@ -52,10 +52,11 @@ class Oxgen(Py_doc,Substitute) :
         self.mode    = self.bg.get_fct_mode()
         self.nfp =  Nt2_fct_props(self.tb_name,self.name,self.mode)
         self.types   = self.get_types()
-##        self.collect_py_doc_global_data()
         self.collect_functor_data()
         self.special = self.df.get("special",["nope"])
-        self.Fct    = self.fct.capitalize() if 'constant' in self.special else self.fct
+        self.is_constant = 'constant' in self.special
+        self.is_type_dependant =  self.df.get("type_dependant",False)
+        self.Fct    = self.fct.capitalize() if self.is_constant else self.fct
         self.external_toolbox_list = ['libc','cephes','standard','fdlibm','crlibm','boost_math']
         self.tb_style = self.nfp.get_tb_style()
         self.prefix= "" if self.tb_style =='sys' else self.tb_name.replace('.','_')+'_'
@@ -64,7 +65,6 @@ class Oxgen(Py_doc,Substitute) :
         self.df      = self.d.get("functor",{})
         
     def get_description(self) :
-##        special = self.df.get("special",[])
         desc = self.df.get("description",False)
         if self.special[0] in self.external_toolbox_list :
             desc = ['Please for details consult the proper documentation of the external',
@@ -95,7 +95,12 @@ class Oxgen(Py_doc,Substitute) :
                 desc.extend(['\par',
                              'The call is transfered to the standard C++ library function std::%s'%self.fct
                              ])
-                     
+        if self.is_constant and self.is_type_dependant :
+            desc.extend(['\par',
+                         'The value of this constant are type dependant. This means that for different',
+                         'types they do not represent the same mathematical number.'
+                         ])
+                
                 
         elif not desc :
             desc = ["TODO Put description here"]
@@ -115,11 +120,10 @@ class Nt2_oxygenation(Oxgen) :
             self.namespace = "boost::simd"
         else :
             self.namespace = "nt2" 
-        if self.nfp.get_tb_style() == 'usr'  and  'constant' not in self.special :
+        if self.nfp.get_tb_style() == 'usr' and not self.is_constant :
              self.tagnamespace = "nt2::%s"%self.tb_name
-        elif 'constant' in self.special :
+        elif self.is_constant :
              self.tagnamespace = self.namespace
-            
         else :
              self.tagnamespace = self.namespace
         
@@ -191,7 +195,7 @@ class Nt2_oxygenation(Oxgen) :
     def make_tag_ox(self) :
         Tag_ox = [
             "/*!",
-            " * \\brief $action$ the tag $Fct$%s of functor $Fct$ "% "" if 'constant' in self.special else '_',
+            " * \\brief $action$ the tag $Fct$%s of functor $Fct$ "% "" if self.is_constant else '_',
             " *        in namespace $tagnamespace$::tag for toolbox $tb_name$",
             "**/"
             ]
@@ -226,7 +230,6 @@ class Nt2_oxygenation(Oxgen) :
   
     def compose_call(self) :
 ##        special = self.df.get("special",[])
-        is_constant = 'constant' in self.special
         special_synopsis = self.df.get("special_synopsis",False)
         if special_synopsis :
             res = special_synopsis
@@ -243,7 +246,7 @@ class Nt2_oxygenation(Oxgen) :
                 tpl_list =  self.strlist('class A%d',sep=',',arity=arity)
                 type_list =  self.strlist('A%d',sep=',',arity=int(arity),n=1)
                 param_list =  self.strlist('const A%d & a%d',sep=',',arity=int(arity),n=2)
-            if is_constant : param_list =""    
+            if self.is_constant : param_list =""    
             tpl_str  = "template <" + tpl + tpl_list +">"
             result_str = "  meta::call<tag::"+self.fct+'_('+type_list+')>::type'
             param_str  =  "  "+self.Fct+"("+param_list+");"
@@ -290,7 +293,7 @@ class Nt2_oxygenation(Oxgen) :
         return '\n'.join(self.starize(res))+'\n'
 
     def compose_notes(self) :
-        if 'constant' in self.special :
+        if self.is_constant :
             res = ""
             return res
         res = ['\par Notes',

@@ -22,7 +22,11 @@
  * \defgroup splitfactor Splitfactor function
  *
  * \par Description
- * Constant Splitfactor
+ * Constant Splitfactor is a constant used to split a floating number in two half,
+ * in floating point routines such two_add and two_prod to get extra precision.
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

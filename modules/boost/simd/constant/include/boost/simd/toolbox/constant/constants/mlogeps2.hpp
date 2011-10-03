@@ -22,7 +22,7 @@
  * \defgroup mlogeps2 Mlogeps2 function
  *
  * \par Description
- * Constant Mlogeps2
+ * Constant Mlogeps2 TODO
  *
  * \par Header file
  * 

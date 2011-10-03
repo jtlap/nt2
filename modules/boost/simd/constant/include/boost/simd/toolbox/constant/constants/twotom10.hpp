@@ -22,7 +22,7 @@
  * \defgroup twotom10 Twotom10 function
  *
  * \par Description
- * Constant Twotom10
+ * Constant Twotom10 = \f$2^{-10}\f$
  *
  * \par Header file
  * 

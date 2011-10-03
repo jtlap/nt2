@@ -22,7 +22,7 @@
  * \defgroup seven Seven function
  *
  * \par Description
- * Constant Seven
+ * Constant Seven = 7
  *
  * \par Header file
  * 

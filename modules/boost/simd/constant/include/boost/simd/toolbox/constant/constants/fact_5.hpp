@@ -22,7 +22,7 @@
  * \defgroup fact_5 Fact_5 function
  *
  * \par Description
- * Constant Fact_5
+ * Constant Fact_5 120
  *
  * \par Header file
  * 

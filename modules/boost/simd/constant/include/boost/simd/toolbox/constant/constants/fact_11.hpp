@@ -22,7 +22,11 @@
  * \defgroup fact_11 Fact_11 function
  *
  * \par Description
- * Constant Fact_11
+ * Constant Fact_11  11! = 39916800, saturated factorial value is
+ * min(Valmax<T>(),39916800)
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

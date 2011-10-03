@@ -1,8 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$",
+                           "It is senseless to shift a value of more bits than the number of bits - 1 ",
+                           "of the value type: this is that number."],
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

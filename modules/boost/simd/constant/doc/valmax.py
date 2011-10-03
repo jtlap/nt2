@@ -1,8 +1,14 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$, maximum value of a type.",
+                           "\\\\arg int8    127, uint8    255,",
+                           "\\\\arg int16 32767, uint16 65535,",
+                           "\\\\arg int32 2147483647, uint32 4294967295,",
+                           "\\\\arg int64 9223372036854775807, uint64 18446744073709551615,"
+                           "\\\\arg float \\\\f$\infty\\\\f$, double \\\\f$\infty\\\\f$,"],
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   

@@ -22,7 +22,7 @@
  * \defgroup eleven Eleven function
  *
  * \par Description
- * Constant Eleven
+ * Constant Eleven = 11
  *
  * \par Header file
  * 

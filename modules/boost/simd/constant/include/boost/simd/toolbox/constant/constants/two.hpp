@@ -22,7 +22,7 @@
  * \defgroup two Two function
  *
  * \par Description
- * Constant Two
+ * Constant Two = 2
  *
  * \par Header file
  * 

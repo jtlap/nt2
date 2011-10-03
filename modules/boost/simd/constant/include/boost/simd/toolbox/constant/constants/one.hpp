@@ -22,7 +22,7 @@
  * \defgroup one One function
  *
  * \par Description
- * Constant One
+ * Constant One = 1
  *
  * \par Header file
  * 

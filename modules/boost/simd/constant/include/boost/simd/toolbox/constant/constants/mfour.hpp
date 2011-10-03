@@ -22,7 +22,7 @@
  * \defgroup mfour Mfour function
  *
  * \par Description
- * Constant Mfour
+ * Constant Mfour = -4
  *
  * \par Header file
  * 

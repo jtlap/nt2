@@ -1,9 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$ is a constant used to split a floating number in two half,",
+                           "in floating point routines such two_add and two_prod to get extra precision."],
          'return' : ["type T value"],
          'template' : True,   
+         'type_dependant' : True,   
          'module' : 'boost',
          'special' : ['constant'],   
          'arity' : '0',

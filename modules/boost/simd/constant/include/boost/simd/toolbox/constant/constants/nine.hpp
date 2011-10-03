@@ -22,7 +22,7 @@
  * \defgroup nine Nine function
  *
  * \par Description
- * Constant Nine
+ * Constant Nine = 9
  *
  * \par Header file
  * 

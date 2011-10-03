@@ -23,6 +23,13 @@
  *
  * \par Description
  * Constant Thirdrooteps
+ * the third root of constant eps
+ * \arg 1 for integer types
+ * \arg 6.055454452393343e-06 for double
+ * \arg 4.9215667e-03 for float
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

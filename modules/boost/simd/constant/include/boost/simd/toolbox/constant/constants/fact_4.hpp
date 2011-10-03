@@ -22,7 +22,7 @@
  * \defgroup fact_4 Fact_4 function
  *
  * \par Description
- * Constant Fact_4
+ * Constant Fact_4 4! = 24
  *
  * \par Header file
  * 

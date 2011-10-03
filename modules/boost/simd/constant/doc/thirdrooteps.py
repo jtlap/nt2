@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$", "the third root of constant eps",
+                           "\\\\arg 1 for integer types",
+                           "\\\\arg 6.055454452393343e-06 for double",
+                           "\\\\arg 4.9215667e-03 for float"],                           
+         'type_dependant' : True,   
          'return' : ["type T value"],
          'template' : True,   
          'module' : 'boost',

@@ -23,6 +23,13 @@
  *
  * \par Description
  * Constant Ldexpmask
+ * This constant is the mask to extract the exponent
+ * bits of a floating point value
+ * \par
+ * Its value depends of the type of the template parameter
+ * \par
+ * The value of this constant are type dependant. This means that for different
+ * types they do not represent the same mathematical number.
  *
  * \par Header file
  * 

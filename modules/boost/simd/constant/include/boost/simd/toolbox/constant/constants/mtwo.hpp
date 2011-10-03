@@ -22,7 +22,7 @@
  * \defgroup mtwo Mtwo function
  *
  * \par Description
- * Constant Mtwo
+ * Constant Mtwo = -2
  *
  * \par Header file
  * 

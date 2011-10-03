@@ -22,7 +22,7 @@
  * \defgroup mhalf Mhalf function
  *
  * \par Description
- * Constant Mhalf
+ * Constant Mhalf = -\f$\frac12\f$
  *
  * \par Header file
  * 

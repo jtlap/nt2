@@ -1,8 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : [ "Constant $Fct$"],
+         'description' : [ "Constant $Fct$",
+                           "This constant is the mask to extract the exponent",
+                           "bits of a floating point value",
+                           "\par", "Its value depends of the type of the template parameter"],
          'return' : ["type T value"],
+         'type_dependant' : True,   
          'template' : True,   
          'module' : 'boost',
          'special' : ['constant'],   
