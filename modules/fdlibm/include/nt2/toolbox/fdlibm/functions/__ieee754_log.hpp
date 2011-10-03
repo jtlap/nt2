@@ -58,13 +58,15 @@
  * and will not provide acceleration, but ease.
  * \par
  * fdlibm library defines functions for double entries only.
+ * Nevertheless, they can be called with float entries under nt2 calls
+ * to return float outputs.
  *  
 **/
 
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     /*!
-     * \brief Define the tag __ieee754_log_ of functor __ieee754_log 
+    _
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct __ieee754_log_ {};

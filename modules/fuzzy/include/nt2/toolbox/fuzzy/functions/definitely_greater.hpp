@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup definitely_greater definitely_greater function
+ * \defgroup fuzzy_definitely_greater definitely_greater function
  *
  * \par Description
  * \f$a_0 \gt \mathop{\mathrm{successor}}(a_1,|a_2|)\f$
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag definitely_greater_ of functor definitely_greater 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct definitely_greater_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup definitely_less definitely_less function
+ * \defgroup fuzzy_definitely_less definitely_less function
  *
  * \par Description
  * \f$a_0 \lt \mathop{\mathrm{predecessor}}(a_1,|a_2|)\f$
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag definitely_less_ of functor definitely_less 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct definitely_less_ {};
   }

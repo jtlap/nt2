@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_definitely_not_equal fuzzy_definitely_not_equal function
+ * \defgroup fuzzy_fuzzy_definitely_not_equal fuzzy_definitely_not_equal function
  *
  * \par Description
  * \f$|a_0-a_1| \gt a_2*\max(|a_0|,|a1|)\f$
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fuzzy_definitely_not_equal_ of functor fuzzy_definitely_not_equal 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct fuzzy_definitely_not_equal_ {};
   }

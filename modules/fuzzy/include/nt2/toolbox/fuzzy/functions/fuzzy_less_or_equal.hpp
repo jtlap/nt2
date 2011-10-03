@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_less_or_equal fuzzy_less_or_equal function
+ * \defgroup fuzzy_fuzzy_less_or_equal fuzzy_less_or_equal function
  *
  * \par Description
  * \f$a_0 \le a_1+a_2*\max(|a_0|,|a1|)\f$
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fuzzy_less_or_equal_ of functor fuzzy_less_or_equal 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct fuzzy_less_or_equal_ {};
   }

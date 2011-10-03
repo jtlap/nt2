@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup almost_less_or_equal almost_less_or_equal function
+ * \defgroup fuzzy_almost_less_or_equal almost_less_or_equal function
  *
  * \par Description
  * \f$a_0 \le \mathop{\mathrm{successor}}(a_1,|a_2|)\f$
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag almost_less_or_equal_ of functor almost_less_or_equal 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct almost_less_or_equal_ {};
   }

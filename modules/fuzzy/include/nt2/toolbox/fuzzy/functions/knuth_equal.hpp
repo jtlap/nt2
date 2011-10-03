@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup knuth_equal knuth_equal function
+ * \defgroup fuzzy_knuth_equal knuth_equal function
  *
  * \par Description
  * \f$|a_0-a_1| \le a_2*\mathop{\mathrm{exponent(\max(|a_0|, |a_1|))}}\f$
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag knuth_equal_ of functor knuth_equal 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct knuth_equal_ {};
   }

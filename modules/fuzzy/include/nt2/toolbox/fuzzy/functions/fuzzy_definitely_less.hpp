@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_definitely_less fuzzy_definitely_less function
+ * \defgroup fuzzy_fuzzy_definitely_less fuzzy_definitely_less function
  *
  * \par Description
  * a_0 \lt a_1-a_2*\max(|a_0|,|a1|)
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fuzzy_definitely_less_ of functor fuzzy_definitely_less 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct fuzzy_definitely_less_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup almost_equal almost_equal function
+ * \defgroup fuzzy_almost_equal almost_equal function
  *
  * \par Description
  * \f$ a0 \in \quad ]a_1-\mathop{\mathrm{predecessor}}(a_1,|a_2|),a_1-\mathop{\mathrm{successor}}(a_1,|a_2|)[\f$
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag almost_equal_ of functor almost_equal 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct almost_equal_ {};
   }

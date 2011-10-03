@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup definitely_not_equal definitely_not_equal function
+ * \defgroup fuzzy_definitely_not_equal definitely_not_equal function
  *
  * \par Description
  * \f$ a0 \notin [a_1-\mathop{\mathrm{predecessor}}(a1,|a_2|),a_1-\mathop{\mathrm{successor}}(a1,|a_2|)]\f$
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag definitely_not_equal_ of functor definitely_not_equal 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct definitely_not_equal_ {};
   }
