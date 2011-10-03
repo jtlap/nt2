@@ -21,9 +21,9 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
 #include <boost/fusion/include/as_vector.hpp>
-#include <nt2/core/container/meta/value_of.hpp>
-#include <nt2/core/container/meta/model_of.hpp>
 #include <nt2/core/container/memory/adapted/composite_buffer.hpp>
 
 namespace nt2 { namespace memory
@@ -41,8 +41,8 @@ namespace nt2 { namespace memory
   template< typename Buffer >
   struct composite_buffer
   {
-    typedef typename meta::value_of<Buffer>::type                   values;
-    typedef typename meta::model_of<Buffer>::type                     model;
+    typedef typename boost::dispatch::meta::value_of<Buffer>::type      values;
+    typedef typename boost::dispatch::meta::model_of<Buffer>::type      model;
     typedef typename boost::fusion::result_of::as_vector<values>::type  types;
     typedef typename boost::mpl::transform<types,model>::type           data_type;
 

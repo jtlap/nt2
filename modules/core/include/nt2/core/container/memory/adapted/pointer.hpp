@@ -12,8 +12,8 @@
 #include <boost/mpl/apply.hpp>
 #include <nt2/sdk/meta/remove_pointers.hpp>
 #include <boost/type_traits/add_pointer.hpp>
-#include <nt2/core/container/meta/model_of.hpp>
-#include <nt2/core/container/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/reference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
 
@@ -29,28 +29,6 @@ namespace nt2 { namespace meta
   struct  dimensions_of< T* >
         : boost::mpl::size_t<1 + dimensions_of<T>::value>
   {};
-
-  //============================================================================
-  // value_of specialization
-  //============================================================================
-  template<typename T> struct value_of< T* > : value_of<T> {};
-
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<typename T>
-  struct model_of< T* >
-  {
-    typedef struct make
-    {
-      template<class X> struct apply
-      {
-        typedef typename  boost::mpl::
-                          apply<typename model_of<T>::type,X>::type base;
-        typedef typename boost::add_pointer<base>::type             type;
-      };
-    } type;
-  };
 
   //============================================================================
   // reference_ specialization
@@ -72,8 +50,32 @@ namespace nt2 { namespace meta
   {
     typedef typename meta::remove_pointers<T*,Level>::type type;
   };
-
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  //============================================================================
+  // value_of specialization
+  //============================================================================
+  template<typename T> struct value_of< T* > : value_of<T> {};
+
+  //============================================================================
+  // model_of specialization
+  //============================================================================
+  template<typename T>
+  struct model_of< T* >
+  {
+    struct type
+    {
+      template<class X> struct apply
+      {
+        typedef typename  boost::mpl::
+                          apply<typename model_of<T>::type,X>::type base;
+        typedef typename boost::add_pointer<base>::type             type;
+      };
+    };
+  };
+} } }
 
 namespace nt2 { namespace memory
 {

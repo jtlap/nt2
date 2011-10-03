@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dimensions, PADDING )
 NT2_TEST_CASE_TPL( iliffe_buffer_values, PADDING )
 {
   using boost::is_same;
-  using nt2::meta::value_of;
+  using boost::dispatch::meta::value_of;
   using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
 
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_values, PADDING )
 NT2_TEST_CASE_TPL( iliffe_buffer_models, PADDING )
 {
   using boost::is_same;
-  using nt2::meta::model_of;
+  using boost::dispatch::meta::model_of;
   using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
   using boost::mpl::apply;
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_models, PADDING )
   typedef typename model_of< iliffe_buffer<1,int,T,allocator<int> > >::type model1d;
   typedef typename model_of< iliffe_buffer<2,int,T,allocator<int> > >::type model2d;
   typedef typename model_of< iliffe_buffer<3,int,T,allocator<int> > >::type model3d;
-    
+
   NT2_TEST((is_same<typename apply<model1d,float>::type, iliffe_buffer<1,float,T,allocator<float> > >::value ));
   NT2_TEST((is_same<typename apply<model2d,float>::type, iliffe_buffer<2,float,T,allocator<float> > >::value ));
   NT2_TEST((is_same<typename apply<model3d,float>::type, iliffe_buffer<3,float,T,allocator<float> > >::value ));
@@ -119,11 +119,11 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, PADDING )
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
   initialize(tab, sizes, bases, T() );
-  
+
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
-  for(pos[0]=-2;pos[0]<=2;++pos[0]) 
+  for(pos[0]=-2;pos[0]<=2;++pos[0])
     dereference<1UL>(tab,pos) = int(10*(1+pos[0]));
 
   for(pos[0]=-2;pos[0]<=2;++pos[0])

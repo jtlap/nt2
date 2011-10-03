@@ -36,15 +36,15 @@ NT2_TEST_CASE( pointer_dimensions )
 NT2_TEST_CASE( pointer_values )
 {
   using boost::is_same;
-  using nt2::meta::value_of;
+  using boost::dispatch::meta::value_of;
 
-  NT2_TEST((is_same< value_of< int* >::type, int>::value ));
-  NT2_TEST((is_same< value_of< int** >::type, int>::value ));
+  NT2_TEST((is_same< value_of< int* >::type  , int>::value ));
+  NT2_TEST((is_same< value_of< int** >::type , int>::value ));
   NT2_TEST((is_same< value_of< int*** >::type, int>::value ));
 
-  NT2_TEST((is_same< value_of< int const* >::type, int const>::value ));
-  NT2_TEST((is_same< value_of< int const** >::type, int const>::value ));
-  NT2_TEST((is_same< value_of< int const*** >::type, int const>::value ));
+  NT2_TEST((is_same< value_of< int const* >::type  , int>::value ));
+  NT2_TEST((is_same< value_of< int const** >::type , int>::value ));
+  NT2_TEST((is_same< value_of< int const*** >::type, int>::value ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ NT2_TEST_CASE( pointer_model )
 {
   using boost::mpl::apply;
   using boost::is_same;
-  using nt2::meta::model_of;
+  using boost::dispatch::meta::model_of;
 
   typedef model_of< int* >::type model1d;
   typedef model_of< int** >::type model2d;
@@ -63,10 +63,6 @@ NT2_TEST_CASE( pointer_model )
   NT2_TEST((is_same<apply<model1d,float>::type, float* >::value ));
   NT2_TEST((is_same<apply<model2d,float>::type, float** >::value ));
   NT2_TEST((is_same<apply<model3d,float>::type, float*** >::value ));
-
-  NT2_TEST((is_same<apply<model1d,char const>::type, char const* >::value ));
-  NT2_TEST((is_same<apply<model2d,char const>::type, char const** >::value ));
-  NT2_TEST((is_same<apply<model3d,char const>::type, char const*** >::value ));
 }
 
 

@@ -40,7 +40,6 @@ NT2_TEST_CASE( composite_buffer_dimensions )
   NT2_TEST_EQUAL((dimensions_of< composite_buffer<array<array<array<foo,4>,4>,4> > >::value), 3UL);
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // composite_buffer can be dereferenced
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +60,6 @@ NT2_TEST_CASE( std_array_reference )
   NT2_TEST((is_same< dereference_<base const&,1>::type, vector3<array<array<double, 2>, 3> const&, array<array<float, 2>, 3> const&, array<array<char, 2>, 3> const&> >::value) );
   NT2_TEST((is_same< dereference_<base const&,2>::type, vector3<array<double, 2> const&, array<float, 2> const&, array<char, 2> const&> >::value) );
   NT2_TEST((is_same< dereference_<base const&,3>::type, vector3<double const&, float const&, char const&> >::value) );
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +92,7 @@ NT2_TEST_CASE( composite_buffer_1D_as_buffer )
     boost::fusion::at_c<1>(dereference<1UL>(tab,pos)) = float(1+pos[0]);
     boost::fusion::at_c<2>(dereference<1UL>(tab,pos)) = char('A' + pos[0]);
   }
-  
+
   for(pos[0]=0;pos[0]<5;++pos[0])
   {
     NT2_TEST_EQUAL(boost::fusion::at_c<0>(dereference<1UL>(tab,pos)), double(pos[0]));

@@ -38,7 +38,7 @@ NT2_TEST_CASE( std_array_values )
 {
   using boost::array;
   using boost::is_same;
-  using nt2::meta::value_of;
+  using boost::dispatch::meta::value_of;
 
   NT2_TEST((is_same< value_of< array<int,4> >::type, int>::value ));
   NT2_TEST((is_same< value_of< array<array<int,4>,4> >::type, int>::value ));
@@ -52,7 +52,7 @@ NT2_TEST_CASE( std_array_model )
   using boost::array;
   using boost::mpl::apply;
   using boost::is_same;
-  using nt2::meta::model_of;
+  using boost::dispatch::meta::model_of;
 
   typedef model_of< array<int,4> >::type model1d;
   typedef model_of< array<array<int,4>,3> >::type model2d;

@@ -11,13 +11,12 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <nt2/core/container/meta/model_of.hpp>
-#include <nt2/core/container/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/reference.hpp>
 #include <boost/fusion/include/transform_view.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
-
 
 //==============================================================================
 // Forward declaration
@@ -44,31 +43,6 @@ namespace nt2 { namespace meta
   struct  dimensions_of< memory::composite_buffer<B> >
         : dimensions_of< B >
   {};
-
-  //============================================================================
-  // value_of specialization
-  //============================================================================
-  template<typename B>
-  struct value_of< memory::composite_buffer<B> > : value_of<B>
-  {};
-
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<typename B> struct model_of< memory::composite_buffer<B> >
-  {
-    typedef struct make
-    {
-      template<class X> struct apply
-      {
-        // This recursive build is required to properly handle vector of vector
-        // cases and other similar recursive structure
-        typedef typename  boost::mpl::
-                          apply<typename model_of<B>::type,X>::type base;
-        typedef memory::composite_buffer<base>                      type;
-      };
-    } type;
-  };
 
   //============================================================================
   // dereference_ specialization
@@ -107,6 +81,34 @@ namespace nt2 { namespace meta
                       >::type                                             type;
   };
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  //============================================================================
+  // value_of specialization
+  //============================================================================
+  template<typename B>
+  struct value_of< nt2::memory::composite_buffer<B> > : value_of<B>
+  {};
+
+  //============================================================================
+  // model_of specialization
+  //============================================================================
+  template<typename B> struct model_of< nt2::memory::composite_buffer<B> >
+  {
+    struct type
+    {
+      template<class X> struct apply
+      {
+        // This recursive build is required to properly handle vector of vector
+        // cases and other similar recursive structure
+        typedef typename  boost::mpl::
+                          apply<typename model_of<B>::type,X>::type base;
+        typedef nt2::memory::composite_buffer<base>                 type;
+      };
+    };
+  };
+} } }
 
 namespace nt2 { namespace details
 {

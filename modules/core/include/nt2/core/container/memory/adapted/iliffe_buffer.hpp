@@ -10,8 +10,8 @@
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ILIFFE_BUFFER_HPP
 
 #include <boost/mpl/size_t.hpp>
-#include <nt2/core/container/meta/model_of.hpp>
-#include <nt2/core/container/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/reference.hpp>
 #include <nt2/core/container/meta/reference.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
@@ -36,31 +36,6 @@ namespace nt2 { namespace meta
   struct dimensions_of< memory::iliffe_buffer<D,T,P,A> > : boost::mpl::size_t<D>
   {};
 
-  //============================================================================
-  // value_of specialization
-  //============================================================================
-  template<std::size_t D, typename T, typename P, typename A>
-  struct value_of< memory::iliffe_buffer<D,T,P,A> >
-  {
-    typedef T type;
-  };
-
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<std::size_t D, typename T, typename P, typename A>
-  struct model_of< memory::iliffe_buffer<D,T,P,A> >
-  {
-    typedef struct make
-    {
-      template<class X> struct apply
-      {
-        typedef typename A::template rebind<X>::other alloc;
-        typedef memory::iliffe_buffer<D,X,P,alloc>    type;
-      };
-    } type;  
-  };
-  
   //============================================================================
   // dereference_ specialization
   //============================================================================
@@ -100,6 +75,34 @@ namespace nt2 { namespace meta
     typedef typename memory::iliffe_buffer<D,T,P,A>::value_type type;
   };
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  //============================================================================
+  // value_of specialization
+  //============================================================================
+  template<std::size_t D, typename T, typename P, typename A>
+  struct value_of< nt2::memory::iliffe_buffer<D,T,P,A> >
+  {
+    typedef T type;
+  };
+
+  //============================================================================
+  // model_of specialization
+  //============================================================================
+  template<std::size_t D, typename T, typename P, typename A>
+  struct model_of< nt2::memory::iliffe_buffer<D,T,P,A> >
+  {
+    typedef struct make
+    {
+      template<class X> struct apply
+      {
+        typedef typename A::template rebind<X>::other alloc;
+        typedef nt2::memory::iliffe_buffer<D,X,P,alloc>    type;
+      };
+    } type;
+  };
+} } }
 
 namespace nt2 { namespace memory
 {

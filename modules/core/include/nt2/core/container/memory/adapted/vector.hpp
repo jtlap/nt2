@@ -13,8 +13,8 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/fusion/include/at_c.hpp>
-#include <nt2/core/container/meta/model_of.hpp>
-#include <nt2/core/container/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/reference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
 
@@ -27,7 +27,10 @@ namespace nt2 { namespace meta
   struct  dimensions_of< std::vector<T,A> >
         : boost::mpl::size_t<1 + dimensions_of<T>::value>
   {};
+} }
 
+namespace boost { namespace dispatch { namespace meta
+{
   //============================================================================
   // value_of specialization
   //============================================================================
@@ -41,7 +44,7 @@ namespace nt2 { namespace meta
   template<typename T, typename A>
   struct model_of< std::vector<T,A> >
   {
-    typedef struct make
+    struct type
     {
       template<class X> struct apply
       {
@@ -52,9 +55,9 @@ namespace nt2 { namespace meta
         typedef typename A::template rebind<base>::other            alloc;
         typedef std::vector<base,alloc>                             type;
       };
-    } type;  
+    };
   };
-} }
+} } }
 
 namespace nt2 { namespace details
 {

@@ -38,7 +38,7 @@ NT2_TEST_CASE( std_vector_values )
 {
   using std::vector;
   using boost::is_same;
-  using nt2::meta::value_of;
+  using boost::dispatch::meta::value_of;
 
   NT2_TEST((is_same< value_of< vector<int> >::type, int>::value ));
   NT2_TEST((is_same< value_of< vector<vector<int> > >::type, int>::value ));
@@ -53,7 +53,7 @@ NT2_TEST_CASE( std_vector_model )
   using std::vector;
   using boost::mpl::apply;
   using boost::is_same;
-  using nt2::meta::model_of;
+  using boost::dispatch::meta::model_of;
 
   typedef model_of< vector<int> >::type model1d;
   typedef model_of< vector<vector<int> > >::type model2d;
