@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup ellik ellik function
+ * \defgroup elliptic_ellik ellik function
  *
  * \par Description
  * Incomplete elliptic integral of the second kind
@@ -55,8 +55,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag ellik_ of functor ellik 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellik_ {};
   }

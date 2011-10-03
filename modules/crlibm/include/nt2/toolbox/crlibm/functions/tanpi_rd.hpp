@@ -70,7 +70,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag tanpi_rd_ of functor tanpi_rd 
+    _
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct tanpi_rd_ {};

@@ -71,7 +71,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag pow_rn_ of functor pow_rn 
+    _
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct pow_rn_ {};

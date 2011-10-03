@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup ellint_2 ellint_2 function
+ * \defgroup elliptic_ellint_2 ellint_2 function
  *
  * \par Description
  * Complete elliptic integral of the second kind
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag ellint_2_ of functor ellint_2 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellint_2_ {};
   }

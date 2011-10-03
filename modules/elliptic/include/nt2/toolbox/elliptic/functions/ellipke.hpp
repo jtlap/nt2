@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup ellipke ellipke function
+ * \defgroup elliptic_ellipke ellipke function
  *
  * \par Description
  * Complete elliptic integrals of first and second kind
@@ -52,8 +52,8 @@
  *
  * \param a0 the first parameter of ellipke, outside of $[0,1]$ the result is nan
  * \param a1 the second parameter of ellipke, optional tolerance
- * \param a2 the third parameter of ellipke, first kind result
- * \param a3 the fourth parameter of ellipke, second kind result
+ * \param a2 the third parameter of ellipke, if present, first kind result
+ * \param a3 the fourth parameter of ellipke, if present, second kind result
  * 
  * \return depends of the parameter number
  *  
@@ -67,8 +67,8 @@ namespace nt2 {
   namespace tag
   {
     /*!
-     * \brief Define the tag ellipke_ of functor ellipke 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellipke_ {};
   }

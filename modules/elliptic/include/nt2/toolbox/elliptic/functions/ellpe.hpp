@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup ellpe ellpe function
+ * \defgroup elliptic_ellpe ellpe function
  *
  * \par Description
  * Complete elliptic integral of the second kind
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag ellpe_ of functor ellpe 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellpe_ {};
   }

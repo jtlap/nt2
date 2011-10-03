@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup ellpk ellpk function
+ * \defgroup elliptic_ellpk ellpk function
  *
  * \par Description
  * Complete elliptic integral of the first kind
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag ellpk_ of functor ellpk 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellpk_ {};
   }

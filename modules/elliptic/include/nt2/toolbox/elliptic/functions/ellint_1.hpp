@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup ellint_1 ellint_1 function
+ * \defgroup elliptic_ellint_1 ellint_1 function
  *
  * \par Description
  * Complete elliptic integral of the first kind
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag ellint_1_ of functor ellint_1 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellint_1_ {};
   }

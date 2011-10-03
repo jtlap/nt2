@@ -75,7 +75,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag acospi_ of functor acospi 
+    _
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     template<class T> struct acospi_ {};
