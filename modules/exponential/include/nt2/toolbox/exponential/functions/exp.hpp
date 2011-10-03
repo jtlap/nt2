@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exp exp function
+ * \defgroup exponential_exp exp function
  *
  * \par Description
  * exponential function: $e^{a_0}$
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag exp_ of functor exp 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct exp_ {};
   }

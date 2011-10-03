@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup beta beta function
+ * \defgroup euler_beta beta function
  *
  * \par Description
  * Beta function
@@ -58,8 +58,8 @@ namespace nt2
   namespace tag 
   {         
     /*!
-     * \brief Define the tag beta_ of functor beta 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct beta_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exp10 exp10 function
+ * \defgroup exponential_exp10 exp10 function
  *
  * \par Description
  * base ten exponential function: $10^{a_0}$
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag exp10_ of functor exp10 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct exp10_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup log10 log10 function
+ * \defgroup exponential_log10 log10 function
  *
  * \par Description
  * base ten logarithm function.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag log10_ of functor log10 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct log10_ {};
   }

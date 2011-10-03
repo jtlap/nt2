@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup gammaln gammaln function
+ * \defgroup euler_gammaln gammaln function
  *
  * \par Description
  * Natural logarithm of the absolute value of the Gamma function
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag gammaln_ of functor gammaln 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct gammaln_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup signgam signgam function
+ * \defgroup euler_signgam signgam function
  *
  * \par Description
  * sign of gamma function
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag signgam_ of functor signgam 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct signgam_ {};
   }

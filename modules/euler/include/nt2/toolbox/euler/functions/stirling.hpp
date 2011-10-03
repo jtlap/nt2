@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup stirling stirling function
+ * \defgroup euler_stirling stirling function
  *
  * \par Description
  * Stirling formula for the gamma function
@@ -56,8 +56,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag stirling_ of functor stirling 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct stirling_ {};
   }

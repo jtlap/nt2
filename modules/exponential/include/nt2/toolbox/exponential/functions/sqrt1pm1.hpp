@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup sqrt1pm1 sqrt1pm1 function
+ * \defgroup exponential_sqrt1pm1 sqrt1pm1 function
  *
  * \par Description
  * \f$\sqrt{1+a_0}-1\$
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sqrt1pm1_ of functor sqrt1pm1 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct sqrt1pm1_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup digamma digamma function
+ * \defgroup euler_digamma digamma function
  *
  * \par Description
  * digamma function\par Formula
@@ -53,8 +53,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag digamma_ of functor digamma 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct digamma_ {};
   }

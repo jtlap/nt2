@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup expx2 expx2 function
+ * \defgroup exponential_expx2 expx2 function
  *
  * \par Description
  * exponential of square function: $e^{a_0^2}$
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag expx2_ of functor expx2 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct expx2_ {};
   }

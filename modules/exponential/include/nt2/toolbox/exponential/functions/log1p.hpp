@@ -16,10 +16,10 @@
 
 /*!
  * \ingroup exponential
- * \defgroup log1p log1p function
+ * \defgroup exponential_log1p log1p function
  *
  * \par Description
- * natural logarithm of 1+a0: \f$\log{1+a_0}\f$
+ * natural logarithm of 1+a0: \f$\log(1+a_0)\f$
  * \par
  * result is accurate even for small a0
  *
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag log1p_ of functor log1p 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct log1p_ {};
   }

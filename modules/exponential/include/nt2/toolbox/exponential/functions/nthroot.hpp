@@ -16,10 +16,10 @@
 
 /*!
  * \ingroup exponential
- * \defgroup nthroot nthroot function
+ * \defgroup exponential_nthroot nthroot function
  *
  * \par Description
- * nth root function: \f$1\sqrt[a_1]{a_0}\f$
+ * nth root function: \f$\sqrt[a_1]{a_0}\f$
  * \par
  * \arg a1 must be of integer type
  * \arg if a1 is even and a0 negative the result is nan
@@ -56,8 +56,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag nthroot_ of functor nthroot 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct nthroot_ {};
   }

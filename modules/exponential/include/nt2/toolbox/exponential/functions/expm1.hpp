@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup expm1 expm1 function
+ * \defgroup exponential_expm1 expm1 function
  *
  * \par Description
  * exponential function minus one: $e^{a_0}-1$
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag expm1_ of functor expm1 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct expm1_ {};
   }

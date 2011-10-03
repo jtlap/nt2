@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup log2 log2 function
+ * \defgroup exponential_log2 log2 function
  *
  * \par Description
  * base two logarithm function.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag log2_ of functor log2 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct log2_ {};
   }

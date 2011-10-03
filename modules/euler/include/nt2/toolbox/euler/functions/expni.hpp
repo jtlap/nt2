@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup expni expni function
+ * \defgroup euler_expni expni function
  *
  * \par Description
  * exponential integral function
@@ -55,8 +55,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag expni_ of functor expni 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct expni_ {};
   }

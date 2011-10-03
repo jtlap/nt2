@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup log log function
+ * \defgroup exponential_log log function
  *
  * \par Description
  * Natural logarithm function.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag log_ of functor log 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct log_ {};
   }

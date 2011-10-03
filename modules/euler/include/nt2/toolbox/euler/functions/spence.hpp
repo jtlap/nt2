@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup spence spence function
+ * \defgroup euler_spence spence function
  *
  * \par Description
  * spence function or dilogarithm
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag spence_ of functor spence 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct spence_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exp2 exp2 function
+ * \defgroup exponential_exp2 exp2 function
  *
  * \par Description
  * base two exponential function: $2^{a_0}$
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag exp2_ of functor exp2 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct exp2_ {};
   }

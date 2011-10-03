@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup powi powi function
+ * \defgroup exponential_powi powi function
  *
  * \par Description
  * Power function for scalar integer a1: ${a_0}^{a_1}$
@@ -55,8 +55,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag powi_ of functor powi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct powi_ {};
   }

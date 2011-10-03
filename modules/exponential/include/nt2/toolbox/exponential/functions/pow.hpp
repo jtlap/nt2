@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup pow pow function
+ * \defgroup exponential_pow pow function
  *
  * \par Description
  * Power function: ${a_0}^{a_1}$
@@ -55,8 +55,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag pow_ of functor pow 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct pow_ {};
   }

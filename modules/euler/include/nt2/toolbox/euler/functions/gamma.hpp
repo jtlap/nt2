@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup gamma gamma function
+ * \defgroup euler_gamma gamma function
  *
  * \par Description
  * Gamma function
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag gamma_ of functor gamma 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct gamma_ {};
   }

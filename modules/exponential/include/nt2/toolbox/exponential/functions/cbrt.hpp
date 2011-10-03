@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup cbrt cbrt function
+ * \defgroup exponential_cbrt cbrt function
  *
  * \par Description
  * Cubic root: \f$\sqrt[3]{a_0}\f$
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cbrt_ of functor cbrt 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox exponential
     **/
     struct cbrt_ {};
   }

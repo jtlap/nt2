@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup dawson dawson function
+ * \defgroup euler_dawson dawson function
  *
  * \par Description
  * Dawson function
@@ -54,8 +54,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag dawson_ of functor dawson 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox euler
     **/
     struct dawson_ {};
   }
