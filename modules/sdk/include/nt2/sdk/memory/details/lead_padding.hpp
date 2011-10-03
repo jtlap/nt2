@@ -25,7 +25,6 @@ namespace boost { namespace dispatch { namespace meta
   template<class Origin>
   struct hierarchy_of< nt2::memory::lead_padding, Origin>
   {
-    typedef nt2::ext::padding_<nt2::memory::lead_padding>  base;
     typedef nt2::ext::padding_<nt2::memory::lead_padding>  type;
   };
 } } }
@@ -52,7 +51,7 @@ namespace nt2 { namespace ext
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( true_case
     ,   slice<2>(s,memory::no_padding())
-      * memory::align_on( boost::fusion::at_c<0>(s) )
+      * memory::align_on( boost::fusion::at_c<0>(s), 0UL )
     );
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
@@ -65,24 +64,24 @@ namespace nt2 { namespace ext
                                           >::type             result_type;
 
     inline result_type
-    operator()( A0 const& a0, memory::lead_padding const&, A2 const& ) const
+    operator()( A0 const& a0, memory::lead_padding const& p, A2 const& ) const
     {
-      return eval(a0, boost::mpl::bool_<(A2::value==1)>() );
+      return eval(a0, p.value(), boost::mpl::bool_<(A2::value==1)>() );
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when A2 == 1
     ////////////////////////////////////////////////////////////////////////////
-    inline result_type eval( A0 const& a0, boost::mpl::true_ const& ) const
+    inline result_type eval( A0 const& a0, std::size_t p, boost::mpl::true_ const& ) const
     {
       return   slice<2>(a0,memory::no_padding())
-             * memory::align_on( boost::fusion::at_c<0>(a0) );
+             * memory::align_on( boost::fusion::at_c<0>(a0), p );
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when A2 >= 1
     ////////////////////////////////////////////////////////////////////////////
-    inline result_type eval( A0 const& a0, boost::mpl::false_ const& ) const
+    inline result_type eval( A0 const& a0, std::size_t,boost::mpl::false_ const& ) const
     {
       return slice<A2::value>(a0,memory::no_padding());
     }
@@ -108,7 +107,7 @@ namespace nt2 { namespace ext
     static  A0 const& s;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-    ( true_case , memory::align_on( boost::fusion::at_c<0>(s) ) );
+    ( true_case , memory::align_on( boost::fusion::at_c<0>(s), 0UL ) );
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( false_case, boost::fusion::at_c<arg2::value-1>(s) );
@@ -119,23 +118,25 @@ namespace nt2 { namespace ext
                                           >::type               result_type;
 
     inline result_type
-    operator()( A0 const& a0, memory::lead_padding const&, A2 const& ) const
+    operator()( A0 const& a0, memory::lead_padding const& p, A2 const& ) const
     {
-      return eval(a0, boost::mpl::bool_<(A2::value==1)>() );
+      return eval(a0, p.value(), boost::mpl::bool_<(A2::value==1)>() );
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when A2 == 1
     ////////////////////////////////////////////////////////////////////////////
-    inline result_type eval( A0 const& a0, boost::mpl::true_ const& ) const
+    inline result_type 
+    eval(A0 const& a0, std::size_t p, boost::mpl::true_ const&) const
     {
-      return memory::align_on( boost::fusion::at_c<0>(a0) );
+      return memory::align_on( boost::fusion::at_c<0>(a0), p );
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Implementation when A2 >= 1
     ////////////////////////////////////////////////////////////////////////////
-    inline result_type eval( A0 const& a0, boost::mpl::false_ const& ) const
+    inline result_type 
+    eval(A0 const& a0, std::size_t, boost::mpl::false_ const&) const
     {
       return boost::fusion::at_c<A2::value-1>(a0);
     }

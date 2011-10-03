@@ -17,7 +17,7 @@
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/integral_c_tag.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/dispatch/meta/property_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 
@@ -71,7 +71,6 @@ namespace details
                         ::enable_if_c<details::is_mpl_integral<T>::value>::type
                       >
   {
-    typedef typename meta::hierarchy_of<typename T::value_type, Origin>::base base;
     typedef meta::
     mpl_integral_< typename meta::
                    hierarchy_of< typename T::value_type
@@ -79,6 +78,16 @@ namespace details
                                >::type
                  >                                                            type;
   };
+  
+  template<class T>
+  struct  value_of< T
+                  , typename boost
+                        ::enable_if_c<details::is_mpl_integral<T>::value>::type
+                  >
+  {
+    typedef typename T::value_type type;
+  };
+  
 } } }
 
 #endif
