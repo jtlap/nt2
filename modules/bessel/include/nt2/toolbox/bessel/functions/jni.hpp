@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup jni jni function
+ * \defgroup bessel_jni jni function
  *
  * \par Description
  * Bessel function of the first kind of order n.
@@ -53,8 +53,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag jni_ of functor jni 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox bessel
     **/
     struct jni_ {};
   }

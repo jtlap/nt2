@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup i0 i0 function
+ * \defgroup bessel_i0 i0 function
  *
  * \par Description
  * Modified Bessel function of the first kind of order 0.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag i0_ of functor i0 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox bessel
     **/
     struct i0_ {};
   }

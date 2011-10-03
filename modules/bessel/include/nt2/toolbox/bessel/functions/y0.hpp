@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup y0 y0 function
+ * \defgroup bessel_y0 y0 function
  *
  * \par Description
  * Bessel function of the second kind of order 0.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag y0_ of functor y0 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox bessel
     **/
     struct y0_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup yni yni function
+ * \defgroup bessel_yni yni function
  *
  * \par Description
  * Modified Bessel function of the first kind of order n.
@@ -53,8 +53,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag yni_ of functor yni 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox bessel
     **/
     struct yni_ {};
   }
