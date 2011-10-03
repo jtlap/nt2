@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup gcd gcd function
+ * \defgroup combinatorial_gcd gcd function
  *
  * \par Description
  * greatest common divisor
@@ -56,8 +56,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag gcd_ of functor gcd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct gcd_ {};
   }

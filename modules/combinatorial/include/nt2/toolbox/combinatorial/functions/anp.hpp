@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup anp anp function
+ * \defgroup combinatorial_anp anp function
  *
  * \par Description
  * number of arrangement of p elements among n
@@ -57,8 +57,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag anp_ of functor anp 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct anp_ {};
   }

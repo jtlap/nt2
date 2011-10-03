@@ -50,7 +50,8 @@
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- * When calling external library, nt2 simply encapsulate theoriginal proper call to provide easy use.
+ * When calling external library, nt2 simply encapsulates the
+ * original proper call to provide easy use.
  * \par
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
@@ -68,7 +69,7 @@
 namespace nt2 { namespace cephes { namespace tag
   {         
     /*!
-     * \brief Define the tag exp10_ of functor exp10 
+    _
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct exp10_ {};

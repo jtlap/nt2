@@ -2,7 +2,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup factorial factorial function
+ * \defgroup combinatorial_factorial factorial function
  *
  * \par Description
  * Saturated factorial in the A0 type
@@ -56,8 +56,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag factorial_ of functor factorial 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct factorial_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup cnp cnp function
+ * \defgroup combinatorial_cnp cnp function
  *
  * \par Description
  * number of combination of p elements among n
@@ -57,8 +57,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cnp_ of functor cnp 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct cnp_ {};
   }
