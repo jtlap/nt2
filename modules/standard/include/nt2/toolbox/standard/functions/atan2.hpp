@@ -65,7 +65,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-     * \brief Define the tag atan2_ of functor atan2 
+    _
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct atan2_ {};

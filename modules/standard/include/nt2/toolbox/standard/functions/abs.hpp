@@ -64,7 +64,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-     * \brief Define the tag abs_ of functor abs 
+    _
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct abs_ {};

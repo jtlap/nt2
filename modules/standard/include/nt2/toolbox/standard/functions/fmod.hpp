@@ -65,7 +65,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-     * \brief Define the tag fmod_ of functor fmod 
+    _
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct fmod_ {};

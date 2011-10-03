@@ -64,7 +64,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-     * \brief Define the tag cos_ of functor cos 
+    _
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct cos_ {};

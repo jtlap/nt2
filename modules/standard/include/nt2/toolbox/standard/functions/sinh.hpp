@@ -64,7 +64,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-     * \brief Define the tag sinh_ of functor sinh 
+    _
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct sinh_ {};

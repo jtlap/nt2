@@ -51,7 +51,8 @@
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- * When calling external library, nt2 simply encapsulate theoriginal proper call to provide easy use.
+ * When calling external library, nt2 simply encapsulates the
+ * original proper call to provide easy use.
  * \par
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
@@ -69,7 +70,7 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     /*!
-     * \brief Define the tag fmod_ of functor fmod 
+    _
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct fmod_ {};
