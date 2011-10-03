@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup acscd acscd function
+ * \defgroup trigonometric_acscd acscd function
  *
  * \par Description
  * inverse cosecant in degree.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag acscd_ of functor acscd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acscd_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup sinecosine sinecosine function
+ * \defgroup trigonometric_sinecosine sinecosine function
  *
  * \par Description
  * templatized simultaneous sine and cosine.
@@ -65,8 +65,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sinecosine_ of functor sinecosine 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     template < class T > struct sinecosine_ {};
   }

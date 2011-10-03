@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup acos acos function
+ * \defgroup trigonometric_acos acos function
  *
  * \par Description
  * inverse cosine.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag acos_ of functor acos 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acos_ {};
   }

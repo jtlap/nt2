@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_sinpi fast_sinpi function
+ * \defgroup trigonometric_fast_sinpi fast_sinpi function
  *
  * \par Description
  * sine of angle in \f$\pi\f$ multiples: \f$\cos(\pi a_0)\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_sinpi_ of functor fast_sinpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sinpi_ {};
   }

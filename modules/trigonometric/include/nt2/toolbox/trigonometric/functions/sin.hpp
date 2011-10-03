@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup sin sin function
+ * \defgroup trigonometric_sin sin function
  *
  * \par Description
  * sine
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sin_ of functor sin 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sin_ {};
   }

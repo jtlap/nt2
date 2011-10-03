@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup acot acot function
+ * \defgroup trigonometric_acot acot function
  *
  * \par Description
  * inverse cotangent.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag acot_ of functor acot 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acot_ {};
   }

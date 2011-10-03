@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup sincos sincos function
+ * \defgroup trigonometric_sincos sincos function
  *
  * \par Description
  * simultaneous sine and cosine.
@@ -62,8 +62,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sincos_ of functor sincos 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sincos_ {};
   }

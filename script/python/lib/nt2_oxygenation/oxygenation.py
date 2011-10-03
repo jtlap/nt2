@@ -57,10 +57,14 @@ class Oxgen(Py_doc,Substitute) :
         self.is_constant = 'constant' in self.special
         self.is_type_dependant =  self.df.get("type_dependant",False)
         self.Fct    = self.fct.capitalize() if self.is_constant else self.fct
+        self.truc ='constant' if self.is_constant else 'function'
         self.external_toolbox_list = ['libc','cephes','standard','fdlibm','crlibm','boost_math']
         self.tb_style = self.nfp.get_tb_style()
-        self.prefix= "" if self.tb_style =='sys' else self.tb_name.replace('.','_')+'_'
+        self.prefix= self.compute_prefix()
         self.usrpath = "" if self.tb_style =='sys' else "/toolbox/"+self.tb_name
+
+    def compute_prefix(self) :
+        return self.tb_name.replace('.','_')+'_'
     def collect_functor_data(self) :
         self.df      = self.d.get("functor",{})
         
@@ -97,8 +101,8 @@ class Oxgen(Py_doc,Substitute) :
                              ])
         if self.is_constant and self.is_type_dependant :
             desc.extend(['\par',
-                         'The value of this constant are type dependant. This means that for different',
-                         'types they do not represent the same mathematical number.'
+                         'The value of this constant is type dependant. This means that for different',
+                         'types it does not represent the same mathematical number.'
                          ])
                 
                 
@@ -364,7 +368,7 @@ class Nt2_oxygenation(Oxgen) :
         Functor_ox = [
             "/*!",
             " * \\ingroup %s"%self.tb_name.replace('.','_'),
-            " * \\defgroup $prefix$$fct$ $Fct$ function",
+            " * \\defgroup $prefix$$fct$ $Fct$ $truc$",
             " *",
             " * \\par Description",
             "$description$",

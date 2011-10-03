@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup secant secant function
+ * \defgroup trigonometric_secant secant function
  *
  * \par Description
  * TODO Put description here
@@ -33,7 +33,7 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
+ *   template <class T,class A0>
  *     meta::call<tag::secant_(A0)>::type
  *     secant(const A0 & a0);
  * }
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag secant_ of functor secant 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct secant_ {};
   }

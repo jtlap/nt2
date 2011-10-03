@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup acsc acsc function
+ * \defgroup trigonometric_acsc acsc function
  *
  * \par Description
  * inverse cosecant.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag acsc_ of functor acsc 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acsc_ {};
   }

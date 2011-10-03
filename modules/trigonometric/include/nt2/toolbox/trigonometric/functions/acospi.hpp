@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup acospi acospi function
+ * \defgroup trigonometric_acospi acospi function
  *
  * \par Description
  * inverse cosine in \f$\pi\f$ multiples.
@@ -53,8 +53,8 @@ namespace nt2 {
   namespace tag
   {
     /*!
-     * \brief Define the tag acospi_ of functor acospi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acospi_ {};
   }

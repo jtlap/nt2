@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup atand atand function
+ * \defgroup trigonometric_atand atand function
  *
  * \par Description
  * inverse tangent in degree.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag atand_ of functor atand 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct atand_ {};
   }

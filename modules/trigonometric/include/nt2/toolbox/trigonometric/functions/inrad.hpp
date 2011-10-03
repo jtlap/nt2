@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup inrad inrad function
+ * \defgroup trigonometric_inrad inrad function
  *
  * \par Description
  * convert degree to radian.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag inrad_ of functor inrad 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct inrad_ {};
   }

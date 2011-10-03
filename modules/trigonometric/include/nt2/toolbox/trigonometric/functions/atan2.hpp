@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup atan2 atan2 function
+ * \defgroup trigonometric_atan2 atan2 function
  *
  * \par Description
  * atan2 function.
@@ -61,8 +61,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag atan2_ of functor atan2 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct atan2_ {};
   }

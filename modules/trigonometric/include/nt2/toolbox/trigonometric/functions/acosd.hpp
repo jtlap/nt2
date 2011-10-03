@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup acosd acosd function
+ * \defgroup trigonometric_acosd acosd function
  *
  * \par Description
  * inverse cosine in degree.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag acosd_ of functor acosd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acosd_ {};
   }

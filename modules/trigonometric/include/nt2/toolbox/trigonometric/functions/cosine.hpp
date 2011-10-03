@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cosine cosine function
+ * \defgroup trigonometric_cosine cosine function
  *
  * \par Description
  * templated cosine.
@@ -135,8 +135,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cosine_ of functor cosine 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct cosine_ {};
   }

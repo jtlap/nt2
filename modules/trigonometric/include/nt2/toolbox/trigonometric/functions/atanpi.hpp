@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup atanpi atanpi function
+ * \defgroup trigonometric_atanpi atanpi function
  *
  * \par Description
  * inverse tangent in \f$\pi\f$ multiples.
@@ -53,8 +53,8 @@ namespace nt2 {
   namespace tag
   {
     /*!
-     * \brief Define the tag atanpi_ of functor atanpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct atanpi_ {};
   }

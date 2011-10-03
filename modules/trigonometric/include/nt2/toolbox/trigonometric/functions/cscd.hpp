@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cscd cscd function
+ * \defgroup trigonometric_cscd cscd function
  *
  * \par Description
  * cosecante in degree.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cscd_ of functor cscd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cscd_ {};
   }

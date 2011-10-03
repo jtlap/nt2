@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup sec sec function
+ * \defgroup trigonometric_sec sec function
  *
  * \par Description
  * secant.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sec_ of functor sec 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sec_ {};
   }

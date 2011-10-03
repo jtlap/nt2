@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cotangent cotangent function
+ * \defgroup trigonometric_cotangent cotangent function
  *
  * \par Description
  * templated cosine.
@@ -56,8 +56,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cotangent_ of functor cotangent 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct cotangent_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup asecd asecd function
+ * \defgroup trigonometric_asecd asecd function
  *
  * \par Description
  * TODO Put description here
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag asecd_ of functor asecd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct asecd_ {};
   }

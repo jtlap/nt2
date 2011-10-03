@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_sind fast_sind function
+ * \defgroup trigonometric_fast_sind fast_sind function
  *
  * \par Description
  * sine of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_sind_ of functor fast_sind 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sind_ {};
   }

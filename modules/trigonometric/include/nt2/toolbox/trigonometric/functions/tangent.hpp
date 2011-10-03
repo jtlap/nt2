@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup tangent tangent function
+ * \defgroup trigonometric_tangent tangent function
  *
  * \par Description
  * tangent.
@@ -33,7 +33,7 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
+ *   template <class T,class A0>
  *     meta::call<tag::tangent_(A0)>::type
  *     tangent(const A0 & a0);
  * }
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag tangent_ of functor tangent 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct tangent_ {};
   }

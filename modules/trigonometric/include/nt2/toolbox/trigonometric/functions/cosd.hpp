@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cosd cosd function
+ * \defgroup trigonometric_cosd cosd function
  *
  * \par Description
  * cosine of angle in degree.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cosd_ of functor cosd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cosd_ {};
   }

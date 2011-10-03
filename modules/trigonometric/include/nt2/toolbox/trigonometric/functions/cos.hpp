@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cos cos function
+ * \defgroup trigonometric_cos cos function
  *
  * \par Description
  * cosine.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cos_ of functor cos 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cos_ {};
   }

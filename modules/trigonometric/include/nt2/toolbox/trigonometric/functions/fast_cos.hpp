@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_cos fast_cos function
+ * \defgroup trigonometric_fast_cos fast_cos function
  *
  * \par Description
  * cosine in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_cos_ of functor fast_cos 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_cos_ {};
   }

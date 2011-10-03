@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cospi cospi function
+ * \defgroup trigonometric_cospi cospi function
  *
  * \par Description
  * cosine of angle in \f$\pi\f$ multiples: \f$\cos(\pi a_0)\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cospi_ of functor cospi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cospi_ {};
   }

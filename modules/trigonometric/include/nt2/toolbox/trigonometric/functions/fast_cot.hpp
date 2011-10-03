@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_cot fast_cot function
+ * \defgroup trigonometric_fast_cot fast_cot function
  *
  * \par Description
  * cotangent in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_cot_ of functor fast_cot 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_cot_ {};
   }

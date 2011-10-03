@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cscpi cscpi function
+ * \defgroup trigonometric_cscpi cscpi function
  *
  * \par Description
  * cosecant of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cscpi_ of functor cscpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cscpi_ {};
   }

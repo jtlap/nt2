@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup sinpi sinpi function
+ * \defgroup trigonometric_sinpi sinpi function
  *
  * \par Description
  * sine of angle in \f$\pi\f$ multiples: \f$\sin(\pi a_0)\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sinpi_ of functor sinpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sinpi_ {};
   }

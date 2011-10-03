@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_cosd fast_cosd function
+ * \defgroup trigonometric_fast_cosd fast_cosd function
  *
  * \par Description
  * cosine of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_cosd_ of functor fast_cosd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_cosd_ {};
   }

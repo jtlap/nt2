@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup sincospi sincospi function
+ * \defgroup trigonometric_sincospi sincospi function
  *
  * \par Description
  * simultaneous sine and cosine from angle in \f$\pi\f$ multiples
@@ -62,8 +62,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sincospi_ of functor sincospi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sincospi_ {};
   }

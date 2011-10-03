@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup rem_pio2_medium rem_pio2_medium function
+ * \defgroup trigonometric_rem_pio2_medium rem_pio2_medium function
  *
  * \par Description
  * compute the remainder modulo \f$\pi/2\f$ with cephes algorthm.
@@ -64,8 +64,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag rem_pio2_medium_ of functor rem_pio2_medium 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct rem_pio2_medium_ {};
   }

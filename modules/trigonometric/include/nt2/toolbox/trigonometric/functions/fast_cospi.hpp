@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_cospi fast_cospi function
+ * \defgroup trigonometric_fast_cospi fast_cospi function
  *
  * \par Description
  * cosine of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_cospi_ of functor fast_cospi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_cospi_ {};
   }

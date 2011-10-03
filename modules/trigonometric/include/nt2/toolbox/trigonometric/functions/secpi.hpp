@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup secpi secpi function
+ * \defgroup trigonometric_secpi secpi function
  *
  * \par Description
  * secant of the angle in pi multiples.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag secpi_ of functor secpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct secpi_ {};
   }

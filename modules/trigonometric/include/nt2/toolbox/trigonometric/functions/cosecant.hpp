@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cosecant cosecant function
+ * \defgroup trigonometric_cosecant cosecant function
  *
  * \par Description
  * cosecant.
@@ -33,7 +33,7 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
+ *   template <class T,class A0>
  *     meta::call<tag::cosecant_(A0)>::type
  *     cosecant(const A0 & a0);
  * }
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cosecant_ of functor cosecant 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct cosecant_ {};
   }

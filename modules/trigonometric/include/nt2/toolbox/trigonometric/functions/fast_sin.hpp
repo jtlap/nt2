@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_sin fast_sin function
+ * \defgroup trigonometric_fast_sin fast_sin function
  *
  * \par Description
  * sine in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_sin_ of functor fast_sin 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sin_ {};
   }

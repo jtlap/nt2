@@ -16,10 +16,10 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup tanpi tanpi function
+ * \defgroup trigonometric_tanpi tanpi function
  *
  * \par Description
- * tangent of angle in \f$\pi\f$ multiples: \f$  tan(\pi a_0)\f$.
+ * tangent of angle in \f$\pi\f$ multiples: \f$\tan(\pi a_0)\f$.
  *
  * \par Header file
  * 
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag tanpi_ of functor tanpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct tanpi_ {};
   }

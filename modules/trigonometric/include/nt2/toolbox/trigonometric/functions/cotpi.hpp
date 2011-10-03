@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup cotpi cotpi function
+ * \defgroup trigonometric_cotpi cotpi function
  *
  * \par Description
  * cotangent of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cotpi_ of functor cotpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cotpi_ {};
   }

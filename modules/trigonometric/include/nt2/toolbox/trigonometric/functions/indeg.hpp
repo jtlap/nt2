@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup indeg indeg function
+ * \defgroup trigonometric_indeg indeg function
  *
  * \par Description
  * convert radian to degree.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag indeg_ of functor indeg 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct indeg_ {};
   }

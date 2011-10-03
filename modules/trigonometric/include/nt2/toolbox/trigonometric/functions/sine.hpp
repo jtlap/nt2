@@ -18,7 +18,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup sine sine function
+ * \defgroup trigonometric_sine sine function
  *
  * \par Description
  * templated sine.
@@ -238,8 +238,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sine_ of functor sine 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct sine_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_tanpi fast_tanpi function
+ * \defgroup trigonometric_fast_tanpi fast_tanpi function
  *
  * \par Description
  * tangent of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_tanpi_ of functor fast_tanpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_tanpi_ {};
   }

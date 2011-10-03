@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup secd secd function
+ * \defgroup trigonometric_secd secd function
  *
  * \par Description
  * secant of the angle in degree.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag secd_ of functor secd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct secd_ {};
   }

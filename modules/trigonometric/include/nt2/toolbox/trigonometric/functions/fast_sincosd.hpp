@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_sincosd fast_sincosd function
+ * \defgroup trigonometric_fast_sincosd fast_sincosd function
  *
  * \par Description
  * simultaneous sine and cosine from angle in degree in the interval \f$[-45, 45]\f$, nan outside.
@@ -62,8 +62,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_sincosd_ of functor fast_sincosd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sincosd_ {};
   }

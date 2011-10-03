@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup csc csc function
+ * \defgroup trigonometric_csc csc function
  *
  * \par Description
  * cosecante.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag csc_ of functor csc 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct csc_ {};
   }

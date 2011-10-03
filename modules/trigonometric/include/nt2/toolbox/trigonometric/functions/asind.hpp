@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup asind asind function
+ * \defgroup trigonometric_asind asind function
  *
  * \par Description
  * inverse sine in degree.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag asind_ of functor asind 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct asind_ {};
   }

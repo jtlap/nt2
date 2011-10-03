@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup fast_sincos fast_sincos function
+ * \defgroup trigonometric_fast_sincos fast_sincos function
  *
  * \par Description
  * simultaneous sine and cosine in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.
@@ -62,8 +62,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag fast_sincos_ of functor fast_sincos 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sincos_ {};
   }

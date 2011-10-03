@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup asin asin function
+ * \defgroup trigonometric_asin asin function
  *
  * \par Description
  * inverse sine.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag asin_ of functor asin 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct asin_ {};
   }

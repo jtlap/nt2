@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup tan tan function
+ * \defgroup trigonometric_tan tan function
  *
  * \par Description
  * tangent.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag tan_ of functor tan 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct tan_ {};
   }

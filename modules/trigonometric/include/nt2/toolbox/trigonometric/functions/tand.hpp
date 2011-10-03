@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup tand tand function
+ * \defgroup trigonometric_tand tand function
  *
  * \par Description
  * TODO Put description here
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag tand_ of functor tand 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct tand_ {};
   }

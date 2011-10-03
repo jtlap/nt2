@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup sincosd sincosd function
+ * \defgroup trigonometric_sincosd sincosd function
  *
  * \par Description
  * simultaneous sine and cosine from angle in degree
@@ -62,8 +62,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sincosd_ of functor sincosd 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sincosd_ {};
   }

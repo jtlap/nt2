@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup asinpi asinpi function
+ * \defgroup trigonometric_asinpi asinpi function
  *
  * \par Description
  * inverse sine in \f$\pi\f$ multiples.
@@ -53,8 +53,8 @@ namespace nt2 {
   namespace tag
   {
     /*!
-     * \brief Define the tag asinpi_ of functor asinpi 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct asinpi_ {};
   }
