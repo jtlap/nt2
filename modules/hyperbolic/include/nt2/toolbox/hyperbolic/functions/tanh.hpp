@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup tanh tanh function
+ * \defgroup hyperbolic_tanh tanh function
  *
  * \par Description
  * hyperbolic tangent: \f$rac{\sinh(a_0)}{\cosh(a_0)}\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag tanh_ of functor tanh 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct tanh_ {};
   }

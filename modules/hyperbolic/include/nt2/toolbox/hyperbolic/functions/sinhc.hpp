@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup sinhc sinhc function
+ * \defgroup hyperbolic_sinhc sinhc function
  *
  * \par Description
  * hyperbolic cardinal sine: \f$\frac{\sinh(a_0)}{a_0}\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sinhc_ of functor sinhc 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct sinhc_ {};
   }

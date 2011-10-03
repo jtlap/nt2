@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup cosh cosh function
+ * \defgroup hyperbolic_cosh cosh function
  *
  * \par Description
  * hyperbolic cosine: \f$\frac{e^{a_0}+e^{-a_0}}2\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag cosh_ of functor cosh 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct cosh_ {};
   }

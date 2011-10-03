@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup asinh asinh function
+ * \defgroup hyperbolic_asinh asinh function
  *
  * \par Description
  * hyperbolic sine argument: \f$\log(a_0+\sqrt{a_0^2+1})\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag asinh_ of functor asinh 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct asinh_ {};
   }

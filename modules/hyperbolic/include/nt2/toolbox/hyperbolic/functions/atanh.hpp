@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup atanh atanh function
+ * \defgroup hyperbolic_atanh atanh function
  *
  * \par Description
  * hyperbolic tangent argument \f$\frac12\frac{a_0^2-1}{a_0^2+1}\f$
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag atanh_ of functor atanh 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct atanh_ {};
   }

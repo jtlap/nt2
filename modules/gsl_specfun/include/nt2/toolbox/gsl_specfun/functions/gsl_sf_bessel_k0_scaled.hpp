@@ -56,13 +56,17 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
+ * \par
+ * gsl_specfun library defines functions for double entries only.
+ * Nevertheless, they can be called with float entries under nt2 calls
+ * to return float outputs.
  *  
 **/
 
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
     /*!
-     * \brief Define the tag gsl_sf_bessel_k0_scaled_ of functor gsl_sf_bessel_k0_scaled 
+    _
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
     struct gsl_sf_bessel_k0_scaled_ {};

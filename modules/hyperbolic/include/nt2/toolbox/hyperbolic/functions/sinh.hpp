@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup sinh sinh function
+ * \defgroup hyperbolic_sinh sinh function
  *
  * \par Description
  * hyperbolic sine: \f$\frac{e^{a_0}-e^{-a_0}}2\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sinh_ of functor sinh 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct sinh_ {};
   }

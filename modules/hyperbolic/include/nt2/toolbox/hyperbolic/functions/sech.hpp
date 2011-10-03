@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup sech sech function
+ * \defgroup hyperbolic_sech sech function
  *
  * \par Description
  * hyperbolic secant: \f$rac1{\cosh(a_0)}\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sech_ of functor sech 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct sech_ {};
   }

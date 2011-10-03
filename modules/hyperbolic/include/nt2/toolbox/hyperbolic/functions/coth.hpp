@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup coth coth function
+ * \defgroup hyperbolic_coth coth function
  *
  * \par Description
  * TODO Put description here
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag coth_ of functor coth 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct coth_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup acosh acosh function
+ * \defgroup hyperbolic_acosh acosh function
  *
  * \par Description
  * hyperbolic cosine argument: \f$\log(a_0+\sqrt{a_0^2-1})\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag acosh_ of functor acosh 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct acosh_ {};
   }

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup csch csch function
+ * \defgroup hyperbolic_csch csch function
  *
  * \par Description
  * hyperbolic cosecant: \f$rac1{\sinh(a_0)}\f$.
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag csch_ of functor csch 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct csch_ {};
   }

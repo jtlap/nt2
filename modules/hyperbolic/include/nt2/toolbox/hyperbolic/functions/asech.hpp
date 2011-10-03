@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup asech asech function
+ * \defgroup hyperbolic_asech asech function
  *
  * \par Description
  * hyperbolic secant argument \f$\mathop{\textrm{acosh}}(1/a_0)\f$
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag asech_ of functor asech 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct asech_ {};
   }

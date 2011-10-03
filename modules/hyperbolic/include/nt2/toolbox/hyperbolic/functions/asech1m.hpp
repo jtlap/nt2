@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup asech1m asech1m function
+ * \defgroup hyperbolic_asech1m asech1m function
  *
  * \par Description
  * TODO Put description here
@@ -53,8 +53,8 @@ namespace nt2 {
   namespace tag
   {
     /*!
-     * \brief Define the tag asech1m_ of functor asech1m 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct asech1m_ {};
   }

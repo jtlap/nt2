@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup acsch acsch function
+ * \defgroup hyperbolic_acsch acsch function
  *
  * \par Description
  * hyperbolic cosecant argument \f$\mathop{\textrm{asinh}}(1/a_0)\f$
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag acsch_ of functor acsch 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct acsch_ {};
   }

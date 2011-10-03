@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup acoth acoth function
+ * \defgroup hyperbolic_acoth acoth function
  *
  * \par Description
  * hyperbolic cotangent argument \f$\frac12\frac{a_0^2+1}{a_0^2-1}\f$
@@ -52,8 +52,8 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag acoth_ of functor acoth 
-     *        in namespace nt2::tag
+    _
+     *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct acoth_ {};
   }
