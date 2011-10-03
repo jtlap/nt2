@@ -64,7 +64,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-     * \brief Define the tag tgamma_ratio_ of functor tgamma_ratio 
+    _
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct tgamma_ratio_ {};

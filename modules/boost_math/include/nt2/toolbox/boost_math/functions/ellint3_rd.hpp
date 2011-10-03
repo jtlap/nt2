@@ -65,7 +65,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-     * \brief Define the tag ellint3_rd_ of functor ellint3_rd 
+    _
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct ellint3_rd_ {};

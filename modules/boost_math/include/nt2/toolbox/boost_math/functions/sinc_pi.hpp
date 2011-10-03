@@ -63,7 +63,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-     * \brief Define the tag sinc_pi_ of functor sinc_pi 
+    _
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct sinc_pi_ {};

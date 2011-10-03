@@ -64,7 +64,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-     * \brief Define the tag gamma_q_inva_ of functor gamma_q_inva 
+    _
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct gamma_q_inva_ {};

@@ -66,7 +66,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-     * \brief Define the tag laguerre_next_ of functor laguerre_next 
+    _
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct laguerre_next_ {};

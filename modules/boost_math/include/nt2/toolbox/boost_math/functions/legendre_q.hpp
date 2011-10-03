@@ -64,7 +64,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-     * \brief Define the tag legendre_q_ of functor legendre_q 
+    _
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct legendre_q_ {};

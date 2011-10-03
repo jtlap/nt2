@@ -63,7 +63,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-     * \brief Define the tag iround_ of functor iround 
+    _
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct iround_ {};
