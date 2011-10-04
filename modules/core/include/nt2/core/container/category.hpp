@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_CATEGORY_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_CATEGORY_HPP_INCLUDED
 
-#include <boost/dispatch/meta/hierarchy.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -20,9 +20,9 @@ namespace boost { namespace dispatch { namespace meta
   };
   
   template<class T, class Size>
-  struct container_< unspecified_<T>, Size > : generic_< unspecified_<T> >
+  struct container_< unspecified_<T>, Size > : generic_< typename property_of<T>::type >
   {
-    typedef generic_< unspecified_<T> > parent;
+    typedef generic_< typename property_of<T>::type > parent;
   };
     
 } } }

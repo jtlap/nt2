@@ -19,7 +19,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::run_, tag::formal_
-                            , (A0)(Tag)
+                            , (A0)
                             , ((ast_< unspecified_<A0> >))
                             )
   {
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      return dispatch::meta::compute<>(a0);
+      return dispatch::meta::compute<>()(a0);
     }
   };
 } } }

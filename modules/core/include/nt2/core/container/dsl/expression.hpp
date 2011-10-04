@@ -14,6 +14,7 @@
 #include <nt2/include/functions/assign.hpp>
 #include <boost/proto/extends.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/assert.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -27,27 +28,26 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace nt2 { namespace container
 {
-  template<class Expr, class ResultType>
+  template<class Expr, class ResultType, class Dummy>
   struct  expression
-        : boost::proto::extends < Expr
-                                , expression<Expr, ResultType>
+        /*: boost::proto::extends < Expr
+                                , expression
                                 , container::domain
-                                >
+                                >*/
   {
-    typedef boost::proto::extends < Expr
-                                  , expression<Expr, ResultType>
-                                  , container::domain
-                                  >                             parent;
-
-    using parent::operator();
+    BOOST_PROTO_BASIC_EXTENDS(Expr, expression, container::domain)
+    BOOST_PROTO_EXTENDS_SUBSCRIPT()
+    //BOOST_PROTO_EXTENDS_FUNCTION() // wth does it break?
 
     // expression initialization called from generator
     BOOST_DISPATCH_FORCE_INLINE
-    expression(Expr const& xpr = Expr()) : parent(xpr)
+    expression(Expr const& xpr = Expr()) : proto_expr_(xpr)
     {
-      NT2_ASSERT( check_size(xpr)
-                  && "Dynamic size mismatch in container expression"
-                );
+      #if 0
+      BOOST_ASSERT_MSG( check_size(xpr)
+                      , "Dynamic size mismatch in container expression"
+                      );
+      #endif
     }
     
     // Construction from arbitrary expression is same as assignment
@@ -106,6 +106,7 @@ namespace nt2 { namespace container
     {
       return nt2::evaluate(*this);
     }
+    
   };
 } }
 

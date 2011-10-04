@@ -6,19 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
-#define BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
+#ifndef BOOST_SIMD_DSL_FUNCTIONS_GENERIC_SCHEDULE_HPP_INCLUDED
+#define BOOST_SIMD_DSL_FUNCTIONS_GENERIC_SCHEDULE_HPP_INCLUDED
 
 #include <boost/simd/dsl/functions/schedule.hpp>
-#include <nt2/sdk/functor/hierarchy.hpp>
-#include <nt2/sdk/functor/preprocessor/dispatch.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
+#include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
+#include <boost/dispatch/meta/identity.hpp>
 
 //==============================================================================
 // Splitting of non-combinable expressions (no-op by default)
 //==============================================================================
-namespace boost { nammespace simd { namespace ext
+namespace boost { namespace simd { namespace ext
 {
-  NT2_REGISTER_DISPATCH_TO( boost::simd::tag::schedule_, tag::formal_
+  BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::schedule_, tag::formal_
                           , (A0)
                           , (unspecified_<A0>)
                           , identity

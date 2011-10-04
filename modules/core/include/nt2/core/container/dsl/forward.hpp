@@ -17,7 +17,7 @@ namespace nt2 { namespace container
   struct grammar;
   struct domain;
   
-  template<class Expression, class ResultType>
+  template<class Expression, class ResultType, class Dummy = boost::proto::is_proto_expr>
   struct expression;
 
   template< class Type

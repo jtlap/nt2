@@ -18,8 +18,8 @@ namespace nt2 { namespace container
   //////////////////////////////////////////////////////////////////////////////
   // Anything goes in the grammar except for low level operators
   //////////////////////////////////////////////////////////////////////////////
-  struct  grammar
-        : boost::proto
+  struct  grammar : boost::proto::_ {};
+        /*: boost::proto
         ::or_ <
                 boost::dispatch::
                 lambda_terminal< is_block<boost::proto::_value> >
@@ -36,7 +36,7 @@ namespace nt2 { namespace container
                                               >
                           >
                     >
-              > {};
+              > {};*/
 } }
 
 #endif
