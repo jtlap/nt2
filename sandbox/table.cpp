@@ -43,10 +43,17 @@ struct table : nt2::container::expression< typename boost::proto::terminal< ::bl
   table()
   {
   }
-  
+
+  // Construction from arbitrary expression is same as assignment
+  template<class Xpr> 
+  BOOST_DISPATCH_FORCE_INLINE table(Xpr const& xpr) { *this = xpr; }
+
+  // Assignment operators force evaluation
   template<class Xpr>
-  table(Xpr const& xpr) : parent(xpr)
+  BOOST_DISPATCH_FORCE_INLINE table& operator=(Xpr const& xpr)
   {
+    nt2::evaluate( nt2::assign(*this, xpr) );
+    return *this;
   }
 };
 
@@ -69,7 +76,6 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     result_type operator()(F const& f, A0 const& a0) const
     {
-      std::cout << "get rid of me!" << std::endl;
       return a0;
     }
   };
@@ -82,7 +88,6 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     result_type operator()(F const& f, A0 const& a0, A1 const& a1) const
     {
-      std::cout << "get rid of me!" << std::endl;
       return a0;
     }
   };
@@ -92,5 +97,5 @@ namespace nt2 { namespace ext
 int main()
 {
   table<double> a, b, c;
-  a = b + c;
+  a = b + c*c/a;
 }

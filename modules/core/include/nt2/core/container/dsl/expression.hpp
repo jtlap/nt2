@@ -50,34 +50,6 @@ namespace nt2 { namespace container
       #endif
     }
     
-    // Construction from arbitrary expression is same as assignment
-    template<class Xpr>
-    BOOST_DISPATCH_FORCE_INLINE
-    expression(Xpr const& xpr)
-    {
-      *this = xpr;
-    }
-
-    // Assignment operators force evaluation
-    BOOST_DISPATCH_FORCE_INLINE
-    expression& operator=(expression const& xpr)
-    {
-      nt2::evaluate(
-        assign(*this, xpr)
-      );
-      return *this;
-    }
-    
-    template<class Xpr>
-    BOOST_DISPATCH_FORCE_INLINE
-    expression& operator=(Xpr const& xpr)
-    {
-      nt2::evaluate(
-        assign(*this, xpr)
-      );
-      return *this;
-    }
-
     #define NT2_MAKE_ASSIGN_OP(OP)                                      \
     template<class X>                                                   \
     BOOST_DISPATCH_FORCE_INLINE                                         \
@@ -102,11 +74,7 @@ namespace nt2 { namespace container
 
     // Conversion operator forces evaluation
     BOOST_DISPATCH_FORCE_INLINE
-    operator ResultType() const
-    {
-      return nt2::evaluate(*this);
-    }
-    
+    operator ResultType() const { return nt2::evaluate(*this); }    
   };
 } }
 

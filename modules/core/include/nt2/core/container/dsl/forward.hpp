@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_FORWARD_HPP_INCLUDED
 
 #include <boost/proto/proto_fwd.hpp>
-#include <nt2/core/settings/meta/settings.hpp>
+#include <nt2/core/settings/settings.hpp>
 
 namespace nt2 { namespace container
 {
