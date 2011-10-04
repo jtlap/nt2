@@ -18,7 +18,7 @@ namespace nt2 { namespace container
 {
   typedef boost::simd::meta::
           lambda_generator< boost::simd::meta::
-                            typed_expression< typename boost::mpl::
+                            typed_expression< boost::mpl::
                                               lambda< expression<boost::mpl::_1, boost::mpl::_2> >::type
                                             >
                           > generator;
