@@ -11,6 +11,7 @@
 
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <boost/proto/domain.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -69,6 +70,15 @@ namespace boost { namespace dispatch { namespace details
                         , domain_type
                         , tag_type
                         >                        type;
+  };
+  
+  template<class T>
+  struct value_of< T
+                 , typename boost::
+                   enable_if< proto::is_expr<T> >::type
+                 >
+    : meta::semantic_of<T>
+  {
   };
   
 } } }
