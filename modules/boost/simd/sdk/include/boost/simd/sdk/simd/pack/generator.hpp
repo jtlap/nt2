@@ -17,7 +17,7 @@ namespace boost { namespace simd
 {
   typedef meta::
           lambda_pod_generator< meta::
-                                typed_expression< typename mpl::
+                                typed_expression< mpl::
                                                   lambda< expression<mpl::_1, mpl::_2> >::type
                                                 >
                               > generator;
