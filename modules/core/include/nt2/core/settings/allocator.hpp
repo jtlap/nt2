@@ -10,7 +10,7 @@
 #define NT2_CORE_SETTINGS_ALLOCATOR_HPP_INCLUDED
 
 #include <boost/mpl/placeholders.hpp>
-#include <nt2/core/settings/meta/option.hpp>
+#include <nt2/core/settings/option.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Defines allocator options

@@ -10,7 +10,7 @@
 #define NT2_CORE_SETTINGS_ID_HPP_INCLUDED
 
 #include <boost/mpl/string.hpp>
-#include <nt2/core/settings/meta/option.hpp>
+#include <nt2/core/settings/option.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Defines ID options
