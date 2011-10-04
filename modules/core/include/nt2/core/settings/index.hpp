@@ -11,69 +11,74 @@
 
 #include <cstddef>
 #include <boost/mpl/vector_c.hpp>
+#include <nt2/sdk/parameters.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Defines index options
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace options
-{
-  struct index_ { typedef void nt2_is_option_type; };
-} }
-
-////////////////////////////////////////////////////////////////////////////////
-// Helper macros
-////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) ptrdiff_t BOOST_PP_CAT(I,BOOST_PP_INC(n)) = BOOST_PP_CAT(I,n)
-
-////////////////////////////////////////////////////////////////////////////////
-// index<I0,..,In> represents the base index over the Nth dimensions. By default
-// index<I0,I1> is equivalent to index<I0,I1,I1,...,I1>.
-// Indexes data are stored in a mpl::vector_c of proper size.
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2
-{
-  template< std::ptrdiff_t I0 = 1
+namespace nt2 
+{ 
+  #define M0(z,n,t)                                                   \
+  std::ptrdiff_t BOOST_PP_CAT(I,BOOST_PP_INC(n)) = BOOST_PP_CAT(I,n)  \
+  /**/
+  
+  //============================================================================
+  /*! index<I0,...,In> represents the base index over the Nth dimensions. By 
+   * default, index<I0> is equivalent to index<I0,I0,...,I0>.
+   * 
+   * \tparam ID 32 byte multi-bytes character unique identifier
+   **/
+  //============================================================================
+  template< std::ptrdiff_t I0 = NT2_DEFAULT_INDEX
           , BOOST_PP_ENUM(BOOST_PP_DEC(NT2_MAX_DIMENSIONS),M0,~)
           >
-  struct  index
-        : BOOST_PP_CAT(BOOST_PP_CAT(boost::mpl::vector,NT2_MAX_DIMENSIONS),_c)
-          <std::ptrdiff_t, BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
-  {};
-}
+  struct  index {};
 
-////////////////////////////////////////////////////////////////////////////////
-// Register index_ has a valid options::index_ type
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace meta
-{
-  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,std::ptrdiff_t I)
-          , class Default
-          >
-  struct option < index<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
-                , options::index_
-                , Default
-                , void
-                >
-  {
-    typedef index<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)> type;
-  };
-} }
+  #undef M0
 
-////////////////////////////////////////////////////////////////////////////////
-// Defines some usual short-cut for C and Matlab base indexing
-////////////////////////////////////////////////////////////////////////////////
-namespace nt2
-{
+  //============================================================================
+  /*!
+   * C-style base index options. By using it, all indexes start at 0
+   **/
+  //============================================================================
   typedef index<0> C_index_;
+  
+  //============================================================================
+  /*!
+   * Matlab style base index options. By using it, all indexes start at 1
+   **/
+  //============================================================================
   typedef index<1> matlab_index_;
-}
 
-////////////////////////////////////////////////////////////////////////////////
-// Macros clean-up
-////////////////////////////////////////////////////////////////////////////////
-#undef M0
+  namespace tag 
+  { 
+    //==========================================================================
+    /*!
+     * Option tag for the base index options
+     **/
+    //==========================================================================
+    struct index_ {}; 
+  }
+
+  namespace meta
+  {
+    //==========================================================================
+    // Make options extracting the ID from id_
+    //==========================================================================
+    template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,std::ptrdiff_t I)
+            , class Default
+            >
+    struct option < index<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
+                  , tag::index_, Default
+                  >
+    {    
+      typedef 
+      BOOST_PP_CAT(BOOST_PP_CAT(boost::mpl::vector,NT2_MAX_DIMENSIONS),_c)
+                  < std::ptrdiff_t
+                  , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)
+                  >                                                       type;
+    };
+  }   
+}
 
 #endif
