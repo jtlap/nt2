@@ -13,8 +13,10 @@
 // This file generate basic EDSL expression wrapper over any nt2 function
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/proto/make_expr.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/add_reference.hpp>
 #include <boost/dispatch/meta/any.hpp>
-#include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -29,7 +31,21 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #endif
 
-namespace boost { namespace dispatch { namespace tag
+namespace boost { namespace dispatch { namespace details
+{
+  template<class T, class Enable = void>
+  struct proto_value
+    : remove_reference<T>
+  {
+  };
+  
+  template<class T>
+  struct proto_value<T, typename enable_if_c< proto::arity_of<T>::value == 0>::type>
+   : add_reference<T>
+  {
+  };
+}
+namespace tag
 {
   struct ast_ {};
     
@@ -49,16 +65,16 @@ namespace boost { namespace dispatch { namespace tag
 #define M2(z,n,t) (BOOST_PP_CAT(A,n))
 #define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
 
-#define M4(z,n,t)                                                             \
+#define M4(z,n,t)                                                              \
 BOOST_DISPATCH_REGISTER_DISPATCH_IF((boost)(dispatch)(meta), Func, tag::formal_\
-                        , (Func)BOOST_PP_REPEAT(n,M2,~)                       \
-                        , (any< boost::proto::is_expr<boost::mpl::_>          \
-                              , BOOST_PP_ENUM_PARAMS(n,A)                     \
-                             >                                                \
-                          )                                                   \
-                      , (Func(tag::ast_))                                     \
-                      , BOOST_PP_REPEAT(n,M3,~)                               \
-                      )                                                       \
+                        , (Func)BOOST_PP_REPEAT(n,M2,~)                        \
+                        , (any< boost::proto::is_expr<boost::mpl::_>           \
+                              , BOOST_PP_ENUM_PARAMS(n,A)                      \
+                             >                                                 \
+                          )                                                    \
+                      , (Func(tag::ast_))                                      \
+                      , BOOST_PP_REPEAT(n,M3,~)                                \
+                      )                                                        \
 /**/
 
 #define M0(z,n,t)                                                              \
@@ -68,7 +84,8 @@ struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
   typedef typename boost::proto::result_of::                                   \
   make_expr < Func                                                             \
             , boost::proto::deduce_domain                                      \
-            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename as_ref<A, >::type BOOST_PP_INTERCEPT) \
+            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename details::                \
+                                   proto_value<A, >::type BOOST_PP_INTERCEPT)  \
             >::type type;                                                      \
 };                                                                             \
 template<BOOST_PP_ENUM_PARAMS(n,class A)>                                      \
@@ -82,7 +99,8 @@ operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const                       \
   make_expr_< Func                                                             \
             , boost::proto::                                                   \
               deduce_domain                                                    \
-            , BOOST_PP_ENUM_BINARY_PARAMS(n, A, & BOOST_PP_INTERCEPT)          \
+            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename details::                \
+                                   proto_value<A, &>::type BOOST_PP_INTERCEPT) \
             >()( BOOST_PP_ENUM_PARAMS(n, a) );                                 \
 }                                                                              \
 /**/

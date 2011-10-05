@@ -1,30 +1,16 @@
 #include <boost/proto/debug.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
-#include <nt2/include/functions/fma.hpp>
-
-//#include <boost/simd/sdk/dsl/recognition.hpp>
-namespace boost { namespace simd { namespace tag
-{
-  struct recognition_ : dispatch::tag::formal_ {};
-} } }
-
-//#include <boost/simd/toolbox/arithmetic/recognition/fma.hpp>
-#include <nt2/sdk/details/type_id.hpp>
+#include <boost/simd/include/functions/fma.hpp>
+#include <boost/simd/include/functions/optimize.hpp>
 
 int main()
 {
     using boost::simd::pack;
-    namespace proto = boost::proto;
+    const pack<float> a = {}, b = {}, c = {}, d = {};
     
-    pack<float> a, b, c, d;
-    
-    proto::display_expr(
-      boost::dispatch::meta::compute<boost::simd::tag::recognition_>()
+    boost::proto::display_expr(
+      boost::simd::optimize
       (
-        //a + (b + (c + d))
-      
-        //a + b + c 
-      
         a + b * (a + b * (a + b * (a + b * c)))
       + b * (b * (b * (b * c + a) + a) + a) + a
       )

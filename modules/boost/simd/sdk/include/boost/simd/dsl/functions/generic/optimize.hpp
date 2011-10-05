@@ -11,19 +11,35 @@
 
 #include <boost/simd/dsl/functions/optimize.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
-#include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
-#include <boost/dispatch/meta/identity.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/dsl/compute.hpp>
 
 //==============================================================================
-// Recognition of expressions (no-op by default)
+// Recognition of expressions
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::optimize_, tag::formal_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::optimize_, tag::formal_
                           , (A0)
-                          , (unspecified_<A0>)
-                          , identity
+                          , (ast_< unspecified_<A0> >)
                           )
+  {
+     typedef boost::dispatch::meta::compute<boost::simd::tag::optimize_> transform;
+     
+     template<class Sig>
+     struct result;
+     
+     template<class This, class A0_>
+     struct result<This(A0_)> : transform::result<transform(A0_)> {};
+     
+     template<class A0_>
+     BOOST_DISPATCH_FORCE_INLINE
+     typename result<implement(A0_&)>::type
+     operator()(A0_& a0) const
+     {
+        return transform()(a0);
+     }
+  };
 } } }
 
 #endif
