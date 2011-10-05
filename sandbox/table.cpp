@@ -49,6 +49,12 @@ struct table : nt2::container::expression< typename boost::proto::terminal< ::bl
   BOOST_DISPATCH_FORCE_INLINE table(Xpr const& xpr) { *this = xpr; }
 
   // Assignment operators force evaluation
+  BOOST_DISPATCH_FORCE_INLINE table& operator=(table const& xpr)
+  {
+    nt2::evaluate( nt2::assign(*this, xpr) );
+    return *this;
+  }
+  
   template<class Xpr>
   BOOST_DISPATCH_FORCE_INLINE table& operator=(Xpr const& xpr)
   {
@@ -98,4 +104,5 @@ int main()
 {
   table<double> a, b, c;
   a = b + c*c/a;
+  b = c;
 }

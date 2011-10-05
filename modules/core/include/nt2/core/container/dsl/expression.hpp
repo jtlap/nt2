@@ -51,6 +51,22 @@ namespace nt2 { namespace container
       #endif
     }
     
+    // Assignment operators force evaluation
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(Xpr const& xpr)
+    {
+      nt2::evaluate( nt2::assign(*this, xpr) );
+      return *this;
+    }
+    
+    BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(expression const& xpr)
+    {
+      nt2::evaluate( nt2::assign(*this, xpr) );
+      return *this;
+    }
+    
     #define NT2_MAKE_ASSIGN_OP(OP)                                      \
     template<class X>                                                   \
     BOOST_DISPATCH_FORCE_INLINE                                         \
