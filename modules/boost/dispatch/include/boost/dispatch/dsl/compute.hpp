@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
               >
   {};
   
-  template<class Target = typename default_site<int>::type >
+  template<class Target>
   struct compute : compile< compute_phase<boost::mpl::_1, Target> > {};
   
 } } }

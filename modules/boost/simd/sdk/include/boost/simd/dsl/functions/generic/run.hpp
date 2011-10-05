@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      return dispatch::meta::compute<>()(a0);
+      return dispatch::meta::compute<typename dispatch::default_site<A0>::type>()(a0);
     }
   };
 } } }
