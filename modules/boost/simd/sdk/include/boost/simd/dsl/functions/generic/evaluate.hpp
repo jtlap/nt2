@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_GENERIC_EVALUATE_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_GENERIC_EVALUATE_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/dsl/functions/evaluate.hpp>
 #include <boost/simd/include/functions/optimize.hpp>
 #include <boost/simd/include/functions/schedule.hpp>
@@ -28,11 +29,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::semantic_of<A0>::type result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      std::cout << "evaluate" << std::endl;
+      std::cout << "Common evaluate" << std::endl;
       nt2::display_type(a0);
       return compile(schedule(optimize(a0)))(a0);
     }
