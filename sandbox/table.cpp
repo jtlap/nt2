@@ -91,10 +91,10 @@ namespace nt2 { namespace ext
                             , (unspecified_<F>)((container_< unspecified_<A0>, S0 >))((container_< unspecified_<A1>, S1 >))
                             )
   {
-    typedef A0 result_type;
+    typedef A0& result_type;
     result_type operator()(F const& f, A0 const& a0, A1 const& a1) const
     {
-      return a0;
+      return const_cast<result_type>(a0);
     }
   };
   
@@ -105,4 +105,5 @@ int main()
   table<double> a, b, c;
   a = b + c*c/a;
   b = c;
+  c(a) = b(c);
 }

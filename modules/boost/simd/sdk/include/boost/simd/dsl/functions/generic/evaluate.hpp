@@ -19,6 +19,7 @@
 #include <boost/dispatch/dsl/semantic_of.hpp>
 
 #include <nt2/sdk/details/type_id.hpp>
+#include <boost/proto/debug.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     operator()(A0 const& a0) const
     {
       std::cout << "Common evaluate" << std::endl;
-      nt2::display_type(a0);
+      proto::display_expr(a0);
       return compile(schedule(optimize(a0)))(a0);
     }
   };
