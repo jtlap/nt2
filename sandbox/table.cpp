@@ -35,7 +35,7 @@ namespace nt2 { namespace container
   };
 } }
 
-template<class T, class Dummy = boost::proto::is_proto_expr>
+template<class T>
 struct table : nt2::container::expression< typename boost::proto::terminal< ::block<T> >::type, ::block<T>& >
 {
   typedef nt2::container::expression< typename boost::proto::terminal< block<T> >::type, ::block<T>& > parent;

@@ -28,20 +28,21 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace nt2 { namespace container
 {
-  template<class Expr, class ResultType, class Dummy>
+  template<class Expr, class ResultType>
   struct  expression
-        /*: boost::proto::extends < Expr
-                                , expression
+        : boost::proto::extends < Expr
+                                , expression<Expr, ResultType>
                                 , container::domain
-                                >*/
+                                >
   {
-    BOOST_PROTO_BASIC_EXTENDS(Expr, expression, container::domain)
-    BOOST_PROTO_EXTENDS_SUBSCRIPT()
-    //BOOST_PROTO_EXTENDS_FUNCTION() // wth does it break?
+    typedef boost::proto::extends < Expr
+                                , expression<Expr, ResultType>
+                                , container::domain
+                                >                                parent;
 
     // expression initialization called from generator
     BOOST_DISPATCH_FORCE_INLINE
-    expression(Expr const& xpr = Expr()) : proto_expr_(xpr)
+    expression(Expr const& xpr = Expr()) : parent(xpr)
     {
       #if 0
       BOOST_ASSERT_MSG( check_size(xpr)

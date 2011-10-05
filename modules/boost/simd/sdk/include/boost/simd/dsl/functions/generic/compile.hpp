@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                             , (unspecified_<A0>)
                             )
   {
-    typedef dispatch::functor<tag::run_> result_type;
+    typedef typename dispatch::make_functor<tag::run_, A0>::type result_type;
     
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const&) const

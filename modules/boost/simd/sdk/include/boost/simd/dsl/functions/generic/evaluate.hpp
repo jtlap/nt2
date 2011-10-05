@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_GENERIC_EVALUATE_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_GENERIC_EVALUATE_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/dsl/functions/evaluate.hpp>
 #include <boost/simd/include/functions/optimize.hpp>
 #include <boost/simd/include/functions/schedule.hpp>

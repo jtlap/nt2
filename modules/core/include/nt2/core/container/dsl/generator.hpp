@@ -16,11 +16,18 @@
 
 namespace nt2 { namespace container
 {
+  struct expression_lambda
+  {
+    template<class A0, class A1>
+    struct apply
+    {
+      typedef expression<A0, A1> type;
+    };
+  };
+    
   typedef boost::simd::meta::
           lambda_generator< boost::simd::meta::
-                            typed_expression< boost::mpl::
-                                              lambda< expression<boost::mpl::_1, boost::mpl::_2> >::type
-                                            >
+                            typed_expression< expression_lambda >
                           > generator;
 } }
 
