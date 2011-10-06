@@ -18,9 +18,6 @@
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 
-#include <nt2/sdk/details/type_id.hpp>
-#include <boost/proto/debug.hpp>
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::evaluate_, tag::formal_
@@ -33,8 +30,6 @@ namespace boost { namespace simd { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      std::cout << "Common evaluate" << std::endl;
-      proto::display_expr(a0);
       return compile(schedule(optimize(a0)))(a0);
     }
   };
