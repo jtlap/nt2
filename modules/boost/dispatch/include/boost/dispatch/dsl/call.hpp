@@ -44,7 +44,7 @@ namespace meta
                                 , (ast_< unspecified_<Expr> >)
                                 )
   {
-    typedef typename proto::result_of::value<Expr>::type type;
+    typedef typename proto::result_of::value<Expr>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type//typename result<implement(A0&)>::type
