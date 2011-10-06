@@ -17,7 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  template <class Tag, class Target>
+  template <class Tag, class Target, typename State = void>
   struct compute
       : boost::proto::
         unpack< boost::proto::
@@ -25,6 +25,20 @@ namespace boost { namespace dispatch { namespace meta
                                                               , Target
                                                               >
                                                     >
+                                            )
+              >
+  {};
+  
+  template <class Tag, class Target>
+  struct compute<Tag, Target, boost::proto::_state>
+      : boost::proto::
+        unpack< boost::proto::
+                call< functor<Tag, Target> >(compile< compute < boost::mpl::_1
+                                                              , Target
+                                                              , boost::proto::_state
+                                                              >
+                                                    >
+                                             , boost::proto::_state
                                             )
               >
   {};

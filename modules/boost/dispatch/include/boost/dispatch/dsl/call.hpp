@@ -44,19 +44,11 @@ namespace meta
                                 , (ast_< unspecified_<Expr> >)
                                 )
   {
-    template<class Sig>
-    struct result;
-    
-    template<class This, class A0>
-    struct result<This(A0)>
-    {
-      typedef typename as_ref<A0>::type type;
-    };
-    
-    template<class A0>
+    typedef typename proto::result_of::value<Expr>::type type;
+
     BOOST_DISPATCH_FORCE_INLINE
-    typename result<implement(A0&)>::type
-    operator()(A0& expr) const
+    result_type//typename result<implement(A0&)>::type
+    operator()(Expr& expr) const
     {
         return expr;
     }
