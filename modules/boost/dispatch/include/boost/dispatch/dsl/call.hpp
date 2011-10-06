@@ -16,6 +16,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/meta/any.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/functor/functor.hpp>
@@ -35,13 +36,25 @@ namespace boost { namespace dispatch { namespace details
 {
   template<class T, class Enable = void>
   struct proto_value
-    : remove_reference<T>
+    : meta::as_ref<T>
+  {
+  };
+  
+  template<class T, class Enable = void>
+  struct proto_value_impl
+   : remove_reference<T>
   {
   };
   
   template<class T>
-  struct proto_value<T, typename enable_if_c< proto::arity_of<T>::value == 0>::type>
-   : add_reference<T>
+  struct proto_value_impl<T, typename enable_if_c< proto::arity_of<T>::value == 0 >::type>
+    : add_reference<T>
+  {
+  };
+  
+  template<class T>
+  struct proto_value<T, typename enable_if< proto::is_expr<T> >::type>
+   : proto_value_impl<T>
   {
   };
 }
