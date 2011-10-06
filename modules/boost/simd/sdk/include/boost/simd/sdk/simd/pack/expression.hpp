@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/simd/pack/forward.hpp>
 #include <boost/simd/sdk/simd/pack/domain.hpp>
-#include <boost/simd/sdk/simd/pack/evaluate.hpp>
+#include <boost/simd/include/functions/evaluate.hpp>
 #include <boost/simd/include/functions/assign.hpp>
 #include <boost/proto/extends.hpp>
 

@@ -15,29 +15,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  // default terminal
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
-                            , (A0)
-                            , (ast_< unspecified_<A0> >)
-                            )
-  {
-    template<class Sig>
-    struct result;
-    
-    template<class This, class A0_>
-    struct result<This(A0_)>
-      : proto::result_of::value<A0_>
-    {
-    };
-    
-    template<class A0_>
-    typename result<implement(A0_&)>::type
-    operator()(A0_& a0) const
-    {
-      return boost::proto::value(a0);
-    }
-  };
-  
   // constants
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(Func, tag::formal_
                         , (Func)(A0)
@@ -58,24 +35,6 @@ namespace boost { namespace simd { namespace ext
     {
       return boost::proto::detail::
              make_expr_<Func, domain, const value&>()(value());
-    }
-  };
-
-  // array case
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
-                                , (class Value)(class State)
-                                  (class Data)(std::size_t N)
-                                , ((array_<scalar_< arithmetic_<Value > >,N>))
-                                  ((target_<array_<scalar_< arithmetic_<State> >,N> >))
-                                  (scalar_< integer_<Data> >)
-                                )
-{
-    typedef typename Value::value_type result_type;
-
-    inline result_type
-    operator()( Value const& v, State const&, Data const& p ) const
-    {
-      return v[p];
     }
   };
 } } }

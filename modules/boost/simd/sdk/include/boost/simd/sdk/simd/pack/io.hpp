@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_PACK_IO_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/sdk/simd/pack/evaluate.hpp>
+#include <boost/simd/include/functions/evaluate.hpp>
 
 namespace boost { namespace simd
 {
