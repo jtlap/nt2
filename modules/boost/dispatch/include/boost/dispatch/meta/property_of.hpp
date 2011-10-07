@@ -20,7 +20,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
@@ -50,7 +49,7 @@ namespace meta
 
   template<class T, class Origin>
   struct  property_of<T&, Origin> : property_of<T, typename meta::strip<Origin>::type> {};
-  
+
   template<class T, class Origin>
   struct  property_of<T const, Origin> : property_of<T, typename meta::strip<Origin>::type> {};
 } } }
