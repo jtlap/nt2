@@ -14,6 +14,7 @@
 #include <boost/mpl/vector_c.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/meta/align_on.hpp>
+#include <nt2/core/settings/details/of_size_meta.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
@@ -30,7 +31,7 @@ namespace nt2
     // Count non-trivial size values
     //==========================================================================
     #define M0(z,n,t) + ((BOOST_PP_CAT(D,n) > -2) ? 1 : 0)
-    static const std::size_t 
+    static const std::size_t
     static_size = ((D0 > -2) ? 1 : 0)
                   BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
     #undef M0
@@ -39,9 +40,9 @@ namespace nt2
     // The inner data is aligned and padded so SIMD operations are enabled on
     // size values.
     //==========================================================================
-    static const std::size_t 
+    static const std::size_t
     stored_size = nt2::meta::align_on_c < sizeof(std::ptrdiff_t) * static_size
-                                        >::value / sizeof(std::ptrdiff_t);    
+                                        >::value / sizeof(std::ptrdiff_t);
 
     //==========================================================================
     // Static size values used internally by MPL/Fusion
@@ -69,7 +70,7 @@ namespace nt2
     std::ptrdiff_t  operator[](std::size_t i) const { return data_[i]; }
 
     static std::size_t size() { return static_size; }
-    
+
     private:
 
     template<std::size_t N> inline void default_(boost::mpl::size_t<N> const&)
