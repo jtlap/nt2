@@ -25,7 +25,6 @@ SET( SOURCES
   remainder.cpp
   rem.cpp
   rec.cpp
-  rdivide.cpp
   random.cpp
   oneplus.cpp
   oneminus.cpp
@@ -37,8 +36,6 @@ SET( SOURCES
   min.cpp
   max.cpp
   logical_xor.cpp
-  ldivide.cpp
-  ldiv.cpp
   iround2even.cpp
   iround.cpp
   ifloor.cpp

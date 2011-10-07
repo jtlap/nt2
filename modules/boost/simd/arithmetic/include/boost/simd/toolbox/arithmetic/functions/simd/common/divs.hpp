@@ -10,51 +10,67 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVS_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/divs.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
+                            , ((simd_<real_<A0>,X>))
+                              ((simd_<real_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::rdivide(a0, a1); 
+      return a0/a1;
     }
   };
-} } }
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<integer_<A0>,X>))((simd_<integer_<A0>,X>))
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
+                            , ((simd_<uint_<A0>,X>))
+                              ((simd_<uint_<A0>,X>))
                             )
   {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      const A0 iseqza1 = is_eqz(a1);
+      const A0 aa1 = a1+(iseqza1&One<A0>());
+      const A0 r1 = a0/aa1; //a1!= 0
+      const A0 r2 = select(is_eqz(a0),Zero<A0>(),Valmax<A0>());
+      return select(iseqza1, r2, r1);
+    }
+  };
 
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
+                            , ((simd_<int_<A0>,X>))
+                              ((simd_<int_<A0>,X>))
+                            )
+  {
     typedef A0 result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      //      A0 c = b_and(eq(a0, Valmin<A0>()), eq(a1, Mone<A0>())); 
-      return rdivide( a0, a1); 
+      const A0 iseqza1 = is_eqz(a1);
+      const A0 c = b_and(eq(a0,Valmin<A0>()),eq(a1, Mone<A0>()));
+      const A0 aa1 = a1+(iseqza1&One<A0>());
+      const A0 r1 = (a0-c)/aa1; //a1!= 0
+      const A0 v2 = select(is_ltz(a1),Valmin<A0>(),Valmax<A0>());
+      const A0 r2 = select(is_eqz(a0),Zero<A0>(),v2); //a1 == 0
+      return select(iseqza1, r2, r1);
     }
   };
 } } }

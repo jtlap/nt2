@@ -44,14 +44,11 @@ SET( SOURCES
   sqrt.cpp
   sqr.cpp
   rec.cpp
-  rdivide.cpp
   oneplus.cpp
   oneminus.cpp
   minusone.cpp
   min.cpp
   max.cpp
-  ldivide.cpp
-  ldiv.cpp
   idivround.cpp
   idivfloor.cpp
   idivfix.cpp
