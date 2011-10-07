@@ -8,7 +8,45 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_CONSTANTS_EULER_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_CONSTANTS_EULER_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
+/*!
+ * \ingroup expon_constant
+ * \defgroup expon_constant_euler Euler constant
+ *
+ * \par Description
+ * Constant euler : Euler constant.
+ * \par
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/euler.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::euler_(A0)>::type
+ *     euler();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Euler
+ * 
+ * \return type T value
+ *  
+ *  
+**/
 
 namespace nt2
 {
