@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_SETTINGS_ID_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_ID_HPP_INCLUDED
 
+#include <boost/cstdint.hpp>
 #include <boost/mpl/string.hpp>
 #include <nt2/core/settings/option.hpp>
 
@@ -22,7 +23,7 @@ namespace nt2
    * \tparam ID 32 byte multi-bytes character unique identifier
    **/
   //============================================================================
-  template<nt2::uint32_t ID> struct id_ {}; 
+  template<boost::uint32_t ID> struct id_ {}; 
   
   namespace tag 
   { 
@@ -39,8 +40,8 @@ namespace nt2
     //==========================================================================
     // Make options extracting the ID from id_
     //==========================================================================
-    template<nt2::uint32_t ID, class Default>
-    struct option<id_<ID>, tag::id_, Default, void>
+    template<boost::uint32_t ID, class Default>
+    struct option<id_<ID>, tag::id_, Default>
     {
       typedef boost::mpl::string<ID> type;
     };

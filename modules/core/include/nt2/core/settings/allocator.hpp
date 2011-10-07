@@ -38,7 +38,7 @@ namespace nt2
     // Make options extracting the Allocator from allcoator_
     //==========================================================================
     template<class Allocator, class Default>
-    struct option<allocator_<Allocator>, tag::allocator_, Default, void>
+    struct option<allocator_<Allocator>, tag::allocator_, Default>
     {
       typedef Allocator type;
     };

@@ -38,7 +38,7 @@ namespace nt2 { namespace meta
    * \tparam Default Type returned if no options of chosen tag is found
    **/
   //============================================================================
-  template<class Type, class Option, class Default> 
+  template<class Type, class Option, class Default = void> 
   struct option 
   { 
     typedef Default type; 

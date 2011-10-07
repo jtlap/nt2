@@ -32,7 +32,7 @@ namespace nt2
   template< std::ptrdiff_t I0 = NT2_DEFAULT_INDEX
           , BOOST_PP_ENUM(BOOST_PP_DEC(NT2_MAX_DIMENSIONS),M0,~)
           >
-  struct  index {};
+  struct  index_ {};
 
   #undef M0
 
@@ -41,14 +41,14 @@ namespace nt2
    * C-style base index options. By using it, all indexes start at 0
    **/
   //============================================================================
-  typedef index<0> C_index_;
+  typedef index_<0> C_index_;
   
   //============================================================================
   /*!
    * Matlab style base index options. By using it, all indexes start at 1
    **/
   //============================================================================
-  typedef index<1> matlab_index_;
+  typedef index_<1> matlab_index_;
 
   namespace tag 
   { 
@@ -68,7 +68,7 @@ namespace nt2
     template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,std::ptrdiff_t I)
             , class Default
             >
-    struct option < index<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
+    struct option < index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
                   , tag::index_, Default
                   >
     {    
