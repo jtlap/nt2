@@ -8,8 +8,42 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_RADINDEG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_RADINDEG_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
-
+/*!
+ * \ingroup trigo_constant
+ * \defgroup trigo_constant_radindeg Radindeg constant
+ *
+ * \par Description
+ * Constant Radindeg : Degree in radian multiplier, \f$\frac{180}\pi\f$.
+ * 
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/radindeg.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::_radindeg_(A0)>::type
+ *     Radindeg();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Radindeg
+ * 
+ * \return type T value
+ *  
+ *  
+**/
 namespace nt2
 {
   static const long double long_radindeg =  57.295779513082320876798154814105l; 

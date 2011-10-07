@@ -8,8 +8,41 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_TWOOPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_TWOOPI_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
-
+/*!
+ * \ingroup trigo_constant
+ * \defgroup trigo_constant_twoopi twoopi constant
+ *
+ * \par Description
+ * Constant twoopi : \f$\frac2\pi\f$.
+ * 
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/twoopi.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::_twoopi_(A0)>::type
+ *     twoopi();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of twoopi
+ * 
+ * \return type T value
+ *  
+ **/
 namespace nt2
 {
   NT2_MAKE_STD_CONSTANT( Twoopi    , 0x3fe45f306dc9c883ll, 0x3f22f983, 0)

@@ -8,8 +8,42 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_ONEO_180_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_ONEO_180_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
-
+/*!
+ * \ingroup trigo_constant
+ * \defgroup trigo_constant_oneo_180 oneo_180 constant
+ *
+ * \par Description
+ * Constant Oneo_180 : \f$\frac1{180}\f$.
+ * 
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/oneo_180.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::_oneo_180_(A0)>::type
+ *     Oneo_180();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Oneo_180
+ * 
+ * \return type T value
+ *  
+ *  
+**/
 namespace nt2
 {
   NT2_MAKE_STD_CONSTANT( Oneo_180  , 0x3f76c16c16c16c17ll, 0x3bb60b61, 0)

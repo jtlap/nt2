@@ -8,8 +8,42 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_DEGINRAD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_DEGINRAD_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
-
+/*!
+ * \ingroup trigo_constant
+ * \defgroup trigo_constant_deginrad Deginrad constant
+ *
+ * \par Description
+ * Constant Deginrad : radian in degree  multiplier, \f$\frac\pi{180}\f$.
+ * 
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/deginrad.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::_deginrad_(A0)>::type
+ *     Deginrad();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Deginrad
+ * 
+ * \return type T value
+ *  
+ *  
+**/
 namespace nt2
 {
   static const long double long_deginrad = 0.017453292519943295769236907684886l;

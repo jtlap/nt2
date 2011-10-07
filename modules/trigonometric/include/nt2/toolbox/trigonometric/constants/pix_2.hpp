@@ -8,8 +8,41 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_PIX_2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_PIX_2_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
-
+/*!
+ * \ingroup trigo_constant
+ * \defgroup trigo_constant_pix_2 Pix_2 constant
+ *
+ * \par Description
+ * Constant pix_2 : \f$2\pi\f$.
+ * 
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/pix_2.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::_pix_2_(A0)>::type
+ *     pix_2();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Pix_2
+ * 
+ * \return type T value
+ *  
+ **/
 namespace nt2
 {
   NT2_MAKE_STD_CONSTANT( Pix_2     , 0x401921fb54442d18ll, 0x40c90fdb, 6)
