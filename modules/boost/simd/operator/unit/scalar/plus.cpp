@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( plus_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(plus(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(plus(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(plus(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( plus_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {

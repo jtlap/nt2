@@ -51,8 +51,8 @@ NT2_TEST_CASE(hierarchy_of_array)
 
   NT2_TEST( (is_same<array_<scalar_<double_< array<double,7> > >, 7  >      , base >::value) );
   NT2_TEST( (is_same<array_<scalar_<type64_< array<double,7> > >, 7  >      , UP(base,1) >::value) );
-  NT2_TEST( (is_same<array_<scalar_<real_sized_< array<double,7> > >, 7  >  , UP(base,2) >::value) );
-  NT2_TEST( (is_same<array_<scalar_<real_< array<double,7> > >, 7  >        , UP(base,3) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<floating_sized_< array<double,7> > >, 7  >  , UP(base,2) >::value) );
+  NT2_TEST( (is_same<array_<scalar_<floating_< array<double,7> > >, 7  >        , UP(base,3) >::value) );
   NT2_TEST( (is_same<array_<scalar_<signed_< array<double,7> > >, 7  >      , UP(base,4) >::value) );
   NT2_TEST( (is_same<array_<scalar_<arithmetic_< array<double,7> > >, 7  >  , UP(base,5) >::value) );
   NT2_TEST( (is_same<array_<scalar_<fundamental_< array<double,7> > >, 7  > , UP(base,6) >::value) );
@@ -60,8 +60,8 @@ NT2_TEST_CASE(hierarchy_of_array)
 
   NT2_TEST( (is_same<array_<generic_<double_< array<double,7> > >, 7  >      , UP(base,8) >::value) );
   NT2_TEST( (is_same<array_<generic_<type64_< array<double,7> > >, 7  >      , UP(base,9) >::value) );
-  NT2_TEST( (is_same<array_<generic_<real_sized_< array<double,7> > >, 7  >  , UP(base,10) >::value) );
-  NT2_TEST( (is_same<array_<generic_<real_< array<double,7> > >, 7  >        , UP(base,11) >::value) );
+  NT2_TEST( (is_same<array_<generic_<floating_sized_< array<double,7> > >, 7  >  , UP(base,10) >::value) );
+  NT2_TEST( (is_same<array_<generic_<floating_< array<double,7> > >, 7  >        , UP(base,11) >::value) );
   NT2_TEST( (is_same<array_<generic_<signed_< array<double,7> > >, 7  >      , UP(base,12) >::value) );
   NT2_TEST( (is_same<array_<generic_<arithmetic_< array<double,7> > >, 7  >  , UP(base,13) >::value) );
   NT2_TEST( (is_same<array_<generic_<fundamental_< array<double,7> > >, 7  > , UP(base,14) >::value) );

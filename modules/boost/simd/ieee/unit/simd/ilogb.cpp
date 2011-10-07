@@ -55,4 +55,4 @@ NT2_TEST_CASE_TPL ( ilogb_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ilogb(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(ilogb(boost::simd::Two<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(ilogb(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

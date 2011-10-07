@@ -18,7 +18,6 @@ namespace boost { namespace dispatch { namespace meta
   struct simd_ : simd_< typename T::parent, X >
   {
     typedef simd_< typename T::parent, X >  parent;
-    typedef T                               base;
   };
 
   template<class T,class X>
@@ -26,7 +25,6 @@ namespace boost { namespace dispatch { namespace meta
         : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;
-    typedef unspecified_<T>                           base;
   };
 } } }
 

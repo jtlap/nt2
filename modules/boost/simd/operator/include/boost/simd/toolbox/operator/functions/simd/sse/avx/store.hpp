@@ -40,8 +40,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , boost::simd::tag::avx_
                             , (A0)(A1)(A2)
-                            , ((simd_< float_<A0>, boost::simd::tag::avx_ >))
-                              (iterator_< scalar_< float_<A1> > >)
+                            , ((simd_< single_<A0>, boost::simd::tag::avx_ >))
+                              (iterator_< scalar_< single_<A1> > >)
                               (scalar_< integer_<A2> >)
                             )
   {

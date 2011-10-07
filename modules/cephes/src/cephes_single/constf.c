@@ -1,3 +1,4 @@
+#include "mconf.h"
 
 #ifdef DEC
 /* MAXNUMF = 2^127 * (1 - 2^-24) */

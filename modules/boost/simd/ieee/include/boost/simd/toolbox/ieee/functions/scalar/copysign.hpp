@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::copysign_, tag::cpu_
                             , (A0)
-                            , (scalar_< float_<A0> >)(scalar_< float_<A0> >)
+                            , (scalar_< single_<A0> >)(scalar_< single_<A0> >)
                             )
   {
     typedef A0 result_type;

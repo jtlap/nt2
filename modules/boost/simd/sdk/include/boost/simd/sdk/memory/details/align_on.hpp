@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_MEMORY_DETAILS_ALIGN_ON_HPP_INCLUDED
 
 #include <boost/dispatch/meta/mpl.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <boost/simd/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/meta/align_on.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
@@ -25,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename boost::common_type<A0,A1>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
@@ -45,7 +46,7 @@ namespace boost { namespace simd { namespace ext
                               (mpl_integral_< scalar_< integer_<A1> > >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename boost::common_type<A0,typename A1::value_type>::type result_type;
     inline result_type operator()(A0 const& a0, A1 const&)const 
     {
       return (a0+A1::value-1) & ~(A1::value-1);
@@ -62,7 +63,7 @@ namespace boost { namespace simd { namespace ext
                             , (A0), (scalar_< integer_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename boost::common_type<A0,int>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {

@@ -26,7 +26,7 @@ namespace boost { namespace simd
       struct apply {};
 
       template<class Dummy> 
-      struct apply<float,Dummy> : meta::float_<F> {};  
+      struct apply<float,Dummy> : meta::single_<F> {};  
 
       template<class Dummy> 
       struct apply<double,Dummy> : meta::double_<D> {};  

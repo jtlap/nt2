@@ -19,7 +19,7 @@
 #include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
                           ((simd_<int32_<A0>,boost::simd::tag::avx_>))
                          )
   {
-    typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_floating<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type that = { _mm256_cvtepi32_ps(a0)};
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
                           ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
                          )
   {
-    typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_floating<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename dispatch::meta::scalar_of<result_type>::type stype;
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
                           ((simd_<int64_<A0>,boost::simd::tag::avx_>))
                          )
   {
-    typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_floating<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return make<result_type>(a0[0], a0[1], a0[2], a0[3]);
@@ -94,7 +94,7 @@ namespace boost { namespace simd { namespace ext
                           ((simd_<uint64_<A0>,boost::simd::tag::avx_>))
                          )
   {
-    typedef typename dispatch::meta::as_real<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_floating<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return make<result_type>(a0[0], a0[1], a0[2], a0[3]);

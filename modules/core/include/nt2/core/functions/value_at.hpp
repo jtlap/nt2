@@ -11,14 +11,10 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 { namespace tag
-  {
-    struct value_at_ {};
-  }
-
+namespace nt2 
+{ 
+  namespace tag { struct value_at_ {}; }
   NT2_FUNCTION_IMPLEMENTATION(tag::value_at_, value_at, 2)
 }
-
-#include <nt2/core/functions/impl/value_at.hpp>
 
 #endif

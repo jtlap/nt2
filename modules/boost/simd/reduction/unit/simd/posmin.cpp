@@ -54,4 +54,4 @@ NT2_TEST_CASE_TPL ( posmin_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(posmin(boost::simd::Nan<vT>()), boost::simd::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(posmin(boost::simd::One<vT>()), boost::simd::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(posmin(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

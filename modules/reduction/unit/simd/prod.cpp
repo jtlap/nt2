@@ -18,7 +18,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -29,11 +29,14 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( prod_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -55,13 +58,13 @@ NT2_TEST_CASE_TPL ( prod_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
+  NT2_TEST_EQUAL(prod(boost::simd::Minf<vT>()), (boost::simd::meta::cardinal_of<vT>::value == 1) ? boost::simd::Minf<sr_t>() : boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(prod(boost::simd::Mone<vT>()), (boost::simd::meta::cardinal_of<vT>::value == 1) ? boost::simd::Mone<sr_t>() : boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(prod(nt2::Inf<vT>()), nt2::Inf<sr_t>());
-  NT2_TEST_EQUAL(prod(nt2::Minf<vT>()), nt2::Inf<sr_t>());
-  NT2_TEST_EQUAL(prod(nt2::Mone<vT>()), nt2::One<sr_t>());
   NT2_TEST_EQUAL(prod(nt2::Nan<vT>()), nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(prod(nt2::One<vT>()), nt2::One<sr_t>());
   NT2_TEST_EQUAL(prod(nt2::Zero<vT>()), nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

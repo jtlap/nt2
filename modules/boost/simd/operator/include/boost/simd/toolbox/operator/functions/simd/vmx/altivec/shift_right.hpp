@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_, boost::simd::tag::altivec_, (A0)(A1)
-                            , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::altivec_>))
                               ((simd_<ints32_<A1>,boost::simd::tag::altivec_>))
                             )
   {

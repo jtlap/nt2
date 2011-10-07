@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(lo(boost::simd::Nan<vT>())[0], boost::simd::Mone<dtype>());
   NT2_TEST_EQUAL(lo(boost::simd::One<vT>())[0], boost::simd::Zero<dtype>());
   NT2_TEST_EQUAL(lo(boost::simd::Zero<vT>())[0], boost::simd::Zero<dtype>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( lo_sintgt_8__1_0,  BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES)
 {

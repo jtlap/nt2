@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( put_first_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {

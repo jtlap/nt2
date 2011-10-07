@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -8,17 +8,45 @@
 //==============================================================================
 #ifndef BOOST_DISPATCH_META_FACTORY_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_FACTORY_OF_HPP_INCLUDED
-
 /*!
  * \file
- * \brief Defines and implements the boost::dispatch::meta::factory_of meta-functions
+ * \brief Defines the \c boost::dispatch::meta::factory_of \metafunction
  */
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/strip.hpp>
+#include <boost/mpl/apply.hpp>
 
-#include <boost/mpl/placeholders.hpp>
-
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch { namespace details
 {
-  //============================================================================
+  template<class T, class Origin>
+  struct factory_of_impl
+  {
+    struct type
+    {
+      template<class X>
+      struct apply
+       : mpl::apply< typename meta::model_of<Origin>::type
+                   , typename mpl::apply< typename factory_of_impl< typename meta::value_of<T>::type
+                                                                  , T
+                                                                  >::type
+                                        , X
+                                        >::type
+                   >
+      {
+      };
+    };
+  };
+  
+  template<class T>
+  struct factory_of_impl<T, T>
+   : meta::model_of<T>
+  {
+  };
+}
+
+namespace meta
+{
   /*!
    * \ingroup metafunctions
    * For any Hierarchizable type, returns a \metalambda which permits the lazy
@@ -46,11 +74,12 @@ namespace boost { namespace dispatch { namespace meta
    *
    * \include factory_of.cpp
    */
-  //============================================================================
-  template<class Hierarchizable> struct factory_of
+  template<class T>
+  struct factory_of
+    : details::factory_of_impl<typename value_of<T>::type, typename strip<T>::type>
   {
-    typedef boost::mpl::_ type;
   };
+
 } } }
 
 #endif

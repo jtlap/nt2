@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_SELECT_HPP_INCLUDED
 #include <boost/mpl/bool.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -55,4 +55,4 @@ NT2_TEST_CASE_TPL ( trunc_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(trunc(boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(trunc(boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(trunc(boost::simd::Zero<vT>())[0], boost::simd::Zero<T>(), 0);
-} // end of test for real_
+} // end of test for floating_

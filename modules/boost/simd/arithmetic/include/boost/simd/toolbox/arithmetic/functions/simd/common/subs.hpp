@@ -23,13 +23,13 @@
 #include <boost/simd/include/constants/one.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
 

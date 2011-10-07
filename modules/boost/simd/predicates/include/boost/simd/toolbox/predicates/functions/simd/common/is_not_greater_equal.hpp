@@ -18,13 +18,13 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_greater_equal_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(lt(a1,a0), is_unord(a0, a1));
+      return b_or(lt(a0,a1), is_unord(a0, a1));
     }
   };
   

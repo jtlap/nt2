@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( frac_real__1_0,  BOOST_SIMD_REAL_TYPES)
      }
      
    }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( frac_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {

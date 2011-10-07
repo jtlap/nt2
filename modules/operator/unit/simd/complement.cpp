@@ -20,7 +20,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( complement_real__1_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(complement(nt2::Nan<vT>())[0], nt2::Zero<sr_t>());
   NT2_TEST_EQUAL(complement(nt2::Zero<vT>())[0], nt2::Nan<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( complement_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {

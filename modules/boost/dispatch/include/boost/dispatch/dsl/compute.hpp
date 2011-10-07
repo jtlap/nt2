@@ -17,35 +17,27 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  template <class Tag, class Target>
-  struct compute
+  template<class Tag, class Target>
+  struct compute_phase
       : boost::proto::
         unpack< boost::proto::
-                call< functor<Tag, Target> >(compile< compute < boost::mpl::_1
-                                                              , Target
-                                                              >
+                call< functor<Tag, Target> >(compile< compute_phase < boost::mpl::_1
+                                                                    , Target
+                                                                    >
                                                     >
                                             )
               >
   {};
-
+  
   template<class Target>
-  struct  compute<tag::terminal_,Target>
-        : boost::proto::
-          call< functor < boost::proto::tag::terminal
-                        , Target
-                        > ( boost::proto::_value
-                          , boost::proto::_state
-                          , boost::proto::_data
-                          )
-              >
-  {};
+  struct compute : compile< compute_phase<boost::mpl::_1, Target> > {};
+  
 } } }
 
 namespace boost { namespace proto
 {
   template<class Tag, class Target>
-  struct  is_callable<boost::dispatch::meta::compute<Tag, Target> >
+  struct  is_callable<boost::dispatch::meta::compute_phase<Tag, Target> >
         : boost::mpl::true_  {};
 } }
 

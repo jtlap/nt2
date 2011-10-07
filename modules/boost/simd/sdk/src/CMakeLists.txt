@@ -19,3 +19,11 @@ set(SOURCES
     config/detect.cpp
    )
 nt2_module_add_library(boost_simd ${SOURCES})
+
+nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
+                                         boost/simd/dsl/functions
+                                         --out  boost/simd/dsl/include/functions
+                                          boost/simd/dsl/include/functions
+                                         --out  boost/simd/dsl/functions.hpp
+                                         --out  boost/simd/include/functions
+                        )

@@ -32,8 +32,8 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, boost::simd::tag::sse2_
                             , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<float_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;

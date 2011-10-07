@@ -48,14 +48,14 @@ namespace boost { namespace dispatch { namespace meta
    * is equivalent to:
    *
    * \code
-   * typedef make_real< max< sizeof(primitive_of<T>::type)/2
+   * typedef make_floating< max< sizeof(primitive_of<T>::type)/2
    *                       , sizeof(float)
    *                       >::value
    *                  , factory_of<T>::type
    *                  >::type                                  r;
    * \endcode
    *
-   * if \c primitive_of<T> is of hierarchy \ref boost::dispatch::tag::real_ and to:
+   * if \c primitive_of<T> is of hierarchy \ref boost::dispatch::tag::floating_ and to:
    *
    * \code
    * typedef make_integer< max<sizeof(primitive_of<T>::type)/2, 1>::value

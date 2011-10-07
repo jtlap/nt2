@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(selsub(boost::simd::Nan<vT>(),boost::simd::Minf<vT>(),boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(selsub(boost::simd::Nan<vT>(),boost::simd::Nan<vT>(),boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(selsub(boost::simd::Nan<vT>(),boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {

@@ -17,8 +17,8 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<float_<A0>,boost::simd::tag::altivec_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::altivec_>))
+                              ((simd_<single_<A0>,boost::simd::tag::altivec_>))
                             )
   {
     typedef A0 result_type;

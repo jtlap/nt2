@@ -15,11 +15,12 @@
 /// 
 #include <nt2/toolbox/reduction/include/functions/any.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/meta/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -29,25 +30,25 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/infinites.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
-//COMMENTED
-// using any causes an ADL problem
+#include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
-NT2_TEST_CASE_TPL ( any_real__1_0,  NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( any_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
-  //  using nt2::any;
+  using nt2::any;
   using nt2::tag::any_;
   using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
@@ -58,25 +59,25 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(nt2::any(nt2::Inf<vT>()), nt2::One<sr_t>());
-  NT2_TEST_EQUAL(nt2::any(nt2::Minf<vT>()), nt2::One<sr_t>());
-  NT2_TEST_EQUAL(nt2::any(nt2::Mone<vT>()), nt2::One<sr_t>());
-  NT2_TEST_EQUAL(nt2::any(nt2::Nan<vT>()), nt2::One<sr_t>());
-  NT2_TEST_EQUAL(nt2::any(nt2::One<vT>()), nt2::One<sr_t>());
-  NT2_TEST_EQUAL(nt2::any(nt2::Zero<vT>()), nt2::Zero<sr_t>());
-} // end of test for real_
+  NT2_TEST_EQUAL(any(nt2::Inf<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(any(nt2::Minf<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(any(nt2::Mone<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(any(nt2::Nan<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(any(nt2::One<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(any(nt2::Zero<vT>()), nt2::Zero<sr_t>());
+} // end of test for floating_
 
-NT2_TEST_CASE_TPL ( any_int__1_0,  NT2_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( any_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
-  //  using nt2::any;
+  using nt2::any;
   using nt2::tag::any_;
   using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
@@ -87,9 +88,9 @@ NT2_TEST_CASE_TPL ( any_int__1_0,  NT2_INTEGRAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(nt2::any(nt2::One<vT>()), nt2::One<sr_t>());
-  NT2_TEST_EQUAL(nt2::any(nt2::Zero<vT>()), nt2::Zero<sr_t>());
-} // end of test for real_
+  NT2_TEST_EQUAL(any(nt2::One<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(any(nt2::Zero<vT>()), nt2::Zero<sr_t>());
+} // end of test for integer_

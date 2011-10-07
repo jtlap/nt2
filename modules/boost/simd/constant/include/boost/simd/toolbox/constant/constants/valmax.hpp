@@ -33,7 +33,7 @@ namespace boost { namespace simd
     
     template<class Dummy>
     struct  Valmax::apply<float,Dummy> 
-          : meta::float_<0x7F7FFFFF> {};
+          : meta::single_<0x7F7FFFFF> {};
 
     template<class Dummy>
     struct  Valmax::apply<double,Dummy> 

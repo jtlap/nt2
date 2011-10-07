@@ -10,6 +10,7 @@
 #define BOOST_DISPATCH_DSL_PROTO_EXTENDS_HPP
 
 #include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/proto/extends.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // BOOST_PROTO_BASIC_EXTENDS working with template Domain

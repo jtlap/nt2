@@ -89,7 +89,7 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M6, (T,C))    \
 /**/
 
 BOOST_SIMD_MAP_CALL(double_ , pd    )
-BOOST_SIMD_MAP_CALL(float_  , ps    )
+BOOST_SIMD_MAP_CALL(single_  , ps    )
 BOOST_SIMD_MAP_CALL(integer_, si256 )
 
 #undef BOOST_SIMD_MAP_CALL

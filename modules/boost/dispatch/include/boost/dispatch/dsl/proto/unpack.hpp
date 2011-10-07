@@ -30,12 +30,25 @@ namespace boost { namespace proto
             >
     struct unpack_impl;
 
+    #define BOOST_PROTO_ARITY N
     #define BOOST_PROTO_CHILD_N(_, N, __)   proto::_child_c<N>
     #define BOOST_PROTO_CHILD_E_N(_, N, __) E(proto::_child_c<N>)
 
     #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_PROTO_MAX_ARITY, "boost/dispatch/dsl/proto/unpack.hpp"))
     #include BOOST_PP_ITERATE()
 
+    #undef BOOST_PROTO_ARITY
+    #undef BOOST_PROTO_CHILD_N
+    #undef BOOST_PROTO_CHILD_E_N
+
+    #define BOOST_PROTO_ARITY 0
+    #define BOOST_PROTO_CHILD_N(_, N, __)   proto::_expr
+    #define BOOST_PROTO_CHILD_E_N(_, N, __) proto::_expr
+    
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, 1, "boost/dispatch/dsl/proto/unpack.hpp"))
+    #include BOOST_PP_ITERATE()
+    
+    #undef BOOST_PROTO_ARITY
     #undef BOOST_PROTO_CHILD_N
     #undef BOOST_PROTO_CHILD_E_N
   }
@@ -64,7 +77,7 @@ namespace boost { namespace proto
 #define N BOOST_PP_ITERATION()
 
 template<class Fun, class Expr, class State, class Data>
-struct  unpack_impl<Fun, Expr, State, Data, N>
+struct  unpack_impl<Fun, Expr, State, Data, BOOST_PROTO_ARITY>
       : transform_impl<Expr, State, Data>
 {
   typedef typename mpl::if_c<
@@ -93,7 +106,7 @@ struct  unpack_impl<Fun, Expr, State, Data, N>
 };
 
 template<class Fun, class E, class Expr, class State, class Data>
-struct  unpack_impl<Fun(E), Expr, State, Data, N>
+struct  unpack_impl<Fun(E), Expr, State, Data, BOOST_PROTO_ARITY>
       : transform_impl<Expr, State, Data>
 {
   typedef typename mpl::if_c<
@@ -117,7 +130,7 @@ struct  unpack_impl<Fun(E), Expr, State, Data, N>
 };
 
 template<class Fun, class E, class S, class Expr, class State, class Data>
-struct  unpack_impl<Fun(E, S), Expr, State, Data, N>
+struct  unpack_impl<Fun(E, S), Expr, State, Data, BOOST_PROTO_ARITY>
       : transform_impl<Expr, State, Data>
 {
     typedef typename mpl::if_c<
@@ -142,7 +155,7 @@ struct  unpack_impl<Fun(E, S), Expr, State, Data, N>
 };
 
 template<class Fun, class E, class S, class D, class Expr, class State, class Data>
-struct  unpack_impl<Fun(E, S, D), Expr, State, Data, N>
+struct  unpack_impl<Fun(E, S, D), Expr, State, Data, BOOST_PROTO_ARITY>
       : transform_impl<Expr, State, Data>
 {
     typedef typename mpl::if_c<

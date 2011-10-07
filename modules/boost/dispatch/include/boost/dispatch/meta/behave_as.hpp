@@ -57,8 +57,7 @@ namespace boost { namespace dispatch { namespace meta
   struct  behave_as
         : boost::mpl::
           apply1< Lambda
-                , typename primitive_of < typename
-                                          strip<Hierarchizable>::type
+                , typename primitive_of < Hierarchizable
                                         >::type
                 >::type
   {};

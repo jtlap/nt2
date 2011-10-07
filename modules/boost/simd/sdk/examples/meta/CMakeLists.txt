@@ -13,7 +13,7 @@ SET(SOURCES
     arithmetic.cpp
     as_bits.cpp
     as_integer.cpp
-    as_real.cpp
+    as_floating.cpp
     as_signed.cpp
     as_unsigned.cpp
     behave_as.cpp
@@ -29,7 +29,7 @@ SET(SOURCES
     is_signed.cpp
     is_unspecified.cpp
     make_integer.cpp
-    make_real.cpp
+    make_floating.cpp
     primitive_of.cpp
     sign_of.cpp
     strip.cpp

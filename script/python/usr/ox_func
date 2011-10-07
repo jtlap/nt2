@@ -1,0 +1,62 @@
+#! /usr/bin/env python
+# -*- coding: iso-8859-15  -*-
+##############################################################################
+#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+##############################################################################
+__author__    = "Lapreste Jean-thierry (lapreste@univ-bpclermont.fr)"
+__version__   = "$Revision: 1.0 $"
+__date__      = "$Date: 2010    $"
+__copyright__ = """ Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
+                    Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI"""
+__license__   = "Boost Software License, Version 1.0"
+
+"""Put Doxygen templates in functor files
+   """
+
+import sys
+import os
+import re
+import argparse
+
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'../lib',"nt2_generation"))
+from nt2_oxygenation       import Nt2_oxygenation
+sys.path.pop(0)
+
+def listify(data) :
+    if data is None : return data
+    data = re.sub('\s|"|\[|\]','',data)
+    data = re.sub("'",'',data)
+    return data.split(',')
+
+
+if __name__ == "__main__" :
+    parser = argparse.ArgumentParser(description="list modules files names and locations")
+
+    parser.add_argument("-m", "--modules",
+                      dest="modules",
+                      default=None,
+                      help="""treat functors in modules which are in the provides list
+                      """)
+    parser.add_argument("-f", "--functors",
+                      dest="functors",
+                      default=None,
+                      help="""treat functors in modules which are in names
+                      """)
+
+    namespace = parser.parse_args( "-m=boost.simd.operator -f=plus".split())
+##    namespace = parser.parse_args( "-m=exponential -f=exp".split())
+##    namespace = parser.parse_args()
+
+    modules        = listify(namespace.modules)
+    if modules is None :
+        "Please enter at least a module name"
+        raise SystemExit
+    functors       = namespace.functors 
+    
+    for module in modules :
+        Nt2_oxygenation(module,functors).doxyfy()

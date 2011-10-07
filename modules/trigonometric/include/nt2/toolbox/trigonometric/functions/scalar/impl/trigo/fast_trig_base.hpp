@@ -22,7 +22,7 @@ namespace nt2
 //     {
 //       double mr = *boost::get_error_info<max_range>(*this)
 //       os << "Using a fast trigonometric function outside the range ["
-// 	 << -mr <<",  " << mr << "]";
+//       << -mr <<",  " << mr << "]";
 //     }
 //   };
 
@@ -32,22 +32,22 @@ namespace nt2
     {
       template < class A0, class unit_tag> struct trig_ranges
       {
-	//	static inline A0    max_range() {return Zero<A0>(); }
+        //      static inline A0    max_range() {return Zero<A0>(); }
       }; 
       template < class A0>  struct trig_ranges<A0, radian_tag>
       {
-	static inline A0    max_range() {return Pio_4<A0>(); }
-	static inline A0    scale()     {return One<A0>(); }
+        static inline A0    max_range() {return Pio_4<A0>(); }
+        static inline A0    scale()     {return One<A0>(); }
       }; 
       template < class A0>  struct trig_ranges<A0, pi_tag>
       {
-	static inline A0    max_range() {return Quarter<A0>(); }
-	static inline A0    scale()     {return Pi<A0>(); }
+        static inline A0    max_range() {return Quarter<A0>(); }
+        static inline A0    scale()     {return Pi<A0>(); }
       }; 
       template < class A0>  struct trig_ranges<A0, degree_tag>
       {
-	static inline A0    max_range() {return Fortyfive<A0>(); }
-	static inline A0    scale()     {return Pio_180<A0>(); }
+        static inline A0    max_range() {return Fortyfive<A0>(); }
+        static inline A0    scale()     {return Pio_180<A0>(); }
       }; 
 
 
@@ -78,57 +78,56 @@ namespace nt2
       //
 
       template < class A0,
-		 class unit_tag
+                 class unit_tag
       > 
       struct trig_base<A0,unit_tag,fast_tag,tag::not_simd_type>
       {
-	// for all functions the algorithm is:
-	// * evaluations
-	// * return evaluation or Nan if range is not respected
-	//
-	// note that the range is VERY SMALL
-	
+        // for all functions the algorithm is:
+        // * evaluations
+        // * return evaluation or Nan if range is not respected
+        //
+        // note that the range is VERY SMALL
+        
 
-	typedef trig_evaluation<A0,tag::not_simd_type> eval_t;
-	
-	static inline A0 cosa(const A0& a0)
-	{
-	  A0 x =  scale(a0); 
-	  if(not_in_range(a0)) return Nan<A0>(); else return eval_t::cos_eval(sqr(x), x, Zero<A0>());
-	}
+        typedef trig_evaluation<A0,tag::not_simd_type> eval_t;
+        
+        static inline A0 cosa(const A0& a0)
+        {
+          A0 x =  scale(a0); 
+          if(not_in_range(a0)) return Nan<A0>(); else return eval_t::cos_eval(sqr(x), x, Zero<A0>());
+        }
 
-	
-	static inline A0 sina(const A0& a0)
-	{
-	  A0 x =  scale(a0); 
-	  if(not_in_range(a0)) return Nan<A0>(); else return eval_t::sin_eval(sqr(x), x, Zero<A0>());
-	}
+        
+        static inline A0 sina(const A0& a0)
+        {
+          A0 x =  scale(a0); 
+          if(not_in_range(a0)) return Nan<A0>(); else return eval_t::sin_eval(sqr(x), x, Zero<A0>());
+        }
 
-	static inline A0 tana(const A0& a0)
-	{
-	  A0 x =  scale(a0); 
-	  if(not_in_range(a0)) return Nan<A0>(); else return eval_t::base_tan_eval(x);
-	}	  
-	static inline A0 cota(const  A0& a0)
-	{
-	  A0 x =  scale(a0); 
-	  if(not_in_range(a0)) return Nan<A0>(); else return rec(eval_t::base_tan_eval(x));
-	}
+        static inline A0 tana(const A0& a0)
+        {
+          A0 x =  scale(a0); 
+          if(not_in_range(a0)) return Nan<A0>(); else return eval_t::base_tan_eval(x);
+        }         
+        static inline A0 cota(const  A0& a0)
+        {
+          A0 x =  scale(a0); 
+          if(not_in_range(a0)) return Nan<A0>(); else return rec(eval_t::base_tan_eval(x));
+        }
 
 
-	static inline A0 sincosa(const A0& a0, A0& c)
-	{
-	  if(not_in_range(a0)){c = Nan<A0>(); return c; }
-	  A0 x =  scale(a0);
-	  A0 z =  sqr(x); 
-	  c = eval_t::cos_eval(z, x, Zero<A0>());
-	  return eval_t::sin_eval(z, x, Zero<A0>());  
-	}
+        static inline A0 sincosa(const A0& a0, A0& c)
+        {
+          if(not_in_range(a0)){c = Nan<A0>(); return c; }
+          A0 x =  scale(a0);
+          A0 z =  sqr(x); 
+          c = eval_t::cos_eval(z, x, Zero<A0>());
+          return eval_t::sin_eval(z, x, Zero<A0>());  
+        }
       private:
-	typedef typename meta::logical<A0>::type                                                          logic; 
-        static inline logic not_in_range(const A0& a0){return nt2::abs(a0) > trig_ranges<A0,unit_tag>::max_range(); }
+        static inline bool  not_in_range(const A0& a0){return nt2::abs(a0) > trig_ranges<A0,unit_tag>::max_range(); }
         static inline A0    scale       (const A0& a0){return a0*trig_ranges<A0,unit_tag>::scale();            }
-      }; 	
+      };        
     }
   }
 }

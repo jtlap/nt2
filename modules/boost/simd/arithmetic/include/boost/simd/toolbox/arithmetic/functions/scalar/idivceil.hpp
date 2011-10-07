@@ -13,8 +13,9 @@
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/iceil.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -57,11 +58,11 @@ namespace boost { namespace simd { namespace ext
   };
   
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is real_
+  // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A0> > )
+                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> > )
                             )
   {
     typedef A0 typ;

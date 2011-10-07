@@ -38,11 +38,11 @@ namespace boost { namespace simd { namespace ext
   };
   
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is real_
+  // Implementation when type  is floating_
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::remainder_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
     

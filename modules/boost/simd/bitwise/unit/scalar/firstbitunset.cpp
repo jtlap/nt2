@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( firstbitunset_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(firstbitunset(boost::simd::Nan<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(firstbitunset(boost::simd::Signmask<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(firstbitunset(boost::simd::Zero<T>()), boost::simd::One<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( firstbitunset_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

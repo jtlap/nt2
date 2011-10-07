@@ -15,6 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_TEST_SILENT
 #include <nt2/include/timing.hpp>
+#include <nt2/include/functor.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 

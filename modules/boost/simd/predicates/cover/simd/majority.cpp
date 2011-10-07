@@ -70,4 +70,4 @@ NT2_TEST_CASE_TPL ( majority_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_

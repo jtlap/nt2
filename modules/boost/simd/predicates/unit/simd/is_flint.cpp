@@ -60,4 +60,4 @@ NT2_TEST_CASE_TPL ( is_flint_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_flint(boost::simd::Quarter<vT>())[0]!=0, boost::simd::False<sr_t>());
   NT2_TEST_EQUAL(is_flint(boost::simd::Two<vT>())[0]!=0, boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(is_flint(boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
-} // end of test for real_
+} // end of test for floating_

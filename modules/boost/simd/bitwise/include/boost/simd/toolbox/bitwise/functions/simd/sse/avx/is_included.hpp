@@ -28,8 +28,8 @@ namespace boost { namespace simd { namespace ext
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<real_<A0>, boost::simd::tag::avx_>))
-                              ((simd_<real_<A0>, boost::simd::tag::avx_>))
+                            , ((simd_<floating_<A0>, boost::simd::tag::avx_>))
+                              ((simd_<floating_<A0>, boost::simd::tag::avx_>))
                             )
   {
     typedef bool result_type;

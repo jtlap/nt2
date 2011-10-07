@@ -18,7 +18,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(unary_minus(nt2::Nan<T>()), nt2::Nan<r_t>());
   NT2_TEST_EQUAL(unary_minus(nt2::One<T>()), nt2::Mone<r_t>());
   NT2_TEST_EQUAL(unary_minus(nt2::Zero<T>()), nt2::Mzero<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {

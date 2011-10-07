@@ -18,7 +18,7 @@ implementing fast __next__ and __successor__ functors.
     namespace boost { namespace simd
     {
       template <class A0>
-      typename dispatch::meta::as_real<A0>::type bitfloating(A0 const& a0);
+      typename dispatch::meta::as_floating<A0>::type bitfloating(A0 const& a0);
     } }
 
 

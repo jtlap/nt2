@@ -8,40 +8,24 @@
 ################################################################################
 cmake_minimum_required(VERSION 2.6)
 
-################################################################################
-# Some global random test
-################################################################################
-SET(NT2_SOURCE_ROOT ${CMAKE_SOURCE_DIR}/..)
-SET(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake ${CMAKE_MODULE_PATH})
-FIND_PACKAGE(NT2 COMPONENTS arithmetic core reduction)
-INCLUDE_DIRECTORIES(${PROJECT_BINARY_DIR}/include ${NT2_INCLUDE_DIR})
-LINK_DIRECTORIES(${NT2_LIBRARY_DIR})
-LINK_LIBRARIES(${NT2_LIBRARIES})
-SET(SOURCES
-#rec_block.cpp
-pack.cpp
+set(NT2_SOURCE_ROOT ${CMAKE_SOURCE_DIR}/..)
+list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
+find_package(NT2)
+include_directories(${NT2_INCLUDE_DIR})
+link_directories(${NT2_LIBRARY_DIR})
+link_libraries(${NT2_LIBRARIES})
+add_definitions(${NT2_FLAGS})
+
+set( SOURCES
+#    rec_block.cpp
+     pack.cpp
 #    foo.cpp
-#table_dim.cpp
-transform_pass.cpp
-    )
+#    table_dim.cpp
+     transform_pass.cpp
+     table.cpp
+   )
 
-ADD_CUSTOM_TARGET(sandbox)
-
-################################################################################
-# For each filename
-################################################################################
-FOREACH( EXAMPLE ${SOURCES})
-  ##############################################################################
-  # Build the executable filename from the example source filename
-  ##############################################################################
-  STRING(REGEX REPLACE ".cpp" "" EXECUTABLE "${EXAMPLE}")
-
-  ##############################################################################
-  # Add as a target
-  ##############################################################################
-  ADD_EXECUTABLE(${EXECUTABLE} EXCLUDE_FROM_ALL ${EXAMPLE})
-  IF(NT2_FLAGS)
-    SET_TARGET_PROPERTIES(${EXECUTABLE} PROPERTIES COMPILE_FLAGS ${NT2_FLAGS})
-  ENDIF()
-  ADD_DEPENDENCIES(sandbox ${EXECUTABLE})
-ENDFOREACH()
+foreach(src ${SOURCES})
+  string(REGEX REPLACE "\\.cpp$" "" exe ${src})
+  add_executable(${exe} ${src})
+endforeach()

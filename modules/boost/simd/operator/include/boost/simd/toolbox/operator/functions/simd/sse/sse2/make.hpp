@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_, boost::simd::tag::sse2_, (A0)
-                            , ((target_< simd_< float_<A0>, boost::simd::tag::sse_ > >))
+                            , ((target_< simd_< single_<A0>, boost::simd::tag::sse_ > >))
                             )
   {
     BOOST_SIMD_MAKE_BODY(4)

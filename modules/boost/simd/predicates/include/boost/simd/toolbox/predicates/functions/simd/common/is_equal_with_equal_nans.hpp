@@ -11,13 +11,13 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is real_
+// Implementation when type  is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_with_equal_nans_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<real_<A0>,X>))((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;

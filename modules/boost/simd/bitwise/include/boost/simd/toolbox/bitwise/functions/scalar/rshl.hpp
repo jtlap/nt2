@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshl_, tag::cpu_ , (A0)(A1)
-                            , (scalar_< real_<A0> >)(scalar_< integer_<A1> >)
+                            , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
     typedef A0 result_type;

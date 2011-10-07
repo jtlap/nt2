@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( bits_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(bits(boost::simd::Nan<vT>())[0], boost::simd::Mone<sr_t>());
   NT2_TEST_EQUAL(bits(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bits_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {

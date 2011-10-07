@@ -21,8 +21,7 @@
 #include <boost/simd/sdk/simd/pack/load.hpp>
 #include <boost/simd/sdk/simd/pack/store.hpp>
 #include <boost/simd/sdk/simd/pack/splat.hpp>
+#include <boost/simd/sdk/simd/pack/make.hpp>
 #include <boost/simd/sdk/simd/pack/io.hpp>
-#include <boost/simd/sdk/simd/pack/compare.hpp>
-#include <boost/simd/sdk/simd/pack/meta/terminal_of.hpp>
 
 #endif

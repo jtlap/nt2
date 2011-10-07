@@ -12,42 +12,21 @@
 
 #include <boost/simd/toolbox/reduction/functions/none.hpp>
 #include <boost/simd/include/constants/true.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
                         (A0),
-                        ((simd_<integer_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                        )
   {
     typedef bool result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return _mm256_testz_si256(a0, True<A0>());
-    }
-  };
-  
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
-                        (A0),
-                        ((simd_<float_<A0>,boost::simd::tag::avx_>))
-                       )
-  {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return _mm256_testz_ps(a0, True<A0>());
-    }
-  };
-  
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
-                        (A0),
-                        ((simd_<double_<A0>,boost::simd::tag::avx_>))
-                       )
-  {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return _mm256_testz_pd(a0, True<A0>());
+      typedef typename dispatch::meta::as_integer<A0>::type itype;
+      return _mm256_testz_si256(native_cast<itype>(a0), True<itype>());
     }
   };
 } } }

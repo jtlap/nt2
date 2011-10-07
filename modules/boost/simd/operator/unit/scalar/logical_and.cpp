@@ -77,4 +77,4 @@ NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(logical_and(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::True<r_t>());
   NT2_TEST_EQUAL(logical_and(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(logical_and(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
-} // end of test for real_
+} // end of test for floating_

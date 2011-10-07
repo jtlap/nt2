@@ -12,11 +12,11 @@
 #if !defined(BOOST_SIMD_DETECTED)
 #define BOOST_SIMD_NO_SIMD
 
-#define BOOST_SIMD_BYTES      8
-#define BOOST_SIMD_BITS       64
-#define BOOST_SIMD_STRING     "none"
-#define BOOST_SIMD_CARDINALS (1)(2)(4)(8)
-#define BOOST_SIMD_DEFAULT_EXTENSION ::boost::simd::tag::none_<boost::mpl::size_t<8> >
+#define BOOST_SIMD_BYTES      16
+#define BOOST_SIMD_BITS       128
+#define BOOST_SIMD_STRING     "simd_emulation"
+#define BOOST_SIMD_CARDINALS  (2)(4)(8)(16)
+#define BOOST_SIMD_DEFAULT_EXTENSION ::boost::simd::tag::simd_emulation_<boost::mpl::size_t<16> >
 #define BOOST_SIMD_DEFAULT_SITE ::boost::dispatch::tag::cpu_
 
 #if !defined(BOOST_SIMD_SIMD_TYPES)
@@ -34,10 +34,10 @@
 
 namespace boost { namespace simd { namespace tag
 {
-  template<class N> struct none_ : boost::dispatch::tag::cpu_
+  template<class N> struct simd_emulation_ : boost::dispatch::tag::cpu_
   {
     typedef boost::dispatch::tag::cpu_ parent;
-    typedef none_ type;
+    typedef simd_emulation_ type;
   };
 } } }
 
@@ -55,14 +55,14 @@ namespace boost { namespace simd { namespace detail
 namespace boost { namespace simd { namespace meta
 {
   template<class N, class T>
-  struct as_simd<T, tag::none_<N> >
+  struct as_simd<T, tag::simd_emulation_<N> >
   {
     typedef boost::array<T, N::value / sizeof(T)> type;
   };
 
   template<class T, class N>
   struct is_simd_specific < typename detail::make_array<T,N>::type
-                          , tag::none_<boost::mpl::times< N
+                          , tag::simd_emulation_<boost::mpl::times< N
                                                         , boost::mpl::sizeof_<T>
                                                         >
                                       >
@@ -72,7 +72,7 @@ namespace boost { namespace simd { namespace meta
   template<class T, class N>
   struct extension_of<typename detail::make_array<T,N>::type, T, N>
   {
-    typedef tag::none_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > type;
+    typedef tag::simd_emulation_<boost::mpl::times<N, boost::mpl::sizeof_<T> > > type;
   };
 } } }
 

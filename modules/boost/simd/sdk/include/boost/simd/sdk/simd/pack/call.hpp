@@ -9,43 +9,32 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_CALL_HPP_INCLUDED
 
-#include <boost/simd/sdk/dsl/literal.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/proto/make_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register terminal handlers for SIMD expression - native case
-////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( tag::terminal_,tag::cpu_
-                            , (Value)(State)(Data)(X)
-                            , ((simd_<arithmetic_<Value>,X>))
-                              ((target_<simd_<arithmetic_<State>,X> >))
-                              (scalar_< integer_<Data> >)
-                            )
+  // constants
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(Func, tag::formal_
+                        , (Func)(A0)
+                        , (target_< ast_< unspecified_<A0> > >)
+                        )
   {
-    typedef Value result_type;
-
-    inline result_type
-    operator()( Value const& v, State const& , Data const& ) const
+    typedef typename proto::domain_of<typename A0::type>::type  domain;
+    typedef dispatch::meta::
+            as_<typename dispatch::meta::
+                semantic_of<typename A0::type>::type
+               >  value;
+   
+    typedef typename proto::result_of::
+            make_expr<Func, domain, const value&>::type         result_type;
+   
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(A0 const& a0) const
     {
-      return v;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
-                                , (class Value)(class State)
-                                  (class Data)(std::size_t N)
-                                , ((array_<scalar_< arithmetic_<Value > >,N>))
-                                  ((target_<array_<scalar_< arithmetic_<State> >,N> >))
-                                  (scalar_< integer_<Data> >)
-                                )
-{
-    typedef typename Value::value_type result_type;
-
-    inline result_type
-    operator()( Value const& v, State const&, Data const& p ) const
-    {
-      return v[p];
+      return boost::proto::detail::
+             make_expr_<Func, domain, const value&>()(value());
     }
   };
 } } }

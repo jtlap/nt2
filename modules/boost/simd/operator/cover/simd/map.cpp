@@ -68,4 +68,4 @@ NT2_TEST_CASE_TPL ( map_real__2_0,  NT2_REAL_TYPES)
 //       }
     
 //   }
-} // end of test for real_
+} // end of test for floating_

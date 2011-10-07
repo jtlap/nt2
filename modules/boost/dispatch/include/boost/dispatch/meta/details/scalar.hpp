@@ -10,13 +10,13 @@
 #define BOOST_DISPATCH_META_DETAILS_SCALAR_HPP_INCLUDED
 
 #include <boost/dispatch/meta/details/generic.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T> struct scalar_ : scalar_< typename T::parent >
   {
     typedef scalar_< typename T::parent > parent;
-    typedef T                             base;
   };
 
   template<class T>
@@ -24,7 +24,6 @@ namespace boost { namespace dispatch { namespace meta
         : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;
-    typedef unspecified_<T>                           base;
   };
 } } }
 

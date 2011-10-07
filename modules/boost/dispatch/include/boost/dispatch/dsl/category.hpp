@@ -11,93 +11,76 @@
 
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 #include <boost/proto/domain.hpp>
-
-namespace boost { namespace dispatch { namespace tag
-{
-  //////////////////////////////////////////////////////////////////////////////
-  // Degenerate Expression category tag
-  //////////////////////////////////////////////////////////////////////////////
-  struct ast_ {};
-} } }
 
 namespace boost { namespace dispatch { namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Proto domain hierarchy is itself. parent domain is computed from
-  // proto_super_domain. If no super_domain exist, we forward to unspecified
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T>
-  struct  domain_
-        : boost::mpl::if_< boost::is_same < typename T::proto_super_domain
-                                          , boost::proto::detail::not_a_domain
-                                          >
-        , unspecified_<T>
-        , domain_<typename T::proto_super_domain>
-        >::type
-  {
-    typedef
-    typename boost::mpl::if_< boost::is_same< typename T::proto_super_domain
-                                            , boost::proto::detail::not_a_domain
-                                            >
-                            , unspecified_<T>
-                            , domain_<typename T::proto_super_domain>
-                            >::type                 parent;
-  };
-
-  template<class T>
-  struct  domain_< unknown_<T> > : unknown_<T>
-  {
-    typedef unknown_<T> parent;
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
   // Proto expression hierarchy depends of the EDSL nature. They however has
-  // the same inheritance scheme based on domain
+  // the same inheritance scheme based on semantic
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct ast_ : unspecified_<T>
+  template<class T>
+  struct ast_ : ast_<typename T::parent>
+  {
+    typedef ast_<typename T::parent> parent;
+  };
+  
+  template<class T>
+  struct ast_< unspecified_<T> > : unspecified_<T>
   {
     typedef unspecified_<T> parent;
   };
   
-  template<class T, class Domain, class Tag, class Semantic>
+  template<class T, class Domain, class Tag>
   struct  expr_
-        : expr_<T, typename Domain::parent, Tag, Semantic>
+        : expr_<typename T::parent, Domain, Tag>
   {
-    typedef expr_<T, typename Domain::parent, Tag, Semantic>  parent;
+    typedef expr_<typename T::parent, Domain, Tag>  parent;
   };
 
-  template<class T, class Domain, class Tag, class Semantic>
-  struct  expr_< T, unspecified_<Domain>, Tag, Semantic > : ast_<T>
+  template<class T, class Domain, class Tag>
+  struct  expr_< unspecified_<T>, Domain, Tag > 
+    : ast_<typename hierarchy_of<typename semantic_of<T>::type, T>::type>
   {
-    typedef unspecified_<T> parent;
+    typedef ast_<typename hierarchy_of<typename semantic_of<T>::type, T>::type> parent;
   };
 } } }
 
 namespace boost { namespace dispatch { namespace details
 {
   //////////////////////////////////////////////////////////////////////////////
-  // Proto domain hierarchy specialization
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Origin>
-  struct hierarchy_of<T, Origin,typename T::proto_is_domain_>
-  {
-    typedef meta::domain_<T> type;
-  };
-
-  //////////////////////////////////////////////////////////////////////////////
   // Proto expression hierarchy computation
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct hierarchy_of_expr
+  template<class T, class Origin>
+  struct hierarchy_of< T
+                     , Origin
+                     , typename boost::
+                       enable_if< proto::is_expr<T> >::type
+                     >
   {
-    typedef typename boost::proto::domain_of<T>::type domain_type;
-    typedef typename boost::proto::tag_of<T>::type    tag_type;
-    typedef meta::expr_ < T
-                        , typename meta::hierarchy_of<domain_type>::type
+    typedef typename meta::semantic_of<T>::type  semantic_type;
+    typedef typename proto::domain_of<T>::type   domain_type;
+    typedef typename proto::tag_of<T>::type      tag_type;
+    
+    typedef meta::expr_ < typename meta::
+                          hierarchy_of< semantic_type
+                                      , Origin
+                                      >::type
+                        , domain_type
                         , tag_type
-                        , typename meta::semantic_of<T>::type
-                        > type;
+                        >                        type;
   };
+  
+  template<class T>
+  struct value_of< T
+                 , typename boost::
+                   enable_if< proto::is_expr<T> >::type
+                 >
+    : meta::semantic_of<T>
+  {
+  };
+  
 } } }
 
 #endif

@@ -9,24 +9,18 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_GENERATOR_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_GENERATOR_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/simd/sdk/dsl/lambda_generator.hpp>
+#include <boost/simd/sdk/dsl/typed_expression.hpp>
+
 namespace boost { namespace simd
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // SIMD Expression use a template parameters so proto generator is extended
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Type,class Cardinal> struct generator
-  {
-    template<class Sig> struct result;
-    template<class This, class Expr>
-    struct result<This(Expr)> { typedef expression<Expr,Type,Cardinal> type; };
-
-    template<class Expr>
-    expression<Expr,Type,Cardinal> const operator()(Expr const &xpr) const
-    {
-      expression<Expr,Type,Cardinal> const that = {xpr};
-      return that;
-    }
-  };
+  typedef meta::
+          lambda_pod_generator< meta::
+                                typed_expression< mpl::
+                                                  lambda< expression<mpl::_1, mpl::_2> >::type
+                                                >
+                              > generator;
 } }
 
 #endif

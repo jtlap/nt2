@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::meta::cardinal_of SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -18,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that cardinal_of on SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(cardinal_of, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(cardinal_of_native, BOOST_SIMD_TYPES )
 {
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
@@ -27,4 +28,15 @@ NT2_TEST_CASE_TPL(cardinal_of, BOOST_SIMD_TYPES )
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 native_t;
   NT2_TEST_EQUAL( (cardinal_of<native_t>::value), BOOST_SIMD_BYTES/sizeof(T) );
+}
+
+NT2_TEST_CASE_TPL(cardinal_of_pack, BOOST_SIMD_TYPES )
+{
+  using boost::simd::pack;
+  using boost::simd::meta::cardinal_of;
+  using boost::is_same;
+
+  typedef pack<T> pack_;
+  NT2_TEST_EQUAL( (cardinal_of<pack_>::value), BOOST_SIMD_BYTES/sizeof(T) );
+
 }

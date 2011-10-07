@@ -54,4 +54,4 @@ NT2_TEST_CASE_TPL ( map_real__2_0,  BOOST_SIMD_REAL_TYPES)
 //   NT2_TEST_EQUAL(map(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
 //   NT2_TEST_EQUAL(map(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 //   NT2_TEST_EQUAL(map(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
- } // end of test for real_
+ } // end of test for floating_

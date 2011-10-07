@@ -49,8 +49,8 @@ namespace boost { namespace simd { namespace ext
   };
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)
-                            , (scalar_< float_<A0> >)
-                              (scalar_< float_<A0> >)
+                            , (scalar_< single_<A0> >)
+                              (scalar_< single_<A0> >)
 			      (scalar_< int32_<A2> >)
                             )
   {
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
   };
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)
-                            , (scalar_< float_<A0> >)
+                            , (scalar_< single_<A0> >)
                               (scalar_< int32_<A2> >)
                             )
   {
@@ -93,7 +93,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)
-                            , (scalar_< float_<A0> >)
+                            , (scalar_< single_<A0> >)
                             )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type mantissa;
