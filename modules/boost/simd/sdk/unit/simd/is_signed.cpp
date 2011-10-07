@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::meta::is_signed SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/dispatch/meta/is_signed.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -18,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that is_signed on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(is_signed_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(is_signed_simd_native, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::is_signed;
@@ -28,4 +29,18 @@ NT2_TEST_CASE_TPL(is_signed_simd, BOOST_SIMD_TYPES)
   typedef native<T,ext_t>                 native_t;
 
   NT2_TEST_EQUAL( is_signed<native_t>::value, is_signed<T>::value );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test that is_signed on pack
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(is_signed_simd_pack, BOOST_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::dispatch::meta::is_signed;
+  using boost::is_same;
+
+  typedef pack<T>                          pack_t;
+
+  NT2_TEST_EQUAL( is_signed<pack_t>::value, is_signed<T>::value );
 }

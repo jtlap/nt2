@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::meta::as_integer SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -18,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that as_integer on SIMD with unsigned target
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(as_uinteger_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(as_uinteger_simd_native, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::as_integer;
@@ -36,19 +37,18 @@ NT2_TEST_CASE_TPL(as_uinteger_simd, BOOST_SIMD_TYPES)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test that as_integer on SIMD with signed target
+// Test that as_integer on pack with signed target
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(as_integer_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(as_integer_simd_pack, BOOST_SIMD_TYPES)
 {
-  using boost::simd::native;
+  using boost::simd::pack;
   using boost::dispatch::meta::as_integer;
   using boost::is_same;
   using boost::mpl::_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
-  typedef native<typename as_integer<T,signed>::type,ext_t> dst_t;
+  typedef pack<typename as_integer<T,signed>::type>   dst_t;
 
-  NT2_TEST( (is_same< typename as_integer<native<T,ext_t>,signed>::type
+  NT2_TEST( (is_same< typename as_integer< pack<T>,signed >::type
                     , dst_t
                     >::value
             )

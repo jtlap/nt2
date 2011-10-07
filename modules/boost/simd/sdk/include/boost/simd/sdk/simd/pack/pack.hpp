@@ -28,6 +28,7 @@ namespace boost { namespace simd
   template<class Type, std::size_t Cardinal, class Dummy>
   struct  pack
   {
+    typedef Type value_type;
     typedef typename
     meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type data_type;
     typedef typename proto::terminal<data_type>::type expr_type;

@@ -35,7 +35,7 @@ namespace meta
   //============================================================================
   /*!
    * \ingroup metafunctions
-   * For a given \ref Hierarchizable type T, returns the undelying type used to
+   * For a given \ref Hierarchizable type T, returns the underlying type used to
    * define T
    *
    * \tparam Hierarchizable Type to extract a primitive from.

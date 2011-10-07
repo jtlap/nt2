@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::meta::downgrade SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -18,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::downgrade;
@@ -31,3 +32,15 @@ NT2_TEST_CASE_TPL(downgrade, BOOST_SIMD_TYPES)
   NT2_TEST( (is_same<typename downgrade<native_t>::type::value_type,base_t>::value ));
 }
 
+NT2_TEST_CASE_TPL(downgrade_pack, BOOST_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::dispatch::meta::downgrade;
+  using boost::is_same;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef pack<T>                          pack_t;
+  typedef typename downgrade<T>::type base_t;
+
+  NT2_TEST( (is_same<typename downgrade<pack_t>::type::value_type,base_t>::value ));
+}

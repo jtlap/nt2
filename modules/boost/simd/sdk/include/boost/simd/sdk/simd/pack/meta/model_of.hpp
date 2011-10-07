@@ -19,13 +19,14 @@ namespace boost { namespace dispatch { namespace meta
           >
   struct model_of< boost::simd::pack<Type, Cardinal> >
   {
-      typedef factory_of< boost::simd::pack<Type, Cardinal> > type;
-      
+    struct type
+    {
       template<typename T>
       struct apply
       {
           typedef boost::simd::pack<T, Cardinal> type;
-      };      
+      };
+    };
   };
 } } }
 
