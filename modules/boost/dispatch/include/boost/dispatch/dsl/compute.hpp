@@ -133,7 +133,7 @@ namespace boost { namespace dispatch { namespace meta
     
     template <typename Tag, typename Target>
     struct compute_phase
-        : boost::proto::transform<compute<Tag, Target> >
+        : boost::proto::transform<compute_phase<Tag, Target> >
     {
         template <typename Expr, typename State, typename Data>
         struct impl
