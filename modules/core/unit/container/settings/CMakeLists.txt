@@ -11,6 +11,7 @@ SET( SOURCES
   allocator.cpp
   id.cpp
   index.cpp
+  of_size.cpp
 #  size.cpp
 # List of scalar test files for toolbox core.settings
    )
