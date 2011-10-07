@@ -38,6 +38,19 @@ namespace boost { namespace dispatch { namespace details
   struct proto_value
     : meta::as_ref<T>
   {
+      /*
+<<<<<<< HEAD
+=======
+    typedef typename proto::result_of::value<Expr>::type type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type//typename result<implement(A0&)>::type
+    operator()(Expr& expr) const
+    {
+        return expr;
+    }
+>>>>>>> Modified compute to pass on state
+*/
   };
   
   template<class T, class Enable = void>

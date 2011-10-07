@@ -31,7 +31,7 @@ namespace boost { namespace dispatch { namespace meta
   
   template<class Target>
   struct compute : compile< compute_phase<boost::mpl::_1, Target> > {};
-  
+
 } } }
 
 namespace boost { namespace proto
