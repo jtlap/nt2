@@ -15,28 +15,28 @@
 
 namespace nt2 { namespace container
 {
-  //////////////////////////////////////////////////////////////////////////////
+  //============================================================================
   // Anything goes in the grammar except for low level operators
-  //////////////////////////////////////////////////////////////////////////////
-  struct  grammar : boost::proto::_ {};
-        /*: boost::proto
-        ::or_ <
-                boost::dispatch::
-                lambda_terminal< is_block<boost::proto::_value> >
-              , boost::proto::
-                and_< boost::proto::
-                      nary_expr < boost::proto::_
-                                , boost::proto::vararg< grammar >
-                                >
-                    , boost::proto::
-                      not_< boost::proto::or_ < boost::proto::
-                                                address_of< grammar >
-                                              , boost::proto::
-                                                dereference< grammar >
-                                              >
-                          >
-                    >
-              > {};*/
+  //============================================================================
+  struct  grammar
+        : boost::proto
+          ::or_ <
+                  boost::dispatch::
+                  lambda_terminal< is_block<boost::proto::_value> >
+                , boost::proto::
+                  and_< boost::proto::
+                        nary_expr < boost::proto::_
+                                  , boost::proto::vararg< grammar >
+                                  >
+                      , boost::proto::
+                        not_< boost::proto::or_ < boost::proto::
+                                                  address_of< grammar >
+                                                , boost::proto::
+                                                  dereference< grammar >
+                                                >
+                            >
+                      >
+                > {};
 } }
 
 #endif

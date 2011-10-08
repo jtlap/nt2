@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_CATEGORY_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_CATEGORY_HPP_INCLUDED
 
+#include <nt2/include/functor.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -30,6 +31,22 @@ namespace boost { namespace dispatch { namespace meta
 namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::container_;
+} }
+
+
+//==============================================================================
+// Proto Work around - Prevent operator()() to whine eagerly
+//==============================================================================
+namespace nt2 { namespace ext
+{
+  NT2_FUNCTOR_IMPLEMENTATION(boost::proto::tag::function, tag::cpu_
+                            , (A0)(S0)
+                            , ((container_< unspecified_<A0>, S0 >))
+                            )
+  {
+    typedef A0& result_type;
+    result_type operator()(A0& a0) const { return a0; }
+  };
 } }
 
 #endif
