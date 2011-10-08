@@ -169,6 +169,21 @@ NT2_TEST_CASE_TPL(pack_expr_category, (double))
   using boost::is_same;
   using namespace boost::dispatch::meta;
 
+  NT2_TEST((
+    is_same<
+        typename hierarchy_of<pack<T> >::type
+      , expr_<
+            typename hierarchy_of<
+                typename semantic_of<
+                    pack<T>
+                >::type
+            >::type
+          , typename boost::proto::domain_of<pack<T> >::type
+          , boost::proto::tag::terminal
+        >
+    >::value
+  ));
+
   pack<T> x,y;
   
   BOOST_DISPATCH_DECLTYPE(x+y, type_t_);
