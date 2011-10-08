@@ -10,6 +10,7 @@
 #define NT2_CORE_SETTINGS_DETAILS_OF_SIZE_META_HPP_INCLUDED
 
 #include <cstddef>
+#include <boost/dispatch/meta/fusion.hpp>
 #include <nt2/core/container/category.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/is_block.hpp>
@@ -27,7 +28,8 @@ namespace boost { namespace dispatch { namespace meta
   };
 
   //============================================================================
-  // hierarchy_of a of_size_ is container_ of its contents
+  // hierarchy_of a of_size_ is mapped over the one of array as it's basically
+  // a std::array with a funky interface.
   //============================================================================
   template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D)
           , class Origin
@@ -36,11 +38,13 @@ namespace boost { namespace dispatch { namespace meta
                       , Origin
                       >
   {
-    typedef container_< typename property_of<std::ptrdiff_t, Origin>::type
-                      , int /* to replace by layout*/
-                      > type;
-  };
+    typedef nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)> base;    
+    static const std::size_t size = base::static_size ? base::static_size : 1;
 
+    typedef typename property_of<std::ptrdiff_t, Origin>::type    property_type;
+    typedef array_<property_type, size>                           base_hierarchy;
+    typedef container_< base_hierarchy, nt2::of_size_<1, size> >  type;
+  };
 } } }
 
 namespace nt2 { namespace container
