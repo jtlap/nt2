@@ -30,15 +30,12 @@ namespace filesystem
 {
     inline bool exists( const char* file_path )
     {
-        // TODO: use stat, the following only says if file is readable
-        FILE* f = ::fopen(file_path, "r");
-        if(f)
-        {
-            ::fclose(f);
-            return true;
-        }
-        
-        return false;
+    #ifdef BOOST_WINDOWS_API
+        return GetFileAttributes(file_path) != INVALID_FILE_ATTRIBUTES;
+    #else
+        struct stat s;
+        return stat(file_path, &s) == 0;
+    #endif
     }
     
     inline void create_directories( std::string const & file_path )
@@ -212,6 +209,24 @@ namespace details
             BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error removing recursively ") + file_path ) );
         
         return result;
+    }
+    
+    void rename(const char* from, const char* to, int& ec)
+    {
+    #ifdef BOOST_WINDOWS_API
+        if(exists(to))
+            remove(to, ec);
+    #endif
+        ec = ::rename(from, to) ? errno : 0;
+    }
+    
+    inline void rename(const char* from, const char* to)
+    {
+        int ec;
+        rename(from, to, ec);
+        
+        if( ec )
+            BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error renaming ") + from + " to " + to) );
     }
 }
 

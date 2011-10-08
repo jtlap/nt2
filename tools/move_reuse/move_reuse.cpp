@@ -22,23 +22,18 @@ bool equal_streams(std::istream& s1, std::istream& s2)
 
 void move_file(std::string const& old, std::string const& new_)
 {
-    std::ifstream fp1(new_.c_str());
-    if(!fp1)
-        throw std::runtime_error( "couldn't open file '" + new_ + "' for reading" );
-    
-    std::ifstream fp2(old.c_str());
-    if(!fp2 || !equal_streams(fp1, fp2))
     {
-        fp2.close();
-        
-        fs::create_directories(fs::parent_path(old));
-        std::ofstream fp(old.c_str());
-        if(!fp)
-            throw std::runtime_error( "couldn't open file '" + old + "' for writing" );
-        
-        fp1.seekg(0);
-        fp << fp1.rdbuf();
+        std::ifstream fp1(new_.c_str());
+        if(!fp1)
+            throw std::runtime_error( "couldn't open file '" + new_ + "' for reading" );
+    
+        std::ifstream fp2(old.c_str());
+        if(fp2 && equal_streams(fp1, fp2))
+            return;
     }
+
+    fs::create_directories(fs::parent_path(old));
+    fs::rename(new_.c_str(), old.c_str());
 }
 
 void delete_files(std::string const& old, std::string const& new_)
@@ -83,7 +78,8 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
     
-    delete_files(argv[2], argv[1]);
+    if(fs::exists(argv[2]))
+        delete_files(argv[2], argv[1]);
     move_files(argv[2], argv[1]);
     fs::remove_all(argv[1]);
 }
