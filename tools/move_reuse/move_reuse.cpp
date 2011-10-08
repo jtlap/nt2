@@ -36,6 +36,7 @@ void move_file(std::string const& old, std::string const& new_)
         if(!fp)
             throw std::runtime_error( "couldn't open file '" + old + "' for writing" );
         
+        fp1.seekg(0);
         fp << fp1.rdbuf();
     }
 }
