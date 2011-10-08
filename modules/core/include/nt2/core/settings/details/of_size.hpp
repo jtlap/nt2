@@ -41,8 +41,8 @@ namespace nt2
     // size values.
     //==========================================================================
     static const std::size_t
-    stored_size = nt2::meta::align_on_c < sizeof(std::ptrdiff_t) * static_size
-                                        >::value / sizeof(std::ptrdiff_t);
+    stored_size = nt2::meta::align_on_c < sizeof(std::size_t) * static_size
+                                        >::value / sizeof(std::size_t);
 
     //==========================================================================
     // Static size values used internally by MPL/Fusion
@@ -55,7 +55,7 @@ namespace nt2
     //==========================================================================
     // Size values storage
     //==========================================================================
-    NT2_ALIGNED_TYPE(std::ptrdiff_t) data_[stored_size];
+    NT2_ALIGNED_TYPE(std::size_t) data_[stored_size];
 
     //==========================================================================
     // Default constructor either generate [0 1 .. 1] or [D0 ... Dn]
@@ -66,8 +66,8 @@ namespace nt2
       default_(boost::mpl::size_t<static_size-1>());
     }
 
-    std::ptrdiff_t& operator[](std::size_t i)       { return data_[i]; }
-    std::ptrdiff_t  operator[](std::size_t i) const { return data_[i]; }
+    std::size_t& operator[](std::size_t i)       { return data_[i]; }
+    std::size_t  operator[](std::size_t i) const { return data_[i]; }
 
     static std::size_t size() { return static_size; }
 
@@ -76,7 +76,7 @@ namespace nt2
     template<std::size_t N> inline void default_(boost::mpl::size_t<N> const&)
     {
       typedef typename boost::mpl::at_c<values_type,N>::type value;
-      data_[N] = (value::value < 0) ? 1 : value::value;
+      data_[N] = (value::value < 0) ? 1U : value::value;
       default_(boost::mpl::size_t<N-1>());
     }
 
