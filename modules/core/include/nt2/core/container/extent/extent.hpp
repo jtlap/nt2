@@ -9,12 +9,17 @@
 #ifndef NT2_CORE_CONTAINER_EXTENT_EXTENT_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_EXTENT_EXTENT_HPP_INCLUDED
 
+#include <boost/mpl/assert.hpp>
+#include <nt2/sdk/parameters.hpp>
 #include <nt2/core/container/dsl.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 namespace nt2 { namespace tag
 {
   //============================================================================
-  /*! Tag reprensenting an extent terminal in proto abstract syntax tree     **/
+  /*! Tag representing an extent terminal in proto abstract syntax tree      **/
   //============================================================================
   struct extent_ {};
 } }
@@ -140,6 +145,85 @@ namespace nt2 { namespace container
     {
       boost::proto::value(*this) = boost::proto::value(src);
     }
+
+    #if defined(DOXYGEN_ONLY)
+    //==========================================================================
+    /*!
+     * \ref extent constructor from a list of integral values initializes its
+     * nth first elements and fill the remaining ones with 1.
+     *
+     * \param values List of integral values to use for initialization
+     *
+     * \usage
+     *
+     * \code
+     * #include <nt2/core/container/extent.hpp>
+     *
+     * int main()
+     * {
+     *   nt2::container::extent<nt2::_3D> x(3,7,5);
+     *   assert( y(1) == 3 && y(2) == 7 && y(3) == 5 );
+     *  }
+     *  \endcode
+     */
+    //==========================================================================
+    template<class ...Values> inline explicit extent( Values... const& values );
+    #endif
+
+    //==========================================================================
+    #define M1(z,n,t) boost::proto::value(*this)[n]= BOOST_PP_CAT(d,n); \
+    /**/
+
+    #define M0(z,n,t)                                                             \
+    private:                                                                      \
+    template<BOOST_PP_ENUM_PARAMS(n,class U)> inline void                         \
+    init( BOOST_PP_ENUM_BINARY_PARAMS(n,const U,& d), boost::mpl::false_ const&)  \
+    {                                                                             \
+      BOOST_PP_REPEAT(n,M1,~)                                                     \
+      for(std::size_t i=n;i<static_dimensions;++i)                                \
+        boost::proto::value(*this)[i] = 1;                                        \
+    }                                                                             \
+                                                                                  \
+    template<BOOST_PP_ENUM_PARAMS(n,class U)> inline void                         \
+    init( BOOST_PP_ENUM_BINARY_PARAMS(n,const U,& d), boost::mpl::true_ const& )  \
+    {                                                                             \
+      BOOST_MPL_ASSERT_MSG( !Sizes::static_status                                 \
+                          , STATIC_EXTENT_CANT_BE_VALUE_INITIALIZED               \
+                          , (Sizes)                                               \
+                          );                                                      \
+    }                                                                             \
+    public:                                                                       \
+    template<BOOST_PP_ENUM_PARAMS(n,class U)> inline explicit                     \
+    extent( BOOST_PP_ENUM_BINARY_PARAMS(n,const U, & d)                           \
+          , typename  boost::                                                     \
+                      enable_if_c<boost::is_integral<U0>::value>::type* = 0       \
+          )                                                                       \
+    {                                                                             \
+      init(BOOST_PP_ENUM_PARAMS(n,d), boost::mpl::bool_<Sizes::static_status>()); \
+    }                                                                             \
+    /**/
+
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
+
+    #undef M0
+    #undef M1
+    //==========================================================================
+    
+    /*
+       // Construction from arbitrary expression is same as assignment
+      template<class Xpr>
+      BOOST_DISPATCH_FORCE_INLINE extent(Xpr const& xpr) { *this = xpr; }
+
+      template<class Xpr>
+      BOOST_DISPATCH_FORCE_INLINE extent& operator=(Xpr const& xpr)
+      {
+        nt2::evaluate( nt2::assign(*this, xpr) );
+        return *this;
+      }
+    };
+    */
+
+
     //==========================================================================
     /**!
      * Acces to the ith element of the extent which represents 
@@ -213,27 +297,6 @@ namespace nt2 { namespace container
 
     iterator        end()         { return boost::proto::value(*this).end();  }
     const_iterator  end()   const { return boost::proto::value(*this).end();  }
-
-    /*
-       // Construction from arbitrary expression is same as assignment
-      template<class Xpr>
-      BOOST_DISPATCH_FORCE_INLINE extent(Xpr const& xpr) { *this = xpr; }
-
-      // Assignment operators force evaluation
-      BOOST_DISPATCH_FORCE_INLINE extent& operator=(extent const& xpr)
-      {
-        nt2::evaluate( nt2::assign(*this, xpr) );
-        return *this;
-      }
-
-      template<class Xpr>
-      BOOST_DISPATCH_FORCE_INLINE extent& operator=(Xpr const& xpr)
-      {
-        nt2::evaluate( nt2::assign(*this, xpr) );
-        return *this;
-      }
-    };
-    */
   };
 } }
 
