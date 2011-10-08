@@ -27,6 +27,12 @@ namespace nt2
   template< BOOST_PP_ENUM_PARAMS ( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
   struct of_size_
   {
+    typedef std::size_t         value_type;
+    typedef std::size_t&        reference;
+    typedef std::size_t const&  const_reference;
+    typedef std::size_t*        iterator;
+    typedef std::size_t const*  const_iterator;
+
     //==========================================================================
     // Count non-trivial size values
     //==========================================================================
@@ -69,6 +75,11 @@ namespace nt2
     std::size_t& operator[](std::size_t i)       { return data_[i]; }
     std::size_t  operator[](std::size_t i) const { return data_[i]; }
 
+    iterator        begin()       { return &data_[0];               }
+    const_iterator  begin() const { return &data_[0];               }
+    iterator        end()         { return &data_[0] + static_size; }
+    const_iterator  end()   const { return &data_[0] + static_size; }
+
     static std::size_t size() { return static_size; }
 
     private:
@@ -81,6 +92,30 @@ namespace nt2
     }
 
     inline void default_(boost::mpl::size_t<0> const&) {}
+  };
+
+  //============================================================================
+  // Specialisation for _0D case
+  //============================================================================
+  template<> struct of_size_<>
+  {
+    typedef std::size_t value_type;
+    typedef std::size_t reference;
+    typedef std::size_t const_reference;
+    typedef void*       iterator;
+    typedef void*       const_iterator;
+
+    static const std::size_t static_size = 0;
+
+    of_size_() {}
+
+    static std::size_t size() { return 0; }
+    const_reference  operator[](std::size_t i) const { return 1; }    
+
+    iterator        begin()       { return iterator(0);       }
+    const_iterator  begin() const { return const_iterator(0); }
+    iterator        end()         { return iterator(0);       }
+    const_iterator  end()   const { return const_iterator(0); }
   };
 
   //============================================================================
