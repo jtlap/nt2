@@ -14,18 +14,18 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T, class Layout>
-  struct container_ : container_< typename T::parent, Layout >
+  template<class T, class Size>
+  struct container_ : container_< typename T::parent, Size >
   {
-    typedef container_<typename T::parent, Layout> parent;
+    typedef container_<typename T::parent, Size> parent;
   };
-
-  template<class T, class Layout>
-  struct container_< unspecified_<T>, Layout > : unspecified_<T>
+  
+  template<class T, class Size>
+  struct container_< unspecified_<T>, Size > : generic_< typename property_of<T>::type >
   {
-    typedef unspecified_<T> parent;
+    typedef generic_< typename property_of<T>::type > parent;
   };
-
+    
 } } }
 
 namespace nt2 { namespace ext
