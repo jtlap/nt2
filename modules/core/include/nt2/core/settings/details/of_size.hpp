@@ -43,6 +43,15 @@ namespace nt2
     #undef M0
 
     //==========================================================================
+    // Check if size is entirely known at compile-time
+    //==========================================================================
+    #define M0(z,n,t) && (BOOST_PP_CAT(D,n) >= 0 || BOOST_PP_CAT(D,n) == -2)
+    static const std::size_t
+    static_status = (D0 >= 0 || D0 == -2)
+                    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
+    #undef M0
+
+    //==========================================================================
     // The inner data is aligned and padded so SIMD operations are enabled on
     // size values.
     //==========================================================================
