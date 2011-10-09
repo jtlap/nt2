@@ -36,9 +36,9 @@ namespace nt2 { namespace container
                                 >
   {
     typedef boost::proto::extends < Expr
-                                , expression<Expr, ResultType>
-                                , container::domain
-                                >                                parent;
+                                  , expression<Expr, ResultType>
+                                  , container::domain
+                                  >                                parent;
 
     // expression initialization called from generator
     BOOST_DISPATCH_FORCE_INLINE
@@ -52,14 +52,14 @@ namespace nt2 { namespace container
     }
     
     // Assignment operators force evaluation
-    template<class Xpr>
+    template<class Xpr,class Result>
     BOOST_DISPATCH_FORCE_INLINE
-    expression const& operator=(Xpr const& xpr) const
+    expression const& operator=(expression<Xpr,Result> const& xpr) const
     {
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
-    
+
     BOOST_DISPATCH_FORCE_INLINE
     expression const& operator=(expression const& xpr) const
     {
@@ -67,13 +67,13 @@ namespace nt2 { namespace container
       return *this;
     }
     
-    #define NT2_MAKE_ASSIGN_OP(OP)                                      \
-    template<class X>                                                   \
-    BOOST_DISPATCH_FORCE_INLINE                                         \
-    expression& operator BOOST_PP_CAT(OP,=)(X const& xpr)               \
-    {                                                                   \
-      return *this = *this OP xpr;                                      \
-    }                                                                   \
+    #define NT2_MAKE_ASSIGN_OP(OP)                                  \
+    template<class Xpr,class Result>                                \
+    BOOST_DISPATCH_FORCE_INLINE expression const&                   \
+    operator BOOST_PP_CAT(OP,=)(expression<Xpr,Result> const& xpr)  \
+    {                                                               \
+      return *this = *this OP xpr;                                  \
+    }                                                               \
     /**/
 
     NT2_MAKE_ASSIGN_OP(+)
