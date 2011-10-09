@@ -24,26 +24,7 @@ namespace boost { namespace dispatch { namespace meta
   template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
   struct value_of< nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> >
   {
-    typedef std::ptrdiff_t type;
-  };
-
-  //============================================================================
-  // hierarchy_of a of_size_ is mapped over the one of array as it's basically
-  // a std::array with a funky interface.
-  //============================================================================
-  template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D)
-          , class Origin
-          >
-  struct hierarchy_of < nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)>
-                      , Origin
-                      >
-  {
-    typedef nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)> base;    
-    static const std::size_t size = base::static_size ? base::static_size : 1;
-
-    typedef typename property_of<std::ptrdiff_t, Origin>::type    property_type;
-    typedef array_<property_type, size>                           base_hierarchy;
-    typedef container_< base_hierarchy, nt2::of_size_<1, size> >  type;
+    typedef std::size_t type;
   };
 } } }
 
@@ -57,5 +38,35 @@ namespace nt2 { namespace container
     : boost::mpl::true_
   {};
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  //============================================================================
+  /*!
+   * extent_ is the hierarchy type used by of_size_ blocks
+   */
+  //============================================================================
+  template<class Type, class Layout> 
+  struct extent_ : unspecified_<Type>
+  {
+    typedef unspecified_<Type> parent;
+  };
+
+  //============================================================================
+  // hierarchy of a of_size block is :
+  //   container_< extent_<Origin, of_size_<1,N> > >
+  //============================================================================
+  template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D)
+          , typename Origin
+          >
+  struct hierarchy_of < nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)>
+                      , Origin
+                      >
+  {
+    typedef nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> base;
+    static const std::size_t size = base::static_size ? base::static_size : 1;
+    typedef container_< extent_ < Origin , nt2::of_size_<1, size> > > type;
+  };
+} } }
 
 #endif

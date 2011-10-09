@@ -12,6 +12,8 @@
 #include <boost/mpl/assert.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/core/settings/size.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -61,11 +63,9 @@ namespace nt2 { namespace container
    * of_size_
    */
   //============================================================================
-  template<typename Sizes>
+  template<typename Sizes, typename Dummy = boost::proto::is_proto_expr>
   struct  extent
-        : expression< typename boost::proto::nullary_expr < tag::extent_
-                                                          , Sizes
-                                                          >::type
+        : expression< typename boost::proto::terminal<Sizes>::type
                     , Sizes&
                     >
   {
@@ -87,11 +87,11 @@ namespace nt2 { namespace container
     static const size_t static_dimensions = Sizes::static_size;
 
     //==========================================================================
-    //
+    /*! Type of the parent expression                                         */
     //==========================================================================
     typedef expression< typename boost::proto::terminal<Sizes>::type
                       , Sizes&
-                      >           parent;
+                      >                                             parent;
 
     //==========================================================================
     /*!
@@ -209,20 +209,36 @@ namespace nt2 { namespace container
     #undef M1
     //==========================================================================
     
-    /*
-       // Construction from arbitrary expression is same as assignment
-      template<class Xpr>
-      BOOST_DISPATCH_FORCE_INLINE extent(Xpr const& xpr) { *this = xpr; }
+    //==========================================================================
+        /*!
+     * \ref extent constructor from an arbitrary container expression.
+     *
+     * \usage
+     *
+     * \code
+     * #include <nt2/core/container/extent.hpp>
+     *
+     * int main()
+     * {
+     *   nt2::container::extent<nt2::_3D> x(3,7,5);
+     *   nt2::container::extent<nt2::_3D> y(x+2);
+     *   assert( y(1) == 5 && y(2) == 9 && y(3) == 7 );
+     *  }
+     *  \endcode
+     */
+    //==========================================================================
+    template<class Xpr,class Result>
+    BOOST_DISPATCH_FORCE_INLINE
+    extent(expression<Xpr,Result> const& xpr) { *this = xpr; }
 
-      template<class Xpr>
-      BOOST_DISPATCH_FORCE_INLINE extent& operator=(Xpr const& xpr)
-      {
-        nt2::evaluate( nt2::assign(*this, xpr) );
-        return *this;
-      }
-    };
-    */
-
+    template<class Xpr,class Result>
+    BOOST_DISPATCH_FORCE_INLINE 
+    extent& operator=(expression<Xpr,Result> const& xpr)
+    {
+      // Check the affectation is right
+      nt2::evaluate( nt2::assign(*this, xpr) );
+      return *this;
+    }
 
     //==========================================================================
     /**!
@@ -301,14 +317,15 @@ namespace nt2 { namespace container
 } }
 
 //==============================================================================
-// Give extent the semantic of its parent
+// Give extent a semantic 
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
   template<typename Sizes>
   struct  semantic_of< nt2::container::extent<Sizes> >
         : semantic_of< typename nt2::container::extent<Sizes>::parent >
-  {};
+  {
+  };
 } } }
 
 #endif
