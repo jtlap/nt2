@@ -12,11 +12,12 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/meta/is_block.hpp>
 #include <boost/dispatch/meta/lambda_terminal.hpp>
+#include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
 
 namespace nt2 { namespace container
 {
   //============================================================================
-  // Anything goes in the grammar except for low level operators
+  // Anything goes in the grammar except for low level operators and assignment
   //============================================================================
   struct  grammar
         : boost::proto
@@ -33,6 +34,8 @@ namespace nt2 { namespace container
                                                   address_of< grammar >
                                                 , boost::proto::
                                                   dereference< grammar >
+                                                , boost::simd::meta::
+                                                  assignment_operators
                                                 >
                             >
                       >
