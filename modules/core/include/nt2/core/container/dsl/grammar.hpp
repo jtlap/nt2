@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_GRAMMAR_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/meta/is_block.hpp>
+#include <nt2/core/container/meta/is_container.hpp>
 #include <boost/dispatch/meta/lambda_terminal.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
 
@@ -23,7 +23,7 @@ namespace nt2 { namespace container
         : boost::proto
           ::or_ <
                   boost::dispatch::
-                  lambda_terminal< is_block<boost::proto::_value> >
+                  lambda_terminal< is_container<boost::proto::_value> >
                 , boost::proto::
                   and_< boost::proto::
                         nary_expr < boost::proto::_

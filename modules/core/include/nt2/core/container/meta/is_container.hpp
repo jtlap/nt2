@@ -6,15 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_IS_BLOCK_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_IS_BLOCK_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_META_IS_CONTAINER_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_META_IS_CONTAINER_HPP_INCLUDED
 
 #include <boost/type_traits/is_arithmetic.hpp>
 
 namespace nt2 { namespace details
 {
   template<class T, class Enable = void>
-  struct is_block
+  struct is_container
     : boost::is_arithmetic<T>
   {
   };
@@ -23,16 +23,16 @@ namespace nt2 { namespace details
 namespace container
 {
   template<class T>
-  struct is_block
-    : details::is_block<T>
+  struct is_container
+    : details::is_container<T>
   {
   };
   
   template<class T>
-  struct is_block<T&> : is_block<T> {};
+  struct is_container<T&> : is_container<T> {};
   
   template<class T>
-  struct is_block<T const> : is_block<T> {};
+  struct is_container<T const> : is_container<T> {};
     
 } }
 

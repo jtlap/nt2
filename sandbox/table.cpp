@@ -2,104 +2,92 @@
 #include <nt2/core/container/category.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/details/type_id.hpp>
+#include <nt2/include/functions/run.hpp>
 #include <iostream>
 #include <boost/proto/debug.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 
-template<class T, class Terminal>
+template<class T>
 struct block
 {
   boost::array<T, 4096> data;
 };
 
-template<class T>
-struct table_ : table_< typename T::parent >
+namespace nt2 { namespace container
 {
-  typedef table_< typename T::parent > parent;
+    
+template<class Block>
+struct table_container
+{
+    Block block;
 };
 
 template<class T>
-struct table_< boost::dispatch::meta::unspecified_<T> > : boost::dispatch::meta::unspecified_<T>
+struct is_container< table_container<T> >
+  : boost::mpl::true_
 {
-  typedef boost::dispatch::meta::unspecified_<T> parent;
 };
 
-namespace tag
-{
-  struct table_ 
-  { 
-    template<class T> struct apply { typedef ::table_<T> type;  };  
-  };
-}
+} }
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T, class Tag>
-  struct value_of< ::block<T,Tag> >
+  template<class T>
+  struct value_of< nt2::container::table_container<T> >
   {
     typedef T type;
   };
     
-  template<class T, class Tag, class Origin>
-  struct hierarchy_of< ::block<T,Tag>, Origin >
+  template<class T>
+  struct value_of< ::block<T> >
   {
-    typedef typename 
-            boost::mpl::apply < Tag
-                              , typename property_of<T, Origin>::type
-                              >::type base;
-    typedef container_< base > type;
+    typedef T type;
+  };
+    
+  template<class T, class Origin>
+  struct hierarchy_of< nt2::container::table_container<T>, Origin >
+  {
+    typedef container_< typename property_of<typename value_of<T>::type, Origin>::type > type;
   };
     
 } } }
 
 namespace nt2 { namespace container
 {
-  template<class T,class Tag>
-  struct is_block< ::block<T,Tag> >
-    : boost::mpl::true_
-  {
-  };
-} }
 
-template<class T>
+template<class T, class S>
+struct make_block
+{
+  typedef ::block<T> type;
+};
+
+template<class T, class S>
 struct table 
-: nt2::container::
-  expression< typename boost::proto::terminal<::block<T,tag::table_> >::type
-            , ::block<T,tag::table_>& 
+: expression< typename boost::proto::terminal< table_container< typename make_block<T, S>::type > >::type
+            , table_container< typename make_block<T, S>::type >&
             >
 {
-  typedef nt2::container::
-  expression< typename boost::proto::terminal<::block<T,tag::table_> >::type
-            , ::block<T,tag::table_>& 
+  typedef
+  expression< typename boost::proto::terminal< table_container< typename make_block<T, S>::type > >::type
+            , table_container< typename make_block<T, S>::type >&
             > parent;
   
   table() {}
 
-  // Construction from arbitrary expression is same as assignment
   template<class Xpr,class Result> 
   BOOST_DISPATCH_FORCE_INLINE 
-  table(expression<Xpr,Result> const& xpr) { *this = xpr; }
-
-  // Assignment operators force evaluation
-  BOOST_DISPATCH_FORCE_INLINE table& operator=(table const& xpr)
-  {
-    nt2::evaluate( nt2::assign(*this, xpr) );
-    return *this;
-  }
-  
-  template<class Xpr,class Result> 
-  BOOST_DISPATCH_FORCE_INLINE 
-  table& operator=(expression<Xpr,Result> const& xpr)
-  {
-    nt2::evaluate( nt2::assign(*this, xpr) );
-    return *this;
-  }
+  table(expression<Xpr,Result> const& xpr) { static_cast<parent&>(*this) = xpr; }
 };
+
+} }
 
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T>
-  struct semantic_of<::table<T> > : semantic_of<typename ::table<T>::parent> {};
+  struct semantic_of<nt2::container::table<T> >
+    : semantic_of<typename nt2::container::table<T>::parent>
+  {
+  };
 } } }
 
 namespace nt2 { namespace ext
@@ -110,10 +98,10 @@ namespace nt2 { namespace ext
                               ((container_< unspecified_<A0> >))
                             )
   {
-    typedef A0 const& result_type;
+    typedef A0& result_type;
     result_type inline operator()(F const&, A0 const& a0)
     {
-      return a0;
+      return const_cast<A0&>(a0);
     }
   };
   
@@ -134,11 +122,9 @@ namespace nt2 { namespace ext
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::run_, tag::formal_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)
-                            , ( boost::dispatch::meta::
-                                ast_<container_< table_<unspecified_<A0> > > >
-                              )
+                            , (boost::dispatch::meta::ast_<container_< unspecified_<A0> > >)
                             )
   {
     typedef typename boost::dispatch::meta::semantic_of<A0>::type result_type;
@@ -146,11 +132,10 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      static block<double,::tag::table_> b;
       std::cout << "Evaluated:\n";
       boost::proto::display_expr(a0);
-      std::cout << "as a " << nt2::type_id<::tag::table_>() << "\n";
-      return b;
+      static typename boost::remove_reference<result_type>::type r;
+      return r;;
     }
   };
 } }
@@ -158,9 +143,12 @@ namespace nt2 { namespace ext
 
 int main()
 {
+  using nt2::container::table;
+    
   table<double> a, b, c;
   a = b + c*c/a;
   b = c;
   c += !a;
+  c(a) += !a;
   c(a) = b(c) + c(a)*b(a);
 }

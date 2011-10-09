@@ -59,21 +59,35 @@ namespace nt2 { namespace container
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
+    
+    template<class Xpr,class Result>
+    BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(expression<Xpr,Result> const& xpr)
+    {
+      nt2::evaluate( nt2::assign(*this, xpr) );
+      return *this;
+    }
 
     BOOST_DISPATCH_FORCE_INLINE
-    expression const& operator=(expression const& xpr) const
+    expression& operator=(expression const& xpr)
     {
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
     
-    #define NT2_MAKE_ASSIGN_OP(OP)                                  \
-    template<class Xpr,class Result>                                \
-    BOOST_DISPATCH_FORCE_INLINE expression const&                   \
-    operator BOOST_PP_CAT(OP,=)(expression<Xpr,Result> const& xpr)  \
-    {                                                               \
-      return *this = *this OP xpr;                                  \
-    }                                                               \
+    #define NT2_MAKE_ASSIGN_OP(OP)                                             \
+    template<class Xpr,class Result>                                           \
+    BOOST_DISPATCH_FORCE_INLINE expression&                                    \
+    operator BOOST_PP_CAT(OP,=)(expression<Xpr,Result> const& xpr)             \
+    {                                                                          \
+      return *this = *this OP xpr;                                             \
+    }                                                                          \
+    template<class Xpr,class Result>                                           \
+    BOOST_DISPATCH_FORCE_INLINE expression const&                              \
+    operator BOOST_PP_CAT(OP,=)(expression<Xpr,Result> const& xpr) const       \
+    {                                                                          \
+      return *this = *this OP xpr;                                             \
+    }                                                                          \
     /**/
 
     NT2_MAKE_ASSIGN_OP(+)

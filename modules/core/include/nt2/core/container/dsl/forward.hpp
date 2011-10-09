@@ -22,7 +22,6 @@ namespace nt2 { namespace container
 
   template< class Type
           , class Settings = nt2::settings()
-          , class Dummy    = boost::proto::is_proto_expr
           >
   struct table;
 } }
