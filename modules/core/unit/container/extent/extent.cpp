@@ -8,7 +8,6 @@
 //=============================================================================
 #define NT2_UNIT_MODULE "nt2::extent"
 
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/core/container/extent/extent.hpp>
 #include <nt2/core/settings/size.hpp>
 
@@ -21,19 +20,47 @@
 #define DYN_DIM_LIST BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
 
 //=============================================================================
+// Does extent<> behaves correctly in meta?
+//=============================================================================
+NT2_TEST_CASE_TPL( meta_extent, DYN_DIM_LIST )
+{
+  using boost::is_same;
+  using nt2::container::extent;
+  using nt2::of_size_;
+  using boost::dispatch::meta::value_of;
+  using boost::dispatch::meta::hierarchy_of;
+
+  using boost::dispatch::meta::expr_;
+  using boost::dispatch::meta::extent_;
+  using boost::dispatch::meta::container_;
+  
+  NT2_TEST(( is_same< T
+                    , typename value_of< extent<T> >::type
+                    >::value
+          ));
+
+  NT2_TEST(( is_same< expr_< container_< extent_< extent<T>
+                                                , of_size_<1,T::static_size> 
+                                                > 
+                                       >
+                           , nt2::container::domain
+                           , boost::proto::tag::terminal
+                           >
+                    , typename hierarchy_of< extent<T> >::type
+                    >::value
+          ));
+}
+
+//=============================================================================
 // Does extent<_0D> behaves correctly ?
 //=============================================================================
 NT2_TEST_CASE( _0d )
 {
   using nt2::_0D;
-  using nt2::of_size_;
-  using boost::is_same;
   using nt2::container::extent;
-  using nt2::meta::hierarchy_of;
   using boost::dispatch::meta::expr_;
   using boost::dispatch::meta::container_;
   using boost::dispatch::meta::array_;
-
   //============================================================================
   // Default construction
   //============================================================================

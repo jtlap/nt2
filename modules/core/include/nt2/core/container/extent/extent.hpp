@@ -66,7 +66,7 @@ namespace nt2 { namespace container
   template<typename Sizes, typename Dummy = boost::proto::is_proto_expr>
   struct  extent
         : expression< typename boost::proto::terminal<Sizes>::type
-                    , Sizes&
+                    , Sizes
                     >
   {
     //==========================================================================
@@ -90,7 +90,7 @@ namespace nt2 { namespace container
     /*! Type of the parent expression                                         */
     //==========================================================================
     typedef expression< typename boost::proto::terminal<Sizes>::type
-                      , Sizes&
+                      , Sizes
                       >                                             parent;
 
     //==========================================================================

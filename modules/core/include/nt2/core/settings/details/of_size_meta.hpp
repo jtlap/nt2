@@ -43,7 +43,7 @@ namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
   /*!
-   * extent_ is the hierarchy type used by of_size_ blocks
+   * extent_ is the hierarchy type used by of_size_ container
    */
   //============================================================================
   template<class Type, class Layout> 
@@ -53,7 +53,7 @@ namespace boost { namespace dispatch { namespace meta
   };
 
   //============================================================================
-  // hierarchy of a of_size block is :
+  // hierarchy of a of_size container is :
   //   container_< extent_<Origin, of_size_<1,N> > >
   //============================================================================
   template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D)
