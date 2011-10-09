@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/enable_if_type.hpp>
 #include <nt2/sdk/config/types.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/dsl/category.hpp>
 
 namespace nt2
 {
@@ -59,6 +60,9 @@ namespace ext
   using boost::dispatch::meta::double_;
   using boost::dispatch::meta::single_;
   using boost::dispatch::meta::long_double_;
+  
+  using boost::dispatch::meta::ast_;
+  using boost::dispatch::meta::expr_;
 } }
 
 #endif
