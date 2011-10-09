@@ -20,7 +20,7 @@ namespace boost { namespace dispatch
   template<class Lambda>
   struct  lambda_terminal
         : boost::proto::
-           and_< boost::proto::terminal<boost::proto::_>
+           and_< boost::proto::nullary_expr<boost::proto::_,boost::proto::_>
                , boost::proto::if_< Lambda() >
                >
   {};
