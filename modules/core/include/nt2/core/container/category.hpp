@@ -14,18 +14,18 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T, class Size>
-  struct container_ : container_< typename T::parent, Size >
+  template<class T>
+  struct container_ : container_< typename T::parent >
   {
-    typedef container_<typename T::parent, Size> parent;
+    typedef container_<typename T::parent> parent;
   };
   
-  template<class T, class Size>
-  struct container_< unspecified_<T>, Size > : generic_< typename property_of<T>::type >
+  template<class T>
+  struct  container_< unspecified_<T> > 
+        : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;
-  };
-    
+  };    
 } } }
 
 namespace nt2 { namespace ext
@@ -33,15 +33,14 @@ namespace nt2 { namespace ext
   using boost::dispatch::meta::container_;
 } }
 
-
 //==============================================================================
 // Proto Work around - Prevent operator()() to whine eagerly
 //==============================================================================
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(boost::proto::tag::function, tag::cpu_
-                            , (A0)(S0)
-                            , ((container_< unspecified_<A0>, S0 >))
+  NT2_FUNCTOR_IMPLEMENTATION( boost::proto::tag::function, tag::cpu_
+                            , (A0)
+                            , ((container_< unspecified_<A0> >))
                             )
   {
     typedef A0& result_type;
