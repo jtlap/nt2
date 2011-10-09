@@ -13,7 +13,7 @@
 #include <boost/dispatch/meta/fusion.hpp>
 #include <nt2/core/container/category.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/container/meta/is_block.hpp>
+#include <nt2/core/container/meta/is_container.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -31,10 +31,10 @@ namespace boost { namespace dispatch { namespace meta
 namespace nt2 { namespace container
 {
   //============================================================================
-  // of_size_ is a block
+  // of_size_ is a container
   //============================================================================
   template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
-  struct is_block< nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> >
+  struct is_container< nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> >
     : boost::mpl::true_
   {};
 } }
