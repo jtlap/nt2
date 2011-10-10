@@ -60,7 +60,7 @@ macro(nt2_module_source_setup module)
       if(NOT EXISTS ${PROJECT_BINARY_DIR}/modules/dummy.cpp)
         file(WRITE ${PROJECT_BINARY_DIR}/modules/dummy.cpp)
       endif()
-      add_executable(${module}.sources ${PROJECT_BINARY_DIR}/modules/dummy.cpp ${files_full})
+      add_executable(${module}.sources EXCLUDE_FROM_ALL ${PROJECT_BINARY_DIR}/modules/dummy.cpp ${files_full})
       set_property(TARGET ${module}.sources PROPERTY FOLDER sources)
     endif()
 
