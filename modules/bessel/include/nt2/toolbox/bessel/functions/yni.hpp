@@ -53,7 +53,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag yni_ of functor yni 
      *        in namespace nt2::tag for toolbox bessel
     **/
     struct yni_ {};

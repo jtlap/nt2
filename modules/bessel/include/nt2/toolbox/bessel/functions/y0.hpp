@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag y0_ of functor y0 
      *        in namespace nt2::tag for toolbox bessel
     **/
     struct y0_ {};
