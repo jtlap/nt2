@@ -176,7 +176,8 @@ NT2_TEST_CASE_TPL(pack_expr_category, (double))
             typename hierarchy_of<
                 typename semantic_of<
                     pack<T>
-                >::type
+                >::type,
+                pack<T>
             >::type
           , typename boost::proto::domain_of<pack<T> >::type
           , boost::proto::tag::terminal
