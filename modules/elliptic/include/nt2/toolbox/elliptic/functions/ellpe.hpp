@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag ellpe_ of functor ellpe 
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellpe_ {};

@@ -75,7 +75,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-    _
+     * \brief Define the tag cos_ of functor cos 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     template <class T> struct cos_ {};

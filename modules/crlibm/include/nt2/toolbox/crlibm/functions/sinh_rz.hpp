@@ -70,7 +70,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-    _
+     * \brief Define the tag sinh_rz_ of functor sinh_rz 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct sinh_rz_ {};

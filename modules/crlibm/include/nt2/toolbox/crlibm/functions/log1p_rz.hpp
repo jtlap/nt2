@@ -70,7 +70,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-    _
+     * \brief Define the tag log1p_rz_ of functor log1p_rz 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct log1p_rz_ {};

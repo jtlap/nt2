@@ -75,7 +75,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-    _
+     * \brief Define the tag tan_ of functor tan 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     template <class T> struct tan_ {};

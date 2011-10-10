@@ -70,7 +70,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-    _
+     * \brief Define the tag cosh_ru_ of functor cosh_ru 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct cosh_ru_ {};

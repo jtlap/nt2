@@ -55,7 +55,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag ellie_ of functor ellie 
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellie_ {};

@@ -55,7 +55,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag ellik_ of functor ellik 
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellik_ {};

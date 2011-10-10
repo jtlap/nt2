@@ -70,7 +70,7 @@
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-    _
+     * \brief Define the tag asin_ru_ of functor asin_ru 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct asin_ru_ {};
