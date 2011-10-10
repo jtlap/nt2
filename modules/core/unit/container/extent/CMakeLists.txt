@@ -14,4 +14,4 @@ SET( SOURCES
 # List of scalar test files for toolbox core.memory
    )
 
-nt2_module_add_tests(core.container.extent.unit ${SOURCES})
+#nt2_module_add_tests(core.container.extent.unit ${SOURCES})
