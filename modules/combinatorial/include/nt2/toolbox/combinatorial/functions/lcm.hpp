@@ -56,7 +56,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag lcm_ of functor lcm 
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct lcm_ {};

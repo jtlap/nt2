@@ -71,7 +71,7 @@
 namespace nt2 { namespace cephes { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag hyperg_ of functor hyperg 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct hyperg_ {};

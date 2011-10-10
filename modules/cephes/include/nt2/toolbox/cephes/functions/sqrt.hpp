@@ -69,7 +69,7 @@
 namespace nt2 { namespace cephes { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag sqrt_ of functor sqrt 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct sqrt_ {};

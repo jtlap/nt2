@@ -1,4 +1,18 @@
-
+/******************************************************************************
+ *         Copyright 2003-2011 LASMEA UMR 6602 CNRS/U.B.P
+ *         Copyright 2009-2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+ *
+ *          Distributed under the Boost Software License, Version 1.0.
+ *                 See accompanying file LICENSE.txt or copy at
+ *                     http://www.boost.org/LICENSE_1_0.txt
+ ******************************************************************************/
+/*!
+ * \file
+**/
+#ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_FACTORIAL_HPP_INCLUDED
+#define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_FACTORIAL_HPP_INCLUDED
+#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup combinatorial
@@ -22,7 +36,7 @@
  * \code
  * namespace nt2
  * {
- *   template <class A0>
+ *   template <class T,class A0>
  *     meta::call<tag::factorial_(A0)>::type
  *     factorial(const A0 & a0);
  * }
@@ -30,7 +44,9 @@
  *
  * \param a0 the unique parameter of factorial
  * 
- * \return a value of the same type as the parameter
+ * \param T template parameter of factorial
+ * 
+ * \return a value of the template parameter type T.
  *  
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
@@ -38,25 +54,10 @@
  *  
 **/
 
- *         Copyright 2003-2011 LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2009-2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-/*!
- * \file
-**/
-#ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_FACTORIAL_HPP_INCLUDED
-#define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_FACTORIAL_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
-#include <nt2/include/functor.hpp>
-
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag factorial_ of functor factorial 
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct factorial_ {};

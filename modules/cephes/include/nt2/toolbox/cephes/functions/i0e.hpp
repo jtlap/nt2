@@ -69,7 +69,7 @@
 namespace nt2 { namespace cephes { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag i0e_ of functor i0e 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct i0e_ {};

@@ -56,7 +56,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag gcd_ of functor gcd 
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct gcd_ {};

@@ -57,7 +57,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag cnp_ of functor cnp 
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct cnp_ {};

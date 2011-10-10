@@ -71,7 +71,7 @@
 namespace nt2 { namespace cephes { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag gdtrc_ of functor gdtrc 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct gdtrc_ {};
