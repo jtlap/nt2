@@ -67,7 +67,7 @@
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag nextafter_ of functor nextafter 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct nextafter_ {};

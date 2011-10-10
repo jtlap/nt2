@@ -61,7 +61,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag knuth_equal_ of functor knuth_equal 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct knuth_equal_ {};

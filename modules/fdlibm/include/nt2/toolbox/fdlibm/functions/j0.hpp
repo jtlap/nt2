@@ -66,7 +66,7 @@
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag j0_ of functor j0 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct j0_ {};

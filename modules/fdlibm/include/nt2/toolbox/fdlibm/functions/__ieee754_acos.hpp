@@ -66,7 +66,7 @@
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag __ieee754_acos_ of functor __ieee754_acos 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct __ieee754_acos_ {};

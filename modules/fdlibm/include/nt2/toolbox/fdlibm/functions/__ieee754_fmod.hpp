@@ -67,7 +67,7 @@
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag __ieee754_fmod_ of functor __ieee754_fmod 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct __ieee754_fmod_ {};

@@ -61,7 +61,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag definitely_greater_ of functor definitely_greater 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct definitely_greater_ {};

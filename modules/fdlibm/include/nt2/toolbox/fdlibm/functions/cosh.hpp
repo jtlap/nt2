@@ -66,7 +66,7 @@
 namespace nt2 { namespace fdlibm { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag cosh_ of functor cosh 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct cosh_ {};

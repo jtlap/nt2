@@ -61,7 +61,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag fuzzy_equal_ of functor fuzzy_equal 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct fuzzy_equal_ {};

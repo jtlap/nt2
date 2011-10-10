@@ -61,7 +61,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag almost_greater_or_equal_ of functor almost_greater_or_equal 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct almost_greater_or_equal_ {};
