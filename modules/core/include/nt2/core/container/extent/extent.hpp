@@ -20,7 +20,6 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <nt2/core/container/extent/is_statically_sized.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 namespace nt2 { namespace tag
@@ -93,6 +92,8 @@ namespace nt2 { namespace container
     /*! Integral constant carrying the number of dimensions of current extent */
     //==========================================================================
     static const size_t static_dimensions = Sizes::static_size;
+
+    static const size_t static_status = Sizes::static_status;
 
     //==========================================================================
     /*! Type of the parent expression                                         */

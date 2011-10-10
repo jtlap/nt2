@@ -13,8 +13,8 @@
 #include <boost/dispatch/meta/fusion.hpp>
 #include <nt2/core/container/category.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/container/meta/is_container.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <nt2/core/container/meta/is_container.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

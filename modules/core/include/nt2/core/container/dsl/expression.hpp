@@ -16,6 +16,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/evaluate.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -37,14 +38,6 @@ namespace nt2 { namespace container
                                 >
   {
     //==========================================================================
-    /*! Fusion sequence tag                                                   */
-    //==========================================================================
-    typedef typename boost::mpl::if_< meta::is_statically_sized<expression>
-                                    , nt2::tag::container_
-                                    , boost::fusion::non_fusion_tag
-                                    >::type                         fusion_tag;
-
-    //==========================================================================
     /*! Type of the parent expression                                         */
     //==========================================================================
     typedef boost::proto::extends < Expr
@@ -55,8 +48,8 @@ namespace nt2 { namespace container
     //==========================================================================
     // expression initialization called from generator    
     //==========================================================================
-    BOOST_DISPATCH_FORCE_INLINE expression(Expr const& x = Expr()) : parent(x)
-    {}
+    BOOST_DISPATCH_FORCE_INLINE 
+    expression(Expr const& x = Expr()) : parent(x) {}
     
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
@@ -122,8 +115,11 @@ namespace nt2 { namespace container
     //==========================================================================
     // Conversion operator forces evaluation - used for reduction operator
     //==========================================================================
-    BOOST_DISPATCH_FORCE_INLINE
-    operator ResultType() const { return nt2::evaluate(*this); }    
+    BOOST_DISPATCH_FORCE_INLINE operator 
+    typename boost::dispatch::meta::terminal_of<ResultType>::type() const 
+    { 
+      return nt2::evaluate(*this); 
+    }    
   };
 } }
 

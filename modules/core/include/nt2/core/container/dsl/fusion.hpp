@@ -11,6 +11,8 @@
 
 #include <nt2/core/functions/size.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
+#include <boost/fusion/include/tag_of_fwd.hpp>
+#include <nt2/core/container/meta/is_statically_sized.hpp>
 
 namespace nt2 { namespace tag
 {
@@ -23,6 +25,22 @@ namespace nt2 { namespace tag
 //==============================================================================
 //Implement shared generic Fusion sequence conformance for container expression
 //==============================================================================
+namespace boost { namespace fusion { namespace traits 
+{
+  template<class Expr, class ResultType>
+  struct tag_of< nt2::container::expression<Expr,ResultType> >
+  {
+    typedef typename 
+            mpl::if_< nt2::meta::
+                      is_statically_sized < nt2::container::
+                                            expression<Expr,ResultType> 
+                                          >
+                    , nt2::tag::container_
+                    , non_fusion_tag
+                    >::type                                     type;
+  };
+} } }
+
 namespace boost { namespace fusion { namespace extension
 {
   //============================================================================
