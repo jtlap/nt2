@@ -66,11 +66,12 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct size_impl<nt2::tag::container_>
   {
-    /*
     template<typename Sequence>
-    struct apply : mpl::int_<Sequence::static_dimensions> 
+    struct  apply 
+          : mpl::int_ < dispatch::meta::call<nt2::tag::size_(Sequence)>
+                                ::type::static_size
+                      >
     {};
-    */
   };
 } } }
 

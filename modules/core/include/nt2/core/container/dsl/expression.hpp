@@ -37,16 +37,6 @@ namespace nt2 { namespace container
                                 , container::domain
                                 >
   {
-    #if 0
-    //==========================================================================
-    /*! Fusion sequence tag                                                   */
-    //==========================================================================
-    typedef typename boost::mpl::if_< meta::is_statically_sized<expression>
-                                    , nt2::tag::container_
-                                    , boost::fusion::non_fusion_tag
-                                    >::type                         fusion_tag;
-    #endif
-
     //==========================================================================
     /*! Type of the parent expression                                         */
     //==========================================================================

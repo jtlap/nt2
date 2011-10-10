@@ -86,6 +86,8 @@ namespace nt2 { namespace container
     typedef std::size_t                     difference_type;
 
     //==========================================================================
+    // Extent is obviously a Fusion Sequence
+    //==========================================================================
     typedef nt2::tag::container_ fusion_tag;
 
     //==========================================================================

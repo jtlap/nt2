@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::extent"
 
 #include <nt2/core/container/extent/extent.hpp>
+#include <nt2/include/functions/size.hpp>
 #include <nt2/core/settings/size.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -60,6 +61,7 @@ NT2_TEST_CASE( _0d )
   using boost::dispatch::meta::expr_;
   using boost::dispatch::meta::table_;
   using boost::dispatch::meta::array_;
+
   //============================================================================
   // Default construction
   //============================================================================
@@ -75,6 +77,9 @@ NT2_TEST_CASE( _0d )
   NT2_TEST_EQUAL( x(3)      , 1);
   NT2_TEST_EQUAL( x(4)      , 1);
 
+  NT2_TEST_EQUAL( nt2::size(x)(1), 1);
+  NT2_TEST_EQUAL( nt2::size(x)(2), 1);
+
   //============================================================================
   // Copy construction
   //============================================================================
@@ -89,6 +94,8 @@ NT2_TEST_CASE( _0d )
   NT2_TEST_EQUAL( y(2)      , 1);
   NT2_TEST_EQUAL( y(3)      , 1);
   NT2_TEST_EQUAL( y(4)      , 1);
+  
+//  NT2_TEST_EQUAL( nt2::size(y), 0);    
 }
 
 //=============================================================================
