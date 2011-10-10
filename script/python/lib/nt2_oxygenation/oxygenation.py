@@ -156,7 +156,6 @@ class Nt2_oxygenation(Oxgen) :
                     self.txt_list = self.strip_old()
         self.txt_list = self.make_functor_ox()
         self.txt      = '\n'.join(self.txt_list)
-##        show(self.txt_list)
         self.txt_list = self.make_tag_ox()
         self.txt      = '\n'.join(self.txt_list) 
         self.txt_list =self.suppress_double_blank(self.txt_list)
@@ -199,7 +198,7 @@ class Nt2_oxygenation(Oxgen) :
     def make_tag_ox(self) :
         Tag_ox = [
             "/*!",
-            " * \\brief $action$ the tag $Fct$%s of functor $Fct$ "% "" if self.is_constant else '_',
+            " * \\brief $action$ the tag $Fct$%s of functor $Fct$ "%("" if self.is_constant else '_'),
             " *        in namespace $tagnamespace$::tag for toolbox $tb_name$",
             "**/"
             ]
@@ -300,9 +299,13 @@ class Nt2_oxygenation(Oxgen) :
         if self.is_constant :
             res = ""
             return res
-        res = ['\par Notes',
-               'In SIMD mode, this function acts elementwise on the inputs vectors elements','\par']
         special = self.df.get("special",[])
+        if "reduction" not in special and "swar" not in special :
+            res = ['\par Notes',
+                   'In SIMD mode, this function acts elementwise on the inputs vectors elements','\par']
+        else :
+            res = ['\par Notes','\par']
+             
         if "predicate" in special or "fuzzy" in special :
             res.extend(["This is a predicate operation. Such operations return bool in scalar mode,",
                         "but not in SIMD mode.","\par",
@@ -313,15 +316,15 @@ class Nt2_oxygenation(Oxgen) :
         if "reduction" in special :
             res.extend(["This is a reduction operation. As such it has not real interest outside",
                         "SIMD mode.","\par",
-                        "Such an operation has always a scalar result which translate a property",
+                        "Such an operation always has a scalar result which translate a property",
                         "of the whole SIMD vector.","\par",
                         "If usable and used in scalar mode, it reduces to the operation as acting",
                         "on a one element vector."])
         if "swar" in self.special :
             res.extend(["This is a swar operation. As such it has not real interest outside",
                         "SIMD mode.","\par",
-                        "Such an operation is a transform of an SIMD vector,that will return",
-                        "vectors obtained on a non necessarily elementwise basis from the inputs"
+                        "Such an operation is a transform of an SIMD vector, that will return",
+                        "vectors obtained on a non necessarily elementwise basis from the inputs",
                         "elements","\par",
                         "If usable and used in scalar mode, it reduces to the operation",
                         "on a one element vector."])
@@ -353,12 +356,7 @@ class Nt2_oxygenation(Oxgen) :
             " * \\file",
             "**/",
             ]
-        j=0
-        for ss in self.txt_list :
-            if (len(ss) and ss[0] in '#') :
-                break
-            else :
-                j=j+1
+        j=self.pass_header()
         r =self.txt_list[:j]
         r.extend(File_ox)
         r.extend(self.txt_list[j:])
@@ -404,12 +402,9 @@ class Nt2_oxygenation(Oxgen) :
         self.parameters  = self.compose_parameters()
         self.call        = self.compose_call()
         self.notes       = self.compose_notes()
-        j=0
-        for ss in self.txt_list :
-            if not len(ss) or (ss[0] in '/#') :
-                j+=1
-            else :
-                break
+        j = self.pass_header()
+        j = self.pass_ifdef(j)
+        print(self.Fct)
         l = len(self.txt_list[j-1])-len(self.txt_list[j-1].lstrip())
         functor_ox = self.indent(Functor_ox,l)
         functor_ox = self.suppress_blank(self.prepare(functor_ox))
@@ -444,7 +439,7 @@ class Nt2_oxygenation(Oxgen) :
       
     def strip_old(self) :
         r = []
-        pattern1 = re.compile("\s*/\*[!\*]")
+        pattern1 = re.compile("\s*/\*[!]")
         pattern2 = re.compile("\s*\*{1,2}/") 
         in_dox = False
         for l in self.txt_list :
@@ -466,6 +461,20 @@ class Nt2_oxygenation(Oxgen) :
         txt = '\n'.join(txt_list)
         txt = re.sub(pattern,"\n\n",txt)
         return txt.split('\n')
-    
+    def pass_header(self,j=0) :
+        for ss in self.txt_list[j:] :
+            if not len(ss) or not (ss[0] in '#') :
+                j+=1
+            else :
+                return j
+            
+    def pass_ifdef(self,j) :
+        for ss in self.txt_list[j:] :
+            if not len(ss) or (ss[0] in '#') :
+                j+=1
+            else :
+                return j
+        
+        
 if __name__ == "__main__" :
     pass
