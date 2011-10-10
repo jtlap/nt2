@@ -12,6 +12,11 @@
 #include <boost/proto/proto_fwd.hpp>
 #include <nt2/core/settings/settings.hpp>
 
+namespace nt2 { namespace tag
+{
+  struct container_;
+} }
+
 namespace nt2 { namespace container
 {
   struct grammar;
@@ -22,8 +27,15 @@ namespace nt2 { namespace container
 
   template< class Type
           , class Settings = nt2::settings()
+          , typename Dummy = boost::proto::is_proto_expr
           >
   struct table;
+
+  template< typename Sizes
+          , typename Dummy = boost::proto::is_proto_expr
+          >
+  struct  extent;
+
 } }
 
 #endif

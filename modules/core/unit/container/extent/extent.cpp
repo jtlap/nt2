@@ -32,17 +32,16 @@ NT2_TEST_CASE_TPL( meta_extent, DYN_DIM_LIST )
 
   using boost::dispatch::meta::expr_;
   using boost::dispatch::meta::extent_;
-  using boost::dispatch::meta::container_;
+  using boost::dispatch::meta::table_;
   
   NT2_TEST(( is_same< T
                     , typename value_of< extent<T> >::type
                     >::value
           ));
 
-  NT2_TEST(( is_same< expr_< container_< extent_< extent<T>
-                                                , of_size_<1,T::static_size> 
-                                                > 
-                                       >
+  NT2_TEST(( is_same< expr_< extent_< extent<T>
+                                    , of_size_<1,T::static_size> 
+                                    > 
                            , nt2::container::domain
                            , boost::proto::tag::terminal
                            >
@@ -59,7 +58,7 @@ NT2_TEST_CASE( _0d )
   using nt2::_0D;
   using nt2::container::extent;
   using boost::dispatch::meta::expr_;
-  using boost::dispatch::meta::container_;
+  using boost::dispatch::meta::table_;
   using boost::dispatch::meta::array_;
   //============================================================================
   // Default construction

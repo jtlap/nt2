@@ -14,14 +14,15 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T>
-  struct container_ : container_< typename T::parent >
+  // TODO: Move to table/ later
+  template<class T, class Size>
+  struct table_ : table_< typename T::parent, Size >
   {
-    typedef container_<typename T::parent> parent;
+    typedef table_<typename T::parent, Size> parent;
   };
   
-  template<class T>
-  struct  container_< unspecified_<T> > 
+  template<class T, class Size>
+  struct  table_< unspecified_<T>, Size > 
         : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;
@@ -30,7 +31,7 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace nt2 { namespace ext
 {
-  using boost::dispatch::meta::container_;
+  using boost::dispatch::meta::table_;
 } }
 
 //==============================================================================
@@ -39,8 +40,8 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( boost::proto::tag::function, tag::cpu_
-                            , (A0)
-                            , ((container_< unspecified_<A0> >))
+                            , (A0)(S0)
+                            , ((table_< unspecified_<A0>, S0 >))
                             )
   {
     typedef A0& result_type;
