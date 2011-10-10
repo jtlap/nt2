@@ -8,9 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
-  extent.cpp
-  fusion.cpp
-  of_size.cpp
+#  extent.cpp
+#  fusion.cpp
+#  of_size.cpp
 # List of scalar test files for toolbox core.memory
    )
 
