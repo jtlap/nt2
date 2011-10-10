@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_IMPL_SIZE_SCALAR_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_IMPL_SIZE_SCALAR_HPP_INCLUDED
 
+#include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/size.hpp>
 #include <nt2/core/container/extent/extent.hpp>
 
@@ -18,9 +19,10 @@ namespace nt2 { namespace ext
                             , (A0), (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef container::extent< of_size_<1,1> > result_type;
+    typedef container::extent< nt2::of_size_<1,1> > result_type;
 
-    result_type BOOST_DISPATCH_FORCE_INLINE operator()(A0 const&) const
+    BOOST_DISPATCH_FORCE_INLINE 
+    result_type operator()(A0 const&) const
     {
       result_type that;
       return that;
