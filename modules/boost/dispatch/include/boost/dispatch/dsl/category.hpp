@@ -13,6 +13,7 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/proto/domain.hpp>
+#include <boost/proto/traits.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
