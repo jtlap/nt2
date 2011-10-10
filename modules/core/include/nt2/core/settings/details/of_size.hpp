@@ -9,14 +9,16 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_OF_SIZE_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_OF_SIZE_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/vector_c.hpp>
+#include <nt2/core/settings/size.hpp>
+#include <nt2/core/settings/details/of_size_meta.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/memory/meta/align_on.hpp>
-#include <nt2/core/settings/details/of_size_meta.hpp>
+#include <nt2/sdk/parameters.hpp>
+#include <boost/mpl/at.hpp>
+#include <boost/mpl/vector_c.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <cstddef>
 
 namespace nt2
 {

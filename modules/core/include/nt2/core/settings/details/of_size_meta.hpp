@@ -9,12 +9,14 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_OF_SIZE_META_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_OF_SIZE_META_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/dispatch/meta/fusion.hpp>
+#include <nt2/core/settings/size.hpp>
+#include <nt2/core/container/meta/is_container.hpp>
 #include <nt2/core/container/category.hpp>
+#include <nt2/sdk/parameters.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <nt2/core/container/meta/is_container.hpp>
+#include <cstddef>
 
 namespace boost { namespace dispatch { namespace meta
 {
