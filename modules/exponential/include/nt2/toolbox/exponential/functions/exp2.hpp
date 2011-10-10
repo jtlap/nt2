@@ -54,7 +54,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag exp2_ of functor exp2 
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct exp2_ {};

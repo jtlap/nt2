@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag gammaln_ of functor gammaln 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct gammaln_ {};

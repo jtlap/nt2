@@ -50,7 +50,7 @@
 
 namespace nt2
 {
-  NT2_MAKE_STD_CONSTANT(log_2olog_10 ,0x3fd34413509f79ffLL,0x3e9a209b, 0)
+  NT2_MAKE_STD_CONSTANT(Log_2olog_10 ,0x3fd34413509f79ffLL,0x3e9a209b, 0)
 }
 
 #endif

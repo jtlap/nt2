@@ -54,7 +54,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag gamma_ of functor gamma 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct gamma_ {};

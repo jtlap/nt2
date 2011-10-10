@@ -55,7 +55,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag fast_gamma_ of functor fast_gamma 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct fast_gamma_ {};

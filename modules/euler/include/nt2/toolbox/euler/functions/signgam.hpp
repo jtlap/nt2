@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag signgam_ of functor signgam 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct signgam_ {};

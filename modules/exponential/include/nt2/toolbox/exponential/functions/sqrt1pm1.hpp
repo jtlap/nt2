@@ -19,7 +19,7 @@
  * \defgroup exponential_sqrt1pm1 sqrt1pm1 function
  *
  * \par Description
- * \f$\sqrt{1+a_0}-1\$
+ * \f$\sqrt{1+a_0}-1\f$
  * \par
  * result is accurate even for small a0
  *
@@ -54,7 +54,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag sqrt1pm1_ of functor sqrt1pm1 
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct sqrt1pm1_ {};

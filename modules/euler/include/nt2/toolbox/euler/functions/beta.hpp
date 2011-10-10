@@ -58,7 +58,7 @@ namespace nt2
   namespace tag 
   {         
     /*!
-    _
+     * \brief Define the tag beta_ of functor beta 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct beta_ {};

@@ -55,7 +55,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag expni_ of functor expni 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct expni_ {};

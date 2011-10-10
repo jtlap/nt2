@@ -55,7 +55,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag pow_ of functor pow 
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct pow_ {};

@@ -53,7 +53,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag digamma_ of functor digamma 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct digamma_ {};

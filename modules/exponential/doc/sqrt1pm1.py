@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' :['\\\\f$\sqrt{1+a_0}-1\\\\\f$','\par',
+         'description' :['\\\\f$\sqrt{1+a_0}-1\\\\f$','\par',
                          'result is accurate even for small a0'] ,  
          'arity' : '1',
          'call_types' : [],

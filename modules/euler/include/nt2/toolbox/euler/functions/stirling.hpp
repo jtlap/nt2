@@ -56,7 +56,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag stirling_ of functor stirling 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct stirling_ {};

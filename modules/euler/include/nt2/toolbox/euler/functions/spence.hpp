@@ -54,7 +54,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag spence_ of functor spence 
      *        in namespace nt2::tag for toolbox euler
     **/
     struct spence_ {};
