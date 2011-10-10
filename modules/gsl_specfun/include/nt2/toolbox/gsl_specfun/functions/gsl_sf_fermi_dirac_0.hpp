@@ -66,7 +66,7 @@
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag gsl_sf_fermi_dirac_0_ of functor gsl_sf_fermi_dirac_0 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
     struct gsl_sf_fermi_dirac_0_ {};

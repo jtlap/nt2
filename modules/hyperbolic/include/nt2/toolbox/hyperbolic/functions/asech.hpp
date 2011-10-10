@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag asech_ of functor asech 
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct asech_ {};

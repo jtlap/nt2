@@ -66,7 +66,7 @@
 namespace nt2 { namespace gsl_specfun { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag gsl_sf_lambert_wm1_ of functor gsl_sf_lambert_wm1 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
     struct gsl_sf_lambert_wm1_ {};
