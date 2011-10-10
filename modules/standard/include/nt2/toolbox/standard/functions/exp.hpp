@@ -64,7 +64,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag exp_ of functor exp 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct exp_ {};

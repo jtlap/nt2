@@ -70,7 +70,7 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag atan2_ of functor atan2 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct atan2_ {};

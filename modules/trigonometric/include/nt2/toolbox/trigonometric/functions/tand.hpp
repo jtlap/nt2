@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag tand_ of functor tand 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct tand_ {};

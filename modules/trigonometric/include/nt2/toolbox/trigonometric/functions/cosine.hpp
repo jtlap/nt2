@@ -135,7 +135,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag cosine_ of functor cosine 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct cosine_ {};

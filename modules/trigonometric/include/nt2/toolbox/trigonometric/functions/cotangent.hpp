@@ -56,7 +56,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag cotangent_ of functor cotangent 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct cotangent_ {};

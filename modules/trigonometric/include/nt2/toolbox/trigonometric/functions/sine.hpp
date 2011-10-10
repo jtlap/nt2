@@ -13,9 +13,6 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINE_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-//////////////////////////////////////////////////////////////////////////////
-/*
-
 /*!
  * \ingroup trigonometric
  * \defgroup trigonometric_sine sine function
@@ -134,6 +131,9 @@
  *  
 **/
 
+//////////////////////////////////////////////////////////////////////////////
+/*
+
   sine if a templated version of sin
   the template parameter "mode" allows some control on the computation
   accuracy
@@ -238,7 +238,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag sine_ of functor sine 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct sine_ {};

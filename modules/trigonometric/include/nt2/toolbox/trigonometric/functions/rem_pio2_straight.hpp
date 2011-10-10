@@ -62,7 +62,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag rem_pio2_straight_ of functor rem_pio2_straight 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct rem_pio2_straight_ {};

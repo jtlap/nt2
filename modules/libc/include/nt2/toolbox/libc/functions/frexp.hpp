@@ -80,7 +80,7 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag frexp_ of functor frexp 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct frexp_ {};

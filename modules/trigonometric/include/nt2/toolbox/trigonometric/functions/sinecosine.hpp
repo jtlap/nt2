@@ -65,7 +65,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag sinecosine_ of functor sinecosine 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     template < class T > struct sinecosine_ {};

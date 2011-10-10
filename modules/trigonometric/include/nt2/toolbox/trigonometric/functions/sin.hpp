@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag sin_ of functor sin 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sin_ {};

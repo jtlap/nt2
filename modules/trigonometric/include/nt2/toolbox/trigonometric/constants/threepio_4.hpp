@@ -17,7 +17,7 @@
  * \defgroup trigo_constant_threepio_4 threepio_4 constant
  *
  * \par Description
- * Constant threepio_4 : \\\\f$2\pi\\\\f$.
+ * Constant threepio_4 : \f$2\pi\f$.
  * 
  * \par Header file
  * 

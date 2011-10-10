@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag acos_ of functor acos 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acos_ {};

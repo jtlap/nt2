@@ -64,7 +64,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag sqrt_ of functor sqrt 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct sqrt_ {};

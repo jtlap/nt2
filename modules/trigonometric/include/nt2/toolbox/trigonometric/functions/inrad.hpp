@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag inrad_ of functor inrad 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct inrad_ {};

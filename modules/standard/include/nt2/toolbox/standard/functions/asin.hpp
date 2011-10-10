@@ -64,7 +64,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag asin_ of functor asin 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct asin_ {};

@@ -65,7 +65,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag pow_ of functor pow 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct pow_ {};

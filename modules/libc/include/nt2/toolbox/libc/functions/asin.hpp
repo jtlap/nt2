@@ -69,7 +69,7 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag asin_ of functor asin 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct asin_ {};

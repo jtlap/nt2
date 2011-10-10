@@ -69,7 +69,7 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag sin_ of functor sin 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct sin_ {};

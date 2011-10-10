@@ -69,7 +69,7 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag cos_ of functor cos 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct cos_ {};

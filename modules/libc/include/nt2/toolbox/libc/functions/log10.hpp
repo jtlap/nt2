@@ -69,7 +69,7 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag log10_ of functor log10 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct log10_ {};

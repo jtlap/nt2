@@ -64,7 +64,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag rem_pio2_medium_ of functor rem_pio2_medium 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct rem_pio2_medium_ {};

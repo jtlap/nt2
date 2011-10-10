@@ -64,7 +64,7 @@
 namespace nt2 { namespace standard { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag log10_ of functor log10 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct log10_ {};

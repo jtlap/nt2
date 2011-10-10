@@ -70,7 +70,7 @@
 namespace nt2 { namespace libc { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag fmod_ of functor fmod 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct fmod_ {};

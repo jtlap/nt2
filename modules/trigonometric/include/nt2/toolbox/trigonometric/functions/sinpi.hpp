@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag sinpi_ of functor sinpi 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sinpi_ {};

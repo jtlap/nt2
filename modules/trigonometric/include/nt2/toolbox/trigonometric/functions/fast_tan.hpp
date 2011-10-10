@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag fast_tan_ of functor fast_tan 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_tan_ {};

@@ -52,7 +52,7 @@
 namespace nt2 { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag fast_sind_ of functor fast_sind 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sind_ {};
