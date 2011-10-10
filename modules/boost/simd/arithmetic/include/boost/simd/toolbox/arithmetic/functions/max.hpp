@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag max_ of functor max 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct max_ {};

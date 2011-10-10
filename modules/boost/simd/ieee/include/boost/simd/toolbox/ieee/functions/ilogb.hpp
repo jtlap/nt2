@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_ILOGB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_ILOGB_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_ieee
- * \defgroup ilogb ilogb function
+ * \defgroup boost_simd_ieee_ilogb ilogb function
  *
  * \par Description
  * This function returns the integer truncation
@@ -40,21 +42,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of ilogb
+ * \param a0 the unique parameter of ilogb
  * 
  * \return always an integer value
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag ilogb_ of functor ilogb 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct ilogb_ {};
   }

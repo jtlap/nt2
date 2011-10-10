@@ -69,7 +69,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag logical_not_ of functor logical_not 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::logical_not logical_not_;

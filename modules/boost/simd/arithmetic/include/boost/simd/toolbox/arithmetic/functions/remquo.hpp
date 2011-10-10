@@ -21,7 +21,8 @@
  * \par Description
  * compute the quotient and at least 3 bits of the remainder of the division
  * of a0 by a1. This function correspond to the libc remquo function.
- * \parAs demonstrated in the synopsis this function can be called in various ways.
+ * \par
+ * As demonstrated in the synopsis this function can be called in various ways.
  *
  * \par Header file
  * 
@@ -62,7 +63,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag remquo_ of functor remquo 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct remquo_ {};

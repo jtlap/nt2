@@ -21,7 +21,7 @@
  * \par Description
  * Returns ulp distance of the two values.
  * \par
- * \arg If the common type is integer it is the same as \dist
+ * \arg If the common type is integer it is the same as \c dist
  * \arg If the common type is floating point the ulpdist is is computed,
  * by the above described method
  * \par
@@ -53,11 +53,11 @@
  * The ulpdist is also roughly equivalent to the number of representable
  * floating points values between two given floating points values.
  * \par
- * \arg  ulpdist( 1.0, 1+boost::simd::Eps<double>())   == 0.5
- * \arg  ulpdist( 1.0, 1+boost::simd::Eps<double>()/2) == 0.0
- * \arg  ulpdist( 1.0, 1-boost::simd::Eps<double>()/2) == 0.25
- * \arg  ulpdist( 1.0, 1-boost::simd::Eps<double>())   == 0.5 
- * \arg  ulpdist(double(boost::simd::Pi<float>()), boost::simd::Pi<double>()) == 9.84293e+07
+ * \arg  \c ulpdist(1.0,1+Eps\<double\>())==0.5
+ * \arg  \c ulpdist(1.0,1+Eps\<double\>()/2)==0.0
+ * \arg  \c ulpdist(1.0,1-Eps\<double\>()/2)==0.25
+ * \arg  \c ulpdist(1.0,1-Eps\<double\>())==0.5 
+ * \arg  \c ulpdist(double(Pi\<float\>()),Pi\<double\>())==9.84293e+07
  *
  * \par Header file
  * 
@@ -91,7 +91,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag ulpdist_ of functor ulpdist 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct ulpdist_ {};

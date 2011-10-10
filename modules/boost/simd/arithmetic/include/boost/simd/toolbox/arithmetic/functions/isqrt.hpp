@@ -55,7 +55,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag isqrt_ of functor isqrt 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct isqrt_ {};

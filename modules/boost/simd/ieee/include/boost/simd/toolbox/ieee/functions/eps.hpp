@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_EPS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_EPS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_ieee
- * \defgroup eps eps function
+ * \defgroup boost_simd_ieee_eps eps function
  *
  * \par Description
  * Returns 2 times the Machine epsilon
@@ -45,21 +47,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of eps
+ * \param a0 the unique parameter of eps
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag eps_ of functor eps 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct eps_ {};
   }

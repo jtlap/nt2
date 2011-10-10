@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup any any function
+ * \defgroup boost_simd_reduction_any any function
  *
  * \par Description
  * returns true if at least one element of the input vector is non zero.
@@ -44,12 +44,11 @@
  * \return always a scalar value
  *  
  * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
  * This is a reduction operation. As such it has not real interest outside
  * SIMD mode.
  * \par
- * Such an operation has always a scalar result which translate a property
+ * Such an operation always has a scalar result which translate a property
  * of the whole SIMD vector.
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
@@ -61,7 +60,7 @@ namespace boost { namespace simd { namespace tag
   {         
     /*!
      * \brief Define the tag any_ of functor any 
-     *        in namespace boost::simd::tag
+     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct any_ {};
   }

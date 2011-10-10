@@ -59,7 +59,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag fma_ of functor fma 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct fma_ {};

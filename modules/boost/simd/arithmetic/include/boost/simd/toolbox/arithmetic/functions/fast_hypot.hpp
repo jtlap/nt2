@@ -54,7 +54,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag fast_hypot_ of functor fast_hypot 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct fast_hypot_ {};

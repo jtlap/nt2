@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag two_prod_ of functor two_prod 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct two_prod_ {};

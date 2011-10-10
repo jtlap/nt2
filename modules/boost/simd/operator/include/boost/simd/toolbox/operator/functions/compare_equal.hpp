@@ -76,7 +76,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag compare_equal_ of functor compare_equal 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::equal_to compare_equal_;

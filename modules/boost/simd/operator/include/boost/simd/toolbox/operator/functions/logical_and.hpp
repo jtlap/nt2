@@ -71,7 +71,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag logical_and_ of functor logical_and 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::logical_and logical_and_;

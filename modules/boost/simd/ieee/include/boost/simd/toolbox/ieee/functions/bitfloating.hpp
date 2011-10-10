@@ -6,19 +6,22 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_BITFLOATING_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_BITFLOATING_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_ieee
- * \defgroup bitfloating bitfloating function
+ * \defgroup boost_simd_ieee_bitfloating bitfloating function
  *
  * \par Description
  * This function is mainly for inner usage and allows
- * speedy writing of \c next, \c nextafter and like functions
+ * speedy writing of \c next, \c nextafter and like functions.
+ * \par
  * It transform a pattern of bits stored in an integer value
  * in a floating point with different formulas according to
  * the integer sign (it is the converse of bitinteger)
@@ -41,21 +44,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of bitfloating
+ * \param a0 the unique parameter of bitfloating
  * 
  * \return always a floating point value
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag bitfloating_ of functor bitfloating 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct bitfloating_ {};
   }

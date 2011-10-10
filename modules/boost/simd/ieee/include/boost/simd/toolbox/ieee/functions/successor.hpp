@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SUCCESSOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SUCCESSOR_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_ieee
- * \defgroup successor successor function
+ * \defgroup boost_simd_ieee_successor successor function
  *
  * \par Description
  * With one parameter it is equivalent to \c next
@@ -43,22 +45,22 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of successor
- * \param a1 is the second parameter of successor
+ * \param a0 the first parameter of successor
+ * \param a1 the second parameter of successor
  * 
  * \return a value of type A0
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag successor_ of functor successor 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct successor_ {};
   }

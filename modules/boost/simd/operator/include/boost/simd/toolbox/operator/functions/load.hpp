@@ -14,13 +14,6 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Load from memory functor and function
-// Documentation: http://nt2.lri.fr/sdk/memory/functions/load.html
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/dispatch/functor/preprocessor/function.hpp>
-
 /*!
  * \ingroup boost_simd_operator
  * \defgroup boost_simd_operator_load load function
@@ -70,11 +63,18 @@
  *  
 **/
 
+////////////////////////////////////////////////////////////////////////////////
+// Load from memory functor and function
+// Documentation: http://nt2.lri.fr/sdk/memory/functions/load.html
+////////////////////////////////////////////////////////////////////////////////
+#include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/functor/preprocessor/function.hpp>
+
 namespace boost { namespace simd
 {
   namespace tag {
     /*!
-    _
+     * \brief Define the tag load_ of functor load 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct load_ {};

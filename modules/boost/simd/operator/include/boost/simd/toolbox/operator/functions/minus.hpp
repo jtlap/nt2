@@ -62,7 +62,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag minus_ of functor minus 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::minus minus_;

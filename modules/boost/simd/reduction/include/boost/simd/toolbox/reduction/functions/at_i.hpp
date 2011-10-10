@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup at_i at_i function
+ * \defgroup boost_simd_reduction_at_i at_i function
  *
  * \par Description
  * returns the ith element of the input vector.
@@ -50,12 +50,11 @@
  * \return always a scalar value
  *  
  * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
  * This is a reduction operation. As such it has not real interest outside
  * SIMD mode.
  * \par
- * Such an operation has always a scalar result which translate a property
+ * Such an operation always has a scalar result which translate a property
  * of the whole SIMD vector.
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
@@ -68,7 +67,7 @@ namespace boost { namespace simd {
   {
     /*!
      * \brief Define the tag at_i_ of functor at_i 
-     *        in namespace boost::simd::tag
+     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct at_i_ {};
   }

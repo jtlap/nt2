@@ -6,18 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_BITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_BITS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_bitwise
- * \defgroup bits bits function
+ * \defgroup boost_simd_bitwise_bits bits function
  *
  * \par Description
- * The function return unsigned integer value with the same bits of the input
+ * The function return unsigned integer value which has the same bits of the input
  *
  * \par Header file
  * 
@@ -37,21 +39,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of bits
+ * \param a0 the unique parameter of bits
  * 
  * \return an unsigned integer
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag bits_ of functor bits 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct bits_ {};
   }

@@ -20,7 +20,7 @@
  *
  * \par Description
  * return uniform random numbers of the common type of the entries and
- * in the range defined by $[\min(a_0,a_1),\max(a0,a1)[$
+ * in the range defined by \f$[\min(a_0,a_1),\max(a0,a1)[\f$
  *
  * \par Header file
  * 
@@ -54,7 +54,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag random_ of functor random 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct random_ {};

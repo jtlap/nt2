@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag iround2even_ of functor iround2even 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct iround2even_ {};

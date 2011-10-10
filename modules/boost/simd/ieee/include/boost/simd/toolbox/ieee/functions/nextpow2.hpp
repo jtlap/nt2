@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_NEXTPOW2_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_NEXTPOW2_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_ieee
- * \defgroup nextpow2 nextpow2 function
+ * \defgroup boost_simd_ieee_nextpow2 nextpow2 function
  *
  * \par Description
  * Returns the least n such that abs(a0) is less or equal to $2^n$
@@ -37,21 +39,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of nextpow2
+ * \param a0 the unique parameter of nextpow2
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag nextpow2_ of functor nextpow2 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct nextpow2_ {};
   }

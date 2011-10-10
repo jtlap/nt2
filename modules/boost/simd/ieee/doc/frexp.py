@@ -4,7 +4,7 @@
           'description' :['Split a floating entry in signed mantissa m and exponent e',
                          '\\\\f$a = m\\\\times 2^e\\\\f$, with absolute value of m',
                          'between one half and one',
-                         '\par'
+                         '\par',
                          'As demonstrated in the synopsis this function can be called in various ways.'
                          ],
           'special_synopsis' : [

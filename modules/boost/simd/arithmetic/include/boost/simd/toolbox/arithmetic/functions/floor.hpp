@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag floor_ of functor floor 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct floor_ {};

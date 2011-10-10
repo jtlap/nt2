@@ -2,7 +2,7 @@
     {
      'functor' : {
             'description' : ["return uniform random numbers of the common type of the entries and",
-                             "in the range defined by \f$[\min(a_0,a_1),\max(a0,a1)[\f$"],
+                             "in the range defined by \\\\f$[\min(a_0,a_1),\max(a0,a1)[\\\\f$"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

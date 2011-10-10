@@ -55,7 +55,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag toint_ of functor toint 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct toint_ {};

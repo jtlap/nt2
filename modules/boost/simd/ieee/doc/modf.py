@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : ['Computes the integer part and the fractionnal part of the input',
-                         '\par'
+                         '\par',
                          'As demonstrated in the synopsis this function can be called in various ways.'
                           ],
           'special_synopsis' : [

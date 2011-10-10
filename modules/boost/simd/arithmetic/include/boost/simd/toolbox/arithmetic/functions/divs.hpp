@@ -31,6 +31,8 @@
  * #include <nt2/include/functions/divs.hpp>
  * \endcode
  * 
+ * \par Alias 
+ * \arg rdivide
  * 
  * \synopsis
  *
@@ -58,7 +60,7 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag divs_ of functor divs 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct divs_ {};
@@ -66,7 +68,7 @@ namespace boost { namespace simd {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, divs, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, saturated_div, 2) 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, rdivide, 2)
-  
+
   template<class A0, class A1>
   BOOST_DISPATCH_FORCE_INLINE
   typename dispatch::meta::call<tag::divs_(A0, A1)>::type
@@ -74,7 +76,7 @@ namespace boost { namespace simd {
   {
     return dispatch::make_functor<tag::divs_, A0>::type()(a1, a0);
   }
-  
+
   template<class A0, class A1>
   BOOST_DISPATCH_FORCE_INLINE
   typename dispatch::meta::call<tag::divs_(A0, A1)>::type
@@ -82,7 +84,7 @@ namespace boost { namespace simd {
   {
     return dispatch::make_functor<tag::divs_, A0>::type()(a1, a0);
   }
-  
+
 } }
 
 #endif

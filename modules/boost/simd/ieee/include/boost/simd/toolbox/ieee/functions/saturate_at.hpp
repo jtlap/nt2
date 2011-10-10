@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SATURATE_AT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SATURATE_AT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_ieee
- * \defgroup saturate_at saturate_at function
+ * \defgroup boost_simd_ieee_saturate_at saturate_at function
  *
  * \par Description
  * TODO Put description here
@@ -31,17 +33,20 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0>
+ *   template <class T,class A0>
  *     meta::call<tag::saturate_at_(A0)>::type
  *     saturate_at(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of saturate_at
+ * \param a0 the unique parameter of saturate_at
  * 
  * \return a value of the same type as the parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd
@@ -49,11 +54,8 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag saturate_at_ of functor saturate_at 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     template <class T>
     struct saturate_at_ {};

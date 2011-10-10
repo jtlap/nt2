@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_NEGIF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_NEGIF_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_bitwise
- * \defgroup negif negif function
+ * \defgroup boost_simd_bitwise_negif negif function
  *
  * \par Description
  * The function conditionnaly to a0 returns a1 or -a1
@@ -37,22 +39,22 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of negif
- * \param a1 is the second parameter of negif
+ * \param a0 the first parameter of negif
+ * \param a1 the second parameter of negif
  * 
  * \return always of the type of the second parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag negif_ of functor negif 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct negif_ {};
   }

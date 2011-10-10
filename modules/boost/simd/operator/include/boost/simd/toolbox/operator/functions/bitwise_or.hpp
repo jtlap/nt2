@@ -66,7 +66,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag bitwise_or_ of functor bitwise_or 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::bitwise_or bitwise_or_;

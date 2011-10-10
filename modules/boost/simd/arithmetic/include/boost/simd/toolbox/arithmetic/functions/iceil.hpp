@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag iceil_ of functor iceil 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct iceil_ {};

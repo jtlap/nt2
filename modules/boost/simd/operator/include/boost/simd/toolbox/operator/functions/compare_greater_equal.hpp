@@ -74,7 +74,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag compare_greater_equal_ of functor compare_greater_equal 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     typedef boost::proto::tag::greater_equal compare_greater_equal_;

@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SELSUB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SELSUB_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_bitwise
- * \defgroup selsub selsub function
+ * \defgroup boost_simd_bitwise_selsub selsub function
  *
  * \par Description
  * The function returns the second entry or the difference of the second and third entries,
@@ -38,23 +40,23 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of selsub
- * \param a1 is the second parameter of selsub
- * \param a2 is the third parameter of selsub
+ * \param a0 the first parameter of selsub
+ * \param a1 the second parameter of selsub
+ * \param a2 the third parameter of selsub
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag selsub_ of functor selsub 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct selsub_ {};
   }

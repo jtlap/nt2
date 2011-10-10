@@ -3,7 +3,7 @@
      'functor' : {
          'description' : ['The result is the argument of the input',
                           'Always return a floating point value',
-                          'Always 0 or \f{$\pi$} according to the input sign',
+                          'Always 0 or \\\\f$\pi\\\\f$ according to the input sign',
                             ],
          'module' : 'boost',
          'arity' : '1',

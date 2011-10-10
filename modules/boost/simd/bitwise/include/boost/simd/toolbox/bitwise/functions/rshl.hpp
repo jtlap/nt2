@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_RSHL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_RSHL_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_bitwise
- * \defgroup rshl rshl function
+ * \defgroup boost_simd_bitwise_rshl rshl function
  *
  * \par Description
  * The function returns the first entry shifted left or right
@@ -38,22 +40,22 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of rshl
- * \param a1 is the second parameter of rshl, must be an integer value
+ * \param a0 the first parameter of rshl
+ * \param a1 the second parameter of rshl, must be an integer value
  * 
  * \return returns a value of the type of the first parameter
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag rshl_ of functor rshl 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct rshl_ {};
   }

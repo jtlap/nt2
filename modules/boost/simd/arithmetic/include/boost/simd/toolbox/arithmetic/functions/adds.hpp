@@ -57,7 +57,7 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag adds_ of functor adds 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct adds_ {};

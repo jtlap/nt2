@@ -21,7 +21,7 @@
  * \par Description
  * The result is the argument of the input
  * Always return a floating point value
- * Always 0 or {$\pi$} according to the input sign
+ * Always 0 or \f$\pi\f$ according to the input sign
  *
  * \par Header file
  * 
@@ -54,7 +54,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag arg_ of functor arg 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct arg_ {};

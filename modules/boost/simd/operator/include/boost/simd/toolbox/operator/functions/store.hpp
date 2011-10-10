@@ -14,12 +14,6 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Store a value in memory functor and function
-// Documentation: http://nt2.lri.fr/sdk/memory/functions/store.html
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/functor/preprocessor/function.hpp>
-
 /*!
  * \ingroup boost_simd_operator
  * \defgroup boost_simd_operator_store store function
@@ -58,11 +52,17 @@
  *  
 **/
 
+////////////////////////////////////////////////////////////////////////////////
+// Store a value in memory functor and function
+// Documentation: http://nt2.lri.fr/sdk/memory/functions/store.html
+////////////////////////////////////////////////////////////////////////////////
+#include <boost/dispatch/functor/preprocessor/function.hpp>
+
 namespace boost { namespace simd
 {
   namespace tag { struct store_ {}; }
     /*!
-    _
+     * \brief Define the tag store_ of functor store 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)

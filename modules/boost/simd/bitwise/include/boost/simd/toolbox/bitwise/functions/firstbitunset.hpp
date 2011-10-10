@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_FIRSTBITUNSET_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_FIRSTBITUNSET_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_bitwise
- * \defgroup firstbitunset firstbitunset function
+ * \defgroup boost_simd_bitwise_firstbitunset firstbitunset function
  *
  * \par Description
  * The function  find the first bit unset (beginning with the least
@@ -39,21 +41,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of firstbitunset
+ * \param a0 the unique parameter of firstbitunset
  * 
  * \return always returns an integer value
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag firstbitunset_ of functor firstbitunset 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct firstbitunset_ {};
   }

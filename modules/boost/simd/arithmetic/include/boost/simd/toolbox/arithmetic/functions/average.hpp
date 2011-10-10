@@ -56,7 +56,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag average_ of functor average 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct average_ {};

@@ -3,7 +3,7 @@
      'functor' : {
          'description' : ['compute the quotient and at least 3 bits of the remainder of the division',
                           'of a0 by a1. This function correspond to the libc remquo function.',
-                          '\par'
+                          '\par',
                           'As demonstrated in the synopsis this function can be called in various ways.'
                           ],
           'special_synopsis' : [

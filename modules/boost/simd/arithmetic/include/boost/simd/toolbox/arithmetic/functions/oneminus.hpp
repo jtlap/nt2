@@ -52,7 +52,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag oneminus_ of functor oneminus 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct oneminus_ {};

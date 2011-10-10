@@ -53,7 +53,7 @@
 
 namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
   /*!
-  _
+   * \brief Define the tag map_ of functor map 
    *        in namespace boost::simd::tag for toolbox boost.simd.operator
   **/
 

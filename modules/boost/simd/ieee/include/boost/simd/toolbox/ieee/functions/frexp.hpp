@@ -6,21 +6,24 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_FREXP_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_ieee
- * \defgroup frexp frexp function
+ * \defgroup boost_simd_ieee_frexp frexp function
  *
  * \par Description
  * Split a floating entry in signed mantissa m and exponent e
  * \f$a = m\times 2^e\f$, with absolute value of m
  * between one half and one
- * \parAs demonstrated in the synopsis this function can be called in various ways.
+ * \par
+ * As demonstrated in the synopsis this function can be called in various ways.
  *
  * \par Header file
  * 
@@ -47,23 +50,23 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of frexp
- * \param a1 is the second parameter of frexp, if not present, the function return a boost::fusion sequence
- * \param a2 is the third parameter of frexp, if present will contain the mantissa of a0
+ * \param a0 the first parameter of frexp
+ * \param a1 the second parameter of frexp, if not present, the function return a boost::fusion sequence
+ * \param a2 the third parameter of frexp, if present will contain the mantissa of a0
  * 
  * \return with one parameter the returned result is a fusion sequence of the two results, with two parameters the returned result is the mantissa, with three parameters the returned result is always 0
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag frexp_ of functor frexp 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct frexp_ {};
   }

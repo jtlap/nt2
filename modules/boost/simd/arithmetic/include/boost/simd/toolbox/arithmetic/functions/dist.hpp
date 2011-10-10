@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag dist_ of functor dist 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct dist_ {};

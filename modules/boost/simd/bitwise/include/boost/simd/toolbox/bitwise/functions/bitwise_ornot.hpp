@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_BITWISE_ORNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_BITWISE_ORNOT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_bitwise
- * \defgroup bitwise_ornot bitwise_ornot function
+ * \defgroup boost_simd_bitwise_bitwise_ornot bitwise_ornot function
  *
  * \par Description
  * return the bitwise or of the first parameter
@@ -43,22 +45,22 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of bitwise_ornot
- * \param a1 is the second parameter of bitwise_ornot
+ * \param a0 the first parameter of bitwise_ornot
+ * \param a1 the second parameter of bitwise_ornot
  * 
  * \return a value of the common type of the parameters
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag bitwise_ornot_ of functor bitwise_ornot 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct bitwise_ornot_ {};
   }

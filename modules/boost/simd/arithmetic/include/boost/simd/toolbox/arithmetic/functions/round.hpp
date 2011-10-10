@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag round_ of functor round 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct round_ {};

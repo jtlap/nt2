@@ -6,15 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_IS_INCLUDED_C_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_IS_INCLUDED_C_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_bitwise
- * \defgroup is_included_c is_included_c function
+ * \defgroup boost_simd_bitwise_is_included_c is_included_c function
  *
  * \par Description
  * The function returns the a bool
@@ -40,22 +42,30 @@
  * }
  * \endcode
  *
- * \param a0 is the first parameter of is_included_c
- * \param a1 is the second parameter of is_included_c
+ * \param a0 the first parameter of is_included_c
+ * \param a1 the second parameter of is_included_c
  * 
  * \return an integer value
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ * This is a reduction operation. As such it has not real interest outside
+ * SIMD mode.
+ * \par
+ * Such an operation has always a scalar result which translate a property
+ * of the whole SIMD vector.
+ * \par
+ * If usable and used in scalar mode, it reduces to the operation as acting
+ * on a one element vector.
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag is_included_c_ of functor is_included_c 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct is_included_c_ {};
   }

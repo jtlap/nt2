@@ -54,7 +54,7 @@ namespace boost { namespace simd {
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag divfix_ of functor divfix 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct divfix_ {};

@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag min_ of functor min 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct min_ {};

@@ -4,7 +4,7 @@
           'description' :['Split a floating entry in signed mantissa m and exponent e',
                          '\\\\f$a = m\\\\times 2^e\\\\f$, with absolute value of m',
                          'between one half and one',
-                         '\par'
+                         '\par',
                           "The fast prefix indicates that for speed sake",
                           "the result may be incorrect for limiting values:",
                           "inf, -inf nan and zero that deserve special treatment."

@@ -33,13 +33,13 @@
              'signed_int_' : {
                  'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Signmask<T>()' : {'result' : 'r_t((1 << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
-                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1 << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'boost::simd::Signmask<T>()' : {'result' : 'r_t((1ll << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1ll << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
                 },
              'unsigned_int_' : {
                  'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1 << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'boost::simd::Allbits<T>()' : {'result' : 'r_t((1ull << boost::simd::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
                 },
              'real_' : {
                  'boost::simd::Inf<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},

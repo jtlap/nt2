@@ -53,7 +53,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag idivround_ of functor idivround 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct idivround_ {};

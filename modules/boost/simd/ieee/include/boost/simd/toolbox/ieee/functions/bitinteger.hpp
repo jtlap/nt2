@@ -6,19 +6,22 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_BITINTEGER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_BITINTEGER_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \internal functor \endinternal
  * \ingroup boost_simd_ieee
- * \defgroup bitinteger bitinteger function
+ * \defgroup boost_simd_ieee_bitinteger bitinteger function
  *
  * \par Description
  * This function is mainly for inner usage and allows
  * speedy writing of \c next, \c nextafter and like functions
+ * \par
  * It transforms a floating point value in a pattern of bits
  * stored in an integer with different formulas according to
  * the floating point sign (it is the converse of bitfloating)
@@ -41,21 +44,21 @@
  * }
  * \endcode
  *
- * \param a0 is the unique parameter of bitinteger
+ * \param a0 the unique parameter of bitinteger
  * 
  * \return always an integer value
  *  
- * \internal end_functor \endinternal
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
 **/
 
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \internal tag \endinternal
-     * \file
      * \brief Define the tag bitinteger_ of functor bitinteger 
-     *        in namespace boost::simd::tag
-     * \internal end_tag \endinternal
+     *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct bitinteger_ {};
   }
