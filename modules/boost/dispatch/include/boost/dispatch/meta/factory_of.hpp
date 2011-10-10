@@ -14,7 +14,6 @@
  */
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/mpl/apply.hpp>
 
 namespace boost { namespace dispatch { namespace details
@@ -76,7 +75,7 @@ namespace meta
    */
   template<class T>
   struct factory_of
-    : details::factory_of_impl<typename value_of<T>::type, typename strip<T>::type>
+    : details::factory_of_impl<typename value_of<T>::type, T>
   {
   };
 

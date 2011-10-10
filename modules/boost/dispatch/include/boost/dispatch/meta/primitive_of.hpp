@@ -13,7 +13,6 @@
  * \brief Defines the \c boost::dispatch::meta::primitive_of \metafunction
  */
 #include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {
@@ -63,7 +62,7 @@ namespace meta
   //============================================================================
   template<class T>
   struct primitive_of
-    : details::primitive_of_impl<typename value_of<T>::type, typename strip<T>::type>
+    : details::primitive_of_impl<typename value_of<T>::type, T>
   {
   };
   

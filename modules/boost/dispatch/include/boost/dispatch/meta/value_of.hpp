@@ -29,10 +29,16 @@ namespace meta
   struct value_of : details::value_of<T> {};
 
   template<class T>
-  struct value_of<T&> : value_of<T> {};
+  struct value_of<T&>
+  {
+    typedef typename value_of<T>::type& type;
+  };
   
   template<class T>
-  struct value_of<T const> : value_of<T> {};
+  struct value_of<T const>
+  {
+    typedef typename value_of<T>::type const type;
+  };
 } } }
 
 #endif

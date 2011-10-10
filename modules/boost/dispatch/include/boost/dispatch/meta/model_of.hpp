@@ -36,10 +36,16 @@ namespace meta
   struct model_of : details::model_of<T> {};
 
   template<class T>
-  struct model_of<T&> : model_of<T> {};
+  struct model_of<T&>
+  {
+    typedef typename model_of<T>::type& type;
+  };
   
   template<class T>
-  struct model_of<T const> : model_of<T> {};
+  struct model_of<T const>
+  {
+    typedef typename model_of<T>::type const type;
+  };
 } } }
 
 #endif
