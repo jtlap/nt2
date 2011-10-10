@@ -16,7 +16,6 @@
 
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
-#include <boost/dispatch/dsl/semantic_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +24,11 @@ namespace boost { namespace simd { namespace ext
                             , ((ast_< unspecified_<A0> >))
                             )
   {
-    typedef typename dispatch::meta::semantic_of<A0>::type result_type;
+      
+    typedef typename dispatch::meta::call<tag::optimize_(A0 const&)>::type optimized;
+    typedef typename dispatch::meta::call<tag::schedule_(optimized)>::type scheduled;
+    typedef typename dispatch::meta::call<tag::compile_(scheduled)>::type  compiled;
+    typedef typename dispatch::meta::result_of<compiled(A0 const&)>::type  result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
