@@ -7,6 +7,10 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit sdk)
-ADD_SUBDIRECTORY(container)
-ADD_SUBDIRECTORY(functions)
+
+SET( SOURCES
+  size.cpp
+# List of scalar test files for toolbox core.settings
+   )
+
+nt2_module_add_tests(core.functions.unit ${SOURCES})

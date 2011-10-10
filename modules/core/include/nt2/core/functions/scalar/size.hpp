@@ -9,28 +9,21 @@
 #ifndef NT2_CORE_FUNCTIONS_IMPL_SIZE_SCALAR_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_IMPL_SIZE_SCALAR_HPP_INCLUDED
 
-#include <nt2/core/settings/size.hpp>
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is fundamental
-/////////////////////////////////////////////////////////////////////////////
-NT2_REGISTER_DISPATCH ( tag::size_, tag::cpu_, (A0), (fundamental_<A0>) )
+#include <nt2/core/functions/size.hpp>
+#include <nt2/core/container/extent/extent.hpp>
 
 namespace nt2 { namespace ext
 {
-  template<class Dummy>
-  struct call<tag::size_(tag::fundamental_),tag::cpu_, Dummy> : callable
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
+                            , (A0), (scalar_< fundamental_<A0> >)
+                            )
   {
-    template<class Sig> struct result;
-    template<class This,class A0>
-    struct result<This(A0)>
-    {  // change later to diman<n>
-      typedef of_size_<1,1> type ;
-    };
+    typedef container::extent< of_size_<1,1> > result_type;
 
-    NT2_FUNCTOR_CALL(1)
+    result_type BOOST_DISPATCH_FORCE_INLINE operator()(A0 const&) const
     {
-      return typename NT2_RETURN_TYPE(1)::type();
+      result_type that;
+      return that;
     }
   };
 } }

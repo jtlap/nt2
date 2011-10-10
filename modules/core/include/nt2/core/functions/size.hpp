@@ -14,7 +14,7 @@
 namespace nt2 
 { 
   namespace tag { struct size_ {}; }
-  NT2_FUNCTION_IMPLEMENTATION(tag::size_, size, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::size_, size, 1)
 }
 
 #endif
