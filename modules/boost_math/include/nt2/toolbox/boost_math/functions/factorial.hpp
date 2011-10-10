@@ -64,7 +64,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag factorial_ of functor factorial 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     template < class T> struct factorial_ {};

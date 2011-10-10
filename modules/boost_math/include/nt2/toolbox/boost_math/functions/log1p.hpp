@@ -63,7 +63,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag log1p_ of functor log1p 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct log1p_ {};

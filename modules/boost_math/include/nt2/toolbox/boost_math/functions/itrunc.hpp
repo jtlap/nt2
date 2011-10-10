@@ -63,7 +63,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag itrunc_ of functor itrunc 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct itrunc_ {};

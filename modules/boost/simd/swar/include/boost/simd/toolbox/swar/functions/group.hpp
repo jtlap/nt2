@@ -50,13 +50,13 @@
  * \return a value of the common type of the parameters
  *  
  * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
  * This is a swar operation. As such it has not real interest outside
  * SIMD mode.
  * \par
- * Such an operation is a transform of an SIMD vector,that will return
- * vectors obtained on a non necessarily elementwise basis from the inputselements
+ * Such an operation is a transform of an SIMD vector, that will return
+ * vectors obtained on a non necessarily elementwise basis from the inputs
+ * elements
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
@@ -66,7 +66,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag group_ of functor group 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct group_ {};

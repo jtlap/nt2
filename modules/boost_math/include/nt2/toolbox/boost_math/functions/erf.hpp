@@ -63,7 +63,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag erf_ of functor erf 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct erf_ {};

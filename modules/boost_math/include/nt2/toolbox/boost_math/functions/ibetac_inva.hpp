@@ -65,7 +65,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag ibetac_inva_ of functor ibetac_inva 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct ibetac_inva_ {};

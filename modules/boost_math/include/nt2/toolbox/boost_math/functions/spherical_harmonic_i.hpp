@@ -66,7 +66,7 @@
 namespace nt2 { namespace boost_math { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag spherical_harmonic_i_ of functor spherical_harmonic_i 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct spherical_harmonic_i_ {};
