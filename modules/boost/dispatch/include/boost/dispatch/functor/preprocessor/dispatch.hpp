@@ -151,6 +151,39 @@ BOOST_DISPATCH_REOPEN(NS)                                                   \
 //==============================================================================
 /*!
  * Register an overload for function \c Tag on \c Site when called on types
+ * belonging to the hierarchies specified by \c (Types,Seq), where Seq can
+ * contain non-type hierarchy template parameters.
+ * Once defined, such an overload
+ * has to be implemented using the prorotype specified by \c Ret.
+ *
+ * \param Tag Function tag to register
+ * \param Site Evaluation context to use in this overload
+ * \param Types Preprocessor sequence of template types used in the hierarchy
+ * \param Ret Implementation target to select if \c Cond is verified
+ * \param Seq Sequence of hierarchy defining the overload
+ */
+//==============================================================================
+#define BOOST_DISPATCH_REGISTER_DISPATCH_TO_TPL(NS,Tag,Site,Types,Seq,Ret)             \
+BOOST_DISPATCH_CLOSE(NS)                                                               \
+namespace boost { namespace dispatch { namespace meta {                                \
+template<BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types)>   \
+BOOST_DISPATCH_FORCE_INLINE                                                            \
+BOOST_DISPATCH_PP_STRIP(Ret)                                                           \
+dispatching( Tag, Site                                                                 \
+        , BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Seq),BOOST_DISPATCH_DISPATCH_ARG,Seq)        \
+        , adl_helper = adl_helper()                                         \
+        )                                                                   \
+{                                                                           \
+  BOOST_DISPATCH_PP_STRIP(Ret) that;                                        \
+  return that;                                                              \
+}                                                                           \
+} } }                                                                       \
+BOOST_DISPATCH_REOPEN(NS)                                                   \
+/**/
+
+//==============================================================================
+/*!
+ * Register an overload for function \c Tag on \c Site when called on types
  * belonging to the hierarchies specified by \c (Types,Seq) ad dif the compile
  * time condition \c Cond is verified. Once defined, such an overload
  * has to be implemented using the prorotype specified by \c Ret.

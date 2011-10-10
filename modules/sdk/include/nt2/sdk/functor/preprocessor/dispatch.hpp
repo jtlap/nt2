@@ -21,6 +21,9 @@ BOOST_DISPATCH_REGISTER_DISPATCH_TPL((nt2)(ext),Tag,Site,Types,Seq)
 #define NT2_REGISTER_DISPATCH_TO(Tag,Site,Types,Seq,Ret)               \
 BOOST_DISPATCH_REGISTER_DISPATCH_TO((nt2)(ext),Tag,Site,Types,Seq,Ret)
 
+#define NT2_REGISTER_DISPATCH_TO_TPL(Tag,Site,Types,Seq,Ret)           \
+BOOST_DISPATCH_REGISTER_DISPATCH_TO_TPL((nt2)(ext),Tag,Site,Types,Seq,Ret)
+
 #define NT2_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)          \
 BOOST_DISPATCH_REGISTER_DISPATCH_IF((nt2)(ext),Tag,Site,Types,Cond,Ret,Seq)
 
