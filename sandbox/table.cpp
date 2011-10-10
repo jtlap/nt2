@@ -1,5 +1,6 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/category.hpp>
+#include <nt2/core/settings/size.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/details/type_id.hpp>
 #include <nt2/include/functions/run.hpp>
@@ -49,7 +50,7 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Origin>
   struct hierarchy_of< nt2::container::table_container<T>, Origin >
   {
-    typedef container_< typename property_of<typename value_of<T>::type, Origin>::type > type;
+    typedef table_< typename property_of<typename value_of<T>::type, Origin>::type, int > type;
   };
     
 } } }
@@ -94,33 +95,50 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace nt2 { namespace ext
 {
-  // Functions for logical type deduction
-  NT2_FUNCTOR_IMPLEMENTATION(boost::simd::tag::map_, tag::cpu_
-                            , (F)(A0)
-                            , (unspecified_<F>)
-                              ((container_< unspecified_<A0> >))
-                            )
-  {
-    typedef A0& result_type;
-    result_type inline operator()(F const&, A0 const& a0) const
-    {
-      return const_cast<A0&>(a0);
-    }
+  // Functions for logical type deduction 
+  // - need to deal with bool
+  // - need to take care of case where first operand is not a table
+  // - should fill in size correctly
+  #define M1(z,n,t) (A##n)
+  #define M2(z,n,t) generic_<unspecified_<A##n> >
+  #define M3(z,n,t) (generic_< unspecified_<A##n> >)
+  #define M4(z,n,t) typedef typename meta::scalar_of<_A##n>::type s##n;
+  
+  #define M0(z,n,t)                                                                                \
+  NT2_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::map_, tag::cpu_                                  \
+                            , (F)BOOST_PP_REPEAT(n, M1, ~)                                         \
+                            , (any< nt2::container::is_container<boost::mpl::_>                    \
+                                  , BOOST_PP_ENUM_PARAMS(n, A)                                     \
+                                  >                                                                \
+                              )                                                                    \
+                            , (boost::simd::tag::map_(unspecified_<F>, BOOST_PP_ENUM(n, M2, ~)))   \
+                            , (unspecified_<F>)BOOST_PP_REPEAT(n, M3, ~)                           \
+                            )                                                                      \
+  {                                                                                                \
+    template<class Sig>                                                                            \
+    struct result;                                                                                 \
+                                                                                                   \
+    template<class This, class F_, BOOST_PP_ENUM_PARAMS(n, class _A)>                              \
+    struct result<This(F_, BOOST_PP_ENUM_PARAMS(n, _A))>                                           \
+    {                                                                                              \
+        BOOST_PP_REPEAT(n, M4, ~)                                                                  \
+        typedef typename meta::result_of<F_(BOOST_PP_ENUM_PARAMS(n, s))>::type stype;              \
+        typedef typename meta::factory_of<_A0>::type factory;                                      \
+        typedef typename factory::template apply<stype>::type type;                                \
+    };                                                                                             \
+                                                                                                   \
+    template<BOOST_PP_ENUM_PARAMS(n, class _A)>                                                    \
+    typename result<implement(F const&, BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & BOOST_PP_INTERCEPT))>::type \
+    operator()(F const&, BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & BOOST_PP_INTERCEPT)) const;          \
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION(boost::simd::tag::map_, tag::cpu_
-                            , (F)(A0)(A1)
-                            , (unspecified_<F>)
-                              (container_< unspecified_<A0> >)
-                              (container_< unspecified_<A1> >)
-                            )
-  {
-    typedef A0& result_type;
-    result_type inline operator()(F const&, A0 const& a0, A1 const& a1) const
-    {
-      return const_cast<A0&>(a0);
-    }
-  };
+  BOOST_PP_REPEAT_FROM_TO(1, BOOST_DISPATCH_MAX_ARITY, M0, ~)
+  
+  #undef M0
+  #undef M1
+  #undef M2
+  #undef M3
+  #undef M4
 } }
 
 #include <boost/fusion/include/size.hpp>
@@ -129,6 +147,7 @@ namespace nt2 { namespace ext
 
 namespace nt2
 {
+    // loop nest generator
     template<std::size_t N>
     struct for_each_impl
     {
@@ -161,6 +180,7 @@ namespace nt2
         for_each_impl<nb_dims>::call(bases, sz, position, f);
     }
     
+    // To replace with appropriate stuff
     template<class T>
     boost::array<std::size_t, 1> sizes(T const&) { boost::array<std::size_t, 1> sz = { 4 }; return sz; }
     
@@ -184,43 +204,101 @@ struct call_compute
     A0 a0;
 };
 
+struct lhs_terminal
+  : boost::proto::or_<
+      boost::proto::when< boost::proto::terminal< boost::proto::_ >, boost::proto::_value >
+    , boost::proto::when< boost::proto::nary_expr< boost::proto::_ >, lhs_terminal ( boost::proto::_child0 ) >
+    >
+{
+};
+
+#include <boost/dispatch/meta/identity.hpp>
+
 namespace nt2 { namespace ext
 {
-  // terminal, does the load
+  // terminal, does load / store
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
-                            , (class A0)(class State)(std::size_t N)
-                            , (ast_<container_< unspecified_<A0> > >)
+                            , (class A0)(class S0)(class State)(std::size_t N)
+                            , ((ast_<table_< unspecified_<A0>, S0 > >))
                               ((array_< scalar_< integer_<State> >, N>))
                             )
   {
-    typedef typename boost::dispatch::meta::primitive_of<typename boost::dispatch::meta::semantic_of<A0>::type>::type scalar_type;
-    typedef scalar_type& result_type;
+    typedef typename boost::dispatch::meta::
+    scalar_of< typename boost::dispatch::meta::
+               semantic_of<A0>::type
+             >::type                                       result_type;
     
     template<class A0_>
     result_type operator()(A0_& a0, State const& state) const
     {
        std::cout << "access to table " << (void*)&boost::proto::value(a0) << " in " << state[0] << std::endl;
-       static scalar_type r;
+       static typename boost::remove_reference<result_type>::type r;
        return r;
     }
   };
-    
-  // An expression is ran by running it for every position
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)
-                            , (ast_<container_< unspecified_<A0> > >)
+  
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
+                            , (class A0)(class State)(std::size_t N)
+                            , ((ast_<table_< unspecified_<A0>, nt2::of_size_<1> > >))
+                              ((array_< scalar_< integer_<State> >, N>))
                             )
   {
-    typedef typename boost::dispatch::meta::semantic_of<A0>::type result_type;
+    typedef typename boost::dispatch::meta::
+    scalar_of< typename boost::dispatch::meta::
+               semantic_of<A0>::type
+             >::type                                       result_type;
+    
+    template<class A0_>
+    result_type operator()(A0_& a0, State const& state) const
+    {
+       std::cout << "access to scalar-like table " << (void*)&boost::proto::value(a0) << " in " << state[0] << std::endl;
+       static typename boost::remove_reference<result_type>::type r;
+       return r;
+    }
+  };
+  
+  NT2_REGISTER_DISPATCH_TO_TPL( nt2::tag::terminal_, tag::cpu_
+                            , (class A0)(class State)(std::size_t N)
+                            , ((ast_<scalar_< unspecified_<A0> > >))
+                              ((array_< scalar_< integer_<State> >, N>))
+                            , identity
+                            )
+    
+  // An assignment table expression is ran by running it for every position
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(S0)
+                            , ((expr_<table_< unspecified_<A0>, S0 >, nt2::container::domain, nt2::tag::assign_>))
+                            )
+  {
+    typedef typename boost::dispatch::meta::
+    semantic_of<A0>::type                                   result_type;
     
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
       for_each(base_indices(a0), sizes(a0), call_compute<A0 const&>(a0));
-      static typename boost::remove_reference<result_type>::type r;
-      return r;
+      return lhs_terminal()(a0);
     }
   };
+  
+  // Another table expression is ran by reducing it to an assignment
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(S0)
+                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                            )
+  {
+    typedef typename boost::dispatch::meta::
+    semantic_of<A0>::type                                   result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(A0 const& a0) const
+    {
+      result_type tmp;
+      run(assign(tmp, a0));
+      return tmp;
+    }
+  };
+  
 } }
 
 int main()
@@ -229,7 +307,7 @@ int main()
     
   table<double> a, b, c;
   a = b;
-#if 0
+#if 1
   a = b + c*c/a;
   b += c;
 #endif

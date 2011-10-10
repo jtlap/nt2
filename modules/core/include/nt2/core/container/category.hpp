@@ -40,8 +40,8 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( boost::proto::tag::function, tag::cpu_
-                            , (A0)(S0)
-                            , ((table_< unspecified_<A0>, S0 >))
+                            , (A0)
+                            , (generic_< unspecified_<A0> >)
                             )
   {
     typedef A0& result_type;
