@@ -9,6 +9,10 @@
 #ifndef NT2_CORE_CONTAINER_EXTENT_EXTENT_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_EXTENT_EXTENT_HPP_INCLUDED
 
+/*!
+ * \file
+ */
+
 #include <boost/mpl/assert.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <nt2/core/container/dsl.hpp>
@@ -16,6 +20,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <nt2/core/container/extent/is_statically_sized.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 namespace nt2 { namespace tag
@@ -63,7 +68,7 @@ namespace nt2 { namespace container
    * of_size_
    */
   //============================================================================
-  template<typename Sizes, typename Dummy = boost::proto::is_proto_expr>
+  template<typename Sizes, typename Dummy>
   struct  extent
         : expression< typename boost::proto::terminal<Sizes>::type
                     , Sizes
@@ -80,6 +85,9 @@ namespace nt2 { namespace container
     typedef std::size_t                     size_type;
     typedef std::size_t                     base_type;
     typedef std::size_t                     difference_type;
+
+    //==========================================================================
+    typedef nt2::tag::container_ fusion_tag;
 
     //==========================================================================
     /*! Integral constant carrying the number of dimensions of current extent */

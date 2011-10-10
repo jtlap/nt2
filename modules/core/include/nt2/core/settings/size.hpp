@@ -31,10 +31,10 @@ namespace nt2
   {
     //==========================================================================
     /*!
-     * Option tag for size_ options
+     * Option tag for of_size_ options
      **/
     //==========================================================================
-    struct size_ {};
+    struct of_size_ {};
   }
 
   namespace meta
@@ -46,7 +46,7 @@ namespace nt2
             , class Default
             >
     struct option < of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)>
-                  , tag::size_, Default
+                  , tag::of_size_, Default
                   >
     {
       typedef of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)> type;

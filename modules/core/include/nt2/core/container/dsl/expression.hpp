@@ -9,12 +9,13 @@
 #ifndef NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 
+#include <boost/assert.hpp>
+#include <boost/proto/extends.hpp>
+#include <nt2/include/functions/assign.hpp>
+#include <nt2/core/container/dsl/fusion.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/evaluate.hpp>
-#include <nt2/include/functions/assign.hpp>
-#include <boost/proto/extends.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
-#include <boost/assert.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -35,39 +36,51 @@ namespace nt2 { namespace container
                                 , container::domain
                                 >
   {
+    //==========================================================================
+    /*! Fusion sequence tag                                                   */
+    //==========================================================================
+    typedef typename boost::mpl::if_< meta::is_statically_sized<expression>
+                                    , nt2::tag::container_
+                                    , boost::fusion::non_fusion_tag
+                                    >::type                         fusion_tag;
+
+    //==========================================================================
+    /*! Type of the parent expression                                         */
+    //==========================================================================
     typedef boost::proto::extends < Expr
                                   , expression<Expr, ResultType>
                                   , container::domain
                                   >                                parent;
 
-    // expression initialization called from generator
-    BOOST_DISPATCH_FORCE_INLINE
-    expression(Expr const& xpr = Expr()) : parent(xpr)
-    {
-      #if 0
-      BOOST_ASSERT_MSG( check_size(xpr)
-                      , "Dynamic size mismatch in container expression"
-                      );
-      #endif
-    }
+    //==========================================================================
+    // expression initialization called from generator    
+    //==========================================================================
+    BOOST_DISPATCH_FORCE_INLINE expression(Expr const& x = Expr()) : parent(x)
+    {}
     
-    // Assignment operators force evaluation
-    template<class Xpr,class Result>
-    BOOST_DISPATCH_FORCE_INLINE
+    //==========================================================================
+    // Assignment operator force evaluation - LHS non-terminal version
+    //==========================================================================
+    template<class Xpr,class Result> BOOST_DISPATCH_FORCE_INLINE
     expression const& operator=(expression<Xpr,Result> const& xpr) const
     {
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
     
-    template<class Xpr,class Result>
-    BOOST_DISPATCH_FORCE_INLINE
+    //==========================================================================
+    // Assignment operator force evaluation - regular version
+    //==========================================================================
+    template<class Xpr,class Result> BOOST_DISPATCH_FORCE_INLINE 
     expression& operator=(expression<Xpr,Result> const& xpr)
     {
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
 
+    //==========================================================================
+    // Assignment operator from same expression type
+    //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
     expression& operator=(expression const& xpr)
     {
@@ -75,6 +88,9 @@ namespace nt2 { namespace container
       return *this;
     }
     
+    //==========================================================================
+    // Op-Assignment operators generate proper tree then evaluates
+    //==========================================================================
     #define NT2_MAKE_ASSIGN_OP(OP)                                             \
     template<class Xpr,class Result>                                           \
     BOOST_DISPATCH_FORCE_INLINE expression&                                    \
@@ -103,7 +119,9 @@ namespace nt2 { namespace container
 
     #undef NT2_MAKE_ASSIGN_OP
 
-    // Conversion operator forces evaluation
+    //==========================================================================
+    // Conversion operator forces evaluation - used for reduction operator
+    //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
     operator ResultType() const { return nt2::evaluate(*this); }    
   };

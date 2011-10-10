@@ -27,13 +27,13 @@ NT2_TEST_CASE( single_of_size_ )
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < _2D
-                      , option< _2D, nt2::tag::size_ >::type 
+                      , option< _2D, nt2::tag::of_size_ >::type 
                       >::value
             ) 
           );
 
   NT2_TEST( ( is_same < of_size_<3,4>
-                      , option< of_size_<3,4>, nt2::tag::size_ >::type 
+                      , option< of_size_<3,4>, nt2::tag::of_size_ >::type 
                       >::value
             ) 
           );
@@ -50,13 +50,13 @@ NT2_TEST_CASE( single_of_size_default )
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < _2D
-                      , option< void, nt2::tag::size_, _2D >::type 
+                      , option< void, nt2::tag::of_size_, _2D >::type 
                       >::value
             ) 
           );
 
   NT2_TEST( ( is_same < of_size_<3,4>
-                      , option< void, nt2::tag::size_,of_size_<3,4> >::type 
+                      , option< void, nt2::tag::of_size_,of_size_<3,4> >::type 
                       >::value
             ) 
           );
@@ -75,7 +75,7 @@ NT2_TEST_CASE( setting_of_size_ )
 
   NT2_TEST( ( is_same < _2D
                       , option< settings(of_size_<3,4>,_2D)
-                              , nt2::tag::size_ 
+                              , nt2::tag::of_size_ 
                               >::type 
                       >::value
             ) 
@@ -83,7 +83,7 @@ NT2_TEST_CASE( setting_of_size_ )
 
   NT2_TEST( ( is_same < of_size_<3,4>
                       , option< settings(_2D, of_size_<3,4>)
-                              , nt2::tag::size_ 
+                              , nt2::tag::of_size_ 
                               >::type 
                       >::value
             ) 
@@ -103,7 +103,7 @@ NT2_TEST_CASE( setting_of_size_default )
 
   NT2_TEST( ( is_same < _2D
                       , option< settings(long,int)
-                              , nt2::tag::size_ 
+                              , nt2::tag::of_size_ 
                               , _2D
                               >::type 
                       >::value
@@ -112,7 +112,7 @@ NT2_TEST_CASE( setting_of_size_default )
 
   NT2_TEST( ( is_same < of_size_<3,4>
                       , option< settings(int, double)
-                              , nt2::tag::size_ 
+                              , nt2::tag::of_size_ 
                               , of_size_<3,4>
                               >::type 
                       >::value

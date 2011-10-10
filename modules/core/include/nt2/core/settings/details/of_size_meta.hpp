@@ -46,10 +46,10 @@ namespace boost { namespace dispatch { namespace meta
    * extent_ is the hierarchy type used by of_size_ container
    */
   //============================================================================
-  template<class Type, class Layout> 
-  struct extent_ : unspecified_<Type>
+  template<class Type, class Size> 
+  struct extent_ : table_< typename property_of<Type>::type, Size>
   {
-    typedef unspecified_<Type> parent;
+    typedef table_<typename property_of<Type>::type, Size> parent;
   };
 
   //============================================================================
@@ -65,7 +65,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> base;
     static const std::size_t size = base::static_size ? base::static_size : 1;
-    typedef container_< extent_ < Origin , nt2::of_size_<1, size> > > type;
+    typedef extent_< Origin, nt2::of_size_<1, size> > type;
   };
 } } }
 
