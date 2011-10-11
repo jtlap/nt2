@@ -42,9 +42,9 @@ NT2_TEST_CASE( pointer_values )
   NT2_TEST((is_same< value_of< int** >::type , int>::value ));
   NT2_TEST((is_same< value_of< int*** >::type, int>::value ));
 
-  NT2_TEST((is_same< value_of< int const* >::type  , int>::value ));
-  NT2_TEST((is_same< value_of< int const** >::type , int>::value ));
-  NT2_TEST((is_same< value_of< int const*** >::type, int>::value ));
+  NT2_TEST((is_same< value_of< int const* >::type  , int const>::value ));
+  NT2_TEST((is_same< value_of< int const** >::type , int const>::value ));
+  NT2_TEST((is_same< value_of< int const*** >::type, int const>::value ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
