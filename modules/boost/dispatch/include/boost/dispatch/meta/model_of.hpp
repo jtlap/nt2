@@ -9,6 +9,8 @@
 #ifndef BOOST_DISPATCH_META_MODEL_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_MODEL_OF_HPP_INCLUDED
 
+#include <boost/mpl/apply.hpp>
+
 /*!
  * \file
  * \brief Defines the \c model_of extension point
@@ -38,13 +40,27 @@ namespace meta
   template<class T>
   struct model_of<T&>
   {
-    typedef typename model_of<T>::type& type;
+    struct type
+    {
+      template<class X>
+      struct apply
+      {
+        typedef typename mpl::apply<typename model_of<T>::type, X>::type& type;
+      };
+    };
   };
   
   template<class T>
   struct model_of<T const>
   {
-    typedef typename model_of<T>::type const type;
+    struct type
+    {
+      template<class X>
+      struct apply
+      {
+        typedef typename mpl::apply<typename model_of<T>::type, X>::type const type;
+      };
+    };
   };
 } } }
 

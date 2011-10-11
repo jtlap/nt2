@@ -13,12 +13,14 @@
  * \brief Defines the \c boost::dispatch::meta::primitive_of \metafunction
  */
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/mpl/identity.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {
+  // the mpl::identity is a workaround for MSVC
   template<class T, class Origin>
   struct primitive_of_impl
-    : primitive_of_impl<typename meta::value_of<T>::type, T>
+    : mpl::identity< primitive_of_impl<typename meta::value_of<T>::type, T> >::type
   {
   };
   
