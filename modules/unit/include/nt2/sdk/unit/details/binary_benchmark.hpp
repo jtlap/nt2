@@ -19,6 +19,9 @@
 #include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/if.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 template<class T0,class T1
         ,class Dummy,class Func
@@ -40,8 +43,16 @@ void timing_test( Func callee, size_t size
 
   // Output samples
   typedef typename nt2::meta::result_of<Func(r_in0,r_in1)>::type  r_out;
-  typedef typename nt2::meta::scalar_of<r_out>::type         t_out;
-  static std::vector<t_out, nt2::memory::allocator<t_out> >  out(size);
+  typedef typename nt2::meta::scalar_of<r_out>::type         scalar_out;
+  typedef typename nt2::meta::strip<scalar_out>::type         strip_out; 
+  typedef typename boost::mpl::if_< typename boost::is_same< strip_out
+                                                           , bool >::type
+                                  , typename std::vector<nt2::uint8_t
+                                                        , nt2::memory::allocator<nt2::uint8_t> >
+                                  , typename std::vector<strip_out
+                                                        , nt2::memory::allocator<strip_out> >
+                                  >::type out_;
+  static out_ out(size);
 
   // Filling samples randomly
   for(size_t i=0; i<size; ++i)
