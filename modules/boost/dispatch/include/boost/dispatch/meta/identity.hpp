@@ -24,9 +24,21 @@ namespace boost { namespace dispatch
     {
     };
     
+    template<class This, class A0, class A1>
+    struct result<This(A0, A1)> : meta::as_ref<A0>
+    {
+    };
+    
     template<class A0>
     BOOST_DISPATCH_FORCE_INLINE
     A0& operator()(A0& a0) const
+    {
+      return a0;
+    }
+    
+    template<class A0, class A1>
+    BOOST_DISPATCH_FORCE_INLINE
+    A0& operator()(A0& a0, A1&) const
     {
       return a0;
     }

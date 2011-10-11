@@ -38,29 +38,13 @@ namespace meta
   struct model_of : details::model_of<T> {};
 
   template<class T>
-  struct model_of<T&>
+  struct model_of<T&> : model_of<T>
   {
-    struct type
-    {
-      template<class X>
-      struct apply
-      {
-        typedef typename mpl::apply<typename model_of<T>::type, X>::type& type;
-      };
-    };
   };
   
   template<class T>
-  struct model_of<T const>
+  struct model_of<T const> : model_of<T>
   {
-    struct type
-    {
-      template<class X>
-      struct apply
-      {
-        typedef typename mpl::apply<typename model_of<T>::type, X>::type const type;
-      };
-    };
   };
 } } }
 

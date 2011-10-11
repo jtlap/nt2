@@ -119,6 +119,7 @@ namespace nt2 { namespace container
 
     #undef NT2_MAKE_ASSIGN_OP
 
+#if 1
     //==========================================================================
     // Conversion operator forces evaluation - used for reduction operator
     //==========================================================================
@@ -126,7 +127,8 @@ namespace nt2 { namespace container
     typename boost::dispatch::meta::terminal_of<ResultType>::type() const 
     { 
       return nt2::evaluate(*this); 
-    }    
+    }
+#endif
   };
 } }
 
