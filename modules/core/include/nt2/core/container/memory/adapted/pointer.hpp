@@ -14,7 +14,7 @@
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/container/meta/reference.hpp>
+#include <nt2/core/container/meta/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
 
 //==============================================================================
