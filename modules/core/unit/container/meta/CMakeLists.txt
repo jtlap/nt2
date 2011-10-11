@@ -7,7 +7,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-ADD_SUBDIRECTORY(extent)
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(settings)
+SET( SOURCES
+  container_traits.cpp  
+# List of scalar test files for toolbox core.settings
+   )
+
+nt2_module_add_tests(core.container.meta.unit ${SOURCES})

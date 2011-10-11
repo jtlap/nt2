@@ -44,19 +44,19 @@ NT2_TEST_CASE ( fusion_random_access_sequence_0d )
   //============================================================================
   NT2_TEST( !boost::fusion::empty(x) );
   NT2_TEST_EQUAL( int(boost::fusion::size(x)), 2 );
-//  NT2_TEST_EQUAL( boost::fusion::at_c<0>(x)  , 1 );
-//  NT2_TEST_EQUAL( boost::fusion::at_c<1>(x)  , 1 );
+  NT2_TEST_EQUAL( boost::fusion::at_c<0>(x)  , 1 );
+  NT2_TEST_EQUAL( boost::fusion::at_c<1>(x)  , 1 );
 
-//  boost::fusion::result_of::begin< extent<nt2::_0D> >::type
-//  b = boost::fusion::begin(x);
+  boost::fusion::result_of::begin< extent<nt2::_0D> >::type
+  b = boost::fusion::begin(x);
 
-//  boost::fusion::result_of::end< extent<nt2::_0D> >::type
-//  e = boost::fusion::end(x);
+  boost::fusion::result_of::end< extent<nt2::_0D> >::type
+  e = boost::fusion::end(x);
 
-//  NT2_TEST_EQUAL( int(boost::fusion::deref(b))  , 1 );
-//  NT2_TEST_EQUAL( int(boost::fusion::front(x))  , 1 );
-//  NT2_TEST_EQUAL( int(boost::fusion::deref(boost::fusion::prior(e)))  , 1 );
-//  NT2_TEST_EQUAL( int(boost::fusion::back(x))  , 1 );
+  NT2_TEST_EQUAL( int(boost::fusion::deref(b))  , 1 );
+  NT2_TEST_EQUAL( int(boost::fusion::front(x))  , 1 );
+  NT2_TEST_EQUAL( int(boost::fusion::deref(boost::fusion::prior(e)))  , 1 );
+  NT2_TEST_EQUAL( int(boost::fusion::back(x))  , 1 );
 }
 
 NT2_TEST_CASE_TPL ( fusion_random_access_sequence, DYN_DIM_LIST )
@@ -76,26 +76,26 @@ NT2_TEST_CASE_TPL ( fusion_random_access_sequence, DYN_DIM_LIST )
   NT2_TEST( !boost::fusion::empty(x)  );
   NT2_TEST_EQUAL( int(boost::fusion::size(x))   , dims );
 
-//  boost::fusion::at_c<0>(x) = 17;
-//  NT2_TEST_EQUAL( boost::fusion::at_c<0>(x)   , 17 );
-//
-//  x(1)    = 42;
-//  typename boost::fusion::result_of::begin< extent<T> >::type
-//  b = boost::fusion::begin(x);
-//  NT2_TEST_EQUAL( boost::fusion::deref(b) , 42 );
-//  NT2_TEST_EQUAL( boost::fusion::front(x) , 42 );
-//  x(dims) = 69;
-//
-//  typename boost::fusion::result_of::end< extent<T> >::type
-//  e = boost::fusion::end(x);
-//  NT2_TEST_EQUAL( boost::fusion::deref(boost::fusion::prior(e)) , 69 );
-//  NT2_TEST_EQUAL( boost::fusion::back(x)                        , 69 );
-//
-//  boost::fusion::front(x) = 1337;
-//  NT2_TEST_EQUAL( boost::fusion::front(x) , 1337 );
-//
-//  boost::fusion::back(x) = 434;
-//  NT2_TEST_EQUAL( boost::fusion::back(x) , 434 );
+  boost::fusion::at_c<0>(x) = 17;
+  NT2_TEST_EQUAL( boost::fusion::at_c<0>(x)   , 17 );
+
+  x(1)    = 42;
+  typename boost::fusion::result_of::begin< extent<T> >::type
+  b = boost::fusion::begin(x);
+  NT2_TEST_EQUAL( boost::fusion::deref(b) , 42 );
+  NT2_TEST_EQUAL( boost::fusion::front(x) , 42 );
+  x(dims) = 69;
+
+  typename boost::fusion::result_of::end< extent<T> >::type
+  e = boost::fusion::end(x);
+  NT2_TEST_EQUAL( boost::fusion::deref(boost::fusion::prior(e)) , 69 );
+  NT2_TEST_EQUAL( boost::fusion::back(x)                        , 69 );
+
+  boost::fusion::front(x) = 1337;
+  NT2_TEST_EQUAL( boost::fusion::front(x) , 1337 );
+
+  boost::fusion::back(x) = 434;
+  NT2_TEST_EQUAL( boost::fusion::back(x) , 434 );
 }
 
 

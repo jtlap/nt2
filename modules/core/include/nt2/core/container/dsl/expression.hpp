@@ -16,6 +16,7 @@
 #include <nt2/include/functions/evaluate.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <nt2/core/container/meta/container_traits.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -43,6 +44,13 @@ namespace nt2 { namespace container
                                   , expression<Expr, ResultType>
                                   , container::domain
                                   >                                parent;
+
+    //==========================================================================
+    /* Extract Container information from ResultType                          */
+    //==========================================================================
+    typedef typename meta::value_type_<ResultType>::type      value_type;
+    typedef typename meta::reference_<ResultType>::type       reference;
+    typedef typename meta::const_reference_<ResultType>::type const_reference;
 
     //==========================================================================
     // expression initialization called from generator    

@@ -12,6 +12,7 @@
 #include <nt2/include/functions/size.hpp>
 #include <boost/fusion/include/tag_of_fwd.hpp>
 #include <nt2/core/container/extent/extent.hpp>
+#include <nt2/core/container/dsl/fusion_iterator.hpp>
 #include <nt2/core/container/meta/is_statically_sized.hpp>
 
 namespace nt2 { namespace tag
@@ -62,7 +63,7 @@ namespace boost { namespace fusion { namespace extension
   };
 
   //============================================================================
-  // Size of extent_ expression is given by its Dimensions
+  // Size of expression is given by its Dimensions
   //============================================================================
   template<> struct size_impl<nt2::tag::container_>
   {
@@ -72,6 +73,52 @@ namespace boost { namespace fusion { namespace extension
                                 ::type::static_numel
                       >
     {};
+  };
+  
+  //============================================================================
+  // at_c value of expression is given by its operator()
+  //============================================================================
+  template<> struct at_impl<nt2::tag::container_>
+  {
+    template<typename Sequence, typename Index>
+    struct apply
+    {
+      typedef typename nt2::meta::strip<Sequence>::type             base;
+      typedef typename  mpl::if_< is_const<Sequence>
+                                , typename base::const_reference
+                                , typename base::reference
+                                >::type                             type;
+
+      static type call(Sequence& seq) { return seq(Index::value+1); }
+    };
+  };
+  
+  //==========================================================================
+  // begin returns the inner data_type begin as it is itself a Fusion Sequence
+  //==========================================================================
+  template<> struct begin_impl<nt2::tag::container_>
+  {
+    template<typename Sequence> struct apply
+    {
+      typedef typename nt2::container::fusion_iterator<Sequence,0> type;
+      static type call(Sequence& seq) { return type(seq); }
+    };
+  };  
+  
+  //==========================================================================
+  // end returns the inner data_type end as it is itself a Fusion Sequence
+  //==========================================================================
+  template<> struct end_impl<nt2::tag::container_>
+  {
+    template<typename Sequence>
+    struct apply
+    {
+      typedef typename  nt2::meta::strip<Sequence>::type                  base;
+      typedef typename  nt2::container::
+                        fusion_iterator<Sequence,base::static_dimensions> type;
+
+      static type call(Sequence& seq) { return type(seq); }
+    };
   };
 } } }
 

@@ -48,7 +48,7 @@ namespace nt2
     // Check if size is entirely known at compile-time
     //==========================================================================
     #define M0(z,n,t) && (BOOST_PP_CAT(D,n) >= 0 || BOOST_PP_CAT(D,n) == -2)
-    static const std::size_t
+    static const bool
     static_status = (D0 >= 0 || D0 == -2)
                     BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
     #undef M0
@@ -125,8 +125,10 @@ namespace nt2
     typedef void*       iterator;
     typedef void*       const_iterator;
 
-    static const std::size_t static_size = 0;
-
+    static const std::size_t  static_size   = 0;
+    static const bool         static_status = true;
+    static const std::size_t  static_numel  = 0;
+    
     of_size_() {}
 
     static std::size_t size() { return 0; }
