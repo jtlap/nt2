@@ -9,9 +9,9 @@
 #ifndef NT2_CORE_CONTAINER_DSL_FUSION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_FUSION_HPP_INCLUDED
 
-#include <nt2/core/functions/size.hpp>
-#include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/include/functions/size.hpp>
 #include <boost/fusion/include/tag_of_fwd.hpp>
+#include <nt2/core/container/extent/extent.hpp>
 #include <nt2/core/container/meta/is_statically_sized.hpp>
 
 namespace nt2 { namespace tag
@@ -69,7 +69,7 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence>
     struct  apply 
           : mpl::int_ < dispatch::meta::call<nt2::tag::size_(Sequence)>
-                                ::type::static_size
+                                ::type::static_numel
                       >
     {};
   };

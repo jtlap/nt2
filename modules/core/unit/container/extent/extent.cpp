@@ -72,13 +72,13 @@ NT2_TEST_CASE( _0d )
   NT2_TEST_EQUAL( x.size(2) , 1);
   NT2_TEST_EQUAL( x.lower(0), 1);
   NT2_TEST_EQUAL( x.upper(0), 1);
+  NT2_TEST_EQUAL( x.lower(1), 1);
+  NT2_TEST_EQUAL( x.upper(1), 1);
   NT2_TEST_EQUAL( x(1)      , 1);
   NT2_TEST_EQUAL( x(2)      , 1);
-  NT2_TEST_EQUAL( x(3)      , 1);
-  NT2_TEST_EQUAL( x(4)      , 1);
 
   NT2_TEST_EQUAL( nt2::size(x)(1), 1);
-  NT2_TEST_EQUAL( nt2::size(x)(2), 1);
+  NT2_TEST_EQUAL( nt2::size(x)(2), 2);
 
   //============================================================================
   // Copy construction

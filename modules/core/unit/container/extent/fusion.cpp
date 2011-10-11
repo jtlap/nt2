@@ -13,8 +13,9 @@
 //==============================================================================
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-//#include <nt2/toolbox/operator.hpp>
+#include <nt2/toolbox/operator/operator.hpp>
 #include <nt2/core/container/extent/extent.hpp>
+#include <nt2/core/container/dsl/fusion.hpp>
 
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/end.hpp>
@@ -41,28 +42,34 @@ NT2_TEST_CASE ( fusion_random_access_sequence_0d )
   //============================================================================
   // Actual runtime validation
   //============================================================================
-//  NT2_TEST( boost::fusion::empty(x) );
-  NT2_TEST_EQUAL( int(boost::fusion::size(x)), 0 );
+  NT2_TEST( !boost::fusion::empty(x) );
+  NT2_TEST_EQUAL( int(boost::fusion::size(x)), 2 );
 //  NT2_TEST_EQUAL( boost::fusion::at_c<0>(x)  , 1 );
-//
+//  NT2_TEST_EQUAL( boost::fusion::at_c<1>(x)  , 1 );
+
 //  boost::fusion::result_of::begin< extent<nt2::_0D> >::type
 //  b = boost::fusion::begin(x);
-//
+
 //  boost::fusion::result_of::end< extent<nt2::_0D> >::type
 //  e = boost::fusion::end(x);
-//
+
 //  NT2_TEST_EQUAL( int(boost::fusion::deref(b))  , 1 );
 //  NT2_TEST_EQUAL( int(boost::fusion::front(x))  , 1 );
 //  NT2_TEST_EQUAL( int(boost::fusion::deref(boost::fusion::prior(e)))  , 1 );
 //  NT2_TEST_EQUAL( int(boost::fusion::back(x))  , 1 );
 }
-/*
+
 NT2_TEST_CASE_TPL ( fusion_random_access_sequence, DYN_DIM_LIST )
 {
   using nt2::container::extent;
   extent<T> x;
   std::size_t dims = T::static_size;
 
+  //============================================================================
+  // Is this a sequence ?
+  //============================================================================  
+  NT2_TEST( boost::fusion::traits::is_sequence< extent<T> >::value );
+  
   //============================================================================
   // Actual runtime validation
   //============================================================================
@@ -116,4 +123,4 @@ NT2_TEST_CASE_TPL ( fusion_random_access_sequence_expr, DYN_DIM_LIST )
 //                          fusion::prior(boost::fusion::end(x+2*x))) , 207 );
 //  NT2_TEST_EQUAL( boost::fusion::back(x+2*x)  , 207 );
 }
-*/
+

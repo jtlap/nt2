@@ -13,6 +13,8 @@
 #include <nt2/core/functions/size.hpp>
 #include <nt2/core/container/extent/extent.hpp>
 
+#include <iostream>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
@@ -26,7 +28,7 @@ namespace nt2 { namespace ext
   {
     typedef container::
             extent< of_size_< 1
-                            , A0::static_dimensions ? A0::static_dimensions : 1
+                            , A0::static_dimensions ? A0::static_dimensions : 2
                             > 
                   > result_type;
 

@@ -9,8 +9,8 @@
 
 
 SET( SOURCES
-#  size.cpp
+  size.cpp
 # List of scalar test files for toolbox core.settings
    )
 
-#nt2_module_add_tests(core.functions.unit ${SOURCES})
+nt2_module_add_tests(core.functions.unit ${SOURCES})

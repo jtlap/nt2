@@ -94,9 +94,9 @@ namespace nt2 { namespace container
     /*! Integral constant carrying the number of dimensions of current extent */
     //==========================================================================
     static const size_t static_dimensions = Sizes::static_size;
-
-    static const size_t static_status = Sizes::static_status;
-
+    static const size_t static_status     = Sizes::static_status;
+    static const size_t static_numel      = Sizes::static_numel;
+    
     //==========================================================================
     /*! Type of the parent expression                                         */
     //==========================================================================

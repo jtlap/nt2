@@ -12,7 +12,6 @@
 #include <boost/assert.hpp>
 #include <boost/proto/extends.hpp>
 #include <nt2/include/functions/assign.hpp>
-#include <nt2/core/container/dsl/fusion.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/evaluate.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>

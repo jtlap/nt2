@@ -54,6 +54,15 @@ namespace nt2
     #undef M0
 
     //==========================================================================
+    // Compute its potential compile-time numel
+    //==========================================================================
+    #define M0(z,n,t) * (BOOST_PP_CAT(D,n) >= 0 ? BOOST_PP_CAT(D,n) : 1)
+    static const std::size_t
+    static_numel = (D0 >= 0 ? D0 : 1)
+                    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
+    #undef M0
+
+    //==========================================================================
     // The inner data is aligned and padded so SIMD operations are enabled on
     // size values.
     //==========================================================================
