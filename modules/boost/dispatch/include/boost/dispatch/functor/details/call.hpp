@@ -30,7 +30,8 @@ namespace boost { namespace dispatch { namespace meta
   template<class Function,class Site,class Dummy>
   struct implement<Function(tag::unknown_),Site,Dummy>
   {
-    typedef int result_type;
+    struct unsupported_function_call {};
+    typedef unsupported_function_call result_type;
     //==========================================================================
     /*
      * If you get an error here, you tried to call a function on values which 
