@@ -119,16 +119,13 @@ namespace nt2 { namespace container
 
     #undef NT2_MAKE_ASSIGN_OP
 
-#if 1
     //==========================================================================
     // Conversion operator forces evaluation - used for reduction operator
     //==========================================================================
-    BOOST_DISPATCH_FORCE_INLINE operator 
-    typename boost::dispatch::meta::terminal_of<ResultType>::type() const 
+    BOOST_DISPATCH_FORCE_INLINE operator ResultType() const
     { 
       return nt2::evaluate(*this); 
     }
-#endif
   };
 } }
 
