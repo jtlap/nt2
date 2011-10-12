@@ -131,10 +131,11 @@
 
   <!-- Layout definition for a group page -->
   <group>
+    <groupgraph visible="no"/>
     <briefdescription visible="yes"/>
-    <groupgraph visible="$GROUP_GRAPHS"/>
+    <detaileddescription title="Scope and Rationale"/>
     <memberdecl>
-      <nestedgroups visible="yes" title="See also"/>
+      <nestedgroups visible="yes" title="Components"/>
       <classes visible="yes" title=""/>
       <namespaces visible="yes" title=""/>
       <dirs visible="yes" title=""/>
@@ -154,7 +155,6 @@
       <friends title=""/>
       <membergroups visible="yes"/>
     </memberdecl>
-    <detaileddescription title=""/>
     <memberdef>
       <pagedocs/>
       <inlineclasses title=""/>

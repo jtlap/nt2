@@ -18,12 +18,13 @@ DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = nt2
 PROJECT_NUMBER         = 3.0
 OUTPUT_DIRECTORY       = reference
+
 CREATE_SUBDIRS         = YES
 OUTPUT_LANGUAGE        = English
-BRIEF_MEMBER_DESC      = NO
-REPEAT_BRIEF           = YES
+BRIEF_MEMBER_DESC      = YES
+REPEAT_BRIEF           = NO
 ABBREVIATE_BRIEF       =
-ALWAYS_DETAILED_SEC    = NO
+ALWAYS_DETAILED_SEC    = YES
 INLINE_INHERITED_MEMB  = YES
 FULL_PATH_NAMES        = YES
 STRIP_FROM_PATH        = /Users/joelfalcou/Documents/dev/github/nt2/modules/sdk/include/
