@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns true if at least one element of the input vector is non zero.'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

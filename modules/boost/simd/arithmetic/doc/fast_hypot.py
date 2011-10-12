@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["computes \f$(a_0^2 + a_1^2)^{1/2}\f$ in a quicker,",
+                        "but sometimes less accurate way than \c hypot"
+                        ],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

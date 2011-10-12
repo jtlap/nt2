@@ -1,7 +1,13 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : [ "Always compute the correct fused multiply add,",
+                           "For floating point entries this means",
+                           "the computation of a0*a1+a2 with only one rounding operation.",
+                           "On machines not possessing this hard wired capability",
+                           "this can be a bit costly",
+                           ],
+           'module' : 'boost',
          'arity' : '3',
          'call_types' : [],
          'ret_arity' : '0',

@@ -8,8 +8,41 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_SQRT_2OPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_SQRT_2OPI_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
-
+/*!
+ * \ingroup trigo_constant
+ * \defgroup trigo_constant_sqrt_2opi Sqrt_2opi
+ *
+ * \par Description
+ * Constant sqrt_2opi : \f$\frac{\sqrt2}{\pi}\f$.
+ * 
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/sqrt_2opi.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::_sqrt_2opi_(A0)>::type
+ *     sqrt_2opi();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of sqrt_2opi
+ * 
+ * \return type T value
+ *  
+ **/
 namespace nt2
 {
   NT2_MAKE_STD_CONSTANT( Sqrt_2opi , 0x3fe9884533d43651ll, 0x3f4c422a, 0)

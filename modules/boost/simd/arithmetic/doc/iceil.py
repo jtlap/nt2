@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ["return a value of integer type of the same size and signedness than the entry.",
+                             "The value returned is the smallest integer greater or equal to the entry"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

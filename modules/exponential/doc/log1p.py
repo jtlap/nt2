@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['natural logarithm of 1+a0: \\\\f$\log(1+a_0)\\\\f$','\par',
+                         'result is accurate even for small a0'] ,  
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

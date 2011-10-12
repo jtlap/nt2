@@ -1,7 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '2',
+        'description' :['greatest common divisor','\par',
+                        'If parameters are floating point and not flint,',
+                        'nan is returned.'],
+          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {

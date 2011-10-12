@@ -8,7 +8,45 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_CONSTANTS_EXP_1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_CONSTANTS_EXP_1_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
+/*!
+ * \ingroup expon_constant
+ * \defgroup expon_constant_exp_1 Exp_1
+ *
+ * \par Description
+ * Constant exp_1 : \f$e = \exp(1)\f$ constant.
+ * \par
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/exp_1.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::exp_1_(A0)>::type
+ *     exp_1();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Exp_1
+ * 
+ * \return type T value
+ *  
+ *  
+**/
 
 namespace nt2
 {

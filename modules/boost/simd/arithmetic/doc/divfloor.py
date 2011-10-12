@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['return the \c floor of the operands real division'
+                          'in the input type'],  
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+           'description' : ['\\\\f$a_0 \lt \mathop{\mathrm{predecessor}}(a_1,|a_2|)\\\\f$'],
          'arity' : '3',
          'call_types' : ['T','T','iT'],
          'ret_arity' : '0',

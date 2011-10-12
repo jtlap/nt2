@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns True<A0>() if at least two inputs are not zero else False<A0>().'],   
          'module' : 'boost',
          'arity' : '3',
          'call_types' : [],

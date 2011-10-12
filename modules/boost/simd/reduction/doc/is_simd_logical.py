@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns true if all vector elements have all or no bit sets.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

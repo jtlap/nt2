@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+          'description' :['hyperbolic tangent: \\\\f$\frac{\\\\sinh(a_0)}{\\\\cosh(a_0)}\\\\f$.'] ,
+
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

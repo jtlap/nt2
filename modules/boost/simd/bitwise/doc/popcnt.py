@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['The function returns the number of bit sets in each element of the input.'],
+         'return' : ['always returns an integer value'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

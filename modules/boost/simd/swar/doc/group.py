@@ -1,6 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ['take two SIMD vectors of same type and elements of size n',
+                             'and return a vector collecting the two in a vector in which',
+                             'the elements have size n/2',
+                             '\par',
+                             'Of course the applicability is conditionned by the existence of compatible',
+                             'SIMD vector types'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

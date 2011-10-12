@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['round to the nearest integer'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

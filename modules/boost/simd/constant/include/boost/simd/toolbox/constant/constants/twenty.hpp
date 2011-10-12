@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_TWENTY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_TWENTY_HPP_INCLUDED
 
@@ -14,10 +17,47 @@
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
+/*!
+ * \ingroup boost_simd_constant
+ * \defgroup boost_simd_constant_twenty Twenty
+ *
+ * \par Description
+ * Constant Twenty= twenty
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/twenty.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::twenty_(A0)>::type
+ *     Twenty();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of Twenty
+ * 
+ * \return type T value
+ *  
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag Twenty of functor Twenty 
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
     BOOST_SIMD_CONSTANT_REGISTER(Twenty,int,20, 0x41a00000,0x4034000000000000ll)
   }
 

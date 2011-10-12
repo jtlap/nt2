@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : [ "this is \f$\|a_0-a_1\|\f$, and is always properly computed",
+                         ],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

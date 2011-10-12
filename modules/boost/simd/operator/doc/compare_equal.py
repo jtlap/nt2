@@ -1,7 +1,15 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['return a bool that is the result of the lexicographic',
+                          'test for equality of all elements of the entries',
+                          'I.e. return true if and only if all corresponding entries',
+                          'elements are equal.',
+                          '\par',
+                          'It is probably not what you wish. Have a look to <tt>is_equal</tt>',
+                          '\par',
+                          "Infix notation can be used with operator '=='",
+                          ],
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

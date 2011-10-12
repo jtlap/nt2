@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' :['Beta function','\par Formula',
+                            '\\\\f[ B(a_0,a_1)=\int_0^1 t^{a_0-1}(1-t)^{a_1-1}dt = \\\\frac{\Gamma(a_0)\Gamma(a_1)}{\Gamma(a_0+a_1)}\\\\f]'],
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

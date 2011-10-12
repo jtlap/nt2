@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['return the elementwise division of the two parameters',
+                          "Infix notation can be used with operator '/'"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

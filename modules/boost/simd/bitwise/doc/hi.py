@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['The function returns the high part of the entry',
+                          'shifted right as an integer of the same size as',
+                          'the input.'],
+         'return' : ['always returns an integer value'],   
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

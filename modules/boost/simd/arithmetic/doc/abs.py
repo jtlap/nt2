@@ -1,6 +1,14 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : [ "The function always returns a value of the same type than the entry.",
+                           "\par",
+                           "Take care that for signed integers the absolute value of Valmin is Valmin",
+                           "(thus negative!).",
+                           "This is a side effect of the 2-complement representation  of integers.",
+                           "To avoid this,  you can use the \c abss saturated functor or convert the",
+                           "input parameter to a larger type before taking the abs value.",
+                           ],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

@@ -1,7 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : [ "The function always returns a value of the same type than the entry.",
+                           "Take care that for integers the value returned can differ by one unit",
+                           "from \c ceil((a+b)/2.0) or \c floor((a+b)/2.0), but is always one of",
+                           "the two"
+                           ],
+          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

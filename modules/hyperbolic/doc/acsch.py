@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['hyperbolic cosecant argument \\\\f$\mathop{\\\\textrm{asinh}}(1/a_0)\\\\f$'] ,
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

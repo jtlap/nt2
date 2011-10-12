@@ -1,6 +1,19 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['With one parameter it is equivalent to \c next',
+                          'It is in the type \c A0, the least  \c A0 elementwise strictly greater than  \c a0.','\par',   
+                          'With two parameters, the second is an integer value  \c n',
+                          'and the result is equivalent to applying \c next \c abs(n) times to  \c a0.'],   
+          'special_synopsis' : [
+                "template<class A0> inline",
+                "A0 predecessor(A0 const& a0);",
+                " ",
+                "template<class A0,class A1> inline",
+                "A0 predecessor(A0 const& a0,const A1& n);",
+                ],
+            'max_arity' : '2',
+            'return' :['a value of type A0'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -65,6 +78,8 @@
     },
     {
      'functor' : {
+         'description' : ['with two parameters, the second is an integer value n',
+                          'and it is equivalent to applying \c next abs(n) times to a0'],   
          'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],

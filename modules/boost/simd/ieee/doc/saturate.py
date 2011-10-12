@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['saturate the value a0 in the template parameter type T,',
+                         'but the value returned is of type A0'],
+         'template' : True,   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

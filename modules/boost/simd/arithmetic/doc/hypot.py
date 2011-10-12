@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["computes \f$(a_0^2 + a_1^2)^{1/2}\f$"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

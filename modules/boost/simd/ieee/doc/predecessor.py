@@ -1,7 +1,20 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['With one parameter it is equivalent to \c prev',
+                          'It is in the type \c A0, the greatest  \c A0 elementwise strictly less than  \c a0.','\par',   
+                          'With two parameters, the second is an integer value  \c n',
+                          'and the result is equivalent to applying \c prev \c abs(n) times to  \c a0.'],   
+          'special_synopsis' : [
+                "template<class A0> inline",
+                "A0 predecessor(A0 const& a0);",
+                " ",
+                "template<class A0,class A1> inline",
+                "A0 predecessor(A0 const& a0,const A1& n);",
+                ],
+            'max_arity' : '2',
+            'return' :['a value of type A0'],
+            'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -65,7 +78,7 @@
     },
     {
      'functor' : {
-         'module' : 'boost',
+        'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],
          'ret_arity' : '0',

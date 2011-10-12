@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['The function  find the first bit unset (beginning with the least',
+                          'significant bit) in a0, and return the bit pattern in which',
+                          'this bit is the only bit set.'],
+         'return' : ['always returns an integer value'],   
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

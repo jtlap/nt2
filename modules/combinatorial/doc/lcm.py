@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+        'description' :['least common multiple','\par',
+                        'If parameters are floating point and not flint,',
+                        'nan is returned.'],
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

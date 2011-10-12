@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns the index of the first occurence of greatest element of the SIMD vector'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

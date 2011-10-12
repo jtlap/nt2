@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns a boolean value but of the type of the input.',
+                          'Zero<A0>() or One<A0>() according a0 is zero or not.'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

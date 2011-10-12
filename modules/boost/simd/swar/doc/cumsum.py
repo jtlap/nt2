@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['compute the cumulate sum of the vector elements'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

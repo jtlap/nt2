@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns the sorted a0 vector in ascending order'],              
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

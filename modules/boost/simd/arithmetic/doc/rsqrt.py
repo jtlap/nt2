@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["return a floating point value equal to the inverse",
+                          "of the square root of the entry"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

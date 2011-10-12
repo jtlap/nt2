@@ -1,6 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ["return the integer truncation of the squre root of  the entry.",
+                             "The value returned in the same type as the entry.",
+                             "/par",
+                             "Negative entry leads to zero for integer entry and nan for floating one."],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

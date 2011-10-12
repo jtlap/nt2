@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['cotangent of the angle in degree, in the interval \\\\f$[-45, 45]\\\\f$, nan outside.'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

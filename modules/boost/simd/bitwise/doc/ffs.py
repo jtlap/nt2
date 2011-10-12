@@ -1,6 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['The function finds the first bit set (beginning with the least',
+                          'significant bit) in a0, and return the index of that bit.',
+                          '\par',
+                          'Bits are numbered starting at one (the least significant bit).'],
+         'return' : ['always returns an integer value'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

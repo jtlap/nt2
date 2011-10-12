@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ["return the saturated multiplication of a0 by a1"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

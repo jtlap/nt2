@@ -1,6 +1,14 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns the bitwise selection of bits from the second',
+                          'or third operand according to the setting of the bits',
+                          'of the first operand',
+                          '\par',
+                          'The operands must share the same bit size and',
+                          'the result type is the comon one of the second'
+                          'and third operands'],
+         'equalparams' : False,   
          'module' : 'boost',
          'arity' : '3',
          'call_types' : [],

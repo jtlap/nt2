@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+          'description' :['hyperbolic secant: \\\\f$\frac1{\\\\cosh(a_0)}\\\\f$.'] ,
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

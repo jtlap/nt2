@@ -1,8 +1,14 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+        'description' :['Saturated factorial in the A0 type','\par',
+                        'be aware that the result is never exact if a0>12',
+                        'and that the result is saturated in the input type!'
+                        ],
          'arity' : '1',
-        'call_types' : [],
+         'template' : True,
+         'return' : ['a value of the template parameter type T.'],   
+         'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
              'default' : 'T',

@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["convert an entry to floating points.",
+                          "In SIMD not all integer types can be so converted"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

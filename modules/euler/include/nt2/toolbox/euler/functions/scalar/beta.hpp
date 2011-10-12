@@ -10,11 +10,15 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_BETA_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
 
+/**
+ * \ingroup euler_beta
+ * \defgroup euler_beta_scalar Notes on the scalar implementation
+ * 
+ * \par Specificities
+ *
+ *  Some info on \c beta in scalar mode  
+ **/
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::beta_, tag::cpu_

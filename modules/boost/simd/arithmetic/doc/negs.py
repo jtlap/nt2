@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["returns saturation of \f$-a_0\f$ in the input type."],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

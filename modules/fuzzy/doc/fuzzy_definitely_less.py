@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ['a_0 \lt a_1-a_2*\max(|a_0|,|a1|)'],
          'arity' : '3',
          'call_types' : [],
          'ret_arity' : '0',

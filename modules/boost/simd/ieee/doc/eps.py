@@ -1,6 +1,16 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns 2 times the Machine epsilon',
+                          '\par',
+                          'The Machine epsilon gives an upper bound on the relative',
+                          'error due to rounding in floating point arithmetic. Typically \f$2^{-53}\f$',
+                          'for floating point doubles and \f$2^{-24}\f$ for',
+                          'floats. MATLAB(TM) language defines the value eps ',
+                          'as the distance from 1.0 to the next larger double',
+                          'which is two times the machine epsilon...',
+                          'Returns one for integer types.'
+                          ],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
