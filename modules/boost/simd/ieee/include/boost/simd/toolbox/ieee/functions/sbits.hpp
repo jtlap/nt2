@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_sbits sbits function
+ * \defgroup boost_simd_ieee_sbits sbits
  *
  * \par Description
  * The function return signed integer value which has the same bits of the input

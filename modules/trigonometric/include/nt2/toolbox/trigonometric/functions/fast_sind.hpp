@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_sind fast_sind function
+ * \defgroup trigonometric_fast_sind fast_sind
  *
  * \par Description
  * sine of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.

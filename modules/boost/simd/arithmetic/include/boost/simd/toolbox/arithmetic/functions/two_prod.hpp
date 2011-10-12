@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_two_prod two_prod function
+ * \defgroup boost_simd_arithmetic_two_prod two_prod
  *
  * \par Description
  * TODO Put description here

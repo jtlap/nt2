@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_rsqrt rsqrt function
+ * \defgroup boost_simd_arithmetic_rsqrt rsqrt
  *
  * \par Description
  * return a floating point value equal to the inverse

@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_logical_or logical_or function
+ * \defgroup boost_simd_operator_logical_or logical_or
  *
  * \par Description
  * return the logical or of the two parameters

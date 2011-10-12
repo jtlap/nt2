@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cosd cosd function
+ * \defgroup trigonometric_cosd cosd
  *
  * \par Description
  * cosine of angle in degree.

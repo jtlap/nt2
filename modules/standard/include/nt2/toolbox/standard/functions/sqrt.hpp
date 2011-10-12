@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_sqrt sqrt function
+ * \defgroup standard_sqrt sqrt
  *
  * \par Description
  * Please for details consult the proper documentation of the external

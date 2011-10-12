@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_log log function
+ * \defgroup libc_log log
  *
  * \par Description
  * Please for details consult the proper documentation of the external

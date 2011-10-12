@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_pio_4 Pio_4 constant
+ * \defgroup trigo_constant_pio_4 Pio_4
  *
  * \par Description
  * Constant pio_4 : \f$\frac\pi{4}\f$.

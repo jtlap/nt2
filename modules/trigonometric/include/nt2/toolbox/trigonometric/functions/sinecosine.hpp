@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sinecosine sinecosine function
+ * \defgroup trigonometric_sinecosine sinecosine
  *
  * \par Description
  * templatized simultaneous sine and cosine.

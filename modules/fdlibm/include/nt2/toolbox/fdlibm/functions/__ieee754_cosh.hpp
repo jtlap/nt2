@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_cosh __ieee754_cosh function
+ * \defgroup fdlibm___ieee754_cosh __ieee754_cosh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

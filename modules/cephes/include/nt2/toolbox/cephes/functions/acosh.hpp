@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_acosh acosh function
+ * \defgroup cephes_acosh acosh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

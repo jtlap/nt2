@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_oneminus oneminus function
+ * \defgroup boost_simd_arithmetic_oneminus oneminus
  *
  * \par Description
  * returns the saturated $1-a_0$

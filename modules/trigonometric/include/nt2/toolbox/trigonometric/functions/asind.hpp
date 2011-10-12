@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_asind asind function
+ * \defgroup trigonometric_asind asind
  *
  * \par Description
  * inverse sine in degree.

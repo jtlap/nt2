@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_cosh cosh function
+ * \defgroup fdlibm_cosh cosh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

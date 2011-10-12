@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_nbexponentbits Nbexponentbits constant
+ * \defgroup boost_simd_constant_nbexponentbits Nbexponentbits
  *
  * \par Description
  * Constant Nbexponentbits, The number of exponent bits of a floating point number,

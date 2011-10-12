@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_nan Nan constant
+ * \defgroup boost_simd_constant_nan Nan
  *
  * \par Description
  * Constant Nan not a number for floating point value.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_expm1 expm1 function
+ * \defgroup exponential_expm1 expm1
  *
  * \par Description
  * exponential function minus one: $e^{a_0}-1$

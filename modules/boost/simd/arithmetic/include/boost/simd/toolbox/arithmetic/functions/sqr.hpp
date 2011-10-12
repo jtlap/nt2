@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_sqr sqr function
+ * \defgroup boost_simd_arithmetic_sqr sqr
  *
  * \par Description
  * return the square of the entry

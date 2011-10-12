@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_jn __ieee754_jn function
+ * \defgroup fdlibm___ieee754_jn __ieee754_jn
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_ilogb ilogb function
+ * \defgroup boost_simd_ieee_ilogb ilogb
  *
  * \par Description
  * This function returns the integer truncation

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_two_split two_split function
+ * \defgroup boost_simd_arithmetic_two_split two_split
  *
  * \par Description
  * TODO Put description here

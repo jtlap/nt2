@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_expint_e2 gsl_sf_expint_e2 function
+ * \defgroup gsl_specfun_gsl_sf_expint_e2 gsl_sf_expint_e2
  *
  * \par Description
  * TODO Put description here

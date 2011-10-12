@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_ulp ulp function
+ * \defgroup boost_simd_ieee_ulp ulp
  *
  * \par Description
  * Returns the distance to the nearest (distinct) element of the same type.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_lo lo function
+ * \defgroup boost_simd_bitwise_lo lo
  *
  * \par Description
  * The function returns the low part of the entry

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_acscd acscd function
+ * \defgroup trigonometric_acscd acscd
  *
  * \par Description
  * inverse cosecant in degree.

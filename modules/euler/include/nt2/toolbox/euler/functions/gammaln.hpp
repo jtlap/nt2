@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_gammaln gammaln function
+ * \defgroup euler_gammaln gammaln
  *
  * \par Description
  * Natural logarithm of the absolute value of the Gamma function

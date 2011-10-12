@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_fuzzy_less_or_equal fuzzy_less_or_equal function
+ * \defgroup fuzzy_fuzzy_less_or_equal fuzzy_less_or_equal
  *
  * \par Description
  * \f$a_0 \le a_1+a_2*\max(|a_0|,|a1|)\f$

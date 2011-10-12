@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mone Mone constant
+ * \defgroup boost_simd_constant_mone Mone
  *
  * \par Description
  * Constant Mone = -1

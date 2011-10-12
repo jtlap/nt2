@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_cos cos function
+ * \defgroup crlibm_cos cos
  *
  * \par Description
  * Please for details consult the proper documentation of the external

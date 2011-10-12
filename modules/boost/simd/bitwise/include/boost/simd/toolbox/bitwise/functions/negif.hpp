@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_negif negif function
+ * \defgroup boost_simd_bitwise_negif negif
  *
  * \par Description
  * The function conditionnaly to a0 returns a1 or -a1

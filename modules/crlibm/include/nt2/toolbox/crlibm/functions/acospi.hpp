@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_acospi acospi function
+ * \defgroup crlibm_acospi acospi
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_acosh acosh function
+ * \defgroup fdlibm_acosh acosh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup elliptic_ellint_2 ellint_2 function
+ * \defgroup elliptic_ellint_2 ellint_2
  *
  * \par Description
  * Complete elliptic integral of the second kind

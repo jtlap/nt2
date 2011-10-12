@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_asec asec function
+ * \defgroup trigonometric_asec asec
  *
  * \par Description
  * inverse secant in degree.

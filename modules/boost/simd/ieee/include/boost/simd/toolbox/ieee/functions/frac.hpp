@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_frac frac function
+ * \defgroup boost_simd_ieee_frac frac
  *
  * \par Description
  * This function returns the fractional part of the input

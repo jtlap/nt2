@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_acotd acotd function
+ * \defgroup trigonometric_acotd acotd
  *
  * \par Description
  * inverse cotangent in degree.

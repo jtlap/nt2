@@ -1,5 +1,6 @@
 #error "This file is for documentation purpose only."
 /*!
- * \defgroup bessel nt2 module for bessel functions computations
+ * \ingroup toolbox  
+ * \defgroup bessel Bessel functions
  * \brief Defines bessel functions
  **/

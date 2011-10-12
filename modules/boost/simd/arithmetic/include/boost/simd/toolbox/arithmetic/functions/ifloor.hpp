@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_ifloor ifloor function
+ * \defgroup boost_simd_arithmetic_ifloor ifloor
  *
  * \par Description
  * return a value of integer type of the same size and signedness than the entry.

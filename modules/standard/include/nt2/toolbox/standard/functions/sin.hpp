@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_sin sin function
+ * \defgroup standard_sin sin
  *
  * \par Description
  * Please for details consult the proper documentation of the external

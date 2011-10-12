@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup expon_constant
- * \defgroup expon_constant_exp_1 Exp_1 constant
+ * \defgroup expon_constant_exp_1 Exp_1
  *
  * \par Description
  * Constant exp_1 : \f$e = \exp(1)\f$ constant.

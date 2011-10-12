@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_tan tan function
+ * \defgroup libc_tan tan
  *
  * \par Description
  * Please for details consult the proper documentation of the external

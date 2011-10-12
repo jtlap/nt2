@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_almost_equal almost_equal function
+ * \defgroup fuzzy_almost_equal almost_equal
  *
  * \par Description
  * \f$ a0 \in \quad ]a_1-\mathop{\mathrm{predecessor}}(a_1,|a_2|),a_1-\mathop{\mathrm{successor}}(a_1,|a_2|)[\f$

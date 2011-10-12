@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_abs abs function
+ * \defgroup standard_abs abs
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_mantissa mantissa function
+ * \defgroup boost_simd_ieee_mantissa mantissa
  *
  * \par Description
  * Returns the signed mantissa of the floating input.

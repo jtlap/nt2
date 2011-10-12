@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_acsc acsc function
+ * \defgroup trigonometric_acsc acsc
  *
  * \par Description
  * inverse cosecant.

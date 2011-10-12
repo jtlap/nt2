@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_cosd fast_cosd function
+ * \defgroup trigonometric_fast_cosd fast_cosd
  *
  * \par Description
  * cosine of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_gamma gamma function
+ * \defgroup euler_gamma gamma
  *
  * \par Description
  * Gamma function

@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant__180 _180 constant
+ * \defgroup trigo_constant__180 _180
  *
  * \par Description
  * Constant _180 : 180.

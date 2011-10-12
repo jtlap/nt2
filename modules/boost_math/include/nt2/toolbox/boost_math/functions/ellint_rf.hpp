@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_ellint_rf ellint_rf function
+ * \defgroup boost_math_ellint_rf ellint_rf
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fourthrooteps Fourthrooteps constant
+ * \defgroup boost_simd_constant_fourthrooteps Fourthrooteps
  *
  * \par Description
  * Constant Fourthrooteps

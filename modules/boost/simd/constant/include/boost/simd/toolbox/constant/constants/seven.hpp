@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_seven Seven constant
+ * \defgroup boost_simd_constant_seven Seven
  *
  * \par Description
  * Constant Seven = 7

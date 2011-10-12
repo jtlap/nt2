@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_zeta zeta function
+ * \defgroup cephes_zeta zeta
  *
  * \par Description
  * Please for details consult the proper documentation of the external

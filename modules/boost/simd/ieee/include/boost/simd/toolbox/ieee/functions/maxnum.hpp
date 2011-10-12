@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_maxnum maxnum function
+ * \defgroup boost_simd_ieee_maxnum maxnum
  *
  * \par Description
  * TODO Put description here

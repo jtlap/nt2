@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_halfeps Halfeps constant
+ * \defgroup boost_simd_constant_halfeps Halfeps
  *
  * \par Description
  * Constant Halfeps

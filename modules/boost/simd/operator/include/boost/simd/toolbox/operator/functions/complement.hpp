@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_complement complement function
+ * \defgroup boost_simd_operator_complement complement
  *
  * \par Description
  * return the bitwise complement of the entry

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_exponent exponent function
+ * \defgroup boost_simd_ieee_exponent exponent
  *
  * \par Description
  * Returns the exponent of the floating input.

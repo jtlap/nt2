@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_sinh sinh function
+ * \defgroup standard_sinh sinh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_sum sum function
+ * \defgroup boost_simd_reduction_sum sum
  *
  * \par Description
  * Returns the sum of the elements of the SIMD vector

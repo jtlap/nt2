@@ -13,9 +13,10 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINE_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
+
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sine sine function
+ * \defgroup trigonometric_sine sine
  *
  * \par Description
  * templated sine.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_is_included_c is_included_c function
+ * \defgroup boost_simd_bitwise_is_included_c is_included_c
  *
  * \par Description
  * The function returns the a bool
@@ -48,12 +48,11 @@
  * \return an integer value
  *  
  * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
  * This is a reduction operation. As such it has not real interest outside
  * SIMD mode.
  * \par
- * Such an operation has always a scalar result which translate a property
+ * Such an operation always has a scalar result which translate a property
  * of the whole SIMD vector.
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting

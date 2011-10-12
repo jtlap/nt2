@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mlogeps2 Mlogeps2 constant
+ * \defgroup boost_simd_constant_mlogeps2 Mlogeps2
  *
  * \par Description
  * Constant Mlogeps2 TODO

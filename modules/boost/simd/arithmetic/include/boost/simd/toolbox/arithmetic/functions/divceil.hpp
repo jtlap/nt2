@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_divceil divceil function
+ * \defgroup boost_simd_arithmetic_divceil divceil
  *
  * \par Description
  * return the \c ceil of the operands real divisionin the input type

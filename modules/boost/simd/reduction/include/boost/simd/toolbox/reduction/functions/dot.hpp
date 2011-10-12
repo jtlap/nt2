@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_dot dot function
+ * \defgroup boost_simd_reduction_dot dot
  *
  * \par Description
  * returns the dot product of the two SIMD vector arguments

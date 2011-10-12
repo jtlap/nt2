@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_minimum minimum function
+ * \defgroup boost_simd_reduction_minimum minimum
  *
  * \par Description
  * Returns the least element of the SIMD vector

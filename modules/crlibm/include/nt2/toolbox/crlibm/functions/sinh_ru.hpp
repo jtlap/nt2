@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_sinh_ru sinh_ru function
+ * \defgroup crlibm_sinh_ru sinh_ru
  *
  * \par Description
  * Please for details consult the proper documentation of the external

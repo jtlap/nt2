@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_cosh_ru cosh_ru function
+ * \defgroup crlibm_cosh_ru cosh_ru
  *
  * \par Description
  * Please for details consult the proper documentation of the external

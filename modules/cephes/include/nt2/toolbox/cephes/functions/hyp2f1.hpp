@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_hyp2f1 hyp2f1 function
+ * \defgroup cephes_hyp2f1 hyp2f1
  *
  * \par Description
  * Please for details consult the proper documentation of the external

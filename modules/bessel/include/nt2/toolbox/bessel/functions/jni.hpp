@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup bessel_jni jni function
+ * \defgroup bessel_jni jni
  *
  * \par Description
  * Bessel function of the first kind of order n.

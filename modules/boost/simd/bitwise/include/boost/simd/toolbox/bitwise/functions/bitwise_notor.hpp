@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_bitwise_notor bitwise_notor function
+ * \defgroup boost_simd_bitwise_bitwise_notor bitwise_notor
  *
  * \par Description
  * return the bitwise or of the bitwise complement

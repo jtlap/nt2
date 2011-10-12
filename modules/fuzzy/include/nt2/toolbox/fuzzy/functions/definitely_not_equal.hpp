@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_definitely_not_equal definitely_not_equal function
+ * \defgroup fuzzy_definitely_not_equal definitely_not_equal
  *
  * \par Description
  * \f$ a0 \notin [a_1-\mathop{\mathrm{predecessor}}(a1,|a_2|),a_1-\mathop{\mathrm{successor}}(a1,|a_2|)]\f$

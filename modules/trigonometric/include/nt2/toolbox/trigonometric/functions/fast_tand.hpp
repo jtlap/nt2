@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_tand fast_tand function
+ * \defgroup trigonometric_fast_tand fast_tand
  *
  * \par Description
  * tangent of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.

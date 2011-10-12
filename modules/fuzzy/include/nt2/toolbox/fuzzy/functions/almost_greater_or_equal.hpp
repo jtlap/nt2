@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_almost_greater_or_equal almost_greater_or_equal function
+ * \defgroup fuzzy_almost_greater_or_equal almost_greater_or_equal
  *
  * \par Description
  * \f$a_0 \ge predecessor(a_1,|a_2|)\f$

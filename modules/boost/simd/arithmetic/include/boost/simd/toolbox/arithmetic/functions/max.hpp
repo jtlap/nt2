@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_max max function
+ * \defgroup boost_simd_arithmetic_max max
  *
  * \par Description
  * return the greatest of the two entries

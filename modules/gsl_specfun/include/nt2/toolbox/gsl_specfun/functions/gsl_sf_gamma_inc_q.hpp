@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_gamma_inc_q gsl_sf_gamma_inc_q function
+ * \defgroup gsl_specfun_gsl_sf_gamma_inc_q gsl_sf_gamma_inc_q
  *
  * \par Description
  * TODO Put description here

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_group group function
+ * \defgroup boost_simd_swar_group group
  *
  * \par Description
  * take two SIMD vectors of same type and elements of size n

@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_ten Ten constant
+ * \defgroup boost_simd_constant_ten Ten
  *
  * \par Description
  * Constant Ten = 10

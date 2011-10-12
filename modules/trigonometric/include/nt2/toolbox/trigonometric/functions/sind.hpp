@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sind sind function
+ * \defgroup trigonometric_sind sind
  *
  * \par Description
  * sine of the angle in degree.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_rgamma rgamma function
+ * \defgroup cephes_rgamma rgamma
  *
  * \par Description
  * Please for details consult the proper documentation of the external

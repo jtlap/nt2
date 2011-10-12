@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_ldexpmask Ldexpmask constant
+ * \defgroup boost_simd_constant_ldexpmask Ldexpmask
  *
  * \par Description
  * Constant Ldexpmask

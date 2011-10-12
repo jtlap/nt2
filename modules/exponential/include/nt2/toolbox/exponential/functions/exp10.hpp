@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_exp10 exp10 function
+ * \defgroup exponential_exp10 exp10
  *
  * \par Description
  * base ten exponential function: $10^{a_0}$

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_ffs ffs function
+ * \defgroup boost_simd_bitwise_ffs ffs
  *
  * \par Description
  * The function finds the first bit set (beginning with the least

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_is_simd_logical is_simd_logical function
+ * \defgroup boost_simd_reduction_is_simd_logical is_simd_logical
  *
  * \par Description
  * returns true if all vector elements have all or no bit sets.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_divs divs function
+ * \defgroup boost_simd_arithmetic_divs divs
  *
  * \par Description
  * return the saturated  division of the operandsin the input type

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_acos __ieee754_acos function
+ * \defgroup fdlibm___ieee754_acos __ieee754_acos
  *
  * \par Description
  * Please for details consult the proper documentation of the external

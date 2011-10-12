@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_exp2 exp2 function
+ * \defgroup exponential_exp2 exp2
  *
  * \par Description
  * base two exponential function: $2^{a_0}$

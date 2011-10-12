@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_lambert_wm1 gsl_sf_lambert_wm1 function
+ * \defgroup gsl_specfun_gsl_sf_lambert_wm1 gsl_sf_lambert_wm1
  *
  * \par Description
  * TODO Put description here

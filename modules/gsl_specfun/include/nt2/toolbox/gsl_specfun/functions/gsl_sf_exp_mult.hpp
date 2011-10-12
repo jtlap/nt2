@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_exp_mult gsl_sf_exp_mult function
+ * \defgroup gsl_specfun_gsl_sf_exp_mult gsl_sf_exp_mult
  *
  * \par Description
  * TODO Put description here

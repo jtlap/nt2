@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_sqrt_2o_2 Sqrt_2o_2 constant
+ * \defgroup boost_simd_constant_sqrt_2o_2 Sqrt_2o_2
  *
  * \par Description
  * Constant Sqrt_2o_2 = \f$ \frac{\sqrt2}2\f$

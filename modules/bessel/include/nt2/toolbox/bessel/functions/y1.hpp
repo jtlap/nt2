@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup bessel_y1 y1 function
+ * \defgroup bessel_y1 y1
  *
  * \par Description
  * Bessel function of the second kind of order 1.

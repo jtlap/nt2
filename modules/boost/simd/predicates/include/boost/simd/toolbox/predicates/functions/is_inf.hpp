@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_inf is_inf function
+ * \defgroup boost_simd_predicates_is_inf is_inf
  *
  * \par Description
  * Returns True<A0>() if a0 is inf or -inf else returns False<A0>().
@@ -59,7 +59,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_inf_ of functor is_inf 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_inf_ {};

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_floor floor function
+ * \defgroup cephes_floor floor
  *
  * \par Description
  * Please for details consult the proper documentation of the external

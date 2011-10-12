@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_minnum minnum function
+ * \defgroup boost_simd_ieee_minnum minnum
  *
  * \par Description
  * TODO Put description here

@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_cyl_neumann cyl_neumann function
+ * \defgroup boost_math_cyl_neumann cyl_neumann
  *
  * \par Description
  * Please for details consult the proper documentation of the external

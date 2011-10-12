@@ -366,7 +366,7 @@ class Nt2_oxygenation(Oxgen) :
         Functor_ox = [
             "/*!",
             " * \\ingroup %s"%self.tb_name.replace('.','_'),
-            " * \\defgroup $prefix$$fct$ $Fct$ $truc$",
+            " * \\defgroup $prefix$$fct$ $Fct$",
             " *",
             " * \\par Description",
             "$description$",

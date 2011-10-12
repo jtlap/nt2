@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_dawson gsl_sf_dawson function
+ * \defgroup gsl_specfun_gsl_sf_dawson gsl_sf_dawson
  *
  * \par Description
  * TODO Put description here

@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_one One constant
+ * \defgroup boost_simd_constant_one One
  *
  * \par Description
  * Constant One = 1

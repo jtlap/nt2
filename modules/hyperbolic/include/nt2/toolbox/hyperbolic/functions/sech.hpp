@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_sech sech function
+ * \defgroup hyperbolic_sech sech
  *
  * \par Description
  * hyperbolic secant: \f$rac1{\cosh(a_0)}\f$.

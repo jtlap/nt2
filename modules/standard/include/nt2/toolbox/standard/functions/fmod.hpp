@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_fmod fmod function
+ * \defgroup standard_fmod fmod
  *
  * \par Description
  * Please for details consult the proper documentation of the external

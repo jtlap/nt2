@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup combinatorial_anp anp function
+ * \defgroup combinatorial_anp anp
  *
  * \par Description
  * number of arrangement of p elements among n

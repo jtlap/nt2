@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_sinpi sinpi function
+ * \defgroup crlibm_sinpi sinpi
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_log1p log1p function
+ * \defgroup exponential_log1p log1p
  *
  * \par Description
  * natural logarithm of 1+a0: \f$\log(1+a_0)\f$

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_log10 log10 function
+ * \defgroup standard_log10 log10
  *
  * \par Description
  * Please for details consult the proper documentation of the external

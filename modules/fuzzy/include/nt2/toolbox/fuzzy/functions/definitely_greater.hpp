@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_definitely_greater definitely_greater function
+ * \defgroup fuzzy_definitely_greater definitely_greater
  *
  * \par Description
  * \f$a_0 \gt \mathop{\mathrm{successor}}(a_1,|a_2|)\f$

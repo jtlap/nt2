@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cosecant cosecant function
+ * \defgroup trigonometric_cosecant cosecant
  *
  * \par Description
  * cosecant.

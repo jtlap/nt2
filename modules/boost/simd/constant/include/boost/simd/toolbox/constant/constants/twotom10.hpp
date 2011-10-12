@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_twotom10 Twotom10 constant
+ * \defgroup boost_simd_constant_twotom10 Twotom10
  *
  * \par Description
  * Constant Twotom10 = \f$2^{-10}\f$

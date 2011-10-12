@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_not_equal is_not_equal function
+ * \defgroup boost_simd_predicates_is_not_equal is_not_equal
  *
  * \par Description
  * Returns True<A0>() if a0 and a1 are not equal else False<A0>().
@@ -65,7 +65,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag is_not_equal_ of functor is_not_equal 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_equal_ {};

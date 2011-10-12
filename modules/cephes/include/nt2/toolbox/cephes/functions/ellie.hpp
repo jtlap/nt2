@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_ellie ellie function
+ * \defgroup cephes_ellie ellie
  *
  * \par Description
  * Please for details consult the proper documentation of the external

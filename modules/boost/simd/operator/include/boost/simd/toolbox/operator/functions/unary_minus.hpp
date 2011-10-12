@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_unary_minus unary_minus function
+ * \defgroup boost_simd_operator_unary_minus unary_minus
  *
  * \par Description
  * return the elementwise unary minus of the parameter

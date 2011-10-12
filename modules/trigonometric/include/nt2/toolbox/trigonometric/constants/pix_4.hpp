@@ -15,7 +15,7 @@
 
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_pix_4 Pix_4 constant
+ * \defgroup trigo_constant_pix_4 Pix_4
  *
  * \par Description
  * Constant pix_4 : \f$4\pi\f$.

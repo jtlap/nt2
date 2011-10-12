@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_bitfloating bitfloating function
+ * \defgroup boost_simd_ieee_bitfloating bitfloating
  *
  * \par Description
  * This function is mainly for inner usage and allows

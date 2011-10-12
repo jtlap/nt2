@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_third Third constant
+ * \defgroup boost_simd_constant_third Third
  *
  * \par Description
  * Constant Third= \f$\frac13\f$

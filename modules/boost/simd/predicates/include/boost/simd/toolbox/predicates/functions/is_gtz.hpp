@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_gtz is_gtz function
+ * \defgroup boost_simd_predicates_is_gtz is_gtz
  *
  * \par Description
  * Returns True<A0>() or False<A0>() according a0 is less than zero or not.
@@ -59,7 +59,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_gtz_ of functor is_gtz 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_gtz_ {};

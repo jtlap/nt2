@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_sin sin function
+ * \defgroup libc_sin sin
  *
  * \par Description
  * Please for details consult the proper documentation of the external

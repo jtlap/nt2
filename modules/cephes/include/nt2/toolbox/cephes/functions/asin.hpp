@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_asin asin function
+ * \defgroup cephes_asin asin
  *
  * \par Description
  * Please for details consult the proper documentation of the external

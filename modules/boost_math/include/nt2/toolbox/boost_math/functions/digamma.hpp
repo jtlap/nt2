@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_digamma digamma function
+ * \defgroup boost_math_digamma digamma
  *
  * \par Description
  * Please for details consult the proper documentation of the external

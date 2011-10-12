@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_eps eps function
+ * \defgroup boost_simd_ieee_eps eps
  *
  * \par Description
  * Returns 2 times the Machine epsilon

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_bitofsign bitofsign function
+ * \defgroup boost_simd_ieee_bitofsign bitofsign
  *
  * \par Description
  * Returns a value of the same type as the input

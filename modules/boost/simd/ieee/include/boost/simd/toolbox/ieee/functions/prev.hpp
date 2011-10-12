@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_prev prev function
+ * \defgroup boost_simd_ieee_prev prev
  *
  * \par Description
  * in the type A0 of a0, the greatest A0 strictly less than a0

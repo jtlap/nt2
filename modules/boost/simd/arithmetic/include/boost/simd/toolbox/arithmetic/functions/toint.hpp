@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_toint toint function
+ * \defgroup boost_simd_arithmetic_toint toint
  *
  * \par Description
  * convert an entry to integer by truncation.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cospi cospi function
+ * \defgroup trigonometric_cospi cospi
  *
  * \par Description
  * cosine of angle in \f$\pi\f$ multiples: \f$\cos(\pi a_0)\f$.

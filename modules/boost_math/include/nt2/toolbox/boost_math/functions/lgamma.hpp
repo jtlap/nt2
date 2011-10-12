@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_lgamma lgamma function
+ * \defgroup boost_math_lgamma lgamma
  *
  * \par Description
  * Please for details consult the proper documentation of the external

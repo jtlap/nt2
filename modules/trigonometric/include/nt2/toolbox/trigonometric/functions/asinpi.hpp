@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_asinpi asinpi function
+ * \defgroup trigonometric_asinpi asinpi
  *
  * \par Description
  * inverse sine in \f$\pi\f$ multiples.

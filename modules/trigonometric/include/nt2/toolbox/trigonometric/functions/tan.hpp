@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_tan tan function
+ * \defgroup trigonometric_tan tan
  *
  * \par Description
  * tangent.

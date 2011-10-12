@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_logical_not logical_not function
+ * \defgroup boost_simd_operator_logical_not logical_not
  *
  * \par Description
  * return the logical negation of the parameter,

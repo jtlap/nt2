@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_laguerre_n gsl_sf_laguerre_n function
+ * \defgroup gsl_specfun_gsl_sf_laguerre_n gsl_sf_laguerre_n
  *
  * \par Description
  * TODO Put description here

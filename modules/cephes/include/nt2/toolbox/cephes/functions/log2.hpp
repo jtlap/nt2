@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_log2 log2 function
+ * \defgroup cephes_log2 log2
  *
  * \par Description
  * Please for details consult the proper documentation of the external

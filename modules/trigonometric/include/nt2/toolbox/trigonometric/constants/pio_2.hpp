@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_pio_2 pio_2 constant
+ * \defgroup trigo_constant_pio_2 pio_2
  *
  * \par Description
  * Constant pio_2 : \f$\frac\pi{2}\f$.

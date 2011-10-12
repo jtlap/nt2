@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_bitwise_all bitwise_all function
+ * \defgroup boost_simd_reduction_bitwise_all bitwise_all
  *
  * \par Description
  * returns true if all vector bits are set else false

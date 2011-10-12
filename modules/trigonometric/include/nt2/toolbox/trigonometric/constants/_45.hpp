@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant__45 _45 constant
+ * \defgroup trigo_constant__45 _45 
  *
  * \par Description
  * Constant _45 : 45.

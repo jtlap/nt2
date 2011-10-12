@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_asinpi_ru asinpi_ru function
+ * \defgroup crlibm_asinpi_ru asinpi_ru
  *
  * \par Description
  * Please for details consult the proper documentation of the external

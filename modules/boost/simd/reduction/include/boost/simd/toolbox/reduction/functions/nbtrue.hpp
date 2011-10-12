@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_nbtrue nbtrue function
+ * \defgroup boost_simd_reduction_nbtrue nbtrue
  *
  * \par Description
  * returns the number of non zero elements of the input SIMD vector.

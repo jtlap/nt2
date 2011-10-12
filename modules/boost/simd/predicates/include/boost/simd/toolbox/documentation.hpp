@@ -1,5 +1,6 @@
 #error "This file is for documentation purpose only."
 /*!
- * \defgroup boost_simd_predicates boost/simd  module for defining predicates functions
+ * \ingroup Boost.SIMD 
+ * \defgroup boost_simd_predicates predicates functions
  * \brief Defines boost simd predicates functions
  **/

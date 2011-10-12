@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_cyl_bessel_j cyl_bessel_j function
+ * \defgroup boost_math_cyl_bessel_j cyl_bessel_j
  *
  * \par Description
  * Please for details consult the proper documentation of the external

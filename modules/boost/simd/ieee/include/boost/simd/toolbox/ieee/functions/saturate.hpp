@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_saturate saturate function
+ * \defgroup boost_simd_ieee_saturate saturate
  *
  * \par Description
  * saturate the value a0 in the template parameter type T,

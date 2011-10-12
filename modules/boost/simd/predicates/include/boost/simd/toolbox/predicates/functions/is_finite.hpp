@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_finite is_finite function
+ * \defgroup boost_simd_predicates_is_finite is_finite
  *
  * \par Description
  * Returns True<A0>() if a0 is not inf, -inf or nan, else returns False<A0>().
@@ -59,7 +59,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_finite_ of functor is_finite 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_finite_ {};

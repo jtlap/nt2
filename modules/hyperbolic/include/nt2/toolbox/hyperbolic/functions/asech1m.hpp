@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_asech1m asech1m function
+ * \defgroup hyperbolic_asech1m asech1m
  *
  * \par Description
  * TODO Put description here

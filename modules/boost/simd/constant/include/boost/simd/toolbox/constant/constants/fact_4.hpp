@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fact_4 Fact_4 constant
+ * \defgroup boost_simd_constant_fact_4 Fact_4
  *
  * \par Description
  * Constant Fact_4 4! = 24

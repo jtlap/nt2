@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_debye_6 gsl_sf_debye_6 function
+ * \defgroup gsl_specfun_gsl_sf_debye_6 gsl_sf_debye_6
  *
  * \par Description
  * TODO Put description here

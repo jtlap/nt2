@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_tanpi tanpi function
+ * \defgroup trigonometric_tanpi tanpi
  *
  * \par Description
  * tangent of angle in \f$\pi\f$ multiples: \f$\tan(\pi a_0)\f$.

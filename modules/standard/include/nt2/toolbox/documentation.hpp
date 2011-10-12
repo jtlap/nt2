@@ -1,6 +1,7 @@
 #error "This file is for documentation purpose only."
 /*!
- * \defgroup standard module for easy access to standard functions
+ * \ingroup toolbox  
+ * \defgroup standard standard functions access
  * \brief Allows easy access to functions from stdlib c++.
  *
  * Note that all these functions are present in proper nt2 modules, 

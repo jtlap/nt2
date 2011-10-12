@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_ldexp ldexp function
+ * \defgroup boost_simd_ieee_ldexp ldexp
  *
  * \par Description
  * The function multiply a floating entry $a_0$

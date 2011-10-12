@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_bitwise_or bitwise_or function
+ * \defgroup boost_simd_operator_bitwise_or bitwise_or
  *
  * \par Description
  * return the bitwise or of the two parameters

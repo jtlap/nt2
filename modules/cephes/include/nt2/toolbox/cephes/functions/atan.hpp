@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_atan atan function
+ * \defgroup cephes_atan atan
  *
  * \par Description
  * Please for details consult the proper documentation of the external

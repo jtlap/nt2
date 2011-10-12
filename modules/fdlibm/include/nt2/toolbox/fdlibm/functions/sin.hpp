@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_sin sin function
+ * \defgroup fdlibm_sin sin
  *
  * \par Description
  * Please for details consult the proper documentation of the external

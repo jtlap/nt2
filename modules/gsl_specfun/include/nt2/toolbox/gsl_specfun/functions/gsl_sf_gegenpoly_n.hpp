@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_gegenpoly_n gsl_sf_gegenpoly_n function
+ * \defgroup gsl_specfun_gsl_sf_gegenpoly_n gsl_sf_gegenpoly_n
  *
  * \par Description
  * TODO Put description here

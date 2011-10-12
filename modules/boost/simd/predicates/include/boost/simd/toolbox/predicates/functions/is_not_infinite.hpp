@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_not_infinite is_not_infinite function
+ * \defgroup boost_simd_predicates_is_not_infinite is_not_infinite
  *
  * \par Description
  * TODO Put description here
@@ -59,7 +59,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_not_infinite_ of functor is_not_infinite 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_infinite_ {};

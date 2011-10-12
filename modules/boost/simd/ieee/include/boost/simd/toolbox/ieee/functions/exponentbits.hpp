@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_exponentbits exponentbits function
+ * \defgroup boost_simd_ieee_exponentbits exponentbits
  *
  * \par Description
  * Returns the exponent bits of the floating input as an integer value.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_log __ieee754_log function
+ * \defgroup fdlibm___ieee754_log __ieee754_log
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_negs negs function
+ * \defgroup boost_simd_arithmetic_negs negs
  *
  * \par Description
  * returns saturation of $-a_0$ in the input type.

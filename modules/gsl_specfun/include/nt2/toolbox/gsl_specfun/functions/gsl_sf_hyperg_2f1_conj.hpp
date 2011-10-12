@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_hyperg_2f1_conj gsl_sf_hyperg_2f1_conj function
+ * \defgroup gsl_specfun_gsl_sf_hyperg_2f1_conj gsl_sf_hyperg_2f1_conj
  *
  * \par Description
  * TODO Put description here

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_asin asin function
+ * \defgroup fdlibm_asin asin
  *
  * \par Description
  * Please for details consult the proper documentation of the external

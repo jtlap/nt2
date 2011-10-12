@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_posmax posmax function
+ * \defgroup boost_simd_reduction_posmax posmax
  *
  * \par Description
  * Returns the index of the first occurence of greatest element of the SIMD vector

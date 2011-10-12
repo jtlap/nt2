@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_legendre_p2 gsl_sf_legendre_p2 function
+ * \defgroup gsl_specfun_gsl_sf_legendre_p2 gsl_sf_legendre_p2
  *
  * \par Description
  * TODO Put description here

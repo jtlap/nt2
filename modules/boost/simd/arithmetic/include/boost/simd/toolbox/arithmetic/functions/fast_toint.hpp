@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_fast_toint fast_toint function
+ * \defgroup boost_simd_arithmetic_fast_toint fast_toint
  *
  * \par Description
  * TODO Put description here

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_fabs fabs function
+ * \defgroup standard_fabs fabs
  *
  * \par Description
  * Please for details consult the proper documentation of the external

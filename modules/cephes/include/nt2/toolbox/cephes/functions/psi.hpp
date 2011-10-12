@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_psi psi function
+ * \defgroup cephes_psi psi
  *
  * \par Description
  * Please for details consult the proper documentation of the external

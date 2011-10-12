@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_erf erf function
+ * \defgroup fdlibm_erf erf
  *
  * \par Description
  * Please for details consult the proper documentation of the external

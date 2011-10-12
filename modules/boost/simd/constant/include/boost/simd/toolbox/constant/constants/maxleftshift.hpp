@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_maxleftshift Maxleftshift constant
+ * \defgroup boost_simd_constant_maxleftshift Maxleftshift
  *
  * \par Description
  * Constant Maxleftshift

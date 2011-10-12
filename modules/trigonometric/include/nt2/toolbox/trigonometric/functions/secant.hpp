@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_secant secant function
+ * \defgroup trigonometric_secant secant
  *
  * \par Description
  * TODO Put description here

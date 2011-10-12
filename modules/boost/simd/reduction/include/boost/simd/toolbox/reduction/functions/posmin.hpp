@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_posmin posmin function
+ * \defgroup boost_simd_reduction_posmin posmin
  *
  * \par Description
  * Returns the index of the first occurence of least element of the SIMD vector

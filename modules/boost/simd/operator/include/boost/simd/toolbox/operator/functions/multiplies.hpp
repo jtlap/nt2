@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_multiplies multiplies function
+ * \defgroup boost_simd_operator_multiplies multiplies
  *
  * \par Description
  * return the elementwise multiplication of the two parameters

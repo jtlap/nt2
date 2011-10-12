@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_sinpi fast_sinpi function
+ * \defgroup trigonometric_fast_sinpi fast_sinpi
  *
  * \par Description
  * sine of angle in \f$\pi\f$ multiples: \f$\cos(\pi a_0)\f$.

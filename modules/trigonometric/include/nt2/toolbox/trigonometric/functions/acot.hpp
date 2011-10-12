@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_acot acot function
+ * \defgroup trigonometric_acot acot
  *
  * \par Description
  * inverse cotangent.

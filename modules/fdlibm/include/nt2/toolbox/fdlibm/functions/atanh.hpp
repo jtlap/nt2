@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_atanh atanh function
+ * \defgroup fdlibm_atanh atanh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

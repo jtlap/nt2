@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_threeeps Threeeps constant
+ * \defgroup boost_simd_constant_threeeps Threeeps
  *
  * \par Description
  * Constant Threeeps = 3\f$\times\f$ Eps<T>()

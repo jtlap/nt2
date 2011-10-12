@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_atand atand function
+ * \defgroup trigonometric_atand atand
  *
  * \par Description
  * inverse tangent in degree.

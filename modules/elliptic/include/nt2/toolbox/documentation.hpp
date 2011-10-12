@@ -1,5 +1,6 @@
 #error "This file is for documentation purpose only."
 /**
- * \defgroup elliptic nt2 module for elliptic functions computations
+ * \ingroup toolbox  
+ * \defgroup elliptic elliptic functions
  * \brief Defines elliptic functions
  **/

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_ellik ellik function
+ * \defgroup cephes_ellik ellik
  *
  * \par Description
  * Please for details consult the proper documentation of the external

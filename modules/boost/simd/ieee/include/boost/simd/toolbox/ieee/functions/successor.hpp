@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_successor successor function
+ * \defgroup boost_simd_ieee_successor successor
  *
  * \par Description
  * With one parameter it is equivalent to \c next

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_shrai shrai function
+ * \defgroup boost_simd_bitwise_shrai shrai
  *
  * \par Description
  * The function returns the first entry arithmetically shifted right

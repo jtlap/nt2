@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_rem rem function
+ * \defgroup boost_simd_arithmetic_rem rem
  *
  * \par Description
  * This function computes the floating-point remainder of dividing a0 by a1.

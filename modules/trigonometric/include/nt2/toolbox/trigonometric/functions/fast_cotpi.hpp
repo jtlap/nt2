@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_cotpi fast_cotpi function
+ * \defgroup trigonometric_fast_cotpi fast_cotpi
  *
  * \par Description
  * cotangent of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.

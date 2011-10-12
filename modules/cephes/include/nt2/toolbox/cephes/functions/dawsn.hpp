@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_dawsn dawsn function
+ * \defgroup cephes_dawsn dawsn
  *
  * \par Description
  * Please for details consult the proper documentation of the external

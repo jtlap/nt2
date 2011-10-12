@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_cosh cosh function
+ * \defgroup standard_cosh cosh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

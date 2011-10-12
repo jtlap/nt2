@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_remainder __ieee754_remainder function
+ * \defgroup fdlibm___ieee754_remainder __ieee754_remainder
  *
  * \par Description
  * Please for details consult the proper documentation of the external

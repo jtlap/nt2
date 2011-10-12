@@ -1,6 +1,7 @@
 #error "This file is for documentation purpose only."
 /**
- * \defgroup cephes module for easy access to cephes functions
+ * \ingroup toolbox  
+ * \defgroup cephes cephes functions access
  * \brief easy access to functions from the cephes C library
  *
  * Note that many of these functions are present in proper nt2 modules,

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_split split function
+ * \defgroup boost_simd_swar_split split
  *
  * \par Description
  * takes one SIMD vector of elements of size n

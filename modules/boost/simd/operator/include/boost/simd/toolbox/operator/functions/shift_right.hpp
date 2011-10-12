@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_shift_right shift_right function
+ * \defgroup boost_simd_operator_shift_right shift_right
  *
  * \par Description
  * return right shift of the first operand by the second

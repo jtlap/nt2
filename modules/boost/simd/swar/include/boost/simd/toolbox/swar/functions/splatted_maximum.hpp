@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_splatted_maximum splatted_maximum function
+ * \defgroup boost_simd_swar_splatted_maximum splatted_maximum
  *
  * \par Description
  * TODO Put description here

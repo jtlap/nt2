@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_three Three constant
+ * \defgroup boost_simd_constant_three Three
  *
  * \par Description
  * Constant Three = 3

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_ulpdist ulpdist function
+ * \defgroup boost_simd_ieee_ulpdist ulpdist
  *
  * \par Description
  * Returns ulp distance of the two values.

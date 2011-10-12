@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_asin asin function
+ * \defgroup trigonometric_asin asin
  *
  * \par Description
  * inverse sine.

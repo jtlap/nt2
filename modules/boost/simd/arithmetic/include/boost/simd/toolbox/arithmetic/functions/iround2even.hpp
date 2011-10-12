@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_iround2even iround2even function
+ * \defgroup boost_simd_arithmetic_iround2even iround2even
  *
  * \par Description
  * return a value of integer type of the same size and signedness than the entry.

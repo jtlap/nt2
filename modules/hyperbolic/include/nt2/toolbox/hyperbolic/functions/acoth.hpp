@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_acoth acoth function
+ * \defgroup hyperbolic_acoth acoth
  *
  * \par Description
  * hyperbolic cotangent argument \f$\frac12\frac{a_0^2+1}{a_0^2-1}\f$

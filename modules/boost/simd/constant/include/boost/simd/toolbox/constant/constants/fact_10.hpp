@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_fact_10 Fact_10 constant
+ * \defgroup boost_simd_constant_fact_10 Fact_10
  *
  * \par Description
  * Constant Fact_10, 10! = 3628800, the saturated factorial value is

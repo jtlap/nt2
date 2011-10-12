@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_cot fast_cot function
+ * \defgroup trigonometric_fast_cot fast_cot
  *
  * \par Description
  * cotangent in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.

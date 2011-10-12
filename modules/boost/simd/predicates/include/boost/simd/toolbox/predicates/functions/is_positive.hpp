@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_positive is_positive function
+ * \defgroup boost_simd_predicates_is_positive is_positive
  *
  * \par Description
  * Returns True<A0>() if a0 is positive else False<A0>().
@@ -67,7 +67,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_positive_ of functor is_positive 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_positive_ {};

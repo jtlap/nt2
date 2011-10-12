@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_first first function
+ * \defgroup boost_simd_reduction_first first
  *
  * \par Description
  * returns the first element of the input vector.

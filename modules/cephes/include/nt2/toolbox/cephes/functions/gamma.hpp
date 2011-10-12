@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_gamma gamma function
+ * \defgroup cephes_gamma gamma
  *
  * \par Description
  * Please for details consult the proper documentation of the external

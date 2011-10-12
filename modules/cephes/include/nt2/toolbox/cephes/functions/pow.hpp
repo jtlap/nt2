@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_pow pow function
+ * \defgroup cephes_pow pow
  *
  * \par Description
  * Please for details consult the proper documentation of the external

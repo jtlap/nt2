@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_sinh sinh function
+ * \defgroup libc_sinh sinh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

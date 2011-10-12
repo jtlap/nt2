@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_tgamma tgamma function
+ * \defgroup boost_math_tgamma tgamma
  *
  * \par Description
  * Please for details consult the proper documentation of the external

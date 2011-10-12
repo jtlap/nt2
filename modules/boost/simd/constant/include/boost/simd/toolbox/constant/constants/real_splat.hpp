@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_real_splat Real_splat constant
+ * \defgroup boost_simd_constant_real_splat Real_splat
  *
  * \par Description
  * TODO Put description here

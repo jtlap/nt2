@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_divround divround function
+ * \defgroup boost_simd_arithmetic_divround divround
  *
  * \par Description
  * return the \c round of the operands real divisionin the input type

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_tan fast_tan function
+ * \defgroup trigonometric_fast_tan fast_tan
  *
  * \par Description
  * tangent in the interval \f$[-\pi/4, \pi/4]\f$, nan outside.

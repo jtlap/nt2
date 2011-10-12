@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_less_equal is_less_equal function
+ * \defgroup boost_simd_predicates_is_less_equal is_less_equal
  *
  * \par Description
  * Returns True<A0>() or False<A0>() according a0 is less or equal to a1 or not.
@@ -64,7 +64,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-    _
+     * \brief Define the tag is_less_equal_ of functor is_less_equal 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_less_equal_ {};

@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_modulo modulo function
+ * \defgroup boost_simd_operator_modulo modulo
  *
  * \par Description
  * return the elementwise modulo of the two parameters

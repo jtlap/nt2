@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup bessel_yni yni function
+ * \defgroup bessel_yni yni
  *
  * \par Description
  * Modified Bessel function of the first kind of order n.

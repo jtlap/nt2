@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_fuzzy_definitely_less fuzzy_definitely_less function
+ * \defgroup fuzzy_fuzzy_definitely_less fuzzy_definitely_less
  *
  * \par Description
  * a_0 \lt a_1-a_2*\max(|a_0|,|a1|)

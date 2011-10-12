@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_oneo_180 oneo_180 constant
+ * \defgroup trigo_constant_oneo_180 oneo_180
  *
  * \par Description
  * Constant Oneo_180 : \f$\frac1{180}\f$.

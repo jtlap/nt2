@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_negate negate function
+ * \defgroup boost_simd_ieee_negate negate
  *
  * \par Description
  * a1 < 0 ? a0 : -a0

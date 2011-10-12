@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_atanh atanh function
+ * \defgroup hyperbolic_atanh atanh
  *
  * \par Description
  * hyperbolic tangent argument \f$\frac12\frac{a_0^2-1}{a_0^2+1}\f$

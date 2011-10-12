@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_fermi_dirac_mhalf gsl_sf_fermi_dirac_mhalf function
+ * \defgroup gsl_specfun_gsl_sf_fermi_dirac_mhalf gsl_sf_fermi_dirac_mhalf
  *
  * \par Description
  * TODO Put description here

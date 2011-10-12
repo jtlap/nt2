@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cotangent cotangent function
+ * \defgroup trigonometric_cotangent cotangent
  *
  * \par Description
  * templated cosine.

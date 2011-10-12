@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_splatted_sum splatted_sum function
+ * \defgroup boost_simd_swar_splatted_sum splatted_sum
  *
  * \par Description
  * returns the sum of a0 elements splatted in a vector

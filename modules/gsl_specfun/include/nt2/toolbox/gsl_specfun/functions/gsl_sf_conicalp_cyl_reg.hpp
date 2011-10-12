@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_conicalp_cyl_reg gsl_sf_conicalp_cyl_reg function
+ * \defgroup gsl_specfun_gsl_sf_conicalp_cyl_reg gsl_sf_conicalp_cyl_reg
  *
  * \par Description
  * TODO Put description here

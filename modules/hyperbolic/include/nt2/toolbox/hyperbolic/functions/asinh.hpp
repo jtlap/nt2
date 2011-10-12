@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_asinh asinh function
+ * \defgroup hyperbolic_asinh asinh
  *
  * \par Description
  * hyperbolic sine argument: \f$\log(a_0+\sqrt{a_0^2+1})\f$.

@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_eps Eps constant
+ * \defgroup boost_simd_constant_eps Eps
  *
  * \par Description
  * Constant Eps

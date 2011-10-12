@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_saturate_at saturate_at function
+ * \defgroup boost_simd_ieee_saturate_at saturate_at
  *
  * \par Description
  * TODO Put description here

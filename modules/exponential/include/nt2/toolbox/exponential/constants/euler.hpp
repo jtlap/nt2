@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup expon_constant
- * \defgroup expon_constant_euler Euler constant
+ * \defgroup expon_constant_euler Euler
  *
  * \par Description
  * Constant euler : Euler constant.

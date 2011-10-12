@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_sinhc sinhc function
+ * \defgroup hyperbolic_sinhc sinhc
  *
  * \par Description
  * hyperbolic cardinal sine: \f$\frac{\sinh(a_0)}{a_0}\f$.

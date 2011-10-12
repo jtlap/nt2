@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_thirdrooteps Thirdrooteps constant
+ * \defgroup boost_simd_constant_thirdrooteps Thirdrooteps
  *
  * \par Description
  * Constant Thirdrooteps

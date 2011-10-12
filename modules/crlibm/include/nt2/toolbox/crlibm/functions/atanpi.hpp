@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_atanpi atanpi function
+ * \defgroup crlibm_atanpi atanpi
  *
  * \par Description
  * Please for details consult the proper documentation of the external

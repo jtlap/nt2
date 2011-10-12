@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_acos acos function
+ * \defgroup trigonometric_acos acos
  *
  * \par Description
  * inverse cosine.

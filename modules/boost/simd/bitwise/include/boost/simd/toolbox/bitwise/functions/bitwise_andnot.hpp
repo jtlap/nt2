@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_bitwise_andnot bitwise_andnot function
+ * \defgroup boost_simd_bitwise_bitwise_andnot bitwise_andnot
  *
  * \par Description
  * return the bitwise and of the first parameter

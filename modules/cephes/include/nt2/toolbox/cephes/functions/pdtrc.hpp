@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_pdtrc pdtrc function
+ * \defgroup cephes_pdtrc pdtrc
  *
  * \par Description
  * Please for details consult the proper documentation of the external

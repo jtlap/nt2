@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_maxnummag maxnummag function
+ * \defgroup boost_simd_ieee_maxnummag maxnummag
  *
  * \par Description
  * Returns the input value which have the greatest absolute value, ignoring nan.

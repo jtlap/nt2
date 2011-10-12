@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_rint rint function
+ * \defgroup fdlibm_rint rint
  *
  * \par Description
  * Please for details consult the proper documentation of the external

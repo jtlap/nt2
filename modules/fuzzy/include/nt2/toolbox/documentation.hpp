@@ -1,6 +1,7 @@
 #error "This file is for documentation purpose only."
 /**
- * \defgroup fuzzy nt2 module for fuzzy functions computations
+ * \ingroup toolbox  
+ * \defgroup fuzzy fuzzy functions
  * \brief Defines fuzzy functions
  *
  * These function are predicates to tell if values are equal, not equal,

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_abs abs function
+ * \defgroup libc_abs abs
  *
  * \par Description
  * Please for details consult the proper documentation of the external

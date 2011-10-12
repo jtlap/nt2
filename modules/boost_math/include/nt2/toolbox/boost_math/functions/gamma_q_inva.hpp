@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_gamma_q_inva gamma_q_inva function
+ * \defgroup boost_math_gamma_q_inva gamma_q_inva
  *
  * \par Description
  * Please for details consult the proper documentation of the external

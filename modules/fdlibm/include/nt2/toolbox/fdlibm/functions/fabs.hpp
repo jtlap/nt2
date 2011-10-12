@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_fabs fabs function
+ * \defgroup fdlibm_fabs fabs
  *
  * \par Description
  * Please for details consult the proper documentation of the external

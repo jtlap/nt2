@@ -14,8 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_deginrad Deginrad constant
- *
+ * \defgroup trigo_constant_deginrad Deginrad
  * \par Description
  * Constant Deginrad : radian in degree  multiplier, \f$\frac\pi{180}\f$.
  * 

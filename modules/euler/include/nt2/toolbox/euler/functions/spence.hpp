@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_spence spence function
+ * \defgroup euler_spence spence
  *
  * \par Description
  * spence function or dilogarithm

@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_ibetac_invb ibetac_invb function
+ * \defgroup boost_math_ibetac_invb ibetac_invb
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_atanpi atanpi function
+ * \defgroup trigonometric_atanpi atanpi
  *
  * \par Description
  * inverse tangent in \f$\pi\f$ multiples.

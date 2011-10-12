@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_cos gsl_sf_cos function
+ * \defgroup gsl_specfun_gsl_sf_cos gsl_sf_cos
  *
  * \par Description
  * TODO Put description here

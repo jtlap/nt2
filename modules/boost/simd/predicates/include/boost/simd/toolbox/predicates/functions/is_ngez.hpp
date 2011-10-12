@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_ngez is_ngez function
+ * \defgroup boost_simd_predicates_is_ngez is_ngez
  *
  * \par Description
  * Returns True<A0>() if a0 is not greater or equal to zero else returns False<A0>().
@@ -61,7 +61,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_ngez_ of functor is_ngez 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_ngez_ {};

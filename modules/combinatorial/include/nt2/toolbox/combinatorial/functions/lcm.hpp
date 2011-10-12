@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup combinatorial_lcm lcm function
+ * \defgroup combinatorial_lcm lcm
  *
  * \par Description
  * least common multiple

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sinpi sinpi function
+ * \defgroup trigonometric_sinpi sinpi
  *
  * \par Description
  * sine of angle in \f$\pi\f$ multiples: \f$\sin(\pi a_0)\f$.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_bitwise_select bitwise_select function
+ * \defgroup boost_simd_bitwise_bitwise_select bitwise_select
  *
  * \par Description
  * Returns the bitwise selection of bits from the second

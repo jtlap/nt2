@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_ceil ceil function
+ * \defgroup boost_simd_arithmetic_ceil ceil
  *
  * \par Description
  * return a value of the same type of the entry

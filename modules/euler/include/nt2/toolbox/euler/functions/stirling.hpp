@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_stirling stirling function
+ * \defgroup euler_stirling stirling
  *
  * \par Description
  * Stirling formula for the gamma function

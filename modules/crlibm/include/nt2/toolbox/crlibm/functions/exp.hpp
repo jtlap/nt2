@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_exp exp function
+ * \defgroup crlibm_exp exp
  *
  * \par Description
  * Please for details consult the proper documentation of the external

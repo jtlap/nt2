@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_tand tand function
+ * \defgroup trigonometric_tand tand
  *
  * \par Description
  * TODO Put description here

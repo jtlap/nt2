@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup elliptic_ellik ellik function
+ * \defgroup elliptic_ellik ellik
  *
  * \par Description
  * Incomplete elliptic integral of the second kind

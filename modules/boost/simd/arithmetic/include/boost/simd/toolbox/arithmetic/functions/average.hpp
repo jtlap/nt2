@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_average average function
+ * \defgroup boost_simd_arithmetic_average average
  *
  * \par Description
  * The function always returns a value of the same type than the entry.

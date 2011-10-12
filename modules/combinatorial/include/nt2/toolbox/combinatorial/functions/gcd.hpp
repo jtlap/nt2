@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup combinatorial_gcd gcd function
+ * \defgroup combinatorial_gcd gcd
  *
  * \par Description
  * greatest common divisor

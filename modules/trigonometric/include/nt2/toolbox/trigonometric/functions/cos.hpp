@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cos cos function
+ * \defgroup trigonometric_cos cos
  *
  * \par Description
  * cosine.

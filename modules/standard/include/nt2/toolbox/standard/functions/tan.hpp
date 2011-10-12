@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_tan tan function
+ * \defgroup standard_tan tan
  *
  * \par Description
  * Please for details consult the proper documentation of the external

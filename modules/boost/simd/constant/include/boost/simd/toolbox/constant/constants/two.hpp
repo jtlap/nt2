@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_two Two constant
+ * \defgroup boost_simd_constant_two Two
  *
  * \par Description
  * Constant Two = 2

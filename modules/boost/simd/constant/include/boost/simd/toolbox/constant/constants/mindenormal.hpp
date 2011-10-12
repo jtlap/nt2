@@ -21,7 +21,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mindenormal Mindenormal constant
+ * \defgroup boost_simd_constant_mindenormal Mindenormal
  *
  * \par Description
  * Constant Mindenormal : the least non zero positive value of floating point numbers,

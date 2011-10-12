@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_splat splat function
+ * \defgroup boost_simd_operator_splat splat
  *
  * \par Description
  * TODO Put description here

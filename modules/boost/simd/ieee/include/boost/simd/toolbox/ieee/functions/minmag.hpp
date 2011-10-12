@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_minmag minmag function
+ * \defgroup boost_simd_ieee_minmag minmag
  *
  * \par Description
  * Returns the input value which have the least absolute value.

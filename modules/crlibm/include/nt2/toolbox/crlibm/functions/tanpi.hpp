@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_tanpi tanpi function
+ * \defgroup crlibm_tanpi tanpi
  *
  * \par Description
  * Please for details consult the proper documentation of the external

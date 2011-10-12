@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_genmask genmask function
+ * \defgroup boost_simd_bitwise_genmask genmask
  *
  * \par Description
  * The function returns a mask of bits. All ones if the.

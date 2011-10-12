@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_radindeg Radindeg constant
+ * \defgroup trigo_constant_radindeg Radindeg
  *
  * \par Description
  * Constant Radindeg : Degree in radian multiplier, \f$\frac{180}\pi\f$.

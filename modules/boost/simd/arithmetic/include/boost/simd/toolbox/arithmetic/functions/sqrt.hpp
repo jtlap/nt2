@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_sqrt sqrt function
+ * \defgroup boost_simd_arithmetic_sqrt sqrt
  *
  * \par Description
  * return a floating point value which is the square root of the entry

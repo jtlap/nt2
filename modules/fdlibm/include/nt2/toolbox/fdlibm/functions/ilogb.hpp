@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_ilogb ilogb function
+ * \defgroup fdlibm_ilogb ilogb
  *
  * \par Description
  * Please for details consult the proper documentation of the external

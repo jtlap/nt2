@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_fouropi Fouropi constant
+ * \defgroup trigo_constant_fouropi Fouropi
  *
  * \par Description
  * Constant Fouropi : \f$\frac4\pi\f$.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cotd cotd function
+ * \defgroup trigonometric_cotd cotd
  *
  * \par Description
  * cotangent of angle in degree.

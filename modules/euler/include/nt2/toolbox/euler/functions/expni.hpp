@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_expni expni function
+ * \defgroup euler_expni expni
  *
  * \par Description
  * exponential integral function

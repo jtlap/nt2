@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_false False constant
+ * \defgroup boost_simd_constant_false False
  *
  * \par Description
  * Constant False

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_lngamma gsl_sf_lngamma function
+ * \defgroup gsl_specfun_gsl_sf_lngamma gsl_sf_lngamma
  *
  * \par Description
  * TODO Put description here

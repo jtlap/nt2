@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_sincosd fast_sincosd function
+ * \defgroup trigonometric_fast_sincosd fast_sincosd
  *
  * \par Description
  * simultaneous sine and cosine from angle in degree in the interval \f$[-45, 45]\f$, nan outside.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_secpi secpi function
+ * \defgroup trigonometric_secpi secpi
  *
  * \par Description
  * secant of the angle in pi multiples.

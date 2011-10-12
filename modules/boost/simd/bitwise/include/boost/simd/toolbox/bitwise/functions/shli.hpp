@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_shli shli function
+ * \defgroup boost_simd_bitwise_shli shli
  *
  * \par Description
  * The function returns the first entry logically shifted left

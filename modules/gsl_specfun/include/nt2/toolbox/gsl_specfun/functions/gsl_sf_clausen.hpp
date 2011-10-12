@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_clausen gsl_sf_clausen function
+ * \defgroup gsl_specfun_gsl_sf_clausen gsl_sf_clausen
  *
  * \par Description
  * TODO Put description here

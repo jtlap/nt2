@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_sqrt __ieee754_sqrt function
+ * \defgroup fdlibm___ieee754_sqrt __ieee754_sqrt
  *
  * \par Description
  * Please for details consult the proper documentation of the external

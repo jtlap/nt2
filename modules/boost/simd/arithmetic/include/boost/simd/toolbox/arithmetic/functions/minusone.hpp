@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_minusone minusone function
+ * \defgroup boost_simd_arithmetic_minusone minusone
  *
  * \par Description
  * return the entry minus one saturated

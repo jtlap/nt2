@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_asin asin function
+ * \defgroup libc_asin asin
  *
  * \par Description
  * Please for details consult the proper documentation of the external

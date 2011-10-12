@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_yn yn function
+ * \defgroup fdlibm_yn yn
  *
  * \par Description
  * Please for details consult the proper documentation of the external

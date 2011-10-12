@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_pow pow function
+ * \defgroup libc_pow pow
  *
  * \par Description
  * Please for details consult the proper documentation of the external

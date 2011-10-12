@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_splatted_second splatted_second function
+ * \defgroup boost_simd_swar_splatted_second splatted_second
  *
  * \par Description
  * returns the second element of a0 splatted in a vector

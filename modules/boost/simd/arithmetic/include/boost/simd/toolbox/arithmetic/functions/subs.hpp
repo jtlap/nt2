@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_subs subs function
+ * \defgroup boost_simd_arithmetic_subs subs
  *
  * \par Description
  * The result is the mathetical subtraction of the arguments

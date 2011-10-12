@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_struve struve function
+ * \defgroup cephes_struve struve
  *
  * \par Description
  * Please for details consult the proper documentation of the external

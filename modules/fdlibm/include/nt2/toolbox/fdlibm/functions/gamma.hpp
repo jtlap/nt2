@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_gamma gamma function
+ * \defgroup fdlibm_gamma gamma
  *
  * \par Description
  * Please for details consult the proper documentation of the external

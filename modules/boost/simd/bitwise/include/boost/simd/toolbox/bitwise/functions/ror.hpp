@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_ror ror function
+ * \defgroup boost_simd_bitwise_ror ror
  *
  * \par Description
  * The function returns the first entry rotated right

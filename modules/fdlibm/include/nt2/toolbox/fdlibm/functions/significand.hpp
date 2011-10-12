@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_significand significand function
+ * \defgroup fdlibm_significand significand
  *
  * \par Description
  * Please for details consult the proper documentation of the external

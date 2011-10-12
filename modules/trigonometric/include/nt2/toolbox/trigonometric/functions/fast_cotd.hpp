@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_cotd fast_cotd function
+ * \defgroup trigonometric_fast_cotd fast_cotd
  *
  * \par Description
  * cotangent of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.

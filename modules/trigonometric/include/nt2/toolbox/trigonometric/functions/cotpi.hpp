@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cotpi cotpi function
+ * \defgroup trigonometric_cotpi cotpi
  *
  * \par Description
  * cotangent of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.

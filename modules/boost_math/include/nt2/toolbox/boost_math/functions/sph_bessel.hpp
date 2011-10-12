@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_sph_bessel sph_bessel function
+ * \defgroup boost_math_sph_bessel sph_bessel
  *
  * \par Description
  * Please for details consult the proper documentation of the external

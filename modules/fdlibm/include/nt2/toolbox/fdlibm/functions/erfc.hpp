@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_erfc erfc function
+ * \defgroup fdlibm_erfc erfc
  *
  * \par Description
  * Please for details consult the proper documentation of the external

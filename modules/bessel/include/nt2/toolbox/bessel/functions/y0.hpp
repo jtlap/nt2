@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup bessel_y0 y0 function
+ * \defgroup bessel_y0 y0
  *
  * \par Description
  * Bessel function of the second kind of order 0.

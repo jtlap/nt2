@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_acospi acospi function
+ * \defgroup trigonometric_acospi acospi
  *
  * \par Description
  * inverse cosine in \f$\pi\f$ multiples.

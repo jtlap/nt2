@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_unord is_unord function
+ * \defgroup boost_simd_predicates_is_unord is_unord
  *
  * \par Description
  * Returns True<A0>() if a0 or a1 is nan.
@@ -60,7 +60,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_unord_ of functor is_unord 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_unord_ {};

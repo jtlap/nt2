@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_bitwise_xor bitwise_xor function
+ * \defgroup boost_simd_operator_bitwise_xor bitwise_xor
  *
  * \par Description
  * return the bitwise xor of the two parameters

@@ -1,5 +1,6 @@
 /*!
- * \defgroup libc module for easy access to libc functions
+ * \ingroup toolbox  
+ * \defgroup libc libc functions access
  * \brief Allows easy access to functions from the standard C library.
  *
  * Note that all these functions are present in proper nt2 modules,

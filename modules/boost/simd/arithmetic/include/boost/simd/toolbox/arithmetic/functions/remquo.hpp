@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_remquo remquo function
+ * \defgroup boost_simd_arithmetic_remquo remquo
  *
  * \par Description
  * compute the quotient and at least 3 bits of the remainder of the division

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_rshl rshl function
+ * \defgroup boost_simd_bitwise_rshl rshl
  *
  * \par Description
  * The function returns the first entry shifted left or right

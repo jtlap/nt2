@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_oneplus oneplus function
+ * \defgroup boost_simd_arithmetic_oneplus oneplus
  *
  * \par Description
  * returns the saturated $1+a_0$

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_signnz signnz function
+ * \defgroup boost_simd_ieee_signnz signnz
  *
  * \par Description
  * Returns the sign of a0. I.e. -1 or 1, according

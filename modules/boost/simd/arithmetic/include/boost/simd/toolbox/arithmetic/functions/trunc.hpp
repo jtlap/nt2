@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_trunc trunc function
+ * \defgroup boost_simd_arithmetic_trunc trunc
  *
  * \par Description
  * TODO Put description here

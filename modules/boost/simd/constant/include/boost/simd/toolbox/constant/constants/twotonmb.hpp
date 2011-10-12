@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_twotonmb Twotonmb constant
+ * \defgroup boost_simd_constant_twotonmb Twotonmb
  *
  * \par Description
  * Constant Twotonmb two to the number of mantissa bits.

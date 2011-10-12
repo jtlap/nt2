@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_nine Nine constant
+ * \defgroup boost_simd_constant_nine Nine
  *
  * \par Description
  * Constant Nine = 9

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_pow pow function
+ * \defgroup exponential_pow pow
  *
  * \par Description
  * Power function: ${a_0}^{a_1}$

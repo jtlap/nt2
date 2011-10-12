@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_rem_pio2 rem_pio2 function
+ * \defgroup trigonometric_rem_pio2 rem_pio2
  *
  * \par Description
  * compute the remainder modulo \f$pi/2\f$.

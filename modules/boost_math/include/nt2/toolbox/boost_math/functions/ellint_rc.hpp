@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_ellint_rc ellint_rc function
+ * \defgroup boost_math_ellint_rc ellint_rc
  *
  * \par Description
  * Please for details consult the proper documentation of the external

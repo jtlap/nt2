@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_hyperg hyperg function
+ * \defgroup cephes_hyperg hyperg
  *
  * \par Description
  * Please for details consult the proper documentation of the external

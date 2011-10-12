@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_finite finite function
+ * \defgroup fdlibm_finite finite
  *
  * \par Description
  * Please for details consult the proper documentation of the external

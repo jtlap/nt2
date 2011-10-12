@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_reversebits reversebits function
+ * \defgroup boost_simd_bitwise_reversebits reversebits
  *
  * \par Description
  * The function returns the bits of the entry in reverse order,

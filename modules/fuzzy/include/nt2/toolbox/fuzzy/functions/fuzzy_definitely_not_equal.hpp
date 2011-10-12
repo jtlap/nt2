@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_fuzzy_definitely_not_equal fuzzy_definitely_not_equal function
+ * \defgroup fuzzy_fuzzy_definitely_not_equal fuzzy_definitely_not_equal
  *
  * \par Description
  * \f$|a_0-a_1| \gt a_2*\max(|a_0|,|a1|)\f$

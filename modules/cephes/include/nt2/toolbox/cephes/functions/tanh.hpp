@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_tanh tanh function
+ * \defgroup cephes_tanh tanh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_remainder remainder function
+ * \defgroup fdlibm_remainder remainder
  *
  * \par Description
  * Please for details consult the proper documentation of the external

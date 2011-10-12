@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_acsch acsch function
+ * \defgroup hyperbolic_acsch acsch
  *
  * \par Description
  * hyperbolic cosecant argument \f$\mathop{\textrm{asinh}}(1/a_0)\f$

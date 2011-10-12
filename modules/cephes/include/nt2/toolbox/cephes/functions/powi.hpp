@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_powi powi function
+ * \defgroup cephes_powi powi
  *
  * \par Description
  * Please for details consult the proper documentation of the external

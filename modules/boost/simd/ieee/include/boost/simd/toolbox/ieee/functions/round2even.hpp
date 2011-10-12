@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_round2even round2even function
+ * \defgroup boost_simd_ieee_round2even round2even
  *
  * \par Description
  * round to the nearest integer

@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup expon_constant
- * \defgroup expon_constant_log_10 Log_10 constant
+ * \defgroup expon_constant_log_10 Log_10
  *
  * \par Description
  * Constant log_10 : \f$\log(10)\f$ constant.

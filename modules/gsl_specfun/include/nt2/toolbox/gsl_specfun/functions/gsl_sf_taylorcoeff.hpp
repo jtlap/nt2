@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_taylorcoeff gsl_sf_taylorcoeff function
+ * \defgroup gsl_specfun_gsl_sf_taylorcoeff gsl_sf_taylorcoeff
  *
  * \par Description
  * TODO Put description here

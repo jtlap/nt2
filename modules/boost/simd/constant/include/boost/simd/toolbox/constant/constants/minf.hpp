@@ -22,7 +22,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_minf Minf constant
+ * \defgroup boost_simd_constant_minf Minf
  *
  * \par Description
  * Constant Minf

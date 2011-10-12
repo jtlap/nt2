@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_bits bits function
+ * \defgroup boost_simd_bitwise_bits bits
  *
  * \par Description
  * The function return unsigned integer value which has the same bits of the input

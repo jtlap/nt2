@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_cot cot function
+ * \defgroup cephes_cot cot
  *
  * \par Description
  * Please for details consult the proper documentation of the external

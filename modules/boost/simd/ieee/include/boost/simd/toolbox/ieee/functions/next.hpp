@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_next next function
+ * \defgroup boost_simd_ieee_next next
  *
  * \par Description
  * in the type A0 of a0, the least A0 strictly greater than a0

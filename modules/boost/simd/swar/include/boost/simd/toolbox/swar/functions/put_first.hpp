@@ -18,7 +18,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_put_first put_first function
+ * \defgroup boost_simd_swar_put_first put_first
  *
  * \par Description
  * returns a vector equal to a0 except that

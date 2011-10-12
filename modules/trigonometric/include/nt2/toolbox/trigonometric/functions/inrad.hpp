@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_inrad inrad function
+ * \defgroup trigonometric_inrad inrad
  *
  * \par Description
  * convert degree to radian.

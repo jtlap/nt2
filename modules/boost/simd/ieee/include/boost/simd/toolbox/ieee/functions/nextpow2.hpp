@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_nextpow2 nextpow2 function
+ * \defgroup boost_simd_ieee_nextpow2 nextpow2
  *
  * \par Description
  * Returns the least n such that abs(a0) is less or equal to $2^n$

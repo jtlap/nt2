@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_atan2 atan2 function
+ * \defgroup trigonometric_atan2 atan2
  *
  * \par Description
  * atan2 function.

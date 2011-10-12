@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_nbdtrc nbdtrc function
+ * \defgroup cephes_nbdtrc nbdtrc
  *
  * \par Description
  * Please for details consult the proper documentation of the external

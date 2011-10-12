@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_asecd asecd function
+ * \defgroup trigonometric_asecd asecd
  *
  * \par Description
  * TODO Put description here

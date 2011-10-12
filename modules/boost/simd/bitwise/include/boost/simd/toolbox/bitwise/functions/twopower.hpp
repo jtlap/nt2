@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_twopower twopower function
+ * \defgroup boost_simd_bitwise_twopower twopower
  *
  * \par Description
  * The function returns greatest power of two less or equal to the input.

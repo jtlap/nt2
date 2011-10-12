@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sin sin function
+ * \defgroup trigonometric_sin sin
  *
  * \par Description
  * sine

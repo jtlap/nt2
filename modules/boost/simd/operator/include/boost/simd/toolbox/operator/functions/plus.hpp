@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_plus plus function
+ * \defgroup boost_simd_operator_plus plus
  *
  * \par Description
  * return the elementwise sum of the two parameters

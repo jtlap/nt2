@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_minus minus function
+ * \defgroup boost_simd_operator_minus minus
  *
  * \par Description
  * return the elementwise difference of the two parameters

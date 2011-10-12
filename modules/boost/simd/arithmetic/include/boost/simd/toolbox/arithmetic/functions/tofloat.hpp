@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_tofloat tofloat function
+ * \defgroup boost_simd_arithmetic_tofloat tofloat
  *
  * \par Description
  * convert an entry to floating points.

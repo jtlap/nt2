@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_arg arg function
+ * \defgroup boost_simd_arithmetic_arg arg
  *
  * \par Description
  * The result is the argument of the input

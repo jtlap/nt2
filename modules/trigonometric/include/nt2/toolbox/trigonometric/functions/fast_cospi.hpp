@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_cospi fast_cospi function
+ * \defgroup trigonometric_fast_cospi fast_cospi
  *
  * \par Description
  * cosine of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.

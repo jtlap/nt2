@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_even is_even function
+ * \defgroup boost_simd_predicates_is_even is_even
  *
  * \par Description
  * Returns True<A0>() or False<A0>() according a0 is even or not.
@@ -66,7 +66,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_even_ of functor is_even 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_even_ {};

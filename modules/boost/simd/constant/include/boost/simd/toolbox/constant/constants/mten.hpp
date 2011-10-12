@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mten Mten constant
+ * \defgroup boost_simd_constant_mten Mten
  *
  * \par Description
  * Constant Mten = -10

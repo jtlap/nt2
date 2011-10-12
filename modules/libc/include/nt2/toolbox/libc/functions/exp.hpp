@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_exp exp function
+ * \defgroup libc_exp exp
  *
  * \par Description
  * Please for details consult the proper documentation of the external

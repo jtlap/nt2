@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_if_else if_else function
+ * \defgroup boost_simd_operator_if_else if_else
  *
  * \par Description
  * return the elementwise selected element from the second and third operand

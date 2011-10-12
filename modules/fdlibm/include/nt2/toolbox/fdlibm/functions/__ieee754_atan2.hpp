@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_atan2 __ieee754_atan2 function
+ * \defgroup fdlibm___ieee754_atan2 __ieee754_atan2
  *
  * \par Description
  * Please for details consult the proper documentation of the external

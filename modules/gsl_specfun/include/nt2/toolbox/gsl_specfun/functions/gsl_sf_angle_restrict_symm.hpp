@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_angle_restrict_symm gsl_sf_angle_restrict_symm function
+ * \defgroup gsl_specfun_gsl_sf_angle_restrict_symm gsl_sf_angle_restrict_symm
  *
  * \par Description
  * TODO Put description here

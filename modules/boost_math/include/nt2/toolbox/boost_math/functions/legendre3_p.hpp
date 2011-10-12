@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_legendre3_p legendre3_p function
+ * \defgroup boost_math_legendre3_p legendre3_p
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -1,6 +1,7 @@
 #error "This file is for documentation purpose only."
 /*!
- * \defgroup crlibm module for easy access to crlibm functions
+ * \ingroup toolbox  
+ * \defgroup crlibm crlibm functions access
  * \brief Allows easy access crlibm functions from nt2,
  * i.e functions from the corectly
  * rounded mathematical library.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_cbrt cbrt function
+ * \defgroup exponential_cbrt cbrt
  *
  * \par Description
  * Cubic root: \f$\sqrt[3]{a_0}\f$

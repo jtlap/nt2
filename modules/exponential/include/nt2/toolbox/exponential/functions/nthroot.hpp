@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_nthroot nthroot function
+ * \defgroup exponential_nthroot nthroot
  *
  * \par Description
  * nth root function: \f$\sqrt[a_1]{a_0}\f$

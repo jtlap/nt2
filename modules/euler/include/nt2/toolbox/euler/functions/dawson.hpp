@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_dawson dawson function
+ * \defgroup euler_dawson dawson
  *
  * \par Description
  * Dawson function

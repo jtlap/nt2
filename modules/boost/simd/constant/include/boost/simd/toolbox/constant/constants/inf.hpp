@@ -22,7 +22,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_inf Inf constant
+ * \defgroup boost_simd_constant_inf Inf
  *
  * \par Description
  * Constant Inf

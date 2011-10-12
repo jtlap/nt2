@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_log log function
+ * \defgroup fdlibm_log log
  *
  * \par Description
  * Please for details consult the proper documentation of the external

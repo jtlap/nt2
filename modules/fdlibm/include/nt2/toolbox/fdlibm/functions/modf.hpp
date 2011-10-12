@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_modf modf function
+ * \defgroup fdlibm_modf modf
  *
  * \par Description
  * Please for details consult the proper documentation of the external

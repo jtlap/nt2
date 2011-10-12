@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cot cot function
+ * \defgroup trigonometric_cot cot
  *
  * \par Description
  * cotangent.

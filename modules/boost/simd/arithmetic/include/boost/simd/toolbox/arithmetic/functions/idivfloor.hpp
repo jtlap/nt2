@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_idivfloor idivfloor function
+ * \defgroup boost_simd_arithmetic_idivfloor idivfloor
  *
  * \par Description
  * return the \c floor of the operands real divisionin the corresponding integer type

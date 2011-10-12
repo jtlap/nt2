@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_legendre_q legendre_q function
+ * \defgroup boost_math_legendre_q legendre_q
  *
  * \par Description
  * Please for details consult the proper documentation of the external

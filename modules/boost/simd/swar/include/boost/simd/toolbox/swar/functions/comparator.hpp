@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_comparator comparator function
+ * \defgroup boost_simd_swar_comparator comparator
  *
  * \par Description
  * Compute the min and the max of the first two inputs if the third non zero,

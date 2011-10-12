@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sincosd sincosd function
+ * \defgroup trigonometric_sincosd sincosd
  *
  * \par Description
  * simultaneous sine and cosine from angle in degree

@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_acosh acosh function
+ * \defgroup boost_math_acosh acosh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

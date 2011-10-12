@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_bessel_yl gsl_sf_bessel_yl function
+ * \defgroup gsl_specfun_gsl_sf_bessel_yl gsl_sf_bessel_yl
  *
  * \par Description
  * TODO Put description here

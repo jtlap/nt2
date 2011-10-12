@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_cosdg cosdg function
+ * \defgroup cephes_cosdg cosdg
  *
  * \par Description
  * Please for details consult the proper documentation of the external

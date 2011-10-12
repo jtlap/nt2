@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_conicalp_mhalf gsl_sf_conicalp_mhalf function
+ * \defgroup gsl_specfun_gsl_sf_conicalp_mhalf gsl_sf_conicalp_mhalf
  *
  * \par Description
  * TODO Put description here

@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_pix_2 Pix_2 constant
+ * \defgroup trigo_constant_pix_2 Pix_2
  *
  * \par Description
  * Constant pix_2 : \f$2\pi\f$.

@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_iround iround function
+ * \defgroup boost_math_iround iround
  *
  * \par Description
  * Please for details consult the proper documentation of the external

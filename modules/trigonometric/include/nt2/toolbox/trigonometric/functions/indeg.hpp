@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_indeg indeg function
+ * \defgroup trigonometric_indeg indeg
  *
  * \par Description
  * convert radian to degree.

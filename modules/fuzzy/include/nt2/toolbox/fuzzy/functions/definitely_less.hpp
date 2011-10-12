@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_definitely_less definitely_less function
+ * \defgroup fuzzy_definitely_less definitely_less
  *
  * \par Description
  * \f$a_0 \lt \mathop{\mathrm{predecessor}}(a_1,|a_2|)\f$

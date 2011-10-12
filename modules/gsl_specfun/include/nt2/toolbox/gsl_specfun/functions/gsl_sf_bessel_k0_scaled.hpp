@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_bessel_k0_scaled gsl_sf_bessel_k0_scaled function
+ * \defgroup gsl_specfun_gsl_sf_bessel_k0_scaled gsl_sf_bessel_k0_scaled
  *
  * \par Description
  * TODO Put description here

@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_divides divides function
+ * \defgroup boost_simd_operator_divides divides
  *
  * \par Description
  * return the elementwise division of the two parameters

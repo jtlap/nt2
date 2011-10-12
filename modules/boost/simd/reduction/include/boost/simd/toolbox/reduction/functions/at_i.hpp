@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_at_i at_i function
+ * \defgroup boost_simd_reduction_at_i at_i
  *
  * \par Description
  * returns the ith element of the input vector.

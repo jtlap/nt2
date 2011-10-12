@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_not_equal_with_equal_nans is_not_equal_with_equal_nans function
+ * \defgroup boost_simd_predicates_is_not_equal_with_equal_nans is_not_equal_with_equal_nans
  *
  * \par Description
  * Returns True<A0>() if a0 and a1 are not equal else False<A0>().
@@ -61,7 +61,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_not_equal_with_equal_nans_ of functor is_not_equal_with_equal_nans 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_equal_with_equal_nans_ {};

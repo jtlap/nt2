@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_popcnt popcnt function
+ * \defgroup boost_simd_bitwise_popcnt popcnt
  *
  * \par Description
  * The function returns the number of bit sets in each element of the input.

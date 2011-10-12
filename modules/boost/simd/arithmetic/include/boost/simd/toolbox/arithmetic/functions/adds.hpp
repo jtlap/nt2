@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_adds adds function
+ * \defgroup boost_simd_arithmetic_adds adds
  *
  * \par Description
  * The result is the mathetical adddition of the arguments

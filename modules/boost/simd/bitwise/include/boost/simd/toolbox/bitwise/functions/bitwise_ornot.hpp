@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_bitwise_ornot bitwise_ornot function
+ * \defgroup boost_simd_bitwise_bitwise_ornot bitwise_ornot
  *
  * \par Description
  * return the bitwise or of the first parameter

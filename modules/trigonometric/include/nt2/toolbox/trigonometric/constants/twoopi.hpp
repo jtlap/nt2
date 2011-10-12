@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_twoopi twoopi constant
+ * \defgroup trigo_constant_twoopi Twoopi constant
  *
  * \par Description
  * Constant twoopi : \f$\frac2\pi\f$.

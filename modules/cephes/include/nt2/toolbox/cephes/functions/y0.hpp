@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_y0 y0 function
+ * \defgroup cephes_y0 y0
  *
  * \par Description
  * Please for details consult the proper documentation of the external

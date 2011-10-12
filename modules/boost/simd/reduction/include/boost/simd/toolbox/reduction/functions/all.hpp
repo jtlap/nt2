@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_all all function
+ * \defgroup boost_simd_reduction_all all
  *
  * \par Description
  * returns true if all elements of the input vector are non zero.

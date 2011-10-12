@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup expon_constant
- * \defgroup expon_constant_log_2 Log_2 constant
+ * \defgroup expon_constant_log_2 Log_2
  *
  * \par Description
  * Constant log_2 : \f$\log(2)\f$ constant.

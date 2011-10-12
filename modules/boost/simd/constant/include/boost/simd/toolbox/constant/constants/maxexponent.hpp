@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_maxexponent Maxexponent constant
+ * \defgroup boost_simd_constant_maxexponent Maxexponent
  *
  * \par Description
  * Constant Maxexponent, this is the maximum exposant

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_lgamma __ieee754_lgamma function
+ * \defgroup fdlibm___ieee754_lgamma __ieee754_lgamma
  *
  * \par Description
  * Please for details consult the proper documentation of the external

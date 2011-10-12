@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_zeta gsl_sf_zeta function
+ * \defgroup gsl_specfun_gsl_sf_zeta gsl_sf_zeta
  *
  * \par Description
  * TODO Put description here

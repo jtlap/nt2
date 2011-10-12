@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_divfix divfix function
+ * \defgroup boost_simd_arithmetic_divfix divfix
  *
  * \par Description
  * return the \c truncation of the operands real divisionin the input type

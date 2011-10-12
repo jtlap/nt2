@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_atan atan function
+ * \defgroup trigonometric_atan atan
  *
  * \par Description
  * inverse tangent.

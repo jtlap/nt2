@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_int_splat Int_splat constant
+ * \defgroup boost_simd_constant_int_splat Int_splat
  *
  * \par Description
  * TODO Put description here

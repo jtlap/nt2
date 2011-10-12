@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_idivround idivround function
+ * \defgroup boost_simd_arithmetic_idivround idivround
  *
  * \par Description
  * return the \c round of the operands real divisionin the corresponding integer type

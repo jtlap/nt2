@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_fast_tanpi fast_tanpi function
+ * \defgroup trigonometric_fast_tanpi fast_tanpi
  *
  * \par Description
  * tangent of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.

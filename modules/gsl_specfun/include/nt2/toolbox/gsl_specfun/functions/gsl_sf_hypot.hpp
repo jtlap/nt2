@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_hypot gsl_sf_hypot function
+ * \defgroup gsl_specfun_gsl_sf_hypot gsl_sf_hypot
  *
  * \par Description
  * TODO Put description here

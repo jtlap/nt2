@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_ceil ceil function
+ * \defgroup standard_ceil ceil
  *
  * \par Description
  * Please for details consult the proper documentation of the external

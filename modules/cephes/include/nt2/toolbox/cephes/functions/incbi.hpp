@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_incbi incbi function
+ * \defgroup cephes_incbi incbi
  *
  * \par Description
  * Please for details consult the proper documentation of the external

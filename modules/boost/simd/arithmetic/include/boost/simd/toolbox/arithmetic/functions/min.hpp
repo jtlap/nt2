@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_min min function
+ * \defgroup boost_simd_arithmetic_min min
  *
  * \par Description
  * return the smallest of the two entries

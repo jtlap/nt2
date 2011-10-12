@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_nbmantissabits Nbmantissabits constant
+ * \defgroup boost_simd_constant_nbmantissabits Nbmantissabits
  *
  * \par Description
  * Constant Nbmantissabits, The number of mantissa bits of a floating point number,

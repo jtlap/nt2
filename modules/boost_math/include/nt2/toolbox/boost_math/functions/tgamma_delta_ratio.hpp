@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_tgamma_delta_ratio tgamma_delta_ratio function
+ * \defgroup boost_math_tgamma_delta_ratio tgamma_delta_ratio
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_copysign copysign function
+ * \defgroup boost_simd_ieee_copysign copysign
  *
  * \par Description
  * Returns a0 with the sign of a1

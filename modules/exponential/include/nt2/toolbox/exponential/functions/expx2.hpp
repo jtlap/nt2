@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_expx2 expx2 function
+ * \defgroup exponential_expx2 expx2
  *
  * \par Description
  * exponential of square function: $e^{a_0^2}$

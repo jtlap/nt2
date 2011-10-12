@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_csc csc function
+ * \defgroup trigonometric_csc csc
  *
  * \par Description
  * cosecante.

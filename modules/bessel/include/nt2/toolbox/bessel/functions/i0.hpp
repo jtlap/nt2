@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup bessel_i0 i0 function
+ * \defgroup bessel_i0 i0
  *
  * \par Description
  * Modified Bessel function of the first kind of order 0.

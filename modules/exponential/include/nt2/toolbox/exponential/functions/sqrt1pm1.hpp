@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_sqrt1pm1 sqrt1pm1 function
+ * \defgroup exponential_sqrt1pm1 sqrt1pm1
  *
  * \par Description
  * \f$\sqrt{1+a_0}-1\f$

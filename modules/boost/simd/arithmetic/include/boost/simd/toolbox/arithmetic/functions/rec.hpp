@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_rec rec function
+ * \defgroup boost_simd_arithmetic_rec rec
  *
  * \par Description
  * return the inverse of the input as a floating point value.

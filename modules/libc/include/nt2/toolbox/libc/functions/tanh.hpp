@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_tanh tanh function
+ * \defgroup libc_tanh tanh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

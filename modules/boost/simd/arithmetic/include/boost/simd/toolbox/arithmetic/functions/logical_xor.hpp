@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_logical_xor logical_xor function
+ * \defgroup boost_simd_arithmetic_logical_xor logical_xor
  *
  * \par Description
  * returns the logical xor of  a0 and a1, i.e. returns true 

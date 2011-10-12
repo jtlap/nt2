@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_acos acos function
+ * \defgroup standard_acos acos
  *
  * \par Description
  * Please for details consult the proper documentation of the external

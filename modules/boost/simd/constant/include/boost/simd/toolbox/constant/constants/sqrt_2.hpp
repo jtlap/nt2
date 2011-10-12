@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_sqrt_2 Sqrt_2 constant
+ * \defgroup boost_simd_constant_sqrt_2 Sqrt_2
  *
  * \par Description
  * Constant Sqrt_2 = \f$\sqrt2\f$

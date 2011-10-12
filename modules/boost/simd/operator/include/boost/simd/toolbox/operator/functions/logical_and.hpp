@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_logical_and logical_and function
+ * \defgroup boost_simd_operator_logical_and logical_and
  *
  * \par Description
  * return the logical and of the two parameters

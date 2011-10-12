@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_log1p_rz log1p_rz function
+ * \defgroup crlibm_log1p_rz log1p_rz
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_threepio_4 threepio_4 constant
+ * \defgroup trigo_constant_threepio_4 Threepio_4 constant
  *
  * \par Description
  * Constant threepio_4 : \f$2\pi\f$.

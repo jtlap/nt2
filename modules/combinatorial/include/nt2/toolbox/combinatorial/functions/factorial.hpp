@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup combinatorial_factorial factorial function
+ * \defgroup combinatorial_factorial factorial
  *
  * \par Description
  * Saturated factorial in the A0 type

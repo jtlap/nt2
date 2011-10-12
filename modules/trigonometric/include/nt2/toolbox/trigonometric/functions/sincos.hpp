@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sincos sincos function
+ * \defgroup trigonometric_sincos sincos
  *
  * \par Description
  * simultaneous sine and cosine.

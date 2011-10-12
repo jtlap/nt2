@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm___ieee754_hypot __ieee754_hypot function
+ * \defgroup fdlibm___ieee754_hypot __ieee754_hypot
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_signgam signgam function
+ * \defgroup euler_signgam signgam
  *
  * \par Description
  * sign of gamma function

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_hyperg_u gsl_sf_hyperg_u function
+ * \defgroup gsl_specfun_gsl_sf_hyperg_u gsl_sf_hyperg_u
  *
  * \par Description
  * TODO Put description here

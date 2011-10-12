@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_minexponent Minexponent constant
+ * \defgroup boost_simd_constant_minexponent Minexponent
  *
  * \par Description
  * Constant Minexponent

@@ -21,7 +21,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_allbits Allbits constant
+ * \defgroup boost_simd_constant_allbits Allbits
  *
  * \par Description
  * Constant Allbits : all bits set to 1.

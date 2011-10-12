@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_isnan isnan function
+ * \defgroup fdlibm_isnan isnan
  *
  * \par Description
  * Please for details consult the proper documentation of the external

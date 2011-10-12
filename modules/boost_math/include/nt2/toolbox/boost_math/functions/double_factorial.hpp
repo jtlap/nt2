@@ -18,7 +18,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_double_factorial double_factorial function
+ * \defgroup boost_math_double_factorial double_factorial
  *
  * \par Description
  * Please for details consult the proper documentation of the external

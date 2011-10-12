@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_six Six constant
+ * \defgroup boost_simd_constant_six Six
  *
  * \par Description
  * Constant Six = 6

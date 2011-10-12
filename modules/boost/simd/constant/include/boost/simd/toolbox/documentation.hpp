@@ -1,5 +1,6 @@
 #error "This file is for documentation purpose only."
 /*!
- * \defgroup boost_simd_constant  boost/simd module for defining constants
+ * \ingroup Boost.SIMD   
+ * \defgroup boost_simd_constant  constants
  * \brief Defines boost simd constants
 **/

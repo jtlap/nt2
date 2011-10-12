@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_sindg sindg function
+ * \defgroup cephes_sindg sindg
  *
  * \par Description
  * Please for details consult the proper documentation of the external

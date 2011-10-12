@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_prod prod function
+ * \defgroup boost_simd_reduction_prod prod
  *
  * \par Description
  * Returns the product of the elements of the SIMD vector

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_predecessor predecessor function
+ * \defgroup boost_simd_ieee_predecessor predecessor
  *
  * \par Description
  * With one parameter it is equivalent to \c prev

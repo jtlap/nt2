@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_lookup lookup function
+ * \defgroup boost_simd_swar_lookup lookup
  *
  * \par Description
  * shuffles the elements of a1 using indices in a2

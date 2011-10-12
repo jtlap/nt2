@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_atan atan function
+ * \defgroup fdlibm_atan atan
  *
  * \par Description
  * Please for details consult the proper documentation of the external

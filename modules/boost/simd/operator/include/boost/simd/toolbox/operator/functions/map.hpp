@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_map map function
+ * \defgroup boost_simd_operator_map map
  *
  * \par Description
  * TODO Put description here

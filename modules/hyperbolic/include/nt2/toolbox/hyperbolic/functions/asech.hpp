@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_asech asech function
+ * \defgroup hyperbolic_asech asech
  *
  * \par Description
  * hyperbolic secant argument \f$\mathop{\textrm{acosh}}(1/a_0)\f$

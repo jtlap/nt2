@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_isqrt isqrt function
+ * \defgroup boost_simd_arithmetic_isqrt isqrt
  *
  * \par Description
  * return the integer truncation of the squre root of  the entry.

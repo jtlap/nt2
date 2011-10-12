@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_log1p log1p function
+ * \defgroup boost_math_log1p log1p
  *
  * \par Description
  * Please for details consult the proper documentation of the external

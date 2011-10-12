@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sec sec function
+ * \defgroup trigonometric_sec sec
  *
  * \par Description
  * secant.

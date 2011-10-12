@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mseven Mseven constant
+ * \defgroup boost_simd_constant_mseven Mseven
  *
  * \par Description
  * Constant Mseven = -7

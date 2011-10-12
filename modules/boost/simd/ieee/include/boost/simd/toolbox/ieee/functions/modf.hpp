@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_modf modf function
+ * \defgroup boost_simd_ieee_modf modf
  *
  * \par Description
  * Computes the integer part and the fractionnal part of the input

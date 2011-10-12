@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup elliptic_ellipke ellipke function
+ * \defgroup elliptic_ellipke ellipke
  *
  * \par Description
  * Complete elliptic integrals of first and second kind

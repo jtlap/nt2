@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_splatted_first splatted_first function
+ * \defgroup boost_simd_swar_splatted_first splatted_first
  *
  * \par Description
  * returns the maximum of a0 splatted in a vector

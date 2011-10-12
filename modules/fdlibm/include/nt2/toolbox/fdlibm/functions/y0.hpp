@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_y0 y0 function
+ * \defgroup fdlibm_y0 y0
  *
  * \par Description
  * Please for details consult the proper documentation of the external

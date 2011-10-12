@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_hazard gsl_sf_hazard function
+ * \defgroup gsl_specfun_gsl_sf_hazard gsl_sf_hazard
  *
  * \par Description
  * TODO Put description here

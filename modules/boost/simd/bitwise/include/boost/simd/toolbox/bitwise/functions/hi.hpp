@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_hi hi function
+ * \defgroup boost_simd_bitwise_hi hi
  *
  * \par Description
  * The function returns the high part of the entry

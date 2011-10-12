@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_rem_pio2_straight rem_pio2_straight function
+ * \defgroup trigonometric_rem_pio2_straight rem_pio2_straight
  *
  * \par Description
  * compute the remainder modulo \f$\pi/2\f$ with cephes algorthm.

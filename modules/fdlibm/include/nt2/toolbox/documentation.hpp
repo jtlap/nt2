@@ -1,5 +1,6 @@
 /**
- * \defgroup fdlibm module for easy access to fdlibm functions
+ * \ingroup toolbox  
+ * \defgroup fdlibm  fdlibm functions access
  * \brief easy access to functions from the fdlibm C library
  *
  * Note that many of these functions are present in proper nt2 modules,

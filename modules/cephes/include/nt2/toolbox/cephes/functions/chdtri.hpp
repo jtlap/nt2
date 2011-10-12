@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_chdtri chdtri function
+ * \defgroup cephes_chdtri chdtri
  *
  * \par Description
  * Please for details consult the proper documentation of the external

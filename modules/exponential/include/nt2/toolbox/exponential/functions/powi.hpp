@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_powi powi function
+ * \defgroup exponential_powi powi
  *
  * \par Description
  * Power function for scalar integer a1: ${a_0}^{a_1}$

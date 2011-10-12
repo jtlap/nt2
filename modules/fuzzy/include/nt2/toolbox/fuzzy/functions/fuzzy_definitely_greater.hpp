@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_fuzzy_definitely_greater fuzzy_definitely_greater function
+ * \defgroup fuzzy_fuzzy_definitely_greater fuzzy_definitely_greater
  *
  * \par Description
  * \f$a_0 \gt a_1+a_2*\max(|a_0|,|a1|)\f$

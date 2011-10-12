@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_ceil ceil function
+ * \defgroup fdlibm_ceil ceil
  *
  * \par Description
  * Please for details consult the proper documentation of the external

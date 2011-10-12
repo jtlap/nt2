@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_random random function
+ * \defgroup boost_simd_arithmetic_random random
  *
  * \par Description
  * return uniform random numbers of the common type of the entries and

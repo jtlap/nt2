@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_dist dist function
+ * \defgroup boost_simd_arithmetic_dist dist
  *
  * \par Description
  * this is $\|a_0-a_1\|$, and is always properly computed

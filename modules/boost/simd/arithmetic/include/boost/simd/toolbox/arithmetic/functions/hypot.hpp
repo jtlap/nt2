@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_hypot hypot function
+ * \defgroup boost_simd_arithmetic_hypot hypot
  *
  * \par Description
  * computes $(a_0^2 + a_1^2)^{1/2}$

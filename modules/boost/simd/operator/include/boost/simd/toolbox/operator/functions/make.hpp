@@ -18,7 +18,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_make make function
+ * \defgroup boost_simd_operator_make make
  *
  * \par Description
  * TODO Put description here

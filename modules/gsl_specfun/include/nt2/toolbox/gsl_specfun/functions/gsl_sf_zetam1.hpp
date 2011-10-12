@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_zetam1 gsl_sf_zetam1 function
+ * \defgroup gsl_specfun_gsl_sf_zetam1 gsl_sf_zetam1
  *
  * \par Description
  * TODO Put description here

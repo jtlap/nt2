@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_log10 log10 function
+ * \defgroup crlibm_log10 log10
  *
  * \par Description
  * Please for details consult the proper documentation of the external

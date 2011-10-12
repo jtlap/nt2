@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_half Half constant
+ * \defgroup boost_simd_constant_half Half
  *
  * \par Description
  * Constant Half = \f$\frac12\f$ is not defined for integer types

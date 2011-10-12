@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_store store function
+ * \defgroup boost_simd_operator_store store
  *
  * \par Description
  * Store a data from a0 to the memory zone given by a1 and offset a2

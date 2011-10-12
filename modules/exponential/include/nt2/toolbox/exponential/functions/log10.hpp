@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_log10 log10 function
+ * \defgroup exponential_log10 log10
  *
  * \par Description
  * base ten logarithm function.

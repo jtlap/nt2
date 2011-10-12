@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_acosh acosh function
+ * \defgroup hyperbolic_acosh acosh
  *
  * \par Description
  * hyperbolic cosine argument: \f$\log(a_0+\sqrt{a_0^2-1})\f$.

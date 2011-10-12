@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_second second function
+ * \defgroup boost_simd_reduction_second second
  *
  * \par Description
  * returns the second element of the input vector.

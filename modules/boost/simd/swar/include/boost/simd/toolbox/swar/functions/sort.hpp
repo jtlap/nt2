@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_sort sort function
+ * \defgroup boost_simd_swar_sort sort
  *
  * \par Description
  * returns the sorted a0 vector in ascending order

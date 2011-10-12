@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_invpi Invpi constant
+ * \defgroup trigo_constant_invpi Invpi
  *
  * \par Description
  * Constant Invpi : \f$\frac1\pi\f$.

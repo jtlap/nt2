@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_doublefact gsl_sf_doublefact function
+ * \defgroup gsl_specfun_gsl_sf_doublefact gsl_sf_doublefact
  *
  * \par Description
  * TODO Put description here

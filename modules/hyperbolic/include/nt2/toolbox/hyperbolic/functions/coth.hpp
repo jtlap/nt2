@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_coth coth function
+ * \defgroup hyperbolic_coth coth
  *
  * \par Description
  * TODO Put description here

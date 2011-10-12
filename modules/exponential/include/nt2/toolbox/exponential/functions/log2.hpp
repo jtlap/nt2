@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_log2 log2 function
+ * \defgroup exponential_log2 log2
  *
  * \par Description
  * base two logarithm function.

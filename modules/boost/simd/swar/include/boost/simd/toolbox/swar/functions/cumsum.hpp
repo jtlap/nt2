@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_cumsum cumsum function
+ * \defgroup boost_simd_swar_cumsum cumsum
  *
  * \par Description
  * compute the cumulate sum of the vector elements

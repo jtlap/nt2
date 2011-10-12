@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_pochrel gsl_sf_pochrel function
+ * \defgroup gsl_specfun_gsl_sf_pochrel gsl_sf_pochrel
  *
  * \par Description
  * TODO Put description here

@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_spherical_harmonic_i spherical_harmonic_i function
+ * \defgroup boost_math_spherical_harmonic_i spherical_harmonic_i
  *
  * \par Description
  * Please for details consult the proper documentation of the external

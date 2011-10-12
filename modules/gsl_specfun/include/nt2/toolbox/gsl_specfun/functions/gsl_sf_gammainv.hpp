@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_gammainv gsl_sf_gammainv function
+ * \defgroup gsl_specfun_gsl_sf_gammainv gsl_sf_gammainv
  *
  * \par Description
  * TODO Put description here

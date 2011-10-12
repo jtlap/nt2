@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_exp10 exp10 function
+ * \defgroup cephes_exp10 exp10
  *
  * \par Description
  * Please for details consult the proper documentation of the external

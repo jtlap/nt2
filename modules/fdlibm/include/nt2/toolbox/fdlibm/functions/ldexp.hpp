@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_ldexp ldexp function
+ * \defgroup fdlibm_ldexp ldexp
  *
  * \par Description
  * Please for details consult the proper documentation of the external

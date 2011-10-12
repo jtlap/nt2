@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup elliptic
- * \defgroup elliptic_ellpk ellpk function
+ * \defgroup elliptic_ellpk ellpk
  *
  * \par Description
  * Complete elliptic integral of the first kind

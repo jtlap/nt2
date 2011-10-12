@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_exp exp function
+ * \defgroup exponential_exp exp
  *
  * \par Description
  * exponential function: $e^{a_0}$

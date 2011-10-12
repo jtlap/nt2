@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_seladd seladd function
+ * \defgroup boost_simd_bitwise_seladd seladd
  *
  * \par Description
  * The function returns the second entry or the sum of the second and third entries,

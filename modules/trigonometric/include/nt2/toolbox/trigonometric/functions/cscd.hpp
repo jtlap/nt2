@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cscd cscd function
+ * \defgroup trigonometric_cscd cscd
  *
  * \par Description
  * cosecante in degree.

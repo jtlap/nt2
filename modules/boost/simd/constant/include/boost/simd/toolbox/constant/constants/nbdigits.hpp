@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_nbdigits Nbdigits constant
+ * \defgroup boost_simd_constant_nbdigits Nbdigits
  *
  * \par Description
  * Constant Nbdigits, The number of mantissa bits of a floating point number,

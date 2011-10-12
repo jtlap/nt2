@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_selsub selsub function
+ * \defgroup boost_simd_bitwise_selsub selsub
  *
  * \par Description
  * The function returns the second entry or the difference of the second and third entries,

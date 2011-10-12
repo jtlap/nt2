@@ -26,7 +26,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_valmin Valmin constant
+ * \defgroup boost_simd_constant_valmin Valmin
  *
  * \par Description
  * Constant Valmin, maximum value of a type.

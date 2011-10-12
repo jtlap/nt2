@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_nextafter nextafter function
+ * \defgroup boost_simd_ieee_nextafter nextafter
  *
  * \par Description
  * in the type A0 of a0, the next element in the a1 direction.

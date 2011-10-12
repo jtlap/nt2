@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_secd secd function
+ * \defgroup trigonometric_secd secd
  *
  * \par Description
  * secant of the angle in degree.

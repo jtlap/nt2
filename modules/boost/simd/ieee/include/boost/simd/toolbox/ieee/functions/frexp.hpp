@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_ieee
- * \defgroup boost_simd_ieee_frexp frexp function
+ * \defgroup boost_simd_ieee_frexp frexp
  *
  * \par Description
  * Split a floating entry in signed mantissa m and exponent e

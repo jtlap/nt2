@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_maximum maximum function
+ * \defgroup boost_simd_reduction_maximum maximum
  *
  * \par Description
  * Returns the greatest element of the SIMD vector

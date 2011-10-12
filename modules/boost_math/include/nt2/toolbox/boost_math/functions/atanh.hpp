@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_atanh atanh function
+ * \defgroup boost_math_atanh atanh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

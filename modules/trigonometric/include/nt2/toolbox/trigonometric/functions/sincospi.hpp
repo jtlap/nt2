@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sincospi sincospi function
+ * \defgroup trigonometric_sincospi sincospi
  *
  * \par Description
  * simultaneous sine and cosine from angle in \f$\pi\f$ multiples

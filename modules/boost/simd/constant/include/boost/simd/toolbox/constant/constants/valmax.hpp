@@ -21,7 +21,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_valmax Valmax constant
+ * \defgroup boost_simd_constant_valmax Valmax
  *
  * \par Description
  * Constant Valmax, maximum value of a type.

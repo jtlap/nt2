@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_fabs fabs function
+ * \defgroup libc_fabs fabs
  *
  * \par Description
  * Please for details consult the proper documentation of the external

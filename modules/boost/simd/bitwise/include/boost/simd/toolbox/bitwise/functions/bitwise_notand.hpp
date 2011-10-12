@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_bitwise_notand bitwise_notand function
+ * \defgroup boost_simd_bitwise_bitwise_notand bitwise_notand
  *
  * \par Description
  * return the bitwise and of the bitwise complement of the first parameter with the second parameter.\par

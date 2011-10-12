@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup libc
- * \defgroup libc_cosh cosh function
+ * \defgroup libc_cosh cosh
  *
  * \par Description
  * Please for details consult the proper documentation of the external

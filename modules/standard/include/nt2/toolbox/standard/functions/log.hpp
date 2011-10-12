@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup standard
- * \defgroup standard_log log function
+ * \defgroup standard_log log
  *
  * \par Description
  * Please for details consult the proper documentation of the external

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup combinatorial
- * \defgroup combinatorial_cnp cnp function
+ * \defgroup combinatorial_cnp cnp
  *
  * \par Description
  * number of combination of p elements among n

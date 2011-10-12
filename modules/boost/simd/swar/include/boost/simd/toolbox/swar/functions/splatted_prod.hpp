@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_splatted_prod splatted_prod function
+ * \defgroup boost_simd_swar_splatted_prod splatted_prod
  *
  * \par Description
  * returns the product of a0 elements splatted in a vector

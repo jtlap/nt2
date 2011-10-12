@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_predicates
- * \defgroup boost_simd_predicates_is_not_less is_not_less function
+ * \defgroup boost_simd_predicates_is_not_less is_not_less
  *
  * \par Description
  * TODO Put description here
@@ -62,7 +62,7 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-    _
+     * \brief Define the tag is_not_less_ of functor is_not_less 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_less_ {};

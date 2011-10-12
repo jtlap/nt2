@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_eleven Eleven constant
+ * \defgroup boost_simd_constant_eleven Eleven
  *
  * \par Description
  * Constant Eleven = 11

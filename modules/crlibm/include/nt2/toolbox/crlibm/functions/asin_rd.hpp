@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_asin_rd asin_rd function
+ * \defgroup crlibm_asin_rd asin_rd
  *
  * \par Description
  * Please for details consult the proper documentation of the external

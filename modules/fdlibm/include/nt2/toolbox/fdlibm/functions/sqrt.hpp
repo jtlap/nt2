@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_sqrt sqrt function
+ * \defgroup fdlibm_sqrt sqrt
  *
  * \par Description
  * Please for details consult the proper documentation of the external

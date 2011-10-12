@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_cosh cosh function
+ * \defgroup hyperbolic_cosh cosh
  *
  * \par Description
  * hyperbolic cosine: \f$\frac{e^{a_0}+e^{-a_0}}2\f$.

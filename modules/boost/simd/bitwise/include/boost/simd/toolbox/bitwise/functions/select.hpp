@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_select select function
+ * \defgroup boost_simd_bitwise_select select
  *
  * \par Description
  * The function returns the second entry or the third entry,

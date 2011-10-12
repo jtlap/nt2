@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_cscpi cscpi function
+ * \defgroup trigonometric_cscpi cscpi
  *
  * \par Description
  * cosecant of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.

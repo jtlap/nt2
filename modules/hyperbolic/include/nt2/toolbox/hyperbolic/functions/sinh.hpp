@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup hyperbolic
- * \defgroup hyperbolic_sinh sinh function
+ * \defgroup hyperbolic_sinh sinh
  *
  * \par Description
  * hyperbolic sine: \f$\frac{e^{a_0}-e^{-a_0}}2\f$.

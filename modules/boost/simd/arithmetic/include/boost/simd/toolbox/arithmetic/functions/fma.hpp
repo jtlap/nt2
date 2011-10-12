@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_fma fma function
+ * \defgroup boost_simd_arithmetic_fma fma
  *
  * \par Description
  * computes \c a0*a1+a2, but the computation with only one rounding operation

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_spence spence function
+ * \defgroup cephes_spence spence
  *
  * \par Description
  * Please for details consult the proper documentation of the external

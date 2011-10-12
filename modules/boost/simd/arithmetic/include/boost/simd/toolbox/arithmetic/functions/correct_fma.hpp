@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_correct_fma correct_fma function
+ * \defgroup boost_simd_arithmetic_correct_fma correct_fma
  *
  * \par Description
  * Always compute the correct fused multiply add,

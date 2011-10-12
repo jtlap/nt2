@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_atan_rz atan_rz function
+ * \defgroup crlibm_atan_rz atan_rz
  *
  * \par Description
  * Please for details consult the proper documentation of the external

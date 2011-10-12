@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fuzzy
- * \defgroup fuzzy_knuth_equal knuth_equal function
+ * \defgroup fuzzy_knuth_equal knuth_equal
  *
  * \par Description
  * \f$|a_0-a_1| \le a_2*\mathop{\mathrm{exponent(\max(|a_0|, |a_1|))}}\f$

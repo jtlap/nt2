@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_lnchoose gsl_sf_lnchoose function
+ * \defgroup gsl_specfun_gsl_sf_lnchoose gsl_sf_lnchoose
  *
  * \par Description
  * TODO Put description here

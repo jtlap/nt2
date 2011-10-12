@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_digamma digamma function
+ * \defgroup euler_digamma digamma
  *
  * \par Description
  * digamma function\par Formula

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_kn kn function
+ * \defgroup cephes_kn kn
  *
  * \par Description
  * Please for details consult the proper documentation of the external

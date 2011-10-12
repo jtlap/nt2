@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_load load function
+ * \defgroup boost_simd_operator_load load
  *
  * \par Description
  * Load a data of type T from the memory zone given by (a0,a1)

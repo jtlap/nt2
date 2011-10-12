@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_mtwo Mtwo constant
+ * \defgroup boost_simd_constant_mtwo Mtwo
  *
  * \par Description
  * Constant Mtwo = -2

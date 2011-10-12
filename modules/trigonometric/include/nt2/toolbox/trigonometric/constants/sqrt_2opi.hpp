@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant_sqrt_2opi sqrt_2opi constant
+ * \defgroup trigo_constant_sqrt_2opi Sqrt_2opi
  *
  * \par Description
  * Constant sqrt_2opi : \f$\frac{\sqrt2}{\pi}\f$.

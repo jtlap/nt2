@@ -20,7 +20,7 @@
 
 /*!
  * \ingroup boost_simd_operator
- * \defgroup boost_simd_operator_unary_plus unary_plus function
+ * \defgroup boost_simd_operator_unary_plus unary_plus
  *
  * \par Description
  * return the elementwise unary plus of the parameter

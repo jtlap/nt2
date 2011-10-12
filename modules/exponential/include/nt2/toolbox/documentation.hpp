@@ -1,9 +1,11 @@
 #error "This file is for documentation purpose only."
 /**
- * \defgroup exponential nt2 module for exponential functions computations
+ * \ingroup toolbox  
+ * \defgroup exponential exponential functions
  * \brief Defines exponential functions
  **/
 /**
- * \defgroup expon_constant nt2 module for exponential constants definitions
+ * \ingroup exponential  
+ * \defgroup expon_constant exponential constants
  * \brief Defines exponential constants
  **/

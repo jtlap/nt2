@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_true True constant
+ * \defgroup boost_simd_constant_true True
  *
  * \par Description
  * Constant True is quite system specific as

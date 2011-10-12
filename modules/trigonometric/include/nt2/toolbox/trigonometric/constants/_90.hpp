@@ -14,7 +14,7 @@
 #include <nt2/sdk/constant/constant.hpp>
 /*!
  * \ingroup trigo_constant
- * \defgroup trigo_constant__90 _90 constant
+ * \defgroup trigo_constant__90 _90
  *
  * \par Description
  * Constant _90 : 90.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_muls muls function
+ * \defgroup boost_simd_arithmetic_muls muls
  *
  * \par Description
  * return the saturated multiplication of a0 by a1

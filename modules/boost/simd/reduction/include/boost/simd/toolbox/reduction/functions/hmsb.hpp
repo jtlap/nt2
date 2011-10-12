@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_hmsb hmsb function
+ * \defgroup boost_simd_reduction_hmsb hmsb
  *
  * \par Description
  * returns a scalar integer value composed by the highiest bits.

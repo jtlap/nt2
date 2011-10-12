@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup fdlibm
- * \defgroup fdlibm_pow pow function
+ * \defgroup fdlibm_pow pow
  *
  * \par Description
  * Please for details consult the proper documentation of the external

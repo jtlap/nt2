@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_reduction
- * \defgroup boost_simd_reduction_any any function
+ * \defgroup boost_simd_reduction_any any
  *
  * \par Description
  * returns true if at least one element of the input vector is non zero.

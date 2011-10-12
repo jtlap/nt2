@@ -21,7 +21,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_signmask Signmask constant
+ * \defgroup boost_simd_constant_signmask Signmask
  *
  * \par Description
  * Constant Signmask : is a mask with the lone most significand bit set to one

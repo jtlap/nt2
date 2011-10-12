@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup boost_math
- * \defgroup boost_math_powm1 powm1 function
+ * \defgroup boost_math_powm1 powm1
  *
  * \par Description
  * Please for details consult the proper documentation of the external

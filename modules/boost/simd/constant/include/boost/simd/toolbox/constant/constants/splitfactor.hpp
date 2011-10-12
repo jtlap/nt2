@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_splitfactor Splitfactor constant
+ * \defgroup boost_simd_constant_splitfactor Splitfactor
  *
  * \par Description
  * Constant Splitfactor is a constant used to split a floating number in two half,

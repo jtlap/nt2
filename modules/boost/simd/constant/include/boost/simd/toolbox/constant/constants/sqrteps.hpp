@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_sqrteps Sqrteps constant
+ * \defgroup boost_simd_constant_sqrteps Sqrteps
  *
  * \par Description
  * Constant Sqrteps

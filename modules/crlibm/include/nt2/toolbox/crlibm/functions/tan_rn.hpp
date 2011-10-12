@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup crlibm
- * \defgroup crlibm_tan_rn tan_rn function
+ * \defgroup crlibm_tan_rn tan_rn
  *
  * \par Description
  * Please for details consult the proper documentation of the external

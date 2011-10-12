@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup exponential
- * \defgroup exponential_log log function
+ * \defgroup exponential_log log
  *
  * \par Description
  * Natural logarithm function.

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup gsl_specfun
- * \defgroup gsl_specfun_gsl_sf_dilog gsl_sf_dilog function
+ * \defgroup gsl_specfun_gsl_sf_dilog gsl_sf_dilog
  *
  * \par Description
  * TODO Put description here

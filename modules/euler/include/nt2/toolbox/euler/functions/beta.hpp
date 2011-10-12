@@ -17,7 +17,7 @@
 
 /*!
  * \ingroup euler
- * \defgroup euler_beta beta function
+ * \defgroup euler_beta beta
  *
  * \par Description
  * Beta function

@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup cephes
- * \defgroup cephes_igam igam function
+ * \defgroup cephes_igam igam
  *
  * \par Description
  * Please for details consult the proper documentation of the external

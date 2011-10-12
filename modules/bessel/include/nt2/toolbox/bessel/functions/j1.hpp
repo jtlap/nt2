@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup bessel
- * \defgroup bessel_j1 j1 function
+ * \defgroup bessel_j1 j1
  *
  * \par Description
  * Bessel function of the first kind of order 1.

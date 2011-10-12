@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_firstbitunset firstbitunset function
+ * \defgroup boost_simd_bitwise_firstbitunset firstbitunset
  *
  * \par Description
  * The function  find the first bit unset (beginning with the least

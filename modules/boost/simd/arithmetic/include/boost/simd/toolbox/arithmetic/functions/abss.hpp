@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_abss abss function
+ * \defgroup boost_simd_arithmetic_abss abss
  *
  * \par Description
  * This is generally equivalent to abs except for signed integer

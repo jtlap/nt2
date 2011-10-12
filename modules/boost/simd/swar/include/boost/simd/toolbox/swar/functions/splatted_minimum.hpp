@@ -16,7 +16,7 @@
 
 /*!
  * \ingroup boost_simd_swar
- * \defgroup boost_simd_swar_splatted_minimum splatted_minimum function
+ * \defgroup boost_simd_swar_splatted_minimum splatted_minimum
  *
  * \par Description
  * returns the minimum of a0 splatted in a vector

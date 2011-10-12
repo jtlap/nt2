@@ -1,5 +1,6 @@
 #error "This file is for documentation purpose only."
 /*!
- * \defgroup boost_simd_operator boost/simd module for defining base operators
+ * \ingroup Boost.SIMD 
+ * \defgroup boost_simd_operator base operators
  * \brief Defines boost simd operators
  **/
