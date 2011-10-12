@@ -24,6 +24,8 @@ namespace nt2 { namespace container
           ::or_ <
                   boost::dispatch::
                   lambda_terminal< is_container<boost::proto::_value> >
+                , boost::dispatch::
+                  lambda_terminal< boost::is_arithmetic<boost::proto::_value> >
                 , boost::proto::
                   and_< boost::proto::
                         nary_expr < boost::proto::_

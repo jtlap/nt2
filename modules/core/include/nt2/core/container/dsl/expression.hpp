@@ -17,6 +17,8 @@
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/meta/container_traits.hpp>
+#include <nt2/core/container/meta/settings_of.hpp>
+#include <nt2/core/settings/size.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -51,12 +53,19 @@ namespace nt2 { namespace container
     typedef typename meta::value_type_<ResultType>::type      value_type;
     typedef typename meta::reference_<ResultType>::type       reference;
     typedef typename meta::const_reference_<ResultType>::type const_reference;
+    
+    typedef typename meta::settings_of<ResultType>::type          settings;
+    typedef typename meta::option<settings, tag::of_size_>::type  size_type;
 
     //==========================================================================
     // expression initialization called from generator    
     //==========================================================================
+    BOOST_DISPATCH_FORCE_INLINE
+    expression() : size_(size_transform()(*this)) {}
+    
+    template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE 
-    expression(Expr const& x = Expr()) : parent(x) {}
+    expression(Expr const& x, Sz const& sz) : parent(x), size_(sz) {}
     
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
@@ -126,6 +135,14 @@ namespace nt2 { namespace container
     { 
       return nt2::evaluate(*this); 
     }
+    
+    size_type const& extent() const
+    {
+        return size_;
+    }
+    
+  private:
+    size_type const& size_;
   };
 } }
 

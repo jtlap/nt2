@@ -6,34 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_IS_CONTAINER_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_IS_CONTAINER_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_META_SETTINGS_OF_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_META_SETTINGS_OF_HPP_INCLUDED
 
-#include <boost/mpl/bool.hpp>
+#include <nt2/core/settings/settings.hpp>
+#include <nt2/core/settings/index.hpp>
+#include <nt2/core/settings/size.hpp>
 
-namespace nt2 { namespace details
-{
-  template<class T, class Enable = void>
-  struct is_container
-    : boost::mpl::false_
-  {
-  };
-}
-
-namespace container
+namespace nt2 { namespace meta
 {
   template<class T>
-  struct is_container
-    : details::is_container<T>
+  struct settings_of
   {
+    typedef settings type(matlab_index_, _0D, tag::cpu_);
   };
   
   template<class T>
-  struct is_container<T&> : is_container<T> {};
+  struct settings_of<T&> : settings_of<T> {};
   
   template<class T>
-  struct is_container<T const> : is_container<T> {};
-    
+  struct settings_of<T const> : settings_of<T> {};
 } }
 
 #endif

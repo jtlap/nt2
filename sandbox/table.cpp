@@ -13,8 +13,10 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class S>
   struct terminal_of< nt2::container::table_container<T, S> >
   {
-    typedef nt2::container::expression< typename boost::proto::terminal< nt2::container::table_container<T, S> >::type
-            , nt2::container::table_container<T, S>&
+    typedef typename nt2::container::table_container<T, S>::settings settings;
+      
+    typedef nt2::container::expression< typename boost::proto::terminal< nt2::container::table_container<T, settings> >::type
+            , nt2::container::table_container<T, settings>&
             > type;
   };
     
@@ -79,7 +81,7 @@ namespace nt2
     template<class Bases, class Sizes, class F>
     BOOST_DISPATCH_FORCE_INLINE
     void for_each(Bases const& bases, Sizes const& sz, F const& f)
-    {
+    {        
         static const std::size_t nb_dims = boost::fusion::result_of::size<Sizes>::value;
         
         boost::array<std::size_t, nb_dims> position;
@@ -88,10 +90,11 @@ namespace nt2
     
     // To replace with appropriate stuff
     template<class T>
-    boost::array<std::size_t, 1> sizes(T const&) { boost::array<std::size_t, 1> sz = { 4 }; return sz; }
-    
-    template<class T>
-    boost::array<std::size_t, 1> base_indices(T const&) { boost::array<std::size_t, 1> sz = { 1 }; return sz; }
+    boost::array<std::size_t, NT2_MAX_DIMENSIONS> base_indices(T const&)
+    {
+      boost::array<std::size_t, NT2_MAX_DIMENSIONS> sz = { BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, 1 BOOST_PP_INTERCEPT) };
+      return sz;
+    }
 }
 
 template<class A0>
@@ -122,6 +125,50 @@ struct lhs_terminal
 
 namespace nt2 { namespace ext
 {
+  // size implementation
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
+                            , (A0)(T)
+                            , ((expr_< unspecified_<A0>, nt2::container::domain, T >))
+                            )
+  {
+    typedef typename A0::size_type const& result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0) const
+    {
+      return a0.extent();
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
+                            , (A0)(S0)
+                            , ((table_< unspecified_<A0>, S0>))
+                            )
+  {
+    typedef typename A0::size_type const& result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0) const
+    {
+      return a0.extent();
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
+                            , (A0)
+                            , (scalar_< unspecified_<A0> >)
+                            )
+  {
+    typedef _0D const& result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0&) const
+    {
+      static _0D sz;
+      return sz;
+    }
+  };
+    
   // terminal, does load / store
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
                             , (class A0)(class S0)(class State)(std::size_t N)
@@ -184,7 +231,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      for_each(base_indices(a0), sizes(a0), call_compute<A0 const&>(a0));
+      for_each(base_indices(a0), extent(a0), call_compute<A0 const&>(a0));
       return lhs_terminal()(a0);
     }
   };
@@ -217,14 +264,13 @@ int main()
 {
   using nt2::container::table;
     
-  table<double> a, b, c;
+  table<double, nt2::of_size_<5, 10> > a, b, c;
   
   std::cout << "a = " << (void*)&a << std::endl;
   std::cout << "b = " << (void*)&b << std::endl;
   std::cout << "c = " << (void*)&c << std::endl;
   
   a = b + 1.;
-  std::cout << std::endl;
 #if 1
   a = b + c*c/a;
   std::cout << std::endl;

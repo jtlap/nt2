@@ -34,19 +34,4 @@ namespace nt2 { namespace ext
   using boost::dispatch::meta::table_;
 } }
 
-//==============================================================================
-// Proto Work around - Prevent operator()() to whine eagerly
-//==============================================================================
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( boost::proto::tag::function, tag::cpu_
-                            , (A0)
-                            , (generic_< unspecified_<A0> >)
-                            )
-  {
-    typedef A0& result_type;
-    result_type operator()(A0& a0) const { return a0; }
-  };
-} }
-
 #endif

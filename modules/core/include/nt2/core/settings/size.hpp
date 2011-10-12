@@ -22,7 +22,7 @@ namespace nt2
   //============================================================================
   template< BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_DIMENSIONS
                                         , std::ptrdiff_t D
-                                        , = -2 BOOST_PP_INTERCEPT
+                                        , = 1 BOOST_PP_INTERCEPT
                                         )
           >
   struct of_size_;

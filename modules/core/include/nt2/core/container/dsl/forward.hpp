@@ -19,8 +19,10 @@ namespace nt2 { namespace tag
 
 namespace nt2 { namespace container
 {
-  struct grammar;
   struct generator;
+  struct size_transform;
+  
+  struct grammar;
   struct domain;
   
   template<class Expression, class ResultType>
