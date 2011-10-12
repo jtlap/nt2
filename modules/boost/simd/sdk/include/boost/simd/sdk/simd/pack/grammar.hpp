@@ -25,6 +25,7 @@ namespace boost { namespace simd
                     , proto::not_< proto::or_ < proto::address_of<grammar>
                                               , proto::dereference<grammar>
                                               , proto::comma<grammar,grammar>
+                                              , proto::nary_expr<proto::tag::function, proto::vararg<grammar> >
                                               , meta::assignment_operators
                                               >
                                   >

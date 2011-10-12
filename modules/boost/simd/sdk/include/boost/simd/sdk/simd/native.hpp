@@ -109,6 +109,9 @@ namespace boost { namespace simd
     static BOOST_DISPATCH_FORCE_INLINE
     std::size_t size() { return static_size; }
 
+    static BOOST_DISPATCH_FORCE_INLINE
+    bool empty() { return false; }
+
     reference        operator[](std::size_t i)
     {
       return data()[i];
