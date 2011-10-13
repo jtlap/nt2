@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['The function returns the second entry or the difference of the second and third entries,',
+                          'according to the first entry being True or False'],
          'module' : 'boost',
          'arity' : '3',
          'call_types' : [],

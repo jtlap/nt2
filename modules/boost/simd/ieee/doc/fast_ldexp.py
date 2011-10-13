@@ -1,7 +1,14 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+          'description' : ["The function multiply a floating entry \f$a_0\f$",
+                          "by \f$2^a_1\f$",'\par',
+                          "The fast prefix indicates that for speed sake",
+                          "the result may be incorrect for limiting values:",
+                          "inf, -inf nan and zero that deserve special treatment."
+                          "If you are not sure use \c ldexp, at the expense",
+                          "of some more machine cycles."],
+        'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],
          'ret_arity' : '0',

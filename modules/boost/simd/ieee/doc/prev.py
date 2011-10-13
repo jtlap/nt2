@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['in the type A0 of a0, the greatest A0 strictly less than a0'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns the least element of the SIMD vector'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

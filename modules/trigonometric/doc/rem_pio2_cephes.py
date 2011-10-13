@@ -1,9 +1,20 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '1',
-         'call_types' : [],
-         'ret_arity' : '3',
+         'description' :['compute the remainder modulo \\\\f$\pi/2\\\\f$ with cephes algorthm.','\par',
+                         'This is a quick version accurate if the input',
+                         'is in \\\\f$[-20\pi,20\pi\\\\f$.',
+                         '\par',
+                         'The reduction of the argument modulo \\\\f$pi/2\\\\f$ is generally',
+                         'the most difficult part of trigonometric evaluations.',
+                         'The accurate algorithm is over costly and implies the knowledge',
+                         'of a few hundred \\\\f$pi\\\\f$ decimals',
+                         'some simpler algorithms as this one',
+                         'can be used, but the precision is only insured on small intervals.'
+                         ],
+            'arity' : '1',
+            'call_types' : [],
+            'ret_arity' : '3',
          'rturn' : {
              'default' : 'typename nt2::meta::call<rem_pio2_cephes_(T)>::type',
             },

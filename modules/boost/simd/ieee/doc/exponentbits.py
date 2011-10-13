@@ -1,7 +1,13 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['Returns the exponent bits of the floating input as an integer value.',
+                          'the other bits (sign and mantissa) are just masked.',
+                          '\par',
+                          'The sign \\\\f$ \\\\pm \\\\f$, exponent e and mantissa m of a floating point entry a are related by',
+                          '\\\\f$a = \\\\pm m\\\\times 2^e\\\\f$, with m between zero and one'],
+         'return' : ['an integer value'],  
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

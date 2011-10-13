@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['hyperbolic cosine argument: \\\\f$\log(a_0+\\\\sqrt{a_0^2-1})\\\\f$.'] ,
+         'return' : ['nan for a0 less than one'],   
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

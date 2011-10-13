@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns a vector equal to a0 except that',
+                          'the first element of a0 is replaced  by its element of index a2 (scalar integer).',
+                          'the other elements are not modified.'],              
          'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],

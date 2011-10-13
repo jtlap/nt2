@@ -1,7 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['return the elementwise modulo of the two parameters',
+                          "Infix notation can be used with operator '%'",
+                          "Does not work for floating point entries.",],
+          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

@@ -1,7 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '3',
+        'description' : ['\\\\f$a_0 \\\\ge a_1-a_2*\max(|a_0|,|a1|)\\\\f$'],
+        'arity' : '3',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {

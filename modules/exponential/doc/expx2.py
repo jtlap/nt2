@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['exponential of square function: \f$e^{a_0^2}\f$','\par',
+                         'provisions are made for otaining correct results for large a0'] ,  
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

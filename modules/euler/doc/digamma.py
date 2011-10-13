@@ -1,6 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['digamma function'
+                          '\par Formula',
+                          '\\\\f[\Psi(a_0) = \\\\frac{\Gamma^\prime(a_0)}{\Gamma(a_0}\\\\f]',
+                             ],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

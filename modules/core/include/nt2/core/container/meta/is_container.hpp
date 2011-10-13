@@ -9,13 +9,13 @@
 #ifndef NT2_CORE_CONTAINER_META_IS_CONTAINER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_META_IS_CONTAINER_HPP_INCLUDED
 
-#include <boost/type_traits/is_arithmetic.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace details
 {
   template<class T, class Enable = void>
   struct is_container
-    : boost::is_arithmetic<T>
+    : boost::mpl::false_
   {
   };
 }

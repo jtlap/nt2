@@ -1,7 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['return the logical and of the two parameters',
+                          'the operands must of the same type',
+                          'the result type is the common one or bool in scalar case',
+                          "Infix notation can be used with operator '&&'"
+                         ],
+          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

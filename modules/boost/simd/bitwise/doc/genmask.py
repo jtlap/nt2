@@ -1,7 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['The function returns a mask of bits. All ones if the.',
+                          'input is non zero else all zeros'],
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

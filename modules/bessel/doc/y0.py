@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Bessel function of the second kind of order 0.'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

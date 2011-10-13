@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns the distance to the nearest (distinct) element of the same type.'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

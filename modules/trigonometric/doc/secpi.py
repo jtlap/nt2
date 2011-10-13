@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['secant of the angle in pi multiples.'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

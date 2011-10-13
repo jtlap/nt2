@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['Complete elliptic integral of the second kind'],  
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

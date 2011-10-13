@@ -1,6 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns the ith element of the input vector.',
+                          'Type of i must be integer and scalar and in the proper vector range.','\par'
+                          'No check is performed to ensure that i is in the correct range',
+                          '[0,meta::cardinal_of<A0>::value['],   
          'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T','iT'],

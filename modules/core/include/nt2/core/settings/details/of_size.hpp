@@ -16,9 +16,14 @@
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/vector_c.hpp>
+#include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/arithmetic/dec.hpp>
+#include <boost/preprocessor/arithmetic/sub.hpp>
 #include <cstddef>
+#include <algorithm>
 
 namespace nt2
 {
@@ -29,6 +34,8 @@ namespace nt2
   template< BOOST_PP_ENUM_PARAMS ( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
   struct of_size_
   {
+    typedef boost::fusion::boost_array_tag fusion_tag;
+      
     typedef std::size_t         value_type;
     typedef std::size_t&        reference;
     typedef std::size_t const&  const_reference;
@@ -38,18 +45,20 @@ namespace nt2
     //==========================================================================
     // Count non-trivial size values
     //==========================================================================
-    #define M0(z,n,t) + ((BOOST_PP_CAT(D,n) > -2) ? 1 : 0)
+    #define M0(z,n,t)                                                          \
+    : BOOST_PP_CAT(D, BOOST_PP_DEC(BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n))) != 1  \
+    ? BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n)
+    
     static const std::size_t
-    static_size = ((D0 > -2) ? 1 : 0)
-                  BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
+    static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0;
     #undef M0
 
     //==========================================================================
     // Check if size is entirely known at compile-time
     //==========================================================================
-    #define M0(z,n,t) && (BOOST_PP_CAT(D,n) >= 0 || BOOST_PP_CAT(D,n) == -2)
+    #define M0(z,n,t) && (BOOST_PP_CAT(D,n) >= 0)
     static const bool
-    static_status = (D0 >= 0 || D0 == -2)
+    static_status = (D0 >= 0)
                     BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
     #undef M0
 
@@ -128,8 +137,6 @@ namespace nt2
     static const std::size_t  static_size   = 0;
     static const bool         static_status = true;
     static const std::size_t  static_numel  = 0;
-    
-    of_size_() {}
 
     static std::size_t size() { return 0; }
     const_reference  operator[](std::size_t i) const { return 1; }    
@@ -152,6 +159,15 @@ namespace nt2
 
   #undef M0
   #undef M1
+  
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
+          , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
+  bool operator==( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
+                 , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1
+                 )
+  {
+    return std::equal(a0.begin(), a0.end(), a1.begin());
+  }
 }
 
 #endif

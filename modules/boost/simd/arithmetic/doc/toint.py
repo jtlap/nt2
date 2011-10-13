@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["convert an entry to integer by truncation."],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

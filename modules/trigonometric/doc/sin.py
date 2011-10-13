@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['sine'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+          'description' : ['Returns the signed mantissa of the floating input.',
+                          '\par',
+                          'The exponent e and signed mantissa m of a floating point entry a are related by',
+                          '\\\\f$a = m\\\\times 2^e\\\\f$, with the absolute value of m between one half and one'],
+        'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

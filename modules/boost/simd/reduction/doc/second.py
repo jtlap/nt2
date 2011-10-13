@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns the second element of the input vector.','\par',
+                          'In scalar mode returns the first element!'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

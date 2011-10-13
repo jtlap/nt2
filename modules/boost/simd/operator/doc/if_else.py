@@ -1,6 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+        'description' : ['return the elementwise selected element from the second and third operand',
+                          "according to the non nullity of the first operand.",
+                          'parameters 2 and 3 must share the same type and also the same element size',
+                          'as parameter 1'],
+         'equalparams'   : False,                 
+         'return'        : ["a value of the common type of the second and third  parameter"],   
          'module' : 'boost',
          'arity' : '3',
          'call_types' : [],

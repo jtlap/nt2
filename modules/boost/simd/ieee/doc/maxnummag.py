@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns the input value which have the greatest absolute value, ignoring nan.'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

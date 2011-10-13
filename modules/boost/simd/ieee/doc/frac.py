@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['This function returns the fractional part of the input',
+                         'that is \c a0-trunc(a0).','\par',
+                         'This is always zero for integer inputs.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

@@ -37,7 +37,7 @@ class Write_file(object) :
         self.write_files=write_files
         self.check_on_write=check_on_write
         self.backup_on_write=backup_on_write
-        self.verbose=verbose
+        self.verbose=True or verbose
         
     def test_immutable(self) :
         s= '\n'.join(read(p),)
@@ -48,13 +48,12 @@ class Write_file(object) :
         self.p =p
         self.name = name
         self.txt = txt
-        
-        if exist(self.p) :
-            if self.verbose : print ('path = %s'%self.p)
-            print("---%s"%exist(self.p))
+        if isinstance(p,str) and exist(self.p) :
+##            if self.verbose : print ('path = %s'%self.p)
             tp = os.path.join(self.p,self.name)
             if exist(tp) :
-                if self.show : show(self.txt)
+                if not self.write_files :
+                    return False
             if self.backup_on_write and exist(tp) :
                 if self.verbose : print("backing up %s" %name)
                 i = 1;
@@ -65,11 +64,16 @@ class Write_file(object) :
                 if self.verbose : print("to %s"% tpi)
                 shutil.copy(tp,tpi)
             elif not self.write_files :
-                print "%s is not writen"%tp
+                print "%s is not written"%tp
                 return False
-            elif self.verbose : print "writing to %s"%tp
-            return write(tp,self.txt,self.check_on_write)
-        elif self.verbose : 
+            if self.verbose : print "writing to %s"%tp
+            if write(tp,self.txt,self.check_on_write) :
+                print "%s is written"%tp
+                return True;
+        elif self.verbose and  isinstance(p,str) : 
             print("%s directory\n  does not exist " %os.path.split(p)[0])
+        else :
+            print("no path found")
+            
         return False
  

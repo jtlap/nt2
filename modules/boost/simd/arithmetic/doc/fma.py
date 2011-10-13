@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["computes \c a0*a1+a2, but the computation with only one rounding operation",
+                           "is only done on architectures possessing this hard wired capability"],
          'module' : 'boost',
          'arity' : '3',
          'call_types' : [],

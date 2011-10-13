@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
       rtype m;
       itype p;
-      boost::fusion::tie(m, p) = frexp(tofloat(a0));
+      frexp(tofloat(a0), &m, &p);
       //    std::cout << "a0 " << a0 << "  p " << p<< "  m " << m << std::endl;
       return simd::native_cast<A0>(seladd(boost::simd::is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
@@ -90,7 +90,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::upgrade<stype>::type itype;
       typedef simd::native<itype,X>              ivtype;
       ivtype a0l, a0h;
-      boost::fusion::tie(a0l, a0h) = split(a0);
+      split(a0, a0l, a0h);
       return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
       //seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(lastbitset(abs(a0))), One<A0>());
       }
@@ -117,7 +117,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::upgrade<stype>::type itype;
       typedef simd::native<itype, X>             ivtype;
       ivtype a0l, a0h;
-      boost::fusion::tie(a0l, a0h) = split(a0);
+      split(a0, a0l, a0h);
       return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
       //seladd(is_not_equal(popcnt(abs(a0)),One<A0>()), simd::native_cast<A0>(lastbitset(abs(a0))), One<A0>());
       }
@@ -143,7 +143,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type int_type;
       A0 m;
       int_type p;
-      boost::fusion::tie(m, p) = frexp(abs(a0));
+      frexp(abs(a0), m, p);
       return tofloat(seladd(boost::simd::is_equal(m, Half<A0>()), p, Mone<int_type>()));
       }
   };

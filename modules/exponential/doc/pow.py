@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['Power function: \f${a_0}^{a_1}\f$','\par',
+                         '\f$0^0\f$ returns 1'] ,  
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

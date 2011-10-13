@@ -1,7 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+        'description' : ['return the bitwise complement of the entry',
+                          "Infix notation can be used with operator '~'"],
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
