@@ -9,51 +9,46 @@
 #ifndef NT2_CORE_CONTAINER_TABLE_TABLE_CONTAINER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_TABLE_TABLE_CONTAINER_HPP_INCLUDED
 
+#include <nt2/core/settings/size.hpp>
+#include <nt2/core/container/category.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/core/container/meta/make_block.hpp>
 #include <nt2/core/container/meta/is_container.hpp>
 #include <nt2/core/container/meta/settings_of.hpp>
-#include <nt2/core/container/category.hpp>
-#include <nt2/core/settings/size.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace container
 {
-
-template<class T, class S>
-struct table_container
-{
-  typedef typename make_block<T, S>::type block_type;
-  block_type block;
-  
-  typedef typename meta::option<S, tag::of_size_, _4D>::type size_type;
-  size_type size_;
-  
-  typedef nt2::settings settings(size_type);
-  
-  size_type const& extent() const
+  //============================================================================
+  /*!
+   * table_container is the base class handling a table semantic, layout and
+   * memory used by the table proto terminal class. It is built from a value
+   * \c Type and a list of \c Settings describing how it should behave both at
+   * runtime and compile-time.
+   *
+   * \tparam Type Value type to store in the table
+   * \tparam Setting Compound options list describing the behavior of the table
+   **/
+  //============================================================================
+  template<class Type, class Settings> struct table_container
   {
-      return size_;
-  }
-  
-};
+    typedef typename make_block<Type, Settings>::type block_type;
+    block_type block;
 
-template<class T, class S>
-struct is_container< table_container<T, S> >
-  : boost::mpl::true_
-{
-};
+    typedef typename meta::option<Settings, tag::of_size_, _4D>::type size_type;
+    size_type size_;
 
+    typedef nt2::settings settings_type(size_type);
+
+    size_type const& extent() const { return size_; }
+  };
 }
 
 namespace meta
 {
-template<class T, class S>
-struct settings_of< container::table_container<T, S> >
-{
-  typedef typename container::table_container<T, S>::settings type;
-};
-
+  template<class T, class S>
+  struct is_container< container::table_container<T, S> > : boost::mpl::true_
+  {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -63,13 +58,13 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef T type;
   };
-  
+
   template<class T, class S, class Origin>
   struct hierarchy_of< nt2::container::table_container<T, S>, Origin >
   {
     typedef table_< typename property_of<typename value_of<T>::type, Origin>::type, S > type;
   };
-    
+
 } } }
 
 #endif

@@ -18,6 +18,17 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <cstddef>
 
+namespace nt2 { namespace meta
+{
+  //============================================================================
+  // of_size_ is a container
+  //============================================================================
+  template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
+  struct  is_container< of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> >
+        : boost::mpl::true_
+  {};
+} }
+
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
@@ -28,21 +39,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef std::size_t type;
   };
-} } }
 
-namespace nt2 { namespace container
-{
-  //============================================================================
-  // of_size_ is a container
-  //============================================================================
-  template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
-  struct is_container< nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> >
-    : boost::mpl::true_
-  {};
-} }
-
-namespace boost { namespace dispatch { namespace meta
-{
   //============================================================================
   /*!
    * extent_ is the hierarchy type used by of_size_ container

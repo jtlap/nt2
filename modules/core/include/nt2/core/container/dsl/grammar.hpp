@@ -23,7 +23,7 @@ namespace nt2 { namespace container
         : boost::proto
           ::or_ <
                   boost::dispatch::
-                  lambda_terminal< is_container<boost::proto::_value> >
+                  lambda_terminal< meta::is_container<boost::proto::_value> >
                 , boost::dispatch::
                   lambda_terminal< boost::is_arithmetic<boost::proto::_value> >
                 , boost::proto::

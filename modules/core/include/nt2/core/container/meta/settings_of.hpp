@@ -13,19 +13,40 @@
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/size.hpp>
 
-namespace nt2 { namespace meta
+namespace nt2
 {
-  template<class T>
-  struct settings_of
+  namespace details
   {
-    typedef settings type(matlab_index_, _0D, tag::cpu_);
-  };
-  
-  template<class T>
-  struct settings_of<T&> : settings_of<T> {};
-  
-  template<class T>
-  struct settings_of<T const> : settings_of<T> {};
-} }
+    template<class T, class Enable = void>
+    struct settings_of : boost::mpl::false_
+    {
+      typedef settings type(matlab_index_, _0D, tag::cpu_);
+    };
+
+    template<class T>
+    struct settings_of< T
+                      , typename  boost::dispatch::meta::
+                        enable_if_type<typename T::settings_type>::type
+                      >
+    {
+        typedef typename T::settings_type type;
+    };
+  }
+
+  namespace meta
+  {
+    //==========================================================================
+    /*!
+     * Retrieve settings from a Container
+     *
+     * \tparam T Container to retrieve settings from
+     */
+    //==========================================================================
+    template<class T> struct  settings_of : details::settings_of<T> {};
+
+    template<class T> struct settings_of<T&>       : is_container<T> {};
+    template<class T> struct settings_of<T const>  : is_container<T> {};
+  }
+}
 
 #endif

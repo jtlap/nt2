@@ -1,53 +1,14 @@
 #include <nt2/sdk/details/type_id.hpp>
 #include <iostream>
+
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/category.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <boost/proto/debug.hpp>
 #include <nt2/toolbox/operator/functions.hpp>
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class T, class S>
-  struct terminal_of< nt2::container::table_container<T, S> >
-  {
-    typedef typename nt2::container::table_container<T, S>::settings settings;
-      
-    typedef nt2::container::expression< typename boost::proto::terminal< nt2::container::table_container<T, settings> >::type
-            , nt2::container::table_container<T, settings>&
-            > type;
-  };
-    
-  template<class T, class S>
-  struct semantic_of<nt2::container::table<T, S> >
-  {
-    typedef nt2::container::table_container<T, S>& type;
-  };
-  
-} } }
-
-namespace nt2 { namespace container
-{
-
-template<class T, class S>
-struct table 
- : boost::dispatch::meta::terminal_of< table_container<T, S> >::type
-{
-  typedef typename
-  boost::dispatch::meta::terminal_of< table_container<T, S> >::type parent;
-  
-  table() {}
-
-  template<class Xpr,class Result>
-  BOOST_DISPATCH_FORCE_INLINE
-  table(expression<Xpr,Result> const& xpr) { static_cast<parent&>(*this) = xpr; }
-  
-  using parent::operator=;
-};
-
-} }
 
 #include <boost/fusion/include/size.hpp>
 #include <boost/fusion/include/array.hpp>
@@ -67,7 +28,7 @@ namespace nt2
                 for_each_impl<N-1>::call(bases, sz, pos, f);
         }
     };
-    
+
     template<>
     struct for_each_impl<0>
     {
@@ -77,17 +38,17 @@ namespace nt2
             return f(pos);
         }
     };
-    
+
     template<class Bases, class Sizes, class F>
     BOOST_DISPATCH_FORCE_INLINE
     void for_each(Bases const& bases, Sizes const& sz, F const& f)
-    {        
+    {
         static const std::size_t nb_dims = boost::fusion::result_of::size<Sizes>::value;
-        
+
         boost::array<std::size_t, nb_dims> position;
         for_each_impl<nb_dims>::call(bases, sz, position, f);
     }
-    
+
     // To replace with appropriate stuff
     template<class T>
     boost::array<std::size_t, NT2_MAX_DIMENSIONS> base_indices(T const&)
@@ -101,9 +62,9 @@ template<class A0>
 struct call_compute
 {
     call_compute(A0 a0_) : a0(a0_) {}
-    
+
     typedef void result_type;
-    
+
     template<class Position>
     result_type operator()(Position const& pos) const
     {
@@ -125,50 +86,21 @@ struct lhs_terminal
 
 namespace nt2 { namespace ext
 {
-  // size implementation
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)(T)
-                            , ((expr_< unspecified_<A0>, nt2::container::domain, T >))
-                            )
-  {
-    typedef typename A0::size_type const& result_type;
-    
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0) const
-    {
-      return a0.extent();
-    }
-  };
-  
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
                             , (A0)(S0)
                             , ((table_< unspecified_<A0>, S0>))
                             )
   {
     typedef typename A0::size_type const& result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
       return a0.extent();
     }
   };
-  
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)
-                            , (scalar_< unspecified_<A0> >)
-                            )
-  {
-    typedef _0D const& result_type;
-    
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0&) const
-    {
-      static _0D sz;
-      return sz;
-    }
-  };
-    
+
+
   // terminal, does load / store
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
                             , (class A0)(class S0)(class State)(std::size_t N)
@@ -180,7 +112,7 @@ namespace nt2 { namespace ext
     scalar_of< typename boost::dispatch::meta::
                semantic_of<A0>::type
              >::type                                        result_type;
-    
+
     template<class A0_>
     result_type operator()(A0_& a0, State const& state) const
     {
@@ -189,7 +121,7 @@ namespace nt2 { namespace ext
        return r;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
                             , (class A0)(class State)(std::size_t N)
                             , ((ast_<table_< unspecified_<A0>, nt2::of_size_<1> > >))
@@ -200,7 +132,7 @@ namespace nt2 { namespace ext
     scalar_of< typename boost::dispatch::meta::
                semantic_of<A0>::type
              >::type                                       result_type;
-    
+
     template<class A0_>
     result_type operator()(A0_& a0, State const& state) const
     {
@@ -209,14 +141,14 @@ namespace nt2 { namespace ext
        return r;
     }
   };
-  
+
   NT2_REGISTER_DISPATCH_TO_TPL( nt2::tag::terminal_, tag::cpu_
                             , (class A0)(class State)(std::size_t N)
                             , ((ast_<scalar_< unspecified_<A0> > >))
                               ((array_< scalar_< integer_<State> >, N>))
                             , identity
                             )
-    
+
   // An assignment table expression is ran by running it for every position
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(S0)
@@ -227,7 +159,7 @@ namespace nt2 { namespace ext
     terminal_of< typename boost::dispatch::meta::
                  semantic_of<A0>::type
                >::type                                     result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
@@ -235,7 +167,7 @@ namespace nt2 { namespace ext
       return lhs_terminal()(a0);
     }
   };
-  
+
   // Another table expression is ran by reducing it to an assignment
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(S0)
@@ -248,7 +180,7 @@ namespace nt2 { namespace ext
                                    semantic_of<A0>::type
                                  >::type
                     >::type                                result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
@@ -257,19 +189,19 @@ namespace nt2 { namespace ext
       return tmp;
     }
   };
-  
+
 } }
 
 int main()
 {
   using nt2::container::table;
-    
+
   table<double, nt2::of_size_<5, 10> > a, b, c;
-  
+
   std::cout << "a = " << (void*)&a << std::endl;
   std::cout << "b = " << (void*)&b << std::endl;
   std::cout << "c = " << (void*)&c << std::endl;
-  
+
   a = b + 1.;
 #if 1
   a = b + c*c/a;
@@ -278,7 +210,7 @@ int main()
   std::cout << std::endl;
   c += -a;
   std::cout << std::endl;
-#endif    
+#endif
   /* c(a) += a; // function undefined
   c(a) = b(c) + c(a)*b(a);*/
 }
