@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : [ "Returns the sign of a0. I.e. -1 or 1, according",
+                           "a0 is negative or positive.",
+                           "This function never returns zero (zero is considered positive)."],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

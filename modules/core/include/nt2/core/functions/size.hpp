@@ -11,14 +11,10 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 { namespace tag
-  {
-    struct size_ {};
-  }
-
-  NT2_FUNCTION_IMPLEMENTATION(tag::size_, size, 1)
+namespace nt2 
+{ 
+  namespace tag { struct size_ {}; }
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::size_, size, 1)
 }
-
-#include <nt2/core/functions/impl/size.hpp>
 
 #endif

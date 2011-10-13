@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['hyperbolic tangent argument \\\\f$\\\\frac12\\\\frac{a_0^2-1}{a_0^2+1}\\\\f$'] ,
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

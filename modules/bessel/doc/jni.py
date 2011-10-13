@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+        'description' : ['Bessel function of the first kind of order n.'],
+        'param_0' :['a scalar integer: the order of the bessel function'],    
          'arity' : '2',
          'call_types' : ['iT', 'T'],
          'ret_arity' : '0',

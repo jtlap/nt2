@@ -81,7 +81,7 @@ NT2_TEST_CASE(hierarchy_of_ints64)
   NT2_TEST( (is_same<scalar_<int64_<nt2::int64_t>       > , base >::value) );
   NT2_TEST( (is_same<scalar_<ints64_<nt2::int64_t>      > , UP(base,1) >::value) );
   NT2_TEST( (is_same<scalar_<type64_<nt2::int64_t>      > , UP(base,2) >::value) );
-  NT2_TEST( (is_same<scalar_<real_sized_<nt2::int64_t>  > , UP(base,3) >::value) );
+  NT2_TEST( (is_same<scalar_<floating_sized_<nt2::int64_t>  > , UP(base,3) >::value) );
   NT2_TEST( (is_same<scalar_<int_<nt2::int64_t>         > , UP(base,4) >::value) );
   NT2_TEST( (is_same<scalar_<signed_<nt2::int64_t>      > , UP(base,5) >::value) );
   NT2_TEST( (is_same<scalar_<integer_<nt2::int64_t>     > , UP(base,6) >::value) );
@@ -92,7 +92,7 @@ NT2_TEST_CASE(hierarchy_of_ints64)
   NT2_TEST( (is_same<generic_<int64_<nt2::int64_t>        > , UP(base,10) >::value) );
   NT2_TEST( (is_same<generic_<ints64_<nt2::int64_t>       > , UP(base,11) >::value) );
   NT2_TEST( (is_same<generic_<type64_<nt2::int64_t>       > , UP(base,12) >::value) );
-  NT2_TEST( (is_same<generic_<real_sized_<nt2::int64_t>   > , UP(base,13) >::value) );
+  NT2_TEST( (is_same<generic_<floating_sized_<nt2::int64_t>   > , UP(base,13) >::value) );
   NT2_TEST( (is_same<generic_<int_<nt2::int64_t>          > , UP(base,14) >::value) );
   NT2_TEST( (is_same<generic_<signed_<nt2::int64_t>       > , UP(base,15) >::value) );
   NT2_TEST( (is_same<generic_<integer_<nt2::int64_t>      > , UP(base,16) >::value) );
@@ -113,7 +113,7 @@ NT2_TEST_CASE(hierarchy_of_uints64)
   NT2_TEST( (is_same<scalar_<uint64_<nt2::uint64_t>      > , base >::value) );
   NT2_TEST( (is_same<scalar_<ints64_<nt2::uint64_t>      > , UP(base,1) >::value) );
   NT2_TEST( (is_same<scalar_<type64_<nt2::uint64_t>      > , UP(base,2) >::value) );
-  NT2_TEST( (is_same<scalar_<real_sized_<nt2::uint64_t>  > , UP(base,3) >::value) );
+  NT2_TEST( (is_same<scalar_<floating_sized_<nt2::uint64_t>  > , UP(base,3) >::value) );
   NT2_TEST( (is_same<scalar_<uint_<nt2::uint64_t>        > , UP(base,4) >::value) );
   NT2_TEST( (is_same<scalar_<unsigned_<nt2::uint64_t>    > , UP(base,5) >::value) );
   NT2_TEST( (is_same<scalar_<integer_<nt2::uint64_t>     > , UP(base,6) >::value) );
@@ -124,7 +124,7 @@ NT2_TEST_CASE(hierarchy_of_uints64)
   NT2_TEST( (is_same<generic_<uint64_<nt2::uint64_t>       > , UP(base,10) >::value) );
   NT2_TEST( (is_same<generic_<ints64_<nt2::uint64_t>       > , UP(base,11) >::value) );
   NT2_TEST( (is_same<generic_<type64_<nt2::uint64_t>       > , UP(base,12) >::value) );
-  NT2_TEST( (is_same<generic_<real_sized_<nt2::uint64_t>   > , UP(base,13) >::value) );
+  NT2_TEST( (is_same<generic_<floating_sized_<nt2::uint64_t>   > , UP(base,13) >::value) );
   NT2_TEST( (is_same<generic_<uint_<nt2::uint64_t>         > , UP(base,14) >::value) );
   NT2_TEST( (is_same<generic_<unsigned_<nt2::uint64_t>     > , UP(base,15) >::value) );
   NT2_TEST( (is_same<generic_<integer_<nt2::uint64_t>      > , UP(base,16) >::value) );
@@ -145,7 +145,7 @@ NT2_TEST_CASE(hierarchy_of_ints32)
   NT2_TEST( (is_same<scalar_<int32_<nt2::int32_t>       > , base >::value) );
   NT2_TEST( (is_same<scalar_<ints32_<nt2::int32_t>      > , UP(base,1) >::value) );
   NT2_TEST( (is_same<scalar_<type32_<nt2::int32_t>      > , UP(base,2) >::value) );
-  NT2_TEST( (is_same<scalar_<real_sized_<nt2::int32_t>  > , UP(base,3) >::value) );
+  NT2_TEST( (is_same<scalar_<floating_sized_<nt2::int32_t>  > , UP(base,3) >::value) );
   NT2_TEST( (is_same<scalar_<int_<nt2::int32_t>         > , UP(base,4) >::value) );
   NT2_TEST( (is_same<scalar_<signed_<nt2::int32_t>      > , UP(base,5) >::value) );
   NT2_TEST( (is_same<scalar_<integer_<nt2::int32_t>     > , UP(base,6) >::value) );
@@ -156,7 +156,7 @@ NT2_TEST_CASE(hierarchy_of_ints32)
   NT2_TEST( (is_same<generic_<int32_<nt2::int32_t>        > , UP(base,10) >::value) );
   NT2_TEST( (is_same<generic_<ints32_<nt2::int32_t>       > , UP(base,11) >::value) );
   NT2_TEST( (is_same<generic_<type32_<nt2::int32_t>       > , UP(base,12) >::value) );
-  NT2_TEST( (is_same<generic_<real_sized_<nt2::int32_t>   > , UP(base,13) >::value) );
+  NT2_TEST( (is_same<generic_<floating_sized_<nt2::int32_t>   > , UP(base,13) >::value) );
   NT2_TEST( (is_same<generic_<int_<nt2::int32_t>          > , UP(base,14) >::value) );
   NT2_TEST( (is_same<generic_<signed_<nt2::int32_t>       > , UP(base,15) >::value) );
   NT2_TEST( (is_same<generic_<integer_<nt2::int32_t>      > , UP(base,16) >::value) );
@@ -177,7 +177,7 @@ NT2_TEST_CASE(hierarchy_of_uints32)
   NT2_TEST( (is_same<scalar_<uint32_<nt2::uint32_t>      > , base >::value) );
   NT2_TEST( (is_same<scalar_<ints32_<nt2::uint32_t>      > , UP(base,1) >::value) );
   NT2_TEST( (is_same<scalar_<type32_<nt2::uint32_t>      > , UP(base,2) >::value) );
-  NT2_TEST( (is_same<scalar_<real_sized_<nt2::uint32_t>  > , UP(base,3) >::value) );
+  NT2_TEST( (is_same<scalar_<floating_sized_<nt2::uint32_t>  > , UP(base,3) >::value) );
   NT2_TEST( (is_same<scalar_<uint_<nt2::uint32_t>        > , UP(base,4) >::value) );
   NT2_TEST( (is_same<scalar_<unsigned_<nt2::uint32_t>    > , UP(base,5) >::value) );
   NT2_TEST( (is_same<scalar_<integer_<nt2::uint32_t>     > , UP(base,6) >::value) );
@@ -188,7 +188,7 @@ NT2_TEST_CASE(hierarchy_of_uints32)
   NT2_TEST( (is_same<generic_<uint32_<nt2::uint32_t>       > , UP(base,10) >::value) );
   NT2_TEST( (is_same<generic_<ints32_<nt2::uint32_t>       > , UP(base,11) >::value) );
   NT2_TEST( (is_same<generic_<type32_<nt2::uint32_t>       > , UP(base,12) >::value) );
-  NT2_TEST( (is_same<generic_<real_sized_<nt2::uint32_t>   > , UP(base,13) >::value) );
+  NT2_TEST( (is_same<generic_<floating_sized_<nt2::uint32_t>   > , UP(base,13) >::value) );
   NT2_TEST( (is_same<generic_<uint_<nt2::uint32_t>         > , UP(base,14) >::value) );
   NT2_TEST( (is_same<generic_<unsigned_<nt2::uint32_t>     > , UP(base,15) >::value) );
   NT2_TEST( (is_same<generic_<integer_<nt2::uint32_t>      > , UP(base,16) >::value) );
@@ -328,8 +328,8 @@ NT2_TEST_CASE(hierarchy_of_double)
 
   NT2_TEST( (is_same<scalar_<double_<double>      > , base >::value) );
   NT2_TEST( (is_same<scalar_<type64_<double>      > , UP(base,1) >::value) );
-  NT2_TEST( (is_same<scalar_<real_sized_<double>  > , UP(base,2) >::value) );
-  NT2_TEST( (is_same<scalar_<real_<double>        > , UP(base,3) >::value) );
+  NT2_TEST( (is_same<scalar_<floating_sized_<double>  > , UP(base,2) >::value) );
+  NT2_TEST( (is_same<scalar_<floating_<double>        > , UP(base,3) >::value) );
   NT2_TEST( (is_same<scalar_<signed_<double>      > , UP(base,4) >::value) );
   NT2_TEST( (is_same<scalar_<arithmetic_<double>  > , UP(base,5) >::value) );
   NT2_TEST( (is_same<scalar_<fundamental_<double> > , UP(base,6) >::value) );
@@ -337,8 +337,8 @@ NT2_TEST_CASE(hierarchy_of_double)
 
   NT2_TEST( (is_same<generic_<double_<double>      > , UP(base,8) >::value) );
   NT2_TEST( (is_same<generic_<type64_<double>      > , UP(base,9) >::value) );
-  NT2_TEST( (is_same<generic_<real_sized_<double>  > , UP(base,10) >::value) );
-  NT2_TEST( (is_same<generic_<real_<double>        > , UP(base,11) >::value) );
+  NT2_TEST( (is_same<generic_<floating_sized_<double>  > , UP(base,10) >::value) );
+  NT2_TEST( (is_same<generic_<floating_<double>        > , UP(base,11) >::value) );
   NT2_TEST( (is_same<generic_<signed_<double>      > , UP(base,12) >::value) );
   NT2_TEST( (is_same<generic_<arithmetic_<double>  > , UP(base,13) >::value) );
   NT2_TEST( (is_same<generic_<fundamental_<double> > , UP(base,14) >::value) );
@@ -354,19 +354,19 @@ NT2_TEST_CASE(hierarchy_of_float)
 
   typedef hierarchy_of<float>::type base;
 
-  NT2_TEST( (is_same<scalar_<float_<float>      > , base >::value) );
+  NT2_TEST( (is_same<scalar_<single_<float>      > , base >::value) );
   NT2_TEST( (is_same<scalar_<type32_<float>      > , UP(base,1) >::value) );
-  NT2_TEST( (is_same<scalar_<real_sized_<float>  > , UP(base,2) >::value) );
-  NT2_TEST( (is_same<scalar_<real_<float>        > , UP(base,3) >::value) );
+  NT2_TEST( (is_same<scalar_<floating_sized_<float>  > , UP(base,2) >::value) );
+  NT2_TEST( (is_same<scalar_<floating_<float>        > , UP(base,3) >::value) );
   NT2_TEST( (is_same<scalar_<signed_<float>      > , UP(base,4) >::value) );
   NT2_TEST( (is_same<scalar_<arithmetic_<float>  > , UP(base,5) >::value) );
   NT2_TEST( (is_same<scalar_<fundamental_<float> > , UP(base,6) >::value) );
   NT2_TEST( (is_same<scalar_<unspecified_<float> > , UP(base,7) >::value) );
 
-  NT2_TEST( (is_same<generic_<float_<float>      > , UP(base,8) >::value) );
+  NT2_TEST( (is_same<generic_<single_<float>      > , UP(base,8) >::value) );
   NT2_TEST( (is_same<generic_<type32_<float>      > , UP(base,9) >::value) );
-  NT2_TEST( (is_same<generic_<real_sized_<float>  > , UP(base,10) >::value) );
-  NT2_TEST( (is_same<generic_<real_<float>        > , UP(base,11) >::value) );
+  NT2_TEST( (is_same<generic_<floating_sized_<float>  > , UP(base,10) >::value) );
+  NT2_TEST( (is_same<generic_<floating_<float>        > , UP(base,11) >::value) );
   NT2_TEST( (is_same<generic_<signed_<float>      > , UP(base,12) >::value) );
   NT2_TEST( (is_same<generic_<arithmetic_<float>  > , UP(base,13) >::value) );
   NT2_TEST( (is_same<generic_<fundamental_<float> > , UP(base,14) >::value) );

@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( minmag_real__2_0,  BOOST_SIMD_REAL_TYPES)
      }
      
    }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( minmag_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {

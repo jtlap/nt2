@@ -21,7 +21,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -65,4 +65,4 @@ NT2_TEST_CASE_TPL ( idivround_real__2_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(idivround(nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Zero<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivround(nt2::One<vT>(), nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

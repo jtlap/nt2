@@ -53,4 +53,4 @@ NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(rsqrt(boost::simd::Zero<vT>())[0], boost::simd::Inf<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

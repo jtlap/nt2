@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext                              \
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_ARITY,M0, (T,C) ) \
 /**/
 
-BOOST_SIMD_MAP_CALL(float_  ,  4 )
+BOOST_SIMD_MAP_CALL(single_  ,  4 )
 BOOST_SIMD_MAP_CALL(ints32_ ,  4 )
 BOOST_SIMD_MAP_CALL(ints16_ ,  8 )
 BOOST_SIMD_MAP_CALL(ints8_  , 16 )

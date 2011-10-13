@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_NBTRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_NBTRUE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
 #include <boost/simd/include/functions/is_nez.hpp>
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, boost::simd::tag::sse2_
                             , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
 
@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_real<A0>::type type;
+      typedef typename dispatch::meta::as_floating<A0>::type type;
       int32_t  r = _mm_movemask_ps(is_nez(a0));
       return   (r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3);
       //      return boost::simd::popcnt(_mm_movemask_ps(is_nez(cast<type>(a0))));

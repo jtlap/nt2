@@ -14,8 +14,6 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <iostream>
-#include <iomanip>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -37,11 +35,11 @@ namespace nt2 { namespace ext
   };
   
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A1 is real_
+  // Implementation when type A1 is floating_
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::legendre_, tag::cpu_,
 			     (A0)(A1),
-			     (scalar_<integer_<A0> >)(scalar_<real_<A1> >)
+			     (scalar_<integer_<A0> >)(scalar_<floating_<A1> >)
 			     )
   {
     typedef A1 result_type; 

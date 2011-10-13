@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_UNARY_PLUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_UNARY_PLUS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -15,13 +18,57 @@
 
 #include <boost/proto/tags.hpp>
 
+/*!
+ * \ingroup boost_simd_operator
+ * \defgroup boost_simd_operator_unary_plus unary_plus
+ *
+ * \par Description
+ * return the elementwise unary plus of the parameter
+ * Infix notation can be used with operator '+'
+ * This is in fact identity.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/unary_plus.hpp>
+ * \endcode
+ * 
+ * \par Aliases 
+ * \arg identity
+ * \arg id
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::unary_plus_(A0)>::type
+ *     unary_plus(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of unary_plus
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag unary_plus_ of functor unary_plus 
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
+    **/
     typedef boost::proto::tag::unary_plus unary_plus_;
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , unary_plus  , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , identity    , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , id          , 1 )

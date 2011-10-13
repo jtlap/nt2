@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITOFSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITOFSIGN_HPP_INCLUDED
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
@@ -29,11 +28,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { ignore_unused(a0); return Zero<A0>(); }
+    inline result_type operator()(const A0&)const { return Zero<A0>(); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitofsign_, tag::cpu_, (A0)(X)
-                            , ((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;

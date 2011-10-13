@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns the sum of the elements of the SIMD vector'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

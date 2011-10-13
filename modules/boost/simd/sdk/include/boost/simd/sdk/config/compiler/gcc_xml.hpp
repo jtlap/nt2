@@ -12,8 +12,8 @@
 #if !defined(BOOST_SIMD_COMPILER)
   #if defined(__GCCXML__) || defined(DOXYGEN_ONLY)
 
-    #define BOOST_SIMD_COMPILER_GNU_C
-    #define BOOST_SIMD_COMPILER_GNU_C_XML
+    #define BOOST_SIMD_COMPILER_GCC
+    #define BOOST_SIMD_COMPILER_GCC_XML
     #define BOOST_SIMD_COMPILER BOOST_COMPILER
 
   #endif

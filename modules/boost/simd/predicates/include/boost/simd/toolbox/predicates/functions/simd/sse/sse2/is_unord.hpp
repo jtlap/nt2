@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_UNORD_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/include/constants/false.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,11 +19,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    inline result_type operator()(const A0&, const A0&)const
     {
-      ignore_unused(a0);
-      ignore_unused(a1);
       return boost::simd::False<A0>();
     }
   };
@@ -44,8 +40,8 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_unord_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<float_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;

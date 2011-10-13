@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_LOOKUP_HPP_INCLUDED
-#include <boost/dispatch/details/ignore_unused.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -17,15 +16,14 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::lookup_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< integer_<A1> >)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< integer_<A1> >)
                             )
   {
 
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    inline result_type operator()(const A0&a0, const A1&) const
     {
-      ignore_unused(a1);
       return a0;
     }
   };

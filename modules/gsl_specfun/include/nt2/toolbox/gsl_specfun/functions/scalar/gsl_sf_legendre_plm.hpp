@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::gsl_specfun::tag::gsl_sf_legendre_plm_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< float_<A2> >)
+                            , (scalar_< integer_<A0> >)(scalar_< integer_<A1> >)(scalar_< single_<A2> >)
                             )
   {
 

@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Returns True<A0>() if a0 is inf, -inf or nan else returns False<A0>()'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

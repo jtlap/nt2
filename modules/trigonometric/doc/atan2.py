@@ -1,6 +1,15 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['atan2 function.',
+                         'The two-argument function atan2 is a variation of the arctangent function.','\par',
+                         'For any real arguments a0 and a1 not both equal to zero, atan2(a0, a1)',
+                         'is the angle in radians between the positive x-axis of a plane and the point',
+                         'given by the coordinates (a1, a0) on it.','\par',
+                         'It is the angle in \\\\f$[-\pi,\pi[ \\\\f$ such that',
+                         '\\\\f$a1/\\\\sqrt{a_0^2+a_1^2}\\\\f$ and \\\\f$a0/\\\\sqrt{a_0^2+a_1^2}\\\\f$'
+                         'are respectively the sine and the cosine.' 
+                         ] ,
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

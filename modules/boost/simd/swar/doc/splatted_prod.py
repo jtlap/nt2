@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns the product of a0 elements splatted in a vector'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -35,14 +36,14 @@
                 },
              'real_' : {
                  'boost::simd::Inf<T>()' : {'result' : 'boost::simd::Inf<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Minf<T>()' : {'result' : 'boost::simd::Inf<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Mone<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Minf<T>()' : {'result' : '(boost::simd::meta::cardinal_of<vT>::value == 1) ? boost::simd::Minf<r_t>() : boost::simd::Inf<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Mone<T>()' : {'result' : '(boost::simd::meta::cardinal_of<vT>::value == 1) ? boost::simd::Mone<r_t>() : boost::simd::One<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::Nan<T>()' : {'result' : 'boost::simd::Nan<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::One<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
                 },
              'signed_int_' : {
-                 'boost::simd::Mone<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::Mone<T>()' : {'result' : '(boost::simd::meta::cardinal_of<vT>::value == 1) ? boost::simd::Mone<r_t>() : boost::simd::One<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::One<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0',},
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
                 },

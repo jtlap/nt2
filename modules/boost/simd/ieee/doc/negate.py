@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['a1 < 0 ? a0 : -a0'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

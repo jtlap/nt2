@@ -167,6 +167,7 @@ int main(int argc, char* argv[])
         std::vector<std::string> paths;
         std::set<std::string>    ignore;
         std::string              binary_path;
+        int                      write = 0;
         
         Files files;
         for(int i = 1; i != argc; ++i)
@@ -194,17 +195,9 @@ int main(int argc, char* argv[])
                 continue;
             }
             
-            // flatten all found files
-            if(!std::strcmp(argv[i], "--all") && i != argc-1)
+            if(!std::strcmp(argv[i], "--out"))
             {
-                std::string const & path( argv[i+1] );
-                ++i;
-                
-                FileSet includes;
-                for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
-                    includes.insert(it2->second.begin(), it2->second.end());
-
-                generate_file( binary_path, fs::parent_path( path ), fs::filename( path ), includes );
+                write = 2;
                 continue;
             }
             
@@ -219,18 +212,43 @@ int main(int argc, char* argv[])
             // other arguments are directory or file names
             std::string const & path( argv[i] );
             
-            // regular file rather than directory
-            if ( !fs::extension( path ).empty() )
+            // regular file end with an extension
+            bool regular_file = !fs::extension( path ).empty();
+            
+            if(write == 2)
             {
-                files[ fs::filename( path ) ].insert( path );
+                write = 1;
+              
+                // flatten all found files
+                if(regular_file)
+                {
+                    FileSet includes;
+                    for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
+                        includes.insert(it2->second.begin(), it2->second.end());
+
+                    generate_file( binary_path, fs::parent_path( path ), fs::filename( path ), includes );
+                }
+                
+                // generate one file per entry
+                else
+                {
+                    for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
+                        generate_file(binary_path, path, it2->first, it2->second);
+                }
+                
                 continue;
             }
-                
-            for(Files::const_iterator it2 = files.begin(); it2 != files.end(); ++it2)
-                generate_file(binary_path, path, it2->first, it2->second);
-                
-            files.clear();
-            find_files( files, paths, ignore, path );
+            
+            if(write == 1)
+            {
+                write = 0;
+                files.clear();
+            }
+  
+            if(regular_file)
+                files[ fs::filename( path ) ].insert( path );
+            else
+                find_files( files, paths, ignore, path );
         }
     }
     catch(const std::exception& e)

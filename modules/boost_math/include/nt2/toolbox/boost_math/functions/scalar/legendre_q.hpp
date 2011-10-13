@@ -33,13 +33,13 @@ namespace nt2 { namespace ext
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::legendre_q_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_< integer_<A0> >)(scalar_< real_<A1> >)
+                            , (scalar_< integer_<A0> >)(scalar_< floating_<A1> >)
                             )
   {
 

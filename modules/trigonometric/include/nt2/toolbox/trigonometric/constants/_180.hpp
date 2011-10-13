@@ -8,7 +8,45 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS__180_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS__180_HPP_INCLUDED
+/*!
+ * \file
+**/
 #include <nt2/sdk/constant/constant.hpp>
+/*!
+ * \ingroup trigo_constant
+ * \defgroup trigo_constant__180 _180
+ *
+ * \par Description
+ * Constant _180 : 180.
+ * \par
+ * The value of this constant is type dependant. This means that for different
+ * types it does not represent the same mathematical number.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/_180.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class T,class A0>
+ *     meta::call<tag::_180_(A0)>::type
+ *     _180();
+ * }
+ * \endcode
+ *
+ * 
+ * \param T template parameter of _180
+ * 
+ * \return type T value
+ *  
+ *  
+**/
 
 namespace nt2
 {

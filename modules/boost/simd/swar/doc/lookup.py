@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['shuffles the elements of a1 using indices in a2'],  
          'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],

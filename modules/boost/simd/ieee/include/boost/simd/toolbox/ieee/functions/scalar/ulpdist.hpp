@@ -79,13 +79,13 @@ namespace boost { namespace simd { namespace ext
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulpdist_, tag::cpu_
                             , (A0)
-                            , (scalar_< real_<A0> >)(scalar_< real_<A0> >)
+                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
                             )
   {
 
@@ -97,14 +97,17 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type itype;
       if (a0 == a1)               return Zero<type>();
       if (is_nan(a0)&&is_nan(a1)) return Zero<type>();
-      itype e1, e2;
-      type m1, m2;
+      itype e1 = Zero<itype>(), e2 = Zero<itype>();
+      type m1 = Zero<type>(), m2 = Zero<type>();
       boost::simd::frexp(a0, m1, e1);
       boost::simd::frexp(a1, m2, e2);
       itype expo = -boost::simd::max(e1, e2);
       double e = (e1 == e2) ? boost::simd::abs(m1-m2)
-                            : boost::simd::abs(boost::simd::ldexp(a0, expo)-boost::simd::ldexp(a1, expo));
-      return e/Eps<type>();
+                            :   boost::simd::abs( boost::simd::ldexp(a0, expo)
+                                                - boost::simd::ldexp(a1, expo)
+                                                );
+      A0 that = static_cast<A0>(e/Eps<type>());
+      return that;
     }
   };
 } } }

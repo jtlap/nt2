@@ -8,6 +8,7 @@
 #include <string>
 #include <algorithm>
 #include <limits.h>
+#include <stdio.h>
 
 #ifdef BOOST_WINDOWS_API
     #include <direct.h>
@@ -27,6 +28,16 @@
 
 namespace filesystem
 {
+    inline bool exists( const char* file_path )
+    {
+    #ifdef BOOST_WINDOWS_API
+        return GetFileAttributes(file_path) != INVALID_FILE_ATTRIBUTES;
+    #else
+        struct stat s;
+        return stat(file_path, &s) == 0;
+    #endif
+    }
+    
     inline void create_directories( std::string const & file_path )
     {
         static const char separator[] = "/\\";
@@ -110,6 +121,113 @@ namespace filesystem
     private:
         std::string cwd_;
     };
+    
+    inline bool is_directory( std::string const & file_path )
+    {
+        int ec;
+        
+        std::string path = current_path();
+        current_path(file_path, ec);
+        current_path(path);
+        
+        return ec == 0;
+    }
+    
+    inline bool remove( const char* file_path, int& ec )
+    {
+        // TODO: implement error reporting
+        ec = 0;
+        
+#ifdef BOOST_WINDOWS_API
+        if(is_directory(file_path))
+            return ::RemoveDirectory(file_path);
+        else
+            return ::DeleteFileA(file_path);
+#else
+
+        return ::remove(file_path) == 0;
+#endif
+    }
+    
+namespace details
+{
+    int remove_all_rec( int& ec )
+    {
+        int count = 0;
+        for ( directory_iterator current_dir( "." ); *current_dir; ++current_dir )
+        {
+            if(!is_directory(*current_dir))
+            {
+                count += remove(*current_dir, ec);
+                continue;
+            }
+            
+            {
+                current_path_saver const cps;
+                current_path(*current_dir);
+                count += remove_all_rec(ec);
+            }
+            
+            count += remove(*current_dir, ec);
+        }
+        return count;
+    }
+}
+
+    inline int remove_all( const char* file_path, int& ec )
+    {
+        if(!is_directory(file_path))
+            return remove(file_path, ec);
+        
+        int count;
+        {
+            current_path_saver const cps;
+            current_path(file_path);
+            count = details::remove_all_rec(ec);
+        }
+        
+        return count + remove(file_path, ec);
+    }
+    
+    inline bool remove( const char* file_path )
+    {
+        int ec;
+        bool result = remove(file_path, ec);
+        
+        if( ec )
+            BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error removing ") + file_path ) );
+        
+        return result;
+    }
+    
+    inline int remove_all( const char* file_path )
+    {
+        int ec;
+        int result = remove_all(file_path, ec);
+        
+        if( ec )
+            BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error removing recursively ") + file_path ) );
+        
+        return result;
+    }
+    
+    void rename(const char* from, const char* to, int& ec)
+    {
+    #ifdef BOOST_WINDOWS_API
+        if(exists(to))
+            remove(to, ec);
+    #endif
+        ec = ::rename(from, to) ? errno : 0;
+    }
+    
+    inline void rename(const char* from, const char* to)
+    {
+        int ec;
+        rename(from, to, ec);
+        
+        if( ec )
+            BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error renaming ") + from + " to " + to) );
+    }
 }
 
 #ifdef _MSC_VER

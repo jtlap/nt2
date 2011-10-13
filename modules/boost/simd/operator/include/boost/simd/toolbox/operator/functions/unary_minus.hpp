@@ -6,6 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_UNARY_MINUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_UNARY_MINUS_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
@@ -15,13 +18,55 @@
 
 #include <boost/proto/tags.hpp>
 
+/*!
+ * \ingroup boost_simd_operator
+ * \defgroup boost_simd_operator_unary_minus unary_minus
+ *
+ * \par Description
+ * return the elementwise unary minus of the parameter
+ * Infix notation can be used with operator '-'
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/unary_minus.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg neg
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::unary_minus_(A0)>::type
+ *     unary_minus(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of unary_minus
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag unary_minus_ of functor unary_minus 
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
+    **/
     typedef boost::proto::tag::negate unary_minus_;
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, unary_minus , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, neg         , 1 )
 } }

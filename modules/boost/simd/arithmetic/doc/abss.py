@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :[ 'This is generally equivalent to abs except for signed integer',
+                          'types for which \c abss(Valmin) is \c Valmax-1',
+                          ],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

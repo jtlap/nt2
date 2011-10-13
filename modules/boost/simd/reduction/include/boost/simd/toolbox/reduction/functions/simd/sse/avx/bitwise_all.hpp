@@ -9,8 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_BITWISE_ALL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_BITWISE_ALL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <iostream>
-
 #include <boost/simd/toolbox/reduction/functions/bitwise_all.hpp>
 
 namespace boost { namespace simd { namespace ext

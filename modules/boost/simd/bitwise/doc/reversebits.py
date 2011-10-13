@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['The function returns the bits of the entry in reverse order,',
+                          'in the same type as the entry'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

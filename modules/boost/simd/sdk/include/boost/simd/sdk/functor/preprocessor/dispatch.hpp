@@ -18,6 +18,12 @@ BOOST_DISPATCH_REGISTER_DISPATCH((boost)(simd)(ext),Tag,Site,Types,Seq)
 #define BOOST_SIMD_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                  \
 BOOST_DISPATCH_REGISTER_DISPATCH_TPL((boost)(simd)(ext),Tag,Site,Types,Seq)
 
+#define BOOST_SIMD_REGISTER_DISPATCH_TO(Tag,Site,Types,Seq,Ret)               \
+BOOST_DISPATCH_REGISTER_DISPATCH_TO((boost)(simd)(ext),Tag,Site,Types,Seq,Ret)
+
+#define BOOST_SIMD_REGISTER_DISPATCH_TO_TPL(Tag,Site,Types,Seq,Ret)           \
+BOOST_DISPATCH_REGISTER_DISPATCH_TO_TPL((boost)(simd)(ext),Tag,Site,Types,Seq,Ret)
+
 #define BOOST_SIMD_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)          \
 BOOST_DISPATCH_REGISTER_DISPATCH_IF((boost)(simd)(ext),Tag,Site,Types,Cond,Ret,Seq)
 

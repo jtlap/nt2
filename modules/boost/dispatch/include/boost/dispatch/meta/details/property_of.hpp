@@ -9,14 +9,13 @@
 #ifndef BOOST_DISPATCH_META_DETAILS_PROPERTY_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_DETAILS_PROPERTY_OF_HPP_INCLUDED
 
-#include <boost/utility/enable_if.hpp>
+#include <boost/dispatch/meta/details/properties.hpp>
+#include <boost/dispatch/meta/details/hierarchy_base.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/type_traits/is_signed.hpp>
 #include <boost/type_traits/is_integral.hpp>
-#include <boost/dispatch/meta/details/properties.hpp>
-#include <boost/type_traits/is_fundamental.hpp>
-#include <boost/dispatch/meta/details/hierarchy_base.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <climits>
 
 namespace boost { namespace dispatch { namespace details
 {
@@ -25,12 +24,6 @@ namespace boost { namespace dispatch { namespace details
   //============================================================================
   template<class T,class Origin,std::size_t Size, bool Signed>
   struct property_of_ints;
-
-  template<class T,class Origin = T, class Enable = void>
-  struct  property_of
-  {
-    typedef meta::unspecified_<Origin> type;
-  };
 
   template<class T,class Origin>
   struct  property_of < T
@@ -45,28 +38,35 @@ namespace boost { namespace dispatch { namespace details
                                         is_signed<T>::value
                                       >
   {};
+  
+}
 
+namespace meta
+{
   //============================================================================
   // Overload for non integral native types
   //============================================================================
-  template<class Origin, class Enable>
-  struct property_of<void, Origin, Enable>
+  template<class Origin>
+  struct property_of<void, Origin>
   {
     typedef meta::void_<Origin> type;
   };
 
-  template<class Origin, class Enable>
-  struct property_of<float, Origin, Enable>
+  template<class Origin>
+  struct property_of<float, Origin>
   {
-    typedef meta::float_<Origin>  type;
+    typedef meta::single_<Origin>  type;
   };
 
-  template<class Origin, class Enable>
-  struct property_of<double, Origin, Enable>
+  template<class Origin>
+  struct property_of<double, Origin>
   {
     typedef meta::double_<Origin> type;
   };
+}
 
+namespace details
+{
   //============================================================================
   // implementation details for property_of - overload for bool
   //============================================================================

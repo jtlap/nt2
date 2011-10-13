@@ -1,6 +1,19 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['compute the remainder modulo \\\\f$\pi/2\\\\f$ with cephes algorthm.','\par',
+                         'This function is mainly for internal reduction purposes',
+                         'This is a medium version version accurate if the input is in:',
+                         '\\\\arg \\\\f$[-2^6\pi,2^6\pi\\\\f$ for float,',
+                         '\\\\arg \\\\f$[-2^18\pi,2^18\pi\\\\f$ for double.',
+                         '\par',
+                         'The reduction of the argument modulo \\\\f$pi/2\\\\f$ is generally',
+                         'the most difficult part of trigonometric evaluations.',
+                         'The accurate algorithm is over costly and implies the knowledge',
+                         'of a few hundred \\\\f$pi\\\\f$ decimals',
+                         'some simpler algorithms as this one',
+                         'can be used, but the precision is only insured on small intervals.'
+                         ],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '3',

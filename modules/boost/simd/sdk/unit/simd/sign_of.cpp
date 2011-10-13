@@ -9,14 +9,16 @@
 #define NT2_UNIT_MODULE "boost::simd::meta::sign_of SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(sign_of_simd_native, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::sign_of;
@@ -26,6 +28,25 @@ NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
   typedef native<T,ext_t>                 native_t;
 
   NT2_TEST( (is_same< typename sign_of<native_t>::type
+                    , typename sign_of<T>::type
+                    >::value
+            )
+          );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test that scalar_of on pack
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::dispatch::meta::sign_of;
+  using boost::is_same;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef pack<T>                          pack_t;
+
+  NT2_TEST( (is_same< typename sign_of<pack_t>::type
                     , typename sign_of<T>::type
                     >::value
             )

@@ -1,7 +1,14 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+            'description' : ['takes one SIMD vector of elements of size n',
+                             'and returns two vectors of same type containing respectively',
+                             'the first and last half elements of the input but in vectors',
+                             'in which element size is 2*n',
+                             '\par',
+                             'Of course the applicability is conditionned by the existence of compatible',
+                             'SIMD vector types'],
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '2',

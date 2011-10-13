@@ -16,7 +16,7 @@
 
 #include <boost/dispatch/meta/result_of.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
- #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 

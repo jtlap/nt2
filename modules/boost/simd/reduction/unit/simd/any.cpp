@@ -23,10 +23,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -47,7 +49,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(any(boost::simd::Inf<vT>()), boost::simd::One<sr_t>());
@@ -56,7 +58,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(any(boost::simd::Nan<vT>()), boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(any(boost::simd::One<vT>()), boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(any(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( any_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
@@ -76,7 +78,7 @@ NT2_TEST_CASE_TPL ( any_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(any(boost::simd::One<vT>()), boost::simd::One<sr_t>());

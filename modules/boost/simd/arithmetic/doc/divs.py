@@ -1,6 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['return the saturated  division of the operands'
+                          'in the input type',
+                          '\par',
+                          'This only differs from standard \c / in division by zero',
+                          'cases, and also for the division of Valmin by -1 that',
+                          'produces Valmax'],  
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

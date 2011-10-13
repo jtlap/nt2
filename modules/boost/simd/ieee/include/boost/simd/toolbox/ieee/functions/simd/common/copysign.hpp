@@ -8,11 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
-#include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/bitofsign.hpp>
 #include <boost/simd/include/functions/signnz.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -43,22 +42,21 @@ namespace boost { namespace simd { namespace ext
                           )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    inline result_type operator()(const A0& a0, const A0&)const 
     {
-      ignore_unused(a1);
       return  a0;
     }
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::copysign_, tag::cpu_,
                            (A0)(X),
-                           ((simd_<real_<A0>,X>))
-                           ((simd_<real_<A0>,X>))
+                           ((simd_<floating_<A0>,X>))
+                           ((simd_<floating_<A0>,X>))
                           )
   {
     typedef A0 result_type;

@@ -13,7 +13,7 @@ nt2_module_configure_toolbox(cephes 0)
 
 include(nt2.info)
 set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -DANSIC")
-if(NT2_COMPILER_GNU_C)
+if(NT2_COMPILER_GCC)
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -fno-builtin")
 elseif(NT2_COMPILER_MSVC)
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} /Oi-")

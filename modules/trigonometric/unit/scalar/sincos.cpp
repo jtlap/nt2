@@ -23,7 +23,7 @@ extern "C" {extern long double cephes_acosl(long double);}
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -73,4 +73,4 @@ NT2_TEST_CASE_TPL ( sincos_real__1_0,  NT2_REAL_TYPES)
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.75);
     NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>(), 0.75);
   }
-} // end of test for real_
+} // end of test for floating_

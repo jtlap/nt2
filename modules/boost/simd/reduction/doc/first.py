@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns the first element of the input vector.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

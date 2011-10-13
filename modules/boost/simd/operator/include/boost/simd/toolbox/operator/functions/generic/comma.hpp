@@ -9,17 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_COMMA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMMON_COMMA_HPP_INCLUDED
 
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/simd/toolbox/operator/functions/comma.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::comma_,tag::cpu_ , (A0)(A1)
-                            , (generic_<fundamental_<A0> >)
-                              (generic_<fundamental_<A1> >)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::comma_, tag::cpu_, (A0)(A1)
+                            , (generic_<unspecified_<A0> >)
+                              (generic_<unspecified_<A1> >)
                             )
   {
     typedef A1 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { ignore_unused(a0); return a1;}
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0&, const A1& a1) const
+    {
+      return a1;
+    }
   };
 } } }
 

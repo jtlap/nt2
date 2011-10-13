@@ -1,7 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '1',
+            'description' :['spence function or dilogarithm','\par Formula',
+                            '\\\\f[\mathop{\\\\textrm{Li}_2}(a_0)=\int_1^{a_0} \\\\frac{\log t}{t-1}dt\\\\f]'],
+            'param_0': ['must be non negative'],
+          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {

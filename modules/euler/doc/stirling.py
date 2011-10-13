@@ -1,6 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' :['Stirling formula for the gamma function','\par Formula',
+                            '\\\\f[\Gamma(a_0) \\\\approx \sqrt{2 \pi} a_0^{a_0-\\\\frac12} e^{-a_0} ( 1 + \\\\frac1{a_0} P(\\\\frac1{a_0}))\\\\f]',
+                            'Where P is a polynomial.','\par'
+                            'The formula implementation is usable for a0 between 33 and 172, according cephes'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

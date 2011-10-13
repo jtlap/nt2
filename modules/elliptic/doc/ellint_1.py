@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description':['Complete elliptic integral of the first kind','\par Formula',
+                       '\\\\f[K(a_0) = \int_0^{\pi/2} \sqrt{1-a_0^2\sin^2 t} dt\\\\f]'],
+         'param1' :  ['between -1 and 1'], 
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

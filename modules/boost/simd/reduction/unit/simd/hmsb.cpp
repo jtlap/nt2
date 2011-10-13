@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(hmsb(boost::simd::One<vT>()), boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(hmsb(boost::simd::Signmask<vT>()), sr_t((1 << boost::simd::meta::cardinal_of<vT>::value) - 1));
   NT2_TEST_EQUAL(hmsb(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
@@ -82,9 +82,9 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
 
 
   // specific values tests
-  NT2_TEST_EQUAL(hmsb(boost::simd::Allbits<vT>()), sr_t((1 << boost::simd::meta::cardinal_of<vT>::value) - 1));
+  NT2_TEST_EQUAL(hmsb(boost::simd::Allbits<vT>()), sr_t((1ll << boost::simd::meta::cardinal_of<vT>::value) - 1));
   NT2_TEST_EQUAL(hmsb(boost::simd::One<vT>()), boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(hmsb(boost::simd::Signmask<vT>()), sr_t((1 << boost::simd::meta::cardinal_of<vT>::value) - 1));
+  NT2_TEST_EQUAL(hmsb(boost::simd::Signmask<vT>()), sr_t((1ll << boost::simd::meta::cardinal_of<vT>::value) - 1));
   NT2_TEST_EQUAL(hmsb(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
 } // end of test for signed_int_
 
@@ -109,7 +109,7 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(hmsb(boost::simd::Allbits<vT>()), sr_t((1 << boost::simd::meta::cardinal_of<vT>::value) - 1));
+  NT2_TEST_EQUAL(hmsb(boost::simd::Allbits<vT>()), sr_t((1ull << boost::simd::meta::cardinal_of<vT>::value) - 1));
   NT2_TEST_EQUAL(hmsb(boost::simd::One<vT>()), boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(hmsb(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
 } // end of test for unsigned_int_

@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
@@ -23,20 +23,20 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 that = { _mm256_floor_pd(a0)};
+      A0 that = { _mm256_round_pd(a0, _MM_FROUND_FLOOR) };
       return that;
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::avx_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::avx_>))
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 that = { _mm256_floor_ps(a0)};
+      A0 that = { _mm256_round_ps(a0, _MM_FROUND_FLOOR)};
       return that;
     }
   };  

@@ -53,4 +53,4 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 //   NT2_TEST_ULP_EQUAL(tchebeval(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Zero<sr_t>(), 0.5);
 //   NT2_TEST_ULP_EQUAL(tchebeval(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
 //   NT2_TEST_ULP_EQUAL(tchebeval(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-} // end of test for real_
+} // end of test for floating_

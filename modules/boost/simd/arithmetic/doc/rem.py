@@ -1,6 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["This function computes the floating-point remainder of dividing a0 by a1.",
+                          "The return value is a0-n*a1, where n is the quotient a0/a1 rounded",
+                          "toward zero to an integer."
+                          "\par",
+                          "if one prefer: if a1 is zero returns a0, else return",
+                          "a0-divfix(a0,a1)*a1"],   
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

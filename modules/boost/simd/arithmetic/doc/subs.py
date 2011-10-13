@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['The result is the mathetical subtraction of the arguments',
+                          'saturated in the interval defined by the common arguments type bounds',
+                          ],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

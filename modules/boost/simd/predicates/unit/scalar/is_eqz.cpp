@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( is_eqz_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_eqz(boost::simd::Quarter<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(is_eqz(boost::simd::Two<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(is_eqz(boost::simd::Zero<T>()), boost::simd::True<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_eqz_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

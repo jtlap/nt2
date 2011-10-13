@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns the number of non zero elements of the input SIMD vector.'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

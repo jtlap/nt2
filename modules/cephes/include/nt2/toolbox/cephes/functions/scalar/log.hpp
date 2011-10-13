@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::cephes::tag::log_, tag::cpu_
                             , (A0)
-                            , (scalar_< float_<A0> >)
+                            , (scalar_< single_<A0> >)
                             )
   {
 

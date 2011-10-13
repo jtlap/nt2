@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( bitwise_select_real__3_0,  BOOST_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitwise_select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {

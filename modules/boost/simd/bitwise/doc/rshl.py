@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['The function returns the first entry shifted left or right',
+                          'by the absolute value of second entry according to its sign.'],
+         'param_1' : ['must be an integer value'],   
+         'return'  : ['returns a value of the type of the first parameter'],   
+           'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],
          'ret_arity' : '0',

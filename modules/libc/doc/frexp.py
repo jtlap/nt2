@@ -1,6 +1,22 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+          'special_synopsis' : [
+                "template<class A0> inline",
+                "typename boost::dispatch::meta::call<tag::frexp_(A0 const&)",
+                "                                    >::type",
+                "frexp(A0 const& a0);",
+                " ",
+                "template<class A0> inline",
+                "typename boost::dispatch::meta::call<tag::frexp_(A0 const&,A0&)",
+                "                                     >::type",
+                "frexp(A0 const& a0,A1& a2);",
+                " ",
+                "template<class A0,class A1> inline",
+                "int frexp(A0 const& a0,A0& a2,A1& a3);",
+                 ],
+         'max_arity' : '3',
+         'return' : ['depends of the number of arguments: see nt2::frexp for details'],
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '2',

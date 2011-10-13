@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ["return the inverse of the input as a floating point value."],
+            'return'      : ["always return floating point values"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

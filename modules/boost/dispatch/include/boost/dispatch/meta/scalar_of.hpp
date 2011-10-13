@@ -9,24 +9,14 @@
 #ifndef BOOST_DISPATCH_META_SCALAR_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_SCALAR_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
-
-namespace boost { namespace dispatch { namespace details
-{
-  template<class T, class Hierarchy> struct scalar_of_impl { typedef T type; };
-} } }
+#include <boost/dispatch/meta/primitive_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T>
   struct  scalar_of
-        : details::scalar_of_impl < typename strip<T>::type
-                                  , typename hierarchy_of<
-                                                        typename strip<T>::type
-                                                        >::type
-                                  >
-          {};
+        : primitive_of<T>
+  {};
 } } }
 
 #endif

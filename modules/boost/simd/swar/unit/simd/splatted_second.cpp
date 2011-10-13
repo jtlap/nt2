@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/swar/include/functions/splatted_second.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -30,9 +30,10 @@ NT2_TEST_CASE_TPL ( splatted_second_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::splatted_second;
   using boost::simd::tag::splatted_second_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
+
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -45,7 +46,6 @@ NT2_TEST_CASE_TPL ( splatted_second_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
   // specific values tests
   NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>(), 0);
@@ -53,4 +53,4 @@ NT2_TEST_CASE_TPL ( splatted_second_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::One<vT>())[0], boost::simd::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(splatted_second(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
-} // end of test for real_
+} // end of test for floating_

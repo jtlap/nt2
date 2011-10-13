@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/minimum.hpp>
 #include <boost/simd/include/functions/maximum.hpp>
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename dispatch::meta::as_real<A0>::type flt;
+      typedef typename dispatch::meta::as_floating<A0>::type flt;
       A0 a =  {a0};
       A0 b =  {BOOST_SIMD_CAST(A0, _mm_movehl_ps(BOOST_SIMD_CAST(flt, a0), BOOST_SIMD_CAST(flt, a0)))};
       comp(a, b);

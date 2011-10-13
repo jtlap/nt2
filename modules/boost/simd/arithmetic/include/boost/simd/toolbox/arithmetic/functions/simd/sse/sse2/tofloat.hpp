@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type that = { _mm_cvtepi32_ps(a0)};
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<uint64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef typename dispatch::meta::as_real<A0>::type result_type;
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type sftype;

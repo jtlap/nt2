@@ -6,19 +6,60 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+/*!
+ * \file
+**/
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_LOG2_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_LOG2_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
+/*!
+ * \ingroup exponential
+ * \defgroup exponential_log2 log2
+ *
+ * \par Description
+ * base two logarithm function.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/log2.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace nt2
+ * {
+ *   template <class A0>
+ *     meta::call<tag::log2_(A0)>::type
+ *     log2(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of log2
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
 namespace nt2 { namespace tag
   {         
+    /*!
+     * \brief Define the tag log2_ of functor log2 
+     *        in namespace nt2::tag for toolbox exponential
+    **/
     struct log2_ {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::log2_, log2, 1)
 }
- 
- 
+
 #endif
 
 // modified by jt the 25/12/2010

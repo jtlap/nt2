@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_, boost::simd::tag::avx_, (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
-                              ((target_< simd_< float_<A1>, boost::simd::tag::avx_ > >))
+                              ((target_< simd_< single_<A1>, boost::simd::tag::avx_ > >))
                       )
   {
     typedef typename A1::type result_type;
@@ -120,7 +120,11 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0, A1 const&) const
     {
+#ifndef BOOST_MSVC
       result_type that = { _mm256_set1_epi64x(a0) };
+#else
+      result_type that = make<result_type>(a0, a0, a0, a0);
+#endif
       return that;
     }
   };

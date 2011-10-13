@@ -12,7 +12,11 @@
 #if !defined(BOOST_SIMD_COMPILER)
   #if defined(__GNUC__)
 
-    #define BOOST_SIMD_COMPILER_GNU_C
+    #ifndef __clang__
+      #define BOOST_SIMD_COMPILER_GCC
+    #endif
+
+    #define BOOST_SIMD_COMPILER_GCC_LIKE
     #define BOOST_SIMD_COMPILER BOOST_COMPILER
     
 

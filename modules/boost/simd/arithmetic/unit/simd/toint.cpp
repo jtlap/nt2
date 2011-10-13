@@ -53,4 +53,4 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(toint(boost::simd::Nan<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(toint(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(toint(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

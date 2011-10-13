@@ -26,36 +26,10 @@ namespace boost { namespace simd { namespace ext
       return !_mm_test_all_zeros(a0, True<A0>()) ;
     }
   };
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::sse4_1_,
-                        (A0),
-                        ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
-                       )
-  {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return !_mm_test_all_zeros(a0, True<A0>()) ;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::sse4_1_,
-                        (A0),
-                        ((simd_<int8_<A0>,boost::simd::tag::sse_>))
-                       )
-  {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return !_mm_test_all_zeros(a0, True<A0>()) ;
-    }
-  };
-
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, boost::simd::tag::sse4_1_,
                         (A0),
-                        ((simd_<real_<A0>,boost::simd::tag::sse_>))
+                        ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                        )
   {
     typedef bool result_type;

@@ -8,12 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_INVALID_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_INVALID_HPP_INCLUDED
-#include <boost/simd/include/functions/boolean.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -25,12 +21,9 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
+    inline result_type operator()(const A0&)const
     {
-      ignore_unused(a0);
       return boost::simd::False<A0>();
     }
   };
@@ -38,13 +31,13 @@ namespace boost { namespace simd { namespace ext
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_invalid_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<real_<A0>,X>))
+                            , ((simd_<floating_<A0>,X>))
                             )
   {
 

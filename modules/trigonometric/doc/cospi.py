@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['cosine of angle in \\\\f$\pi\\\\f$ multiples: \\\\f$\cos(\pi a_0)\\\\f$.'] ,
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

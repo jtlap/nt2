@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["return the minimum of the two entries",
+                          " if they have the same sign, otherwise 0"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

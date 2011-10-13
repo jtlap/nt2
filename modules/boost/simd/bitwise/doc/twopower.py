@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['The function returns greatest power of two less or equal to the input.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

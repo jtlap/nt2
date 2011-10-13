@@ -9,14 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SIGNNZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SIGNNZ_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -45,21 +44,20 @@ namespace boost { namespace simd { namespace ext
                         )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    inline result_type operator()(const A0&)const
     {
-      ignore_unused(a0);
       return One<A0>();
     }
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is real_
+// Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
 
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::signnz_, tag::cpu_,
                          (A0)(X),
-                         ((simd_<real_<A0>,X>))
+                         ((simd_<floating_<A0>,X>))
                         )
   {
     typedef A0 result_type;

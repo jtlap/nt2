@@ -19,23 +19,41 @@
 // mimicking the type structuration in C++
 //////////////////////////////////////////////////////////////////////////////
 
-#include <climits>
+#include <boost/dispatch/meta/details/hierarchy_base.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/config/types.hpp>
-#include <boost/dispatch/meta/details/property_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // property_of computes the entry point of a given type inside the type
-  // property lattice.
-  //////////////////////////////////////////////////////////////////////////////
+  template<class T, class Origin = T>
+  struct property_of;
+}
+
+namespace details
+{
   template<class T, class Origin = T, class Enable = void>
   struct  property_of
-        : details::property_of< typename meta::strip<T>::type
+   : meta::property_of<typename meta::primitive_of<T>::type, Origin>
+  {
+  };
+}
+
+namespace meta
+{
+  template<class T, class Origin>
+  struct  property_of
+        : details::property_of< T
                               , typename meta::strip<Origin>::type
                               >
   {};
+
+  template<class T, class Origin>
+  struct  property_of<T&, Origin> : property_of<T, typename meta::strip<Origin>::type> {};
+
+  template<class T, class Origin>
+  struct  property_of<T const, Origin> : property_of<T, typename meta::strip<Origin>::type> {};
 } } }
+
+#include <boost/dispatch/meta/details/property_of.hpp>
 
 #endif

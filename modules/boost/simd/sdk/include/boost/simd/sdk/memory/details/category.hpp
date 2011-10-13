@@ -32,6 +32,15 @@ namespace boost { namespace simd { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace details
 {
+  template<class T>
+  struct  value_of< T
+                  , typename
+                    boost::enable_if_c< meta::is_iterator<T>::value>::type
+                  >
+   : boost::pointee<T>
+  {
+  };
+    
   template<class T, class Origin>
   struct  hierarchy_of< T
                       , Origin
@@ -43,29 +52,15 @@ namespace boost { namespace dispatch { namespace details
     typedef meta::iterator_ < typename
                               meta::hierarchy_of<pointee_type,Origin>::type > type;
   };
+}
 
-  template<> struct  hierarchy_of<void*>
+namespace meta
+{
+  template<class Origin>
+  struct  hierarchy_of<void*, Origin>
   {
-    typedef meta::iterator_< meta::hierarchy_of<void,void*>::type > type;
+    typedef meta::iterator_<meta::generic_<meta::void_<Origin> > >  type;
   };
 } } }
 
-namespace boost { namespace dispatch { namespace meta
-{
-  //============================================================================
-  // Same property than T
-  //============================================================================
-  template<class T, class Origin>
-  struct  property_of < T
-                      , Origin
-                      , typename boost::
-                        enable_if< is_iterator<T> >::type
-                      >
-        : property_of<typename boost::pointee<T>::type, Origin>
-  {};
-
-  template<class Origin>
-  struct  property_of<void*, Origin> : property_of<void, Origin>
-  {};
-} } }
 #endif

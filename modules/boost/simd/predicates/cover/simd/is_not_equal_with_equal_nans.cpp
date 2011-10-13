@@ -68,4 +68,4 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_SIMD_REA
       }
     
   }
-} // end of test for real_
+} // end of test for floating_

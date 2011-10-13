@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_LOOKUP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>

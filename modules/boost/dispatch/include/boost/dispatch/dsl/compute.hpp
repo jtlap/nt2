@@ -17,35 +17,139 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace dispatch { namespace meta
 {
-  template <class Tag, class Target>
-  struct compute
-      : boost::proto::
-        unpack< boost::proto::
-                call< functor<Tag, Target> >(compile< compute < boost::mpl::_1
-                                                              , Target
-                                                              >
-                                                    >
-                                            )
-              >
-  {};
-
+  template<class Tag, class Target>
+  struct compute_phase;
+    
+  namespace detail
+  {
+      template <typename Tag, typename Target, typename Expr, typename State, typename Data>
+      struct compute_phase_impl;
+        
+        template <typename Tag, typename Target, typename Expr>
+        struct compute_phase_impl<Tag, Target, Expr, int, int>
+            : boost::proto::transform_impl<Expr, int, int>
+        {
+            typedef 
+                boost::proto::unpack<
+                    boost::proto::call<
+                        functor<Tag, Target>
+                    >(
+                        compile<
+                            compute_phase<
+                                boost::mpl::_1
+                              , Target
+                            >
+                        >
+                    )
+                >
+                what;
+            
+            typedef
+                typename what::template impl<Expr, int, int>::result_type
+                result_type;
+            
+            result_type
+            operator()(
+                typename compute_phase_impl::expr_param expr
+              , typename compute_phase_impl::state_param
+              , typename compute_phase_impl::data_param
+            ) const
+            {
+                return what()(expr);
+            }
+        };
+        
+        template <typename Tag, typename Target, typename Expr, typename State>
+        struct compute_phase_impl<Tag, Target, Expr, State, int>
+            : boost::proto::transform_impl<Expr, State, int>
+        {
+            typedef 
+                boost::proto::unpack<
+                    boost::proto::call<
+                        functor<Tag, Target>
+                    >(
+                        compile<
+                            compute_phase<
+                                boost::mpl::_1
+                              , Target
+                            >
+                        >
+                      , proto::_state
+                    )
+                >
+                what;
+            
+            typedef
+                typename what::template impl<Expr, State, int>::result_type
+                result_type;
+            
+            result_type
+            operator()(
+                typename compute_phase_impl::expr_param expr
+              , typename compute_phase_impl::state_param state
+              , typename compute_phase_impl::data_param
+            ) const
+            {
+                return what()(expr, state);
+            }
+        };
+        
+        template <typename Tag, typename Target, typename Expr, typename State, typename Data>
+        struct compute_phase_impl
+            : boost::proto::transform_impl<Expr, State, Data>
+        {
+            typedef 
+                boost::proto::unpack<
+                    boost::proto::call<
+                        functor<Tag, Target>
+                    >(
+                        compile<
+                            compute_phase<
+                                boost::mpl::_1
+                              , Target
+                            >
+                        >
+                      , proto::_state
+                      , proto::_data
+                    )
+                >
+                what;
+            
+            typedef
+                typename what::template impl<Expr, State, Data>::result_type
+                result_type;
+            
+            result_type
+            operator()(
+                typename compute_phase_impl::expr_param expr
+              , typename compute_phase_impl::state_param state
+              , typename compute_phase_impl::data_param data
+            ) const
+            {
+                return what()(expr, state, data);
+            }
+        };
+    }
+    
+    template <typename Tag, typename Target>
+    struct compute_phase
+        : boost::proto::transform<compute_phase<Tag, Target> >
+    {
+        template <typename Expr, typename State, typename Data>
+        struct impl
+            : detail::compute_phase_impl<Tag, Target, Expr, State, Data>
+        {};
+    };
+  
   template<class Target>
-  struct  compute<tag::terminal_,Target>
-        : boost::proto::
-          call< functor < boost::proto::tag::terminal
-                        , Target
-                        > ( boost::proto::_value
-                          , boost::proto::_state
-                          , boost::proto::_data
-                          )
-              >
-  {};
+  struct compute : compile< compute_phase<boost::mpl::_1, Target> > {};
+
 } } }
 
 namespace boost { namespace proto
 {
   template<class Tag, class Target>
-  struct  is_callable<boost::dispatch::meta::compute<Tag, Target> >
+  struct  is_callable<boost::dispatch::meta::compute_phase<Tag, Target> >
         : boost::mpl::true_  {};
 } }
 

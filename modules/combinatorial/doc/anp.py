@@ -1,6 +1,12 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+        'description' :['number of arrangement of p elements among n',
+                        'If a0 (n) and a1 (p) are not of integer type',
+                        'they are rounded to nearest integer before computation.',
+                        '\par Formula',
+                        '\\\\f[A_n^p = \\\\frac{n!}{(n-p)!}\\\\f]',
+                        ],
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

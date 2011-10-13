@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['Power function for scalar integer a1: \f${a_0}^{a_1}\f$','\par',
+                         '\f$0^0\f$ returns 1'] ,  
+         'param_1' : ['must be of scalar integer type'],   
          'arity' : '2',
          'call_types' : ['T', 'iT'],
          'ret_arity' : '0',

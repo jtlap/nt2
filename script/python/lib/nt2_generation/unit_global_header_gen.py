@@ -63,7 +63,8 @@ class Global_header_gen() :
             "#include <nt2/sdk/unit/$no_ulp$tests.hpp>",
             "#include <nt2/sdk/unit/module.hpp>",
             "#include <nt2/sdk/memory/buffer.hpp>",
-            "#include <nt2/toolbox/constant/constant.hpp>"
+            "#include <nt2/toolbox/constant/constant.hpp>",
+            "#include <boost/dispatch/details/ignore_unused.hpp>"
             ],
         'boost' : [
             "#include <boost/type_traits/is_same.hpp>",
@@ -71,7 +72,8 @@ class Global_header_gen() :
             "#include <nt2/sdk/unit/$no_ulp$tests.hpp>",
             "#include <nt2/sdk/unit/module.hpp>",
             "#include <boost/simd/sdk/memory/buffer.hpp>",
-            "#include <boost/simd/toolbox/constant/constant.hpp>"
+            "#include <boost/simd/toolbox/constant/constant.hpp>",
+            "#include <boost/dispatch/details/ignore_unused.hpp>"
             ]
         }
     
@@ -83,12 +85,14 @@ class Global_header_gen() :
             "#include <nt2/sdk/memory/aligned_type.hpp>",
             "#include <nt2/include/functions/load.hpp>",
             "#include <nt2/toolbox/constant/constant.hpp>",
+            "#include <boost/dispatch/details/ignore_unused.hpp>",
             ],
         'boost' : [
             "#include <boost/simd/sdk/memory/is_aligned.hpp>",
             "#include <boost/simd/sdk/memory/aligned_type.hpp>",
             "#include <boost/simd/include/functions/load.hpp>",           
-            "#include <boost/simd/toolbox/constant/constant.hpp>"
+            "#include <boost/simd/toolbox/constant/constant.hpp>",
+            "#include <boost/dispatch/details/ignore_unused.hpp>"
             ]
         }
     Cover_Template = {

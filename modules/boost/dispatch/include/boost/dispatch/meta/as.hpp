@@ -14,9 +14,9 @@
  * \brief Defines and implement the \ref boost::dispatch::meta::as_ generic type wrapper
  */
 
-#include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
 
 #if defined(DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
@@ -53,27 +53,39 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   template<class T> struct as_
   {
-    //==========================================================================
-    // Required for Hierarchizable
-    //==========================================================================
-    typedef target_< typename hierarchy_of<T, as_>::type >  dispatch_hierarchy_tag;
     typedef T                                               type;
   };
 
   //============================================================================
-  // Same property than T
+  // Requirements for Hierarchizable
   //============================================================================
-  template<class T>
-  struct  property_of< as_<T> > : property_of< T, as_<T> > {};
+  template<class T, class Origin>
+  struct hierarchy_of< as_<T>, Origin>
+  {
+    typedef target_<typename hierarchy_of<T, Origin>::type>  type;
+  };
 
   //============================================================================
   // Requirements for Buildable
   //============================================================================
   template<class T>
-  struct primitive_of< as_<T> > : primitive_of<T> {};
+  struct value_of< as_<T> >
+  {
+    typedef T type;
+  };
 
   template<class T>
-  struct factory_of< as_<T> > { typedef as_<boost::mpl::_1> type; };
+  struct model_of< as_<T> >
+  {
+    struct type
+    {
+      template<class X>
+      struct apply
+      {
+        typedef as_<X> type;
+      };
+    };
+  };
 } } }
 
 #endif

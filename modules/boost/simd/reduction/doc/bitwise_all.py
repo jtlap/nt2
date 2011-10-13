@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['returns true if all vector bits are set else false'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

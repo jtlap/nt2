@@ -9,7 +9,7 @@
 
 SET( SOURCES
     as_integer.cpp
-    as_real.cpp
+    as_floating.cpp
     as_signed.cpp
     as_unsigned.cpp
     as.cpp
@@ -19,11 +19,10 @@ SET( SOURCES
     is_signed.cpp
     is_simd_specific.cpp
     make_integer.cpp
-    make_real.cpp
+    make_floating.cpp
     native_cast.cpp
     scalar_of.cpp
     sign_of.cpp
-    terminal_of.cpp
     upgrade.cpp
    )
 

@@ -11,8 +11,7 @@
 #include <nt2/include/functions/powi.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/is_odd.hpp>
-
-
+#include <nt2/include/functions/is_flint.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -66,7 +65,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                             , (A0)
-                            , (scalar_< float_<A0> >)(scalar_< float_<A0> >)
+                            , (scalar_< single_<A0> >)(scalar_< single_<A0> >)
                             )
   {
 

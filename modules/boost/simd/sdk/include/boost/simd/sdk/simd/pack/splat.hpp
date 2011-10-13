@@ -8,30 +8,33 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_SPLAT_HPP_INCLUDED
+
 #include <boost/simd/include/functions/splat.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_ , tag::cpu_
-                            , (A0)(A1)(T)(C)(Sema)
+                            , (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
-                              ((target_< expr_< A1
-                                              , domain_< boost::simd::domain<T,C> >
-                                              , tag::terminal_
-                                              , Sema
-                                              >
-                                       >
-                              ))
+                              (target_< ast_< unspecified_<A1> > >)
                             )
   {
-   typedef typename A1::type result_type;
-
-    inline result_type operator()(A0 const& a0, A1 const&)const 
-   {
-     result_type that;
-     that.fill(a0);
-     return that;
-   }
+    typedef typename proto::domain_of<typename A1::type>::type  domain;
+    typedef dispatch::meta::
+            as_<typename dispatch::meta::
+                semantic_of<typename A1::type>::type
+               >  value;
+   
+    typedef typename proto::result_of::
+            make_expr<tag::splat_, domain, const A0&, const value&>::type
+    result_type;
+   
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(A0 const& a0, A1 const&) const
+    {
+      return boost::proto::detail::
+             make_expr_<tag::splat_, domain, const A0&, const value&>()(a0, value());
+    }
   };
 } } }
 

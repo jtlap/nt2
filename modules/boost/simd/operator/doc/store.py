@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['Store a data from a0 to the memory zone given by a1 and offset a2',
+                          'and return a0. This is mentally equivalent to:',
+                          '<tt>std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);</tt>'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

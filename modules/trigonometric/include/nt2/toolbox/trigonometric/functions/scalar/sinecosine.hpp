@@ -18,8 +18,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sinecosine_<mode>, tag::cpu_,
 			     (A0)(A1)(mode),
 			     (scalar_ < arithmetic_<A0> > )
-			     (scalar_ < real_<A1> > )
-			     (scalar_ < real_<A1> > )
+			     (scalar_ < floating_<A1> > )
+			     (scalar_ < floating_<A1> > )
 			     )
   {
     typedef nt2::int32_t result_type;    
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sinecosine_<mode>, tag::cpu_,
 			     (A0)(A1)(mode),
 			     (scalar_ < arithmetic_<A0> > )
-			     (scalar_ < real_<A1> > )
+			     (scalar_ < floating_<A1> > )
 			     )
   {
     typedef A1 result_type;    
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
   };
 
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is real_
+  // Implementation when type  is floating_
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sinecosine_<mode>, tag::cpu_,
 			     (A0)(mode),
@@ -60,13 +60,13 @@ namespace nt2 { namespace ext
   };
   
   /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type  is real_
+  // Implementation when type  is floating_
   /////////////////////////////////////////////////////////////////////////////
   
   
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sinecosine_<mode>, tag::cpu_,
 			     (A0)(mode),
-			     (scalar_ < real_<A0> > )
+			     (scalar_ < floating_<A0> > )
 			     )
   {
     typedef boost::fusion::tuple<A0, A0>       result_type;

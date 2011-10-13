@@ -35,8 +35,8 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<float_<A0>,boost::simd::tag::avx_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                              ((simd_<single_<A0>,boost::simd::tag::avx_>))
                             )
   {
     typedef bool result_type;

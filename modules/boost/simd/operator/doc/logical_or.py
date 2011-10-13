@@ -1,6 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['return the logical or of the two parameters',
+                          'the operands must of the same type',
+                          'the result type is the common one or bool in scalar case',
+                          "Infix notation can be used with operator '||'"
+                         ],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

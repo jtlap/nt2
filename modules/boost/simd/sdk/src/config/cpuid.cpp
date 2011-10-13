@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace config{ namespace details {
   {
 #if defined(BOOST_SIMD_ARCH_X86)
 
-#if defined(BOOST_SIMD_COMPILER_GNU_C)
+#if defined(BOOST_SIMD_COMPILER_GCC)
     enum { eax,ebx,ecx,edx };
     __asm__ __volatile__
     (

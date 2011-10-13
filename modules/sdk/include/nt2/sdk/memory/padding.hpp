@@ -19,7 +19,6 @@ namespace boost { namespace dispatch { namespace meta
   template<class T> struct padding_ : unspecified_<T>
   {
     typedef unspecified_<T>   parent;
-    typedef T                 origin;
   };
 } } }
 

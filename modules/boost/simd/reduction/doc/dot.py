@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' :['returns the dot product of the two SIMD vector arguments'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

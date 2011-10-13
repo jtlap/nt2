@@ -11,14 +11,14 @@
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// 
-/// 
+///
+///
 #include <nt2/toolbox/reduction/include/functions/second.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::second;
   using nt2::tag::second_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::scalar_of<T>::type sT;
@@ -56,7 +56,6 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  NT2_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
   // specific values tests
   NT2_TEST_EQUAL(second(nt2::Inf<vT>()), nt2::Inf<sr_t>());
   NT2_TEST_EQUAL(second(nt2::Minf<vT>()), nt2::Minf<sr_t>());
@@ -64,4 +63,4 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(second(nt2::Nan<vT>()), nt2::Nan<sr_t>());
   NT2_TEST_EQUAL(second(nt2::One<vT>()), nt2::One<sr_t>());
   NT2_TEST_EQUAL(second(nt2::Zero<vT>()), nt2::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

@@ -36,6 +36,7 @@
 .DS_Store
 .project
 .cproject
+*.instrumented.obj
 
 ################################################################################
 # Ignore CMake generated files

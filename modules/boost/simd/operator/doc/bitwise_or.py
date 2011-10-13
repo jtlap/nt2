@@ -1,7 +1,15 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['return the bitwise or of the two parameters',
+                          'the operands must share the same bit size and',
+                          'the result type is the one of the first operand',
+                          "Infix notation can be used with operator '|',",
+                          "but this will not work in scalar mode if any",
+                          "operand is floating point because of C++ limitations."],
+         'equalparams'   : False,                 
+         'return'        : ["a value of the type of the first parameter"],   
+          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

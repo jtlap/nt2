@@ -30,8 +30,8 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_with_equal_nans_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<float_<A0>,boost::simd::tag::avx_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                              ((simd_<single_<A0>,boost::simd::tag::avx_>))
                             )
   {
     typedef A0 result_type;
@@ -58,8 +58,8 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_with_equal_nans_, boost::simd::tag::avx_
                             , (A0)
-                            , ((simd_<float_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<float_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;

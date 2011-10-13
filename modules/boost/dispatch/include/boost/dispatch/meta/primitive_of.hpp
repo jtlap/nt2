@@ -10,17 +10,33 @@
 #define BOOST_DISPATCH_META_PRIMITIVE_OF_HPP_INCLUDED
 /*!
  * \file
- * \brief Defines the boost::dispatch::meta::primitive_of \metafunction
+ * \brief Defines the \c boost::dispatch::meta::primitive_of \metafunction
  */
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/mpl/identity.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch { namespace details
+{
+  // the mpl::identity is a workaround for MSVC
+  template<class T, class Origin>
+  struct primitive_of_impl
+    : mpl::identity< primitive_of_impl<typename meta::value_of<T>::type, T> >::type
+  {
+  };
+  
+  template<class T>
+  struct primitive_of_impl<T, T>
+  {
+     typedef T type;
+  };
+}
+
+namespace meta
 {
   //============================================================================
   /*!
    * \ingroup metafunctions
-   * For a given \ref Hierarchizable type T, returns the undelying type used to
+   * For a given \ref Hierarchizable type T, returns the underlying type used to
    * define T
    *
    * \tparam Hierarchizable Type to extract a primitive from.
@@ -46,11 +62,12 @@ namespace boost { namespace dispatch { namespace meta
    * \include primitive_of.cpp
    */
   //============================================================================
-  template<class Hierarchizable>
+  template<class T>
   struct primitive_of
+    : details::primitive_of_impl<typename value_of<T>::type, T>
   {
-    typedef Hierarchizable type;
   };
+  
 } } }
 
 #endif

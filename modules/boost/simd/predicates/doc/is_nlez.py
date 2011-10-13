@@ -1,7 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['Returns True<A0>() if a0 is not less or equal to zero else returns False<A0>().','\par',
+                          'Due to existence of nan, this is not equivalent to \c not(is_lez(a0))'],   
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',

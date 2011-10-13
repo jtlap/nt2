@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_YNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_YNI_HPP_INCLUDED
-#include <nt2/sdk/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneminus.hpp>
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
                             , (scalar_< integer_<A0> >)((simd_<arithmetic_<A1>,X> ))
                             )
   {
-    typedef typename meta::as_real<A1>::type result_type;
+    typedef typename meta::as_floating<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::yni(a0, tofloat(a1));
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::yni_, tag::cpu_
                             , (A0)(A1)(X)
-                            , (scalar_< integer_<A0> >)((simd_<real_<A1>,X>))
+                            , (scalar_< integer_<A0> >)((simd_<floating_<A1>,X>))
                             )
   {
 

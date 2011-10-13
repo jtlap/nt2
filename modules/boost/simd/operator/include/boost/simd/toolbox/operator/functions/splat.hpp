@@ -6,19 +6,61 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //============================================================================== 
+/*!
+ * \file
+**/
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SPLAT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 
 #include <boost/dispatch/meta/as.hpp>
 
+/*!
+ * \ingroup boost_simd_operator
+ * \defgroup boost_simd_operator_splat splat
+ *
+ * \par Description
+ * TODO Put description here
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/splat.hpp>
+ * \endcode
+ * 
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     meta::call<tag::splat_(A0)>::type
+ *     splat(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the unique parameter of splat
+ * 
+ * \return a value of the same type as the parameter
+ *  
+ * \par Notes
+ * In SIMD mode, this function acts elementwise on the inputs vectors elements
+ * \par
+ *  
+**/
+
 namespace boost { namespace simd
 {
   namespace tag
   {
+    /*!
+     * \brief Define the tag splat_ of functor splat 
+     *        in namespace boost::simd::tag for toolbox boost.simd.operator
+    **/
     struct splat_  {};
   }
-  
+
   template<class T, class A0> inline
   typename boost::dispatch::meta::call<tag::splat_(A0, boost::dispatch::meta::as_<T>)>::type
   splat(A0 const& a0)

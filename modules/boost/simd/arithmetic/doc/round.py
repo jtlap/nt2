@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["return a value of the same type of the entry",
+                          "which is the integer nearest to the entry"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

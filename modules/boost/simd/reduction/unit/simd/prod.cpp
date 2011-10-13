@@ -21,9 +21,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( prod_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -45,13 +48,13 @@ NT2_TEST_CASE_TPL ( prod_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(prod(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(prod(boost::simd::Minf<vT>()), boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(prod(boost::simd::Mone<vT>()), boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(prod(boost::simd::Minf<vT>()), (boost::simd::meta::cardinal_of<vT>::value == 1) ? boost::simd::Minf<sr_t>() : boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(prod(boost::simd::Mone<vT>()), (boost::simd::meta::cardinal_of<vT>::value == 1) ? boost::simd::Mone<sr_t>() : boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(prod(boost::simd::Nan<vT>()), boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(prod(boost::simd::One<vT>()), boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(prod(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
-} // end of test for real_
+} // end of test for floating_

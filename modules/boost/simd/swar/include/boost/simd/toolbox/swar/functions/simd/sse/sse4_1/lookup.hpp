@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 #include <boost/simd/toolbox/swar/functions/simd/sse/ssse3/lookup.hpp>
-// #include <boost/dispatch/meta/as_real.hpp>
+// #include <boost/dispatch/meta/as_floating.hpp>
 // #include <boost/simd/sdk/meta/size.hpp>
 // #include <boost/dispatch/meta/strip.hpp>
 // #include <boost/simd/sdk/memory/aligned_type.hpp>
@@ -98,7 +98,7 @@
 //       boost::simd::store<A0>(a0, &tmp[0], 0);
 //       for(int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
 //       return boost::simd::load<A0>(&tmp1[0], 0);
-// //       typedef typename dispatch::meta::as_real<A0>::type real_type;
+// //       typedef typename dispatch::meta::as_floating<A0>::type real_type;
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int32_t mask = _mm_movemask_ps(is_lt(a1, N));
 // //       real_type tmp = {simd::native_cast<real_type>(a0)}; 
@@ -133,7 +133,7 @@
 //       boost::simd::store<A0>(a0, &tmp[0], 0);
 //       for(int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
 //       return boost::simd::load<A0>(&tmp1[0], 0);
-// //       typedef typename dispatch::meta::as_real<A0>::type real_type;
+// //       typedef typename dispatch::meta::as_floating<A0>::type real_type;
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int32_t mask = _mm_movemask_pd(is_lt(a1, N));
 // //       return simd::native_cast<A0>(_mm_blend_pd(simd::native_cast<real_type>(a0), mask));

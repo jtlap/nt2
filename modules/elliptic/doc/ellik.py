@@ -1,6 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description':['Incomplete elliptic integral of the second kind','\par Formula',
+                       '\\\\f[F(a_0,a_1) = \displaystyle \int_0^{a0} \\\\frac1{\\\\sqrt{1-a_1\sin^2 t}} dt\\\\f]'],
+         'param0' :  ['amplitude in radians'], 
+         'param1' :  ['modulus between 0 and 1'], 
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

@@ -18,3 +18,11 @@ set(SOURCES
     config/version.cpp
    )
 nt2_module_add_library(nt2 ${SOURCES})
+
+nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
+                                         nt2/dsl/functions boost/simd/dsl/functions                                         
+                                         --out  nt2/dsl/include/functions
+                                          nt2/dsl/include/functions
+                                         --out  nt2/dsl/functions.hpp
+                                         --out  nt2/include/functions
+                        )

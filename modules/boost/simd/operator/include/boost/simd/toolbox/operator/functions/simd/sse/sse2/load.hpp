@@ -17,7 +17,6 @@
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
 //==============================================================================
@@ -26,17 +25,15 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::sse2_
-                            , (A0)(A1)(A2)(X)
+                            , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< double_<A2>, X > >))
+                              ((target_< simd_< double_<A2>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A2::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      ignore_unused(a2);
       result_type
       that = { _mm_load_pd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
       return that;
@@ -50,17 +47,16 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::sse2_
-                            , (A0)(A1)(A2)(X)
+                            , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< float_<A2>, X > >))
+                              ((target_< simd_< single_<A2>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A2::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    inline result_type operator()(const A0& a0, const A1& a1,
+                                  const A2&)const
     {
-      ignore_unused(a2);
       result_type
       that = { _mm_load_ps(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
       return that;
@@ -74,17 +70,16 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::sse2_
-                            , (A0)(A1)(A2)(X)
+                            , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< integer_<A2>,X > >))
+                              ((target_< simd_< integer_<A2>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A2::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(3)
+    inline result_type operator()(const A0& a0, const A1& a1,
+                                  const A2&)const
     {
-      ignore_unused(a2);
       result_type
       that = { _mm_load_si128(reinterpret_cast<__m128i const*>(a0)+a1) };
       return that;
@@ -93,7 +88,7 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 
-#include <boost/simd/toolbox/operator/functions/simd/sse/sse2/load_offset.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/sse/sse2/details/load_offset.hpp>
 
 #endif
 #endif

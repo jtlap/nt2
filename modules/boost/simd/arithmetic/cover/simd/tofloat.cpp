@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
       }
     
   }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( tofloat_uint64_t_1_0,  (nt2::uint64_t))
 {

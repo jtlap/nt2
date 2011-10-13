@@ -9,11 +9,13 @@
 #ifndef NT2_CORE_CONTAINER_DSL_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_HPP_INCLUDED
 
-#include <nt2/sdk/dsl/call.hpp>
+#include <boost/fusion/include/at_c.hpp>
+#include <boost/proto/operators.hpp>
+#include <boost/dispatch/dsl/call.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/dsl/grammar.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/domain.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
+#include <nt2/core/container/dsl/grammar.hpp>
+#include <nt2/core/container/dsl/domain.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 
 #endif

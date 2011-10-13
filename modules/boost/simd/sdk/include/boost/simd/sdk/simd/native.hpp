@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
 #include <boost/simd/sdk/simd/details/native/fusion.hpp>

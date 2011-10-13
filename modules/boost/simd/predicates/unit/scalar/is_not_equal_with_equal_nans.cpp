@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYP
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Quarter<T>(), boost::simd::Quarter<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<T>(), boost::simd::Two<T>()), boost::simd::False<r_t>());
   NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

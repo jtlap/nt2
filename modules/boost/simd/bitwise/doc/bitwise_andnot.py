@@ -1,7 +1,14 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['return the bitwise and of the first parameter',
+                          'with the bitwise complement of the second parameter.',
+                          '\par',
+                          'The operands must share the same bit size and',
+                          'the result type is the one of the first operand'],
+         'equalparams'   : False,                 
+         'return'        : ["a value of the type of the first parameter"],   
+          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',

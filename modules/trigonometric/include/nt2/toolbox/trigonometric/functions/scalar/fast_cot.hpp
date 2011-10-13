@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cot_, tag::cpu_
                             , (A0)
-                            , (scalar_< real_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
 

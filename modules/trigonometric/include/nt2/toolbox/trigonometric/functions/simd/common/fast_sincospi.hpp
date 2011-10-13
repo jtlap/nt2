@@ -23,13 +23,13 @@ namespace nt2 { namespace ext
                              ), 
                              ( nt2::tag::fast_sincospi_
                                           ( simd_<arithmetic_<A0>,X> 
-					  , simd_<real_<A1>,X>
-				          , simd_<real_<A1>,X>
+					  , simd_<floating_<A1>,X>
+				          , simd_<floating_<A1>,X>
                                           )
                              ), 
 			     ((simd_ < arithmetic_<A0>, X > ))
-			     ((simd_ < real_<A1>, X > ))
-			     ((simd_ < real_<A1>, X > ))
+			     ((simd_ < floating_<A1>, X > ))
+			     ((simd_ < floating_<A1>, X > ))
 			     )
   {
     typedef int result_type;    
@@ -48,11 +48,11 @@ namespace nt2 { namespace ext
 				), 
                                 ( nt2::tag::fast_sincospi_
 				  ( simd_<arithmetic_<A0>,X> 
-				    , simd_<real_<A1>,X>
+				    , simd_<floating_<A1>,X>
 				    )
 				  ), 
 				((simd_ < arithmetic_<A0>,X > ))
-				((simd_ < real_<A1>,X > ))
+				((simd_ < floating_<A1>,X > ))
 			     )
   {
     typedef A1 result_type;    
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
                                 ((simd_<arithmetic_<A0>,X>))
                                )
   {
-      typedef typename meta::as_real<A0>::type  rtype;
+      typedef typename meta::as_floating<A0>::type  rtype;
       typedef boost::fusion::tuple<rtype, rtype> result_type;
       
       NT2_FUNCTOR_CALL(1)

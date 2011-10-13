@@ -1,7 +1,28 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'arity' : '1',
+         'description' :['templatized simultaneous sine and cosine.',
+                         '\\\\arg tie(si,co) = sinecosine<T>(a) returns the sine and cosine of a.',
+                         '\\\\arg si = sinecosine<T>(a,co) returns the sine of a and put the cosine of a in co.',
+                         '\\\\arg sinecosine<T>(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.',
+                         '\par please consult cosine or sine documentation for the use of the T mode template parameter',
+                         ],
+          'template' : True ,  
+          'param_0' : ['angle in radian'],
+          'param_t' : ['used to control accuracy and speed'],   
+          'special_synopsis' : [
+                "template<class T,class A0> inline",
+                "typename boost::dispatch::meta::call<tag::sinecosine(A0 const&,A0 const&)",
+                "                                    >::type",
+                "sinecosine(A0 const& a);",
+                " ",
+                "template<class T,class A0> inline",
+                "A0 sinecosine(A0 const& a,A0,A0& si);",
+                " ",
+                "template<class T,class A0> inline",
+                "int sinecosine(A0 const& a,A0,A0& si,A0& co);",
+                 ],
+           'arity' : '1',
          'call_types' : [],
          'ret_arity' : '2',
          'rturn' : {

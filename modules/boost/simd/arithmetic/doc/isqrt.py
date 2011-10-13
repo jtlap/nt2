@@ -1,6 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+            'description' : ["return the integer truncation of the squre root of  the entry.",
+                             "The value returned in the same type as the entry.",
+                             "/par",
+                             "Negative entry leads to zero for integer entry and nan for floating one."],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -8,7 +12,6 @@
          'rturn' : {
              'default' : 'T',
             },
-         'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
@@ -36,17 +39,19 @@
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                  'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',   
-                 'boost::simd::Two<T>()' : {'result' : 'boost::simd::Sqrt_2<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Two<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {
                  'boost::simd::Mone<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
                  'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',   
+                 'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',   
                 },
              'unsigned_int_' : {
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
+                 'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',   
                  'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',   
                 },
             },

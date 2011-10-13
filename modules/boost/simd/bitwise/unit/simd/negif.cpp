@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(negif(boost::simd::Minf<vT>(),boost::simd::splat<vT>(1))[0], -1);
   NT2_TEST_EQUAL(negif(boost::simd::Nan<vT>(),boost::simd::splat<vT>(1))[0], -1);
   NT2_TEST_EQUAL(negif(boost::simd::Zero<vT>(),boost::simd::splat<vT>(1))[0], 1);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {

@@ -1,6 +1,8 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ["returns the logical xor of  a0 and a1, i.e. returns true ",
+                          "if and only if one of the two parameter is zero andthe other non zero."],  
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

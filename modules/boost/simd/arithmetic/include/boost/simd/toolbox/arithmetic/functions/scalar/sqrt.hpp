@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, tag::cpu_
                             , (A0)
-                            , (scalar_< float_<A0> >)
+                            , (scalar_< single_<A0> >)
                             )
   {
     typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;

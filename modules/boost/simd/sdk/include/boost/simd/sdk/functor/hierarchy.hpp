@@ -37,7 +37,7 @@ namespace ext
   using boost::dispatch::meta::unspecified_;
     
   // Native types and related hierarchies
-  using boost::dispatch::meta::float_;
+  using boost::dispatch::meta::single_;
   using boost::dispatch::meta::double_;
   
   using boost::dispatch::meta::int8_;  using boost::dispatch::meta::uint8_;  using boost::dispatch::meta::ints8_;
@@ -50,8 +50,8 @@ namespace ext
   using boost::dispatch::meta::type32_;
   using boost::dispatch::meta::type64_;
   
-  using boost::dispatch::meta::real_sized_;
-  using boost::dispatch::meta::real_;
+  using boost::dispatch::meta::floating_sized_;
+  using boost::dispatch::meta::floating_;
   
   using boost::dispatch::meta::signed_;
   using boost::dispatch::meta::unsigned_;
@@ -71,7 +71,6 @@ namespace ext
   
   using boost::dispatch::meta::ast_;
   using boost::dispatch::meta::expr_;
-  using boost::dispatch::meta::domain_;
   
   using boost::dispatch::meta::array_;
   using boost::dispatch::meta::fusion_sequence_;

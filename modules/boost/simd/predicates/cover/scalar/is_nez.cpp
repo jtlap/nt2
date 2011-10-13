@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( is_nez_real__1_0,  BOOST_SIMD_REAL_TYPES)
      }
      
    }
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_nez_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

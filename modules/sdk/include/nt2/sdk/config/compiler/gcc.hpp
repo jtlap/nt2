@@ -12,7 +12,7 @@
 #if !defined(NT2_COMPILER)
   #if defined(__GNUC__)
 
-    #define NT2_COMPILER_GNU_C
+    #define NT2_COMPILER_GCC
     #define NT2_COMPILER BOOST_COMPILER
     
 

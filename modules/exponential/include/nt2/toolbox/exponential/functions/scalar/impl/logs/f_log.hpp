@@ -19,7 +19,7 @@
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/genmask.hpp>
 #include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 

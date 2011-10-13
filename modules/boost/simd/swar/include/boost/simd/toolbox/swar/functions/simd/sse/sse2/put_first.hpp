@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_PUT_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_PUT_FIRST_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/dispatch/meta/as_real.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shli.hpp>
@@ -74,7 +74,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
       {
-	typedef typename dispatch::meta::as_real<A0>::type rtype;
+	typedef typename dispatch::meta::as_floating<A0>::type rtype;
 	if(a1)
 	  {
 	    return simd::native_cast<A0>(_mm_unpackhi_pd(simd::native_cast<rtype>(a0),simd::native_cast<rtype>(a0)));

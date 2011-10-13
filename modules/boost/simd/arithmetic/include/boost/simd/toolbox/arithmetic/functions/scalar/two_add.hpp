@@ -11,16 +11,17 @@
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
+#include <boost/simd/include/constants/zero.hpp>
   //TODO ref implementation
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is real_
+// Implementation when type  is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_add_, tag::cpu_,
                              (A0),
-                             (scalar_< real_<A0> >)(scalar_< real_<A0> >)
+                             (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
                             )
   {
     typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type rtype;

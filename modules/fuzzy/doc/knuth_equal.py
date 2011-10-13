@@ -1,6 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+             'description' : ['\\\\f$|a_0-a_1| \le a_2*\mathop{\mathrm{exponent(\max(|a_0|, |a_1|))}}\\\\f$'],
          'arity' : '3',
          'call_types' : [],
          'ret_arity' : '0',

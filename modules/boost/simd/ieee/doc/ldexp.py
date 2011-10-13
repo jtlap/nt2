@@ -1,7 +1,10 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+        'description' : ["The function multiply a floating entry \f$a_0\f$",
+                          "by \f$2^{a_1}\f$","\par",
+                          "Integer version is a shift left"],
+     'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],
          'ret_arity' : '0',

@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(oneminus(boost::simd::Nan<T>()), boost::simd::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(oneminus(boost::simd::One<T>()), boost::simd::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(oneminus(boost::simd::Zero<T>()), boost::simd::One<r_t>(), 0);
-} // end of test for real_
+} // end of test for floating_
 
 NT2_TEST_CASE_TPL ( oneminus_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {

@@ -1,7 +1,11 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'module' : 'boost',
+         'description' : ['return the logical negation of the parameter,',
+                          'i.e. True or False of the entry type according that ',
+                          'the input is zero or non zero',
+                         ],
+          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
