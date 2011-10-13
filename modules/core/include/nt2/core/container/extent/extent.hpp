@@ -27,7 +27,7 @@ namespace nt2 { namespace tag
   //============================================================================
   /*! Tag representing an extent terminal in proto abstract syntax tree      **/
   //============================================================================
-  struct extent_ {};
+  //struct extent_ {};
 } }
 
 namespace nt2 { namespace container
@@ -80,7 +80,7 @@ namespace nt2 { namespace container
     typedef typename Sizes::reference       reference;
     typedef typename Sizes::const_reference const_reference;
     typedef typename Sizes::iterator        iterator;
-    typedef typename Sizes::const_iterator  const_iterator;    
+    typedef typename Sizes::const_iterator  const_iterator;
     typedef std::size_t                     size_type;
     typedef std::size_t                     base_type;
     typedef std::size_t                     difference_type;
@@ -96,7 +96,7 @@ namespace nt2 { namespace container
     static const size_t static_dimensions = Sizes::static_size;
     static const size_t static_status     = Sizes::static_status;
     static const size_t static_numel      = Sizes::static_numel;
-    
+
     //==========================================================================
     /*! Type of the parent expression                                         */
     //==========================================================================
@@ -130,6 +130,8 @@ namespace nt2 { namespace container
      */
     //==========================================================================
     extent() {}
+
+    extent(Sizes const& sz) { boost::proto::value(*this) = sz; }
 
     //==========================================================================
     /*!
@@ -219,7 +221,7 @@ namespace nt2 { namespace container
     #undef M0
     #undef M1
     //==========================================================================
-    
+
     //==========================================================================
         /*!
      * \ref extent constructor from an arbitrary container expression.
@@ -243,7 +245,7 @@ namespace nt2 { namespace container
     extent(expression<Xpr,Result> const& xpr) { *this = xpr; }
 
     template<class Xpr,class Result>
-    BOOST_DISPATCH_FORCE_INLINE 
+    BOOST_DISPATCH_FORCE_INLINE
     extent& operator=(expression<Xpr,Result> const& xpr)
     {
       // Check the affectation is right
@@ -253,7 +255,7 @@ namespace nt2 { namespace container
 
     //==========================================================================
     /**!
-     * Acces to the ith element of the extent which represents 
+     * Acces to the ith element of the extent which represents
      **/
     //==========================================================================
     reference operator()(std::size_t i)
@@ -328,7 +330,7 @@ namespace nt2 { namespace container
 } }
 
 //==============================================================================
-// Give extent a semantic 
+// Give extent a semantic
 //==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {

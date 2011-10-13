@@ -48,7 +48,7 @@ namespace boost { namespace dispatch { namespace meta
    * extent_ is the hierarchy type used by of_size_ container
    */
   //============================================================================
-  template<class Type, class Size> 
+  template<class Type, class Size>
   struct extent_ : table_< typename property_of<Type>::type, Size>
   {
     typedef table_<typename property_of<Type>::type, Size> parent;

@@ -53,20 +53,20 @@ namespace nt2 { namespace container
     typedef typename meta::value_type_<ResultType>::type      value_type;
     typedef typename meta::reference_<ResultType>::type       reference;
     typedef typename meta::const_reference_<ResultType>::type const_reference;
-    
+
     typedef typename meta::settings_of<ResultType>::type          settings;
-    typedef typename meta::option<settings, tag::of_size_>::type  size_type;
+    typedef typename meta::option<settings, tag::of_size_>::type  extent_type;
 
     //==========================================================================
-    // expression initialization called from generator    
+    // expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
     expression() : size_(size_transform()(*this)) {}
-    
+
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE 
+    BOOST_DISPATCH_FORCE_INLINE
     expression(Expr const& x, Sz const& sz) : parent(x), size_(sz) {}
-    
+
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
     //==========================================================================
@@ -76,11 +76,11 @@ namespace nt2 { namespace container
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
-    
+
     //==========================================================================
     // Assignment operator force evaluation - regular version
     //==========================================================================
-    template<class Xpr,class Result> BOOST_DISPATCH_FORCE_INLINE 
+    template<class Xpr,class Result> BOOST_DISPATCH_FORCE_INLINE
     expression& operator=(expression<Xpr,Result> const& xpr)
     {
       nt2::evaluate( nt2::assign(*this, xpr) );
@@ -96,7 +96,7 @@ namespace nt2 { namespace container
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
-    
+
     //==========================================================================
     // Op-Assignment operators generate proper tree then evaluates
     //==========================================================================
@@ -132,17 +132,17 @@ namespace nt2 { namespace container
     // Conversion operator forces evaluation - used for reduction operator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE operator ResultType() const
-    { 
-      return nt2::evaluate(*this); 
-    }
-    
-    size_type const& extent() const
     {
-        return size_;
+      return nt2::evaluate(*this);
     }
-    
-  private:
-    size_type const& size_;
+
+    extent_type const& extent() const
+    {
+      return size_;
+    }
+
+    private:
+    extent_type const& size_;
   };
 } }
 

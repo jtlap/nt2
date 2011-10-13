@@ -20,17 +20,41 @@
 NT2_TEST_CASE( fundamental_size )
 {
   using nt2::size;
-  
-  NT2_TEST( !size(4.f).empty() );
-  NT2_TEST_EQUAL( size(4.f).size()  , 2  );
+
+  NT2_TEST( size(4.f).empty() );
+  NT2_TEST_EQUAL( size(4.f).size()  , 0  );
 
   NT2_TEST_EQUAL( size(4.f)(1), 1 );
   NT2_TEST_EQUAL( size(4.f)(2), 1 );
 
   NT2_TEST_EQUAL( size(4.f).size(1) , 1 );
-  NT2_TEST_EQUAL( size(4.f).size(2) , 2 );
+  NT2_TEST_EQUAL( size(4.f).size(2) , 1 );
   NT2_TEST_EQUAL( size(4.f).lower(1), 1 );
   NT2_TEST_EQUAL( size(4.f).lower(2), 1 );
   NT2_TEST_EQUAL( size(4.f).upper(1), 1 );
-  NT2_TEST_EQUAL( size(4.f).upper(2), 2 );
+  NT2_TEST_EQUAL( size(4.f).upper(2), 1 );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// size of size types
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( size_size )
+{
+  using nt2::size;
+
+/*
+  NT2_TEST( size(size(4.f)).empty() );
+  NT2_TEST_EQUAL( size(size(4.f)).size()  , 0  );
+
+  NT2_TEST_EQUAL( size(size(4.f))(1), 1 );
+  NT2_TEST_EQUAL( size(size(4.f))(2), 1 );
+
+  NT2_TEST_EQUAL( size(size(4.f)).size(1) , 1 );
+  NT2_TEST_EQUAL( size(size(4.f)).size(2) , 1 );
+  NT2_TEST_EQUAL( size(size(4.f)).lower(1), 1 );
+  NT2_TEST_EQUAL( size(size(4.f)).lower(2), 1 );
+  NT2_TEST_EQUAL( size(size(4.f)).upper(1), 1 );
+  NT2_TEST_EQUAL( size(size(4.f)).upper(2), 1 );
+*/
+
 }
