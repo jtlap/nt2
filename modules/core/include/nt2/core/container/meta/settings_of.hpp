@@ -9,16 +9,18 @@
 #ifndef NT2_CORE_CONTAINER_META_SETTINGS_OF_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_META_SETTINGS_OF_HPP_INCLUDED
 
-#include <nt2/core/settings/settings.hpp>
-#include <nt2/core/settings/index.hpp>
+#include <nt2/include/functor.hpp>
 #include <nt2/core/settings/size.hpp>
+#include <nt2/core/settings/index.hpp>
+#include <nt2/core/settings/settings.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
 
 namespace nt2
 {
   namespace details
   {
     template<class T, class Enable = void>
-    struct settings_of : boost::mpl::false_
+    struct settings_of
     {
       typedef settings type(matlab_index_, _0D, tag::cpu_);
     };
@@ -42,10 +44,10 @@ namespace nt2
      * \tparam T Container to retrieve settings from
      */
     //==========================================================================
-    template<class T> struct  settings_of : details::settings_of<T> {};
+    template<class T> struct settings_of : details::settings_of<T> {};
 
-    template<class T> struct settings_of<T&>       : is_container<T> {};
-    template<class T> struct settings_of<T const>  : is_container<T> {};
+    template<class T> struct settings_of<T&>       : settings_of<T> {};
+    template<class T> struct settings_of<T const>  : settings_of<T> {};
   }
 }
 
