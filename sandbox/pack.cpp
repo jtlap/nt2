@@ -12,7 +12,6 @@
 #include <boost/simd/include/constants/ten.hpp>
 #include <boost/fusion/include/deref.hpp>
 #include <boost/fusion/include/begin.hpp>
-#include <boost/fusion/include/replace.hpp>
 #include <iostream>
 #include <nt2/sdk/details/type_id.hpp>
 
@@ -81,8 +80,8 @@ int main()
    std::cout << "size     : " << p_it.size() << "\n";
    // Testing Fusion interface
    std::cout << boost::fusion::deref(boost::fusion::begin(p_it)) << "\n";
-   boost::fusion::replace(p_it, 2, 18);
-   std::cout << p_it << "\n";
+   packi copy = p_it;
+   std::cout << copy << std::endl;
 
    // Testing iterators for emulate mode
 //   typedef boost::simd::pack<int,8> emulate;

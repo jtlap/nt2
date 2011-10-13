@@ -53,10 +53,25 @@ namespace boost { namespace simd
     typedef typename data_type::iterator       iterator;
     typedef typename data_type::iterator const_iterator;
 
-    typedef expression< typename proto::terminal< typename meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type>::type, typename meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type&> parent;
+    typedef expression< typename
+                        proto::terminal< typename
+                                         meta::vector_of< Type
+                                                        , boost::mpl::size_t<Cardinal>::value
+                                                        >::type
+                                       >::type
+                      , typename
+                        meta::vector_of< Type
+                                       , boost::mpl::size_t<Cardinal>::value
+                                       >::type&
+                      > parent;
 
-//    BOOST_PROTO_BASIC_EXTENDS(expr_type, pack, domain)
+
     pack() {}
+
+    pack(pack const& p)
+    {
+      *this = boost::proto::value(p);
+    }
 
     template<class Expr>
     pack(Expr const& expr = Expr()) : parent(expr)
