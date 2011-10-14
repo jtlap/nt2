@@ -46,6 +46,9 @@ namespace nt2 { namespace container
 
 namespace meta
 {
+  //============================================================================
+  // Register table_container as a proper container
+  //============================================================================
   template<class T, class S>
   struct is_container< container::table_container<T, S> > : boost::mpl::true_
   {};
@@ -53,6 +56,9 @@ namespace meta
 
 namespace boost { namespace dispatch { namespace meta
 {
+  //============================================================================
+  // Register table_container as a proper Hierarchizable
+  //============================================================================
   template<class T, class S>
   struct value_of< nt2::container::table_container<T, S> >
   {
@@ -62,9 +68,38 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class S, class Origin>
   struct hierarchy_of< nt2::container::table_container<T, S>, Origin >
   {
-    typedef table_< typename property_of<typename value_of<T>::type, Origin>::type, S > type;
+    typedef table_< typename property_of< typename value_of<T>::type
+                                        , Origin
+                                        >::type
+                  , S
+                  >                                   type;
   };
 
+  //============================================================================
+  // table_container produce container expression from proper type and settings
+  //============================================================================
+  template<class T, class S>
+  struct terminal_of< nt2::container::table_container<T, S> >
+  {
+    // Retrieve normalized settings
+    typedef typename nt2::container::
+            table_container<T, S>::settings_type                  settings_type;
+
+    typedef nt2::container::table_container<T, settings_type>         container;
+
+    typedef nt2::container::
+            expression< typename boost::proto::terminal< container >::type
+                      , container&
+                      >                                                    type;
+  };
+
+  //============================================================================
+  // table use table_container to do its biddings
+  //============================================================================
+  template<class T, class S> struct semantic_of< nt2::container::table<T, S> >
+  {
+    typedef nt2::container::table_container<T, S>& type;
+  };
 } } }
 
 #endif

@@ -15,44 +15,28 @@
 #include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/container/table/table_container.hpp>
 
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class T, class S>
-  struct terminal_of< nt2::container::table_container<T, S> >
-  {
-    typedef typename nt2::container::table_container<T, S>::settings_type settings_type;
-
-    typedef nt2::container::expression< typename boost::proto::terminal< nt2::container::table_container<T, settings_type> >::type
-            , nt2::container::table_container<T, settings_type>&
-            > type;
-  };
-
-  template<class T, class S>
-  struct semantic_of<nt2::container::table<T, S> >
-  {
-    typedef nt2::container::table_container<T, S>& type;
-  };
-
-} } }
-
 namespace nt2 { namespace container
 {
+  template<class Type, class Settings>
+  struct table
+       : boost::dispatch::
+         meta::terminal_of< table_container<Type,Settings> >::type
+  {
+    typedef typename
+    boost::dispatch::meta::
+    terminal_of< table_container<Type,Settings> >::type parent;
 
-template<class T, class S>
-struct table
- : boost::dispatch::meta::terminal_of< table_container<T, S> >::type
-{
-  typedef typename
-  boost::dispatch::meta::terminal_of< table_container<T, S> >::type parent;
+    table() {}
 
-  table() {}
+    template<class Xpr,class Result>
+    BOOST_DISPATCH_FORCE_INLINE table(expression<Xpr,Result> const& xpr)
+    {
+      // Forward to expression evalaution
+      static_cast<parent&>(*this) = xpr;
+    }
 
-  template<class Xpr,class Result>
-  BOOST_DISPATCH_FORCE_INLINE
-  table(expression<Xpr,Result> const& xpr) { static_cast<parent&>(*this) = xpr; }
-
-  using parent::operator=;
-};
+    using parent::operator=;
+  };
 
 } }
 
