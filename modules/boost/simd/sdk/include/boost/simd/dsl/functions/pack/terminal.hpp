@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
 {
     typedef typename Value::value_type result_type;
 
-    inline result_type
+    BOOST_DISPATCH_FORCE_INLINE result_type
     operator()( Value const& v, State const&, Data const& p ) const
     {
       return v[p];
