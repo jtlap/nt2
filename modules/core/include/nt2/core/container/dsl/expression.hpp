@@ -61,7 +61,7 @@ namespace nt2 { namespace container
     // expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
-    expression() : size_(size_transform()(*this)) {}
+    expression() : size_(nt2::extent(parent::proto_base().child0)) {}
 
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE
