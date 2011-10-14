@@ -23,7 +23,6 @@
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <cstddef>
-#include <algorithm>
 
 namespace nt2
 {
@@ -166,7 +165,14 @@ namespace nt2
                  , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1
                  )
   {
-    return std::equal(a0.begin(), a0.end(), a1.begin());
+    std::size_t const* it0 = a0.begin();
+    std::size_t const* it1 = a1.begin();
+
+    for(; it0 != a0.end() && it1 != a1.end(); ++it0, ++it1)
+      if(*it0 != *it1)
+        return false;
+
+    return it0 == a0.end() && it1 == a1.end();
   }
 }
 
