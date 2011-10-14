@@ -15,7 +15,10 @@
 template<class T>
 struct block
 {
-  boost::array<T, 4096> data;
+    block() : data(new T[4096]) {}
+    ~block() { delete[] data; }
+
+  T* data;
 };
 
 namespace nt2 { namespace container

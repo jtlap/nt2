@@ -7,7 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-ADD_SUBDIRECTORY(extent)
+#ADD_SUBDIRECTORY(extent)
 ADD_SUBDIRECTORY(memory)
 ADD_SUBDIRECTORY(meta)
 ADD_SUBDIRECTORY(settings)

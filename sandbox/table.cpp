@@ -1,7 +1,9 @@
 #include <iostream>
+#include <nt2/sdk/details/type_id.hpp>
 
 #include <nt2/include/functions/run.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/memory/dense_block.hpp>
 #include <nt2/toolbox/operator/functions.hpp>
 
 namespace nt2
@@ -71,7 +73,30 @@ int main()
 {
   using nt2::container::table;
   table<double, nt2::of_size_<5, 10> > a, b, c;
-/*
+
+  nt2::_2D d;
+  d[0] = 2; d[1] = 4;
+
+  nt2::memory::dense_block<double, nt2::_2D> x(d);
+  nt2::memory::dense_block<double, nt2::of_size_<3, 5> > y;
+
+  for(int i=1;i<=5;++i)
+  {
+    for(int j=1;j<=3;++j)
+      std::cout << (void*)(&y.data_[i][j]) << " ";
+    std::cout << "\n";
+  }
+
+  std::cout << "\n";
+
+  for(int i=1;i<=4;++i)
+  {
+    for(int j=1;j<=2;++j)
+      std::cout << (void*)(&x.data_[i][j]) << " ";
+    std::cout << "\n";
+  }
+  /*
+  /*
   std::cout << "a = " << (void*)&a << std::endl;
   std::cout << "b = " << (void*)&b << std::endl;
   std::cout << "c = " << (void*)&c << std::endl;
@@ -81,7 +106,7 @@ int main()
   a = -b;*/
 
   //a = -(c+b);
-  a = -(b + c*(a+(c * -c))) + b;
+  //a = -(b + c*(a+(c * -c))) + b;
 #if 0
   a = b + c;
   std::cout << std::endl;
