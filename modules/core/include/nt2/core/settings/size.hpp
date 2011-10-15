@@ -13,6 +13,7 @@
 #include <nt2/sdk/parameters.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 namespace nt2
