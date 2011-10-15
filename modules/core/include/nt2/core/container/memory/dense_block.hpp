@@ -46,7 +46,7 @@ namespace nt2 { namespace memory
     // Simply builds a iliffe_buffer from gathered informations
     //==========================================================================
 
-    typedef iliffe_buffer < dimensions ? dimensions : 1
+    typedef iliffe_buffer < dimensions
                           , Type
                           , lead_padding
                           , allocator<Type>
@@ -118,6 +118,9 @@ namespace nt2 { namespace memory
                           );
 
       initialize( data_, sz.data(), index_type(), lead_padding() );
+
+      // Clear to 0 - TO REMOVE
+      std::fill(data_.begin(),data_.end(), Type(0) );
     }
 
     ~dense_block() {}
@@ -137,6 +140,8 @@ namespace nt2 { namespace memory
     void resize( extent_type const& sz ) 
     { 
       memory::resize( data_, sz.data(), index_type(), lead_padding() );
+      // Clear to 0 - TO REMOVE
+      std::fill(data_.begin(),data_.end(), Type(0) );
     }
 
     private:
