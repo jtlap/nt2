@@ -16,7 +16,6 @@
  */
 
 #include <nt2/core/settings/size.hpp>
-#include <nt2/core/container/extent/extent.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -43,10 +42,10 @@ namespace nt2
    * \endcode
    */
   //============================================================================
-  template<class ...Dims> container::extent<_nD> of_size(Dims const& d...);
+  template<class ...Dims> _nD of_size(Dims const& d...);
   #endif
 
-  container::extent<_0D> inline of_size() { return container::extent<_0D>(); }
+  _0D inline of_size() { return _0D(); }
 
   #define   BOOST_PP_FILENAME_1 "nt2/core/functions/of_size.hpp"
   #define   BOOST_PP_ITERATION_LIMITS (1, NT2_MAX_DIMENSIONS)
@@ -59,11 +58,11 @@ namespace nt2
 #define N BOOST_PP_ITERATION()
 
   template<BOOST_PP_ENUM_PARAMS(N,class D)> inline
-  container::extent<BOOST_PP_CAT(BOOST_PP_CAT(_,N),D)>
+  BOOST_PP_CAT(BOOST_PP_CAT(_,N),D)
   of_size(BOOST_PP_ENUM_BINARY_PARAMS(N,const D, &d))
   {
-    container::extent<BOOST_PP_CAT(BOOST_PP_CAT(_,N),D)> 
-    that(BOOST_PP_ENUM_PARAMS(N,d));
+    BOOST_PP_CAT(BOOST_PP_CAT(_,N),D) that(BOOST_PP_ENUM_PARAMS(N,d));
+    
     return that;
   }
 

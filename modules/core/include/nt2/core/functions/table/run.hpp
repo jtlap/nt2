@@ -11,8 +11,11 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/dsl/functions/run.hpp>
+#include <nt2/include/functions/assign.hpp>
+#include <nt2/include/functions/extent.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/meta/runner.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/meta/loop_nest.hpp>
 #include <nt2/core/container/meta/lhs_terminal.hpp>
 
@@ -41,7 +44,8 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      meta::for_each(base_indices(a0), extent(a0), meta::runner<A0 const&>(a0));
+      typename A0::index_type::type indices;
+      meta::for_each(indices, extent(a0), meta::runner<A0 const&>(a0));
       return meta::lhs_terminal()(a0);
     }
   };

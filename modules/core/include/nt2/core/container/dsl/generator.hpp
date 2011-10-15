@@ -9,15 +9,14 @@
 #ifndef NT2_CORE_CONTAINER_DSL_GENERATOR_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_GENERATOR_HPP_INCLUDED
 
+#include <boost/proto/select.hpp>
+#include <boost/proto/traits.hpp>
+#include <nt2/include/functor.hpp>
+#include <boost/proto/transform.hpp>
+#include <nt2/include/functions/extent.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/container/table/table_container.hpp>
-#include <nt2/include/functions/extent.hpp>
-#include <nt2/include/functor.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
-#include <boost/proto/select.hpp>
-#include <boost/proto/transform.hpp>
-#include <boost/proto/traits.hpp>
-#include <boost/mpl/print.hpp>
 
 #include <boost/fusion/include/transform.hpp>
 #include <boost/fusion/include/fold.hpp>

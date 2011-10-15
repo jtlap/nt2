@@ -9,13 +9,19 @@
 #ifndef NT2_CORE_CONTAINER_TABLE_TABLE_CONTAINER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_TABLE_TABLE_CONTAINER_HPP_INCLUDED
 
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
+
 #include <nt2/core/settings/size.hpp>
+#include <nt2/core/settings/index.hpp>
+#include <nt2/core/settings/shape.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/container/category.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/core/container/meta/make_block.hpp>
 #include <nt2/core/container/meta/is_container.hpp>
+#include <nt2/core/container/memory/dense_block.hpp>
 
 namespace nt2 { namespace container
 {
@@ -25,22 +31,58 @@ namespace nt2 { namespace container
    * memory used by the table proto terminal class. It is built from a value
    * \c Type and a list of \c Settings describing how it should behave both at
    * runtime and compile-time.
+   * 
+   * Note that contrary to user defined table terminals, table_container only
+   * require a few layout related options to be able to build a proper terminal
+   * expression. Other layout like static ID are used by table_container to
+   * select a proper block implementation but don't make sense when used in
+   * larger expressions.
    *
    * \tparam Type Value type to store in the table
    * \tparam Setting Compound options list describing the behavior of the table
    **/
   //============================================================================
-  template<class Type, class Settings> struct table_container
+  template<class T, class S> struct table_container
   {
-    typedef typename make_block<Type, Settings>::type block_type;
+    typedef typename meta::option<S, tag::of_size_, _4D>::type          extent_type;
+    typedef typename meta::option<S, tag::index_, matlab_index_>::type  index_type;
+
+    typedef nt2::settings settings_type(index_type,extent_type,dense_);
+
+    typedef typename make_block<T, settings_type>::type block_type;
+    
+    // TODO Move this to some impl and make _0D container be a scalar with proper
+    // interface
+    BOOST_MPL_ASSERT_MSG( (!boost::is_same<_0D,extent_type>::value)
+                        , INVALID_CONTAINER_CONSTRUCTION
+                        , (table_container)
+                        );
+    
     block_type block;
+    extent_type size_;
 
-    typedef typename meta::option<Settings, tag::of_size_, _4D>::type size_type;
-    size_type size_;
+    typedef typename block_type::reference        reference;
+    typedef typename block_type::const_reference  const_reference;
 
-    typedef nt2::settings settings_type(size_type);
+    void resize( extent_type const& sz ) 
+    { 
+      size_ = sz;
+      block.resize(size_); 
+    }
+    
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    reference operator()(Position const& pos)
+    {
+      return block(pos);
+    }
+    
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    const_reference operator()(Position const& pos) const
+    {
+      return block(pos);
+    }
 
-    size_type const& extent() const { return size_; }
+    extent_type const& extent() const { return size_; }
   };
 }
 
@@ -76,7 +118,7 @@ namespace boost { namespace dispatch { namespace meta
   };
 
   //============================================================================
-  // table_container produce container expression from proper type and settings
+  // table_container produce container expression from proper type and settings.
   //============================================================================
   template<class T, class S>
   struct terminal_of< nt2::container::table_container<T, S> >

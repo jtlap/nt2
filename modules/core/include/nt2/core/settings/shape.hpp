@@ -6,36 +6,29 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_SIZE_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_SIZE_HPP_INCLUDED
+#ifndef NT2_CORE_SETTINGS_SHAPE_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_SHAPE_HPP_INCLUDED
 
-#include <cstddef>
-#include <nt2/sdk/parameters.hpp>
 #include <nt2/core/settings/option.hpp>
-#include <boost/preprocessor/facilities/intercept.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
-namespace nt2
-{
+namespace nt2 
+{ 
   //============================================================================
-  // of_size_<D0,..,Dn> is a size value containing up to N dimensions.
+  /*! dense_ represents the basic shape of any container. Every elements of a
+   *  dense_ container are stored in memory using the storage provided by the
+   * container allocator.  
+   **/
   //============================================================================
-  template< BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_DIMENSIONS
-                                        , std::ptrdiff_t D
-                                        , = 1 BOOST_PP_INTERCEPT
-                                        )
-          >
-  struct of_size_;
+  struct dense_;
 
-  namespace tag
-  {
+  namespace tag 
+  { 
     //==========================================================================
     /*!
-     * Option tag for of_size_ options
+     * Option tag for shape options
      **/
     //==========================================================================
-    struct of_size_ {};
+    struct shape_ {}; 
   }
 
   namespace meta
@@ -43,18 +36,11 @@ namespace nt2
     //==========================================================================
     // Make options extracting the ID from id_
     //==========================================================================
-    template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D)
-            , class Default
-            >
-    struct option < of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)>
-                  , tag::of_size_, Default
-                  >
+    template<class Default> struct option<dense_, tag::shape_, Default>
     {
-      typedef of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)> type;
+      typedef dense_ type;
     };
-  }
+  } 
 }
-
-#include <nt2/core/settings/details/of_size.hpp>
 
 #endif

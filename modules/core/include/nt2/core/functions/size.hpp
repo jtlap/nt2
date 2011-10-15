@@ -10,8 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SIZE_HPP_INCLUDED
 
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/core/container/extent/extent.hpp>
-
+/*
 namespace nt2
 {
   template<class T> BOOST_DISPATCH_FORCE_INLINE
@@ -26,5 +25,5 @@ namespace nt2
     return that;
   }
 }
-
+*/
 #endif
