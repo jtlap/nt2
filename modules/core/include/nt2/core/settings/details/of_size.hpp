@@ -93,6 +93,8 @@ namespace nt2
       default_(boost::mpl::size_t<static_size-1>());
     }
 
+    of_size_( of_size_ const& src ) : data_(src.data_) {}
+
     //==========================================================================
     // Constructors from [D0 .. Dn]
     //==========================================================================
