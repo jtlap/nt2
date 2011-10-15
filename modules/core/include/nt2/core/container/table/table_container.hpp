@@ -9,6 +9,9 @@
 #ifndef NT2_CORE_CONTAINER_TABLE_TABLE_CONTAINER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_TABLE_TABLE_CONTAINER_HPP_INCLUDED
 
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
+
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/shape.hpp>
@@ -18,6 +21,7 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/core/container/meta/make_block.hpp>
 #include <nt2/core/container/meta/is_container.hpp>
+#include <nt2/core/container/memory/dense_block.hpp>
 
 namespace nt2 { namespace container
 {
@@ -40,23 +44,42 @@ namespace nt2 { namespace container
   //============================================================================
   template<class T, class S> struct table_container
   {
-    typedef settings default_(_4D, matlab_index_, dense_);
+    typedef typename meta::option<S, tag::of_size_, _4D>::type          extent_type;
+    typedef typename meta::option<S, tag::index_, matlab_index_>::type  index_type;
 
-    typedef typename meta::option<S, tag::of_size_, default_>::type extent_type;
-    typedef typename meta::option<S, tag::index_  , default_>::type index_type;
-    typedef typename meta::option<S, tag::shape_  , default_>::type shape_type;
-
-    typedef nt2::settings settings_type(index_type,extent_type,shape_type);
+    typedef nt2::settings settings_type(index_type,extent_type,dense_);
 
     typedef typename make_block<T, settings_type>::type block_type;
     
+    // TODO Move this to some impl and make _0D container be a scalar with proper
+    // interface
+    BOOST_MPL_ASSERT_MSG( (!boost::is_same<_0D,extent_type>::value)
+                        , INVALID_CONTAINER_CONSTRUCTION
+                        , (table_container)
+                        );
+    
     block_type block;
     extent_type size_;
+
+    typedef typename block_type::reference        reference;
+    typedef typename block_type::const_reference  const_reference;
 
     void resize( extent_type const& sz ) 
     { 
       size_ = sz;
       block.resize(size_); 
+    }
+    
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    reference operator()(Position const& pos)
+    {
+      return block(pos);
+    }
+    
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    const_reference operator()(Position const& pos) const
+    {
+      return block(pos);
     }
 
     extent_type const& extent() const { return size_; }
