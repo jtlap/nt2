@@ -21,11 +21,13 @@ namespace nt2
 
   namespace meta
   {
+    //==========================================================================
     /*!
      * Checks if a given type satisfy the Container concept.
      *
      * \tparam T Type to qualify as a potential Container
      */
+    //==========================================================================
     template<class T>
     struct  is_container
           : details::is_container<T> {};
