@@ -115,8 +115,8 @@ namespace nt2
     //==========================================================================
     // Access operators
     //==========================================================================
-    std::size_t& operator[](std::size_t i)       { return data_[i]; }
-    std::size_t  operator[](std::size_t i) const { return data_[i]; }
+    reference       operator[](std::size_t i)       { return data_[i]; }
+    const_reference operator[](std::size_t i) const { return data_[i]; }
 
     //==========================================================================
     // Sequence interface
