@@ -11,10 +11,10 @@
 
 #include <boost/assert.hpp>
 #include <boost/proto/extends.hpp>
+#include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/include/functions/evaluate.hpp>
-#include <nt2/include/functions/extent.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/meta/container_traits.hpp>
@@ -55,8 +55,8 @@ namespace nt2 { namespace container
     typedef typename meta::reference_<ResultType>::type       reference;
     typedef typename meta::const_reference_<ResultType>::type const_reference;
 
-    typedef typename meta::settings_of<ResultType>::type          settings;
-    typedef typename meta::option<settings, tag::of_size_>::type  extent_type;
+    typedef typename meta::settings_of<ResultType>::type              settings_type;
+    typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
 
     //==========================================================================
     // expression initialization called from generator
