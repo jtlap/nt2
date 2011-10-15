@@ -20,7 +20,11 @@ namespace nt2
    * \tparam Allocator Allocator type to be used by current container
    **/
   //============================================================================
-  template<class Allocator> struct allocator_ {}; 
+  template<class Allocator> 
+  struct allocator_ 
+  {
+    typedef Allocator type;
+  }; 
 
   namespace tag 
   { 
@@ -40,7 +44,7 @@ namespace nt2
     template<class Allocator, class Default>
     struct option<allocator_<Allocator>, tag::allocator_, Default>
     {
-      typedef Allocator type;
+      typedef allocator_<Allocator> type;
     };
   } 
 }

@@ -29,7 +29,7 @@ NT2_TEST_CASE( single_allocator )
   NT2_TEST( (is_same< allocator<float>
                     , option< allocator_< allocator<float> >
                             , nt2::tag::allocator_
-                            >::type 
+                            >::type::type
                     >::value) 
           );
 }
@@ -47,8 +47,8 @@ NT2_TEST_CASE( single_allocator_default )
   NT2_TEST( (is_same< allocator<int>
                     , option< void
                             , nt2::tag::allocator_
-                            , allocator<int>
-                            >::type 
+                            , allocator_< allocator<int> >
+                            >::type::type
                     >::value) 
           );
 }
@@ -69,7 +69,7 @@ NT2_TEST_CASE( single_allocator_settings )
                                       , allocator_< allocator<int> >
                                       )                      
                             , nt2::tag::allocator_
-                            >::type 
+                            >::type::type 
                     >::value) 
           );
 }
@@ -88,8 +88,8 @@ NT2_TEST_CASE( single_allocator_settings_default )
   NT2_TEST( (is_same< allocator<int>
                     , option< settings( double, long )                      
                             , nt2::tag::allocator_
-                            , allocator<int>
-                            >::type 
+                            , allocator_< allocator<int> >
+                            >::type::type 
                     >::value) 
           );
 }

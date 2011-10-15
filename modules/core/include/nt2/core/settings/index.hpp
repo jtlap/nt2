@@ -32,7 +32,14 @@ namespace nt2
   template< std::ptrdiff_t I0 = NT2_DEFAULT_INDEX
           , BOOST_PP_ENUM(BOOST_PP_DEC(NT2_MAX_DIMENSIONS),M0,~)
           >
-  struct  index_ {};
+  struct  index_ 
+  {
+    typedef 
+    BOOST_PP_CAT(BOOST_PP_CAT(boost::mpl::vector,NT2_MAX_DIMENSIONS),_c)
+              < std::ptrdiff_t
+              , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)
+              >                                                       type;
+  };
 
   #undef M0
 
@@ -72,11 +79,7 @@ namespace nt2
                   , tag::index_, Default
                   >
     {    
-      typedef 
-      BOOST_PP_CAT(BOOST_PP_CAT(boost::mpl::vector,NT2_MAX_DIMENSIONS),_c)
-                  < std::ptrdiff_t
-                  , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)
-                  >                                                       type;
+      typedef index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>  type;
     };
   }   
 }

@@ -23,7 +23,10 @@ namespace nt2
    * \tparam ID 32 byte multi-bytes character unique identifier
    **/
   //============================================================================
-  template<boost::uint32_t ID> struct id_ {}; 
+  template<boost::uint32_t ID> struct id_ 
+  {
+    typedef boost::mpl::string<ID> type;
+  }; 
   
   namespace tag 
   { 
@@ -43,7 +46,7 @@ namespace nt2
     template<boost::uint32_t ID, class Default>
     struct option<id_<ID>, tag::id_, Default>
     {
-      typedef boost::mpl::string<ID> type;
+      typedef id_<ID> type;
     };
   } 
 }
