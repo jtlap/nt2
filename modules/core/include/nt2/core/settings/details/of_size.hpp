@@ -93,9 +93,34 @@ namespace nt2
       default_(boost::mpl::size_t<static_size-1>());
     }
 
+    //==========================================================================
+    // Constructors from [D0 .. Dn]
+    //==========================================================================
+    #define M1(z,n,t) data_[n]= BOOST_PP_CAT(d,n); \
+    /**/
+
+    #define M0(z,n,t)                                      \
+    of_size_( BOOST_PP_ENUM_PARAMS(n,std::size_t d) )      \
+    {                                                      \
+      BOOST_PP_REPEAT(n,M1,~)                              \
+      for(std::size_t i=n;i<static_size;++i) data_[i] = 1; \
+    }                                                      \
+    /**/
+
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
+
+    #undef M0
+    #undef M1
+
+    //==========================================================================
+    // Access operators
+    //==========================================================================
     std::size_t& operator[](std::size_t i)       { return data_[i]; }
     std::size_t  operator[](std::size_t i) const { return data_[i]; }
 
+    //==========================================================================
+    // Sequence interface
+    //==========================================================================
     iterator        begin()       { return &data_[0];               }
     const_iterator  begin() const { return &data_[0];               }
     iterator        end()         { return &data_[0] + static_size; }
@@ -106,7 +131,6 @@ namespace nt2
     boost::array<std::size_t,static_size> const& data() const { return data_; }
 
     private:
-
     template<std::size_t N> inline void default_(boost::mpl::size_t<N> const&)
     {
       typedef typename boost::mpl::at_c<values_type,N>::type value;

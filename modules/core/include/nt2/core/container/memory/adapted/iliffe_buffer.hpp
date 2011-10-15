@@ -119,6 +119,19 @@ namespace nt2 { namespace memory
   }
 
   //============================================================================
+  // iliffe_buffer resize - Part of Buffer Concept
+  //============================================================================
+  template< std::size_t D, typename T, typename P, typename A
+          , typename Sizes, typename Bases
+          >
+  inline void resize( iliffe_buffer<D,T,P,A>& v
+                    , Sizes const& s, Bases const& b, P const& p
+                    )
+  {
+    v.resize(s,b,p);
+  }
+
+  //============================================================================
   // iliffe_buffer share - Part of SharingBuffer Concept
   //============================================================================
   template< std::size_t D, typename T, typename P, typename A

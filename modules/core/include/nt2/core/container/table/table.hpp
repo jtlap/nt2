@@ -26,12 +26,21 @@ namespace nt2 { namespace container
     boost::dispatch::meta::
     terminal_of< table_container<Type,Settings> >::type parent;
 
+    typedef typename parent::extent_type extent_type;
+
+    //==========================================================================
+    //  table default constructor
+    //==========================================================================
     table() {}
+
+    //==========================================================================
+    //  table default constructor
+    //==========================================================================
+    table( extent_type const& sz ) { boost::proto::value(*this).resize(sz); }
 
     template<class Xpr,class Result>
     BOOST_DISPATCH_FORCE_INLINE table(expression<Xpr,Result> const& xpr)
     {
-      // Forward to expression evalaution
       static_cast<parent&>(*this) = xpr;
     }
 

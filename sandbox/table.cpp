@@ -2,6 +2,7 @@
 #include <nt2/sdk/details/type_id.hpp>
 
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/memory/dense_block.hpp>
 #include <nt2/toolbox/operator/functions.hpp>
@@ -68,47 +69,36 @@ namespace nt2 { namespace ext
                             )
 } }
 
+#define M0(z,n,t)                                                       \
+boost::array<std::ptrdiff_t,n> BOOST_DISPATCH_FORCE_INLINE              \
+at(BOOST_PP_ENUM_PARAMS(n,std::ptrdiff_t i) )                           \
+{                                                                       \
+  boost::array<std::ptrdiff_t,n> that = {{BOOST_PP_ENUM_PARAMS(n,i)}};  \
+  return that;                                                          \
+}                                                                       \
+/**/
+
+BOOST_PP_REPEAT_FROM_TO(1,5,M0,~)
 
 int main()
 {
   using nt2::container::table;
-  table<double, nt2::of_size_<5, 10> > a, b, c;
-
-  nt2::_2D d;
-  d[0] = 2; d[1] = 4;
-
-  nt2::memory::dense_block<double, nt2::_2D> x(d);
-  nt2::memory::dense_block<double, nt2::of_size_<3, 5> > y;
-
-  for(int i=1;i<=5;++i)
+  
+  //while(1)
   {
-    for(int j=1;j<=3;++j)
-      std::cout << (void*)(&y.data_[i][j]) << " ";
-    std::cout << "\n";
+    int d0,d1,d2,d3;
+    //std::cin >> d0 >> d1 >> d2 >> d3;
+    table<double, nt2::_2D> a( nt2::of_size(2,2) );
+
+    a = 3. - a;
   }
 
-  std::cout << "\n";
-
-  for(int i=1;i<=4;++i)
-  {
-    for(int j=1;j<=2;++j)
-      std::cout << (void*)(&x.data_[i][j]) << " ";
-    std::cout << "\n";
-  }
-  /*
-  /*
-  std::cout << "a = " << (void*)&a << std::endl;
-  std::cout << "b = " << (void*)&b << std::endl;
-  std::cout << "c = " << (void*)&c << std::endl;
-*/
-
-/*  a = -(c+b);
-  a = -b;*/
-
-  //a = -(c+b);
-  //a = -(b + c*(a+(c * -c))) + b;
 #if 0
+  a = -(b + c*(a+(c * -c))) + b;
+  std::cout << std::endl;
   a = b + c;
+  std::cout << std::endl;
+  a = -b;
   std::cout << std::endl;
   b += c;
   std::cout << std::endl;

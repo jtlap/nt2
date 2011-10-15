@@ -62,7 +62,10 @@ namespace nt2 { namespace container
     // expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
-    expression() : size_(nt2::extent(parent::proto_base().child0)) {}
+    expression() : size_(nt2::extent(parent::proto_base().child0)) 
+    {
+
+    }
 
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE
@@ -134,6 +137,7 @@ namespace nt2 { namespace container
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE operator ResultType() const
     {
+      // assert numel is 1
       return nt2::evaluate(*this);
     }
 

@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_META_LOOP_NEST_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_META_LOOP_NEST_HPP_INCLUDED
 
+#include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <boost/fusion/include/array.hpp>
 
@@ -22,8 +23,13 @@ namespace nt2 { namespace meta
     BOOST_DISPATCH_FORCE_INLINE
     static void call(Bases const& bases, Sizes const& sz, Position& pos, F const& f)
     {
-      for(pos[N-1] = bases[N-1]; pos[N-1] != bases[N-1] + sz[N-1]; ++pos[N-1])
-          for_each_impl<N-1>::call(bases, sz, pos, f);
+      using boost::fusion::at_c;
+
+      for ( at_c<N-1>(pos)  = at_c<N-1>(bases); 
+            at_c<N-1>(pos) != at_c<N-1>(bases) + at_c<N-1>(sz); 
+            ++at_c<N-1>(pos)
+          )
+        for_each_impl<N-1>::call(bases, sz, pos, f);
     }
   };
 
@@ -34,7 +40,7 @@ namespace nt2 { namespace meta
     BOOST_DISPATCH_FORCE_INLINE
     static void call(Bases const&, Sizes const&, Position& pos, F const& f)
     {
-        return f(pos);
+      return f(pos);
     }
   };
 
@@ -43,7 +49,6 @@ namespace nt2 { namespace meta
   void for_each(Bases const& bases, Sizes const& sz, F const& f)
   {
     static const std::size_t nb_dims = boost::fusion::result_of::size<Sizes>::value;
-
     boost::array<std::size_t, nb_dims> position;
     for_each_impl<nb_dims>::call(bases, sz, position, f);
   }
