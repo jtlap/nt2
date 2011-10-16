@@ -14,7 +14,7 @@
 
 namespace nt2 { namespace meta
 {
-  template<class A0> struct runner
+  template<class A0, class Target> struct runner
   {
     typedef void result_type;
 
@@ -25,7 +25,7 @@ namespace nt2 { namespace meta
     {
       nt2::store( boost::proto::child_c<0>(a0)
                 , pos
-                , nt2::run(boost::proto::child_c<1>(a0), pos)
+                , nt2::run(boost::proto::child_c<1>(a0), pos, Target())
                 );
     }
 

@@ -18,9 +18,10 @@ namespace nt2 { namespace ext
 {
   // terminal, does load
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
-                                , (class A0)(class S0)(class State)
+                                , (class A0)(class S0)(class State)(class Data)
                                 , ((ast_<table_< unspecified_<A0>, S0 > >))
                                   (fusion_sequence_<State>)
+                                  (unspecified_<Data>)
                                 )
   {
     typedef typename boost::dispatch::meta::
@@ -28,16 +29,17 @@ namespace nt2 { namespace ext
                semantic_of<A0>::type
              >::type                                       result_type;
     
-    result_type operator()(A0 const& a0, State const& state) const
+    result_type operator()(A0 const& a0, State const& state, Data const& ) const
     {
        return (boost::proto::value(a0))(state);    
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
-                            , (class A0)(class State)
+                            , (class A0)(class State)(class Data)
                             , ((ast_<table_< unspecified_<A0>, nt2::of_size_<1> > >))
                               (fusion_sequence_<State>)
+                              (unspecified_<Data>)
                             )
   {
     typedef typename boost::dispatch::meta::
@@ -46,7 +48,7 @@ namespace nt2 { namespace ext
              >::type                                       result_type;
 
     template<class A0_> BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0_& a0, State const& state) const
+    result_type operator()(A0_& a0, State const& state, Data const& ) const
     {
        static typename boost::remove_reference<result_type>::type r;
        return r;
@@ -54,9 +56,10 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
-                            , (class A0)(class State)
+                            , (class A0)(class State)(class Data)
                             , ((ast_<scalar_< unspecified_<A0> > >))
                               (fusion_sequence_<State>)
+                              (unspecified_<Data>)
                             )
   {
     typedef typename boost::dispatch::meta::
@@ -65,7 +68,7 @@ namespace nt2 { namespace ext
              >::type                                       result_type;
 
     template<class A0_> BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0_& a0, State const& state) const
+    result_type operator()(A0_& a0, State const& state, Data const&) const
     {
        return boost::proto::value(a0);
     }

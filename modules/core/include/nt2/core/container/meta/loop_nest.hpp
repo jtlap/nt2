@@ -33,14 +33,21 @@ namespace nt2 { namespace meta
     }
   };
 
+  // handle inner loop to be vectorized + call to the actual functor
   template<>
-  struct for_each_impl<0>
+  struct for_each_impl<1>
   {
     template<class Bases, class Sizes, class Position, class F>
     BOOST_DISPATCH_FORCE_INLINE
-    static void call(Bases const&, Sizes const&, Position& pos, F const& f)
+    static void call(Bases const& bases, Sizes const& sz, Position& pos, F const& f)
     {
-      return f(pos);
+      using boost::fusion::at_c;
+
+      for ( at_c<0>(pos)  = at_c<0>(bases); 
+            at_c<0>(pos) != at_c<0>(bases) + at_c<0>(sz); 
+            ++at_c<0>(pos)
+          )
+        f(pos);
     }
   };
 

@@ -22,9 +22,10 @@
 #include <nt2/core/settings/shape.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
-#include <nt2/core/container/functions/expr/store.hpp>
 #include <nt2/sdk/memory/lead_padding.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+//#include <nt2/core/container/functions/expr/load.hpp>
+#include <nt2/core/container/functions/expr/store.hpp>
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
 
 namespace nt2 { namespace memory
@@ -157,12 +158,23 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Externally store a value in dense_block
     //==========================================================================
-    template<class Value, class Position> BOOST_DISPATCH_FORCE_INLINE 
+    template<class Position, class Value> BOOST_DISPATCH_FORCE_INLINE 
     Value store( Position const& pos, Value const& value )
     {
       return nt2::store(value,dereference<dimensions-1>(data_,pos),pos[0]);
     }
 
+    //==========================================================================
+    // Externally load a value from dense_block
+    //==========================================================================
+/*
+    template<class Position, class Target> BOOST_DISPATCH_FORCE_INLINE 
+    typename Target::type load( Position const& pos, Target const& )
+    {
+      typedef typename Target::type that_type;
+      return nt2::load<that_type>(dereference<dimensions-1>(data_,pos),pos[0]);
+    }
+*/
     private:
     void init( boost::mpl::true_ const& )
     {

@@ -41,11 +41,13 @@ namespace nt2 { namespace ext
                           semantic_of<A0>::type
                         >::type                             result_type;
 
+    typedef typename meta::scalar_of<result_type>::type     target_type;
+
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
       typename A0::index_type::type indices;
-      meta::for_each(indices, extent(a0), meta::runner<A0 const&>(a0));
+      meta::for_each(indices, extent(a0), meta::runner<A0 const&, meta::as_<target_type> >(a0));
       return meta::lhs_terminal()(a0);
     }
   };
@@ -70,6 +72,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
+    std::cout << "herp derp\n";
       result_type tmp;
       run(assign(tmp, a0));
       return tmp;
