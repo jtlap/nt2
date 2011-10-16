@@ -58,7 +58,7 @@ namespace nt2 { namespace container
                         , (table_container)
                         );
     
-    block_type block;
+    block_type  block_;
     extent_type size_;
 
     typedef typename block_type::reference        reference;
@@ -67,22 +67,25 @@ namespace nt2 { namespace container
     void resize( extent_type const& sz ) 
     { 
       size_ = sz;
-      block.resize(size_); 
-    }
-    
-    template<class Position> BOOST_DISPATCH_FORCE_INLINE
-    reference operator()(Position const& pos)
-    {
-      return block(pos);
+      block_.resize(size_); 
     }
     
     template<class Position> BOOST_DISPATCH_FORCE_INLINE
     const_reference operator()(Position const& pos) const
     {
-      return block(pos);
+      return block_(pos);
+    }
+    
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    reference operator()(Position const& pos)
+    {
+      return block_(pos);
     }
 
-    extent_type const& extent() const { return size_; }
+    extent_type const& extent() const { return size_;   }
+
+    block_type&         data()        { return block_;  }    
+    block_type const&   data()  const { return block_;  }
   };
 }
 
