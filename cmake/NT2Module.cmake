@@ -556,6 +556,14 @@ macro(nt2_postconfigure_init)
     include(CPack)
     cpack_add_component(tools REQUIRED)
 
+    # global cmake files install
+    nt2_module_install_setup()
+    install( DIRECTORY ${PROJECT_SOURCE_DIR}/cmake
+             DESTINATION ${NT2_INSTALL_SHARE_DIR}
+             FILES_MATCHING PATTERN "*.cmake"
+                            PATTERN "*.cpp"
+           )
+
     # postconfigure is a target because it's only required to install, not to configure
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure)
     install( FILES ${PROJECT_BINARY_DIR}/tools/postconfigure/postconfigure${CMAKE_EXECUTABLE_SUFFIX}
