@@ -123,14 +123,6 @@ macro(nt2_find_module_dependencies _COMPONENT)
   if(NT2_${COMPONENT_U}_ROOT AND NOT EXISTS "${NT2_${COMPONENT_U}_ROOT}/CMakeLists.txt")
     nt2_find_info("root of module ${COMPONENT} invalid: ${NT2_${COMPONENT_U}_ROOT}")
   endif()
-  
-  # Try to download source if not available
-  nt2_find_module_path_push()
-  include(nt2.download OPTIONAL RESULT_VARIABLE NT2_DOWNLOAD_CMAKE)
-  nt2_find_module_path_pop()
-  if(NT2_DOWNLOAD_CMAKE AND NOT NT2_${_COMPONENT_U}_ROOT)
-    nt2_download_module(${_COMPONENT})
-  endif()
     
   # Source found
   if(NT2_${_COMPONENT_U}_ROOT)
@@ -153,9 +145,31 @@ macro(nt2_find_module_dependencies _COMPONENT)
     
     set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_INCLUDE_ROOT})
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_LIBRARY_ROOT})
+  endif()
+  
+  # Try to download source if not available
+  if(NOT NT2_${_COMPONENT_U}_ROOT AND NOT NT2_ROOT)
+    nt2_find_module_path_push()
+    include(nt2.download OPTIONAL RESULT_VARIABLE NT2_DOWNLOAD_CMAKE)
+    nt2_find_module_path_pop()
+    if(NT2_DOWNLOAD_CMAKE AND NOT NT2_${_COMPONENT_U}_ROOT)
+      nt2_download_module(${_COMPONENT})
+    endif()
+  
+    # Source download found
+    if(NT2_${_COMPONENT_U}_ROOT)
+  
+      nt2_find_log("${_COMPONENT} source found, testing dependencies")
+      set(NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" ${NT2_MODULE_PATH} CACHE STRING "List of directories in which to search for NT2 CMake includes" FORCE)
+      mark_as_advanced(NT2_MODULE_PATH)
+    
+      set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${PROJECT_BINARY_DIR}/include ${NT2_${_COMPONENT_U}_ROOT}/include)
+      set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${PROJECT_BINARY_DIR}/lib)
+    endif()
+  endif()
   
   # No source nor install
-  else()
+  if(NOT NT2_${_COMPONENT_U}_ROOT AND NOT NT2_ROOT)
     nt2_find_log("can't find ${_COMPONENT} in source nor install")
     return()
   endif()
@@ -461,7 +475,7 @@ function(nt2_find)
   endif()
   
   get_property(NT2_POSTCONFIGURE_INITED GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED)
-  if(NOT NT2_POSTCONFIGURE_INITED)
+  if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
     nt2_postconfigure_init()
   endif()
 
@@ -487,8 +501,12 @@ function(nt2_find)
                    NT2_LIBRARIES NT2_FLAGS
                  )
                  
-  if(NOT NT2_POSTCONFIGURE_INITED)
+  if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
     nt2_postconfigure_run()
+  endif()
+  
+  if(NT2_FIND_REQUIRED AND NOT NT2_FOUND)
+    message(FATAL_ERROR "NT2 was not found")
   endif()
 
 endfunction()
