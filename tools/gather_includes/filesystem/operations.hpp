@@ -4,6 +4,7 @@
 #include <boost/system/api_config.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/assert.hpp>
+#include <filesystem/directory_iterator.hpp>
 #include <stdexcept>
 #include <string>
 #include <algorithm>
