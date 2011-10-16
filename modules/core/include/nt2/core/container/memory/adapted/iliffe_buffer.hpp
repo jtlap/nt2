@@ -92,14 +92,14 @@ namespace boost { namespace dispatch { namespace meta
   template<std::size_t D, typename T, typename P, typename A>
   struct model_of< nt2::memory::iliffe_buffer<D,T,P,A> >
   {
-    typedef struct make
+    struct type
     {
       template<class X> struct apply
       {
         typedef typename A::template rebind<X>::other alloc;
         typedef nt2::memory::iliffe_buffer<D,X,P,alloc>    type;
       };
-    } type;
+    };
   };
 } } }
 

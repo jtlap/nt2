@@ -113,7 +113,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     /** Type of the constant pointer to buffer indices                        */
     //==========================================================================
-    typedef typename meta::add_pointers<Type const,Dimensions-1>::type& const_sub_data_type;
+    typedef typename meta::add_pointers<Type,Dimensions-1>::type& const_sub_data_type;
 
     //==========================================================================
     /**
