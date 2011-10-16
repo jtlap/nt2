@@ -22,6 +22,7 @@
 #include <nt2/core/settings/shape.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
+#include <nt2/core/container/functions/expr/store.hpp>
 #include <nt2/sdk/memory/lead_padding.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
@@ -123,8 +124,14 @@ namespace nt2 { namespace memory
       std::fill(data_.begin(),data_.end(), Type(0) );
     }
 
+    //==========================================================================
+    // dense_block destructor
+    //==========================================================================
     ~dense_block() {}
 
+    //==========================================================================
+    // Random Access operators
+    //==========================================================================
     template<class Position> BOOST_DISPATCH_FORCE_INLINE
     reference operator()(Position const& pos)
     {
@@ -137,11 +144,23 @@ namespace nt2 { namespace memory
       return dereference<dimensions>(data_,pos);
     }
 
+    //==========================================================================
+    // Resize a dense_block
+    //==========================================================================
     void resize( extent_type const& sz ) 
     { 
       memory::resize( data_, sz.data(), index_type(), lead_padding() );
       // Clear to 0 - TO REMOVE
       std::fill(data_.begin(),data_.end(), Type(0) );
+    }
+
+    //==========================================================================
+    // Externally store a value in dense_block
+    //==========================================================================
+    template<class Value, class Position> BOOST_DISPATCH_FORCE_INLINE 
+    Value store( Position const& pos, Value const& value )
+    {
+      return nt2::store(value,dereference<dimensions-1>(data_,pos),pos[0]);
     }
 
     private:

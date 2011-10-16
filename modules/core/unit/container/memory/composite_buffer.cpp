@@ -126,7 +126,7 @@ NT2_TEST_CASE( std_array_2D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   for(pos[1]=0;pos[1]<2;++pos[1])
     for(pos[0]=0;pos[0]<5;++pos[0])
-      dereference<2UL>(tab,pos) = 10*(1+pos[1]) + (1+pos[0]);
+      dereference<2UL>(tab,pos) = double(10*(1+pos[1]) + (1+pos[0]));
 
   for(pos[1]=0;pos[1]<2;++pos[1])
     for(pos[0]=0;pos[0]<5;++pos[0])
