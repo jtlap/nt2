@@ -29,7 +29,59 @@ namespace nt2 { namespace container
   struct size_impl;
 
   template<class Tag, int N, class Expr>
-  struct generator_impl;
+  struct generator_impl2;
+  
+  template<class Tag, int N, class Expr>
+  struct generator_impl : generator_impl2<Tag, N, Expr> {};
+  
+  // Glue that makes generator_impl and size_impl into Proto primitive transforms
+  struct generator
+      : boost::proto::transform<generator>
+  {
+    template<class Expr, class State, class Data>
+    struct impl : boost::proto::transform_impl<Expr, State, Data>
+    {
+      typedef generator_impl< typename boost::proto::tag_of<typename impl::expr>::type
+                            , boost::proto::arity_of<typename impl::expr>::value
+                            , typename impl::expr
+                            >                                  function;
+      typedef typename function::result_type result_type;
+
+      BOOST_DISPATCH_FORCE_INLINE
+      result_type
+      operator()( typename impl::expr_param e
+                , typename impl::state_param
+                , typename impl::data_param
+                ) const
+      {
+        return function()(e);
+      }
+    };
+  };
+
+  struct size_transform
+      : boost::proto::transform<size_transform>
+  {
+    template<class Expr, class State, class Data>
+    struct impl : boost::proto::transform_impl<Expr, State, Data>
+    {
+      typedef size_impl< typename boost::proto::tag_of<typename impl::expr>::type
+                       , boost::proto::arity_of<typename impl::expr>::value
+                       , typename impl::expr
+                       >                                       function;
+      typedef typename function::result_type result_type;
+
+      BOOST_DISPATCH_FORCE_INLINE
+      result_type
+      operator()( typename impl::expr_param e
+                , typename impl::state_param
+                , typename impl::data_param
+                ) const
+      {
+        return function()(e);
+      }
+    };
+  };
 
   // table generator, computes correct scalar type and size
   #define M1(z,n,t)                                                                      \
@@ -39,7 +91,7 @@ namespace nt2 { namespace container
 
   #define M0(z,n,t)                                                                      \
   template<class F, class Expr>                                                          \
-  struct generator_impl<F, n, Expr>                                                      \
+  struct generator_impl2<F, n, Expr>                                                     \
   {                                                                                      \
     BOOST_PP_REPEAT(n, M1, ~)                                                            \
     typedef typename meta::call<F(BOOST_PP_ENUM_PARAMS(n, s))>::type stype;              \
@@ -178,13 +230,13 @@ namespace nt2 { namespace container
   struct size_impl
   {
     typedef typename boost::fusion::result_of::
-    transform<Expr, size_transform>::type sizes;
+    transform<Expr const, size_transform>::type sizes;
 
     typedef typename boost::fusion::result_of::
     at_c<sizes, 0>::type init;
 
     typedef typename boost::fusion::result_of::
-    fold<sizes, init, size_fold>::type  result_type;
+    fold<sizes, init const, size_fold>::type  result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(Expr& e) const
@@ -201,7 +253,7 @@ namespace nt2 { namespace container
     value<Expr>::type                                 value_type;
 
     typedef typename meta::
-    call<tag::extent_(value_type)>::type                result_type;
+    call<tag::extent_(value_type)>::type              result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(Expr& e) const
@@ -216,69 +268,32 @@ namespace nt2 { namespace container
     typedef typename boost::proto::result_of::
     child_c<Expr, 0>::type                          child0;
 
-    typedef size_impl< typename boost::proto::tag_of<child0>::type
-                     , boost::proto::arity_of<child0>::value
-                     , child0 const
-                     > inner;
-
-    typedef typename inner::result_type result_type;
+    typedef typename size_transform::template
+    result<size_transform(child0)>::type            result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(Expr& e) const
     {
-      return inner()(boost::proto::child_c<0>(e));
+      return size_transform()(boost::proto::child_c<0>(e));
     }
   };
-
-  // Glue that makes generator_impl and size_impl into Proto primitive transforms
-  struct generator
-      : boost::proto::transform<generator>
+  
+  // assign
+  template<class Expr>
+  struct size_impl<boost::proto::tag::assign, 2, Expr>
   {
-    template<class Expr, class State, class Data>
-    struct impl : boost::proto::transform_impl<Expr, State, Data>
+    typedef typename boost::proto::result_of::
+    child_c<Expr, 1>::type                          child1;
+
+    typedef typename size_transform::template
+    result<size_transform(child1)>::type            result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(Expr& e) const
     {
-      typedef generator_impl< typename boost::proto::tag_of<typename impl::expr>::type
-                            , boost::proto::arity_of<typename impl::expr>::value
-                            , typename impl::expr
-                            >                                  function;
-      typedef typename function::result_type result_type;
-
-      BOOST_DISPATCH_FORCE_INLINE
-      result_type
-      operator()( typename impl::expr_param e
-                , typename impl::state_param
-                , typename impl::data_param
-                ) const
-      {
-        return function()(e);
-      }
-    };
+      return size_transform()(boost::proto::child_c<1>(e));
+    }
   };
-
-  struct size_transform
-      : boost::proto::transform<size_transform>
-  {
-    template<class Expr, class State, class Data>
-    struct impl : boost::proto::transform_impl<Expr, State, Data>
-    {
-      typedef size_impl< typename boost::proto::tag_of<typename impl::expr>::type
-                       , boost::proto::arity_of<typename impl::expr>::value
-                       , typename impl::expr
-                       >                                       function;
-      typedef typename function::result_type result_type;
-
-      BOOST_DISPATCH_FORCE_INLINE
-      result_type
-      operator()( typename impl::expr_param e
-                , typename impl::state_param
-                , typename impl::data_param
-                ) const
-      {
-        return function()(e);
-      }
-    };
-  };
-
 } }
 
 #endif
