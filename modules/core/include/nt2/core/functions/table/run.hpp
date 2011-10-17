@@ -46,14 +46,18 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
+      //==========================================================================
       // Generate a loop nest of proper depth running the expression evaluator
       // as its body and using indices/extent as loop bounds
+      //==========================================================================
       meta::for_each( typename A0::index_type::type()
                     , extent(a0)
                     , meta::runner<A0 const&, meta::as_<target_type> >(a0)
                     );
 
+      //==========================================================================
       // Once done, return the newly computed result
+      //==========================================================================
       return meta::lhs_terminal()(a0);
     }
   };
@@ -75,8 +79,7 @@ namespace nt2 { namespace ext
                                  >::type
                     >::type                                result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(A0 const& a0) const
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
     {
       result_type tmp;
       run(assign(tmp, a0));
