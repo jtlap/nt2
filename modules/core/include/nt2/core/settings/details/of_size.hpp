@@ -148,6 +148,8 @@ namespace nt2
   //============================================================================
   template<> struct of_size_<>
   {
+    typedef boost::fusion::boost_array_tag fusion_tag;
+      
     typedef std::size_t value_type;
     typedef std::size_t reference;
     typedef std::size_t const_reference;
