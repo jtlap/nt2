@@ -97,6 +97,23 @@ namespace nt2 { namespace meta
       }
     }
   };
+  
+  //==============================================================================
+  // Loop nest generator
+  // Special scalar case, needed to remove ambiguity
+  //==============================================================================
+  template<> struct for_each_impl<1,1>
+  {
+    template<class Bases, class Sizes, class Position, class F>
+    BOOST_DISPATCH_FORCE_INLINE
+    static void call(Bases const& bases, Sizes const& sz, Position& pos, F const& f)
+    {
+      using boost::fusion::at_c;
+      
+      at_c<0>(pos) = at_c<0>(bases);
+      f(pos);
+    }
+  };
 
   //============================================================================
   /*!
