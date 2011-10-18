@@ -24,3 +24,4 @@ endif()
 
 include(NT2Module)
 nt2_module_main(boost.simd.operator)
+nt2_module_use_modules(unit boost.simd.boolean)

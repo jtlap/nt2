@@ -10,3 +10,4 @@
 include(NT2Module)
 nt2_module_source_setup(boost.simd.swar)
 nt2_module_configure_toolbox(swar 1)
+nt2_module_use_modules(unit boost.simd.boolean)
