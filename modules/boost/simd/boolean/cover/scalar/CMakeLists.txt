@@ -9,34 +9,13 @@
 ################################################################################
 
 SET( SOURCES
-  is_included_c.cpp
-  is_included.cpp
-  twopower.cpp
-  shri.cpp
-  shrai.cpp
-  shli.cpp
-  rshr.cpp
-  rshl.cpp
-  rror.cpp
-  rrol.cpp
-  ror.cpp
-  rol.cpp
-  reversebits.cpp
-  popcnt.cpp
-  lo.cpp
-  hi.cpp
-  genmask.cpp
-  firstbitunset.cpp
-  firstbitset.cpp
-  ffs.cpp
-  bitwise_select.cpp
-  bitwise_ornot.cpp
-  bitwise_notor.cpp
-  bitwise_notand.cpp
-  bitwise_andnot.cpp
-  bits.cpp
-# List of simd test files for toolbox bitwise
+  boolean_select.cpp
+  negif.cpp
+  seladd.cpp
+  select.cpp
+  selsub.cpp
+# List of scalar test files for toolbox ieee
    )
 
-nt2_module_add_tests(bitwise.simd.cover ${SOURCES})
+nt2_module_add_tests(boolean.scalar.cover ${SOURCES})
 
