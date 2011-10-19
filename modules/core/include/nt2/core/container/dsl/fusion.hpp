@@ -12,7 +12,7 @@
 #include <nt2/include/functions/extent.hpp>
 #include <boost/fusion/include/tag_of_fwd.hpp>
 #include <nt2/core/container/extent/extent.hpp>
-#include <nt2/core/container/dsl/fusion_iterator.hpp>
+#include <boost/simd/sdk/details/at_iterator.hpp>
 #include <nt2/core/container/meta/is_statically_sized.hpp>
 
 namespace nt2 { namespace tag
@@ -83,10 +83,9 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence, typename Index>
     struct apply
     {
-      typedef typename nt2::meta::strip<Sequence>::type             base;
       typedef typename  mpl::if_< is_const<Sequence>
-                                , typename base::const_reference
-                                , typename base::reference
+                                , typename Sequence::const_reference
+                                , typename Sequence::reference
                                 >::type                             type;
 
       static type call(Sequence& seq) { return seq(Index::value+1); }
@@ -100,7 +99,7 @@ namespace boost { namespace fusion { namespace extension
   {
     template<typename Sequence> struct apply
     {
-      typedef typename nt2::container::fusion_iterator<Sequence,0> type;
+      typedef boost::simd::at_iterator<Sequence,0> type;
       static type call(Sequence& seq) { return type(seq); }
     };
   };
@@ -113,10 +112,7 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence>
     struct apply
     {
-      typedef typename  nt2::meta::strip<Sequence>::type                  base;
-      typedef typename  nt2::container::
-                        fusion_iterator<Sequence,base::static_dimensions> type;
-
+      typedef boost::simd::at_iterator<Sequence, Sequence::static_dimensions> type;
       static type call(Sequence& seq) { return type(seq); }
     };
   };
