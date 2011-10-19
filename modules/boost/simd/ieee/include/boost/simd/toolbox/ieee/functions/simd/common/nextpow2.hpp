@@ -11,8 +11,6 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
@@ -20,6 +18,7 @@
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/functions/firstbitset.hpp>
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -63,8 +62,8 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
       rtype m;
       itype p;
-      frexp(tofloat(a0), &m, &p);
-      //    std::cout << "a0 " << a0 << "  p " << p<< "  m " << m << std::endl;
+      frexp(tofloat(a0), m, p);
+      std::cout << "a0 " << a0 << "  p " << p<< "  m " << m << std::endl;
       return simd::native_cast<A0>(seladd(boost::simd::is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
   };
@@ -143,7 +142,8 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type int_type;
       A0 m;
       int_type p;
-      frexp(abs(a0), m, p);
+      boost::simd::frexp(abs(a0), m, p);
+      std::cout << "m " <<  m <<  " p " << p << std::endl; 
       return tofloat(seladd(boost::simd::is_equal(m, Half<A0>()), p, Mone<int_type>()));
       }
   };
