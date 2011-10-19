@@ -51,8 +51,8 @@
 // //       std::cout << "rdivide(simd::native_cast<untype>(Valmax<A0>()), ga)  " << rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0)<< std::endl;
 // //       std::cout << "aa1  " << aa1 << std::endl;
 // //       std::cout << "lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0), aa1)  " << lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0), aa1)<< std::endl;
-//       return sel( lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), ga), la),
-// 		  sel(sign, Valmin<A0>(), Valmax<A0>()),
+//       return select( lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), ga), la),
+// 		  select(sign, Valmin<A0>(), Valmax<A0>()),
 // 		  a0*a1
 // 		 ); 
 //     }
@@ -77,7 +77,7 @@
 //     struct result<This(A0, A0)> : meta::strip<A0>{};
 //     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
 //     {
-//       return sel( lt(rdivide(Valmax<A0>(), a0), a1),
+//       return select( lt(rdivide(Valmax<A0>(), a0), a1),
 // 		  Valmax<A0>(),
 // 		  a0*a1
 // 		 ); 

@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return sel(eq(a0, boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), unary_minus(a0)); 
+      return select(eq(a0, boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), unary_minus(a0)); 
     }
   };
 } } }

@@ -127,7 +127,7 @@ namespace boost { namespace simd { namespace ext
       w =  select(test, w1_2, w2_2);
       w = boost::simd::sqrt(w);
       if (te3) w = ldexp(w, -e);
-      return sel(tinf, Inf<A0>(), w);
+      return select(tinf, Inf<A0>(), w);
     }
   };
 } } }

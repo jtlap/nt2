@@ -34,10 +34,10 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
       //A0 s = Signmask<A0>();
-      //      type that = {sel(isgez(type(a0)), a0, s-a0)};
+      //      type that = {select(isgez(type(a0)), a0, s-a0)};
       type r;
       A0 s = simd::native_cast<A0>(Signmask<type>());
-      r = sel(is_gez(a0) , simd::native_cast<type>(a0), simd::native_cast<type>(s-a0));
+      r = select(is_gez(a0) , simd::native_cast<type>(a0), simd::native_cast<type>(s-a0));
       return r;
     }
   };

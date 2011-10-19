@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     {
       r0 = a+b;
       AA0 z = (r0-a);
-      r1 =  sel(is_inf(r0), Zero<R1>(), (a-(r0-z))+(b-z));
+      r1 =  select(is_inf(r0), Zero<R1>(), (a-(r0-z))+(b-z));
     }
   };
 } } }

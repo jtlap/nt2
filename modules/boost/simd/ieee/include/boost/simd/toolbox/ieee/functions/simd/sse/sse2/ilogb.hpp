@@ -129,9 +129,9 @@ namespace boost { namespace simd { namespace ext
       vtype32 zz = b_and(MKN(32)(i), mask3);
       vtype32 tt = b_and(MKN(32)(i), mask2);
       vtype32 uu = b_and(MKN(32)(i), mask1);
-      vtype32 xx = sel(is_nez(yy), MKN(32)(_mm_srli_epi32(yy,24))+v4,
-                 sel(is_nez(zz), MKN(32)(_mm_srli_epi32(zz,16))+seize,
-                   sel(is_nez(tt), MKN(32)(_mm_srli_epi32(tt,8))+huit,
+      vtype32 xx = select(is_nez(yy), MKN(32)(_mm_srli_epi32(yy,24))+v4,
+                 select(is_nez(zz), MKN(32)(_mm_srli_epi32(zz,16))+seize,
+                   select(is_nez(tt), MKN(32)(_mm_srli_epi32(tt,8))+huit,
                        uu)));
       return MKN(32)(is_nez(MKN(8)(xx))&(MKN(8)(xx)-o));
     }
@@ -200,7 +200,7 @@ namespace boost { namespace simd { namespace ext
       static const vtype16 huit  = boost::simd::integral_constant<vtype16, 8u>();
       vtype16 yy = b_and(MKN(16)(i), mask2);
       vtype16 zz = b_and(MKN(16)(i), mask1);
-      vtype16 xx = sel(is_nez(yy), MKN(16)(_mm_srli_epi16(yy, 8))+huit, zz);
+      vtype16 xx = select(is_nez(yy), MKN(16)(_mm_srli_epi16(yy, 8))+huit, zz);
       return MKN(16)(is_nez(MKN(8)(xx))&(MKN(8)(xx)-o));
     }
   };

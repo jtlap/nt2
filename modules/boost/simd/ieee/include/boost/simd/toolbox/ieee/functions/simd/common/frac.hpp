@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return sel(is_invalid(a0), boost::simd::Nan<A0>(), a0-boost::simd::trunc(a0));
+      return select(is_invalid(a0), boost::simd::Nan<A0>(), a0-boost::simd::trunc(a0));
     }
   };
 } } }
