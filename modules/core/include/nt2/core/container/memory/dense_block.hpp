@@ -27,6 +27,7 @@
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 //#include <nt2/core/container/functions/expr/load.hpp>
+#include <nt2/include/functions/store.hpp>
 #include <nt2/core/container/functions/expr/store.hpp>
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
 
