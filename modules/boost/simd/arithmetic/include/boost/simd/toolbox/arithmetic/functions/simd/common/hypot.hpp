@@ -109,8 +109,8 @@ namespace boost { namespace simd { namespace ext
       int_type e = Zero<int_type>();
       if (te3)
       {
-        e = sel(te1, cts::MC2(), e);
-        e = sel(te2, cts::C1(),  e);
+        e = select(te1, cts::MC2(), e);
+        e = select(te2, cts::C1(),  e);
         a =  ldexp(a, e);
         b =  ldexp(b, e);
       }
@@ -124,7 +124,7 @@ namespace boost { namespace simd { namespace ext
       t1 = simd::native_cast<A0>(simd::native_cast<int_type>(a)+cts::C3()) ;
       t2 = (a+a) - t1;
       A0 w2_2  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
-      w =  sel(test, w1_2, w2_2);
+      w =  select(test, w1_2, w2_2);
       w = boost::simd::sqrt(w);
       if (te3) w = ldexp(w, -e);
       return sel(tinf, Inf<A0>(), w);

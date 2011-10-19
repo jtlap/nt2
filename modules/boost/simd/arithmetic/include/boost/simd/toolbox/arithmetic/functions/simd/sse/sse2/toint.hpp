@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
       const result_type v = make<result_type> ( static_cast<stype>(aa0[0])
                                               , static_cast<stype>(aa0[1])
                                               );
-      return  sel(eq(aa0, Inf<A0>()), Inf<result_type>(), v);
+      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), v);
     }
   };
 
@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
     {
       A0 aa0 = b_andnot(a0, is_nan(a0)); 
       result_type that = {_mm_cvttps_epi32(aa0)};
-      return  sel(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
+      return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
     }
   };
 } } }
