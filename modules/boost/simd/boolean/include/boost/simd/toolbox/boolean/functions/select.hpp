@@ -60,6 +60,7 @@ namespace boost { namespace simd { namespace tag
     struct select_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::select_, select, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::select_, sel,    3) 
 } }
 
 #endif

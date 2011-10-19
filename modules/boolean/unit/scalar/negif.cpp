@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - negif/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 boolean toolbox - negif/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bitwise components in scalar mode
+// unit test behavior of boolean components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/functions/negif.hpp>
+#include <nt2/toolbox/boolean/include/functions/negif.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

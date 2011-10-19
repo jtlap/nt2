@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 bitwise toolbox - selsub/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boolean toolbox - selsub/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of bitwise components in simd mode
+// unit test behavior of boolean components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/functions/selsub.hpp>
+#include <nt2/toolbox/boolean/include/functions/selsub.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/predicates/include/functions/is_nez.hpp>
 

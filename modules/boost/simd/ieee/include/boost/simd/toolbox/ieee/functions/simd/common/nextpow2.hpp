@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
       rtype m;
       itype p;
       frexp(tofloat(a0), m, p);
-      std::cout << "a0 " << a0 << "  p " << p<< "  m " << m << std::endl;
+      //      std::cout << "a0 " << a0 << "  p " << p<< "  m " << m << std::endl;
       return simd::native_cast<A0>(seladd(boost::simd::is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
   };
@@ -143,7 +143,7 @@ namespace boost { namespace simd { namespace ext
       A0 m;
       int_type p;
       boost::simd::frexp(abs(a0), m, p);
-      std::cout << "m " <<  m <<  " p " << p << std::endl; 
+      //      std::cout << "m " <<  m <<  " p " << p << std::endl; 
       return tofloat(seladd(boost::simd::is_equal(m, Half<A0>()), p, Mone<int_type>()));
       }
   };
