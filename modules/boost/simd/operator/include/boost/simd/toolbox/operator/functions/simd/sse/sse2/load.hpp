@@ -18,6 +18,8 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/assert.hpp>
 
 //==============================================================================
 // load vector of double
@@ -34,6 +36,9 @@ namespace boost { namespace simd { namespace ext
     typedef typename A2::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
+      BOOST_ASSERT_MSG( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT) ,
+                                  "Invalid pointer. You tried to load with a pointer that"
+                                  "is not aligned on the simd vector size.");
       result_type
       that = { _mm_load_pd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
       return that;
@@ -57,6 +62,10 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1,
                                   const A2&)const
     {
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to load with a pointer that"
+        "is not aligned on the simd vector size.");
       result_type
       that = { _mm_load_ps(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
       return that;
@@ -80,6 +89,10 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1,
                                   const A2&)const
     {
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to load with a pointer that"
+        "is not aligned on the simd vector size.");
       result_type
       that = { _mm_load_si128(reinterpret_cast<__m128i const*>(a0)+a1) };
       return that;

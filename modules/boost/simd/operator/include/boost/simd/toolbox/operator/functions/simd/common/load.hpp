@@ -17,6 +17,8 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/assert.hpp>
 #include <cstring>
 
 namespace boost { namespace simd { namespace ext
@@ -32,7 +34,11 @@ namespace boost { namespace simd { namespace ext
 
     inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
-    result_type that;
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to load with a pointer that"
+        "is not aligned on the simd vector size.");
+      result_type that;
       std::memcpy ( &that
                   , reinterpret_cast<result_type const*>(a0) + a1
                   , sizeof that
@@ -53,6 +59,10 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1,
                                   const A2&, const A3&) const
     {
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to load with a pointer that"
+        "is not aligned on the simd vector size.");
       result_type that;
       std::memcpy ( &that
                   , reinterpret_cast<result_type const*>(a0 + A3::value) + a1
