@@ -34,12 +34,12 @@ NT2_TEST_CASE_TPL ( isqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef iT wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << type_id<r_t>() << "   " << type_id<wished_r_t>() << std::endl; 
   double ulpd;
   ulpd=0.0;
 
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( isqrt_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef iT wished_r_t;
 
 
   // return type conformity test 
@@ -108,7 +108,7 @@ NT2_TEST_CASE_TPL ( isqrt_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef iT wished_r_t;
 
 
   // return type conformity test 

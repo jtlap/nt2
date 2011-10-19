@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( none_real__1_0,  NT2_SIMD_REAL_TYPES)
         bool z = true;
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
-          z = z||!a0[i];
+          z = z&&!a0[i];
         }
         NT2_TEST_EQUAL( v,z);
       }

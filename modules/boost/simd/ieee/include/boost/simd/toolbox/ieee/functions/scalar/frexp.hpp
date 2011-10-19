@@ -98,11 +98,11 @@ a1 = ::frexpf(a0, &a2);
     {
       result_type res;
       if (is_inf(a0))
-{
-  boost::fusion::at_c<0>(res) = a0;
-  boost::fusion::at_c<1>(res) = 0;
-  return; 
-}
+      {
+        boost::fusion::at_c<0>(res) = a0;
+        boost::fusion::at_c<1>(res) = 0;
+        return res; 
+      }
       boost::simd::int32_t r1t;
       boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
       boost::fusion::at_c<1>(res) = r1t;
@@ -122,11 +122,11 @@ a1 = ::frexpf(a0, &a2);
     {
       result_type res;
       if (is_inf(a0))
-{
-  boost::fusion::at_c<0>(res) = a0;
-  boost::fusion::at_c<1>(res) = 0;
-  return res; 
-}
+      {
+        boost::fusion::at_c<0>(res) = a0;
+        boost::fusion::at_c<1>(res) = 0;
+        return res; 
+      }
       boost::fusion::at_c<0>(res) = ::frexpf(a0, &boost::fusion::at_c<1>(res));
       return res;
     }

@@ -1,18 +1,18 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['The function conditionnaly to a0 returns a1 or -a1'],
+         'description' : ['The function conditionnaly to a0 returns a1 or zero,'],
          'return' : ['always of the type of the second parameter'],   
-         'module' : 'boolean',
+         'module' : 'default',
          'arity' : '2',
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
              'default' : 'T',
             },
-         'simd_types' : ['real_', 'signed_int_'],
+         'simd_types' : ['real_', 'signed_int_','unsigned_int_'],
          'type_defs' : [],
-         'types' : ['real_', 'signed_int_'],
+         'types' : ['real_', 'signed_int_','unsigned_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -28,29 +28,29 @@
             },
          'specific_values' : {
              'unsigned_int_' : {
-                 'T(0),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
+                 'T(0),T(1)' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
-                 'T(0),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
-                 'T(1),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
-                 'boost::simd::Inf<T>(),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
-                 'boost::simd::Minf<T>(),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
-                 'boost::simd::Nan<T>(),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
-                 'boost::simd::Zero<T>(),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
+                 'T(0),T(1)' : {'result' : 'boost::simd::Zero<T>()','ulp_thresh' : '0.5',},
+                 'T(1),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
+                 'boost::simd::Inf<T>(),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
+                 'boost::simd::Minf<T>(),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
+                 'boost::simd::Nan<T>(),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>(),T(1)' : {'result' : 'boost::simd::Zero<T>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {
-                 'T(0),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
-                 'T(1),T(1)' : {'result' : '-1','ulp_thresh' : '0.5',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},
+                 'T(0),T(1)' : {'result' : '1','0' : '0.5',},
+                 'T(1),T(1)' : {'result' : '1','ulp_thresh' : '0.5',},
+                 'boost::simd::Zero<T>()' : {'result' : '0','ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {
              'property_call' : {
-                 'integer_' : ['boost::simd::negif(a0,a1)'],
+                 'integer_' : ['boost::simd::if_else_zero(a0,a1)'],
                 },
              'property_value' : {
-                 'integer_' : ['a0?-r_t(a1):r_t(a1)'],
+                 'integer_' : ['a0?r_t(a1):boost::simd::Zero<A1>()'],
                 },
              'simd' : {
                 },

@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
       const A0 c = b_and(eq(a0,Valmin<A0>()),eq(a1, Mone<A0>()));
       const A0 aa1 = a1+(iseqza1&One<A0>());
       const A0 r1 = (a0-c)/aa1; //a1!= 0
-      const A0 v2 = select(is_ltz(a1),Valmin<A0>(),Valmax<A0>());
+      const A0 v2 = select(is_ltz(a0),Valmin<A0>(),Valmax<A0>());
       const A0 r2 = select(is_eqz(a0),Zero<A0>(),v2); //a1 == 0
       return select(iseqza1, r2, r1);
     }
