@@ -138,6 +138,7 @@ namespace nt2 { namespace container
   #undef M0
   #undef M1
   #undef M2
+  #undef M3
   
   template<class Expr, int N>
   struct size_impl<tag::function_, N, Expr>
@@ -180,7 +181,6 @@ namespace nt2 { namespace container
                               function, N, Expr
                             >::result_type>::type   extent_type;
 
-
     typedef typename boost::mpl::
     if_< boost::is_same<extent_type, _0D>
        , s0
@@ -191,7 +191,7 @@ namespace nt2 { namespace container
                                              >
                             , s0
                             >::type
-       >::type                                      type;
+       >::type                                      type;       
     typedef expression<Expr, type>                  result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
@@ -218,7 +218,7 @@ namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (Expr)
-                            , ((expr_< scalar_<Expr>
+                            , ((expr_< scalar_< unspecified_<Expr> >
                                      , nt2::container::domain
                                      , nt2::tag::function_
                                      >
