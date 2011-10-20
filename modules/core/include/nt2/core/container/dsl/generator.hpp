@@ -13,9 +13,8 @@
 #include <boost/proto/traits.hpp>
 #include <nt2/include/functor.hpp>
 #include <boost/proto/transform.hpp>
-#include <nt2/include/functions/extent.hpp>
-#include <nt2/core/container/dsl/expression.hpp>
-#include <nt2/core/container/table/table_container.hpp>
+#include <nt2/core/functions/extent.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
 
 #include <boost/fusion/include/transform.hpp>
@@ -25,6 +24,9 @@
 
 namespace nt2 { namespace container
 {
+  template<class T, class S>
+  struct table_container;
+    
   template<class Tag, int N, class Expr>
   struct size_impl;
 

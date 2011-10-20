@@ -17,7 +17,9 @@ namespace boost { namespace simd
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::run_, run, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::run_, run, (A0 const&)(A1&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::run_, run, (A0 const&)(A1 const&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::run_, run, (A0 const&)(A1&)(A2 const&), 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::run_, run, (A0 const&)(A1 const&)(A2 const&), 3)
 } }
 
 #endif

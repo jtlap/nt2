@@ -15,8 +15,7 @@
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
 #include <nt2/core/settings/size.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/meta/align_on.hpp>
+#include <nt2/core/settings/details/of_size_meta.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
@@ -31,11 +30,11 @@ namespace nt2
   /*! of_size_<D0,..,Dn> is a size value containing up to n dimensions.
    **/
   //============================================================================
-  template< BOOST_PP_ENUM_PARAMS ( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
   struct of_size_
   {
-    typedef boost::fusion::boost_array_tag fusion_tag;
-
+    typedef tag::of_size_ fusion_tag;
+   
     typedef std::size_t         value_type;
     typedef std::size_t&        reference;
     typedef std::size_t const&  const_reference;
@@ -148,7 +147,8 @@ namespace nt2
   //============================================================================
   template<> struct of_size_<>
   {
-    typedef boost::fusion::boost_array_tag fusion_tag;
+    typedef tag::of_size_ fusion_tag;
+    typedef boost::mpl::vector_c<std::size_t> values_type;
       
     typedef std::size_t value_type;
     typedef std::size_t reference;
@@ -161,7 +161,7 @@ namespace nt2
     static const std::size_t  static_numel  = 0;
 
     static std::size_t size() { return 0; }
-    const_reference  operator[](std::size_t i) const { return 1; }
+    const_reference    operator[](std::size_t i) const { return 1; }
 
     iterator        begin()       { return iterator(0);       }
     const_iterator  begin() const { return const_iterator(0); }
@@ -172,15 +172,12 @@ namespace nt2
   //============================================================================
   // Defines some usual short-cuts for runtime of_size_
   //============================================================================
-  #define M1(z,n,t) t
   #define M0(z,n,t)                                                           \
-  typedef of_size_<BOOST_PP_ENUM(n,M1,-1)> BOOST_PP_CAT(BOOST_PP_CAT(_,n),D); \
+  typedef of_size_<BOOST_PP_ENUM_PARAMS(n, -1 BOOST_PP_INTERCEPT)>            \
+  BOOST_PP_CAT(BOOST_PP_CAT(_, n), D);                                        \
   /**/
-
-  BOOST_PP_REPEAT_FROM_TO(0,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
-
+  BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
   #undef M0
-  #undef M1
 
   template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
           , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>

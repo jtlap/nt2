@@ -36,10 +36,8 @@ namespace nt2 { namespace ext
                               ))
                             )
   {
-    typedef typename boost::dispatch::meta::
-            terminal_of < typename boost::dispatch::meta::
-                          semantic_of<A0>::type
-                        >::type                             result_type;
+    typedef typename meta::lhs_terminal::template
+    result<meta::lhs_terminal(A0 const&)>::type             result_type;
 
     typedef typename meta::scalar_of<result_type>::type     target_type;
 
