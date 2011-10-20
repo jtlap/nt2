@@ -45,7 +45,7 @@ a##0##n = _mm256_extractf128_##t(a##n,0); \
 a##1##n = _mm256_extractf128_##t(a##n,1); \
 /**/
 
-#define M6(z,n,t)                                                              \
+#define M5(z,n,t)                                                              \
 namespace boost { namespace simd { namespace ext                               \
 {                                                                              \
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION                                            \
@@ -85,7 +85,7 @@ namespace boost { namespace simd { namespace ext                               \
 /**/
 
 #define BOOST_SIMD_MAP_CALL(T,C)                                               \
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M6, (T,C))    \
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M5, (T,C))    \
 /**/
 
 BOOST_SIMD_MAP_CALL(double_ , pd    )
@@ -93,7 +93,9 @@ BOOST_SIMD_MAP_CALL(single_  , ps    )
 BOOST_SIMD_MAP_CALL(integer_, si256 )
 
 #undef BOOST_SIMD_MAP_CALL
-#undef M6
+#undef M5
+#undef M4
+#undef M3
 #undef M2
 #undef M1
 #undef M0
