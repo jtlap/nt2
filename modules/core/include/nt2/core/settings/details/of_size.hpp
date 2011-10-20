@@ -14,6 +14,7 @@
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
+#include <boost/assert.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/details/of_size_meta.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
@@ -34,6 +35,7 @@ namespace nt2
   struct of_size_
   {
     typedef tag::of_size_ fusion_tag;
+    typedef boost::fusion::fusion_sequence_tag tag;
    
     typedef std::size_t         value_type;
     typedef std::size_t&        reference;
@@ -93,6 +95,22 @@ namespace nt2
     }
 
     of_size_( of_size_ const& src ) : data_(src.data_) {}
+    
+    template<class Sz>
+    of_size_( Sz const& other )
+    {
+      static const std::size_t min_size = Sz::static_size < static_size ? Sz::static_size : static_size;
+      
+      std::size_t i = 0;
+      for(; i != min_size; ++i)
+        data_[i] = other.data_[i];
+                
+      for(; i != static_size; ++i)
+        data_[i] = 1;
+
+      for(; i < Sz::static_size; ++i)
+        BOOST_ASSERT_MSG(other.data_[i] == 1, "Incompatible size in of_size conversion");
+    }
 
     //==========================================================================
     // Constructors from [D0 .. Dn]
@@ -148,6 +166,7 @@ namespace nt2
   template<> struct of_size_<>
   {
     typedef tag::of_size_ fusion_tag;
+    typedef boost::fusion::fusion_sequence_tag tag;
     typedef boost::mpl::vector_c<std::size_t> values_type;
       
     typedef std::size_t value_type;
@@ -167,6 +186,15 @@ namespace nt2
     const_iterator  begin() const { return const_iterator(0); }
     iterator        end()         { return iterator(0);       }
     const_iterator  end()   const { return const_iterator(0); }
+    
+    of_size_() {}
+    
+    template<class Sz>
+    of_size_( Sz const& other )
+    {
+      for(std::size_t i = 0; i != Sz::static_size; ++i)
+        BOOST_ASSERT_MSG(other.data_[i] == 1, "Incompatible size in of_size conversion");
+    }
   };
 
   //============================================================================
