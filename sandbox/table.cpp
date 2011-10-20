@@ -1,6 +1,13 @@
 #include <iostream>
 #include <nt2/sdk/details/type_id.hpp>
 
+  template<class T>
+  struct print
+  {
+      unsigned : 80;
+      typedef T type;
+  };
+
 #include <nt2/sdk/timing/ctic.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/fast_cos.hpp>
@@ -26,7 +33,25 @@
 */
 namespace nt2 { namespace ext
 {
-  // terminal, does load
+  // terminal for 0-dimensional access
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                                , (A0)(Data)
+                                , (ast_<unspecified_<A0> >)
+                                  (fusion_sequence_<nt2::_0D>)
+                                  (unspecified_<Data>)
+                                )
+  {
+    typedef typename boost::dispatch::meta::
+    semantic_of<A0>::type                                  result_type;
+    
+    template<class A0_>
+    result_type operator()(A0_& a0, _0D const&, Data const& ) const
+    {
+       return boost::proto::value(a0);
+    }
+  };
+    
+  // table terminal with a position
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                                 , (A0)(S0)(State)(Data)
                                 , ((ast_<table_< unspecified_<A0>, S0 > >))
@@ -39,12 +64,16 @@ namespace nt2 { namespace ext
                semantic_of<A0>::type
              >::type                                       result_type;
     
-    result_type operator()(A0 const& a0, State const& state, Data const& ) const
+    template<class A0_>
+    result_type operator()(A0_& a0, State const& state, Data const& ) const
     {
-       return (boost::proto::value(a0))(state);    
+       //return (boost::proto::value(a0))(state);
+       static typename boost::remove_reference<result_type>::type r;
+       return r;
     }
   };
 
+  // scalar terminal, always value
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(State)(Data)
                             , ((ast_<scalar_< unspecified_<A0> > >))
@@ -168,7 +197,9 @@ int main()
   //c(a) = b(c) + c(a)*b(a);
 #endif
 
-  table<double> t;
-  nt2::run(nt2::assign(t, t(1)));
+  table<double> t(nt2::of_size(10, 10));
+  nt2::run(nt2::assign(t(1), 42.));
+  double d = t(1);
+  std::cout << d << std::endl;
 
 }

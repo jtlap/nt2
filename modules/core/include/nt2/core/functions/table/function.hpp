@@ -201,21 +201,45 @@ namespace nt2 { namespace container
     }
   };
   
-  // TODO
+  // assumes all nodes are terminals, incorrect
+  struct function_state_impl
+  {
+    template<class Sig>
+    struct result;
+    
+    template<class This, class A0>
+    struct result<This(A0)>
+      : boost::proto::result_of::
+        value<A0>
+    {
+    };
+      
+    template<class A0>
+    BOOST_DISPATCH_FORCE_INLINE
+    typename result<function_state_impl(A0&)>::type
+    operator()(A0& a0) const
+    {
+      return boost::proto::value(a0);
+    }
+  };
+  
   template<class Expr, class State>
   struct function_state
   {
-    typedef State result_type;
+    typedef typename boost::fusion::result_of::
+    transform<Expr const, function_state_impl>::type result_type;
+    
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(Expr const&, State const& state) const
+    result_type operator()(Expr const& expr, State const& state) const
     {
-      return state;
+      return boost::fusion::transform(expr, function_state_impl());
     }
   };
   
 }    
 namespace ext
 {
+#if 0
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (Expr)
                             , ((expr_< scalar_< unspecified_<Expr> >
@@ -242,6 +266,7 @@ namespace ext
                      );
     }
   };
+#endif
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (Expr)(State)(Data)
