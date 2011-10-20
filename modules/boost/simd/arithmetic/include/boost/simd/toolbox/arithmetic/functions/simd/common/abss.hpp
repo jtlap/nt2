@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       A0 a =  boost::simd::abs(a0); 
-      return sel(eq(a0,boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), a); 
+      return select(eq(a0,boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), a); 
     }
   };
 } } }

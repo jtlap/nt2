@@ -180,6 +180,7 @@ class Type_header_test_gen() :
         self.mode = self.bg.get_fct_mode()
         self.__rank = rank
         self.__module =  d["functor"].get("module",'default')
+        if self.__module != 'boost' : self.__module = 'default'
         self.__gen_beg = self.__create_beg_txt(d,typ)
         self.__gen_end = self.__create_end_txt(d,typ)
        

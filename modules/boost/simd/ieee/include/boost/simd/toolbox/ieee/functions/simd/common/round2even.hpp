@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
       const result_type t2n = boost::simd::Twotonmb<A0>();
       const result_type d0  = (v+t2n);
       const result_type d   = (d0-t2n);
-      const result_type d1  = sel(lt(v,t2n),d,v);
+      const result_type d1  = select(lt(v,t2n),d,v);
       return (d1^bitofsign(a0));
     }
   };

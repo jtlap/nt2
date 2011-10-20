@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     {
       typename dispatch::make_functor<Tag, A0>::type callee;
       const A0 z = callee( dispatch::meta::as_<A0>() );
-      return sel(gt(a0, z), z, sel(lt(a0, unary_minus(z)), unary_minus(z), a0)); 
+      return select(gt(a0, z), z, select(lt(a0, unary_minus(z)), unary_minus(z), a0)); 
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag>

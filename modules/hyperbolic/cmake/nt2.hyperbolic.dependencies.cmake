@@ -7,6 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_HYPERBOLIC_DEPENDENCIES_EXTRA arithmetic bitwise constant ieee predicates reduction
+SET(NT2_HYPERBOLIC_DEPENDENCIES_EXTRA arithmetic bitwise boolean constant ieee predicates reduction
                                       exponential
    )

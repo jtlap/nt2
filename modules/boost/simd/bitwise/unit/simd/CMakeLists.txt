@@ -10,11 +10,7 @@
 SET( SOURCES
   is_included_c.cpp
   is_included.cpp
-  negif.cpp
   genmask.cpp
-  selsub.cpp
-  seladd.cpp
-  select.cpp
   twopower.cpp
   shri.cpp
   shrai.cpp

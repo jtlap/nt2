@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
 //       boost::fusion::tie(m, expon) = fast_frexp(a0);
 //       expon =  seladd(iseq(m, Mhalf<A0>()), expon, Mone<itype>());
 //       A0 diff =  fast_ldexp(Mone<A0>(), expon-Nbdigits<A0>());
-//       diff = sel(iseqz(diff)||iseqz(a0),  Mindenormal<A0>(), diff);
+//       diff = select(iseqz(diff)||iseqz(a0),  Mindenormal<A0>(), diff);
 //       return a0+diff;
     }
   };

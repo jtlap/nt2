@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
         const A0 x = boost::simd::abs(a0);
         A0 xp = boost::simd::predecessor(x);
         A0 xs = boost::simd::successor(x); 
-        return boost::simd::sel(boost::simd::is_equal(x, boost::simd::Inf<A0>()),
+        return boost::simd::select(boost::simd::is_equal(x, boost::simd::Inf<A0>()),
                                 boost::simd::Nan<A0>(), boost::simd::min(x-xp, xs - x));
       }
   };

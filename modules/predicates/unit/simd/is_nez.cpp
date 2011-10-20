@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( is_nez_real__1_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_nez(-nt2::Zero<vT>())[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_nez(nt2::Mzero<vT>())[0]!=0, nt2::False<sr_t>());
   NT2_TEST_EQUAL(is_nez(nt2::Half<vT>())[0]!=0, nt2::True<sr_t>());
   NT2_TEST_EQUAL(is_nez(nt2::Inf<vT>())[0]!=0, nt2::True<sr_t>());
   NT2_TEST_EQUAL(is_nez(nt2::Minf<vT>())[0]!=0, nt2::True<sr_t>());

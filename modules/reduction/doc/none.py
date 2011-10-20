@@ -56,7 +56,7 @@
                         "        bool z = true;",
                         "        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)",
                         "        {",
-                        "          z = z||!a0[i];",
+                        "          z = z&&!a0[i];",
                         "        }",
                         "        NT2_TEST_EQUAL( v,z);",
                             ]

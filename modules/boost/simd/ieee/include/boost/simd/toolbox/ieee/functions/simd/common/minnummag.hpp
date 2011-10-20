@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return sel(lt(abs(a0), boost::simd::abs(a1)), a0, a1);
+      return select(lt(abs(a0), boost::simd::abs(a1)), a0, a1);
     }
   };
 
@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
     {
       const A0 a = select(is_nan(a0),a1,a0);
       const A0 b = select(is_nan(a1),a0,a1);
-      return sel(lt(boost::simd::abs(a), boost::simd::abs(b)), a, b);
+      return select(lt(boost::simd::abs(a), boost::simd::abs(b)), a, b);
     }
   };
 } } }

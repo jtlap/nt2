@@ -15,9 +15,6 @@ SET( SOURCES
   shri.cpp
   shrai.cpp
   shli.cpp
-  selsub.cpp
-  select.cpp
-  seladd.cpp
   rshr.cpp
   rshl.cpp
   rror.cpp
@@ -26,7 +23,6 @@ SET( SOURCES
   rol.cpp
   reversebits.cpp
   popcnt.cpp
-  negif.cpp
   lo.cpp
   hi.cpp
   genmask.cpp

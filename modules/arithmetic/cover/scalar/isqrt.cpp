@@ -41,11 +41,12 @@ NT2_TEST_CASE_TPL ( isqrt_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<isqrt_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef iT wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << nt2::type_id<r_t>() << "   " << nt2::type_id<wished_r_t>() << std::endl; 
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
@@ -77,7 +78,7 @@ NT2_TEST_CASE_TPL ( isqrt_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<isqrt_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef iT wished_r_t;
 
 
   // return type conformity test 
@@ -113,7 +114,7 @@ NT2_TEST_CASE_TPL ( isqrt_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<isqrt_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef iT wished_r_t;
 
 
   // return type conformity test 

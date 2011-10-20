@@ -7,6 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_EXPONENTIAL_DEPENDENCIES_EXTRA arithmetic bitwise constant ieee operator predicates reduction
+SET(NT2_EXPONENTIAL_DEPENDENCIES_EXTRA arithmetic bitwise boolean constant ieee operator predicates reduction
                                        common polynomials
    )

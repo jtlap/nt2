@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef result_type type;
       type a00 = simd::native_cast<type>(a0);
-      return simd::native_cast<type>(sel( is_positive(a0)
+      return simd::native_cast<type>(select( is_positive(a0)
               , a00
               , Signmask<type>()-a00
                                 ));

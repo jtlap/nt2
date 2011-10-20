@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<T>::type stype;
       const A0 vma = splat<A0>(Valmax<stype>());
       const A0 vmi = splat<A0>(Valmin<stype>()); 
-      return sel(gt(a0, vma), vma, sel(lt(a0, vmi), vmi, a0)); 
+      return select(gt(a0, vma), vma, select(lt(a0, vmi), vmi, a0)); 
     }
   };
 } } }

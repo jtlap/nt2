@@ -14,7 +14,22 @@
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
+                            , (A0)
+                            , (scalar_< arithmetic_<A0> >)
+                            )
+  {
+    typedef typename  dispatch::meta::as_integer<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return trunc(sqrt(a0));
+    }
+  };
+} } }
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint_
 /////////////////////////////////////////////////////////////////////////////
