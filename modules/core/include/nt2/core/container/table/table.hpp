@@ -36,7 +36,8 @@ namespace nt2 { namespace container
     //==========================================================================
     //  table default constructor
     //==========================================================================
-    table( extent_type const& sz ) { boost::proto::value(*this).resize(sz); }
+    template<class Sz>
+    table( Sz const& sz ) { boost::proto::value(*this).resize(extent_type(sz)); }
 
     template<class Xpr,class Result>
     BOOST_DISPATCH_FORCE_INLINE table(expression<Xpr,Result> const& xpr)
