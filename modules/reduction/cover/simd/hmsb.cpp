@@ -42,6 +42,19 @@
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
+template < class T > 
+void pb(const T & a, int N)
+{
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  iT ia =  boost::simd::bitwise_cast<iT>(a);
+  int j = 0;
+  for(int i = 0; i < N; ++i)
+    {
+      std::cout << (ia&1); 
+      ia >>= 1; 
+    }
+  std::cout << std::endl; 
+}
 
 NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
@@ -73,10 +86,14 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = nt2::hmsb(a0);
         nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
+        std::cout << "a0 " << a0 <<  " -> ";
+        pb(v, N); 
         for(nt2::uint32_t i = 0; i< N; ++i)
         {
-          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
+        }
         NT2_TEST_EQUAL( v,z);
+        pb(z, N); 
       }
     
   }
@@ -112,10 +129,14 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
         r_t v = nt2::hmsb(a0);
         nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
+  std::cout << "a0 " << a0 <<  " -> ";
+  pb(v, N); 
         for(nt2::uint32_t i = 0; i< N; ++i)
         {
-          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
+        }
         NT2_TEST_EQUAL( v,z);
+        pb(z, N); 
       }
     
   }
@@ -149,12 +170,16 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::hmsb(a0);
-        nt2::int32_t z = 0;
+  nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
+  std::cout << "a0 " << a0 <<  " -> ";
+  pb(v, N); 
         for(nt2::uint32_t i = 0; i< N; ++i)
         {
-          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);        }
+          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
+        }
         NT2_TEST_EQUAL( v,z);
+        pb(z, N); 
       }
     
   }
