@@ -33,16 +33,13 @@ namespace boost { namespace simd { namespace ext
                               ((target_< simd_< double_<A2>, boost::simd::tag::avx_ > >))
                             )
   {
-    BOOST_ASSERT_MSG( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT) ,
-                                "Invalid pointer. You tried to load with a pointer that"
-                                " is not aligned on the simd vector size.");
     typedef typename A2::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
-        "is not aligned on the simd vector size.");
+        " is not aligned on the simd vector size.");
       result_type that = { _mm256_load_pd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
       return that;
     }
