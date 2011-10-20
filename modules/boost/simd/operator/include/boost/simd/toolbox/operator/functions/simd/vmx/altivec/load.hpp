@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/assert.hpp>
+#include <nt2/sdk/error/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
-        "is not aligned on the simd vector size.");
+        " is not aligned on the simd vector size.");
       result_type that = { vec_ld(a1*16,a0) };
       return that;
     }

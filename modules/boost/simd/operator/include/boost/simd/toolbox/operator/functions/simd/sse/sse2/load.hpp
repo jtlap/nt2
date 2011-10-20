@@ -19,7 +19,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/assert.hpp>
+#include <nt2/sdk/error/assert.hpp>
 
 //==============================================================================
 // load vector of double
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_ASSERT_MSG( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT) ,
                                   "Invalid pointer. You tried to load with a pointer that"
-                                  "is not aligned on the simd vector size.");
+                                  " is not aligned on the simd vector size.");
       result_type
       that = { _mm_load_pd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
       return that;

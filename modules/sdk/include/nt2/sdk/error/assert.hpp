@@ -116,6 +116,28 @@ namespace boost
     boost::dispatch::ignore_unused(l);
     #endif
   }
+
+  void inline
+  assertion_failed_msg(char const* expr,const char* msg, char const* fn,char const* f,int l)
+  {
+    #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
+    ::boost::exception_detail
+    ::throw_exception_(   ::nt2::assert_exception()
+                      <<  ::nt2::details::assert_info(expr)
+                        , fn,f,l
+                      );
+#elif defined(NT2_DEBUG)
+    fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n\t%s",f,l,fn,expr,msg);
+    ::nt2::trap();
+#else
+    boost::dispatch::ignore_unused(expr);
+    boost::dispatch::ignore_unused(fn);
+    boost::dispatch::ignore_unused(f);
+    boost::dispatch::ignore_unused(l);
+    boost::dispatch::ignore_unused(msg);
+#endif
+  }
+
 }
 
 #undef BOOST_ENABLE_ASSERT_HANDLER
