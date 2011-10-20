@@ -87,7 +87,7 @@ namespace nt2 { namespace container
 
   // table generator, computes correct scalar type and size
   #define M1(z,n,t)                                                                      \
-  typedef typename boost::proto::result_of::child_c<Expr, n>::type _A##n;                \
+  typedef typename boost::proto::result_of::child_c<Expr&, n>::type _A##n;               \
   typedef typename boost::dispatch::meta::semantic_of<_A##n>::type A##n;                 \
   typedef typename boost::dispatch::meta::scalar_of<A##n>::type s##n;
 
@@ -126,7 +126,7 @@ namespace nt2 { namespace container
   {
     typedef expression< Expr
                       , typename boost::proto::result_of::
-                        value<Expr>::type
+                        value<Expr&>::type
                       > result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
@@ -140,7 +140,7 @@ namespace nt2 { namespace container
   template<class Expr>
   struct generator_impl<boost::proto::tag::function, 1, Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr, 0>::type child0;
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
 
 #if 0
     typedef typename meta::call<tag::evaluate_(child0)>::type result_type;
@@ -252,7 +252,7 @@ namespace nt2 { namespace container
   struct size_impl<Tag, 0, Expr>
   {
     typedef typename boost::proto::result_of::
-    value<Expr>::type                                 value_type;
+    value<Expr&>::type                                value_type;
 
     typedef typename meta::
     call<tag::extent_(value_type)>::type              result_type;
@@ -268,7 +268,7 @@ namespace nt2 { namespace container
   struct size_impl<Tag, 1, Expr>
   {
     typedef typename boost::proto::result_of::
-    child_c<Expr, 0>::type                          child0;
+    child_c<Expr&, 0>::type                         child0;
 
     typedef typename size_transform::template
     result<size_transform(child0)>::type            result_type;
@@ -282,18 +282,23 @@ namespace nt2 { namespace container
   
   // assign
   template<class Expr>
-  struct size_impl<boost::proto::tag::assign, 2, Expr>
+  struct generator_impl<boost::proto::tag::assign, 2, Expr>
   {
     typedef typename boost::proto::result_of::
-    child_c<Expr, 1>::type                          child1;
+    child_c<Expr&, 0>::type                         child0;
+    
+    typedef typename boost::dispatch::meta::
+    semantic_of<child0>::type                       semantic;
+    
+    typedef typename meta::settings_of<semantic>::type                settings_type;
+    typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
 
-    typedef typename size_transform::template
-    result<size_transform(child1)>::type            result_type;
+    typedef expression<Expr, semantic>              result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(Expr& e) const
     {
-      return size_transform()(boost::proto::child_c<1>(e));
+      return result_type(e, extent_type(size_transform()(boost::proto::child_c<1>(e))));
     }
   };
 } }

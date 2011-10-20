@@ -135,7 +135,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef nt2::container::
             expression< typename boost::proto::terminal< container >::type
-                      , container
+                      , container&
                       >                                                    type;
   };
 
