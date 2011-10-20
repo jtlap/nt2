@@ -28,8 +28,8 @@ namespace nt2 { namespace ext
   // returned, usually as non-const reference.
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)
-                            , ((expr_<  table_< unspecified_<A0>, S0 >
+                            , (A0)
+                            , ((expr_< unspecified_<A0>
                                      , nt2::container::domain
                                      , nt2::tag::assign_
                                      >
@@ -39,7 +39,10 @@ namespace nt2 { namespace ext
     typedef typename meta::lhs_terminal::template
     result<meta::lhs_terminal(A0 const&)>::type             result_type;
 
-    typedef typename meta::scalar_of<result_type>::type     target_type;
+    typedef typename meta::
+    strip< typename meta::
+           scalar_of<result_type>::type
+         >::type                                            target_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
@@ -82,6 +85,24 @@ namespace nt2 { namespace ext
       result_type tmp;
       run(assign(tmp, a0));
       return tmp;
+    }
+  };
+  
+  //============================================================================
+  // When a scalar expression is run, we don't perform the operation into
+  // a temporary, but rather directly return it.
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)
+                            , (ast_<scalar_< unspecified_<A0> > >)
+                            )
+  {
+    typedef typename boost::dispatch::meta::
+    semantic_of<A0>::type                                 result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
+    {
+      return nt2::run(a0, of_size_<>(), meta::as_<typename meta::strip<result_type>::type>());
     }
   };
 } }
