@@ -24,14 +24,14 @@ macro(nt2_module_source_setup module)
   string(TOUPPER ${module} NT2_CURRENT_MODULE_U)
   
   set(NT2_CURRENT_MODULE ${module})
-  set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+  set(LIBRARY_OUTPUT_PATH ${NT2_BINARY_DIR}/lib)
   
   include_directories(${NT2_${NT2_CURRENT_MODULE_U}_INCLUDE_DIR})
   link_directories(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARY_DIR})
   link_libraries(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARIES})
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}")
   
-  file(WRITE ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
+  file(WRITE ${NT2_BINARY_DIR}/modules/${module}.manifest)
   
   # installation is only done when current project is NT2
   # or same as current module
@@ -57,10 +57,10 @@ macro(nt2_module_source_setup module)
         list(APPEND files_full ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/${file})
       endforeach()
 
-      if(NOT EXISTS ${PROJECT_BINARY_DIR}/modules/dummy.cpp)
-        file(WRITE ${PROJECT_BINARY_DIR}/modules/dummy.cpp)
+      if(NOT EXISTS ${NT2_BINARY_DIR}/modules/dummy.cpp)
+        file(WRITE ${NT2_BINARY_DIR}/modules/dummy.cpp)
       endif()
-      add_executable(${module}.sources EXCLUDE_FROM_ALL ${PROJECT_BINARY_DIR}/modules/dummy.cpp ${files_full})
+      add_executable(${module}.sources EXCLUDE_FROM_ALL ${NT2_BINARY_DIR}/modules/dummy.cpp ${files_full})
       set_property(TARGET ${module}.sources PROPERTY FOLDER sources)
     endif()
 
@@ -75,7 +75,7 @@ macro(nt2_module_source_setup module)
              COMPONENT ${module}
              FILES_MATCHING PATTERN "*.hpp"
            )
-    install( FILES ${PROJECT_BINARY_DIR}/modules/${module}.manifest
+    install( FILES ${NT2_BINARY_DIR}/modules/${module}.manifest
              DESTINATION ${NT2_INSTALL_SHARE_DIR}/modules
              COMPONENT ${module}
            )
@@ -241,7 +241,7 @@ macro(nt2_module_add_exe name)
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
   set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
-  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${suffix})
+  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/${suffix})
   nt2_module_target_parent(${name})
 endmacro()
 
@@ -250,7 +250,7 @@ macro(nt2_module_add_example name)
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER examples)
   set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
-  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/examples)
+  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/examples)
 
   string(REGEX REPLACE "\\.sample$" ".examples" suite ${name})
   nt2_module_target_parent(${suite})
@@ -288,10 +288,10 @@ macro(nt2_module_add_tests name)
     if(NOT suffix STREQUAL bench OR NT2_WITH_TESTS_BENCH)
       if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
         add_test(${prefix}.${basename}-${suffix} /bin/sh -c
-                 "scp \"${PROJECT_BINARY_DIR}/${suffix}/${CMAKE_CFG_INTDIR}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
+                 "scp \"${NT2_BINARY_DIR}/${suffix}/${CMAKE_CFG_INTDIR}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
                 )
       else()
-        add_test(${prefix}.${basename}-${suffix} ${PROJECT_BINARY_DIR}/${suffix}/${exe} ${arg})
+        add_test(${prefix}.${basename}-${suffix} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
       endif()
     endif()
   endforeach()
@@ -313,7 +313,7 @@ macro(nt2_module_install_file header)
 
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
-    install(FILES ${PROJECT_BINARY_DIR}/include/${header}
+    install(FILES ${NT2_BINARY_DIR}/include/${header}
             DESTINATION include/${${header}_path}
             COMPONENT ${NT2_CURRENT_MODULE}
            )
@@ -358,7 +358,7 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
 endmacro()
 
 macro(nt2_module_configure_file cmake_file header)
-  configure_file(${cmake_file} ${PROJECT_BINARY_DIR}/include_tmp/${header})
+  configure_file(${cmake_file} ${NT2_BINARY_DIR}/include_tmp/${header})
   nt2_module_install_file(${header})
 endmacro()
 
@@ -366,7 +366,7 @@ macro(nt2_module_simd_toolbox name)
   string(TOUPPER ${name} name_U)
   get_directory_property(INCLUDE_DIRECTORIES INCLUDE_DIRECTORIES)
   list(REMOVE_DUPLICATES INCLUDE_DIRECTORIES)
-  list(REMOVE_ITEM INCLUDE_DIRECTORIES ${PROJECT_BINARY_DIR}/include)
+  list(REMOVE_ITEM INCLUDE_DIRECTORIES ${NT2_BINARY_DIR}/include)
   foreach(dir ${INCLUDE_DIRECTORIES})
     file(GLOB function_files RELATIVE ${dir}/boost/simd/toolbox/${name}/functions ${dir}/boost/simd/toolbox/${name}/functions/*.hpp)
     foreach(file ${function_files})
@@ -379,7 +379,7 @@ macro(nt2_module_simd_toolbox name)
       if(NOT already_there)
         string(REGEX REPLACE ".hpp" "" file ${file})
         string(TOUPPER ${file} file_U)
-        file(WRITE ${PROJECT_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/functions/${file}.hpp
+        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/functions/${file}.hpp
                    "//==============================================================================\n"
                    "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II\n"
                    "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI\n"
@@ -424,7 +424,7 @@ macro(nt2_module_simd_toolbox name)
         string(SUBSTRING ${file_U} 0 1 file_1)
         string(SUBSTRING ${file} 1 ${len} file_2)
         set(file_c "${file_1}${file_2}")
-        file(WRITE ${PROJECT_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/constants/${file}.hpp
+        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/constants/${file}.hpp
                    "//==============================================================================\n"
                    "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II\n"
                    "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI\n"
@@ -458,7 +458,7 @@ macro(nt2_module_simd_toolbox name)
       file(READ ${dir}/boost/simd/toolbox/${name}/include/functions/${file} file_content)
       string(REPLACE "boost/simd/" "nt2/" file_content ${file_content})
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content ${file_content})
-      file(WRITE ${PROJECT_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/functions/${file} ${file_content})
+      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/functions/${file} ${file_content})
     endforeach()
   
     file(GLOB include_files2 RELATIVE ${dir}/boost/simd/toolbox/${name}/include/constants ${dir}/boost/simd/toolbox/${name}/include/constants/*.hpp)
@@ -466,7 +466,7 @@ macro(nt2_module_simd_toolbox name)
       file(READ ${dir}/boost/simd/toolbox/${name}/include/constants/${file} file_content)
       string(REPLACE "boost/simd/" "nt2/" file_content ${file_content})
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content ${file_content})
-      file(WRITE ${PROJECT_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/constants/${file} ${file_content})
+      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/constants/${file} ${file_content})
     endforeach()
   endforeach()
     
@@ -485,7 +485,7 @@ macro(nt2_module_tool_setup tool)
     set_property(GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT 1)
 
     message(STATUS "[nt2] building tool ${tool}")
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool})
+    file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool})
   
     set(BUILD_OPTION)
     if(NOT CMAKE_CONFIGURATION_TYPES)
@@ -496,7 +496,7 @@ macro(nt2_module_tool_setup tool)
                             ${BUILD_OPTION}
                             -G ${CMAKE_GENERATOR}
                             ${NT2_SOURCE_ROOT}/tools/${tool}
-                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
+                    WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_configure_out
                     RESULT_VARIABLE tool_configure
                    )
@@ -507,7 +507,7 @@ macro(nt2_module_tool_setup tool)
     endif()
 
     execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
-                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/${tool}
+                    WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_build_out
                     RESULT_VARIABLE tool_build
                    )
@@ -518,7 +518,7 @@ macro(nt2_module_tool_setup tool)
     endif()
 
     if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
-      install( FILES ${PROJECT_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
+      install( FILES ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
                DESTINATION tools/${tool}
                COMPONENT tools
              )
@@ -531,14 +531,14 @@ endmacro()
 macro(nt2_module_tool tool)
 
   nt2_module_tool_setup(${tool})
-  execute_process(COMMAND ${PROJECT_BINARY_DIR}/tools/${tool}/${tool} ${ARGN})
+  execute_process(COMMAND ${NT2_BINARY_DIR}/tools/${tool}/${tool} ${ARGN})
 
 endmacro()
 
 macro(nt2_module_postconfigure)
 
   string(REPLACE ";" " " args "${ARGN}")
-  file(APPEND ${PROJECT_BINARY_DIR}/modules/${NT2_CURRENT_MODULE}.manifest "${args}\n")
+  file(APPEND ${NT2_BINARY_DIR}/modules/${NT2_CURRENT_MODULE}.manifest "${args}\n")
 
 endmacro()
 
@@ -565,8 +565,8 @@ macro(nt2_postconfigure_init)
            )
 
     # postconfigure is a target because it's only required to install, not to configure
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure)
-    install( FILES ${PROJECT_BINARY_DIR}/tools/postconfigure/postconfigure${CMAKE_EXECUTABLE_SUFFIX}
+    file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/tools/postconfigure)
+    install( FILES ${NT2_BINARY_DIR}/tools/postconfigure/postconfigure${CMAKE_EXECUTABLE_SUFFIX}
              DESTINATION tools/postconfigure
              COMPONENT tools
              OPTIONAL
@@ -583,7 +583,7 @@ macro(nt2_postconfigure_init)
                               -G ${CMAKE_GENERATOR}
                               ${NT2_SOURCE_ROOT}/tools/postconfigure
                            && ${CMAKE_COMMAND} --build . --config Release
-                      WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/tools/postconfigure
+                      WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/postconfigure
                      )
     set_property(TARGET postconfigure PROPERTY FOLDER tools)
 
@@ -599,11 +599,11 @@ macro(nt2_postconfigure_run)
       list(APPEND postconfigure_prefix "-I${NT2_${module_U}_ROOT}/include")
     endif()
   endforeach()
-  list(APPEND postconfigure_prefix "${PROJECT_BINARY_DIR}/include_tmp")
+  list(APPEND postconfigure_prefix "${NT2_BINARY_DIR}/include_tmp")
 
   foreach(module ${NT2_FOUND_COMPONENTS})
-    if(EXISTS ${PROJECT_BINARY_DIR}/modules/${module}.manifest)
-      set(file "${PROJECT_BINARY_DIR}/modules/${module}.manifest")
+    if(EXISTS ${NT2_BINARY_DIR}/modules/${module}.manifest)
+      set(file "${NT2_BINARY_DIR}/modules/${module}.manifest")
     else()
       set(file "${NT2_ROOT}/modules/${module}.manifest")
     endif()
@@ -619,7 +619,7 @@ macro(nt2_postconfigure_run)
     endforeach()
   endforeach()
   
-  nt2_module_tool(move_reuse ${PROJECT_BINARY_DIR}/include_tmp ${PROJECT_BINARY_DIR}/include)
+  nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/include_tmp ${NT2_BINARY_DIR}/include)
 
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
 
@@ -627,7 +627,7 @@ macro(nt2_postconfigure_run)
                         HIDDEN DISABLED
                        )
   
-    install( DIRECTORY ${PROJECT_BINARY_DIR}/include/
+    install( DIRECTORY ${NT2_BINARY_DIR}/include/
              DESTINATION include
              COMPONENT postconfigured
              FILES_MATCHING PATTERN "*.hpp"
