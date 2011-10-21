@@ -61,6 +61,7 @@
 //==============================================================================
 // Embedded main for testing purpose
 //==============================================================================
+#ifndef BOOST_NO_EXCEPTIONS
 extern "C" int NT2_UNIT_MAIN(int, char**)
 {
   try
@@ -79,8 +80,13 @@ extern "C" int NT2_UNIT_MAIN(int, char**)
     return 1;
   }
 }
+#else
+extern "C" int NT2_UNIT_MAIN(int, char**)
+{
+  nt2::details::main_suite.process();
+  return nt2::details::error_count() ? -1: 0;
+}
 
-#ifdef BOOST_NO_EXCEPTIONS
 namespace boost
 {
   extern inline void throw_exception(std::exception const& e)
