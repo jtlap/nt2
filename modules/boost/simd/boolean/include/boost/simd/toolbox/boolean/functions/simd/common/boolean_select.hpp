@@ -11,6 +11,7 @@
 #include <boost/assert.hpp>
 #include <boost/simd/toolbox/bitwise/functions/bitwise_select.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/simd/toolbox/boolean/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,12 +21,12 @@ namespace boost { namespace simd { namespace ext
                                                         >
                                   )
                                 , ( boost::simd::tag::boolean_select_
-                                    ( simd_<arithmetic_<A0>,X>
+                                    ( simd_<boost::simd::ext::logical_<A0>,X>
                                     , simd_<arithmetic_<A1>,X>
                                     , simd_<arithmetic_<A1>,X>
                                     )
                                   )
-                                , ((simd_<arithmetic_<A0>,X>))
+                                , ((simd_<boost::simd::ext::logical_<A0>,X>))
                                   ((simd_<arithmetic_<A1>,X>))
                                   ((simd_<arithmetic_<A1>,X>))
                      )
@@ -35,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
-      BOOST_ASSERT_MSG(is_simd_logical(a0), "Some entries are not legal SIMD True or False in first parameter"); 
+      //      BOOST_ASSERT_MSG(is_simd_logical(a0), "Some entries are not legal SIMD True or False in first parameter"); 
       return bitwise_select(a0, a1, a2);
     }
   };

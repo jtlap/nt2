@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL ( boolean_select_real__3_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
-
+  using boost::simd::logical; 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -44,10 +44,8 @@ NT2_TEST_CASE_TPL ( boolean_select_real__3_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean_select(boost::simd::Inf<T>(), boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(boolean_select(boost::simd::Minf<T>(), boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Minf<r_t>());
-  NT2_TEST_EQUAL(boolean_select(boost::simd::Nan<T>(), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(boolean_select(boost::simd::Zero<T>(), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(boolean_select(logical<T>(boost::simd::Nan<T>()), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(boolean_select(logical<T>(boost::simd::Zero<T>()), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( boolean_select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
@@ -55,6 +53,7 @@ NT2_TEST_CASE_TPL ( boolean_select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   
   using boost::simd::boolean_select;
   using boost::simd::tag::boolean_select_;
+  using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<boolean_select_(T,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -71,7 +70,6 @@ NT2_TEST_CASE_TPL ( boolean_select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean_select(T(-1),T(1),T(2)), 1);
-  NT2_TEST_EQUAL(boolean_select(T(0),T(1),T(2)), 2);
-  NT2_TEST_EQUAL(boolean_select(boost::simd::Zero<T>(), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(boolean_select(logical<T>(-1),T(1),T(2)), 1);
+  NT2_TEST_EQUAL(boolean_select(logical<T>(0),T(1),T(2)), 2);
 } // end of test for integer_
