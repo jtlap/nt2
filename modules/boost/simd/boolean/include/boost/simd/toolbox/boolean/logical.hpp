@@ -109,6 +109,8 @@ namespace boost { namespace simd { namespace ext
 
 namespace boost { namespace dispatch { namespace meta
 {
+  using boost::simd::ext::logical_;
+    
   //============================================================================
   // value_of< logical<T> > is value_of<T>
   //============================================================================
