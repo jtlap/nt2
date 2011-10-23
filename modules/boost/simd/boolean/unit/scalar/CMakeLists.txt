@@ -9,6 +9,7 @@
 
 SET( SOURCES
   boolean_select.cpp
+  logical.cpp
   negif.cpp
   seladd.cpp
   select.cpp
