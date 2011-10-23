@@ -32,6 +32,10 @@ NT2_TEST_CASE_TPL ( logical_integral, BOOST_SIMD_INTEGRAL_TYPES )
 
   logical<T> val_false( T(0) );
   NT2_TEST_EQUAL( bool(val_false), false );
+
+  if(!val_true) NT2_TEST_ERROR("logical<T> dont behave well in if()");
+  NT2_TEST( val_true  ? true  : false );
+  NT2_TEST( val_false ? false : true  );
 }
 
 NT2_TEST_CASE_TPL ( logical_real, BOOST_SIMD_REAL_TYPES )
@@ -52,6 +56,10 @@ NT2_TEST_CASE_TPL ( logical_real, BOOST_SIMD_REAL_TYPES )
   
   logical<T> val_mzero( T(-0.) );
   NT2_TEST_EQUAL( bool(val_mzero), false );
+
+  if(!val_true) NT2_TEST_ERROR("logical<T> dont behave well in if()");
+  NT2_TEST( val_true  ? true  : false );
+  NT2_TEST( val_false ? false : true  );
 }
 
 NT2_TEST_CASE_TPL ( logical_value_of, BOOST_SIMD_TYPES )
@@ -82,7 +90,7 @@ NT2_TEST_CASE_TPL ( logical_hierarchy_of, BOOST_SIMD_TYPES )
 {
   using boost::is_same;
   using boost::simd::logical;
-  using boost::dispatch::meta::logical_;
+  using boost::simd::ext::logical_;
   using boost::dispatch::meta::hierarchy_of;
 
   NT2_TEST((is_same < logical_< logical<T> >

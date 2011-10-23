@@ -96,6 +96,17 @@ namespace boost { namespace simd
   };
 } }
 
+namespace boost { namespace simd { namespace ext
+{
+  //============================================================================
+  // logical_ is the hierarchy of logical<T> and goes straight to fundamental
+  //============================================================================
+  template<class T> struct logical_ : fundamental_<T>
+  {
+    typedef fundamental_<T> parent;
+  };
+} } }
+
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
@@ -118,19 +129,13 @@ namespace boost { namespace dispatch { namespace meta
     };
   };
 
-  //============================================================================
-  // logical_ is the hierarchy of logical<T> and goes straight to fundamental
-  //============================================================================
-  template<class T> struct logical_ : fundamental_<T>
-  {
-    typedef fundamental_<T> parent;
-  };
-
   template<class T, class Origin>
   struct  hierarchy_of< simd::logical<T>, Origin>
   {
-    typedef logical_<Origin> type;
+    typedef simd::ext::logical_<Origin> type;
   };
 } } }
+
+#include <boost/simd/toolbox/boolean/details/logical_simd.hpp>
 
 #endif
