@@ -15,50 +15,61 @@
   * \brief Defines and implements the \c nt2::memory::dereference class
   **/
 //==============================================================================
+#include <boost/mpl/size.hpp>
+#include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
+#include <boost/fusion/adapted/array.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
   // Recursively apply [] on the buffer
   //============================================================================
-  template<typename Buffer, std::size_t Level>
+  template<typename Buffer, std::size_t Level, std::size_t Start>
   struct dereference
   {
     template<typename Position>
     static inline typename meta::dereference_<Buffer&,Level>::type 
     apply( Buffer& b, Position const& p )
     {
-      typedef typename meta::dereference_<Buffer,1>::type base;
-      return  dereference<base,Level-1>
-              ::apply(b[boost::fusion::at_c<Level-1>(p)], p);
+      typedef boost::mpl::size<Position> base;
+      typedef typename meta::dereference_<Buffer,1>::type base_type;
+      return  dereference<base_type,Level-1,Start>
+              ::apply ( b[boost::fusion::at_c<(Level-1)+(base::value-Start)>(p)]
+                      , p
+                      );
     }
 
     template<typename Position>
     static inline typename meta::dereference_<Buffer const&,Level>::type 
     apply( Buffer const& b, Position const& p )
     {
-      typedef typename meta::dereference_<Buffer,1>::type base;
-      return  dereference<base,Level-1>
-              ::apply(b[boost::fusion::at_c<Level-1>(p)], p);
+      typedef boost::mpl::size<Position> base;
+      typedef typename meta::dereference_<Buffer,1>::type base_type;
+      return  dereference<base_type,Level-1,Start>
+              ::apply ( b[boost::fusion::at_c<(Level-1)+(base::value-Start)>(p)]
+                      , p
+                      );
     }
   };
 
-  template<typename Buffer>
-  struct dereference<Buffer,1>
+  template<typename Buffer, std::size_t Start>
+  struct dereference<Buffer,1,Start>
   {
     template<typename Position>
     static inline typename meta::dereference_<Buffer&,1>::type 
     apply( Buffer& b, Position const& p )
     {
-      return b[boost::fusion::at_c<0>(p)];
+      typedef boost::mpl::size<Position> base;
+      return b[boost::fusion::at_c<base::value-Start>(p)];
     }
 
     template<typename Position>
     static inline typename meta::dereference_<Buffer const&,1>::type 
     apply( Buffer const& b, Position const& p )
     {
-      return b[boost::fusion::at_c<0>(p)];
+      typedef boost::mpl::size<Position> base;
+      return b[boost::fusion::at_c<base::value-Start>(p)];
     }
   };
 } }
@@ -74,14 +85,14 @@ namespace nt2 { namespace memory
   inline typename meta::dereference_<Buffer&,Level>::type 
   dereference( Buffer& b, Position const& p )
   {
-    return details::dereference < Buffer,Level >::apply(b,p);
+    return details::dereference<Buffer,Level,Level>::apply(b,p);
   }
 
   template<std::size_t Level, typename Buffer, typename Position>
   inline typename meta::dereference_<Buffer const&,Level>::type 
   dereference( Buffer const& b, Position const& p )
   {
-    return details::dereference < Buffer,Level >::apply(b,p);
+    return details::dereference<Buffer,Level,Level>::apply(b,p);
   }
 } }
 

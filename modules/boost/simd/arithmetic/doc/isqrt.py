@@ -10,7 +10,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'T',
+             'default' : 'typename boost::dispatch::meta::as_integer<T>::type',
             },
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],

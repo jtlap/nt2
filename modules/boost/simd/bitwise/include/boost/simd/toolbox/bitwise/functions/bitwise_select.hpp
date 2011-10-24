@@ -24,7 +24,7 @@
  * of the first operand
  * \par
  * The operands must share the same bit size and
- * the result type is the comon one of the secondand third operands
+ * the result type is the same.
  *
  * \par Header file
  * 

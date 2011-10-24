@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return sel(lt(abs(a0), boost::simd::abs(a1)), a0, a1);
+      return select(lt(abs(a0), boost::simd::abs(a1)), a0, a1);
     }
   };
 } } }

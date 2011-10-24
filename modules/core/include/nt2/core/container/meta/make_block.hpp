@@ -9,31 +9,19 @@
 #ifndef NT2_CORE_CONTAINER_META_MAKE_BLOCK_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_META_MAKE_BLOCK_HPP_INCLUDED
 
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/array.hpp>
-
-template<class T>
-struct block
-{
-  boost::array<T, 4096> data;
-};
+#include <boost/mpl/apply.hpp>
+#include <nt2/core/settings/shape.hpp>
+#include <nt2/core/settings/option.hpp>
+//#include <nt2/core/settings/location.hpp>
 
 namespace nt2 { namespace container
 {
-template<class T, class S>
-struct make_block
-{
-  typedef ::block<T> type;
-};
-} }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class T>
-  struct value_of< ::block<T> >
+  template<class Type, class Settings>
+  struct make_block
   {
-    typedef T type;
+    typedef typename meta::option<Settings, tag::shape_>::type shape_type;
+    typedef typename boost::mpl::apply<shape_type,Type,Settings>::type type;
   };
-} } }
+} }
 
 #endif

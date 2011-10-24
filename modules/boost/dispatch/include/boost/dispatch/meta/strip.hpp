@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
   template<class T> struct strip                      { typedef T type; };
   template<class T> struct strip<T const            > : strip<T> {};
   template<class T> struct strip<T volatile         > : strip<T> {};
-  template<class T> struct strip<T const volatile   > : strip<T> {}; 
+  template<class T> struct strip<T const volatile   > : strip<T> {};
   template<class T> struct strip<T &                > : strip<T> {};
 #ifndef BOOST_NO_RVALUE_REFERENCES
   template<class T> struct strip<T &&               > : strip<T> {};
@@ -57,7 +57,9 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   template<class T, std::size_t N>
   struct strip<T[N]> { typedef typename strip<T>::type type[N]; };
-  
+
+  template<class T, std::size_t N>
+  struct strip<T const[N]> { typedef typename strip<T>::type type[N]; };
 } } }
 
 #endif

@@ -13,6 +13,8 @@
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/error/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -42,6 +44,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(4)
     {
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to load with a pointer that"
+        " is not aligned on the simd vector size.");
       return eval ( a0,a1
                   , typename is_periodic<A2,A3>::type()
                   , typename is_forward<A3>::type()

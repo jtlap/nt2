@@ -11,29 +11,30 @@
 
 #include <boost/mpl/bool.hpp>
 
-namespace nt2 { namespace details
+namespace nt2
 {
-  template<class T, class Enable = void>
-  struct is_container
-    : boost::mpl::false_
+  namespace details
   {
-  };
-}
+    template<class T, class Enable = void>
+    struct is_container : boost::mpl::false_ {};
+  }
 
-namespace container
-{
-  template<class T>
-  struct is_container
-    : details::is_container<T>
+  namespace meta
   {
-  };
-  
-  template<class T>
-  struct is_container<T&> : is_container<T> {};
-  
-  template<class T>
-  struct is_container<T const> : is_container<T> {};
-    
-} }
+    //==========================================================================
+    /*!
+     * Checks if a given type satisfy the Container concept.
+     *
+     * \tparam T Type to qualify as a potential Container
+     */
+    //==========================================================================
+    template<class T>
+    struct  is_container
+          : details::is_container<T> {};
+
+    template<class T> struct is_container<T&>       : is_container<T> {};
+    template<class T> struct is_container<T const>  : is_container<T> {};
+  }
+}
 
 #endif

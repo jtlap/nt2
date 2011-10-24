@@ -9,5 +9,5 @@
 
 SET(NT2_BOOST.SIMD.ARITHMETIC_DEPENDENCIES_EXTRA boost.simd.bitwise boost.simd.constant boost.simd.ieee
                                                  boost.simd.operator boost.simd.predicates boost.simd.reduction
-                                                 boost.simd.swar
+                                                 boost.simd.swar boost.simd.boolean
    )

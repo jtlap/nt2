@@ -18,10 +18,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  template<class Expression> 
+  template<class Expression>
   struct is_statically_sized
    : boost::mpl::bool_< boost::dispatch::meta::
-                        call<tag::size_(Expression)>::type::static_status
+                        call<tag::extent_(Expression)>::type::static_status
                       >
   {};
 } }

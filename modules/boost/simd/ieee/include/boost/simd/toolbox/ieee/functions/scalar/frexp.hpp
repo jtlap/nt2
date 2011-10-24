@@ -13,6 +13,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
+#include <boost/simd/include/functions/is_inf.hpp>
 #include <math.h>
 
 namespace boost { namespace simd { namespace ext
@@ -51,13 +52,19 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< single_<A0> >)
                               (scalar_< single_<A0> >)
-			      (scalar_< int32_<A2> >)
+      (scalar_< int32_<A2> >)
                             )
   {
     typedef int result_type;
     inline result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
     {
-      a1 = ::frexpf(a0, &a2);
+      if (is_inf(a0))
+{
+  a2 = 0; 
+  a1 = a0; 
+}
+      else
+a1 = ::frexpf(a0, &a2);
       return 0; 
     }
   };
@@ -70,6 +77,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;    
     inline result_type operator()(A0 const& a0,A2 & a2) const
     {
+      if (is_inf(a0))
+{
+  a2 = 0; 
+  return a0; 
+}
       return ::frexpf(a0, &a2);
     }
   };
@@ -85,6 +97,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
+      if (is_inf(a0))
+      {
+        boost::fusion::at_c<0>(res) = a0;
+        boost::fusion::at_c<1>(res) = 0;
+        return res; 
+      }
       boost::simd::int32_t r1t;
       boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
       boost::fusion::at_c<1>(res) = r1t;
@@ -103,6 +121,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
+      if (is_inf(a0))
+      {
+        boost::fusion::at_c<0>(res) = a0;
+        boost::fusion::at_c<1>(res) = 0;
+        return res; 
+      }
       boost::fusion::at_c<0>(res) = ::frexpf(a0, &boost::fusion::at_c<1>(res));
       return res;
     }

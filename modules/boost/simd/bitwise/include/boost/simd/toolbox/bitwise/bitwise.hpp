@@ -10,11 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_BITWISE_HPP_INCLUDED
 
 //<include> please don't modify between these tags
-#include <boost/simd/toolbox/bitwise/include/functions/negif.hpp>
 #include <boost/simd/toolbox/bitwise/include/functions/genmask.hpp>
-#include <boost/simd/toolbox/bitwise/include/functions/selsub.hpp>
-#include <boost/simd/toolbox/bitwise/include/functions/seladd.hpp>
-#include <boost/simd/toolbox/bitwise/include/functions/select.hpp>
 #include <boost/simd/toolbox/bitwise/include/functions/twopower.hpp>
 #include <boost/simd/toolbox/bitwise/include/functions/shri.hpp>
 #include <boost/simd/toolbox/bitwise/include/functions/shrai.hpp>

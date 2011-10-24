@@ -33,7 +33,7 @@
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
                 },
              'real_' : {
-                 '-boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::Mzero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0.5',},
                  'boost::simd::Half<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
                  'boost::simd::Inf<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},
                  'boost::simd::Minf<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0.5',},

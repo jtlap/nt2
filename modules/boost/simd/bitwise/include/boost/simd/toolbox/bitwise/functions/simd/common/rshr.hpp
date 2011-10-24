@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
+#include <boost/simd/include/functions/select.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return sel(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
+      return select(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
     }
   };
 

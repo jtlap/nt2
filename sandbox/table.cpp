@@ -1,200 +1,63 @@
-#include <nt2/sdk/details/type_id.hpp>
 #include <iostream>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/container/category.hpp>
-#include <nt2/core/settings/size.hpp>
-#include <nt2/include/functor.hpp>
-#include <nt2/include/functions/run.hpp>
-#include <boost/proto/debug.hpp>
+#include <nt2/sdk/details/type_id.hpp>
+
+  template<class T>
+  struct print
+  {
+      unsigned : 80;
+      typedef T type;
+  };
+
+#include <nt2/sdk/timing/ctic.hpp>
+#include <nt2/include/functions/cos.hpp>
+#include <nt2/include/functions/fast_cos.hpp>
+#include <nt2/include/functions/of_size.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/toolbox/operator/functions.hpp>
+#include <nt2/include/functions/function.hpp>
 
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class T, class S>
-  struct terminal_of< nt2::container::table_container<T, S> >
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/simd/meta/native_cardinal.hpp>
+#include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
+
+/*
+ for(int y=1;y<=d1;++y)
   {
-    typedef typename nt2::container::table_container<T, S>::settings settings;
-      
-    typedef nt2::container::expression< typename boost::proto::terminal< nt2::container::table_container<T, settings> >::type
-            , nt2::container::table_container<T, settings>&
-            > type;
-  };
-    
-  template<class T, class S>
-  struct semantic_of<nt2::container::table<T, S> >
-  {
-    typedef nt2::container::table_container<T, S>& type;
-  };
-  
-} } }
-
-namespace nt2 { namespace container
-{
-
-template<class T, class S>
-struct table 
- : boost::dispatch::meta::terminal_of< table_container<T, S> >::type
-{
-  typedef typename
-  boost::dispatch::meta::terminal_of< table_container<T, S> >::type parent;
-  
-  table() {}
-
-  template<class Xpr,class Result>
-  BOOST_DISPATCH_FORCE_INLINE
-  table(expression<Xpr,Result> const& xpr) { static_cast<parent&>(*this) = xpr; }
-  
-  using parent::operator=;
-};
-
-} }
-
-#include <boost/fusion/include/size.hpp>
-#include <boost/fusion/include/array.hpp>
-#include <cstdio>
-
-namespace nt2
-{
-    // loop nest generator
-    template<std::size_t N>
-    struct for_each_impl
-    {
-        template<class Bases, class Sizes, class Position, class F>
-        BOOST_DISPATCH_FORCE_INLINE
-        static void call(Bases const& bases, Sizes const& sz, Position& pos, F const& f)
-        {
-            for(pos[N-1] = bases[N-1]; pos[N-1] != bases[N-1] + sz[N-1]; ++pos[N-1])
-                for_each_impl<N-1>::call(bases, sz, pos, f);
-        }
-    };
-    
-    template<>
-    struct for_each_impl<0>
-    {
-        template<class Bases, class Sizes, class Position, class F>
-        static void call(Bases const&, Sizes const&, Position& pos, F const& f)
-        {
-            return f(pos);
-        }
-    };
-    
-    template<class Bases, class Sizes, class F>
-    BOOST_DISPATCH_FORCE_INLINE
-    void for_each(Bases const& bases, Sizes const& sz, F const& f)
-    {        
-        static const std::size_t nb_dims = boost::fusion::result_of::size<Sizes>::value;
-        
-        boost::array<std::size_t, nb_dims> position;
-        for_each_impl<nb_dims>::call(bases, sz, position, f);
+    for(int x=1;x<=d0;++x)
+    {    
+      boost::array<int,2> p = {{x,y}};
+      std::cout << (boost::proto::value(b).data())(p) << " ";       
     }
-    
-    // To replace with appropriate stuff
-    template<class T>
-    boost::array<std::size_t, NT2_MAX_DIMENSIONS> base_indices(T const&)
-    {
-      boost::array<std::size_t, NT2_MAX_DIMENSIONS> sz = { BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, 1 BOOST_PP_INTERCEPT) };
-      return sz;
-    }
-}
-
-template<class A0>
-struct call_compute
-{
-    call_compute(A0 a0_) : a0(a0_) {}
-    
-    typedef void result_type;
-    
-    template<class Position>
-    result_type operator()(Position const& pos) const
-    {
-        nt2::run(a0, pos);
-    }
-
-    A0 a0;
-};
-
-struct lhs_terminal
-  : boost::proto::or_<
-      boost::proto::when< boost::proto::terminal< boost::proto::_ >, boost::proto::_ >
-    , boost::proto::when< boost::proto::nary_expr< boost::proto::_ >, lhs_terminal ( boost::proto::_child0 ) >
-    >
-{
-};
-
-#include <boost/dispatch/meta/identity.hpp>
-
+    std::cout << "\n";
+  } 
+*/
 namespace nt2 { namespace ext
 {
-  // size implementation
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)(T)
-                            , ((expr_< unspecified_<A0>, nt2::container::domain, T >))
-                            )
-  {
-    typedef typename A0::size_type const& result_type;
-    
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0) const
-    {
-      return a0.extent();
-    }
-  };
-  
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)(S0)
-                            , ((table_< unspecified_<A0>, S0>))
-                            )
-  {
-    typedef typename A0::size_type const& result_type;
-    
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0) const
-    {
-      return a0.extent();
-    }
-  };
-  
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)
-                            , (scalar_< unspecified_<A0> >)
-                            )
-  {
-    typedef _0D const& result_type;
-    
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0&) const
-    {
-      static _0D sz;
-      return sz;
-    }
-  };
-    
-  // terminal, does load / store
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
-                            , (class A0)(class S0)(class State)(std::size_t N)
-                            , ((ast_<table_< unspecified_<A0>, S0 > >))
-                              ((array_< scalar_< integer_<State> >, N>))
-                            )
+  // terminal for 0-dimensional access
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                                , (A0)(Data)
+                                , (ast_<unspecified_<A0> >)
+                                  (fusion_sequence_<nt2::_0D>)
+                                  (unspecified_<Data>)
+                                )
   {
     typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0>::type
-             >::type                                        result_type;
+    semantic_of<A0>::type                                  result_type;
     
     template<class A0_>
-    result_type operator()(A0_& a0, State const& state) const
+    result_type operator()(A0_& a0, _0D const&, Data const& ) const
     {
-       std::cout << "access to table " << (void*)&boost::proto::value(a0) << " in " << state[0] << std::endl;
-       static typename boost::remove_reference<result_type>::type r;
-       return r;
+       return boost::proto::value(a0);
     }
   };
-  
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_, tag::cpu_
-                            , (class A0)(class State)(std::size_t N)
-                            , ((ast_<table_< unspecified_<A0>, nt2::of_size_<1> > >))
-                              ((array_< scalar_< integer_<State> >, N>))
-                            )
+    
+  // table terminal with a position
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                                , (A0)(S0)(State)(Data)
+                                , ((ast_<table_< unspecified_<A0>, S0 > >))
+                                  (fusion_sequence_<State>)
+                                  (unspecified_<Data>)
+                                )
   {
     typedef typename boost::dispatch::meta::
     scalar_of< typename boost::dispatch::meta::
@@ -202,83 +65,141 @@ namespace nt2 { namespace ext
              >::type                                       result_type;
     
     template<class A0_>
-    result_type operator()(A0_& a0, State const& state) const
+    result_type operator()(A0_& a0, State const& state, Data const& ) const
     {
-       std::cout << "access to scalar-like table " << (void*)&boost::proto::value(a0) << " in " << state[0] << std::endl;
+       //return (boost::proto::value(a0))(state);
        static typename boost::remove_reference<result_type>::type r;
        return r;
     }
   };
-  
-  NT2_REGISTER_DISPATCH_TO_TPL( nt2::tag::terminal_, tag::cpu_
-                            , (class A0)(class State)(std::size_t N)
+
+  // scalar terminal, always value
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(State)(Data)
                             , ((ast_<scalar_< unspecified_<A0> > >))
-                              ((array_< scalar_< integer_<State> >, N>))
-                            , identity
-                            )
-    
-  // An assignment table expression is ran by running it for every position
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)
-                            , ((expr_<table_< unspecified_<A0>, S0 >, nt2::container::domain, nt2::tag::assign_>))
+                              (fusion_sequence_<State>)
+                              (unspecified_<Data>)
                             )
   {
     typedef typename boost::dispatch::meta::
-    terminal_of< typename boost::dispatch::meta::
-                 semantic_of<A0>::type
-               >::type                                     result_type;
-    
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(A0 const& a0) const
+    scalar_of< typename boost::dispatch::meta::
+               semantic_of<A0>::type
+             >::type                                       result_type;
+
+    template<class A0_> BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0_& a0, State const& state, Data const&) const
     {
-      for_each(base_indices(a0), extent(a0), call_compute<A0 const&>(a0));
-      return lhs_terminal()(a0);
+       return boost::proto::value(a0);
     }
   };
-  
-  // Another table expression is ran by reducing it to an assignment
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)
-                            , ((ast_<table_< unspecified_<A0>, S0 > >))
-                            )
-  {
-    typedef typename boost::
-    remove_reference< typename boost::dispatch::meta::
-                      terminal_of< typename boost::dispatch::meta::
-                                   semantic_of<A0>::type
-                                 >::type
-                    >::type                                result_type;
-    
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(A0 const& a0) const
-    {
-      result_type tmp;
-      run(assign(tmp, a0));
-      return tmp;
-    }
-  };
-  
 } }
+
+
+#include <vector>
+
+template< class T
+        , bool Enable = boost::simd::
+                        meta::is_vectorizable<T,BOOST_SIMD_DEFAULT_EXTENSION>::value
+        > 
+struct evaluation_type
+{
+  typedef nt2::meta::as_<T> type;
+};
+
+template<class T> 
+struct  evaluation_type<T, true> 
+{
+  typedef typename boost::simd::meta::
+          vector_of<T, boost::simd::meta::native_cardinal<T>::value>::type base;
+  typedef nt2::meta::as_<base>                                             type;
+};
+
+struct foo { int i; int j; };
 
 int main()
 {
   using nt2::container::table;
     
-  table<double, nt2::of_size_<5, 10> > a, b, c;
+#if 0
+  int iter, d0,d1;
+  std::cin >> iter >> d0 >> d1;
   
-  std::cout << "a = " << (void*)&a << std::endl;
-  std::cout << "b = " << (void*)&b << std::endl;
-  std::cout << "c = " << (void*)&c << std::endl;
-  
-  a = b + 1.;
-#if 1
-  a = b + c*c/a;
-  std::cout << std::endl;
+  std::cout << "std::cos applied on linear std::vector:\n";
+  {
+    std::vector<double> cc;
+    std::vector<double> a(d0*d1),b(d0*d1);
+    for(int x=0;x<d0*d1;++x) b[x] = a[x] = 0.;
+
+    for(int i=0;i<iter;++i)
+    {
+      nt2::ctic();
+      for(int x=0;x<d0*d1;++x)
+          b[x] = std::cos(a[x]);
+      cc.push_back(nt2::ctoc(false)/(1.*d0*d1));
+    }
+
+    std::cout << b[0] << " " << b[d0*d1/2-1] << " " << b[b.size()-1] << "\n";
+    std::sort(cc.begin(),cc.end());
+    std::cout << cc[cc.size()/2 - 1] << " c/elements\n";
+  }
+
+  {
+    std::vector<double> cc;
+    std::vector<double> a(d0*d1),b(d0*d1);
+    for(int x=0;x<d0*d1;++x) b[x] = a[x] = 0.;
+    std::cout << "nt2::cos applied on linear std::vector:\n";
+
+    for(int i=0;i<iter;++i)
+    {
+      nt2::ctic();
+      for(int x=0;x<d0*d1;++x)
+          b[x] = nt2::cos(a[x]);
+      cc.push_back(nt2::ctoc(false)/(1.*d0*d1));
+    }
+
+    std::cout << b[0] << " " << b[d0*d1/2-1] << " " << b[b.size()-1] << "\n";
+    std::sort(cc.begin(),cc.end());
+    std::cout << cc[cc.size()/2 - 1] << " c/elements\n";
+  }
+
+  std::cout << "nt2::cos applied on nt2::table:\n";
+  {
+    std::vector<double> cc;
+
+    table<float,nt2::_2D> b( nt2::of_size(d0,d1) ), a( nt2::of_size(d0,d1) );
+
+    for(int y=1;y<=d1;++y)
+    {
+      for(int x=1;x<=d0;++x)
+      {    
+        boost::array<int,2> p = {{x,y}}; 
+        (boost::proto::value(a).data())(p) = 0;
+      }
+    } 
+
+    for(int i=0;i<iter;++i)
+    {
+      nt2::ctic();
+      b = nt2::cos(a);
+      cc.push_back(nt2::ctoc(false)/(1.*d0*d1));
+    }
+    
+    std::sort(cc.begin(),cc.end());
+    std::cout << cc[cc.size()/2 - 1] << " c/elements\n";
+  }
+
+  a = -(b + c*(a+(c * -c))) + b;
+  a = b + c;
+  a = -b;
   b += c;
-  std::cout << std::endl;
   c += -a;
-  std::cout << std::endl;
-#endif    
-  /* c(a) += a; // function undefined
-  c(a) = b(c) + c(a)*b(a);*/
+  //c(a) += a;                // function undefined
+  //c(a) = b(c) + c(a)*b(a);
+#endif
+
+  table<double> t(nt2::of_size(10, 10));
+  nt2::run(nt2::assign(t(1), 42.));
+  double d = t(1);
+  std::cout << d << std::endl;
+
 }

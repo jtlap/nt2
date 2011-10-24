@@ -72,6 +72,7 @@ NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
         {
           nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::divs (tab_a0[k],tab_a1[k])));
+    std::cout << int(tab_a0[k]) << "/" << int(tab_a1[k]) << " -> " << int(v[i]) <<  "    -> " << int(nt2::divs (tab_a0[k],tab_a1[k])) << std::endl; 
         }
       }
     

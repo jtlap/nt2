@@ -106,7 +106,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using boost::simd::Minf;
-	return sel(eq(a0, Minf<A0>()), a0,  bitfloating(bitinteger(a0)-boost::simd::abs(a1)));
+	return select(eq(a0, Minf<A0>()), a0,  bitfloating(bitinteger(a0)-boost::simd::abs(a1)));
 //       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
 //       A0 m;
 //       itype expon;
@@ -114,8 +114,8 @@ namespace boost { namespace simd { namespace ext
 //       boost::fusion::tie(m, expon) = fast_frexp(a0);
 //       expon =  seladd(is_equal(m, Mhalf<A0>()), expon, Mone<itype>());
 //       A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());
-//       diff = b_and(sel(is_eqz(diff)||is_eqz(a0),  Mindenormal<A0>(), diff), is_finite(a0));
-//       return sel(is_equal(a0, Inf<A0>()), fac*Valmax<A0>(), a0-fac*diff);
+//       diff = b_and(select(is_eqz(diff)||is_eqz(a0),  Mindenormal<A0>(), diff), is_finite(a0));
+//       return select(is_equal(a0, Inf<A0>()), fac*Valmax<A0>(), a0-fac*diff);
       }
   };
 } } }

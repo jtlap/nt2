@@ -9,65 +9,106 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_OF_SIZE_META_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_OF_SIZE_META_HPP_INCLUDED
 
+#include <boost/simd/sdk/details/at_iterator.hpp>
 #include <nt2/core/settings/size.hpp>
-#include <nt2/core/container/meta/is_container.hpp>
-#include <nt2/core/container/category.hpp>
-#include <nt2/sdk/parameters.hpp>
-#include <boost/dispatch/meta/fusion.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <cstddef>
+#include <boost/fusion/sequence/intrinsic.hpp>
+#include <boost/fusion/support.hpp>
+#include <boost/mpl/size_t.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace fusion { namespace extension
 {
   //============================================================================
-  // value_of a of_size_ is simply ptrdiff_t
+  // Register of_size_ expression as fusion random access sequence
   //============================================================================
-  template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
-  struct value_of< nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> >
+  template<> struct is_sequence_impl<nt2::tag::of_size_>
   {
-    typedef std::size_t type;
+    template<typename T> struct apply : mpl::true_ {};
   };
-} } }
 
-namespace nt2 { namespace container
-{
-  //============================================================================
-  // of_size_ is a container
-  //============================================================================
-  template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
-  struct is_container< nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> >
-    : boost::mpl::true_
-  {};
-} }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  //============================================================================
-  /*!
-   * extent_ is the hierarchy type used by of_size_ container
-   */
-  //============================================================================
-  template<class Type, class Size> 
-  struct extent_ : table_< typename property_of<Type>::type, Size>
+  template<> struct is_view_impl<nt2::tag::of_size_>
   {
-    typedef table_<typename property_of<Type>::type, Size> parent;
+    template<typename Seq> struct apply : mpl::false_ {};
+  };
+
+  template<> struct category_of_impl<nt2::tag::of_size_>
+  {
+    typedef random_access_traversal_tag type;
   };
 
   //============================================================================
-  // hierarchy of a of_size container is :
-  //   container_< extent_<Origin, of_size_<1,N> > >
+  // Size of of_size_ is given by its static_size member
   //============================================================================
-  template< BOOST_PP_ENUM_PARAMS( NT2_MAX_DIMENSIONS, std::ptrdiff_t D)
-          , typename Origin
-          >
-  struct hierarchy_of < nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)>
-                      , Origin
-                      >
+  template<> struct size_impl<nt2::tag::of_size_>
   {
-    typedef nt2::of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D)> base;
-    static const std::size_t size = base::static_size ? base::static_size : 1;
-    typedef extent_< Origin, nt2::of_size_<1, size> > type;
+    template<typename Sequence>
+    struct  apply
+          : mpl::size_t<Sequence::static_size>
+    {};
+  };
+
+  //============================================================================
+  // at_c value of of_size_ is given by its static size or dynamic size if -1
+  //============================================================================
+  template<> struct at_impl<nt2::tag::of_size_>
+  {
+    template<class Sequence, class Index, std::ptrdiff_t N>
+    struct apply_impl;
+      
+    template<class Sequence, class Index>
+    struct apply
+     : apply_impl< Sequence
+                 , Index
+                 , mpl::
+                   at< typename Sequence::values_type
+                     , Index
+                     >::type::value
+                 >
+    {
+    };
+    
+    template<class Sequence, class Index>
+    struct apply_impl<Sequence, Index, -1>
+    {
+        typedef typename mpl::
+        if_< is_const<Sequence>
+           , std::size_t const&
+           , std::size_t&
+           >::type                    type;
+           
+        static type call(Sequence& seq) { return seq[Index::value]; }
+    };
+    
+    template<class Sequence, class Index, std::ptrdiff_t N>
+    struct apply_impl
+    {
+      typedef mpl::size_t<N> type;
+      static type call(Sequence& seq) { return type(); }
+    };
+  };
+
+  //==========================================================================
+  // begin returns the inner data_type begin as it is itself a Fusion Sequence
+  //==========================================================================
+  template<> struct begin_impl<nt2::tag::of_size_>
+  {
+    template<typename Sequence> struct apply
+    {
+      typedef boost::simd::at_iterator<Sequence, 0> type;
+      static type call(Sequence& seq) { return type(seq); }
+    };
+  };
+
+  //==========================================================================
+  // end returns the inner data_type end as it is itself a Fusion Sequence
+  //==========================================================================
+  template<> struct end_impl<nt2::tag::of_size_>
+  {
+    template<typename Sequence>
+    struct apply
+    {
+      typedef boost::simd::at_iterator<Sequence, Sequence::static_size> type;
+      static type call(Sequence& seq) { return type(seq); }
+    };
   };
 } } }
 

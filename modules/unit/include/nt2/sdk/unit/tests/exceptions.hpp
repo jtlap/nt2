@@ -50,7 +50,7 @@ do {                                                                        \
   ::nt2::details::test_count()++;                                           \
   try         { X; }                                                        \
   catch(...)  { ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
-  ::nt2::details::pass(#X);                                                 \
+  ::nt2::details::pass(#X);}                                                 \
 } while(0)                                                                  \
 /**/
 

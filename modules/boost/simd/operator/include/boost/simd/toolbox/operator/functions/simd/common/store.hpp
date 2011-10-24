@@ -14,6 +14,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/error/assert.hpp>
 #include <cstring>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,6 +34,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a1,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to store with a pointer that"
+        " is not aligned on the simd vector size.");
       std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);
       return a0;
     }

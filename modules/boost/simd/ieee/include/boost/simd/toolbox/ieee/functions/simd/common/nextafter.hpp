@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return seladd(neq(a0,a1),a0,seladd(gt(a1,a0),Mone<A0>(),Two<A0>()));
-      //      return sel(eq(a0, a1),  a0, sel(gt(a1,a0), oneplus(a0), minusone(a0))); 
+      //      return select(eq(a0, a1),  a0, select(gt(a1,a0), oneplus(a0), minusone(a0))); 
     }
   };
 } } }
@@ -57,9 +57,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return sel(boost::simd::is_equal(a0,a1),
+      return select(boost::simd::is_equal(a0,a1),
          a0,
-         sel(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
+         select(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
     }
   };
 } } }
@@ -86,11 +86,11 @@ namespace boost { namespace simd { namespace ext
 //       boost::fusion::tie(m, expon) = fast_frexp(a0);
 //       expon =  seladd(boost::simd::is_equal(m, Mhalf<A0>()), expon, Mone<itype>());
 //       A0 diff =  fast_ldexp(One<A0>(), expon-Nbdigits<A0>());
-//       diff = b_and(sel(is_eqz(diff)||is_eqz(a0),  Mindenormal<A0>(), diff), is_finite(a0));
-//       A0 r = copysign(sel(boost::simd::is_equal(a0, Minf<A0>()), Valmin<A0>(), a0), a0);
+//       diff = b_and(select(is_eqz(diff)||is_eqz(a0),  Mindenormal<A0>(), diff), is_finite(a0));
+//       A0 r = copysign(select(boost::simd::is_equal(a0, Minf<A0>()), Valmin<A0>(), a0), a0);
 //       diff   =  b_and(negif(gt(a0, a1), diff), is_not_equal(a0, a1));
 //       return r+diff;
-      return sel(lt(a0, a1), next(a0), select(eq(a0, a1),  a0, prev(a0)));
+      return select(lt(a0, a1), next(a0), select(eq(a0, a1),  a0, prev(a0)));
     }
   };
 } } }

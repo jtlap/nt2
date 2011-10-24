@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return  sel(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
+      return  select(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
     }
   };
 

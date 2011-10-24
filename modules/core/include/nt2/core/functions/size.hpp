@@ -9,12 +9,21 @@
 #ifndef NT2_CORE_FUNCTIONS_SIZE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SIZE_HPP_INCLUDED
 
-#include <nt2/include/functor.hpp>
-
-namespace nt2 
-{ 
-  namespace tag { struct size_ {}; }
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::size_, size, 1)
+#include <nt2/include/functions/extent.hpp>
+/*
+namespace nt2
+{
+  template<class T> BOOST_DISPATCH_FORCE_INLINE
+  container::extent < typename meta::
+                      strip<typename meta::call<tag::extent_(T)>::type >::type
+                    >
+  size( T const& a0 )
+  {
+    typedef typename nt2::meta::call<tag::extent_(T)>::type extent_type;
+    container::extent<typename nt2::meta::strip<extent_type>::type>
+    that = nt2::extent(a0);
+    return that;
+  }
 }
-
+*/
 #endif

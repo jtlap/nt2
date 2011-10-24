@@ -19,25 +19,16 @@ namespace nt2 { namespace tag
 
 namespace nt2 { namespace container
 {
+  struct colon_;
+
   struct generator;
   struct size_transform;
   
   struct grammar;
   struct domain;
   
-  template<class Expression, class ResultType>
-  struct expression;
-
-  template< class Type
-          , class Settings = nt2::settings()
-          >
-  struct table;
-
-  template< typename Sizes
-          , typename Dummy = boost::proto::is_proto_expr
-          >
-  struct  extent;
-
+  template<class Expression, class ResultType>            struct expression;
+  template<class Type, class Settings = nt2::settings()>  struct table;
 } }
 
 #endif

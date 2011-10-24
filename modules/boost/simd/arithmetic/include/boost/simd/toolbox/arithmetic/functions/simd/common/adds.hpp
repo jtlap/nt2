@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
       A0 a0pa1 = a0+a1;
       A0 test1 = b_and(gtza0, b_and(gtza1, (lt(a0pa1, boost::simd::max(a0, a1))))); 
       A0 test2 = b_andnot(b_andnot(b_or(is_gtz(a0pa1),gt(a0pa1, boost::simd::min(a0, a1))),gtza0),gtza1);
-      return sel(test1,Valmax<A0>(),sel(test2,Valmin<A0>(),a0pa1)); 
+      return select(test1,Valmax<A0>(),select(test2,Valmin<A0>(),a0pa1)); 
     }
   };
 } } }

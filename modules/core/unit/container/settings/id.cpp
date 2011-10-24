@@ -27,7 +27,7 @@ NT2_TEST_CASE( single_id )
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < string<'ping'>
-                      , option< id_<'ping'>, nt2::tag::id_ >::type 
+                      , option< id_<'ping'>, nt2::tag::id_ >::type::type 
                       >::value
             ) 
           );
@@ -44,7 +44,7 @@ NT2_TEST_CASE( single_id_default )
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < string<'ping'>
-                      , option< void, nt2::tag::id_, string<'ping'> >::type 
+                      , option< void, nt2::tag::id_, id_<'ping'> >::type::type 
                       >::value
             ) 
           );
@@ -64,7 +64,7 @@ NT2_TEST_CASE( single_id_settings )
   NT2_TEST( ( is_same < string<'ping'>
                       , option< settings( id_<'pong'>, id_<'ping'> )
                               , nt2::tag::id_
-                              >::type 
+                              >::type::type
                       >::value
             ) 
           );
@@ -84,8 +84,8 @@ NT2_TEST_CASE( id_settings )
   NT2_TEST( ( is_same < string<'ping'>
                       , option< settings( long, void* )
                               , nt2::tag::id_
-                              , string<'ping'>
-                              >::type 
+                              , id_<'ping'>
+                              >::type::type 
                       >::value
             ) 
           );

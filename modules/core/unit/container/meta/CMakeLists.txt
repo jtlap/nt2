@@ -9,6 +9,9 @@
 
 SET( SOURCES
   container_traits.cpp  
+ is_container.cpp
+# is_statically_sized.cpp
+ settings_of.cpp
 # List of scalar test files for toolbox core.settings
    )
 

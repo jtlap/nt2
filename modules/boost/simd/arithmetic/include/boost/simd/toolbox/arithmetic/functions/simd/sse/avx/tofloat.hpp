@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
 //       result_type v1 = {_mm256_cvtepi32_ps(a00)};
 //       result_type v2 = {_mm256_cvtepi32_ps((b_andnot(a00, hibitmask)))};
 //       v2 = v2+offset;
-//       return sel(isgez(a00),v1,v2);
+//       return select(isgez(a00),v1,v2);
     }
   };
 

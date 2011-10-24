@@ -12,8 +12,8 @@ nt2_module_source_setup(matlab)
 
 set(NT2_MW_LIBRARY "${CMAKE_SHARED_LIBRARY_PREFIX}nt2_mw${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
-if(NOT EXISTS ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/)
-  file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/)
+if(NOT EXISTS ${NT2_BINARY_DIR}/include/nt2/toolbox/matlab/details/)
+  file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/include/nt2/toolbox/matlab/details/)
 endif()
 if(NOT EXISTS ${LIBRARY_OUTPUT_PATH})
   file(MAKE_DIRECTORY ${LIBRARY_OUTPUT_PATH})
@@ -21,7 +21,7 @@ endif()
 
 add_custom_command(OUTPUT ${LIBRARY_OUTPUT_PATH}/${NT2_MW_LIBRARY}
                    COMMAND ${MATLAB_BIN_DIR}/mcc -B "csharedlib:libnt2_mw" -d ${CMAKE_CURRENT_BINARY_DIR} feval
-                        && ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_BINARY_DIR}/libnt2_mw.h ${PROJECT_BINARY_DIR}/include/nt2/toolbox/matlab/details/libnt2_mw.h
+                        && ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_BINARY_DIR}/libnt2_mw.h ${NT2_BINARY_DIR}/include/nt2/toolbox/matlab/details/libnt2_mw.h
                         && ${CMAKE_COMMAND} -E rename ${CMAKE_CURRENT_BINARY_DIR}/${NT2_MW_LIBRARY} ${LIBRARY_OUTPUT_PATH}/${NT2_MW_LIBRARY}
                   )
 add_custom_target(nt2_mw ALL

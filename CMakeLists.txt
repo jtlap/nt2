@@ -42,6 +42,7 @@ include(nt2.package)
 #                  )
 
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
+include(NT2Module)
 nt2_postconfigure_init()
 
 enable_testing()

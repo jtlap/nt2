@@ -66,6 +66,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::store_ , store , 3 )
 } }
 
 #endif

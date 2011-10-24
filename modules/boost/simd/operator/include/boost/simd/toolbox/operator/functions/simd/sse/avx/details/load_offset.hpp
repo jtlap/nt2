@@ -12,6 +12,8 @@
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/include/functions/unaligned_load.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/error/assert.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd types with an offset
@@ -46,6 +48,10 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1,
                                   const A2&, const A3&)const
     {
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to load with a pointer that"
+        " is not aligned on the simd vector size.");
       return eval( a0, a1, typename is_periodic<A2,A3>::type() );
     }
 

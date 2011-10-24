@@ -61,7 +61,7 @@ macro(nt2_simd_cpuid_check ext)
   find_file(SRC_CPUID src/cpuid.cpp ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
   set(SRC_CPUID ${SRC_CPUID} CACHE INTERNAL "" FORCE)
   try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
-          ${PROJECT_BINARY_DIR}/cmake
+          ${NT2_BINARY_DIR}/cmake
           ${SRC_CPUID}
           OUTPUT_VARIABLE LOG
           ARGS ${ext_l}

@@ -70,6 +70,7 @@
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
+
 namespace boost { namespace simd
 {
   namespace tag {

@@ -27,21 +27,26 @@
 #endif
 
 namespace nt2 { namespace meta
-{
+{  
   //============================================================================
   /*!
    * Extract an option value from a given type or type groups, returning a given
    * default option if none is found.
    * 
-   * \tparam Type Settings type to intropect
+   * \tparam Type Settings type to introspect
    * \tparam Option Option tag to be retrieved
-   * \tparam Default Type returned if no options of chosen tag is found
+   * \tparam Default If no Option is found, use this option as a source
    **/
   //============================================================================
   template<class Type, class Option, class Default = void> 
-  struct option 
-  { 
-    typedef Default type; 
+  struct  option : option<Default,Option>
+  {};
+
+  struct no_such_option {};
+
+  template<class Option> struct  option<void,Option, void> 
+  {
+    typedef no_such_option type;
   };
 
   //============================================================================

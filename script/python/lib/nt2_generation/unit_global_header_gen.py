@@ -135,8 +135,9 @@ class Global_header_gen() :
 ##                r.append("#include <nt2/toolbox/"+bg.demangle(self.bg.get_tb_name())+"/include/"+self.bg.get_fct_name()+".hpp>")
 ##                print(r[-1])
             for d in dl :
-                df =  d.get('functor',False)
-                no_ulp =  df.get('no_ulp',False) if df else True
+                du =  d.get('unit',{})
+                dg =  du.get('global_header',False)
+                no_ulp =  dg.get('no_ulp',False) if dg else True
                 if not no_ulp :
                     r.append(Global_header_gen.No_ulp_Template[self.__module])
                     if self.part == "cover" :
@@ -210,6 +211,7 @@ class Global_header_gen() :
         if isinstance(dl,dict ) : dl = [dl]
 ##        print (dl)
         self.__module = dl[0].get('functor',False).get("module",'default')
+        if self.__module != 'boost' : self.__module = 'default'
         r = self.add_header(dl)
         r = self.add_includes(r,dl)
         return r

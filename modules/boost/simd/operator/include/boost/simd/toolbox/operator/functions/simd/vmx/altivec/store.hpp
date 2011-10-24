@@ -16,6 +16,8 @@
 // TODO : Make them work properly with ContiguousRandomAccessIterator
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <nt2/sdk/error/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -29,6 +31,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a1,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to store with a pointer that"
+        " is not aligned on the simd vector size.");
       vec_st(a0.data_, a2*16, a1);
       return a0;
     }

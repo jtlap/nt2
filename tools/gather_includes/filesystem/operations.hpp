@@ -4,6 +4,7 @@
 #include <boost/system/api_config.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/assert.hpp>
+#include <filesystem/directory_iterator.hpp>
 #include <stdexcept>
 #include <string>
 #include <algorithm>
@@ -151,7 +152,7 @@ namespace filesystem
     
 namespace details
 {
-    int remove_all_rec( int& ec )
+    inline int remove_all_rec( int& ec )
     {
         int count = 0;
         for ( directory_iterator current_dir( "." ); *current_dir; ++current_dir )
@@ -211,7 +212,7 @@ namespace details
         return result;
     }
     
-    void rename(const char* from, const char* to, int& ec)
+    inline void rename(const char* from, const char* to, int& ec)
     {
     #ifdef BOOST_WINDOWS_API
         if(exists(to))
@@ -227,6 +228,13 @@ namespace details
         
         if( ec )
             BOOST_THROW_EXCEPTION( std::runtime_error( std::string("Error renaming ") + from + " to " + to) );
+    }
+    
+    inline std::string absolute(const char* s)
+    {
+        current_path_saver const cps;
+        current_path(s);
+        return current_path();
     }
 }
 

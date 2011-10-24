@@ -8,11 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  negif.cpp
   genmask.cpp
-  selsub.cpp
-  seladd.cpp
-  select.cpp
   twopower.cpp
   shri.cpp
   shrai.cpp

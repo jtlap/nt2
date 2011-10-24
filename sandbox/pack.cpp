@@ -10,8 +10,9 @@
 #include <boost/simd/include/functions/make.hpp>
 #include <nt2/include/functions/sincos.hpp>
 #include <boost/simd/include/constants/ten.hpp>
+#include <boost/fusion/include/deref.hpp>
+#include <boost/fusion/include/begin.hpp>
 #include <iostream>
-
 #include <nt2/sdk/details/type_id.hpp>
 
 int main()
@@ -43,24 +44,57 @@ int main()
 
   // testing constants
   pack r2;
-  r2 = nt2::Ten<pack>();  
+  r2 = nt2::Ten<pack>();
   r = nt2::tofloat(*v+2)*nt2::Ten<pack>();
+  std::cout << r2 << "\n";
   std::cout << r << "\n";
+
+   // testing load, store, splat and make
+   packi p;
+   p = boost::simd::load<packi>(&array[0], 0);
+   std::cout << p << "\n";
+   p = p+1;
+   boost::simd::store(p, &array[0], 0);
+   std::cout << "{ " << array[0] << ", " << array[1] << ", " << array[2] << ", " << array[3] << " }\n";
   
-  // testing load, store, splat and make
-  packi p;
-  p = boost::simd::load<packi>(&array[0], 0);
-  std::cout << p << "\n";
-  p = p+1;
-  boost::simd::store(p, &array[0], 0);
-  std::cout << "{ " << array[0] << ", " << array[1] << ", " << array[2] << ", " << array[3] << " }\n";
+   p = boost::simd::splat<packi>(0);
+   std::cout << p << "\n";
   
-  p = boost::simd::splat<packi>(0);
-  std::cout << p << "\n";
+   p = boost::simd::make<packi>(1, 2, 3, 4);
+   std::cout << p << "\n";
   
-  p = boost::simd::make<packi>(1, 2, 3, 4);
-  std::cout << p << "\n";
-  
-  // testing cardinal
-  std::cout << boost::simd::meta::cardinal_of<pack>::value << "\n";
+   // testing cardinal
+   std::cout << boost::simd::meta::cardinal_of<pack>::value << "\n";
+
+   // Testing iterators for native mode
+   packi p_it = boost::simd::make<packi>(1, 2, 3, 4);
+   packi::iterator it = p_it.begin();
+   packi::const_iterator it_ = p_it.begin();
+   packi::iterator it__ = p_it.end();
+   packi::const_iterator it___ = p_it.end();
+   for(;it!=it__;++it) std::cout << *it << " " ;
+   std::cout << "\n";
+   for(;it_!=it___;++it_) std::cout << *it_ << " " ;
+   std::cout << "\n";
+   std::cout << "is_empty : " << p_it.empty() << "\n";
+   std::cout << "size     : " << p_it.size() << "\n";
+   // Testing Fusion interface
+   std::cout << boost::fusion::deref(boost::fusion::begin(p_it)) << "\n";
+   packi copy = p_it;
+   std::cout << copy << std::endl;
+
+   // Testing iterators for emulate mode
+//   typedef boost::simd::pack<int,8> emulate;
+//   emulate p_emu = boost::simd::make<emulate>(1, 2, 3, 4, 5, 6, 7, 8);
+//   emulate::iterator ite = p_emu.begin();
+//   emulate::const_iterator ite_ = p_emu.begin();
+//   emulate::iterator ite__ = p_emu.end();
+//   emulate::const_iterator ite___ = p_emu.end();
+//   for(;ite!=ite__;++ite) std::cout << *ite << " " ;
+//   std::cout << "\n";
+//   for(;ite_!=ite___;++ite_) std::cout << *ite_ << " " ;
+//   std::cout << "\n";
+//   std::cout << "is_empty : " << p_emu.empty() << "\n";
+//   std::cout << "size     : " << p_emu.size() << "\n";
+
 }

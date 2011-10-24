@@ -68,7 +68,7 @@
                         "        nt2::uint32_t N = cardinal_of<n_t>::value;",
                         "        for(nt2::uint32_t i = 0; i< N; ++i)",
                         "        {",
-                        "          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);"
+                        "          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i;"
                         "        }",
                         "        NT2_TEST_EQUAL( v,z);",
                             ]

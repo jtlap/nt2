@@ -59,10 +59,10 @@ namespace boost { namespace simd { namespace ext
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
       A0 gtyx = gt(y,x);
-      A0 xx = sel(gtyx,y,x);
-      A0 yy = sel(gtyx,x,y);
+      A0 xx = select(gtyx,y,x);
+      A0 yy = select(gtyx,x,y);
       A0 r =  xx*sqrt(One<A0>()+sqr(yy/xx));
-      return sel(ge(xx*Eps<A0>(), yy), xx, r);
+      return select(ge(xx*Eps<A0>(), yy), xx, r);
    }
   };
 } } }

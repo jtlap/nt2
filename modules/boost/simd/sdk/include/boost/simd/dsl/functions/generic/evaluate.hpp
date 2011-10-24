@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      return compile(schedule(optimize(a0)))(a0);
+      return simd::compile(schedule(optimize(a0)))(a0);
     }
   };
 } } }

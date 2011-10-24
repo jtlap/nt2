@@ -113,7 +113,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     /** Type of the constant pointer to buffer indices                        */
     //==========================================================================
-    typedef typename meta::add_pointers<Type const,Dimensions-1>::type& const_sub_data_type;
+    typedef typename meta::add_pointers<Type,Dimensions-1>::type& const_sub_data_type;
 
     //==========================================================================
     /**
@@ -220,6 +220,23 @@ namespace nt2 { namespace memory
                     , boost::mpl::int_<Dimensions>()
                     );
       }
+    }
+
+    //==========================================================================
+    /**
+      * Reallocate a iliffe_bufer to a new size.
+     **/
+    //==========================================================================
+    template<typename Sizes, typename Bases> inline void
+    resize( Sizes const&      szs
+          , Bases const&      bss
+          , Padding const&    p
+          )
+    {
+      if(data_)
+        alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
+
+      initialize(szs,bss,p);
     }
 
     //==========================================================================

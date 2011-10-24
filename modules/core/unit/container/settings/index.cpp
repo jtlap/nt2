@@ -27,7 +27,7 @@ NT2_TEST_CASE( single_index )
   using boost::is_same;
   using nt2::meta::option;
 
-  typedef option<nt2::index_<3,2,4>, nt2::tag::index_>::type index_option;  
+  typedef option<nt2::index_<3,2,4>, nt2::tag::index_>::type::type index_option;  
   NT2_TEST_EQUAL( boost::mpl::size<index_option>::value, NT2_MAX_DIMENSIONS );  
   NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,0>::type::value), 3 );
   NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,1>::type::value), 2 );
@@ -43,31 +43,35 @@ NT2_TEST_CASE( single_index_default )
   using boost::is_same;
   using nt2::meta::option;
 
-  typedef boost::mpl::vector4_c<std::ptrdiff_t,3,2,4,4> default_;
+  typedef index_<3,2,5,4> default_;
   
-  typedef option< void, nt2::tag::index_, default_>::type index_option;  
+  typedef option< void, nt2::tag::index_, default_>::type::type index_option;  
   NT2_TEST_EQUAL( boost::mpl::size<index_option>::value, NT2_MAX_DIMENSIONS );  
   NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,0>::type::value), 3 );
   NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,1>::type::value), 2 );
-  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,2>::type::value), 4 );
+  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,2>::type::value), 5 );
+  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,3>::type::value), 4 );
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some id_ as settings
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( single_id_settings )
+NT2_TEST_CASE( single_index_settings )
 {
   using nt2::index_;
+  using nt2::C_index_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
 
-  typedef option<settings(nt2::C_index_,nt2::index_<3,2,4>), nt2::tag::index_>::type index_option;  
+  typedef option< settings(C_index_), nt2::tag::index_>::type::type index_option;  
+
   NT2_TEST_EQUAL( boost::mpl::size<index_option>::value, NT2_MAX_DIMENSIONS );  
-  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,0>::type::value), 3 );
-  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,1>::type::value), 2 );
-  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,2>::type::value), 4 );
+  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,0>::type::value), 0 );
+  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,1>::type::value), 0 );
+  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,2>::type::value), 0 );
+  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,3>::type::value), 0 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,11 +84,15 @@ NT2_TEST_CASE( single_id_settings_default )
   using boost::is_same;
   using nt2::meta::option;
 
-  typedef boost::mpl::vector4_c<std::ptrdiff_t,3,2,4,4> default_;
+  typedef settings default_(index_<3,2,5,4>);
   
-  typedef option< settings(long,short), nt2::tag::index_, default_>::type index_option;  
+  typedef option< settings(long,short)
+                , nt2::tag::index_
+                , default_>::type::type   index_option;  
+
   NT2_TEST_EQUAL( boost::mpl::size<index_option>::value, NT2_MAX_DIMENSIONS );  
   NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,0>::type::value), 3 );
   NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,1>::type::value), 2 );
-  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,2>::type::value), 4 );
+  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,2>::type::value), 5 );
+  NT2_TEST_EQUAL( (boost::mpl::at_c<index_option,3>::type::value), 4 );
 }

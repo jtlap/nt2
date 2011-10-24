@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
       isinf = b_and(b_or(is_inf(b), is_inf(a)), is_inf(r0)); 
       boost::fusion::tie(a1, a2) = two_split(a);
       boost::fusion::tie(b1, b2) = two_split(b);
-      r1 = sel(isinf, Zero<A0>(), a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
+      r1 = select(isinf, Zero<A0>(), a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
     }
   };
 } } }

@@ -92,14 +92,14 @@ namespace boost { namespace dispatch { namespace meta
   template<std::size_t D, typename T, typename P, typename A>
   struct model_of< nt2::memory::iliffe_buffer<D,T,P,A> >
   {
-    typedef struct make
+    struct type
     {
       template<class X> struct apply
       {
         typedef typename A::template rebind<X>::other alloc;
         typedef nt2::memory::iliffe_buffer<D,X,P,alloc>    type;
       };
-    } type;
+    };
   };
 } } }
 
@@ -116,6 +116,19 @@ namespace nt2 { namespace memory
                         )
   {
     v.initialize(s,b,p);
+  }
+
+  //============================================================================
+  // iliffe_buffer resize - Part of Buffer Concept
+  //============================================================================
+  template< std::size_t D, typename T, typename P, typename A
+          , typename Sizes, typename Bases
+          >
+  inline void resize( iliffe_buffer<D,T,P,A>& v
+                    , Sizes const& s, Bases const& b, P const& p
+                    )
+  {
+    v.resize(s,b,p);
   }
 
   //============================================================================
