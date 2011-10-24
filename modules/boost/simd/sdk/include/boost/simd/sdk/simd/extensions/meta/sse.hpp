@@ -43,7 +43,10 @@ namespace boost { namespace simd { namespace meta
                                   , typename  boost::mpl
                                     ::if_ < boost::is_same<T,double>
                                         , __m128d
-                                        , dispatch::meta::na_
+                                        , typename  simd::details::
+                                                    as_simd_impl < T
+                                                                 , tag::sse_
+                                                                 >::type
                                         >::type
                                   >::type
                           >

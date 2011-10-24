@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace meta
             , bool Signed = boost::is_signed<T>::value
             , class Dummy=void
             >
-    struct entry { typedef dispatch::meta::na_ type; };
+    struct entry : simd::details::as_simd_impl < T, tag::altivec_> {};
 
     template<bool Sign, class Dummy>
     struct entry<float, 32, false, Sign, Dummy> { typedef __vector float  type;         };
