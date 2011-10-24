@@ -31,68 +31,6 @@
     std::cout << "\n";
   } 
 */
-namespace nt2 { namespace ext
-{
-  // terminal for 0-dimensional access
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                                , (A0)(Data)
-                                , (ast_<unspecified_<A0> >)
-                                  (fusion_sequence_<nt2::_0D>)
-                                  (unspecified_<Data>)
-                                )
-  {
-    typedef typename boost::dispatch::meta::
-    semantic_of<A0>::type                                  result_type;
-    
-    template<class A0_>
-    result_type operator()(A0_& a0, _0D const&, Data const& ) const
-    {
-       return boost::proto::value(a0);
-    }
-  };
-    
-  // table terminal with a position
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                                , (A0)(S0)(State)(Data)
-                                , ((ast_<table_< unspecified_<A0>, S0 > >))
-                                  (fusion_sequence_<State>)
-                                  (unspecified_<Data>)
-                                )
-  {
-    typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0>::type
-             >::type                                       result_type;
-    
-    template<class A0_>
-    result_type operator()(A0_& a0, State const& state, Data const& ) const
-    {
-       //return (boost::proto::value(a0))(state);
-       static typename boost::remove_reference<result_type>::type r;
-       return r;
-    }
-  };
-
-  // scalar terminal, always value
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(State)(Data)
-                            , ((ast_<scalar_< unspecified_<A0> > >))
-                              (fusion_sequence_<State>)
-                              (unspecified_<Data>)
-                            )
-  {
-    typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0>::type
-             >::type                                       result_type;
-
-    template<class A0_> BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0_& a0, State const& state, Data const&) const
-    {
-       return boost::proto::value(a0);
-    }
-  };
-} }
 
 
 #include <vector>
