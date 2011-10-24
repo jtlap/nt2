@@ -9,6 +9,9 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
+#include <boost/proto/core.hpp>
+#include <boost/dispatch/dsl/call.hpp>
+#include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
 #include <boost/simd/sdk/simd/pack/fusion_iterator.hpp>
 #include <boost/simd/sdk/simd/pack/fusion.hpp>
@@ -29,7 +32,7 @@ namespace boost { namespace simd
   // PODness of pack throughout the whole system.
   ////////////////////////////////////////////////////////////////////////////
   template<class Type, std::size_t Cardinal, class Dummy>
-  struct  pack
+  struct BOOST_SIMD_MAY_ALIAS pack
     : expression< typename
                   proto::terminal< typename
                                    meta::vector_of< Type

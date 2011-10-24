@@ -9,15 +9,12 @@
 #ifndef BOOST_SIMD_SDK_SIMD_NATIVE_FWD_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_NATIVE_FWD_HPP_INCLUDED
 
-#include <boost/config.hpp>
+#include <boost/simd/sdk/details/aliasing.hpp>
 
 namespace boost { namespace simd
 {
-  /* MSVC has issues with unions in certain template contexts (bug 684807),
-   * so we make it an struct and rely on the fact that the wrapper native type
-   * is itself a union with that compiler. */
   template<class T, class X>
-  union native;
+  struct BOOST_SIMD_MAY_ALIAS native;
 } }
 
 #endif

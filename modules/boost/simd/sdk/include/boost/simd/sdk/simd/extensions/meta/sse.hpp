@@ -57,7 +57,6 @@ namespace boost { namespace simd { namespace meta
   template<class X> struct extension_of<__m128i,X>  { typedef tag::sse_ type; };
 } } }
 
-#ifndef BOOST_SIMD_NO_STRICT_ALIASING
 ////////////////////////////////////////////////////////////////////////////////
 // Conversion between vector types
 ////////////////////////////////////////////////////////////////////////////////
@@ -78,6 +77,5 @@ namespace boost { namespace simd { namespace details
 
     #undef BOOST_SIMD_SSE_CONVERT
 } } }
-#endif
 
 #endif

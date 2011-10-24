@@ -24,7 +24,7 @@ namespace boost { namespace simd
   /// Platform independant native SIMD type
   //////////////////////////////////////////////////////////////////////////////
   template<class Scalar,class Extension>
-  union native
+  struct BOOST_SIMD_MAY_ALIAS native
   {
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> is a SIMD type encapsulation
@@ -35,7 +35,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> models RandomAccessRange and FusionRandomAccessSequence
     ////////////////////////////////////////////////////////////////////////////
-    typedef Scalar                                          value_type;
+    typedef BOOST_SIMD_MAY_ALIAS Scalar                     value_type;
     typedef value_type&                                     reference;
     typedef value_type const&                               const_reference;
     typedef std::size_t                                     size_type;
@@ -123,12 +123,11 @@ namespace boost { namespace simd
     }
     
     native_type data_;
-    value_type array[static_size];
     
     BOOST_DISPATCH_FORCE_INLINE
     value_type* data()
     {
-      return array;
+      return reinterpret_cast<value_type*>(&data_);
     }
 
     BOOST_DISPATCH_FORCE_INLINE

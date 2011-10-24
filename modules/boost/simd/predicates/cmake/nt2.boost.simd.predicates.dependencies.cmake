@@ -8,5 +8,5 @@
 ################################################################################
 
 SET(NT2_BOOST.SIMD.PREDICATES_DEPENDENCIES_EXTRA boost.simd.arithmetic boost.simd.bitwise boost.simd.constant
-                                                 boost.simd.ieee boost.simd.operator boost.simd.boolean
+                                                 boost.simd.ieee boost.simd.operator
    )
