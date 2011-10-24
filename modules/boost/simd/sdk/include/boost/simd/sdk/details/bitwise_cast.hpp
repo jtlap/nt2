@@ -14,6 +14,8 @@
  * \brief Defines and implements the \ref boost::simd::bitwise_cast utility function
  */
 
+#include <boost/simd/sdk/details/aliasing.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <cstring>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/identity.hpp>
@@ -21,14 +23,9 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#ifdef BOOST_MSVC
-#define BOOST_SIMD_NO_STRICT_ALIASING
-#endif
-
 namespace boost { namespace simd
 {
 
-#ifndef BOOST_SIMD_NO_STRICT_ALIASING
 namespace details
 {
   //============================================================================
@@ -36,8 +33,15 @@ namespace details
   //============================================================================
   struct memcpy_cast
   {
+    template<class To>
+    struct result_of
+    {
+      typedef To type;
+    };
+      
     template<typename To, typename From>
-    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
+    static BOOST_DISPATCH_FORCE_INLINE
+    typename result_of<To>::type call(From const& from)
     {
       To to;
       std::memcpy(&to, &from, sizeof(From));
@@ -50,8 +54,15 @@ namespace details
   //============================================================================
   struct union_cast
   {
+    template<class To>
+    struct result_of
+    {
+      typedef To type;
+    };
+      
     template<typename To, typename From>
-    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
+    static BOOST_DISPATCH_FORCE_INLINE
+    typename result_of<To>::type call(From const& from)
     {
       union
       {
@@ -63,22 +74,51 @@ namespace details
   };
 
   //============================================================================
-  // Perform a bitwise cast using a C-style cast
+  // Perform a bitwise cast using a conversion - Works with few types
   //============================================================================
   struct convert_cast
   {
+    template<class To>
+    struct result_of
+    {
+      typedef To type;
+    };
+      
     template<typename To, typename From>
-    static BOOST_DISPATCH_FORCE_INLINE To call(From const& from)
+    static BOOST_DISPATCH_FORCE_INLINE
+    typename result_of<To>::type call(From const& from)
     {
       return (To)from;
     }
   };
+  
+  //============================================================================
+  // Perform a bitwise cast using a reinterpret_cast
+  //============================================================================
+  struct alias_cast
+  {
+    template<class To>
+    struct result_of
+    {
+      typedef To const& type;
+    };
+      
+    template<typename To, typename From>
+    static BOOST_DISPATCH_FORCE_INLINE
+    typename result_of<To>::type call(From const& from)
+    {
+      return reinterpret_cast<To const&>(from);
+    }
+  };
 
   //============================================================================
-  // By default, use memcpy_cast
+  // By default, use memcpy_cast except for identity
   //============================================================================
   template<typename To, typename From, typename Enable = void>
   struct bitwise_cast : memcpy_cast {};
+  
+  template<typename T>
+  struct bitwise_cast<T, T> : alias_cast {};
   
 }
 
@@ -106,10 +146,11 @@ namespace details
   //============================================================================
   template<typename To, typename From>
   BOOST_DISPATCH_FORCE_INLINE
-  typename disable_if<
-    is_same<To, From>,
-    To
-  >::type
+#ifndef BOOST_SIMD_NO_STRICT_ALIASING
+  typename details::bitwise_cast<To, From>::template result_of<To>::type
+#else
+  typename details::alias_cast::template result_of<To>::type
+#endif
   bitwise_cast(From const& from)
   {
     //==========================================================================
@@ -122,38 +163,13 @@ namespace details
     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
     , (From&,To&)
     );  
-    
+
+#ifndef BOOST_SIMD_NO_STRICT_ALIASING    
     return details::bitwise_cast<To, From>::template call<To>(from);
-  }
-  
-  template<typename To>
-  BOOST_DISPATCH_FORCE_INLINE
-  To const&
-  bitwise_cast(typename mpl::identity<To>::type const& from)
-  {
-    return from;
-  }
-
 #else
-
-  template<typename To, typename From>
-  BOOST_DISPATCH_FORCE_INLINE To const& bitwise_cast(From const& from)
-  {
-    //==========================================================================
-    /*
-     * Target is not same size as source in boost::simd::bitwise_cast
-     */    
-    //==========================================================================
-    BOOST_MPL_ASSERT_MSG
-    ( (sizeof(From) == sizeof(To))
-    , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
-    , (From&,To&)
-    );   
-
-    return reinterpret_cast<To const&>(from);
-  }
-
+    return details::alias_cast::template call<To>(from);
 #endif
+  }
 
 } }
 #endif
