@@ -26,6 +26,7 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 #include <boost/fusion/include/iterator_range.hpp>
+#include <boost/utility.hpp>
 
 namespace nt2
 {
