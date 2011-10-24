@@ -11,25 +11,27 @@
 
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
 
 //==============================================================================
 // Do something only if in SIMD mode
 //==============================================================================
 #if defined(BOOST_SIMD_DETECTED)
-
-#if defined(BOOST_SIMD_LRB_FAMILY)
 #include <boost/simd/sdk/simd/native.hpp>
 
-//==============================================================================
-// Larabee require full native<logical<T>> reimplementation
-//==============================================================================
 namespace boost { namespace simd
 {
   template<class Scalar,class Extension> 
-  union native<logical<Scalar>, tag::lrb_>
+  struct BOOST_SIMD_MAY_ALIAS native<logical<Scalar>, Extension>
   {
-    typedef tag::lrb_                                       extension_type;
+    typedef Extension                                       extension_type;
+
+    #if defined(BOOST_SIMD_LRB_FAMILY)
     typedef __mmask                                         native_type;
+    #else
+    typedef typename meta::as_simd<Scalar, Extension>::type native_type;
+    #endif
+    
     typedef logical<Scalar>                                 value_type;
     typedef logical<Scalar>                                 reference;
     typedef logical<Scalar>                                 const_reference;
@@ -40,7 +42,15 @@ namespace boost { namespace simd
       typedef native<U, extension_type> type;
     };
 
+    #if defined(BOOST_SIMD_LRB_FAMILY)
+    // Cardinal is __mmask size
     enum { static_size = sizeof(__mmask) };
+    #else
+    // Beware to have same cardinal than native<Scalar,Ext>
+    enum { static_size = sizeof(native_type)/sizeof(Scalar)
+                       ? sizeof(native_type)/sizeof(Scalar) : 1};
+
+    #endif
 
     BOOST_DISPATCH_FORCE_INLINE native& operator=(native const& s)
     {
@@ -48,9 +58,19 @@ namespace boost { namespace simd
       return *this;
     }
     
+    // When initialized from a Scalar native, is_nez it
+    BOOST_DISPATCH_FORCE_INLINE 
+    native& operator=(native<Scalar,Extension> const& s)
+    {
+      data_ = is_nez(s);
+      return *this;
+    }
+    
     BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& data)
     {
-      data_ = data;
+      native<Scalar,Extension> s;
+      s = { data };
+      data_ = is_nez(s);
       return *this;
     }
 
@@ -68,23 +88,18 @@ namespace boost { namespace simd
     static BOOST_DISPATCH_FORCE_INLINE
     bool empty() { return false; }
 
+    #if defined(BOOST_SIMD_LRB_FAMILY)   
     value_type operator[](std::size_t i) const { return data_ & (1 << i); }
+    #else
+    value_type operator[](std::size_t i) const
+    {
+      return reinterpret_cast<value_type const*>(&data_)[i];
+    }    
+    #endif
     
     native_type data_;
   };
 } }
-
-#else
-
-//==============================================================================
-// Other extension just map logical<T> to SIMD vector of T
-//==============================================================================
-namespace boost { namespace simd { namespace details
-{
-  template<class T,class Extension>
-  struct as_simd_impl< logical<T>, Extension > : meta::as_simd<T,Extension>
-  {};
-} } }
 
 #endif
 
@@ -96,6 +111,20 @@ namespace boost { namespace dispatch { namespace meta
     typedef simd::ext::simd_< simd::ext::logical_<Origin>, X> type;
   };
 } }  }
-    
-#endif
+
+namespace boost { namespace simd
+{
+  //////////////////////////////////////////////////////////////////////////////
+  // Stream insertion for swar types
+  //////////////////////////////////////////////////////////////////////////////
+  template<class S,class E> inline std::ostream&
+  operator<<( std::ostream& os, native<logical<S>,E> const & v )
+  {
+    os << "{" << std::boolalpha; 
+    for(std::size_t i=0;i<v.size()-1;++i) os << bool(v[i]) << ",";
+    os << bool(v[v.size()-1UL]) << "}" << std::noboolalpha;
+    return os;
+  }
+} }
+
 #endif

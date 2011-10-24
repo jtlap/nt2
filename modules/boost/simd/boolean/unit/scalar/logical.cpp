@@ -16,6 +16,16 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/toolbox/boolean/logical.hpp>
+#include <boost/simd/toolbox/boolean/as_logical.hpp>
+
+NT2_TEST_CASE_TPL ( as_logical, BOOST_SIMD_INTEGRAL_TYPES )
+{
+  using boost::is_same;
+  using boost::simd::logical;
+  using boost::simd::meta::as_logical;
+
+  NT2_TEST( (is_same<logical<T>, typename as_logical<T>::type >::value ));
+}
 
 NT2_TEST_CASE_TPL ( logical_integral, BOOST_SIMD_INTEGRAL_TYPES )
 {
@@ -91,9 +101,10 @@ NT2_TEST_CASE_TPL ( logical_hierarchy_of, BOOST_SIMD_TYPES )
   using boost::is_same;
   using boost::simd::logical;
   using boost::simd::ext::logical_;
+  using boost::dispatch::meta::scalar_;
   using boost::dispatch::meta::hierarchy_of;
 
-  NT2_TEST((is_same < logical_< logical<T> >
+  NT2_TEST((is_same < scalar_< logical_< logical<T> > >
                     , typename hierarchy_of< logical<T> >::type 
                     >::value 
           ));
