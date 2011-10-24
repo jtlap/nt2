@@ -26,7 +26,6 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 #include <boost/fusion/include/iterator_range.hpp>
-#include <boost/range/iterator_range.hpp>
 
 namespace nt2
 {
@@ -65,7 +64,7 @@ namespace nt2
     template<class Src, class Dst>
     void copy(Src const& src, Dst const& dst)
     {
-      return copy(boost::fusion::begin(src), boost::fusion::end(src), boost::begin(dst));
+      return copy(boost::fusion::begin(src), boost::fusion::end(src), dst);
     }
     
     template<class InB, class InE, class Value>
@@ -177,10 +176,7 @@ namespace nt2
             make_iterator_range( boost::fusion::begin(other)
                                , boost::fusion::advance_c< min_size - other_size >(boost::fusion::end(other))
                                )
-          , boost::
-            make_iterator_range( &data_[0]
-                               , &data_[0] + static_size
-                               )
+          , &data_[0]
           );
                 
       for(std::size_t i = min_size; i != static_size; ++i)
