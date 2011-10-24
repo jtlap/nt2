@@ -11,13 +11,19 @@
 
 #include <boost/config.hpp>
 
+#ifndef BOOST_SIMD_NO_STRICT_ALIASING
+
 #ifdef BOOST_MSVC
 #define BOOST_SIMD_NO_STRICT_ALIASING
 #endif
 
 #ifdef __GNUC__
 #define BOOST_SIMD_MAY_ALIAS __attribute__((may_alias))
-#else
+#endif
+
+#endif
+
+#ifndef BOOST_SIMD_MAY_ALIAS
 #define BOOST_SIMD_MAY_ALIAS
 #endif
 
