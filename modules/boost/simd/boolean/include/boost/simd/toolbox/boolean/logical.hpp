@@ -131,10 +131,16 @@ namespace boost { namespace dispatch { namespace meta
     };
   };
 
+  template<class T, class Origin> 
+  struct property_of< simd::logical<T>, Origin >
+  {
+    typedef simd::ext::logical_<Origin> type;
+  };
+
   template<class T, class Origin>
   struct  hierarchy_of< simd::logical<T>, Origin>
   {
-    typedef simd::ext::logical_<Origin> type;
+    typedef meta::scalar_< simd::ext::logical_<Origin> >  type;
   };
 } } }
 
