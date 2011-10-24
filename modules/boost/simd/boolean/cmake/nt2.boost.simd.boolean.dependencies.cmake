@@ -7,7 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.BOOLEAN_DEPENDENCIES_EXTRA boost.simd.arithmetic boost.simd.constant boost.simd.ieee
-                                              boost.simd.operator boost.simd.predicates boost.simd.reduction
-                                              boost.simd.swar boost.simd.boolean
+SET(NT2_BOOST.SIMD.BOOLEAN_DEPENDENCIES_EXTRA boost.simd.constant boost.simd.operator
+                                              boost.simd.bitwise boost.simd.predicates boost.simd.reduction
    )
