@@ -79,12 +79,11 @@ namespace boost { namespace simd
 //==============================================================================
 // Other extension just map logical<T> to SIMD vector of T
 //==============================================================================
-namespace boost { namespace simd { namespace meta
+namespace boost { namespace simd { namespace details
 {
   template<class T,class Extension>
-  struct as_simd< logical<T>, Extension > : as_simd<T,Extension>
+  struct as_simd_impl< logical<T>, Extension > : meta::as_simd<T,Extension>
   {};
-
 } } }
 
 #endif
