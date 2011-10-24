@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_NEGIF_HPP_INCLUDED
 
 #include <boost/simd/sdk/meta/size.hpp>
-#include <boost/simd/include/functions/is_true.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/constants/properties.hpp>
@@ -26,12 +25,12 @@ namespace boost { namespace simd { namespace ext
                                               , simd_<signed_<A1>,X>
                                               )
                                   )
-                                , ((simd_<arithmetic_<A0>,X>))
+                                , ((simd_<logical_<A0>,X>))
                                   ((simd_<signed_<A1>,X>))
                        )
   {
     typedef A1 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return  select(is_true(a0),unary_minus(a1),a1); }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return  select(a0,unary_minus(a1),a1); }
   };
 
 //   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::negif_, tag::cpu_, (A0)(A1)(X)
