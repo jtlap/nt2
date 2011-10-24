@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( isqrt_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<isqrt_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+  typedef iT wished_r_t;
 
 
   // return type conformity test 
