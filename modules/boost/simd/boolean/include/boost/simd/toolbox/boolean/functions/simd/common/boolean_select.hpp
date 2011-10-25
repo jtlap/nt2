@@ -10,8 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_BOOLEAN_SELECT_HPP_INCLUDED
 #include <boost/simd/toolbox/bitwise/functions/bitwise_select.hpp>
 #include <boost/mpl/equal_to.hpp>
-#include <boost/simd/toolbox/boolean/logical.hpp>
-b#include <boost/type_traits/is_same.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -21,7 +20,6 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                    //                                     (boost::is_same <A0,meta::as_logical<A1>::type> )
                                 , ( boost::simd::tag::boolean_select_
                                     ( simd_<logical_<A0>,X>
                                     , simd_<arithmetic_<A1>,X>

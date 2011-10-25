@@ -8,14 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_TYPED_BOOL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_TYPED_BOOL_HPP_INCLUDED
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::typed_bool_ , tag::cpu_ , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< logical_<A0> >)
                               (target_< scalar_< fundamental_<A1> > >)
                             )
   {

@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(0)),boost::simd::splat<vT>(1))[0], 1);
   NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(boost::simd::Nan<T>())),boost::simd::splat<vT>(1))[0], -1);
-  NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(T(1))),boost::simd::splat<vT>(1))[0], -1);
+  //  NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(T(1))),boost::simd::splat<vT>(1))[0], -1);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -79,5 +79,5 @@ NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPE
   // specific values tests
   NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(0)),boost::simd::splat<vT>(1))[0], 1);
   NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(-1)),boost::simd::splat<vT>(1))[0], -1);
-  NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(1)),boost::simd::splat<vT>(1))[0], -1);
+  //  NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(1)),boost::simd::splat<vT>(1))[0], -1);
 } // end of test for signed_int_

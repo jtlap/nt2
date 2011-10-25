@@ -30,6 +30,7 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::select;
   using boost::simd::tag::select_;
+  using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<select_(T,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -57,6 +58,7 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   
   using boost::simd::select;
   using boost::simd::tag::select_;
+  using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<select_(T,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;

@@ -12,7 +12,7 @@
 #include <boost/mpl/equal_to.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/toolbox/boolean/logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

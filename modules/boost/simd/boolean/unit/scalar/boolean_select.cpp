@@ -35,7 +35,6 @@ NT2_TEST_CASE_TPL ( boolean_select_real__3_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
-  using boost::simd::logical; 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

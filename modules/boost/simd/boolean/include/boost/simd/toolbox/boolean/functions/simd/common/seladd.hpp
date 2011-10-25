@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_SELADD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_SELADD_HPP_INCLUDED
-#include <boost/simd/toolbox/boolean/logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/boolean/functions/seladd.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
 #include <boost/simd/include/functions/plus.hpp>
