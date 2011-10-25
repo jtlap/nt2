@@ -10,7 +10,7 @@
 include(NT2Module)
 nt2_module_source_setup(boost.simd.operator)
 nt2_module_configure_toolbox(operator 1)
-nt2_module_use_modules(unit boost.simd.boolean)
+
 include(nt2.preprocess)
 nt2_preprocess(boost.simd.operator.preprocess ${NT2_BOOST.SIMD.OPERATOR_ROOT}/include/boost/simd/toolbox/operator/specific/common.hpp
                                               ${NT2_BOOST.SIMD.OPERATOR_ROOT}/include/boost/simd/toolbox/operator/functions/simd/common/map.hpp

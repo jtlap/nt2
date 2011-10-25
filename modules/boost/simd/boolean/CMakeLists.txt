@@ -24,4 +24,3 @@ endif()
 
 include(NT2Module)
 nt2_module_main(boost.simd.boolean)
-nt2_module_use_modules(unit boolean)
