@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_LOGICAL_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BOOLEAN_LOGICAL_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 
 #include <climits>
 #include <boost/dispatch/attributes.hpp>
@@ -158,7 +158,7 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
-#include <boost/simd/toolbox/boolean/details/logical_simd.hpp>
-#include <boost/simd/toolbox/boolean/as_logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/simd/details/logical.hpp>
 
 #endif

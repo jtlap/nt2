@@ -11,7 +11,7 @@
 
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
-#include <boost/simd/toolbox/boolean/logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
