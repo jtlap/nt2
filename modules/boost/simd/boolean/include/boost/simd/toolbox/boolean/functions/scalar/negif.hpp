@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_NEGIF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_NEGIF_HPP_INCLUDED
 
-#include <boost/simd/include/functions/is_true.hpp>
 #include <boost/simd/toolbox/boolean/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

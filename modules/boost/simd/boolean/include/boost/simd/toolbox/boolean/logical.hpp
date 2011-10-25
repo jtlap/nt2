@@ -69,7 +69,9 @@ namespace boost { namespace simd
     BOOST_DISPATCH_FORCE_INLINE logical(T const v) 
                               : value_( (bitwise_cast<bits>(v) & mask) != 0) 
     {}
-                              
+
+    BOOST_DISPATCH_FORCE_INLINE bool operator ==(logical<T> const a) const { return  value_ == a.value_; }
+    BOOST_DISPATCH_FORCE_INLINE bool operator !=(logical<T> const a) const { return  value_ != a.value_; }
     //==========================================================================    
     /*!
      * Convert a logical value to a real boolean
@@ -94,6 +96,17 @@ namespace boost { namespace simd
     private:
     bool  value_;
   };
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Stream insertion for logical<T>
+  ////////////////////////////////////////////////////////////////////////////
+  template<class T>
+  BOOST_DISPATCH_FORCE_INLINE
+  std::ostream& operator<<(std::ostream& os, logical<T> const& v )
+  {
+    return os << bool(v);
+  }
+
 } }
 
 namespace boost { namespace simd { namespace ext
@@ -145,5 +158,6 @@ namespace boost { namespace dispatch { namespace meta
 } } }
 
 #include <boost/simd/toolbox/boolean/details/logical_simd.hpp>
+#include <boost/simd/toolbox/boolean/as_logical.hpp>
 
 #endif

@@ -28,8 +28,9 @@ NT2_TEST_CASE_TPL ( boolean_select_real__3_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::boolean_select;
   using boost::simd::tag::boolean_select_;
+  using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<boolean_select_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::call<boolean_select_(logical<T>,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
@@ -55,7 +56,7 @@ NT2_TEST_CASE_TPL ( boolean_select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   using boost::simd::tag::boolean_select_;
   using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<boolean_select_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::call<boolean_select_(logical<T>,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
@@ -70,6 +71,6 @@ NT2_TEST_CASE_TPL ( boolean_select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean_select(logical<T>(-1),T(1),T(2)), 1);
-  NT2_TEST_EQUAL(boolean_select(logical<T>(0),T(1),T(2)), 2);
+  NT2_TEST_EQUAL(boolean_select(logical<T>(T(-1)),T(1),T(2)), 1);
+  NT2_TEST_EQUAL(boolean_select(logical<T>(T(0)),T(1),T(2)), 2);
 } // end of test for integer_

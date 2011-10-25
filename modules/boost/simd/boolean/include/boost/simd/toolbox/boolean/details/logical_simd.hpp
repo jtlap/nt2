@@ -68,8 +68,7 @@ namespace boost { namespace simd
     
     BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& data)
     {
-      native<Scalar,Extension> s;
-      s = { data };
+      native<Scalar,Extension> s = { data };
       data_ = is_nez(s);
       return *this;
     }
