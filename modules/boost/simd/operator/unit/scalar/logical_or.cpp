@@ -23,7 +23,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
-
+#include <nt2/sdk/details/type_id.hpp>
 
 NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef typename boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -46,9 +46,9 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
+  NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(), boost::simd::One<T>()), r_t(true));
+  NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(),boost::simd::Zero<T>()), r_t(true));
+  NT2_TEST_EQUAL(logical_or(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_REAL_TYPES)
@@ -61,20 +61,22 @@ NT2_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef typename boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  
+  std::cout << nt2::type_id<r_t> () << std::endl;
+  std::cout << nt2::type_id<wished_r_t> () << std::endl;   
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_or(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(logical_or(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
+  NT2_TEST_EQUAL(logical_or(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(true));
+  NT2_TEST_EQUAL(logical_or(boost::simd::Minf<T>(), boost::simd::Minf<T>()), r_t(true));
+  NT2_TEST_EQUAL(logical_or(boost::simd::Nan<T>(), boost::simd::Nan<T>()), r_t(true));
+  NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(),boost::simd::Zero<T>()), r_t(true));
+  NT2_TEST_EQUAL(logical_or(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for floating_

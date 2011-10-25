@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_IF_ELSE_HPP_INCLUDED
+#include <boost/simd/toolbox/boolean/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< logical_<A0> >)
                               (scalar_< fundamental_<A1> >)
                               (scalar_< fundamental_<A1> >)
                             )

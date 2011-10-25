@@ -18,8 +18,7 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<arithmetic_<A0>,X>))
                       )
   {
-    typedef bool result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       for(std::size_t i=0;i<boost::simd::meta::cardinal_of<A0>::value;++i)

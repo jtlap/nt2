@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_LOGICAL_AND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_LOGICAL_AND_HPP_INCLUDED
+#include <boost/simd/toolbox/boolean/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -17,7 +18,7 @@ namespace boost { namespace simd { namespace ext
                               (scalar_< fundamental_<A1> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return a0 && a1; }
   };
 } } }
