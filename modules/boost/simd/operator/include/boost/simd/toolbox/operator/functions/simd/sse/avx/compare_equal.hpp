@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/compare_equal.hpp>
+#include <boost/simd/toolbox/boolean/as_logical.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -21,7 +22,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<double_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm256_movemask_pd(eq(a0,a1)) == 0X0F; }
   };
 
@@ -31,7 +33,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<single_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm256_movemask_ps(eq(a0,a1)) == 0X0FF; }
   };
 
@@ -41,7 +44,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<integer_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::scalar_of<A0>::type      stype;
