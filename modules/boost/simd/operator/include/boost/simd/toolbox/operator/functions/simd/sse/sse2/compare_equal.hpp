@@ -10,6 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_COMPARE_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/toolbox/boolean/as_logical.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -19,7 +21,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_pd(eq(a0,a1)) == 0X03; }
   };
 
@@ -29,7 +32,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_ps(eq(a0,a1)) == 0X0F; }
   };
 
@@ -39,7 +43,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return _mm_movemask_epi8(eq(a0,a1)) == 0X0FFFF;

@@ -13,6 +13,8 @@
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/reversebits.hpp>
 #include <boost/simd/toolbox/operator/functions/simd/common/details/compare_less_helper.hpp>
+#include <boost/simd/toolbox/boolean/as_logical.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 // #ifndef NT2_COMPARE_LESS_HELPER
 // #define NT2_COMPARE_LESS_HELPER
@@ -39,7 +41,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_pd(lt(a0,a1));
@@ -54,7 +57,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_ps(lt(a0,a1));
@@ -69,7 +73,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       unsigned int mask_a_lt_b =  _mm_movemask_epi8(lt(a0,a1));
