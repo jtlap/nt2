@@ -15,17 +15,11 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_select_, tag::cpu_, (A0)(A1), 
-					(boost::mpl::bool_<sizeof(A0) == sizeof(A1)>), 				 
-					( boost::simd::tag::bitwise_select_
-					  ( scalar_<arithmetic_<A0> >, 
-					    scalar_<arithmetic_<A1> >, 
-					    scalar_<arithmetic_<A1> >
-					    )
-					  ), 
-					(scalar_< arithmetic_<A0> >)
-					(scalar_< arithmetic_<A1> >)
-					(scalar_< arithmetic_<A1> >)
-					)
+                                        (boost::mpl::bool_<sizeof(A0) == sizeof(A1)>)
+                                      , (scalar_< arithmetic_<A0> >)
+                                        (scalar_< arithmetic_<A1> >)
+                                        (scalar_< arithmetic_<A1> >)
+                                      )
   {
     typedef A1 result_type;
     inline A1 operator()(const A0 & a0,const A1 & a1,const A1 & a2) const 
@@ -37,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_select_, tag::cpu_, (A0)
                             , (scalar_< bool_<A0> >)
                               (scalar_< bool_<A0> >)
-			      (scalar_< bool_<A0> >)
+                              (scalar_< bool_<A0> >)
                              )
   {
     typedef A0 result_type;

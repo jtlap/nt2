@@ -98,7 +98,7 @@ namespace boost { namespace dispatch
      * \return The result of the calculation of function \c Tag
      */
     //==========================================================================
-    template<class... Args> BOOST_DISPATCH_FORCE_INLINE
+    template<class... Args> BOOST_FORCEINLINE
     typename result<functor(Args...)>::type
     operator()( Args&& ...args ) const
     {
@@ -113,7 +113,7 @@ namespace boost { namespace dispatch
 #else
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor0x.hpp")
-#undef BOOST_DISPATCH_FORCE_INLINE
+#undef BOOST_FORCEINLINE
 #endif
 
     #define M1(z,n,t) std::forward<A##n>(a##n)
@@ -129,7 +129,7 @@ namespace boost { namespace dispatch
                  >                                                            \
     {};                                                                       \
                                                                               \
-    template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_DISPATCH_FORCE_INLINE                \
+    template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE               \
     typename result<functor(BOOST_PP_ENUM_PARAMS(n,A))>::type                 \
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, && a)) const                 \
     {                                                                         \
@@ -155,7 +155,7 @@ namespace boost { namespace dispatch
 #else
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/functor.hpp")
-#undef BOOST_DISPATCH_FORCE_INLINE
+#undef BOOST_FORCEINLINE
 #endif
 
     #define param(r,_,i,b) BOOST_PP_COMMA_IF(i)                               \
@@ -170,7 +170,7 @@ namespace boost { namespace dispatch
     #define n_size(seq) BOOST_PP_SEQ_SIZE(seq)
     
     #define call_operator(r, constness)                                       \
-    template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> BOOST_DISPATCH_FORCE_INLINE\
+    template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> BOOST_FORCEINLINE \
     typename result < functor                                                 \
                       (BOOST_PP_SEQ_FOR_EACH_I_R(r,arg_type,~,constness))     \
                     >::type                                                   \

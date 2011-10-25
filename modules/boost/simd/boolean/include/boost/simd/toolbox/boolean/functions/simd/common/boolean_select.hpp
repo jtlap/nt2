@@ -19,12 +19,6 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ( boost::simd::tag::boolean_select_
-                                    ( simd_<arithmetic_<A0>,X>
-                                    , simd_<arithmetic_<A1>,X>
-                                    , simd_<arithmetic_<A1>,X>
-                                    )
-                                  )
                                 , ((simd_<arithmetic_<A0>,X>))
                                   ((simd_<arithmetic_<A1>,X>))
                                   ((simd_<arithmetic_<A1>,X>))

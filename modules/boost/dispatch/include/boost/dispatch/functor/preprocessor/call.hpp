@@ -30,15 +30,15 @@
  * \usage
  *
  * \code
- * BOOST_DISPATCH_FUNCTOR_CALL(3)
+ * BOOST_DISPATCH_CALL(3)
  * {
  *   return a0 + a1/a2;
  * }
  * \endcode
  */
 //==============================================================================
-#define BOOST_DISPATCH_FUNCTOR_CALL(N)                                                       \
-inline result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const  \
+#define BOOST_DISPATCH_CALL(N)                                                 \
+result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const      \
 /**/
 
 //==============================================================================
@@ -52,49 +52,40 @@ inline result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const
  * \usage
  *
  * \code
- * BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(3)
+ * BOOST_DISPATCH_CALL_REPEAT(3)
  * {
  *   return a0 + a1/a2;
  * }
  * \endcode
  */
 //==============================================================================
-#define BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(N)                                          \
-inline result_type operator()( BOOST_PP_ENUM_PARAMS(N,A0 const& a) ) const  \
+#define BOOST_DISPATCH_CALL_REPEAT(N)                                          \
+result_type operator()( BOOST_PP_ENUM_PARAMS(N,A0 const& a) ) const            \
 /**/
 
-#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION(NS,Tag,Site,Types,Seq)                 \
-BOOST_DISPATCH_REGISTER_DISPATCH(NS,Tag,Site,Types,Seq)                              \
-template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types) \
-        , class Dummy                                                     \
-        >                                                                 \
-struct  implement                                                         \
-        < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)        \
-                                      , BOOST_DISPATCH_DISPATCH_TAG,Seq)             \
-                                      )                                   \
-        , Site, Dummy                                                     \
-        >                                                                 \
+#define BOOST_DISPATCH_IMPLEMENT_BODY(Tag, Site, Types, Seq, M)                \
+template< BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Types), M, Types ) >                \
+struct BOOST_DISPATCH_IMPLEMENT_(Tag, Site, Seq)                               \
 /**/
 
-#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL(NS,Tag,Site,Types,Seq)                 \
-BOOST_DISPATCH_REGISTER_DISPATCH_TPL(NS,Tag,Site,Types,Seq)                              \
-template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE_TPL,Types) \
-        , class Dummy                                                         \
-        >                                                                     \
-struct  implement                                                             \
-        < BOOST_DISPATCH_PP_STRIP(Tag)(BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Seq)            \
-                                          , BOOST_DISPATCH_DISPATCH_TAG,Seq)             \
-                                          )                                   \
-        , Site, Dummy                                                         \
-        >                                                                     \
+#define BOOST_DISPATCH_IMPLEMENT(NS, Tag, Site, Types, Seq)                    \
+BOOST_DISPATCH_REGISTER(NS, Tag, Site, Types, Seq)                             \
+BOOST_DISPATCH_IMPLEMENT_BODY(Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE)      \
 /**/
 
-#define BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF(NS,Tag,Site,Types,Cond,Ret,Seq)     \
-BOOST_DISPATCH_REGISTER_DISPATCH_IF(NS,Tag,Site,Types,Cond,Ret,Seq)                  \
-template< BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Types),BOOST_DISPATCH_DISPATCH_TYPE,Types) \
-        , class Dummy                                                     \
-        >                                                                 \
-struct  implement<BOOST_DISPATCH_PP_STRIP(Ret),Site,Dummy>                           \
+#define BOOST_DISPATCH_IMPLEMENT_TPL(NS, Tag, Site, Types, Seq)                \
+BOOST_DISPATCH_REGISTER_TPL(NS, Tag, Site, Types, Seq)                         \
+BOOST_DISPATCH_IMPLEMENT_BODY(Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE_TPL)  \
+/**/
+
+#define BOOST_DISPATCH_IMPLEMENT_IF(NS, Tag, Site, Types, Cond, Seq)           \
+BOOST_DISPATCH_REGISTER_IF(NS, Tag, Site, Types, Cond, Seq)                    \
+BOOST_DISPATCH_IMPLEMENT_BODY(Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE)      \
+/**/
+
+#define BOOST_DISPATCH_IMPLEMENT_TPL_IF(NS, Tag, Site, Types, Cond, Seq)       \
+BOOST_DISPATCH_REGISTER_TPL_IF(NS, Tag, Site, Types, Cond, Seq)                \
+BOOST_DISPATCH_IMPLEMENT_BODY(Tag, Site, Types, Seq, BOOST_DISPATCH_TYPE_TPL)  \
 /**/
 
 #endif

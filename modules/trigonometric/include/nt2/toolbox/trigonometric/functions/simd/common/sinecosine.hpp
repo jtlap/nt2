@@ -19,47 +19,36 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X), 
-				(boost::mpl::equal_to < nt2::meta::cardinal_of<A0>, 
-				 nt2::meta::cardinal_of<A1> > ), 
-                                ( nt2::tag::sinecosine_<mode>
-				  ( simd_<arithmetic_<A0>,X> 
-				    , simd_<floating_<A1>,X>
-				    , simd_<floating_<A1>,X>
-				    )
-                                ), 
+                                (boost::mpl::equal_to < nt2::meta::cardinal_of<A0>, 
+                                 nt2::meta::cardinal_of<A1> > ), 
                                 ((simd_<arithmetic_<A0>,X>))
                                 ((simd_<floating_<A1>,X>))
                                 ((simd_<floating_<A1>,X>))
-			     )
+                             )
   {
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
       a1 = impl::trig_base <A1,radian_tag,
-	               tag::simd_type, mode>::sincosa(tofloat(a0),a2);
+                       tag::simd_type, mode>::sincosa(tofloat(a0),a2);
       return 0; 
     }
   };
  
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sinecosine_<mode>, tag::cpu_,(A0)(A1)(mode)(X),
-				(boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
-			                	 nt2::meta::cardinal_of<A1>
-				        >
-				), 
-                                ( nt2::tag::sinecosine_<mode>
-				  ( simd_<arithmetic_<A0>,X> 
-				    , simd_<floating_<A1>,X>
-				    )
-				  ), 
-				((simd_ < arithmetic_<A0>,X > ))
-				((simd_ < floating_<A1>,X > ))
-			     )
+                                (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
+                                                 nt2::meta::cardinal_of<A1>
+                                        >
+                                ), 
+                                ((simd_ < arithmetic_<A0>,X > ))
+                                ((simd_ < floating_<A1>,X > ))
+                             )
   {
     typedef A1 result_type;    
     inline result_type operator()(A0 const& a0,A1 & a2) const
     {
       return impl::trig_base <A1,radian_tag,
-	               tag::simd_type, mode>::sincosa(tofloat(a0),a2); 
+                       tag::simd_type, mode>::sincosa(tofloat(a0),a2); 
     }
   };
 
@@ -78,8 +67,8 @@ namespace nt2 { namespace ext
     {
       result_type res;
       boost::fusion::at_c<0>(res) = impl::trig_base <rtype,radian_tag
-	,  tag::simd_type, mode
-	>::sincosa( tofloat(a0), boost::fusion::at_c<1>(res));
+        ,  tag::simd_type, mode
+        >::sincosa( tofloat(a0), boost::fusion::at_c<1>(res));
       return res;
     }
   };

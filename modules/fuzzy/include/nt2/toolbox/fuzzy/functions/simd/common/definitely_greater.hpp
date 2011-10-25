@@ -18,14 +18,11 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::definitely_greater_, tag::cpu_,
-			 (A0)(A1)(X),
-			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
-			 (nt2::tag::definitely_greater_(simd_<integer_<A0>,X>,
-					     simd_<integer_<A0>,X>, 
-			  		     simd_<integer_<A1>,X>)), 
-			 ((simd_<integer_<A0>,X>))
-			 ((simd_<integer_<A0>,X>))
-			 ((simd_<integer_<A1>,X>))
+                         (A0)(A1)(X),
+                         (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+                         ((simd_<integer_<A0>,X>))
+                         ((simd_<integer_<A0>,X>))
+                         ((simd_<integer_<A1>,X>))
                         )
   {
     typedef A0 result_type;
@@ -41,14 +38,11 @@ namespace nt2 { namespace ext
 
 
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::definitely_greater_, tag::cpu_,
-			 (A0)(A1)(X),
-			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
-			 (nt2::tag::definitely_greater_(simd_<floating_<A0>,X>,
-					     simd_<floating_<A0>,X>, 
-			  		     simd_<integer_<A1>,X>)), 
-			 ((simd_<floating_<A0>,X>))
-			 ((simd_<floating_<A0>,X>))
-			 ((simd_<integer_<A1>,X>))
+                         (A0)(A1)(X),
+                         (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A1> >),
+                         ((simd_<floating_<A0>,X>))
+                         ((simd_<floating_<A0>,X>))
+                         ((simd_<integer_<A1>,X>))
                        )
   {
     typedef A0 result_type;

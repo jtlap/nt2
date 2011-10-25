@@ -20,9 +20,6 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , boost::simd::tag::bitwise_xor_ ( scalar_< fundamental_<A0> >
-                                                    , scalar_< fundamental_<A1> >
-                                                    )
                                 , (scalar_< fundamental_<A0> >)
                                   (scalar_< fundamental_<A1> >)
                                 )

@@ -23,10 +23,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
-			     (A0)(X),
-			     ((simd_<arithmetic_<A0>,X>))
-			     ((simd_<arithmetic_<A0>,X>))
-			     )
+                             (A0)(X),
+                             ((simd_<arithmetic_<A0>,X>))
+                             ((simd_<arithmetic_<A0>,X>))
+                             )
   {
     typedef typename dispatch::meta::as_floating<A0>::type               stA0;
     typedef typename dispatch::meta::as_integer<A0, signed>::type     iA0;             
@@ -34,11 +34,11 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-	result_type res;
-	boost::simd::remquo( tofloat(a0), tofloat(a1)
-	      , boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res)
-	      );
-	return res;
+        result_type res;
+        boost::simd::remquo( tofloat(a0), tofloat(a1)
+              , boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res)
+              );
+        return res;
       }
   };
   
@@ -46,31 +46,24 @@ namespace boost { namespace simd { namespace ext
   // reference based Implementation
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
-				  ,( boost::mpl::and_ <
-				     boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                  ,( boost::mpl::and_ <
+                                     boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A1> >, 
-				     boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                     boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A2> >,
-				     boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                     boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A3> >
-				     >
-				  )
-                                , ( boost::simd::tag::remquo_
-				    ( simd_<arithmetic_<A0>,X> 
-				      , simd_<arithmetic_<A1>,X>
-				      , simd_<integer_<A2>,X>  
-				      , simd_<floating_<A3>,X>
-				      )
-				    ) 
+                                     >
+                                  )
                                , ((simd_<arithmetic_<A0>,X>))
-				 ((simd_<arithmetic_<A1>,X>))
+                                 ((simd_<arithmetic_<A1>,X>))
                                  ((simd_<floating_<A2>,X>))
                                  ((simd_<integer_<A3>,X>))
-			     )
+                             )
   {
     typedef void result_type;    
     inline result_type operator()(A0 const& a0, A1 const& a1,
-				  A2 & a2, A3 & a3) const
+                                  A2 & a2, A3 & a3) const
     {
       boost::simd::remquo(tofloat(a0), tofloat(a1), a2, a3); 
     }
@@ -80,24 +73,17 @@ namespace boost { namespace simd { namespace ext
   // reference based Implementation
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(X)
-				  ,( boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                  ,( boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A1> >)
-				  , ( boost::simd::tag::remquo_
-				      ( simd_<floating_<A0>,X> 
-					, simd_<floating_<A0>,X>
-					, simd_<floating_<A0>,X>
-					, simd_<integer_<A1>,X>  
-					)
-				      ) 
-				  , ((simd_<floating_<A0>,X>))
-				  ((simd_<floating_<A0>,X>))
-				  ((simd_<floating_<A0>,X>))
-				  ((simd_<integer_<A1>,X>))
-			     )
+                                  , ((simd_<floating_<A0>,X>))
+                                  ((simd_<floating_<A0>,X>))
+                                  ((simd_<floating_<A0>,X>))
+                                  ((simd_<integer_<A1>,X>))
+                             )
   {
     typedef void result_type;    
     inline result_type operator()(A0 const& a0, A0 const& a1,
-				  A0 & a2, A1 & a3) const
+                                  A0 & a2, A1 & a3) const
     {
       a2 = round2even(a0/a1); 
       a3 = toint(a2);

@@ -22,10 +22,6 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (boost::simd::tag::negif_( simd_<arithmetic_<A0>,X>
-                                              , simd_<signed_<A1>,X>
-                                              )
-                                  )
                                 , ((simd_<arithmetic_<A0>,X>))
                                   ((simd_<signed_<A1>,X>))
                        )
@@ -38,10 +34,6 @@ namespace boost { namespace simd { namespace ext
 //                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
 //                                                         , boost::mpl::sizeof_<A1>
 //                                                         >
-//                                   )
-//                                 , (boost::simd::tag::negif_( simd_<arithmetic_<A0>,X>
-//                                               , simd_<floating_<A1>,X>
-//                                               )
 //                                   )
 //                                 , ((simd_<arithmetic_<A0>,X>))
 //                                   ((simd_<floating_<A1>,X>))

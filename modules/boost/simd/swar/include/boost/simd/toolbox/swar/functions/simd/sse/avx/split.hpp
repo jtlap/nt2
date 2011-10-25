@@ -21,11 +21,11 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, boost::simd::tag::avx_,
-				    (A0)(A1),
-				    ((simd_<single_<A0>,boost::simd::tag::avx_>))
-				    ((simd_<double_<A1>,boost::simd::tag::avx_>))
-				    ((simd_<double_<A1>,boost::simd::tag::avx_>))
-				    )
+                                    (A0)(A1),
+                                    ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                    ((simd_<double_<A1>,boost::simd::tag::avx_>))
+                                    ((simd_<double_<A1>,boost::simd::tag::avx_>))
+                                    )
   {
     typedef int result_type; 
     inline int operator()(const A0 & a0,  A1& a1, A1& a2)const
@@ -37,9 +37,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, boost::simd::tag::avx_,
-				    (A0),
-				    ((simd_<single_<A0>,boost::simd::tag::avx_>))
-				    )
+                                    (A0),
+                                    ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                                    )
   {
     typedef typename dispatch::meta::upgrade<A0>::type                 utype;
     typedef boost::fusion::tuple<utype,utype>                    result_type;
@@ -59,11 +59,6 @@ namespace boost { namespace simd { namespace ext
                                             boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
                                             boost::is_same<A1, typename dispatch::meta::upgrade<A0>::type>
                                         >)
-                                      , (boost::simd::tag::split_(simd_<arithmetic_<A0>,boost::simd::tag::avx_>
-                                                                 ,simd_<arithmetic_<A1>,boost::simd::tag::avx_>
-                                                                 ,simd_<arithmetic_<A1>,boost::simd::tag::avx_>
-                                                                 )
-                                        ),
                                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                                         ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
                                         ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
@@ -91,9 +86,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::split_, boost::simd::tag::avx_,
-				    (A0),
-				    ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-				    )
+                                    (A0),
+                                    ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                                    )
   {
     typedef typename dispatch::meta::upgrade<A0>::type                 utype;
     typedef boost::fusion::tuple<utype,utype>                    result_type;
