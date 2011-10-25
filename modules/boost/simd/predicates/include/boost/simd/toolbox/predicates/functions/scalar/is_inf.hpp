@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/compare_equal.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is fundamental_
@@ -24,7 +25,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(A0 const&)const 
     {
       return boost::simd::False<A0>();
@@ -43,7 +44,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
        return boost::simd::abs(a0) == boost::simd::Inf<A0>();

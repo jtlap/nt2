@@ -46,16 +46,16 @@ NT2_TEST_CASE_TPL ( boolean_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean(-boost::simd::Zero<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Half<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Inf<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Minf<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Mone<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Nan<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::One<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Quarter<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), boost::simd::False<r_t>());
+  NT2_TEST_EQUAL(boolean(-boost::simd::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(boolean(boost::simd::Half<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Inf<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Minf<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Mone<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Nan<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::One<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Quarter<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), r_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( boolean_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -79,10 +79,10 @@ NT2_TEST_CASE_TPL ( boolean_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean(boost::simd::Mone<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::One<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), boost::simd::False<r_t>());
+  NT2_TEST_EQUAL(boolean(boost::simd::Mone<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::One<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), r_t(false));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( boolean_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -106,9 +106,9 @@ NT2_TEST_CASE_TPL ( boolean_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean(boost::simd::One<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), boost::simd::False<r_t>());
+  NT2_TEST_EQUAL(boolean(boost::simd::One<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Two<T>()), r_t(true));
+  NT2_TEST_EQUAL(boolean(boost::simd::Zero<T>()), r_t(false));
 
   if (boost::simd::Nan < float > ()) std::cout << 1 << std::endl;  else std::cout << 0 << std::endl;
   int z =   (boost::simd::Nan < float > ()) ? 1 :0;

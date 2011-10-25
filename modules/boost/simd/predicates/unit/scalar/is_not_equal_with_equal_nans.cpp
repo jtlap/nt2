@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYP
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -46,16 +46,16 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYP
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(-boost::simd::Zero<T>(), -boost::simd::Zero<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Half<T>(), boost::simd::Half<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Quarter<T>(), boost::simd::Quarter<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<T>(), boost::simd::Two<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(-boost::simd::Zero<T>(), -boost::simd::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Half<T>(), boost::simd::Half<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Minf<T>(), boost::simd::Minf<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Mone<T>(), boost::simd::Mone<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Nan<T>(), boost::simd::Nan<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::One<T>(), boost::simd::One<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Quarter<T>(), boost::simd::Quarter<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<T>(), boost::simd::Two<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_IN
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -79,10 +79,10 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_IN
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<T>(), boost::simd::Two<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Mone<T>(), boost::simd::Mone<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::One<T>(), boost::simd::One<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<T>(), boost::simd::Two<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -95,7 +95,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<T>(), boost::simd::Two<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<r_t>());
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::One<T>(), boost::simd::One<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Two<T>(), boost::simd::Two<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal_with_equal_nans(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for unsigned_int_

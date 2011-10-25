@@ -11,6 +11,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/functions/is_even.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -19,7 +20,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return (a0 & One<A0>()) != 0;
@@ -31,7 +32,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_even(minusone(a0));
