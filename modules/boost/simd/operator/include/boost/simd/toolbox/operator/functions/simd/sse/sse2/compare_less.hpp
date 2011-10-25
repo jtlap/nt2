@@ -13,25 +13,8 @@
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/reversebits.hpp>
 #include <boost/simd/toolbox/operator/functions/simd/common/details/compare_less_helper.hpp>
-#include <boost/simd/toolbox/boolean/as_logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
-
-// #ifndef NT2_COMPARE_LESS_HELPER
-// #define NT2_COMPARE_LESS_HELPER
-// ////////////////////////////////////////////////////////////////////////////////
-// // Local shared helper
-// ////////////////////////////////////////////////////////////////////////////////
-// namespace boost { namespace simd { namespace details
-// {
-//   template<class T>
-//   inline bool compare_less_helper(T mask_lt, T mask_gt)
-//   {
-//     unsigned int mlt = boost::simd::reversebits(mask_lt);
-//     unsigned int mgt = boost::simd::reversebits(mask_gt);
-//     return (mlt > mgt) && mlt; 
-//   }
-// } } }
-// #endif
 
 namespace boost { namespace simd { namespace ext
 {
