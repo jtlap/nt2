@@ -6,7 +6,7 @@
 int main()
 {
     using boost::simd::pack;
-    const pack<float> a = {}, b = {}, c = {}, d = {};
+    const pack<float> a, b, c, d;
     
     boost::proto::display_expr(
       boost::simd::optimize
