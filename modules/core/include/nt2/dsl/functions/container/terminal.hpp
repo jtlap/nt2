@@ -10,24 +10,24 @@
 #define NT2_DSL_FUNCTIONS_CONTAINER_TERMINAL_HPP_INCLUDED
 
 #include <nt2/dsl/functions/terminal.hpp>
-
-#include <boost/fusion/include/copy.hpp>
+#include <boost/fusion/include/size.hpp>
 
 namespace nt2 { namespace ext
 {
   // terminal for 0-dimensional access
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                                , (A0)(Data)
-                                , (ast_<unspecified_<A0> >)
-                                  (fusion_sequence_<nt2::_0D>)
-                                  (unspecified_<Data>)
-                                )
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::terminal_, tag::cpu_
+                               , (A0)(State)(Data)
+                               , (mpl::bool_< fusion::result_of::size<State>::type::value == 0 >)
+                               , (ast_<unspecified_<A0> >)
+                                 (fusion_sequence_<State>)
+                                 (unspecified_<Data>)
+                               )
   {
     typedef typename boost::dispatch::meta::
     semantic_of<A0>::type                                  result_type;
     
     template<class A0_>
-    result_type operator()(A0_& a0, _0D const&, Data const& ) const
+    result_type operator()(A0_& a0, _0D const&, Data const&) const
     {
        return boost::proto::value(a0);
     }
@@ -35,11 +35,11 @@ namespace nt2 { namespace ext
     
   // table terminal with a position
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                                , (A0)(S0)(State)(Data)
-                                , ((ast_<table_< unspecified_<A0>, S0 > >))
-                                  (fusion_sequence_<State>)
-                                  (unspecified_<Data>)
-                                )
+                            , (A0)(S0)(State)(Data)
+                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                              (fusion_sequence_<State>)
+                              (unspecified_<Data>)
+                            )
   {
     typedef typename boost::dispatch::meta::
     scalar_of< typename boost::dispatch::meta::
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
              >::type                                       result_type;
     
     template<class A0_>
-    result_type operator()(A0_& a0, State const& state, Data const& ) const
+    result_type operator()(A0_& a0, State const& state, Data const&) const
     {
        typedef typename boost::proto::result_of::value<A0_>::value_type value_type;
        typedef typename value_type::extent_type extent_type;
