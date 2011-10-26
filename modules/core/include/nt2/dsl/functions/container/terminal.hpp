@@ -49,9 +49,7 @@ namespace nt2 { namespace ext
     template<class A0_>
     result_type operator()(A0_& a0, State const& state, Data const&) const
     {
-       typedef typename boost::proto::result_of::value<A0_>::value_type value_type;
-       typedef typename value_type::extent_type extent_type;
-       return boost::proto::value(a0)(extent_type(state));
+       return boost::proto::value(a0)(state);
     }
   };
 
