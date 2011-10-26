@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_is_less_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_is_less_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {

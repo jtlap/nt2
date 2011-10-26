@@ -9,11 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/predicates/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,8 +20,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef boost::simd::native<int32_t,boost::simd::tag::sse_> type;

@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_INFINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_INFINITE_HPP_INCLUDED
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                                   ((simd_<arithmetic_<A0>,X>))
                                  )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0&)const
     {
       return boost::simd::True<A0>();
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
                                   ((simd_<floating_<A0>,X>))
                                  )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return is_not_equal(abs(a0),boost::simd::Inf<A0>());

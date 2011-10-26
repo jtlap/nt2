@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_ODD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_ODD_HPP_INCLUDED
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_odd.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<arithmetic_<A0>,X>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return is_nez(a0 & One<A0>());
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<floating_<A0>,X>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return is_even(a0-One<A0>());

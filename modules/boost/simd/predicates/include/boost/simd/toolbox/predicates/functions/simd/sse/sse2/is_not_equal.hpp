@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_EQUAL_TO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_EQUAL_TO_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/functions/complement.hpp>
@@ -26,11 +26,10 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_cmpneq_pd(a0,a1) };
+      result_type that = { _mm_cmpneq_pd(a0,a1) };
       return that;
     }
   };
@@ -41,26 +40,24 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_cmpneq_ps(a0,a1) };
+      result_type that = { _mm_cmpneq_ps(a0,a1) };
       return that;
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, boost::simd::tag::sse2_
                             , (A0)
-                            , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<integer_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<fundamental_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<fundamental_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = boost::simd::complement(boost::simd::eq(a0,a1));
+      result_type that = { boost::simd::complement(native_cast<A0>(boost::simd::eq(a0,a1)))};
       return that;
     }
   };
@@ -71,16 +68,15 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
-      tmp           = boost::simd::neq(tmp,Zero<type>());
+      tmp           =  native_cast<type>(boost::simd::neq(tmp,Zero<type>()));
       type tmp2     = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
       A0   that     = { tmp | tmp2 };
-      return that;
+      return native_cast<result_type>(that);
     }
   };
 } } }

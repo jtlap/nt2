@@ -49,9 +49,9 @@ NT2_TEST_CASE_TPL ( is_less_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, false);
+  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, r_t(false));
+  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, r_t(false));
+  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, r_t(false));
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( is_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -75,9 +75,9 @@ NT2_TEST_CASE_TPL ( is_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, false);
+  NT2_TEST_EQUAL(is_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, r_t(false));
+  NT2_TEST_EQUAL(is_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, r_t(false));
+  NT2_TEST_EQUAL(is_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, r_t(false));
+  NT2_TEST_EQUAL(is_less(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0]!=0, r_t(false));
+  NT2_TEST_EQUAL(is_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, r_t(false));
 } // end of test for floating_

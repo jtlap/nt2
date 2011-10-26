@@ -8,10 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is floating_
@@ -23,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return b_andnot(neq(a0,a1), b_and(boost::simd::is_nan(a0), boost::simd::is_nan(a1)));
@@ -39,7 +38,7 @@ namespace boost { namespace simd { namespace ext
 			     ((simd_<integer_<A0>,X>))
 			     )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return neq(a0,a1);

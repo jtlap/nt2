@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_LESS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_LESS_HPP_INCLUDED
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_not_less.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return b_not(lt(a0,a1));
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<integer_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return ge(a0,a1);
