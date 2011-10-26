@@ -10,6 +10,10 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_ELEMENTWISE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/generator.hpp>
+#include <boost/fusion/include/transform.hpp>
+#include <boost/fusion/include/fold.hpp>
+#include <boost/fusion/include/at_c.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -101,23 +105,6 @@ namespace nt2 { namespace container { namespace ext
     {
       sizes sz = boost::fusion::transform(e, size_transform<Domain>());
       return boost::fusion::fold(sz, boost::fusion::at_c<0>(sz), size_fold());
-    }
-  };
-
-  // element-wise size nullary
-  template<class Tag, class Domain, class Expr>
-  struct size<Tag, Domain, 0, Expr>
-  {
-    typedef typename boost::proto::result_of::
-    value<Expr&>::type                                value_type;
-
-    typedef typename meta::
-    call<tag::extent_(value_type)>::type              result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(Expr& e) const
-    {
-      return nt2::extent(boost::proto::value(e));
     }
   };
 
