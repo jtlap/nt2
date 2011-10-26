@@ -20,8 +20,9 @@
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <nt2/core/container/meta/make_block.hpp>
 #include <nt2/core/container/meta/is_container.hpp>
+#include <nt2/core/container/meta/container_of.hpp>
+#include <nt2/core/container/meta/make_block.hpp>
 #include <nt2/core/container/memory/dense_block.hpp>
 
 namespace nt2 { namespace container
@@ -52,8 +53,6 @@ namespace nt2 { namespace container
 
     typedef typename make_block<T, settings_type>::type block_type;
     
-    // TODO Move this to some impl and make _0D container be a scalar with proper
-    // interface
     BOOST_MPL_ASSERT_MSG( (!boost::is_same<_0D,extent_type>::value)
                         , INVALID_CONTAINER_CONSTRUCTION
                         , (table_container)
@@ -98,6 +97,20 @@ namespace meta
   template<class T, class S>
   struct is_container< container::table_container<T, S> > : boost::mpl::true_
   {};
+  
+  template<>
+  struct container_of<container::domain>
+  {
+    struct type
+    {
+      template<class T, class S>
+      struct apply
+      {
+        typedef container::table_container<T, S> type;
+      };
+    };
+  };
+  
 } }
 
 namespace boost { namespace dispatch { namespace meta

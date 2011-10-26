@@ -19,7 +19,7 @@ namespace nt2 { namespace container
   //============================================================================
   // Anything goes in the grammar except for low level operators and assignment
   //============================================================================
-  struct  grammar
+  struct table_grammar
         : boost::proto
           ::or_ < boost::dispatch::
                   lambda_terminal< meta::is_container<boost::proto::_value> >
