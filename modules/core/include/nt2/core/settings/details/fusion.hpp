@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 
+#include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
 #include <boost/fusion/include/next.hpp>
 #include <boost/fusion/include/equal_to.hpp>
