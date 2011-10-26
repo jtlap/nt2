@@ -9,21 +9,15 @@
 #ifndef NT2_CORE_CONTAINER_DSL_GENERATOR_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_GENERATOR_HPP_INCLUDED
 
-#include <boost/proto/select.hpp>
-#include <boost/proto/traits.hpp>
-#include <nt2/include/functor.hpp>
-#include <boost/proto/transform.hpp>
-#include <nt2/core/functions/extent.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/meta/container_of.hpp>
+#include <nt2/core/functions/extent.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
-
-#include <boost/fusion/include/transform.hpp>
-#include <boost/fusion/include/fold.hpp>
-#include <boost/fusion/include/at_c.hpp>
+#include <boost/proto/core.hpp>
+#include <boost/proto/traits.hpp>
+#include <boost/proto/transform.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/assert.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {    
@@ -189,6 +183,23 @@ namespace ext
   BOOST_PP_REPEAT_FROM_TO(1, BOOST_DISPATCH_MAX_ARITY, M0, ~)
   #undef M0
   #undef M1
+  
+  // default size, terminal case
+  template<class Tag, class Domain, class Expr>
+  struct size<Tag, Domain, 0, Expr>
+  {
+    typedef typename boost::proto::result_of::
+    value<Expr&>::type                                value_type;
+
+    typedef typename meta::
+    call<tag::extent_(value_type)>::type              result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(Expr& e) const
+    {
+      return nt2::extent(boost::proto::value(e));
+    }
+  };
   
 } } }
 
