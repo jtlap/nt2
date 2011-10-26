@@ -85,6 +85,7 @@ if(NT2_MODULES_EXTRA)
   list(REMOVE_DUPLICATES "NT2_MODULES")
 endif()
 
+# Download extra modules and set include directories
 include(nt2.download)
 foreach(module ${NT2_MODULES})
   list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
@@ -94,6 +95,17 @@ foreach(module ${NT2_MODULES})
     if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       nt2_download_module(${module})
     endif()
+    
+    include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
+    
+  endif()
+endforeach()
+
+# Load modules
+foreach(module ${NT2_MODULES})
+  list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
+  if(module_found LESS 0)
+    string(REPLACE "." "/" module_path ${module})
   
     if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       message(STATUS "[nt2] module ${module} not found")

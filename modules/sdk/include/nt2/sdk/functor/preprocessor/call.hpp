@@ -12,16 +12,16 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <nt2/sdk/functor/hierarchy.hpp>
 
-#define NT2_FUNCTOR_CALL(N) BOOST_DISPATCH_FUNCTOR_CALL(N)
-#define NT2_FUNCTOR_CALL_REPEAT(N) BOOST_DISPATCH_FUNCTOR_CALL_REPEAT(N)
+#define NT2_FUNCTOR_CALL(N) BOOST_DISPATCH_CALL(N)
+#define NT2_FUNCTOR_CALL_REPEAT(N) BOOST_DISPATCH_CALL_REPEAT(N)
 
-#define NT2_FUNCTOR_IMPLEMENTATION(Tag,Site,Types,Seq)                 \
-BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION((nt2)(ext),Tag,Site,Types,Seq)
+#define NT2_FUNCTOR_IMPLEMENTATION(Tag,Site,Types,Seq)                         \
+BOOST_DISPATCH_IMPLEMENT((nt2)(ext),Tag,Site,Types,Seq)
 
-#define NT2_FUNCTOR_IMPLEMENTATION_TPL(Tag,Site,Types,Seq)             \
-BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_TPL((nt2)(ext),Tag,Site,Types,Seq)
+#define NT2_FUNCTOR_IMPLEMENTATION_TPL(Tag,Site,Types,Seq)                     \
+BOOST_DISPATCH_IMPLEMENT_TPL((nt2)(ext),Tag,Site,Types,Seq)
 
-#define NT2_FUNCTOR_IMPLEMENTATION_IF(Tag,Site,Types,Cond,Ret,Seq)     \
-BOOST_DISPATCH_FUNCTOR_IMPLEMENTATION_IF((nt2)(ext),Tag,Site,Types,Cond,Ret,Seq)
+#define NT2_FUNCTOR_IMPLEMENTATION_IF(Tag,Site,Types,Cond,Seq)                 \
+BOOST_DISPATCH_IMPLEMENT_IF((nt2)(ext),Tag,Site,Types,Cond,Seq)
 
 #endif

@@ -19,47 +19,36 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::fast_sincospi_, tag::cpu_,(A0)(A1)(X),
                              (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
-  			                           nt2::meta::cardinal_of<A1> >
-                             ), 
-                             ( nt2::tag::fast_sincospi_
-                                          ( simd_<arithmetic_<A0>,X> 
-					  , simd_<floating_<A1>,X>
-				          , simd_<floating_<A1>,X>
-                                          )
-                             ), 
-			     ((simd_ < arithmetic_<A0>, X > ))
-			     ((simd_ < floating_<A1>, X > ))
-			     ((simd_ < floating_<A1>, X > ))
-			     )
+                                                     nt2::meta::cardinal_of<A1> >
+                             ),
+                             ((simd_ < arithmetic_<A0>, X > ))
+                             ((simd_ < floating_<A1>, X > ))
+                             ((simd_ < floating_<A1>, X > ))
+                             )
   {
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
       a1 = impl::trig_base <A1,pi_tag,fast_tag,
-	               tag::simd_type>::sincosa(tofloat(a0),a2); 
+                       tag::simd_type>::sincosa(tofloat(a0),a2); 
       return 0;
     }
   };
 
  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::fast_sincospi_, tag::cpu_,(A0)(A1)(X),
-				(boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
-			                	 nt2::meta::cardinal_of<A1>
-				        >
-				), 
-                                ( nt2::tag::fast_sincospi_
-				  ( simd_<arithmetic_<A0>,X> 
-				    , simd_<floating_<A1>,X>
-				    )
-				  ), 
-				((simd_ < arithmetic_<A0>,X > ))
-				((simd_ < floating_<A1>,X > ))
-			     )
+                                (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
+                                                 nt2::meta::cardinal_of<A1>
+                                        >
+                                ),
+                                ((simd_ < arithmetic_<A0>,X > ))
+                                ((simd_ < floating_<A1>,X > ))
+                             )
   {
     typedef A1 result_type;    
     inline result_type operator()(A0 const& a0,A1 & a2) const
     {
       return impl::trig_base <A1,pi_tag,fast_tag,
-	               tag::simd_type>::sincosa(tofloat(a0),a2); 
+                       tag::simd_type>::sincosa(tofloat(a0),a2); 
     }
   };
 
@@ -79,10 +68,10 @@ namespace nt2 { namespace ext
       result_type res;
       typedef typename  boost::fusion::result_of::value_at_c<result_type,0>::type type;
       boost::fusion::at_c<0>(res) = impl::trig_base < type,pi_tag
-	  ,  tag::simd_type, clipped_pio4
-	  >::sincosa( a0
-		      , boost::fusion::at_c<1>(res)
-		      );
+          ,  tag::simd_type, clipped_pio4
+          >::sincosa( a0
+                      , boost::fusion::at_c<1>(res)
+                      );
       return res;
     }
   };

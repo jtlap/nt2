@@ -9,13 +9,19 @@
 #ifndef BOOST_DISPATCH_ATTRIBUTES_HPP_INCLUDED
 #define BOOST_DISPATCH_ATTRIBUTES_HPP_INCLUDED
 
-#if defined(__GNUC__)
-#define BOOST_DISPATCH_FORCE_INLINE __attribute__((always_inline))
-#elif defined(_MSC_VER)
-#define BOOST_DISPATCH_FORCE_INLINE __forceinline
-#else
-#define BOOST_DISPATCH_FORCE_INLINE inline
+#include <boost/config.hpp>
+
+#ifndef BOOST_FORCEINLINE
+#  if defined(__GNUC__)
+#    define BOOST_FORCEINLINE __attribute__((always_inline))
+#  elif defined(_MSC_VER)
+#     define BOOST_FORCEINLINE __forceinline
+#  else
+#    define BOOST_FORCEINLINE inline
+#  endif
 #endif
+// deprecated name
+#define BOOST_DISPATCH_FORCE_INLINE BOOST_FORCEINLINE
 
 #if defined(__GNUC__)
 #define BOOST_DISPATCH_NO_INLINE __attribute__((noinline))

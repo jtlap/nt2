@@ -24,14 +24,11 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::almost_equal_, tag::cpu_,
-			 (A0)(A2)(X),
-			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A2> >),
-			 nt2::tag::almost_equal_(simd_<integer_<A0>,X>,
-					     simd_<integer_<A0>,X>,
-			  		     simd_<integer_<A2>,X>),
-			 ((simd_<integer_<A0>,X>))
-			 ((simd_<integer_<A0>,X>))
-			 ((simd_<integer_<A2>,X>))
+                         (A0)(A2)(X),
+                         (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A2> >),
+                         ((simd_<integer_<A0>,X>))
+                         ((simd_<integer_<A0>,X>))
+                         ((simd_<integer_<A2>,X>))
                         )
   {
     typedef A0 result_type;
@@ -47,14 +44,11 @@ namespace nt2 { namespace ext
 
 
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::almost_equal_, tag::cpu_,
-			 (A0)(A2)(X),
-			 (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A2> >),
-			 (nt2::tag::almost_equal_(simd_<floating_<A0>,X>,
-					     simd_<floating_<A0>,X>,
-			  		     simd_<integer_<A2>,X>)),
-			 ((simd_<floating_<A0>,X>))
-			 ((simd_<floating_<A0>,X>))
-			 ((simd_<integer_<A2>,X>))
+                         (A0)(A2)(X),
+                         (boost::mpl::equal_to<boost::mpl::sizeof_<A0>,boost::mpl::sizeof_<A2> >),
+                         ((simd_<floating_<A0>,X>))
+                         ((simd_<floating_<A0>,X>))
+                         ((simd_<integer_<A2>,X>))
                        )
   {
     typedef A0 result_type;
@@ -62,18 +56,18 @@ namespace nt2 { namespace ext
     {
       A2 aa2 =  nt2::abs(a2);
       return b_and(
-		   is_ord(a0, a1),
-		   b_or(
-			b_and(
-			      is_finite(a0+a1),
-			      b_and(
-				    le(a0, successor(a1, aa2)),
-				    ge(a0, predecessor(a1, aa2))
-				    )
-			      ),
-			eq(a0, a1)
-			)
-		   );
+                   is_ord(a0, a1),
+                   b_or(
+                        b_and(
+                              is_finite(a0+a1),
+                              b_and(
+                                    le(a0, successor(a1, aa2)),
+                                    ge(a0, predecessor(a1, aa2))
+                                    )
+                              ),
+                        eq(a0, a1)
+                        )
+                   );
     }
   };
 } }

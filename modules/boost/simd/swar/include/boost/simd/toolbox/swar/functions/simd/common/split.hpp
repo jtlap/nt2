@@ -30,12 +30,7 @@ namespace boost { namespace simd { namespace ext
                               (boost::mpl::and_ <
                                 boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
                                 boost::is_same<A1, typename dispatch::meta::upgrade<A0>::type>
-                              >), 
-                              (boost::simd::tag::split_(simd_<arithmetic_<A0>,X>,
-                                                        simd_<arithmetic_<A1>,X>,
-                                                        simd_<arithmetic_<A1>,X>
-                                                       )
-                              ),
+                              >),
                               ((simd_<arithmetic_<A0>,X>))
                               ((simd_<arithmetic_<A1>,X>))
                               ((simd_<arithmetic_<A1>,X>))
@@ -62,7 +57,6 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
                               (A0)(X),
                               (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >),
-                              (boost::simd::tag::split_(simd_<arithmetic_<A0>,X>)),
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {

@@ -24,20 +24,14 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A1)(A2)(X)
-				  ,( boost::mpl::and_ <
-				     boost::is_same<A0,A1>, 
-				     boost::is_same<typename dispatch::meta::as_integer<A0>::type, A2>
-				     >
-				  )
-                                , ( boost::simd::tag::frexp_
-				    ( simd_<floating_<A0>,X> 
-				      , simd_<floating_<A1>,X>
-				      , simd_<integer_<A2>,X>  
-				      )
-				    )
-			    , ((simd_< floating_<A0>, X>))
-			      ((simd_< floating_<A1>, X>))    
-			      ((simd_< integer_<A2>, X>))
+                                  ,( boost::mpl::and_ <
+                                     boost::is_same<A0,A1>, 
+                                     boost::is_same<typename dispatch::meta::as_integer<A0>::type, A2>
+                                     >
+                                  )
+                            , ((simd_< floating_<A0>, X>))
+                              ((simd_< floating_<A1>, X>))    
+                              ((simd_< integer_<A2>, X>))
                             )
   {
     typedef void result_type;
@@ -64,14 +58,9 @@ namespace boost { namespace simd { namespace ext
   };
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)(X)
-				 , ( boost::is_same<typename dispatch::meta::as_integer<A0>::type, A2>)
-                                 , ( boost::simd::tag::frexp_
-				    ( simd_<floating_<A0>,X> 
-				    , simd_<integer_<A2>,X>  
-				      )
-				    )
-				 , ((simd_< floating_<A0>, X>))
-			   	   ((simd_< integer_<A2>, X>))
+                                 , ( boost::is_same<typename dispatch::meta::as_integer<A0>::type, A2>)
+                                 , ((simd_< floating_<A0>, X>))
+                                   ((simd_< integer_<A2>, X>))
                             )
   {
     typedef A0 result_type;    

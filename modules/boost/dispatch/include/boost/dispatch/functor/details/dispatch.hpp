@@ -30,7 +30,7 @@
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
 #undef BOOST_DISPATCH_DECLTYPE
-#undef BOOST_DISPATCH_FORCE_INLINE
+#undef BOOST_FORCEINLINE
 #endif
 
 //==============================================================================
@@ -45,7 +45,7 @@
 
 #define BOOST_DISPATCH_DEFAULT_UNKNOWN_DISPATCH(z,n,t)                          \
 template<class Tag, class Site, BOOST_PP_ENUM_PARAMS(n,class A)>                \
-BOOST_DISPATCH_FORCE_INLINE                                                     \
+BOOST_FORCEINLINE                                                               \
 boost::dispatch::meta::                                                         \
 implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>       \
 dispatching ( Tag, meta::unknown_<Site>, BOOST_PP_ENUM(n,M0,~)                  \
@@ -95,7 +95,7 @@ struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
 };                                                                          \
                                                                             \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site>            \
-BOOST_DISPATCH_FORCE_INLINE                                                 \
+BOOST_FORCEINLINE                                                           \
 typename boost::mpl::                                                       \
 identity< typename                                                          \
           dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                     \

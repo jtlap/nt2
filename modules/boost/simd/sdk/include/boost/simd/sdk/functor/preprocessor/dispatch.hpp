@@ -12,22 +12,22 @@
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 
-#define BOOST_SIMD_REGISTER_DISPATCH(Tag,Site,Types,Seq)                      \
-BOOST_DISPATCH_REGISTER_DISPATCH((boost)(simd)(ext),Tag,Site,Types,Seq)
+#define BOOST_SIMD_REGISTER_DISPATCH(Tag,Site,Types,Seq)                       \
+BOOST_DISPATCH_REGISTER((boost)(simd)(ext),Tag,Site,Types,Seq)
 
-#define BOOST_SIMD_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                  \
-BOOST_DISPATCH_REGISTER_DISPATCH_TPL((boost)(simd)(ext),Tag,Site,Types,Seq)
+#define BOOST_SIMD_REGISTER_DISPATCH_TPL(Tag,Site,Types,Seq)                   \
+BOOST_DISPATCH_REGISTER_TPL((boost)(simd)(ext),Tag,Site,Types,Seq)
 
-#define BOOST_SIMD_REGISTER_DISPATCH_TO(Tag,Site,Types,Seq,Ret)               \
-BOOST_DISPATCH_REGISTER_DISPATCH_TO((boost)(simd)(ext),Tag,Site,Types,Seq,Ret)
+#define BOOST_SIMD_REGISTER_DISPATCH_TO(Tag,Site,Types,Seq,Ret)                \
+BOOST_DISPATCH_REGISTER_TO((boost)(simd)(ext),Tag,Site,Types,Seq,Ret)
 
-#define BOOST_SIMD_REGISTER_DISPATCH_TO_TPL(Tag,Site,Types,Seq,Ret)           \
-BOOST_DISPATCH_REGISTER_DISPATCH_TO_TPL((boost)(simd)(ext),Tag,Site,Types,Seq,Ret)
+#define BOOST_SIMD_REGISTER_DISPATCH_TO_TPL(Tag,Site,Types,Seq,Ret)            \
+BOOST_DISPATCH_REGISTER_TO_TPL((boost)(simd)(ext),Tag,Site,Types,Seq,Ret)
 
-#define BOOST_SIMD_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Ret,Seq)          \
-BOOST_DISPATCH_REGISTER_DISPATCH_IF((boost)(simd)(ext),Tag,Site,Types,Cond,Ret,Seq)
+#define BOOST_SIMD_REGISTER_DISPATCH_IF(Tag,Site,Types,Cond,Seq)               \
+BOOST_DISPATCH_REGISTER_IF((boost)(simd)(ext),Tag,Site,Types,Cond,Seq)
 
-#define BOOST_SIMD_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Ret,Seq)      \
-BOOST_DISPATCH_REGISTER_DISPATCH_IF_TPL((boost)(simd)(ext),Tag,Site,Types,Cond,Ret,Seq)
+#define BOOST_SIMD_REGISTER_DISPATCH_IF_TPL(Tag,Site,Types,Cond,Seq)           \
+BOOST_DISPATCH_REGISTER_IF_TPL((boost)(simd)(ext),Tag,Site,Types,Cond,Seq)
 
 #endif

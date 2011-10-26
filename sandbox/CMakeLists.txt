@@ -18,10 +18,10 @@ add_definitions(${NT2_FLAGS})
 
 set( SOURCES
 #    rec_block.cpp
-#     pack.cpp
+     pack.cpp
 #    foo.cpp
 #    table_dim.cpp
-#     transform_pass.cpp
+     transform_pass.cpp
      table.cpp
    )
 

@@ -79,14 +79,14 @@ namespace tag
 #define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
 
 #define M4(z,n,t)                                                              \
-BOOST_DISPATCH_REGISTER_DISPATCH_IF((boost)(dispatch)(meta), Func, tag::formal_\
+BOOST_DISPATCH_REGISTER_TO_IF((boost)(dispatch)(meta), Func, tag::formal_      \
                         , (Func)BOOST_PP_REPEAT(n,M2,~)                        \
                         , (any< boost::proto::is_expr<boost::mpl::_>           \
                               , BOOST_PP_ENUM_PARAMS(n,A)                      \
                              >                                                 \
                           )                                                    \
-                      , (Func(tag::ast_))                                      \
                       , BOOST_PP_REPEAT(n,M3,~)                                \
+                      , (implement<Func(tag::ast_), tag::formal_>)             \
                       )                                                        \
 /**/
 
@@ -102,7 +102,7 @@ struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
             >::type type;                                                      \
 };                                                                             \
 template<BOOST_PP_ENUM_PARAMS(n,class A)>                                      \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
+BOOST_FORCEINLINE                                                              \
 typename result<implement                                                      \
                 (BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a))                       \
                >::type                                                         \

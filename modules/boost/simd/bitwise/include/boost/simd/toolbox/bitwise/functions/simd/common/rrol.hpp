@@ -18,10 +18,6 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ( boost::simd::tag::rrol_ ( simd_<arithmetic_<A0>,X>
-                                              , simd_<integer_<A1>,X>
-                                              )
-                                  )
                                 , ((simd_<arithmetic_<A0>,X>))
                                   ((simd_<integer_<A1>,X>))
                      )

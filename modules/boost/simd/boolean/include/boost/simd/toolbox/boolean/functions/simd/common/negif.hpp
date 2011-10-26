@@ -21,10 +21,6 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (boost::simd::tag::negif_( simd_<logical_<A0>,X>
-                                              , simd_<signed_<A1>,X>
-                                              )
-                                  )
                                 , ((simd_<logical_<A0>,X>))
                                   ((simd_<signed_<A1>,X>))
                        )
@@ -32,8 +28,6 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return  boolean_select(a0,unary_minus(a1),a1); }
   };
-
-
 } } }
 
 #endif

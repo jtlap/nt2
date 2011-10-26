@@ -24,7 +24,8 @@ macro(nt2_preprocess target)
                    )
     file(REMOVE tmpfile)
                     
-    string(REGEX REPLACE "^.*#include <...> search starts here:\n (.*)\nEnd of search list\\..*$" "\\1" INCLUDE_SYSTEM_DIRECTORIES ${COMPILER_VERSION_INFO} )
+    string(REGEX REPLACE "^.*#include <...>[^\n]*((\n [^\n]+)*)\n[^ ].*$" "\\1" INCLUDE_SYSTEM_DIRECTORIES ${COMPILER_VERSION_INFO} )
+    string(REGEX REPLACE "^\n " "" INCLUDE_SYSTEM_DIRECTORIES ${INCLUDE_SYSTEM_DIRECTORIES} )
     string(REPLACE "\n " ";" INCLUDE_SYSTEM_DIRECTORIES ${INCLUDE_SYSTEM_DIRECTORIES} )
     
     foreach(INCLUDE ${INCLUDES})
