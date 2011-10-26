@@ -16,7 +16,7 @@
 namespace nt2 { namespace container
 {
   struct  domain
-        : boost::proto::domain< container::generator
+        : boost::proto::domain< container::generator_transform<domain>
                               , container::grammar
                               >
   {};

@@ -28,7 +28,7 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 
-namespace nt2 { namespace container
+namespace nt2 { namespace container { namespace ext
 {
   // helper to get static or -1
   template<class T, class Enable = void>
@@ -44,6 +44,7 @@ namespace nt2 { namespace container
   };
   
   // size deduction per argument
+  template<class Domain>
   struct function_size
   {
     template<class Sz, class Children, int N, class Enable = void>
@@ -51,12 +52,12 @@ namespace nt2 { namespace container
     {
       typedef typename boost::fusion::result_of::
       fold< typename boost::
-            remove_reference< typename size_transform::template
-                              result<size_transform( typename boost::fusion::result_of::
-                                                     at_c< Children
-                                                         , N
-                                                         >::type
-                                                   )
+            remove_reference< typename size_transform<Domain>::template
+                              result<size_transform<Domain>( typename boost::fusion::result_of::
+                                                             at_c< Children
+                                                                 , N
+                                                                 >::type
+                                                           )
                                     >::type
                             >::type
           , boost::mpl::size_t<1>
@@ -68,7 +69,7 @@ namespace nt2 { namespace container
       result_type operator()(Sz, Children children) const
       {
         return boost::fusion::fold(
-            size_transform()(boost::fusion::at_c<N>(children))
+            size_transform<Domain>()(boost::fusion::at_c<N>(children))
           , boost::mpl::size_t<1>()
           , nt2::functor<tag::multiplies_>()
           );
@@ -140,8 +141,8 @@ namespace nt2 { namespace container
   #undef M2
   #undef M3
   
-  template<class Expr, int N>
-  struct size_impl<tag::function_, N, Expr>
+  template<class Expr, class Domain, int N>
+  struct size<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::
     child_c<Expr, 0>::type                             child0;
@@ -149,24 +150,24 @@ namespace nt2 { namespace container
     typedef typename boost::fusion::result_of::
     pop_front<Expr>::type                              childN;
     
-    typedef typename size_transform::template
-    result<size_transform(child0)>::type               sz;
+    typedef typename size_transform<Domain>::template
+    result<size_transform<Domain>(child0)>::type       sz;
     
-    typedef make_size<N-1, function_size, sz, childN>  impl;
+    typedef make_size<N-1, function_size<Domain>, sz, childN>  impl;
     typedef typename impl::result_type result_type;
     
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(Expr& e) const
     {
       return impl()(
-        size_transform()(boost::proto::child_c<0>(e))
+        size_transform<Domain>()(boost::proto::child_c<0>(e))
       , boost::fusion::pop_front(e)
       );
     }
   };
   
-  template<class Expr, int N>
-  struct generator_impl<tag::function_, N, Expr>
+  template<class Expr, class Domain, int N>
+  struct value_type<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::
     child_c<Expr, 0>::type                          child0;
@@ -174,31 +175,7 @@ namespace nt2 { namespace container
     typedef typename boost::dispatch::meta::
     scalar_of< typename boost::dispatch::meta::
                semantic_of<child0>::type
-             >::type                                s0;
-
-    typedef typename meta::
-    strip<typename size_impl< boost::proto::tag::
-                              function, N, Expr
-                            >::result_type>::type   extent_type;
-
-    typedef typename boost::mpl::
-    if_< boost::is_same<extent_type, _0D>
-       , s0
-       , typename boost::dispatch::meta::
-         transfer_qualifiers< table_container< typename meta::
-                                               strip<s0>::type
-                                             , nt2::settings(extent_type)
-                                             >
-                            , s0
-                            >::type
-       >::type                                      type;       
-    typedef expression<Expr, type>                  result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(Expr& e) const
-    {
-      return result_type(e, size_transform()(e));
-    }
+             >::type                                type;
   };
   
   // assumes all nodes are terminals, incorrect
@@ -236,7 +213,8 @@ namespace nt2 { namespace container
     }
   };
   
-}    
+} }
+    
 namespace ext
 {
 #if 0
@@ -282,14 +260,14 @@ namespace ext
     typedef typename boost::proto::result_of::child_c<Expr const&, 0>::type  child0;
     typedef typename boost::fusion::result_of::pop_front<Expr const>::type   childN;
     
-    typedef typename container::function_state<Expr, State>::result_type     new_state;
+    typedef typename container::ext::function_state<Expr, State>::result_type new_state;
     typedef typename meta::call<tag::run_(child0, new_state, Data)>::type    result_type;
       
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(Expr const& expr, State const& state, Data const& data) const
     {
       return nt2::run( boost::proto::child_c<0>(expr)
-                     , container::function_state<childN, State>()
+                     , container::ext::function_state<childN, State>()
                        (boost::fusion::pop_front(expr), state)
                      , data
                      );
