@@ -8,24 +8,22 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_AND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_AND_HPP_INCLUDED
-
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_not_equal.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A1>,X>))
+                            , ((simd_<fundamental_<A0>,X>))
+                              ((simd_<fundamental_<A1>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return neq(a0, Zero<A0>()) & neq(a1, Zero<A0>());
+      return is_nez(a0) & is_nez(a1);
     }
   };
 } } }

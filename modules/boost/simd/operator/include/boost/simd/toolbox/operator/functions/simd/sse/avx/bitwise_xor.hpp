@@ -17,8 +17,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, boost::simd::tag::avx_
                             , (A0)(A1)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
+                            , ((simd_<fundamental_<A0>,boost::simd::tag::avx_>))
+                              ((simd_<fundamental_<A1>,boost::simd::tag::avx_>))
                             )
   {
     typedef A0 result_type;

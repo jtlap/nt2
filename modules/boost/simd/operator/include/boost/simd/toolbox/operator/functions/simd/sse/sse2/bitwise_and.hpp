@@ -17,12 +17,11 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::sse2_
                             , (A0)(A1)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
+                            , ((simd_<fundamental_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<fundamental_<A1>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer< A0 >::type int_type;
@@ -43,7 +42,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_and_pd(a0,a1) };
@@ -58,7 +56,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = { _mm_and_ps(a0,a1) };

@@ -19,12 +19,11 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::bitwise_xor_, tag::cpu_,
                                 (A0)(A1)(X),
                                 (boost::mpl::not_< boost::is_same<A0, A1> >),
-                                ((simd_<arithmetic_<A0>,X>))
-                                ((simd_<arithmetic_<A1>,X>))
+                                ((simd_<fundamental_<A0>,X>))
+                                ((simd_<fundamental_<A1>,X>))
                               )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return bitwise_xor(a0, simd::native_cast<A0>(a1));
