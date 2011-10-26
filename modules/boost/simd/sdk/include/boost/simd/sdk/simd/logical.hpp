@@ -30,6 +30,7 @@ namespace boost { namespace simd
   //============================================================================
   template<typename T> struct logical
   {
+    typedef T native_type; 
     typedef typename dispatch::meta::as_integer<T>::type bits;
 
     //==========================================================================
@@ -72,6 +73,8 @@ namespace boost { namespace simd
 
     BOOST_DISPATCH_FORCE_INLINE bool operator ==(logical<T> const a) const { return  value_ == a.value_; }
     BOOST_DISPATCH_FORCE_INLINE bool operator !=(logical<T> const a) const { return  value_ != a.value_; }
+    template < class U > bool operator !=(U const a) const { return  value_ != a; }
+    BOOST_DISPATCH_FORCE_INLINE bool operator ~() const { return  ~value_; }
     //   BOOST_DISPATCH_FORCE_INLINE bool operator !()                    const { return !value_; }
     //==========================================================================    
     /*!
