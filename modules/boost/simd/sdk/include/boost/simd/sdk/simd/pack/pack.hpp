@@ -68,9 +68,6 @@ namespace boost { namespace simd
                                        >::type&
                       > parent;
 
-
-    pack() {}
-
     pack(pack const& p)
     {
       *this = boost::proto::value(p);
