@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/reversebits.hpp>
 #include <boost/simd/toolbox/operator/functions/simd/common/details/compare_less_helper.hpp>
-#include <boost/simd/toolbox/boolean/as_logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
