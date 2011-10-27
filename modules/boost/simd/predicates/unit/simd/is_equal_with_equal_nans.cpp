@@ -49,14 +49,14 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_real__2_0,  BOOST_SIMD_SIMD_REAL_TY
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(-boost::simd::Zero<vT>(), -boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Half<vT>(), boost::simd::Half<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Two<vT>(), boost::simd::Two<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(-boost::simd::Zero<vT>(), -boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Half<vT>(), boost::simd::Half<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Two<vT>(), boost::simd::Two<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for floating_

@@ -49,14 +49,14 @@ NT2_TEST_CASE_TPL ( is_not_infinite_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_infinite(-boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Half<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Inf<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Minf<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Mone<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Nan<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::One<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Quarter<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Two<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(-boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Half<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Inf<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Minf<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Mone<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Nan<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::One<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Quarter<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Two<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_infinite(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for floating_

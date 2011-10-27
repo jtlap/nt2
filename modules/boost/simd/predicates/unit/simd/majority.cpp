@@ -49,14 +49,14 @@ NT2_TEST_CASE_TPL ( majority_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(majority(-boost::simd::Zero<vT>(), -boost::simd::Zero<vT>(), -boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::Half<vT>(), boost::simd::Half<vT>(), boost::simd::Half<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::Mone<vT>(), boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::One<vT>(), boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::Two<vT>(), boost::simd::Two<vT>(), boost::simd::Two<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(majority(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(majority(-boost::simd::Zero<vT>(), -boost::simd::Zero<vT>(), -boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::Half<vT>(), boost::simd::Half<vT>(), boost::simd::Half<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::Mone<vT>(), boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::One<vT>(), boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::Two<vT>(), boost::simd::Two<vT>(), boost::simd::Two<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(majority(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
 } // end of test for floating_

@@ -49,14 +49,14 @@ NT2_TEST_CASE_TPL ( is_not_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_less(-boost::simd::Zero<vT>(), -boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::Half<vT>(), boost::simd::Half<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::One<vT>(), boost::simd::One<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::Two<vT>(), boost::simd::Two<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_not_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(-boost::simd::Zero<vT>(), -boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::Half<vT>(), boost::simd::Half<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::Quarter<vT>(), boost::simd::Quarter<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::Two<vT>(), boost::simd::Two<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_not_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for floating_
