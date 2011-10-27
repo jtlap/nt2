@@ -30,7 +30,8 @@ namespace boost { namespace simd
   //============================================================================
   template<typename T> struct logical
   {
-    typedef T native_type; 
+    typedef T native_type;
+    typedef T type; 
     typedef typename dispatch::meta::as_integer<T>::type bits;
 
     //==========================================================================
@@ -67,15 +68,16 @@ namespace boost { namespace simd
      * \param v Value to turn into a logical value
      **/
     //==========================================================================    
-    BOOST_DISPATCH_FORCE_INLINE logical(T const v) 
-                              : value_( (bitwise_cast<bits>(v) & mask) != 0) 
-    {}
+//     BOOST_DISPATCH_FORCE_INLINE logical(T const v) 
+//                               : value_( (bitwise_cast<bits>(v) & mask) != 0) 
+//     {}
 
     BOOST_DISPATCH_FORCE_INLINE bool operator ==(logical<T> const a) const { return  value_ == a.value_; }
     BOOST_DISPATCH_FORCE_INLINE bool operator !=(logical<T> const a) const { return  value_ != a.value_; }
-    template < class U > bool operator !=(U const a) const { return  value_ != a; }
-    BOOST_DISPATCH_FORCE_INLINE bool operator ~() const { return  ~value_; }
-    //   BOOST_DISPATCH_FORCE_INLINE bool operator !()                    const { return !value_; }
+    //    template < class U > bool operator !=(U const a) const { return  value_ != a; }
+    BOOST_DISPATCH_FORCE_INLINE bool operator ~() const { return ~value_; }
+    BOOST_DISPATCH_FORCE_INLINE bool operator !() const { return ~value_; }
+
     //==========================================================================    
     /*!
      * Convert a logical value to a real boolean
@@ -92,10 +94,10 @@ namespace boost { namespace simd
      * \return Value of type \c T containing the state of the logical 
      **/
     //==========================================================================    
-    BOOST_DISPATCH_FORCE_INLINE operator T() const 
-    { 
-      return static_cast<T>(value_); 
-    }
+//     BOOST_DISPATCH_FORCE_INLINE operator T() const 
+//     { 
+//       return static_cast<T>(value_); 
+//     }
 
     private:
     bool  value_;

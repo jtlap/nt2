@@ -93,7 +93,7 @@ namespace boost { namespace simd
     #else
     value_type operator[](std::size_t i) const
     {
-      return (reinterpret_cast<value_type const*>(&data_)[i]) ? value_type(true) : value_type(false);
+      return (reinterpret_cast<Scalar const*>(&data_)[i]) ? true:false;
     }    
     #endif
     
