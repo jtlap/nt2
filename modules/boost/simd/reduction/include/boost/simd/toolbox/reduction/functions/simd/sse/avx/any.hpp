@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_ANY_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/any.hpp>
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -22,11 +22,12 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                        )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type sA0;
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type itype;
-      return !_mm256_testz_si256(native_cast<itype>(a0), True<itype>());
+      return !native_cast<result_type>(_mm256_testz_si256(native_cast<itype>(a0), True<itype>()));
     }
   };
 } } }  

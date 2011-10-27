@@ -50,9 +50,9 @@ NT2_TEST_CASE_TPL ( bitwise_any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::Nan<vT>()), true);
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::One<vT>()), false);
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::Nan<vT>()), sr_t(true));
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::One<vT>()), sr_t(false));
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::Zero<vT>()), sr_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitwise_any_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -76,9 +76,9 @@ NT2_TEST_CASE_TPL ( bitwise_any_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNE
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::Mone<vT>()), true);
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::One<vT>()), false);
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::Mone<vT>()), sr_t(true));
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::One<vT>()), sr_t(false));
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::Zero<vT>()), sr_t(false));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( bitwise_any_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
@@ -102,7 +102,7 @@ NT2_TEST_CASE_TPL ( bitwise_any_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYP
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::Mone<vT>()), true);
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::One<vT>()), false);
-  NT2_TEST_EQUAL(bitwise_any(boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::Mone<vT>()), sr_t(true));
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::One<vT>()), sr_t(false));
+  NT2_TEST_EQUAL(bitwise_any(boost::simd::Zero<vT>()), sr_t(false));
 } // end of test for unsigned_int_

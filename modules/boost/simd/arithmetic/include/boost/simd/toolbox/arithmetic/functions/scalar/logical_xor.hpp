@@ -21,11 +21,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using boost::simd::is_nez;
-      return (is_nez(a0)^is_nez(a1));
+      return bitwise_xor(is_nez(a0), is_nez(a1));
     }
   };
 } } }

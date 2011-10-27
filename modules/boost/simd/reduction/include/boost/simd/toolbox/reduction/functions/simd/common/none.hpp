@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_NONE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_NONE_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -21,16 +21,15 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
-    typedef bool result_type;
-
+    typedef typename meta::scalar_of<A0>::type sA0;
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       for(size_t i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)
       {
-        if(a0[i]) return 0;
+        if(a0[i]) return false;
       }
-      return 1;
+      return true;
     }
   };
 } } }

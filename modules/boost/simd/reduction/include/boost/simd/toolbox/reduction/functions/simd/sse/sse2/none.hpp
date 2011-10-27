@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_NONE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_NONE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/any.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -22,9 +22,8 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
-    typedef bool result_type;
-
+    typedef typename meta::scalar_of<A0>::type sA0;
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return !any(a0);

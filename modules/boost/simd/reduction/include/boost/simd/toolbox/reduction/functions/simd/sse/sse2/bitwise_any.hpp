@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_ANY_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/bitwise_any.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,7 +19,8 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<type16_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return _mm_movemask_epi8(a0) != 0;

@@ -9,9 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_ANY_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return !_mm_test_all_zeros(a0, True<A0>()) ;
+      return !native_cast<result_type>(_mm_test_all_zeros(a0, True<A0>()));
     }
   };
   
@@ -38,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type iA0; 
-      return bitwise_cast<result_type>(boost::simd::any(bitwise_cast<iA0>(a0)));
+      return native_cast<result_type>(boost::simd::any(bitwise_cast<iA0>(a0)));
     }
   };
 } } }  

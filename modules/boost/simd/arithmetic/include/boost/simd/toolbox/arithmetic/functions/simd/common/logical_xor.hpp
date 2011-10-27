@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
        return native_cast<result_type>(b_xor(native_cast<A0>(is_nez(a0)),
-                                         native_cast<A0>(is_nez(a1))));
+                                             native_cast<A0>(is_nez(a1))));
       }
   };
 } } }

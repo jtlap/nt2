@@ -16,29 +16,13 @@
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
 #include <boost/simd/include/functions/if_nan_else.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::arg_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
-                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
-    {
-      typedef result_type type;
-      return if_else_zero(is_ltz(a0), Pi<type>());
-    }
-  };
+// No implementation for signed integer types
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
-
-
+namespace boost { namespace simd { namespace ext
+{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::arg_, tag::cpu_,
                       (A0)(X),
                       ((simd_<floating_<A0>,X>))
