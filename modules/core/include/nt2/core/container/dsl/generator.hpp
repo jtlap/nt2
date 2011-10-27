@@ -93,7 +93,7 @@ namespace ext
                               apply< typename meta::
                                      strip<stype>::type
                                    , nt2::settings(size_type)
-                                   >
+                                   >::type
                             , stype
                             >::type
        >::type                                                       type;
@@ -115,7 +115,7 @@ namespace ext
                         value<Expr&>::type
                       > result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
       return result_type(e, size<Tag, Domain, 0, Expr>()(e));
@@ -158,7 +158,7 @@ namespace ext
 
     typedef expression<Expr, semantic>              result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
       return result_type(e, extent_type(size_transform<Domain>()(boost::proto::child_c<1>(e))));
@@ -194,7 +194,7 @@ namespace ext
     typedef typename meta::
     call<tag::extent_(value_type)>::type              result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
       return nt2::extent(boost::proto::value(e));

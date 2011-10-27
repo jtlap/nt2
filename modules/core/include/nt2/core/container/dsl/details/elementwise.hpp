@@ -100,7 +100,7 @@ namespace nt2 { namespace container { namespace ext
     typedef typename boost::fusion::result_of::
     fold<sizes, init const, size_fold>::type  result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
       sizes sz = boost::fusion::transform(e, size_transform<Domain>());
@@ -118,7 +118,7 @@ namespace nt2 { namespace container { namespace ext
     typedef typename size_transform<Domain>::template
     result<size_transform<Domain>(child0)>::type    result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
       return size_transform<Domain>()(boost::proto::child_c<0>(e));
