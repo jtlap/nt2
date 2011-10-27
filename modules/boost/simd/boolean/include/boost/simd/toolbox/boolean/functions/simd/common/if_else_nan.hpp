@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_NAN_HPP_INCLUDED
-
 #include <boost/mpl/equal_to.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
@@ -32,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1) const
     {
-      return bitwise_andnot(a1, native_cast<A1>(a0));
+      return bitwise_ornot(a1, native_cast<A1>(a0));
     }
   };
 } } }

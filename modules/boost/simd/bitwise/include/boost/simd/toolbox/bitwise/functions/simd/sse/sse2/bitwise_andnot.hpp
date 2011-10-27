@@ -17,12 +17,11 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                                  ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
+                                , ((simd_<fundamental_<A0>,boost::simd::tag::sse_>))
+                                  ((simd_<fundamental_<A1>,boost::simd::tag::sse_>))
                               )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer< A0 >::type int_type;
