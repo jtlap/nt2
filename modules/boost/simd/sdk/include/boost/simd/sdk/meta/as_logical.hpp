@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_AS_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_AS_LOGICAL_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace meta
