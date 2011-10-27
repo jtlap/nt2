@@ -14,7 +14,7 @@
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
-#include <boost/assert.hpp>
+#include <nt2/sdk/error/assert.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/details/of_size_meta.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
@@ -98,7 +98,7 @@ namespace nt2
     of_size_( of_size_ const& src ) : data_(src.data_) {}
     
     template<class Sz>
-    of_size_( Sz const& other )
+    of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
     {
       static const std::size_t other_size = boost::fusion::result_of::size<Sz>::type::value;
       static const std::size_t min_size = other_size < static_size ? other_size : static_size;
@@ -189,7 +189,7 @@ namespace nt2
     of_size_() {}
     
     template<class Sz>
-    of_size_( Sz const& other )
+    of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
     {
       details::check_all_equal(other, 1);
     }
@@ -218,7 +218,15 @@ namespace nt2
       if(*it0 != *it1)
         return false;
 
-    return it0 == a0.end() && it1 == a1.end();
+    for(; it0 != a0.end(); ++it0)
+      if(*it0 != 1)
+        return false;
+      
+    for(; it1 != a1.end(); ++it1)
+      if(*it1 != 1)
+        return false;
+        
+    return true;
   }
 }
 
