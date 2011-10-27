@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ANY_HPP_INCLUDED
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/any.hpp>
 #include <boost/simd/include/functions/bitwise_any.hpp>
 #include <boost/simd/include/functions/is_true.hpp>
@@ -23,14 +23,27 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
-    typedef bool result_type;
-
+    typedef typename meta::scalar_of<A0>::type sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return bitwise_any(is_true(a0));
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<logical_<A0>,X>))
+                            )
+  {
+    typedef typename meta::scalar_of<typename A0::type>::type sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typedef typename A0::type type; 
+      return bitwise_any(native_cast<type>(a0));
+    }
+  };
+  
 } } }
 
 #endif

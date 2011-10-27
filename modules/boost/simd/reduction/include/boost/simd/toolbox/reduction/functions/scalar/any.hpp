@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                      (scalar_ < fundamental_<A0> > )
                     )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
 	return is_nez(a0);

@@ -20,7 +20,8 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return !_mm_test_all_zeros(a0, True<A0>()) ;
@@ -32,11 +33,12 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type iA0; 
-      return boost::simd::any(bitwise_cast<iA0>(a0)) ;
+      return bitwise_cast<result_type>(boost::simd::any(bitwise_cast<iA0>(a0)));
     }
   };
 } } }  
