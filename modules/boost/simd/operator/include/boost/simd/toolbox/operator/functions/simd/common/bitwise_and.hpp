@@ -8,9 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_BITWISE_AND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_BITWISE_AND_HPP_INCLUDED
-
 #include <boost/simd/sdk/simd/native_cast.hpp>
-
 #include <boost/mpl/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 

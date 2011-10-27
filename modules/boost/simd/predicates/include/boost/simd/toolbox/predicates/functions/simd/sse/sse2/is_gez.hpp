@@ -25,9 +25,9 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
       typedef typename dispatch::meta::downgrade<itype>::type type; 
       //      typedef native<htype,boost::simd::tag::sse_> type;
-      const type tmp1 = is_gez(native_cast<type>(a0));
+      const type tmp1 = native_cast<type>(is_gez(native_cast<type>(a0)));
       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
-      return native_cast<A0>(tmp);
+      return native_cast<result_type>(tmp);
     }
   };
 } } }

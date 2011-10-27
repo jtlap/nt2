@@ -26,9 +26,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef boost::simd::native<typename boost::simd::meta::int32_t_<A0>::type,boost::simd::tag::sse_> type;
-      const type tmp1 = is_ltz(simd::native_cast<type>(a0));
+      const type tmp1 = native_cast<type>(is_ltz(simd::native_cast<type>(a0)));
       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
-      return  simd::native_cast<A0>(tmp);
+      return  simd::native_cast<result_type>(tmp);
     }
   };
 } } }

@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type stype;
-      return  native_cast<A0>
+      return  native_cast<result_type>
               ( boost::simd::gt ( native_cast<stype>(a0) - Signmask<stype>()
                         , native_cast<stype>(a1) - Signmask<stype>()
                         )

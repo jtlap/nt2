@@ -50,8 +50,8 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, boost::simd::tag::sse2_
                             , (A0)
-                            , ((simd_<fundamental_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<fundamental_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<integer_<A0>,boost::simd::tag::sse_>))
+                              ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
