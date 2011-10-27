@@ -22,19 +22,19 @@ namespace nt2
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<A0>::type               sA0;
-	static const uint_32_t N =  meta::cardinal_of<A0>::value;
-	typedef rpio2 < sA0, tag::simd_type>                  srpio2; 
-	static inline void rem_pio2(const A0& x, int_type &n, A0&xr, A0&xc)
-	{
-	  for(int i = 0; i < N; i++){
-	    sA0 y[2];
-	    int32_t n1 = srpio2::__ieee754_rem_pio2(x[i], y);
-	    at<i>(n) =  n1; 
-	    at<i>(xr) = y[0];
-	    at<i>(xc) = y[1];
-	  }
-	}
-      }; 	
+        static const uint_32_t N =  meta::cardinal_of<A0>::value;
+        typedef rpio2 < sA0, tag::simd_type>                  srpio2; 
+        static inline void rem_pio2(const A0& x, int_type &n, A0&xr, A0&xc)
+        {
+          for(int i = 0; i < N; i++){
+            sA0 y[2];
+            int32_t n1 = srpio2::__ieee754_rem_pio2(x[i], y);
+            at<i>(n) =  n1; 
+            at<i>(xr) = y[0];
+            at<i>(xc) = y[1];
+          }
+        }
+      };         
     }
   }
 }
