@@ -27,7 +27,7 @@ namespace nt2
         typedef typename A0::native_type                            A0_n;
         typedef typename int_type::native_type                     iA0_n;
         
-        static inline A0_n cos_eval(const A0_n z_n, const A0&, const A0&)
+        static inline A0_n cos_eval(const A0_n z_n)//, const A0&, const A0&)
         {
           const A0 z = { z_n };
           const A0 y = horner< NT2_HORNER_COEFF_T(stype, 7, (0x3da8ff831ad9b219ll, 
@@ -39,7 +39,7 @@ namespace nt2
                                                             0x3fe0000000000000ll) ) > (z);
           return oneminus(y*z);
         }
-        static inline A0_n sin_eval(const A0_n z_n, const A0& x, const A0&)
+        static inline A0_n sin_eval(const A0_n z_n, const A0& x)//, const A0&)
         {
           const A0 z = { z_n };
           const A0 y1 = horner< NT2_HORNER_COEFF_T(stype, 6, (0x3de5d8fd1fcf0ec1ll, 
@@ -64,14 +64,14 @@ namespace nt2
                                                               0xc189afe03cbe5a31ll))>(zz);
           return z+ z*(zz*(num/den));
         }
-        static inline A0_n tan_eval(const A0_n z_n, const A0&, const iA0_n n_n )
+        static inline A0_n tan_eval(const A0_n z_n,/* const A0&,*/ const iA0_n n_n )
         {
           const int_type n = { n_n };
           const A0 z = { z_n };
           A0 y = {base_tancot_eval(z)}; 
           return sel(is_equal(n, One<int_type>()),y,-rec(y)); 
         }
-        static inline A0_n cot_eval(const A0_n z_n, const A0&,  const iA0_n n_n )
+        static inline A0_n cot_eval(const A0_n z_n,/* const A0&,*/  const iA0_n n_n )
         {         
           const int_type n = { n_n };
           const A0 z = { z_n };

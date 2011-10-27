@@ -77,18 +77,15 @@ namespace nt2 { namespace ext
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
-    //    NT2_FUNCTOR_CALL_REPEAT(2)
     inline result_type operator()(const typename A0::native_type a0_n,
 				  const typename A0::native_type a1_n) const
     {
       const A0 a0 = {a0_n};
       const A0 a1 = {a1_n};
-      A0 z = atan(abs(a0)/abs(a1));  // case a1 > 0,  a0 > 0
-      z = sel(is_gtz(a1), z, Pi<A0>()-z);
-      z = z*signnz(a0);
+      A0 z = {impl::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(abs(a0/a1))}; 
+      //A0 z = atan(abs(a0/a1));  // case a1 > 0,  a0 > 0
+      z = sel(is_gtz(a1), z, Pi<A0>()-z)*signnz(a0);
       return sel(is_eqz(a0), sel(is_ltz(a1), Pi<A0>(), Zero<A0>()), z);
     }
   };

@@ -36,20 +36,20 @@ namespace nt2
           xc = Zero<A0>();
           return Zero<int_type>();
         }
-	
-	static inline int_type straight_reduction(const A0& x, A0& xr, A0& xc)
-	{
-	  //  std::cout << " straight reduction "  << std::endl; 
-	  // x has to be in [pi/4, pi/2]
-	  xc = Zero<A0>();
+        
+        static inline int_type straight_reduction(const A0& x, A0& xr, A0& xc)
+        {
+          //  std::cout << " straight reduction "  << std::endl; 
+          // x has to be in [pi/4, pi/2]
+          xc = Zero<A0>();
           xr = x-double_constant<A0,0x3FF921FB54400000ll>();
                     // 6.07710050630396597660e-11
           xr -= double_constant<A0,0x3DD0B4611A600000ll>();
                     // 2.02226624871116645580e-21
           xr -= double_constant<A0,0x3BA3198A2E000000ll>();
           xc = Zero<A0>();
-	  return One<int_type>();
-	}
+          return One<int_type>();
+        }
 
         static inline int_type cephes_reduction(const A0& x, A0& xr, A0& xc)
         {
@@ -69,12 +69,12 @@ namespace nt2
         {
           A0 fn = round2even(t*double_constant<A0,0x3FE45F306DC9C883ll>());
           A0 r  = t-fn*double_constant<A0,0x3FF921FB54400000ll>();
-          A0 w  = fn*double_constant<A0,0x3DD0B4611A626331ll>();	/* 1st round good to 85 bit */
+          A0 w  = fn*double_constant<A0,0x3DD0B4611A626331ll>();        /* 1st round good to 85 bit */
           A0 t2 = r;
           w  = fn*double_constant<A0,0x3DD0B4611A600000ll>();
           r  = t2-w;
           w  = fn*double_constant<A0,0x3BA3198A2E037073ll>()-((t2-r)-w);
-          t2 = r;	                        /* 2nd round will cover all possible cases */
+          t2 = r;                                /* 2nd round will cover all possible cases */
           w  = fn*double_constant<A0,0x3BA3198A2E000000ll>();
           r  = t2-w;
           w  = fn*double_constant<A0,0x397B839A252049C1ll>()-((t2-r)-w);
@@ -85,20 +85,20 @@ namespace nt2
 
         static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
         {
-	  return nt2::rem_pio2(t, xr, xc);
-// 	  int_type i;
+          return nt2::rem_pio2(t, xr, xc);
+//           int_type i;
 //           rpio2<A0, tag::simd_type>::rem_pio2(t, i, xr, xc);
 //           return i;
         }
-	
-	static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& xc)
-	{
-	  ignore_unused(t);
-	  ignore_unused(xc); 
-	  int_type i = Zero<int_type>();
-	  xr =  Nan<A0>(); 
-	  return i;
-	}
+        
+        static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& xc)
+        {
+          ignore_unused(t);
+          ignore_unused(xc); 
+          int_type i = Zero<int_type>();
+          xr =  Nan<A0>(); 
+          return i;
+        }
       };
     }
   }
