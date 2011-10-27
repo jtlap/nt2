@@ -10,10 +10,10 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_ELEMENTWISE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/sdk/error/assert.hpp>
 #include <boost/fusion/include/transform.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/at_c.hpp>
-#include <boost/assert.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
