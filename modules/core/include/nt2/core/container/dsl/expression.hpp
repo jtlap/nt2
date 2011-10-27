@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 
-#include <boost/assert.hpp>
 #include <boost/proto/extends.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/extent.hpp>
