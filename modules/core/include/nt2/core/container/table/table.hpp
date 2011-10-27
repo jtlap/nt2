@@ -11,7 +11,6 @@
 
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/category.hpp>
-#include <boost/dispatch/dsl/semantic_of.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/container/table/table_container.hpp>
 
