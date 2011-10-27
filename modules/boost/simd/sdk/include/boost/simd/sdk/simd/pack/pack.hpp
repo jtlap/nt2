@@ -68,14 +68,14 @@ namespace boost { namespace simd
                                        >::type&
                       > parent;
 
+    pack() {}
+
     pack(pack const& p)
     {
       *this = boost::proto::value(p);
     }
 
-    template<class Expr>
-    pack(Expr const& expr = Expr()) : parent(expr)
-    {}
+    template<class Expr> pack(Expr const& expr) : parent(expr) {}
 
     //==========================================================================
     /*
