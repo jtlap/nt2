@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type type;
-      return simd::native_cast<A0>(is_gez(simd::native_cast<type>(a0)));
+      return simd::native_cast<result_type>(is_gez(simd::native_cast<type>(a0)));
     }
   };
 } } }

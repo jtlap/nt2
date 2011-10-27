@@ -12,8 +12,9 @@
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/boolean_select.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/functions/if_else_zero.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -28,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return  select(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
+      return  boolean_select(is_ltz(a1),-a0,b_and(is_nez(a1), a0));
     }
   };
 
@@ -64,8 +65,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 tmp = is_nez(a1)&a0;
-      tmp = select(is_ltz(a1), -a0, tmp);
+      A0 tmp = if_else_zero(is_nez(a1), a0); 
+      tmp = boolean_select(is_ltz(a1), -a0, tmp);
       tmp = seladd(is_nan(a1), tmp, a1); //TODO signed Nan ?
         return tmp;
     }

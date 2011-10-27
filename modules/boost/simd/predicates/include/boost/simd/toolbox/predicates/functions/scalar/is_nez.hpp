@@ -19,13 +19,13 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nez_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_<fundamental_<A0> >)
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0 != Zero<A0>();
+      return a0 != false; //Zero<A0>();
     }
   };
 } } }
