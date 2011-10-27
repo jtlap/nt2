@@ -9,19 +9,18 @@
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_AS_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_AS_LOGICAL_HPP_INCLUDED
 
-#include <boost/dispatch/meta/factory_of.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
-  template<class T> 
-  struct  as_logical
-        : mpl::apply< typename dispatch::meta::factory_of<T>::type
-                    , logical< typename dispatch::meta::primitive_of<T>::type >
-                    >        
-  {};
+  template<class T> struct as_logical               { typedef logical<T> type; };
+  template<class T> struct as_logical< logical<T> > { typedef logical<T> type; };
   
+  template<class T, class X> 
+  struct  as_logical< native<T,X> >  
+  {
+    typedef native<typename as_logical<T>::type,X> type;
+  };
 } } }
 
 #endif
