@@ -33,7 +33,8 @@
 #include <cstdlib>
 #include <typeinfo>
 #include <iostream>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/is_reference.hpp>
 
 namespace nt2 {  namespace details
 {
