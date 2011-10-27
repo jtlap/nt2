@@ -12,6 +12,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/meta/container_of.hpp>
 #include <nt2/core/functions/extent.hpp>
+#include <nt2/core/settings/size.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
@@ -141,28 +142,6 @@ namespace ext
       return boost::proto::child_c<0>(e);
     }
 #endif
-  };
-  
-  // assign generator
-  template<class Domain, class Expr>
-  struct generator<boost::proto::tag::assign, Domain, 2, Expr>
-  {
-    typedef typename boost::proto::result_of::
-    child_c<Expr&, 0>::type                         child0;
-    
-    typedef typename boost::dispatch::meta::
-    semantic_of<child0>::type                       semantic;
-    
-    typedef typename meta::settings_of<semantic>::type                settings_type;
-    typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
-
-    typedef expression<Expr, semantic>              result_type;
-
-    BOOST_FORCEINLINE
-    result_type operator()(Expr& e) const
-    {
-      return result_type(e, extent_type(size_transform<Domain>()(boost::proto::child_c<1>(e))));
-    }
   };
   
   /* default value_type, calls meta::call on the scalar equivalent,
