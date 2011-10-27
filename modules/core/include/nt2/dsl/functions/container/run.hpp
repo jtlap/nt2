@@ -17,7 +17,6 @@
 #include <nt2/core/container/meta/runner.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/meta/loop_nest.hpp>
-#include <nt2/core/container/meta/lhs_terminal.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -36,8 +35,8 @@ namespace nt2 { namespace ext
                               ))
                             )
   {
-    typedef typename meta::lhs_terminal::template
-    result<meta::lhs_terminal(A0 const&)>::type             result_type;
+    typedef typename boost::proto::result_of::
+    child_c<A0 const&, 0>::type                             result_type;
 
     typedef typename meta::
     strip< typename meta::
@@ -59,7 +58,7 @@ namespace nt2 { namespace ext
       //==========================================================================
       // Once done, return the newly computed result
       //==========================================================================
-      return meta::lhs_terminal()(a0);
+      return boost::proto::child_c<0>(a0);
     }
   };
 
