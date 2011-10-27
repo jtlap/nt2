@@ -97,10 +97,19 @@ namespace nt2
    * \endcode
    */
   //////////////////////////////////////////////////////////////////////////////
-  template<typename T> inline std::string type_id(const T& expr = *((T*)0))
+  template<typename T> inline std::string type_id()
   {
-    boost::dispatch::ignore_unused(expr);
-    return details::demangle(typeid(T).name());
+    std::string s = details::demangle(typeid(T).name());
+    if(boost::is_const<T>::value)
+      s += " const";
+    if(boost::is_reference<T>::value)
+      s += "&";
+    return s;
+  }
+  
+  template<typename T> inline std::string type_id(const T&)
+  {
+    return type_id<T>();
   }
   
   //////////////////////////////////////////////////////////////////////////////
@@ -128,9 +137,9 @@ namespace nt2
    * \endcode
    */
   //////////////////////////////////////////////////////////////////////////////
-  template<typename T> inline void display_type(const T& expr = *((T*)0))
+  template<typename T> inline void display_type()
   {
-    std::string s = type_id<T>(expr);
+    std::string s = type_id<T>();
     
     size_t depth = 0;
     bool prevspace = true;
@@ -172,6 +181,11 @@ namespace nt2
       }
     }
     std::cout << std::endl;
+  }
+  
+  template<typename T> inline void display_type(T const&)
+  {
+    return display_type<T>();
   }
 }
 
