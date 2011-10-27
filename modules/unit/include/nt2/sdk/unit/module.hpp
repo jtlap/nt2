@@ -56,7 +56,7 @@
 #define NT2_UNIT_MAIN main
 #endif
 
-#define NT2_UNIT_PREFIX BOOST_PP_CAT(test_, NT2_UNIT_MAIN)
+#define NT2_UNIT_PREFIX BOOST_PP_CAT(BOOST_PP_CAT(test_, NT2_UNIT_MAIN), _)
 
 //==============================================================================
 // Embedded main for testing purpose
