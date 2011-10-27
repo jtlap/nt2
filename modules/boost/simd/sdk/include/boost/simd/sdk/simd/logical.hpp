@@ -102,9 +102,9 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // logical_ is the hierarchy of logical<T> and goes straight to fundamental
   //============================================================================
-  template<class T> struct logical_ : fundamental_<T>
+  template<class T> struct logical_ : dispatch::meta::fundamental_<T>
   {
-    typedef fundamental_<T> parent;
+    typedef dispatch::meta::fundamental_<T> parent;
   };
 } } }
 
