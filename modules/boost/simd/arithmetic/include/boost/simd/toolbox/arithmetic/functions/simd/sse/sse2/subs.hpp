@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SUBS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SUBS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/arithmetic/functions/simd/common/subs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -22,9 +21,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<uint16_<A0>,boost::simd::tag::sse_>))((simd_<uint16_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<A0>(_mm_subs_epu16(a0, a1)); 
@@ -40,9 +37,7 @@ namespace boost { namespace simd { namespace ext
 			     ((simd_<int16_<A0>,boost::simd::tag::sse_>))
 			     )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<A0>(_mm_subs_epi16(a0, a1)); 
@@ -57,9 +52,7 @@ namespace boost { namespace simd { namespace ext
 			      , ((simd_<uint8_<A0>,boost::simd::tag::sse_>))((simd_<uint8_<A0>,boost::simd::tag::sse_>))
 			      )
   {
-
     typedef A0 result_type;
-    
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
 	return simd::native_cast<A0>(_mm_subs_epu8(a0, a1)); 
@@ -76,7 +69,6 @@ namespace boost { namespace simd { namespace ext
 			      )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return simd::native_cast<A0>(_mm_subs_epi8(a0, a1)); 

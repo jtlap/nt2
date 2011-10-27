@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MULS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MULS_HPP_INCLUDED
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/adds.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/bitofsign.hpp>
 #include <boost/simd/include/functions/saturate.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 
@@ -48,7 +50,6 @@ namespace boost { namespace simd { namespace ext
   {
 
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
@@ -69,9 +70,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< uint64_<A0> >)(scalar_< uint64_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (a1 == 0 || a0 == 0) return Zero<A0>(); 
@@ -127,14 +126,13 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< int64_<A0> >)(scalar_< int64_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      typedef typename meta::as_logical<A0>::type bA0; 
       if (a1 == 0 || a0 == 0) return Zero<A0>();
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type untype;
-      A0 sign =  (is_ltz(a0)^is_ltz(a1));
+      A0 sign =  bitofsign(a0)^bitofsign(a1);
       untype aa0 = boost::simd::abs(a0);
       untype aa1 = boost::simd::abs(a1);
       if (aa1 >= aa0)

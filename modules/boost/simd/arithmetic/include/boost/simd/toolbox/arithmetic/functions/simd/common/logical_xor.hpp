@@ -18,8 +18,12 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return b_xor(is_nez(a0), is_nez(a1)); }
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+      {
+       return native_cast<result_type>(b_xor(native_cast<A0>(is_nez(a0)),
+                                         native_cast<A0>(is_nez(a1))));
+      }
   };
 } } }
 

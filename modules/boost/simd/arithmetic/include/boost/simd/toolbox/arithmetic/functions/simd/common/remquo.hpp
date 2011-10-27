@@ -9,12 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REMQUO_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/toint.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/if_nan_else.hpp>
 #include <boost/mpl/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -87,7 +87,8 @@ namespace boost { namespace simd { namespace ext
     {
       a2 = round2even(a0/a1); 
       a3 = toint(a2);
-      a2 = b_or(is_invalid(a0), b_or(is_eqz(a1), a0-a2*a1)); 
+      a2 =  if_nan_else(b_or(is_invalid(a0), is_eqz(a1)), a0-a2*a1);
+//a2 = b_or(is_invalid(a0), b_or(is_eqz(a1), a0-a2*a1)); 
  
     }
   };

@@ -24,7 +24,7 @@
 // {
 //   template<class X, class Dummy>
 //   struct call<boost::simd::tag::muls_(tag::simd_<tag::integer_, X> ,
-// 			 boost::simd::tag::simd_<tag::integer_, X>),
+//                       boost::simd::tag::simd_<tag::integer_, X>),
 //               boost::simd::tag::cpu_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
@@ -52,9 +52,9 @@
 // //       std::cout << "aa1  " << aa1 << std::endl;
 // //       std::cout << "lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0), aa1)  " << lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0), aa1)<< std::endl;
 //       return select( lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), ga), la),
-// 		  select(sign, Valmin<A0>(), Valmax<A0>()),
-// 		  a0*a1
-// 		 ); 
+//                 select(sign, Valmin<A0>(), Valmax<A0>()),
+//                 a0*a1
+//                ); 
 //     }
 //   };
 // } } }
@@ -69,7 +69,7 @@
 // {
 //   template<class X, class Dummy>
 //   struct call<boost::simd::tag::muls_(tag::simd_<tag::unsigned_, X> ,
-// 			 boost::simd::tag::simd_<tag::unsigned_, X>),
+//                       boost::simd::tag::simd_<tag::unsigned_, X>),
 //               boost::simd::tag::cpu_, Dummy> : callable
 //   {
 //     template<class Sig> struct result;
@@ -78,9 +78,9 @@
 //     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
 //     {
 //       return select( lt(rdivide(Valmax<A0>(), a0), a1),
-// 		  Valmax<A0>(),
-// 		  a0*a1
-// 		 ); 
+//                 Valmax<A0>(),
+//                 a0*a1
+//                ); 
 //     }
 //   };
 // } } }

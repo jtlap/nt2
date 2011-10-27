@@ -82,7 +82,7 @@ namespace boost { namespace simd { namespace ext
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
       return simd::native_cast<A0>(group(divround(a0l, a1l),
-					 divround(a0h, a1h)));
+                                    divround(a0h, a1h)));
     }
   };
 } } }

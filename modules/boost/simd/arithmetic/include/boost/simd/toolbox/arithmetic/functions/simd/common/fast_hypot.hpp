@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/arithmetic/functions/fast_hypot.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/boolean_select.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/is_greater_equal.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
@@ -56,13 +56,14 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      typedef typename meta::as_logical<A0>::type bA0;
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
-      A0 gtyx = gt(y,x);
-      A0 xx = select(gtyx,y,x);
-      A0 yy = select(gtyx,x,y);
+      bA0 gtyx = gt(y,x);
+      A0 xx = boolean_select(gtyx,y,x);
+      A0 yy = boolean_select(gtyx,x,y);
       A0 r =  xx*sqrt(One<A0>()+sqr(yy/xx));
-      return select(ge(xx*Eps<A0>(), yy), xx, r);
+      return boolean_select(ge(xx*Eps<A0>(), yy), xx, r);
    }
   };
 } } }

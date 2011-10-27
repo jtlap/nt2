@@ -8,15 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REM_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/rem.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/selsub.hpp>
-#include <boost/simd/include/functions/idivfix.hpp>
+#include <boost/simd/include/functions/divfix.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
+#include <boost/simd/include/functions/if_nan_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,7 +25,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return selsub(is_nez(a1), a0,idivfix(a0,a1)*a1);
@@ -39,10 +37,12 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(is_invalid(a1), selsub(is_nez(a1), a0, tofloat(idivfix(a0,a1))*a1));
+      //      return b_or(is_invalid(a1), selsub(is_nez(a1), a0, tofloat(idivfix(a0,a1))*a1));
+      return if_nan_else(is_invalid(a1),
+                      selsub(is_nez(a1), a0, divfix(a0,a1)*a1));
+ 
     }
   };
 } } }

@@ -31,6 +31,7 @@ namespace boost { namespace simd
     #else
     typedef typename meta::as_simd<Scalar, Extension>::type native_type;
     #endif
+    typedef native<Scalar, Extension>                               type; 
     
     typedef logical<Scalar>                                 value_type;
     typedef logical<Scalar>                                 reference;

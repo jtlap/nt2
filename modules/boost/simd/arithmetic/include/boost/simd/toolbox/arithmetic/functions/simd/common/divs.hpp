@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVS_HPP_INCLUDED
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/arithmetic/functions/divs.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
@@ -17,7 +17,8 @@
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/divides.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else_zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -47,11 +48,12 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      const A0 iseqza1 = is_eqz(a1);
-      const A0 aa1 = a1+(iseqza1&One<A0>());
+      typedef typename meta::as_logical<A0>::type bA0;
+      const bA0 iseqza1 = is_eqz(a1);
+      const A0 aa1 = a1+if_else_zero(iseqza1, One<A0>()); 
       const A0 r1 = a0/aa1; //a1!= 0
-      const A0 r2 = select(is_eqz(a0),Zero<A0>(),Valmax<A0>());
-      return select(iseqza1, r2, r1);
+      const A0 r2 = boolean_select(is_eqz(a0),Zero<A0>(),Valmax<A0>());
+      return boolean_select(iseqza1, r2, r1);
     }
   };
 
@@ -64,13 +66,14 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      const A0 iseqza1 = is_eqz(a1);
-      const A0 c = b_and(eq(a0,Valmin<A0>()),eq(a1, Mone<A0>()));
-      const A0 aa1 = a1+(iseqza1&One<A0>());
-      const A0 r1 = (a0-c)/aa1; //a1!= 0
-      const A0 v2 = select(is_ltz(a0),Valmin<A0>(),Valmax<A0>());
-      const A0 r2 = select(is_eqz(a0),Zero<A0>(),v2); //a1 == 0
-      return select(iseqza1, r2, r1);
+      typedef typename meta::as_logical<A0>::type bA0;
+      const bA0 iseqza1 = is_eqz(a1);
+      const A0 c = boolean_select(b_and(eq(a0,Valmin<A0>()),eq(a1, Mone<A0>())), One<A0>(), Zero<A0>());
+      const A0 aa1 = a1+if_else_zero(iseqza1, One<A0>()); 
+      const A0 r1 = (a0+c)/aa1; //a1!= 0
+      const A0 v2 = boolean_select(is_ltz(a0),Valmin<A0>(),Valmax<A0>());
+      const A0 r2 = boolean_select(is_eqz(a0),Zero<A0>(),v2); //a1 == 0
+      return boolean_select(iseqza1, r2, r1);
     }
   };
 } } }

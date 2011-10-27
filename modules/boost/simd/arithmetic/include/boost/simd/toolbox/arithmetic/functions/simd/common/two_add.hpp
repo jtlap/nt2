@@ -12,7 +12,7 @@
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/boolean_select.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     {
       r0 = a+b;
       AA0 z = (r0-a);
-      r1 =  select(is_inf(r0), Zero<R1>(), (a-(r0-z))+(b-z));
+      r1 =  boolean_select(is_inf(r0), Zero<R1>(), (a-(r0-z))+(b-z));
     }
   };
 } } }

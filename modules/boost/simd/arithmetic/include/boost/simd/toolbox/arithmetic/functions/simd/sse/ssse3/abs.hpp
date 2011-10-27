@@ -68,9 +68,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int16_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     { A0 that = {_mm_abs_epi16(a0) };return that; }
   };
@@ -87,9 +85,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     { return b_notand(boost::simd::Mzero<A0>(),a0); }
   };
@@ -106,9 +102,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
        typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
@@ -131,9 +125,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<unsigned_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     { return a0; }
   };

@@ -14,6 +14,8 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/if_nan_else.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -28,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
-      return b_and(Pi<type>(), is_ltz(a0));
+      return if_else_zero(is_ltz(a0), Pi<type>());
     }
   };
 
@@ -46,7 +48,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 Nan -> Nan
-      return is_nan(a0)+b_and(Pi<A0>(), is_ltz(a0));
+      return if_nan_else(is_nan(a0), if_else_zero(is_ltz(a0), Pi<result_type>())); 
+      //      return is_nan(a0)+b_and(Pi<A0>(), is_ltz(a0));
     }
   };
 } } }

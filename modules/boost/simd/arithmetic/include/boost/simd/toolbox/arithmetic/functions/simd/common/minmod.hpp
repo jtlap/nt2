@@ -17,6 +17,8 @@
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/if_nan_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -33,7 +35,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_and(boost::simd::min(a0, a1), is_gez(b_xor(a0, a1)));
+      return if_else_zero(is_gez(b_xor(a0, a1)),boost::simd::min(a0, a1)); 
+      //      return b_and(boost::simd::min(a0, a1), is_gez(b_xor(a0, a1)));
     }
   };
 } } }
@@ -72,12 +75,14 @@ namespace boost { namespace simd { namespace ext
   {
 
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(b_or(is_nan(a0), is_nan(a1)),
-               b_and(boost::simd::min(a0,a1), is_gez(a0*a1))
-             );
+//       return b_or(b_or(is_nan(a0), is_nan(a1)),
+//                b_and(boost::simd::min(a0,a1), is_gez(a0*a1))
+//              );
+      return if_nan_else(b_or(is_nan(a0), is_nan(a1)), 
+                if_else_zero(is_gez(b_xor(a0, a1)),boost::simd::min(a0, a1))
+                ); 
     }
   };
 } } }

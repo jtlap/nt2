@@ -8,17 +8,16 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TWO_PROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TWO_PROD_HPP_INCLUDED
-
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/boolean_select.hpp>
 #include <boost/simd/include/functions/two_split.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/toolbox/arithmetic/functions/two_prod.hpp>
-
 #include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -44,12 +43,13 @@ namespace boost { namespace simd { namespace ext
     private:
     inline void eval(A0 const& a, A0 const& b, A0& r0, A0& r1)const
     {
+      typedef typename meta::as_logical<A0>::type bA0;
       r0 = a*b;
-      A0 a1, a2, b1, b2, isinf; 
-      isinf = b_and(b_or(is_inf(b), is_inf(a)), is_inf(r0)); 
+      A0 a1, a2, b1, b2; 
+      bA0 isinf = b_and(b_or(is_inf(b), is_inf(a)), is_inf(r0)); 
       boost::fusion::tie(a1, a2) = two_split(a);
       boost::fusion::tie(b1, b2) = two_split(b);
-      r1 = select(isinf, Zero<A0>(), a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
+      r1 = boolean_select(isinf, Zero<A0>(), a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
     }
   };
 } } }

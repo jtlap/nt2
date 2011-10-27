@@ -15,9 +15,10 @@
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/is_less_equal.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/boolean_select.hpp>
 #include <boost/simd/include/functions/adds.hpp>
 #include <boost/simd/include/functions/any.hpp>
+#include <boost/simd/include/functions/if_else_zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/one.hpp>
@@ -53,13 +54,11 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<uint_<A0>,X>))((simd_<uint_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0ma1 = a0-a1;
-      return b_and(a0ma1, le(a0ma1, a0)); 
+      return if_else_zero(le(a0ma1, a0), a0ma1); 
       //      return seladd(gt(a0, a1), Zero<A0>(), a0-a1); 
     }
   };
@@ -76,14 +75,12 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int_<A0>,X>))((simd_<int_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 res =  adds(a0, -a1); 
       if (boost::simd::any(eq(a1, Valmin<A0>())))
-        return select(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
+        return boolean_select(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
       else
         return res; 
     }

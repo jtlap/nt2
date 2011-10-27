@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace ext
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
       return simd::native_cast<A0>(group(idivceil(a0l, a1l),
-					 idivceil(a0h, a1h)));
+                                    idivceil(a0h, a1h)));
     }
   };
 } } }
