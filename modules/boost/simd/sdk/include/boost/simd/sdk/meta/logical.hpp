@@ -9,28 +9,28 @@
 #ifndef BOOST_SIMD_META_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_META_LOGICAL_HPP_INCLUDED
 
-//////////////////////////////////////////////////////////////////////////////
-// logical<T>::type is bool if T is anything but SIMD type in which case it is the SIMD type itself
-// The rationale is to provide an easy way to write common code for SIMD and scalar in various
-// situations of selection or test.
-//////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/meta/is_scalar.hpp>
+// //////////////////////////////////////////////////////////////////////////////
+// // logical<T>::type is bool if T is anything but SIMD type in which case it is the SIMD type itself
+// // The rationale is to provide an easy way to write common code for SIMD and scalar in various
+// // situations of selection or test.
+// //////////////////////////////////////////////////////////////////////////////
+// #include <boost/dispatch/meta/is_scalar.hpp>
 
-namespace boost { namespace simd
-{
-  namespace details
-  {
-    template<class T,class C> struct logical_impl  { typedef T type; };
-    template<class T >        struct logical_impl < T,boost::mpl::true_ > { typedef bool type; }; 
-  }
-  namespace meta
-  {
-    template<class T>
-    struct  logical
-      : details::logical_impl < typename boost::dispatch::meta::strip<T>::type
-                              , typename boost::dispatch::meta::is_scalar<T>::type
-                              > {};
-  }
-} }
+// namespace boost { namespace simd
+// {
+//   namespace details
+//   {
+//     template<class T,class C> struct logical_impl  { typedef T type; };
+//     template<class T >        struct logical_impl < T,boost::mpl::true_ > { typedef bool type; }; 
+//   }
+//   namespace meta
+//   {
+//     template<class T>
+//     struct  logical
+//       : details::logical_impl < typename boost::dispatch::meta::strip<T>::type
+//                               , typename boost::dispatch::meta::is_scalar<T>::type
+//                               > {};
+//   }
+// } }
 
 #endif

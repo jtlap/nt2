@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
+#include <boost/simd/toolbox/boolean/include/functions/typed_bool.hpp>
 
 //==============================================================================
 // Do something only if in SIMD mode
@@ -63,14 +63,14 @@ namespace boost { namespace simd
     BOOST_DISPATCH_FORCE_INLINE 
     native& operator=(native<Scalar,Extension> const& s)
     {
-      data_ = is_nez(s);
+      data_ = typed_bool(s);
       return *this;
     }
     
     BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& data)
     {
       native<Scalar,Extension> s = { data };
-      data_ = is_nez(s);
+      data_ = typed_bool(s);
       return *this;
     }
 

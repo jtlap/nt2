@@ -19,8 +19,8 @@
  * \defgroup boost_simd_boolean_typed_bool typed_bool
  *
  * \par Description
- * return a SIMD boolean value arithmetically compatible
- * with the template type parameter where all bits are set if
+ * return a "SIMD boolean" value arithmetically compatible
+ * with the input type parameter where all bits are set if
  * a0 is not zero else no bit is set is a0 is zero.
  *
  * \par Header file
@@ -34,8 +34,8 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class T,class A1>
- *     T typed_bool < T > (const A0 & a0);
+ *   template <class A1>
+ *     T typed_bool(const A0 & a0);
  * }
  * \endcode
  *
@@ -43,13 +43,9 @@
  * \param T template parameter of typed_bool
  * 
  * \return a value of the type of the template parameter
- *  
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
  *  
 **/
-
 
 namespace boost { namespace simd { namespace tag
   {         
@@ -59,14 +55,7 @@ namespace boost { namespace simd { namespace tag
     **/
     struct typed_bool_ {};
   }
-  
-  template<class T, class A0> inline
-  typename boost::dispatch::meta::call<tag::typed_bool_(A0, boost::dispatch::meta::as_<T>)>::type
-  typed_bool(A0 const& a0)
-  {
-    typename boost::dispatch::make_functor<tag::typed_bool_, A0>::type callee;
-    return callee(a0, boost::dispatch::meta::as_<T>() );
-  }
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::typed_bool_, typed_bool, 1)
 } }
  
 #endif

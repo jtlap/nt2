@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/compare_equal.hpp>
-#include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -11,20 +11,17 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::typed_bool_, tag::cpu_
-                            , (A1)(X)
-                            , ((simd_< unspecified_<A1>, X >))
-                              ((target_< simd_< unspecified_<A1>, X > >))
-                            )
-  {
-    typedef typename A1::type result_type;
-
-    inline result_type operator()(const A1& a0, const A1&) const
-    {
-      BOOST_ASSERT_MSG(is_simd_logical(a0), "Some entries are not legal SIMD True or False"); 
-      return a0; 
-    }
-  };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::typed_bool_, tag::cpu_
+//                             , (A0)(X)
+//                             , ((simd_< arithmetic_<A1>, X >))
+//                             )
+//   {
+//     typedef typename A0 result_type;
+//     inline result_type operator()(const A0& a0) const
+//     {
+//       TODO 
+//     }
+//   };
 } } }
 
 #endif

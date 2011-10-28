@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_SIMD_LOGICAL_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/bitwise_all.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/all.hpp>
+#include <boost/simd/include/functions/typed_bool.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,9 +23,19 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) {
       typedef typename boost::dispatch::meta::as_integer<A0>::type iA0; 
-      return bitwise_all(eq(bitwise_cast<iA0>(a0), genmask(bitwise_cast<iA0>(a0))));
+      return native_cast<result_type>(all(eq(native_cast<iA0>(a0), typed_bool(native_cast<iA0>(a0)))));
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_simd_logical_, tag::cpu_,(A0)(X)
+                            , ((simd_<logical_<A0>,X>))
+                            )
+  {
+    typedef typename meta::scalar_of<A0>::type sA0;
+    typedef typename meta::as_logical<sA0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) {
+      return logical<sA0>(true); 
+    }
+  };  
 } } }
 
 #endif

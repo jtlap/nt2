@@ -15,8 +15,7 @@
 /// 
 #include <boost/simd/toolbox/reduction/include/functions/bitwise_all.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -45,14 +44,15 @@ NT2_TEST_CASE_TPL ( bitwise_all_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<bitwise_all_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef boost::simd::logical<T> vsr_t; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::Nan<vT>()), true);
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::One<vT>()), false);
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::Nan<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::One<vT>()), vsr_t(false));
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::Zero<vT>()), vsr_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( bitwise_all_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -71,15 +71,16 @@ NT2_TEST_CASE_TPL ( bitwise_all_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNE
   typedef typename boost::dispatch::meta::call<bitwise_all_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef boost::simd::logical<T> vsr_t; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
   
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::Mone<vT>()), true);
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::One<vT>()), false);
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::Mone<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::One<vT>()), vsr_t(false));
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::Zero<vT>()), vsr_t(false));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( bitwise_all_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
@@ -98,12 +99,13 @@ NT2_TEST_CASE_TPL ( bitwise_all_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYP
   typedef typename boost::dispatch::meta::call<bitwise_all_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef boost::simd::logical<T> vsr_t; 
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::Mone<vT>()), true);
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::One<vT>()), false);
-  NT2_TEST_EQUAL(bitwise_all(boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::Mone<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::One<vT>()), vsr_t(false));
+  NT2_TEST_EQUAL(bitwise_all(boost::simd::Zero<vT>()), vsr_t(false));
 } // end of test for unsigned_int_

@@ -11,7 +11,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/typed_bool.hpp>
 #include <boost/simd/include/functions/firstbitset.hpp>
 #include <boost/simd/include/functions/select.hpp>
 #include <boost/simd/include/functions/shli.hpp>
@@ -38,9 +38,9 @@ namespace boost { namespace simd { namespace ext
       typedef typename A0::extension_type ext;
       typedef simd::native<boost::uint64_t,ext> ltype;
       rtype v = firstbitset(a0);
-      return b_and(is_nez(v), b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
-                   ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
-              ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))+One<rtype>());
+      return b_and(typed_bool(v), b_or(b_or((-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
+                   ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
+              ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))+One<rtype>());
     }
   };
 } } }
@@ -87,10 +87,10 @@ namespace boost { namespace simd { namespace ext
       typedef typename A0::extension_type ext;
       typedef simd::native<boost::uint64_t,ext> ltype;
       rtype v = firstbitset(a0);
-      return  b_and(is_nez(v), b_or(b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
-                       ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
-                  ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))
-                            ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))+One<rtype>());
+      return  b_and(typed_bool(v), b_or(b_or(b_or((-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
+                       ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
+                  ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))
+                            ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))+One<rtype>());
     }
   };
 } } }
@@ -115,11 +115,11 @@ namespace boost { namespace simd { namespace ext
       typedef typename A0::extension_type ext;
       typedef simd::native<boost::uint64_t, ext> ltype;
       rtype v = firstbitset(a0);
-      return  b_and(is_nez(v), b_or(b_or(b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
-                          ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
-                       ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))
-                  ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))
-               ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xFFFF0000FFFF0000ll>()))), 4))+One<rtype>());
+      return  b_and(typed_bool(v), b_or(b_or(b_or(b_or((-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
+                          ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
+                       ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))
+                  ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))
+               ,  shli(-( typed_bool(b_and(v, boost::simd::integral_constant<ltype,0xFFFF0000FFFF0000ll>()))), 4))+One<rtype>());
     }
   };
 } } }
