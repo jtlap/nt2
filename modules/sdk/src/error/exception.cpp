@@ -17,9 +17,14 @@ namespace nt2
 {
   const char* exception::what() const throw()
   {
-    std::ostringstream msg;
-    msg << *this;
-    return msg.str().c_str();
+    if(msg.empty())
+    {
+      std::ostringstream ss;
+      ss << *this;
+      msg = ss.str();
+    }
+      
+    return msg.c_str();
   }
 
   std::ostream& operator<<( std::ostream& os, exception const& e )

@@ -29,8 +29,7 @@ namespace nt2
         static inline void
         kernel_log(const A0& a0,A0& fe, A0& x,A0& x2, A0& y, const A0&)
         {
-          int_type e;
-          bf::tie(x, e) = fast_frexp(a0);
+          int_type e(fast_frexp(a0, x));
           int_type x_lt_sqrthf = -(Const<float,0x3f3504f3>() > x);
           e += x_lt_sqrthf;
           x += b_and(x, genmask<float>(x_lt_sqrthf))+Const<float,0xbf800000>();

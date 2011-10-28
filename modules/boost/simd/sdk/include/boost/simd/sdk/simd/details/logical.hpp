@@ -9,15 +9,20 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_LOGICAL_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/extensions.hpp>
-#include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/toolbox/boolean/include/functions/typed_bool.hpp>
-
-//==============================================================================
-// Do something only if in SIMD mode
-//==============================================================================
-#if defined(BOOST_SIMD_DETECTED)
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
+
+namespace boost { namespace simd { namespace ext
+{
+  template<class T, class X >
+  struct  cardinal_of< simd::native<simd::logical<T>, X> >
+        : cardinal_of< simd::native<T, X> >
+  {};
+
+  template<class T,class Extension>
+  struct as_simd<logical<T>, Extension> : as_simd<T,Extension>
+  {};
+} } }
 
 namespace boost { namespace simd
 {
@@ -25,13 +30,8 @@ namespace boost { namespace simd
   struct BOOST_SIMD_MAY_ALIAS native<logical<Scalar>, Extension>
   {
     typedef Extension                                       extension_type;
-
-    #if defined(BOOST_SIMD_LRB_FAMILY)
-    typedef __mmask                                         native_type;
-    #else
     typedef typename meta::as_simd<Scalar, Extension>::type native_type;
-    #endif
-    typedef native<Scalar, Extension>                               type; 
+    typedef native<Scalar, Extension>                       type; 
     
     typedef logical<Scalar>                                 value_type;
     typedef logical<Scalar>                                 reference;
@@ -43,15 +43,7 @@ namespace boost { namespace simd
       typedef native<U, extension_type> type;
     };
 
-    #if defined(BOOST_SIMD_LRB_FAMILY)
-    // Cardinal is __mmask size
-    enum { static_size = sizeof(__mmask) };
-    #else
-    // Beware to have same cardinal than native<Scalar,Ext>
-    enum { static_size = sizeof(native_type)/sizeof(Scalar)
-                       ? sizeof(native_type)/sizeof(Scalar) : 1};
-
-    #endif
+    enum { static_size = meta::cardinal_of<native>::value };
 
     BOOST_DISPATCH_FORCE_INLINE native& operator=(native const& s)
     {
@@ -59,18 +51,16 @@ namespace boost { namespace simd
       return *this;
     }
     
-    // When initialized from a Scalar native, is_nez it
     BOOST_DISPATCH_FORCE_INLINE 
     native& operator=(native<Scalar,Extension> const& s)
     {
-      data_ = typed_bool(s);
+      data_ = s;
       return *this;
     }
     
-    BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& data)
-    {
-      native<Scalar,Extension> s = { data };
-      data_ = typed_bool(s);
+    BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& s)
+    {     
+      data_ = s;
       return *this;
     }
 
@@ -88,29 +78,14 @@ namespace boost { namespace simd
     static BOOST_DISPATCH_FORCE_INLINE
     bool empty() { return false; }
 
-    #if defined(BOOST_SIMD_LRB_FAMILY)   
-    value_type operator[](std::size_t i) const { return data_ & (1 << i); }
-    #else
     value_type operator[](std::size_t i) const
     {
-      return (reinterpret_cast<Scalar const*>(&data_)[i]) ? true:false;
+      return value_type(reinterpret_cast<Scalar const*>(&data_)[i]);
     }    
-    #endif
     
     native_type data_;
   };
 } }
-
-#endif
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class T, class X, class Origin>
-  struct hierarchy_of< simd::native< simd::logical<T>, X>, Origin>
-  {
-    typedef simd::ext::simd_< simd::ext::logical_<Origin>, X> type;
-  };
-} }  }
 
 namespace boost { namespace simd
 {

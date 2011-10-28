@@ -34,10 +34,10 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
       typedef typename meta::scalar_of<int_type>::type        sint_type;
       typedef typename meta::scalar_of<A0>::type                 s_type;
-      static const sint_type me = Maxexponent<s_type>()-1;
-      static const sint_type nmb= Nbmantissabits<s_type>();
-      static const int_type vn1 = boost::simd::splat<int_type>((2*me+3)<<nmb);
-      static const sint_type n2 = me<<nmb;
+      const sint_type me = Maxexponent<s_type>()-1;
+      const sint_type nmb= Nbmantissabits<s_type>();
+      const int_type vn1 = boost::simd::splat<int_type>((2*me+3)<<nmb);
+      const sint_type n2 = me<<nmb;
       r1 = b_and(vn1, a0);                                 //extract exponent
       A0 x = b_andnot(a0, vn1);                            //clear exponent in a0
       r1 = shri(r1,nmb) - splat<int_type>(me);             //compute exponent

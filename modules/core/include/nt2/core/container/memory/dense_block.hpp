@@ -164,21 +164,7 @@ namespace nt2 { namespace memory
     template<class Position, class Value> BOOST_DISPATCH_FORCE_INLINE 
     Value store( Position const& pos, Value const& value )
     {
-      //========================================================================
-      // In SIMD mode, actual bounds on the inner-most loop are off by the
-      // scalar-based base index. This value compute the shift to apply to the
-      // scalar address and to the local position in order to access the proper
-      // set of SIMD data in memory.
-      //========================================================================
-      static  const std::size_t 
-              local_shift = boost::simd::meta::is_native<Value>::value 
-                          ? boost::mpl::at_c<index_type,0>::type::value 
-                          : 0;
-
-      return nt2::store ( value
-                        , dereference<dimensions-1>(data_,pos) + local_shift
-                        , pos[0] - local_shift
-                        );
+      return nt2::store( value, dereference<dimensions>(data_, pos) );
     }
 
     //==========================================================================
@@ -189,22 +175,7 @@ namespace nt2 { namespace memory
     typename Target::type load( Position const& pos, Target const& )
     {
       typedef typename Target::type that_type;
-
-      //========================================================================
-      // In SIMD mode, actual bounds on the inner-most loop are off by the
-      // scalar-based base index. This value compute the shift to apply to the
-      // scalar address and to the local position in order to access the proper
-      // set of SIMD data in memory.
-      //========================================================================
-      static  const std::size_t 
-              local_shift = boost::simd::meta::is_native<that_type>::value 
-                          ? boost::mpl::at_c<index_type,0>::value 
-                          : 0;
-
-      return 
-      nt2::load<that_type> ( dereference<dimensions-1>(data_,pos) + local_shift
-                           , pos[0] - local_shift
-                           );
+      return nt2::load<that_type> ( &dereference<dimensions>(data_, pos) );
     }
 */
     private:

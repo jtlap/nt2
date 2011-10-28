@@ -15,10 +15,7 @@
   * \brief Defines and implements the \c nt2::memory::dereference class
   **/
 //==============================================================================
-#include <boost/mpl/size.hpp>
-#include <boost/fusion/include/mpl.hpp>
-#include <boost/fusion/include/at_c.hpp>
-#include <boost/fusion/adapted/array.hpp>
+#include <nt2/core/settings/details/fusion.hpp>
 
 namespace nt2 { namespace details
 {
@@ -32,10 +29,9 @@ namespace nt2 { namespace details
     static inline typename meta::dereference_<Buffer&,Level>::type 
     apply( Buffer& b, Position const& p )
     {
-      typedef boost::mpl::size<Position> base;
       typedef typename meta::dereference_<Buffer,1>::type base_type;
       return  dereference<base_type,Level-1,Start>
-              ::apply ( b[boost::fusion::at_c<(Level-1)+(base::value-Start)>(p)]
+              ::apply ( b[safe_at_c<(Level-1)>(p)]
                       , p
                       );
     }
@@ -44,10 +40,9 @@ namespace nt2 { namespace details
     static inline typename meta::dereference_<Buffer const&,Level>::type 
     apply( Buffer const& b, Position const& p )
     {
-      typedef boost::mpl::size<Position> base;
       typedef typename meta::dereference_<Buffer,1>::type base_type;
       return  dereference<base_type,Level-1,Start>
-              ::apply ( b[boost::fusion::at_c<(Level-1)+(base::value-Start)>(p)]
+              ::apply ( b[safe_at_c<(Level-1)>(p)]
                       , p
                       );
     }
@@ -60,16 +55,14 @@ namespace nt2 { namespace details
     static inline typename meta::dereference_<Buffer&,1>::type 
     apply( Buffer& b, Position const& p )
     {
-      typedef boost::mpl::size<Position> base;
-      return b[boost::fusion::at_c<base::value-Start>(p)];
+      return b[safe_at_c<0>(p)];
     }
 
     template<typename Position>
     static inline typename meta::dereference_<Buffer const&,1>::type 
     apply( Buffer const& b, Position const& p )
     {
-      typedef boost::mpl::size<Position> base;
-      return b[boost::fusion::at_c<base::value-Start>(p)];
+      return b[safe_at_c<0>(p)];
     }
   };
 } }
@@ -85,6 +78,7 @@ namespace nt2 { namespace memory
   inline typename meta::dereference_<Buffer&,Level>::type 
   dereference( Buffer& b, Position const& p )
   {
+    details::check_all_equal(details::pop_front_c<Level>(p), 1);
     return details::dereference<Buffer,Level,Level>::apply(b,p);
   }
 
@@ -92,6 +86,7 @@ namespace nt2 { namespace memory
   inline typename meta::dereference_<Buffer const&,Level>::type 
   dereference( Buffer const& b, Position const& p )
   {
+    details::check_all_equal(details::pop_front_c<Level>(p), 1);
     return details::dereference<Buffer,Level,Level>::apply(b,p);
   }
 } }

@@ -1,3 +1,4 @@
+
 /*******************************************************************************
  *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
  *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -43,10 +44,8 @@ namespace boost { namespace simd { namespace meta
                                   , typename  boost::mpl
                                     ::if_ < boost::is_same<T,double>
                                         , __m128d
-                                        , typename  simd::details::
-                                                    as_simd_impl < T
-                                                                 , tag::sse_
-                                                                 >::type
+                                        , typename  simd::ext::
+                                                    as_simd<T, tag::sse_>::type
                                         >::type
                                   >::type
                           >

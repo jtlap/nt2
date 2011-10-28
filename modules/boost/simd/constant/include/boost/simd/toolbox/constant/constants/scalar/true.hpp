@@ -9,18 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SCALAR_TRUE_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/toolbox/constant/constants/true.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::True, tag::cpu_, (A0)
-                                    , ((target_< scalar_< arithmetic_<A0> > >))
+                                    , ((target_< scalar_< fundamental_<A0> > >))
                                     )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<typename A0::type>::type result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      return true;
+      result_type that(true);
+      return that;
     }
   };
 } } }

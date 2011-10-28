@@ -50,11 +50,10 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // vector size
     ////////////////////////////////////////////////////////////////////////////
-    enum { static_size = sizeof(native_type)/sizeof(value_type)
-                       ? sizeof(native_type)/sizeof(value_type) : 1};
+    enum { static_size = meta::cardinal_of<native>::value };
 
     ////////////////////////////////////////////////////////////////////////////
-    // Assignment operator from same type (generates better code than default-generated one)
+    // Assignment operator from same type (generates better code)
     ////////////////////////////////////////////////////////////////////////////
     BOOST_DISPATCH_FORCE_INLINE
     native& operator=(native const& s)
@@ -106,34 +105,24 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface
     ////////////////////////////////////////////////////////////////////////////
-    static BOOST_DISPATCH_FORCE_INLINE
-    std::size_t size() { return static_size; }
+    static BOOST_DISPATCH_FORCE_INLINE std::size_t  size()  { return static_size; }
+    static BOOST_DISPATCH_FORCE_INLINE bool         empty() { return false; }
 
-    static BOOST_DISPATCH_FORCE_INLINE
-    bool empty() { return false; }
-
-    reference        operator[](std::size_t i)
-    {
-      return data()[i];
-    }
-
-    const_reference  operator[](std::size_t i) const
-    {
-      return data()[i];
-    }
+    reference       operator[](std::size_t i)       { return data()[i]; }
+    const_reference operator[](std::size_t i) const { return data()[i]; }
     
     native_type data_;
     
     BOOST_DISPATCH_FORCE_INLINE
-    value_type* data()
-    {
-      return reinterpret_cast<value_type*>(&data_);
+    value_type* data() 
+    { 
+      return reinterpret_cast<value_type*>(&data_); 
     }
 
     BOOST_DISPATCH_FORCE_INLINE
-    const value_type* data() const
-    {
-      return const_cast<native&>(*this).data();
+    const value_type* data() const 
+    { 
+      return reinterpret_cast<value_type const*>(&data_); 
     }
   };
 } }

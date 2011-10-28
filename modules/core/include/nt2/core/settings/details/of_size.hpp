@@ -14,9 +14,10 @@
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
-#include <boost/assert.hpp>
+#include <nt2/sdk/error/assert.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/details/of_size_meta.hpp>
+#include <nt2/core/settings/details/fusion.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
@@ -25,78 +26,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-#include <boost/fusion/include/iterator_range.hpp>
-#include <boost/utility.hpp>
-
 namespace nt2
 {
-  namespace detail
-  {
-    // Initialization helpers
-    template<class Begin, class End>
-    boost::fusion::iterator_range<Begin const, End const>
-    make_iterator_range(Begin const& begin, End const& end)
-    {
-      return boost::fusion::iterator_range<Begin const, End const>(begin, end);
-    }
-    
-    template<class InB, class InE, class Out>
-    void copy(InB const& inb, InE const& inE, Out const& out);
-    
-    template<class InB, class InE, class Out>
-    void copy(InB const& inb, InE const&, Out const&, boost::mpl::true_)
-    {
-    }
-    
-    template<class InB, class InE, class Out>
-    void copy(InB const& inb, InE const& inE, Out const& out, boost::mpl::false_)
-    {
-      *out = *inb;
-      return copy(boost::fusion::next(inb), inE, boost::next(out));
-    }
-    
-    template<class InB, class InE, class Out>
-    void copy(InB const& inb, InE const& inE, Out const& out)
-    {
-      typename boost::fusion::result_of::equal_to<InB, InE>::type eq;
-      return copy(inb, inE, out, eq);
-    }
-    
-    template<class Src, class Dst>
-    void copy(Src const& src, Dst const& dst)
-    {
-      return copy(boost::fusion::begin(src), boost::fusion::end(src), dst);
-    }
-    
-    template<class InB, class InE, class Value>
-    void check_all_equal(InB const& inb, InE const& inE, Value const& value);
-    
-    template<class InB, class InE, class Value>
-    void check_all_equal(InB const& inb, InE const&, Value const&, boost::mpl::true_)
-    {
-    }
-    
-    template<class InB, class InE, class Value>
-    void check_all_equal(InB const& inb, InE const& inE, Value const& value, boost::mpl::false_)
-    {
-      BOOST_ASSERT_MSG(*inb == value, "Incompatible size in of_size conversion");
-      return copy(boost::fusion::next(inb), inE, value);
-    }
-    
-    template<class InB, class InE, class Value>
-    void check_all_equal(InB const& inb, InE const& inE, Value const& value)
-    {
-      typename boost::fusion::result_of::equal_to<InB, InE>::type eq;
-      return check_all_equal(inb, inE, value, eq);
-    }
-    
-    template<class Src, class Value>
-    void check_all_equal(Src const& src, Value const& value)
-    {
-      check_all_equal(boost::fusion::begin(src), boost::fusion::end(src), value);
-    }
-  }
-    
   //============================================================================
   /*! of_size_<D0,..,Dn> is a size value containing up to n dimensions.
    **/
@@ -167,31 +98,17 @@ namespace nt2
     of_size_( of_size_ const& src ) : data_(src.data_) {}
     
     template<class Sz>
-    of_size_( Sz const& other )
+    of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
     {
       static const std::size_t other_size = boost::fusion::result_of::size<Sz>::type::value;
       static const std::size_t min_size = other_size < static_size ? other_size : static_size;
       
-      detail::
-      copy( detail::
-            make_iterator_range( boost::fusion::begin(other)
-                               , boost::fusion::advance_c< min_size - other_size >(boost::fusion::end(other))
-                               )
-          , &data_[0]
-          );
+      details::copy(details::pop_back_c<other_size - min_size>(other), &data_[0]);
                 
       for(std::size_t i = min_size; i != static_size; ++i)
         data_[i] = 1;
 
-#ifndef NDEBUG
-      detail::
-      check_all_equal( detail::
-                       make_iterator_range( boost::fusion::advance_c< min_size - other_size >(boost::fusion::end(other))
-                                          , boost::fusion::end(other)
-                                          )
-                     , boost::mpl::int_<1>()
-                     );
-#endif
+      details::check_all_equal(details::pop_front_c<min_size>(other), 1);
     }
 
     //==========================================================================
@@ -272,10 +189,9 @@ namespace nt2
     of_size_() {}
     
     template<class Sz>
-    of_size_( Sz const& other )
+    of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
     {
-      for(std::size_t i = 0; i != Sz::static_size; ++i)
-        BOOST_ASSERT_MSG(other.data_[i] == 1, "Incompatible size in of_size conversion");
+      details::check_all_equal(other, 1);
     }
   };
 
@@ -302,7 +218,15 @@ namespace nt2
       if(*it0 != *it1)
         return false;
 
-    return it0 == a0.end() && it1 == a1.end();
+    for(; it0 != a0.end(); ++it0)
+      if(*it0 != 1)
+        return false;
+      
+    for(; it1 != a1.end(); ++it1)
+      if(*it1 != 1)
+        return false;
+        
+    return true;
   }
 }
 

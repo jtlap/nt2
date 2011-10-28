@@ -7,7 +7,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-ADD_SUBDIRECTORY(dsl)
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(settings)
+SET( SOURCES
+     generator.cpp
+   )
+
+nt2_module_add_tests(core.container.dsl.unit ${SOURCES})

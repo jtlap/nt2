@@ -41,53 +41,53 @@ namespace nt2
       //
 
       template < class A0,
-		 class unit_tag
+                 class unit_tag
       >
       struct trig_base<A0,unit_tag,fast_tag,tag::simd_type>
       {
-	// for all functions the algorithm is:
-	// * evaluations
-	// * return evaluation or Nan if range is not respected
-	//
-	// note that the range is VERY SMALL
+        // for all functions the algorithm is:
+        // * evaluations
+        // * return evaluation or Nan if range is not respected
+        //
+        // note that the range is VERY SMALL
 
 
-	typedef trig_evaluation<A0,tag::simd_type> eval_t;
+        typedef trig_evaluation<A0,tag::simd_type> eval_t;
 
-	static inline A0 cosa(const A0& a0)
-	{
-	  const A0 x =  scale(a0);
-	  return  eval_t::cos_eval(sqr(x), x, Zero<A0>());
-	}
-
-
-	static inline A0 sina(const A0& a0)
-	{
-	  const A0 x =  scale(a0);
-	  return  eval_t::sin_eval(sqr(x), x, Zero<A0>());
-	}
-
-	static inline A0 tana(const A0& a0)
-	{
-	  return  eval_t::base_tancot_eval(scale(a0)); 
-	}
-	static inline A0 cota(const A0& a0)
-	{
-	  return  rec(eval_t::base_tancot_eval(scale(a0))); 
-	}
+        static inline A0 cosa(const A0& a0)
+        {
+          const A0 x =  scale(a0);
+          return  eval_t::cos_eval(sqr(x), x, Zero<A0>());
+        }
 
 
-	static inline A0 sincosa(const A0& a0, A0& c)
-	{
-	  const A0 x =  scale(a0);
-	  const A0 z =  sqr(x);
-	  c = eval_t::cos_eval(z, x, Zero<A0>());
-	  return eval_t::sin_eval(z, x, Zero<A0>());
-	}
+        static inline A0 sina(const A0& a0)
+        {
+          const A0 x =  scale(a0);
+          return  eval_t::sin_eval(sqr(x), x, Zero<A0>());
+        }
+
+        static inline A0 tana(const A0& a0)
+        {
+          return  eval_t::base_tancot_eval(scale(a0)); 
+        }
+        static inline A0 cota(const A0& a0)
+        {
+          return  rec(eval_t::base_tancot_eval(scale(a0))); 
+        }
+
+
+        static inline A0 sincosa(const A0& a0, A0& c)
+        {
+          const A0 x =  scale(a0);
+          const A0 z =  sqr(x);
+          c = eval_t::cos_eval(z, x, Zero<A0>());
+          return eval_t::sin_eval(z, x, Zero<A0>());
+        }
       private:
         static inline A0    scale(const A0& a0){
-	  return b_or(a0, gt(abs(a0),trig_ranges<A0,unit_tag>::max_range()))*trig_ranges<A0,unit_tag>::scale();
-	}
+          return b_or(a0, gt(abs(a0),trig_ranges<A0,unit_tag>::max_range()))*trig_ranges<A0,unit_tag>::scale();
+        }
       };
     }
   }

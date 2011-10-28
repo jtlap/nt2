@@ -10,13 +10,13 @@
 #define BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 
 #include <climits>
+#include <boost/assert.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
  
 namespace boost { namespace simd
 {
@@ -30,20 +30,7 @@ namespace boost { namespace simd
   //============================================================================
   template<typename T> struct logical
   {
-    typedef T native_type;
-    typedef T type; 
     typedef typename dispatch::meta::as_integer<T>::type bits;
-
-    //==========================================================================
-    // mask is a bits pattern that allow direct use of value bits as a bool
-    // Special care is taken for floating points value as -0 is false and not
-    // true as its bits want us to think.
-    //==========================================================================    
-    BOOST_STATIC_CONSTANT ( bits
-                          , mask  = is_floating_point<T>::value
-                                  ? bits(~(bits(1) << (sizeof(T)*CHAR_BIT-1)))
-                                  : ~bits(0)
-                          );
 
     //==========================================================================    
     /*!
@@ -59,22 +46,28 @@ namespace boost { namespace simd
      * \param v Boolean value to convert to logical
      **/
     //==========================================================================    
-    BOOST_DISPATCH_FORCE_INLINE logical(bool const v) : value_(v)  {}
+    BOOST_DISPATCH_FORCE_INLINE 
+    logical(bool const v) : value_(v)  {}
     
     //==========================================================================    
     /*!
      * Constructs a logical from a value of type \c T
      *
-     * \param v Value to turn into a logical value
+     * \param v Value to turn into a logical value. \c v must be 0 or 1 or
+     * the constructor will fail. 
      **/
     //==========================================================================    
-//     BOOST_DISPATCH_FORCE_INLINE logical(T const v) 
-//                               : value_( (bitwise_cast<bits>(v) & mask) != 0) 
-//     {}
+    BOOST_DISPATCH_FORCE_INLINE logical( T const& v) : value_(v) 
+    {
+      BOOST_ASSERT_MSG(((v==0) || (v==1)), "Invalid boolean value");
+    }
 
-    BOOST_DISPATCH_FORCE_INLINE bool operator ==(logical<T> const a) const { return  value_ == a.value_; }
-    BOOST_DISPATCH_FORCE_INLINE bool operator !=(logical<T> const a) const { return  value_ != a.value_; }
-    //    template < class U > bool operator !=(U const a) const { return  value_ != a; }
+    BOOST_DISPATCH_FORCE_INLINE 
+    bool operator ==(logical<T> const& a) const { return  value_ == a.value_; }
+    
+    BOOST_DISPATCH_FORCE_INLINE 
+    bool operator !=(logical<T> const& a) const { return  value_ != a.value_; }
+    
     BOOST_DISPATCH_FORCE_INLINE bool operator ~() const { return ~value_; }
     BOOST_DISPATCH_FORCE_INLINE bool operator !() const { return ~value_; }
 
@@ -86,18 +79,6 @@ namespace boost { namespace simd
      **/
     //==========================================================================    
     BOOST_DISPATCH_FORCE_INLINE operator bool() const { return value_; }
-    
-    //==========================================================================    
-    /*!
-     * Convert a logical value to its underlying type.
-     *
-     * \return Value of type \c T containing the state of the logical 
-     **/
-    //==========================================================================    
-//     BOOST_DISPATCH_FORCE_INLINE operator T() const 
-//     { 
-//       return static_cast<T>(value_); 
-//     }
 
     private:
     bool  value_;
@@ -110,9 +91,8 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FORCE_INLINE
   std::ostream& operator<<(std::ostream& os, logical<T> const& v )
   {
-    return os << bool(v);
+    return os << std::boolalpha << bool(v) << std::noboolalpha;
   }
-
 } }
 
 namespace boost { namespace simd { namespace ext
@@ -120,46 +100,49 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // logical_ is the hierarchy of logical<T> and goes straight to fundamental
   //============================================================================
-  template<class T> struct logical_ : fundamental_<T>
+  template<class T> struct logical_ : dispatch::meta::fundamental_<T>
   {
-    typedef fundamental_<T> parent;
+    typedef dispatch::meta::fundamental_<T> parent;
   };
 } } }
 
+//==============================================================================
+  // Rgister logical<T> to variosu dispatch system
+//============================================================================== 
 namespace boost { namespace dispatch { namespace meta
 {
   using boost::simd::ext::logical_;
-    
-  //============================================================================
-  // value_of< logical<T> > is value_of<T>
-  //============================================================================
-  template<class T> struct value_of< simd::logical<T> > : value_of<T> {};
-
-  //============================================================================
-  // model_of< logical<T> > is logical< model_of<T> >
-  //============================================================================
-  template<class T> struct model_of< simd::logical<T> >
-  {
-    struct type
-    {
-      template<class X> struct apply
-      {
-        typedef typename mpl::apply<typename model_of<T>::type,X>::type base;
-        typedef simd::logical<base>                                     type;
-      };
-    };
-  };
-
-  template<class T, class Origin> 
-  struct property_of< simd::logical<T>, Origin >
-  {
-    typedef simd::ext::logical_<Origin> type;
-  };
 
   template<class T, class Origin>
   struct  hierarchy_of< simd::logical<T>, Origin>
   {
     typedef meta::scalar_< simd::ext::logical_<Origin> >  type;
+  };
+ 
+  template<class T, class Origin>
+  struct property_of< simd::logical<T>, Origin>
+  {
+    typedef simd::ext::logical_<Origin> type;
+  };
+} } }
+
+namespace boost { namespace dispatch { namespace ext
+{
+  template<class T> 
+  struct  sign_of< boost::simd::logical<T> > : meta::sign_of<T> {};
+  
+  template<typename Type, typename Sign>
+  struct upgrade< boost::simd::logical<Type>, Sign, void >
+  {
+    typedef typename upgrade<Type,Sign>::type base;
+    typedef boost::simd::logical<base>        type;
+  };
+
+  template<typename Type, typename Sign>
+  struct downgrade< boost::simd::logical<Type>, Sign, void >
+  {
+    typedef typename downgrade<Type,Sign>::type base;
+    typedef boost::simd::logical<base>          type;
   };
 } } }
 
