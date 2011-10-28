@@ -18,6 +18,7 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/always.hpp>
+#include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/is_void.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
