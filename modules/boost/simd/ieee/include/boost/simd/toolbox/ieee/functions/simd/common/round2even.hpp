@@ -34,14 +34,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type v   = boost::simd::abs(a0);
       const result_type t2n = boost::simd::Twotonmb<A0>();
       const result_type d0  = (v+t2n);
       const result_type d   = (d0-t2n);
-      const result_type d1  = select(lt(v,t2n),d,v);
+      const result_type d1  = boolean_select(lt(v,t2n),d,v);
       return (d1^bitofsign(a0));
     }
   };

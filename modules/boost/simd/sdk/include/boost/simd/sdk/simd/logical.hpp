@@ -57,10 +57,10 @@ namespace boost { namespace simd
      * the constructor will fail. 
      **/
     //==========================================================================    
-    BOOST_DISPATCH_FORCE_INLINE logical( T const& v) : value_(v) 
-    {
-      BOOST_ASSERT_MSG(((v==0) || (v==1)), "Invalid boolean value");
-    }
+//     BOOST_DISPATCH_FORCE_INLINE logical( T const& v) : value_(v) 
+//     {
+//       BOOST_ASSERT_MSG(((v==0) || (v==1)), "Invalid boolean value");
+//     }
 
     BOOST_DISPATCH_FORCE_INLINE 
     bool operator ==(logical<T> const& a) const { return  value_ == a.value_; }
@@ -69,7 +69,7 @@ namespace boost { namespace simd
     bool operator !=(logical<T> const& a) const { return  value_ != a.value_; }
     
     BOOST_DISPATCH_FORCE_INLINE bool operator ~() const { return ~value_; }
-    BOOST_DISPATCH_FORCE_INLINE bool operator !() const { return ~value_; }
+    BOOST_DISPATCH_FORCE_INLINE bool operator !() const { return !value_; }
 
     //==========================================================================    
     /*!

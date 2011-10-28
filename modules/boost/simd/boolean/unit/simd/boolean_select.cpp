@@ -24,6 +24,7 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 
 
 NT2_TEST_CASE_TPL ( boolean_select_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -50,8 +51,8 @@ NT2_TEST_CASE_TPL ( boolean_select_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean_select(splat<vlT>(boost::simd::Nan<T>()), boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(boolean_select(splat<vlT>(boost::simd::Zero<T>()), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(boolean_select(boost::simd::is_nez(boost::simd::One<vT>()), boost::simd::One<vT>(), boost::simd::Nan<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(boolean_select(boost::simd::is_nez(boost::simd::Zero<vT>()), boost::simd::Two<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( boolean_select_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -77,6 +78,6 @@ NT2_TEST_CASE_TPL ( boolean_select_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean_select(boost::simd::splat<vlT>(-1),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], 1);
-  NT2_TEST_EQUAL(boolean_select(boost::simd::splat<vlT>(0),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], 2);
+  NT2_TEST_EQUAL(boolean_select(boost::simd::is_nez(boost::simd::One<vT>()),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], 1);
+  NT2_TEST_EQUAL(boolean_select(boost::simd::is_nez(boost::simd::Zero<vT>()),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], 2);
 } // end of test for integer_

@@ -11,7 +11,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/all.hpp>
 #include <boost/simd/include/functions/bitwise_all.hpp>
-#include <boost/simd/include/functions/is_true.hpp>
+#include <boost/simd/include/functions/typed_bool.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return bitwise_all(is_true(a0));
+      return bitwise_all(typed_bool<A0>(a0));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_

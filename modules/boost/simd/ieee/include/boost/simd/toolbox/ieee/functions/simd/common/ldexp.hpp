@@ -13,12 +13,10 @@
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/is_finite.hpp>
-//
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/boolean_select.hpp>
 #include <boost/simd/include/functions/rshl.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -68,7 +66,7 @@ namespace boost { namespace simd { namespace ext
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<A0>(), a0);
       e += shli(a1, Nbmantissabits<s_type>());
-      return select( b_and(is_nez(a0),is_finite(a0))
+      return boolean_select( b_and(is_nez(a0),is_finite(a0))
                      , b_or(x, e)
                      , a0
                      );

@@ -49,8 +49,8 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::One<vT>())[0]!=0, boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::One<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -74,8 +74,8 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::Inf<vT>())[0]!=0, boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Minf<vT>())[0]!=0, boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Nan<vT>())[0]!=0, boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Inf<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Minf<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Nan<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for floating_

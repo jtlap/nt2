@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NEZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/toolbox/predicates/functions/is_nez.hpp>
+#include <boost/simd/toolbox/boolean/functions/typed_bool.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
@@ -25,14 +25,14 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename boost::simd::meta::int32_t_<sctype >::type htype;
-      typedef boost::simd::native<htype,boost::simd::tag::sse_> type;
+//       typedef typename meta::scalar_of<A0>::type sctype;
+//       typedef typename boost::simd::meta::int32_t_<sctype >::type htype;
+//       typedef boost::simd::native<htype,boost::simd::tag::sse_> type;
 
-      type tmp1 = is_nez(boost::simd::native_cast<type>(a0));
-      const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
-
-      return boost::simd::native_cast<A0>(b_or(tmp1, tmp2));
+//       type tmp1 = typed_bool(boost::simd::native_cast<type>(a0));
+//       const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
+//       return boost::simd::native_cast<result_type>(b_or(tmp1, tmp2));
+      return boost::simd::native_cast<result_type>(typed_bool(a0)); 
     }
   };
 } } }
