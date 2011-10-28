@@ -12,12 +12,11 @@
 #include <climits>
 #include <boost/assert.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
  
 namespace boost { namespace simd
 {
@@ -125,6 +124,30 @@ namespace boost { namespace dispatch { namespace meta
   struct property_of< simd::logical<T>, Origin>
   {
     typedef simd::ext::logical_<Origin> type;
+  };
+} } }
+
+namespace boost { namespace dispatch { namespace details
+{
+  template<class T> 
+  struct  sign_of< boost::simd::logical<T>, void > : meta::sign_of<T>
+  {};
+} } }
+
+namespace boost { namespace dispatch { namespace ext
+{
+  template<typename Type, typename Sign>
+  struct upgrade< boost::simd::logical<Type>, Sign, void >
+  {
+    typedef typename upgrade<Type,Sign>::type base;
+    typedef boost::simd::logical<base>        type;
+  };
+
+  template<typename Type, typename Sign>
+  struct downgrade< boost::simd::logical<Type>, Sign, void >
+  {
+    typedef typename downgrade<Type,Sign>::type base;
+    typedef boost::simd::logical<base>          type;
   };
 } } }
 

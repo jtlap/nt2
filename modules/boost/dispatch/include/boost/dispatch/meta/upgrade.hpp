@@ -1,11 +1,11 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #ifndef BOOST_DISPATCH_META_UPGRADE_HPP_INCLUDED
 #define BOOST_DISPATCH_META_UPGRADE_HPP_INCLUDED
 
@@ -17,40 +17,65 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/assert.hpp>
+#include <boost/mpl/always.hpp>
+#include <boost/type_traits/is_void.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/dispatch/meta/make_integer.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
-#include <boost/dispatch/meta/factory_of.hpp>
-#include <boost/dispatch/meta/is_fundamental.hpp>
+#include <boost/dispatch/meta/make_floating.hpp>
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace dispatch { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Integral types are upgraded using make_integer
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,std::size_t Size, class Sign, class Lambda>
-  struct upgrade : meta::make_integer<Size*2,Sign,Lambda> {};
+  template<class T,class Sign = void> struct  upgrade;
+} } }
 
-  //////////////////////////////////////////////////////////////////////////////
-  // If type size is 8, return the type itself for any category
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T, class Sign, class Lambda>
-  struct   upgrade<T,8,Sign,Lambda>
-        : meta::make_integer<8,Sign,Lambda> {};
-
-
-  template<class Sign, class Lambda>
-  struct upgrade<double,sizeof(double),Sign,Lambda>
+namespace boost { namespace dispatch { namespace ext
+{
+  template<typename Type, typename Sign, typename Enable = void>
+  struct upgrade
   {
-    typedef typename boost::mpl::apply1<Lambda, double>::type type;
+    typedef typename meta::factory_of<Type>::type    lambda;
+    typedef typename meta::primitive_of<Type>::type  base;
+    typedef typename meta::upgrade<base,Sign>::type  up;
+    typedef typename mpl::apply1<lambda, up>::type   type;   
+  };
+  
+  template<typename T, typename Sign>
+  struct upgrade< T, Sign
+                , typename enable_if<typename is_integral<T>::type>::type
+                >
+  {
+    typedef typename meta::factory_of<T>::type    lambda;
+    typedef typename meta::primitive_of<T>::type  base;
+
+    typedef typename mpl::eval_if < is_void<Sign>
+                                  , meta::sign_of<T>
+                                  , mpl::identity<Sign>
+                                  >::type         sign;
+
+    BOOST_STATIC_CONSTANT ( std::size_t
+                          , size = (sizeof(base) < 8) ? sizeof(base)*2 : 8    
+                          );
+
+    typedef typename 
+            meta::make_integer<size,sign,lambda>::type type;
   };
 
-  template<class Sign, class Lambda>
-  struct upgrade<float,sizeof(float),Sign,Lambda>
+  template<typename T, typename Sign>
+  struct upgrade< T, Sign
+                , typename enable_if<typename is_floating_point<T>::type>::type
+                >
   {
-    typedef typename boost::mpl::apply1<Lambda, double>::type type;
+    typedef typename meta::factory_of<T>::type    lambda;
+    typedef typename meta::primitive_of<T>::type  base;
+
+    BOOST_STATIC_CONSTANT ( std::size_t
+                          , size = (sizeof(base) < 8) ? sizeof(base)*2 : 8    
+                          );
+
+    typedef typename meta::make_floating<size,lambda>::type  type;
   };
 } } }
 
@@ -60,30 +85,14 @@ namespace boost { namespace dispatch { namespace meta
   // For any type, return the integer type of size equals to sizeof(T)*2
   // with an optional sign change
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class Sign=typename meta::sign_of<T>::type>
-  struct  upgrade
-        : details::upgrade< typename meta::primitive_of<typename meta::strip<T>::type>::type
-                          , sizeof(typename meta::primitive_of<typename meta::strip<T>::type>::type)
-                          ,Sign
-                          , typename meta::factory_of<typename meta::strip<T>::type>::type
-                          >
-  {
-    //==========================================================================
-    /*
-     * A type with a non-fundamental primitive is used in 
-     * boost::dispatch::meta::upgrade.
-     */    
-    //==========================================================================
-    BOOST_MPL_ASSERT_MSG
-    ( (is_fundamental < typename
-                        meta::primitive_of<typename meta::strip<T>::type>::type
-                      >::value
-      )
-    , BOOST_DISPATCH_NON_FUNDAMENTAL_PRIMITIVE_USED_IN_META_UPGRADE
-    , (T&)
-    );    
-  };
+  template<class T,class Sign>
+  struct  upgrade : ext::upgrade<T, Sign > {};
+
+  template<class T, class Sign> 
+  struct upgrade<T&,Sign> : upgrade<T,Sign> {};
+
+  template<class T, class Sign> 
+  struct upgrade<T const,Sign> : upgrade<T,Sign> {};
 } } }
 
 #endif
-
