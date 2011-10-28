@@ -7,6 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(nt2.add_library)
+
 macro(nt2_module_install_setup)
   if(NOT UNIX)
     set( NT2_INSTALL_SHARE_DIR .
@@ -25,6 +27,8 @@ macro(nt2_module_source_setup module)
   
   set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${NT2_BINARY_DIR}/lib)
+  set(LIBRARY_OUTPUT_PATH_DEBUG ${NT2_BINARY_DIR}/lib)
+  set(LIBRARY_OUTPUT_PATH_RELEASE ${NT2_BINARY_DIR}/lib)
   
   include_directories(${NT2_${NT2_CURRENT_MODULE_U}_INCLUDE_DIR})
   link_directories(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARY_DIR})
@@ -106,37 +110,22 @@ function(nt2_module_target_parent target)
   
 endfunction()
 
-macro(nt2_module_set_flags FLAGS)
-  set(OLD_FLAGS ${CMAKE_CXX_FLAGS})
-  if(MSVC AND CMAKE_CXX_FLAGS MATCHES "/EHsc")
-    string(REPLACE "/EHsc" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
-  endif()
-
+macro(nt2_module_set_build_type BUILD_TYPE)
   if(CMAKE_CONFIGURATION_TYPES)
-    foreach(conf ${CMAKE_CONFIGURATION_TYPES})
-      string(TOUPPER ${conf} BUILD_TYPE_U)
-      set(OLD_FLAGS_${BUILD_TYPE_U} ${CMAKE_CXX_FLAGS_${BUILD_TYPE_U}})
-      set(CMAKE_CXX_FLAGS_${BUILD_TYPE_U} ${FLAGS})
-    endforeach()
+    set(OLD_CONFIGURATION_TYPES ${CMAKE_CONFIGURATION_TYPES})
+    set(CMAKE_CONFIGURATION_TYPES ${BUILD_TYPE})
   else()
-    string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE_U)
-    set(OLD_FLAGS_${BUILD_TYPE_U} ${CMAKE_CXX_FLAGS_${BUILD_TYPE_U}})
-    set(CMAKE_CXX_FLAGS_${BUILD_TYPE_U} ${FLAGS})
+    set(OLD_BUILD_TYPE ${CMAKE_BUILD_TYPE})
+    set(CMAKE_BUILD_TYPE ${BUILD_TYPE})
   endif()
 endmacro()
 
-macro(nt2_module_restore_flags)
+macro(nt2_module_restore_build_type)
   if(CMAKE_CONFIGURATION_TYPES)
-    foreach(conf ${CMAKE_CONFIGURATION_TYPES})
-      string(TOUPPER ${conf} BUILD_TYPE_U)
-      set(CMAKE_CXX_FLAGS_${BUILD_TYPE_U} ${OLD_FLAGS_${BUILD_TYPE_U}})
-    endforeach()
+    set(CMAKE_CONFIGURATION_TYPES ${OLD_CONFIGURATION_TYPES})
   else()
-    string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE_U)
-    set(CMAKE_CXX_FLAGS_${BUILD_TYPE_U} ${OLD_FLAGS_${BUILD_TYPE_U}})
+    set(CMAKE_BUILD_TYPE ${OLD_BUILD_TYPE})
   endif()
-
-  set(CMAKE_CXX_FLAGS ${OLD_FLAGS})
 endmacro()
 
 macro(nt2_module_dir dir)
@@ -146,14 +135,14 @@ macro(nt2_module_dir dir)
       nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
       
       if(${dir} STREQUAL bench)
-        set(FLAGS ${NT2_FLAGS_BENCH})
+        set(BUILD_TYPE NT2Bench)
       else()
-        set(FLAGS ${NT2_FLAGS_TEST})
+        set(BUILD_TYPE NT2Test)
       endif()
       
-      nt2_module_set_flags(${FLAGS})
+      nt2_module_set_build_type(${BUILD_TYPE})
       add_subdirectory(${dir})
-      nt2_module_restore_flags()
+      nt2_module_restore_build_type()
     endif()
 endmacro()
 
@@ -205,19 +194,26 @@ endmacro()
 macro(nt2_module_add_library libname)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
   
+  if(${libname} MATCHES "_d$")
+    set(BUILD_TYPE Debug)
+  else()
+    nt2_module_add_library("${libname}_d" ${ARGN})
+    set(BUILD_TYPE Release)
+  endif()
+  
   if(DEFINED NT2_USE_STATIC_LIBS AND NOT DEFINED NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
     set(NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS NT2_USE_STATIC_LIBS)
   endif()
 
   if(DEFINED NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
     if(NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
-      add_library(${libname} SHARED ${ARGN})
+      nt2_add_library(${BUILD_TYPE} ${libname} SHARED ${ARGN})
       set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK 1)
     else()
-      add_library(${libname} STATIC ${ARGN})
+      nt2_add_library(${BUILD_TYPE} ${libname} STATIC ${ARGN})
     endif()
   else()
-    add_library(${libname} ${ARGN})
+    nt2_add_library(${BUILD_TYPE} ${libname} ${ARGN})
     set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK ${BUILD_SHARED_LIBS})
   endif()
 
@@ -237,10 +233,9 @@ macro(nt2_module_add_library libname)
   set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
   
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
-    install( TARGETS ${libname}
-             LIBRARY DESTINATION lib COMPONENT ${NT2_CURRENT_MODULE} CONFIGURATIONS Release
-             ARCHIVE DESTINATION lib COMPONENT ${NT2_CURRENT_MODULE} CONFIGURATIONS Release
-             RUNTIME DESTINATION lib COMPONENT ${NT2_CURRENT_MODULE} CONFIGURATIONS Release
+    install( DIRECTORY ${NT2_BINARY_DIR}/lib
+             DESTINATION lib COMPONENT ${NT2_CURRENT_MODULE} CONFIGURATIONS Debug Release
+             FILES_MATCHING PATTERN "*${libname}.*"
            )
   endif()
   
@@ -264,7 +259,6 @@ macro(nt2_module_use_modules)
   include_directories(${NT2_INCLUDE_DIR})
   link_directories(${NT2_LIBRARY_DIR})
   link_libraries(${NT2_LIBRARIES})
-  
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
 endmacro()
 

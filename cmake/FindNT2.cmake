@@ -93,7 +93,26 @@ macro(nt2_str_remove_duplicates)
     endif()
     set(${str} ${str_new})
   endforeach()
+endmacro()
 
+macro(nt2_lib_remove_duplicates list)
+  set(list2)
+  set(qualifier)
+  foreach(elem ${${list}})
+    if(elem STREQUAL "debug"
+    OR elem STREQUAL "optimized"
+    OR elem STREQUAL "general"
+      )
+      set(qualifier ${elem})
+    else()
+      list(FIND list2 ${elem} FOUND)
+      if(FOUND EQUAL -1)
+        list(APPEND list2 ${qualifier} ${elem})
+        set(qualifier)
+      endif()
+    endif()
+  endforeach()
+  set(${list} ${list2})
 endmacro()
 
 macro(nt2_find_module_path_push)
@@ -234,11 +253,15 @@ function(nt2_find_module COMPONENT)
       
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR)
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR)
-        
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_LIBRARIES)
         
         if(NOT EXTRA_COMPONENT STREQUAL ${COMPONENT})
-          nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_LIBRARIES)
+          if(DEFINED NT2_${EXTRA_COMPONENT_U}_LIBRARIES)
+            foreach(lib ${NT2_${EXTRA_COMPONENT_U}_LIBRARIES})
+              list(APPEND NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES optimized ${lib} debug ${lib}_d)
+            endforeach()
+          endif()
+          #nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_LIBRARIES)
         endif()
         
         set(NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_FLAGS}")
@@ -249,9 +272,8 @@ function(nt2_find_module COMPONENT)
       endif()
     endif()
     
-    nt2_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR
-                           NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES
-                         )
+    nt2_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR )
+    nt2_lib_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES )
     nt2_str_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS )
     
     nt2_append_if(NT2_${COMPONENT_U}_EXTRA EXTRA_COMPONENT)
@@ -275,9 +297,8 @@ function(nt2_find_module COMPONENT)
   nt2_append_if(NT2_${COMPONENT_U}_LIBRARIES NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES)
   set(NT2_${COMPONENT_U}_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${COMPONENT_U}_FLAGS}")
   
-  nt2_remove_duplicates( NT2_${COMPONENT_U}_INCLUDE_DIR NT2_${COMPONENT_U}_LIBRARY_DIR
-                         NT2_${COMPONENT_U}_LIBRARIES
-                       )
+  nt2_remove_duplicates( NT2_${COMPONENT_U}_INCLUDE_DIR NT2_${COMPONENT_U}_LIBRARY_DIR )
+  nt2_lib_remove_duplicates( NT2_${COMPONENT_U}_LIBRARIES )
   nt2_str_remove_duplicates( NT2_${COMPONENT_U}_FLAGS )
   
   foreach(EXTRA_COMPONENT ${NT2_${COMPONENT_U}_EXTRA})
@@ -492,7 +513,9 @@ function(nt2_find)
     endif()
     nt2_prepend_module(INCLUDE_DIR)
     nt2_prepend_module(LIBRARY_DIR)
-    nt2_prepend_module(LIBRARIES)
+    
+    set(NT2_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} ${NT2_LIBRARIES})
+    nt2_lib_remove_duplicates(NT2_LIBRARIES)
     
     set(NT2_FLAGS "${NT2_${COMPONENT_U}_FLAGS} ${NT2_FLAGS}")
     nt2_str_remove_duplicates(NT2_FLAGS)
