@@ -9,8 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_AS_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_AS_LOGICAL_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -21,6 +22,12 @@ namespace boost { namespace simd { namespace meta
   struct  as_logical< native<T,X> >  
   {
     typedef native<typename as_logical<T>::type,X> type;
+  };
+
+  template<class T, std::size_t Cardinal>
+  struct  as_logical< pack<T,Cardinal> >  
+  {
+    typedef pack<typename as_logical<T>::type,Cardinal> type;
   };
 } } }
 
