@@ -13,7 +13,6 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,7 +25,6 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      std::cout << "icitte" << std::endl; 
       return !native_cast<result_type>(_mm_test_all_zeros(a0, Allbits<A0>()));
     }
   };
