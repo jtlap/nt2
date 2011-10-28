@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)  
     { 
-      typedef typename meta::as_unsigned<A1>::type type;
+      typedef typename boost::dispatch::meta::as_unsigned<A1>::type type;
       type shift = simd::native_cast<type>(a1);
       A0 that  = { vec_sl(a0(), shift()) };
       return that;
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2) 
    { 
-     typedef typename meta::as_unsigned<A1>::type type;
+     typedef typename boost::dispatch::meta::as_unsigned<A1>::type type;
      type shift = simd::native_cast<type>(a1);
      type value = simd::native_cast<type>(a0);
      A0 that  = simd::native_cast<A0>( vec_sl(value(), shift()) ); 

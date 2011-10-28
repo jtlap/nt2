@@ -23,11 +23,11 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A1::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_DISPATCH_CALL(2)
     {
-      typename result_type::extraction_type v;
-      v.s[0] = a0;
-      result_type that = {vec_splat(v.v, 0)};
+      result_type v;
+      v[0] = a0;
+      result_type that = {vec_splat(v(), 0)};
       return that;
     }
   };
