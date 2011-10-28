@@ -26,7 +26,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test unaligned_load behavior
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(unaligned_load, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(unaligned_load, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::load;
   using boost::simd::unaligned_load; 
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL(unaligned_load, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test load behavior
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(load, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(load, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::load;
   using boost::simd::native;
@@ -89,7 +89,7 @@ NT2_TEST_CASE_TPL(load, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test forward periodic case -- load 1 and 2 cardinal in front
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::load;
   using boost::simd::native;
@@ -116,7 +116,7 @@ NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
  ////////////////////////////////////////////////////////////////////////////////
  // Test non-periodic case -- load up to cardinal-1 front
  ////////////////////////////////////////////////////////////////////////////////
- NT2_TEST_CASE_TPL(shifted_load_non_periodic, BOOST_SIMD_TYPES )
+ NT2_TEST_CASE_TPL(shifted_load_non_periodic, BOOST_SIMD_SIMD_TYPES )
  {
    using boost::simd::load;
    using boost::simd::native;
@@ -143,7 +143,7 @@ NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
  ////////////////////////////////////////////////////////////////////////////////
  // Test backward periodic case -- load 1 and 2 cardinal in front
  ////////////////////////////////////////////////////////////////////////////////
- NT2_TEST_CASE_TPL(shifted_load_bkwd_periodic, BOOST_SIMD_TYPES )
+ NT2_TEST_CASE_TPL(shifted_load_bkwd_periodic, BOOST_SIMD_SIMD_TYPES )
  {
    using boost::simd::load;
    using boost::simd::native;
@@ -170,7 +170,7 @@ NT2_TEST_CASE_TPL(shifted_load_fwd_periodic, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test store behavior
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(store, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(store, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::store;
   using boost::simd::load;
@@ -202,7 +202,7 @@ NT2_TEST_CASE_TPL(store, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test unaligned_store behavior
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(unaligned_store, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(unaligned_store, BOOST_SIMD_SIMD_TYPES )
 {
    using boost::simd::unaligned_store;
    using boost::simd::unaligned_load;
@@ -211,12 +211,15 @@ NT2_TEST_CASE_TPL(unaligned_store, BOOST_SIMD_TYPES )
 
    typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
    typedef native<T,ext_t>             n_t;
+
    static const std::size_t card = cardinal_of<n_t>::value;
    
    T data[2*card];
    for(std::size_t i=0;i<card;++i)
      data[i] = T(1+i);
+
    std::cout << ((nt2::int64_t)(&data[0]))%32 << std::endl;
+
    n_t v = unaligned_load<n_t>(&data[0],0);
    unaligned_store(v,&data[0],card);
 
