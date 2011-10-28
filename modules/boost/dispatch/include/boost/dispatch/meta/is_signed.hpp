@@ -14,25 +14,24 @@
 // See: http://nt2.metascale.org/sdk/meta/traits/is_signed.html
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/not.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
-#include <boost/type_traits/is_base_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T>
   struct  is_signed
-        : boost::
-          is_base_of< meta::
-                      scalar_ < meta::
-                                signed_<typename meta::primitive_of<T>::type>
-                              >
-                            , typename meta::
-                              hierarchy_of<typename meta::primitive_of<T>::type>::type
-                            >
+        : is_same < typename sign_of< typename primitive_of<T>::type >::type
+                  , signed
+                  >
   {};
 
-  template<class T> struct is_unsigned : boost::mpl::not_< is_signed<T> >
+  template<class T>
+  struct  is_unsigned
+        : is_same < typename sign_of< typename primitive_of<T>::type >::type
+                  , unsigned
+                  >
   {};
 } } }
 

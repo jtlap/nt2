@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL(sign_of_simd_native_logical, BOOST_SIMD_TYPES)
   typedef native<logical<T>,ext_t>          native_t;
 
   native_t a0;
-  NT2_TEST_EXPR_TYPE( a0, sign_of<_>, typename sign_of<T>::type );
+  NT2_TEST_EXPR_TYPE( a0, sign_of<_>, typename sign_of< T>::type );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +60,24 @@ NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef pack<T>                          pack_t;
+
+  pack_t a0;
+  NT2_TEST_EXPR_TYPE( a0, sign_of<_>, typename sign_of<T>::type );
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Test that scalar_of on logical pack
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(sign_of_logical_simd, BOOST_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::simd::logical;
+  using boost::dispatch::meta::sign_of;
+  using boost::mpl::_;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef pack< logical<T> >                pack_t;
 
   pack_t a0;
   NT2_TEST_EXPR_TYPE( a0, sign_of<_>, typename sign_of<T>::type );

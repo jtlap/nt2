@@ -127,15 +127,11 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
-namespace boost { namespace dispatch { namespace details
-{
-  template<class T> 
-  struct  sign_of< boost::simd::logical<T>, void > : meta::sign_of<T>
-  {};
-} } }
-
 namespace boost { namespace dispatch { namespace ext
 {
+  template<class T> 
+  struct  sign_of< boost::simd::logical<T> > : meta::sign_of<T> {};
+  
   template<typename Type, typename Sign>
   struct upgrade< boost::simd::logical<Type>, Sign, void >
   {

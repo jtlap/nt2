@@ -9,7 +9,11 @@
 #ifndef BOOST_DISPATCH_META_SIGN_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_SIGN_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/is_signed.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_signed.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -24,16 +28,27 @@ namespace boost { namespace dispatch { namespace meta
   template<class T> struct sign_of;
 } } }
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace dispatch { namespace ext
 {
   template<class T, class Enable = void> 
-  struct sign_of
+  struct  sign_of
+        : sign_of< typename meta::primitive_of<T>::type >
+  {};
+
+  template<class T>
+  struct sign_of<T, typename enable_if< boost::is_signed<T> >::type>
+  {
+    typedef signed type;
+  };
+
+  template<class T>
+  struct sign_of<T, typename enable_if< boost::is_unsigned<T> >::type>
   {
     typedef unsigned type;
   };
 
   template<class T>
-  struct sign_of<T, typename enable_if< meta::is_signed<T> >::type>
+  struct sign_of<T, typename enable_if< boost::is_floating_point<T> >::type>
   {
     typedef signed type;
   };
@@ -41,8 +56,8 @@ namespace boost { namespace dispatch { namespace details
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T> struct  sign_of           : details::sign_of<T> {};
-  template<class T> struct  sign_of<T&>       : sign_of <T>         {};
-  template<class T> struct  sign_of<T const>  : sign_of <T>         {};
+  template<class T> struct  sign_of           : ext::sign_of<T> {};
+  template<class T> struct  sign_of<T&>       : sign_of <T>     {};
+  template<class T> struct  sign_of<T const>  : sign_of <T>     {};
 } } }
 #endif
