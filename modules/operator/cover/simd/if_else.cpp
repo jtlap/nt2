@@ -36,9 +36,10 @@
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 
-NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( if_else_integer__3_0,  (boost::simd::int32_t))//NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::if_else;
   using nt2::tag::if_else_;
@@ -51,8 +52,10 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<if_else_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<if_else_(T,T,T)>::type sr_t;
+  typedef native<nt2::logical<T>,ext_t >        vlT;
+  typedef nt2::logical<T>                         lT;
+  typedef typename nt2::meta::call<if_else_(vlT,vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<if_else_(lT,T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
@@ -60,20 +63,25 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_LOGICAL_BUF(tab_a0,T, NR);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vlT a0 = load<vlT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
-        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+//        std::cout << a0 << "  "<< std::endl << a1 << "  "<< std::endl << a2 << "  " << std::endl;
+//        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+//          std::cout << "data_ " << reinterpret_cast<T const*>(&a0.data_)[i] << " ";
+       std::cout << std::endl; 
+       for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::if_else (tab_a0[k],tab_a1[k],tab_a2[k])));
+//          std::cout << i << " -> " << bool(tab_a0[k]) << "  " << int(tab_a1[k]) << "  " << int(tab_a2[k]) << "  " << std::endl; 
+         NT2_TEST_EQUAL( v[i], nt2::if_else (lT(tab_a0[k]),tab_a1[k],tab_a2[k]));
         }
       }
     
@@ -93,8 +101,10 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<if_else_(vT,vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<if_else_(T,T,T)>::type sr_t;
+  typedef native<nt2::logical<T>,ext_t >              vlT;
+  typedef nt2::logical<T>                         lT;
+  typedef typename nt2::meta::call<if_else_(vlT,vT,vT)>::type r_t;
+  typedef typename nt2::meta::call<if_else_(lT,T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
@@ -102,20 +112,20 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
+    NT2_CREATE_LOGICAL_BUF(tab_a0,T, NR);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
-        vT a0 = load<vT>(&tab_a0[0],j);
+        vlT a0 = load<vlT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::if_else (tab_a0[k],tab_a1[k],tab_a2[k])));
+                   NT2_TEST_EQUAL( v[i],nt2::if_else (lT(tab_a0[k]),tab_a1[k],tab_a2[k]));
         }
       }
     

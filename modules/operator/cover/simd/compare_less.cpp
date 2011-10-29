@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_SIMD_REAL_TYPES)
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,sr_t(z));
       }
     
   }
@@ -118,7 +118,7 @@ NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPE
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,sr_t(z));
       }
     
   }
@@ -160,7 +160,7 @@ NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,sr_t(z));
       }
     
   }

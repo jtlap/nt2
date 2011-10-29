@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( compare_not_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
         {
           z |= a0[i]!=a1[i];
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,sr_t(z));
       }
     
   }
@@ -118,7 +118,7 @@ NT2_TEST_CASE_TPL ( compare_not_equal_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
         {
           z |= a0[i]!=a1[i];
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,sr_t(z));
       }
     
   }
