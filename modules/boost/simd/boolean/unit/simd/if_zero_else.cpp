@@ -49,9 +49,10 @@ NT2_TEST_CASE_TPL ( if_zero_else_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(if_zero_else(boost::simd::splat<vlT>(0),boost::simd::splat<vT>(1))[0], 1);
-  // NT2_TEST_EQUAL(if_zero_else(boost::simd::splat<vlT>(1),boost::simd::splat<vT>(1))[0], 0);
-  NT2_TEST_EQUAL(if_zero_else(boost::simd::splat<vlT>(boost::simd::Nan<T>()),boost::simd::splat<vT>(1))[0], 0);
+  NT2_TEST_EQUAL(if_zero_else(boost::simd::is_nez(boost::simd::Zero<vT>()),boost::simd::splat<vT>(1))[0], 1);
+  NT2_TEST_EQUAL(if_zero_else(boost::simd::is_nez(boost::simd::Zero<vT>()),boost::simd::Nan<vT>())[0], boost::simd::Nan<T>());
+  NT2_TEST_EQUAL(if_zero_else(boost::simd::is_nez(boost::simd::One<vT>()),boost::simd::splat<vT>(1))[0], 0);
+  NT2_TEST_EQUAL(if_zero_else(boost::simd::is_nez(boost::simd::One<vT>()),boost::simd::Nan<vT>())[0], 0);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( if_zero_else_signed_int__2_0, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -77,6 +78,6 @@ NT2_TEST_CASE_TPL ( if_zero_else_signed_int__2_0, BOOST_SIMD_SIMD_INTEGRAL_SIGNE
 
 
   // specific values tests
-  NT2_TEST_EQUAL(if_zero_else(boost::simd::splat<vlT>(0),boost::simd::splat<vT>(1))[0], 1);
-  NT2_TEST_EQUAL(if_zero_else(boost::simd::splat<vlT>(T(-1)),boost::simd::splat<vT>(1))[0], 0);
+  NT2_TEST_EQUAL(if_zero_else(boost::simd::is_nez(boost::simd::Zero<vT>()),boost::simd::splat<vT>(1))[0], 1);
+  NT2_TEST_EQUAL(if_zero_else(boost::simd::is_nez(boost::simd::One<vT>()),boost::simd::splat<vT>(1))[0], 0);
 } // end of test for signed_int_
