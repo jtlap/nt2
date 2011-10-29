@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
   // the Tag over a given Target.
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)
-                                   , ((target_< scalar_< fundamental_<A0> > >))
+                                   , ((target_< scalar_< arithmetic_<A0> > >))
                                    )
   {
     typedef typename A0::type                               base_type;
@@ -46,9 +46,9 @@ namespace boost { namespace simd { namespace ext
   // splat from the Tag/Target bit pattern immediate, if not we add a bitwise
   // cast
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)(X)
-                            , ((target_< simd_< arithmetic_<A0>,X> >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( Tag, tag::cpu_, (Tag)(A0)(X)
+                                    , ((target_< simd_< arithmetic_<A0>,X> >))
+                                    )
   {
     typedef typename A0::type                                       target_type;
     typedef typename dispatch::meta::scalar_of<target_type>::type   base_type;

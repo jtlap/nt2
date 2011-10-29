@@ -80,7 +80,10 @@ namespace boost { namespace simd
 
     value_type operator[](std::size_t i) const
     {
-      return value_type(reinterpret_cast<Scalar const*>(&data_)[i]);
+      typedef typename logical<Scalar>::bits bits;
+      bits b  = bitwise_cast<bits>(reinterpret_cast<Scalar const*>(&data_)[i]) 
+              & 1;
+      return value_type( reinterpret_cast<bool const&>( b ) );
     }    
     
     native_type data_;
