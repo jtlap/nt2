@@ -21,7 +21,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) 
     { 
-      return is_nez(a0) & One<A0>(); }
+      return is_nez(a0); 
+    }
   };
 } } }
 

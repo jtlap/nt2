@@ -23,12 +23,13 @@ NT2_TEST_CASE_TPL( true_false_value, BOOST_SIMD_TYPES )
   using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>                dst_t;
+
   
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], false );
+     NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], boost::simd::False<logical<T> >() );
 
-   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
-     NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], true );  
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
+    NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i],  boost::simd::True<logical<T> >() );  
 }
 
 NT2_TEST_CASE_TPL( true_false_logical_value, BOOST_SIMD_TYPES )
@@ -39,8 +40,8 @@ NT2_TEST_CASE_TPL( true_false_logical_value, BOOST_SIMD_TYPES )
   typedef typename boost::dispatch::meta::as_unsigned<T>::type  uns_t;
 
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], false );
+    NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], boost::simd::False<logical<T> >() );
   
-   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
-     NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], true );
+    for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
+      NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], boost::simd::True<logical<T> >() );
 }

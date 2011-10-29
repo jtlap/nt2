@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "boost::simd::constants true/false"
+#define NT2_UNIT_MODULE "boost::simd::constants true/false scalar case"
 
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/true_false.hpp>
@@ -20,8 +20,8 @@ NT2_TEST_CASE_TPL( true_false_value, BOOST_SIMD_TYPES )
 {
   using boost::simd::logical;
 
-  NT2_TEST_EQUAL( boost::simd::False<T>(), logical<T>(false) );
-  NT2_TEST_EQUAL( boost::simd::True<T>() , logical<T>(true) );
+  NT2_TEST_EQUAL( boost::simd::False<T>(), (char)(false) );
+  NT2_TEST_EQUAL( boost::simd::True<T>() , (char)(true) );
 
   NT2_TEST_EQUAL( boost::simd::False< logical<T> >(), logical<T>(false) );
   NT2_TEST_EQUAL( boost::simd::True< logical<T> >() , logical<T>(true) );

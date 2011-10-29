@@ -21,10 +21,10 @@ namespace boost { namespace simd { namespace ext
                        ((simd_<arithmetic_<A0>,X>))
                       )
   {
-    typedef typename meta::as_logical<A0>::type result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return b_and(is_nez(a0), One<A0>());
+      return boolean_select(is_nez(a0), One<A0>(), Zero<A0>());
     }
   };
 } } }

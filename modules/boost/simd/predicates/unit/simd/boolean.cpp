@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( boolean_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(boolean(-boost::simd::Zero<vT>())[0], sr_t(false));
+  NT2_TEST_EQUAL(boolean(boost::simd::Mzero<vT>())[0], sr_t(false));
   NT2_TEST_EQUAL(boolean(boost::simd::Half<vT>())[0], sr_t(true));
   NT2_TEST_EQUAL(boolean(boost::simd::Inf<vT>())[0], sr_t(true));
   NT2_TEST_EQUAL(boolean(boost::simd::Minf<vT>())[0], sr_t(true));

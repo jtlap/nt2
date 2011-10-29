@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -39,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type iA0; 
-      return native_cast<result_type>(boost::simd::any(bitwise_cast<iA0>(a0)));
+      return native_cast<result_type>(boost::simd::any(bitwise_cast<iA0>(boost::simd::abs(a0))));
     }
   };
 } } }  
