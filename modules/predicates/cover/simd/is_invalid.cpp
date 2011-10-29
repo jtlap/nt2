@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( is_invalid_real__1_0,  NT2_SIMD_REAL_TYPES)
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::is_invalid (tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::is_invalid (tab_a0[k])));
         }
       }
     
