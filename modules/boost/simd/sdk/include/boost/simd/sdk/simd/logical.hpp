@@ -46,22 +46,8 @@ namespace boost { namespace simd
      * \param v Boolean value to convert to logical
      **/
     //==========================================================================    
-    BOOST_DISPATCH_FORCE_INLINE 
-    logical(bool const v) : value_(v)  {}
+    BOOST_DISPATCH_FORCE_INLINE logical(bool const v) : value_(v)  {}
     
-    //==========================================================================    
-    /*!
-     * Constructs a logical from a value of type \c T
-     *
-     * \param v Value to turn into a logical value. \c v must be 0 or 1 or
-     * the constructor will fail. 
-     **/
-    //==========================================================================    
-//     BOOST_DISPATCH_FORCE_INLINE logical( T const& v) : value_(v) 
-//     {
-//       BOOST_ASSERT_MSG(((v==0) || (v==1)), "Invalid boolean value");
-//     }
-
     BOOST_DISPATCH_FORCE_INLINE 
     bool operator ==(logical<T> const& a) const { return  value_ == a.value_; }
     
