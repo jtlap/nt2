@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(if_else(logical<T>(T(-1)), boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(if_else(logical<T>(T(1)),boost::simd::Zero<T>(),boost::simd::Two<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(if_else(logical<T>(T(0)), boost::simd::One<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::True<T>(), boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::True<T>(), boost::simd::Zero<T>(),boost::simd::Two<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::False<T>(), boost::simd::One<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( if_else_real__3_0,  BOOST_SIMD_REAL_TYPES)
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(if_else(logical<T>(boost::simd::Nan<T>()), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(if_else(logical<T>(boost::simd::One<T>()),boost::simd::Zero<T>(),boost::simd::Two<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(if_else(logical<T>(boost::simd::Zero<T>()), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::True<T>()), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::True<T>()),boost::simd::Zero<T>(),boost::simd::Two<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::False<T>()), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for floating_

@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  NT2_SIMD_REAL_TYPES)
         {
           z = z&&a0[i];
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,ssr_t(z));
       }
     
   }

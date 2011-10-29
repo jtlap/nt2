@@ -92,7 +92,7 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_SIMD_REAL_TYPES)
         {
           z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,ssr_t(z));
         pb(z, N); 
       }
     
@@ -135,7 +135,7 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
         {
           z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,ssr_t(z));
         pb(z, N); 
       }
     
@@ -178,7 +178,7 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
         {
           z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,ssr_t(z));
         pb(z, N); 
       }
     

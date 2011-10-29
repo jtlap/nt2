@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
