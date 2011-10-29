@@ -16,7 +16,7 @@
 #include <nt2/toolbox/predicates/include/functions/is_negative.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<is_negative_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::is_negative(a0),a0<0);
+        NT2_TEST_EQUAL( nt2::is_negative(a0),r_t(a0<0));
      }
      
    }
@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( is_negative_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<is_negative_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -99,7 +99,7 @@ NT2_TEST_CASE_TPL ( is_negative_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::is_negative(a0),a0<0);
+        NT2_TEST_EQUAL( nt2::is_negative(a0),r_t(a0<0));
      }
      
    }
@@ -114,7 +114,7 @@ NT2_TEST_CASE_TPL ( is_negative_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<is_negative_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -134,7 +134,7 @@ NT2_TEST_CASE_TPL ( is_negative_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::is_negative(a0),a0<0);
+        NT2_TEST_EQUAL( nt2::is_negative(a0),r_t(a0<0));
      }
      
    }
