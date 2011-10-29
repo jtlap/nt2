@@ -30,7 +30,8 @@ namespace boost { namespace simd
   //============================================================================
   template<typename T> struct logical
   {
-    typedef typename dispatch::meta::as_integer<T>::type bits;
+    typedef T                                             value_type;
+    typedef typename dispatch::meta::as_integer<T>::type  bits;
 
     //==========================================================================    
     /*!

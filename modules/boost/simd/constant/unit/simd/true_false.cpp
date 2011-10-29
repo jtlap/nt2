@@ -8,8 +8,8 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::constants true/false"
 
-#include <boost/simd/include/constants/true_false.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
@@ -20,13 +20,27 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( true_false_value, BOOST_SIMD_TYPES )
 {
+  using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>                dst_t;
+  
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
+    NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], false );
+
+   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
+     NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], true );  
+}
+
+NT2_TEST_CASE_TPL( true_false_logical_value, BOOST_SIMD_TYPES )
+{
+  using boost::simd::logical;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native< logical<T>,ext_t>                dst_t;
   typedef typename boost::dispatch::meta::as_unsigned<T>::type  uns_t;
 
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], static_cast<T>(0) );
-
+    NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], false );
+  
    for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
-     NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], static_cast<T>(1) );
+     NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], true );
 }
