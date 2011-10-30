@@ -49,14 +49,14 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(sb2b(-boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Half<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Inf<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Minf<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Mone<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Nan<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::One<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Quarter<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Two<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Mzero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Half<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Inf<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Minf<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Mone<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Nan<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Quarter<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Two<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(sb2b(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_

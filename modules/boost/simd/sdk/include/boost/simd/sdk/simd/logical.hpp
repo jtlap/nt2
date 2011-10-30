@@ -50,10 +50,10 @@ namespace boost { namespace simd
     BOOST_DISPATCH_FORCE_INLINE logical(bool const v) : value_(v)  {}
     
     BOOST_DISPATCH_FORCE_INLINE 
-    bool operator ==(logical<T> const& a) const { return (value_&1) == (a.value_&1); }
+    bool operator ==(logical<T> const& a) const { return value_ == a.value_; }
     
     BOOST_DISPATCH_FORCE_INLINE 
-    bool operator !=(logical<T> const& a) const { return (value_&1) != (a.value_&1); }
+    bool operator !=(logical<T> const& a) const { return value_ !=  a.value_; }
     
     BOOST_DISPATCH_FORCE_INLINE bool operator ~() const { return (~value_); }
     BOOST_DISPATCH_FORCE_INLINE bool operator !() const { return (!value_); }

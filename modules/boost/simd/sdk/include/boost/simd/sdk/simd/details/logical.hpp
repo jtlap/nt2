@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/toolbox/boolean/functions/typed_bool.hpp>
+//#include <boost/simd/toolbox/boolean/functions/typed_bool.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -46,18 +46,18 @@ namespace boost { namespace simd
 
     enum { static_size = meta::cardinal_of<native>::value };
 
-    BOOST_DISPATCH_FORCE_INLINE native& operator=(native const& s)
-    {
-      data_ = s.data_;
-      return *this;
-    }
+//     BOOST_DISPATCH_FORCE_INLINE native& operator=(native const& s)
+//     {
+//       data_ = s.data_;
+//       return *this;
+//     }
     
-    BOOST_DISPATCH_FORCE_INLINE 
-    native& operator=(native<Scalar,Extension> const& s)
-    {
-      data_ = typed_bool(s);
-      return *this;
-    }
+//     BOOST_DISPATCH_FORCE_INLINE 
+//     native& operator=(native<Scalar,Extension> const& s)
+//     {
+//       data_ = typed_bool(s);
+//       return *this;
+//     }
     
     BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& s)
     {     

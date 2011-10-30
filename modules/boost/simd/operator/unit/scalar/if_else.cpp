@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(if_else( boost::simd::True<T>()), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(if_else( boost::simd::True<T>()),boost::simd::Zero<T>(),boost::simd::Two<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(if_else( boost::simd::False<T>()), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::True<T>(), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::True<T>(),boost::simd::Zero<T>(),boost::simd::Two<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(if_else( boost::simd::False<T>(), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
