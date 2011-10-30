@@ -155,6 +155,7 @@ macro(nt2_module_main module)
     
   if(CMAKE_CURRENT_SOURCE_DIR STREQUAL ${PROJECT_SOURCE_DIR})
     project(NT2_${NT2_CURRENT_MODULE_U})
+    set(NT2_BINARY_DIR ${PROJECT_BINARY_DIR})
     nt2_postconfigure_init()
   endif()
 
