@@ -17,6 +17,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
@@ -41,7 +42,7 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -64,7 +65,7 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::logical_xor(a0,a1),(a0!=0)^(a1!=0),0);
+        NT2_TEST_EQUAL( nt2::logical_xor(a0,a1),r_t((a0!=0)^(a1!=0)));
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -80,7 +81,7 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -103,7 +104,7 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::logical_xor(a0,a1),(a0!=0)^(a1!=0),0);
+        NT2_TEST_EQUAL( nt2::logical_xor(a0,a1),r_t((a0!=0)^(a1!=0)));
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -119,7 +120,7 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -142,7 +143,7 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::logical_xor(a0,a1),(a0!=0)^(a1!=0),0);
+        NT2_TEST_EQUAL( nt2::logical_xor(a0,a1),r_t((a0!=0)^(a1!=0)));
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

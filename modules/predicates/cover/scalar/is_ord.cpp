@@ -64,7 +64,8 @@ NT2_TEST_CASE_TPL ( is_ord_real__2_0,  NT2_REAL_TYPES)
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
+                 << " " << nt2::type_id(nt2::is_ord(a0,a1)) << "  "  << nt2::type_id(nt2::True<r_t>())
+                   << std::endl;
         NT2_TEST_EQUAL( nt2::is_ord(a0,a1),nt2::True<r_t>());
      }
      
@@ -102,7 +103,7 @@ NT2_TEST_CASE_TPL ( is_ord_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
+                 << std::endl;
         NT2_TEST_EQUAL( nt2::is_ord(a0,a1),nt2::True<r_t>());
      }
      
