@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-        return (a0&&a1)||(a1&&a2)||(a2&&a0);
+      return result_type((a0&&a1)||(a1&&a2)||(a2&&a0));
     }
   };
 } } }

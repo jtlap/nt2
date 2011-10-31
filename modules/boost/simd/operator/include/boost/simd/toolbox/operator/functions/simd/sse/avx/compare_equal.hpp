@@ -13,7 +13,7 @@
 #include <boost/simd/toolbox/operator/functions/compare_equal.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-
+#include <boost/simd/include/constants/false.hpp>
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, boost::simd::tag::avx_
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::scalar_of<A0>::type  sA0; 
     typedef typename meta::as_logical<sA0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm256_movemask_pd(eq(a0,a1)) == 0X0F; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return  result_type(_mm256_movemask_pd(eq(a0,a1)) == 0X0F); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, boost::simd::tag::avx_
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::scalar_of<A0>::type  sA0; 
     typedef typename meta::as_logical<sA0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm256_movemask_ps(eq(a0,a1)) == 0X0FF; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return  result_type(_mm256_movemask_ps(eq(a0,a1)) == 0X0FF); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, boost::simd::tag::avx_
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
       htype a10 = {_mm256_extractf128_si256(a1, 0)};
       if (!compare_equal(a00, a10))
       {
-        return false;
+        return  False<result_type>();
       } 
       else
       {

@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return hmsb(a0) != 0;
+      return native_cast<result_type>(hmsb(a0) != 0);
     }
   };
 } } }

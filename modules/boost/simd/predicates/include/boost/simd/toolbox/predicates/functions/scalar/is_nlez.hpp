@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NLEZ_HPP_INCLUDED
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -22,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (a0 >  Zero<A0>());
+      return result_type(a0 >  Zero<A0>());
     }
   };
 
@@ -35,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using  boost::simd::is_nan;
-      return ((a0 >  Zero<A0>()) || is_nan(a0));
+      return logical_or(result_type(a0 > Zero<A0>()), is_nan(a0));
     }
   };
 } } }

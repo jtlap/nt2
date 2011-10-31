@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::scalar_of<A0>::type  sA0; 
     typedef typename meta::as_logical<sA0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return !compare_equal(a0,a1); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(!compare_equal(a0,a1)); }
   };
 } } }
 

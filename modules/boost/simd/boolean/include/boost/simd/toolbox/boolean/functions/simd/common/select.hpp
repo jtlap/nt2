@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
-      BOOST_ASSERT_MSG(is_simd_logical(a0), "Some entries are not legal SIMD True or False"); 
+      //      BOOST_ASSERT_MSG(is_simd_logical(a0), "Some entries are not legal SIMD True or False"); 
       return bitwise_select(a0, a1, a2);
     }
   };

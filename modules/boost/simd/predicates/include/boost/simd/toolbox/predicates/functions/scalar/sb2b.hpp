@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_SB2B_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_SB2B_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0!= Zero<A0>();
+      return result_type(a0!= Zero<A0>());
     }
   };
 } } }

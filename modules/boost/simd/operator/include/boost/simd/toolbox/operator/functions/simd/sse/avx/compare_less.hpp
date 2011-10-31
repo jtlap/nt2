@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/compare_less.hpp>
+#include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/reversebits.hpp>
@@ -32,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     {
       unsigned int mask_a_lt_b =  _mm256_movemask_pd(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm256_movemask_pd(gt(a0,a1));
-      return boost::simd::details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
+      return result_type(boost::simd::details::compare_less_helper(mask_a_lt_b,mask_a_gt_b));
     }
   };
 
@@ -48,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     {
       unsigned int mask_a_lt_b =  _mm256_movemask_ps(lt(a0,a1));
       unsigned int mask_a_gt_b =  _mm256_movemask_ps(gt(a0,a1));
-      return boost::simd::details::compare_less_helper(mask_a_lt_b,mask_a_gt_b);
+      return result_type(boost::simd::details::compare_less_helper(mask_a_lt_b,mask_a_gt_b));
     }
   };
 
@@ -68,7 +69,7 @@ namespace boost { namespace simd { namespace ext
       htype a10 = {_mm256_extractf128_si256(a1, 0)};
       if (compare_less(a00, a10))
       {
-        return true;
+        return True<result_type>();
       } 
       else if (compare_equal(a00, a10))
       {

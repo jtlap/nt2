@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (a0 != a0);
+      return result_type(a0 != a0);
     }
   };
 } } }

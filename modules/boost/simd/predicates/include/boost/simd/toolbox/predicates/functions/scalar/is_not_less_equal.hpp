@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_LESS_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_LESS_EQUAL_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -21,7 +22,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-       return a0 > a1;
+      return result_type(a0 > a1);
     }
   };
 
@@ -36,7 +37,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       using boost::simd::is_nan;
-      return ((a0 > a1) || is_nan(a0)|| is_nan(a1));
+      return logical_or(result_type(a0 > a1), logical_or(is_nan(a0), is_nan(a1)));
     }
   };
 } } }

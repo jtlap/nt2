@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef logical<A0> result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0 == a1; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(a0 == a1); }
   };
 } } }
  

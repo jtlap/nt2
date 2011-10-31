@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0 <= a1; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(a0 <= a1); }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_, tag::cpu_
                             , (A0)
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return !(a0 >  a1); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(!(a0 >  a1)); }
   };
 } } }
  

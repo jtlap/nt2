@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::scalar_of<A0>::type  sA0; 
     typedef typename meta::as_logical<sA0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_pd(eq(a0,a1)) == 0X03; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(_mm_movemask_pd(eq(a0,a1)) == 0X03); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, boost::simd::tag::sse2_
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::scalar_of<A0>::type  sA0; 
     typedef typename meta::as_logical<sA0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return _mm_movemask_ps(eq(a0,a1)) == 0X0F; }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return  result_type(_mm_movemask_ps(eq(a0,a1)) == 0X0F); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_equal_, boost::simd::tag::sse2_
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return _mm_movemask_epi8(eq(a0,a1)) == 0X0FFFF;
+      return  result_type(_mm_movemask_epi8(eq(a0,a1)) == 0X0FFFF);
     }
   };
 } } }

@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NEZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NEZ_HPP_INCLUDED
-
 #include <boost/simd/toolbox/predicates/functions/is_nez.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
@@ -26,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0 != logical<A0>(false); //Zero<A0>();
+      return result_type(a0 != Zero<A0>());
     }
   };
 } } }
