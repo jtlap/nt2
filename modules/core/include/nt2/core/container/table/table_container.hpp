@@ -64,7 +64,8 @@ namespace nt2 { namespace container
     typedef typename block_type::reference        reference;
     typedef typename block_type::const_reference  const_reference;
 
-    void resize( extent_type const& sz ) 
+    template<class Sz>
+    void resize( Sz const& sz ) 
     { 
       size_ = sz;
       block_.resize(size_); 
