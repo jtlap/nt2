@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 
+#include <boost/mpl/assert.hpp>
 #include <boost/proto/extends.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/extent.hpp>
@@ -63,7 +64,7 @@ namespace nt2 { namespace container
     // expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
-    expression() : size_(nt2::extent(parent::proto_base().child0)) 
+    expression() : size_(nt2::extent(parent::proto_base().child0))
     {
     }
 
@@ -77,7 +78,7 @@ namespace nt2 { namespace container
     template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
     expression const& operator=(Xpr const& xpr) const
     {
-      nt2::evaluate( nt2::assign(*this, xpr) );
+      process( xpr );
       return *this;
     }
 
@@ -87,7 +88,7 @@ namespace nt2 { namespace container
     template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
     expression& operator=(Xpr const& xpr)
     {
-      nt2::evaluate( nt2::assign(*this, xpr) );
+      process( xpr );
       return *this;
     }
 
@@ -144,6 +145,49 @@ namespace nt2 { namespace container
     extent_type const& extent() const
     {
       return size_;
+    }
+
+    protected:
+
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE void process( Xpr const& xpr )
+    {
+      typedef typename boost::proto::as_expr<Xpr>::type lhs_type;
+      process ( xpr
+              , typename boost::proto::matches< lhs_type
+                                              , container::grammar>::type()
+              );
+    }
+
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE void process( Xpr const& xpr ) const
+    {
+      typedef typename boost::proto::as_expr<Xpr>::type lhs_type;
+      process ( xpr
+              , typename boost::proto::matches< lhs_type
+                                              , container::grammar>::type()
+              );
+    }
+
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    void process( Xpr const& xpr, boost::mpl::true_ const& )
+    {
+      nt2::evaluate( nt2::assign(*this, xpr) );
+    }
+
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    void process( Xpr const& xpr, boost::mpl::true_ const& ) const
+    {
+      nt2::evaluate( nt2::assign(*this, xpr) );
+    }
+
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    void process( Xpr const&, boost::mpl::false_ const& ) const
+    {
+      BOOST_MPL_ASSERT_MSG( (sizeof(Xpr) == 0)
+                          , NT2_EXPRESSION_GRAMMAR_MISMATCH
+                          , (Xpr)
+                          )
     }
 
     private:
