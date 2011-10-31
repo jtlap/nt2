@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/none.hpp>
-#include <boost/simd/toolbox/reduction/functions/abs.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/abs.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
@@ -33,14 +33,14 @@ namespace boost { namespace simd { namespace ext
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
                         (A0),
-                        ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<floating_<A0>,boost::simd::tag::avx_>))
                        )
   {
     typedef typename meta::scalar_of<A0>::type sA0;
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-
+      typedef typename dispatch::meta::as_integer<A0>::type itype;
       return none(native_cast<itype>(boost::simd::abs(a0)));
     }
   };
