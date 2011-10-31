@@ -10,6 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ORD_HPP_INCLUDED
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/logical_not.hpp>
 #include <boost/simd/include/functions/boolean.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -37,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       using  boost::simd::is_nan;
-      return !(is_nan(a0) || is_nan(a1));
+      return logical_not(logical_or(is_nan(a0),is_nan(a1)));
     }
   };
 } } }

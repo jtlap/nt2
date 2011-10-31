@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0 >= Zero<A0>();
+      return result_type(a0 >= Zero<A0>());
     }
   };
 } } }
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename boost::dispatch::meta::as_integer<A0>::type itype; 
-      return boost::simd::bitwise_cast<itype>(a0) >=  Zero<itype>(); 
+      return result_type(boost::simd::bitwise_cast<itype>(a0) >=  Zero<itype>()); 
     }
   };
 } } }

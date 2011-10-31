@@ -10,8 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_EQZ_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return !a0;
+      return result_type(!a0);
     }
   };
 } } }

@@ -47,7 +47,12 @@ namespace boost { namespace simd
      * \param v Boolean value to convert to logical
      **/
     //==========================================================================    
-    BOOST_DISPATCH_FORCE_INLINE logical(bool const v) : value_(v)  {}
+    BOOST_DISPATCH_FORCE_INLINE explicit logical(bool v) : value_(v)  {}
+    
+    BOOST_DISPATCH_FORCE_INLINE logical& operator=(bool v) 
+    { 
+      value_ = v; return *this; 
+    }
     
     BOOST_DISPATCH_FORCE_INLINE 
     bool operator ==(logical<T> const& a) const { return value_ == a.value_; }
@@ -66,7 +71,7 @@ namespace boost { namespace simd
      **/
     //==========================================================================    
     BOOST_DISPATCH_FORCE_INLINE operator bool() const { return value_; }
-
+    bool value() const {return value_; }
     private:
     bool  value_;
   };

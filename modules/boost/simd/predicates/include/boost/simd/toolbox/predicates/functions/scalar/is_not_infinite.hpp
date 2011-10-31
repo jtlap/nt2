@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return  boost::simd::abs(a0) != boost::simd::Inf<A0>();
+      return  result_type(boost::simd::abs(a0) != boost::simd::Inf<A0>());
     }
   };
 } } }

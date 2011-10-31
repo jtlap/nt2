@@ -9,7 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -24,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (a0 != a1);
+      return result_type(a0 != a1);
     }
   };
 
@@ -38,7 +40,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return   (a0 != a1) && !(boost::simd::is_nan(a0) && boost::simd::is_nan(a1));
+      return   result_type((a0 != a1) & !(boost::simd::is_nan(a0) & boost::simd::is_nan(a1)));
     }
   };
 } } }

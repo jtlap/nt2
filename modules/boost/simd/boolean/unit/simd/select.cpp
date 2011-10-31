@@ -15,6 +15,7 @@
 /// 
 #include <boost/simd/toolbox/boolean/include/functions/select.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -49,8 +50,8 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(select(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(select(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
+//   NT2_TEST_EQUAL(select(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
+//   NT2_TEST_EQUAL(select(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
   NT2_TEST_EQUAL(select(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(select(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_
@@ -77,4 +78,5 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(select(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(select(boost::simd::Allbits<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for integer_

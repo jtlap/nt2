@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return bitwise_all(typed_bool<A0>(a0));
+      return native_cast<result_type>(bitwise_all(typed_bool<A0>(a0)));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename A0::type type; 
-      return bitwise_all(native_cast<type>(a0));
+      return native_cast<result_type>(bitwise_all(native_cast<type>(a0)));
     }
   };
 } } }
