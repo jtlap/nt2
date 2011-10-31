@@ -10,6 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 
 #include <boost/mpl/assert.hpp>
+#include <boost/proto/traits.hpp>
 #include <boost/proto/extends.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/extent.hpp>
@@ -149,10 +150,17 @@ namespace nt2 { namespace container
 
     protected:
 
+    //==========================================================================
+    // For any given Xpr expression, if Xpr matches the current grammar, then
+    // the assignment is evaluated. Otherwise, a static assertion is triggered
+    // in a separate function to prevent error cascading.
+    // process exists in non-const and const flavors to support the same const
+    // and non-const variants of operator=
+    //==========================================================================
     template<class Xpr>
     BOOST_DISPATCH_FORCE_INLINE void process( Xpr const& xpr )
     {
-      typedef typename boost::proto::as_expr<Xpr>::type lhs_type;
+      typedef typename boost::proto::result_of::as_expr<Xpr>::type lhs_type;
       process ( xpr
               , typename boost::proto::matches< lhs_type
                                               , container::grammar>::type()
@@ -162,13 +170,16 @@ namespace nt2 { namespace container
     template<class Xpr>
     BOOST_DISPATCH_FORCE_INLINE void process( Xpr const& xpr ) const
     {
-      typedef typename boost::proto::as_expr<Xpr>::type lhs_type;
+      typedef typename boost::proto::result_of::as_expr<Xpr>::type lhs_type;
       process ( xpr
               , typename boost::proto::matches< lhs_type
                                               , container::grammar>::type()
               );
     }
 
+    //==========================================================================
+    // Specialization for error cascading prevention
+    //==========================================================================
     template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
     void process( Xpr const& xpr, boost::mpl::true_ const& )
     {
@@ -184,10 +195,14 @@ namespace nt2 { namespace container
     template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
     void process( Xpr const&, boost::mpl::false_ const& ) const
     {
+      //========================================================================
+      // If you trigger this assertion, you tried to assign an invalid
+      // expression into a nt2 Container or Container view.
+      //========================================================================
       BOOST_MPL_ASSERT_MSG( (sizeof(Xpr) == 0)
                           , NT2_EXPRESSION_GRAMMAR_MISMATCH
                           , (Xpr)
-                          )
+                          );
     }
 
     private:
