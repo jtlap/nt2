@@ -65,7 +65,6 @@ namespace nt2 { namespace container
     BOOST_DISPATCH_FORCE_INLINE
     expression() : size_(nt2::extent(parent::proto_base().child0)) 
     {
-
     }
 
     template<class Sz>
@@ -75,8 +74,8 @@ namespace nt2 { namespace container
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
     //==========================================================================
-    template<class Xpr,class Result> BOOST_DISPATCH_FORCE_INLINE
-    expression const& operator=(expression<Xpr,Result> const& xpr) const
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    expression const& operator=(Xpr const& xpr) const
     {
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
@@ -85,8 +84,8 @@ namespace nt2 { namespace container
     //==========================================================================
     // Assignment operator force evaluation - regular version
     //==========================================================================
-    template<class Xpr,class Result> BOOST_DISPATCH_FORCE_INLINE
-    expression& operator=(expression<Xpr,Result> const& xpr)
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(Xpr const& xpr)
     {
       nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
@@ -106,15 +105,15 @@ namespace nt2 { namespace container
     // Op-Assignment operators generate proper tree then evaluates
     //==========================================================================
     #define NT2_MAKE_ASSIGN_OP(OP)                                             \
-    template<class Xpr,class Result>                                           \
+    template<class Xpr>                                                        \
     BOOST_DISPATCH_FORCE_INLINE expression&                                    \
-    operator BOOST_PP_CAT(OP,=)(expression<Xpr,Result> const& xpr)             \
+    operator BOOST_PP_CAT(OP,=)(Xpr const& xpr)                                \
     {                                                                          \
       return *this = *this OP xpr;                                             \
     }                                                                          \
-    template<class Xpr,class Result>                                           \
+    template<class Xpr>                                                        \
     BOOST_DISPATCH_FORCE_INLINE expression const&                              \
-    operator BOOST_PP_CAT(OP,=)(expression<Xpr,Result> const& xpr) const       \
+    operator BOOST_PP_CAT(OP,=)(Xpr const& xpr) const                          \
     {                                                                          \
       return *this = *this OP xpr;                                             \
     }                                                                          \
