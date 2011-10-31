@@ -46,11 +46,11 @@ namespace boost { namespace simd
 
     enum { static_size = meta::cardinal_of<native>::value };
 
-//     BOOST_DISPATCH_FORCE_INLINE native& operator=(native const& s)
-//     {
-//       data_ = s.data_;
-//       return *this;
-//     }
+    BOOST_DISPATCH_FORCE_INLINE native& operator=(native const& s)
+    {
+      data_ = s.data_;
+      return *this;
+    }
     
 //     BOOST_DISPATCH_FORCE_INLINE 
 //     native& operator=(native<Scalar,Extension> const& s)
@@ -59,11 +59,11 @@ namespace boost { namespace simd
 //       return *this;
 //     }
     
-    BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& s)
-    {     
-      data_ = typed_bool(s);
-      return *this;
-    }
+//     BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& s)
+//     {     
+//       data_ = typed_bool(s);
+//       return *this;
+//     }
 
     BOOST_DISPATCH_FORCE_INLINE
     operator native_type const& ()   const { return data_; }
