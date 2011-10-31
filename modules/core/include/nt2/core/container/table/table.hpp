@@ -36,10 +36,14 @@ namespace nt2 { namespace container
     //  table default constructor
     //==========================================================================
     template<class Sz>
-    table( Sz const& sz ) { boost::proto::value(*this).resize(extent_type(sz)); }
+    table(Sz const& sz, typename boost::disable_if< boost::proto::matches<typename boost::proto::result_of::as_expr<Sz>::type, grammar> >::type* = 0)
+    {
+      boost::proto::value(*this).resize(extent_type(sz));
+    }
 
-    template<class Xpr,class Result>
-    BOOST_DISPATCH_FORCE_INLINE table(expression<Xpr,Result> const& xpr)
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE
+    table(Xpr const& xpr, typename boost::enable_if< boost::proto::matches<typename boost::proto::result_of::as_expr<Xpr>::type, grammar> >::type* = 0)
     {
       static_cast<parent&>(*this) = xpr;
     }
