@@ -33,6 +33,35 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
+namespace nt2 { namespace container { namespace ext
+{
+  template<class Tag, class Domain, int N, class Expr>
+  struct resize
+  {
+    BOOST_MPL_ASSERT_MSG(0, NT2_RESIZE_ON_RHS, (Tag));
+  };
+  
+  template<class Tag, class Domain, class Expr>
+  struct resize<Tag, Domain, 0, Expr>
+  {
+    template<class Sz>
+    void operator()(Expr& expr, Sz const& sz)
+    {
+      boost::proto::value(expr).resize(sz);
+    }
+  };
+  
+  template<class Domain, int N, class Expr>
+  struct resize<boost::proto::tag::function, Domain, N, Expr>
+  {
+    template<class Sz>
+    void operator()(Expr&, Sz const&)
+    {
+    }
+  };
+  
+} } }
+
 namespace nt2 { namespace container
 {
   template<class Expr, class ResultType>
@@ -146,6 +175,28 @@ namespace nt2 { namespace container
     extent_type const& extent() const
     {
       return size_;
+    }
+    
+    template<class Sz>
+    void resize(Sz const& sz)
+    {
+      ext::resize< typename boost::proto::tag_of<parent>::type
+                 , domain
+                 , boost::proto::arity_of<parent>::type::value
+                 , expression<Expr, ResultType>
+                 >
+      ()(*this, sz);
+    }
+    
+    template<class Sz>
+    void resize(Sz const& sz) const
+    {
+      ext::resize< typename boost::proto::tag_of<parent>::type
+                 , domain
+                 , boost::proto::arity_of<parent>::type::value
+                 , expression<Expr, ResultType> const
+                 >
+      ()(*this, sz);
     }
 
     protected:

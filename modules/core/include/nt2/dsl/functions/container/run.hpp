@@ -46,6 +46,8 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
+      boost::proto::child_c<0>(a0).resize(a0.extent());
+        
       //==========================================================================
       // Generate a loop nest of proper depth running the expression evaluator
       // as its body and using indices/extent as loop bounds
