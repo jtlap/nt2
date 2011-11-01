@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_DIVIDES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_DIVIDES_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/operator/functions/divides.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/include/functions/none.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,14 +24,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
 #ifdef BOOST_SIMD_COMPILER_GCC
       //================================================================
       // this is a workaround for a possible gcc over-optimisation
       // that produce zero/zero -> zero instead of nan
-      if (none(a0)&&none(a1)) return Nan<result_type>();
+      if (logical_or(none(a0), none(a1))) return Nan<result_type>();
       //================================================================
 #endif
       A0 const that = { _mm_div_pd(a0,a1) };
@@ -46,14 +45,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
 #ifdef BOOST_SIMD_COMPILER_GCC
       //================================================================
       // this is a workaround for a possible gcc over-optimisation
       // that produce zero/zero -> zero instead of nan
-      if (none(a0)&&none(a1)) return Nan<result_type>();
+      if  (logical_or(none(a0), none(a1))) return Nan<result_type>();
       //================================================================
 #endif
       A0 const that = { _mm_div_ps(a0,a1) };
