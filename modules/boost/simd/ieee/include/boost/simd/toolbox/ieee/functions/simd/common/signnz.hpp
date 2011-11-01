@@ -23,13 +23,13 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::signnz_, tag::cpu_,
                          (A0)(X),
-                         ((simd_<arithmetic_<A0>,X>))
+                         ((simd_<integer_<A0>,X>))
                         )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return is_ltz(a0)-is_gez(a0); // here True is -1 False 0 !
+      return typed_bool(is_ltz(a0))-typed_bool(is_gez(a0)); // here True is -1 False 0 !
     }
   };
 

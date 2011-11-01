@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
-//#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -19,6 +19,8 @@
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/typed_bool.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_else_zero.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -84,16 +86,15 @@ namespace nt2 { namespace ext
         r_type x = b_xor(a00, sign_x);//x = nt2::abs(a0)
         int_type sign_n = signnz( a1 );
         int_type n = nt2::abs(a1);
-        int_type   n_odd = is_odd(n);
-        r_type n_oddf = tofloat(-n_odd);
+        r_type n_oddf = if_else_zero(is_odd(n), One<r_type>());
         r_type nf = n_oddf;
         r_type y = madd(n_oddf,x,oneminus(n_oddf));
         r_type w = x;
         n = shri(n,1);
         while( nt2::any(n) )
         {
-          w =sqr( w);
-          n_oddf = tofloat(-typed_bool(is_odd(n)));
+          w =sqr(w);
+          n_oddf = if_else_zero(is_odd(n), One<r_type>());
           y = y*madd(n_oddf,w,oneminus(n_oddf));
           n = shri(n,1);
         }
@@ -104,7 +105,7 @@ namespace nt2 { namespace ext
         w = rec(y);
         x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
         r_type r = sel(is_even(a1), nt2::abs(a00), a00);
-        return b_or(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
+        return if_nan_else(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
   };
 } }
