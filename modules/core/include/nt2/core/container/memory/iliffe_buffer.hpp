@@ -437,6 +437,21 @@ namespace nt2 { namespace memory
       }
     }
 
+    //==========================================================================
+    /**
+      * Reallocate a iliffe_bufer to a new size.
+     **/
+    //==========================================================================
+    template<typename Sizes, typename Bases> inline void
+    resize( Sizes const&      szs
+          , Bases const&      bss
+          , Padding const&    p
+          )
+    {
+      if(data_) alloc_.deallocate( begin(), end() - begin() );
+      initialize(szs,bss,p);
+    }
+
     ~iliffe_buffer()
     {
       if(!sharing_) alloc_.deallocate( begin(), end() - begin() );
