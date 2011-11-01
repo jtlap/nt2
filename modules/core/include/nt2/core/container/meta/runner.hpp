@@ -20,17 +20,10 @@ namespace nt2 { namespace meta
 
     runner(A0 a0_) : a0(a0_) {}
 
-    template<class Position> BOOST_DISPATCH_FORCE_INLINE result_type 
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(Position const& pos) const
     {
-    #if 0
-      nt2::store( boost::proto::child_c<0>(a0)
-                , pos
-                , nt2::run(boost::proto::child_c<1>(a0), pos, Target())
-                );
-    #else
       nt2::run(a0, pos, Target());
-    #endif
     }
 
     A0 a0;
