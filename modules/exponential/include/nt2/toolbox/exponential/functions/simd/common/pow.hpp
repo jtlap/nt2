@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+//#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -20,6 +18,7 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/typed_bool.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -31,9 +30,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::pow(tofloat(a0), tofloat(a1));
@@ -52,26 +49,16 @@ namespace nt2 { namespace ext
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 isltza0 = is_ltz(a0);
-      A0 allz = b_and(is_eqz(a0), is_eqz(a1)); 
-      A0 res = negif(b_and(is_odd(a1), isltza0), exp(a1*log(nt2::abs(a0))));
-      A0 invalid =  b_andnot(isltza0, is_flint(a1));
-      return b_or(invalid,  sel(allz, One<A0>(), res));
-      
-//       return b_or( b_andnot(isltza0, is_flint(a1)),
-// 		   seladd(is_nez(a0),
-// 			  Zero<A0>(),
-// 			  sel(is_eqz(a1),
-// 			      One<A0>(),
-// 			      negif(b_and(is_odd(a1), isltza0),res)
-// 			      )
-// 			  )
-// 		   );
+      typedef typename meta::as_logical<A0>::type                 bA0; 
+      bA0 isltza0 = is_ltz(a0);
+      bA0 allz = b_and(is_eqz(a0), is_eqz(a1));
+      A0 res =  exp(a1*log(nt2::abs(a0)));
+      res =  select(b_and(is_odd(a1), isltza0), -res, res); 
+      bA0 invalid =  bitwise_andnot(isltza0, is_flint(a1));
+      return select(invalid, Nan<result_type>(), select(allz, One<A0>(), res));
     }
   };
 } }
@@ -87,31 +74,26 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<integer_<A1>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(2)
     {
-        typedef A1                                          int_type;
+        typedef A1                    int_type;
         typedef result_type             r_type;
         r_type a00 =  tofloat(a0); 
         r_type sign_x = bitofsign(a00);
         r_type x = b_xor(a00, sign_x);//x = nt2::abs(a0)
         int_type sign_n = signnz( a1 );
         int_type n = nt2::abs(a1);
-
         int_type   n_odd = is_odd(n);
         r_type n_oddf = tofloat(-n_odd);
         r_type nf = n_oddf;
-
         r_type y = madd(n_oddf,x,oneminus(n_oddf));
-
         r_type w = x;
         n = shri(n,1);
         while( nt2::any(n) )
         {
           w =sqr( w);
-          n_oddf = tofloat(-is_odd(n));
+          n_oddf = tofloat(-typed_bool(is_odd(n)));
           y = y*madd(n_oddf,w,oneminus(n_oddf));
           n = shri(n,1);
         }

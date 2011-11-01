@@ -8,12 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_NTHROOT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_NTHROOT_HPP_INCLUDED
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/size.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/pow.hpp>
@@ -34,9 +33,7 @@ namespace nt2 { namespace ext
                             , ((simd_<integer_<A0>,X>))((simd_<integer_<A1>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::nthroot(tofloat(a0), a1);
@@ -55,44 +52,35 @@ namespace nt2 { namespace ext
                             , ((simd_<floating_<A0>,X>))((simd_<integer_<A1>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
+      typedef typename meta::as_logical<A0>::type  bA0; 
+      typedef typename meta::as_logical<A1>::type  bA1; 
       A0 x =  nt2::abs(a0);
       A0 aa1 = tofloat(a1);
       A0 y =nt2::pow(x,rec(aa1));
-      A1 nul_a1 = is_eqz(a1);
-      A0 a11 = tofloat(a1-nul_a1); 
-//       std::cout << "icitte " << std::endl;
-//       std::cout << "aa1 " << aa1 << std::endl;
-//       std::cout << "y " << y << std::endl;
-//       std::cout << "pow(y, aa1) " << nt2::pow(y, aa1) << std::endl;
-//       std::cout << "sub(a11, One<A1>()) " << sub(a11, One<A0>()) << std::endl;
-//       std::cout << "nul_a1 " << nul_a1 << std::endl;
-//       std::cout << "is_nez(y) " << is_nez(y) << std::endl;
-//       std::cout << "pow(y, sub(a11, One<A0>())) " << pow(y, sub(a11, One<A0>())) << std::endl;
-// 	std::cout << "pow(y, sub(a1, One<A1>())) " << pow(y, sub(a11, One<A1>())) << std::endl;
-      y = seladd(b_or(is_nez(y), nul_a1), y, - (pow(y, aa1) - x)/(aa1* pow(y, sub(a11, One<A0>()))));
-//      std::cout << "ybis " << y << std::endl;
+      bA1 nul_a1 = is_eqz(a1);
+      A0 a11 = tofloat(a1-select(nul_a1, Mone<A1>(), Zero<A1>())); 
+      y = seladd(b_or(is_nez(y), nul_a1), y,
+		 - (pow(y, aa1) - x)/(aa1* pow(y, sub(a11, One<A0>()))));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
-      A0 invalid = b_and(is_ltz(a0), is_even(a1)); 
-//      std::cout << "invalid " << invalid << std::endl;
-      return  b_and(is_nez(a0),
-		    b_or(invalid, 
-			 sel(is_eqz(aa1), One<A0>(),  
-			     sel(b_or(eq(a1, One<A1>()), is_inf(a0)),
-				 a0,
-				 b_or(y, bitofsign(a0))
-				 )
-			     )
-			 )
-		    );
+      bA0 invalid = b_and(is_ltz(a0), is_even(a1)); 
+      return  select(is_eqz(a0),
+		     Zero<A0>(), 
+		     select(invalid,
+			    Nan<A0>(),   
+			    sel(is_eqz(aa1), One<A0>(),  
+				sel(b_or(eq(a1, One<A1>()), is_inf(a0)),
+				    a0,
+				    b_or(y, bitofsign(a0))
+				    )
+				)
+			    )
+		     );
     }
   };
 } }
-
 
 #endif

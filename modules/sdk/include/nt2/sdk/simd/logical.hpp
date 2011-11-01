@@ -12,7 +12,11 @@
 
 namespace nt2
 {
-  using boost::simd::logical; 
+  using boost::simd::logical;
+  namespace meta
+  {
+    using boost::simd::meta::as_logical;
+  }
 }
 
 

@@ -8,12 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_EXPM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_EXPM1_HPP_INCLUDED
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_inf.hpp>
@@ -60,9 +60,7 @@ namespace nt2 { namespace ext
                             , ((simd_<double_<A0>,X>))
                             )
   {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_integer<A0>::type int_type;
@@ -109,15 +107,14 @@ namespace nt2 { namespace ext
                             , ((simd_<single_<A0>,X>))
                             )
   {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename meta::as_logical<A0>::type bA0; 
       const A0 u =  exp(a0);
-      const A0 p = b_or(is_eqz(u),is_inf(u));
+      const bA0 p = b_or(is_eqz(u),is_inf(u));
       const A0 y1 = minusone(u);
-      const A0 m = b_notand(p, is_not_equal(u, One<A0>()));
+      const bA0 m = b_notand(p, is_not_equal(u, One<A0>()));
       const A0 y2 = mul(y1,(rdiv(a0,log(u))));
       return select(p,y1,select(m, y2, a0));
     }
