@@ -24,6 +24,18 @@ namespace boost { namespace simd { namespace ext
       return is_eqz(a0);
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<logical_<A0>,X>))
+
+                            )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return is_eqz(native_cast<typename A0::type>(a0);
+    }
+  };
 } } }
 
 

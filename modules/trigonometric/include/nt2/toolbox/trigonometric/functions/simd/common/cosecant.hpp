@@ -14,6 +14,7 @@
 #include <nt2/include/functions/sine.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
 
 
 
@@ -23,7 +24,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cosecant_< mode>, tag::cpu_
-			      , (A0)(mode)(X)
+                     , (A0)(mode)(X)
                             , ((simd_<integer_<A0>,X>))
                             )
   {
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(sine<mode>(tofloat(a0))), is_eqz(a0));
+      return if_nan_else(is_eqz(a0), rec(sine<mode>(tofloat(a0))));
     }
   };
 } }
@@ -44,13 +45,11 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cosecant_<mode>, tag::cpu_
-			      , (A0)(mode)(X)
+                     , (A0)(mode)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return rec(sine<mode>(a0));

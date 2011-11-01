@@ -23,9 +23,21 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return b_and(is_nez(a0), is_nez(a1));
+      return native_cast<result_type>(b_and(is_nez(a0), is_nez(a1)));
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<logical_<A0>,X>))
+                              ((simd_<logical_<A1>,X>))
+                            )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return native_cast<result_type>(b_and(a0, a1));
+    }
+  };  
 } } }
 
 
