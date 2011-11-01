@@ -26,7 +26,6 @@
 #include <nt2/sdk/memory/lead_padding.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <nt2/include/functions/store.hpp>
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
 
 namespace nt2 { namespace memory
@@ -143,7 +142,7 @@ namespace nt2 { namespace memory
     {
       return dereference<dimensions>(data_,pos);
     }
-    
+
     template<class Position> BOOST_DISPATCH_FORCE_INLINE
     const_reference operator()(Position const& pos) const
     {
@@ -153,31 +152,11 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Resize a dense_block
     //==========================================================================
-    void resize( extent_type const& sz ) 
-    { 
+    void resize( extent_type const& sz )
+    {
       memory::resize( data_, sz.data(), index_type(), lead_padding() );
     }
 
-    //==========================================================================
-    // Externally store a value in dense_block
-    //==========================================================================
-    template<class Position, class Value> BOOST_DISPATCH_FORCE_INLINE 
-    Value store( Position const& pos, Value const& value )
-    {
-      return nt2::store( value, dereference<dimensions>(data_, pos) );
-    }
-
-    //==========================================================================
-    // Externally load a value from dense_block
-    //==========================================================================
-/*
-    template<class Position, class Target> BOOST_DISPATCH_FORCE_INLINE 
-    typename Target::type load( Position const& pos, Target const& )
-    {
-      typedef typename Target::type that_type;
-      return nt2::load<that_type> ( &dereference<dimensions>(data_, pos) );
-    }
-*/
     private:
     void init( boost::mpl::true_ const& )
     {
@@ -191,8 +170,8 @@ namespace nt2 { namespace memory
   };
 } }
 
-namespace nt2 
-{ 
+namespace nt2
+{
   //============================================================================
   // Tie dense_ shape to dense_block
   //============================================================================
