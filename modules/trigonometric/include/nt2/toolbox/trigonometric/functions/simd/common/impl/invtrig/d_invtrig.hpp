@@ -120,7 +120,6 @@ namespace nt2
           const bA0 flag1 = lt(x,  tan3pio8);             
           const bA0 flag2 = b_and(ge(x, tanpio8), flag1); 
           A0 yy = if_zero_else(flag1, Pio_2<A0>());
-	  std::cout << "yy " << yy << std::endl; 
           yy = select(flag2, Pio_4<A0>(), yy);
           A0 xx = select(flag1, x, -rec(x));
           xx = select(flag2, minusone(x)/oneplus(x),xx);
