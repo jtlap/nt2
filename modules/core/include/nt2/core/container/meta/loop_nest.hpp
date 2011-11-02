@@ -39,7 +39,7 @@ namespace nt2 { namespace meta
       std::size_t bound = at_c<N-1>(bs) + at_c<N-1>(sz);
 
       for ( at_c<N-1>(p)  = at_c<N-1>(bs);
-            at_c<N-1>(p) != bound;
+            at_c<N-1>(p) < bound;
             ++at_c<N-1>(p)
           )
         for_each_impl<N-1,MaxIter>::call(bs, sz, p, s, f);
