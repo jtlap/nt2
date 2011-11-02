@@ -14,6 +14,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////
@@ -55,8 +56,11 @@ namespace nt2 { namespace ext
                                     0x3fbfffffffffdba4ll,
                                     0x3fe0000000000000ll
                                     ) ) > (a0);
-        return select(is_nez(a0), b_or(b_or(is_ltz(a0),
-                   gt(a0, One<A0>())), z), Inf<A0>());
+        return select(is_nez(a0),
+                      if_nan_else(b_or(is_ltz(a0), gt(a0, One<A0>())), z),
+                      Inf<A0>());
+//       select(is_nez(a0), b_or(b_or(is_ltz(a0),
+//                    gt(a0, One<A0>())), z), Inf<A0>());
     }
   };
 
@@ -99,8 +103,10 @@ namespace nt2 { namespace ext
                                     0x3e000000,
                                     0x3f000000
                                     ) ) > (a0);
-         return select(is_nez(a0), b_or(b_or(is_ltz(a0),
-                    gt(a0, One<A0>())), z), Inf<A0>());
+        return select(is_nez(a0),
+                      if_nan_else(b_or(is_ltz(a0), gt(a0, One<A0>())), z),
+                      Inf<A0>());
+
     }
   };
 } }

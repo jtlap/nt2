@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
                               ((simd_<floating_<A0>,X>))
                              )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
       return b_or( eq(a0, a1)

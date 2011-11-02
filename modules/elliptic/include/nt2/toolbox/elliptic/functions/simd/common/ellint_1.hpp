@@ -33,9 +33,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::ellint_1(tofloat(a0)); ;
@@ -56,7 +54,6 @@ namespace nt2 { namespace ext
   {
 
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return map(functor<tag::ellint_1_>(), a0);

@@ -15,6 +15,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -88,7 +89,9 @@ namespace nt2 { namespace ext
                                   0x3dc00000,
                                   0x3e800000
                                   ) ) > (a0);
-      return select(is_eqz(a0), One<A0>(), b_or(temp, b_or(gt(a0, One<A0>()), is_ltz(a0))));
+      return select(is_eqz(a0),
+                One<A0>(),
+                if_nan_else(b_or(gt(a0, One<A0>()), is_ltz(a0)), temp));
     }
   };
 } }

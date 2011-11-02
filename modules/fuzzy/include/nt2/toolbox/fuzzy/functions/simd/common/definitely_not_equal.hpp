@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
                          ((simd_<integer_<A1>,X>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()( A0 const& a0, A0 const& a1, A1 const& a2) const
     {
       return gt(dist(a0, a1), nt2::abs(a2));
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
                          ((simd_<integer_<A1>,X>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()( A0 const& a0, A0 const& a1, A1 const& a2) const
     {
       A1 aa2 =  nt2::abs(a2); 

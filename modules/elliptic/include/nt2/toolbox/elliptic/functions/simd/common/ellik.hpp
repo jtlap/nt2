@@ -41,9 +41,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::ellik(tofloat(a0), tofloat(a1));
@@ -58,9 +56,7 @@ namespace nt2 { namespace ext
 			      , ((simd_<double_<A0>,X>))((simd_<double_<A0>,X>))
 			      )
   {
-    
     typedef typename meta::as_floating<A0>::type result_type;
-    
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
 	return map(functor<tag::ellik_>(), a0, a1);
@@ -75,9 +71,7 @@ namespace nt2 { namespace ext
 			      , ((simd_<single_<A0>,X>))((simd_<single_<A0>,X>))
 			      )
   {
-    
     typedef typename meta::as_floating<A0>::type result_type;
-    
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
 	return map(functor<tag::ellik_>(), a0, a1);

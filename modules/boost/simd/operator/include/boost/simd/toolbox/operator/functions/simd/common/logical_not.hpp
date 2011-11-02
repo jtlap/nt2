@@ -31,9 +31,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return is_eqz(native_cast<typename A0::type>(a0);
+      return is_eqz(native_cast<typename A0::type>(a0));
     }
   };
 } } }
