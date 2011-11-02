@@ -11,7 +11,7 @@
 
 //==============================================================================
 /**
-  * \file 
+  * \file
   * \brief Defines and implements the \c nt2::memory::dereference class
   **/
 //==============================================================================
@@ -26,7 +26,8 @@ namespace nt2 { namespace details
   struct dereference
   {
     template<typename Position>
-    static inline typename meta::dereference_<Buffer&,Level>::type 
+    static BOOST_DISPATCH_FORCE_INLINE
+    typename meta::dereference_<Buffer&,Level>::type
     apply( Buffer& b, Position const& p )
     {
       typedef typename meta::dereference_<Buffer,1>::type base_type;
@@ -37,7 +38,8 @@ namespace nt2 { namespace details
     }
 
     template<typename Position>
-    static inline typename meta::dereference_<Buffer const&,Level>::type 
+    static BOOST_DISPATCH_FORCE_INLINE
+    typename meta::dereference_<Buffer const&,Level>::type
     apply( Buffer const& b, Position const& p )
     {
       typedef typename meta::dereference_<Buffer,1>::type base_type;
@@ -52,14 +54,16 @@ namespace nt2 { namespace details
   struct dereference<Buffer,1,Start>
   {
     template<typename Position>
-    static inline typename meta::dereference_<Buffer&,1>::type 
+    static BOOST_DISPATCH_FORCE_INLINE
+    typename meta::dereference_<Buffer&,1>::type
     apply( Buffer& b, Position const& p )
     {
       return b[safe_at_c<0>(p)];
     }
 
     template<typename Position>
-    static inline typename meta::dereference_<Buffer const&,1>::type 
+    static BOOST_DISPATCH_FORCE_INLINE
+    typename meta::dereference_<Buffer const&,1>::type
     apply( Buffer const& b, Position const& p )
     {
       return b[safe_at_c<0>(p)];
@@ -71,11 +75,12 @@ namespace nt2 { namespace memory
 {
   //============================================================================
   /**
-    *  
+    *
    **/
   //============================================================================
   template<std::size_t Level, typename Buffer, typename Position>
-  inline typename meta::dereference_<Buffer&,Level>::type 
+  BOOST_DISPATCH_FORCE_INLINE
+  typename meta::dereference_<Buffer&,Level>::type
   dereference( Buffer& b, Position const& p )
   {
     details::check_all_equal(details::pop_front_c<Level>(p), 1);
@@ -83,7 +88,8 @@ namespace nt2 { namespace memory
   }
 
   template<std::size_t Level, typename Buffer, typename Position>
-  inline typename meta::dereference_<Buffer const&,Level>::type 
+  BOOST_DISPATCH_FORCE_INLINE
+  typename meta::dereference_<Buffer const&,Level>::type
   dereference( Buffer const& b, Position const& p )
   {
     details::check_all_equal(details::pop_front_c<Level>(p), 1);
