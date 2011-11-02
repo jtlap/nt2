@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_GRAMMAR_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
@@ -30,8 +30,8 @@ namespace boost { namespace simd
                                               >
                                   >
                     >
-         , proto::terminal< native<proto::_, proto::_> >
          , dispatch::lambda_terminal<dispatch::details::is_array<proto::_value> >
+         , dispatch::lambda_terminal<is_native<proto::_value> >
          , dispatch::lambda_terminal<is_arithmetic<proto::_value> >
          , proto::terminal< dispatch::meta::as_< native<proto::_, proto::_> > >
                 >
