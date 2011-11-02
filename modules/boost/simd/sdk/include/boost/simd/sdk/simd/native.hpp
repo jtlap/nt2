@@ -106,11 +106,11 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface
     ////////////////////////////////////////////////////////////////////////////
-    static BOOST_DISPATCH_FORCE_INLINE
-    std::size_t size() { return static_size; }
+    BOOST_DISPATCH_FORCE_INLINE
+    std::size_t size()    const  { return static_size; }
 
-    static BOOST_DISPATCH_FORCE_INLINE
-    bool empty() { return false; }
+    BOOST_DISPATCH_FORCE_INLINE
+    bool empty()          const  { return false; }
 
     reference        operator[](std::size_t i)
     {
