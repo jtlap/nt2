@@ -19,8 +19,7 @@
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/select.hpp>
-
-
+#include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -32,9 +31,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return spence(tofloat(a0));
@@ -53,11 +50,10 @@ namespace nt2 { namespace ext
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename meta::as_logical<A0>::type bA0; 
       typedef typename meta::scalar_of<A0>::type sA0;
       static boost::array<sA0, 8> A = {{
         4.65128586073990045278E-5,
@@ -81,10 +77,10 @@ namespace nt2 { namespace ext
       }};
       static const A0 C = (Pi<A0>()*Pi<A0>())/Six<A0>();
       A0 x = a0;
-      A0 flag2 =  gt(x, Two<A0>());
+      bA0 flag2 =  gt(x, Two<A0>());
       x = sel(flag2, rec(x), x);
-      A0 flag =  gt(x,One<A0>()+Half<A0>());
-      A0 flag1=  lt(x,Half<A0>());
+      bA0 flag =  gt(x,One<A0>()+Half<A0>());
+      bA0 flag1=  lt(x,Half<A0>());
       flag2 |= flag;
       A0 w =  sel(flag, minusone(rec(x)), sel(flag1, -x, minusone(x)));
       A0 y = -w*polevl(w,A)/polevl(w,B);
