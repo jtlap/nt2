@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      _mm256_storeu_pd(a1+boost::simd::meta::cardinal_of<result_type>::value*a2,a0);
+      _mm256_storeu_pd(a1+a2,a0);
       return a0;
     }
   };
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      _mm256_storeu_ps(a1+boost::simd::meta::cardinal_of<result_type>::value*a2,a0);
+      _mm256_storeu_ps(a1+a2,a0);
       return a0;
     }
   };
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      _mm256_storeu_si256((__m256i*)(a1)+a2, a0);
+      _mm256_storeu_si256(reinterpret_cast<__m256i*>(a1+a2), a0);
       return a0;
     }
   };

@@ -21,7 +21,7 @@
  * \par Description
  * Store data from a0 to the memory zone given by a1 and offset a2
  * and return a0. This is semantically equivalent to:
- * <tt>std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);</tt>
+ * <tt>std::memcpy(a1 + a2, &a0, sizeof a0);</tt>
  *
  * \par Header file
  * 
@@ -43,7 +43,7 @@
  *
  * \param a0 the object to store
  * \param a1 the base address
- * \param a2 offset to store at, relative to the type of \c a0
+ * \param a2 offset to store at
  * 
  * \return a0
  *  

@@ -29,9 +29,10 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         " is not aligned on the simd vector size.");
-      result_type that = { vec_ld(a1*16,a0) };
+      result_type that = { vec_ld(a1*sizeof(*a0),a0) };
       return that;
     }
   };

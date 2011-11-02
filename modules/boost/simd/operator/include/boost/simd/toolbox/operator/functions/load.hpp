@@ -21,7 +21,7 @@
  *
  * \par Description
  * Load data of type T from the memory zone given by (a0,a1)
- * with or without a sub-type level offset
+ * with or without a re-alignment offset
  *
  * \par Header file
  * 
@@ -52,10 +52,10 @@
  * \endcode
  *
  * \param T type to load
- * \param Offset offset with aligned memory, in number of elements
+ * \param Offset offset with aligned memory
  * 
  * \param a0 base address
- * \param a1 offset to load at, relative to T
+ * \param a1 offset to load at
  * 
  * \return object of type T
  *  
