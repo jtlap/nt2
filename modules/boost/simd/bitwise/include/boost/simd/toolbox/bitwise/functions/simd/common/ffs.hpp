@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_FFS_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/meta/biggest_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/firstbitset.hpp>
@@ -36,7 +37,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
-      typedef simd::native<boost::uint64_t,ext> ltype;
+      typedef simd::native<typename simd::meta::biggest_integer<ext>::type, ext> ltype;
       rtype v = firstbitset(a0);
       return b_and(is_nez(v), b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
                    ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
@@ -85,7 +86,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
-      typedef simd::native<boost::uint64_t,ext> ltype;
+      typedef simd::native<typename simd::meta::biggest_integer<ext>::type, ext> ltype;
       rtype v = firstbitset(a0);
       return  b_and(is_nez(v), b_or(b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
                        ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))
@@ -113,7 +114,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
       typedef typename A0::extension_type ext;
-      typedef simd::native<boost::uint64_t, ext> ltype;
+      typedef simd::native<typename simd::meta::biggest_integer<ext>::type, ext> ltype;
       rtype v = firstbitset(a0);
       return  b_and(is_nez(v), b_or(b_or(b_or(b_or((-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xAAAAAAAAAAAAAAAAll>()))))
                           ,  shli(-( is_nez(b_and(v, boost::simd::integral_constant<ltype,0xCCCCCCCCCCCCCCCCll>()))), 1))

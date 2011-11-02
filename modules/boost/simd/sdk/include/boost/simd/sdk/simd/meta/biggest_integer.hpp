@@ -6,23 +6,22 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_META_EXTENSION_OF_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_META_EXTENSION_OF_HPP_INCLUDED
-
-#include <boost/dispatch/meta/na.hpp>
-#include <boost/simd/sdk/simd/native_fwd.hpp>
-//#include <boost/simd/sdk/simd/pack.hpp>
+#ifndef BOOST_SIMD_SDK_SIMD_META_BIGGEST_INTEGER_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_META_BIGGEST_INTEGER_HPP_INCLUDED
 
 namespace boost { namespace simd { namespace meta
 {
-  template<class T,class Dummy=void, class Dummy1 = void>
-  struct extension_of : dispatch::meta::na_ {};
+  template<class Extension>
+  struct biggest_integer
+  {
+    typedef boost::simd::int64_t type;
+  };
 
-  template<class T, class X>
-  struct extension_of<boost::simd::native<T,X> > { typedef X type; };
-
-
+  template<class Extension>
+  struct biggest_uinteger
+  {
+    typedef boost::simd::uint64_t type;
+  };
 } } }
-
 
 #endif
