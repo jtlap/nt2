@@ -39,12 +39,25 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::
     child_c<A0 const&, 0>::type                             result_type;
 
-    typedef boost::simd::native<  typename meta::
-                                  strip < typename  meta::
-                                                    scalar_of<result_type>::type
+#if !defined(BOOST_SIMD_NO_SIMD)
+    //==========================================================================
+    // If some SIMD is detected, then return a native
+    //==========================================================================
+    typedef boost::simd::
+            native< typename meta::strip< typename meta::
+                                          scalar_of<result_type>::type
                                         >::type
-                                , BOOST_SIMD_DEFAULT_EXTENSION
-                                >                   target_type;
+                  , BOOST_SIMD_DEFAULT_EXTENSION
+                  >                                         target_type;
+#else
+    //==========================================================================
+    // If no SIMD is detected, stay in scalar mode
+    //==========================================================================
+    typedef typename
+            meta::strip< typename meta::scalar_of<result_type>::type>::type
+                                                            target_type;
+#endif
+
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
@@ -135,7 +148,10 @@ namespace nt2 { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::run(a0, of_size_<>(), meta::as_<typename meta::strip<result_type>::type>());
+      return nt2::run ( a0
+                      , of_size_<>()
+                      , meta::as_<typename meta::strip<result_type>::type>()
+                      );
     }
   };
 } }
