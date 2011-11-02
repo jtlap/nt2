@@ -119,11 +119,11 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_FORCEINLINE
-    std::size_t size() const { return static_size; }
+    static BOOST_FORCEINLINE
+    std::size_t size() { return static_size; }
 
-    BOOST_FORCEINLINE
-    bool empty() const { return false; }
+    static BOOST_FORCEINLINE
+    bool empty()       { return false; }
 
     BOOST_FORCEINLINE
     reference operator[](std::size_t i) const
