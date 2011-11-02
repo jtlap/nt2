@@ -13,13 +13,14 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_LOAD_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/dispatch/meta/as.hpp>
 
 /*!
  * \ingroup boost_simd_operator
  * \defgroup boost_simd_operator_load load
  *
  * \par Description
- * Load a data of type T from the memory zone given by (a0,a1)
+ * Load data of type T from the memory zone given by (a0,a1)
  * with or without a sub-type level offset
  *
  * \par Header file
@@ -34,42 +35,31 @@
  * \code
  * namespace boost::simd
  * {
- *   template<class T,class A0,class A1> inline
+ *   template<class T, class A0, class A1> inline
  *   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
  *                                                 , boost::dispatch::meta::as_<T>
  *                                                  )
  *                                       >::type
- *   load(A0 const& a0,A1 const& a1 );
- *   template<class T,int Offset,class A0,class A1> inline
+ *   load(A0 const& a0, A1 const& a1 = 0 );
+ *   template<class T, int Offset, class A0, class A1> inline
  *   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
  *                                                 , boost::dispatch::meta::as_<T>
  *                                                 , boost::mpl::int_<Offset>
  *                                                 )
  *                                        >::type
- *   load(A0 const& a0,A1 const& a1 );
+ *   load(A0 const& a0, A1 const& a1 = 0 );
  * }
  * \endcode
  *
- * \param a0 the first parameter of load
- * \param a1 the second parameter of load
+ * \param T type to load
+ * \param Offset offset with aligned memory, in number of elements
  * 
- * \param T template parameter of load
+ * \param a0 base address
+ * \param a1 offset to load at, relative to T
  * 
- * \return a value of the common type of the parameters
- *  
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
+ * \return object of type T
  *  
 **/
-
-////////////////////////////////////////////////////////////////////////////////
-// Load from memory functor and function
-// Documentation: http://nt2.lri.fr/sdk/memory/functions/load.html
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/dispatch/functor/preprocessor/function.hpp>
-
 
 namespace boost { namespace simd
 {
@@ -83,12 +73,13 @@ namespace boost { namespace simd
   //////////////////////////////////////////////////////////////////////////////
   // Load a data of type T from the memory zone given by (a0,a1)
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class A0,class A1> inline
+  template<class T,class A0,class A1>
+  BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
                                                 , boost::dispatch::meta::as_<T>
                                                 )
                             >::type
-  load(A0 const& a0,A1 const& a1 )
+  load(A0 const& a0,A1 const& a1 = 0)
   {
     typename boost::dispatch::make_functor<tag::load_, A0>::type callee;
     return callee(a0,a1,boost::dispatch::meta::as_<T>());
@@ -98,13 +89,14 @@ namespace boost { namespace simd
   // Load a data of type T from the memory zone given by (a0,a1) and a sub-type
   // level offset
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,int Offset, class A0,class A1> inline
+  template<class T,int Offset, class A0,class A1>
+  BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, A1 const&
                                                 , boost::dispatch::meta::as_<T>
                                                 , boost::mpl::int_<Offset>
                                                 )
                             >::type
-  load(A0 const& a0,A1 const& a1 )
+  load(A0 const& a0,A1 const& a1 = 0)
   {
     typename boost::dispatch::make_functor<tag::load_, A0>::type callee;
     return callee(a0,a1,boost::dispatch::meta::as_<T>(),boost::mpl::int_<Offset>());
