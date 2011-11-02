@@ -31,7 +31,7 @@ namespace boost { namespace simd
                                   >
                     >
          , dispatch::lambda_terminal<dispatch::details::is_array<proto::_value> >
-         , dispatch::lambda_terminal<is_native<proto::_value> >
+         , dispatch::lambda_terminal<meta::is_native<proto::_value> >
          , dispatch::lambda_terminal<is_arithmetic<proto::_value> >
          , proto::terminal< dispatch::meta::as_< native<proto::_, proto::_> > >
                 >
