@@ -17,7 +17,9 @@
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
 #include <nt2/include/constants/digits.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 
 namespace nt2
 {
@@ -66,15 +68,11 @@ namespace nt2
           y = madd(fe, single_constant<A0, 0xb95e8083>(), y);
           y = madd(Mhalf<A0>(), x2, y);
           A0 z  = x + y;
-          //         std::cout << "fe " << fe << std::endl;
-          //         std::cout << "z  " << z << std::endl;
-          //         std::cout << "a0 " << a0 << std::endl;
-          //         std::cout << "rec(a0) " << rec(a0) << std::endl;
           A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
+         std::cout << "3" << std::endl; 
           A0 y2 = madd(single_constant<A0, 0x3f318000>(), fe, z);
-          //         std::cout << "y1 " << y1 << std::endl;
-          //         std::cout << "y2 " << y2 << std::endl;
-          return seladd(is_inf(y1),b_or(y2, b_or(is_ltz(a0), is_nan(a0))),y1);
+          y2 = if_nan_else(logical_or(is_ltz(a0), is_nan(a0)), y2); 
+          return seladd(is_inf(y1), y2, y1); 
         }
 
         static inline A0 log2(const A0& a0)
@@ -86,7 +84,7 @@ namespace nt2
           A0 z = madd(x,single_constant<A0, 0x3ee2a8ed>(),mul(y,single_constant<A0, 0x3ee2a8ed>()));// 0.44269504088896340735992
           A0 z1 = ((z+y)+x)+fe;
           A0 y1 = a0-rec(abs(a0)); // trick to reduce selection testing
-          return seladd(is_inf(y1),b_or(z1, b_or(is_ltz(a0), is_nan(a0))),y1);
+          return seladd(is_inf(y1),if_nan_else(b_or(is_ltz(a0), is_nan(a0)), z1),y1);
         }
 
         static inline A0 log10(const A0& a0)
@@ -101,7 +99,7 @@ namespace nt2
           z = amul(z, fe, single_constant<A0, 0x39826a14>());//3.0078125E-1f              // log10(2)hi
           z = amul(z, fe, single_constant<A0, 0x3e9a0000>());//2.48745663981195213739E-4f // log10(2)lo
           A0 y1 = a0-rec(abs(a0)); // trick to reduce selection testing
-          return seladd(is_inf(y1), b_or(z, b_or(is_ltz(a0), is_nan(a0))),y1);
+          return seladd(is_inf(y1), if_nan_else(b_or(is_ltz(a0), is_nan(a0)), z),y1);
         }
       };
     }
