@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_OR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_OR_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/typed_bool.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_or(is_nez(a0), is_nez(a1)));
+      return native_cast<result_type>(b_or(typed_bool(a0), typed_bool(a1)));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, tag::cpu_
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_or(a0, a1));
+      return native_cast<result_type>(b_or(typed_bool(a0), typed_bool(a1)));
     }
   };
 

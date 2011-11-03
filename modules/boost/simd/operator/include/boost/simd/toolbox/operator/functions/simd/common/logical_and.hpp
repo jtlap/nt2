@@ -9,21 +9,21 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_AND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_AND_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/typed_bool.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<fundamental_<A0>,X>))
-                              ((simd_<fundamental_<A1>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A1>,X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_and(is_nez(a0), is_nez(a1)));
+      return native_cast<result_type>(b_and(typed_bool(a0), typed_bool(a1)));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_and(a0, a1));
+      return native_cast<result_type>(b_and(typed_bool(a0), typed_bool(a1)));
     }
   };  
 } } }
