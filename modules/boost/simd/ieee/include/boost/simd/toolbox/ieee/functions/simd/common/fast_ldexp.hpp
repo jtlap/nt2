@@ -13,7 +13,7 @@
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 
@@ -32,7 +32,6 @@ namespace boost { namespace simd { namespace ext
                                 )
   {
     typedef A0 result_type; 
-    
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return rshl(a0, a1);
@@ -49,7 +48,6 @@ namespace boost { namespace simd { namespace ext
   {
 
     typedef A0 result_type;
-    
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return rshl(a0, a1);
@@ -71,7 +69,6 @@ namespace boost { namespace simd { namespace ext
                                 )
   {
     typedef A0 result_type; 
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       // No denormal provision
@@ -96,7 +93,6 @@ namespace boost { namespace simd { namespace ext
   {
     
     typedef A0 result_type;
-    
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0>::type iA0; 
