@@ -8,19 +8,17 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_J1_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_J1_HPP_INCLUDED
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/select.hpp>
-#include <nt2/include/functions/bitwise_all.hpp>
-
-
-
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -32,9 +30,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::j1(tofloat(a0));
@@ -60,65 +56,66 @@ namespace nt2 { namespace ext
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::j1_, tag::cpu_,
-			     (A0)(X),
-			     ((simd_<single_<A0>,X>))
-			     )
+                    (A0)(X),
+                    ((simd_<single_<A0>,X>))
+                    )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-	A0 x   =  nt2::abs(a0);
-	A0 lt2 = lt(x, Two < A0>());
-	if (bitwise_all(lt2))
-	  return branch1(x);
-	else
-	  return select (lt2, branch1(x), branch2(x));
-	// as branch1 is quick there is no need for an "else if" case
-	// computing only branch2,  this probably due to the double pipeline
+        typedef typename meta::as_logical<A0>::type bA0; 
+     A0 x   =  nt2::abs(a0);
+     bA0 lt2 = lt(x, Two < A0>());
+     if (all(lt2))
+       return branch1(x);
+     else
+       return select (lt2, branch1(x), branch2(x));
+     // as branch1 is quick there is no need for an "else if" case
+     // computing only branch2,  this probably due to the double pipeline
       }
   private:
     template < class AA0 > static inline AA0 branch1(const AA0 & x)
       {
-	typedef typename meta::scalar_of<AA0>::type stype; 
-	const AA0 z = sqr(x);
-	return (z-single_constant<AA0,0x416ae95a> ())*x*
-	  horner< NT2_HORNER_COEFF_T(stype, 5,
-				     (0xb1a7a246,
-				      0x35214df5,
-				      0xb83e7a4f,
-				      0x3afdefd1,
-				      0xbd0b7da6
-				      ) ) > (z);
+     typedef typename meta::scalar_of<AA0>::type stype; 
+     const AA0 z = sqr(x);
+     return (z-single_constant<AA0,0x416ae95a> ())*x*
+       horner< NT2_HORNER_COEFF_T(stype, 5,
+                         (0xb1a7a246,
+                          0x35214df5,
+                          0xb83e7a4f,
+                          0x3afdefd1,
+                          0xbd0b7da6
+                          ) ) > (z);
       }
-    template < class AA0 > static inline AA0 branch2(const AA0 & x)
+      template < class AA0 > static inline AA0 branch2(const AA0 & x)
       {
-	typedef typename meta::scalar_of<AA0>::type stype; 
-	AA0 q = rec(x);
-	AA0 w = sqrt(q);
-	AA0 p3 = w *
-	  horner< NT2_HORNER_COEFF_T(stype, 8,
-				     (0x3d8d98f9,
-				      0xbe69f6b3,
-				      0x3ea0ad85,
-				      0xbe574699,
-				      0x3bb21b25,
-				      0x3e18ec50,
-				      0x36a6f7c5,
-				      0x3f4c4229
-				      ) ) > (q);
-	w = sqr(q);
-	AA0 xn =  q*
-	  horner< NT2_HORNER_COEFF_T(stype, 8,
-				     (0xc233e16d,
-				      0x424af04a,
-				      0xc1c6dca7,
-				      0x40e72299,
-				      0xbfc5bd69,
-				      0x3eb364d9,
-				      0xbe27bad7,
-				      0x3ebfffdd
-				      ) ) > (w)-single_constant<AA0,0x4016cbe4 > ();
-       return sel(eq(x, Inf<AA0>()),  Zero<AA0>(), p3*cos(xn+x));
+     typedef typename meta::scalar_of<AA0>::type stype; 
+     AA0 q = rec(x);
+     AA0 w = sqrt(q);
+     AA0 p3 = w *
+       horner< NT2_HORNER_COEFF_T(stype, 8,
+                         (0x3d8d98f9,
+                          0xbe69f6b3,
+                          0x3ea0ad85,
+                          0xbe574699,
+                          0x3bb21b25,
+                          0x3e18ec50,
+                          0x36a6f7c5,
+                          0x3f4c4229
+                          ) ) > (q);
+     w = sqr(q);
+     AA0 xn =  q*
+       horner< NT2_HORNER_COEFF_T(stype, 8,
+                         (0xc233e16d,
+                          0x424af04a,
+                          0xc1c6dca7,
+                          0x40e72299,
+                          0xbfc5bd69,
+                          0x3eb364d9,
+                          0xbe27bad7,
+                          0x3ebfffdd
+                          ) ) > (w)-single_constant<AA0,0x4016cbe4 > ();
+       return if_zero_else(eq(x, Inf<AA0>()), p3*cos(xn+x));
     }
   };
 } }
