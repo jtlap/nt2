@@ -14,7 +14,7 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/bitwise_all.hpp>
+#include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/splat.hpp>
 
 
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       const A0 x = nt2::abs(a0);
-      if (bitwise_all(gt(x,nt2::splat<A0>(1.836840028483855e+01)))) return sign(a0); //TO DO
+      if (all(gt(x,nt2::splat<A0>(1.836840028483855e+01)))) return sign(a0); //TO DO
       const A0 tmp1=expm1(-(x+x));
       const A0 tmp2=-tmp1/(Two<A0>()+tmp1);
       return sel(is_eqz(a0), a0, b_xor(tmp2, bitofsign(a0)));

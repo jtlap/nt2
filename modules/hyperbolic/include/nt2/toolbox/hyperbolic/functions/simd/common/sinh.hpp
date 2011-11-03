@@ -15,7 +15,7 @@
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/expm1.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/bitwise_all.hpp>
+#include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
  *    only sinh(0)=1 is exact for finite x.
  */
         const A0 tmp=exp(a0);
-        if (bitwise_all(gt(abs(a0), Half<A0>())))
+        if (all(gt(abs(a0), Half<A0>())))
           {
             return (tmp-rec(tmp))*Half<A0>();
           }

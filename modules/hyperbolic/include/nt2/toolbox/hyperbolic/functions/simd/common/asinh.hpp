@@ -26,8 +26,7 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/madd.hpp>
-
-
+#include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -39,9 +38,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::asinh(tofloat(a0));
@@ -60,16 +57,12 @@ namespace nt2 { namespace ext
                             , ((simd_<double_<A0>,X>))
                             )
   {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       A0 xx, sign;
-      //    bf::tie(sign, xx)= sign_and_abs(a0);
       xx =  nt2::abs(a0);
       sign =  bitofsign(a0);
-      const A0 Infmask       = nt2::is_inf(xx);
       const A0 x2            = nt2::sqr(xx);
       return b_xor(sel(is_equal(xx, Inf<A0>()),
 		       xx, 
@@ -92,13 +85,12 @@ namespace nt2 { namespace ext
                             , ((simd_<single_<A0>,X>))
                             )
   {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename meta::as_logical<A0>::type bA0; 
       A0 x = nt2::abs(a0);
-      A0 lthalf = lt(x,Half<A0>());
+      bA0 lthalf = lt(x,Half<A0>());
       A0 x2 = nt2::sqr(x);
       A0 z = Zero<A0>();
       uint32_t nb;

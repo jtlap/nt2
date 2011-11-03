@@ -22,9 +22,6 @@
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/select.hpp>
-#include <iostream>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -72,8 +69,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
       {
         typedef typename meta::as_logical<A0>::type bA0; 
-      A0 x   =  nt2::abs(a0);
-      bA0 lt2 = lt(x, Two<A0>());
+        A0 x   =  nt2::abs(a0);
+        bA0 lt2 = lt(x, Two<A0>());
       if (all(lt2))
         {
         return branch1(x);
