@@ -15,6 +15,7 @@
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_odd.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -31,7 +32,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(cospi(tofloat(a0))), is_odd(a0*Two<A0>()));
+      return if_nan_else(is_odd(a0*Two<A0>()), rec(cospi(tofloat(a0))));
     }
   };
 } }

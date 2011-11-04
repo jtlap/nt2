@@ -14,6 +14,7 @@
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
 
 
 
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(sin(tofloat(a0))), is_eqz(a0));
+      return if_nan_else(is_eqz(a0), rec(sin(tofloat(a0))));
     }
   };
 } }

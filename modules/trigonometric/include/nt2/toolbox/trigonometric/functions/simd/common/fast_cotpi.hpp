@@ -14,6 +14,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <nt2/include/functions/copysign.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
 
 
 
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(nt2::copysign(Inf<result_type>(), boost::simd::native_cast<result_type>(a0)), is_nez(a0));
+      return if_nan_else(is_nez(a0), nt2::copysign(Inf<result_type>(), boost::simd::native_cast<result_type>(a0)));
     }
   };
 } }
@@ -53,7 +54,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(Inf<result_type>(), is_nez(a0));
+      return if_nan_else(is_nez(a0),Inf<result_type>());
     }
   };
 } }
