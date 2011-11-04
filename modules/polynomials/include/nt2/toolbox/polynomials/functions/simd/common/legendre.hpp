@@ -12,6 +12,7 @@
 #include <nt2/toolbox/polynomials/functions/legendre.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/if_nan_else.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/is_greater.hpp>
@@ -22,6 +23,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -74,7 +76,7 @@ namespace nt2 { namespace ext
         vc = vcp1;
         ++c;
       }
-      return b_or(p1, gt(abs(a1), One<A1>()));
+      return if_nan_else(gt(abs(a1), One<A1>()), p1);
     }
   };
 } }
