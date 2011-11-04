@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
       // a given position in a table as a reference to the potentially SIMD type
       // required to make it work.
       //========================================================================
-      typedef typename  boost::proto::result_of::value<A0_>::type   value_type;
+      typedef typename  boost::proto::result_of::value<A0_&>::type   value_type;
       typedef typename  boost::dispatch::meta::strip<D_>::type      data_type;
       typedef typename  data_type::type                             target_type;
       typedef typename  boost::dispatch::meta::
@@ -65,10 +65,10 @@ namespace nt2 { namespace ext
     };
 
     template<class A0_> BOOST_DISPATCH_FORCE_INLINE
-    typename result<implement(A0_,State,Data)>::type
+    typename result<implement(A0_&,State,Data)>::type
     operator()(A0_& a0, State const& state, Data const&) const
     {
-      typedef typename result<implement(A0_,State,Data)>::type type;
+      typedef typename result<implement(A0_&,State,Data)>::type type;
       return reinterpret_cast<type>(boost::proto::value(a0)(state));
     }
   };
