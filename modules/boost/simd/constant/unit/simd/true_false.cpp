@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constant for integral types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( true_false_integer_value, BOOST_SIMD_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL( true_false_integer_value, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>                dst_t;
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL( true_false_integer_value, BOOST_SIMD_INTEGRAL_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constant for real types (which can't use ~0)
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( true_false_real_value, BOOST_SIMD_REAL_TYPES )
+NT2_TEST_CASE_TPL( true_false_real_value, BOOST_SIMD_SIMD_REAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>                dst_t;

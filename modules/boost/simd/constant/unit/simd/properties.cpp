@@ -22,7 +22,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for sigmask
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(signmask, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(signmask, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t> vd_t;
@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL(signmask, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for valmax
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(valmax, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(valmax, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t> vd_t;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL(valmax, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for valmin
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(valmin, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(valmin, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t> vd_t;
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL(valmin, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for maxleftshift
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(Maxleftshift, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(Maxleftshift, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t> vd_t;
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL(Maxleftshift, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test values for IEEE specs
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(ieee, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(ieee, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t> vd_t;
