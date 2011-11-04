@@ -15,8 +15,7 @@
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_flint.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
-#include <boost/simd/include/functions/frac.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
