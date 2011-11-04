@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/reduction/include/functions/none.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -62,12 +62,12 @@ NT2_TEST_CASE_TPL ( none_real__1_0,  NT2_SIMD_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(none(nt2::Inf<vT>()), nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(none(nt2::Minf<vT>()), nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(none(nt2::Mone<vT>()), nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(none(nt2::Nan<vT>()), nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(none(nt2::One<vT>()), nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(none(nt2::Zero<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(none(nt2::Inf<vT>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(none(nt2::Minf<vT>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(none(nt2::Mone<vT>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(none(nt2::Nan<vT>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(none(nt2::One<vT>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(none(nt2::Zero<vT>()), nt2::True<ssr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( none_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
@@ -91,6 +91,6 @@ NT2_TEST_CASE_TPL ( none_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(none(nt2::One<vT>()), nt2::Zero<sr_t>());
-  NT2_TEST_EQUAL(none(nt2::Zero<vT>()), nt2::One<sr_t>());
+  NT2_TEST_EQUAL(none(nt2::One<vT>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(none(nt2::Zero<vT>()), nt2::True<ssr_t>());
 } // end of test for integer_
