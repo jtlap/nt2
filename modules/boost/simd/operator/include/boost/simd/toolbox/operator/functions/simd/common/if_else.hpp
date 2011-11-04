@@ -27,6 +27,18 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::boolean_select( a0, a1, a2 );
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
+                            , ((simd_< fundamental_<A0>, X >))
+                              ((simd_< fundamental_<A1>, X >))
+                              ((simd_< fundamental_<A1>, X >))
+                            )
+  {
+    typedef A1 result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
+    {
+      return boost::simd::boolean_select( is_nez(a0), a1, a2 );
+    }
+  };  
 } } }
 
 #endif
