@@ -10,10 +10,12 @@
 
 #include <nt2/include/constants/true_false.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of true/false constant for integral types
@@ -28,7 +30,7 @@ NT2_TEST_CASE_TPL( true_false_integer_value, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
     NT2_TEST_EQUAL( (nt2::False<dst_t>())[i], static_cast<T>(0) );
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], static_cast<T>(~static_cast<uns_t>(0)) );
+    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], nt2::logical<T>(~static_cast<uns_t>(0)) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -43,5 +45,5 @@ NT2_TEST_CASE_TPL( true_false_real_value, BOOST_SIMD_SIMD_REAL_TYPES )
     NT2_TEST_EQUAL( (nt2::False<dst_t>())[i], static_cast<T>(0) );
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], boost::simd::Zero<T>()/boost::simd::Zero<T>() );
+    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], nt2::logical<T>(nt2::Nan<T>()) );
 }

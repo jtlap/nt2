@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_lez.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

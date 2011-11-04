@@ -54,12 +54,11 @@ namespace boost { namespace simd { namespace ext
       //================================================================
       // this is a workaround for a possible gcc over-optimisation
       // that produce zero/zero -> zero instead of nan
-      if_nan_else(logical_and(is_eqz(a0), is_eqz(a1)), that);
+      return if_nan_else(logical_and(is_eqz(a0), is_eqz(a1)), that);
       //================================================================
 #else
-      A0 const that = { _mm_div_ps(a0,a1) };
+     return that;
 #endif
-      return that;
     }
   };
 } } }
