@@ -18,14 +18,10 @@ namespace nt2 { namespace ext
                             , (A0), (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef _0D const& result_type;
+    typedef _0D result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0&) const
-    {
-      static _0D sz;
-      return sz;
-    }
+    result_type operator()(const A0&) const { return result_type(); }
   };
 } }
 
