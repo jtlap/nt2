@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
                                             boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
                                             boost::is_same<A1, typename dispatch::meta::upgrade<A0>::type>
                                         >)
-                                        ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                                      , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                                         ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
                                         ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
                                       ) 
