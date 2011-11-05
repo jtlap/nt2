@@ -16,7 +16,7 @@
 #include <nt2/toolbox/reduction/include/functions/bitwise_all.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/functions/typed_bool.hpp>
 
 #include <boost/type_traits/is_same.hpp>

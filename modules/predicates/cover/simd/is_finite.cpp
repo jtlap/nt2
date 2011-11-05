@@ -16,7 +16,7 @@
 #include <nt2/toolbox/predicates/include/functions/is_finite.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <nt2/include/functions/abs.hpp>
 
