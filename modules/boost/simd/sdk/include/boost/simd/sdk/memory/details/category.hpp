@@ -37,10 +37,10 @@ namespace boost { namespace dispatch { namespace details
                   , typename
                     boost::enable_if_c< meta::is_iterator<T>::value>::type
                   >
-   : boost::pointee<T>
+   : value_of< typename boost::pointee<T>::type >
   {
   };
-    
+
   template<class T, class Origin>
   struct  hierarchy_of< T
                       , Origin
