@@ -69,7 +69,6 @@ namespace nt2
           y = madd(Mhalf<A0>(), x2, y);
           A0 z  = x + y;
           A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
-         std::cout << "3" << std::endl; 
           A0 y2 = madd(single_constant<A0, 0x3f318000>(), fe, z);
           y2 = if_nan_else(logical_or(is_ltz(a0), is_nan(a0)), y2); 
           return seladd(is_inf(y1), y2, y1); 
