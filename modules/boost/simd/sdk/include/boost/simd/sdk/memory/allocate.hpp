@@ -13,7 +13,7 @@
 #include <cstdlib>
 #include <cstddef>
 #include <boost/throw_exception.hpp>
-#include <boost/simd/sdk/memory/config.hpp>
+#include <boost/simd/sdk/memory/forward.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
 #include <boost/simd/sdk/memory/parameters.hpp>
 
@@ -38,7 +38,7 @@ namespace boost { namespace simd {  namespace memory
   //============================================================================
   inline byte* 
   allocate ( std::size_t nbytes
-           , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
+           , std::size_t align 
            )
   {
     void *result;
@@ -100,7 +100,7 @@ namespace boost { namespace simd {  namespace memory
   template<class Allocator> inline byte*
   allocate( Allocator& alloc
           , std::size_t nbytes
-          , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
+          , std::size_t align
           )
   {
     typedef typename Allocator::value_type value_type;

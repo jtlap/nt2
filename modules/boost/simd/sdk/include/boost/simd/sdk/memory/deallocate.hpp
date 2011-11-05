@@ -11,7 +11,7 @@
 
 #include <cstddef>
 #include <cstdlib>
-#include <boost/simd/sdk/memory/config.hpp>
+#include <boost/simd/sdk/memory/forward.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
 
 namespace boost { namespace simd {  namespace memory
@@ -31,8 +31,8 @@ namespace boost { namespace simd {  namespace memory
    **/ 
   //============================================================================
   inline void deallocate( byte* ptr
-                        , std::size_t nbytes = 0
-                        , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
+                        , std::size_t nbytes
+                        , std::size_t align
                         )
   {
     #if defined(BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN)
@@ -67,15 +67,15 @@ namespace boost { namespace simd {  namespace memory
    *
    **/ 
   //============================================================================
-  //////////////////////////////////////////////////////////////////////////////
   template<class Allocator> inline void
   deallocate( Allocator& alloc, byte* ptr
-            , std::size_t nbytes = 0
-            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
+            , std::size_t nbytes
+            , std::size_t align 
             )
   {
     typedef typename Allocator::value_type value_type;
     BOOST_STATIC_CONSTANT(std::size_t, size = sizeof(value_type) );
+
 
     std::size_t nelems = align_on<size>(nbytes+align+sizeof(void*))/sizeof(size);
 

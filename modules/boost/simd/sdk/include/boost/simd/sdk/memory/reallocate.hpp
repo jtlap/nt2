@@ -13,7 +13,7 @@
 #include <cstring>
 #include <cstddef>
 #include <boost/throw_exception.hpp>
-#include <boost/simd/sdk/memory/config.hpp>
+#include <boost/simd/sdk/memory/forward.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
 #include <boost/simd/sdk/memory/allocate.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
@@ -40,7 +40,7 @@ namespace boost { namespace simd {  namespace memory
   inline byte* reallocate ( byte* ptr
                           , std::size_t nbytes
                           , std::size_t obytes
-                          , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
+                          , std::size_t align
                           )
   {
     byte* result(ptr);
@@ -94,7 +94,7 @@ namespace boost { namespace simd {  namespace memory
             ,  byte* ptr
             , std::size_t nbytes
             , std::size_t obytes
-            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
+            , std::size_t align
             )
   {
     byte* result(ptr);
