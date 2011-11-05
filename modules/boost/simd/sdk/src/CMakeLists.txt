@@ -11,9 +11,6 @@ include(NT2Module)
 nt2_module_source_setup(boost.simd.sdk)
 
 set(SOURCES
-    memory/allocate.cpp
-    memory/deallocate.cpp
-    memory/reallocate.cpp
     config/cpuid.cpp
     config/get_vendor.cpp
     config/detect.cpp
