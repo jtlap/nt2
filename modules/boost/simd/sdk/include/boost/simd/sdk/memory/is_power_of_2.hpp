@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_MEMORY_IS_POWER_OF_2_HPP_INCLUDED
 
 #include <boost/dispatch/meta/mpl.hpp>
+#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
