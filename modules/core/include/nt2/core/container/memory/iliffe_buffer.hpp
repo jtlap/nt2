@@ -16,6 +16,7 @@
   **/
 //==============================================================================
 
+#include <nt2/sdk/memory/align_on.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/memory/config.hpp>
