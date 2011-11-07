@@ -16,6 +16,7 @@
   **/
 //==============================================================================
 
+#include <nt2/sdk/memory/align_on.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/memory/config.hpp>
@@ -435,6 +436,21 @@ namespace nt2 { namespace memory
         data_   = data - boost::fusion::at_c<0>(bss);
         sharing_ = true;
       }
+    }
+
+    //==========================================================================
+    /**
+      * Reallocate a iliffe_bufer to a new size.
+     **/
+    //==========================================================================
+    template<typename Sizes, typename Bases> inline void
+    resize( Sizes const&      szs
+          , Bases const&      bss
+          , Padding const&    p
+          )
+    {
+      if(data_) alloc_.deallocate( begin(), end() - begin() );
+      initialize(szs,bss,p);
     }
 
     ~iliffe_buffer()

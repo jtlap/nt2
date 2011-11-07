@@ -9,12 +9,13 @@
 #ifndef BOOST_SIMD_SDK_META_FLOAT_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_FLOAT_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/meta/real_c.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
- template<boost::simd::uint32_t Value> 
- struct single_ : real_c<boost::simd::uint32_t,Value> {}; 
+ template<boost::simd::uint32_t Value>
+ struct single_ : real_c<boost::simd::uint32_t,Value> {};
 } } }
 
 #endif

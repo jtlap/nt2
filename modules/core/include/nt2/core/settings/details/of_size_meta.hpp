@@ -85,6 +85,16 @@ namespace boost { namespace fusion { namespace extension
       static type call(Sequence& seq) { return type(); }
     };
   };
+  
+  template<> struct value_at_impl<nt2::tag::of_size_>
+  {
+    template<class Sequence, class Index>
+    struct apply
+    {
+      typedef typename remove_reference<typename at_impl<nt2::tag::of_size_>::template
+      apply<Sequence, Index>::type>::type      type;
+    };
+  };
 
   //==========================================================================
   // begin returns the inner data_type begin as it is itself a Fusion Sequence

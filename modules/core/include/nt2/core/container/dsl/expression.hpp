@@ -9,6 +9,8 @@
 #ifndef NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_EXPRESSION_HPP_INCLUDED
 
+#include <boost/mpl/assert.hpp>
+#include <boost/proto/traits.hpp>
 #include <boost/proto/extends.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/extent.hpp>
@@ -29,6 +31,35 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef ResultType type;
   };
+} } }
+
+namespace nt2 { namespace container { namespace ext
+{
+  template<class Tag, class Domain, int N, class Expr>
+  struct resize
+  {
+    BOOST_MPL_ASSERT_MSG(0, NT2_RESIZE_ON_RHS, (Tag));
+  };
+  
+  template<class Tag, class Domain, class Expr>
+  struct resize<Tag, Domain, 0, Expr>
+  {
+    template<class Sz>
+    void operator()(Expr& expr, Sz const& sz)
+    {
+      boost::proto::value(expr).resize(sz);
+    }
+  };
+  
+  template<class Domain, int N, class Expr>
+  struct resize<boost::proto::tag::function, Domain, N, Expr>
+  {
+    template<class Sz>
+    void operator()(Expr&, Sz const&)
+    {
+    }
+  };
+  
 } } }
 
 namespace nt2 { namespace container
@@ -63,9 +94,8 @@ namespace nt2 { namespace container
     // expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
-    expression() : size_(nt2::extent(parent::proto_base().child0)) 
+    expression() : size_(nt2::extent(parent::proto_base().child0))
     {
-
     }
 
     template<class Sz>
@@ -75,20 +105,20 @@ namespace nt2 { namespace container
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
     //==========================================================================
-    template<class Xpr,class Result> BOOST_DISPATCH_FORCE_INLINE
-    expression const& operator=(expression<Xpr,Result> const& xpr) const
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    expression const& operator=(Xpr const& xpr) const
     {
-      nt2::evaluate( nt2::assign(*this, xpr) );
+      process( xpr );
       return *this;
     }
 
     //==========================================================================
     // Assignment operator force evaluation - regular version
     //==========================================================================
-    template<class Xpr,class Result> BOOST_DISPATCH_FORCE_INLINE
-    expression& operator=(expression<Xpr,Result> const& xpr)
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(Xpr const& xpr)
     {
-      nt2::evaluate( nt2::assign(*this, xpr) );
+      process( xpr );
       return *this;
     }
 
@@ -106,15 +136,15 @@ namespace nt2 { namespace container
     // Op-Assignment operators generate proper tree then evaluates
     //==========================================================================
     #define NT2_MAKE_ASSIGN_OP(OP)                                             \
-    template<class Xpr,class Result>                                           \
+    template<class Xpr>                                                        \
     BOOST_DISPATCH_FORCE_INLINE expression&                                    \
-    operator BOOST_PP_CAT(OP,=)(expression<Xpr,Result> const& xpr)             \
+    operator BOOST_PP_CAT(OP,=)(Xpr const& xpr)                                \
     {                                                                          \
       return *this = *this OP xpr;                                             \
     }                                                                          \
-    template<class Xpr,class Result>                                           \
+    template<class Xpr>                                                        \
     BOOST_DISPATCH_FORCE_INLINE expression const&                              \
-    operator BOOST_PP_CAT(OP,=)(expression<Xpr,Result> const& xpr) const       \
+    operator BOOST_PP_CAT(OP,=)(Xpr const& xpr) const                          \
     {                                                                          \
       return *this = *this OP xpr;                                             \
     }                                                                          \
@@ -145,6 +175,85 @@ namespace nt2 { namespace container
     extent_type const& extent() const
     {
       return size_;
+    }
+    
+    template<class Sz>
+    void resize(Sz const& sz)
+    {
+      ext::resize< typename boost::proto::tag_of<parent>::type
+                 , domain
+                 , boost::proto::arity_of<parent>::type::value
+                 , expression<Expr, ResultType>
+                 >
+      ()(*this, sz);
+    }
+    
+    template<class Sz>
+    void resize(Sz const& sz) const
+    {
+      ext::resize< typename boost::proto::tag_of<parent>::type
+                 , domain
+                 , boost::proto::arity_of<parent>::type::value
+                 , expression<Expr, ResultType> const
+                 >
+      ()(*this, sz);
+    }
+
+    protected:
+
+    //==========================================================================
+    // For any given Xpr expression, if Xpr matches the current grammar, then
+    // the assignment is evaluated. Otherwise, a static assertion is triggered
+    // in a separate function to prevent error cascading.
+    // process exists in non-const and const flavors to support the same const
+    // and non-const variants of operator=
+    //==========================================================================
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE void process( Xpr const& xpr )
+    {
+      typedef typename boost::proto::result_of::as_expr<Xpr>::type lhs_type;
+      process ( xpr
+              , typename boost::proto::matches< lhs_type
+                                              , container::grammar>::type()
+              );
+    }
+
+    template<class Xpr>
+    BOOST_DISPATCH_FORCE_INLINE void process( Xpr const& xpr ) const
+    {
+      typedef typename boost::proto::result_of::as_expr<Xpr>::type lhs_type;
+      process ( xpr
+              , typename boost::proto::matches< lhs_type
+                                              , container::grammar>::type()
+              );
+    }
+
+    //==========================================================================
+    // Specialization for error cascading prevention
+    //==========================================================================
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    void process( Xpr const& xpr, boost::mpl::true_ const& )
+    {
+      nt2::evaluate( nt2::assign(*this, xpr) );
+    }
+
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    void process( Xpr const& xpr, boost::mpl::true_ const& ) const
+    {
+      nt2::evaluate( nt2::assign(*this, xpr) );
+    }
+
+    template<class Xpr> BOOST_DISPATCH_FORCE_INLINE
+    void process( Xpr const&, boost::mpl::false_ const& ) const
+    {
+      //========================================================================
+      // If you trigger this assertion, you tried to assign an invalid
+      // expression into a nt2 Container or Container view.
+      //========================================================================
+      BOOST_MPL_ASSERT_MSG( (sizeof(Xpr) == 0)
+                          , NT2_EXPRESSION_GRAMMAR_MISMATCH
+                          , (Xpr)
+                          );
     }
 
     private:

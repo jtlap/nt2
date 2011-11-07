@@ -16,6 +16,7 @@
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/meta/runner.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <nt2/core/container/meta/loop_nest.hpp>
 
 namespace nt2 { namespace ext
@@ -38,26 +39,72 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::
     child_c<A0 const&, 0>::type                             result_type;
 
-    typedef typename meta::
-    strip< typename meta::
-           scalar_of<result_type>::type
-         >::type                                            target_type;
+#if !defined(BOOST_SIMD_NO_SIMD)
+    //==========================================================================
+    // If some SIMD is detected, then return a native
+    //==========================================================================
+    typedef boost::simd::
+            native< typename meta::strip< typename meta::
+                                          scalar_of<result_type>::type
+                                        >::type
+                  , BOOST_SIMD_DEFAULT_EXTENSION
+                  >                                         target_type;
+#else
+    //==========================================================================
+    // If no SIMD is detected, stay in scalar mode
+    //==========================================================================
+    typedef typename
+            meta::strip< typename meta::scalar_of<result_type>::type>::type
+                                                            target_type;
+#endif
+
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
+      boost::proto::child_c<0>(a0).resize(a0.extent());
+
       //==========================================================================
       // Generate a loop nest of proper depth running the expression evaluator
       // as its body and using indices/extent as loop bounds
       //==========================================================================
       meta::for_each( typename A0::index_type::type()
                     , extent(a0)
+                    , typename boost::simd::meta::cardinal_of<target_type>::type()
                     , meta::runner<A0 const&, meta::as_<target_type> >(a0)
                     );
 
       //==========================================================================
       // Once done, return the newly computed result
       //==========================================================================
+      return boost::proto::child_c<0>(a0);
+    }
+  };
+
+  //============================================================================
+  // When an assign(lhs,rhs) scalar expression is run, we perform a single
+  // assignment of said scalar value.
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_, (A0)
+                            , ((expr_< scalar_< fundamental_<A0> >
+                                     , nt2::container::domain
+                                     , nt2::tag::assign_
+                                     >
+                              ))
+                            )
+  {
+    typedef typename boost::proto::result_of::
+    child_c<A0 const&, 0>::type                             result_type;
+
+    typedef typename meta::
+            strip< typename meta::scalar_of<result_type>::type>::type
+            target_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(A0 const& a0) const
+    {
+      boost::proto::child_c<0>(a0).resize(a0.extent());
+      nt2::run(a0, typename A0::index_type::type(), meta::as_<target_type>());
       return boost::proto::child_c<0>(a0);
     }
   };
@@ -86,7 +133,7 @@ namespace nt2 { namespace ext
       return tmp;
     }
   };
-  
+
   //============================================================================
   // When a scalar expression is run, we don't perform the operation into
   // a temporary, but rather directly return it.
@@ -101,7 +148,10 @@ namespace nt2 { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::run(a0, of_size_<>(), meta::as_<typename meta::strip<result_type>::type>());
+      return nt2::run ( a0
+                      , of_size_<>()
+                      , meta::as_<typename meta::strip<result_type>::type>()
+                      );
     }
   };
 } }

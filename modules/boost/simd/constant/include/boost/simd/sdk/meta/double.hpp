@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_META_DOUBLE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_DOUBLE_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/meta/real_c.hpp>
 
 namespace boost { namespace simd { namespace meta
