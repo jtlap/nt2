@@ -37,7 +37,7 @@ namespace nt2
   {
     typedef tag::of_size_ fusion_tag;
     typedef boost::fusion::fusion_sequence_tag tag;
-   
+
     typedef std::size_t         value_type;
     typedef std::size_t&        reference;
     typedef std::size_t const&  const_reference;
@@ -96,15 +96,15 @@ namespace nt2
     }
 
     of_size_( of_size_ const& src ) : data_(src.data_) {}
-    
+
     template<class Sz>
     of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
     {
       static const std::size_t other_size = boost::fusion::result_of::size<Sz>::type::value;
       static const std::size_t min_size = other_size < static_size ? other_size : static_size;
-      
+
       details::copy(details::pop_back_c<other_size - min_size>(other), &data_[0]);
-                
+
       for(std::size_t i = min_size; i != static_size; ++i)
         data_[i] = 1;
 
@@ -167,7 +167,7 @@ namespace nt2
     typedef tag::of_size_ fusion_tag;
     typedef boost::fusion::fusion_sequence_tag tag;
     typedef boost::mpl::vector_c<std::size_t> values_type;
-      
+
     typedef std::size_t value_type;
     typedef std::size_t reference;
     typedef std::size_t const_reference;
@@ -185,9 +185,9 @@ namespace nt2
     const_iterator  begin() const { return const_iterator(0); }
     iterator        end()         { return iterator(0);       }
     const_iterator  end()   const { return const_iterator(0); }
-    
+
     of_size_() {}
-    
+
     template<class Sz>
     of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
     {
@@ -221,12 +221,21 @@ namespace nt2
     for(; it0 != a0.end(); ++it0)
       if(*it0 != 1)
         return false;
-      
+
     for(; it1 != a1.end(); ++it1)
       if(*it1 != 1)
         return false;
-        
+
     return true;
+  }
+
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
+          , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
+  bool operator!=( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
+                 , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1
+                 )
+  {
+    return !(a0 == a1);
   }
 }
 

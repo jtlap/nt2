@@ -62,7 +62,13 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      boost::proto::child_c<0>(a0).resize(a0.extent());
+      //========================================================================
+      // Don't resize if unecessary.
+      // TODO: Delegate to block to optimize the test or to the buffer to
+      // optimize the resize itself.
+      //========================================================================
+      if( boost::proto::child_c<0>(a0).extent() != a0.extent() )
+        boost::proto::child_c<0>(a0).resize(a0.extent());
 
       //==========================================================================
       // Generate a loop nest of proper depth running the expression evaluator
