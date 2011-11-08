@@ -45,31 +45,16 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<Data> >)
                             )
   {
-    template<class Sig> struct result;
+    typedef typename boost::proto::result_of::value<A0&>::type   value_type;
+    typedef typename Data::type                                  target_type;
+    typedef typename boost::dispatch::meta::
+            transfer_qualifiers<target_type, value_type>::type   qualif_type;
+    typedef typename boost::add_reference<qualif_type>::type     result_type;
 
-    template<class This, class A0_, class S_, class D_>
-    struct result<This(A0_,S_,D_)>
+    template<class A0_> BOOST_FORCEINLINE
+    result_type operator()(A0_& a0, State const& state, Data const&) const
     {
-      //========================================================================
-      // This type computation generates the type returned by the evaluation
-      // of a terminal at a given position. This is done through reinterpreting
-      // a given position in a table as a reference to the potentially SIMD type
-      // required to make it work.
-      //========================================================================
-      typedef typename  boost::proto::result_of::value<A0_&>::type   value_type;
-      typedef typename  boost::dispatch::meta::strip<D_>::type      data_type;
-      typedef typename  data_type::type                             target_type;
-      typedef typename  boost::dispatch::meta::
-                        transfer_qualifiers<target_type,value_type>::type  qualif_type;
-      typedef typename boost::add_reference<qualif_type>::type      type;
-    };
-
-    template<class A0_> BOOST_DISPATCH_FORCE_INLINE
-    typename result<implement(A0_&,State,Data)>::type
-    operator()(A0_& a0, State const& state, Data const&) const
-    {
-      typedef typename result<implement(A0_&,State,Data)>::type type;
-      return reinterpret_cast<type>(boost::proto::value(a0)(state));
+      return reinterpret_cast<result_type>(boost::proto::value(a0)(state));
     }
   };
 
