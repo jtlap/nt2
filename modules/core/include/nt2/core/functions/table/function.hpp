@@ -260,19 +260,18 @@ namespace ext
     typedef typename boost::proto::result_of::child_c<Expr const&, 0>::type  child0;
     typedef typename boost::fusion::result_of::pop_front<Expr const>::type   childN;
 
-    // todo : fix this using proper scatter/gather.
-    // For now a(...) turns off vectorisation
-    typedef meta::as_<typename meta::scalar_of<Data>::type> data_type;
-    typedef typename container::ext::function_state<Expr, State>::result_type new_state;
-    typedef typename meta::call<tag::run_(child0, new_state, data_type)>::type    result_type;
+    typedef typename container::ext::
+            function_state<Expr, State>::result_type                         new_state;
+    typedef typename meta::
+            call<tag::run_(child0, new_state, Data const&)>::type            result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(Expr const& expr, State const& state, Data const& data) const
     {
       return nt2::run( boost::proto::child_c<0>(expr)
                      , container::ext::function_state<childN, State>()
                        (boost::fusion::pop_front(expr), state)
-                     , data_type()
+                     , data
                      );
     }
   };

@@ -30,7 +30,7 @@ NT2_TEST_CASE( value_at )
   for(std::size_t j=1; j!=3+1; ++j)
     for(std::size_t i=1; i!=2+1; ++i)
       a0(i, j) = T(i+j);
-      
+  
   a1 = a0 + T(1);
   
   for(std::size_t j=1; j!=3+1; ++j)

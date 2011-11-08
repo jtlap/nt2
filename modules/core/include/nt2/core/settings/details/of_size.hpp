@@ -168,11 +168,11 @@ namespace nt2
     typedef boost::fusion::fusion_sequence_tag tag;
     typedef boost::mpl::vector_c<std::size_t> values_type;
 
-    typedef std::size_t value_type;
-    typedef std::size_t reference;
-    typedef std::size_t const_reference;
-    typedef void*       iterator;
-    typedef void*       const_iterator;
+    typedef std::size_t        value_type;
+    typedef std::size_t        reference;
+    typedef std::size_t        const_reference;
+    typedef std::size_t*       iterator;
+    typedef std::size_t const* const_iterator;
 
     static const std::size_t  static_size   = 0;
     static const bool         static_status = true;
