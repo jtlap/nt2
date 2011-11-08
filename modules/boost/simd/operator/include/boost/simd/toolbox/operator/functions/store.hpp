@@ -59,9 +59,17 @@ namespace boost { namespace simd
   template<class A0, class A1, class A2>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::store_(A0 const&, A1 const&, A2 const&)>::type
-  store(A0 const& a0, A1 const& a1, A2 const& a2 = 0)
+  store(A0 const& a0, A1 const& a1, A2 const& a2)
   {
     return typename boost::dispatch::make_functor<tag::store_, A0>::type()(a0, a1, a2);
+  }
+  
+  template<class A0, class A1>
+  BOOST_FORCEINLINE
+  typename boost::dispatch::meta::call<tag::store_(A0 const&, A1 const&, int const&)>::type
+  store(A0 const& a0, A1 const& a1)
+  {
+    return typename boost::dispatch::make_functor<tag::store_, A0>::type()(a0, a1, 0);
   }
   
 } }
