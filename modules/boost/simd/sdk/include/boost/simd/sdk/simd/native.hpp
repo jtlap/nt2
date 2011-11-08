@@ -110,7 +110,7 @@ namespace boost { namespace simd
     std::size_t size() { return static_size; }
 
     static BOOST_DISPATCH_FORCE_INLINE
-    bool empty() { return false; }
+    bool empty()       { return false; }
 
     reference        operator[](std::size_t i)
     {

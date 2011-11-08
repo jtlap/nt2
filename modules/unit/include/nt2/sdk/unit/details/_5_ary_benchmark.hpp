@@ -106,7 +106,7 @@ void timing_test( Func callee, size_t size
     nt2::tic();
     {
       nt2::ctic();
-      for(size_t i=0; i<size/nb; i++)
+      for(size_t i=0; i<size; i+=nb)
       {
         nt2::store(
           callee( nt2::load<r_in0>(&in0[0],i)

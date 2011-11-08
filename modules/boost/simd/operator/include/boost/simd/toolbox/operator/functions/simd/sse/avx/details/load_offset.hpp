@@ -50,6 +50,7 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         " is not aligned on the simd vector size.");
       return eval( a0, a1, typename is_periodic<A2,A3>::type() );
@@ -65,7 +66,6 @@ namespace boost { namespace simd { namespace ext
       BOOST_STATIC_CONSTANT
       ( std::size_t
       , offset  = std::size_t(A3::value)
-                / boost::simd::meta::cardinal_of<typename A2::type>::value
       );
 
       return boost::simd::load<result_type>(a0,a1+offset);

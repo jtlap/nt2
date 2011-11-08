@@ -19,9 +19,9 @@
  * \defgroup boost_simd_operator_store store
  *
  * \par Description
- * Store a data from a0 to the memory zone given by a1 and offset a2
- * and return a0. This is mentally equivalent to:
- * <tt>std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);</tt>
+ * Store data from a0 to the memory zone given by a1 and offset a2
+ * and return a0. This is semantically equivalent to:
+ * <tt>std::memcpy(a1 + a2, &a0, sizeof a0);</tt>
  *
  * \par Header file
  * 
@@ -35,28 +35,19 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0>
- *     meta::call<tag::store_(A0,A0)>::type
- *     store(const A0 & a0,const A0 & a1);
+ *   template <class A0, class A1, class A2>
+ *   typename meta::call<tag::store_(A0 const&, A1 const&, A2 const&)>::type
+ *   store(A0 const& a0, A1 const& a1, A2 const& a2 = 0);
  * }
  * \endcode
  *
- * \param a0 the first parameter of store
- * \param a1 the second parameter of store
+ * \param a0 the object to store
+ * \param a1 the base address
+ * \param a2 offset to store at
  * 
- * \return a value of the common type of the parameters
- *  
- * \par Notes
- * In SIMD mode, this function acts elementwise on the inputs vectors elements
- * \par
+ * \return a0
  *  
 **/
-
-////////////////////////////////////////////////////////////////////////////////
-// Store a value in memory functor and function
-// Documentation: http://nt2.lri.fr/sdk/memory/functions/store.html
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/functor/preprocessor/function.hpp>
 
 namespace boost { namespace simd
 {
@@ -65,8 +56,14 @@ namespace boost { namespace simd
      * \brief Define the tag store_ of functor store 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::store_,store,3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::store_ , store , 3 )
+  template<class A0, class A1, class A2>
+  BOOST_FORCEINLINE
+  typename boost::dispatch::meta::call<tag::store_(A0 const&, A1 const&, A2 const&)>::type
+  store(A0 const& a0, A1 const& a1, A2 const& a2 = 0)
+  {
+    return typename boost::dispatch::make_functor<tag::store_, A0>::type()(a0, a1, a2);
+  }
+  
 } }
 
 #endif

@@ -9,46 +9,55 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_OPERATORS_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_OPERATORS_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/or.hpp>
 
 #define BOOST_SIMD_OVERLOAD_UNARY_OP(Tag, Op)                                  \
-template<class T, class X>                                                     \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::dispatch::meta::call< Tag(native<T, X>) >::type                \
+template<class A0>                                                             \
+BOOST_FORCEINLINE                                                              \
+typename                                                                       \
+lazy_enable_if< meta::is_native<A0>                                            \
+              , dispatch::meta::                                               \
+                call< Tag(A0 const&) >                                         \
+         >::type                                                               \
 operator Op                                                                    \
 (                                                                              \
-  native<T, X> const & a0                                                      \
+  A0 const & a0                                                                \
 )                                                                              \
 {                                                                              \
-  return typename boost::dispatch::make_functor<Tag, T>::type()(a0);           \
+  return typename dispatch::make_functor<Tag, A0>::type()(a0);                 \
 }                                                                              \
 /**/
 
 #define BOOST_SIMD_OVERLOAD_UNARY_OP_INC(Tag, Op)                              \
-template<class T, class X>                                                     \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-native<T, X>&                                                                  \
+template<class A0>                                                             \
+BOOST_FORCEINLINE                                                              \
+typename                                                                       \
+enable_if< meta::is_native<A0>                                                 \
+         , A0&                                                                 \
+         >::type                                                               \
 operator Op                                                                    \
 (                                                                              \
-  native<T, X> & a0                                                            \
+  A0 & a0                                                                      \
 )                                                                              \
 {                                                                              \
-  return typename boost::dispatch::make_functor<Tag, T>::type()(a0);           \
+  return typename dispatch::make_functor<Tag, A0>::type()(a0);                 \
 }                                                                              \
-template<class T, class X>                                                     \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-native<T, X>                                                                   \
+template<class A0>                                                             \
+BOOST_FORCEINLINE                                                              \
+A0                                                                             \
 operator Op                                                                    \
 (                                                                              \
-  native<T, X> & a0,                                                           \
+  A0 & a0,                                                                     \
   int                                                                          \
 )                                                                              \
 {                                                                              \
-  native<T, X> const that = { a0() };                                          \
+  A0 const that = a0;                                                          \
   operator Op(a0);                                                             \
   return that;                                                                 \
 }                                                                              \
@@ -56,56 +65,41 @@ operator Op                                                                    \
 
 
 #define BOOST_SIMD_OVERLOAD_BINARY_OP_ELWS(Tag, Op)                            \
-template<class T0, class T1, class X>                                          \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::dispatch::meta::call<Tag(native<T0, X>, native<T1, X>)>::type  \
+template<class A0, class A1>                                                   \
+BOOST_FORCEINLINE                                                              \
+typename                                                                       \
+lazy_enable_if< mpl::                                                          \
+                or_< mpl::and_< meta::is_native<A0>, meta::is_native<A1> >     \
+                   , mpl::                                                     \
+                     or_< mpl::and_< meta::is_native<A0>, is_fundamental<A1> > \
+                        , mpl::and_< is_fundamental<A0>, meta::is_native<A1> > \
+                        >                                                      \
+                   >                                                           \
+              , dispatch::meta::                                               \
+                call< Tag(A0 const&, A1 const&) >                              \
+              >::type                                                          \
 operator Op                                                                    \
 (                                                                              \
-  native<T0, X> const & a0,                                                    \
-  native<T1, X> const & a1                                                     \
+  A0 const & a0,                                                               \
+  A1 const & a1                                                                \
 )                                                                              \
 {                                                                              \
-  return typename boost::dispatch::make_functor<Tag, T0>::type()(a0, a1);      \
-}                                                                              \
-template<class T, class X, class U>                                            \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::enable_if<                                                     \
-  boost::is_fundamental<U>,                                                    \
-  native<T, X>                                                                 \
->::type                                                                        \
-operator Op                                                                    \
-(                                                                              \
-  native<T, X> const & a0,                                                     \
-  U            const & a1                                                      \
-)                                                                              \
-{                                                                              \
-  return typename boost::dispatch::make_functor<Tag, T>::type()(a0, a1);       \
-}                                                                              \
-template<class T, class X, class U>                                            \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::enable_if<                                                     \
-  boost::is_fundamental<U>,                                                    \
-  native<T, X>                                                                 \
->::type                                                                        \
-operator Op                                                                    \
-(                                                                              \
-  U            const & a0,                                                     \
-  native<T, X> const & a1                                                      \
-)                                                                              \
-{                                                                              \
-  return typename boost::dispatch::make_functor<Tag, T>::type()(a0, a1);       \
+  return typename dispatch::make_functor<Tag, A0>::type()(a0, a1);             \
 }                                                                              \
 /**/
 
 #define BOOST_SIMD_OVERLOAD_BINARY_OP_ELWS_ASSIGN(Tag, Op)                     \
 BOOST_SIMD_OVERLOAD_BINARY_OP_ELWS(Tag, Op)                                    \
-template<class T, class X, class U>                                            \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-native<T, X>&                                                                  \
+template<class A0, class A1>                                                   \
+BOOST_FORCEINLINE                                                              \
+typename                                                                       \
+enable_if< mpl::and_< meta::is_native<A0>, meta::is_native<A1> >               \
+         , A0&                                                                 \
+         >::type                                                               \
 operator BOOST_PP_CAT(Op, =)                                                   \
 (                                                                              \
-  native<T, X>       & a0,                                                     \
-  U            const & a1                                                      \
+  A0       & a0,                                                               \
+  A1 const & a1                                                                \
 )                                                                              \
 {                                                                              \
   return a0 = operator Op(a0, a1);                                             \
@@ -113,16 +107,20 @@ operator BOOST_PP_CAT(Op, =)                                                   \
 /**/
 
 #define BOOST_SIMD_OVERLOAD_BINARY_OP(Tag, Op)                                 \
-template<class T0, class T1, class X>                                          \
-BOOST_DISPATCH_FORCE_INLINE                                                    \
-typename boost::dispatch::meta::call<Tag(native<T0, X>, native<T1, X>)>::type  \
+template<class A0, class A1>                                                   \
+BOOST_FORCEINLINE                                                              \
+typename                                                                       \
+lazy_enable_if< mpl::and_< meta::is_native<A0>, meta::is_native<A1> >          \
+              , dispatch::meta::                                               \
+                call<Tag(A0 const&, A1 const&)>                                \
+              >::type                                                          \
 operator Op                                                                    \
 (                                                                              \
-  native<T0, X> const & a0,                                                    \
-  native<T1, X> const & a1                                                     \
+  A0 const & a0,                                                               \
+  A1 const & a1                                                                \
 )                                                                              \
 {                                                                              \
-  return typename boost::dispatch::make_functor<Tag, T0>::type()(a0, a1);      \
+  return typename dispatch::make_functor<Tag, A0>::type()(a0, a1);             \
 }                                                                              \
 /**/
 

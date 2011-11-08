@@ -128,6 +128,14 @@ macro(nt2_find_module_dependencies _COMPONENT)
 
   string(TOUPPER ${_COMPONENT} _COMPONENT_U)
   
+  if(NT2_MODULES_BLACKLIST)
+    list(FIND NT2_MODULES_BLACKLIST ${_COMPONENT} _COMPONENT_INDEX)
+    if(NOT _COMPONENT_INDEX EQUAL -1)
+      nt2_find_log("${_COMPONENT} is blacklisted, skipping")
+      return()
+    endif()
+  endif()
+  
   string(REPLACE "." "/" _COMPONENT_PATH ${_COMPONENT})
   # Search for module source
   if(NOT NT2_${_COMPONENT_U}_ROOT)

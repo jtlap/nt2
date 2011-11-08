@@ -46,6 +46,7 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         " is not aligned on the simd vector size.");
       return eval ( a0,a1
@@ -60,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     eval(A0 const& a0, A1 const& a1, boost::mpl::true_ const&, X const&) const
     {
       BOOST_STATIC_CONSTANT
-      ( std::size_t, o = A3::value/meta::cardinal_of<result_type>::value );
+      ( std::size_t, o = A3::value );
 
       return boost::simd::load<result_type>(a0,a1+o);
     }
@@ -74,12 +75,12 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<result_type>::type scalar_type;
       BOOST_STATIC_CONSTANT( std::size_t, card   = meta::cardinal_of<result_type>::value);
-      BOOST_STATIC_CONSTANT( std::size_t, offset = A3::value/card                );
+      BOOST_STATIC_CONSTANT( std::size_t, offset = A3::value/card*card           );
       BOOST_STATIC_CONSTANT( std::size_t, bytes  = sizeof(scalar_type)           );
       BOOST_STATIC_CONSTANT( std::size_t, shift  = bytes*(A3::value%card)        );
 
       result_type a      = load<result_type>(a0,a1+offset);
-      result_type b      = load<result_type>(a0,a1+offset+1);
+      result_type b      = load<result_type>(a0,a1+offset+card);
       result_type that   = { vec_sld(a(),b(),shift) };
       return that;
     }
@@ -93,12 +94,12 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<result_type>::type scalar_type;
       BOOST_STATIC_CONSTANT( std::size_t, card   = meta::cardinal_of<result_type>::value );
-      BOOST_STATIC_CONSTANT( std::size_t, offset = -A3::value/card                );
+      BOOST_STATIC_CONSTANT( std::size_t, offset = -A3::value/card*card           );
       BOOST_STATIC_CONSTANT( std::size_t, bytes  = sizeof(scalar_type)            );
       BOOST_STATIC_CONSTANT( std::size_t, shift  = bytes*(card-(-A3::value)%card) );
 
       result_type a     = load<result_type>(a0,a1-offset);
-      result_type b     = load<result_type>(a0,a1-offset-1);
+      result_type b     = load<result_type>(a0,a1-offset-card);
       result_type that  = { vec_sld(b(),a(),shift) };
       return that;
     }

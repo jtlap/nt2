@@ -38,9 +38,10 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         " is not aligned on the simd vector size.");
-      result_type that = { _mm256_load_pd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
+      result_type that = { _mm256_load_pd(a0+a1) };
       return that;
     }
   };
@@ -63,9 +64,10 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         " is not aligned on the simd vector size.");
-      result_type that = {_mm256_load_ps(a0+a1*boost::simd::meta::cardinal_of<result_type>::value)}; 
+      result_type that = {_mm256_load_ps(a0+a1)}; 
       return that;
     }
   };
@@ -88,9 +90,10 @@ namespace boost { namespace simd { namespace ext
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         " is not aligned on the simd vector size.");
-      result_type that = { _mm256_load_si256(reinterpret_cast<__m256i const*>(a0)+a1) };
+      result_type that = { _mm256_load_si256(reinterpret_cast<__m256i const*>(a0+a1)) };
       return that;
     }
   };
