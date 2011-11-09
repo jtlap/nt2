@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type itype;
-      return !native_cast<result_type>(_mm256_testz_si256(native_cast<itype>(a0), True<itype>()));
+      return result_type(!_mm256_testz_si256(native_cast<itype>(a0), True<itype>()));
     }
   };
 } } }  

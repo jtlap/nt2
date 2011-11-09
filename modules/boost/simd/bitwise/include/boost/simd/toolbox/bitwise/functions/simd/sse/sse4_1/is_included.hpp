@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1) const
     {
-      return native_cast<result_type>(_mm_testc_si128(a1, a0));
+      return result_type(_mm_testc_si128(a1, a0));
     }
   };
   

@@ -12,6 +12,7 @@
 
 #include <boost/simd/toolbox/operator/functions/compare_less.hpp>
 #include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/reversebits.hpp>
@@ -79,7 +80,7 @@ namespace boost { namespace simd { namespace ext
       }
       else
       {
-        return false; 
+        return False<result_type>(); 
       }
     }
   };

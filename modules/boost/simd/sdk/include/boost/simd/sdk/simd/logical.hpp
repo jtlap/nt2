@@ -60,8 +60,8 @@ namespace boost { namespace simd
     BOOST_DISPATCH_FORCE_INLINE 
     bool operator !=(logical<T> const& a) const { return value_ !=  a.value_; }
     
-    BOOST_DISPATCH_FORCE_INLINE bool operator ~() const { return (~value_); }
-    BOOST_DISPATCH_FORCE_INLINE bool operator !() const { return (!value_); }
+    BOOST_DISPATCH_FORCE_INLINE logical<T> operator ~() const { return logical<T>(~value_); }
+    BOOST_DISPATCH_FORCE_INLINE logical<T> operator !() const { return logical<T>(!value_); }
 
     //==========================================================================    
     /*!
