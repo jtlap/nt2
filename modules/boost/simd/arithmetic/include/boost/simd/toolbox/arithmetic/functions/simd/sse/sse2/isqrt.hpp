@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
 //       msk = b_or(gt(n1,a0), b_and(is_eqz(n1), na));
 //       n   = seladd( msk, n, Mone<A0>());
 
-      return seladd(na, Zero<A0>(), n);
+//      return seladd(na, Zero<A0>(), n);
     }
   };
 } } }
@@ -162,7 +162,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return simd::native_cast<A0>(boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0))));
+      std::cout << "icitte" << std::endl;
+      return a0; 
+      //      return simd::native_cast<A0>(boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0))));
     }
   };
 } } }

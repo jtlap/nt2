@@ -12,6 +12,7 @@
 #include <boost/simd/toolbox/arithmetic/functions/minmod.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/bitwise_xor.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/min.hpp>
@@ -80,7 +81,7 @@ namespace boost { namespace simd { namespace ext
 //       return b_or(b_or(is_nan(a0), is_nan(a1)),
 //                b_and(boost::simd::min(a0,a1), is_gez(a0*a1))
 //              );
-      return if_nan_else(b_or(is_nan(a0), is_nan(a1)), 
+      return if_nan_else(logical_or(is_nan(a0), is_nan(a1)), 
                 if_else_zero(is_gez(b_xor(a0, a1)),boost::simd::min(a0, a1))
                 ); 
     }

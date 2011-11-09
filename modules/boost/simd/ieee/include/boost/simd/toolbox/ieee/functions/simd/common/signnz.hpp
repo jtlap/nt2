@@ -15,6 +15,10 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/one.hpp>  
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -63,7 +67,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return seladd(is_nan(a0), seladd(is_positive(a0), Mone<A0>(),Two<A0>()), a0);
+      //      return seladd(is_nan(a0), seladd(is_positive(a0), Mone<A0>(),Two<A0>()), a0);
+      std::cout << "icitte" << std::endl; 
+      return if_nan_else(is_nan(a0), select(is_negative(a0), Mone<A0>(), One<A0>())); 
     }
   };
 } } }
