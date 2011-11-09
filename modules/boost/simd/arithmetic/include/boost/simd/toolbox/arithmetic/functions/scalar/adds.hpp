@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype; 
-      return boost::simd::min(utype(boost::simd::Valmax<A0>()), utype(a0+a1)); 
+      return A0(boost::simd::min(utype(boost::simd::Valmax<A0>()), utype(a0+a1)));
     }
   };
 } } }
