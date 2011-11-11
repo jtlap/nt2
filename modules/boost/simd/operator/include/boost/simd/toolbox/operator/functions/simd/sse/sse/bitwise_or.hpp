@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return native_cast<A0>(bitwise_or(typed_bool(a0), typed_bool(a1)));
+      return native_cast<result_type>(bitwise_or(typed_bool(a0), typed_bool(a1)));
     }
   };
 } } }
