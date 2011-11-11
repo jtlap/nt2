@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_SCALAR_GSL_SF_BESSEL_KNU_SCALED_HPP_INCLUDED
-#define NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_SCALAR_GSL_SF_BESSEL_KNU_SCALED_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_SCALAR_GSL_SF_BESSEL_KNU_SCALED__HPP_INCLUDED
+#define NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_SCALAR_GSL_SF_BESSEL_KNU_SCALED__HPP_INCLUDED
 
   extern "C"{
     extern double gsl_sf_bessel_Knu_scaled( double,double );

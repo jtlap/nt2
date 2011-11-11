@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_UNIT_DETAILS__4_ARY_BENCHMARK_HPP_INCLUDED
-#define NT2_SDK_UNIT_DETAILS__4_ARY_BENCHMARK_HPP_INCLUDED
+#ifndef NT2_SDK_UNIT_DETAILS_4_ARY_BENCHMARK_HPP_INCLUDED
+#define NT2_SDK_UNIT_DETAILS_4_ARY_BENCHMARK_HPP_INCLUDED
 
 #include <vector>
 #include <iostream>

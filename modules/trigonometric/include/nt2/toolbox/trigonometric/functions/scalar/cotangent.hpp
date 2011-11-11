@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_COT_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_COT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_COTANGENT_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_COTANGENT_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo.hpp>
 

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS__180_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS__180_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_180_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_180_HPP_INCLUDED
 /*!
  * \file
 **/

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_LOAD_OFFSET_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_LOAD_OFFSET_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_IMPL_LOAD_OFFSET_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_IMPL_LOAD_OFFSET_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_DSL_PROTO_EXTENDS_HPP
-#define BOOST_DISPATCH_DSL_PROTO_EXTENDS_HPP
+#ifndef BOOST_DISPATCH_DSL_PROTO_EXTENDS_HPP_INCLUDED
+#define BOOST_DISPATCH_DSL_PROTO_EXTENDS_HPP_INCLUDED
 
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/proto/extends.hpp>

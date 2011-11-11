@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_META_SIZE_HPP_INCLUDED
-#define BOOST_SIMD_META_SIZE_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_META_SIZE_HPP_INCLUDED
+#define BOOST_SIMD_SDK_META_SIZE_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/apply.hpp>

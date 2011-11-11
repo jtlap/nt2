@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_AS_REAL_HPP_INCLUDED
-#define BOOST_DISPATCH_META_AS_REAL_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_AS_FLOATING_HPP_INCLUDED
+#define BOOST_DISPATCH_META_AS_FLOATING_HPP_INCLUDED
 
 /*!
  * \file

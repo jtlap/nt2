@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_UNIT_TESTS_HPP_INCLUDED
-#define NT2_SDK_UNIT_TESTS_HPP_INCLUDED
+#ifndef NT2_SDK_UNIT_NO_ULP_TESTS_HPP_INCLUDED
+#define NT2_SDK_UNIT_NO_ULP_TESTS_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Unit test predicates macros

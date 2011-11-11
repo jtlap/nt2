@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_INCLUDE_FUNCTOR_HPP_INCLUDED
-#define NT2_SDK_INCLUDE_FUNCTOR_HPP_INCLUDED
+#ifndef NT2_INCLUDE_FUNCTOR_HPP_INCLUDED
+#define NT2_INCLUDE_FUNCTOR_HPP_INCLUDED
 
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
