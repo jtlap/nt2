@@ -27,6 +27,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/bitwise_ornot.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/any.hpp>
@@ -87,16 +88,15 @@ namespace nt2 { namespace ext
       {
         A1 xx = sel(test1, x, One<A1>());
         A1 y1 = case_1(xx, sn, n);
-        r = if_else_nan(test1, y1);//b_ornot(y1, test1);
+        r = if_else_nan(test1, y1);
         if (nb >= meta::cardinal_of<A1>::value)
-        return if_nan_else(isltza1, r); //b_or(r, isltza1);
+        return if_nan_else(isltza1, r); 
       }
       A1 xx = sel(test1, Two<A1>(), x);
       A1 y2 =  case_2(xx, sn, n);
-      r &= if_nan_else(test1, y2); //b_or(y2, test1);
+      r &= if_nan_else(test1, y2);
       r =  seladd(lt(x, Maxlog<A1>()), Zero<A1>(), r);
-      //      return b_or(r,  b_or(is_nan(a1), isltza1));
-      return if_nan_else(b_or(is_nan(a1), isltza1), r); // we are done
+      return if_nan_else(logical_or(is_nan(a1), isltza1), r); // we are done
     }
     
   private :
@@ -165,7 +165,7 @@ namespace nt2 { namespace ext
         qkm2 *= fac;
         qkm1 *= fac;
       }
-      while( nt2::any(gt(t, Halfeps<AA1>())) );
+      while( nt2::any(gt(t, Eps<AA1>()))); 
       return ans*nt2::exp(-x);
     }
   };
