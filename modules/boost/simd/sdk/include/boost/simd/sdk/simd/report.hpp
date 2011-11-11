@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_MEMORY_REPORT_HPP_INCLUDED
-#define BOOST_SIMD_SDK_MEMORY_REPORT_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_REPORT_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_REPORT_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Memory config header

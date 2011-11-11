@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_META_PROPERTY_OF_HPP_INCLUDED
-#define BOOST_DISPATCH_META_PROPERTY_OF_HPP_INCLUDED
+#ifndef NT2_SDK_META_PROPERTY_OF_HPP_INCLUDED
+#define NT2_SDK_META_PROPERTY_OF_HPP_INCLUDED
 
 #include <nt2/skd/meta/strip.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
