@@ -322,6 +322,11 @@ macro(nt2_module_add_tests name)
       else()
         add_test(${prefix}.${basename}-${suffix} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
       endif()
+      
+      if(NT2_WITH_TESTS_ALL)
+        set_property(TARGET ${exe} PROPERTY EXCLUDE_FROM_ALL OFF)
+      endif()
+      
     endif()
   endforeach()
   
