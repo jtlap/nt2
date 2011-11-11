@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_DSL_LAMBDA_TERMINAL_HPP_INCLUDED
-#define BOOST_DISPATCH_DSL_LAMBDA_TERMINAL_HPP_INCLUDED
+#ifndef BOOST_DISPATCH_META_LAMBDA_TERMINAL_HPP_INCLUDED
+#define BOOST_DISPATCH_META_LAMBDA_TERMINAL_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Defines a terminal fitting a lambda function

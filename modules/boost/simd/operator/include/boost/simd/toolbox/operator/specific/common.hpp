@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_SIMD_DETAILS_COMMON_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_DETAILS_COMMON_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_SPECIFIC_COMMON_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_SPECIFIC_COMMON_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // By default, any SIMD implementation falls down to scalar map application if

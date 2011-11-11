@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_EQUAL_TO_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_EQUAL_TO_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_EQUAL_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/dispatch/meta/scalar_of.hpp>

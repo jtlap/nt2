@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_POINTER_HPP
-#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_POINTER_HPP
+#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_POINTER_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_POINTER_HPP_INCLUDED
 
 #include <boost/mpl/apply.hpp>
 #include <nt2/sdk/meta/remove_pointers.hpp>

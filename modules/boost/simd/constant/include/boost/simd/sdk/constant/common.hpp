@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_CONSTANTS_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONSTANT_COMMON_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONSTANT_COMMON_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/simd/sdk/simd/tags.hpp>

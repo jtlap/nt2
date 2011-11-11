@@ -6,8 +6,8 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_CORE_FUNCTIONS_IMPL_VALUE_AT_SCALAR_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_IMPL_VALUE_AT_SCALAR_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_VALUE_AT_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_VALUE_AT_HPP_INCLUDED
 
 #include <nt2/sdk/meta/fusion.hpp>
 
