@@ -58,8 +58,10 @@ namespace boost { namespace simd { namespace tag
     struct two_split_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::two_split_, two_split, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_split_, two_split,(A0 const&)(A0&), 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_split_, two_split,(A0 const&)(A0&)(A0&), 1)
 } }
-
+    
 #endif
 
 // modified by jt the 25/12/2010

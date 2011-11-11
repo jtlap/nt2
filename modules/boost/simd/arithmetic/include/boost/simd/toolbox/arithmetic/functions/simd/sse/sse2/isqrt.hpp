@@ -162,9 +162,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      std::cout << "icitte" << std::endl;
-      return a0; 
-      //      return simd::native_cast<A0>(boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0))));
+      return simd::native_cast<A0>(boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0))));
     }
   };
 } } }

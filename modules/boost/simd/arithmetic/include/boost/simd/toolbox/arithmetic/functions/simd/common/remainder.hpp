@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/idivround.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return if_nan_else(b_or(is_invalid(a0),is_eqz(a1)),
+      return if_nan_else(logical_or(is_invalid(a0),is_eqz(a1)),
                       a0-divround(a0, a1)*a1); 
       //return b_or(is_invalid(a0), b_or(is_eqz(a1), a0-tofloat(idivround(a0, a1))*a1)); 
     }
