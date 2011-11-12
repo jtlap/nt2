@@ -1,6 +1,9 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
+         'description' : ['returns a scalar integer value composed by the highiest bits.',
+                          'of each vector element'],
+         'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
          'ret_arity' : '0',
@@ -30,13 +33,13 @@
              'signed_int_' : {
                  'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Signmask<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
-                 'nt2::Allbits<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'nt2::Signmask<T>()' : {'result' : 'r_t((1ull << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'nt2::Allbits<T>()' : {'result' : 'r_t((1ull << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
                 },
              'unsigned_int_' : {
                  'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Allbits<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'nt2::Allbits<T>()' : {'result' : 'r_t((1ull << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
                 },
              'real_' : {
                  'nt2::Inf<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
@@ -45,8 +48,8 @@
                  'nt2::Nan<T>()' : {'result' : 'nt2::shri(nt2::Mone<nt2::int32_t>(),int(32-nt2::meta::cardinal_of<vT>::value))','ulp_thresh' : '0',},
                  'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Signmask<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
-                 'nt2::Allbits<T>()' : {'result' : 'r_t((1 << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'nt2::Signmask<T>()' : {'result' : 'r_t((1ull << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
+                 'nt2::Allbits<T>()' : {'result' : 'r_t((1ull << nt2::meta::cardinal_of<vT>::value) - 1)','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {
@@ -64,11 +67,11 @@
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        nt2::int32_t z = 0;",
-                        "        nt2::uint32_t N = cardinal_of<n_t>::value;",
-                        "        for(nt2::uint32_t i = 0; i< N; ++i)",
+                        "        int z = 0;",
+                        "        int N = cardinal_of<n_t>::value;",
+                        "        for(int i = 0; i< N; ++i)",
                         "        {",
-                        "          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i;"
+                        "          z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << (N-i-1);"
                         "        }",
                         "        NT2_TEST_EQUAL( v,z);",
                             ]
