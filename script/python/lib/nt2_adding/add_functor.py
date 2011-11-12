@@ -351,7 +351,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
             sys = self.get_tb_style()
             name = self.get_fct_name()
             txt = [
-                "#include <nt2/sdk/meta/as_real.hpp>",
+                "#include <nt2/sdk/meta/as_floating.hpp>",
                 "",
                 "/////////////////////////////////////////////////////////////////////////////",
                 "// Implementation when type A0 is arithmetic_",
@@ -369,7 +369,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
                 "  {",
                 "    template<class Sig> struct result;",
                 "    template<class This,%s>" % self.strlist('class A%d',sep=',',arity=a),
-                "    struct result<This(%s)> : meta::as_real<A0>{};" % self.strlist('A%d',sep=',',arity=a),
+                "    struct result<This(%s)> : meta::as_floating<A0>{};" % self.strlist('A%d',sep=',',arity=a),
                 "",
                 "    NT2_FUNCTOR_CALL(%s)"%arity,
                 "    {",
