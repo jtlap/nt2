@@ -135,7 +135,7 @@ namespace nt2 { namespace container { namespace ext
     }                                                                          \
   };
 
-  BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS, M0, ~)
+  BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
   #undef M0
   #undef M1
   #undef M2
@@ -217,35 +217,6 @@ namespace nt2 { namespace container { namespace ext
 
 namespace ext
 {
-#if 0
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (Expr)
-                            , ((expr_< scalar_< unspecified_<Expr> >
-                                     , nt2::container::domain
-                                     , nt2::tag::function_
-                                     >
-                              ))
-                            )
-  {
-    typedef typename boost::proto::result_of::child_c<Expr const&, 0>::type  child0;
-    typedef typename boost::fusion::result_of::pop_front<Expr const>::type   childN;
-
-    typedef typename boost::dispatch::meta::semantic_of<Expr>::type semantic_type;
-    typedef typename meta::as_<typename meta::strip<semantic_type>::type> target;
-
-    typedef typename meta::call<tag::run_(child0, childN, target)>::type     result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(Expr const& expr) const
-    {
-      return nt2::run( boost::proto::child_c<0>(expr)
-                     , boost::fusion::pop_front(expr)
-                     , target()
-                     );
-    }
-  };
-#endif
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (Expr)(State)(Data)
                             , ((expr_< unspecified_<Expr>
