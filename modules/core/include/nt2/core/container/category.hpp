@@ -9,29 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_CATEGORY_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_CATEGORY_HPP_INCLUDED
 
-#include <nt2/include/functor.hpp>
-#include <boost/dispatch/meta/property_of.hpp>
-
-namespace boost { namespace dispatch { namespace meta
-{
-  // TODO: Move to table/ later
-  template<class T, class Size>
-  struct table_ : table_< typename T::parent, Size >
-  {
-    typedef table_<typename T::parent, Size> parent;
-  };
-  
-  template<class T, class Size>
-  struct  table_< unspecified_<T>, Size > 
-        : generic_< typename property_of<T>::type >
-  {
-    typedef generic_< typename property_of<T>::type > parent;
-  };    
-} } }
-
-namespace nt2 { namespace ext
-{
-  using boost::dispatch::meta::table_;
-} }
+#include <nt2/core/container/table/category.hpp>
+#include <nt2/core/container/colon/category.hpp>
 
 #endif
