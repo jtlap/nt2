@@ -22,17 +22,17 @@ namespace boost { namespace simd { namespace ext
       return native_cast<result_type>(a0);
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::typed_bool_, tag::cpu_
-                             , (A0)(X)
-                             , ((simd_< arithmetic_<A0>, X >))
-                             )
-  {
-    typedef A0 result_type;
-    inline result_type operator()(const A0& a0) const
-    {
-      return native_cast<result_type>(is_nez(a0)); 
-    }
-  };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::typed_bool_, tag::cpu_
+//                              , (A0)(X)
+//                              , ((simd_< arithmetic_<A0>, X >))
+//                              )
+//   {
+//     typedef A0 result_type;
+//     inline result_type operator()(const A0& a0) const
+//     {
+//       return native_cast<result_type>(is_nez(a0)); 
+//     }
+//   };
 } } }
 
 #endif
