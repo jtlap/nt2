@@ -14,7 +14,7 @@
  * \brief Defines and implements the nt2::nbdims function
  */
 
-#include <nt2/core/functions/size.hpp>
+#include <nt2/core/functions/extent.hpp>
 
 namespace nt2
 {
@@ -28,15 +28,16 @@ namespace nt2
   //============================================================================
   template<class T> inline std::size_t nbdims( T const& xpr )
   {
-    typename meta::call<tag::size_(T const&)>::type sz  = nt2::size(xpr);
-    std::size_t                                     i   = sz.size();
+    typename meta::call<tag::extent_(T const&)>::type sz  = nt2::extent(xpr);
+    std::size_t i = sz.size();
 
     if(i != 0)
     {
-      while(sz(--i) == 1); return i>0 ? i : sz.size();
+      while((sz[i-1] == 1) && i != 0) { i--; }
+      return i > 0 ? i : sz.size();
     }
-    else // Not sure 0D should return 0 or 2 here
-      return 0;
+
+    return 0;
   }
 }
 #endif
