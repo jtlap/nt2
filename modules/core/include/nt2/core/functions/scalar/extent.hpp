@@ -11,6 +11,7 @@
 
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
+#include <nt2/core/container/colon/category.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -23,6 +24,17 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&) const { return result_type(); }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
+                            , (A0), (colon_< A0 >)
+                            )
+  {
+    typedef _0D result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0&) const { return result_type(); }
+  };
+
 } }
 
 #endif
