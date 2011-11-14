@@ -6,11 +6,11 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::nbdims function"
+#define NT2_UNIT_MODULE "nt2::ndims function"
 
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/colon/colon.hpp>
-#include <nt2/include/functions/nbdims.hpp>
+#include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/of_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -18,26 +18,26 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// nbdims of arithmetic types
+// ndims of arithmetic types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( fundamental_nbdims )
+NT2_TEST_CASE( fundamental_ndims )
 {
-  using nt2::nbdims;
+  using nt2::ndims;
   using nt2::_;
   
-  NT2_TEST_EQUAL( nbdims('4'), 0U  );
-  NT2_TEST_EQUAL( nbdims(4)  , 0U  );
-  NT2_TEST_EQUAL( nbdims(4.) , 0U  );
-  NT2_TEST_EQUAL( nbdims(4.f), 0U  );
-  NT2_TEST_EQUAL( nbdims(_)  , 0U  );
+  NT2_TEST_EQUAL( ndims('4'), 2U  );
+  NT2_TEST_EQUAL( ndims(4)  , 2U  );
+  NT2_TEST_EQUAL( ndims(4.) , 2U  );
+  NT2_TEST_EQUAL( ndims(4.f), 2U  );
+  NT2_TEST_EQUAL( ndims(_)  , 2U  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// nbdims of table
+// ndims of table
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( table_nbdims )
+NT2_TEST_CASE( table_ndims )
 {
-  using nt2::nbdims;
+  using nt2::ndims;
   using nt2::of_size;
   using nt2::container::table;
   
@@ -57,19 +57,19 @@ NT2_TEST_CASE( table_nbdims )
   table<float> t43( of_size(1,1,4,1) );
   table<float> t44( of_size(1,1,1,4) );
 
-  NT2_TEST_EQUAL( nbdims(t0) , 1U );
-  NT2_TEST_EQUAL( nbdims(t10), 4U );
-  NT2_TEST_EQUAL( nbdims(t11), 1U );
-  NT2_TEST_EQUAL( nbdims(t20), 4U );
-  NT2_TEST_EQUAL( nbdims(t21), 1U );
-  NT2_TEST_EQUAL( nbdims(t22), 2U );
-  NT2_TEST_EQUAL( nbdims(t30), 4U );
-  NT2_TEST_EQUAL( nbdims(t31), 1U );
-  NT2_TEST_EQUAL( nbdims(t32), 2U );
-  NT2_TEST_EQUAL( nbdims(t33), 3U );
-  NT2_TEST_EQUAL( nbdims(t40), 4U );
-  NT2_TEST_EQUAL( nbdims(t41), 1U );
-  NT2_TEST_EQUAL( nbdims(t42), 2U );
-  NT2_TEST_EQUAL( nbdims(t43), 3U );
-  NT2_TEST_EQUAL( nbdims(t44), 4U );
+  NT2_TEST_EQUAL( ndims(t0) , 2U );
+  NT2_TEST_EQUAL( ndims(t10), 4U );
+  NT2_TEST_EQUAL( ndims(t11), 2U );
+  NT2_TEST_EQUAL( ndims(t20), 4U );
+  NT2_TEST_EQUAL( ndims(t21), 2U );
+  NT2_TEST_EQUAL( ndims(t22), 2U );
+  NT2_TEST_EQUAL( ndims(t30), 4U );
+  NT2_TEST_EQUAL( ndims(t31), 2U );
+  NT2_TEST_EQUAL( ndims(t32), 2U );
+  NT2_TEST_EQUAL( ndims(t33), 3U );
+  NT2_TEST_EQUAL( ndims(t40), 4U );
+  NT2_TEST_EQUAL( ndims(t41), 2U );
+  NT2_TEST_EQUAL( ndims(t42), 2U );
+  NT2_TEST_EQUAL( ndims(t43), 3U );
+  NT2_TEST_EQUAL( ndims(t44), 4U );
 }

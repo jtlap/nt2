@@ -9,7 +9,7 @@
 
 SET( SOURCES
    length.cpp
-   nbdims.cpp
+   ndims.cpp
    numel.cpp
 #  size.cpp
 # List of test files for toolbox core.settings
