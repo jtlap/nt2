@@ -516,17 +516,18 @@ function(nt2_find)
   foreach(COMPONENT ${ARGV})
     string(TOUPPER ${COMPONENT} COMPONENT_U)
     nt2_find_module(${COMPONENT})
-    if(NOT NT2_FOUND OR NOT NT2_${COMPONENT_U}_FOUND)
-        set(NT2_FOUND 0)
+    if(NT2_${COMPONENT_U}_FOUND)
+      nt2_prepend_module(INCLUDE_DIR)
+      nt2_prepend_module(LIBRARY_DIR)
+    
+      set(NT2_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} ${NT2_LIBRARIES})
+      nt2_lib_remove_duplicates(NT2_LIBRARIES)
+    
+      set(NT2_FLAGS "${NT2_${COMPONENT_U}_FLAGS} ${NT2_FLAGS}")
+      nt2_str_remove_duplicates(NT2_FLAGS)
+    elseif(NT2_FIND_COMPONENTS)
+      set(NT2_FOUND 0)
     endif()
-    nt2_prepend_module(INCLUDE_DIR)
-    nt2_prepend_module(LIBRARY_DIR)
-    
-    set(NT2_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} ${NT2_LIBRARIES})
-    nt2_lib_remove_duplicates(NT2_LIBRARIES)
-    
-    set(NT2_FLAGS "${NT2_${COMPONENT_U}_FLAGS} ${NT2_FLAGS}")
-    nt2_str_remove_duplicates(NT2_FLAGS)
     
     nt2_copy_parent(NT2_${COMPONENT_U}_FOUND)
   endforeach()
