@@ -7,10 +7,12 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-
 SET( SOURCES
-  size.cpp
-# List of scalar test files for toolbox core.settings
+   length.cpp
+   nbdims.cpp
+   numel.cpp
+#  size.cpp
+# List of test files for toolbox core.settings
    )
 
-#nt2_module_add_tests(core.functions.unit ${SOURCES})
+nt2_module_add_tests(core.functions.unit ${SOURCES})
