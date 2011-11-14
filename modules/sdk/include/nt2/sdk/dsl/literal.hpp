@@ -12,7 +12,6 @@
 #include <nt2/sdk/dsl/category.hpp>
 #include <nt2/sdk/constant/category.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/details/type_id.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Litteral as usually splatted w/e the target

@@ -20,8 +20,6 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/error/assert.hpp>
 
-#include <nt2/sdk/details/type_id.hpp>
-
 //==============================================================================
 // load vector of double
 //==============================================================================
