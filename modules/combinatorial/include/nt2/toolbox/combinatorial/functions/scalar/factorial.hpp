@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::result_of<meta::floating(A0)>::type ftype; 
-      const ftype r = nt2::gamma(nt2::trunc(nt2::abss(a0))+One<double>());
+      const ftype r = nt2::gamma(nt2::trunc(nt2::abss(a0))+One<ftype>());
       return r > Valmax<A0>() ? Inf<A0>() : nt2::round(r); 
     }
   };
