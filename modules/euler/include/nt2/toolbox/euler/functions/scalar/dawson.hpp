@@ -127,18 +127,18 @@ namespace nt2 { namespace ext
       }};
       A0 xx =  nt2::abs(a0);
       A0 x = sqr(xx);
-      if( xx < 3.25 )
+      if( xx < static_cast<A0>(3.25) )
       {
         A0 x = sqr(xx);
         return a0 * polevl( x, AN)/polevl( x, AD );
       }
       x =  rec(x);
-      if( xx < 6.25 )
+      if( xx < static_cast<A0>(6.25) )
       {
         A0 y = rec(xx) + x * polevl( x, BN) / (plevl( x, BD) * xx);
         return copysign(Half<A0>()*y, a0);
       }
-      if( xx > 1.0e9 ) return Half<A0>()*copysign(rec(xx), a0);
+      if( xx > static_cast<A0>(1.E-9) ) return Half<A0>()*copysign(rec(xx), a0);
       /* 6.25 to 1.0e9 */
       A0 y = rec(xx) + x * polevl( x, CN) / (plevl( x, CD) * xx);
       return copysign(Half<A0>()*y, a0);
