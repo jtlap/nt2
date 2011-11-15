@@ -32,4 +32,5 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+#endif
 #endif /* BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_LOAD_HPP_INCLUDED */

@@ -30,8 +30,8 @@
             },
          'specific_values' : {
              'real_' : {
-                 'boost::simd::Inf<T>()' : {'result' : 'sr_t(1<<boost::simd::Nbmantissabits<T>())','ulp_thresh' : '0.5',},
-                 'boost::simd::Minf<T>()' : {'result' : 'sr_t(1<<boost::simd::Nbmantissabits<T>())','ulp_thresh' : '0.5',},
+                 'boost::simd::Inf<T>()' : {'result' : 'sr_t(1ull<<boost::simd::Nbmantissabits<T>())','ulp_thresh' : '0.5',},
+                 'boost::simd::Minf<T>()' : {'result' : 'sr_t(1ull<<boost::simd::Nbmantissabits<T>())','ulp_thresh' : '0.5',},
                  'boost::simd::Nan<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0.5',},
                  'boost::simd::Signmask<T>()' : {'result' : 'boost::simd::One<r_t>()+boost::simd::Valmax<r_t>()/2','ulp_thresh' : '0.5',},
                  'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},

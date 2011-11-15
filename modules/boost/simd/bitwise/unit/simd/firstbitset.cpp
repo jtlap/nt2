@@ -49,8 +49,8 @@ NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Inf<vT>())[0], ssr_t(1<<boost::simd::Nbmantissabits<T>()));
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Minf<vT>())[0], ssr_t(1<<boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Inf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Minf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
   NT2_TEST_EQUAL(firstbitset(boost::simd::Nan<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(firstbitset(boost::simd::Signmask<vT>())[0], boost::simd::One<sr_t>()+boost::simd::Valmax<sr_t>()/2);
   NT2_TEST_EQUAL(firstbitset(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
