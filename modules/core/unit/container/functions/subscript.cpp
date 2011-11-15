@@ -156,8 +156,8 @@ NT2_TEST_CASE( colon_subscript_extent )
 
   table<T> a0( of_size(5,4,3,2) );
 
-  NT2_TEST( extent( a0(_)       ) == of_size(120) );
-  NT2_TEST( extent( a0(_,_)     ) == of_size(5,24) );
-  NT2_TEST( extent( a0(_,_,_)   ) == of_size(5,4,6) );
+  NT2_TEST( extent( a0(_)       ) == of_size(120)     );
+  NT2_TEST( extent( a0(_,_)     ) == of_size(5,24)    );
+  NT2_TEST( extent( a0(_,_,_)   ) == of_size(5,4,6)   );
   NT2_TEST( extent( a0(_,_,_,_) ) == of_size(5,4,3,2) );
 }

@@ -208,6 +208,7 @@ namespace nt2 { namespace container { namespace ext
   };
 
   // assumes all nodes are terminals, incorrect
+  // Must handle : expr<scalar>, expr<colon>, expr<?>
   template<class State>
   struct function_state_impl
   {
@@ -237,7 +238,7 @@ namespace nt2 { namespace container { namespace ext
   struct function_state
   {
     typedef typename boost::fusion::result_of::
-    transform<Expr const, function_state_impl>::type result_type;
+    transform<Expr const, function_state_impl<State> >::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(Expr const& expr, State const& state) const
