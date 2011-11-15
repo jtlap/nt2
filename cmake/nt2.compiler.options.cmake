@@ -13,7 +13,7 @@ set(NT2_COMPILER_OPTIONS_INCLUDED 1)
 set(NT2_FLAGS_TEST "-DNT2_ASSERTS_AS_EXCEPTIONS")
 set(NT2_FLAGS_BENCH "-DNT2_DISABLE_ERROR -DNDEBUG")
 if(MSVC)
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MD /MP /Zi /D_SECURE_SCL=1 /D_ITERATOR_DEBUG_LEVEL=1 /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHa")
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MD /MP /Zi /D_SECURE_SCL=1 /D_ITERATOR_DEBUG_LEVEL=2 /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHa")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} /MD /MP /D_SECURE_SCL=0 /GL /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHs-c- /wd4530")
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
   # Strict aliasing disabled due to GCC bug #50800
