@@ -55,3 +55,14 @@ NT2_TEST_CASE( scalar_size )
   NT2_TEST( a1.extent() == of_size(1) );
   NT2_TEST_EQUAL( a0(1), T(42) );
 }
+
+NT2_TEST_CASE( element_wise )
+{
+  using nt2::container::table;
+  using nt2::of_size;
+  typedef double T;
+  
+  table<T> a0;
+  table<boost::dispatch::meta::as_integer<T>::type> a1;
+  a1 = nt2::toint(a0);
+}

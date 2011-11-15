@@ -199,7 +199,7 @@ namespace nt2 { namespace container { namespace ext
   struct value_type<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::
-    child_c<Expr, 0>::type                          child0;
+    child_c<Expr&, 0>::type                         child0;
 
     typedef typename boost::dispatch::meta::
     scalar_of< typename boost::dispatch::meta::

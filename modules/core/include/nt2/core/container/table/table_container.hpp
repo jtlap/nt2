@@ -244,7 +244,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef nt2::container::
             expression< typename boost::proto::terminal< container >::type
-                      , container&
+                      , container
                       >                                                    type;
   };
 
@@ -253,7 +253,7 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   template<class T, class S> struct semantic_of< nt2::container::table<T, S> >
   {
-    typedef nt2::container::table_container<T, S>& type;
+    typedef nt2::container::table_container<T, S> type;
   };
 } } }
 

@@ -33,7 +33,7 @@ NT2_TEST_CASE( semantic_of )
   
   NT2_TEST_EXPR_TYPE( a0
                     , semantic_of<_>
-                    , (table_container<T, S>&)
+                    , (table_container<T, S>)
                     );
                           
   NT2_TEST_EXPR_TYPE( nt2::assign(a0, a1)

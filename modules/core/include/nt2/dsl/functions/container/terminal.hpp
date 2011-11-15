@@ -30,10 +30,19 @@ namespace nt2 { namespace ext
                                  (unspecified_<Data>)
                                )
   {
-    typedef typename boost::dispatch::meta::semantic_of<A0>::type result_type;
+    template<class Sig>
+    struct result;
+      
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
+    {
+      typedef typename boost::dispatch::meta::
+      semantic_of<A0_>::type                                     type;
+    };
 
     template<class A0_> BOOST_FORCEINLINE
-    result_type operator()(A0_& a0, State const&, Data const&) const
+    typename result<implement(A0_&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const&, Data const&) const
     {
        return boost::proto::value(a0);
     }
@@ -49,13 +58,21 @@ namespace nt2 { namespace ext
                               (target_<scalar_<unspecified_<Data> > >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0>::type
-             >::type                                       result_type;
+    template<class Sig>
+    struct result;
+    
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
+    {
+      typedef typename boost::dispatch::meta::
+      scalar_of< typename boost::dispatch::meta::
+                 semantic_of<A0_>::type
+                >::type                                     type;
+    };
 
     template<class A0_> BOOST_FORCEINLINE
-    result_type operator()(A0_& a0, State const& state, Data const&) const
+    typename result<implement(A0_&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const& state, Data const&) const
     {
        return boost::proto::value(a0)(state);
     }
@@ -71,13 +88,21 @@ namespace nt2 { namespace ext
                               (scalar_<unspecified_<Data> >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0>::type
-             >::type                                       result_type;
+    template<class Sig>
+    struct result;
+      
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
+    {
+      typedef typename boost::dispatch::meta::
+      scalar_of< typename boost::dispatch::meta::
+                 semantic_of<A0_>::type
+               >::type                                     type;
+    };
 
     template<class A0_> BOOST_FORCEINLINE
-    result_type operator()(A0_& a0, State const& state, Data const& data) const
+    typename result<implement(A0_&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const& state, Data const& data) const
     {
        return boost::proto::value(a0)(state) = data;
     }
@@ -132,11 +157,19 @@ namespace nt2 { namespace ext
                               (target_< scalar_< unspecified_<Data> > >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-            semantic_of<A0>::type                                   result_type;
+    template<class Sig>
+    struct result;
+      
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
+    {
+      typedef typename boost::dispatch::meta::
+      semantic_of<A0_>::type                                     type;
+    };
 
     template<class A0_> BOOST_FORCEINLINE
-    result_type operator()(A0_& a0, State const& state, Data const&) const
+    typename result<implement(A0_&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const& state, Data const&) const
     {
        return boost::proto::value(a0);
     }
