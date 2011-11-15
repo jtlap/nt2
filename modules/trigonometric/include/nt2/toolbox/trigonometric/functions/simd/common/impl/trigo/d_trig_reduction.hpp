@@ -41,8 +41,8 @@ namespace nt2
         static inline A0 ismedium (const A0&a0){return le(a0,double_constant<A0,0x412921fb54442d18ll>()); }
         static inline A0 issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
         static inline A0 islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
-        static inline A0 cot_invalid(const A0& x) { return False<A0>(); }
-        static inline A0 tan_invalid(const A0& x) { return False<A0>(); }
+        static inline A0 cot_invalid(const A0& ) { return False<A0>(); }
+        static inline A0 tan_invalid(const A0& ) { return False<A0>(); }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const big&)

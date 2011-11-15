@@ -63,8 +63,8 @@ namespace nt2
           return boost::mpl::not_<boost::is_same<A0,uA0> >::value; 
         }
         
-        static inline A0 cot_invalid(const A0& x) { return False<A0>(); }
-        static inline A0 tan_invalid(const A0& x) { return False<A0>(); }
+        static inline A0 cot_invalid(const A0& ) { return False<A0>(); }
+        static inline A0 tan_invalid(const A0& ) { return False<A0>(); }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const big&)
