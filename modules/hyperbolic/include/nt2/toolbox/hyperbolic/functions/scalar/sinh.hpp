@@ -50,13 +50,11 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       A0 tmp = nt2::exp(a0);
-      if ( nt2::abs(a0) > 0.6)
+      if ( nt2::abs(a0) > static_cast<A0>(0.6))
       {
         return (tmp-rec(tmp))*Half<A0>();
       }
