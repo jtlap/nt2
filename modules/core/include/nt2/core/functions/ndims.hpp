@@ -6,15 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_NBDIMS_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_NBDIMS_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_NDIMS_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_NDIMS_HPP_INCLUDED
 
 /*!
  * \file
  * \brief Defines and implements the nt2::nbdims function
  */
 
-#include <nt2/core/functions/size.hpp>
+#include <algorithm>
+#include <nt2/core/functions/extent.hpp>
 
 namespace nt2
 {
@@ -26,17 +27,15 @@ namespace nt2
    * \return The number of elements dimensions required to store \c xpr
    */
   //============================================================================
-  template<class T> inline std::size_t nbdims( T const& xpr )
+  template<class T> inline std::size_t ndims( T const& xpr )
   {
-    typename meta::call<tag::size_(T const&)>::type sz  = nt2::size(xpr);
-    std::size_t                                     i   = sz.size();
+    typename meta::call<tag::extent_(T const&)>::type sz  = nt2::extent(xpr);
+    std::size_t i = sz.size();
 
-    if(i != 0)
-    {
-      while(sz(--i) == 1); return i>0 ? i : sz.size();
-    }
-    else // Not sure 0D should return 0 or 2 here
-      return 0;
+    while((i != 0) && (sz[i-1] == 1)) { i--; }
+    return std::max ( std::size_t(2)
+                    , (i == 0 ? sz.size() : std::max(std::size_t(2),i)) 
+                    );
   }
 }
 #endif

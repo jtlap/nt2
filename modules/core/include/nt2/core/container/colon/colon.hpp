@@ -11,55 +11,28 @@
 
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
-namespace nt2 
-{ 
-  namespace container
-  {
-    //==========================================================================
-    // colon_ is an helper class that handles the _ placeholders behavior
-    //==========================================================================
-    struct colon_
-    {
-      // colon_ acts as an anything-goes sink for tie
-      template<class T> colon_ const& operator=(T const&) const { return *this; }
-
-      // colon also acts as iota() generator
-      template<class Begin, class End>
-      void operator()(Begin const& b, End const& e) const
-      {
-      }
-
-      template<class Begin, class Step, class End>
-      void operator()(Begin const& b, Step const& s, End const& e) const
-      {
-      }
-    };
-  } 
-
-  namespace meta
-  {
-    //==========================================================================
-    // colon_ hierarchy is colon_<T> -> unspecified_<T>
-    //==========================================================================
-    template<class T> 
-    struct  colon_ : boost::dispatch::meta::unspecified_<T> 
-    { 
-      typedef boost::dispatch::meta::unspecified_<T> parent; 
-    };
-  }  
-}
-  
-namespace boost { namespace dispatch {namespace meta
+namespace nt2 { namespace container
 {
   //==========================================================================
-  // colon_ hierarchy is colon_<T>
+  // colon_ is an helper class that handles the _ placeholders behavior
   //==========================================================================
-  template<class Origin> 
-  struct hierarchy_of<nt2::container::colon_,Origin>
+  struct colon_
   {
-    typedef nt2::meta::colon_<Origin> type;
+    // colon_ acts as an anything-goes sink for tie
+    template<class T> colon_ const& operator=(T const&) const { return *this; }
+
+    // colon also acts as iota() generator
+    template<class Begin, class End>
+    void operator()(Begin const& b, End const& e) const
+    {
+    }
+
+    template<class Begin, class Step, class End>
+    void operator()(Begin const& b, Step const& s, End const& e) const
+    {
+    }
   };
-} } }
+} }
 
 namespace nt2 
 {   

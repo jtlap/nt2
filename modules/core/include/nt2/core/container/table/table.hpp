@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_TABLE_TABLE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/container/category.hpp>
+#include <nt2/core/container/table/category.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/container/table/table_container.hpp>
 

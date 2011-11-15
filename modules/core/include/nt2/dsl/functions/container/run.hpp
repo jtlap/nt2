@@ -165,7 +165,9 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0) const
     {
-      boost::proto::child_c<0>(a0).resize(a0.extent());
+      if( boost::proto::child_c<0>(a0).extent() != a0.extent() )
+        boost::proto::child_c<0>(a0).resize(a0.extent());
+
       nt2::run(a0, of_size_<>(), meta::as_<target_type>());
       return boost::proto::child_c<0>(a0);
     }

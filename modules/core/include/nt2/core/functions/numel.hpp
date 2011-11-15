@@ -14,9 +14,9 @@
  * \brief Defines and implements the nt2::numel function
  */
 
-#include <nt2/core/functions/size.hpp>
 #include <boost/fusion/include/fold.hpp>
-#include <nt2/toolbox/operator/include/multiplies.hpp>
+#include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 
 namespace nt2
 {
@@ -30,7 +30,13 @@ namespace nt2
   //============================================================================
   template<class T> inline std::size_t numel( T const& xpr )
   {
-    return boost::fusion::fold(nt2::size(xpr), 1U, functor<tag::multiplies_>() );
+    typedef typename 
+            meta::strip<typename meta::call<tag::extent_(T)>::type>::type type;
+
+    return boost::fusion::fold( nt2::extent(xpr)
+                              , typename type::value_type(1)
+                              , functor<tag::multiplies_>() 
+                              );
   }
 }
 #endif

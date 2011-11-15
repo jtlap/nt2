@@ -8,11 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-   length.cpp
-   ndims.cpp
-   numel.cpp
-#  size.cpp
-# List of test files for toolbox core.settings
+     subscript.cpp
    )
 
-nt2_module_add_tests(core.functions.unit ${SOURCES})
+nt2_module_add_tests(core.container.functions.unit ${SOURCES})
