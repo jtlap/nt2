@@ -35,6 +35,8 @@ namespace boost { namespace simd {  namespace memory
                         , std::size_t align
                         )
   {
+    boost::dispatch::ignore_unused(nbytes); 
+    boost::dispatch::ignore_unused(align); 
     #if defined(BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN)
     //==========================================================================
     // POSIX systems use free
