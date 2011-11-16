@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/is_simd_logical.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -32,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1) const
     {
-      BOOST_ASSERT_MSG(is_simd_logical(a0), "Some entries are not legal SIMD True or False in first parameter"); 
+      BOOST_ASSERT_MSG(is_simd_logical(is_nez(a0)), "Some entries are not legal SIMD True or False in first parameter"); 
       return bitwise_andnot(a1, a0);
     }
   };
