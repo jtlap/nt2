@@ -86,7 +86,7 @@ float cephes_hypergf( aa, bb, xx)
 double aa, bb, xx;
 #endif
 {
-float a, b, x, asum, psum, acanc, pcanc, temp;
+float a, b, x, asum, psum, acanc, pcanc=0.0f, temp;
 
 
 a = aa;
