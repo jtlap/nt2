@@ -34,7 +34,6 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::result_of<meta::floating(A0)>::type etype;
     typedef boost::fusion::tuple<etype, etype>           result_type;
-    
     NT2_FUNCTOR_CALL(1)
       {
 	return ellipke(etype(a0), Eps<etype>()); 
@@ -121,7 +120,7 @@ namespace nt2 { namespace ext
 	A0 s0 = m;
 	int32_t i1 = 0;
 	A0 mm = 1;
-	A0 aa1; 
+	A0 aa1 = Zero<A0>(); 
 	while (mm > a1) {
 	  aa1 = average(aa0, bb0);
 	  A0 bb1 = nt2::sqrt(aa0*bb0);

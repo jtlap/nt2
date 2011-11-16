@@ -31,9 +31,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return ellik(result_type(a0), result_type(a1));
@@ -52,9 +50,7 @@ namespace nt2 { namespace ext
                             , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type type;
@@ -76,9 +72,7 @@ namespace nt2 { namespace ext
                             , (scalar_< single_<A0> >)(scalar_< single_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type type;
@@ -86,7 +80,7 @@ namespace nt2 { namespace ext
       if (is_eqz(a1))  return a0;
       type phi = nt2::abs(a0);
       type m = a1;
-      type a = 1.0;
+      type a = One<type>();
       type b = oneminus(m);
       if( is_eqz(b) )   return nt2::log(nt2::tan(nt2::average(Pio_2<type>(),phi)));
       b = nt2::sqrt(b);
