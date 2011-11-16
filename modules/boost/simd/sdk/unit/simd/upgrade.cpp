@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that upgrade is correct for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(upgrade_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(upgrade_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::upgrade;
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL(upgrade_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that upgrade is correct for pack
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(upgrade_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(upgrade_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::dispatch::meta::upgrade;

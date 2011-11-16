@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that cardinal_of on SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(cardinal_of_native, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(cardinal_of_native, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL(cardinal_of_native, BOOST_SIMD_TYPES )
   NT2_TEST_EQUAL( (cardinal_of<native_t>::value), BOOST_SIMD_BYTES/sizeof(T) );
 }
 
-NT2_TEST_CASE_TPL(cardinal_of_pack, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(cardinal_of_pack, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::pack;
   using boost::simd::meta::cardinal_of;

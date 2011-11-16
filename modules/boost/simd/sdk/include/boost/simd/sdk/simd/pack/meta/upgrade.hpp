@@ -11,6 +11,8 @@
 
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/mpl/if.hpp>
+
 
 namespace boost { namespace dispatch
 {
@@ -32,8 +34,8 @@ namespace boost { namespace dispatch
                 , class UpType
                 >
         struct upgrade< boost::simd::pack<Type, Cardinal>, UpType >
-        {
-            typedef boost::simd::pack<UpType, Cardinal/2> type;
+        {  
+          typedef boost::simd::pack<UpType, Cardinal/2> type;
         };
     } }
     
@@ -44,12 +46,20 @@ namespace boost { namespace dispatch
                 >
         struct upgrade< boost::simd::pack<Type, Cardinal> >
         {
-            typedef typename boost::dispatch::details::simd::upgrade<
-                boost::simd::pack<Type, Cardinal>
-              , typename upgrade<Type>::type
-            >::type type;
+          typedef typename upgrade<Type>::type uT;
+
+          typedef typename
+          boost::mpl::if_< typename 
+                           simd::meta::is_vectorizable<uT,BOOST_SIMD_DEFAULT_EXTENSION>::type
+                           , typename boost::dispatch::details::simd::upgrade<
+                                          boost::simd::pack<Type, Cardinal>
+                                        , uT>::type
+                           , typename boost::simd::pack<Type, Cardinal>
+                           >::type type;
         };
     }
+  
 } }
+
 
 #endif
