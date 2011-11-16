@@ -121,6 +121,7 @@ namespace boost
   assertion_failed_msg(char const* expr,const char* msg, char const* fn,char const* f,int l)
   {
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
+    boost::dispatch::ignore_unused(msg);
     ::boost::exception_detail
     ::throw_exception_(   ::nt2::assert_exception()
                       <<  ::nt2::details::assert_info(expr)

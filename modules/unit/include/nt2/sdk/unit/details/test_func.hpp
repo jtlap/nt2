@@ -54,7 +54,7 @@
   {                                                                         \
     test_count()++;                                                         \
     typedef typename boost::common_type<T, U>::type R;                      \
-    if( (R(t) OP R(u)) || (R(t) != R(t)) && (R(u) != R(u)))                 \
+    if( ((R(t) OP R(u)) || ((R(t) != R(t)))) && (R(u) != R(u)))             \
       {                                                                     \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
