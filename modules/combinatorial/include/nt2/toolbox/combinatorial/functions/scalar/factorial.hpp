@@ -23,9 +23,10 @@ namespace nt2 { namespace ext
     typedef A0  result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::result_of<meta::floating(A0)>::type ftype; 
-      const ftype r = nt2::gamma(nt2::trunc(nt2::abss(a0))+One<ftype>());
-      return r > Valmax<A0>() ? Inf<A0>() : nt2::round(r); 
+      typedef typename meta::result_of<meta::floating(A0)>::type ftype;
+      typedef typename meta::upgrade<ftype>::type uftype; 
+      const ftype r = static_cast<ftype>(nt2::gamma(nt2::trunc(nt2::abss(static_cast<uftype>(a0)))+One<uftype>()));
+      return r > Valmax<A0>() ? Inf<A0>() : static_cast<A0>(nt2::round(r)); 
     }
   };
 } }
