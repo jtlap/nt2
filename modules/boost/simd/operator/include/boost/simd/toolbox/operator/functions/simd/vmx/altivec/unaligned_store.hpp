@@ -24,15 +24,15 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      result_type   MSQ = {vec_ld(a2*16, a1)};   
-      result_type   LSQ = {vec_ld((a2*16)+15, a1)};   
-      n_t     edgeAlign = {vec_lvsl(a2*16, a1)};
+      result_type   MSQ = {vec_ld(a2*sizeof(*a1), a1)};   
+      result_type   LSQ = {vec_ld((a2*sizeof(*a1))+15, a1)};   
+      n_t     edgeAlign = {vec_lvsl(a2*sizeof(*a1), a1)};
       result_type edges = {vec_perm(LSQ(), MSQ(), edgeAlign())};
-      n_t         align = {vec_lvsr(a2*16, a1)};
+      n_t         align = {vec_lvsr(a2*sizeof(*a1), a1)};
       MSQ = vec_perm(edges(), a0(), align());
       LSQ = vec_perm(a0(), edges(), align());
-      vec_st(LSQ(), (a2*16)+15, a1);
-      vec_st(MSQ(), (a2*16)   , a1);
+      vec_st(LSQ(), (a2*sizeof(*a1))+15, a1);
+      vec_st(MSQ(), (a2*sizeof(*a1))   , a1);
       return a0;
     }
   };

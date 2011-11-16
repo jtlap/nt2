@@ -23,9 +23,9 @@ namespace boost { namespace simd { namespace ext
     typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      result_type MSQ  = {vec_ld(a1*16  ,a0)};
-      result_type LSQ  = {vec_ld((a1*16)+15 ,a0)};
-      n_t         mask = {vec_lvsl(a1*16,a0)};
+      result_type MSQ  = {vec_ld(a1*sizeof(*a0)     ,a0)};
+      result_type LSQ  = {vec_ld((a1*sizeof(*a0))+15 ,a0)};
+      n_t         mask = {vec_lvsl(a1*sizeof(*a0)   ,a0)};
       result_type that = {vec_perm(MSQ(), LSQ(), mask())};
       return that;
     }
