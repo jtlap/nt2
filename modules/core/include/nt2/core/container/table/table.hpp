@@ -48,6 +48,8 @@ namespace nt2 { namespace container
       static_cast<parent&>(*this) = xpr;
     }
 
+    table( table const& src ) { static_cast<parent&>(*this) = src; }
+
     using parent::operator=;
   };
 
