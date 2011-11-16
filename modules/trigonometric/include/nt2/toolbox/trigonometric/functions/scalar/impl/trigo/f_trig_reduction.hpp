@@ -142,8 +142,8 @@ namespace nt2
               typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
               uA0 ux = x, uxr, uxc; 
               int_type n = aux_reduction::reduce(ux, uxr, uxc);
-              xr = uxr;
-              xc = (uxr-xr)+uxc;
+              xr = static_cast<A0>(uxr);
+              xc = static_cast<A0>((uxr-static_cast<uA0>(xr))+uxc);
               return n; 
             }
           else  // all of x are in [0, inf],  standard big way // too long

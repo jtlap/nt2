@@ -102,11 +102,11 @@ namespace boost { namespace simd { namespace ext
       boost::simd::frexp(a0, m1, e1);
       boost::simd::frexp(a1, m2, e2);
       itype expo = -boost::simd::max(e1, e2);
-      double e = (e1 == e2) ? boost::simd::abs(m1-m2)
+      A0 e = (e1 == e2) ? boost::simd::abs(m1-m2)
                             :   boost::simd::abs( boost::simd::ldexp(a0, expo)
                                                 - boost::simd::ldexp(a1, expo)
                                                 );
-      A0 that = static_cast<A0>(e/Eps<type>());
+      A0 that = e/static_cast<A0>(Eps<type>());
       return that;
     }
   };

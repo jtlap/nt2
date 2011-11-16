@@ -118,7 +118,7 @@ namespace nt2
 
         static inline A0_n cota(const A0_n a0_n, const fast&)
         {
-          const A0 a0 = { a0_n };
+          //const A0 a0 = { a0_n };
           const A0 bte = {eval_t::base_tancot_eval(scale(a0_n))}; 
           return rec(bte); 
         }
