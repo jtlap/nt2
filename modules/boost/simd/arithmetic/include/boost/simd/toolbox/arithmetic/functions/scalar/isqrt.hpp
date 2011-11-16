@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename  dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return trunc(sqrt(a0));
+      return boost::simd::trunc(boost::simd::sqrt(a0));
     }
   };
 } } }
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return A0(sqrt(result_type(a0)));
+      return A0(boost::simd::sqrt(result_type(a0)));
     }
   };
 } } }
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (is_ltz(a0)) ?  Zero<A0>() : A0(sqrt(result_type(a0)));
+      return (is_ltz(a0)) ?  Zero<A0>() : A0(boost::simd::sqrt(result_type(a0)));
     }
   };
 } } }

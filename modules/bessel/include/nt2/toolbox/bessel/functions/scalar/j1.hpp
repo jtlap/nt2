@@ -101,7 +101,7 @@ namespace nt2 { namespace ext
                               ) ) > (z);
         }
       A0 q = rec(x);
-      A0 w = sqrt(q);
+      A0 w = nt2::sqrt(q);
       A0 p3 = w *
         horner< NT2_HORNER_COEFF_T(A0, 8,
                            (0x3d8d98f9,

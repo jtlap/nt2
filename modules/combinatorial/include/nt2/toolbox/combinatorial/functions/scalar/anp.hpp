@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
       if (lt(a0,a1)) return (rtype)Zero<type>();
       const type n = oneplus(round2even(a0));
       const type p = round2even(a1);
-      return (rtype)round2even(exp(gammaln(n)-gammaln(n-p)));
+      return (rtype)round2even(nt2::exp(gammaln(n)-gammaln(n-p)));
     }
   };
 } }

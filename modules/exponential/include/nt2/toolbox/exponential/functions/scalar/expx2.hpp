@@ -29,9 +29,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return expx2(result_type(a0));
@@ -50,9 +48,7 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       if (is_inf(a0)) return Inf<A0>();
@@ -65,7 +61,7 @@ namespace nt2 { namespace ext
       A0 u1 = Two<A0>() * m * x  +  sqr(x);
       if ((u+u1) > Maxlog<A0>()) return Inf<A0>();
       /* u is exact, u1 is small.  */
-      return exp(u) * exp(u1);
+      return nt2::exp(u) * nt2::exp(u1);
     }
   };
 } }

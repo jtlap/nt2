@@ -116,7 +116,7 @@ namespace nt2 { namespace ext
 	  }
 	A0 m = a0; 
 	A0 aa0 = One<A0>();;
-	A0 bb0 = sqrt(oneminus(m));
+	A0 bb0 = nt2::sqrt(oneminus(m));
 	A0 s0 = m;
 	int32_t i1 = 0;
 	A0 mm = 1;

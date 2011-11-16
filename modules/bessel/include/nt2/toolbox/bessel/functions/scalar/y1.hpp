@@ -22,6 +22,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/plevl.hpp>
 #include <nt2/include/functions/polevl.hpp>
+#include <nt2/include/functions/log.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <boost/array.hpp>
 
@@ -130,7 +131,7 @@ namespace nt2 { namespace ext
 	  //	  const A0 TWOOPI =  6.36619772367581343075535E-1; //       2/pi
 	  A0 z = sqr(x);
 	  A0 w = x * (polevl( z, YP) / p1evl( z, YQ));
-	  w += Twoopi<A0>() * ( j1(x) * log(x)  -  rec(x) );
+	  w += Twoopi<A0>() * ( j1(x) * nt2::log(x)  -  rec(x) );
 	  return w;
 	}
       //      const A0 SQ2OPI =  7.9788456080286535587989E-1; // sqrt( 2/pi )      

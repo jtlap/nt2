@@ -119,9 +119,9 @@ namespace nt2 { namespace ext
       if( x <= 8.0 )
       {
         A0 y = x*Half<A0>() - Two<A0>();
-        return( exp(x) * tchebeval( y, A) );
+        return( nt2::exp(x) * tchebeval( y, A) );
       }
-      return(  exp(x) * tchebeval( 32.0/x - 2.0, B) / sqrt(x) );
+      return(  nt2::exp(x) * tchebeval( 32.0/x - 2.0, B) / nt2::sqrt(x) );
     }
   };
 } }

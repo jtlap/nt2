@@ -29,9 +29,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return fast_gamma(result_type(a0));
@@ -50,9 +48,7 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       static boost::array<A0, 7> P = {{
@@ -79,7 +75,7 @@ namespace nt2 { namespace ext
       if( is_nan(x) || (x == Minf<A0>()) ) return Nan<A0>();
       if (x == Inf<A0>()) return x;
       A0 q = nt2::abs(x);
-      if( q > 33.0 )
+      if( q > static_cast<A0>(33.0) )
       {
         if( is_ltz(x))
           {
@@ -113,7 +109,7 @@ namespace nt2 { namespace ext
 
       while( is_ltz(x) )
       {
-        if( x > -1.E-9 )
+        if( x > static_cast<A0>(-1.E-9) )
           {
            return z / ((One<A0>() + Euler<A0>() * x) * x);
           }
@@ -124,7 +120,7 @@ namespace nt2 { namespace ext
       while( x < Two<A0>() )
       {
         if( is_eqz(x)) return Nan<A0>();
-        if( x < 1.e-9 )
+        if( x < static_cast<A0>(1.e-9) )
           {
             return z / ((One<A0>() + Euler<A0>() * x) * x);
           }
