@@ -75,28 +75,28 @@ double xx;
 float x, z;
 
 x = xx;
-if( x < 1.0 || x != x)
+if( x < 1.0f || x != x)
 	{
-	  return(0.0/ZERO);
+	  return(0.0f/0.0f);
 	}
- if( x == 1.0/ZERO) return x;
-if( x > 1500.0 )
+if( x == 1.0f/0.0f)return x;
+if( x > 1500.0f )
 	return( cephes_logf(x) + LOGE2F );
 
-z = x - 1.0;
+z = x - 1.0f;
 
-if( z < 0.5 )
+if( z < 0.5f )
 	{
 	z =
-	(((( 1.7596881071E-3 * z
-	  - 7.5272886713E-3) * z
-	  + 2.6454905019E-2) * z
-	  - 1.1784741703E-1) * z
-	  + 1.4142135263E0) * cephes_sqrtf( z );
+	(((( 1.7596881071E-3f * z
+	  - 7.5272886713E-3f) * z
+	  + 2.6454905019E-2f) * z
+	  - 1.1784741703E-1f) * z
+	  + 1.4142135263E0f) * cephes_sqrtf( z );
 	}
 else
 	{
-	z = cephes_sqrtf( z*(x+1.0) );
+	z = cephes_sqrtf( z*(x+1.0f) );
 	z = cephes_logf(x + z);
 	}
 return( z );

@@ -107,27 +107,27 @@ float x, q, a, b, k, s, w, t;
 
 x = xx;
 q = qq;
-if( x == 1.0 )
+if( x == 1.0f )
 	return( MAXNUMF );
 
-if( x < 1.0 )
+if( x < 1.0f )
 	{
 	cephes_mtherr( "zetaf", DOMAIN );
-	return(0.0);
+	return(0.0f);
 	}
 
 
 /* Euler-Maclaurin summation formula */
 /*
-if( x < 25.0 )
+if( x < 25.0f )
 {
 */
-w = 9.0;
+w = 9.0f;
 s = cephes_powf( q, -x );
 a = q;
 for( i=0; i<9; i++ )
 	{
-	a += 1.0;
+	a += 1.0f;
 	b = cephes_powf( a, -x );
 	s += b;
 	if( b/s < MACHEPF )
@@ -135,10 +135,10 @@ for( i=0; i<9; i++ )
 	}
 
 w = a;
-s += b*w/(x-1.0);
-s -= 0.5 * b;
-a = 1.0;
-k = 0.0;
+s += b*w/(x-1.0f);
+s -= 0.5f * b;
+a = 1.0f;
+k = 0.0f;
 for( i=0; i<12; i++ )
 	{
 	a *= x + k;
@@ -148,10 +148,10 @@ for( i=0; i<12; i++ )
 	t = fabsf(t/s);
 	if( t < MACHEPF )
 		goto done;
-	k += 1.0;
+	k += 1.0f;
 	a *= x + k;
 	b /= w;
-	k += 1.0;
+	k += 1.0f;
 	}
 done:
 return(s);
@@ -168,14 +168,14 @@ s = cephes_powf( q, -x );
 a = q;
 do
 	{
-	a += 2.0;
+	a += 2.0f;
 	b = cephes_powf( a, -x );
 	s += b;
 	}
 while( b/s > MACHEPF );
 
-b = cephes_powf( 2.0, -x );
-s = (s + b)/(1.0-b);
+b = cephes_powf( 2.0f, -x );
+s = (s + b)/(1.0f-b);
 return(s);
 */
 }

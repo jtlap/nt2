@@ -89,14 +89,14 @@ do
 		goto error;
 	if( cn == 0 )
 		goto error;
-	if( (a0 > 1.0e34) || (n > 200) )
+	if( (a0 > 1.0e34f) || (n > 200) )
 		goto error;
 	a0 *= (an * x) / (bn * cn * n);
 	sum += a0;
-	an += 1.0;
-	bn += 1.0;
-	cn += 1.0;
-	n += 1.0;
+	an += 1.0f;
+	bn += 1.0f;
+	cn += 1.0f;
+	n += 1.0f;
 	z = fabsf( a0 );
 	if( z > max )
 		max = z;
@@ -151,29 +151,29 @@ x = xx;
 an = a;
 bn = b;
 cn = c;
-a0 = 1.0;
-sum = 1.0;
-n = 1.0;
-t = 1.0;
-max = 0.0;
-conv = 1.0e38;
+a0 = 1.0f;
+sum = 1.0f;
+n = 1.0f;
+t = 1.0f;
+max = 0.0f;
+conv = 1.0e38f;
 conv1 = conv;
 
 do
 	{
-	if( an == 0.0 )
+	if( an == 0.0f )
 		goto done;
-	if( bn == 0.0 )
+	if( bn == 0.0f )
 		goto done;
-	if( cn == 0.0 )
+	if( cn == 0.0f )
 		goto done;
-	if( (a0 > 1.0e34) || (n > 200) )
+	if( (a0 > 1.0e34f) || (n > 200) )
 		goto error;
 	a0 *= (an * bn * cn * x) / n;
-	an += 1.0;
-	bn += 1.0;
-	cn += 1.0;
-	n += 1.0;
+	an += 1.0f;
+	bn += 1.0f;
+	cn += 1.0f;
+	n += 1.0f;
 	z = fabsf( a0 );
 	if( z > max )
 		max = z;
@@ -240,50 +240,50 @@ float onef2err, threef0err;
 v = vv;
 x = xx;
 f = cephes_floorf(v);
-if( (v < 0) && ( v-f == 0.5 ) )
+if( (v < 0) && ( v-f == 0.5f ) )
 	{
 	y = cephes_jvf( -v, x );
-	f = 1.0 - f;
-	g =  2.0 * cephes_floorf(0.5*f);
+	f = 1.0f - f;
+	g =  2.0f * cephes_floorf(0.5f*f);
 	if( g != f )
 		y = -y;
 	return(y);
 	}
-t = 0.25*x*x;
+t = 0.25f*x*x;
 f = fabsf(x);
-g = 1.5 * fabsf(v);
-if( (f > 30.0) && (f > g) )
+g = 1.5f * fabsf(v);
+if( (f > 30.0f) && (f > g) )
 	{
 	onef2err = MAXNUMF;
-	y = 0.0;
+	y = 0.0f;
 	}
 else
 	{
-	y = cephes_onef2f( 1.0, 1.5, 1.5+v, -t, &onef2err );
+	y = cephes_onef2f( 1.0f, 1.5f, 1.5f+v, -t, &onef2err );
 	}
 
-if( (f < 18.0) || (x < 0.0) )
+if( (f < 18.0f) || (x < 0.0f) )
 	{
 	threef0err = MAXNUMF;
-	ya = 0.0;
+	ya = 0.0f;
 	}
 else
 	{
-	ya = cephes_threef0f( 1.0, 0.5, 0.5-v, -1.0/t, &threef0err );
+	ya = cephes_threef0f( 1.0f, 0.5f, 0.5f-v, -1.0f/t, &threef0err );
 	}
 
 f = cephes_sqrtf( PIF );
-h = cephes_powf( 0.5*x, v-1.0 );
+h = cephes_powf( 0.5f*x, v-1.0f );
 
 if( onef2err <= threef0err )
 	{
-	g = cephes_gammaf( v + 1.5 );
-	y = y * h * t / ( 0.5 * f * g );
+	g = cephes_gammaf( v + 1.5f );
+	y = y * h * t / ( 0.5f * f * g );
 	return(y);
 	}
 else
 	{
-	g = cephes_gammaf( v + 0.5 );
+	g = cephes_gammaf( v + 0.5f );
 	ya = ya * h / ( f * g );
 	ya = ya + cephes_yvf( v, x );
 	return(ya);

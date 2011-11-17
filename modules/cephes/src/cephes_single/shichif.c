@@ -111,7 +111,7 @@ static float C2[] = {
 
 /* Sine and cosine integrals */
 
-#define EUL 0.57721566490153286061
+#define EUL 0.57721566490153286061f
 extern float MACHEPF, MAXNUMF;
 
 #define fabsf(x) ( (x) < 0 ? -(x) : (x) )
@@ -136,7 +136,7 @@ float x, k, z, c, s, a;
 short sign;
 
 x = xx;
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	sign = -1;
 	x = -x;
@@ -145,33 +145,33 @@ else
 	sign = 0;
 
 
-if( x == 0.0 )
+if( x == 0.0f )
 	{
-	*si = 0.0;
+	*si = 0.0f;
 	*ci = -MAXNUMF;
 	return( 0 );
 	}
 
-if( x >= 8.0 )
+if( x >= 8.0f )
 	goto chb;
 
 z = x * x;
 
 /*	Direct power series expansion	*/
 
-a = 1.0;
-s = 1.0;
-c = 0.0;
-k = 2.0;
+a = 1.0f;
+s = 1.0f;
+c = 0.0f;
+k = 2.0f;
 
 do
 	{
 	a *= z/k;
 	c += a/k;
-	k += 1.0;
+	k += 1.0f;
 	a /= k;
 	s += a/k;
-	k += 1.0;
+	k += 1.0f;
 	}
 while( fabsf(a/s) > MACHEPF );
 
@@ -181,18 +181,18 @@ goto done;
 
 chb:
 
-if( x < 18.0 )
+if( x < 18.0f )
 	{
-	a = (576.0/x - 52.0)/10.0;
+	a = (576.0f/x - 52.0f)/10.0f;
 	k = cephes_expf(x) / x;
 	s = k * cephes_chbevlf( a, S1, 9 );
 	c = k * cephes_chbevlf( a, C1, 10 );
 	goto done;
 	}
 
-if( x <= 88.0 )
+if( x <= 88.0f )
 	{
-	a = (6336.0/x - 212.0)/70.0;
+	a = (6336.0f/x - 212.0f)/70.0f;
 	k = cephes_expf(x) / x;
 	s = k * cephes_chbevlf( a, S2, 7 );
 	c = k * cephes_chbevlf( a, C2, 7 );

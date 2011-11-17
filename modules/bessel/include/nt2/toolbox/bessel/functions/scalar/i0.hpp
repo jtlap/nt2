@@ -137,9 +137,7 @@ namespace nt2 { namespace ext
                             , (scalar_< single_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       /* Chebyshev coefficients for exp(-x) I0(x)

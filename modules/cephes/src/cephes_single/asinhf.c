@@ -62,29 +62,29 @@ double xx;
 {
 float x, z;
 
-if( xx < 0 )
+if( xx < 0.0f )
 	x = -xx;
 else
 	x = xx;
 
-if( x > 1500.0 )
+if( x > 1500.0f )
 	{
 	z = cephes_logf(x) + LOGE2F;
 	goto done;
 	}
 z = x * x;
-if( x < 0.5 )
+if( x < 0.5f )
 	{
 	z =
-	((( 2.0122003309E-2 * z
-	  - 4.2699340972E-2) * z
-	  + 7.4847586088E-2) * z
-	  - 1.6666288134E-1) * z * x
+	((( 2.0122003309E-2f * z
+	  - 4.2699340972E-2f) * z
+	  + 7.4847586088E-2f) * z
+	  - 1.6666288134E-1f) * z * x
 	  + x;
 	}
 else
 	{
-	z = cephes_sqrtf( z + 1.0 );
+	z = cephes_sqrtf( z + 1.0f );
 	z = cephes_logf( x + z );
 	}
 done:

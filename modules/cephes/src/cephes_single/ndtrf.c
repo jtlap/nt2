@@ -211,13 +211,13 @@ x *= SQRTHF;
 z = fabsf(x);
 
 if( z < SQRTHF )
-	y = 0.5 + 0.5 * cephes_erff(x);
+	y = 0.5f + 0.5f * cephes_erff(x);
 else
 	{
-	y = 0.5 * cephes_erfcf(z);
+	y = 0.5f * cephes_erfcf(z);
 
 	if( x > 0 )
-		y = 1.0 - y;
+		y = 1.0f - y;
 	}
 
 return(y);
@@ -237,8 +237,8 @@ float a, p,q,x,y,z;
 a = aa;
 x = fabsf(a);
 
-if( x < 1.0 )
-	return( 1.0 - cephes_erff(a) );
+if( x < 1.0f )
+	return( 1.0f - cephes_erff(a) );
 
 z = -a * a;
 
@@ -247,15 +247,15 @@ if( z < -MAXLOGF )
 under:
 	cephes_mtherr( "erfcf", UNDERFLOW );
 	if( a < 0 )
-		return( 2.0 );
+		return( 2.0f );
 	else
-		return( 0.0 );
+		return( 0.0f );
 	}
 
 z = cephes_expf(z);
-q = 1.0/x;
+q = 1.0f/x;
 y = q * q;
-if( x < 2.0 )
+if( x < 2.0f )
 	{
 	p = cephes_polevlf( y, P, 8 );
 	}
@@ -267,9 +267,9 @@ else
 y = z * q * p;
 
 if( a < 0 )
-	y = 2.0 - y;
+	y = 2.0f - y;
 
-if( y == 0.0 )
+if( y == 0.0f )
 	goto under;
 
 return(y);
@@ -286,8 +286,8 @@ double xx;
 float x, y, z;
 
 x = xx;
-if( fabsf(x) > 1.0 )
-	return( 1.0 - cephes_erfcf(x) );
+if( fabsf(x) > 1.0f )
+	return( 1.0f - cephes_erfcf(x) );
 
 z = x * x;
 y = x * cephes_polevlf( z, T, 6 );

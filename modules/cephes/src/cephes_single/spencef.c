@@ -74,7 +74,7 @@ static float B[8] = {
 extern float PIF, MACHEPF;
 
 /* pi * pi / 6 */
-#define PIFS 1.64493406684822643647
+#define PIFS 1.64493406684822643647f
 
 
 #ifdef ANSIC
@@ -90,50 +90,50 @@ float x, w, y, z;
 int flag;
 
 x = xx;
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	cephes_mtherr( "spencef", DOMAIN );
-	return(0.0);
+	return(0.0f);
 	}
 
-if( x == 1.0 )
-	return( 0.0 );
+if( x == 1.0f )
+	return( 0.0f );
 
-if( x == 0.0 )
+if( x == 0.0f )
 	return( PIFS );
 
 flag = 0;
 
-if( x > 2.0 )
+if( x > 2.0f )
 	{
-	x = 1.0/x;
+	x = 1.0f/x;
 	flag |= 2;
 	}
 
-if( x > 1.5 )
+if( x > 1.5f )
 	{
-	w = (1.0/x) - 1.0;
+	w = (1.0f/x) - 1.0f;
 	flag |= 2;
 	}
 
-else if( x < 0.5 )
+else if( x < 0.5f )
 	{
 	w = -x;
 	flag |= 1;
 	}
 
 else
-	w = x - 1.0;
+	w = x - 1.0f;
 
 y = -w * cephes_polevlf( w, A, 7) / cephes_polevlf( w, B, 7 );
 
 if( flag & 1 )
-	y = PIFS - cephes_logf(x) * cephes_logf(1.0-x) - y;
+	y = PIFS - cephes_logf(x) * cephes_logf(1.0f-x) - y;
 
 if( flag & 2 )
 	{
 	z = cephes_logf(x);
-	y = -0.5 * z * z  -  y;
+	y = -0.5f * z * z  -  y;
 	}
 
 return( y );

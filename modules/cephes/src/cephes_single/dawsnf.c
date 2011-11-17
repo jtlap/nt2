@@ -141,13 +141,13 @@ int sign;
 
 xx = xxx;
 sign = 1;
-if( xx < 0.0 )
+if( xx < 0.0f )
 	{
 	sign = -1;
 	xx = -xx;
 	}
 
-if( xx < 3.25 )
+if( xx < 3.25f )
 	{
 	x = xx*xx;
 	y = xx * cephes_polevlf( x, AN, 9 )/cephes_polevlf( x, AD, 10 );
@@ -155,19 +155,19 @@ if( xx < 3.25 )
 	}
 
 
-x = 1.0/(xx*xx);
+x = 1.0f/(xx*xx);
 
-if( xx < 6.25 )
+if( xx < 6.25f )
 	{
-	y = 1.0/xx + x * cephes_polevlf( x, BN, 10) / (cephes_p1evlf( x, BD, 10) * xx);
-	return( sign * 0.5 * y );
+	y = 1.0f/xx + x * cephes_polevlf( x, BN, 10) / (cephes_p1evlf( x, BD, 10) * xx);
+	return( sign * 0.5f * y );
 	}
 
 
-if( xx > 1.0e9 )
-	return( (sign * 0.5)/xx );
+if( xx > 1.0e9f )
+	return( (sign * 0.5f)/xx );
 
 /* 6.25 to infinity */
-y = 1.0/xx + x * cephes_polevlf( x, CN, 4) / (cephes_p1evlf( x, CD, 5) * xx);
-return( sign * 0.5 * y );
+y = 1.0f/xx + x * cephes_polevlf( x, CN, 4) / (cephes_p1evlf( x, CD, 5) * xx);
+return( sign * 0.5f * y );
 }

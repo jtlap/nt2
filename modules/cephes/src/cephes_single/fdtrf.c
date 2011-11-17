@@ -171,15 +171,15 @@ double xx;
 float x, a, b, w;
 
 x = xx;
-if( (ia < 1) || (ib < 1) || (x < 0.0) )
+if( (ia < 1) || (ib < 1) || (x < 0.0f) )
 	{
 	cephes_mtherr( "fdtrcf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 a = ia;
 b = ib;
 w = b / (b + a * x);
-return( cephes_incbetf( 0.5*b, 0.5*a, w ) );
+return( cephes_incbetf( 0.5f*b, 0.5f*a, w ) );
 }
 
 
@@ -195,16 +195,16 @@ double xx;
 float x, a, b, w;
 
 x = xx;
-if( (ia < 1) || (ib < 1) || (x < 0.0) )
+if( (ia < 1) || (ib < 1) || (x < 0.0f) )
 	{
 	cephes_mtherr( "fdtrf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 a = ia;
 b = ib;
 w = a * x;
 w = w / (b + w);
-return( cephes_incbetf( 0.5*a, 0.5*b, w) );
+return( cephes_incbetf( 0.5f*a, 0.5f*b, w) );
 }
 
 
@@ -219,14 +219,14 @@ double yy;
 float y, a, b, w, x;
 
 y = yy;
-if( (ia < 1) || (ib < 1) || (y <= 0.0) || (y > 1.0) )
+if( (ia < 1) || (ib < 1) || (y <= 0.0f) || (y > 1.0f) )
 	{
 	cephes_mtherr( "fdtrif", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 a = ia;
 b = ib;
-w = cephes_incbif( 0.5*b, 0.5*a, y );
+w = cephes_incbif( 0.5f*b, 0.5f*a, y );
 x = (b - b*w)/(a*w);
 return(x);
 }

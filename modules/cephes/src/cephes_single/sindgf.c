@@ -116,13 +116,13 @@ if( x > T24M1 )
 	cephes_mtherr( "sindgf", TLOSS );
 	return(0.0);
 	}
-j = 0.022222222222222222222 * x; /* integer part of x/45 */
+j = 0.022222222222222222222f * x; /* integer part of x/45 */
 y = j;
 /* map zeros to origin */
 if( j & 1 )
 	{
 	j += 1;
-	y += 1.0;
+	y += 1.0f;
 	}
 j &= 7; /* octant modulo 360 degrees */
 /* reflect in x axis */
@@ -132,7 +132,7 @@ if( j > 3)
 	j -= 4;
 	}
 
-x = x - y * 45.0;
+x = x - y * 45.0f;
 x *= PI180;	/* multiply by pi/180 to convert to radians */
 
 z = x * x;
@@ -143,22 +143,22 @@ if( (j==1) || (j==2) )
 	  - 1.3887580023E-3) * z
 	  + 4.1666650433E-2) * z
 	  - 4.9999999968E-1) * z
-	  + 1.0;
+	  + 1.0f;
 */
 
 /* measured relative error in +/- pi/4 is 7.8e-8 */
-	y = ((  2.443315711809948E-005 * z
-	  - 1.388731625493765E-003) * z
-	  + 4.166664568298827E-002) * z * z;
-	y -= 0.5 * z;
-	y += 1.0;
+	y = ((  2.443315711809948E-005f * z
+	  - 1.388731625493765E-003f) * z
+	  + 4.166664568298827E-002f) * z * z;
+	y -= 0.5f * z;
+	y += 1.0f;
 	}
 else
 	{
 /* Theoretical relative error = 3.8e-9 in [-pi/4, +pi/4] */
-	y = ((-1.9515295891E-4 * z
-	     + 8.3321608736E-3) * z
-	     - 1.6666654611E-1) * z * x;
+	y = ((-1.9515295891E-4f * z
+	     + 8.3321608736E-3f) * z
+	     - 1.6666654611E-1f) * z * x;
 	y += x;
 	}
 
@@ -194,16 +194,16 @@ if( x < 0 )
 if( x > T24M1 )
 	{
 	cephes_mtherr( "cosdgf", TLOSS );
-	return(0.0);
+	return(0.0f);
 	}
 
-j = 0.02222222222222222222222 * x; /* integer part of x/PIO4 */
+j = 0.02222222222222222222222f * x; /* integer part of x/PIO4 */
 y = j;
 /* integer and fractional part modulo one octant */
 if( j & 1 )	/* map zeros to origin */
 	{
 	j += 1;
-	y += 1.0;
+	y += 1.0f;
 	}
 j &= 7;
 if( j > 3)
@@ -215,25 +215,25 @@ if( j > 3)
 if( j > 1 )
 	sign = -sign;
 
-x = x - y * 45.0; /* x mod 45 degrees */
+x = x - y * 45.0f; /* x mod 45 degrees */
 x *= PI180;	/* multiply by pi/180 to convert to radians */
 
 z = x * x;
 
 if( (j==1) || (j==2) )
 	{
-	y = (((-1.9515295891E-4 * z
-	     + 8.3321608736E-3) * z
-	     - 1.6666654611E-1) * z * x)
+	y = (((-1.9515295891E-4f * z
+	     + 8.3321608736E-3f) * z
+	     - 1.6666654611E-1f) * z * x)
 	     + x;
 	}
 else
 	{
-	y = ((  2.443315711809948E-005 * z
-	  - 1.388731625493765E-003) * z
-	  + 4.166664568298827E-002) * z * z;
-	y -= 0.5 * z;
-	y += 1.0;
+	y = ((  2.443315711809948E-005f * z
+	  - 1.388731625493765E-003f) * z
+	  + 4.166664568298827E-002f) * z * z;
+	y -= 0.5f * z;
+	y += 1.0f;
 	}
 if(sign < 0)
 	y = -y;

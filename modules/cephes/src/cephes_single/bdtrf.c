@@ -165,24 +165,24 @@ double pp;
 float p, dk, dn;
 
 p = pp;
-if( (p < 0.0) || (p > 1.0) )
+if( (p < 0.0f) || (p > 1.0f) )
 	goto domerr;
 if( k < 0 )
-	return( 1.0 );
+	return( 1.0f );
 
 if( n < k )
 	{
 domerr:
 	cephes_mtherr( "bdtrcf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
 if( k == n )
-	return( 0.0 );
+	return( 0.0f );
 dn = n - k;
 if( k == 0 )
 	{
-	dk = 1.0 - cephes_powf( 1.0-p, dn );
+	dk = 1.0f - cephes_powf( 1.0f-p, dn );
 	}
 else
 	{
@@ -205,27 +205,27 @@ double pp;
 float p, dk, dn;
 
 p = pp;
-if( (p < 0.0) || (p > 1.0) )
+if( (p < 0.0f) || (p > 1.0f) )
 	goto domerr;
 if( (k < 0) || (n < k) )
 	{
 domerr:
 	cephes_mtherr( "bdtrf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
 if( k == n )
-	return( 1.0 );
+	return( 1.0f );
 
 dn = n - k;
 if( k == 0 )
 	{
-	dk = cephes_powf( 1.0-p, dn );
+	dk = cephes_powf( 1.0f-p, dn );
 	}
 else
 	{
 	dk = k + 1;
-	dk = cephes_incbetf( dn, dk, 1.0 - p );
+	dk = cephes_incbetf( dn, dk, 1.0f - p );
 	}
 return( dk );
 }
@@ -242,24 +242,24 @@ double yy;
 float y, dk, dn, p;
 
 y = yy;
-if( (y < 0.0) || (y > 1.0) )
+if( (y < 0.0f) || (y > 1.0f) )
 	goto domerr;
 if( (k < 0) || (n <= k) )
 	{
 domerr:
 	cephes_mtherr( "bdtrif", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
 dn = n - k;
 if( k == 0 )
 	{
-	p = 1.0 - cephes_powf( y, 1.0/dn );
+	p = 1.0f - cephes_powf( y, 1.0f/dn );
 	}
 else
 	{
 	dk = k + 1;
-	p = 1.0 - cephes_incbif( dn, dk, y );
+	p = 1.0f - cephes_incbif( dn, dk, y );
 	}
 return( p );
 }

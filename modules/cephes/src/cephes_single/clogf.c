@@ -384,8 +384,8 @@ else
 	t -= 0.5f;
 
 i = t;	/* the multiple */
-t = i;
-t = ((x - t * DP1) - t * DP2) - t * DP3;
+double dt = i;
+ t = (((double)x - dt * DP1) - dt * DP2) - dt * DP3;
 return(t);
 }
 

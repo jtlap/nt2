@@ -63,8 +63,8 @@ static float P[] = {
  2.402264791363012E-001,
  6.931472028550421E-001
 };
-#define MAXL2 127.0
-#define MINL2 -127.0
+#define MAXL2 127.0f
+#define MINL2 -127.0f
 
 
 
@@ -106,16 +106,16 @@ px = cephes_floorf(x);
 i0 = px;
 x = x - px;
 
-if( x > 0.5 )
+if( x > 0.5f )
 	{
 	i0 += 1;
-	x -= 1.0;
+	x -= 1.0f;
 	}
 
 /* rational approximation
  * exp2(x) = 1.0 +  xP(x)
  */
-px = 1.0 + x * cephes_polevlf( x, P, 5 );
+px = 1.0f + x * cephes_polevlf( x, P, 5 );
 
 /* scale by power of 2 */
 px = cephes_ldexpf( px, i0 );

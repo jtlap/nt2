@@ -104,7 +104,7 @@ if( x == 0 )
  *   = 10**( g + n log10(2) )
  */
 px = x * LOG210;
-qx = cephes_floorf( px + 0.5 );
+qx = cephes_floorf( px + 0.5f );
 n = qx;
 x -= qx * LG102A;
 x -= qx * LG102B;
@@ -113,7 +113,7 @@ x -= qx * LG102B;
  * of the fractional part:
  * 10**x - 1  =  2x P(x**2)/( Q(x**2) - P(x**2) )
  */
-px = 1.0 + x * cephes_polevlf( x, P, 5 );
+px = 1.0f + x * cephes_polevlf( x, P, 5 );
 
 /* multiply by power of 2 */
 x = cephes_ldexpf( px, n );

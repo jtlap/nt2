@@ -63,10 +63,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< single_<A0> >)(scalar_< single_<A0> >)(scalar_< single_<A0> >)
                             )
   {
-    typedef float result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-      return float(double(a0)*a1+a2); 
+      return static_cast<float>(static_cast<double>(a0)*static_cast<double>(a1)+static_cast<double>(a2)); 
     }
   };
 } } }

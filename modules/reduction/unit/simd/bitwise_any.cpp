@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/reduction/include/functions/bitwise_any.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

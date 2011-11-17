@@ -112,18 +112,18 @@ double pp;
 float dk, dn, p;
 
 p = pp;
-if( (p < 0.0) || (p > 1.0) )
+if( (p < 0.0f) || (p > 1.0f) )
 	goto domerr;
 if( k < 0 )
 	{
 domerr:
 	cephes_mtherr( "nbdtrf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
 dk = k+1;
 dn = n;
-return( cephes_incbetf( dk, dn, 1.0 - p ) );
+return( cephes_incbetf( dk, dn, 1.0f - p ) );
 }
 
 
@@ -139,13 +139,13 @@ double pp;
 float dk, dn, p;
 
 p = pp;
-if( (p < 0.0) || (p > 1.0) )
+if( (p < 0.0f) || (p > 1.0f) )
 	goto domerr;
 if( k < 0 )
 	{
 domerr:
 	cephes_mtherr( "nbdtrf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 dk = k+1;
 dn = n;
