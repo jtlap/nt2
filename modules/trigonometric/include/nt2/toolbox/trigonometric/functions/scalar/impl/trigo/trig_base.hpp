@@ -125,7 +125,7 @@ namespace nt2
 
         static inline A0 cosa(const A0& a0, const regular&)
         {
-          static const sint_type de = sizeof(sint_type)*8-1;   // size in bits of the scalar types minus one
+          static const sint_type de = static_cast<sint_type>(sizeof(sint_type)*8-1);   // size in bits of the scalar types minus one
           if (is_invalid(a0)) return Nan<A0>(); //Nan or Inf input
           const A0 x =  nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
@@ -146,7 +146,7 @@ namespace nt2
 
         static inline A0 sina(const A0& a0, const regular&)
         {
-          static const sint_type de = sizeof(sint_type)*8-1;
+          static const sint_type de = static_cast<sint_type>(sizeof(sint_type)*8-1);
           if (is_invalid(a0)) return Nan<A0>();
           const A0 x =  nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
@@ -195,7 +195,7 @@ namespace nt2
           A0 s; 
           if (is_invalid(a0)) { c = Nan<A0>(); return c; }
           const A0 x =  nt2::abs(a0);
-          static const sint_type de = sizeof(sint_type)*8-1;
+          static const sint_type de = static_cast<sint_type>(sizeof(sint_type)*8-1);
           A0 xr, xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const int_type swap_bit = n&One<int_type>();
