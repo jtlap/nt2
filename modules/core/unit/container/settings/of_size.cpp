@@ -11,6 +11,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/size.hpp>
+#include <nt2/core/functions/of_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -75,3 +76,76 @@ NT2_TEST_CASE( pre_init_of_size )
   NT2_TEST_EQUAL( spec4[2], 5 );
   NT2_TEST_EQUAL( spec4[3], 7 );
 }
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Test of_size function calls
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( of_size_call )
+{
+  using nt2::of_size;
+  using nt2::_4D;
+  using nt2::_3D;
+  using nt2::_2D;
+  using nt2::_1D;
+
+  _4D s4 = of_size(2,3,4,5);
+  NT2_TEST_EQUAL( s4.size(), 4 );
+  NT2_TEST_EQUAL( s4[0], 2 );
+  NT2_TEST_EQUAL( s4[1], 3 );
+  NT2_TEST_EQUAL( s4[2], 4 );
+  NT2_TEST_EQUAL( s4[3], 5 );
+
+  _3D s3 = of_size(2,3,4);
+  NT2_TEST_EQUAL( s3.size(), 3 );
+  NT2_TEST_EQUAL( s3[0], 2 );
+  NT2_TEST_EQUAL( s3[1], 3 );
+  NT2_TEST_EQUAL( s3[2], 4 );
+
+  _2D s2 = of_size(2,3);
+  NT2_TEST_EQUAL( s2.size(), 2 );
+  NT2_TEST_EQUAL( s2[0], 2 );
+  NT2_TEST_EQUAL( s2[1], 3 );
+
+  _1D s1 = of_size(2);
+  NT2_TEST_EQUAL( s1.size(), 1 );
+  NT2_TEST_EQUAL( s1[0], 2 );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test of_size function calls - Range constructor
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( of_size_call_range )
+{
+  using nt2::of_size;
+  using nt2::_4D;
+  using nt2::_3D;
+  using nt2::_2D;
+  using nt2::_1D;
+
+  std::size_t range[4] = {2,3,4,5};
+
+  _4D s4 = of_size(&range[0],&range[0]+4);
+  NT2_TEST_EQUAL( s4.size(), 4 );
+  NT2_TEST_EQUAL( s4[0], 2 );
+  NT2_TEST_EQUAL( s4[1], 3 );
+  NT2_TEST_EQUAL( s4[2], 4 );
+  NT2_TEST_EQUAL( s4[3], 5 );
+
+  _3D s3 = of_size(&range[0],&range[0]+3);
+  NT2_TEST_EQUAL( s3.size(), 3 );
+  NT2_TEST_EQUAL( s3[0], 2 );
+  NT2_TEST_EQUAL( s3[1], 3 );
+  NT2_TEST_EQUAL( s3[2], 4 );
+
+  _2D s2 = of_size(&range[0],&range[0]+2);
+  NT2_TEST_EQUAL( s2.size(), 2 );
+  NT2_TEST_EQUAL( s2[0], 2 );
+  NT2_TEST_EQUAL( s2[1], 3 );
+
+  _1D s1 = of_size(&range[0],&range[0]+1);
+  NT2_TEST_EQUAL( s1.size(), 1 );
+  NT2_TEST_EQUAL( s1[0], 2 );
+}
+
+

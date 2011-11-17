@@ -95,10 +95,18 @@ namespace nt2
       default_(boost::mpl::size_t<static_size-1>());
     }
 
+    //==========================================================================
+    // Copy constructor
+    //==========================================================================
     of_size_( of_size_ const& src ) : data_(src.data_) {}
 
+    //==========================================================================
+    // Constructor from a Fusion sequence - smaller sequence are padded with 1
+    //==========================================================================
     template<class Sz>
-    of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
+    of_size_( Sz const& other
+            , typename  boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0
+            )
     {
       static const std::size_t other_size = boost::fusion::result_of::size<Sz>::type::value;
       static const std::size_t min_size = other_size < static_size ? other_size : static_size;
@@ -109,6 +117,22 @@ namespace nt2
         data_[i] = 1;
 
       details::check_all_equal(details::pop_front_c<min_size>(other), 1);
+    }
+
+    //==========================================================================
+    // Constructor from a Sequence - smaller sequence are padded with 1
+    //==========================================================================
+    template<class Iterator>
+    of_size_( Iterator b, Iterator e
+            , typename boost::disable_if< boost::is_integral<Iterator> >::type* =0
+            )
+    {
+      const std::size_t other_size = e - b;
+      const std::size_t min_size   =  other_size < static_size
+                                    ? other_size : static_size;
+
+      std::copy(b,b+min_size, &data_[0]);
+      for(std::size_t i = min_size; i != static_size; ++i) data_[i] = 1;
     }
 
     //==========================================================================
