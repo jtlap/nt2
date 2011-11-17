@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace meta
   template<class T,std::size_t Card, class Enable=void>
   struct vector_of
   {
-    typedef boost::array<T,Card> type;
+    typedef simd::native<T, tag::simd_emulation_<mpl::size_t<sizeof(T)*Card> > > type;
   };
 
 #ifdef BOOST_SIMD_DETECTED
