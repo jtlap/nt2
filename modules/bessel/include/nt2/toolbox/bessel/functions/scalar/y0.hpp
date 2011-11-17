@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
 	  return p2+single_constant<A0, 0x3f22f983>()*nt2::log(a0)*nt2::j0(a0);
 	}
       A0 q = rec(a0);
-      A0 w = sqrt(q);
+      A0 w = nt2::sqrt(q);
       A0 p3 = w *
          horner< NT2_HORNER_COEFF_T(stype, 8,
 				    (0xbd8c100e,

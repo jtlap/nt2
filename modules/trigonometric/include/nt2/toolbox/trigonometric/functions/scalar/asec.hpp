@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 // 	A0 ax1 =  ax-One<A0>(); 
 // 	if (ax1 < 0.01) {
 // 	  std::cout << "icitted" << std::endl; 
-// 	  return nt2::sqrt(2*log(ax))*(1-ax1/6-3.264474750714559e-01f*sqr(ax1)*ax1); 
+// 	  return nt2::sqrt(2*nt2::log(ax))*(1-ax1/6-3.264474750714559e-01f*sqr(ax1)*ax1); 
 // 	}
         //                                  6.123233995736765886130E-17
 	if (is_equal(a0, One<A0>())) return Zero<A0>(); 

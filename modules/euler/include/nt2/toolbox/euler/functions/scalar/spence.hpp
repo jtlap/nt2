@@ -28,9 +28,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return spence(result_type(a0));
@@ -49,9 +47,7 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       static boost::array<A0, 8> A = {{
@@ -76,20 +72,20 @@ namespace nt2 { namespace ext
       }};
       static const A0 C = (Pi<A0>()*Pi<A0>())/Six<A0>();
       A0 x = a0;
-      if( x < 0.0 )        return Nan<A0>();
+      if( x < Zero<A0>() )        return Nan<A0>();
       if( x == One<A0>() ) return Zero<A0>();
       if( is_eqz(x) )       return C ;
       int flag = 0;
       if( x > Two<A0>() ){ x = rec(x); flag |= 2;}
       A0 w;
-      if( x > 1.5 )      { w = minusone(rec(x)); flag |= 2;}
-      else if( x < 0.5 ) { w = -x; flag |= 1;}
+      if( x > static_cast<A0>(1.5) )      { w = minusone(rec(x)); flag |= 2;}
+      else if( x < Half<A0>() ) { w = -x; flag |= 1;}
       else w = minusone(x);
       A0 y = -w * polevl( w, A) / polevl( w, B);
-      if( flag & 1 ) y = C -log(x) * log(One<A0>()-x) - y;
+      if( flag & 1 ) y = C -nt2::log(x) * nt2::log(One<A0>()-x) - y;
       if( flag & 2 )
         {
-          A0 z = log(x);
+          A0 z = nt2::log(x);
           y = Mhalf<A0>() * sqr(z)  -  y;
         }
       return y;

@@ -17,6 +17,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/log.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -95,7 +96,7 @@ namespace nt2 { namespace ext
                                0x3d68ac90,
                                0x3ee2e430,
                                0x3f800000) ) > (a0)
-                -log(a0)*a0*horner< NT2_HORNER_COEFF(float, 10,
+       -nt2::log(a0)*a0*horner< NT2_HORNER_COEFF(float, 10,
                                     (0x38098de4,
                                      0x3a84557e,
                                      0x3bd53114,

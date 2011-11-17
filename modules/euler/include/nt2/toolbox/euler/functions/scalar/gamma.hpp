@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
 // 			     -.002777777777777681622553,.08333333333333333331554247,
 // 			     .0057083835261 };
 //       const double g_xbig = 171.624;
-//       const A0 LOGSQRT2PI =  log(sqrt(Two<A0>()*Pi<A0>())); 
+//       const A0 LOGSQRT2PI =  nt2::log(sqrt(Two<A0>()*Pi<A0>())); 
 
 //       double fact=1.0, xden, xnum;
 //       int i, n=0;

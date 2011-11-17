@@ -28,12 +28,10 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      return minusone(exp(a0));
+      return minusone(nt2::exp(a0));
     }
   };
 } }
@@ -49,9 +47,7 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       const A0 u = nt2::exp(a0);

@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      const type tmp=exp(type(a0));
+      const type tmp=nt2::exp(type(a0));
       return (tmp+rec(tmp))*Half<type>();
     }
   };

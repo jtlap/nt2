@@ -60,11 +60,11 @@ namespace nt2 { namespace ext
 	//    }};
 	A0 w = rec(a0);
 	w = fma(w, polevl(w, stirpol<A0, A0>::sp()), One<A0>());
-	A0 y = exp(-a0);
+	A0 y = nt2::exp(-a0);
 	if(is_eqz(y)) return Inf<A0>();
 	if( a0 > Stirlingsplitlim<A0>() )
 	  { /* Avoid overflow in pow() */
-	    const A0 v = pow(a0,fma(Half<A0>(),a0,-Quarter<A0>()));
+	    const A0 v = nt2::pow(a0,fma(Half<A0>(),a0,-Quarter<A0>()));
 	    y *= v;
 	    y *= v;
 	  }
