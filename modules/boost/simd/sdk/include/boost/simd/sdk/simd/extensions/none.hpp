@@ -19,6 +19,7 @@
 #define BOOST_SIMD_DEFAULT_EXTENSION ::boost::simd::tag::simd_emulation_<boost::mpl::size_t<16> >
 #define BOOST_SIMD_DEFAULT_SITE ::boost::dispatch::tag::cpu_
 
+#include <boost/simd/sdk/config/types.hpp>
 #if !defined(BOOST_SIMD_SIMD_TYPES)
 #include <boost/simd/sdk/simd/extensions/sse/types.hpp>
 #endif
