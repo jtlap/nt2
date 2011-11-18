@@ -15,9 +15,7 @@
 // interface and parametrization
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/assert.hpp>
-//#include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
-//#include <boost/simd/sdk/memory/details/buffer_base.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
 
 #ifdef BOOST_MSVC

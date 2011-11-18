@@ -9,14 +9,13 @@
 #define NT2_UNIT_MODULE "nt2::memory::buffer"
 
 #include <nt2/core/container/memory/buffer.hpp>
-//#include <boost/simd/sdk/memory/buffer.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic default buffer ctor
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(buffer_default_ctor, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(buffer_default_ctor, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
@@ -41,7 +40,7 @@ NT2_TEST_CASE_TPL(buffer_default_ctor, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic buffer ctor
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(buffer_ctor, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(buffer_ctor, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
@@ -64,7 +63,7 @@ NT2_TEST_CASE_TPL(buffer_ctor, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic buffer assignment
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(buffer_assignment, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
@@ -88,7 +87,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic buffer swap
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(buffer_swap, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
