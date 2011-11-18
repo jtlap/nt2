@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
       // as its body and using indices/extent as loop bounds
       //==========================================================================
       meta::for_each( typename A0::index_type::type()
-                    , extent(a0)
+                    , nt2::extent(a0)
                     , typename boost::simd::meta::cardinal_of<target_type>::type()
                     , meta::runner<A0 const&, meta::as_<target_type> >(a0)
                     );
