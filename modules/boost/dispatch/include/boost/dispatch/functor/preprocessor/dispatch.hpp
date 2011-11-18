@@ -28,12 +28,12 @@
 // Helpers that strips each element of a sequence
 #define BOOST_DISPATCH_TYPE_TPL(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 #define BOOST_DISPATCH_TYPE(z,n,t) class BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
-#define BOOST_DISPATCH_ARG(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const
+#define BOOST_DISPATCH_ARG(z,n,t) , BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t)) const
 #define BOOST_DISPATCH_TAG(z,n,t) BOOST_DISPATCH_PP_STRIP(BOOST_PP_SEQ_ELEM(n,t))
 
 // Namespace-related helpers
 #define BOOST_DISPATCH_NS_(s,data,elem) elem ::
-#define BOOST_DISPATCH_NS(seq) BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_NS_, ~, seq)
+#define BOOST_DISPATCH_NS(seq) :: BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_NS_, ~, seq)
 
 #define BOOST_DISPATCH_CLOSE_(s,data,elem) }
 #define BOOST_DISPATCH_CLOSE(seq) BOOST_PP_SEQ_FOR_EACH(BOOST_DISPATCH_CLOSE_, ~, seq)
@@ -66,9 +66,9 @@ namespace boost { namespace dispatch { namespace meta                          \
   BOOST_DISPATCH_FORCE_INLINE                                                  \
   BOOST_DISPATCH_PP_STRIP(Ret)                                                 \
   dispatching( Tag, Site                                                       \
-             , BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Seq)                           \
-                            , BOOST_DISPATCH_ARG                               \
-                            , Seq                                              \
+               BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
+                              , BOOST_DISPATCH_ARG                             \
+                              , Seq                                            \
                             )                                                  \
             , adl_helper = adl_helper()                                        \
             )                                                                  \
@@ -105,10 +105,10 @@ namespace boost { namespace dispatch { namespace meta                          \
   BOOST_DISPATCH_FORCE_INLINE                                                  \
   BOOST_DISPATCH_PP_STRIP(Ret)                                                 \
   dispatching( Tag, Site                                                       \
-             , BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Seq)                           \
-                            , BOOST_DISPATCH_ARG                               \
-                            , Seq                                              \
-                            )                                                  \
+               BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
+                              , BOOST_DISPATCH_ARG                             \
+                              , Seq                                            \
+                              )                                                \
             , adl_helper = adl_helper()                                        \
             )                                                                  \
   {                                                                            \
@@ -147,10 +147,10 @@ namespace boost { namespace dispatch { namespace meta                          \
                            , BOOST_DISPATCH_PP_STRIP(Ret)                      \
                            >::type                                             \
   dispatching( Tag, Site                                                       \
-             , BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Seq)                           \
-                            , BOOST_DISPATCH_ARG                               \
-                            , Seq                                              \
-                            )                                                  \
+               BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
+                              , BOOST_DISPATCH_ARG                             \
+                              , Seq                                            \
+                              )                                                \
             , adl_helper = adl_helper()                                        \
             )                                                                  \
   {                                                                            \
@@ -190,10 +190,10 @@ namespace boost { namespace dispatch { namespace meta                          \
                            , BOOST_DISPATCH_PP_STRIP(Ret)                      \
                            >::type                                             \
   dispatching( Tag, Site                                                       \
-             , BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Seq)                           \
-                            , BOOST_DISPATCH_ARG                               \
-                            , Seq                                              \
-                            )                                                  \
+               BOOST_PP_REPEAT( BOOST_PP_SEQ_SIZE(Seq)                         \
+                              , BOOST_DISPATCH_ARG                             \
+                              , Seq                                            \
+                              )                                                \
             , adl_helper = adl_helper()                                        \
             )                                                                  \
   {                                                                            \
