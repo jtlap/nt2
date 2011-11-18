@@ -18,7 +18,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

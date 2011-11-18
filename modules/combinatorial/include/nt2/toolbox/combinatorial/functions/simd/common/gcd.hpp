@@ -11,7 +11,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/rem.hpp>
 #include <nt2/include/functions/any.hpp>

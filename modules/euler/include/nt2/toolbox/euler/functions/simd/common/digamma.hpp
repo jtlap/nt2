@@ -12,7 +12,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/selsub.hpp>

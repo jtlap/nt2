@@ -24,7 +24,7 @@
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/bitwise_all.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
