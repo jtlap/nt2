@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  select.cpp
 # List of scalar test files for toolbox boolean
    )
 

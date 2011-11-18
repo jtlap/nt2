@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  select.cpp
 # List of simd test files for toolbox boolean
    )
 

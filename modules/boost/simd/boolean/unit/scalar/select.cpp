@@ -14,7 +14,6 @@
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/boolean/include/functions/select.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -23,6 +22,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( select_real__3_0,  BOOST_SIMD_REAL_TYPES)
@@ -43,14 +43,12 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  BOOST_SIMD_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(select(boost::simd::Inf<T>(), boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(select(boost::simd::Minf<T>(), boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Minf<r_t>());
-  NT2_TEST_EQUAL(select(boost::simd::Nan<T>(), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(select(boost::simd::Zero<T>(), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for floating_
+  NT2_TEST_EQUAL(select(boost::simd::False<T>(),boost::simd::One<T>(),boost::simd::Two<T>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(select(boost::simd::True<T>(),boost::simd::One<T>(),boost::simd::Two<T>()), boost::simd::One<r_t>());
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
@@ -70,8 +68,9 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(select(boost::simd::Zero<T>(), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(select(boost::simd::False<T>(),boost::simd::One<T>(),boost::simd::Two<T>()), boost::simd::Two<r_t>());
+  NT2_TEST_EQUAL(select(boost::simd::True<T>(),boost::simd::One<T>(),boost::simd::Two<T>()), boost::simd::One<r_t>());
 } // end of test for integer_

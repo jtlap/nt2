@@ -8,8 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  if_zero_else.cpp
-  boolean_select.cpp
+  #if_zero_else.cpp
   negif.cpp
   seladd.cpp
   select.cpp

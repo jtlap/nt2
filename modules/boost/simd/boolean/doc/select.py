@@ -10,7 +10,6 @@
          'rturn' : {
              'default' : 'T',
             },
-         'simd_types' : ['real_', 'integer_'],
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
         },
@@ -35,17 +34,9 @@
             },
          'specific_values' : {
              'default' : {
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},
-                },
-             'real_' : {
-                 'boost::simd::Inf<T>()' : {'result' : 'boost::simd::Inf<r_t>()','ulp_thresh' : '0.5',},
-                 'boost::simd::Minf<T>()' : {'result' : 'boost::simd::Minf<r_t>()','ulp_thresh' : '0.5',},
-                 'boost::simd::Nan<T>()' : {'result' : 'boost::simd::Nan<r_t>()','ulp_thresh' : '0.5',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},
-                },
-             'signed_int_   ' : {
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0.5',},
-                },
+                 'boost::simd::False<T>(),boost::simd::One<T>(),boost::simd::Two<T>()' : {'result' : 'boost::simd::Two<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::True<T>(),boost::simd::One<T>(),boost::simd::Two<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0.5',},
+                }
             },
          'verif_test' : {
              'property_call' : {

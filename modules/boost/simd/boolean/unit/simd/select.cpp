@@ -14,7 +14,6 @@
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/boolean/include/functions/select.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -23,9 +22,12 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( select_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -46,14 +48,12 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(select(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(select(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(select(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(select(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for floating_
+  NT2_TEST_EQUAL(select(boost::simd::False<vT>(),boost::simd::One<vT>(),boost::simd::Two<vT>())[0], boost::simd::Two<sr_t>());
+  NT2_TEST_EQUAL(select(boost::simd::True<vT>(),boost::simd::One<vT>(),boost::simd::Two<vT>())[0], boost::simd::One<sr_t>());
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( select_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
@@ -73,8 +73,9 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(select(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(select(boost::simd::False<vT>(),boost::simd::One<vT>(),boost::simd::Two<vT>())[0], boost::simd::Two<sr_t>());
+  NT2_TEST_EQUAL(select(boost::simd::True<vT>(),boost::simd::One<vT>(),boost::simd::Two<vT>())[0], boost::simd::One<sr_t>());
 } // end of test for integer_
