@@ -72,9 +72,9 @@ NT2_TEST_CASE_TPL ( hermite_real__2_0,  NT2_SIMD_REAL_TYPES)
         iT a0 = tab_a0[j];
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = hermite(a0,a1);
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
+        for(unsigned int i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
+          unsigned int k = i+j*cardinal_of<n_t>::value;
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::hermite (tab_a0[j],tab_a1[k])), 13);
           ulp0 = nt2::max(ulpd,ulp0);
         }

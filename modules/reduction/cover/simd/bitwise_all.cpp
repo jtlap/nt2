@@ -17,7 +17,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/typed_bool.hpp>
+#include <nt2/include/functions/genmask.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -38,7 +38,6 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
-#include <nt2/include/functions/typed_bool.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
 
@@ -69,7 +68,7 @@ NT2_TEST_CASE_TPL ( bitwise_all_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = nt2::bitwise_all(nt2::typed_bool(a0));
+        r_t v = nt2::bitwise_all(nt2::genmask(a0));
         bool z = true;
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
@@ -108,7 +107,7 @@ NT2_TEST_CASE_TPL ( bitwise_all_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = nt2::bitwise_all(nt2::typed_bool(a0));
+        r_t v = nt2::bitwise_all(nt2::genmask(a0));
         bool z = true;
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {
@@ -147,7 +146,7 @@ NT2_TEST_CASE_TPL ( bitwise_all_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = nt2::bitwise_all(nt2::typed_bool(a0));
+        r_t v = nt2::bitwise_all(nt2::genmask(a0));
         bool z = true;
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; ++i)
         {

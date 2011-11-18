@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( is_odd_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::is_odd(a0),r_t(int(nt2::abs(a0)/2.0)*2+nt2::One<T>()==nt2::abs(a0)));
+        NT2_TEST_EQUAL( nt2::is_odd(a0),r_t(int(nt2::abs(a0)/nt2::Two<T>())*2+nt2::One<T>()==nt2::abs(a0)));
      }
      
    }
@@ -100,7 +100,7 @@ NT2_TEST_CASE_TPL ( is_odd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::is_odd(a0),r_t(int(nt2::abs(a0)/2.0)*2+nt2::One<T>()==nt2::abs(a0)));
+        NT2_TEST_EQUAL( nt2::is_odd(a0),r_t(int(nt2::abs(a0)/nt2::Two<T>())*2+nt2::One<T>()==nt2::abs(a0)));
      }
      
    }

@@ -47,7 +47,7 @@ void pb(const T & a, int N)
 {
   typedef typename nt2::meta::as_integer<T>::type iT;
   iT ia =  boost::simd::bitwise_cast<iT>(a);
-  int j = 0;
+  //  int j = 0;
   for(int i = 0; i < N; ++i)
     {
       std::cout << (ia&1); 
