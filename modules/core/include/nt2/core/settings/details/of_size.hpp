@@ -58,6 +58,7 @@ namespace nt2
     #else
     static const std::size_t
     static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0;
+    #endif
     #undef M0
 
     //==========================================================================
