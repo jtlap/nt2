@@ -14,16 +14,17 @@
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
-#include <boost/type_traits/is_integral.hpp>
 #include <nt2/sdk/error/assert.hpp>
 #include <nt2/core/settings/size.hpp>
-#include <nt2/core/settings/details/of_size_meta.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_integral.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
+#include <nt2/core/settings/details/of_size_meta.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
@@ -117,10 +118,9 @@ namespace nt2
       static const std::size_t other_size = boost::fusion::result_of::size<Sz>::type::value;
       static const std::size_t min_size = other_size < static_size ? other_size : static_size;
 
-      details::copy(details::pop_back_c<other_size - min_size>(other), &data_[0]);
+      details::copy(details::pop_back_c<other_size - min_size>(other),&data_[0]);
 
-      for(std::size_t i = min_size; i != static_size; ++i)
-        data_[i] = 1;
+      for(std::size_t i = min_size; i != static_size; ++i) data_[i] = 1;
 
       details::check_all_equal(details::pop_front_c<min_size>(other), 1);
     }
@@ -235,6 +235,9 @@ namespace nt2
   BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
   #undef M0
 
+  //============================================================================
+  // Equality comparison for of_size_
+  //============================================================================
   template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
           , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
   bool operator==( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
@@ -259,7 +262,10 @@ namespace nt2
     return true;
   }
 
-  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
+  //============================================================================
+  // Inequality comparison for of_size_
+  //============================================================================
+    template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
           , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
   bool operator!=( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
                  , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1

@@ -33,23 +33,57 @@ namespace nt2 { namespace container
     table() {}
 
     //==========================================================================
-    //  table default constructor
+    //  table constructor from an of_size_ like element
     //==========================================================================
     template<class Sz>
-    table(Sz const& sz, typename boost::disable_if< boost::proto::matches<typename boost::proto::result_of::as_expr<Sz>::type, grammar> >::type* = 0)
+    table ( Sz const& sz
+          , typename boost::
+            disable_if< boost::proto::matches < typename boost::proto::
+                                                result_of::as_expr<Sz>::type
+                                              , grammar
+                                              >
+                      >::type* = 0
+          )
     {
       boost::proto::value(*this).resize(extent_type(sz));
     }
+/*
+    //==========================================================================
+    //  table constructor from an of_size_ like element and a Range
+    //==========================================================================
+    template<class Sz, class Iterator>
+    table ( Sz const& sz, Iterator const& b, Iterator const& e)
+    {
+      boost::proto::value(*this).resize(extent_type(sz));
 
+    }
+*/
+
+    //==========================================================================
+    // table constructor from an expression
+    //==========================================================================
     template<class Xpr>
     BOOST_DISPATCH_FORCE_INLINE
-    table(Xpr const& xpr, typename boost::enable_if< boost::proto::matches<typename boost::proto::result_of::as_expr<Xpr>::type, grammar> >::type* = 0)
+    table ( Xpr const& xpr
+          , typename boost::
+            enable_if < boost::proto::matches < typename boost::proto::
+                                                result_of::as_expr<Xpr>::type
+                                              , grammar
+                                              >
+                      >::type* = 0
+          )
     {
       static_cast<parent&>(*this) = xpr;
     }
 
+    //==========================================================================
+    // table copy constructor
+    //==========================================================================
     table( table const& src ) { static_cast<parent&>(*this) = src; }
 
+    //==========================================================================
+    // Enable base expression handlign of assignment
+    //==========================================================================
     using parent::operator=;
   };
 

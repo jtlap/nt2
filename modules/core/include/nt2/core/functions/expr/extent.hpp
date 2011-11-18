@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
                             , ((expr_< unspecified_<A0>, nt2::container::domain, T >))
                             )
   {
-    typedef typename A0::extent_type const& result_type;
+    typedef typename A0::extent_type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
