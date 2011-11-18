@@ -185,7 +185,7 @@ NT2_TEST_CASE_TPL(store, BOOST_SIMD_TYPES )
   typedef native<T,ext_t>             n_t;
   static const std::size_t card = cardinal_of<n_t>::value;
   
-  BOOST_SIMD_ALIGNED_TYPE(T) data[2*card];
+  BOOST_SIMD_ALIGNED_TYPE(T) data[3*card];
   for(std::size_t i=0;i<card;++i)
     data[i] = T(1+i);
   std::cout << ((nt2::int64_t)(&data[0]))%32 << std::endl; 
