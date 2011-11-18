@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
         r_t0 r0 = boost::fusion::get<0>(r);
-        r_t1 r1 = boost::fusion::get<1>(r);
+	//        r_t1 r1 = boost::fusion::get<1>(r);
         r_t2 r2 = boost::fusion::get<2>(r);
         NT2_TEST_TUPLE_ULP_EQUAL( r0, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0.5);
         if (ulpd>ulp0) ulp0=ulpd;

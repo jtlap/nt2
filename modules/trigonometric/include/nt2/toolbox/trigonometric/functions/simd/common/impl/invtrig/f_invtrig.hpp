@@ -13,7 +13,7 @@
 #include <nt2/include/functions/bitwise_notand.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>

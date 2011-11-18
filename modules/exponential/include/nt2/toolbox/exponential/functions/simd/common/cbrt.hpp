@@ -20,7 +20,7 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/sqr.hpp>

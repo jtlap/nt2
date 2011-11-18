@@ -15,7 +15,7 @@
 #include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/signnz.hpp>
 #include <nt2/include/functions/is_gtz.hpp>

@@ -18,7 +18,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/fast_toint.hpp>

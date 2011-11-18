@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_EXPO_EXPO_BASE_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_EXPO_EXPO_BASE_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/boolean_select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 
@@ -33,8 +33,8 @@ namespace nt2
           A0 c = reduc_t::approx(x);
           bA0 ge = reduc_t::isgemaxlog(a0);
           bA0 le = reduc_t::isleminlog(a0); 
-          return boolean_select(ge, Inf<A0>(),
-                             boolean_select(le, Zero<A0>(),
+          return select(ge, Inf<A0>(),
+                             select(le, Zero<A0>(),
                                  finalize_t::finalize(a0, x, c, k, hi, lo)
                                  )
                              ); 

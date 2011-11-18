@@ -19,7 +19,7 @@
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 

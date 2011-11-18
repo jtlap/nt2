@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPLOG_EXPO_FINALIZATION_HPP_INCLUDED
 #include <nt2/core/numeric/functions/fast_ldexp.hpp>
 #include <nt2/core/numeric/functions/fast_toint.hpp>
-#include <nt2/core/numeric/functions/select.hpp>
+#include <nt2/core/numeric/functions/if_else.hpp>
 #include <nt2/core/numeric/functions/is_flint.hpp>
 #include <nt2/core/numeric/functions/is_gtz.hpp>
 

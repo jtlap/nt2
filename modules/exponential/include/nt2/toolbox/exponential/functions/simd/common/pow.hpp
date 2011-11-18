@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_nez.hpp>
@@ -18,7 +18,6 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/typed_bool.hpp>
 #include <nt2/include/functions/if_nan_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
 
