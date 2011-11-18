@@ -24,7 +24,7 @@
 #include <boost/simd/sdk/simd/extensions/sse/types.hpp>
 #endif
 
-#include <boost/dispatch/functor/meta/hierarchy.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
@@ -32,15 +32,6 @@
 #include <boost/array.hpp>
 #include <boost/mpl/times.hpp>
 #include <boost/mpl/sizeof.hpp>
-
-namespace boost { namespace simd { namespace tag
-{
-  template<class N> struct simd_emulation_ : boost::dispatch::tag::cpu_
-  {
-    typedef boost::dispatch::tag::cpu_ parent;
-    typedef simd_emulation_ type;
-  };
-} } }
 
 namespace boost { namespace simd { namespace detail
 {

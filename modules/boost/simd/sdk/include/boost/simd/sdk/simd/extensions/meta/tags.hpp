@@ -33,6 +33,15 @@ namespace boost { namespace simd { namespace tag
 // Tag hierarchy for Altivec PPC extensions
 ////////////////////////////////////////////////////////////////////////////////
   BOOST_DISPATCH_HIERARCHY_CLASS(altivec_, boost::dispatch::tag::cpu_);
+
+////////////////////////////////////////////////////////////////////////////////
+// Tag hierarchy for no extension
+////////////////////////////////////////////////////////////////////////////////  
+  template<class N> struct simd_emulation_ : boost::dispatch::tag::cpu_
+  {
+    typedef boost::dispatch::tag::cpu_ parent;
+    typedef simd_emulation_ type;
+  };
 } } }
 
 #endif
