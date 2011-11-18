@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_NEGS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_NEGS_HPP_INCLUDED
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return boolean_select(eq(a0, boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), unary_minus(a0)); 
+      return if_else(eq(a0, boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), unary_minus(a0)); 
     }
   };
 } } }

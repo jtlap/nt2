@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_BITWISE_ALL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_BITWISE_ALL_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////

@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/shri.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
@@ -49,18 +49,18 @@ namespace boost { namespace simd { namespace ext
       A0 n1  = shri(n+a0/n, 1);
 
       bA0 ok = lt(n1, n);
-      n  = boolean_select(ok, n1, n);
-      n1 = boolean_select(ok, shri(n+a0/n, 1), n1);
+      n  = if_else(ok, n1, n);
+      n1 = if_else(ok, shri(n+a0/n, 1), n1);
 
       ok = lt(n1, n);
-      n  = boolean_select(ok, n1, n);
+      n  = if_else(ok, n1, n);
       n  = seladd( gt(n*n,a0), n, Mone<A0>());
 
       return seladd(na, Zero<A0>(), n);
 
 //       A0 msk = b_and(is_less_equal(n1,n), na);
 
-//       n   = boolean_select(msk,n1,n);
+//       n   = if_else(msk,n1,n);
 //       n1  = sqr(n);
 //       msk = b_or(gt(n1,a0), b_and(is_eqz(n1), na));
 //       n   = seladd( msk, n, Mone<A0>());
@@ -114,30 +114,30 @@ namespace boost { namespace simd { namespace ext
       A0 const z4 = add(shri(a0,16), boost::simd::integral_constant<A0,16384>());
       static A0 const one = One<A0>();
 
-      A0 n  = boolean_select( gt(a0, boost::simd::integral_constant<A0,177155824>())
+      A0 n  = if_else( gt(a0, boost::simd::integral_constant<A0,177155824>())
                   , z4
-                  , boolean_select( gt(a0, boost::simd::integral_constant<A0,4084387>())
+                  , if_else( gt(a0, boost::simd::integral_constant<A0,4084387>())
                         , z3
-                        , boolean_select( gt(a0, boost::simd::integral_constant<A0,31679>())
+                        , if_else( gt(a0, boost::simd::integral_constant<A0,31679>())
                                 , z2
                                 , z1
                                 )
                         )
                   );
       bA0 ok =  is_gtz(n);
-      n = boolean_select(ok, n, one);
-      A0 n1 = boolean_select(ok, shri(n+a0/n, 1), one);
+      n = if_else(ok, n, one);
+      A0 n1 = if_else(ok, shri(n+a0/n, 1), one);
 
       ok = lt(n1, n);
-      n  = boolean_select(ok, n1, n);
-      n1 = boolean_select(ok, shri(n+a0/n, 1), n1);
+      n  = if_else(ok, n1, n);
+      n1 = if_else(ok, shri(n+a0/n, 1), n1);
 
       ok =  lt(n1, n);
-      n  = boolean_select(ok, n1, n);
-      n1 = boolean_select(ok, shri(n+a0/n, 1), n1);
+      n  = if_else(ok, n1, n);
+      n1 = if_else(ok, shri(n+a0/n, 1), n1);
 
       ok =  lt(n1, n);
-      n  = boolean_select(ok, n1, n);
+      n  = if_else(ok, n1, n);
 
       A0 tmp = sub(n*sub(n, one), one);
       n  = seladd( is_greater_equal(tmp+n,a0), n, Mone<A0>());
@@ -189,23 +189,23 @@ namespace boost { namespace simd { namespace ext
       //////////////////////////////////////////////////////////////////////////
       // choose a proper starting point for approximation
       //////////////////////////////////////////////////////////////////////////
-      A0 n  = boolean_select(lt(a0, C1), z1, z2);
+      A0 n  = if_else(lt(a0, C1), z1, z2);
       bA0 ok =  is_gtz(n);
       static A0 const one = One<A0>();
-      n  = boolean_select(ok, n, one);
+      n  = if_else(ok, n, one);
 
-      A0 n1 = boolean_select(ok, shri(n+a0/n, 1), one);
-
-      ok = lt(n1, n);
-      n  = boolean_select(ok, n1, n);
-      n1 = boolean_select(ok, shri(n+a0/n, 1), n1);
+      A0 n1 = if_else(ok, shri(n+a0/n, 1), one);
 
       ok = lt(n1, n);
-      n  = boolean_select(ok, n1, n);
-      n1 = boolean_select(ok, shri(n+a0/n, 1), n1);
+      n  = if_else(ok, n1, n);
+      n1 = if_else(ok, shri(n+a0/n, 1), n1);
+
+      ok = lt(n1, n);
+      n  = if_else(ok, n1, n);
+      n1 = if_else(ok, shri(n+a0/n, 1), n1);
 
       ok =  lt(n1, n);
-      n  = boolean_select(ok, n1, n);
+      n  = if_else(ok, n1, n);
       n  = seladd( gt(n*n,a0), n, Mone<A0>());
 
       return seladd(na, Zero<A0>(), n);

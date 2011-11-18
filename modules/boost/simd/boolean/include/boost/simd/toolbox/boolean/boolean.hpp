@@ -13,8 +13,7 @@
 #include <boost/simd/toolbox/boolean/include/functions/negif.hpp>
 #include <boost/simd/toolbox/boolean/include/functions/selsub.hpp>
 #include <boost/simd/toolbox/boolean/include/functions/seladd.hpp>
-#include <boost/simd/toolbox/boolean/include/functions/select.hpp>
-#include <boost/simd/toolbox/boolean/include/functions/boolean_select.hpp>
+#include <boost/simd/toolbox/boolean/include/functions/if_else.hpp>
 #include <boost/simd/toolbox/boolean/include/functions/if_else_nan.hpp>
 #include <boost/simd/toolbox/boolean/include/functions/if_else_zero.hpp>
 #include <boost/simd/toolbox/boolean/include/functions/if_nan_else.hpp>

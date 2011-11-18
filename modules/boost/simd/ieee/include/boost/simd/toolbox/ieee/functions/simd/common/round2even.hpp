@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/ieee/functions/round2even.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
       const result_type t2n = boost::simd::Twotonmb<A0>();
       const result_type d0  = (v+t2n);
       const result_type d   = (d0-t2n);
-      const result_type d1  = boolean_select(lt(v,t2n),d,v);
+      const result_type d1  = if_else(lt(v,t2n),d,v);
       return (d1^bitofsign(a0));
     }
   };

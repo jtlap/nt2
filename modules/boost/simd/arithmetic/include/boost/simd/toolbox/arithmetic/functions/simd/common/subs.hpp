@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/is_less_equal.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/adds.hpp>
 #include <boost/simd/include/functions/any.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
@@ -80,7 +80,7 @@ namespace boost { namespace simd { namespace ext
     {
       A0 res =  adds(a0, -a1); 
       if (boost::simd::any(eq(a1, Valmin<A0>())))
-        return boolean_select(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
+        return if_else(eq(a1, Valmin<A0>()), adds(adds(a0, Valmax<A0>()),One<A0>()), res);
       else
         return res; 
     }

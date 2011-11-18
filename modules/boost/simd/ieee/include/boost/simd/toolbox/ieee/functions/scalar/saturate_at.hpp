@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

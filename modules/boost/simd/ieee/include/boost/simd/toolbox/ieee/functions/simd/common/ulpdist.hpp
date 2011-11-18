@@ -20,7 +20,7 @@
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/simd/include/functions/if_zero_else.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/logical_and.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/constants/eps.hpp>

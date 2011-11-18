@@ -12,7 +12,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

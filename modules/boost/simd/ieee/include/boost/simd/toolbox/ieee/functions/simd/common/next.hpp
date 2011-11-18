@@ -17,7 +17,7 @@
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>

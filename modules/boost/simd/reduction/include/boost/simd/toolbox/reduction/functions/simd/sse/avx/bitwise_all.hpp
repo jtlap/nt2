@@ -10,6 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_BITWISE_ALL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/reduction/functions/bitwise_all.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/constants/false.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -18,15 +20,16 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<type16_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type             sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      if  (_mm_movemask_epi8(a00) != 0xFFFF) return false;
+      if  (_mm_movemask_epi8(a00) != 0xFFFF) return False<A0>();
       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      return _mm_movemask_epi8(a01) == 0xFFFF;
+      return result_type(_mm_movemask_epi8(a01) == 0xFFFF);
     }
   };
 

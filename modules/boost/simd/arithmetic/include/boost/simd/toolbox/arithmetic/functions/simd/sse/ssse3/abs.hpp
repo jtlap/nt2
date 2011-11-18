@@ -14,7 +14,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/is_lez.hpp>
 #include <boost/simd/include/functions/bitwise_notand.hpp>
 #include <boost/simd/include/functions/shri.hpp>

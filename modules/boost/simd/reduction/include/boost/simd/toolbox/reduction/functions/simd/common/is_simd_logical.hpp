@@ -11,7 +11,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/all.hpp>
-#include <boost/simd/include/functions/typed_bool.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) {
       typedef typename boost::dispatch::meta::as_integer<A0>::type iA0; 
-      return native_cast<result_type>(all(eq(native_cast<iA0>(a0), typed_bool(native_cast<iA0>(a0)))));
+      return native_cast<result_type>(all(eq(native_cast<iA0>(a0), genmask(native_cast<iA0>(a0)))));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_simd_logical_, tag::cpu_,(A0)(X)

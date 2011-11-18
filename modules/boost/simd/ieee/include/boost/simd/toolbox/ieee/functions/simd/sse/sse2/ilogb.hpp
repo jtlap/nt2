@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/predecessor.hpp>
 #include <boost/simd/include/functions/dist.hpp>
 #define MKN(N) simd::native_cast<vtype##N>
@@ -103,7 +103,7 @@ namespace boost { namespace simd { namespace ext
       static const vtype8& o = One<vtype8>();
       static const vtype32 mask = boost::simd::integral_constant<vtype32, 0x7f7f7f7f>();
       //      vtype8 i = boolean(is_nez((vtype8)a0));
-      vtype8 i = select(is_eqz(MKN(8)(a0)), z, o);
+      vtype8 i = if_else(is_eqz(MKN(8)(a0)), z, o);
       vtype8 n = MKN(8)(b_and(MKN(32)(_mm_srli_epi16(a0, 1)), mask));
       i = seladd(is_nez(n), i, o);
       n = MKN(8)(b_and(MKN(32)(_mm_srli_epi16(MKN(32)(n), 1)), mask));
@@ -129,9 +129,9 @@ namespace boost { namespace simd { namespace ext
       vtype32 zz = b_and(MKN(32)(i), mask3);
       vtype32 tt = b_and(MKN(32)(i), mask2);
       vtype32 uu = b_and(MKN(32)(i), mask1);
-      vtype32 xx = select(is_nez(yy), MKN(32)(_mm_srli_epi32(yy,24))+v4,
-                 select(is_nez(zz), MKN(32)(_mm_srli_epi32(zz,16))+seize,
-                   select(is_nez(tt), MKN(32)(_mm_srli_epi32(tt,8))+huit,
+      vtype32 xx = if_else(is_nez(yy), MKN(32)(_mm_srli_epi32(yy,24))+v4,
+                 if_else(is_nez(zz), MKN(32)(_mm_srli_epi32(zz,16))+seize,
+                   if_else(is_nez(tt), MKN(32)(_mm_srli_epi32(tt,8))+huit,
                        uu)));
       return MKN(32)(is_nez(MKN(8)(xx))&(MKN(8)(xx)-o));
     }
@@ -179,7 +179,7 @@ namespace boost { namespace simd { namespace ext
       static const vtype8& z = Zero<vtype8>();
       static const vtype8& o = One<vtype8>();
       static const vtype16 mask =  boost::simd::integral_constant<vtype16, 0x7f7f > ();
-      vtype8 i = select(is_eqz(MKN(8)(a0)), z, o);
+      vtype8 i = if_else(is_eqz(MKN(8)(a0)), z, o);
       //      vtype8 i = sb2b(is_nez((vtype8)a0));
       vtype8 n = MKN(8)(b_and(MKN(16)(_mm_srli_epi16(a0, 1)), mask));
       i = seladd(is_nez(n), i, o);
@@ -200,7 +200,7 @@ namespace boost { namespace simd { namespace ext
       static const vtype16 huit  = boost::simd::integral_constant<vtype16, 8u>();
       vtype16 yy = b_and(MKN(16)(i), mask2);
       vtype16 zz = b_and(MKN(16)(i), mask1);
-      vtype16 xx = select(is_nez(yy), MKN(16)(_mm_srli_epi16(yy, 8))+huit, zz);
+      vtype16 xx = if_else(is_nez(yy), MKN(16)(_mm_srli_epi16(yy, 8))+huit, zz);
       return MKN(16)(is_nez(MKN(8)(xx))&(MKN(8)(xx)-o));
     }
   };

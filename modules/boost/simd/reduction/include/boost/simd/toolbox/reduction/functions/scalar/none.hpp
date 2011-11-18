@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_NONE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_NONE_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
 /////////////////////////////////////////////////////////////////////////////
@@ -19,10 +20,10 @@ namespace boost { namespace simd { namespace ext
                      (scalar_ < fundamental_<A0> > )
                     )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-      return is_eqz(a0);
+        return is_eqz(a0);
       };
   };
 } } }

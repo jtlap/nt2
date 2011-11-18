@@ -11,7 +11,7 @@
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is int 32 8 64

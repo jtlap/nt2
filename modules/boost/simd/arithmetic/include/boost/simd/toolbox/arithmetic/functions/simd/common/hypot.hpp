@@ -23,7 +23,7 @@
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
@@ -111,8 +111,8 @@ namespace boost { namespace simd { namespace ext
       int_type e = Zero<int_type>();
       if (te3)
       {
-        e = boolean_select(te1, cts::MC2(), e);
-        e = boolean_select(te2, cts::C1(),  e);
+        e = select(te1, cts::MC2(), e);
+        e = select(te2, cts::C1(),  e);
         a =  ldexp(a, e);
         b =  ldexp(b, e);
       }
@@ -126,10 +126,10 @@ namespace boost { namespace simd { namespace ext
       t1 = simd::native_cast<A0>(simd::native_cast<int_type>(a)+cts::C3()) ;
       t2 = (a+a) - t1;
       A0 w2_2  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
-      w =  boolean_select(test, w1_2, w2_2);
+      w =  select(test, w1_2, w2_2);
       w = boost::simd::sqrt(w);
       if (te3) w = ldexp(w, -e);
-      return boolean_select(tinf, Inf<A0>(), w);
+      return select(tinf, Inf<A0>(), w);
     }
   };
 } } }

@@ -9,10 +9,8 @@
 
 SET( SOURCES
   if_zero_else.cpp
-  boolean_select.cpp
   negif.cpp
   seladd.cpp
-  select.cpp
   selsub.cpp
 # List of simd test files for toolbox boolean
    )

@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                        )
   {
     typedef A1 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return  boolean_select(a0,unary_minus(a1),a1); }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return  if_else(a0,unary_minus(a1),a1); }
   };
 } } }
 

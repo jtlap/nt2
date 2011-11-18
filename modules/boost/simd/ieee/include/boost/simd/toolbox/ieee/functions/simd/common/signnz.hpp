@@ -17,7 +17,8 @@
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/if_nan_else.hpp>
 #include <boost/simd/include/constants/mone.hpp>
-#include <boost/simd/include/constants/one.hpp>  
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 #include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return typed_bool(is_ltz(a0))-typed_bool(is_gez(a0)); // here True is -1 False 0 !
+      return genmask(is_ltz(a0))-genmask(is_gez(a0)); // here True is -1 False 0 !
     }
   };
 

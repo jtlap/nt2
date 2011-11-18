@@ -12,7 +12,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/two_split.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>

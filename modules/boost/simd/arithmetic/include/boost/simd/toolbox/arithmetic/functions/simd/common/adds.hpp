@@ -17,7 +17,7 @@
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 a0pa1 = a0+a1;
-      return boolean_select(lt(a0pa1, a0), Valmax<A0>(), a0pa1); 
+      return if_else(lt(a0pa1, a0), Valmax<A0>(), a0pa1); 
     }
   };
 
@@ -98,7 +98,7 @@ namespace boost { namespace simd { namespace ext
                         b_or(gtza0,gtza1)
                         );
        //      std::cout << test2 << std::endl;
-      return boolean_select(test1,Valmax<A0>(),boolean_select(test2,Valmin<A0>(),a0pa1));
+      return if_else(test1,Valmax<A0>(),if_else(test2,Valmin<A0>(),a0pa1));
     }
   };
 } } }

@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return iround((a1-a0)*((double)::rand()/RAND_MAX)+a0); //TO DO proper generator
+      return iround(double(a1-a0)*((double)::rand()/RAND_MAX)+double(a0)); //TO DO proper generator
     }
   };
 } } }
@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return iround(dist(a1, a0)*((double)::rand()/RAND_MAX)+min(a0, a1)); //TO DO proper generator
+      return iround(double(dist(a1, a0))*((double)::rand()/RAND_MAX)+double(min(a0, a1))); //TO DO proper generator
     }
   };
 } } }
@@ -82,7 +82,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (a1-a0)*((double)rand()/RAND_MAX)+a0; //TO DO proper generator
+      return double(a1-a0)*((double)rand()/RAND_MAX)+double(a0); //TO DO proper generator
     }
   };
 } } }

@@ -8,10 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-  boolean_select.cpp
   negif.cpp
   seladd.cpp
-  select.cpp
   selsub.cpp
 # List of scalar test files for toolbox boolean
    )

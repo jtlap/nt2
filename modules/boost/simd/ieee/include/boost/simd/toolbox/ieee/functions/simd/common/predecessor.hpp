@@ -16,12 +16,12 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/bitfloating.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/fast_frexp.hpp>
 #include <boost/simd/include/functions/fast_ldexp.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>

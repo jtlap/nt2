@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ABSS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ABSS_HPP_INCLUDED
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is unsigned_
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       A0 a =  boost::simd::abs(a0); 
-      return boolean_select(eq(a0,boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), a); 
+      return if_else(eq(a0,boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), a); 
     }
   };
 } } }
