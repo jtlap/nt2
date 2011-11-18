@@ -9,9 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
 #include <boost/simd/toolbox/operator/functions/if_else.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/functions/bitwise_select.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      return boost::simd::boolean_select( a0, a1, a2 );
+      return bitwise_select(native_cast<A1>(a0), a1, a2);
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
@@ -36,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      return boost::simd::boolean_select( is_nez(a0), a1, a2 );
+      return if_else( is_nez(a0), a1, a2 );
     }
   };  
 } } }

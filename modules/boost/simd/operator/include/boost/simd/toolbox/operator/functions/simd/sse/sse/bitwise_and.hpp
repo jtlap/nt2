@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/typed_bool.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,7 +25,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return native_cast<A0>(bitwise_and(typed_bool(a0), typed_bool(a1)));
+      typedef typename A0::type type; 
+      return native_cast<A0>(bitwise_and(native_cast<type>(a0), native_cast<type>(a1)));
     }
   };
 } } }

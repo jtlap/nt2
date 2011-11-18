@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_GENMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_GENMASK_HPP_INCLUDED
-#include <boost/simd/include/functions/typed_bool.hpp>
-
-
+#include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -25,9 +25,22 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return typed_bool(a0);
+      return if_else(a0, Allbits<A0> (), Zero<A0>());
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<logical_<A0>,X>))
+                            )
+  {
+    typedef typename A0::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return if_else(a0, Allbits<result_type>(), Zero<result_type>());
+    }
+  };
+  
 } } }
 
 

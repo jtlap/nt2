@@ -12,7 +12,7 @@
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/boolean_select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boolean_select(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
+      return if_else(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
     }
   };
 

@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_IF_ELSE_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,7 +19,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1,const A1& a2) const
-    { return a0 ? a1 : a2; }
+    {
+      return a0 ? a1 : a2;
+    }
   };
 } } }
 

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_AND_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/typed_bool.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_and(typed_bool(a0), typed_bool(a1)));
+      return native_cast<result_type>(b_and(genmask(a0), genmask(a1)));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_and(typed_bool(a0), typed_bool(a1)));
+      return native_cast<result_type>(b_and(genmask(a0), genmask(a1)));
     }
   };  
 } } }

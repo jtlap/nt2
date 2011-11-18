@@ -19,14 +19,17 @@
  * \defgroup boost_simd_bitwise_genmask genmask
  *
  * \par Description
- * The function returns a mask of bits. All ones if the.
- * input is non zero else all zeros
+ * The function returns a mask of bits. All ones if the
+ * input element is non zero else all zeros
  *
  * \par Header file
  * 
  * \code
  * #include <nt2/include/functions/genmask.hpp>
  * \endcode
+ * 
+ * \par Alias 
+ * \arg typed_mask
  * 
  * 
  * \synopsis
@@ -59,6 +62,7 @@ namespace boost { namespace simd { namespace tag
     struct genmask_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, genmask, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, typed_mask, 1) 
 } }
 
 #endif

@@ -12,11 +12,10 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/functions/make.hpp>
-
 #include <boost/simd/toolbox/bitwise/functions/simd/common/shrai.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -28,7 +27,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using boost::simd::native_cast;
@@ -46,7 +44,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       using boost::simd::native_cast;
@@ -64,7 +61,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef native<typename boost::simd::meta::int16_t_<A0>::type, boost::simd::tag::sse_> gen_type;
@@ -81,7 +77,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return make<A0>(shrai(a0[0], a1), shrai(a0[1], a1));
