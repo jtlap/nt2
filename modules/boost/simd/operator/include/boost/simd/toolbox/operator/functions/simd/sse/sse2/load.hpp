@@ -18,7 +18,7 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 
 //==============================================================================
 // load vector of double

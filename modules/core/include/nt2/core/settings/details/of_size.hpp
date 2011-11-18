@@ -14,7 +14,7 @@
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/details/of_size_meta.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
