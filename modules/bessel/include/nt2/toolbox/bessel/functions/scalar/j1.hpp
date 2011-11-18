@@ -22,7 +22,7 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/splat.hpp>
 
 

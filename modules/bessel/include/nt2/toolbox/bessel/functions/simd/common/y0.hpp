@@ -21,7 +21,7 @@
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
