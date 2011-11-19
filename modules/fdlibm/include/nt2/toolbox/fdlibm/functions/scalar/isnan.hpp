@@ -12,7 +12,6 @@
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
-#include <iostream>
 
 extern "C"{ extern double fd_isnan ( double ); }
 
