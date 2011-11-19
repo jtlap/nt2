@@ -88,7 +88,6 @@ namespace nt2 { namespace container
 } }
 
 #include <nt2/core/container/dsl/details/terminal.hpp>
-#include <nt2/core/container/dsl/details/elementwise.hpp>
 #include <nt2/core/container/dsl/details/nullary_function.hpp>
 
 #endif

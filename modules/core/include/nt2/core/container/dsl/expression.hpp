@@ -94,8 +94,8 @@ namespace nt2 { namespace container
     // Compute storage type for size
     //==========================================================================
     typedef typename boost::
-            result_of< size_transform<domain>(expression)>::type    extent_type;
-
+            result_of< size_transform<domain>(expression)>::type  extent_type;
+    
     //==========================================================================
     // Expression initialization called from generator
     //==========================================================================

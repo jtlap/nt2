@@ -64,5 +64,7 @@ namespace nt2 { namespace container
     {};
 } }
 
+#include <nt2/core/container/dsl/details/elementwise.hpp>
+
 #endif
 
