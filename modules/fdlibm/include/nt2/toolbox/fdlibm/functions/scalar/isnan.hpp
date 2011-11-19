@@ -10,6 +10,9 @@
 #define NT2_TOOLBOX_FDLIBM_FUNCTIONS_SCALAR_ISNAN_HPP_INCLUDED
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <iostream>
 
 extern "C"{ extern double fd_isnan ( double ); }
 
@@ -23,9 +26,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef result_type base;
-      typedef typename meta::upgrade<base>::type  type;
-      return result_type(nt2::fdlibm::is_nan(type(a0)));
+      return False<A0>(); 
     }
   };
 
@@ -35,7 +36,9 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1) { return result_type(::fd_isnan(a0)); }
+    NT2_FUNCTOR_CALL(1) {
+      return result_type(a0 != a0); //::fd_isnan((double)a0) ? True<A0>(): False<A0>();
+    }
   };
 } }
 
