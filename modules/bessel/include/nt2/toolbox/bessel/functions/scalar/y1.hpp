@@ -8,24 +8,31 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_Y1_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_Y1_HPP_INCLUDED
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/toolbox/bessel/functions/y1.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/plevl.hpp>
+#include <nt2/include/functions/polevl.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/cos.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/plevl.hpp>
-#include <nt2/include/functions/polevl.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/infinites.hpp>
+#include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <boost/array.hpp>
-
 #include <nt2/toolbox/bessel/details/math.hpp>
+#include <boost/array.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
