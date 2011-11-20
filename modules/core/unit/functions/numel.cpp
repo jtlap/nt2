@@ -8,8 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::numel function"
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/core/container/colon/colon.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/of_size.hpp>
 
@@ -39,7 +38,7 @@ NT2_TEST_CASE( table_numel )
 {
   using nt2::numel;
   using nt2::of_size;
-  using nt2::container::table;
+  using nt2::table;
   
   table<float> t0;
   table<float> t1( of_size(2) );

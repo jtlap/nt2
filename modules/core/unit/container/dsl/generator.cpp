@@ -8,11 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2 container generator"
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/of_size.hpp>
-#include <nt2/include/functions/plus.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/function.hpp>
+#include <nt2/include/functions/of_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -21,7 +19,7 @@
 
 NT2_TEST_CASE( semantic_of )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::container::table_container;
   using boost::dispatch::meta::semantic_of;
   using boost::mpl::_;
@@ -75,7 +73,7 @@ struct extent_type
 
 NT2_TEST_CASE( extent_type )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::container::table_container;
   using boost::mpl::_;
   using nt2::of_size_;
