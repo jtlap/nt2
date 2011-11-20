@@ -179,7 +179,7 @@ namespace nt2
     static const std::size_t  static_numel  = 0;
 
     static std::size_t size() { return 0; }
-    const_reference    operator[](std::size_t i) const { return 1; }
+    const_reference    operator[](std::size_t ) const { return 1; }
 
     iterator        begin()       { return iterator(0);       }
     const_iterator  begin() const { return const_iterator(0); }

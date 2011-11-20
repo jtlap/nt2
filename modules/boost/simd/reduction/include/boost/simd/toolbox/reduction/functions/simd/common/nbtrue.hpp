@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type z = a0[0] != 0;
-      for(int i = 1; i< boost::simd::meta::cardinal_of<A0>::value; ++i)
+      for(unsigned int i = 1; i< boost::simd::meta::cardinal_of<A0>::value; ++i)
       {
           z += a0[i] != 0;
       }

@@ -63,8 +63,8 @@ namespace nt2 { namespace memory
     }
 
     template<typename Sizes, typename Bases, typename Padding> inline void
-    initialize( Sizes const& s, Bases const& b
-              , Padding const& p, boost::mpl::int_<0> const &
+    initialize( Sizes const& /*s*/, Bases const& /*b*/
+              , Padding const& /*p*/, boost::mpl::int_<0> const &
               )
     {}
 

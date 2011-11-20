@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<A0>::type             sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      if  (_mm_movemask_epi8(a00) != 0xFFFF) return False<A0>();
+      if  (_mm_movemask_epi8(a00) != 0xFFFF) return False<sA0>();
       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
       return result_type(_mm_movemask_epi8(a01) == 0xFFFF);
     }
