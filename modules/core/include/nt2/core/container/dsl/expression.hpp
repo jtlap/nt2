@@ -89,12 +89,12 @@ namespace nt2 { namespace container
 
     typedef typename meta::settings_of<ResultType>::type            settings_type;
     typedef typename meta::option<settings_type, tag::index_>::type index_type;
-
+    
     //==========================================================================
     // Compute storage type for size
     //==========================================================================
-    typedef typename boost::
-            result_of< size_transform<domain>(expression)>::type  extent_type;
+    typedef typename size_transform<domain>::
+            template result<size_transform<domain>(Expr)>::type  extent_type;
     
     //==========================================================================
     // Expression initialization called from generator
