@@ -22,13 +22,11 @@
 NT2_TEST_CASE( fundamental_length )
 {
   using nt2::length;
-  using nt2::_;
   
   NT2_TEST_EQUAL( length('4'), 1U  );
   NT2_TEST_EQUAL( length(4)  , 1U  );
   NT2_TEST_EQUAL( length(4.) , 1U  );
   NT2_TEST_EQUAL( length(4.f), 1U  );
-  NT2_TEST_EQUAL( length(_)  , 1U  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
