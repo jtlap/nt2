@@ -7,13 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-IF(NT2_MATLAB_ROOT AND CMAKE_VERSION VERSION_LESS 2.8.4)
-  # bugs with library dependencies prevent source from being
-  # compiled with CMake versions prior to 2.8.4
-  SET(NT2_MATLAB_DEPENDENCIES_FOUND 0)
-  RETURN()
-ENDIF()
-
 FIND_PACKAGE(Matlab)
 
 SET(NT2_MATLAB_DEPENDENCIES_FOUND ${MATLAB_FOUND})
