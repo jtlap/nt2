@@ -9,4 +9,4 @@
 
 nt2_module_use_modules(unit sdk)
 ADD_SUBDIRECTORY(container)
-ADD_SUBDIRECTORY(functions)
+#ADD_SUBDIRECTORY(functions)

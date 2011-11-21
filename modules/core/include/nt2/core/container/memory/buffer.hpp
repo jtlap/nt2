@@ -17,6 +17,7 @@
 #include <boost/assert.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
+#include <nt2/core/container/memory/adapted/buffer.hpp>
 
 #ifdef BOOST_MSVC
 #pragma warning(push)
