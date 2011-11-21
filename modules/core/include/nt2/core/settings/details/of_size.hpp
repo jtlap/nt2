@@ -10,6 +10,7 @@
 #define NT2_CORE_SETTINGS_DETAILS_OF_SIZE_HPP_INCLUDED
 
 #include <cstddef>
+#include <iterator>
 #include <boost/array.hpp>
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
@@ -45,6 +46,8 @@ namespace nt2
     typedef std::size_t const&  const_reference;
     typedef std::size_t*        iterator;
     typedef std::size_t const*  const_iterator;
+    typedef std::reverse_iterator<iterator>       reverse_iterator;      
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
     //==========================================================================
     // Count non-trivial size values
@@ -174,6 +177,11 @@ namespace nt2
     iterator        end()         { return &data_[0] + static_size; }
     const_iterator  end()   const { return &data_[0] + static_size; }
 
+    reverse_iterator        rbegin()       { return reverse_iterator(end());          }
+    const_reverse_iterator  rbegin() const { return const_reverse_iterator(end());    }
+    reverse_iterator        rend()         { return reverse_iterator(begin());        }
+    const_reverse_iterator  rend()   const { return const_reverse_iterator(begin());  }
+
     static std::size_t size() { return static_size; }
 
     boost::array<std::size_t,static_size> const& data() const { return data_; }
@@ -203,6 +211,8 @@ namespace nt2
     typedef std::size_t        const_reference;
     typedef std::size_t*       iterator;
     typedef std::size_t const* const_iterator;
+    typedef std::reverse_iterator<iterator>       reverse_iterator;      
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
     static const std::size_t  static_size   = 0;
     static const bool         static_status = true;
@@ -215,6 +225,11 @@ namespace nt2
     const_iterator  begin() const { return const_iterator(0); }
     iterator        end()         { return iterator(0);       }
     const_iterator  end()   const { return const_iterator(0); }
+
+    reverse_iterator        rbegin()       { return reverse_iterator(0);        }
+    const_reverse_iterator  rbegin() const { return const_reverse_iterator(0);  }
+    reverse_iterator        rend()         { return reverse_iterator(0);        }
+    const_reverse_iterator  rend()   const { return const_reverse_iterator(0);  }
 
     of_size_() {}
 
