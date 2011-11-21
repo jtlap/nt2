@@ -12,6 +12,7 @@
 #include <nt2/core/container/memory/adapted/array.hpp>
 #include <nt2/core/container/memory/adapted/vector.hpp>
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
+#include <nt2/core/container/memory/buffer.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -64,8 +65,10 @@ NT2_TEST_CASE( iliffe_buffer )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::no_padding;
   using nt2::memory::allocator;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,no_padding,allocator<int> > >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,no_padding,allocator<int> > >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,no_padding,allocator<int> > >::value), 3UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,no_padding,allocator<int> > >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,no_padding,allocator<int> > >::value), 2UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,no_padding,allocator<int> > >::value), 3UL );
 }

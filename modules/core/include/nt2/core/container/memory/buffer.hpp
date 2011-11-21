@@ -35,6 +35,7 @@ namespace nt2 { namespace memory
     typedef typename Allocator::template rebind<Type>::other  parent_allocator;
     typedef details::buffer_data<parent_allocator>            parent_data;
 
+
     ////////////////////////////////////////////////////////////////////////////
     // Forwarded types
     ////////////////////////////////////////////////////////////////////////////

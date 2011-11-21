@@ -22,7 +22,7 @@
 //==============================================================================
 namespace nt2 { namespace memory
 {
-  template<std::size_t D, typename T, typename P, typename A>
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A>
   struct iliffe_buffer;
 } }
 
@@ -31,47 +31,51 @@ namespace nt2 { namespace memory
 //==============================================================================
 namespace nt2 { namespace meta
 {
-  template<std::size_t D, typename T, typename P, typename A>
-  struct dimensions_of< memory::iliffe_buffer<D,T,P,A> > : boost::mpl::size_t<D>
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A>
+  struct dimensions_of< memory::iliffe_buffer<D,T,DB,IB,P,A> > : boost::mpl::size_t<D>
   {};
 
   //============================================================================
   // dereference_ specialization
   //============================================================================
-  template<std::size_t D, typename T, typename P, typename A, std::size_t Level>
-  struct dereference_<memory::iliffe_buffer<D,T,P,A>&,Level>
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A, std::size_t Level>
+  struct dereference_<memory::iliffe_buffer<D,T,DB,IB,P,A>&,Level>
   {
     typedef typename add_pointers<T,D-Level>::type&  type;
   };
 
-  template<std::size_t D, typename T, typename P, typename A, std::size_t Level>
-  struct dereference_<memory::iliffe_buffer<D,T,P,A>,Level>
+
+  //============================================================================
+  // dereference_ specialization
+  //============================================================================
+  template<std::size_t D, typename T, typename DB, typename IB,typename P, typename A, std::size_t Level>
+           struct dereference_<memory::iliffe_buffer<D,T,DB,IB,P,A>,Level>
   {
     typedef typename add_pointers<T,D-Level>::type  type;
   };
 
-  template<std::size_t D, typename T, typename P, typename A, std::size_t Level>
-  struct dereference_<memory::iliffe_buffer<D,T,P,A> const&,Level>
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A, std::size_t Level>
+  struct dereference_<memory::iliffe_buffer<D,T,DB,IB,P,A> const&,Level>
   {
     typedef typename add_pointers<T,D-Level>::type const&  type;
   };
 
-  template<std::size_t D, typename T, typename P, typename A>
-  struct dereference_<memory::iliffe_buffer<D,T,P,A>&,D>
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A>
+  struct dereference_<memory::iliffe_buffer<D,T,DB,IB,P,A>&,D>
   {
-    typedef typename memory::iliffe_buffer<D,T,P,A>::reference type;
+    typedef typename memory::iliffe_buffer<D,T,DB,IB,P,A>::reference type;
   };
 
-  template<std::size_t D, typename T, typename P, typename A>
-  struct dereference_<memory::iliffe_buffer<D,T,P,A> const&,D>
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A>
+  struct dereference_<memory::iliffe_buffer<D,T,DB,IB,P,A> const&,D>
   {
-    typedef typename memory::iliffe_buffer<D,T,P,A>::const_reference type;
+    typedef typename memory::iliffe_buffer<D,T,DB,IB,P,A>::const_reference type;
   };
 
-  template<std::size_t D, typename T, typename P, typename A>
-  struct dereference_<memory::iliffe_buffer<D,T,P,A>,D>
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A>
+  struct dereference_<memory::iliffe_buffer<D,T,DB,IB,P,A>,D>
   {
-    typedef typename memory::iliffe_buffer<D,T,P,A>::value_type type;
+    typedef typename memory::iliffe_buffer<D,T,DB,IB,P,A>::value_type type;
   };
 } }
 
@@ -80,8 +84,8 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template<std::size_t D, typename T, typename P, typename A>
-  struct value_of< nt2::memory::iliffe_buffer<D,T,P,A> >
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A>
+  struct value_of< nt2::memory::iliffe_buffer<D,T,DB,IB,P,A> >
   {
     typedef T type;
   };
@@ -89,15 +93,15 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<std::size_t D, typename T, typename P, typename A>
-  struct model_of< nt2::memory::iliffe_buffer<D,T,P,A> >
+  template<std::size_t D, typename T, typename DB, typename IB, typename P, typename A>
+  struct model_of< nt2::memory::iliffe_buffer<D,T,DB,IB,P,A> >
   {
     struct type
     {
       template<class X> struct apply
       {
         typedef typename A::template rebind<X>::other alloc;
-        typedef nt2::memory::iliffe_buffer<D,X,P,alloc>    type;
+        typedef nt2::memory::iliffe_buffer<D,X,DB,IB,P,alloc>    type;
       };
     };
   };
@@ -108,10 +112,10 @@ namespace nt2 { namespace memory
   //============================================================================
   // iliffe_buffer initialize - Part of Buffer Concept
   //============================================================================
-  template< std::size_t D, typename T, typename P, typename A
+  template< std::size_t D, typename T, typename DB, typename IB, typename P, typename A
           , typename Sizes, typename Bases
           >
-  inline void initialize( iliffe_buffer<D,T,P,A>& v
+  inline void initialize( iliffe_buffer<D,T,DB,IB,P,A>& v
                         , Sizes const& s, Bases const& b, P const& p
                         )
   {
@@ -121,10 +125,10 @@ namespace nt2 { namespace memory
   //============================================================================
   // iliffe_buffer resize - Part of Buffer Concept
   //============================================================================
-  template< std::size_t D, typename T, typename P, typename A
+  template< std::size_t D, typename T, typename DB, typename IB, typename P, typename A
           , typename Sizes, typename Bases
           >
-  inline void resize( iliffe_buffer<D,T,P,A>& v
+  inline void resize( iliffe_buffer<D,T,DB,IB,P,A>& v
                     , Sizes const& s, Bases const& b, P const& p
                     )
   {
@@ -134,10 +138,10 @@ namespace nt2 { namespace memory
   //============================================================================
   // iliffe_buffer share - Part of SharingBuffer Concept
   //============================================================================
-  template< std::size_t D, typename T, typename P, typename A
+  template< std::size_t D, typename T, typename DB, typename IB, typename P, typename A
           , typename Sizes, typename Bases, typename Target
           >
-  inline void share( iliffe_buffer<D,T,P,A>& v
+  inline void share( iliffe_buffer<D,T,DB,IB,P,A>& v
                    , Sizes const& s, Bases const& b, P const& p
                    , Target const& t
                    )

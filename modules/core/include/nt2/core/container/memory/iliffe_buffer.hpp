@@ -49,12 +49,14 @@ namespace nt2 { namespace memory
   //============================================================================
   template< std::size_t Dimensions
           , typename Type
+          , typename Data_buffer
+          , typename Index_buffer
           , typename Padding
           , typename Allocator
           >
   struct iliffe_buffer
   {
-    typedef typename Allocator::template rebind<memory::byte>::other  allocator;
+    typedef typename Allocator::template rebind<memory::byte>::other     allocator;
 
     //==========================================================================
     /** Type of the value stored in current buffer                            */
@@ -121,8 +123,10 @@ namespace nt2 { namespace memory
       * Default constructor yields an empty iliffe buffer
      **/
     //==========================================================================
-    iliffe_buffer(Allocator const&  a = Allocator())
-      : data_(0), begin_(0), end_(0), numel_(0), alloc_(a) {}
+    iliffe_buffer(Allocator const&  a = Allocator(), 
+          Data_buffer const& db = Data_buffer(), 
+          Index_buffer const& ib = Index_buffer() )
+      : data_(0), begin_(0), end_(0), numel_(0), alloc_(a), data_buffer_(db), index_buffer_(ib) {}
 
     //==========================================================================
     /**
@@ -159,17 +163,20 @@ namespace nt2 { namespace memory
         size_type idx_size  = index_size(szs,p);
 
         // Fix numel_ to store the proper number of aligned data
-        numel_ = idx_size+data_size;
+    //        numel_ = idx_size+data_size;
 
         // Allocate that much bytes
-        memory::byte* ptr = alloc_.allocate(numel_);
+        index_buffer_.resize(idx_size);
+        data_buffer_.resize(data_size);
+
+        memory::byte* idx_ptr =  reinterpret_cast<memory::byte*>(index_buffer_.begin());
 
         // Points to the begining of the data block
-        begin_ = reinterpret_cast<value_type*>(ptr+idx_size);
+        begin_ = reinterpret_cast<value_type*>(data_buffer_.begin());
         end_   = begin_ + numel;
 
         // Recursively fills out the index
-        data_ = link( ptr, begin_ - boost::fusion::at_c<0>(bss)
+        data_ = link( idx_ptr, begin_ - boost::fusion::at_c<0>(bss)
                     , szs , bss, p
                     , boost::mpl::int_<Dimensions>()
                     );
@@ -214,8 +221,11 @@ namespace nt2 { namespace memory
         begin_ = data;
         end_   = begin_ + numel;
 
+        index_buffer_.resize(numel_);
+        memory::byte* idx_ptr =  reinterpret_cast<memory::byte*>(index_buffer_.begin());
+
         // Recursively fills out the index
-        data_ = link( alloc_.allocate(numel_)
+        data_ = link( idx_ptr//alloc_.allocate(numel_)
                     , begin_ - boost::fusion::at_c<0>(bss)
                     , szs, bss, p
                     , boost::mpl::int_<Dimensions>()
@@ -234,8 +244,9 @@ namespace nt2 { namespace memory
           , Padding const&    p
           )
     {
-      if(data_)
-        alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
+    //  if(data_){
+    //        alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
+    // }
 
       initialize(szs,bss,p);
     }
@@ -248,8 +259,9 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~iliffe_buffer()
     {
-      if(data_)
-        alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
+            //      if(data_){
+                    // alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
+            //}
     }
 
     //==========================================================================
@@ -380,6 +392,8 @@ namespace nt2 { namespace memory
     std::ptrdiff_t  idx_;
     std::size_t     numel_;
     allocator       alloc_;
+    Data_buffer     data_buffer_;
+    Index_buffer    index_buffer_;
   };
 
   //============================================================================
@@ -387,13 +401,20 @@ namespace nt2 { namespace memory
    * iliffe_buffer is specialized for 1D case to not allocate any indexing table
    **/
   //============================================================================
+  // template< typename Type
+  //         , typename Padding
+  //         , typename Allocator
+  //         >
   template< typename Type
+          , typename Data_buffer
+          , typename Index_buffer
           , typename Padding
           , typename Allocator
           >
-  struct iliffe_buffer<1,Type,Padding,Allocator>
+  struct iliffe_buffer<1,Type,Data_buffer,Index_buffer,Padding,Allocator>
   {
-    typedef typename Allocator::template rebind<memory::byte>::other  allocator;
+    typedef typename Allocator::template rebind<memory::byte>::other     allocator;
+
     typedef typename Allocator::value_type      value_type;
     typedef typename Allocator::pointer         iterator;
     typedef typename Allocator::const_pointer   const_iterator;
@@ -403,8 +424,11 @@ namespace nt2 { namespace memory
     typedef typename Allocator::difference_type difference_type;
     typedef value_type*                         data_type;
 
-    iliffe_buffer(Allocator const&  a = Allocator())
-    : data_(0), begin_(0), end_(0), sharing_(false),  alloc_(a) {}
+
+    iliffe_buffer(Allocator const&  a = Allocator(), 
+          Data_buffer const& db = Data_buffer(), 
+          Index_buffer const& ib = Index_buffer() )
+      : data_(0), begin_(0), end_(0), sharing_(false), alloc_(a), data_buffer_(db), index_buffer_(ib) {}
 
     template<typename Sizes, typename Bases>
     void initialize ( Sizes const&      szs
@@ -415,7 +439,8 @@ namespace nt2 { namespace memory
       size_type numel = slice<1>(szs,p);
       if(numel != 0)
       {
-        begin_  = alloc_.allocate( numel );
+        data_buffer_.resize( numel );
+        begin_  = reinterpret_cast<value_type*>(data_buffer_.begin());
         end_    = begin_ + numel;
         data_   = begin_ - boost::fusion::at_c<0>(bss);
       }
@@ -455,7 +480,7 @@ namespace nt2 { namespace memory
 
     ~iliffe_buffer()
     {
-      if(!sharing_) alloc_.deallocate( begin(), end() - begin() );
+            //if(!sharing_) alloc_.deallocate( begin(), end() - begin() );
     }
 
     reference       operator[](std::ptrdiff_t i)       { return data_[i]; }
@@ -468,9 +493,11 @@ namespace nt2 { namespace memory
     const_iterator  end()   const { return end_;    }
 
     private:
-    data_type data_,begin_,end_;
-    bool      sharing_;
-    Allocator alloc_;
+    data_type       data_,begin_,end_;
+    bool            sharing_;
+    Allocator       alloc_;
+    Data_buffer     data_buffer_;
+    Index_buffer    index_buffer_;
   };
 } }
 

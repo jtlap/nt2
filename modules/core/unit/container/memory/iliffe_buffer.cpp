@@ -10,6 +10,7 @@
 
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
+#include <nt2/core/container/memory/buffer.hpp>
 
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
@@ -36,11 +37,13 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dimensions, PADDING )
   using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
   using nt2::meta::dimensions_of;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,T,allocator<int> > >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,T,allocator<int> > >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,T,allocator<int> > >::value), 3UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<4,int,T,allocator<int> > >::value), 4UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,T,allocator<int> > >::value), 2UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > >::value), 3UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<4,int,buffer<int>,buffer<byte>,T,allocator<int> > >::value), 4UL );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,12 +55,15 @@ NT2_TEST_CASE_TPL( iliffe_buffer_values, PADDING )
   using boost::dispatch::meta::value_of;
   using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<1,int,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<2,int,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<3,int,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<4,int,T,allocator<int> > >::type, int>::value ));
+  NT2_TEST((is_same< typename value_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type, int>::value ));
+  NT2_TEST((is_same< typename value_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type, int>::value ));
+  NT2_TEST((is_same< typename value_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type, int>::value ));
+  NT2_TEST((is_same< typename value_of< iliffe_buffer<4,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type, int>::value ));
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // array type has a model
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,14 +74,16 @@ NT2_TEST_CASE_TPL( iliffe_buffer_models, PADDING )
   using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
   using boost::mpl::apply;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  typedef typename model_of< iliffe_buffer<1,int,T,allocator<int> > >::type model1d;
-  typedef typename model_of< iliffe_buffer<2,int,T,allocator<int> > >::type model2d;
-  typedef typename model_of< iliffe_buffer<3,int,T,allocator<int> > >::type model3d;
+  typedef typename model_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type model1d;
+  typedef typename model_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type model2d;
+  typedef typename model_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type model3d;
 
-  NT2_TEST((is_same<typename apply<model1d,float>::type, iliffe_buffer<1,float,T,allocator<float> > >::value ));
-  NT2_TEST((is_same<typename apply<model2d,float>::type, iliffe_buffer<2,float,T,allocator<float> > >::value ));
-  NT2_TEST((is_same<typename apply<model3d,float>::type, iliffe_buffer<3,float,T,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model1d,float>::type, iliffe_buffer<1,float,buffer<int>,buffer<byte>,T,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model2d,float>::type, iliffe_buffer<2,float,buffer<int>,buffer<byte>,T,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model3d,float>::type, iliffe_buffer<3,float,buffer<int>,buffer<byte>,T,allocator<float> > >::value ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -87,8 +95,10 @@ NT2_TEST_CASE_TPL( iliffe_buffer_reference, PADDING )
   using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
   using nt2::meta::dereference_;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  typedef iliffe_buffer<3,int,T,allocator<int> > base;
+  typedef iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > base;
 
   NT2_TEST((is_same< typename dereference_<base&,1>::type, int**&>::value) );
   NT2_TEST((is_same< typename dereference_<base&,2>::type, int*& >::value) );
@@ -108,8 +118,10 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, PADDING )
   using nt2::memory::initialize;
   using nt2::memory::dereference;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  iliffe_buffer<1,int,T,allocator<int> > tab;
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > tab;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{-2}};
@@ -139,16 +151,18 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   using nt2::memory::initialize;
   using nt2::memory::dereference;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  iliffe_buffer<2,int,T,allocator<int> > tab;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,T,allocator<int> > tab;
 
   boost::array<std::size_t,2> sizes = {{5,2}};
   boost::array<std::size_t,2> bases = {{-2,0}};
   boost::array<std::ptrdiff_t,2> pos;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer supports being initialized externally
-  //////////////////////////////////////////////////////////////////////////////
+  
+  //  iliffe_buffer supports being initialized externally
+  
   initialize(tab, sizes, bases, T() );
 
   //////////////////////////////////////////////////////////////////////////////
@@ -173,8 +187,10 @@ NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
   using nt2::memory::initialize;
   using nt2::memory::dereference;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  iliffe_buffer<3,int,T,allocator<int> > tab;
+  iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > tab;
 
   boost::array<std::size_t,3> sizes = {{2,2,2}};
   boost::array<std::size_t,3> bases = {{0,0,0}};

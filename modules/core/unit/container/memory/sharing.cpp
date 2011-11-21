@@ -10,6 +10,7 @@
 
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
+#include <nt2/core/container/memory/buffer.hpp>
 
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
@@ -37,8 +38,10 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_shared_buffer, PADDING )
   using nt2::memory::initialize;
   using nt2::memory::dereference;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  iliffe_buffer<1,int,T,allocator<int> > tab;
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > tab;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{-2}};
@@ -67,8 +70,10 @@ NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_no_padding )
   using nt2::memory::initialize;
   using nt2::memory::dereference;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  iliffe_buffer<2,int,nt2::memory::no_padding,allocator<int> > tab;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,nt2::memory::no_padding,allocator<int> > tab;
 
   int data[10] = {1,2,3,4,5,6,7,8,9,10};
 
@@ -100,8 +105,10 @@ NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_global_padding )
   using nt2::memory::initialize;
   using nt2::memory::dereference;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  iliffe_buffer<2,int,nt2::memory::global_padding,allocator<int> > tab;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,nt2::memory::global_padding,allocator<int> > tab;
 
   int data[10] = {1,2,3,4,5,6,7,8,9,10};
 
@@ -133,8 +140,10 @@ NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_lead_padding )
   using nt2::memory::initialize;
   using nt2::memory::dereference;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
 
-  iliffe_buffer<2,int,nt2::memory::lead_padding,allocator<int> > tab;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,nt2::memory::lead_padding,allocator<int> > tab;
 
   int data[2*BOOST_SIMD_CONFIG_ALIGNMENT];
 
