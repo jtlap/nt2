@@ -17,6 +17,7 @@
 #include <boost/assert.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
+#include <nt2/sdk/meta/add_pointers.hpp>
 #include <nt2/core/container/memory/adapted/buffer.hpp>
 
 #ifdef BOOST_MSVC
@@ -24,12 +25,12 @@
 #pragma warning(disable: 4996) // std::copy may be unsafe
 #endif
 
-namespace nt2 { namespace memory
+namespace nt2 {  namespace memory
 {
   template<class Type,class Allocator = memory::allocator<Type> >
   class buffer
       : private
-        details::buffer_data< typename Allocator::template rebind<Type>::other >
+       details::buffer_data< typename Allocator::template rebind<Type>::other >
   {
     public:
 

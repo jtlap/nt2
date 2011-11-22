@@ -6,10 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED__BUFFER_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_ADAPTED__BUFFER_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_BUFFER_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_BUFFER_HPP_INCLUDED
 
 #include <boost/mpl/size_t.hpp>
+#include <nt2/sdk/memory/slice.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
@@ -32,7 +34,7 @@ namespace nt2 { namespace memory
 namespace nt2 { namespace meta
 {
   template<typename T, typename A>
-  struct dimensions_of< memory::buffer<T,A> > : dimensions_of<T>
+  struct dimensions_of< memory::buffer<T,A> > : boost::mpl::size_t<1> //dimensions_of<T>
   {};
 
   //============================================================================
@@ -117,9 +119,9 @@ namespace nt2 { namespace memory
           >
   inline void initialize( buffer<T,A>& v
                         , Sizes const& s, Bases const& b
-                        )
+                          )
   {
-    v.buffer(b,s);
+    v.restructure(b,s);
   }
 
   //============================================================================
@@ -132,23 +134,21 @@ namespace nt2 { namespace memory
                     , Sizes const& s, Bases const& b
                     )
   {
-    v.resize(s,b);
+    v.resize(s);
   }
 
 
   //============================================================================
-  // composite_buffer share - Part of SharingBuffer Concept
+  // buffer share - Part of SharingBuffer Concept
   //============================================================================
-  template< typename B
-          , typename Sizes, typename Bases
-          , typename Padding, typename Target
+  template<   typename T, typename A
+              , typename Sizes, typename Bases
           >
-  inline void share( composite_buffer<B>& v
-                   , Sizes const& s, Bases const& b, Padding const& p
-                   , Target const& t
+  inline void share( buffer<T,A>& v
+                   , Sizes const& s, Bases const& b
                    )
   {
-    v.initialize(s,b,p,t);
+    v.initialize(s,b);
   }
 
 

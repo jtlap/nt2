@@ -83,8 +83,8 @@ namespace nt2 { namespace memory
   typename meta::dereference_<Buffer&,Level>::type
   dereference( Buffer& b, Position const& p )
   {
-    details::check_all_equal(details::pop_front_c<Level>(p), 1);
-    return details::dereference<Buffer,Level,Level>::apply(b,p);
+    nt2::details::check_all_equal(nt2::details::pop_front_c<Level>(p), 1);
+    return nt2::details::dereference<Buffer,Level,Level>::apply(b,p);
   }
 
   template<std::size_t Level, typename Buffer, typename Position>
@@ -92,8 +92,8 @@ namespace nt2 { namespace memory
   typename meta::dereference_<Buffer const&,Level>::type
   dereference( Buffer const& b, Position const& p )
   {
-    details::check_all_equal(details::pop_front_c<Level>(p), 1);
-    return details::dereference<Buffer,Level,Level>::apply(b,p);
+    nt2::details::check_all_equal(nt2::details::pop_front_c<Level>(p), 1);
+    return nt2::details::dereference<Buffer,Level,Level>::apply(b,p);
   }
 } }
 

@@ -135,97 +135,96 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer type has some dimensions
+// buffer type has some dimensions
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( buffer_dimensions, NT2_TYPES)
 {
   using nt2::memory::allocator;
   using nt2::meta::dimensions_of;
   using nt2::memory::buffer;
-  //  using nt2::memory::byte;
 
-  NT2_TEST_EQUAL((dimensions_of< buffer<T,allocator<T> > >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of< buffer<int,allocator<int> > >::value), 1UL );
 
 }
 
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // array type has some value
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL( buffer_values, NT2_TYPES)
-// {
-//   using boost::is_same;
-//   using boost::dispatch::meta::value_of;
-//   using nt2::memory::allocator;
-//   using nt2::memory::buffer;
+////////////////////////////////////////////////////////////////////////////////
+// array type has some value
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( buffer_values, NT2_TYPES)
+{
+  using boost::is_same;
+  using boost::dispatch::meta::value_of;
+  using nt2::memory::allocator;
+  using nt2::memory::buffer;
 
-//   NT2_TEST((is_same< typename value_of< buffer<T,allocator<T> > >::type, T>::value ));
+  NT2_TEST((is_same< typename value_of< buffer<T,allocator<T> > >::type, T>::value ));
 
-// }
+}
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // array type has a model
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL( buffer_models, NT2_TYPES )
-// {
-//   using boost::is_same;
-//   using boost::dispatch::meta::model_of;
-//   using nt2::memory::allocator;
-//   using boost::mpl::apply;
-//   using nt2::memory::buffer;
+////////////////////////////////////////////////////////////////////////////////
+// array type has a model
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( buffer_models, NT2_TYPES )
+{
+  using boost::is_same;
+  using boost::dispatch::meta::model_of;
+  using nt2::memory::allocator;
+  using boost::mpl::apply;
+  using nt2::memory::buffer;
 
-//   typedef typename model_of< buffer<T,allocator<T> > >::type model1d;
+  typedef typename model_of< buffer<T,allocator<T> > >::type model1d;
 
-//   NT2_TEST((is_same<typename apply<model1d,float>::type, buffer<float,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model1d,float>::type, buffer<float,allocator<float> > >::value ));
 
-// }
-
-
-// ////////////////////////////////////////////////////////////////////////////////
-// // buffer has some reference
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL( buffer_reference, NT2_TYPES )
-// {
-//   using boost::is_same;
-//   using nt2::memory::allocator;
-//   using nt2::meta::dereference_;
-//   using nt2::memory::buffer;
-
-//   typedef buffer<T,allocator<T> > base;
-
-//   NT2_TEST((is_same< typename dereference_<base&,1>::type, T& >::value) );
-
-//   NT2_TEST((is_same< typename dereference_<base const&,1>::type, T const&  >::value) );
-// }
+}
 
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // buffer models Buffer Concept
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL( buffer_1D_as_buffer, NT2_TYPES )
-// {
-//   using nt2::memory::allocator;
-//   using nt2::memory::initialize;
-//   using nt2::memory::dereference;
-//   using nt2::memory::buffer;
+////////////////////////////////////////////////////////////////////////////////
+// buffer has some reference
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( buffer_reference, NT2_TYPES )
+{
+  using boost::is_same;
+  using nt2::memory::allocator;
+  using nt2::meta::dereference_;
+  using nt2::memory::buffer;
 
-//   buffer<T,allocator<T> > tab;
+  typedef buffer<T,allocator<T> > base;
 
-//   boost::array<std::size_t,1> sizes = {{5}};
-//   boost::array<std::size_t,1> bases = {{-2}};
-//   boost::array<std::ptrdiff_t,1> pos;
+  NT2_TEST((is_same< typename dereference_<base&,1>::type, T& >::value) );
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports being initialized externally
-//   //////////////////////////////////////////////////////////////////////////////
-//   initialize(tab, sizes, bases );
+  NT2_TEST((is_same< typename dereference_<base const&,1>::type, T const&  >::value) );
+}
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports R/W access through Position
-//   //////////////////////////////////////////////////////////////////////////////
-//   for(pos[0]=-2;pos[0]<=2;++pos[0])
-//     dereference<1UL>(tab,pos) = int(10*(1+pos[0]));
 
-//   for(pos[0]=-2;pos[0]<=2;++pos[0])
-//     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
-// }
+////////////////////////////////////////////////////////////////////////////////
+// buffer models Buffer Concept
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( buffer_1D_as_buffer )
+{
+  using nt2::memory::allocator;
+  using nt2::memory::initialize;
+  using nt2::memory::dereference;
+  using nt2::memory::buffer;
+
+  buffer<int,allocator<int> > tab;
+
+  boost::array<std::size_t,1> sizes = {{5}};
+  boost::array<std::size_t,1> bases = {{-2}};
+  boost::array<std::ptrdiff_t,1> pos;
+
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports being initialized externally
+  //////////////////////////////////////////////////////////////////////////////
+  initialize(tab, sizes, bases );
+
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports R/W access through Position
+  //////////////////////////////////////////////////////////////////////////////
+  for(pos[0]=-2;pos[0]<=2;++pos[0])
+    dereference<1U>(tab,pos) = int(10*(1+pos[0]));
+
+  for(pos[0]=-2;pos[0]<=2;++pos[0])
+    NT2_TEST_EQUAL(dereference<1U>(tab,pos), 10*(1+pos[0]) );
+}
