@@ -18,7 +18,7 @@
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 
 namespace nt2

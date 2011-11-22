@@ -16,7 +16,7 @@
 #include <nt2/include/functions/indeg.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 

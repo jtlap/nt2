@@ -13,7 +13,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 
 

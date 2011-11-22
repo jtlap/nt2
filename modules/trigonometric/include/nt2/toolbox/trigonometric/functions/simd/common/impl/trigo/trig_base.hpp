@@ -18,7 +18,7 @@
 #include <nt2/include/functions/shli.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 
 namespace nt2

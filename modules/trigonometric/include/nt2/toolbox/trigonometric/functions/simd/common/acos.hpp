@@ -16,7 +16,7 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 
