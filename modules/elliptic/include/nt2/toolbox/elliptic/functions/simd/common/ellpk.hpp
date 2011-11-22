@@ -14,7 +14,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////

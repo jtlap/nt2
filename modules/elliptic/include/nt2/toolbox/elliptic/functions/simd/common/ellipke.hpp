@@ -23,7 +23,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 /////////////////////////////////////////////////////////////////////////////

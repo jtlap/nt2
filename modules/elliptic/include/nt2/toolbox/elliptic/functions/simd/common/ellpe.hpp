@@ -15,7 +15,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
