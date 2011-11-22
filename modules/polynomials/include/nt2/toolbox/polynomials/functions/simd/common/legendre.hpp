@@ -12,7 +12,7 @@
 #include <nt2/toolbox/polynomials/functions/legendre.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/is_greater.hpp>

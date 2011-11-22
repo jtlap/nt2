@@ -19,7 +19,7 @@
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
 
 

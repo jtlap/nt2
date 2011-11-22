@@ -31,8 +31,8 @@
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/any.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
-#include <nt2/include/functions/if_else_nan.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/if_else_allbits.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

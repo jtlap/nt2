@@ -18,7 +18,7 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

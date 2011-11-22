@@ -26,7 +26,7 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/maximum.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 

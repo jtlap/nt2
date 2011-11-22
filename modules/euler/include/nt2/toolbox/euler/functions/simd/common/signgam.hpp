@@ -17,7 +17,7 @@
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/floor.hpp>
 #include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
 
 

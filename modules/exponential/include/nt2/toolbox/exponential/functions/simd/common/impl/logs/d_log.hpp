@@ -12,7 +12,7 @@
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 namespace nt2
 {

@@ -17,7 +17,7 @@
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 
