@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_LOGICAL_XOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_LOGICAL_XOR_HPP_INCLUDED
-
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/bitwise_xor.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

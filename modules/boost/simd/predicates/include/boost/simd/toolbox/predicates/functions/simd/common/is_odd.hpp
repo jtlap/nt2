@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return is_nez(a0 & One<A0>());
+      return is_nez(b_and(a0, One<A0>()));
     }
   };
 
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return is_even(a0-One<A0>());
+      return boost::simd::is_even(a0-One<A0>());
     }
   };
 } } }

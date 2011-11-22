@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/divfix.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

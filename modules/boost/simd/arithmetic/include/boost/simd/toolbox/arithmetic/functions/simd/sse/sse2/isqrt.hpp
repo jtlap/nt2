@@ -28,7 +28,7 @@
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/is_greater_equal.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/if_else_nan.hpp>
+#include <boost/simd/include/functions/if_else_allbits.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t

@@ -49,11 +49,11 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), r_t(false));
-  NT2_TEST_EQUAL(compare_less(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::Inf<vT>(), boost::simd::Zero<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::One<vT>(), boost::simd::Minf<vT>()), r_t(false));
   NT2_TEST_EQUAL(compare_less(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), r_t(false));
   NT2_TEST_EQUAL(compare_less(boost::simd::One<vT>(),boost::simd::Zero<vT>()), r_t(false));
-  NT2_TEST_EQUAL(compare_less(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::Zero<vT>(), boost::simd::One<vT>()), r_t(true));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)

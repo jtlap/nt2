@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPLEMENT_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitwise_xor.hpp>
+#include <boost/simd/include/functions/logical_xor.hpp>
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 
@@ -28,8 +29,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) {
-      typedef typename A0::type type; 
-      return native_cast<result_type>(b_xor(boost::simd::True<type>(), native_cast<type>(a0)));
+      return logical_xor(boost::simd::True<A0>(), a0);
     }
   };
 

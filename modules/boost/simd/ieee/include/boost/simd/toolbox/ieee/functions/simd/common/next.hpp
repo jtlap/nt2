@@ -14,9 +14,6 @@
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>

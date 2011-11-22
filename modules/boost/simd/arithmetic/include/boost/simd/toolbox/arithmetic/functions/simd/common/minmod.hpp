@@ -19,7 +19,7 @@
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

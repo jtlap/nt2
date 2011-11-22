@@ -12,7 +12,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

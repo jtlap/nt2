@@ -17,7 +17,7 @@
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

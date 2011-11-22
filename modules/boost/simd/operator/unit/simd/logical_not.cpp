@@ -27,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  (boost::simd::uint64_t))//BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_not;
   using boost::simd::tag::logical_not_;
@@ -48,8 +48,8 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::One<vT>())[0], boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
+   NT2_TEST_EQUAL(logical_not(boost::simd::One<vT>())[0], boost::simd::False<sr_t>());
+   NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)

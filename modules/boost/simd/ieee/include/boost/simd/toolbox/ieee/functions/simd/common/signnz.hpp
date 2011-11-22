@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/genmask.hpp>

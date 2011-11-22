@@ -50,9 +50,9 @@ NT2_TEST_CASE_TPL ( is_equal_integer__2_0,  (boost::simd::int32_t))//BOOST_SIMD_
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_equal(boost::simd::One<vT>(), boost::simd::One<vT>())[0], vsr_t(true));
-  NT2_TEST_EQUAL(is_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], vsr_t(false));
-  NT2_TEST_EQUAL(is_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], vsr_t(true));
+   NT2_TEST_EQUAL(is_equal(boost::simd::One<vT>(), boost::simd::One<vT>())[0], vsr_t(true));
+   NT2_TEST_EQUAL(is_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], vsr_t(false));
+   NT2_TEST_EQUAL(is_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], vsr_t(true));
 } // end of test for integer_
 
 // NT2_TEST_CASE_TPL ( is_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)

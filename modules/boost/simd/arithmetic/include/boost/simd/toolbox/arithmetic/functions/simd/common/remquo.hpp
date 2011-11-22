@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/toint.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/mpl/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

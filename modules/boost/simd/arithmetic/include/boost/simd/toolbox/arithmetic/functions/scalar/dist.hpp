@@ -30,23 +30,23 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is bool_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dist_, tag::cpu_
-                            , (A0)
-                            , (scalar_<bool_<A0> >)(scalar_<bool_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return boost::simd::logical_xor(a0, a1);
-    }
-  };
-} } }
+// /////////////////////////////////////////////////////////////////////////////
+// // Implementation when type A0 is bool_
+// /////////////////////////////////////////////////////////////////////////////
+// namespace boost { namespace simd { namespace ext
+// {
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dist_, tag::cpu_
+//                             , (A0)
+//                             , (scalar_<bool_<A0> >)(scalar_<bool_<A0> >)
+//                             )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       return boost::simd::logical_xor(a0, a1);
+//     }
+//   };
+//} } }
 
 
 /////////////////////////////////////////////////////////////////////////////

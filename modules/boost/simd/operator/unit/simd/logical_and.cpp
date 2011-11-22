@@ -26,9 +26,17 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+void pb(unsigned short a,  int n = 16)
+{
+  unsigned short j = 1; 
+  for(int i =  0;  i < n;  i++){
+    std::cout << ((a&j)!= 0);
+    j <<= 1;
+  }
+  std::cout << std::endl;
+}
 
-
-NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  (boost::simd::uint64_t))//BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
@@ -49,9 +57,11 @@ NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_and(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(logical_and(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(logical_and(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
+//   std::cout << logical_and(boost::simd::One<vT>(), boost::simd::One<vT>()) << std::endl;
+//   pb( logical_and(boost::simd::One<vT>(), boost::simd::One<vT>())); 
+  NT2_TEST_EQUAL(logical_and(boost::simd::True<vT>(), boost::simd::True<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_and(boost::simd::True<vT>(),boost::simd::False<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_and(boost::simd::False<vT>(), boost::simd::False<vT>())[0], boost::simd::False<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)

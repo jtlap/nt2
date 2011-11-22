@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/logical_and.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

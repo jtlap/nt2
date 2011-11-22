@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_PREV_HPP_INCLUDED
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/subs.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/simd/include/functions/next.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 /////////////////////////////////////////////////////////////////////////////

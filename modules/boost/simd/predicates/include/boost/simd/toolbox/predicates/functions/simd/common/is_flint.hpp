@@ -11,8 +11,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_flint.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/trunc.hpp>
-#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/frac.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -24,12 +23,10 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_logical<A0>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return is_eqz(a0-trunc(a0));
+      return is_eqz(frac(a0));
     }
   };
 } } }

@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
-#include <boost/simd/include/functions/if_nan_else.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 // No implementation for signed integer types
 
 /////////////////////////////////////////////////////////////////////////////
