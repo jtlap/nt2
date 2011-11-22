@@ -6,9 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_AS_LOGICAL_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BOOLEAN_AS_LOGICAL_HPP_INCLUDED
-
+#ifndef BOOST_SIMD_SDK_META_AS_LOGICAL_HPP_INCLUDED
+#define BOOST_SIMD_SDK_META_AS_LOGICAL_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>

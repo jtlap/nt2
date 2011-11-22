@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
-//ok
+
 #include <climits>
 #include <boost/assert.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -139,5 +139,6 @@ namespace boost { namespace dispatch { namespace ext
 } } }
 
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
+#include <boost/simd/sdk/simd/details/logical.hpp>
+//#include <boost/simd/sdk/simd/extensions/lrb/logical.hpp>
 #endif
