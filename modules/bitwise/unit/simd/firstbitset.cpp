@@ -35,62 +35,33 @@
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 
-
-NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  (float))
+NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::firstbitset;
-  using nt2::tag::firstbitset_;
-  using nt2::load; 
+  using boost::simd::firstbitset;
+  using boost::simd::tag::firstbitset_;
+  using boost::simd::load; 
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<firstbitset_(vT)>::type r_t;
-  typedef typename nt2::meta::call<firstbitset_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::call<firstbitset_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(firstbitset(nt2::Inf<vT>())[0], 8388608u);
-  NT2_TEST_EQUAL(firstbitset(nt2::Minf<vT>())[0], 8388608u);
-  NT2_TEST_EQUAL(firstbitset(nt2::Nan<vT>())[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(firstbitset(nt2::Signmask<vT>())[0], nt2::One<sr_t>()+nt2::Valmax<sr_t>()/2);
-  NT2_TEST_EQUAL(firstbitset(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for float
-
-NT2_TEST_CASE_TPL ( firstbitset_double_1_0,  (double))
-{
-  using nt2::firstbitset;
-  using nt2::tag::firstbitset_;
-  using nt2::load; 
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<firstbitset_(vT)>::type r_t;
-  typedef typename nt2::meta::call<firstbitset_(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(firstbitset(nt2::Inf<vT>())[0], 4503599627370496ull);
-  NT2_TEST_EQUAL(firstbitset(nt2::Minf<vT>())[0], 4503599627370496ull);
-  NT2_TEST_EQUAL(firstbitset(nt2::Nan<vT>())[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(firstbitset(nt2::Signmask<vT>())[0], nt2::One<sr_t>()+nt2::Valmax<sr_t>()/2);
-  NT2_TEST_EQUAL(firstbitset(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-} // end of test for double
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Inf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Minf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Nan<vT>())[0], boost::simd::One<sr_t>());
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Signmask<vT>())[0], boost::simd::One<sr_t>()+boost::simd::Valmax<sr_t>()/2);
+  NT2_TEST_EQUAL(firstbitset(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
