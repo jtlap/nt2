@@ -21,7 +21,7 @@
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 

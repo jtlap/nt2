@@ -19,8 +19,8 @@
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/bitwise_ornot.hpp>
-#include <nt2/include/functions/if_else_nan.hpp>
-#include <nt2/include/functions/if_nan_else.hpp>
+#include <nt2/include/functions/if_else_allbits.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
