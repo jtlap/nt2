@@ -15,6 +15,7 @@
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/meta/is_colon.hpp>
 #include <nt2/dsl/functions/run.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
@@ -31,6 +32,8 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
+
+#include <nt2/core/functions/table/details/function/value_type.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -54,29 +57,17 @@ namespace nt2 { namespace container { namespace ext
     template<class Sz, class Children, int N, int M, class Enable = void>
     struct impl
     {
-      typedef typename boost::fusion::result_of::
-      fold< typename boost::
-            remove_reference< typename size_transform<Domain>::template
-                              result<size_transform<Domain>( typename boost::fusion::result_of::
-                                                             at_c< Children
-                                                                 , N
-                                                                 >::type
-                                                           )
-                                    >::type
-                            >::type
-          , boost::mpl::size_t<1>
-          , nt2::functor<tag::multiplies_>
-          >::type
-      result_type;
+      typedef typename boost::
+              remove_reference< typename  boost::fusion::
+                                          result_of::at_c<Children, N>::type
+                              >::type                       base;
+      
+      typedef typename meta::call<tag::numel_(base)>::type  result_type;
 
       BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(Sz, Children children) const
       {
-        return boost::fusion::fold(
-            size_transform<Domain>()(boost::fusion::at_c<N>(children))
-          , boost::mpl::size_t<1>()
-          , nt2::functor<tag::multiplies_>()
-          );
+        return nt2::numel( boost::fusion::at_c<N>(children) );
       }
     };
 
@@ -195,17 +186,7 @@ namespace nt2 { namespace container { namespace ext
     }
   };
 
-  template<class Expr, class Domain, int N>
-  struct value_type<tag::function_, Domain, N, Expr>
-  {
-    typedef typename boost::proto::result_of::
-    child_c<Expr&, 0>::type                         child0;
 
-    typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<child0>::type
-             >::type                                type;
-  };
 
   // assumes all nodes are terminals, incorrect
   // Must handle : expr<scalar>, expr<colon>, expr<?>
@@ -262,11 +243,14 @@ namespace ext
                               (unspecified_<Data>)
                             )
   {
-    typedef typename boost::proto::result_of::child_c<Expr const&, 0>::type  child0;
-    typedef typename boost::fusion::result_of::pop_front<Expr const>::type   childN;
+    typedef typename  boost::proto::result_of::
+                      child_c<Expr const&, 0>::type  child0;
+    typedef typename  boost::fusion::result_of::
+                      pop_front<Expr const>::type   childN;
 
     typedef typename container::ext::
             function_state<Expr, State>::result_type                         new_state;
+            
     typedef typename meta::
             call<tag::run_(child0, new_state, Data const&)>::type            result_type;
 
@@ -280,7 +264,6 @@ namespace ext
                      );
     }
   };
-
 } }
 
 #endif
