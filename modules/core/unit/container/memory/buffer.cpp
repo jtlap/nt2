@@ -225,4 +225,23 @@ NT2_TEST_CASE_TPL( buffer_1D_as_buffer, PADDING)
 
   for(pos[0]=-2;pos[0]<=2;++pos[0])
     NT2_TEST_EQUAL(dereference<1U>(tab,pos), 10*(1+pos[0]) );
+
+  boost::array<std::size_t,1> sizes_1 = {{6}};
+  boost::array<std::size_t,1> bases_1 = {{-1}};
+
+ //////////////////////////////////////////////////////////////////////////////
+  // array type supports being initialized externally
+  //////////////////////////////////////////////////////////////////////////////
+  resize(tab, sizes_1, bases_1, T());
+
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports R/W access through Position
+  //////////////////////////////////////////////////////////////////////////////
+  for(pos[0]=-1;pos[0]<=4;++pos[0])
+    dereference<1U>(tab,pos) = int(10*(1+pos[0]));
+
+  for(pos[0]=-1;pos[0]<=4;++pos[0])
+    NT2_TEST_EQUAL(dereference<1U>(tab,pos), 10*(1+pos[0]) );
+
+
 }

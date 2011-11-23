@@ -140,6 +140,21 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, PADDING )
 
   for(pos[0]=-2;pos[0]<=2;++pos[0])
     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
+
+  boost::array<std::size_t,1> sizes_1 = {{6}};
+  boost::array<std::size_t,1> bases_1 = {{-3}};
+
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports being resized externally
+  //////////////////////////////////////////////////////////////////////////////
+  resize(tab, sizes_1, bases_1, T() );
+
+  for(pos[0]=-3;pos[0]<=2;++pos[0])
+    dereference<1UL>(tab,pos) = int(10*(1+pos[0]));
+
+  for(pos[0]=-3;pos[0]<=2;++pos[0])
+    NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -160,9 +175,9 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   boost::array<std::size_t,2> bases = {{-2,0}};
   boost::array<std::ptrdiff_t,2> pos;
 
-  
+  //////////////////////////////////////////////////////////////////////////////
   //  iliffe_buffer supports being initialized externally
-  
+  //////////////////////////////////////////////////////////////////////////////
   initialize(tab, sizes, bases, T() );
 
   //////////////////////////////////////////////////////////////////////////////
@@ -175,6 +190,31 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   for(pos[1]=0;pos[1]<=1;++pos[1])
     for(pos[0]=-2;pos[0]<=2;++pos[0])
     NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
+
+
+  // boost::array<std::size_t,2> sizes_1 = {{5,2}};
+  // boost::array<std::size_t,2> bases_1 = {{-2,0}};
+
+  boost::array<std::size_t,2> sizes_1 = {{5,3}};
+  boost::array<std::size_t,2> bases_1 = {{-3,1}};
+
+  //////////////////////////////////////////////////////////////////////////////
+  //  iliffe_buffer supports being resized externally
+  //////////////////////////////////////////////////////////////////////////////
+  resize(tab, sizes_1, bases_1, T() );
+
+  //////////////////////////////////////////////////////////////////////////////
+  // iliffe_buffer supports R/W access through Position
+  //////////////////////////////////////////////////////////////////////////////
+  for(pos[1]=1;pos[1]<=3;++pos[1])
+    for(pos[0]=-3;pos[0]<=1;++pos[0])
+      dereference<2UL>(tab,pos) = int(10*(1+pos[1]) + (1+pos[0]));
+
+  for(pos[1]=1;pos[1]<=3;++pos[1])
+    for(pos[0]=-3;pos[0]<=1;++pos[0])
+    NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
+
+
 }
 
 
@@ -213,4 +253,25 @@ NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
     for(pos[1]=0;pos[1]<2;++pos[1])
       for(pos[0]=0;pos[0]<2;++pos[0])
     NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+
+
+  boost::array<std::size_t,3> sizes_1 = {{3,3,3}};
+  boost::array<std::size_t,3> bases_1 = {{0,0,0}};
+
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports being resized externally
+  //////////////////////////////////////////////////////////////////////////////
+  resize(tab, sizes_1, bases_1, T() );
+
+
+  for(pos[2]=0;pos[2]<3;++pos[2])
+    for(pos[1]=0;pos[1]<3;++pos[1])
+      for(pos[0]=0;pos[0]<3;++pos[0])
+      dereference<3UL>(tab,pos) = int(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+
+  for(pos[2]=0;pos[2]<3;++pos[2])
+    for(pos[1]=0;pos[1]<3;++pos[1])
+      for(pos[0]=0;pos[0]<3;++pos[0])
+    NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+
 }

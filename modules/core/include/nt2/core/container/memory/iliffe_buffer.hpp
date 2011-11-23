@@ -259,8 +259,8 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~iliffe_buffer()
     {
-            //      if(data_){
-                    // alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
+            // if(data_){
+          // alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
             //}
     }
 
@@ -474,7 +474,7 @@ namespace nt2 { namespace memory
           , Padding const&    p
           )
     {
-      if(data_) alloc_.deallocate( begin(), end() - begin() );
+            //      if(data_) alloc_.deallocate( begin(), end() - begin() );
       initialize(szs,bss,p);
     }
 

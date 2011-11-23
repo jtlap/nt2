@@ -140,7 +140,10 @@ namespace nt2 { namespace memory
                     )
   {
     BOOST_ASSERT(boost::fusion::size(s) == 1);
-    v.resize(slice<1>(s,p));
+    BOOST_ASSERT(boost::fusion::size(b) == 1);
+    v.restructure( boost::fusion::at_c<0>(b)
+                   ,slice<1>(s,p)
+                 );
   }
 
 
