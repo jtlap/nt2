@@ -11,11 +11,11 @@ SET( SOURCES
   array_as_buffer.cpp
   composite_buffer.cpp
   dimensions_of.cpp
-  iliffe_buffer.cpp
   pointer_as_buffer.cpp
   vector_as_buffer.cpp
-  sharing.cpp
   buffer.cpp
+  sharing.cpp
+  iliffe_buffer.cpp
 # List of scalar test files for toolbox core.memory
    )
 

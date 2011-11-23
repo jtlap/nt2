@@ -25,6 +25,8 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 
+#define PADDING                                                                   \
+(nt2::memory::no_padding)(nt2::memory::lead_padding)(nt2::memory::global_padding) \
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic default buffer ctor
@@ -33,21 +35,21 @@ NT2_TEST_CASE_TPL(buffer_default_ctor, NT2_TYPES )
 {
   using nt2::memory::buffer;
 
-  typedef          buffer<T>             buffer_type;
-  typedef typename buffer<T>::size_type  size_type;
+  typedef          buffer<int>             buffer_type;
+  typedef typename buffer<int>::size_type  size_type;
   const size_type s = 10;
   buffer_type b;
 
   NT2_TEST_EQUAL( b.size()  , 0U      );
   NT2_TEST_EQUAL( b.lower() ,  0      );
   NT2_TEST_EQUAL( b.upper() , -1      );
-  NT2_TEST_EQUAL( b.begin() , (T*)(0) );
+  NT2_TEST_EQUAL( b.begin() , (int*)(0) );
 
   b.resize(s);
   NT2_TEST_EQUAL( b.size()  , s       );
   NT2_TEST_EQUAL( b.lower() , 0       );
   NT2_TEST_EQUAL( b.upper() , (s-1)   );
-  NT2_TEST_NOT_EQUAL( b.begin() , (T*)(0) );
+  NT2_TEST_NOT_EQUAL( b.begin() , (int*)(0) );
   
 }
 
@@ -98,9 +100,9 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
     NT2_TEST_EQUAL( b[i], 1+i );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test for dynamic buffer swap
-////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////
+// // Test for dynamic buffer swap
+// ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 {
   using nt2::memory::buffer;
@@ -134,31 +136,29 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 }
 
 
-////////////////////////////////////////////////////////////////////////////////
-// buffer type has some dimensions
-////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////
+// // buffer type has some dimensions
+// ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( buffer_dimensions, NT2_TYPES)
 {
-  using nt2::memory::allocator;
   using nt2::meta::dimensions_of;
   using nt2::memory::buffer;
 
-  NT2_TEST_EQUAL((dimensions_of< buffer<int,allocator<int> > >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of< buffer<T> >::value), 1UL );
 
 }
 
 
-////////////////////////////////////////////////////////////////////////////////
-// array type has some value
-////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////
+// // array type has some value
+// ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( buffer_values, NT2_TYPES)
 {
   using boost::is_same;
   using boost::dispatch::meta::value_of;
-  using nt2::memory::allocator;
   using nt2::memory::buffer;
 
-  NT2_TEST((is_same< typename value_of< buffer<T,allocator<T> > >::type, T>::value ));
+  NT2_TEST((is_same< typename value_of< buffer<T> >::type, T>::value ));
 
 }
 
@@ -169,13 +169,12 @@ NT2_TEST_CASE_TPL( buffer_models, NT2_TYPES )
 {
   using boost::is_same;
   using boost::dispatch::meta::model_of;
-  using nt2::memory::allocator;
   using boost::mpl::apply;
   using nt2::memory::buffer;
 
-  typedef typename model_of< buffer<T,allocator<T> > >::type model1d;
+  typedef typename model_of< buffer<T> >::type model1d;
 
-  NT2_TEST((is_same<typename apply<model1d,float>::type, buffer<float,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model1d,float>::type, buffer<float> >::value ));
 
 }
 
@@ -186,11 +185,10 @@ NT2_TEST_CASE_TPL( buffer_models, NT2_TYPES )
 NT2_TEST_CASE_TPL( buffer_reference, NT2_TYPES )
 {
   using boost::is_same;
-  using nt2::memory::allocator;
   using nt2::meta::dereference_;
   using nt2::memory::buffer;
 
-  typedef buffer<T,allocator<T> > base;
+  typedef buffer<T> base;
 
   NT2_TEST((is_same< typename dereference_<base&,1>::type, T& >::value) );
 
@@ -199,16 +197,16 @@ NT2_TEST_CASE_TPL( buffer_reference, NT2_TYPES )
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// buffer models Buffer Concept
+//buffer models Buffer Concept
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( buffer_1D_as_buffer )
+NT2_TEST_CASE_TPL( buffer_1D_as_buffer, PADDING)
 {
-  using nt2::memory::allocator;
+
   using nt2::memory::initialize;
   using nt2::memory::dereference;
   using nt2::memory::buffer;
 
-  buffer<int,allocator<int> > tab;
+  buffer<int> tab;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{-2}};
@@ -217,7 +215,7 @@ NT2_TEST_CASE( buffer_1D_as_buffer )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases );
+  initialize(tab, sizes, bases, T());
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position

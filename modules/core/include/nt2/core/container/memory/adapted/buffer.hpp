@@ -10,6 +10,7 @@
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_BUFFER_HPP_INCLUDED
 
 #include <boost/mpl/size_t.hpp>
+#include <boost/fusion/include/size.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
@@ -40,7 +41,7 @@ namespace nt2 { namespace meta
   //============================================================================
   // dereference_ specialization
   //============================================================================
-  template< typename T, typename A, std::size_t Level>
+  template< typename T,  typename A, std::size_t Level>
   struct dereference_<memory::buffer<T,A>&,Level>
   {
     typedef typename add_pointers<T,1-Level>::type&  type;
@@ -50,8 +51,8 @@ namespace nt2 { namespace meta
   //============================================================================
   // dereference_ specialization
   //============================================================================
-  template<typename T,typename A, std::size_t Level>
-           struct dereference_<memory::buffer<T,A>,Level>
+  template<typename T, typename A, std::size_t Level>
+  struct dereference_<memory::buffer<T,A>,Level>
   {
     typedef typename add_pointers<T,1-Level>::type  type;
   };
@@ -114,41 +115,46 @@ namespace nt2 { namespace memory
   //============================================================================
   // buffer initialize - Part of Buffer Concept
   //============================================================================
-  template< typename T,  typename A
+  template< typename T,  typename P, typename A
           , typename Sizes, typename Bases
           >
   inline void initialize( buffer<T,A>& v
-                        , Sizes const& s, Bases const& b
+                          , Sizes const& s, Bases const& b, P const& p
                           )
   {
-    v.restructure(b,s);
+    BOOST_ASSERT(boost::fusion::size(s) == 1);
+    BOOST_ASSERT(boost::fusion::size(b) == 1);
+    v.restructure( boost::fusion::at_c<0>(b)
+                   ,slice<1>(s,p)
+                 );
   }
 
   //============================================================================
   // buffer resize - Part of Buffer Concept
   //============================================================================
-  template< typename T,  typename A
+  template< typename T,  typename P, typename A
           , typename Sizes, typename Bases
           >
   inline void resize( buffer<T,A>& v
-                    , Sizes const& s, Bases const& b
+                      , Sizes const& s, Bases const& b, P const& p
                     )
   {
-    v.resize(s);
+    BOOST_ASSERT(boost::fusion::size(s) == 1);
+    v.resize(slice<1>(s,p));
   }
 
 
   //============================================================================
   // buffer share - Part of SharingBuffer Concept
   //============================================================================
-  template<   typename T, typename A
+  template<   typename T, typename P, typename A
               , typename Sizes, typename Bases
           >
   inline void share( buffer<T,A>& v
-                   , Sizes const& s, Bases const& b
+                     , Sizes const& s, Bases const& b, P const& p
                    )
   {
-    v.initialize(s,b);
+    initialize(v,s,b,p);
   }
 
 

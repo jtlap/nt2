@@ -27,7 +27,9 @@
 
 namespace nt2 {  namespace memory
 {
-  template<class Type,class Allocator = memory::allocator<Type> >
+  template<  class Type ,
+             class Allocator = memory::allocator<Type> 
+          >
   class buffer
       : private
        details::buffer_data< typename Allocator::template rebind<Type>::other >
