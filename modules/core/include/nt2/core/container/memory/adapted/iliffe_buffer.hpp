@@ -122,6 +122,16 @@ namespace nt2 { namespace memory
     v.initialize(s,b,p);
   }
 
+  template< std::size_t D, typename T, typename DB, typename IB, typename P, typename A
+          , typename Sizes, typename Bases
+          >
+  inline void initialize( iliffe_buffer<D,T,DB,IB,P,A>& v
+                          , Sizes const& s, Bases const& b, P const& p, T* const& d
+                        )
+  {
+     v.initialize(s,b,p,d);
+  }
+
   //============================================================================
   // iliffe_buffer resize - Part of Buffer Concept
   //============================================================================

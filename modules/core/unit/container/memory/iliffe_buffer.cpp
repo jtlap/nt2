@@ -141,13 +141,15 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, PADDING )
   for(pos[0]=-2;pos[0]<=2;++pos[0])
     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
 
-  boost::array<std::size_t,1> sizes_1 = {{6}};
-  boost::array<std::size_t,1> bases_1 = {{-3}};
+
+
+  boost::array<std::size_t,1> sizes_2 = {{6}};
+  boost::array<std::size_t,1> bases_2 = {{-3}};
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being resized externally
   //////////////////////////////////////////////////////////////////////////////
-  resize(tab, sizes_1, bases_1, T() );
+  resize(tab, sizes_2, bases_2, T() );
 
   for(pos[0]=-3;pos[0]<=2;++pos[0])
     dereference<1UL>(tab,pos) = int(10*(1+pos[0]));
@@ -274,4 +276,38 @@ NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
       for(pos[0]=0;pos[0]<3;++pos[0])
     NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
 
+}
+
+NT2_TEST_CASE( iliffe_buffer_1D_as_buffer_from_data_pointer )
+{
+  using nt2::memory::allocator;
+  using nt2::memory::initialize;
+  using nt2::memory::dereference;
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
+
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,nt2::memory::no_padding,allocator<int> > tab;
+
+  boost::array<std::size_t,1> sizes = {{5}};
+  boost::array<std::size_t,1> bases = {{1}};
+  boost::array<std::ptrdiff_t,1> pos;
+
+  allocator<int> alloc;
+  int* data = (int*) alloc.allocate(5*sizeof(int));
+
+  for (int i = 0; i < 5; i++){
+          data[i] = 10*(i+2);
+  }
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports being initialized externally
+  //////////////////////////////////////////////////////////////////////////////
+  initialize(tab, sizes, bases, nt2::memory::no_padding(), data );
+
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports R/W access through Position
+  //////////////////////////////////////////////////////////////////////////////
+
+  for(pos[0]=1;pos[0]<=5;++pos[0])
+    NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
 }
