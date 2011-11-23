@@ -26,10 +26,11 @@ namespace nt2 { namespace ext
   // the result to the left-hand-side for writing
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(Position)(Target)
+                            , (A0)(Position)(Target)(Arity)
                             , ((expr_< unspecified_<A0>
                                      , nt2::container::domain
                                      , nt2::tag::assign_
+                                     , Arity
                                      >
                               ))
                              (fusion_sequence_<Position>)
@@ -60,10 +61,11 @@ namespace nt2 { namespace ext
   // returned, usually as non-const reference.
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)
+                            , (A0)(Arity)
                             , ((expr_< unspecified_<A0>
                                      , nt2::container::domain
                                      , nt2::tag::assign_
+                                     , Arity
                                      >
                               ))
                             )
@@ -147,10 +149,11 @@ namespace nt2 { namespace ext
   // When an assign(lhs,rhs) scalar expression is run, we perform a single
   // assignment of said scalar value.
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_, (A0)(Arity)
                             , ((expr_< scalar_< fundamental_<A0> >
                                      , nt2::container::domain
                                      , nt2::tag::assign_
+                                     , Arity
                                      >
                               ))
                             )

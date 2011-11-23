@@ -17,8 +17,13 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)(T)
-                            , ((expr_< unspecified_<A0>, nt2::container::domain, T >))
+                            , (A0)(Tag)(Arity)
+                            , ((expr_ < unspecified_<A0>
+                                      , nt2::container::domain
+                                      , Tag
+                                      , Arity
+                                      >
+                              ))
                             )
   {
     typedef typename A0::extent_type result_type;

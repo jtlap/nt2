@@ -233,10 +233,11 @@ namespace nt2 { namespace container { namespace ext
 namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (Expr)(State)(Data)
+                            , (Expr)(State)(Data)(Arity)
                             , ((expr_< unspecified_<Expr>
                                      , nt2::container::domain
                                      , nt2::tag::function_
+                                     , Arity
                                      >
                               ))
                               (fusion_sequence_<State>)

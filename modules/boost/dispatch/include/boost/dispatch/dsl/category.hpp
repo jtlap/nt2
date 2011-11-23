@@ -33,15 +33,15 @@ namespace boost { namespace dispatch { namespace meta
     typedef unspecified_<T> parent;
   };
   
-  template<class T, class Domain, class Tag>
+  template<class T, class Domain, class Tag, class Arity>
   struct  expr_
-        : expr_<typename T::parent, Domain, Tag>
+        : expr_<typename T::parent, Domain, Tag, Arity>
   {
-    typedef expr_<typename T::parent, Domain, Tag>  parent;
+    typedef expr_<typename T::parent, Domain, Tag, Arity>  parent;
   };
 
-  template<class T, class Domain, class Tag>
-  struct  expr_< unspecified_<T>, Domain, Tag > 
+  template<class T, class Domain, class Tag, class Arity>
+  struct  expr_< unspecified_<T>, Domain, Tag, Arity > 
     : ast_<typename hierarchy_of<typename semantic_of<T>::type, T>::type>
   {
     typedef ast_<typename hierarchy_of<typename semantic_of<T>::type, T>::type> parent;
@@ -63,13 +63,15 @@ namespace boost { namespace dispatch { namespace details
     typedef typename meta::semantic_of<T>::type  semantic_type;
     typedef typename proto::domain_of<T>::type   domain_type;
     typedef typename proto::tag_of<T>::type      tag_type;
-    
+    typedef typename proto::arity_of<T>::type    arity_type;
+
     typedef meta::expr_ < typename meta::
                           hierarchy_of< semantic_type
                                       , Origin
                                       >::type
                         , domain_type
                         , tag_type
+                        , arity_type
                         >                        type;
   };
   
@@ -81,7 +83,6 @@ namespace boost { namespace dispatch { namespace details
     : meta::semantic_of<T>
   {
   };
-  
 } } }
 
 #endif

@@ -80,6 +80,8 @@ namespace nt2 { namespace container
                                   , container::domain
                                   >                                parent;
 
+    typedef ResultType                                            formal_type;
+    
     //==========================================================================
     // Extract Container information from ResultType
     //==========================================================================

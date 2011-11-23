@@ -94,10 +94,11 @@ namespace boost { namespace simd { namespace ext
   // When run on a terminal, we directly jump into the terminal functor
   //============================================================================  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(Domain)(State)
+                                    , (A0)(Domain)(State)(Arity)
                                     , ((expr_ < unspecified_<A0>
                                               , Domain
-                                              , tag::terminal_ 
+                                              , tag::terminal_
+                                              , Arity
                                               >
                                       ))
                                       (unspecified_<State>)
@@ -166,10 +167,11 @@ namespace boost { namespace simd { namespace ext
   // When run on a terminal, we directly jump into the terminal functor
   //============================================================================    
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(Domain)(State)(Data)
+                                    , (A0)(Domain)(State)(Data)(Arity)
                                     , ((expr_ < unspecified_<A0>
                                               , Domain
-                                              , tag::terminal_ 
+                                              , tag::terminal_
+                                              , Arity
                                               >
                                       ))
                                       (unspecified_<State>)

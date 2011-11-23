@@ -18,8 +18,16 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)(Dom)
-                                   , ((expr_< unspecified_<A0>,Dom,boost::simd::tag::multiplies_>))(unspecified_<A1>)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::plus_
+                                    , boost::simd::tag::optimize_
+                                    , (A0)(A1)(Domain)(Arity)
+                                    , ((expr_ < unspecified_<A0>
+                                              , Domain
+                                              , boost::simd::tag::multiplies_
+                                              , Arity
+                                              >
+                                      ))
+                                      (unspecified_<A1>)
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
@@ -34,9 +42,17 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)(Dom)
-                                   , (unspecified_<A0>)((expr_< unspecified_<A1>,Dom,boost::simd::tag::multiplies_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::plus_
+                                    , boost::simd::tag::optimize_
+                                    , (A0)(A1)(Domain)(Arity)
+                                    , (unspecified_<A0>)
+                                      ((expr_ < unspecified_<A1>
+                                              , Domain
+                                              , boost::simd::tag::multiplies_
+                                              , Arity
+                                              >
+                                      ))
+                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
           typename boost::proto::result_of::child_c<A1, 0>::type const&,
