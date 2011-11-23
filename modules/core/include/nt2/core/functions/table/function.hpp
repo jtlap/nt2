@@ -12,203 +12,30 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/function.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/meta/is_colon.hpp>
-#include <nt2/dsl/functions/run.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/no_padding.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-#include <boost/fusion/include/fold.hpp>
-#include <boost/fusion/adapted/mpl.hpp>
-#include <boost/fusion/include/mpl.hpp>
-#include <boost/fusion/include/at_c.hpp>
-#include <boost/type_traits/is_class.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 
+#include <nt2/core/functions/table/details/function/size.hpp>
 #include <nt2/core/functions/table/details/function/value_type.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
-  // helper to get static or -1
-  template<class T, class Enable = void>
-  struct mpl_value
-   : boost::mpl::int_<-1>
-  {
-  };
-
-  template<class T>
-  struct mpl_value<T, typename boost::enable_if< boost::is_class<typename meta::strip<T>::type> >::type >
-   : meta::strip<T>::type
-  {
-  };
-
-  // size deduction per argument
-  template<class Domain>
-  struct function_size
-  {
-    template<class Sz, class Children, int N, int M, class Enable = void>
-    struct impl
-    {
-      typedef typename boost::
-              remove_reference< typename  boost::fusion::
-                                          result_of::at_c<Children, N>::type
-                              >::type                       base;
-      
-      typedef typename meta::call<tag::numel_(base)>::type  result_type;
-
-      BOOST_DISPATCH_FORCE_INLINE
-      result_type operator()(Sz, Children children) const
-      {
-        return nt2::numel( boost::fusion::at_c<N>(children) );
-      }
-    };
-
-    template<class Sz, class Children, int N, int M>
-    struct impl<Sz, Children, N, M, typename boost::enable_if<
-      meta::is_colon< typename boost::fusion::result_of::
-                      at_c<Children, N>::type
-                    >
-    >::type>
-    {
-      typedef boost::fusion::
-              result_of::at_c < typename boost::remove_reference<Sz>::type
-                              , N
-                              >   false_type;
-
-      typedef meta::
-              call<tag::slice_( Sz
-                              , memory::no_padding
-                              , boost::mpl::int_<N+1>
-                              )>  true_type;
-
-      typedef boost::mpl::bool_<(N == M-1)> is_final;
-
-      typedef typename boost::mpl::
-              eval_if<is_final, true_type, false_type>::type result_type;
-
-      BOOST_DISPATCH_FORCE_INLINE
-      result_type operator()(Sz sz, Children) const
-      {
-        return compute(sz, is_final() );
-      }
-
-      BOOST_DISPATCH_FORCE_INLINE
-      result_type compute(Sz sz, boost::mpl::true_ const&) const
-      {
-        return slice<N+1>(sz,memory::no_padding());
-      }
-
-      BOOST_DISPATCH_FORCE_INLINE
-      result_type compute(Sz sz, boost::mpl::false_ const&) const
-      {
-        return boost::fusion::at_c<N>(sz);
-      }
-    };
-  };
-
-  // build size
-  template<int N, class F, class Sizes, class Children>
-  struct make_size;
-
-  #define M1(z,n,t) mpl_value< typename F::template impl<Sizes, Children, n, t>::result_type >::value
-  #define M2(z,n,t) that[n] = typename F::template impl<Sizes, Children, n, t>()(sz, children);
-
-  #define M3(z,n,t)                                                            \
-  template<class Dummy>                                                        \
-  struct impl<n, Dummy>                                                        \
-  {                                                                            \
-    BOOST_DISPATCH_FORCE_INLINE                                                \
-    static result_type call(Sizes sz, Children children)                       \
-    {                                                                          \
-      result_type that;                                                        \
-      BOOST_PP_REPEAT(n, M2, t)                                                \
-      return that;                                                             \
-    }                                                                          \
-  };
-
-  #define M0(z,n,t)                                                            \
-  template<class F, class Sizes, class Children>                               \
-  struct make_size<n, F, Sizes, Children>                                      \
-  {                                                                            \
-    typedef of_size_<                                                          \
-               BOOST_PP_ENUM(n, M1, n)                                         \
-            >            result_type;                                          \
-                                                                               \
-                                                                               \
-    template<int N, class Dummy = void>                                        \
-    struct impl {};                                                            \
-                                                                               \
-    BOOST_PP_REPEAT(BOOST_PP_INC(n), M3, n)                                    \
-                                                                               \
-    BOOST_DISPATCH_FORCE_INLINE                                                \
-    result_type operator()(Sizes sz, Children children) const                  \
-    {                                                                          \
-      return impl<result_type::static_size>::call(sz, children);               \
-    }                                                                          \
-  };
-
-  BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
-  #undef M0
-  #undef M1
-  #undef M2
-  #undef M3
-
-  template<class Expr, class Domain, int N>
-  struct size<tag::function_, Domain, N, Expr>
-  {
-    typedef typename boost::proto::result_of::
-    child_c<Expr, 0>::type                             child0;
-
-    typedef typename boost::fusion::result_of::
-    pop_front<Expr>::type                              childN;
-
-    typedef typename size_transform<Domain>::template
-    result<size_transform<Domain>(child0)>::type       sz;
-
-    typedef make_size<N-1, function_size<Domain>, sz, childN>  impl;
-    typedef typename impl::result_type result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(Expr& e) const
-    {
-      return impl()(
-        size_transform<Domain>()(boost::proto::child_c<0>(e))
-      , boost::fusion::pop_front(e)
-      );
-    }
-  };
-
-
-
   // assumes all nodes are terminals, incorrect
   // Must handle : expr<scalar>, expr<colon>, expr<?>
   template<class State>
   struct function_state_impl
   {
-    template<class Sig>
-    struct result;
+    template<class Sig> struct result;
 
     template<class This, class A0>
-    struct result<This(A0)>
-      : boost::proto::result_of::
-        value<A0>
-    {
-    };
+    struct result<This(A0)> : boost::proto::result_of::value<A0> {};
 
     function_state_impl(State const& s) : state_(s) {}
     State const& state_;
 
     template<class A0>
-    BOOST_DISPATCH_FORCE_INLINE
-    typename result<function_state_impl(A0&)>::type
+    BOOST_DISPATCH_FORCE_INLINE typename result<function_state_impl(A0&)>::type
     operator()(A0& a0) const
     {
       return boost::proto::value(a0);
@@ -227,7 +54,6 @@ namespace nt2 { namespace container { namespace ext
       return boost::fusion::transform(expr, function_state_impl<State>(state));
     }
   };
-
 } }
 
 namespace ext
