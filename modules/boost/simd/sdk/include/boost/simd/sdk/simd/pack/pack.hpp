@@ -25,6 +25,8 @@
 #include <boost/proto/operators.hpp>
 #include <boost/mpl/bool.hpp>
 
+#define BOOST_SIMD_PACK_CONSTRUCTORS
+
 namespace boost { namespace simd
 {
   ////////////////////////////////////////////////////////////////////////////

@@ -18,11 +18,11 @@ namespace boost { namespace simd
   ////////////////////////////////////////////////////////////////////////////////
   // simd::iterator reference a pack of N elements of type T
   ////////////////////////////////////////////////////////////////////////////////
-  template<class T, std::size_t C = meta::native_cardinal<T>::value >
+  template<class T, std::size_t C = meta::cardinal_of< pack<T> >::value >
   struct  iterator
         : public  boost
                   ::iterator_adaptor< iterator<T,C>
-                                    , typename pack<T,C>::data_type::parent const*
+                                    , typename pack<T,C>::data_type const *
                                     , pack<T,C> const
                                     , boost::random_access_traversal_tag
                                     , pack<T,C> const
@@ -31,7 +31,9 @@ namespace boost { namespace simd
     private:
     struct enabler {};
 
-    typedef typename pack<T,C>::data_type::parent const* native_type;
+    typedef pack<T,C> const * pack_type;
+    typedef typename pack<T,C>::data_type* native_type;
+
     public:
     iterator() : iterator::iterator_adaptor_(0) {}
 
@@ -46,10 +48,22 @@ namespace boost { namespace simd
 
     typename iterator::reference dereference() const
     {
-      pack<T,C> that(reinterpret_cast<T const*>(this->base()),0);
-      return that;
+      return *(reinterpret_cast<pack_type>(this->base()));
     }
   };
+
+  template<class T>
+  iterator<T> begin(T* p){ return iterator<T>(p); }
+
+  template<class T,std::size_t C>
+  iterator<T,C> begin(T* p){ return iterator<T,C>(p); }
+
+  template<class T>
+  iterator<T> end(T* p){ return iterator<T>(p); }
+
+  template<class T,std::size_t C>
+  iterator<T,C> end(T* p){ return iterator<T,C>(p); }
+
 } }
 
 #endif
