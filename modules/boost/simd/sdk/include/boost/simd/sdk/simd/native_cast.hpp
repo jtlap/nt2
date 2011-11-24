@@ -9,20 +9,44 @@
 #ifndef BOOST_SIMD_SDK_SIMD_NATIVE_CAST_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_NATIVE_CAST_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
+#include <boost/simd/sdk/meta/is_logical.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/assert.hpp>
 
 namespace boost { namespace simd
 {
   template<class T, class U>
   BOOST_DISPATCH_FORCE_INLINE
-  T const&
-  native_cast( U const& a )
+  typename boost::enable_if< meta::is_simd_specific<U, typename T::extension_type>, T const&>::type
+  native_cast( U const& u )
   {
-    return reinterpret_cast<T const&>(a);
+    BOOST_MPL_ASSERT_MSG( meta::is_native<T>::value, BOOST_SIMD_NATIVE_CAST_TARGET_NOT_NATIVE, (T) );
+    BOOST_MPL_ASSERT_MSG( sizeof(T) == sizeof(U), BOOST_SIMD_NATIVE_CAST_TARGET_NOT_SAME_SIZE_AS_SOURCE, (T, U) );
+    
+    return reinterpret_cast<T const&>(u);
+  }
+  
+  template<class T, class U>
+  BOOST_DISPATCH_FORCE_INLINE
+  typename boost::disable_if< meta::is_simd_specific<U, typename T::extension_type>, T const&>::type
+  native_cast( U const& u )
+  {
+    BOOST_MPL_ASSERT_MSG( meta::is_native<T>::value && meta::is_native<U>::value, BOOST_SIMD_NATIVE_CAST_TARGET_OR_SOURCE_NOT_NATIVE, (T, U) );
+    
+    typedef typename meta::scalar_of<T>::type sT;
+    typedef typename meta::scalar_of<U>::type sU;
+    BOOST_MPL_ASSERT_MSG(   (meta::is_logical<sT>::value && meta::is_logical<sU>::value)
+                         || (!meta::is_logical<sT>::value && !meta::is_logical<sU>::value)
+                        , BOOST_SIMD_NATIVE_CAST_LOGICAL_MISMATCH
+                        , (sT, sU)
+                        );
+    
+    BOOST_MPL_ASSERT_MSG( sizeof(T) == sizeof(U), BOOST_SIMD_NATIVE_CAST_TARGET_NOT_SAME_SIZE_AS_SOURCE, (T, U) );
+    
+    return reinterpret_cast<T const&>(u);
   }
 
 } }
