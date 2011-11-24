@@ -7,6 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit sdk)
+nt2_module_use_modules(unit sdk operator)
 ADD_SUBDIRECTORY(container)
 ADD_SUBDIRECTORY(functions)
