@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_NATIVE_CAST_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_NATIVE_CAST_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
@@ -34,8 +35,8 @@ namespace boost { namespace simd
   native_cast( U const& u )
   {
    
-    typedef typename meta::scalar_of<T>::type sT;
-    typedef typename meta::scalar_of<U>::type sU;
+//     typedef typename meta::scalar_of<T>::type sT;
+//     typedef typename meta::scalar_of<U>::type sU;
 //     BOOST_MPL_ASSERT_MSG(   (meta::is_logical<sT>::value && meta::is_logical<sU>::value)
 //                          || (!meta::is_logical<sT>::value && !meta::is_logical<sU>::value)
 //                         , BOOST_SIMD_NATIVE_CAST_LOGICAL_MISMATCH
