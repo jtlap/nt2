@@ -12,7 +12,6 @@
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/assert.hpp>
 
@@ -35,15 +34,6 @@ namespace boost { namespace simd
   native_cast( U const& u )
   {
     BOOST_MPL_ASSERT_MSG( meta::is_native<T>::value && meta::is_native<U>::value, BOOST_SIMD_NATIVE_CAST_TARGET_OR_SOURCE_NOT_NATIVE, (T, U) );
-    
-    typedef typename meta::scalar_of<T>::type sT;
-    typedef typename meta::scalar_of<U>::type sU;
-    BOOST_MPL_ASSERT_MSG(   (meta::is_logical<sT>::value && meta::is_logical<sU>::value)
-                         || (!meta::is_logical<sT>::value && !meta::is_logical<sU>::value)
-                        , BOOST_SIMD_NATIVE_CAST_LOGICAL_MISMATCH
-                        , (sT, sU)
-                        );
-    
     BOOST_MPL_ASSERT_MSG( sizeof(T) == sizeof(U), BOOST_SIMD_NATIVE_CAST_TARGET_NOT_SAME_SIZE_AS_SOURCE, (T, U) );
     
     return reinterpret_cast<T const&>(u);
