@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ALL_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/all.hpp>
-#include <boost/simd/include/functions/bitwise_all.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return native_cast<result_type>(bitwise_all(genmask<A0>(a0)));
+      return native_cast<result_type>(hmsb(genmask(a0)) == (1ull << meta::cardinal_of<A0>::value)-1);
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
@@ -40,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename A0::type type; 
-      return native_cast<result_type>(bitwise_all(native_cast<type>(a0)));
+      return boost::simd::all(native_cast<type>(a0));
     }
   };
 } } }

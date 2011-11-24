@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ANY_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/any.hpp>
-#include <boost/simd/include/functions/bitwise_any.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/hmsb.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return native_cast<result_type>(bitwise_any(genmask(a0)));
+      return native_cast<result_type>(hmsb(genmask(a0)) != 0);
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename A0::type type; 
-      return native_cast<result_type>(bitwise_any(native_cast<type>(a0)));
+      return native_cast<result_type>(hmsb(native_cast<type>(a0)) != 0);
     }
   };
   

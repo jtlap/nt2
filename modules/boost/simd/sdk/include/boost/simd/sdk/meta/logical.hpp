@@ -113,19 +113,18 @@ namespace boost { namespace simd
     typedef logical<Scalar>                                     reference;
     typedef logical<Scalar>                               const_reference;
     typedef std::size_t                                         size_type;
-//     static const uint8_t Masknbbits = meta::cardinal_of<type >::value;
-//     static const native_type lmask(){
-//       if (Masknbbits == 8)
-// 	{
-// 	  native_type that = { 0xFF };
-// 	  return that; 
-// 	}
-//       else
-// 	{
-// 	   native_type that =  { 0xFFFF };
-// 	   return that; 
-// 	}
-//     }
+    static const uint8_t Masknbbits = meta::cardinal_of<type >::value;
+    static const int Lmask = (Masknbbits == 8) ? 0xFF :  0xFFFF;
+    // no doubt that in real life &Lmask will be removed...!?
+    value_type all() const {
+      return value_type((_mm512_mask2int(data_)&Lmask) == Lmask);
+    }
+    value_type any() const {
+      return value_type((_mm512_mask2int(data_)&Lmask) != 0);
+    }
+    value_type none() const {
+      return value_type((_mm512_mask2int(data_)&Lmask) == 0);
+    }
     template<class U> struct rebind
     {
       typedef native<U, extension_type> type;
