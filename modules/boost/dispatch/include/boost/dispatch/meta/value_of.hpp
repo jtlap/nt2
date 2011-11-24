@@ -14,6 +14,9 @@
  * \brief Defines the \c value_of extension point
  */
 
+#include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/add_const.hpp>
+
 namespace boost { namespace dispatch { namespace details
 {
   template<class T, class Enable = void>
@@ -30,14 +33,14 @@ namespace meta
 
   template<class T>
   struct value_of<T&>
+   : add_reference<typename value_of<T>::type>
   {
-    typedef typename value_of<T>::type& type;
   };
   
   template<class T>
   struct value_of<T const>
+   : add_const<typename value_of<T>::type>
   {
-    typedef typename value_of<T>::type const type;
   };
 } } }
 

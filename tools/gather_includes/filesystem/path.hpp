@@ -8,15 +8,18 @@ namespace filesystem
 {
     inline std::string parent_path( std::string const & path )
     {
-        BOOST_ASSERT( path.find_last_of( "/\\" ) != std::string::npos );
-        return path.substr( 0, path.find_last_of( "/\\" ) );
+        std::string::size_type pos = path.find_last_of( "/\\" );
+        if(pos != std::string::npos)
+            return path.substr( 0, pos );
+        return std::string();
     }
-    
     
     inline std::string filename( std::string const & path )
     {
-        BOOST_ASSERT( path.find_last_of( "/\\" ) != std::string::npos );
-        return path.substr( path.find_last_of( "/\\" ) + 1 );
+        std::string::size_type pos = path.find_last_of( "/\\" );
+        if(pos != std::string::npos)
+            return path.substr( pos + 1 );
+        return std::string();
     }
     
     inline std::string extension( std::string const & path )

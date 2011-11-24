@@ -8,11 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2 container runner"
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/of_size.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/function.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
+#include <nt2/include/functions/of_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -20,7 +18,7 @@
 
 NT2_TEST_CASE( value_at )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   typedef double T;
   
@@ -40,7 +38,7 @@ NT2_TEST_CASE( value_at )
 
 NT2_TEST_CASE( scalar_size )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   typedef double T;
     
@@ -58,7 +56,7 @@ NT2_TEST_CASE( scalar_size )
 
 NT2_TEST_CASE( element_wise )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   typedef double T;
   

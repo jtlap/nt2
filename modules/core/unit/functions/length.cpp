@@ -8,8 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::length function"
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/core/container/colon/colon.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/of_size.hpp>
 
@@ -23,13 +22,11 @@
 NT2_TEST_CASE( fundamental_length )
 {
   using nt2::length;
-  using nt2::_;
   
   NT2_TEST_EQUAL( length('4'), 1U  );
   NT2_TEST_EQUAL( length(4)  , 1U  );
   NT2_TEST_EQUAL( length(4.) , 1U  );
   NT2_TEST_EQUAL( length(4.f), 1U  );
-  NT2_TEST_EQUAL( length(_)  , 1U  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +36,7 @@ NT2_TEST_CASE( table_length )
 {
   using nt2::length;
   using nt2::of_size;
-  using nt2::container::table;
+  using nt2::table;
   
   table<float> t0;
   table<float> t1( of_size(2) );

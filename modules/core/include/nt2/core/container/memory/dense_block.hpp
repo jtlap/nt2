@@ -140,13 +140,13 @@ namespace nt2 { namespace memory
     template<class Position> BOOST_DISPATCH_FORCE_INLINE
     reference operator()(Position const& pos)
     {
-      return dereference<dimensions>(data_,pos);
+      return nt2::memory::dereference<dimensions>(data_,pos);
     }
 
     template<class Position> BOOST_DISPATCH_FORCE_INLINE
     const_reference operator()(Position const& pos) const
     {
-      return dereference<dimensions>(data_,pos);
+      return nt2::memory::dereference<dimensions>(data_,pos);
     }
 
     //==========================================================================

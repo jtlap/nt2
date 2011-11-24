@@ -8,11 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2 container subscript"
 
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/include/functions/function.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -20,7 +18,7 @@
 
 NT2_TEST_CASE( integral_subscript )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   typedef double T;
 
@@ -108,22 +106,22 @@ NT2_TEST_CASE( integral_subscript )
 
 NT2_TEST_CASE( integral_subscript_extent )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   using nt2::extent;
   typedef double T;
 
   table<T> a0( of_size(5,4,3,2) );
 
-  NT2_TEST( extent( a0(1)       ) == of_size(1) );
-  NT2_TEST( extent( a0(1,1)     ) == of_size(1) );
-  NT2_TEST( extent( a0(1,1,1)   ) == of_size(1) );
-  NT2_TEST( extent( a0(1,1,1,1) ) == of_size(1) );
+  NT2_TEST( nt2::extent( a0(1)       ) == of_size(1) );
+  NT2_TEST( nt2::extent( a0(1,1)     ) == of_size(1) );
+  NT2_TEST( nt2::extent( a0(1,1,1)   ) == of_size(1) );
+  NT2_TEST( nt2::extent( a0(1,1,1,1) ) == of_size(1) );
 }
 
 NT2_TEST_CASE( colon_subscript )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   using nt2::_;
   typedef double T;
@@ -148,7 +146,7 @@ NT2_TEST_CASE( colon_subscript )
 
 NT2_TEST_CASE( colon_subscript_extent )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   using nt2::extent;
   using nt2::_;
@@ -156,8 +154,30 @@ NT2_TEST_CASE( colon_subscript_extent )
 
   table<T> a0( of_size(5,4,3,2) );
 
-  NT2_TEST( extent( a0(_)       ) == of_size(120)     );
-  NT2_TEST( extent( a0(_,_)     ) == of_size(5,24)    );
-  NT2_TEST( extent( a0(_,_,_)   ) == of_size(5,4,6)   );
-  NT2_TEST( extent( a0(_,_,_,_) ) == of_size(5,4,3,2) );
+  NT2_TEST( nt2::extent( a0(_)       ) == of_size(120)     );
+  NT2_TEST( nt2::extent( a0(_,_)     ) == of_size(5,24)    );
+  NT2_TEST( nt2::extent( a0(1,_)     ) == of_size(1,24)    );
+  NT2_TEST( nt2::extent( a0(_,1)     ) == of_size(5)       );
+  NT2_TEST( nt2::extent( a0(_,_,_)   ) == of_size(5,4,6)   );
+  NT2_TEST( nt2::extent( a0(_,_,1)   ) == of_size(5,4)     );
+  NT2_TEST( nt2::extent( a0(_,1,_)   ) == of_size(5,1,6)   );
+  NT2_TEST( nt2::extent( a0(_,1,1)   ) == of_size(5)       );
+  NT2_TEST( nt2::extent( a0(1,_,_)   ) == of_size(1,4,6)   );
+  NT2_TEST( nt2::extent( a0(1,_,1)   ) == of_size(1,4)     );
+  NT2_TEST( nt2::extent( a0(1,1,_)   ) == of_size(1,1,6)   );
+  NT2_TEST( nt2::extent( a0(_,_,_,_) ) == of_size(5,4,3,2) );
+  NT2_TEST( nt2::extent( a0(_,_,_,1) ) == of_size(5,4,3)   );
+  NT2_TEST( nt2::extent( a0(_,_,1,_) ) == of_size(5,4,1,2) );
+  NT2_TEST( nt2::extent( a0(_,_,1,1) ) == of_size(5,4)     );
+  NT2_TEST( nt2::extent( a0(_,1,_,_) ) == of_size(5,1,3,2) );
+  NT2_TEST( nt2::extent( a0(_,1,_,1) ) == of_size(5,1,3)   );
+  NT2_TEST( nt2::extent( a0(_,1,1,_) ) == of_size(5,1,1,2) );
+  NT2_TEST( nt2::extent( a0(_,1,1,1) ) == of_size(5)       );
+  NT2_TEST( nt2::extent( a0(1,_,_,_) ) == of_size(1,4,3,2) );
+  NT2_TEST( nt2::extent( a0(1,_,_,1) ) == of_size(1,4,3)   );
+  NT2_TEST( nt2::extent( a0(1,_,1,_) ) == of_size(1,4,1,2) );
+  NT2_TEST( nt2::extent( a0(1,_,1,1) ) == of_size(1,4)     );
+  NT2_TEST( nt2::extent( a0(1,1,_,_) ) == of_size(1,1,3,2) );
+  NT2_TEST( nt2::extent( a0(1,1,_,1) ) == of_size(1,1,3)   );
+  NT2_TEST( nt2::extent( a0(1,1,1,_) ) == of_size(1,1,1,2) );
 }

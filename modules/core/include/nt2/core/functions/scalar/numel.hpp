@@ -6,28 +6,22 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef NT2_CORE_FUNCTIONS_EXPR_EXTENT_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_EXTENT_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_NUMEL_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_NUMEL_HPP_INCLUDED
 
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/settings/size.hpp>
-#include <nt2/core/functions/extent.hpp>
-#include <nt2/core/container/category.hpp>
+#include <boost/mpl/size_t.hpp>
+#include <nt2/core/functions/numel.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
-                            , (A0)(T)
-                            , ((expr_< unspecified_<A0>, nt2::container::domain, T >))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::numel_, tag::cpu_
+                            , (A0), (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef typename A0::extent_type result_type;
+    typedef boost::mpl::size_t<1> result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0) const
-    {
-      return a0.extent();
-    }
+    result_type operator()(const A0&) const { return result_type(); }
   };
 } }
 

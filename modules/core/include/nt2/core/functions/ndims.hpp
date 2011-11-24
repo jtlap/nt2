@@ -14,11 +14,12 @@
  * \brief Defines and implements the nt2::nbdims function
  */
 
-#include <algorithm>
-#include <nt2/core/functions/extent.hpp>
+#include <nt2/include/functor.hpp>
 
-namespace nt2
-{
+namespace nt2 
+{ 
+  namespace tag { struct ndims_ {}; }
+
   //============================================================================
   /*!
    * Compute the number of dimensions of a given entity.
@@ -27,15 +28,7 @@ namespace nt2
    * \return The number of elements dimensions required to store \c xpr
    */
   //============================================================================
-  template<class T> inline std::size_t ndims( T const& xpr )
-  {
-    typename meta::call<tag::extent_(T const&)>::type sz  = nt2::extent(xpr);
-    std::size_t i = sz.size();
-
-    while((i != 0) && (sz[i-1] == 1)) { i--; }
-    return std::max ( std::size_t(2)
-                    , (i == 0 ? sz.size() : std::max(std::size_t(2),i)) 
-                    );
-  }
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ndims_, ndims, 1)
 }
+
 #endif
