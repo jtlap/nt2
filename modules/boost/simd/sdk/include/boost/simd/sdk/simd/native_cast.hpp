@@ -23,8 +23,8 @@ namespace boost { namespace simd
   typename boost::enable_if< meta::is_simd_specific<U, typename T::extension_type>, T const&>::type
   native_cast( U const& u )
   {
-    BOOST_MPL_ASSERT_MSG( meta::is_native<T>::value, BOOST_SIMD_NATIVE_CAST_TARGET_NOT_NATIVE, (T) );
-    BOOST_MPL_ASSERT_MSG( sizeof(T) == sizeof(U), BOOST_SIMD_NATIVE_CAST_TARGET_NOT_SAME_SIZE_AS_SOURCE, (T, U) );
+//     BOOST_MPL_ASSERT_MSG( meta::is_native<T>::value, BOOST_SIMD_NATIVE_CAST_TARGET_NOT_NATIVE, (T) );
+//     BOOST_MPL_ASSERT_MSG( sizeof(T) == sizeof(U), BOOST_SIMD_NATIVE_CAST_TARGET_NOT_SAME_SIZE_AS_SOURCE, (T, U) );
     
     return reinterpret_cast<T const&>(u);
   }
@@ -34,17 +34,17 @@ namespace boost { namespace simd
   typename boost::disable_if< meta::is_simd_specific<U, typename T::extension_type>, T const&>::type
   native_cast( U const& u )
   {
-    BOOST_MPL_ASSERT_MSG( meta::is_native<T>::value && meta::is_native<U>::value, BOOST_SIMD_NATIVE_CAST_TARGET_OR_SOURCE_NOT_NATIVE, (T, U) );
+    //    BOOST_MPL_ASSERT_MSG( meta::is_native<T>::value && meta::is_native<U>::value, BOOST_SIMD_NATIVE_CAST_TARGET_OR_SOURCE_NOT_NATIVE, (T, U) );
     
     typedef typename meta::scalar_of<T>::type sT;
     typedef typename meta::scalar_of<U>::type sU;
-    BOOST_MPL_ASSERT_MSG(   (meta::is_logical<sT>::value && meta::is_logical<sU>::value)
-                         || (!meta::is_logical<sT>::value && !meta::is_logical<sU>::value)
-                        , BOOST_SIMD_NATIVE_CAST_LOGICAL_MISMATCH
-                        , (sT, sU)
-                        );
-    
-    BOOST_MPL_ASSERT_MSG( sizeof(T) == sizeof(U), BOOST_SIMD_NATIVE_CAST_TARGET_NOT_SAME_SIZE_AS_SOURCE, (T, U) );
+//     BOOST_MPL_ASSERT_MSG(   (meta::is_logical<sT>::value && meta::is_logical<sU>::value)
+//                          || (!meta::is_logical<sT>::value && !meta::is_logical<sU>::value)
+//                         , BOOST_SIMD_NATIVE_CAST_LOGICAL_MISMATCH
+//                         , (sT, sU)
+//                         );
+
+        BOOST_MPL_ASSERT_MSG( sizeof(T) == sizeof(U), BOOST_SIMD_NATIVE_CAST_TARGET_NOT_SAME_SIZE_AS_SOURCE, (T, U) );
     
     return reinterpret_cast<T const&>(u);
   }

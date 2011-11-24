@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_COMMON_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_COMMON_TRUE_HPP_INCLUDED
-
 #include <boost/simd/toolbox/constant/constants/true.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
@@ -40,5 +39,40 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+#ifdef BOOST_SIMD_HAS_LRB_SUPPORT
+#include <boost/simd/toolbox/constant/constants/true.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::True, simd::tag::lrb_, (A0)
+                                    , ((target_< simd_< logical_<A0>, simd::tag::lrb_> >))
+                                    )
+  {
+    typedef typename A0::type                                       result_type;
+    typedef typename result_type::value_type::value_type            base_type;
+    typedef typename result_type::template rebind<base_type>::type  target_type;
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    {
+      result_type that =  {_mm512_int2mask(Allbits<int16_t>())};
+      return that;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::True, simd::tag::lrb_, (A0)
+                                    , ((target_< simd_< arithmetic_<A0>, simd::tag::lrb_> >))
+                                    )
+  {
+    typedef typename A0::type base_type;
+    typedef typename meta::as_logical<base_type>::type result_type;
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    {
+      result_type that =  {_mm512_int2mask(Allbits<int16_t>())};
+      return that;
+    }
+  };
+} } }
+
+#endif
 #endif
