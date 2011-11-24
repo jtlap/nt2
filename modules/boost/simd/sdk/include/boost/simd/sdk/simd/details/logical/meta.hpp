@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_META_LOGICAL_HPP_INCLUDED
-#define BOOST_SIMD_SDK_META_LOGICAL_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_DETAILS_LOGICAL_META_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_DETAILS_LOGICAL_META_HPP_INCLUDED
 //ok
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
@@ -75,9 +75,9 @@ namespace boost { namespace simd
     value_type operator[](std::size_t i) const
     {
       typedef typename logical<Scalar>::bits bits;
-      bits b  = bitwise_cast<bits>(reinterpret_cast<Scalar const*>(&data_)[i]) 
+      bits b  = bitwise_cast<bits>(reinterpret_cast<native<Scalar, Extension> const&>(data_)[i]) 
               & 1;
-      return value_type( reinterpret_cast<bool const&>( b ) );
+      return value_type(b);
     }    
     
     native_type data_;
