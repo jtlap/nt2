@@ -31,6 +31,7 @@ extern "C" {long double cephes_y0l(long double);}
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_REAL_TYPES)
@@ -50,9 +51,9 @@ NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(y0(nt2::One<T>()), r_t( 8.825696421567700e-02), 1.5);
+  NT2_TEST_ULP_EQUAL(y0(nt2::One<T>()), r_t( 8.825696421567700e-02), 2);
   NT2_TEST_ULP_EQUAL(y0(nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
-} // end of test for floating_
+} // end of test for real_

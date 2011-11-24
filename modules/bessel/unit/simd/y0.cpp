@@ -31,11 +31,14 @@ extern "C" {long double cephes_y0l(long double);}
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -56,9 +59,9 @@ NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(y0(nt2::One<vT>())[0], sr_t( 8.825696421567700e-02), 1.5);
+  NT2_TEST_ULP_EQUAL(y0(nt2::One<vT>())[0], sr_t( 8.825696421567700e-02), 2);
   NT2_TEST_ULP_EQUAL(y0(nt2::Zero<vT>())[0], nt2::Minf<sr_t>(), 0);
-} // end of test for floating_
+} // end of test for real_
