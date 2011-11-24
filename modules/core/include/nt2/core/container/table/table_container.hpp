@@ -16,6 +16,7 @@
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/shape.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/container/category.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
@@ -48,8 +49,9 @@ namespace nt2 { namespace container
   {
     typedef typename meta::option<S, tag::of_size_, _4D>::type          extent_type;
     typedef typename meta::option<S, tag::index_, matlab_index_>::type  index_type;
+    typedef typename meta::option<S, tag::storage_order_, matlab_storage_order_>::type  storage_order_type;
 
-    typedef nt2::settings settings_type(index_type,extent_type,dense_);
+    typedef nt2::settings settings_type(index_type,extent_type, storage_order_type, dense_);
 
     typedef typename make_block<T, settings_type>::type block_type;
     

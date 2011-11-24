@@ -35,7 +35,7 @@ namespace nt2 { namespace memory
 namespace nt2 { namespace meta
 {
   template<typename T, typename A>
-  struct dimensions_of< memory::buffer<T,A> > : boost::mpl::size_t<1> //dimensions_of<T>
+  struct dimensions_of< memory::buffer<T,A> > : boost::mpl::size_t<1 + dimensions_of<T>::value>
   {};
 
   //============================================================================

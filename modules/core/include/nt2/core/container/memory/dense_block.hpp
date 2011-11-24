@@ -26,6 +26,7 @@
 #include <nt2/sdk/memory/lead_padding.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
+#include <nt2/core/container/memory/buffer.hpp>
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
 
 namespace nt2 { namespace memory
@@ -45,6 +46,11 @@ namespace nt2 { namespace memory
     typedef typename meta::option<Layout, tag::index_>::type::type index_type;
 
     //==========================================================================
+    // Retrieve storage order
+    //==========================================================================
+    //typedef typename meta::option<Layout, tag::storage_order_>::type::type storage_order_type;
+
+    //==========================================================================
     // Retrieve padding strategy
     //==========================================================================
 
@@ -57,6 +63,8 @@ namespace nt2 { namespace memory
     //==========================================================================
     typedef iliffe_buffer < dimensions
                           , Type
+                          , buffer<Type>
+                          , buffer<byte>
                           , lead_padding
                           , allocator<Type>
                           >                       buffer_type;

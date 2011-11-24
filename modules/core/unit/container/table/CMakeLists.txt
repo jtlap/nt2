@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  constructor.cpp
+  table.cpp
 # List of scalar test files for toolbox core.settings
    )
 

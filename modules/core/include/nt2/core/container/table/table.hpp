@@ -13,6 +13,7 @@
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/container/table/table_container.hpp>
+#include <nt2/core/container/table/adapted/table.hpp>
 
 namespace nt2 { namespace container
 {
