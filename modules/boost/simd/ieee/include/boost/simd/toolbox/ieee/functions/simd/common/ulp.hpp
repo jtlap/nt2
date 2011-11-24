@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/if_allbits_else.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -48,9 +49,9 @@ namespace boost { namespace simd { namespace ext
         const A0 x = boost::simd::abs(a0);
         A0 xp = boost::simd::predecessor(x);
         A0 xs = boost::simd::successor(x); 
-        return if_nan_else(is_equal(x, Inf<A0>()), boost::simd::min(x-xp, xs - x));
-//         return boost::simd::select(boost::simd::is_equal(x, boost::simd::Inf<A0>()),
-//                                 boost::simd::Nan<A0>(), boost::simd::min(x-xp, xs - x));
+	return if_allbits_else(is_equal(x, Inf<A0>()), boost::simd::min(x-xp, xs - x));
+// 	         return boost::simd::select(boost::simd::is_equal(x, boost::simd::Inf<A0>()),
+//                                  boost::simd::Nan<A0>(), boost::simd::min(x-xp, xs - x));
       }
   };
 } } }

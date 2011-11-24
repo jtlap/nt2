@@ -18,7 +18,7 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Bring the tag boolean_if_else_zero_ of functor boolean_if_else_zero 
+     * \brief Bring the tag if_else_zero_ of functor if_else_zero 
      *        in namespace nt2::tag for toolbox nt2.boolean
     **/
     using boost::simd::tag::if_else_zero_;

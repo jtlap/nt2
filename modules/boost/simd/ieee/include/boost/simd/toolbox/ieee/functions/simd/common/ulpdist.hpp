@@ -90,8 +90,8 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type itype;
       itype e1, e2;
       A0 m1, m2;
-      boost::simd::frexp(a0, m1, e1);
-      boost::simd::frexp(a1, m2, e2);
+      m1 = boost::simd::frexp(a0, e1);
+      m2 = boost::simd::frexp(a1, e2);
       itype expo = -boost::simd::max(e1, e2);
       A0 e = select( boost::simd::is_equal(e1, e2)
                 , boost::simd::abs(m1-m2)

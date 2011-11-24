@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/unary_minus.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -65,9 +65,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 tmp = if_else_zero(is_nez(a1), a0); 
-      tmp = if_else(is_ltz(a1), -a0, tmp);
-      tmp = seladd(is_nan(a1), tmp, a1); //TODO signed Nan ?
+      A0 tmp = if_else(is_nez(a1), a0, a1);
+      A0 ma0 =  unary_minus(a0); 
+      tmp = if_else(is_ltz(a1), ma0, tmp);
+      //      tmp = seladd(is_nan(a1), tmp, a1); //TODO signed Nan ?
+      tmp = select(is_nan(a1), a1, tmp); 
         return tmp;
     }
   };

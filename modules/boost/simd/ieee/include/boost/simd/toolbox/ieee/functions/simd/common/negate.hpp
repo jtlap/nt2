@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
     {
       A0 tmp = if_else_zero(is_nez(a1), a0);
       tmp = if_else(is_ltz(a1), -a0, tmp);
-      return seladd(is_nan(a1), tmp, a1); //TODO signed Nan ?
+      return select(is_nan(a1), a1, tmp); //TODO signed Nan ?
     }
   };
 } } }

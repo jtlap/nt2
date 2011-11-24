@@ -54,9 +54,8 @@ namespace boost { namespace simd { namespace ext
       bA0 test0 = is_nez(a0);
       bint_type test1 = gt(r1,vme);
       r1 = if_else_zero(b_notand(test1, test0), r1); 
-      //     r1 = b_and(r1, b_notand(test1, test0));
       r0 = if_else_zero(test0, seladd(test1,r0,a0));
-      //      r0 = b_and(seladd(test1,r0,a0), test0);
+      //      r0 = if_else_zero(test0, select(test1, r0+a0, r0)); 
       return 0; 
     }
   };
@@ -68,7 +67,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;    
-    inline void operator()(A0 const& a0,A2 & a2) const
+    inline result_type operator()(A0 const& a0,A2 & a2) const
     {
       A0 a1; 
       boost::simd::frexp(a0, a1, a2);

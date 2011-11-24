@@ -9,25 +9,27 @@
 /*!
  * \file
 **/
-#ifndef NT2_TOOLBOX_BOOLEAN_FUNCTIONS_BOOLEAN_IF_ZERO_ELSE_HPP_INCLUDED
-#define NT2_TOOLBOX_BOOLEAN_FUNCTIONS_BOOLEAN_IF_ZERO_ELSE_HPP_INCLUDED
-#include <boost/simd/toolbox/boolean/functions/if_zero_else.hpp>
+#ifndef NT2_TOOLBOX_BOOLEAN_FUNCTIONS_BOOLEAN_IF_ALLBITS_ELSE_HPP_INCLUDED
+#define NT2_TOOLBOX_BOOLEAN_FUNCTIONS_BOOLEAN_IF_ALLBITS_ELSE_HPP_INCLUDED
+#include <boost/simd/toolbox/boolean/functions/if_allbits_else.hpp>
 
 namespace nt2
 {
   namespace tag
   {
     /*!
-     * \brief Bring the tag if_zero_else_ of functor if_zero_else 
+     * \brief Bring the tag if_allbits_else_ of functor if_allbits_else 
      *        in namespace nt2::tag for toolbox nt2.boolean
     **/
-    using boost::simd::tag::if_zero_else_;
+    using boost::simd::tag::if_allbits_else_;
   }
 
-  using boost::simd::if_zero_else;
-  using boost::simd::ifzeroelse; 
-  using boost::simd::ifnot_else_zero;
-  using boost::simd::ifnotelsezero; 
+  using boost::simd::if_allbits_else;
+  using boost::simd::ifnot_else_allbits; 
+  using boost::simd::ifnotelseallbits; 
+  using boost::simd::ifnanelse; 
+  using boost::simd::ifnot_else_nan; 
+  using boost::simd::ifnotelsenan; 
 }
 #endif
 
