@@ -11,6 +11,7 @@
 
 #include <boost/simd/toolbox/constant/constants/false.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -34,46 +35,11 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A0::type base_type;
     typedef typename meta::as_logical<base_type>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
     {
-      return native_cast<result_type>(Zero<base_type>());
-    }
-  };
-} } }
-#ifdef BOOST_SIMD_HAS_LRB_SUPPORT
-#include <boost/simd/toolbox/constant/constants/false.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/meta/as_logical.hpp>
-
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::False, simd::tag::lrb_, (A0)
-				       , ((target_< simd_< logical_<A0>,simd::tag::lrb_> >))
-                                    )
-  {
-    typedef typename A0::type                                       result_type;
-    typedef typename result_type::value_type::value_type            base_type;
-    typedef typename result_type::template rebind<base_type>::type  target_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
-    {
-      result_type that =  {_mm512_int2mask(0)};
-      return that;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::False, simd::tag::lrb_, (A0)
-				      , ((target_< simd_< arithmetic_<A0>,simd::tag::lrb_> >))
-                                    )
-  {
-    typedef typename A0::type base_type;
-    typedef typename meta::as_logical<base_type>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
-    {
-      result_type that =  {_mm512_int2mask(0)};
-      return that;
+      return False<result_type>(a0);
     }
   };
 } } }
 
-#endif
 #endif
