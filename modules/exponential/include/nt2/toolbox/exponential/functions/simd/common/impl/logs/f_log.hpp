@@ -18,6 +18,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 
@@ -46,7 +47,7 @@ namespace nt2
           //         std::cout << "x " << x << " e " << e << std::endl;
           //         bf::tie(x, e) = frexp(a0);
           //         std::cout << "x " << x << " e " << e << std::endl;
-          int_type x_lt_sqrthf = boost::simd::native_cast<int_type>(gt(single_constant<A0, 0x3f3504f3>(),x));
+          int_type x_lt_sqrthf = if_else_zero(gt(single_constant<A0, 0x3f3504f3>(),x), Mone<int_type>());
           e = e+x_lt_sqrthf;
           x = x+b_and(x, x_lt_sqrthf)+single_constant<A0, 0xbf800000>();
           x2 = sqr(x);

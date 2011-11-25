@@ -13,6 +13,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/if_else_zero.hpp>
 
 namespace nt2
 {
@@ -38,7 +39,7 @@ namespace nt2
           typedef typename meta::scalar_of<A0>::type               sA0;
           int_type k;
           A0 x(fast_frexp(a0, k));
-          const int_type x_lt_sqrthf = boost::simd::native_cast<int_type>(gt(Sqrt_2o_2<A0>(), x));
+          const int_type x_lt_sqrthf = if_else_zero(gt(Sqrt_2o_2<A0>(), x), Mone<int_type>());
           k = k+x_lt_sqrthf;
           f = minusone(x+b_and(x, x_lt_sqrthf));
           dk = tofloat(k);

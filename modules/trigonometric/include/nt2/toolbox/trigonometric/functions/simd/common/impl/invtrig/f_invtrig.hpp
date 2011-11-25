@@ -11,6 +11,7 @@
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/bitwise_notand.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/if_else.hpp>
@@ -40,9 +41,9 @@ namespace nt2
           sign = bitofsign(a0);
           const bA0 x_smaller_1e_4 = lt(x, single_constant<A0, 0x38d1b717>()); //1.0e-4f;
           const bA0 x_larger_05    = gt(x, Half<A0>());
-          const bA0 x_else         = b_or(x_smaller_1e_4, x_larger_05);
+          const bA0 x_else         = logical_or(x_smaller_1e_4, x_larger_05);
           A0 a = if_else_zero(x_smaller_1e_4, x);
-          const A0 b = b_and(Half<A0>()*oneminus(x), x_larger_05);
+          const A0 b = if_else_zero(x_larger_05, Half<A0>()*oneminus(x));
           A0 z = b_or(b_or(if_zero_else(x_else, sqr(x)), a), b);
           x = if_zero_else(x_else, x);
           a = if_else_zero(x_larger_05, sqrt(z));

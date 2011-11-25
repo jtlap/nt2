@@ -11,7 +11,6 @@
 
 #include <boost/simd/toolbox/constant/constants/false.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -35,9 +34,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A0::type base_type;
     typedef typename meta::as_logical<base_type>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      return False<result_type>(a0);
+      return native_cast<result_type>(Zero<base_type>());
     }
   };
 } } }
