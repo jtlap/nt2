@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::table constructor checks"
 
 #include <nt2/table.hpp>
+#include <nt2/include/functions/extent.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -17,5 +18,10 @@
 NT2_TEST_CASE( default_ctor )
 {
   using nt2::table;
+  using nt2::extent;
+  using nt2::of_size;
 
+  table<float> x;
+
+  NT2_TEST( extent(x) == of_size(0) );
 }

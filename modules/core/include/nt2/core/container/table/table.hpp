@@ -82,9 +82,17 @@ namespace nt2 { namespace container
     table( table const& src ) { static_cast<parent&>(*this) = src; }
 
     //==========================================================================
-    // Enable base expression handlign of assignment
+    // Enable base expression handling of assignment
     //==========================================================================
     using parent::operator=;
+
+    //==========================================================================
+    // Non-content preserving resize.
+    //==========================================================================
+    template<class Size> void resize( Size const& sz )
+    {    
+      boost::proto::value(*this).resize(extent_type(sz));
+    }    
   };
 
 } }
