@@ -49,7 +49,7 @@ namespace nt2 { namespace container
   {
     typedef typename meta::option<S, tag::of_size_, _4D>::type          extent_type;
     typedef typename meta::option<S, tag::index_, matlab_index_>::type  index_type;
-    typedef typename meta::option<S, tag::storage_order_, matlab_storage_order_>::type  storage_order_type;
+    typedef typename meta::option<S, tag::storage_order_, matlab_so_>::type  storage_order_type;
 
     typedef nt2::settings settings_type(index_type,extent_type, storage_order_type, dense_);
 

@@ -9,6 +9,7 @@
 
 SET( SOURCES
   table.cpp
+  storage_order.cpp
 # List of scalar test files for toolbox core.settings
    )
 

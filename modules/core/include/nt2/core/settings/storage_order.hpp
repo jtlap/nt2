@@ -14,9 +14,23 @@
 namespace nt2 
 { 
 
-  struct storage_order_;
 
-  typedef storage_order_ matlab_storage_order_;
+  template <class SO, class S, class D>
+    struct storage_order_: SO::template apply<S, D> {};
+
+
+  struct matlab_so_
+  {
+    template <typename S, typename D>
+    struct apply : boost::mpl::int_<S::value - 1 - D::value>  {};
+  };
+
+  struct c_so_
+  {
+    template <typename S, typename D>
+    struct apply : D  {};
+  };
+
 
   namespace tag
   {
@@ -30,12 +44,12 @@ namespace nt2
 
   namespace meta
   {
-    template<class Default>
-    struct option < storage_order_
+    template<class SO, class S, class D, class Default>
+    struct option < storage_order_<SO,S,D>
                   , tag::storage_order_, Default
                   >
     {    
-      typedef storage_order_  type;
+       typedef storage_order_<SO,S,D>  type;
     };
   }
 
