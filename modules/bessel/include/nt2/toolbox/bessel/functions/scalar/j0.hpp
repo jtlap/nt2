@@ -18,6 +18,8 @@
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 
+#include <nt2/toolbox/bessel/details/math.hpp>
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -54,7 +56,13 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if (is_inf(a0)) return Zero<A0>();
+    #if defined(NT2_TOOLBOX_BESSEL_HAS__J0)
+      return ::_j0(a0);
+    #elif defined(NT2_TOOLBOX_BESSEL_HAS_J0)
       return ::j0(a0);
+    #else
+      #warning j0 not supported
+    #endif
     }
   };
 } }

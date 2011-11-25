@@ -24,6 +24,11 @@
 #cmakedefine NT2_TOOLBOX_BESSEL_HAS__YN
 #cmakedefine NT2_TOOLBOX_BESSEL_HAS__YNF
 
+#cmakedefine NT2_TOOLBOX_BESSEL_HAS_J0
+#cmakedefine NT2_TOOLBOX_BESSEL_HAS_J0F
+#cmakedefine NT2_TOOLBOX_BESSEL_HAS__J0
+#cmakedefine NT2_TOOLBOX_BESSEL_HAS__J0F
+
 #include <math.h>
 
 #endif

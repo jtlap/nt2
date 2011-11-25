@@ -36,6 +36,11 @@ check_function_exists(ynf NT2_TOOLBOX_BESSEL_HAS_YNF)
 check_function_exists(_yn NT2_TOOLBOX_BESSEL_HAS__YN)
 check_function_exists(_ynf NT2_TOOLBOX_BESSEL_HAS__YNF)
 
+check_function_exists(j0 NT2_TOOLBOX_BESSEL_HAS_YN)
+check_function_exists(j0f NT2_TOOLBOX_BESSEL_HAS_YNF)
+check_function_exists(_j0 NT2_TOOLBOX_BESSEL_HAS__YN)
+check_function_exists(_j0f NT2_TOOLBOX_BESSEL_HAS__YNF)
+
 ################################################################################
 # Generate math.hpp
 ################################################################################
