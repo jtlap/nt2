@@ -28,7 +28,13 @@ namespace boost { namespace simd { namespace ext
       result_type aa0 = is_nez(a0);
       result_type aa1 = is_nez(a1);
       result_type aa2 = is_nez(a2);
-      return b_or(b_or(b_and(aa0, aa1),b_and(aa1, aa2)),b_and(aa2, aa0));
+      return logical_or(
+               logical_or(
+                 logical_and(aa0, aa1),
+                 logical_and(aa1, aa2)
+               ),
+               logical_and(aa2, aa0)
+             );
     }
   };
 } } }

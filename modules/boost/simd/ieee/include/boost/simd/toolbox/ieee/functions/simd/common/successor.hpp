@@ -78,8 +78,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using boost::simd::Valmax;
-      return boost::simd::seladd( boost::simd::gt(Valmax<A0>()-boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
+      return seladd( boost::simd::gt(Valmax<A0>()-boost::simd::abs(a1), a0), a0, boost::simd::abs(a1));
       }
   };
 } } }
@@ -98,7 +97,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return select(eq(a0, boost::simd::Inf<A0>()), a0,  bitfloating(bitinteger(a0)+a1));
+      return select(eq(a0, Inf<A0>()), a0,  bitfloating(bitinteger(a0)+boost::simd::abs(a1)));
     }
   };
 } } }

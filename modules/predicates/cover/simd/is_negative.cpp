@@ -59,6 +59,8 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
+	std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
+	std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;

@@ -14,6 +14,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
+#include <boost/simd/include/functions/is_gez.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -22,22 +23,27 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitinteger_, tag::cpu_
                             , (A0)(X)
+                            , ((simd_<floating_<A0>,X>))
+                            )
+  {
+    typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      result_type a00 = simd::native_cast<result_type>(a0);
+      return select(boost::simd::is_positive(a0), a00, Signmask<result_type>()-a00 );
+    }
+  };
+   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitinteger_, tag::cpu_
+                            , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef result_type type;
-      type a00 = simd::native_cast<type>(a0);
-      return simd::native_cast<type>(select( is_positive(a0)
-              , a00
-              , Signmask<type>()-a00
-                                ));
+      return simd::native_cast<result_type>(a0); 
     }
-  };
+  }; 
 } } }
 
 

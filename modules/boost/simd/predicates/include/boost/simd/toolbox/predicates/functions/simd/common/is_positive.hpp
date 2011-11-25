@@ -11,6 +11,8 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -23,7 +25,7 @@ namespace boost { namespace simd { namespace ext
                              )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_gez(a0);
     }
@@ -40,10 +42,9 @@ namespace boost { namespace simd { namespace ext
                              )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type type;
-      return is_gez(b_or(bitofsign(a0), One<A0>()));
+      return is_equal(b_or(bitofsign(a0), One<A0>()), One<A0>());
     }
   };
 } } }

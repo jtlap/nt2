@@ -56,11 +56,13 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type iA0;
       //decommenting the following lines make clang works with the ieee.ulp.simd.unit      
-      //       std::cout << "a0                                     " << a0 << std::endl;
-      //       std::cout << "bitinteger(a0)                         " << bitinteger(a0)<< std::endl;
-      //       std::cout << "oneplus(bitinteger(a0))                " << oneplus(bitinteger(a0))<< std::endl;
-      //       std::cout << "bitfloating(oneplus(bitinteger(a0)))   " << bitfloating(oneplus(bitinteger(a0)))<< std::endl;
-      return select(eq(a0, Inf<A0>()), a0,  bitfloating(One<iA0>()+bitinteger(a0)));
+//       std::cout << "---------------------------------------" << a0 << std::endl;
+//       std::cout << "a0                                     " << a0 << std::endl;
+//       std::cout << "bitinteger(a0)                         " << bitinteger(a0)<< std::endl;
+//       std::cout << "oneplus(bitinteger(a0))                " << oneplus(bitinteger(a0))<< std::endl;
+//       std::cout << "bitfloating(oneplus(bitinteger(a0)))   " << bitfloating(oneplus(bitinteger(a0)))<< std::endl;
+//       std::cout << "---------------------------------------" << a0 << std::endl;
+       return select(eq(a0, Inf<A0>()), a0,  bitfloating(One<iA0>()+bitinteger(a0)));
     }
   };
 } } }

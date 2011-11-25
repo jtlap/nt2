@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/bitwise/functions/is_included_c.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/any.hpp>
+#include <boost/simd/include/functions/none.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1) const
     {
-      return native_cast<result_type>(!any(bitwise_and(a1, a0)));
+      return none(bitwise_and(a1, a0));
     }
   };
   

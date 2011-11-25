@@ -73,15 +73,15 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  (boost::simd::int32_t))//NT2_SIMD_INT
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
-//        std::cout << a0 << "  "<< std::endl << a1 << "  "<< std::endl << a2 << "  " << std::endl;
+        std::cout << a0 << "  "<< std::endl << a1 << "  "<< std::endl << a2 << "  " << std::endl;
 //        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
 //          std::cout << "data_ " << reinterpret_cast<T const*>(&a0.data_)[i] << " ";
        std::cout << std::endl; 
        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-//          std::cout << i << " -> " << bool(tab_a0[k]) << "  " << int(tab_a1[k]) << "  " << int(tab_a2[k]) << "  " << std::endl; 
-         NT2_TEST_EQUAL( v[i], nt2::if_else (lT(tab_a0[k]),tab_a1[k],tab_a2[k]));
+	  //          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
+          std::cout << i << " -> " << a0[i] << "  " << int(a1[i]) << "  " << int(a2[i]) << "  " << std::endl; 
+         NT2_TEST_EQUAL( v[i], nt2::if_else (a0[i],a1[i],a2[i]));
         }
       }
     
@@ -124,8 +124,7 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = if_else(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-                   NT2_TEST_EQUAL( v[i],nt2::if_else (lT(tab_a0[k]),tab_a1[k],tab_a2[k]));
+	  NT2_TEST_EQUAL( v[i],nt2::if_else (a0[i],a1[i],a2[i]));
         }
       }
     

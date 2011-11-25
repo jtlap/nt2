@@ -11,7 +11,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/details/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-
+#include <boost/simd/include/functions/sbits.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -44,8 +44,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename boost::dispatch::meta::as_integer<A0>::type itype; 
-      return result_type(boost::simd::bitwise_cast<itype>(a0) >=  Zero<itype>()); 
+      typedef typename boost::dispatch::meta::as_integer<A0, signed>::type itype;
+      return result_type(boost::simd::sbits(a0) >= 0);
+      
+      //      return result_type(boost::simd::bitwise_cast<itype>(a0) >=  Zero<itype>()); 
     }
   };
 } } }
