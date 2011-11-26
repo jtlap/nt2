@@ -22,6 +22,8 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -62,11 +64,11 @@ namespace nt2 { namespace ext
       A0 y =nt2::pow(x,rec(aa1));
       bA1 nul_a1 = is_eqz(a1);
       A0 a11 = tofloat(a1-select(nul_a1, Mone<A1>(), Zero<A1>())); 
-      y = seladd(b_or(is_nez(y), nul_a1), y,
+      y = seladd(logical_or(is_nez(y), nul_a1), y,
 		 - (pow(y, aa1) - x)/(aa1* pow(y, sub(a11, One<A0>()))));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
-      bA0 invalid = b_and(is_ltz(a0), is_even(a1)); 
+      bA0 invalid = logical_and(is_ltz(a0), is_even(a1)); 
       return  select(is_eqz(a0),
 		     Zero<A0>(), 
 		     select(invalid,

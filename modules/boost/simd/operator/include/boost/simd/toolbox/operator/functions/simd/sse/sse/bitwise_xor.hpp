@@ -14,22 +14,22 @@
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_xor_, boost::simd::tag::sse_,
-                                (A0),
-                                ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                                ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                              )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      typedef typename A0::type type; 
-      return native_cast<A0>(bitwise_xor(native_cast<type>(a0), native_cast<type>(a1)));
-    }
-  };
-} } }
+// namespace boost { namespace simd { namespace ext
+// {
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_xor_, boost::simd::tag::sse_,
+//                                 (A0),
+//                                 ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+//                                 ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+//                               )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       typedef typename A0::type type; 
+//       return native_cast<A0>(bitwise_xor(native_cast<type>(a0), native_cast<type>(a1)));
+//     }
+//   };
+// } } }
 
 #endif
 #endif

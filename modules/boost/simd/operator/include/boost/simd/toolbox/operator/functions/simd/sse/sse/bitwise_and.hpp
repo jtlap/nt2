@@ -14,21 +14,21 @@
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_, boost::simd::tag::sse_,
-                                (A0),
-                                ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                                ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                              )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return is_true(bitwise_and(genmask(a0), genmask(a1)));
-    }
-  };
-} } }
+// namespace boost { namespace simd { namespace ext
+// {
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_, boost::simd::tag::sse_,
+//                                 (A0),
+//                                 ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+//                                 ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+//                               )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       return is_true(bitwise_and(genmask(a0), genmask(a1)));
+//     }
+//   };
+// } } }
 
 #endif
 #endif
