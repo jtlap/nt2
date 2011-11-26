@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/any.hpp>
+#include <boost/simd/include/functions/logical_not.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -26,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return native_cast<result_type>(!boost::simd::any(a0));
+      return result_type(logical_not(boost::simd::any(a0)));
     }
   };
 } } }

@@ -28,20 +28,20 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type itype;
-      return native_cast<result_type>(_mm256_testz_si256(native_cast<itype>(a0), Allbits<itype>()));
+      return result_type(_mm256_testz_si256(native_cast<itype>(a0), Allbits<itype>()));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
                         (A0),
-                        ((simd_<floating_<A0>,boost::simd::tag::avx_>))
+                        ((simd_<logical_<A0>,boost::simd::tag::avx_>))
                        )
   {
     typedef typename meta::scalar_of<A0>::type sA0;
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_integer<A0>::type itype;
-      return native_cast<result_type>(none(native_cast<itype>(boost::simd::abs(a0))));
+      typedef typename A0::type type; 
+      return boost::simd::none(native_cast<type>(a0));
     }
   };
 } } }
