@@ -20,8 +20,8 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (scalar_< fundamental_<A0> >)
-                                  (scalar_< fundamental_<A1> >)
+                                , (scalar_< arithmetic_<A0> >)
+                                  (scalar_< arithmetic_<A1> >)
                                 )
   {
     typedef A0 result_type;
@@ -31,29 +31,29 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A0>(bts(bitwise_cast<bts>(a0) ^ bitwise_cast<bts>(a1))); 
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_xor_ , tag::cpu_, (A0)(A1)
-                                , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
-                                                        , boost::mpl::sizeof_<A1>
-                                                        >
-                                  )
-                                , (scalar_< bool_<A0> >)
-                                  (scalar_< bool_<A1> >)
-                                )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return a0^a1; 
-    }
-  };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, tag::cpu_, (A0)(A1)
-                            , (scalar_< logical_<A0> >)
-                              (scalar_< logical_<A1> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return result_type(a0.value() ^ a1.value()); }
-  };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::bitwise_xor_ , tag::cpu_, (A0)(A1)
+//                                 , (boost::mpl::equal_to < boost::mpl::sizeof_<A0>
+//                                                         , boost::mpl::sizeof_<A1>
+//                                                         >
+//                                   )
+//                                 , (scalar_< bool_<A0> >)
+//                                   (scalar_< bool_<A1> >)
+//                                 )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL(2)
+//     {
+//       return a0^a1; 
+//     }
+//   };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_xor_, tag::cpu_, (A0)(A1)
+//                             , (scalar_< logical_<A0> >)
+//                               (scalar_< logical_<A1> >)
+//                             )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL(2) { return result_type(a0.value() ^ a1.value()); }
+//   };
   
 } } }
 

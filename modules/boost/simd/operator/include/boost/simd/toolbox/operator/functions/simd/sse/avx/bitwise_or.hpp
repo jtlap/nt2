@@ -50,18 +50,18 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_or_, boost::simd::tag::avx_,
-                                (A0),
-                                ((simd_<logical_<A0>,boost::simd::tag::avx_>))
-                                ((simd_<logical_<A0>,boost::simd::tag::avx_>))
-                              )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return native_cast<result_type>(bitwise_or(genmask(a0), genmask(a1)));
-    }
-  };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_or_, boost::simd::tag::avx_,
+//                                 (A0),
+//                                 ((simd_<logical_<A0>,boost::simd::tag::avx_>))
+//                                 ((simd_<logical_<A0>,boost::simd::tag::avx_>))
+//                               )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       return native_cast<result_type>(bitwise_or(genmask(a0), genmask(a1)));
+//     }
+//   };
 } } }
 
 #endif

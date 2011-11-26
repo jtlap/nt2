@@ -26,7 +26,9 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/exp.hpp>
-
+#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/logical_not.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -112,9 +114,10 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0; 
       const A0 u =  exp(a0);
-      const bA0 p = b_or(is_eqz(u),is_inf(u));
+      const bA0 p = logical_or(is_eqz(u),is_inf(u));
       const A0 y1 = minusone(u);
-      const bA0 m = b_notand(p, is_not_equal(u, One<A0>()));
+//      const bA0 m = logical_notand(p, is_not_equal(u, One<A0>()));
+      const bA0 m = logical_and(logical_not(p), is_not_equal(u, One<A0>()));
       const A0 y2 = mul(y1,(rdiv(a0,log(u))));
       return select(p,y1,select(m, y2, a0));
     }

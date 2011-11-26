@@ -18,8 +18,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::avx_
                             , (A0)(A1)
-                            , ((simd_<fundamental_<A0>,boost::simd::tag::avx_>))
-                              ((simd_<fundamental_<A1>,boost::simd::tag::avx_>))
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                              ((simd_<arithmetic_<A1>,boost::simd::tag::avx_>))
                             )
   {
     typedef A0 result_type;
@@ -50,19 +50,19 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_, boost::simd::tag::avx_,
-                                (A0),
-                                ((simd_<logical_<A0>,boost::simd::tag::avx_>))
-                                ((simd_<logical_<A0>,boost::simd::tag::avx_>))
-                              )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return native_cast<result_type>(bitwise_and(genmask(a0), genmask(a1)));
-    }
-  };  
-} } }
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_, boost::simd::tag::avx_,
+//                                 (A0),
+//                                 ((simd_<logical_<A0>,boost::simd::tag::avx_>))
+//                                 ((simd_<logical_<A0>,boost::simd::tag::avx_>))
+//                               )
+//   {
+//     typedef A0 result_type;
+//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       return native_cast<result_type>(bitwise_and(genmask(a0), genmask(a1)));
+//     }
+//   };  
+ } } }
 
 #endif
 #endif
