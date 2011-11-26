@@ -21,7 +21,7 @@
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
-
+#include <nt2/include/functions/sinpi.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

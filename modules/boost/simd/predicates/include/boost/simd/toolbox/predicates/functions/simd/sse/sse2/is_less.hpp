@@ -14,6 +14,8 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/logical_and.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -130,7 +132,7 @@ namespace boost { namespace simd { namespace ext
       type ah  = { _mm_shuffle_epi32(sa0, _MM_SHUFFLE(3, 3, 1, 1)) };
       type bh  = { _mm_shuffle_epi32(sa1, _MM_SHUFFLE(3, 3, 1, 1)) };
 
-      result_type that  = { boost::simd::lt(ah,bh) | (boost::simd::eq(ah,bh) & boost::simd::lt(al,bl)) };
+      result_type that  = { l_or(boost::simd::lt(ah,bh), l_and(boost::simd::eq(ah,bh), boost::simd::lt(al,bl))) };
       return that;
     }
   };
