@@ -14,7 +14,6 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -32,17 +31,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
-      //A0 s = Signmask<A0>();
-      //      type that = {select(isgez(type(a0)), a0, s-a0)};
       type r;
       A0 s = simd::native_cast<A0>(Signmask<type>());
-//       std::cout << "in bitfloating" << std::endl;
-//       std::cout << "a0                          " << a0 << std::endl;
-//       std::cout << "is_gez(a0)                  " << is_gez(a0)<< std::endl;
-//       std::cout << "simd::native_cast<type>(a0) " << simd::native_cast<type>(a0)<< std::endl;
-      r = select(is_gez(a0) , simd::native_cast<type>(a0), simd::native_cast<type>(s-a0));
-//       std::cout << "r             " << r<< std::endl;
-//       std::cout << "out bitfloating" << std::endl;
+      r = simd::native_cast<type>(select(is_gez(a0) , a0, s-a0));
       return r;
     }
   };

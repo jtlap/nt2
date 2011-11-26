@@ -74,30 +74,13 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_logical<A0>::type bA0; 
-      //       A0 gtza0 = is_gtz(a0);
-      //       A0 gtza1 = is_gtz(a1);
-      //       A0 a0pa1 = a0+a1;
-      //       A0 test1 = b_and(gtza0, b_and(gtza1, (lt(a0pa1, boost::simd::max(a0, a1))))); 
-      //       A0 test2 = b_andnot(b_andnot(b_or(is_gtz(a0pa1),gt(a0pa1, boost::simd::min(a0, a1))),gtza0),gtza1);
-      //       return select(test1,Valmax<A0>(),select(test2,Valmin<A0>(),a0pa1)); 
       bA0 gtza0 = is_gtz(a0);
       bA0 gtza1 = is_gtz(a1);
-      //       std::cout << "a0 " << a0 << std::endl;
-      //       std::cout << "a1 " << a1 << std::endl;
-      //       std::cout << "gtza0 "<< gtza0 << std::endl;
-      //       std::cout << "gtza1 "<< gtza1 << std::endl;
       A0 a0pa1 = a0+a1;
-      //       std::cout << a0pa1 << std::endl;
-      //       std::cout << boost::simd::max(a0, a1) << std::endl;
-      //       std::cout << lt(a0pa1,a0) << std::endl;
-      //      bA0 test1 = lt(a0pa1, boost::simd::max(a0, a1)); 
       bA0 test1 = b_and(gtza0, b_and(gtza1, lt(a0pa1, boost::simd::max(a0, a1))));
-       //      std::cout << test1 << std::endl;
       bA0 test2 = b_andnot(b_or(is_gtz(a0pa1),gt(a0pa1, boost::simd::min(a0, a1))),
                         b_or(gtza0,gtza1)
                         );
-       //      std::cout << test2 << std::endl;
       return if_else(test1,Valmax<A0>(),if_else(test2,Valmin<A0>(),a0pa1));
     }
   };

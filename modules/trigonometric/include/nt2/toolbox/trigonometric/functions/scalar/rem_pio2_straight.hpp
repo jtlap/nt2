@@ -47,8 +47,6 @@ namespace nt2 { namespace ext
     typedef nt2::int32_t result_type;    
     inline result_type operator()(A0 const& x, A0 & xr, A0& xc) const
       {
-	//	  static int i = 0;
-	//	  std::cout << "straight_reduction " << i++ << std::endl; 
 	xr = x-Pio2_1<A0>();
 	xr -= Pio2_2<A0>();
 	xr -= Pio2_3<A0>();

@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_COMMON_TRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_COMMON_TRUE_HPP_INCLUDED
-
 #include <boost/simd/toolbox/constant/constants/true.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>

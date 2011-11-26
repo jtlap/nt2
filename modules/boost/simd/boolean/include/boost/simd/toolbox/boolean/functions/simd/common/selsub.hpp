@@ -14,7 +14,6 @@
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/simd/include/functions/minus.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -31,15 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
-//       std::cout << "icitt" << std::endl;
-//       std::cout << "a0 " << a0 <<  std::endl;
-//       std::cout << "a1 " << a1 <<  std::endl;
-//       std::cout << "a2 " << a2 <<  std::endl;
-//       std::cout << "if_else_zero(a0, a2) " << if_else_zero(a0, a2)<<  std::endl;
-//     return a1 - if_else_zero(a0, a2);
-     A1 tmp =  a1;
-     tmp -=  if_else_zero(a0, a2);
-     return tmp; 
+     return a1 - if_else_zero(a0, a2); 
     }
   };
 } } }

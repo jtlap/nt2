@@ -47,11 +47,7 @@ namespace nt2 { namespace ext
     typedef nt2::int32_t result_type;    
     inline result_type operator()(A0 const& x, A0 & xr, A0& xc) const
       {
-	//	  static int i = 0;
-	//	  std::cout << "cephes_reduction " << i++ << std::endl; 
         A0 xi =  nt2::round2even(x*Twoopi<A0>()); 
-	//	result_type n = fast_toint(x*Twoopi<A0>()+Half<A0>());
-	//	A0 xi =  tofloat(n);
 	xr = x-xi*Pio2_1<A0>();
 	xr -= xi*Pio2_2<A0>();
 	xr -= xi*Pio2_3<A0>();

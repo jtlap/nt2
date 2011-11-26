@@ -38,8 +38,6 @@ namespace nt2
 
 	static inline int_type noreduction(const A0& x, A0& xr,  A0& xc)
 	{
-	  //	  static int i = 0;
-	  //	  std::cout << "noreduction " << i++ << std::endl; 
 	  // x has to be in [0, pi/4]
 	  xr =  x;
 	  xc = Zero<A0>();
@@ -48,8 +46,6 @@ namespace nt2
 
 	static inline int_type straight_reduction(const A0& x, A0& xr, A0& xc)
 	{
-	  //	  static int i = 0;
-	  //  std::cout << " straight reduction "  << std::endl; 
 	  // x has to be in [pi/4, pi/2]
 	  xr = x-single_constant<A0,0x3fc90f80>();
 	  xr -= single_constant<A0,0x37354400 >();
@@ -59,9 +55,6 @@ namespace nt2
 
 	static inline int_type cephes_reduction(const A0& x, A0& xr, A0& xc)
 	{
-	  //	  static int i = 0;
-	  //  std::cout << " cephes reduction "  << std::endl; 
-	  //	  A0 xi = round2even(x* Const<A0,invpio2>());
 	  int_type n = fast_toint(x* single_constant<A0,0x3f22f984>()+Half<A0>());
 	  A0 xi =  tofloat(n);
 	  xr = x-xi*single_constant<A0,0x3fc90f80>();
@@ -73,8 +66,6 @@ namespace nt2
 
 	static inline int_type fdlibm_medium_reduction(const A0& t, A0& xr, A0& xc)
 	{
-	  //	  static int i = 0;
-	  //	  std::cout << "fdlibm_medium_reduction " << i++ << std::endl; 
 	  A0 fn = round2even(t*single_constant<A0,0x3f22f984>());
 	  A0 r  = t-fn*single_constant<A0,0x3fc90f80>();
 	  A0 w  = fn*single_constant<A0,0x37354443>();	/* 1st round good to 40 bit */
@@ -93,12 +84,7 @@ namespace nt2
 
 	static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
 	{
-// 	  static int i = 0;
-// 	  std::cout << "fdlibm_big_reduction " << i++ << std::endl; 
 	  return nt2::rem_pio2(t, xr, xc);
-// 	  int_type i;
-// 	  rpio2<A0, tag::not_simd_type>::rem_pio2(t, i, xr, xc);
-// 	  return i;
 	}
 
 	static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& /*xc*/)
