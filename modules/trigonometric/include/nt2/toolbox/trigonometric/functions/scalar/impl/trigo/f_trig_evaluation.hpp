@@ -28,12 +28,12 @@ namespace nt2
       struct trig_evaluation{
 //   	static inline A0 cos_eval(const A0&, const A0&, const A0&)
 // 	{
-// 	  nt2::assert("you cannot be here"); //std::cout << "icitte " << style::value << std::endl;
+// 	  nt2::assert("you cannot be here"); 
 // 	  exit(1); 
 // 	}       
 //   	static inline A0 sin_eval(const A0&, const A0&, const A0&)
 // 	{
-// 	  nt2::assert("you cannot be here"); //std::cout << "icitte " << style::value << std::endl;
+// 	  nt2::assert("you cannot be here"); 
 // 	  exit(1); 
 // 	}       
       };

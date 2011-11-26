@@ -82,10 +82,8 @@ namespace nt2 { namespace ext
             r2 = sel(negative, r1, s);
           }
         if (nb >= meta::cardinal_of<A0>::value) return r2;
-        //      std::cout << "r2 "<< r2 << std::endl;
         A0 y2 =  other(test0, x); // computation result if ~test0
         r = sel(test0, r2, y2);
-        //     r &= b_or(y2, test0);
         return if_nan_else(is_nan(a0), r); 
         
       }    

@@ -44,9 +44,6 @@ namespace nt2
           typedef typename meta::as_integer<A0, signed>::type int_type;
           int_type e;
           x = fast_frexp(a0, e);
-          //         std::cout << "x " << x << " e " << e << std::endl;
-          //         bf::tie(x, e) = frexp(a0);
-          //         std::cout << "x " << x << " e " << e << std::endl;
           int_type x_lt_sqrthf = if_else_zero(gt(single_constant<A0, 0x3f3504f3>(),x), Mone<int_type>());
           e = e+x_lt_sqrthf;
           x = x+b_and(x, x_lt_sqrthf)+single_constant<A0, 0xbf800000>();
@@ -98,7 +95,7 @@ namespace nt2
           z = amul(z, x, single_constant<A0, 0x3ede0000>());
           z = amul(z, fe, single_constant<A0, 0x39826a14>());//3.0078125E-1f              // log10(2)hi
           z = amul(z, fe, single_constant<A0, 0x3e9a0000>());//2.48745663981195213739E-4f // log10(2)lo
-          A0 y1 = a0-rec(abs(a0)); // trick to reduce selection testing
+          A0 y1 = a0-rec(abs(a0)); // trick to reduce selection testing perhaps bad TODO
           return seladd(is_inf(y1), if_nan_else(logical_or(is_ltz(a0), is_nan(a0)), z),y1);
         }
       };

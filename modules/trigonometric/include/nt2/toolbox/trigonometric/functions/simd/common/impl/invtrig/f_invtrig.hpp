@@ -20,7 +20,6 @@
 #include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/any.hpp>
-#include <iostream>
 
 namespace nt2
 {

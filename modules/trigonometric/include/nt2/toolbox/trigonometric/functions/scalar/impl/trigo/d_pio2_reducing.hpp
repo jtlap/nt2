@@ -40,7 +40,6 @@ namespace nt2
 	
 	static inline int_type straight_reduction(const A0& x, A0& xr, A0& xc)
 	{
-	  //  std::cout << " straight reduction "  << std::endl; 
 	  // x has to be in [pi/4, pi/2]
           xr = x-double_constant<A0,0x3FF921FB54400000ll>();
                     // 6.07710050630396597660e-11

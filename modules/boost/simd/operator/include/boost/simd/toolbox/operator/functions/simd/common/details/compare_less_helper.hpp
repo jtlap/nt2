@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_DETAILS_COMPARE_LESS_HELPER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_DETAILS_COMPARE_LESS_HELPER_HPP_INCLUDED
 #include <boost/simd/include/functions/reversebits.hpp>
-#include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////
 // shared helper

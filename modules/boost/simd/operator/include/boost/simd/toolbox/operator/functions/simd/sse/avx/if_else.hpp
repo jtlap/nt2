@@ -15,7 +15,6 @@
 #include <boost/simd/toolbox/operator/functions/if_else.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {

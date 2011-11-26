@@ -91,20 +91,16 @@ namespace nt2
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
-              //                      std::cout << "1111111111111" << std::endl; 
               xr = x;
               xc = Zero<A0>();
               return Zero<int_type>(); 
             }
           else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             {
-              //                      std::cout << "2222222222222" << std::endl; 
               return rem_pio2_straight(x, xr, xc);
             }
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             {
-              //                      std::cout << "333333333333" << std::endl;
-              //              A0 x1 = b_or(x, is_invalid(x));
               return rem_pio2_cephes(x, xr, xc);
             }
         }

@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
+//TODO...a common version or delete the file
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is int 32 8 64
 // /////////////////////////////////////////////////////////////////////////////
