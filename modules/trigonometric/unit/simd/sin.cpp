@@ -92,6 +92,8 @@ NT2_TEST_CASE_TPL ( sin_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(sin(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sin(nt2::One<vT>())[0],  sin(nt2::One<sr_t>()), 0.5);
+  NT2_TEST_ULP_EQUAL(sin(nt2::One<vT>())[1],  sin(nt2::One<sr_t>()), 0.5);
 } // end of test for int_convert_
 
 NT2_TEST_CASE_TPL ( sin_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)

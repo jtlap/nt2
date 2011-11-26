@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<A0>(), a0);
       e += shli(a1, Nbmantissabits<s_type>());
-      return select( b_and(is_nez(a0),is_finite(a0))
+      return select( logical_and(is_nez(a0),is_finite(a0))
                      , b_or(x, e)
                      , a0
                      );
