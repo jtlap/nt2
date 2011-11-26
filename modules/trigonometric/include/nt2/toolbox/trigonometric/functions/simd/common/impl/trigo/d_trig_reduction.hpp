@@ -19,6 +19,7 @@
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/false.hpp>
@@ -147,8 +148,8 @@ namespace nt2
       typedef typename meta::as_integer<A0, signed>::type  int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
 
-        static inline bA0 cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_even(x/_90<A0>())); }
-        static inline bA0 tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_odd(x/_90<A0>()); }
+        static inline bA0 cot_invalid(const A0& x) { return (logical_and(is_nez(x), is_even(x/_90<A0>()))); }
+        static inline bA0 tan_invalid(const A0& x) { return is_odd(x/_90<A0>()); }
         static inline int_type reduce(const typename A0::native_type x_n, A0& xr, A0& xc)
         {
           const A0 x = { x_n };
@@ -167,7 +168,7 @@ namespace nt2
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
 
-        static inline bA0 cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x)); }
+        static inline bA0 cot_invalid(const A0& x) { return logical_and(is_nez(x), is_flint(x)); }
         static inline bA0 tan_invalid(const A0& x) { return is_flint(x-Half<A0>()); }
         static inline int_type reduce(const typename A0::native_type x_n,  A0& xr, A0&xc)
         {

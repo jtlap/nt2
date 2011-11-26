@@ -195,7 +195,7 @@ namespace nt2
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::as_logical<A0>::type              bA0;
 
-        static inline bA0 cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x/_180<A0>())); }
+        static inline bA0 cot_invalid(const A0& x) { return logical_and(is_nez(x), is_flint(x/_180<A0>())); }
         static inline bA0 tan_invalid(const A0& x) { return is_flint((x-_90<A0>())/_180<A0>()); }
 
         static inline int_type reduce(const typename A0::native_type x_n, A0& xr, A0& xc)

@@ -19,6 +19,8 @@
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
+#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 
 
 
@@ -37,8 +39,8 @@ namespace nt2 { namespace ext
       {
      typedef typename meta::as_logical<A0>::type bA0; 
      bA0 leza0 =  is_lez(a0);
-     return if_nan_else(b_or(b_or(is_nan(a0),eq(a0,Minf<A0>())),
-                             b_and(leza0,is_flint(a0))),
+     return if_nan_else(logical_or(logical_or(is_nan(a0),eq(a0,Minf<A0>())),
+                             logical_and(leza0,is_flint(a0))),
                         selsub(leza0,One<A0>(),if_else_zero(is_odd(floor(a0)), Mtwo<A0>()))
                         );
       }

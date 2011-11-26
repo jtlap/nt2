@@ -118,7 +118,7 @@ namespace nt2
 	  const A0 a0 = {a0_n};
           const A0 x =  nt2::abs(a0);
           const bA0 flag1 = lt(x,  tan3pio8);             
-          const bA0 flag2 = b_and(ge(x, tanpio8), flag1); 
+          const bA0 flag2 = logical_and(ge(x, tanpio8), flag1); 
           A0 yy = if_zero_else(flag1, Pio_2<A0>());
           yy = select(flag2, Pio_4<A0>(), yy);
           A0 xx = select(flag1, x, -rec(x));

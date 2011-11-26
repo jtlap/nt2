@@ -59,7 +59,6 @@ namespace boost { namespace simd { namespace ext
     {
       A0 a0ma1 = a0-a1;
       return if_else_zero(le(a0ma1, a0), a0ma1); 
-      //      return seladd(gt(a0, a1), Zero<A0>(), a0-a1); 
     }
   };
 } } }

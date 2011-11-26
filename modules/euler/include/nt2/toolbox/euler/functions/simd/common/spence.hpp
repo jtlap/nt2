@@ -19,7 +19,9 @@
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -81,7 +83,7 @@ namespace nt2 { namespace ext
       x = sel(flag2, rec(x), x);
       bA0 flag =  gt(x,One<A0>()+Half<A0>());
       bA0 flag1=  lt(x,Half<A0>());
-      flag2 |= flag;
+      flag2 = logical_or(flag2, flag);
       A0 w =  sel(flag, minusone(rec(x)), sel(flag1, -x, minusone(x)));
       A0 y = -w*polevl(w,A)/polevl(w,B);
       y = sel(flag1, C -log(x) * log(One<A0>()-x)-y,y);

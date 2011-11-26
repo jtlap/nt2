@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( is_positive_real__1_0,  NT2_SIMD_REAL_TYPES)
 	std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
 	std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
 	//	std::cout << nt2::type_id(is_positive(a0)) << std::endl;
-        r_t v; //= is_positive(a0);
+        r_t v = is_positive(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
