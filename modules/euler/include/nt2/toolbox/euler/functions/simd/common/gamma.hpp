@@ -117,7 +117,7 @@ namespace nt2 { namespace ext
           for (int32_t i = 0; i < maximum(n); ++i)
             {
              //            bA0 t = b_andnot(lt(splat<A0>(i), n), islt1);
-             bA0 t = l_and(islt1, lt(splat<A0>(i), n), logical_not(islt1)); //logical_andnot
+             bA0 t = l_and(lt(splat<A0>(i), n), logical_not(islt1)); //logical_andnot
             r *= sel(t, y, One<A0>());
             y = seladd(t, y, One<A0>()) ;
             }
