@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/logical_and.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/logical_not.hpp>
-//#include <boost/simd/include/functions/logical_andnot.hpp>
+//#include <boost/simd/include/functions/logical_notand.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/max.hpp>
@@ -80,10 +80,8 @@ namespace boost { namespace simd { namespace ext
       bA0 gtza0 = is_gtz(a0);
       bA0 gtza1 = is_gtz(a1);
       A0 a0pa1 = a0+a1;
-      bA0 test1 = logical_and(gtza0, logical_and(gtza1, lt(a0pa1, boost::simd::max(a0, a1))));
-      bA0 test2 = logical_and(logical_or(is_gtz(a0pa1),logical_not(gt(a0pa1, boost::simd::min(a0, a1)))),
-                        logical_or(gtza0,gtza1)
-                        );
+      bA0 test1 = logical_and(logical_and(gtza0, gtza1), lt(a0pa1, a0));
+      bA0 test2 = logical_and(logical_not(logical_or(gtza0, gtza1)), gt(a0pa1,a0)); //logical_notand
       return if_else(test1,Valmax<A0>(),if_else(test2,Valmin<A0>(),a0pa1));
     }
   };
