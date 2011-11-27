@@ -1,3 +1,4 @@
+
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
@@ -17,14 +18,25 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
-                            , (A0)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
+                                 , (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return bitwise_xor(is_nez(a0), is_nez(a1));
+      return result_type(is_nez(a0)^is_nez(a1));
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
+                                 , (A0)(A1)
+                            , (scalar_< logical_<A0> >)(scalar_< logical_<A1> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return result_type(a0^a1);
     }
   };
 } } }
