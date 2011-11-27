@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     #elif defined(NT2_TOOLBOX_BESSEL_HAS_YN)
       return ::yn(a0, a1);
     #else
-      #warning yn not supported
+      #error yn not supported
     #endif
     }
   };

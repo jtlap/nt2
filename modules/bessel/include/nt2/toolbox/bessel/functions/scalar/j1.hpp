@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
     #elif defined(NT2_TOOLBOX_BESSEL_HAS_J1)
       return ::j1(a0);
     #else
-      #warning j1 not supported
+      #error j1 not supported
     #endif
     }
   };
