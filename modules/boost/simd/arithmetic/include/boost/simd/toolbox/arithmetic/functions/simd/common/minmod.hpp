@@ -20,7 +20,7 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
 #include <boost/simd/include/functions/if_allbits_else.hpp>
-#include <boost/simd/include/functions/logcal_or.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
