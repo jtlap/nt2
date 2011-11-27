@@ -29,6 +29,7 @@
 #include <boost/simd/include/functions/is_greater_equal.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/if_else_allbits.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is uint8_t
@@ -57,15 +58,6 @@ namespace boost { namespace simd { namespace ext
       n  = seladd( gt(n*n,a0), n, Mone<A0>());
 
       return seladd(na, Zero<A0>(), n);
-
-//       A0 msk = b_and(is_less_equal(n1,n), na);
-
-//       n   = if_else(msk,n1,n);
-//       n1  = sqr(n);
-//       msk = b_or(gt(n1,a0), b_and(is_eqz(n1), na));
-//       n   = seladd( msk, n, Mone<A0>());
-
-//      return seladd(na, Zero<A0>(), n);
     }
   };
 } } }

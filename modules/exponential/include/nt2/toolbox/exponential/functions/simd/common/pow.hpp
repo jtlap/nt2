@@ -20,6 +20,8 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
+#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/logical_not.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -55,10 +57,11 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_logical<A0>::type                 bA0; 
       bA0 isltza0 = is_ltz(a0);
-      bA0 allz = b_and(is_eqz(a0), is_eqz(a1));
+      bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
       A0 res =  exp(a1*log(nt2::abs(a0)));
-      res =  select(b_and(is_odd(a1), isltza0), -res, res); 
-      bA0 invalid =  bitwise_andnot(isltza0, is_flint(a1));
+      res =  select(l_and(is_odd(a1), isltza0), -res, res); 
+      //     bA0 invalid =  logical_andnot(isltza0, is_flint(a1));
+      bA0 invalid =  l_and(isltza0, logical_not( is_flint(a1)));
       return select(invalid, Nan<result_type>(), select(allz, One<A0>(), res));
     }
   };

@@ -12,6 +12,7 @@
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -140,7 +141,7 @@ namespace nt2 { namespace ext
         typedef typename meta::as_logical<A0>::type bA0; 
         typedef typename meta::as_integer<A0>::type iA0;
         typedef typename meta::scalar_of<A0>::type sA0;
-        bA0 isnan =  b_or(is_ltz(a0), gt(a0, One<A0>()));
+        bA0 isnan =  logical_or(is_ltz(a0), gt(a0, One<A0>()));
         A0 m = if_zero_else(isnan, a0); 
         A0 aa0 = One<A0>();
         A0 bb0 = sqrt(oneminus(m));

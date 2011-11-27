@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/if_allbits_else.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/mpl/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -87,9 +88,7 @@ namespace boost { namespace simd { namespace ext
     {
       a2 = round2even(a0/a1); 
       a3 = toint(a2);
-      a2 =  if_nan_else(b_or(is_invalid(a0), is_eqz(a1)), a0-a2*a1);
-//a2 = b_or(is_invalid(a0), b_or(is_eqz(a1), a0-a2*a1)); 
- 
+      a2 =  if_nan_else(l_or(is_invalid(a0), is_eqz(a1)), a0-a2*a1);
     }
   };
  

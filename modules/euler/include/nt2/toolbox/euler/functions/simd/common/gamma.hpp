@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
       bA0 lteps = lt(y, Eps<A0>());
       if ((nb1 = nbtrue(lteps)) > 0)
         {
-          A0 r1 =  if_nan_else(lteps, rec(y));//b_ornot(rec(y), lteps);
+          A0 r1 =  if_nan_else(lteps, rec(y));
           res &=  r1;
           if(nb1 > Card)
             return finalize(a0, res, fact, lezy);

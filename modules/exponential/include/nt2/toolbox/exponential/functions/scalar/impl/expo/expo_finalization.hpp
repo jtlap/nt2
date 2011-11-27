@@ -67,7 +67,7 @@ namespace nt2
         {
           A0 y = fast_ldexp(c, fast_toint(k));
           //adjust for 10^n n flint
-          return  if_else(b_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
+          return  if_else(l_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
         }
       };
 

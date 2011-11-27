@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/exponentbits.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/if_else_zero.hpp>
 #include <boost/simd/toolbox/ieee/details/math.hpp>
 
 #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_ILOGB
@@ -79,7 +80,7 @@ namespace boost { namespace simd { namespace ext
     {
       const int nmb = int(Nbmantissabits<A0>());
       const result_type x = shri(exponentbits(a0), nmb);
-      return x-b_and(Maxexponent<A0>(), A0(is_nez(a0)));
+      return x-if_else_zero(is_nez(a0), Maxexponent<A0>());
     }
   };
 } } }

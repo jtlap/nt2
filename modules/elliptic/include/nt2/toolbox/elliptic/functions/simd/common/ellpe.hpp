@@ -16,6 +16,7 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -91,7 +92,7 @@ namespace nt2 { namespace ext
                                   ) ) > (a0);
       return select(is_eqz(a0),
                 One<A0>(),
-                if_nan_else(b_or(gt(a0, One<A0>()), is_ltz(a0)), temp));
+                if_nan_else(logical_or(gt(a0, One<A0>()), is_ltz(a0)), temp));
     }
   };
 } }

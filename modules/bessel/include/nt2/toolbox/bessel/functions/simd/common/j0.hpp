@@ -19,6 +19,9 @@
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/min.hpp>
+
 
 
 
