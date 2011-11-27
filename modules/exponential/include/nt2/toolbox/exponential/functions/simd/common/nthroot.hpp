@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
 		     select(invalid,
 			    Nan<A0>(),   
 			    sel(is_eqz(aa1), One<A0>(),  
-				sel(b_or(eq(a1, One<A1>()), is_inf(a0)),
+				sel(l_or(eq(a1, One<A1>()), is_inf(a0)),
 				    a0,
 				    b_or(y, bitofsign(a0))
 				    )

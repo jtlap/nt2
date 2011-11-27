@@ -27,6 +27,7 @@
 #include <nt2/include/functions/negate.hpp>
 #include <nt2/include/functions/remquo.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 
 
@@ -98,7 +99,7 @@ namespace nt2 { namespace ext
       x = fast_ldexp(x*fact, e);
       x = x-(x-z/sqr(x))*Third<A0>();
       x = x-(x-z/sqr(x))*Third<A0>(); //two newton passes
-      return sel(b_or(is_eqz(a0),is_inf(a0)), a0, b_or(x, bitofsign(a0)));
+      return sel(l_or(is_eqz(a0),is_inf(a0)), a0, b_or(x, bitofsign(a0)));
     }
   };
 } }
@@ -148,7 +149,7 @@ namespace nt2 { namespace ext
       fact = sel(is_equal(rem, Two<int_type>()), cbrt4, fact);
       x = fast_ldexp(x*fact, e);
       x = x-(x-z/sqr(x))*Third<A0>();
-      return sel( b_or(is_eqz(a0),is_inf(a0))
+      return sel( l_or(is_eqz(a0),is_inf(a0))
                   , a0
                   , b_or(x, bitofsign(a0))
                   );
