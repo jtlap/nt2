@@ -18,6 +18,7 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/constants/digits.hpp>

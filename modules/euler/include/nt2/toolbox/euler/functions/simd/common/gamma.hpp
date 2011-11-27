@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
       //     const  double g_xbig = 171.624;
       //return map(functor<tag::gamma_>(), tofloat(a0));
       const int32_t Card = meta::cardinal_of<A0>::value;
-      const A0 LOGSQRT2PI =  log(sqrt(Two<A0>()*Pi<A0>())); 
+      const A0 LOGSQRT2PI =  nt2::log(nt2::sqrt(Two<A0>()*Pi<A0>())); 
       A0 res =  Nan<A0>();
       A0 fact =  One<A0>();
       A0 y = a0;
@@ -116,7 +116,8 @@ namespace nt2 { namespace ext
           A0 r1 =  r;
           for (int32_t i = 0; i < maximum(n); ++i)
             {
-            bA0 t = b_andnot(lt(splat<A0>(i), n), islt1); 
+             //            bA0 t = b_andnot(lt(splat<A0>(i), n), islt1);
+             bA0 t = l_and(islt1, lt(splat<A0>(i), n), logical_not(islt1)); //logical_andnot
             r *= sel(t, y, One<A0>());
             y = seladd(t, y, One<A0>()) ;
             }
@@ -139,7 +140,7 @@ namespace nt2 { namespace ext
                          const AA0& fact, const bAA0& lezy)
       {
       bAA0 eqza0 = is_eqz(a0); 
-      bAA0 integer =  b_andnot(is_flint(a0), eqza0);
+      bAA0 integer =  l_and(is_flint(a0), logical_not(eqza0));
       return sel(eqza0, rec(a0), sel(lezy, if_nan_else(integer, fact/res), res));
       }
     

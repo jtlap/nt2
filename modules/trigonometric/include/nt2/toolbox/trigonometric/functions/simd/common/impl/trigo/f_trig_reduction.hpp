@@ -13,7 +13,7 @@
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/rem_pio2_straight.hpp>
 #include <nt2/include/functions/rem_pio2.hpp>
-#include <nt2/toolbox/arithmetic/include/functions/toint.hpp>
+#include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/is_odd.hpp>

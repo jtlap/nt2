@@ -35,7 +35,7 @@ namespace nt2
         typedef trig_evaluation<A0,tag::simd_type>                eval_t;
         typedef typename meta::scalar_of<A0>::type                   sA0; // scalar version of A0
         typedef typename meta::as_integer<A0, signed>::type     int_type; // signed integer type associated to A0
-	typedef typename meta::as_logical<int_type>::type      bint_type; // logical type associated to int_type
+         typedef typename meta::as_logical<int_type>::type      bint_type; // logical type associated to int_type
         typedef typename meta::scalar_of<int_type>::type       sint_type; // scalar version of the associated type   
         typedef typename mode::type                                style;
         typedef typename A0::native_type                            A0_n; 
@@ -89,7 +89,7 @@ namespace nt2
           // size in bits of the scalar types minus one
           const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
-          const int_type n = redu_t::reduce(x, xr, xc);
+           int_type n = redu_t::reduce(x, xr, xc);
           const int_type swap_bit = n&One<int_type>();
           const A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1)); 
           const A0 z = sqr(xr);

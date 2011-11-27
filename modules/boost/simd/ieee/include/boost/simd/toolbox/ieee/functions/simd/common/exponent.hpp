@@ -39,6 +39,7 @@ namespace boost { namespace simd { namespace ext
       const int nmb= int(Nbmantissabits<s_type>());
       const result_type x = shri(exponentbits(a0), nmb);
       return b_andnot(x-b_and(Maxexponent<A0>(), is_nez(a0)), is_invalid(a0));
+      return if_zero_else( is_invalid(a0), x-if_else_zero(is_nez(a0), Maxexponent<A0>())); 
     }
   };
 } } }
