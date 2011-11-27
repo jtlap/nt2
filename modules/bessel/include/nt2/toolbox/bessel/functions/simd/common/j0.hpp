@@ -71,22 +71,17 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
       {
         typedef typename meta::as_logical<A0>::type bA0; 
-       A0 x   =  nt2::abs(a0);
-       bA0 lt2 = lt(x, Two<A0>());
-       std::cout << "1 "<< x << std::endl;
-       std::cout  << "2 "<< lt2 << std::endl;
-       std::cout  << "3 "<< branch1(x)<< std::endl;
-       std::cout  << "4 "<< branch2(x)<< std::endl;
-       std::cout  << "5 "<<  if_else (lt2, branch1(x), branch2(x))<< std::endl;
-//        if (nt2::all(lt2))
-//          return branch1(x);
-//        else
-         return if_else (lt2, branch1(x), branch2(x));
+        A0 x   =  nt2::abs(a0);
+        bA0 lt2 = lt(x, Two<A0>());
+        if (nt2::all(lt2))
+          return branch1(x);
+        else
+          return if_else (lt2, branch1(x), branch2(x));
        // as branch1 is quick there is no need for an "else if" case
        // computing only branch2,  this probably due to the double pipeline
       }
   private :
-    template < class AA0 > static inline AA0 branch1(const AA0 & x)
+    template < class AA0 > static inline AA0 branch1(const AA0 x)
       {
        typedef typename meta::scalar_of<AA0>::type stype; 
        const AA0 z = sqr(x);
@@ -99,7 +94,7 @@ namespace nt2 { namespace ext
                                   0xbe3110a6
                                   ) ) > (z);
   }
-  template < class AA0 > static inline AA0 branch2(const AA0 & x)
+  template < class AA0 > static inline AA0 branch2(const AA0 x)
   {
     typedef typename meta::scalar_of<AA0>::type stype; 
     AA0 q = rec(x);
@@ -115,7 +110,6 @@ namespace nt2 { namespace ext
                               0xb6612dc2,
                               0x3f4c422a
                               ) ) > (q);
-  
     w = sqr(q);
     AA0 xn =  q*
       horner< NT2_HORNER_COEFF_T(stype, 8,
