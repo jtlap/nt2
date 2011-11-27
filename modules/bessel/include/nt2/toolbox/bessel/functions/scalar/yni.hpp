@@ -55,10 +55,10 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-    #ifdef NT2_TOOLBOX_BESSEL_HAS_YN
-      return ::yn(a0, a1);
-    #elif defined(NT2_TOOLBOX_BESSEL_HAS__YN)
+    #ifdef NT2_TOOLBOX_BESSEL_HAS__YN
       return ::_yn(a0, a1);
+    #elif defined(NT2_TOOLBOX_BESSEL_HAS_YN)
+      return ::yn(a0, a1);
     #else
       #warning yn not supported
     #endif
