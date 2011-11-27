@@ -21,6 +21,7 @@
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
@@ -107,7 +108,7 @@ namespace boost { namespace simd { namespace ext
       int_type eb  =  exponent(b);
       bint_type te1 = gt(ea,cts::C1());
       bint_type te2 = lt(eb,cts::MC1());
-      bool te3 = boost::simd::any(te1|te2);
+      bool te3 = boost::simd::any(logical_or(te1, te2));
       int_type e = Zero<int_type>();
       if (te3)
       {
