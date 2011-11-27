@@ -111,7 +111,7 @@ NT2_TEST_CASE_TPL ( sec_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::sec (tab_a0[k])), 1.0);
+          NT2_TEST_ULP_EQUAL( v[i], nt2::sec (tab_a0[k]), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
@@ -139,9 +139,9 @@ NT2_TEST_CASE_TPL ( sec_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
   ulpd=0.0;
 
   // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  static const nt2::uint32_t NR = 32; //NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-60), T(60));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(60));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {

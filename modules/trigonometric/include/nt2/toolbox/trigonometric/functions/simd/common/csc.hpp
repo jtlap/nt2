@@ -28,9 +28,7 @@ namespace nt2 { namespace ext
                             , ((simd_<integer_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return if_nan_else(is_eqz(a0), rec(sin(tofloat(a0))));
@@ -49,9 +47,7 @@ namespace nt2 { namespace ext
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return rec(sin(a0));
