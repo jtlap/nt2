@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     #elif defined(NT2_TOOLBOX_BESSEL_HAS_Y0)
       return ::y0(a0);
     #else
-      #warning y0 not supported
+      #error y0 not supported
     #endif
     }
   };

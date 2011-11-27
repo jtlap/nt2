@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
     #elif defined(NT2_TOOLBOX_BESSEL_HAS_JN)
       return ::jn(a0, a1);
     #else
-      #warning jn not supported
+      #error jn not supported
     #endif
     }
   };
