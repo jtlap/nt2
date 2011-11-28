@@ -15,6 +15,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/splat.hpp>
 
@@ -56,6 +57,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
+      if (is_inf(a0)) return Zero<A0>();
     #if defined(NT2_TOOLBOX_BESSEL_HAS__JN)
       return ::_jn(a0, a1);
     #elif defined(NT2_TOOLBOX_BESSEL_HAS_JN)
