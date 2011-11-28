@@ -25,3 +25,60 @@ NT2_TEST_CASE( default_ctor )
 
   NT2_TEST( extent(x) == of_size(0) );
 }
+
+NT2_TEST_CASE( of_size_ctor )
+{
+  using nt2::table;
+  using nt2::extent;
+  using nt2::of_size;
+  using nt2::of_size_;
+
+  {
+    table<float> x( of_size(2,3) );
+    NT2_TEST( extent(x) == of_size(2,3) );
+  }
+
+  {
+    table<float> x( of_size(2,3,4) );
+    NT2_TEST( extent(x) == of_size(2,3,4) );
+  }
+
+  {
+    table<float> x( of_size(2,3,4,5) );
+    NT2_TEST( extent(x) == of_size(2,3,4,5) );
+  }
+
+  {
+    table<float, of_size_<2,3> > x;
+    NT2_TEST( extent(x) == of_size(2,3) );
+  }
+
+  {
+    table<float, of_size_<2,3,4> > x;
+    NT2_TEST( extent(x) == of_size(2,3,4) );
+  }
+
+  {
+    table<float, of_size_<2,3,4,5> > x;
+    NT2_TEST( extent(x) == of_size(2,3,4,5) );
+  }
+}
+
+NT2_TEST_CASE( range_ctor )
+{
+  using nt2::table;
+  using nt2::extent;
+  using nt2::of_size;
+
+  float data[] =  {
+                    1,2,3
+                  , 4,5,6
+                  };
+                                    
+  table<float> x( of_size(3,2), &data[0], &data[0] + 6 );
+  NT2_TEST( extent(x) == of_size(3,2) );
+
+  for(int j=1;j<=2;++j)
+   for(int i=1;i<=3;++i)
+      NT2_TEST_EQUAL( x(i,j), data[(i-1) + (j-1)*3]) ;
+}
