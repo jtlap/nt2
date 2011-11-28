@@ -23,6 +23,9 @@ namespace meta
 
   template<class T>
   struct is_logical<boost::simd::logical<T> > : boost::mpl::true_ {};
+
+  template<class T, class Ext>
+  struct is_logical<boost::simd::native<T, Ext> > : is_logical<T> {};
 } } }
 
 #endif
