@@ -17,24 +17,47 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // vector type has some dimensions
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_vector_dimensions )
+NT2_TEST_CASE_TPL( std_vector_dimensions, NT2_TYPES)
 {
   using std::vector;
   using nt2::meta::dimensions_of;
 
-  NT2_TEST_EQUAL((dimensions_of< std::vector<int> >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< std::vector<std::vector<int> > >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< std::vector<std::vector<std::vector<int> > > >::value), 3UL);
+  NT2_TEST_EQUAL((dimensions_of< std::vector<T> >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of< std::vector<std::vector<T> > >::value), 2UL );
+  NT2_TEST_EQUAL((dimensions_of< std::vector<std::vector<std::vector<T> > > >::value), 3UL);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// vector type has storage order
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( std_vector_storage_order, NT2_TYPES)
+{
+  using std::vector;
+  using nt2::meta::storage_order_of;
+  using nt2::C_order_;
+  using boost::mpl::_;
+
+  vector<T> a0;
+  vector<vector<T> > a1;
+  vector<vector<vector<T> > > a2;
+
+  NT2_TEST_EXPR_TYPE(a0, storage_order_of<_>, C_order_ );
+  NT2_TEST_EXPR_TYPE(a1, storage_order_of<_>, C_order_ );
+  NT2_TEST_EXPR_TYPE(a2, storage_order_of<_>, C_order_ );
+
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // vector type has some value
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_vector_values )
+NT2_TEST_CASE( std_vector_values)
 {
   using std::vector;
   using boost::is_same;
@@ -48,7 +71,7 @@ NT2_TEST_CASE( std_vector_values )
 ////////////////////////////////////////////////////////////////////////////////
 // vector type has a model
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_vector_model )
+NT2_TEST_CASE( std_vector_model)
 {
   using std::vector;
   using boost::mpl::apply;
@@ -67,7 +90,7 @@ NT2_TEST_CASE( std_vector_model )
 ////////////////////////////////////////////////////////////////////////////////
 // vector type has some reference
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_vector_reference )
+NT2_TEST_CASE( std_vector_reference)
 {
   using std::vector;
   using boost::is_same;

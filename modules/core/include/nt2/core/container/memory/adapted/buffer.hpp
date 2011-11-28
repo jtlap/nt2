@@ -15,9 +15,11 @@
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
+#include <nt2/core/container/meta/storage_order_of.hpp>
 #include <nt2/core/container/memory/adapted/pointer.hpp>
 
 //==============================================================================
@@ -37,6 +39,12 @@ namespace nt2 { namespace meta
   template<typename T, typename A>
   struct dimensions_of< memory::buffer<T,A> > : boost::mpl::size_t<1 + dimensions_of<T>::value>
   {};
+
+  template<class T, typename A>
+  struct storage_order_of< memory::buffer<T,A> > 
+  {
+    typedef C_order_  type;
+  };
 
   //============================================================================
   // dereference_ specialization

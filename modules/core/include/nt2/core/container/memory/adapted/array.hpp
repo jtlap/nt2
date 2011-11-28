@@ -16,8 +16,10 @@
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
+#include <nt2/core/container/meta/storage_order_of.hpp>
 
 //==============================================================================
 // Forward declaration
@@ -36,6 +38,14 @@ namespace nt2 { namespace meta
   struct  dimensions_of< boost::array<T,N> >
         : boost::mpl::size_t<1 + dimensions_of<T>::value>
   {};
+
+  template<class T, std::size_t N>
+  struct storage_order_of< boost::array<T,N> > 
+  {
+    typedef C_order_  type;
+  };
+
+
 } }
 
 namespace nt2 { namespace memory

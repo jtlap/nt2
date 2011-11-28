@@ -17,6 +17,8 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // array type has some dimensions
@@ -30,6 +32,27 @@ NT2_TEST_CASE( std_array_dimensions )
   NT2_TEST_EQUAL((dimensions_of< array<array<int,4>,4> >::value), 2UL );
   NT2_TEST_EQUAL((dimensions_of< array<array<array<int,4>,4>,4> >::value), 3UL);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// array type has storage order
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( std_array_storage_order )
+{
+  using boost::array;
+  using nt2::meta::storage_order_of;
+  using nt2::C_order_;
+  using boost::mpl::_;
+
+  array<int,4> a0;
+  array<array<int,4>,4> a1;
+  array<array<array<int,4>,4>,4> a2;
+
+  NT2_TEST_EXPR_TYPE(a0, storage_order_of<_>, C_order_ );
+  NT2_TEST_EXPR_TYPE(a1, storage_order_of<_>, C_order_ );
+  NT2_TEST_EXPR_TYPE(a2, storage_order_of<_>, C_order_ );
+
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // array type has some value
@@ -57,6 +80,7 @@ NT2_TEST_CASE( std_array_model )
   typedef model_of< array<int,4> >::type model1d;
   typedef model_of< array<array<int,4>,3> >::type model2d;
   typedef model_of< array<array<array<int,4>,3>,2> >::type model3d;
+
 
   NT2_TEST((is_same<apply<model1d,float>::type, array<float,4> >::value ));
   NT2_TEST((is_same<apply<model2d,float>::type, array<array<float,4>,3> >::value ));

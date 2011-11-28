@@ -43,8 +43,6 @@ namespace nt2 { namespace meta
   {
     typedef typename container::table<T, S>::container_type::storage_order_type type;
   };
-
-
 } }
 
 namespace boost { namespace dispatch { namespace meta

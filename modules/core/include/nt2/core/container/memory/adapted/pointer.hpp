@@ -15,7 +15,9 @@
 #include <boost/dispatch/meta/model_of.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
+#include <nt2/core/container/meta/storage_order_of.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 
 //==============================================================================
 // Fill out the Buffer concepts for boost::array
@@ -29,6 +31,12 @@ namespace nt2 { namespace meta
   struct  dimensions_of< T* >
         : boost::mpl::size_t<1 + dimensions_of<T>::value>
   {};
+
+  template<typename T>
+  struct  storage_order_of< T* >
+  {
+    typedef C_order_  type;
+  };
 
   //============================================================================
   // reference_ specialization

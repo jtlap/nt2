@@ -15,8 +15,10 @@
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
+#include <nt2/core/container/meta/storage_order_of.hpp>
 
 //==============================================================================
 // Fill out the Buffer concepts for std::vector
@@ -27,6 +29,13 @@ namespace nt2 { namespace meta
   struct  dimensions_of< std::vector<T,A> >
         : boost::mpl::size_t<1 + dimensions_of<T>::value>
   {};
+
+  template<class T, typename A>
+  struct storage_order_of< std::vector<T,A> > 
+  {
+    typedef C_order_  type;
+  };
+
 } }
 
 namespace boost { namespace dispatch { namespace meta
