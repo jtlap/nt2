@@ -12,13 +12,13 @@
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/tan.hpp>
 #include <nt2/include/functions/atan.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/ceil.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -85,14 +85,14 @@ namespace nt2 { namespace ext
       if( is_eqz(b) )   return nt2::log(nt2::tan(nt2::average(Pio_2<type>(),phi)));
       b = nt2::sqrt(b);
       type c = nt2::sqrt(m);
-      int d = 1;
+      type d = One<A0>();
       type t = nt2::tan(phi);
-      int mod = (phi + Pio_2<type>())/Pi<type>();
+      type mod = nt2::ceil(phi/Pi<type>());
       while( nt2::abs(c) > nt2::abs(a)*Eps<type>() )
       {
         type temp = b/a;
         phi += nt2::atan(t*temp) + mod*Pi<type>();
-        mod = (phi + Pio_2<type>())/Pi<type>();
+        mod = ceil(phi/Pi<type>());
         t = t*oneplus(temp)/( oneminus(temp*t*t));
         c = average(a,-b);
         temp = nt2::sqrt(a*b);

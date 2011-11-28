@@ -26,6 +26,7 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/ellpe.hpp>
 #include <nt2/include/functions/ellpk.hpp>
+#include <nt2/include/functions/ceil.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -99,15 +100,15 @@ namespace nt2 { namespace ext
         type a = One<type>();
         type b = nt2::sqrt(oneminus(m));
         type c = nt2::sqrt(m);
-        int d = One<int>();
+        type d = One<type>();
         type e = Zero<type>();
         type t = nt2::tan( lphi );
-        int mod = (lphi + Pio_2<type>())/Pi<type>();
+        type mod = nt2::ceil(lphi/Pi<type>());
         while( nt2::abs(c) > Eps<type>()*nt2::abs(a) )
           {
             type temp = b/a;
             lphi = lphi + nt2::atan(t*temp) + mod * Pi<type>();
-            mod = (lphi + Pio_2<type>())/Pi<type>();
+            mod = nt2::ceil(lphi/Pi<type>());
             t *= oneplus(temp)/( oneminus(temp * sqr(t)));
             c = average(a,-b);
             temp = nt2::sqrt(a*b);
