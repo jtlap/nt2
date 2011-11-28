@@ -16,7 +16,7 @@
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
-
+#include <nt2/core/container/meta/storage_order_of.hpp>
 
 //==============================================================================
 // Forward declaration
@@ -34,8 +34,16 @@ namespace nt2 { namespace meta
 {
   template<class T, class S>
   struct dimensions_of< nt2::container::table<T,S> > 
-         : boost::mpl::size_t<meta::option<S, tag::of_size_>::type::static_size> 
+          : boost::mpl::size_t<container::table<T,S>::container_type::extent_type::static_size> 
   {};
+
+
+  template<class T, class S>
+  struct storage_order_of< nt2::container::table<T,S> > 
+  {
+    typedef typename container::table<T, S>::container_type::storage_order_type type;
+  };
+
 
 } }
 

@@ -22,12 +22,11 @@ NT2_TEST_CASE_TPL( storage_order, NT2_TYPES )
 {
   using boost::is_same;
   using nt2::table;
-  using nt2::matlab_so_;
-  using nt2::c_so_;
-  using nt2::storage_order_;
   using boost::mpl::int_;
-  int i = 0;
-
+  using boost::mpl::apply;
+  using nt2::matlab_order_;
+  using nt2::fortran_order_;
+  using nt2::C_order_;
 
   typedef int_<4> size;
   typedef int_<0> dim_0;
@@ -40,21 +39,30 @@ NT2_TEST_CASE_TPL( storage_order, NT2_TYPES )
 // table and matlab_storage order
 ////////////////////////////////////////////////////////////////////////////////
 
-  NT2_TEST((is_same<storage_order_<matlab_so_, size, dim_0>::type, int_<3>  >::value ));
-  NT2_TEST((is_same<storage_order_<matlab_so_, size, dim_1>::type, int_<2>  >::value ));
-  NT2_TEST((is_same<storage_order_<matlab_so_, size, dim_2>::type, int_<1>  >::value ));
-  NT2_TEST((is_same<storage_order_<matlab_so_, size, dim_3>::type, int_<0>  >::value ));
+  NT2_TEST((is_same<matlab_order_::apply<size, dim_0> ::type, int_<3>  >::value ));
+  NT2_TEST((is_same<matlab_order_::apply<size, dim_1> ::type, int_<2>  >::value ));
+  NT2_TEST((is_same<matlab_order_::apply<size, dim_2> ::type, int_<1>  >::value ));
+  NT2_TEST((is_same<matlab_order_::apply<size, dim_3> ::type, int_<0>  >::value ));
+
 
 ////////////////////////////////////////////////////////////////////////////////
-// table and c_storage order
+// table and fortran_storage order
 ////////////////////////////////////////////////////////////////////////////////
 
-  NT2_TEST((is_same<storage_order_<c_so_, size, dim_0>::type, int_<0>  >::value ));
-  NT2_TEST((is_same<storage_order_<c_so_, size, dim_1>::type, int_<1>  >::value ));
-  NT2_TEST((is_same<storage_order_<c_so_, size, dim_2>::type, int_<2>  >::value ));
-  NT2_TEST((is_same<storage_order_<c_so_, size, dim_3>::type, int_<3>  >::value ));
+  NT2_TEST((is_same<fortran_order_::apply<size, dim_0> ::type, int_<3>  >::value ));
+  NT2_TEST((is_same<fortran_order_::apply<size, dim_1> ::type, int_<2>  >::value ));
+  NT2_TEST((is_same<fortran_order_::apply<size, dim_2> ::type, int_<1>  >::value ));
+  NT2_TEST((is_same<fortran_order_::apply<size, dim_3> ::type, int_<0>  >::value ));
 
 
+////////////////////////////////////////////////////////////////////////////////
+// table and C_storage order
+////////////////////////////////////////////////////////////////////////////////
+
+  NT2_TEST((is_same<C_order_::apply<size, dim_0> ::type, int_<0>  >::value ));
+  NT2_TEST((is_same<C_order_::apply<size, dim_1> ::type, int_<1>  >::value ));
+  NT2_TEST((is_same<C_order_::apply<size, dim_2> ::type, int_<2>  >::value ));
+  NT2_TEST((is_same<C_order_::apply<size, dim_3> ::type, int_<3>  >::value ));
 
 }
 

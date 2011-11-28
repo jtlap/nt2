@@ -9,27 +9,44 @@
 #ifndef NT2_CORE_SETTINGS_STORAGE_ORDER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_STORAGE_ORDER_HPP_INCLUDED
 
+/**                                                                                                                                                         
+ * \file                                                                                                                                                    
+ * \brief Define the nt2::storage_order_ type
+ **/
+
+
 #include <nt2/core/settings/option.hpp>
 
 namespace nt2 
 { 
-
-
-  template <class SO, class S, class D>
-    struct storage_order_: SO::template apply<S, D> {};
-
-
-  struct matlab_so_
+  template <class SO>
+  struct storage_order_
   {
     template <typename S, typename D>
-    struct apply : boost::mpl::int_<S::value - 1 - D::value>  {};
+    struct apply : boost::mpl::apply<SO,S,D> 
+    {};
   };
 
-  struct c_so_
+  namespace details
   {
-    template <typename S, typename D>
-    struct apply : D  {};
-  };
+    struct matlab_storage_
+    {
+      template <typename S, typename D>
+      struct apply : boost::mpl::int_<S::value - 1 - D::value>  {};
+    };
+
+    typedef matlab_storage_ fortran_storage_;
+
+    struct C_storage_
+    {
+      template <typename S, typename D>
+      struct apply : D  {};
+    };
+  }
+
+  typedef storage_order_<details::matlab_storage_>  matlab_order_;
+  typedef storage_order_<details::C_storage_>       C_order_;
+  typedef storage_order_<details::fortran_storage_> fortran_order_;
 
 
   namespace tag
@@ -44,12 +61,12 @@ namespace nt2
 
   namespace meta
   {
-    template<class SO, class S, class D, class Default>
-    struct option < storage_order_<SO,S,D>
+    template<class SO, class Default>
+    struct option < storage_order_<SO>
                   , tag::storage_order_, Default
                   >
     {    
-       typedef storage_order_<SO,S,D>  type;
+       typedef storage_order_<SO>  type;
     };
   }
 

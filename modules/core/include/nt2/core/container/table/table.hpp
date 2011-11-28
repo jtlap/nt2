@@ -22,9 +22,10 @@ namespace nt2 { namespace container
        : boost::dispatch::
          meta::terminal_of< table_container<Type,Settings> >::type
   {
+    typedef table_container<Type,Settings> container_type;
+
     typedef typename
-    boost::dispatch::meta::
-    terminal_of< table_container<Type,Settings> >::type parent;
+    boost::dispatch::meta::terminal_of<container_type>::type parent;
 
     typedef typename parent::extent_type extent_type;
 
