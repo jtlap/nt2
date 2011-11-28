@@ -11,7 +11,6 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/all.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/reduction/functions/all.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/false.hpp>
-#include <iostream>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::all_, boost::simd::tag::avx_,
