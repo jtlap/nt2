@@ -16,6 +16,8 @@
   **/
 //==============================================================================
 #include <nt2/core/settings/details/fusion.hpp>
+#include <nt2/core/container/meta/dimensions_of.hpp>
+#include <nt2/core/container/meta/storage_order_of.hpp>
 
 namespace nt2 { namespace details
 {
@@ -30,11 +32,23 @@ namespace nt2 { namespace details
     typename meta::dereference_<Buffer&,Level>::type
     apply( Buffer& b, Position const& p )
     {
-      typedef typename meta::dereference_<Buffer,1>::type base_type;
+      typedef typename meta::dereference_<Buffer,1>::type    base_type;
+      typedef typename meta::dimensions_of<Buffer>::type     size;
+      typedef typename meta::storage_order_of<Buffer>::type  so;
+
+      typedef boost::mpl::int_<Level -1> dim;
+
+      typedef typename boost::mpl::apply<so,size,dim >::type new_dim;
+
       return  dereference<base_type,Level-1,Start>
-              ::apply ( b[safe_at_c<(Level-1)>(p)]
+              ::apply ( b[safe_at_c<new_dim::value>(p)]
                       , p
                       );
+
+      // return  dereference<base_type,Level-1,Start>
+      //         ::apply ( b[safe_at_c<(Level-1)>(p)]
+      //                 , p
+      //                 );
     }
 
     template<typename Position>
@@ -42,11 +56,24 @@ namespace nt2 { namespace details
     typename meta::dereference_<Buffer const&,Level>::type
     apply( Buffer const& b, Position const& p )
     {
-      typedef typename meta::dereference_<Buffer,1>::type base_type;
-      return  dereference<base_type,Level-1,Start>
-              ::apply ( b[safe_at_c<(Level-1)>(p)]
+      typedef typename meta::dereference_<Buffer,1>::type   base_type;
+      typedef typename meta::dimensions_of<Buffer>::type    size;
+      typedef typename meta::storage_order_of<Buffer>::type so;
+
+      typedef boost::mpl::int_<Level-1> dim;
+
+      typedef typename boost::mpl::apply<so,size,dim >::type new_dim;
+
+
+      return  dereference<base_type,Level -1,Start>
+              ::apply ( b[safe_at_c<new_dim::value>(p)]
                       , p
                       );
+
+      // return  dereference<base_type,Level-1,Start>
+      //         ::apply ( b[safe_at_c<(Level-1)>(p)]
+      //                 , p
+      //                 );
     }
   };
 
@@ -58,7 +85,15 @@ namespace nt2 { namespace details
     typename meta::dereference_<Buffer&,1>::type
     apply( Buffer& b, Position const& p )
     {
-      return b[safe_at_c<0>(p)];
+
+      typedef typename meta::dimensions_of<Buffer>::type size;
+      typedef typename meta::storage_order_of<Buffer>::type so;
+      typedef boost::mpl::int_<0> dim;
+      typedef typename boost::mpl::apply<so,size,dim>::type new_dim;
+
+      return b[safe_at_c<new_dim::value>(p)];
+
+            //      return b[safe_at_c<0>(p)];
     }
 
     template<typename Position>
@@ -66,7 +101,15 @@ namespace nt2 { namespace details
     typename meta::dereference_<Buffer const&,1>::type
     apply( Buffer const& b, Position const& p )
     {
-      return b[safe_at_c<0>(p)];
+
+      typedef typename meta::dimensions_of<Buffer>::type size;
+      typedef typename meta::storage_order_of<Buffer>::type so;
+      typedef boost::mpl::int_<0> dim;
+      typedef typename boost::mpl::apply<so,size,dim>::type new_dim;
+
+      return b[safe_at_c<new_dim::value>(p)];
+
+            //      return b[safe_at_c<0>(p)];
     }
   };
 } }
