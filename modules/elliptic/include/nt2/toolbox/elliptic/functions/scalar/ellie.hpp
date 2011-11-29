@@ -103,12 +103,12 @@ namespace nt2 { namespace ext
         type d = One<type>();
         type e = Zero<type>();
         type t = nt2::tan( lphi );
-        type mod = nt2::ceil(lphi/Pi<type>());
+        int mod = toint((lphi+Pio_2<type>())/Pi<type>());
         while( nt2::abs(c) > Eps<type>()*nt2::abs(a) )
           {
             type temp = b/a;
             lphi = lphi + nt2::atan(t*temp) + mod * Pi<type>();
-            mod = nt2::ceil(lphi/Pi<type>());
+             mod = toint((lphi+Pio_2<type>())/Pi<type>());
             t *= oneplus(temp)/( oneminus(temp * sqr(t)));
             c = average(a,-b);
             temp = nt2::sqrt(a*b);
@@ -120,7 +120,7 @@ namespace nt2 { namespace ext
 
         b = oneminus(m);
         type temp = nt2::ellpe(b)/nt2::ellpk(b);
-        temp *= (nt2::atan(t) + mod * Pi < float>())/(d * a);
+        temp *= (nt2::atan(t) + mod * Pi < type>())/(d * a);
         temp += e;
         if(is_ltz(a0))  temp = -temp;
         return temp ;

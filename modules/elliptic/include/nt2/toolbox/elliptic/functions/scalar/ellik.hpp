@@ -87,12 +87,12 @@ namespace nt2 { namespace ext
       type c = nt2::sqrt(m);
       type d = One<A0>();
       type t = nt2::tan(phi);
-      type mod = nt2::ceil(phi/Pi<type>());
+      int mod = toint((phi+Pio_2<type>())/Pi<type>());
       while( nt2::abs(c) > nt2::abs(a)*Eps<type>() )
       {
         type temp = b/a;
         phi += nt2::atan(t*temp) + mod*Pi<type>();
-        mod = ceil(phi/Pi<type>());
+        mod = toint((phi+Pio_2<type>())/Pi<type>());
         t = t*oneplus(temp)/( oneminus(temp*t*t));
         c = average(a,-b);
         temp = nt2::sqrt(a*b);
