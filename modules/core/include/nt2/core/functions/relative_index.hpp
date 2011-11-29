@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -27,7 +27,7 @@ namespace nt2
    * \param xpr Indexing expression
    * \param pos Original position   
    * \param idx Static index being computed
-   * \return The number of elements dimensions required to store \c xpr
+   * \return The translated index to access current indexing expression
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_index_, relative_index, 3)

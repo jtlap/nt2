@@ -73,7 +73,8 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::
     child_c<A0 const&, 0>::type                             result_type;
 
-#if !defined(BOOST_SIMD_NO_SIMD)
+#if 0
+//defined(BOOST_SIMD_NO_SIMD)
     //==========================================================================
     // If some SIMD is detected, then return a native
     //==========================================================================
