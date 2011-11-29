@@ -6,16 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_NOT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_NOT_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/complement.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, boost::simd::tag::sse2_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<arithmetic_<A0>,X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
@@ -26,14 +27,14 @@ namespace boost { namespace simd { namespace ext
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, boost::simd::tag::sse2_
                             , (A0)(X)
-                            , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<logical_<A0>,X>))
 
                             )
   {
-    typedef typename meta::as_logical<A0>::type result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return is_eqz(native_cast<typename A0::type>(a0));
+      return complement(a0);
     }
   };
 } } }

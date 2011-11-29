@@ -16,8 +16,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse2_, (A0)(A1)(X)
                             , ((simd_< logical_<A0>, X >))
-                              ((simd_< fundamental_<A1>, X >))
-                              ((simd_< fundamental_<A1>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
                             )
   {
     typedef A1 result_type;
@@ -28,14 +28,14 @@ namespace boost { namespace simd { namespace ext
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse2_, (A0)(A1)(X)
                             , ((simd_< arithmetic_<A0>, X >))
-                              ((simd_< fundamental_<A1>, X >))
-                              ((simd_< fundamental_<A1>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
                             )
   {
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      return if_else( genmask(a0), a1, a2 );
+      return  bitwise_select( genmask(a0), a1, a2 );
     }
   };  
 } } }

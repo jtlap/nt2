@@ -23,10 +23,9 @@ namespace boost { namespace simd { namespace ext
                              )
   {
     typedef A0 result_type; 
-    
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-        return simd::native_cast<A0>(_mm_adds_epu16(a0, a1)); 
+        return bitwise_cast<A0>(_mm_adds_epu16(a0, a1)); 
       }
   };
 
@@ -40,10 +39,9 @@ namespace boost { namespace simd { namespace ext
                              )
   {
     typedef A0 result_type; 
-    
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return simd::native_cast<A0>(_mm_adds_epi16(a0, a1)); 
+      return bitwise_cast<A0>(_mm_adds_epi16(a0, a1)); 
     }
   };
   
@@ -57,10 +55,9 @@ namespace boost { namespace simd { namespace ext
                               )
   {
     typedef A0 result_type; 
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return simd::native_cast<A0>(_mm_adds_epu8(a0, a1)); 
+      return bitwise_cast<A0>(_mm_adds_epu8(a0, a1)); 
     }
   };
   
@@ -75,10 +72,9 @@ namespace boost { namespace simd { namespace ext
                                      )
   {
     typedef A0 result_type; 
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-        return simd::native_cast<A0>(_mm_adds_epi8(a0, a1)); 
+        return bitwise_cast<A0>(_mm_adds_epi8(a0, a1)); 
       }
   };
 } } }

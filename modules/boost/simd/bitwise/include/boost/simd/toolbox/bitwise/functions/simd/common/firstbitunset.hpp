@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_FIRSTBITUNSET_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return b_andnot ( simd::native_cast<result_type>(a0)+One<result_type>()
+      return b_andnot ( simd::bitwise_cast<result_type>(a0)+One<result_type>()
                       , a0
                       );
     }

@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return simd::native_cast<A0>(boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0))));
+      return simd::bitwise_cast<A0>(boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0))));
     }
   };
   /////////////////////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0,signed>::type     int_type;
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type  uint_type;
       return if_else_zero( is_gtz(a0)
-                  , simd::native_cast<int_type>(isqrt( simd::native_cast<uint_type>(a0)))
+                  , simd::bitwise_cast<int_type>(isqrt( simd::bitwise_cast<uint_type>(a0)))
                   );
     }
   };

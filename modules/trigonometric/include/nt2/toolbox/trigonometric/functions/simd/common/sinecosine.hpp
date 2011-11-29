@@ -13,7 +13,6 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -50,10 +49,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;    
     inline result_type operator()(A0 const& a0,A1 & a2) const
     {
-      return boost::simd::native_cast<result_type>(
-        impl::trig_base <A1,radian_tag,
-                         tag::simd_type, mode>::sincosa(tofloat(a0),a2)
-      );
+      return impl::trig_base <A1,radian_tag,
+                         tag::simd_type, mode>::sincosa(tofloat(a0),a2); 
     }
   };
 

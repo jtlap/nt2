@@ -20,12 +20,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type ntype;
-      return simd::native_cast<A0>( map( dispatch::functor<tag::shift_right_>()
-                                       , simd::native_cast<ntype>(a0)
+      return bitwise_cast<A0>( map( dispatch::functor<tag::shift_right_>()
+                                       , simd::bitwise_cast<ntype>(a0)
                                        , splat<ntype>(a1)
                                        )
                                   );

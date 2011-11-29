@@ -21,8 +21,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-       return native_cast<result_type>(b_xor(genmask<A0>(a0),
-                                             genmask<A0>(a1)));
+       return is_nez(b_xor(genmask<A0>(a0),genmask<A0>(a1)));
       }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_, (A0)(X)
@@ -34,8 +33,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
        typedef typename A0::type type; 
-       return native_cast<result_type>(b_xor(native_cast<type>(a0),
-                                             native_cast<type>(a1)));
+       return is_nez(b_xor(genmask(a0),genmask(a1)));
       }
   };
 } } }

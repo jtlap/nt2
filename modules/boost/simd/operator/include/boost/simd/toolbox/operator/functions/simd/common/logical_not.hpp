@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/complement.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return is_eqz(native_cast<typename A0::type>(a0));
+      return complement(a0);
     }
   };
 } } }

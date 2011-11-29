@@ -23,12 +23,10 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      return genmask(is_nez(boost::simd::native_cast<result_type>(a0)));
+      return genmask(is_nez(boost::simd::bitwise_cast<result_type>(a0)));
     }
   };
 } }
@@ -44,9 +42,7 @@ namespace nt2 { namespace ext
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       A0 that = {impl::trig_base<A0,pi_tag,  tag::simd_type, clipped_pio4>::sina(a0)}; 

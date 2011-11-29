@@ -18,7 +18,6 @@
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/constants/two.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 
@@ -81,7 +80,7 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
-      return simd::native_cast<A0>(group(divround(a0l, a1l),
+      return simd::bitwise_cast<A0>(group(divround(a0l, a1l),
                                     divround(a0h, a1h)));
     }
   };
@@ -109,7 +108,7 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
-      return simd::native_cast<A0>(group(divround(a0l, a1l),
+      return simd::bitwise_cast<A0>(group(divround(a0l, a1l),
                                divround(a0h, a1h) ));
     }
   };

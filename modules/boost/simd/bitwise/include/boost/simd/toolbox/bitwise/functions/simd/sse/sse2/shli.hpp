@@ -12,7 +12,6 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,22 +22,19 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> gen_type;
       result_type const
-      Mask1 = native_cast<result_type>( boost::simd::integral_constant< gen_type
+        Mask1 = bitwise_cast<result_type>( boost::simd::integral_constant< gen_type
                                                         , 0x00ff00ff00ff00ffll
                                                         >()
                                       );
-
       result_type const
-      Mask2 = native_cast<result_type>( boost::simd::integral_constant < gen_type
+        Mask2 = bitwise_cast<result_type>( boost::simd::integral_constant < gen_type
                                                           , 0xff00ff00ff00ff00ll
                                                           >()
                                       );
-
       result_type tmp  = b_and(a0, Mask1);
       result_type tmp1 = {_mm_slli_epi16(tmp, int(a1))};
       tmp1 = b_and(tmp1, Mask1);
@@ -58,11 +54,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0,signed>::type sint;
-      sint const that = { _mm_slli_epi32(native_cast<sint>(a0), int(a1))};
-      return native_cast<A0>(that);
+      sint const that = { _mm_slli_epi32(bitwise_cast<sint>(a0), int(a1))};
+      return bitwise_cast<A0>(that);
     }
   };
 
@@ -76,11 +70,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0,signed>::type sint;
-      sint const that ={ _mm_slli_epi64(native_cast<sint>(a0), int(a1))};
-      return native_cast<A0>(that);
+      sint const that ={ _mm_slli_epi64(bitwise_cast<sint>(a0), int(a1))};
+      return bitwise_cast<A0>(that);
     }
   };
 
@@ -91,7 +83,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = {_mm_slli_epi16(a0, int(a1))};

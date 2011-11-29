@@ -11,7 +11,6 @@
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/is_nez.hpp>
@@ -34,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return if_nan_else(is_nez(a0), nt2::copysign(Inf<result_type>(), boost::simd::native_cast<result_type>(a0)));
+      return if_nan_else(is_nez(a0), nt2::copysign(Inf<result_type>(), boost::simd::bitwise_cast<result_type>(a0)));
     }
   };
 } }

@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return genmask(is_nez(boost::simd::native_cast<result_type>(a0)));
+      return genmask(boost::simd::bitwise_cast<result_type>(a0));
     }
   };
 } }

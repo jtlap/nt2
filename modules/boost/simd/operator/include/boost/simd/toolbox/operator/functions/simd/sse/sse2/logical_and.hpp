@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_and(genmask(a0), genmask(a1)));
+      return bitwise_cast<result_type>(b_and(genmask(a0), genmask(a1)));
     }
   }; 
   

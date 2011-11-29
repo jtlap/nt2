@@ -64,8 +64,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type type;
       const int32_t nb =  sizeof(typename meta::scalar_of <A0>::type)*8-1;
-      return simd::native_cast<result_type>(shrai(simd::native_cast<type>(a0), nb));
-      //     return simd::native_cast<A0>(is_nez(simd::native_cast<type>(b_and(a0, Signmask<A0>()))));
+      return bitwise_cast<result_type>(shrai(bitwise_cast<type>(a0), nb));
     }
   };
 } } }

@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename A0::type type; 
-      return boost::simd::all(native_cast<type>(a0));
+      return result_type(hmsb(genmask(a0)) == (1ull << meta::cardinal_of<type>::value)-1);
     }
   };
 } } }

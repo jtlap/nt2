@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-       return native_cast<result_type>(b_xor(genmask<A0>(a0),
+       return bitwise_cast<result_type>(b_xor(genmask<A0>(a0),
                                              genmask<A0>(a1)));
       }
   };
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
        typedef typename A0::type type; 
-       return native_cast<result_type>(b_xor(bitwise_cast<type>(a0),
+       return bitwise_cast<result_type>(b_xor(bitwise_cast<type>(a0),
                                              bitwise_cast<type>(a1)));
       }
   };

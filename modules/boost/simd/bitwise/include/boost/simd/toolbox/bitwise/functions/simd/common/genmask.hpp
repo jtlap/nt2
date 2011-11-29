@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return if_else(a0, Allbits<A0> (), Zero<A0>());
+      return if_else(is_nez(a0), Allbits<A0> (), Zero<A0>());
     }
   };
 

@@ -39,25 +39,23 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0;
       typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
-      typedef typename meta::as_logical<int_type>::type bint_type;      
-      typedef typename meta::scalar_of<int_type>::type        sint_type;
-      typedef typename meta::scalar_of<A0>::type                 s_type;
+      typedef typename meta::as_logical<int_type>::type                 bint_type;      
+      typedef typename meta::scalar_of<int_type>::type                  sint_type;
+      typedef typename meta::scalar_of<A0>::type                           s_type;
       const sint_type me = Maxexponent<s_type>()-1;
       const sint_type nmb= Nbmantissabits<s_type>();
       const sint_type n1 = ((2*me+3)<<nmb);
       const sint_type n2 = me<<nmb;
       const int_type vme = splat<int_type>(me);
-      A0 ci_exp=simd::native_cast<A0>(splat< int_type>(n1));
-      r1 = simd::native_cast<int_type>(b_and(ci_exp, a0));// extract exponent
+      A0 ci_exp=simd::bitwise_cast<A0>(splat< int_type>(n1));
+      r1 = simd::bitwise_cast<int_type>(b_and(ci_exp, a0));// extract exponent
       A0 x = b_notand(ci_exp, a0);                        // clear exponent in a0
       r1 = sub(shri(r1,nmb), vme);                        // compute exponent
       r0 = b_or(x,splat<int_type>(n2));                   // insert exponent+1 in x
       bA0 test0 = is_nez(a0);
       bint_type test1 = gt(r1,vme);
-      //     r1 = if_else_zero(logical_notand(test1, test0), r1);
       r1 = if_else_zero(logical_and(logical_not(test1), test0), r1); 
       r0 = if_else_zero(test0, seladd(test1,r0,a0));
-      //      r0 = if_else_zero(test0, select(test1, r0+a0, r0)); 
       return 0; 
     }
   };

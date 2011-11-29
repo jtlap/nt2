@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
-      return simd::native_cast<A0>(nextpow2(simd::native_cast<utype >(abs(a0))));
+      return bitwise_cast<A0>(nextpow2(bitwise_cast<utype >(abs(a0))));
       }
   };
 } } }
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
       rtype m;
       itype p;
       frexp(tofloat(a0), m, p);
-      return simd::native_cast<A0>(seladd(boost::simd::is_equal(m, Half<rtype>()), p, Mone<itype>()));
+      return bitwise_cast<A0>(seladd(boost::simd::is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
   };
 } } }
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace ext
       typedef simd::native<itype,X>              ivtype;
       ivtype a0l, a0h;
       split(a0, a0l, a0h);
-      return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
+      return bitwise_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
       }
   };
 } } }
@@ -105,7 +105,7 @@ namespace boost { namespace simd { namespace ext
       typedef simd::native<itype, X>             ivtype;
       ivtype a0l, a0h;
       split(a0, a0l, a0h);
-      return simd::native_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
+      return simd::bitwise_cast<A0>(group(nextpow2(a0l),nextpow2(a0h)));
       }
   };
 } } }

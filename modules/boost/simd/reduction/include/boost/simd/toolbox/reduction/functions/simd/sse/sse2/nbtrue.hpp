@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<vA0>::type sA0;
       typedef typename simd::native<boost::simd::uint8_t,boost::simd::tag::sse_> i8type; 
       //      typedef simd::native<typename boost::simd::meta::int8_t_<typename A0::type>::type,boost::simd::tag::sse_> i8type;
-      i8type tmp = native_cast<i8type>(genmask(a0));
+      i8type tmp = bitwise_cast<i8type>(genmask(a0));
       return boost::simd::popcnt(_mm_movemask_epi8(tmp))*boost::simd::meta::cardinal_of<A0>::value >> 4;
     }
   };

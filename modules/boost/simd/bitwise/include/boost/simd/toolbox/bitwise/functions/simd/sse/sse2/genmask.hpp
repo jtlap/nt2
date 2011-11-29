@@ -27,7 +27,6 @@ namespace boost { namespace simd { namespace ext
     typedef typename A0::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //      std::cout << "0" << std::endl; 
       result_type that = bitwise_cast<result_type>(a0);
       return that;
     }
@@ -41,7 +40,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //      std::cout << "1" << std::endl; 
       result_type that = { _mm_cmpneq_pd(a0,Zero<A0>()) };
       return that;
     }
@@ -55,7 +53,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //      std::cout << "2" << std::endl; 
       result_type that = { _mm_cmpneq_ps(a0,Zero<A0>()) };
       return that;
     }
@@ -70,7 +67,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //      std::cout << "3" << std::endl; 
       result_type that = { _mm_cmpeq_epi8(a0,Zero<A0>()) };
       return complement(that);
     }
@@ -85,7 +81,6 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //      std::cout << "4" << std::endl; 
       result_type that = { _mm_cmpeq_epi16(a0,Zero<A0>()) };
       return complement(that);
     }
@@ -99,7 +94,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //      std::cout << "5" << std::endl; 
       result_type that = { _mm_cmpeq_epi32(a0,Zero<A0>()) };
       return complement(that);
     }
@@ -113,7 +107,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //      std::cout << "6" << std::endl; 
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
       type tmp      = bitwise_cast<type>(a0-Zero<A0>());
       tmp           = bitwise_cast<type>(genmask(tmp));

@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -19,7 +20,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::if_else_allbits_, tag::cpu_, (A0)(A1)(X)
-                                , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<typename A0::type>
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
@@ -31,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1) const
     {
-      return bitwise_ornot(a1, native_cast<A1>(a0));
+      return bitwise_ornot(a1, genmask(a0));
     }
   };
 } } }

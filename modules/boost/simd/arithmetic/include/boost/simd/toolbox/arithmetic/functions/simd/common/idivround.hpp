@@ -17,8 +17,6 @@
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -78,7 +76,7 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
-      return simd::native_cast<A0>(group(idivround(a0l, a1l),
+      return simd::bitwise_cast<A0>(group(idivround(a0l, a1l),
                                idivround(a0h, a1h)));
     }
   };
@@ -106,7 +104,7 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
-      return simd::native_cast<A0>(group(idivround(a0l, a1l),
+      return simd::bitwise_cast<A0>(group(idivround(a0l, a1l),
                                idivround(a0h, a1h) ));
     }
   };

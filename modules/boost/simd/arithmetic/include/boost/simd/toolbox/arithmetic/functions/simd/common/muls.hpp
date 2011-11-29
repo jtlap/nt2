@@ -35,24 +35,11 @@
 //     {
 //       typedef typename dispatch::meta::as_integer<A0, unsigned>::type untype; 
 //       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
-//       untype aa0 = simd::native_cast<untype>(boost::simd::abs(a0));
-//       untype aa1 = simd::native_cast<untype>(boost::simd::abs(a1));
+//       untype aa0 = simd::bitwise_cast<untype>(boost::simd::abs(a0));
+//       untype aa1 = simd::bitwise_cast<untype>(boost::simd::abs(a1));
 //       untype ga =  boost::simd::max(aa0, aa1);
 //       untype la =  boost::simd::min(aa0, aa1);
-// //       std::cout << "a0 "<< a0 << std::endl;
-// //       std::cout << "a1 "<< a1 << std::endl;
-// //       std::cout << "aa0 "<< aa0 << std::endl;
-// //       std::cout << "aa1 "<< aa1 << std::endl;
-// //       std::cout << "ga  "<< ga  << std::endl;
-// //       std::cout << "la  "<< la  << std::endl;
-// //       std::cout << "sgn "<< sign<< std::endl;
-// //       std::cout << "rd  "<< rdivide(simd::native_cast<untype>(Valmax<A0>()), ga)<< std::endl;
-// //       std::cout << "is_ltz(a0) " << is_ltz(a0)<< std::endl;
-// //       std::cout << "is_ltz(a1) " << is_ltz(a1)<< std::endl;
-// //       std::cout << "rdivide(simd::native_cast<untype>(Valmax<A0>()), ga)  " << rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0)<< std::endl;
-// //       std::cout << "aa1  " << aa1 << std::endl;
-// //       std::cout << "lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0), aa1)  " << lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), aa0), aa1)<< std::endl;
-//       return select( lt(rdivide(simd::native_cast<untype>(Valmax<A0>()), ga), la),
+//       return select( lt(rdivide(simd::bitwise_cast<untype>(Valmax<A0>()), ga), la),
 //                 select(sign, Valmin<A0>(), Valmax<A0>()),
 //                 a0*a1
 //                ); 

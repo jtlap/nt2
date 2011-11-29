@@ -17,25 +17,26 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A1>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+			      ((simd_<arithmetic_<A1>,X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_or(genmask(a0), genmask(a1)));
+      return is_nez(b_or(genmask(a0), genmask(a1)));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<logical_<A0>,X>))
-                              ((simd_<logical_<A1>,X>))
+			      ((simd_<logical_<A1>,X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return native_cast<result_type>(b_or(genmask(a0), genmask(a1)));
+      return is_nez(b_or(genmask(a0), genmask(a1)));
     }
   };
 

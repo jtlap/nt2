@@ -10,9 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_FIRSTBITSET_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -24,13 +21,11 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0,unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename  dispatch::meta::as_integer<A0,unsigned>::type int_type;
-      return b_and((b_not(simd::native_cast<int_type>(a0))+One<int_type>()), a0);
+      return b_and((b_not(simd::bitwise_cast<int_type>(a0))+One<int_type>()), a0);
 
     }
   };

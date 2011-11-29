@@ -27,10 +27,10 @@ namespace boost { namespace simd { namespace ext
       typedef simd::native<sitype, boost::simd::tag::sse_ >           isvtype;
       typedef typename dispatch::meta::as_integer<A0>::type             itype;
 
-      isvtype a00 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 0)};
-      isvtype a01 = { _mm256_extractf128_si256(simd::native_cast<itype>(a0), 1)};
+      isvtype a00 = { _mm256_extractf128_si256(simd::bitwise_cast<itype>(a0), 0)};
+      isvtype a01 = { _mm256_extractf128_si256(simd::bitwise_cast<itype>(a0), 1)};
       itype that = { _mm256_insertf128_si256(that,boost::simd::shri( a00, a1), 0)};
-      return  simd::native_cast<A0>(_mm256_insertf128_si256(that, boost::simd::shri(a01, a1), 1));
+      return  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, boost::simd::shri(a01, a1), 1));
 
      }
 

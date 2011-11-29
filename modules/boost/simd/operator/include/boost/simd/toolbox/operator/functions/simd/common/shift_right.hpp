@@ -8,10 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SHIFT_RIGHT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SHIFT_RIGHT_HPP_INCLUDED
-
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-
 #include <boost/mpl/logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
@@ -33,12 +30,10 @@ namespace boost { namespace simd { namespace ext
                                 )
   {
     typedef A0 result_type;
-    
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0>::type int_type;
-      return  boost::simd::
-              native_cast<A0>(shift_right(boost::simd::native_cast<int_type>(a0), a1));
+      return bitwise_cast<result_type>(shift_right(boost::simd::bitwise_cast<int_type>(a0), a1));
     }
   };
 } } }

@@ -32,7 +32,6 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
@@ -124,7 +123,7 @@ namespace boost { namespace simd { namespace ext
       A0 w1_2  = (t1*t1-(b*(-b)-t2*(a+t1)));
       A0 y1 = b& cts::M1();
       A0 y2 = b - y1;
-      t1 = simd::native_cast<A0>(simd::native_cast<int_type>(a)+cts::C3()) ;
+      t1 = bitwise_cast<A0>(bitwise_cast<int_type>(a)+cts::C3()) ;
       t2 = (a+a) - t1;
       A0 w2_2  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
       w =  select(test, w1_2, w2_2);

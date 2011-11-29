@@ -24,7 +24,7 @@
 //     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
 //     {
 //       typedef typename A0::type type; 
-//       return native_cast<A0>(bitwise_xor(native_cast<type>(a0), native_cast<type>(a1)));
+//       return bitwise_cast<A0>(bitwise_xor(bitwise_cast<type>(a0), bitwise_cast<type>(a1)));
 //     }
 //   };
 // } } }

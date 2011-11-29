@@ -13,7 +13,6 @@
 #include <boost/simd/sdk/simd/tags.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 
 //==============================================================================
@@ -62,7 +61,7 @@ namespace boost { namespace simd { namespace ext
                                                                     pattern_type;
       typedef boost::simd::native<pattern_type,X>                   tmp_type;
       
-      return native_cast<result_type> ( boost::simd::
+      return bitwise_cast<result_type> ( boost::simd::
                                         splat<tmp_type>( pattern_type(value_type::value) )
                                       );
     }

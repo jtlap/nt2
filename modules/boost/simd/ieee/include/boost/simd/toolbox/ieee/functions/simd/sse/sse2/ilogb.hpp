@@ -18,7 +18,7 @@
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/predecessor.hpp>
 #include <boost/simd/include/functions/dist.hpp>
-#define MKN(N) simd::native_cast<vtype##N>
+#define MKN(N) simd::bitwise_cast<vtype##N>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int_
 /////////////////////////////////////////////////////////////////////////////
@@ -36,8 +36,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type vtype;
       static const A0 z = Zero<A0>();
-      vtype tmp = ilogb(simd::native_cast<vtype>(a0));
-      return seladd(is_gtz(a0), z, simd::native_cast<A0>(tmp));
+      vtype tmp = ilogb(simd::bitwise_cast<vtype>(a0));
+      return seladd(is_gtz(a0), z, simd::bitwise_cast<A0>(tmp));
     }
   };
 
@@ -154,7 +154,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename A0::extension_type cat;
       typedef simd::native<boost::uint64_t, cat> vtype64;
-      return simd::native_cast<vtype64>(exponent(tofloat(a0)));
+      return simd::bitwise_cast<vtype64>(exponent(tofloat(a0)));
     }
   };
 

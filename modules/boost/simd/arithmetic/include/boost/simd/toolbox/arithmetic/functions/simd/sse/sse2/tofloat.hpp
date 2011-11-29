@@ -72,7 +72,7 @@ namespace boost { namespace simd { namespace ext
 //       typedef typename dispatch::meta::as_integer<A0,signed>::type sint_type;
 //       //      static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
 //       const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
-//       const sint_type a00 = simd::native_cast<sint_type>(a0);
+//       const sint_type a00 = simd::bitwise_cast<sint_type>(a0);
 //       result_type v1 = {_mm_cvtepi32_ps(a00)};
 //       result_type v2 = {_mm_cvtepi32_ps((b_andnot(a00, Signmask<sint_type>())))};
 //       v2 = v2+offset;

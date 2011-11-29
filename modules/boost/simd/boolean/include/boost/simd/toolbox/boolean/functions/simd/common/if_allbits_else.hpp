@@ -21,7 +21,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::if_allbits_else_, tag::cpu_, (A0)(A1)(X)
-                                , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<typename A0::type>
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
@@ -33,12 +33,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1) const
     {
-//       std::cout << "a1  " <<  a1 << std::endl;
-//       std::cout << "a0  " <<  a0 << std::endl;
-//       std::cout << "bA0 " <<  native_cast<A1>(a0) << std::endl;
-//       std::cout << "r   " <<  bitwise_or(a1, native_cast<A1>(a0)) <<  std::endl;
-//       std::cout << "r   " <<  bitwise_or(a1, genmask(a0)) <<  std::endl;
-      return bitwise_or(a1, native_cast<A1>(a0));
+      return bitwise_or(a1, genmask(a0));
     }
   };
 } } }

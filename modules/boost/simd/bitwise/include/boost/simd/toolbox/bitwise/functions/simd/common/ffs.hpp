@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type rtype;
-      return  simd::native_cast<rtype>(map(dispatch::functor<boost::simd::tag::ffs_>(), simd::native_cast<rtype>(a0)));
+      return  simd::bitwise_cast<rtype>(map(dispatch::functor<boost::simd::tag::ffs_>(), simd::bitwise_cast<rtype>(a0)));
     }
   };
 } } }

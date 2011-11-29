@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_SHRAI_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/group.hpp>
@@ -29,11 +28,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0,signed>::type sint;
-      sint const that = {_mm_srai_epi32(native_cast<sint>(a0), a1)};
-      return native_cast<A0>(that);
+      sint const that = {_mm_srai_epi32(bitwise_cast<sint>(a0), a1)};
+      return bitwise_cast<A0>(that);
     }
   };
 
@@ -46,11 +43,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0,signed>::type sint;
-      sint const that =  {_mm_srai_epi16(native_cast<sint>(a0), a1)};
-      return native_cast<A0>(that);
+      sint const that =  {_mm_srai_epi16(bitwise_cast<sint>(a0), a1)};
+      return bitwise_cast<A0>(that);
     }
   };
 
@@ -66,7 +61,7 @@ namespace boost { namespace simd { namespace ext
       typedef native<typename boost::simd::meta::int16_t_<A0>::type, boost::simd::tag::sse_> gen_type;
       gen_type a0h, a0l;
       boost::fusion::tie(a0l, a0h) = split(a0);
-      return native_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
+      return bitwise_cast<A0>(group(shrai(a0l, a1),shrai(a0h, a1)));
     }
   };
 

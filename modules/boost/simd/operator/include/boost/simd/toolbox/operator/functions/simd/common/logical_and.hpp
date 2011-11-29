@@ -11,22 +11,34 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<fundamental_<A0>,X>))
-                              ((simd_<fundamental_<A1>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A1>,X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      std::cout << "it's better not be here" << std::endl; 
-      return native_cast<result_type>(b_and(genmask(a0), genmask(a1)));
+      return is_nez(b_and(genmask(a0), genmask(a1)));
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<logical_<A0>,X>))
+                              ((simd_<logical_<A1>,X>))
+                            )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return is_nez(b_and(genmask(a0), genmask(a1)));
+    }
+  };  
 } } }
 
 
