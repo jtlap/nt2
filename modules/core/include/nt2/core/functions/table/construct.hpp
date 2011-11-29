@@ -70,6 +70,29 @@ namespace nt2 { namespace ext
       static_cast<parent&>(a0) = a1;
     }
   };
+  //============================================================================
+  // Construct a terminal from a scalar
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+                            , (A0)(Arity)(A1)
+                            , ((expr_ < unspecified_<A0>
+                                      , nt2::container::domain
+                                      , tag::terminal_
+                                      , Arity
+                                      >
+                              ))
+                              (scalar_< unspecified_<A1> >)
+                            )
+  {
+    typedef void result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0& a0, A1 const& a1) const
+    {
+      typedef typename A0::parent parent;
+      static_cast<parent&>(a0) = a1;
+    }
+  };
 
   //============================================================================
   // Construct a terminal from a size and a Iterator pair
