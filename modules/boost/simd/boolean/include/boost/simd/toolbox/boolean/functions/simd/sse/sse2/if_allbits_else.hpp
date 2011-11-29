@@ -6,20 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_SSE_SSE2_IF_ELSE_ZERO_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_SSE_SSE2_IF_ELSE_ZERO_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_SSE_SSE2_IF_ALLBITS_ELSE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_SSE_SSE2_IF_ALLBITS_ELSE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT 
-#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::if_else_zero_, boost::simd::tag::sse2_
-                                         , (A0)(A1)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::if_allbits_else_, boost::simd::tag::sse2_
+                                    , (A0)(A1)(X)
                                          , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1) const
     {
-      return bitwise_and(a1, bitwise_cast<A1>(a0));
+      return bitwise_or(a1, bitwise_cast<A1>(a0));
     }
   };
 } } }
