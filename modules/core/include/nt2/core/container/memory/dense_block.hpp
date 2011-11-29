@@ -154,14 +154,14 @@ namespace nt2 { namespace memory
     //==========================================================================
     void resize( extent_type const& sz )
     {
-      memory::resize( data_, sz.data(), index_type(), lead_padding() );
+      memory::resize( data_, sz, index_type(), lead_padding() );
     }
 
     private:
     void init( boost::mpl::true_ const& )
     {
       extent_type e;
-      initialize( data_, e.data(), index_type(), lead_padding() );
+      initialize( data_, e, index_type(), lead_padding() );
     }
 
     void init( boost::mpl::false_ const& ) {}
