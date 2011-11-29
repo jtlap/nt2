@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return if_else_allbits(is_eqz(a0),One<result_type>())
+      return if_else_allbits(is_eqz(a0),One<result_type>()); 
     }
   };
 } }
