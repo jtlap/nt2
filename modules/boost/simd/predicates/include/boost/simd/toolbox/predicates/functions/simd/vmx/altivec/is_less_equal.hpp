@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_LESS_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,7 +23,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that   = { simd::native_cast<A0>(vec_cmple(a0(),a1())) };
+      A0 that   = { simd::bitwise_cast<A0>(vec_cmple(a0(),a1())) };
       return that;
     }
   };
@@ -38,7 +37,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 lt   = { simd::native_cast<A0>(vec_cmpgt(a0(),a1())) };
+      A0 lt   = { simd::bitwise_cast<A0>(vec_cmpgt(a0(),a1())) };
       A0 that = { boost::simd::complement(lt) };
       return that;
     }

@@ -12,7 +12,6 @@
 
 #include <boost/simd/toolbox/operator/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 // namespace boost { namespace simd { namespace ext
 // {

@@ -12,12 +12,11 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/logical_and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,7 +27,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       result_type that = { _mm_cmpgt_pd(a0,a1) };
@@ -62,9 +60,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type stype;
-      return  native_cast<result_type>
-              ( boost::simd::gt ( native_cast<stype>(a0) - Signmask<stype>()
-                        , native_cast<stype>(a1) - Signmask<stype>()
+      return  bitwise_cast<result_type>
+              ( boost::simd::gt ( bitwise_cast<stype>(a0) - Signmask<stype>()
+                        , bitwise_cast<stype>(a1) - Signmask<stype>()
                         )
               );
     }
@@ -132,8 +130,7 @@ namespace boost { namespace simd { namespace ext
       type bl  = { _mm_shuffle_epi32(sa1, _MM_SHUFFLE(2, 2, 0, 0)) };
       type ah  = { _mm_shuffle_epi32(sa0, _MM_SHUFFLE(3, 3, 1, 1)) };
       type bh  = { _mm_shuffle_epi32(sa1, _MM_SHUFFLE(3, 3, 1, 1)) };
-
-      result_type that  = { boost::simd::gt(ah,bh) | (boost::simd::eq(ah,bh) & boost::simd::gt(al,bl)) };
+      result_type that  = { l_or(boost::simd::gt(ah,bh), l_and(boost::simd::eq(ah,bh), boost::simd::gt(al,bl))) };
       return that;
     }
   };

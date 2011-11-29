@@ -13,6 +13,7 @@
 #include <boost/mpl/equal_to.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -32,6 +33,11 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1) const
     {
+//       std::cout << "a1  " <<  a1 << std::endl;
+//       std::cout << "a0  " <<  a0 << std::endl;
+//       std::cout << "bA0 " <<  native_cast<A1>(a0) << std::endl;
+//       std::cout << "r   " <<  bitwise_or(a1, native_cast<A1>(a0)) <<  std::endl;
+//       std::cout << "r   " <<  bitwise_or(a1, genmask(a0)) <<  std::endl;
       return bitwise_or(a1, native_cast<A1>(a0));
     }
   };

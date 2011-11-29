@@ -17,7 +17,6 @@
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/make.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -59,15 +58,6 @@ namespace boost { namespace simd { namespace ext
       result_type r = {_mm256_insertf128_ps(r, h1, 0)};
       r =  _mm256_insertf128_ps(r, h2, 1);
       return r; 
-//       typedef typename meta::scalar_of<A0>::type stype;
-//       typedef typename dispatch::meta::as_integer<A0,signed>::type sint_type;
-//       static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
-//       const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
-//       const sint_type a00 = simd::native_cast<sint_type>(a0);
-//       result_type v1 = {_mm256_cvtepi32_ps(a00)};
-//       result_type v2 = {_mm256_cvtepi32_ps((b_andnot(a00, hibitmask)))};
-//       v2 = v2+offset;
-//       return select(isgez(a00),v1,v2);
     }
   };
 

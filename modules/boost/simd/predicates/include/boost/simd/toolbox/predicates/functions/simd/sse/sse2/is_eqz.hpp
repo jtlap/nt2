@@ -13,7 +13,6 @@
 #include <boost/simd/toolbox/predicates/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -32,11 +31,9 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::downgrade<A0>::type          base; 
       typedef typename dispatch::meta::downgrade<result_type>::type type; 
-
-      const type tmp1 = is_eqz(boost::simd::native_cast<base>(a0));
+      const type tmp1 = is_eqz(boost::simd::bitwise_cast<base>(a0));
       const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
-
-      return boost::simd::native_cast<result_type>(b_and(tmp1, tmp2));
+      return boost::simd::bitwise_cast<result_type>(b_and(tmp1, tmp2));
     }
   };
 } } }

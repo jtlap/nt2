@@ -6,29 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LTZ_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LTZ_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/toolbox/predicates/functions/is_ltz.hpp>
-#include <boost/simd/sdk/meta/templatize.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, boost::simd::tag::sse2_
+                            , (A0)(X)
+                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef boost::simd::native<typename boost::simd::meta::int32_t_<A0>::type,boost::simd::tag::sse_> type;
-      const type tmp1 = bitwise_cast<type>(is_ltz(bitwise_cast<type>(a0)));
-      const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
-      return  bitwise_cast<result_type>(tmp);
+      return is_eqz(a0);
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, boost::simd::tag::sse2_
+                            , (A0)(X)
+                            , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+
+                            )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return is_eqz(native_cast<typename A0::type>(a0));
     }
   };
 } } }
 
-#endif
+
 #endif

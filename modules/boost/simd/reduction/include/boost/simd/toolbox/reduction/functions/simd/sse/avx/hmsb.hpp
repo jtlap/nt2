@@ -9,9 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
@@ -49,7 +47,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type vfloat;
-      return _mm256_movemask_ps(native_cast<vfloat>(a0));
+      return _mm256_movemask_ps(bitwise_cast<vfloat>(a0));
     }
   };
   
@@ -65,7 +63,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type vdouble;
-      return _mm256_movemask_pd(native_cast<vdouble>(a0));
+      return _mm256_movemask_pd(bitwise_cast<vdouble>(a0));
     }
   };
 
@@ -80,7 +78,6 @@ namespace boost { namespace simd { namespace ext
     typedef boost::simd::uint32_t result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      
       typedef typename meta::scalar_of<A0>::type             sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       svtype a00 = { _mm256_extractf128_si256(a0, 0)};

@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { boost::simd::complement(native_cast<A0>(boost::simd::eq(a0,a1)))};
+      result_type that = { boost::simd::complement(bitwise_cast<A0>(boost::simd::eq(a0,a1)))};
       return that;
     }
   };
@@ -73,10 +73,10 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
-      tmp           =  native_cast<type>(boost::simd::neq(tmp,Zero<type>()));
+      tmp           =  bitwise_cast<type>(boost::simd::neq(tmp,Zero<type>()));
       type tmp2     = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
       A0   that     = { tmp | tmp2 };
-      return native_cast<result_type>(that);
+      return bitwise_cast<result_type>(that);
     }
   };
 } } }

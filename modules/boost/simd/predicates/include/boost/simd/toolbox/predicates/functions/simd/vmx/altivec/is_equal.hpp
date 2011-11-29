@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_EQUAL_TO_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,10 +19,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { simd::native_cast<A0>( vec_cmpeq(a0(),a1()) ) };
+      A0 that = { vec_cmpeq(a0(),a1()) };
       return that;
     }
   };

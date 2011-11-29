@@ -6,16 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_LOGICAL_XOR_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_LOGICAL_XOR_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_XOR_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_XOR_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/bitwise_xor.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_, (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, boost::simd::tag::sse2_,
+				     (A0)(X)
+                            , ((simd_<arithmetic_<A0>, X>))
+                              ((simd_<arithmetic_<A0>, X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
@@ -25,17 +26,18 @@ namespace boost { namespace simd { namespace ext
                                              genmask<A0>(a1)));
       }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_, (A0)(X)
-                            , ((simd_<logical_<A0>,X>))
-                              ((simd_<logical_<A0>,X>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, boost::simd::tag::sse2_,
+				     (A0)(X)
+                            , ((simd_<logical_<A0>, X>))
+                              ((simd_<logical_<A0>, X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
        typedef typename A0::type type; 
-       return native_cast<result_type>(b_xor(native_cast<type>(a0),
-                                             native_cast<type>(a1)));
+       return native_cast<result_type>(b_xor(bitwise_cast<type>(a0),
+                                             bitwise_cast<type>(a1)));
       }
   };
 } } }

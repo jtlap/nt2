@@ -33,7 +33,13 @@ namespace boost { namespace simd { namespace ext
     inline result_type
     operator()(A0 const& a0, A1 const& a1) const
     {
-      return bitwise_and(a1, native_cast<A1>(a0));
+//          std::cout << "a1  " <<  a1 << std::endl;
+//          std::cout << "a0  " <<  a0 << std::endl;
+//          std::cout << "bA0 " <<  native_cast<A1>(a0) << std::endl;
+//          std::cout << "r   " <<  bitwise_and(a1, native_cast<A1>(a0)) <<  std::endl;
+//          std::cout << "r   " <<  bitwise_and(a1, genmask(a0)) <<  std::endl;
+      A1 a00 =  native_cast<A1>(a0); 
+      return bitwise_and(a1, a00);
     }
   };
 } } }

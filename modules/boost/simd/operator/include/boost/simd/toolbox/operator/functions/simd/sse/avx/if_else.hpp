@@ -13,7 +13,6 @@
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/operator/functions/if_else.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -28,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return boost::simd::native_cast<A1>(_mm256_blendv_ps(a2, a1,  native_cast<A1>(genmask(a0)))); 
+      return boost::simd::bitwise_cast<A1>(_mm256_blendv_ps(a2, a1,  bitwise_cast<A1>(genmask(a0)))); 
     }
   };
 } } }
@@ -45,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return boost::simd::native_cast<A1>(_mm256_blendv_pd(a2, a1, native_cast<A1>(genmask(a0)))); 
+      return boost::simd::bitwise_cast<A1>(_mm256_blendv_pd(a2, a1, bitwise_cast<A1>(genmask(a0)))); 
     }
   };
 } } }
@@ -61,7 +60,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return boost::simd::native_cast<A1>(_mm256_blendv_ps(a2, a1, native_cast<A1>(a0))); 
+      return boost::simd::bitwise_cast<A1>(_mm256_blendv_ps(a2, a1, bitwise_cast<A1>(a0))); 
     }
   };
 } } }
@@ -78,7 +77,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return boost::simd::native_cast<A1>(_mm256_blendv_pd(a2, a1, native_cast<A1>(a0))); 
+      return boost::simd::bitwise_cast<A1>(_mm256_blendv_pd(a2, a1, bitwise_cast<A1>(a0))); 
     }
   };
 } } }

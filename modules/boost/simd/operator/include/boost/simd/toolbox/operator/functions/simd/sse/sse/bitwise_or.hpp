@@ -9,10 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_BITWISE_OR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_BITWISE_OR_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE_SUPPORT
-
 #include <boost/simd/toolbox/operator/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 // namespace boost { namespace simd { namespace ext
 // {

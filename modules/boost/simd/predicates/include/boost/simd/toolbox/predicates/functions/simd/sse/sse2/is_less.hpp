@@ -12,7 +12,6 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/logical_and.hpp>
@@ -61,9 +60,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type stype;
-      return  native_cast<result_type>
-              (boost::simd::lt( native_cast<stype>(a0) - Signmask<stype>()
-                      , native_cast<stype>(a1) - Signmask<stype>()
+      return  bitwise_cast<result_type>
+              (boost::simd::lt( bitwise_cast<stype>(a0) - Signmask<stype>()
+                      , bitwise_cast<stype>(a1) - Signmask<stype>()
                       )
               );
     }

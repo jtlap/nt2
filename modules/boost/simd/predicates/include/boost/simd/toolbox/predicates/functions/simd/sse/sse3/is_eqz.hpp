@@ -30,13 +30,12 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::native_cast;
       typedef simd::native <typename boost::simd::meta::int32_t_<A0>::type, boost::simd::tag::sse_ > itype;
       typedef simd::native <typename boost::simd::meta::float__<A0>::type , boost::simd::tag::sse_ > ftype;
-      ftype tmp1 = native_cast<ftype>(eq(native_cast<itype>(a0),Zero<itype>()));
-      A0  l = native_cast<A0>(_mm_moveldup_ps(tmp1));
-      A0  h = native_cast<A0>(_mm_movehdup_ps(tmp1));
-      return native_cast<result_type>(b_and(l,h));
+      ftype tmp1 = bitwise_cast<ftype>(eq(bitwise_cast<itype>(a0),Zero<itype>()));
+      A0  l = bitwise_cast<A0>(_mm_moveldup_ps(tmp1));
+      A0  h = bitwise_cast<A0>(_mm_movehdup_ps(tmp1));
+      return bitwise_cast<result_type>(b_and(l,h));
     }
   };
 } } }

@@ -36,7 +36,7 @@ void pb(unsigned short a,  int n = 16)
   std::cout << std::endl;
 }
 
-NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  (boost::simd::uint64_t))//BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
@@ -62,6 +62,7 @@ NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  (boost::simd::uint64_t))//BOOST_S
   NT2_TEST_EQUAL(logical_and(boost::simd::True<vT>(), boost::simd::True<vT>())[0], boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(logical_and(boost::simd::True<vT>(),boost::simd::False<vT>())[0], boost::simd::False<sr_t>());
   NT2_TEST_EQUAL(logical_and(boost::simd::False<vT>(), boost::simd::False<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_and(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -90,4 +91,5 @@ NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(logical_and(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::True<sr_t>());
   NT2_TEST_EQUAL(logical_and(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
   NT2_TEST_EQUAL(logical_and(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_and(boost::simd::Half<vT>(), boost::simd::Half<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for floating_

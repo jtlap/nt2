@@ -10,8 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_BITWISE_OR_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/simd/sdk/simd/native_cast.hpp>
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_, boost::simd::tag::altivec_, (A0)(A1)
@@ -23,7 +21,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      A0 other = simd::native_cast<A0>( a1 );
+      A0 other = simd::bitwise_cast<A0>( a1 );
       A0 that = { vec_or(a0(),other()) };
       return that;
     }

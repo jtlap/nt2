@@ -9,12 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_CUMSUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_CUMSUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/simd/toolbox/swar/functions/cumsum.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -36,8 +33,8 @@ namespace boost { namespace simd { namespace ext
       svtype a00 =  cumsum(a000);
       svtype a01 =  cumsum(a011);
       svtype z = splat<svtype>(a00[meta::cardinal_of<svtype>::value-1]);
-      A0 that = simd::native_cast<A0>(_mm256_insertf128_si256(that,a00, 0));
-      that =  simd::native_cast<A0>(_mm256_insertf128_si256(that, a01+z, 1))              ;
+      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_si256(that,a00, 0));
+      that =  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, a01+z, 1));
       return that;
     }
   };
@@ -62,8 +59,8 @@ namespace boost { namespace simd { namespace ext
       svtype a00 =  cumsum(a000);
       svtype a01 =  cumsum(a011);
       svtype z = splat<svtype>(a00[meta::cardinal_of<svtype>::value-1]);
-      A0 that = simd::native_cast<A0>(_mm256_insertf128_pd(that,a00, 0));
-      that =  simd::native_cast<A0>(_mm256_insertf128_pd(that, a01+z, 1))                 ;
+      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_pd(that,a00, 0));
+      that =  simd::bitwise_cast<A0>(_mm256_insertf128_pd(that, a01+z, 1));
       return that;
     }
   };

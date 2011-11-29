@@ -10,6 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_MAJORITY_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -28,13 +30,14 @@ namespace boost { namespace simd { namespace ext
       result_type aa0 = is_nez(a0);
       result_type aa1 = is_nez(a1);
       result_type aa2 = is_nez(a2);
-      return logical_or(
+      result_type r =  logical_or(
                logical_or(
                  logical_and(aa0, aa1),
                  logical_and(aa1, aa2)
                ),
-               logical_and(aa2, aa0)
+               logical_and(aa2, a0)
              );
+      return r; 
     }
   };
 } } }

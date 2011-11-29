@@ -14,7 +14,6 @@
 #include <boost/simd/toolbox/arithmetic/functions/abs.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type itype;
-      return result_type(_mm256_testz_si256(native_cast<itype>(a0), Allbits<itype>()));
+      return result_type(_mm256_testz_si256(bitwise_cast<itype>(a0), Allbits<itype>()));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::avx_,
@@ -41,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename A0::type type; 
-      return boost::simd::none(native_cast<type>(a0));
+      return boost::simd::none(bitwise_cast<type>(a0));
     }
   };
 } } }

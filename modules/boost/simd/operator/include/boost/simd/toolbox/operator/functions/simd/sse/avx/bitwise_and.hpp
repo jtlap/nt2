@@ -11,7 +11,6 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/bitwise_and.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -26,9 +25,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef native<float, tag::avx_> ftype;
-      A0 that = { native_cast<A0>
-        ( _mm256_and_ps ( native_cast<ftype>(a0), 
-            native_cast<ftype>(a1)
+      A0 that = { bitwise_cast<A0>
+        ( _mm256_and_ps ( bitwise_cast<ftype>(a0), 
+            bitwise_cast<ftype>(a1)
           )
         )
       };
@@ -59,7 +58,7 @@ namespace boost { namespace simd { namespace ext
 //     typedef A0 result_type;
 //     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
 //     {
-//       return native_cast<result_type>(bitwise_and(genmask(a0), genmask(a1)));
+//       return bitwise_cast<result_type>(bitwise_and(genmask(a0), genmask(a1)));
 //     }
 //   };  
  } } }

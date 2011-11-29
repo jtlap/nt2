@@ -12,7 +12,6 @@
 
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
 #include <boost/simd/include/functions/make.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -32,7 +31,7 @@ namespace boost { namespace simd { namespace ext
                                        0x80,0x80,0x80,0x80,0x80,0x80,0x80,0x80
                                      
                                );
-      type8 r = {_mm_shuffle_epi8(native_cast<type8>(a0), mask)};
+      type8 r = {_mm_shuffle_epi8(bitwise_cast<type8>(a0), mask)};
       return _mm_movemask_epi8(r); 
     }
   };
