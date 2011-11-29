@@ -22,10 +22,11 @@ namespace nt2 { namespace ext
   // Construct a terminal from a size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(A1)
+                            , (A0)(Arity)(A1)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
                                       , tag::terminal_
+                                      , Arity
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -45,15 +46,17 @@ namespace nt2 { namespace ext
   // Construct a terminal from another expression
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(A1)(Tag)
+                            , (A0)(Arity0)(A1)(Tag)(Arity1)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
                                       , tag::terminal_
+                                      , Arity0
                                       >
                               ))
                               ((expr_ < unspecified_<A1>
                                       , nt2::container::domain
                                       , Tag
+                                      , Arity1
                                       >
                               ))
                             )
@@ -72,10 +75,11 @@ namespace nt2 { namespace ext
   // Construct a terminal from a size and a Iterator pair
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(A1)(A2)(A3)
+                            , (A0)(Arity0)(A1)(A2)(A3)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
-                                      , tag::terminal_
+                                      , tag::terminal_ 
+                                      , Arity0
                                       >
                               ))
                               (fusion_sequence_<A1>)
