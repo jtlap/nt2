@@ -9,10 +9,12 @@
 #ifndef NT2_CORE_FUNCTIONS_TABLE_CONSTRUCT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TABLE_CONSTRUCT_HPP_INCLUDED
 
-#include <boost/dispatch/meta/fusion.hpp>
 #include <nt2/core/functions/construct.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
 #include <nt2/core/container/table/category.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
+#include <boost/fusion/include/fold.hpp>
 
 namespace nt2 { namespace ext
 {
