@@ -71,11 +71,10 @@ namespace nt2 { namespace ext
   // Construct a terminal from a scalar
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(Arity)(A1)
+                            , (A0)(A1)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
                                       , tag::terminal_
-                                      , Arity
                                       >
                               ))
                               (scalar_< unspecified_<A1> >)
