@@ -51,6 +51,7 @@ namespace nt2 { namespace memory
           , typename Type
           , typename Data_buffer
           , typename Index_buffer
+          , typename Storage_order
           , typename Padding
           , typename Allocator
           >
@@ -125,8 +126,8 @@ namespace nt2 { namespace memory
     //==========================================================================
     iliffe_buffer(Allocator const&  a = Allocator(), 
           Data_buffer const& db = Data_buffer(), 
-          Index_buffer const& ib = Index_buffer() )
-      : data_(0), begin_(0), end_(0), numel_(0), alloc_(a), data_buffer_(db), index_buffer_(ib) {}
+          Index_buffer const& ib = Index_buffer(), Storage_order const& so = Storage_order() )
+    : data_(0), begin_(0), end_(0), numel_(0), alloc_(a), data_buffer_(db), index_buffer_(ib),storage_order_(so) {}
 
     //==========================================================================
     /**
@@ -394,6 +395,7 @@ namespace nt2 { namespace memory
     allocator       alloc_;
     Data_buffer     data_buffer_;
     Index_buffer    index_buffer_;
+    Storage_order   storage_order_;
   };
 
   //============================================================================
@@ -408,10 +410,11 @@ namespace nt2 { namespace memory
   template< typename Type
           , typename Data_buffer
           , typename Index_buffer
+          , typename Storage_order
           , typename Padding
           , typename Allocator
           >
-  struct iliffe_buffer<1,Type,Data_buffer,Index_buffer,Padding,Allocator>
+  struct iliffe_buffer<1,Type,Data_buffer,Index_buffer,Storage_order,Padding,Allocator>
   {
     typedef typename Allocator::template rebind<memory::byte>::other     allocator;
 
@@ -427,8 +430,8 @@ namespace nt2 { namespace memory
 
     iliffe_buffer(Allocator const&  a = Allocator(), 
           Data_buffer const& db = Data_buffer(), 
-          Index_buffer const& ib = Index_buffer() )
-      : data_(0), begin_(0), end_(0), sharing_(false), alloc_(a), data_buffer_(db), index_buffer_(ib) {}
+          Index_buffer const& ib = Index_buffer(),  Storage_order const& so = Storage_order())
+    : data_(0), begin_(0), end_(0), sharing_(false), alloc_(a), data_buffer_(db), index_buffer_(ib),storage_order_(so)  {}
 
     template<typename Sizes, typename Bases>
     void initialize ( Sizes const&      szs
@@ -498,6 +501,7 @@ namespace nt2 { namespace memory
     Allocator       alloc_;
     Data_buffer     data_buffer_;
     Index_buffer    index_buffer_;
+    Storage_order   storage_order_;
   };
 } }
 

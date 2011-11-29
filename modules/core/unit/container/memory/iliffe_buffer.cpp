@@ -24,6 +24,9 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
+
 
 #define PADDING                                                                   \
 (nt2::memory::no_padding)(nt2::memory::lead_padding)(nt2::memory::global_padding) \
@@ -39,11 +42,12 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dimensions, PADDING )
   using nt2::meta::dimensions_of;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,T,allocator<int> > >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > >::value), 3UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<4,int,buffer<int>,buffer<byte>,T,allocator<int> > >::value), 4UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > >::value), 2UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > >::value), 3UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<4,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > >::value), 4UL );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,12 +61,76 @@ NT2_TEST_CASE_TPL( iliffe_buffer_values, PADDING )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
+  using boost::mpl::_;
 
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<4,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type, int>::value ));
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > ib1D;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > ib2D;
+  iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > ib3D;
+  iliffe_buffer<4,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > ib4D;
+
+  NT2_TEST_EXPR_TYPE(ib1D, value_of<_>, int );
+  NT2_TEST_EXPR_TYPE(ib2D, value_of<_>, int );
+  NT2_TEST_EXPR_TYPE(ib3D, value_of<_>, int );
+  NT2_TEST_EXPR_TYPE(ib4D, value_of<_>, int );
+
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// iliffe_buffer type has storage_order
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( iliffe_buffer_storage_order, PADDING )
+{
+  using boost::is_same;
+  using nt2::meta::storage_order_of;
+  using nt2::memory::allocator;
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
+  using nt2::C_order_;
+  using nt2::matlab_order_;
+  using nt2::fortran_order_;
+  using boost::mpl::_;
+
+  // C storage order
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > ib1D;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > ib2D;
+  iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > ib3D;
+  iliffe_buffer<4,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > ib4D;
+
+  NT2_TEST_EXPR_TYPE(ib1D, storage_order_of<_>, C_order_ );
+  NT2_TEST_EXPR_TYPE(ib2D, storage_order_of<_>, C_order_ );
+  NT2_TEST_EXPR_TYPE(ib3D, storage_order_of<_>, C_order_ );
+  NT2_TEST_EXPR_TYPE(ib4D, storage_order_of<_>, C_order_ );
+
+
+
+  // matlab storage order
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,matlab_order_,T,allocator<int> > ib1D_;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,matlab_order_,T,allocator<int> > ib2D_;
+  iliffe_buffer<3,int,buffer<int>,buffer<byte>,matlab_order_,T,allocator<int> > ib3D_;
+  iliffe_buffer<4,int,buffer<int>,buffer<byte>,matlab_order_,T,allocator<int> > ib4D_;
+
+  NT2_TEST_EXPR_TYPE(ib1D_, storage_order_of<_>, matlab_order_ );
+  NT2_TEST_EXPR_TYPE(ib2D_, storage_order_of<_>, matlab_order_ );
+  NT2_TEST_EXPR_TYPE(ib3D_, storage_order_of<_>, matlab_order_ );
+  NT2_TEST_EXPR_TYPE(ib4D_, storage_order_of<_>, matlab_order_ );
+
+
+  // fortran storage order
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,fortran_order_,T,allocator<int> > _ib1D_;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,fortran_order_,T,allocator<int> > _ib2D_;
+  iliffe_buffer<3,int,buffer<int>,buffer<byte>,fortran_order_,T,allocator<int> > _ib3D_;
+  iliffe_buffer<4,int,buffer<int>,buffer<byte>,fortran_order_,T,allocator<int> > _ib4D_;
+
+  NT2_TEST_EXPR_TYPE(_ib1D_, storage_order_of<_>, fortran_order_ );
+  NT2_TEST_EXPR_TYPE(_ib2D_, storage_order_of<_>, fortran_order_ );
+  NT2_TEST_EXPR_TYPE(_ib3D_, storage_order_of<_>, fortran_order_ );
+  NT2_TEST_EXPR_TYPE(_ib4D_, storage_order_of<_>, fortran_order_ );
+
+
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // iliffe_buffer type has a model
@@ -76,14 +144,15 @@ NT2_TEST_CASE_TPL( iliffe_buffer_models, PADDING )
   using boost::mpl::apply;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  typedef typename model_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type model1d;
-  typedef typename model_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type model2d;
-  typedef typename model_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > >::type model3d;
+  typedef typename model_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > >::type model1d;
+  typedef typename model_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > >::type model2d;
+  typedef typename model_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > >::type model3d;
 
-  NT2_TEST((is_same<typename apply<model1d,float>::type, iliffe_buffer<1,float,buffer<int>,buffer<byte>,T,allocator<float> > >::value ));
-  NT2_TEST((is_same<typename apply<model2d,float>::type, iliffe_buffer<2,float,buffer<int>,buffer<byte>,T,allocator<float> > >::value ));
-  NT2_TEST((is_same<typename apply<model3d,float>::type, iliffe_buffer<3,float,buffer<int>,buffer<byte>,T,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model1d,float>::type, iliffe_buffer<1,float,buffer<int>,buffer<byte>,C_order_,T,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model2d,float>::type, iliffe_buffer<2,float,buffer<int>,buffer<byte>,C_order_,T,allocator<float> > >::value ));
+  NT2_TEST((is_same<typename apply<model3d,float>::type, iliffe_buffer<3,float,buffer<int>,buffer<byte>,C_order_,T,allocator<float> > >::value ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -97,8 +166,9 @@ NT2_TEST_CASE_TPL( iliffe_buffer_reference, PADDING )
   using nt2::meta::dereference_;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  typedef iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > base;
+  typedef iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > base;
 
   NT2_TEST((is_same< typename dereference_<base&,1>::type, int**&>::value) );
   NT2_TEST((is_same< typename dereference_<base&,2>::type, int*& >::value) );
@@ -120,8 +190,9 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, PADDING )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > tab;
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > tab;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{-2}};
@@ -170,8 +241,9 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  iliffe_buffer<2,int,buffer<int>,buffer<byte>,T,allocator<int> > tab;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > tab;
 
   boost::array<std::size_t,2> sizes = {{5,2}};
   boost::array<std::size_t,2> bases = {{-2,0}};
@@ -231,8 +303,9 @@ NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  iliffe_buffer<3,int,buffer<int>,buffer<byte>,T,allocator<int> > tab;
+  iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > tab;
 
   boost::array<std::size_t,3> sizes = {{2,2,2}};
   boost::array<std::size_t,3> bases = {{0,0,0}};
@@ -286,8 +359,9 @@ NT2_TEST_CASE( iliffe_buffer_1D_as_buffer_from_data_pointer )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  iliffe_buffer<1,int,buffer<int>,buffer<byte>,nt2::memory::no_padding,allocator<int> > tab;
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::no_padding,allocator<int> > tab;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{1}};

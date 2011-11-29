@@ -164,8 +164,6 @@ NT2_TEST_CASE_TPL( buffer_storage_order, NT2_TYPES)
 
   NT2_TEST_EXPR_TYPE(a0, storage_order_of<_>, C_order_ );
 
-  //  NT2_TEST_EQUAL((dimensions_of< buffer<T> >::value), 1UL );
-
 }
 
 // ////////////////////////////////////////////////////////////////////////////////
@@ -176,8 +174,10 @@ NT2_TEST_CASE_TPL( buffer_values, NT2_TYPES)
   using boost::is_same;
   using boost::dispatch::meta::value_of;
   using nt2::memory::buffer;
+  using boost::mpl::_;
 
-  NT2_TEST((is_same< typename value_of< buffer<T> >::type, T>::value ));
+  buffer<T> a0;
+  NT2_TEST_EXPR_TYPE(a0, value_of<_>, T );
 
 }
 
@@ -209,8 +209,8 @@ NT2_TEST_CASE_TPL( buffer_reference, NT2_TYPES )
 
   typedef buffer<T> base;
 
-  NT2_TEST((is_same< typename dereference_<base&,1>::type, T& >::value) );
 
+  NT2_TEST((is_same< typename dereference_<base&,1>::type, T& >::value) );
   NT2_TEST((is_same< typename dereference_<base const&,1>::type, T const&  >::value) );
 }
 

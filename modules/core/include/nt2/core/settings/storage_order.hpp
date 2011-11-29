@@ -29,24 +29,28 @@ namespace nt2
 
   namespace details
   {
-    struct matlab_storage_
+    namespace adl_barrier
     {
-      template <typename S, typename D>
-      struct apply : boost::mpl::int_<S::value - 1 - D::value>  {};
-    };
+      struct matlab_storage_
+      {
+        template <typename S, typename D>
+        struct apply : boost::mpl::int_<S::value - 1 - D::value>  {};
+      };
+    
+      struct C_storage_
+      {
+        template <typename S, typename D>
+        struct apply : D  {};
+      };
+    }
 
-    typedef matlab_storage_ fortran_storage_;
-
-    struct C_storage_
-    {
-      template <typename S, typename D>
-      struct apply : D  {};
-    };
+   using adl_barrier::matlab_storage_;
+   using adl_barrier::C_storage_;
   }
 
   typedef storage_order_<details::matlab_storage_>  matlab_order_;
   typedef storage_order_<details::C_storage_>       C_order_;
-  typedef storage_order_<details::fortran_storage_> fortran_order_;
+  typedef storage_order_<details::matlab_storage_>  fortran_order_;
 
 
   namespace tag

@@ -67,8 +67,9 @@ NT2_TEST_CASE( iliffe_buffer )
   using nt2::memory::allocator;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,no_padding,allocator<int> > >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,no_padding,allocator<int> > >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,no_padding,allocator<int> > >::value), 3UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,no_padding,allocator<int> > >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,no_padding,allocator<int> > >::value), 2UL );
+  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,no_padding,allocator<int> > >::value), 3UL );
 }

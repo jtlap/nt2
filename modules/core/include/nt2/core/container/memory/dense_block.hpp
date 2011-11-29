@@ -48,7 +48,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Retrieve storage order
     //==========================================================================
-    //typedef typename meta::option<Layout, tag::storage_order_>::type::type storage_order_type;
+    typedef typename meta::option<Layout, tag::storage_order_>::type storage_order_type;
 
     //==========================================================================
     // Retrieve padding strategy
@@ -65,6 +65,7 @@ namespace nt2 { namespace memory
                           , Type
                           , buffer<Type>
                           , buffer<byte>
+                          , storage_order_type
                           , lead_padding
                           , allocator<Type>
                           >                       buffer_type;

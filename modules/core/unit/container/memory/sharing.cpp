@@ -11,6 +11,7 @@
 #include <nt2/core/container/memory/iliffe_buffer.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
 #include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/allocator.hpp>
@@ -40,8 +41,9 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_shared_buffer, PADDING )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  iliffe_buffer<1,int,buffer<int>,buffer<byte>,T,allocator<int> > tab;
+  iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > tab;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{-2}};
@@ -57,8 +59,8 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_shared_buffer, PADDING )
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
-  for(pos[0]=-2;pos[0]<=2;++pos[0])
-    NT2_TEST_EQUAL(dereference<1UL>(tab,pos), data[pos[0] + 2] );
+   for(pos[0]=-2;pos[0]<=2;++pos[0])
+     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), data[pos[0] + 2] );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -72,8 +74,9 @@ NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_no_padding )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  iliffe_buffer<2,int,buffer<int>,buffer<byte>,nt2::memory::no_padding,allocator<int> > tab;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::no_padding,allocator<int> > tab;
 
   int data[10] = {1,2,3,4,5,6,7,8,9,10};
 
@@ -96,9 +99,9 @@ NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_no_padding )
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer models Buffer Concept
-////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//iliffe_buffer models Buffer Concept
+//////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_global_padding )
 {
   using nt2::memory::allocator;
@@ -107,8 +110,9 @@ NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_global_padding )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  iliffe_buffer<2,int,buffer<int>,buffer<byte>,nt2::memory::global_padding,allocator<int> > tab;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::global_padding,allocator<int> > tab;
 
   int data[10] = {1,2,3,4,5,6,7,8,9,10};
 
@@ -142,8 +146,9 @@ NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_lead_padding )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
   using nt2::memory::byte;
+  using nt2::C_order_;
 
-  iliffe_buffer<2,int,buffer<int>,buffer<byte>,nt2::memory::lead_padding,allocator<int> > tab;
+  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::lead_padding,allocator<int> > tab;
 
   int data[2*BOOST_SIMD_CONFIG_ALIGNMENT];
 
