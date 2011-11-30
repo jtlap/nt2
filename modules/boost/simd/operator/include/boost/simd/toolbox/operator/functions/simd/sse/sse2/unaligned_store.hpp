@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      _mm_storeu_pd(a1+2*a2,a0);
+      _mm_storeu_pd(a1+a2,a0);
       return a0;
     }
   };
@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      _mm_storeu_ps(a1+4*a2,a0);
+      _mm_storeu_ps(a1+a2,a0);
       return a0;
     }
   };
@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      _mm_store_si128((__m128i*)(a1)+a2, a0);
+      _mm_store_si128(reinterpret_cast<__m128i*>(a1+a2), a0);
       return a0;
     }
   };

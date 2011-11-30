@@ -50,10 +50,11 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // vector size
     ////////////////////////////////////////////////////////////////////////////
-    enum { static_size = meta::cardinal_of<native>::value };
+    enum { static_size = sizeof(native_type)/sizeof(value_type)
+                       ? sizeof(native_type)/sizeof(value_type) : 1};
 
     ////////////////////////////////////////////////////////////////////////////
-    // Assignment operator from same type (generates better code)
+    // Assignment operator from same type (generates better code than default-generated one)
     ////////////////////////////////////////////////////////////////////////////
     BOOST_DISPATCH_FORCE_INLINE
     native& operator=(native const& s)
@@ -114,15 +115,15 @@ namespace boost { namespace simd
     native_type data_;
     
     BOOST_DISPATCH_FORCE_INLINE
-    value_type* data() 
-    { 
-      return reinterpret_cast<value_type*>(&data_); 
+    value_type* data()
+    {
+      return reinterpret_cast<value_type*>(&data_);
     }
 
     BOOST_DISPATCH_FORCE_INLINE
-    const value_type* data() const 
-    { 
-      return reinterpret_cast<value_type const*>(&data_); 
+    const value_type* data() const
+    {
+      return const_cast<native&>(*this).data();
     }
   };
 } }

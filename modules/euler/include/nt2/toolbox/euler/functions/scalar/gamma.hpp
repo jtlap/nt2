@@ -200,7 +200,7 @@ namespace nt2 { namespace ext
 // 	      for (i = 0; i < 6; ++i)
 // 		sum = sum / ysq + g_c[i];
 // 	      sum = sum / y - y + LOGSQRT2PI;
-// 	      sum += (y - 0.5) * log(y);
+// 	      sum += (y - 0.5) * nt2::log(y);
 // 	      res = exp(sum);
 // 	    }
 // 	  else

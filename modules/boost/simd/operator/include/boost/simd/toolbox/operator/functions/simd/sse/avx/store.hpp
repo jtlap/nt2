@@ -33,10 +33,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1,BOOST_SIMD_CONFIG_ALIGNMENT)
-      , "Unaligned memory location. You tried to store with a pointer that"
-        " is not aligned on the simd vector size.");
-      _mm256_store_pd(a1+boost::simd::meta::cardinal_of<result_type>::value*a2,a0);
+      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      , "store has been called on a pointer which alignment is not "
+        "compatible with current SIMD extension."
+      );
+
+      _mm256_store_pd(a1+a2,a0);
       return a0;
     }
   };
@@ -56,10 +58,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1,BOOST_SIMD_CONFIG_ALIGNMENT)
-      , "Unaligned memory location. You tried to store with a pointer that"
-        "is not aligned on the simd vector size.");
-      _mm256_store_ps(a1+boost::simd::meta::cardinal_of<result_type>::value*a2,a0);
+      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      , "store has been called on a pointer which alignment is not "
+        "compatible with current SIMD extension."
+      );
+
+      _mm256_store_ps(a1+a2,a0);
       return a0;
     }
   };
@@ -79,10 +83,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1,BOOST_SIMD_CONFIG_ALIGNMENT)
-      , "Unaligned memory location. You tried to store with a pointer that"
-        "is not aligned on the simd vector size.");
-      _mm256_store_si256((__m256i*)(a1)+a2, a0);
+      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      , "store has been called on a pointer which alignment is not "
+        "compatible with current SIMD extension."
+      );
+
+      _mm256_store_si256(reinterpret_cast<__m256i*>(a1+a2), a0);
       return a0;
     }
   };

@@ -89,7 +89,7 @@ namespace nt2
           // size in bits of the scalar types minus one
           const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
-           int_type n = redu_t::reduce(x, xr, xc);
+          const int_type n = redu_t::reduce(x, xr, xc);
           const int_type swap_bit = n&One<int_type>();
           const A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1)); 
           const A0 z = sqr(xr);
@@ -118,8 +118,7 @@ namespace nt2
 
         static inline A0_n cota(const A0_n a0_n, const fast&)
         {
-          //const A0 a0 = { a0_n };
-          const A0 bte = {eval_t::base_tancot_eval(scale(a0_n))}; 
+         const A0 bte = {eval_t::base_tancot_eval(scale(a0_n))}; 
           return rec(bte); 
         }
 

@@ -163,7 +163,7 @@ NT2_TEST_CASE(pack_category)
           ));
 }
 
-NT2_TEST_CASE_TPL(pack_expr_category, (double))
+NT2_TEST_CASE_TPL(pack_expr_category, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::is_same;

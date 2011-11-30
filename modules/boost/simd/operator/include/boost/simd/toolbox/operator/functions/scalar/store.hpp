@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_MEMORY_DETAILS_STORE_HPP_INCLUDED
-#define BOOST_SIMD_SDK_MEMORY_DETAILS_STORE_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_STORE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_STORE_HPP_INCLUDED
 
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>

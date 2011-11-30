@@ -6,11 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOAD_OFFSET_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOAD_OFFSET_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_DETAILS_LOAD_OFFSET_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_DETAILS_LOAD_OFFSET_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/error/assert.hpp>
@@ -49,9 +50,11 @@ namespace boost { namespace simd { namespace ext
                                   const A2&, const A3&)const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
-      , "Unaligned memory location. You tried to load with a pointer that"
-        " is not aligned on the simd vector size.");
+      ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
+      , "load has been called on a pointer which alignment is not "
+        "compatible with current SIMD extension."
+      );
+
       return eval ( a0, a1
                   , typename is_periodic<A2,A3>::type()
                   , typename is_forward<A3>::type()
@@ -67,7 +70,6 @@ namespace boost { namespace simd { namespace ext
       BOOST_STATIC_CONSTANT
       ( std::size_t
       , offset  = std::size_t(A3::value)
-                / boost::simd::meta::cardinal_of<typename A2::type>::value
       );
 
       return boost::simd::load<result_type>(a0,a1+offset);
@@ -81,7 +83,7 @@ namespace boost { namespace simd { namespace ext
                             ) const
     {
       BOOST_STATIC_CONSTANT( std::size_t, card    = boost::simd::meta::cardinal_of<result_type>::value );
-      BOOST_STATIC_CONSTANT( std::size_t, offset  = std::size_t(A3::value)/card           );
+      BOOST_STATIC_CONSTANT( std::size_t, offset  = std::size_t(A3::value)/card*card      );
       BOOST_STATIC_CONSTANT( std::size_t, bytes   = 16u/card                              );
       BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*(A3::value%card)                );
       BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-A3::value%card)           );
@@ -91,10 +93,10 @@ namespace boost { namespace simd { namespace ext
                                     >::type     raw_type;
 
       result_type a     = boost::simd::load<result_type>(a0,a1+offset);
-      result_type b     = boost::simd::load<result_type>(a0,a1+offset+1);
-      __m128i sa        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
-      __m128i sb        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
-      result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
+      result_type b     = boost::simd::load<result_type>(a0,a1+offset+card);
+      __m128i sa        = _mm_srli_si128(boost::simd::native_cast<__m128i>(a.data_),shifta);
+      __m128i sb        = _mm_slli_si128(boost::simd::native_cast<__m128i>(b.data_),shiftb);
+      result_type that  = { boost::simd::native_cast<raw_type>(_mm_or_si128(sa,sb)) };
       return that;
     }
 
@@ -106,7 +108,7 @@ namespace boost { namespace simd { namespace ext
                             ) const
     {
       BOOST_STATIC_CONSTANT( std::size_t, card    = boost::simd::meta::cardinal_of<result_type>::value    );
-      BOOST_STATIC_CONSTANT( std::size_t, offset  = std::size_t(-A3::value)/card             );
+      BOOST_STATIC_CONSTANT( std::size_t, offset  = std::size_t(-A3::value)/card*card        );
       BOOST_STATIC_CONSTANT( std::size_t, bytes   = 16/card                                  );
       BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*(std::size_t(-A3::value)%card)     );
       BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-std::size_t(-A3::value)%card));
@@ -116,9 +118,9 @@ namespace boost { namespace simd { namespace ext
                                     >::type     raw_type;
 
       result_type a     = boost::simd::load<result_type>(a0,a1-offset);
-      result_type b     = boost::simd::load<result_type>(a0,a1-offset-1);
-      __m128i sa        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
-      __m128i sb        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
+      result_type b     = boost::simd::load<result_type>(a0,a1-offset-card);
+      __m128i sa        = _mm_slli_si128(boost::simd::native_cast<__m128i>(a.data_),shifta);
+      __m128i sb        = _mm_srli_si128(boost::simd::native_cast<__m128i>(b.data_),shiftb);
       result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
       return that;
     }

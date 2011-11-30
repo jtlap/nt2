@@ -60,19 +60,15 @@
  */
 
 #include "mconf.h"
+#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #if ANSIPROT
-void exit (int);
-extern void * malloc ( long );
-extern void free ( void * );
 void cephes_polclr ( double *, int );
 void cephes_polmov ( double *, int, double * );
 void cephes_polmul ( double *, int, double *, int, double * );
 int cephes_poldiv ( double *, int, double *, int, double * );
 #else
-void exit();
-void * malloc();
-void free ();
 void cephes_polclr(), cephes_polmov(), cephes_poldiv(), cephes_polmul();
 #endif
 #ifndef NULL

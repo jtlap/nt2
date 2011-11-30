@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     {
       result_type that;
       std::memcpy ( &that
-                  , reinterpret_cast<result_type const*>(a0) + a1
+                  , a0 + a1
                   , sizeof that
                   );
       return that;
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
     {
       result_type that;
       std::memcpy ( &that
-                  , reinterpret_cast<result_type const*>(a0 + A3::value) + a1
+                  , a0 + A3::value + a1
                   , sizeof that
                   );
       return that;

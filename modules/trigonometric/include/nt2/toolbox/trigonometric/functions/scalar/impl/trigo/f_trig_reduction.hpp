@@ -116,8 +116,8 @@ namespace nt2
           return boost::mpl::not_<boost::is_same<A0,uA0> >::value; 
         }
 
-        static inline bool cot_invalid(const A0&) { return false; }
-        static inline bool tan_invalid(const A0&) { return false; }
+        static inline bool cot_invalid(const A0& ) { return false; }
+        static inline bool tan_invalid(const A0& ) { return false; }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
@@ -141,7 +141,7 @@ namespace nt2
               typedef typename meta::upgrade<A0>::type uA0; 
               typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
               uA0 ux = x, uxr, uxc; 
-              int_type n = aux_reduction::reduce(ux, uxr, uxc);
+              int_type n = static_cast<int_type>(aux_reduction::reduce(ux, uxr, uxc));
               xr = static_cast<A0>(uxr);
               xc = static_cast<A0>((uxr-static_cast<uA0>(xr))+uxc);
               return n; 

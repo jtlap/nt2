@@ -59,12 +59,14 @@ void timing_test( Func callee, size_t size
   std::vector<double> timings;
   double c(0.),t(0.);
 
+  static const size_t nb = nt2::meta::cardinal_of<r_in0>::value;
+
   do
   {
     nt2::tic();
     {
       nt2::ctic();
-      for(size_t i=0; i<size/nt2::meta::cardinal_of<r_in0>::value; i++)
+      for(size_t i=0; i<size; i+=nb)
       {
         nt2::store(
           callee( nt2::load<r_in0>(&in0[0],i) )

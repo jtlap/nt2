@@ -14,16 +14,16 @@
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/bitwise/include/functions/ffs.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
-NT2_TEST_CASE_TPL ( ffs_float_1_0,  (float))
+NT2_TEST_CASE_TPL ( ffs_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
   using boost::simd::ffs;
@@ -41,43 +41,15 @@ NT2_TEST_CASE_TPL ( ffs_float_1_0,  (float))
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(ffs(boost::simd::Inf<T>()), 24u);
-  NT2_TEST_EQUAL(ffs(boost::simd::Minf<T>()), 24u);
+  NT2_TEST_EQUAL(ffs(boost::simd::Inf<T>()), boost::simd::Nbmantissabits<T>()+1);
+  NT2_TEST_EQUAL(ffs(boost::simd::Minf<T>()), boost::simd::Nbmantissabits<T>()+1);
   NT2_TEST_EQUAL(ffs(boost::simd::Nan<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(ffs(boost::simd::Signmask<T>()), sizeof(T)*8);
   NT2_TEST_EQUAL(ffs(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for float
-
-NT2_TEST_CASE_TPL ( ffs_double_1_0,  (double))
-{
-  
-  using boost::simd::ffs;
-  using boost::simd::tag::ffs_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<ffs_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(ffs(boost::simd::Inf<T>()), 53u);
-  NT2_TEST_EQUAL(ffs(boost::simd::Minf<T>()), 53u);
-  NT2_TEST_EQUAL(ffs(boost::simd::Nan<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<T>()), sizeof(T)*8);
-  NT2_TEST_EQUAL(ffs(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for double
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
@@ -97,7 +69,7 @@ NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(ffs(boost::simd::One<T>()), boost::simd::One<r_t>());
@@ -123,7 +95,7 @@ NT2_TEST_CASE_TPL ( ffs_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(ffs(boost::simd::One<T>()), boost::simd::One<r_t>());

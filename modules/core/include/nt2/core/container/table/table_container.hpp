@@ -58,9 +58,6 @@ namespace nt2 { namespace container
                         , (table_container)
                         );
     
-    block_type  block_;
-    extent_type size_;
-
     typedef typename block_type::reference        reference;
     typedef typename block_type::const_reference  const_reference;
 
@@ -70,23 +67,122 @@ namespace nt2 { namespace container
       size_ = sz;
       block_.resize(size_); 
     }
-    
-    template<class Position> BOOST_DISPATCH_FORCE_INLINE
-    const_reference operator()(Position const& pos) const
-    {
-      return block_(pos);
-    }
-    
+        
+    //==========================================================================
+    // Random Access operators hub - forward to potential 1D specialisation
+    //==========================================================================
     template<class Position> BOOST_DISPATCH_FORCE_INLINE
     reference operator()(Position const& pos)
     {
+      return access ( pos
+                    , boost::mpl::bool_<boost::mpl::size<Position>::value == 1>()
+                    , boost::mpl::bool_<extent_type::static_size == 1>()                    
+                    );
+    }
+
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    const_reference operator()(Position const& pos) const
+    {
+      return access ( pos
+                    , boost::mpl::bool_<boost::mpl::size<Position>::value == 1>()
+                    , boost::mpl::bool_<extent_type::static_size == 1>()                    
+                    );
+    }
+
+    index_type          bases()   const { return index_type();  }
+    extent_type const&  extent()  const { return size_;         }
+    
+    block_type&         data()          { return block_;  }    
+    block_type const&   data()  const   { return block_;  }
+
+    protected:
+    //==========================================================================
+    // Random Access target
+    //==========================================================================
+    template<class Position,class Dims> BOOST_DISPATCH_FORCE_INLINE
+    reference access(Position const& pos, boost::mpl::false_ const&, Dims const&)
+    {
       return block_(pos);
     }
 
-    extent_type const& extent() const { return size_;   }
+    template<class Position,class Dims> BOOST_DISPATCH_FORCE_INLINE 
+    const_reference 
+    access(Position const& pos, boost::mpl::false_ const&, Dims const&)  const
+    {
+      return block_(pos);
+    }
+    
+    //==========================================================================
+    // Random Access target for 1D target on nD table
+    //==========================================================================
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    reference access( Position const& pos
+                    , boost::mpl::true_ const&
+                    , boost::mpl::false_ const&
+                    )
+    {
+      boost::array<std::ptrdiff_t,2> p;
+      p[0]  = ( boost::fusion::at_c<0>(pos) 
+              - boost::mpl::at_c<typename index_type::type,0>::type::value
+              )
+              % boost::fusion::at_c<0>(size_)
+              + boost::mpl::at_c<typename index_type::type,0>::type::value;
 
-    block_type&         data()        { return block_;  }    
-    block_type const&   data()  const { return block_;  }
+      p[1]  = ( boost::fusion::at_c<0>(pos) 
+              - boost::mpl::at_c<typename index_type::type,0>::type::value
+              )
+              / boost::fusion::at_c<0>(size_)
+              + boost::mpl::at_c<typename index_type::type,1>::type::value;
+
+      return block_(p);
+    }
+
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    const_reference access( Position const& pos
+                          , boost::mpl::true_ const&
+                          , boost::mpl::false_ const&
+                          ) const
+    {
+      boost::array<std::ptrdiff_t,2> p;
+      p[0]  = ( boost::fusion::at_c<0>(pos) 
+              - boost::mpl::at_c<typename index_type::type,0>::type::value
+              )
+              % boost::fusion::at_c<0>(size_)
+              + boost::mpl::at_c<typename index_type::type,0>::type::value;
+
+      p[1]  = ( boost::fusion::at_c<0>(pos) 
+              - boost::mpl::at_c<typename index_type::type,0>::type::value
+              )
+              / boost::fusion::at_c<0>(size_)
+              + boost::mpl::at_c<typename index_type::type,1>::type::value;
+
+      return block_(p);
+    }
+
+    //==========================================================================
+    // Random Access target for 1D target on 1D table
+    //==========================================================================
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    reference access( Position const& pos
+                    , boost::mpl::true_ const&
+                    , boost::mpl::true_ const&
+                    )
+    {
+      return block_(pos);
+    }
+
+    template<class Position> BOOST_DISPATCH_FORCE_INLINE
+    const_reference access( Position const& pos
+                          , boost::mpl::true_ const&
+                          , boost::mpl::true_ const&
+                          ) const
+    {
+      return block_(pos);
+    }
+
+    private:
+    block_type  block_;
+    extent_type size_;
   };
 }
 
@@ -149,7 +245,7 @@ namespace boost { namespace dispatch { namespace meta
 
     typedef nt2::container::
             expression< typename boost::proto::terminal< container >::type
-                      , container&
+                      , container
                       >                                                    type;
   };
 
@@ -158,7 +254,7 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   template<class T, class S> struct semantic_of< nt2::container::table<T, S> >
   {
-    typedef nt2::container::table_container<T, S>& type;
+    typedef nt2::container::table_container<T, S> type;
   };
 } } }
 

@@ -12,6 +12,7 @@
 
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/simd/meta/biggest_integer.hpp>
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
@@ -71,6 +72,22 @@ namespace boost { namespace simd { namespace meta
   };
 
   //////////////////////////////////////////////////////////////////////////////
+  // For a given type and extension, return the biggest integer supported by
+  // the extension.
+  //////////////////////////////////////////////////////////////////////////////
+  template<> struct  biggest_integer<tag::altivec_>
+  {
+    typedef boost::simd::int32_t type;
+  };
+
+  template<> struct  biggest_uinteger<tag::altivec_>
+  {
+    typedef boost::simd::uint32_t type;
+  };
+  
+
+
+  //////////////////////////////////////////////////////////////////////////////
   // For a given SIMD register type, return the associated SIMD extension tag
   //////////////////////////////////////////////////////////////////////////////
   template<class X>
@@ -93,6 +110,7 @@ namespace boost { namespace simd { namespace meta
   struct extension_of<__vector __bool short   ,X> { typedef tag::altivec_ type; };
   template<class X>
   struct extension_of<__vector __bool char    ,X> { typedef tag::altivec_ type; };
+
 } } }
 
 #endif

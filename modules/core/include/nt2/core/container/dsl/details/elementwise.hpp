@@ -76,14 +76,30 @@ namespace nt2 { namespace container { namespace ext
     template<class A0, class A1, class Dummy>
     struct select
     {
-      typedef A0 type;
+      typedef typename
+      boost::mpl::if_c< A0::static_status,A0,A1>::type type;
     };
+    
     template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
     operator()(A0 const& a0, A1 const& a1) const
     {
       BOOST_ASSERT_MSG(a0 == a1, "Sizes are not compatible");
+      return selection(a0,a1,boost::mpl::bool_<A0::static_status>());
+    }
+
+    template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
+    typename result<size_fold(A0 const&, A1 const&)>::type
+    selection(A0 const& a0, A1 const& a1, boost::mpl::true_ const&) const
+    {
       return a0;
+    }
+
+    template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
+    typename result<size_fold(A0 const&, A1 const&)>::type
+    selection(A0 const& a0, A1 const& a1, boost::mpl::false_ const&) const
+    {
+      return a1;
     }
   };
 

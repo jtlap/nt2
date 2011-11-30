@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_UNIT_DETAILS__4_ARY_BENCHMARK_HPP_INCLUDED
-#define NT2_SDK_UNIT_DETAILS__4_ARY_BENCHMARK_HPP_INCLUDED
+#ifndef NT2_SDK_UNIT_DETAILS_4_ARY_BENCHMARK_HPP_INCLUDED
+#define NT2_SDK_UNIT_DETAILS_4_ARY_BENCHMARK_HPP_INCLUDED
 
 #include <vector>
 #include <iostream>
@@ -97,7 +97,7 @@ void timing_test( Func callee, size_t size
     nt2::tic();
     {
       nt2::ctic();
-      for(size_t i=0; i<size/nb; i++)
+      for(size_t i=0; i<size; i+=nb)
       {
         nt2::store(
           callee( nt2::load<r_in0>(&in0[0],i)

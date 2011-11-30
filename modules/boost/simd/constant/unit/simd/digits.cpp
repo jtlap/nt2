@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of digit constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_TYPES )
+NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_SIMD_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>             dst_t;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test integral_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>             dst_t;

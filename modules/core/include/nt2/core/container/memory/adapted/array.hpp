@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_HPP
-#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_HPP
+#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_HPP_INCLUDED
 
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/size_t.hpp>

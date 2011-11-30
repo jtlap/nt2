@@ -75,8 +75,6 @@ namespace boost { namespace simd
       *this = boost::proto::value(p);
     }
 
-    template<class Expr> pack(Expr const& expr) : parent(expr) {}
-
     //==========================================================================
     /*
      * SIMD pack instanciated with non-power of 2 Cardinal or a Cardinal of 1.
@@ -171,13 +169,8 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Fusion RandomAccessSequence interface
     ////////////////////////////////////////////////////////////////////////////
-
     typedef tag::pack_ fusion_tag;
-
-
   };
 } }
-
-
 
 #endif

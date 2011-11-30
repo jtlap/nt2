@@ -10,11 +10,18 @@
 #define BOOST_SIMD_SDK_SIMD_META_EXTENSION_OF_HPP_INCLUDED
 
 #include <boost/dispatch/meta/na.hpp>
+#include <boost/simd/sdk/simd/native_fwd.hpp>
+//#include <boost/simd/sdk/simd/pack.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
   template<class T,class Dummy=void, class Dummy1 = void>
   struct extension_of : dispatch::meta::na_ {};
+
+  template<class T, class X>
+  struct extension_of<boost::simd::native<T,X> > { typedef X type; };
+
+
 } } }
 
 

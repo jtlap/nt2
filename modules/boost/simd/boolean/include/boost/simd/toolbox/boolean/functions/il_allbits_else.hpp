@@ -6,8 +6,13 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD:modules/boost/simd/boolean/include/boost/simd/toolbox/boolean/functions/il_allbits_else.hpp
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_IFALLBITSELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_IFALLBITSELSE_HPP_INCLUDED
+=======
+#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_IF_NAN_ELSE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_IF_NAN_ELSE_HPP_INCLUDED
+>>>>>>> master:modules/boost/simd/boolean/include/boost/simd/toolbox/boolean/functions/if_nan_else.hpp
 /*!
  * \file
 **/

@@ -22,8 +22,9 @@ namespace boost { namespace simd { namespace ext
                               (scalar_< integer_<A2> >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-            semantic_of<A0>::type                result_type;
+    typedef typename remove_reference< typename boost::dispatch::meta::
+                                       semantic_of<A0 const&>::type
+                                     >::type                result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {

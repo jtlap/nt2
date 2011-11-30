@@ -33,8 +33,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (is_invalid(a0)) return Zero<A0>(); 
-      return a0 ? ::ilogb(a0) : Zero<A0>();
+      if (is_invalid(a0) || is_eqz(a0)) return Zero<result_type>(); 
+      return ::ilogb(a0);
     }
   };
 } } }
@@ -55,8 +55,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (is_invalid(a0) || is_eqz(a0)) return Zero<A0>(); 
-      return ilogbf(a0); 
+      if (is_invalid(a0) || is_eqz(a0)) return Zero<result_type>(); 
+      return ::ilogbf(a0); 
     }
   };
 } } }
@@ -78,6 +78,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      if (is_invalid(a0) || is_eqz(a0)) return Zero<result_type>(); 
       const int nmb = int(Nbmantissabits<A0>());
       const result_type x = shri(exponentbits(a0), nmb);
       return x-if_else_zero(is_nez(a0), Maxexponent<A0>());

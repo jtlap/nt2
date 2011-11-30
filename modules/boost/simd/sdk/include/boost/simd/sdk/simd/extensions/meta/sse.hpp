@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/details/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
+#include <boost/simd/sdk/simd/meta/biggest_integer.hpp>
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
@@ -57,6 +58,7 @@ namespace boost { namespace simd { namespace meta
   template<class X> struct extension_of<__m128 ,X>  { typedef tag::sse_ type; };
   template<class X> struct extension_of<__m128d,X>  { typedef tag::sse_ type; };
   template<class X> struct extension_of<__m128i,X>  { typedef tag::sse_ type; };
+
 } } }
 
 ////////////////////////////////////////////////////////////////////////////////

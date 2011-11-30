@@ -16,7 +16,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of real constants for every base real types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(real_values, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(real_values, BOOST_SIMD_SIMD_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t> vd_t;
@@ -38,27 +38,36 @@ NT2_TEST_CASE_TPL(real_values, BOOST_SIMD_TYPES)
   }
 }
 
-NT2_TEST_CASE(type_dependant_const)
+template<class T>
+struct type_dependant_const_value;
+
+template<>
+struct type_dependant_const_value<double>
+{
+  static const uint64_t value = 0x3FF3BE76C8B43958LL;
+};
+
+template<>
+struct type_dependant_const_value<float>
+{
+  static const uint64_t value = 0x3F9DF3B6;
+};
+
+NT2_TEST_CASE_TPL(type_dependant_const, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
-  typedef boost::simd::native<double,ext_t> vd_t;
-  typedef boost::simd::native<float,ext_t>  vf_t;
+  typedef boost::simd::native<T,ext_t>      v_t;
   
-  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vd_t>::value;++i)
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<v_t>::value;++i)
   {
-    NT2_TEST_EQUAL( (boost::simd::Const<vd_t,0x3FF3BE76C8B43958LL>())[i], 1.234   );
-  }
-  
-  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vf_t>::value;++i)
-  {
-    NT2_TEST_EQUAL( (boost::simd::Const<vf_t,0x3F9DF3B6>())[i], 1.234f );
+    NT2_TEST_EQUAL( (boost::simd::Const<v_t, type_dependant_const_value<T>::value>())[i], T(1.234)   );
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test real_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(real_pattern, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(real_pattern, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t> vd_t;

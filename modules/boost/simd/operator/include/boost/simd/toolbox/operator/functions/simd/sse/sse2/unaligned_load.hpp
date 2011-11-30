@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       result_type
-      that = { _mm_loadu_pd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
+      that = { _mm_loadu_pd(a0+a1) };
       return that;
     }
   };
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       result_type
-      that = { _mm_loadu_ps(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
+      that = { _mm_loadu_ps(a0+a1) };
       return that;
     }
   };
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       result_type
-      that = { _mm_loadu_si128(reinterpret_cast<__m128i const*>(a0)+a1) };
+      that = { _mm_loadu_si128(reinterpret_cast<__m128i const*>(a0+a1)) };
       return that;
     }
   };

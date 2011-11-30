@@ -8,11 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2 container runner"
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/of_size.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/function.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
+#include <nt2/include/functions/of_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -20,7 +18,7 @@
 
 NT2_TEST_CASE( value_at )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   typedef double T;
   
@@ -30,7 +28,7 @@ NT2_TEST_CASE( value_at )
   for(std::size_t j=1; j!=3+1; ++j)
     for(std::size_t i=1; i!=2+1; ++i)
       a0(i, j) = T(i+j);
-      
+  
   a1 = a0 + T(1);
   
   for(std::size_t j=1; j!=3+1; ++j)
@@ -40,7 +38,7 @@ NT2_TEST_CASE( value_at )
 
 NT2_TEST_CASE( scalar_size )
 {
-  using nt2::container::table;
+  using nt2::table;
   using nt2::of_size;
   typedef double T;
     
@@ -54,4 +52,15 @@ NT2_TEST_CASE( scalar_size )
   a1 = T(42);
   NT2_TEST( a1.extent() == of_size(1) );
   NT2_TEST_EQUAL( a0(1), T(42) );
+}
+
+NT2_TEST_CASE( element_wise )
+{
+  using nt2::table;
+  using nt2::of_size;
+  typedef double T;
+  
+  table<T> a0;
+  table<boost::dispatch::meta::as_integer<T>::type> a1;
+  a1 = nt2::toint(a0);
 }

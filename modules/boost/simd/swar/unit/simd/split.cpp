@@ -29,7 +29,7 @@
 #include <boost/simd/include/functions/load.hpp>
 //COMMENTED
 
-NT2_TEST_CASE_TPL ( split_lt_64__1_0, (boost::simd::int16_t)(boost::simd::uint16_t)(boost::simd::int32_t)(boost::simd::uint32_t)(boost::simd::int8_t)(boost::simd::uint8_t)(float))
+NT2_TEST_CASE_TPL ( split_lt_64__1_0, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
 {
   using boost::simd::split;
   using boost::simd::tag::split_;
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( split_lt_64__1_0, (boost::simd::int16_t)(boost::simd::uint16
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<split_(vT)>::type r_t;
-  typedef typename boost::dispatch::meta::upgrade<vT>::type   vu_t;
+  typedef typename boost::dispatch::meta::upgrade<vT>::type     vu_t;
   typedef typename boost::dispatch::meta::call<split_(T)>::type sr_t;
   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;

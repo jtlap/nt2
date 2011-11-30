@@ -7,9 +7,12 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 set(CTEST_PROJECT_NAME "NT2")
-set(CTEST_NIGHTLY_START_TIME "00:00:00 UTC")
+set(CTEST_NIGHTLY_START_TIME "00:00:00 CET")
 
 set(CTEST_DROP_METHOD "http")
 set(CTEST_DROP_SITE "cdash.lri.fr")
 set(CTEST_DROP_LOCATION "/submit.php?project=NT2")
 set(CTEST_DROP_SITE_CDASH TRUE)
+
+set(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${CTEST_SOURCE_DIRECTORY}/valgrind.supp)
+list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "You are using gcc version \".*\"")

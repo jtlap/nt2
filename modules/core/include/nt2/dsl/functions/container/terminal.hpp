@@ -13,11 +13,15 @@
 #include <boost/fusion/include/size.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
-#include <nt2/toolbox/operator/functions/splat.hpp>
+#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/store.hpp>
+#include <nt2/include/functions/splat.hpp>
 
 namespace nt2 { namespace ext
 {
-  // terminal for 0-dimensional access
+  //============================================================================
+  // terminal for 0-dimensional access (no-op)
+  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::terminal_, tag::cpu_
                                , (A0)(State)(Data)
                                , (mpl::bool_< fusion::result_of::size<State>::type::value == 0 >)
@@ -26,55 +30,125 @@ namespace nt2 { namespace ext
                                  (unspecified_<Data>)
                                )
   {
-    typedef typename boost::dispatch::meta::semantic_of<A0>::type result_type;
+    template<class Sig>
+    struct result;
+      
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
+    {
+      typedef typename boost::dispatch::meta::
+      semantic_of<A0_>::type                                     type;
+    };
 
-    template<class A0_> BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0_& a0, _0D const&, Data const&) const
+    template<class A0_> BOOST_FORCEINLINE
+    typename result<implement(A0_&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const&, Data const&) const
     {
        return boost::proto::value(a0);
     }
   };
 
   //============================================================================
-  // table terminal with a position in scalar mode
+  // table terminal with a position in scalar read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(S0)(State)(Data)
                             , ((ast_<table_< unspecified_<A0>, S0 > >))
                               (fusion_sequence_<State>)
-                              (target_< unspecified_<Data> >)
+                              (target_<scalar_<unspecified_<Data> > >)
                             )
   {
-    template<class Sig> struct result;
-
-    template<class This, class A0_, class S_, class D_>
-    struct result<This(A0_,S_,D_)>
+    template<class Sig>
+    struct result;
+    
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
     {
-      //========================================================================
-      // This type computation generates the type returned by the evaluation
-      // of a terminal at a given position. This is done through reinterpreting
-      // a given position in a table as a reference to the potentially SIMD type
-      // required to make it work.
-      //========================================================================
-      typedef typename  boost::proto::result_of::value<A0_&>::type   value_type;
-      typedef typename  boost::dispatch::meta::strip<D_>::type      data_type;
-      typedef typename  data_type::type                             target_type;
-      typedef typename  boost::dispatch::meta::
-                        transfer_qualifiers<target_type,value_type>::type  qualif_type;
-      typedef typename boost::add_reference<qualif_type>::type      type;
+      typedef typename boost::dispatch::meta::
+      scalar_of< typename boost::dispatch::meta::
+                 semantic_of<A0_>::type
+                >::type                                     type;
     };
 
-    template<class A0_> BOOST_DISPATCH_FORCE_INLINE
-    typename result<implement(A0_&,State,Data)>::type
+    template<class A0_> BOOST_FORCEINLINE
+    typename result<implement(A0_&, State const&, Data const&)>::type
     operator()(A0_& a0, State const& state, Data const&) const
     {
-      typedef typename result<implement(A0_&,State,Data)>::type type;
-      return reinterpret_cast<type>(boost::proto::value(a0)(state));
+       return boost::proto::value(a0)(state);
+    }
+  };
+  
+  //============================================================================
+  // table terminal with a position in scalar write mode
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(S0)(State)(Data)
+                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                              (fusion_sequence_<State>)
+                              (scalar_<unspecified_<Data> >)
+                            )
+  {
+    template<class Sig>
+    struct result;
+      
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
+    {
+      typedef typename boost::dispatch::meta::
+      scalar_of< typename boost::dispatch::meta::
+                 semantic_of<A0_>::type
+               >::type                                     type;
+    };
+
+    template<class A0_> BOOST_FORCEINLINE
+    typename result<implement(A0_&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const& state, Data const& data) const
+    {
+       return boost::proto::value(a0)(state) = data;
     }
   };
 
   //============================================================================
-  // scalar terminal, return value in scalar mode
+  // table terminal with a position in SIMD read mode
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(S0)(State)(Data)(X)
+                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                              (fusion_sequence_<State>)
+                              ((target_< simd_<unspecified_<Data>, X> >))
+                            )
+  {
+    typedef typename Data::type                                  result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& a0, State const& state, Data const&) const
+    {
+      return load<result_type>(&boost::proto::value(a0)(state));
+    }
+  };
+  
+  //============================================================================
+  // table terminal with a position in SIMD write mode
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(S0)(State)(Data)(X)
+                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                              (fusion_sequence_<State>)
+                              ((simd_<unspecified_<Data>, X>))
+                            )
+  {
+    typedef Data                                                 result_type;
+
+    template<class A0_>
+    BOOST_FORCEINLINE
+    result_type operator()(A0_& a0, State const& state, Data const& data) const
+    {
+      return store(data, &boost::proto::value(a0)(state));
+    }
+  };
+
+  //============================================================================
+  // scalar terminal, return value in scalar mode (LHS not allowed)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(State)(Data)
@@ -83,20 +157,26 @@ namespace nt2 { namespace ext
                               (target_< scalar_< unspecified_<Data> > >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0>::type
-             >::type                                       result_type;
+    template<class Sig>
+    struct result;
+      
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
+    {
+      typedef typename boost::dispatch::meta::
+      semantic_of<A0_>::type                                     type;
+    };
 
-    template<class A0_> BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0_& a0, State const& state, Data const&) const
+    template<class A0_> BOOST_FORCEINLINE
+    typename result<implement(A0_&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const& state, Data const&) const
     {
        return boost::proto::value(a0);
     }
   };
 
   //============================================================================
-  // scalar terminal, splat value in SIMD mode
+  // scalar terminal, splat value in SIMD read mode (LHS not allowed)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(State)(Data)(X)
@@ -107,7 +187,7 @@ namespace nt2 { namespace ext
   {
     typedef typename Data::type   result_type;
 
-    template<class A0_> BOOST_DISPATCH_FORCE_INLINE
+    template<class A0_> BOOST_FORCEINLINE
     result_type operator()(A0_& a0, State const& state, Data const&) const
     {
       return nt2::splat<result_type>(boost::proto::value(a0));

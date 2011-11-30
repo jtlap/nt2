@@ -20,7 +20,7 @@ namespace nt2 { namespace meta
 
     runner(A0 a0_) : a0(a0_) {}
 
-    template<class Position> BOOST_DISPATCH_FORCE_INLINE result_type
+    template<class Position> BOOST_FORCEINLINE result_type
     operator()(Position const& pos) const
     {
       nt2::run(a0, pos, Target());

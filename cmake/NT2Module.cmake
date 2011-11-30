@@ -87,6 +87,7 @@ macro(nt2_module_source_setup module)
              DESTINATION ${NT2_INSTALL_SHARE_DIR}
              COMPONENT ${module}
              FILES_MATCHING PATTERN "*.cmake"
+                            PATTERN "*.txt"
                             PATTERN "*.cpp"
            )
   endif()
@@ -235,7 +236,7 @@ macro(nt2_module_add_library libname)
   
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     install( DIRECTORY ${NT2_BINARY_DIR}/lib
-             DESTINATION lib COMPONENT ${NT2_CURRENT_MODULE} CONFIGURATIONS Debug Release
+             DESTINATION . COMPONENT ${NT2_CURRENT_MODULE}
              FILES_MATCHING PATTERN "*${libname}.*"
            )
   endif()
@@ -322,6 +323,11 @@ macro(nt2_module_add_tests name)
       else()
         add_test(${prefix}.${basename}-${suffix} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
       endif()
+      
+      if(NT2_WITH_TESTS_ALL)
+        set_property(TARGET ${exe} PROPERTY EXCLUDE_FROM_ALL OFF)
+      endif()
+      
     endif()
   endforeach()
   
@@ -590,6 +596,7 @@ macro(nt2_postconfigure_init)
     install( DIRECTORY ${PROJECT_SOURCE_DIR}/cmake
              DESTINATION ${NT2_INSTALL_SHARE_DIR}
              FILES_MATCHING PATTERN "*.cmake"
+                            PATTERN "*.txt"
                             PATTERN "*.cpp"
            )
 

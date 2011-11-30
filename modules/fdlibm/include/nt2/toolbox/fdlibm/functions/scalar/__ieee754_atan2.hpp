@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_FDLIBM_FUNCTIONS_SCALAR__IEEE754_ATAN2_HPP_INCLUDED
-#define NT2_TOOLBOX_FDLIBM_FUNCTIONS_SCALAR__IEEE754_ATAN2_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_FDLIBM_FUNCTIONS_SCALAR_IEEE754_ATAN2_HPP_INCLUDED
+#define NT2_TOOLBOX_FDLIBM_FUNCTIONS_SCALAR_IEEE754_ATAN2_HPP_INCLUDED
 #include <nt2/sdk/meta/upgrade.hpp>
 
   extern "C"{

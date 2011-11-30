@@ -89,7 +89,7 @@ extern "C" int NT2_UNIT_MAIN(int, char**)
 
 namespace boost
 {
-  extern inline void throw_exception(std::exception const& e)
+  extern inline BOOST_ATTRIBUTE_NORETURN void throw_exception(std::exception const& e)
   {
     std::cerr << "uncaught exception: " << e.what() << std::endl;
     std::exit(1);

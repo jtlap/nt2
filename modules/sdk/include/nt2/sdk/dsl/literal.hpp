@@ -6,13 +6,12 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_DSL_LITTERAL_HPP_INCLUDED
-#define NT2_SDK_DSL_LITTERAL_HPP_INCLUDED
+#ifndef NT2_SDK_DSL_LITERAL_HPP_INCLUDED
+#define NT2_SDK_DSL_LITERAL_HPP_INCLUDED
 
 #include <nt2/sdk/dsl/category.hpp>
 #include <nt2/sdk/constant/category.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/details/type_id.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Litteral as usually splatted w/e the target

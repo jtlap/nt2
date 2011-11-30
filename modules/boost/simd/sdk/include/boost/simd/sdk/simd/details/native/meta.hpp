@@ -13,5 +13,6 @@
 #include <boost/simd/sdk/simd/details/native/meta/value_of.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/hierarchy_of.hpp>
 #include <boost/simd/sdk/simd/details/native/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/details/native/meta/upgrade.hpp>
 
 #endif

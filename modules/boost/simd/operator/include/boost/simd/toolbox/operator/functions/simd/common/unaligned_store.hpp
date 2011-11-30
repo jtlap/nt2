@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      std::memcpy(reinterpret_cast<A0*>(a1) + a2, &a0, sizeof a0);
+      std::memcpy(a1 + a2, &a0, sizeof a0);
       return a0;
     }
   };

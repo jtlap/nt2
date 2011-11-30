@@ -10,21 +10,25 @@
 #define NT2_CORE_FUNCTIONS_TABLE_FUNCTION_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/functions/function.hpp>
 #include <nt2/core/settings/size.hpp>
+#include <nt2/core/functions/function.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/meta/is_colon.hpp>
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/include/functions/multiplies.hpp>
-
+#include <nt2/sdk/memory/slice.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <boost/fusion/include/fold.hpp>
+#include <boost/fusion/adapted/mpl.hpp>
+#include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/eval_if.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 
@@ -47,7 +51,7 @@ namespace nt2 { namespace container { namespace ext
   template<class Domain>
   struct function_size
   {
-    template<class Sz, class Children, int N, class Enable = void>
+    template<class Sz, class Children, int N, int M, class Enable = void>
     struct impl
     {
       typedef typename boost::fusion::result_of::
@@ -76,18 +80,43 @@ namespace nt2 { namespace container { namespace ext
       }
     };
 
-    template<class Sz, class Children, int N>
-    struct impl<Sz, Children, N, typename boost::enable_if<
+    template<class Sz, class Children, int N, int M>
+    struct impl<Sz, Children, N, M, typename boost::enable_if<
       meta::is_colon< typename boost::fusion::result_of::
                       at_c<Children, N>::type
                     >
     >::type>
     {
-      typedef typename boost::fusion::result_of::
-      at_c<Sz, N>::type result_type;
+      typedef boost::fusion::
+              result_of::at_c < typename boost::remove_reference<Sz>::type
+                              , N
+                              >   false_type;
+
+      typedef meta::
+              call<tag::slice_( Sz
+                              , memory::no_padding
+                              , boost::mpl::int_<N+1>
+                              )>  true_type;
+
+      typedef boost::mpl::bool_<(N == M-1)> is_final;
+
+      typedef typename boost::mpl::
+              eval_if<is_final, true_type, false_type>::type result_type;
 
       BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(Sz sz, Children) const
+      {
+        return compute(sz, is_final() );
+      }
+
+      BOOST_DISPATCH_FORCE_INLINE
+      result_type compute(Sz sz, boost::mpl::true_ const&) const
+      {
+        return slice<N+1>(sz,memory::no_padding());
+      }
+
+      BOOST_DISPATCH_FORCE_INLINE
+      result_type compute(Sz sz, boost::mpl::false_ const&) const
       {
         return boost::fusion::at_c<N>(sz);
       }
@@ -98,8 +127,8 @@ namespace nt2 { namespace container { namespace ext
   template<int N, class F, class Sizes, class Children>
   struct make_size;
 
-  #define M1(z,n,t) mpl_value< typename F::template impl<Sizes, Children, n>::result_type >::value
-  #define M2(z,n,t) that[n] = typename F::template impl<Sizes, Children, n>()(sz, children);
+  #define M1(z,n,t) mpl_value< typename F::template impl<Sizes, Children, n, t>::result_type >::value
+  #define M2(z,n,t) that[n] = typename F::template impl<Sizes, Children, n, t>()(sz, children);
 
   #define M3(z,n,t)                                                            \
   template<class Dummy>                                                        \
@@ -109,7 +138,7 @@ namespace nt2 { namespace container { namespace ext
     static result_type call(Sizes sz, Children children)                       \
     {                                                                          \
       result_type that;                                                        \
-      BOOST_PP_REPEAT(n, M2, ~)                                                \
+      BOOST_PP_REPEAT(n, M2, t)                                                \
       return that;                                                             \
     }                                                                          \
   };
@@ -119,14 +148,14 @@ namespace nt2 { namespace container { namespace ext
   struct make_size<n, F, Sizes, Children>                                      \
   {                                                                            \
     typedef of_size_<                                                          \
-               BOOST_PP_ENUM(n, M1, ~)                                         \
+               BOOST_PP_ENUM(n, M1, n)                                         \
             >            result_type;                                          \
                                                                                \
                                                                                \
     template<int N, class Dummy = void>                                        \
-    struct impl;                                                               \
+    struct impl {};                                                            \
                                                                                \
-    BOOST_PP_REPEAT(n, M3, ~)                                                  \
+    BOOST_PP_REPEAT(BOOST_PP_INC(n), M3, n)                                    \
                                                                                \
     BOOST_DISPATCH_FORCE_INLINE                                                \
     result_type operator()(Sizes sz, Children children) const                  \
@@ -135,7 +164,7 @@ namespace nt2 { namespace container { namespace ext
     }                                                                          \
   };
 
-  BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS, M0, ~)
+  BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
   #undef M0
   #undef M1
   #undef M2
@@ -170,7 +199,7 @@ namespace nt2 { namespace container { namespace ext
   struct value_type<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::
-    child_c<Expr, 0>::type                          child0;
+    child_c<Expr&, 0>::type                         child0;
 
     typedef typename boost::dispatch::meta::
     scalar_of< typename boost::dispatch::meta::
@@ -179,6 +208,8 @@ namespace nt2 { namespace container { namespace ext
   };
 
   // assumes all nodes are terminals, incorrect
+  // Must handle : expr<scalar>, expr<colon>, expr<?>
+  template<class State>
   struct function_state_impl
   {
     template<class Sig>
@@ -190,6 +221,9 @@ namespace nt2 { namespace container { namespace ext
         value<A0>
     {
     };
+
+    function_state_impl(State const& s) : state_(s) {}
+    State const& state_;
 
     template<class A0>
     BOOST_DISPATCH_FORCE_INLINE
@@ -204,12 +238,12 @@ namespace nt2 { namespace container { namespace ext
   struct function_state
   {
     typedef typename boost::fusion::result_of::
-    transform<Expr const, function_state_impl>::type result_type;
+    transform<Expr const, function_state_impl<State> >::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(Expr const& expr, State const& state) const
     {
-      return boost::fusion::transform(expr, function_state_impl());
+      return boost::fusion::transform(expr, function_state_impl<State>(state));
     }
   };
 
@@ -217,35 +251,6 @@ namespace nt2 { namespace container { namespace ext
 
 namespace ext
 {
-#if 0
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (Expr)
-                            , ((expr_< scalar_< unspecified_<Expr> >
-                                     , nt2::container::domain
-                                     , nt2::tag::function_
-                                     >
-                              ))
-                            )
-  {
-    typedef typename boost::proto::result_of::child_c<Expr const&, 0>::type  child0;
-    typedef typename boost::fusion::result_of::pop_front<Expr const>::type   childN;
-
-    typedef typename boost::dispatch::meta::semantic_of<Expr>::type semantic_type;
-    typedef typename meta::as_<typename meta::strip<semantic_type>::type> target;
-
-    typedef typename meta::call<tag::run_(child0, childN, target)>::type     result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(Expr const& expr) const
-    {
-      return nt2::run( boost::proto::child_c<0>(expr)
-                     , boost::fusion::pop_front(expr)
-                     , target()
-                     );
-    }
-  };
-#endif
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (Expr)(State)(Data)
                             , ((expr_< unspecified_<Expr>
@@ -260,19 +265,18 @@ namespace ext
     typedef typename boost::proto::result_of::child_c<Expr const&, 0>::type  child0;
     typedef typename boost::fusion::result_of::pop_front<Expr const>::type   childN;
 
-    // todo : fix this using proper scatter/gather.
-    // For now a(...) turns off vectorisation
-    typedef meta::as_<typename meta::scalar_of<Data>::type> data_type;
-    typedef typename container::ext::function_state<Expr, State>::result_type new_state;
-    typedef typename meta::call<tag::run_(child0, new_state, data_type)>::type    result_type;
+    typedef typename container::ext::
+            function_state<Expr, State>::result_type                         new_state;
+    typedef typename meta::
+            call<tag::run_(child0, new_state, Data const&)>::type            result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(Expr const& expr, State const& state, Data const& data) const
     {
       return nt2::run( boost::proto::child_c<0>(expr)
                      , container::ext::function_state<childN, State>()
                        (boost::fusion::pop_front(expr), state)
-                     , data_type()
+                     , data
                      );
     }
   };

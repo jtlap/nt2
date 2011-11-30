@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 
+#include <boost/mpl/size_t.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
 #include <boost/fusion/include/next.hpp>
@@ -30,45 +31,45 @@ namespace nt2
     {
       return boost::fusion::iterator_range<Begin const, End const>(begin, end);
     }
-    
+
     template<class InB, class InE, class Out>
     void copy(InB const& inb, InE const& inE, Out const& out);
-    
+
     template<class InB, class InE, class Out>
     void copy(InB const& inb, InE const&, Out const&, boost::mpl::true_)
     {
     }
-    
+
     template<class InB, class InE, class Out>
     void copy(InB const& inb, InE const& inE, Out const& out, boost::mpl::false_)
     {
       *out = *inb;
       return copy(boost::fusion::next(inb), inE, boost::next(out));
     }
-    
+
     template<class InB, class InE, class Out>
     void copy(InB const& inb, InE const& inE, Out const& out)
     {
       typename boost::fusion::result_of::equal_to<InB, InE>::type eq;
       return copy(inb, inE, out, eq);
     }
-    
+
     template<class Src, class Dst>
     void copy(Src const& src, Dst const& dst)
     {
       return copy(boost::fusion::begin(src), boost::fusion::end(src), dst);
     }
-    
+
     template<class InB, class InE, class Value>
     BOOST_FORCEINLINE
     void check_all_equal(InB const& inb, InE const& inE, Value const& value);
-    
+
     template<class InB, class InE, class Value>
     BOOST_FORCEINLINE
     void check_all_equal(InB const& /*inb*/, InE const&, Value const&, boost::mpl::true_)
     {
     }
-    
+
     template<class InB, class InE, class Value>
     BOOST_FORCEINLINE
     void check_all_equal(InB const& inb, InE const& inE, Value const& value, boost::mpl::false_)
@@ -76,7 +77,7 @@ namespace nt2
       BOOST_ASSERT_MSG(*inb == value, "Incompatible size in of_size conversion");
       return check_all_equal(boost::fusion::next(inb), inE, value);
     }
-    
+
     template<class InB, class InE, class Value>
     BOOST_FORCEINLINE
     void check_all_equal(InB const& inb, InE const& inE, Value const& value)
@@ -84,14 +85,14 @@ namespace nt2
       typename boost::fusion::result_of::equal_to<InB, InE>::type eq;
       return check_all_equal(inb, inE, value, eq);
     }
-    
+
     template<class Src, class Value>
     BOOST_FORCEINLINE
     void check_all_equal(Src const& src, Value const& value)
     {
       check_all_equal(boost::fusion::begin(src), boost::fusion::end(src), value);
     }
-    
+
     namespace result_of
     {
       template<class T, int Offset>
@@ -99,13 +100,13 @@ namespace nt2
       {
         static const int seq_size = boost::fusion::result_of::size<T>::type::value;
         static const int min_size = (Offset < seq_size) ? Offset : seq_size;
-          
+
         typedef typename boost::fusion::result_of::begin<T>::type begin;
         typedef typename boost::fusion::result_of::advance_c<begin, min_size>::type begin2;
         typedef boost::fusion::iterator_range<begin2, typename boost::fusion::result_of::end<T>::type> type;
       };
     }
-    
+
     template<int N, class T>
     typename result_of::pop_front_c<T const, N>::type
     pop_front_c(const T& t)
@@ -115,7 +116,7 @@ namespace nt2
       , boost::fusion::end(t)
       );
     }
-    
+
     namespace result_of
     {
       template<class T, int Offset>
@@ -123,13 +124,13 @@ namespace nt2
       {
         static const int seq_size = boost::fusion::result_of::size<T>::type::value;
         static const int min_size = (Offset < seq_size) ? Offset : seq_size;
-        
+
         typedef typename boost::fusion::result_of::end<T>::type end;
         typedef typename boost::fusion::result_of::advance_c<end, -min_size>::type end2;
         typedef boost::fusion::iterator_range<typename boost::fusion::result_of::begin<T>::type, end2> type;
       };
     }
-    
+
     template<int N, class T>
     typename result_of::pop_back_c<T const, N>::type
     pop_back_c(const T& t)
@@ -139,7 +140,7 @@ namespace nt2
       , boost::fusion::advance_c<-result_of::pop_back_c<T const, N>::min_size>(boost::fusion::end(t))
       );
     }
-    
+
     template<int N, class T>
     typename boost::lazy_enable_if_c<
       (N < boost::fusion::result_of::size<T>::type::value)
@@ -149,7 +150,7 @@ namespace nt2
     {
       return boost::fusion::at_c<N>(t);
     }
-  
+
     template<int N, class T>
     typename boost::disable_if_c<
       (N < boost::fusion::result_of::size<T>::type::value)

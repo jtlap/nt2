@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_FUNCTOR_DETAILS_COMPLEMENT_HPP_INCLUDED
-#define BOOST_SIMD_SDK_FUNCTOR_DETAILS_COMPLEMENT_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_COMPLEMENT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_COMPLEMENT_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 

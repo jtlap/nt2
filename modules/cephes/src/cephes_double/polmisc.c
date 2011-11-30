@@ -3,8 +3,11 @@
  * See polyn.c for data structures and discussion.
  */
 
+#include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include "mconf.h"
+
 #ifdef ANSIPROT
 extern double cephes_atan2 ( double, double );
 extern double cephes_sqrt ( double );
@@ -18,14 +21,10 @@ extern void cephes_poladd ( double a[], int na, double b[], int nb, double c[] )
 extern void cephes_polsub ( double a[], int na, double b[], int nb, double c[] );
 extern int cephes_poldiv ( double a[], int na, double b[], int nb, double c[] );
 extern void cephes_polsbt ( double a[], int na, double b[], int nb, double c[] );
-extern void * malloc ( long );
-extern void free ( void * );
 #else
 double cephes_atan2(), cephes_sqrt(), fabs(), cephes_sin(), cephes_cos();
 void cephes_polclr(), cephes_polmov(), cephes_polsbt(), cephes_poladd(), cephes_polsub(), cephes_polmul();
 int cephes_poldiv();
-void * malloc();
-void free ();
 #endif
 
 /* Highest degree of polynomial to be handled

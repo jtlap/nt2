@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_AT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_AT_HPP_INCLUDED
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/functor/forward.hpp>
 #include <boost/simd/include/functions/min.hpp>

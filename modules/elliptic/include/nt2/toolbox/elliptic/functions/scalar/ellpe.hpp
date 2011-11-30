@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -76,15 +76,13 @@ namespace nt2 { namespace ext
                             , (scalar_< single_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       if (a0>One<A0>()||(is_ltz(a0))) return Nan<A0>();
       if (is_eqz(a0))  return One<A0>();
       if (a0 == One<A0>()) return Pio_2<A0>();
-      return horner< NT2_HORNER_COEFF(float, 11,
+      A0 tmp1 = horner< NT2_HORNER_COEFF(float, 11,
                               (0x392102f5,
                                0x3b246c1b,
                                0x3c0e578f,
@@ -95,8 +93,8 @@ namespace nt2 { namespace ext
                                0x3cb2d89a,
                                0x3d68ac90,
                                0x3ee2e430,
-                               0x3f800000) ) > (a0)
-       -nt2::log(a0)*a0*horner< NT2_HORNER_COEFF(float, 10,
+                               0x3f800000) ) > (a0);
+      A0 tmp2 = horner< NT2_HORNER_COEFF(float, 10,
                                     (0x38098de4,
                                      0x3a84557e,
                                      0x3bd53114,
@@ -108,6 +106,7 @@ namespace nt2 { namespace ext
                                      0x3dc00000,
                                      0x3e800000
                                      ) ) > (a0);
+      return tmp1-nt2::log(a0)*a0*tmp2; 
     }
   };
 } }

@@ -128,6 +128,14 @@ macro(nt2_find_module_dependencies _COMPONENT)
 
   string(TOUPPER ${_COMPONENT} _COMPONENT_U)
   
+  if(NT2_MODULES_BLACKLIST)
+    list(FIND NT2_MODULES_BLACKLIST ${_COMPONENT} _COMPONENT_INDEX)
+    if(NOT _COMPONENT_INDEX EQUAL -1)
+      nt2_find_log("${_COMPONENT} is blacklisted, skipping")
+      return()
+    endif()
+  endif()
+  
   string(REPLACE "." "/" _COMPONENT_PATH ${_COMPONENT})
   # Search for module source
   if(NOT NT2_${_COMPONENT_U}_ROOT)
@@ -395,10 +403,10 @@ function(nt2_find)
     
   # Search for install
   if(NOT NT2_ROOT)
-    find_file ( NT2_ROOT nt2
-                PATHS /Applications
-                      /usr/local/share /usr/share /opt
-                      "C:\\Program Files"
+    find_path ( NT2_ROOT modules
+                PATHS /Applications/NT2
+                      /usr/local/share/nt2 /usr/share/nt2 /opt/nt2
+                      "C:\\Program Files\\NT2"
                 ENV NT2_ROOT
                 DOC "Root directory in which NT2 is installed"
                 NO_DEFAULT_PATH
@@ -508,17 +516,18 @@ function(nt2_find)
   foreach(COMPONENT ${ARGV})
     string(TOUPPER ${COMPONENT} COMPONENT_U)
     nt2_find_module(${COMPONENT})
-    if(NOT NT2_FOUND OR NOT NT2_${COMPONENT_U}_FOUND)
-        set(NT2_FOUND 0)
+    if(NT2_${COMPONENT_U}_FOUND)
+      nt2_prepend_module(INCLUDE_DIR)
+      nt2_prepend_module(LIBRARY_DIR)
+    
+      set(NT2_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} ${NT2_LIBRARIES})
+      nt2_lib_remove_duplicates(NT2_LIBRARIES)
+    
+      set(NT2_FLAGS "${NT2_${COMPONENT_U}_FLAGS} ${NT2_FLAGS}")
+      nt2_str_remove_duplicates(NT2_FLAGS)
+    elseif(NT2_FIND_COMPONENTS)
+      set(NT2_FOUND 0)
     endif()
-    nt2_prepend_module(INCLUDE_DIR)
-    nt2_prepend_module(LIBRARY_DIR)
-    
-    set(NT2_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} ${NT2_LIBRARIES})
-    nt2_lib_remove_duplicates(NT2_LIBRARIES)
-    
-    set(NT2_FLAGS "${NT2_${COMPONENT_U}_FLAGS} ${NT2_FLAGS}")
-    nt2_str_remove_duplicates(NT2_FLAGS)
     
     nt2_copy_parent(NT2_${COMPONENT_U}_FOUND)
   endforeach()

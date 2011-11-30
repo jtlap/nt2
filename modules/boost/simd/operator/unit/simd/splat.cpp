@@ -28,7 +28,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 //COMMENTED
-NT2_TEST_CASE_TPL ( splat_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( splat_real__1_0,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::splat;
   using boost::simd::tag::splat_;

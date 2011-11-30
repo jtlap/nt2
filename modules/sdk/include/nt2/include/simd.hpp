@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_INCLUDE_SIMD_HPP_INCLUDED
-#define NT2_SDK_INCLUDE_SIMD_HPP_INCLUDED
+#ifndef NT2_INCLUDE_SIMD_HPP_INCLUDED
+#define NT2_INCLUDE_SIMD_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
 #include <nt2/sdk/simd/category.hpp>

@@ -37,10 +37,12 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
-      , "Unaligned memory location. You tried to load with a pointer that"
-        " is not aligned on the simd vector size.");
-      result_type that = { _mm256_load_pd(a0+a1*boost::simd::meta::cardinal_of<result_type>::value) };
+      ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
+      , "load has been called on a pointer which alignment is not "
+        "compatible with current SIMD extension."
+      );
+
+      result_type that = { _mm256_load_pd(a0+a1) };
       return that;
     }
   };
@@ -62,10 +64,12 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
-      , "Unaligned memory location. You tried to load with a pointer that"
-        " is not aligned on the simd vector size.");
-      result_type that = {_mm256_load_ps(a0+a1*boost::simd::meta::cardinal_of<result_type>::value)}; 
+      ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
+      , "load has been called on a pointer which alignment is not "
+        "compatible with current SIMD extension."
+      );
+
+      result_type that = {_mm256_load_ps(a0+a1)}; 
       return that;
     }
   };
@@ -87,10 +91,12 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
-      , "Unaligned memory location. You tried to load with a pointer that"
-        " is not aligned on the simd vector size.");
-      result_type that = { _mm256_load_si256(reinterpret_cast<__m256i const*>(a0)+a1) };
+      ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
+      , "load has been called on a pointer which alignment is not "
+        "compatible with current SIMD extension."
+      );
+
+      result_type that = { _mm256_load_si256(reinterpret_cast<__m256i const*>(a0+a1)) };
       return that;
     }
   };

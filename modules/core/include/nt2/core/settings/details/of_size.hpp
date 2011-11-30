@@ -10,19 +10,22 @@
 #define NT2_CORE_SETTINGS_DETAILS_OF_SIZE_HPP_INCLUDED
 
 #include <cstddef>
+#include <iterator>
 #include <boost/array.hpp>
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
 #include <nt2/sdk/error/assert.hpp>
 #include <nt2/core/settings/size.hpp>
-#include <nt2/core/settings/details/of_size_meta.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_integral.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
+#include <nt2/core/settings/details/of_size_meta.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
@@ -37,12 +40,14 @@ namespace nt2
   {
     typedef tag::of_size_ fusion_tag;
     typedef boost::fusion::fusion_sequence_tag tag;
-   
+
     typedef std::size_t         value_type;
     typedef std::size_t&        reference;
     typedef std::size_t const&  const_reference;
     typedef std::size_t*        iterator;
     typedef std::size_t const*  const_iterator;
+    typedef std::reverse_iterator<iterator>       reverse_iterator;      
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
     //==========================================================================
     // Count non-trivial size values
@@ -51,8 +56,13 @@ namespace nt2
     : BOOST_PP_CAT(D, BOOST_PP_DEC(BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n))) != 1  \
     ? BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n)
 
+    // workaround for GCC 4.2
+    #if defined(__GNUC__) && (__GNUC__ < 4 || __GNUC_MINOR__ < 3)
+    enum { static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0 };
+    #else
     static const std::size_t
     static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0;
+    #endif
     #undef M0
 
     //==========================================================================
@@ -95,20 +105,43 @@ namespace nt2
       default_(boost::mpl::size_t<static_size-1>());
     }
 
+    //==========================================================================
+    // Copy constructor
+    //==========================================================================
     of_size_( of_size_ const& src ) : data_(src.data_) {}
-    
+
+    //==========================================================================
+    // Constructor from a Fusion sequence - smaller sequence are padded with 1
+    //==========================================================================
     template<class Sz>
-    of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
+    of_size_( Sz const& other
+            , typename  boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0
+            )
     {
       static const std::size_t other_size = boost::fusion::result_of::size<Sz>::type::value;
       static const std::size_t min_size = other_size < static_size ? other_size : static_size;
-      
-      details::copy(details::pop_back_c<other_size - min_size>(other), &data_[0]);
-                
-      for(std::size_t i = min_size; i != static_size; ++i)
-        data_[i] = 1;
+
+      details::copy(details::pop_back_c<other_size - min_size>(other),&data_[0]);
+
+      for(std::size_t i = min_size; i != static_size; ++i) data_[i] = 1;
 
       details::check_all_equal(details::pop_front_c<min_size>(other), 1);
+    }
+
+    //==========================================================================
+    // Constructor from a Sequence - smaller sequence are padded with 1
+    //==========================================================================
+    template<class Iterator>
+    of_size_( Iterator b, Iterator e
+            , typename boost::disable_if< boost::is_integral<Iterator> >::type* =0
+            )
+    {
+      const std::size_t other_size = e - b;
+      const std::size_t min_size   =  other_size < static_size
+                                    ? other_size : static_size;
+
+      std::copy(b,b+min_size, &data_[0]);
+      for(std::size_t i = min_size; i != static_size; ++i) data_[i] = 1;
     }
 
     //==========================================================================
@@ -144,9 +177,15 @@ namespace nt2
     iterator        end()         { return &data_[0] + static_size; }
     const_iterator  end()   const { return &data_[0] + static_size; }
 
+    reverse_iterator        rbegin()       { return reverse_iterator(end());          }
+    const_reverse_iterator  rbegin() const { return const_reverse_iterator(end());    }
+    reverse_iterator        rend()         { return reverse_iterator(begin());        }
+    const_reverse_iterator  rend()   const { return const_reverse_iterator(begin());  }
+
     static std::size_t size() { return static_size; }
 
-    boost::array<std::size_t,static_size> const& data() const { return data_; }
+    std::size_t* data()             { return &data_[0]; }
+    std::size_t const* data() const { return &data_[0]; }
 
     private:
     template<std::size_t N> inline void default_(boost::mpl::size_t<N> const&)
@@ -167,12 +206,14 @@ namespace nt2
     typedef tag::of_size_ fusion_tag;
     typedef boost::fusion::fusion_sequence_tag tag;
     typedef boost::mpl::vector_c<std::size_t> values_type;
-      
-    typedef std::size_t value_type;
-    typedef std::size_t reference;
-    typedef std::size_t const_reference;
-    typedef void*       iterator;
-    typedef void*       const_iterator;
+
+    typedef std::size_t        value_type;
+    typedef std::size_t        reference;
+    typedef std::size_t        const_reference;
+    typedef std::size_t*       iterator;
+    typedef std::size_t const* const_iterator;
+    typedef std::reverse_iterator<iterator>       reverse_iterator;      
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
     static const std::size_t  static_size   = 0;
     static const bool         static_status = true;
@@ -181,13 +222,21 @@ namespace nt2
     static std::size_t size() { return 0; }
     const_reference    operator[](std::size_t ) const { return 1; }
 
+    std::size_t* data()             { return 0; }
+    std::size_t const* data() const { return 0; }
+
     iterator        begin()       { return iterator(0);       }
     const_iterator  begin() const { return const_iterator(0); }
     iterator        end()         { return iterator(0);       }
     const_iterator  end()   const { return const_iterator(0); }
-    
+
+    reverse_iterator        rbegin()       { return reverse_iterator(0);        }
+    const_reverse_iterator  rbegin() const { return const_reverse_iterator(0);  }
+    reverse_iterator        rend()         { return reverse_iterator(0);        }
+    const_reverse_iterator  rend()   const { return const_reverse_iterator(0);  }
+
     of_size_() {}
-    
+
     template<class Sz>
     of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
     {
@@ -204,7 +253,11 @@ namespace nt2
   /**/
   BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
   #undef M0
+  typedef of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, -1 BOOST_PP_INTERCEPT)> of_size_max;
 
+  //============================================================================
+  // Equality comparison for of_size_
+  //============================================================================
   template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
           , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
   bool operator==( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
@@ -221,12 +274,24 @@ namespace nt2
     for(; it0 != a0.end(); ++it0)
       if(*it0 != 1)
         return false;
-      
+
     for(; it1 != a1.end(); ++it1)
       if(*it1 != 1)
         return false;
-        
+
     return true;
+  }
+
+  //============================================================================
+  // Inequality comparison for of_size_
+  //============================================================================
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
+          , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
+  bool operator!=( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
+                 , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1
+                 )
+  {
+    return !(a0 == a1);
   }
 }
 

@@ -14,12 +14,12 @@
  * \brief Defines and implements the nt2::length function
  */
 
-#include <nt2/core/functions/size.hpp>
-#include <boost/fusion/include/fold.hpp>
-#include <nt2/toolbox/arithmetic/include/max.hpp>
+#include <nt2/include/functor.hpp>
 
-namespace nt2
-{
+namespace nt2 
+{ 
+  namespace tag { struct length_ {}; }
+
   //============================================================================
   /*!
    * Compute largest dimension of an entity.
@@ -28,9 +28,7 @@ namespace nt2
    * \return The largest dimension of the size of \c xpr
    */
   //============================================================================
-  template<class T> inline std::size_t length( T const& xpr )
-  {
-     return boost::fusion::fold(nt2::size(xpr), 1U, functor<tag::max_>() );
-  }
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::length_, length, 1)
 }
+
 #endif

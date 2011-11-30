@@ -22,6 +22,38 @@
 namespace nt2 { namespace ext
 {
   //============================================================================
+  // Assignment of tables evaluates the right-hand-side in read mode and passes
+  // the result to the left-hand-side for writing
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(Position)(Target)
+                            , ((expr_< unspecified_<A0>
+                                     , nt2::container::domain
+                                     , nt2::tag::assign_
+                                     >
+                              ))
+                             (fusion_sequence_<Position>)
+                             (target_<unspecified_<Target> >)
+                            )
+  {
+    typedef typename boost::proto::result_of::
+            child_c<A0 const&, 0>::type                             result_type;
+      
+    result_type operator()(A0 const& a0, Position const& pos, Target const&) const
+    {
+      nt2::run( boost::proto::child_c<0>(a0)
+              , pos
+              , nt2::run( boost::proto::child_c<1>(a0)
+                        , pos
+                        , Target()
+                        )
+              );
+              
+      return boost::proto::child_c<0>(a0);
+    }
+  };
+    
+  //============================================================================
   // When an assign(lhs,rhs) expression is run, we perform the evaluation of rhs
   // then store it in lhs. Depending on the lhs nature (real terminal or a node
   // containing a call to any indexing function, the result of the evaluation is
@@ -58,18 +90,23 @@ namespace nt2 { namespace ext
                                                             target_type;
 #endif
 
-
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(A0 const& a0) const
     {
-      boost::proto::child_c<0>(a0).resize(a0.extent());
+      //========================================================================
+      // Don't resize if unecessary.
+      // TODO: Delegate to block to optimize the test or to the buffer to
+      // optimize the resize itself.
+      //========================================================================
+      if( boost::proto::child_c<0>(a0).extent() != a0.extent() )
+        boost::proto::child_c<0>(a0).resize(a0.extent());
 
       //==========================================================================
       // Generate a loop nest of proper depth running the expression evaluator
       // as its body and using indices/extent as loop bounds
       //==========================================================================
       meta::for_each( typename A0::index_type::type()
-                    , extent(a0)
+                    , nt2::extent(a0)
                     , typename boost::simd::meta::cardinal_of<target_type>::type()
                     , meta::runner<A0 const&, meta::as_<target_type> >(a0)
                     );
@@ -78,6 +115,31 @@ namespace nt2 { namespace ext
       // Once done, return the newly computed result
       //==========================================================================
       return boost::proto::child_c<0>(a0);
+    }
+  };
+  
+  //============================================================================
+  // When an arbitrary expression is run, we perform its evaluation into a
+  // local temporary container of proper type.This temporary is then returned by
+  // value.
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(S0)
+                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                            )
+  {
+    typedef typename boost::
+    remove_reference< typename boost::dispatch::meta::
+                      terminal_of< typename boost::dispatch::meta::
+                                   semantic_of<A0 const&>::type
+                                 >::type
+                    >::type                                result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    {
+      result_type tmp;
+      run(assign(tmp, a0));
+      return tmp;
     }
   };
 
@@ -100,37 +162,14 @@ namespace nt2 { namespace ext
             strip< typename meta::scalar_of<result_type>::type>::type
             target_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_FORCEINLINE result_type
     operator()(A0 const& a0) const
     {
-      boost::proto::child_c<0>(a0).resize(a0.extent());
-      nt2::run(a0, typename A0::index_type::type(), meta::as_<target_type>());
+      if( boost::proto::child_c<0>(a0).extent() != a0.extent() )
+        boost::proto::child_c<0>(a0).resize(a0.extent());
+
+      nt2::run(a0, of_size_<>(), meta::as_<target_type>());
       return boost::proto::child_c<0>(a0);
-    }
-  };
-
-  //============================================================================
-  // When an arbitrary expression is run, we perform its evaluation into a
-  // local temporary container of proper type.This temporary is then returned by
-  // value.
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)
-                            , ((ast_<table_< unspecified_<A0>, S0 > >))
-                            )
-  {
-    typedef typename boost::
-    remove_reference< typename boost::dispatch::meta::
-                      terminal_of< typename boost::dispatch::meta::
-                                   semantic_of<A0>::type
-                                 >::type
-                    >::type                                result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
-    {
-      result_type tmp;
-      run(assign(tmp, a0));
-      return tmp;
     }
   };
 
@@ -144,14 +183,14 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::
-    semantic_of<A0>::type                                 result_type;
+    semantic_of<A0 const&>::type                            result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::run ( a0
-                      , of_size_<>()
-                      , meta::as_<typename meta::strip<result_type>::type>()
-                      );
+      return nt2::run( a0
+                     , of_size_<>()
+                     , meta::as_<typename meta::strip<result_type>::type>()
+                     );
     }
   };
 } }
