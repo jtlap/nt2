@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext                             \
     {                                                                        \
       BOOST_SIMD_ALIGNED_TYPE(stype) tmp[meta::cardinal_of<A0>::value];      \
                                                                              \
-      for(int i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i)    \
+      for(size_t i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i)    \
         tmp[i] = details::maybe_genmask<stype>(f(BOOST_PP_ENUM(n, M3, ~)));  \
                                                                              \
       return load<result_type>(&tmp[0], 0);                                  \

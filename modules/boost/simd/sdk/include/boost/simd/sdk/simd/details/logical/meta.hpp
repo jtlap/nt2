@@ -99,7 +99,7 @@ namespace boost { namespace simd
   }
 } }
 
-#ifdef BOOST_SIMD_HAS_LRB_SUPPORT
+#ifdef __LRB__
 namespace boost { namespace simd
 {
   template<class Scalar> 

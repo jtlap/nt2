@@ -99,22 +99,22 @@ NT2_TEST_CASE_TPL(native_cast, BOOST_SIMD_SIMD_TYPES )
     y = native_cast<vT1 >(x);
     std::cout << x << " -> " << y << std::endl; 
   }
-  {
-    vT  x = boost::simd::One<vT>();
-    lvT1 y;
-    y = native_cast<lvT1>(x);
-    std::cout << x << " -> " << y << std::endl; 
-  }
+//   {
+//     vT  x = boost::simd::One<vT>();
+//     lvT1 y;
+//     y = native_cast<lvT1>(x);
+//     std::cout << x << " -> " << y << std::endl; 
+//   }
    {
     lvT  x= boost::simd::True<vT>();
     lvT1 y;
     y = native_cast<lvT1>(x);
     std::cout << x << " -> " << y << std::endl; 
   }
-  {
-    lvT  x= boost::simd::True<vT>();
-    vT1 y;
-    y = native_cast<vT1>(x);
-    std::cout << x << " -> " << y << std::endl; 
-  }
+//   {
+//     lvT  x= boost::simd::True<vT>();
+//     vT1 y;
+//     y = native_cast<vT1>(x);
+//     std::cout << x << " -> " << y << std::endl; 
+//   }
 }

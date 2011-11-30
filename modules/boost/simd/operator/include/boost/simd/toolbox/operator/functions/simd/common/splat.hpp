@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<result_type>::type sA1;
 
       BOOST_SIMD_ALIGNED_TYPE(sA1) tmp[boost::simd::meta::cardinal_of<result_type>::value];
-      for(int i = 0; i != boost::simd::meta::cardinal_of<result_type>::value; ++i)
+      for(unsigned int i = 0; i != boost::simd::meta::cardinal_of<result_type>::value; ++i)
         tmp[i] = static_cast<sA1>(a0);
 
       return load<result_type>(&tmp[0], 0);
