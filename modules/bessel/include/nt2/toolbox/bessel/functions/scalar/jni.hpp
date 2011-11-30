@@ -15,9 +15,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/splat.hpp>
-
 #include <nt2/toolbox/bessel/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
