@@ -15,6 +15,7 @@ SET( SOURCES
   pointer_as_buffer.cpp
   vector_as_buffer.cpp
   sharing.cpp
+  buffer.cpp
 # List of scalar test files for toolbox core.memory
    )
 

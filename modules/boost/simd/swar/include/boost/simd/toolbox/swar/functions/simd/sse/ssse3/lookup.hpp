@@ -15,7 +15,6 @@
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/make.hpp>
 #include <boost/simd/sdk/simd/native_cast.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_

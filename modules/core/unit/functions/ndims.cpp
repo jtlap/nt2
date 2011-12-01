@@ -8,8 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::ndims function"
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/core/container/colon/colon.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/of_size.hpp>
 
@@ -23,13 +22,11 @@
 NT2_TEST_CASE( fundamental_ndims )
 {
   using nt2::ndims;
-  using nt2::_;
   
   NT2_TEST_EQUAL( ndims('4'), 2U  );
   NT2_TEST_EQUAL( ndims(4)  , 2U  );
   NT2_TEST_EQUAL( ndims(4.) , 2U  );
   NT2_TEST_EQUAL( ndims(4.f), 2U  );
-  NT2_TEST_EQUAL( ndims(_)  , 2U  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +36,7 @@ NT2_TEST_CASE( table_ndims )
 {
   using nt2::ndims;
   using nt2::of_size;
-  using nt2::container::table;
+  using nt2::table;
   
   table<float> t0;
   table<float> t10 ( of_size(1)   );
@@ -72,4 +69,47 @@ NT2_TEST_CASE( table_ndims )
   NT2_TEST_EQUAL( ndims(t42), 2U );
   NT2_TEST_EQUAL( ndims(t43), 3U );
   NT2_TEST_EQUAL( ndims(t44), 4U );
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// ndims of table expression
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( expression_ndims )
+{
+  using nt2::ndims;
+  using nt2::of_size;
+  using nt2::table;
+  
+  table<float> t0;
+  table<float> t10 ( of_size(1)   );
+  table<float> t11 ( of_size(2)   );
+  table<float> t20( of_size(1,1)  );
+  table<float> t21( of_size(2,1)  );
+  table<float> t22( of_size(1,2)  );
+  table<float> t30( of_size(1,1,1) );
+  table<float> t31( of_size(3,1,1) );
+  table<float> t32( of_size(1,3,1) );
+  table<float> t33( of_size(1,1,3) );
+  table<float> t40( of_size(1,1,1,1) );
+  table<float> t41( of_size(4,1,1,1) );
+  table<float> t42( of_size(1,4,1,1) );
+  table<float> t43( of_size(1,1,4,1) );
+  table<float> t44( of_size(1,1,1,4) );
+
+  NT2_TEST_EQUAL( ndims(-t0) , 2U );
+  NT2_TEST_EQUAL( ndims(-t10), 4U );
+  NT2_TEST_EQUAL( ndims(t11+t11), 2U );
+  NT2_TEST_EQUAL( ndims(-t20), 4U );
+  NT2_TEST_EQUAL( ndims(t21+t21), 2U );
+  NT2_TEST_EQUAL( ndims(t22*t22), 2U );
+  NT2_TEST_EQUAL( ndims(-t30), 4U );
+  NT2_TEST_EQUAL( ndims(t31+t31), 2U );
+  NT2_TEST_EQUAL( ndims(t32*t32), 2U );
+  NT2_TEST_EQUAL( ndims(t33/t33+4.f), 3U );
+  NT2_TEST_EQUAL( ndims(-t40), 4U );
+  NT2_TEST_EQUAL( ndims(t41+t41), 2U );
+  NT2_TEST_EQUAL( ndims(t42*t42), 2U );
+  NT2_TEST_EQUAL( ndims(t43/t43+4.f), 3U );
+  NT2_TEST_EQUAL( ndims(t44-3.f*(-t44)), 4U );
 }

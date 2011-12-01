@@ -7,9 +7,10 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-##****************************************************************************
-##*     Toolbox matlab unit tests
-##****************************************************************************
+SET( SOURCES
+  resize.cpp
+  constructor.cpp
+# List of scalar test files for toolbox core.settings
+   )
 
-nt2_module_use_modules(unit trigonometric)
-ADD_SUBDIRECTORY(scalar)
+nt2_module_add_tests(core.container.table.unit ${SOURCES})

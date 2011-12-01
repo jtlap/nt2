@@ -403,10 +403,10 @@ function(nt2_find)
     
   # Search for install
   if(NOT NT2_ROOT)
-    find_file ( NT2_ROOT nt2
-                PATHS /Applications
-                      /usr/local/share /usr/share /opt
-                      "C:\\Program Files"
+    find_path ( NT2_ROOT modules
+                PATHS /Applications/NT2
+                      /usr/local/share/nt2 /usr/share/nt2 /opt/nt2
+                      "C:\\Program Files\\NT2"
                 ENV NT2_ROOT
                 DOC "Root directory in which NT2 is installed"
                 NO_DEFAULT_PATH

@@ -34,13 +34,11 @@ namespace nt2 { namespace meta
     static BOOST_DISPATCH_FORCE_INLINE
     void call(Bases const& bs, Sizes const& sz, Position& p, Step const& s, F const& f)
     {
-      using boost::fusion::at_c;
+      std::size_t bound = boost::fusion::at_c<N-1>(bs) + boost::fusion::at_c<N-1>(sz);
 
-      std::size_t bound = at_c<N-1>(bs) + at_c<N-1>(sz);
-
-      for ( at_c<N-1>(p)  = at_c<N-1>(bs);
-            at_c<N-1>(p) < bound;
-            ++at_c<N-1>(p)
+      for ( boost::fusion::at_c<N-1>(p)  = boost::fusion::at_c<N-1>(bs);
+            boost::fusion::at_c<N-1>(p) < bound;
+            ++boost::fusion::at_c<N-1>(p)
           )
         for_each_impl<N-1,MaxIter>::call(bs, sz, p, s, f);
     }
@@ -58,15 +56,13 @@ namespace nt2 { namespace meta
     static BOOST_DISPATCH_FORCE_INLINE
     void call(Bases const& bs, Sizes const& sz, Position& p, Step const& s, F const& f)
     {
-      using boost::fusion::at_c;
-
-      std::size_t bound  = at_c<N-1>(sz);
-      std::size_t low    = at_c<N-1>(bs);
+      std::size_t bound  = boost::fusion::at_c<N-1>(sz);
+      std::size_t low    = boost::fusion::at_c<N-1>(bs);
 
       #pragma omp for
       for(std::size_t i=0;i<bound;++i)
       {
-        at_c<N-1>(p) = i + low;
+        boost::fusion::at_c<N-1>(p) = i + low;
         for_each_impl<N-1,N>::call(bs, sz, p, s, f);
       }
     }
@@ -82,10 +78,8 @@ namespace nt2 { namespace meta
     static BOOST_DISPATCH_FORCE_INLINE
     void call(Bases const& bs, Sizes const& sz, Position& p, Step const& s, F const& f)
     {
-      using boost::fusion::at_c;
-
-      std::size_t bound = at_c<0>(bs) + at_c<0>(sz);
-      for( at_c<0>(p)  = at_c<0>(bs); at_c<0>(p) < bound; at_c<0>(p) += s ) f(p);
+      std::size_t bound = boost::fusion::at_c<0>(bs) + boost::fusion::at_c<0>(sz);
+      for( boost::fusion::at_c<0>(p)  = boost::fusion::at_c<0>(bs); boost::fusion::at_c<0>(p) < bound; boost::fusion::at_c<0>(p) += s ) f(p);
     }
   };
 

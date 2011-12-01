@@ -8,8 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::numel function"
 
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/core/container/colon/colon.hpp>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/of_size.hpp>
 
@@ -23,13 +22,11 @@
 NT2_TEST_CASE( fundamental_numel )
 {
   using nt2::numel;
-  using nt2::_;
   
   NT2_TEST_EQUAL( numel('4'), 1U  );
   NT2_TEST_EQUAL( numel(4)  , 1U  );
   NT2_TEST_EQUAL( numel(4.) , 1U  );
-  NT2_TEST_EQUAL( numel(4.f), 1U  );
-  NT2_TEST_EQUAL( numel(_), 1U  );
+  NT2_TEST_EQUAL( numel(4.f), 1U  ); 
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +36,7 @@ NT2_TEST_CASE( table_numel )
 {
   using nt2::numel;
   using nt2::of_size;
-  using nt2::container::table;
+  using nt2::table;
   
   table<float> t0;
   table<float> t1( of_size(2) );
@@ -52,5 +49,26 @@ NT2_TEST_CASE( table_numel )
   NT2_TEST_EQUAL( numel(t2), 4U   );
   NT2_TEST_EQUAL( numel(t3), 8U   );
   NT2_TEST_EQUAL( numel(t4), 16U  );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// numel of table expression
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( expression_numel )
+{
+  using nt2::numel;
+  using nt2::of_size;
+  using nt2::table;
   
+  table<float> t0;
+  table<float> t1( of_size(2) );
+  table<float> t2( of_size(2,2) );
+  table<float> t3( of_size(2,2,2) );
+  table<float> t4( of_size(2,2,2,2) );
+
+  NT2_TEST_EQUAL( numel(-t0), 0U   );
+  NT2_TEST_EQUAL( numel(t1*t1), 2U   );
+  NT2_TEST_EQUAL( numel(t2-t2*t2), 4U   );
+  NT2_TEST_EQUAL( numel(t3/t3+t3), 8U   );
+  NT2_TEST_EQUAL( numel(t4 * -t4), 16U  );
 }

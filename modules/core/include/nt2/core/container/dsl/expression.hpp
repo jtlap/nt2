@@ -12,7 +12,9 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/extends.hpp>
+#include <nt2/core/settings/size.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
@@ -21,7 +23,6 @@
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/core/container/meta/container_traits.hpp>
 #include <nt2/core/container/meta/settings_of.hpp>
-#include <nt2/core/settings/size.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -40,7 +41,7 @@ namespace nt2 { namespace container { namespace ext
   {
     BOOST_MPL_ASSERT_MSG(0, NT2_RESIZE_ON_RHS, (Tag));
   };
-  
+
   template<class Tag, class Domain, class Expr>
   struct resize<Tag, Domain, 0, Expr>
   {
@@ -50,7 +51,7 @@ namespace nt2 { namespace container { namespace ext
       boost::proto::value(expr).resize(sz);
     }
   };
-  
+
   template<class Domain, int N, class Expr>
   struct resize<boost::proto::tag::function, Domain, N, Expr>
   {
@@ -59,7 +60,7 @@ namespace nt2 { namespace container { namespace ext
     {
     }
   };
-  
+
 } } }
 
 namespace nt2 { namespace container
@@ -80,23 +81,26 @@ namespace nt2 { namespace container
                                   >                                parent;
 
     //==========================================================================
-    /* Extract Container information from ResultType                          */
+    // Extract Container information from ResultType
     //==========================================================================
     typedef typename meta::value_type_<ResultType>::type      value_type;
     typedef typename meta::reference_<ResultType>::type       reference;
     typedef typename meta::const_reference_<ResultType>::type const_reference;
 
-    typedef typename meta::settings_of<ResultType>::type              settings_type;
-    typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
-    typedef typename meta::option<settings_type, tag::index_>::type   index_type;
-
+    typedef typename meta::settings_of<ResultType>::type            settings_type;
+    typedef typename meta::option<settings_type, tag::index_>::type index_type;
+    
     //==========================================================================
-    // expression initialization called from generator
+    // Compute storage type for size
+    //==========================================================================
+    typedef typename size_transform<domain>::
+            template result<size_transform<domain>(Expr)>::type  extent_type;
+    
+    //==========================================================================
+    // Expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
-    expression() : size_(nt2::extent(parent::proto_base().child0))
-    {
-    }
+    expression() : size_(nt2::extent(parent::proto_base().child0)) {}
 
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE
@@ -172,11 +176,11 @@ namespace nt2 { namespace container
       return nt2::evaluate(*this);
     }
 
-    extent_type const& extent() const
-    {
-      return size_;
-    }
-    
+    //==========================================================================
+    // Return current expression extent
+    //==========================================================================
+    extent_type extent() const { return size_; }
+
     template<class Sz>
     void resize(Sz const& sz)
     {
@@ -187,7 +191,7 @@ namespace nt2 { namespace container
                  >
       ()(*this, sz);
     }
-    
+
     template<class Sz>
     void resize(Sz const& sz) const
     {
@@ -257,7 +261,7 @@ namespace nt2 { namespace container
     }
 
     private:
-    extent_type const& size_;
+    extent_type size_;
   };
 } }
 

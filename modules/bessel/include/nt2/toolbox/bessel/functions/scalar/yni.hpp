@@ -18,6 +18,7 @@
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/y0.hpp>
 #include <nt2/include/functions/y1.hpp>
 
@@ -55,12 +56,13 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-    #ifdef NT2_TOOLBOX_BESSEL_HAS_YN
-      return ::yn(a0, a1);
-    #elif defined(NT2_TOOLBOX_BESSEL_HAS__YN)
+      if (is_inf(a0)) return Zero<A0>();
+    #ifdef NT2_TOOLBOX_BESSEL_HAS__YN
       return ::_yn(a0, a1);
+    #elif defined(NT2_TOOLBOX_BESSEL_HAS_YN)
+      return ::yn(a0, a1);
     #else
-      #warning yn not supported
+      #error yn not supported
     #endif
     }
   };

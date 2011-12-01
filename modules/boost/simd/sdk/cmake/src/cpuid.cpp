@@ -58,8 +58,8 @@ options[] =
   , {0x00000001,ecx,19} // SSE4.1
   , {0x00000001,ecx,20} // SSE4.2
   , {0x00000001,ecx,28} // AVX
-  , {0x80000001,ecx,11} // XOP
-  , {0x80000001,ecx,16} // FMA
+  , {static_cast<int>(0x80000001),ecx,11} // XOP
+  , {static_cast<int>(0x80000001),ecx,16} // FMA
 };
 
 int main(int argc, char** argv)

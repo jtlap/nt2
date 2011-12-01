@@ -15,8 +15,11 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/splat.hpp>
+
+#include <nt2/toolbox/bessel/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -54,7 +57,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-        return ::jn(a0, a1);
+      if (is_inf(a0)) return Zero<A0>();
+    #if defined(NT2_TOOLBOX_BESSEL_HAS__JN)
+      return ::_jn(a0, a1);
+    #elif defined(NT2_TOOLBOX_BESSEL_HAS_JN)
+      return ::jn(a0, a1);
+    #else
+      #error jn not supported
+    #endif
     }
   };
 } }
@@ -114,6 +124,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

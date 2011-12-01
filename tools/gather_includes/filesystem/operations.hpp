@@ -45,6 +45,9 @@ namespace filesystem
     {
         static const char separator[] = "/\\";
 
+        if(file_path.empty())
+            return;
+
         char directory[ PATH_MAX ];
         if( file_path.size() >= PATH_MAX )
             BOOST_THROW_EXCEPTION( std::runtime_error ( "Path " + file_path + " is too long" ) );

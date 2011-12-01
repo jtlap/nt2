@@ -8,15 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXTPOW2_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXTPOW2_HPP_INCLUDED
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/nextpow2.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-#include <iostream>
+#include <boost/simd/include/constants/real.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -51,7 +51,6 @@ namespace boost { namespace simd { namespace ext
       A0 m;
       result_type p;
       boost::simd::frexp(boost::simd::abs(a0), m, p);
-      std::cout << "m " <<  m <<  " p " << p << std::endl; 
       return (m == Half<A0>())  ? minusone(p) :  p;
     }
   };
