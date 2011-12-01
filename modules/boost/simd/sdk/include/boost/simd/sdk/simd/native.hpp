@@ -30,16 +30,16 @@ namespace boost { namespace simd
     // native<S,E> is a SIMD type encapsulation
     ////////////////////////////////////////////////////////////////////////////
     typedef Extension                                       extension_type;
-    typedef typename meta::as_simd<Scalar, Extension>::type native_type;
+    typedef typename meta::as_simd<Scalar, Extension>::type    native_type;
 
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> models RandomAccessRange and FusionRandomAccessSequence
     ////////////////////////////////////////////////////////////////////////////
-    typedef BOOST_SIMD_MAY_ALIAS Scalar                     value_type;
-    typedef value_type&                                     reference;
-    typedef value_type const&                               const_reference;
-    typedef std::size_t                                     size_type;
-    typedef Scalar*                                         iterator;
+    typedef BOOST_SIMD_MAY_ALIAS Scalar                         value_type;
+    typedef value_type&                                          reference;
+    typedef value_type const&                              const_reference;
+    typedef std::size_t                                          size_type;
+    typedef Scalar*                                               iterator;
     typedef Scalar const*                                   const_iterator;
 
     template<class U> struct rebind
