@@ -12,40 +12,64 @@
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/two_split.hpp>
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  //TODO ref implementation
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
-                             (A0),
-                             (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
-                            )
+                          (A0),
+                          ((scalar_<floating_<A0> >))
+                          ((scalar_<floating_<A0> >))
+                          ((scalar_<floating_<A0> >))
+                          ((scalar_<floating_<A0> >))
+                         )
   {
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type       rtype;
-    typedef typename boost::fusion::tuple<rtype,rtype>             result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      result_type res;
-      eval(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
-      return res;
-    }
-  private:
-    template<class AA0, class R0, class R1> inline void
-    eval(AA0 const& a, AA0 const& b, R0& r0, R1& r1)const
+    typedef int result_type;
+    inline result_type operator()(A0 const& a,A0 const& b,
+                                  A0 & r0,A0 & r1) const
     {
       r0  = a*b;
       if (is_invalid(r0))
       {
-        r1 = Zero<R1>();
-        return;
+        r1 = Zero<A0>();
       }
-      AA0 a1, a2, b1, b2;
-      boost::fusion::tie(a1, a2) = two_split(a);
-      boost::fusion::tie(b1, b2) = two_split(b);
-      r1 = a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2);
+      else
+      {
+        A0 a1, a2, b1, b2;
+        two_split(a, a1, a2);
+        two_split(b, b1, b2);
+        r1 = a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2);
+      }
+      return 0; 
+    }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
+                          (A0),
+                          ((scalar_<floating_<A0> >))
+                          ((scalar_<floating_<A0> >))
+                          ((scalar_<floating_<A0> >))
+                         )
+  {
+    typedef A0 result_type;
+    inline result_type operator()(A0 const& a0,A0 const& a1,A0 & a3) const
+    {
+      A0 a2;
+      two_prod(a0, a1, a2, a3); 
+      return a2;
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
+                           (A0),
+                           ((scalar_<floating_<A0> >))
+                           ((scalar_<floating_<A0> >))
+                          )
+  {
+    typedef typename boost::fusion::tuple<A0,A0> result_type;
+    
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      result_type res;
+      two_prod(a0,a1, boost::fusion::at_c<0>(res),boost::fusion::at_c<1>(res));
+      return res;
     }
   };
 } } }

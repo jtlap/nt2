@@ -14,31 +14,31 @@
 #include <boost/simd/include/functions/iround.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4723) // potential divide by 0
+#endif
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivround_, tag::cpu_
-			      , (A0)
-			      , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
-			      )
+                        , (A0)
+                        , (scalar_< arithmetic_<A0> >)
+                        (scalar_< arithmetic_<A0> >)
+                        )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-	return (!a1) ? a1 :iround(tofloat(a0)/tofloat(a1));
+      return (!a1) ? a1 :iround(tofloat(a0)/tofloat(a1));
       }
   };
   
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivround_, tag::cpu_,
-			     (A0),
-			     (scalar_< floating_<A0> > )(scalar_< floating_<A0> > )
-			     )
+                       (A0),
+                       (scalar_< floating_<A0> > )
+                       (scalar_< floating_<A0> > )
+                       )
   {
     typedef typename dispatch::meta::as_integer < A0 >::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -47,5 +47,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+
+#ifdef BOOST_MSVC
+  #pragma warning(pop)
+#endif
 
 #endif

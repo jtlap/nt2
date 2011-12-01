@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (!a1) return a0; 
-	return a0-boost::simd::idivround(a0, a1)*a1; 
+      return a0-boost::simd::idivround(a0, a1)*a1; 
     }
   };
 } } }

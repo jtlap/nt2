@@ -22,16 +22,16 @@
 #include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
+// Implementation when type  is floating_
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
                           (A0)(X),
-                          ((simd_<arithmetic_<A0>,X>))
-                          ((simd_<arithmetic_<A0>,X>))
-                          ((simd_<arithmetic_<A0>,X>))
-                          ((simd_<arithmetic_<A0>,X>))
+                          ((simd_<floating_<A0>,X>))
+                          ((simd_<floating_<A0>,X>))
+                          ((simd_<floating_<A0>,X>))
+                          ((simd_<floating_<A0>,X>))
                          )
   {
     typedef int result_type;
@@ -50,9 +50,9 @@ namespace boost { namespace simd { namespace ext
   }; 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
                           (A0)(X),
-                          ((simd_<arithmetic_<A0>,X>))
-                          ((simd_<arithmetic_<A0>,X>))
-                          ((simd_<arithmetic_<A0>,X>))
+                          ((simd_<floating_<A0>,X>))
+                          ((simd_<floating_<A0>,X>))
+                          ((simd_<floating_<A0>,X>))
                          )
   {
     typedef A0 result_type;
@@ -65,8 +65,8 @@ namespace boost { namespace simd { namespace ext
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
                            (A0)(X),
-                           ((simd_<arithmetic_<A0>,X>))
-                           ((simd_<arithmetic_<A0>,X>))
+                           ((simd_<floating_<A0>,X>))
+                           ((simd_<floating_<A0>,X>))
                           )
   {
     typedef typename boost::fusion::tuple<A0,A0> result_type;

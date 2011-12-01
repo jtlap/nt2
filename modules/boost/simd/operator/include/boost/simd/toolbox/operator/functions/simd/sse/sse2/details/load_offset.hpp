@@ -94,9 +94,9 @@ namespace boost { namespace simd { namespace ext
 
       result_type a     = boost::simd::load<result_type>(a0,a1+offset);
       result_type b     = boost::simd::load<result_type>(a0,a1+offset+card);
-      __m128i sa        = _mm_srli_si128(boost::simd::native_cast<__m128i>(a.data_),shifta);
-      __m128i sb        = _mm_slli_si128(boost::simd::native_cast<__m128i>(b.data_),shiftb);
-      result_type that  = { boost::simd::native_cast<raw_type>(_mm_or_si128(sa,sb)) };
+      __m128i sa        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
+      __m128i sb        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
+      result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
       return that;
     }
 
@@ -119,8 +119,8 @@ namespace boost { namespace simd { namespace ext
 
       result_type a     = boost::simd::load<result_type>(a0,a1-offset);
       result_type b     = boost::simd::load<result_type>(a0,a1-offset-card);
-      __m128i sa        = _mm_slli_si128(boost::simd::native_cast<__m128i>(a.data_),shifta);
-      __m128i sb        = _mm_srli_si128(boost::simd::native_cast<__m128i>(b.data_),shiftb);
+      __m128i sa        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
+      __m128i sb        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
       result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
       return that;
     }

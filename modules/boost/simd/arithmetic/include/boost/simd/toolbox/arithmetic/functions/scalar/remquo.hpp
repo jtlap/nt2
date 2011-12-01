@@ -56,10 +56,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
-			     (A0),
-			     (scalar_ < floating_<A0> > )
-			     (scalar_ < floating_<A0> > )
-			     )
+                       (A0),
+                       (scalar_ < floating_<A0> > )
+                       (scalar_ < floating_<A0> > )
+                       )
   {
     typedef typename dispatch::meta::as_integer<A0,signed>::type           quo;
     typedef boost::fusion::tuple<A0,quo>                           result_type;
@@ -74,12 +74,12 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
-			     (A0)(A1),
-			     (scalar_ < floating_<A0> > )
-			     (scalar_ < floating_<A0> > )
-			     (scalar_ < floating_<A0> > )
-			     (scalar_ < integer_<A1> > )
-			     )
+                       (A0)(A1),
+                       (scalar_ < floating_<A0> > )
+                       (scalar_ < floating_<A0> > )
+                       (scalar_ < floating_<A0> > )
+                       (scalar_ < integer_<A1> > )
+                       )
   {
     typedef boost::simd::int32_t result_type;
     inline result_type operator()(A0 const& a0,const A0 & a1,A0 & a2,A1 & a3) const
@@ -91,12 +91,12 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
-			     (A0)(A1),
-			     (scalar_ < integer_<A0> > )
-			     (scalar_ < integer_<A0> > )
-			     (scalar_ < floating_<A1> > )
-			     (scalar_ < integer_<A0> > )
-			     )
+                       (A0)(A1),
+                       (scalar_ < integer_<A0> > )
+                       (scalar_ < integer_<A0> > )
+                       (scalar_ < floating_<A1> > )
+                       (scalar_ < integer_<A0> > )
+                       )
   {
     typedef boost::simd::int32_t result_type;
     inline result_type operator()(A0 const& a0,const A0 & a1,A0 & a2,A1 & a3) const
