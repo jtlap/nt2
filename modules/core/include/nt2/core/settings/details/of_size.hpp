@@ -123,9 +123,9 @@ namespace nt2
 
       details::copy(details::pop_back_c<other_size - min_size>(other),&data_[0]);
 
-      for(std::size_t i = min_size; i != static_size; ++i) data_[i] = 1;
+      for(std::size_t i = min_size; i != static_size; ++i) data_[i] = 1u;
 
-      details::check_all_equal(details::pop_front_c<min_size>(other), 1);
+      details::check_all_equal(details::pop_front_c<min_size>(other), 1u);
     }
 
     //==========================================================================
@@ -141,7 +141,7 @@ namespace nt2
                                     ? other_size : static_size;
 
       std::copy(b,b+min_size, &data_[0]);
-      for(std::size_t i = min_size; i != static_size; ++i) data_[i] = 1;
+      for(std::size_t i = min_size; i != static_size; ++i) data_[i] = 1u;
     }
 
     //==========================================================================
@@ -154,7 +154,7 @@ namespace nt2
     of_size_( BOOST_PP_ENUM_PARAMS(n,std::size_t d) )      \
     {                                                      \
       BOOST_PP_REPEAT(n,M1,~)                              \
-      for(std::size_t i=n;i<static_size;++i) data_[i] = 1; \
+      for(std::size_t i=n;i<static_size;++i) data_[i] = 1u;\
     }                                                      \
     /**/
 
@@ -240,7 +240,7 @@ namespace nt2
     template<class Sz>
     of_size_( Sz const& other, typename boost::enable_if< boost::fusion::traits::is_sequence<Sz> >::type* = 0 )
     {
-      details::check_all_equal(other, 1);
+      details::check_all_equal(other, 1u);
     }
   };
 

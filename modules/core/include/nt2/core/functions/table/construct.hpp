@@ -120,7 +120,7 @@ namespace nt2 { namespace ext
                             , boost::mpl::size_t<1>()
                             , functor<tag::multiplies_>()
                             )
-        >= std::distance(a2,a3)
+        >= static_cast<size_t>(std::distance(a2,a3))
       , "Source range is larger than destination container."
       );
                       
