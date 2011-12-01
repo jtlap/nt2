@@ -15,7 +15,7 @@
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
