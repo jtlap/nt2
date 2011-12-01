@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
-//ok
+
 #include <climits>
 #include <boost/assert.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -17,7 +17,8 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
- 
+#include <iostream>
+
 namespace boost { namespace simd
 {
   //============================================================================
