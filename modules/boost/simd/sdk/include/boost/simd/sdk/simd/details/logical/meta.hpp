@@ -25,6 +25,12 @@ namespace boost { namespace simd { namespace meta
   {
     typedef typename meta::as_logical<typename vector_of<T,Card>::type >::type type;
   };
+  
+  template<class T, class X>
+  struct is_vectorizable<logical<T>, X>
+    : is_vectorizable<T, X>
+  {
+  };
 
 } } }
 
