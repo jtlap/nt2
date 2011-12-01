@@ -10,15 +10,16 @@
 
 #include <nt2/table.hpp>
 #include <nt2/core/settings/storage_order.hpp>
+#include <nt2/sdk/meta/permute_view.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// table type and storage order
+// storage order apply
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( storage_order, NT2_TYPES )
+NT2_TEST_CASE( storage_order_apply)
 {
   using boost::is_same;
   using nt2::table;
@@ -36,7 +37,7 @@ NT2_TEST_CASE_TPL( storage_order, NT2_TYPES )
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// table and matlab_storage order
+// matlab_storage order
 ////////////////////////////////////////////////////////////////////////////////
 
   NT2_TEST((is_same<matlab_order_::apply<size, dim_0> ::type, int_<3>  >::value ));
@@ -46,7 +47,7 @@ NT2_TEST_CASE_TPL( storage_order, NT2_TYPES )
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// table and fortran_storage order
+// fortran_storage order
 ////////////////////////////////////////////////////////////////////////////////
 
   NT2_TEST((is_same<fortran_order_::apply<size, dim_0> ::type, int_<3>  >::value ));
@@ -56,7 +57,7 @@ NT2_TEST_CASE_TPL( storage_order, NT2_TYPES )
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// table and C_storage order
+// C_storage order
 ////////////////////////////////////////////////////////////////////////////////
 
   NT2_TEST((is_same<C_order_::apply<size, dim_0> ::type, int_<0>  >::value ));
@@ -66,3 +67,44 @@ NT2_TEST_CASE_TPL( storage_order, NT2_TYPES )
 
 }
 
+
+NT2_TEST_CASE( storage_order_permute_view )
+{
+  using boost::array;
+  using boost::is_same;
+  using nt2::meta::permute_view;
+  using nt2::matlab_order_;
+  using nt2::C_order_;
+  using nt2::fortran_order_;
+  using boost::fusion::at_c;
+
+
+  typedef boost::array<std::size_t,4> Seq;
+  Seq sizes = {{5,2,4,3}};
+
+
+
+  permute_view<Seq,C_order_> C_permuted(sizes);
+
+  NT2_TEST_EQUAL( at_c<0>(sizes), at_c<0>(C_permuted));
+  NT2_TEST_EQUAL( at_c<1>(sizes), at_c<1>(C_permuted));
+  NT2_TEST_EQUAL( at_c<2>(sizes), at_c<2>(C_permuted));
+  NT2_TEST_EQUAL( at_c<3>(sizes), at_c<3>(C_permuted));
+
+
+  permute_view<Seq,matlab_order_> matlab_permuted(sizes);
+
+  NT2_TEST_EQUAL( at_c<0>(sizes), at_c<3>(matlab_permuted));
+  NT2_TEST_EQUAL( at_c<1>(sizes), at_c<2>(matlab_permuted));
+  NT2_TEST_EQUAL( at_c<2>(sizes), at_c<1>(matlab_permuted));
+  NT2_TEST_EQUAL( at_c<3>(sizes), at_c<0>(matlab_permuted));
+
+
+  permute_view<Seq,fortran_order_> fortran_permuted(sizes);
+
+  NT2_TEST_EQUAL( at_c<0>(sizes), at_c<3>(fortran_permuted));
+  NT2_TEST_EQUAL( at_c<1>(sizes), at_c<2>(fortran_permuted));
+  NT2_TEST_EQUAL( at_c<2>(sizes), at_c<1>(fortran_permuted));
+  NT2_TEST_EQUAL( at_c<3>(sizes), at_c<0>(fortran_permuted));
+
+}

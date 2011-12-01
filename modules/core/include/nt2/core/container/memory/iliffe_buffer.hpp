@@ -23,6 +23,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <nt2/sdk/meta/add_pointers.hpp>
+#include <nt2/sdk/meta/permute_view.hpp>
 #include <nt2/core/container/memory/adapted/iliffe_buffer.hpp>
 
 namespace nt2 { namespace memory
@@ -127,7 +128,9 @@ namespace nt2 { namespace memory
     iliffe_buffer(Allocator const&  a = Allocator(), 
           Data_buffer const& db = Data_buffer(), 
           Index_buffer const& ib = Index_buffer(), Storage_order const& so = Storage_order() )
-    : data_(0), begin_(0), end_(0), numel_(0), alloc_(a), data_buffer_(db), index_buffer_(ib),storage_order_(so) {}
+    : data_(0), begin_(0), end_(0), numel_(0), alloc_(a), data_buffer_(db)
+    , index_buffer_(ib),storage_order_(so), idx_size_(0), data_size_(0) {}
+
 
     //==========================================================================
     /**
@@ -151,34 +154,36 @@ namespace nt2 { namespace memory
               )
     {
       // Stores the outer base index required for proper deallocation
-      idx_ = boost::fusion::at_c<Dimensions-1>(bss);
+      idx_ = boost::fusion::at_c<Dimensions-1>(meta::permute_view<Sizes const,Storage_order>(bss));
 
       // Computes the number of values to store
-      size_type numel = slice<1>(szs,p);
+      size_type numel_ = slice<1>(meta::permute_view<Sizes const,Storage_order>(szs),p);
 
       // If non-empty ...
-      if(numel != 0)
+      if(numel_ != 0)
       {
         // Computes the number of bytes for the data and the indexing
-        size_type data_size = numel * sizeof(value_type);
-        size_type idx_size  = index_size(szs,p);
+        size_type data_size_ = numel_ * sizeof(value_type);
+        size_type idx_size_  = index_size(meta::permute_view<Sizes const,Storage_order>(szs),p);
 
         // Fix numel_ to store the proper number of aligned data
     //        numel_ = idx_size+data_size;
 
         // Allocate that much bytes
-        index_buffer_.resize(idx_size);
-        data_buffer_.resize(data_size);
+        index_buffer_.resize(idx_size_);
+        data_buffer_.resize(data_size_);
 
         memory::byte* idx_ptr =  reinterpret_cast<memory::byte*>(index_buffer_.begin());
 
         // Points to the begining of the data block
         begin_ = reinterpret_cast<value_type*>(data_buffer_.begin());
-        end_   = begin_ + numel;
+        end_   = begin_ + numel_;
 
         // Recursively fills out the index
-        data_ = link( idx_ptr, begin_ - boost::fusion::at_c<0>(bss)
-                    , szs , bss, p
+        data_ = link( idx_ptr, begin_ - boost::fusion::at_c<0>(meta::permute_view<Sizes const,Storage_order>(bss))
+                      , meta::permute_view<Sizes const,Storage_order>(szs) 
+                      , meta::permute_view<Sizes const,Storage_order>(bss)
+                      , p
                     , boost::mpl::int_<Dimensions>()
                     );
       }
@@ -209,16 +214,16 @@ namespace nt2 { namespace memory
 
     {
       // Stores the outer base index required for proper deallocation
-      idx_ = boost::fusion::at_c<Dimensions-1>(bss);
+            //      idx_ = boost::fusion::at_c<Dimensions-1>(bss);
 
       // Computes the number of values to store
-      size_type numel = slice<1>(szs,p);
+      size_type numel = slice<1>(meta::permute_view<Sizes const,Storage_order>(szs),p);
 
       // If non-empty and if we dont try to share empty data
       if(data && numel)
       {
         // Setup other pointer and size information
-        numel_ = index_size(szs,p);
+        numel_ = index_size(meta::permute_view<Sizes const,Storage_order>(szs),p);
         begin_ = data;
         end_   = begin_ + numel;
 
@@ -227,8 +232,10 @@ namespace nt2 { namespace memory
 
         // Recursively fills out the index
         data_ = link( idx_ptr//alloc_.allocate(numel_)
-                    , begin_ - boost::fusion::at_c<0>(bss)
-                    , szs, bss, p
+                    , begin_ - boost::fusion::at_c<0>(meta::permute_view<Sizes const,Storage_order>(bss))
+                    , meta::permute_view<Sizes const,Storage_order>(szs)
+                    , meta::permute_view<Sizes const,Storage_order>(bss)
+                    , p
                     , boost::mpl::int_<Dimensions>()
                     );
       }
@@ -260,9 +267,9 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~iliffe_buffer()
     {
-            // if(data_){
-          // alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
-            //}
+       // if(data_){
+       //    alloc_.deallocate(reinterpret_cast<memory::byte*>(data_ + idx_), numel_);
+       // }
     }
 
     //==========================================================================
@@ -392,6 +399,8 @@ namespace nt2 { namespace memory
     pointer         begin_, end_;
     std::ptrdiff_t  idx_;
     std::size_t     numel_;
+    std::size_t     idx_size_;
+    std::size_t     data_size_;
     allocator       alloc_;
     Data_buffer     data_buffer_;
     Index_buffer    index_buffer_;

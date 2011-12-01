@@ -13,6 +13,7 @@ SET( SOURCES
   index.cpp
   of_size.cpp
   size.cpp
+  storage_order.cpp
 # List of scalar test files for toolbox core.settings
    )
 
