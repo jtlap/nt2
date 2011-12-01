@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace meta
   template<class T,std::size_t Card>
   struct vector_of<logical<T>,Card> 
   {
-    typedef typename meta::as_logical<vector_of<T,Card> >::type type;
+    typedef typename meta::as_logical<typename vector_of<T,Card>::type >::type type;
   };
 
 } } }
