@@ -67,19 +67,16 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  (boost::simd::int32_t))//NT2_SIMD_INT
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vlT a0 = load<vlT>(&tab_a0[0],j);
+        vlT a0 = load<vlT>(&tab_a0[0],0);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
         std::cout << a0 << "  "<< std::endl << a1 << "  "<< std::endl << a2 << "  " << std::endl;
-//        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-//          std::cout << "data_ " << reinterpret_cast<T const*>(&a0.data_)[i] << " ";
-       std::cout << std::endl; 
        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-	  //          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
+	  //          
           std::cout << i << " -> " << a0[i] << "  " << int(a1[i]) << "  " << int(a2[i]) << "  " << std::endl; 
          NT2_TEST_EQUAL( v[i], nt2::if_else (a0[i],a1[i],a2[i]));
         }
@@ -116,9 +113,9 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vlT a0 = load<vlT>(&tab_a0[0],j);
+        vlT a0 = load<vlT>(&tab_a0[0],0);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
