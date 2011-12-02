@@ -64,14 +64,14 @@ NT2_TEST_CASE_TPL ( i0_real__1_0,  NT2_SIMD_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = i0(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::i0 (tab_a0[k])), 2.5);
+          
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::i0 (a0[i])), 2.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
