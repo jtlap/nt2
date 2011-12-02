@@ -65,14 +65,14 @@ NT2_TEST_CASE_TPL ( fast_cosd_real__1_0,  NT2_SIMD_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-45), T(45));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = fast_cosd(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::fast_cosd (tab_a0[k])), 1.0);
+          
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::fast_cosd (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
@@ -104,14 +104,14 @@ NT2_TEST_CASE_TPL ( fast_cosd_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-45), T(45));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = fast_cosd(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::fast_cosd (tab_a0[k])), 1.0);
+          
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::fast_cosd (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
@@ -143,14 +143,14 @@ NT2_TEST_CASE_TPL ( fast_cosd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-45), T(45));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = fast_cosd(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::fast_cosd (tab_a0[k])), 1.0);
+          
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::fast_cosd (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
