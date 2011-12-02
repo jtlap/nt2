@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/functions/negif.hpp>
+#include <nt2/toolbox/boolean/include/functions/negif.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -63,15 +63,15 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(1));
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = negif(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::negif (tab_a0[k],tab_a1[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::negif (a0[i],a1[i])));
         }
       }
     
@@ -103,15 +103,15 @@ NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(1));
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = negif(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::negif (tab_a0[k],tab_a1[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::negif (a0[i],a1[i])));
         }
       }
     
