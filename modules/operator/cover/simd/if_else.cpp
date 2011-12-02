@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  (boost::simd::int32_t))//NT2_SIMD_INT
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vlT a0 = load<vlT>(&tab_a0[0],0);
+        vlT a0 = load<vlT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
@@ -115,7 +115,7 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
-        vlT a0 = load<vlT>(&tab_a0[0],0);
+        vlT a0 = load<vlT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         vT a2 = load<vT>(&tab_a2[0],j);
         r_t v = if_else(a0,a1,a2);
