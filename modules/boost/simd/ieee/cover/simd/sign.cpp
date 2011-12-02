@@ -52,14 +52,13 @@ NT2_TEST_CASE_TPL ( sign_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR; j+=cardinal_of<n_t>::value )
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = sign(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::sign (tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::sign (a0[i])));
         }
       }
     
