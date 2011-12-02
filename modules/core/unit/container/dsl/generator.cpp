@@ -86,8 +86,8 @@ NT2_TEST_CASE( extent_type )
   table<T, _3D> a0;
   table<T, _2D> a1;
   table<T, _3D> a2(of_size(1, 2));
-  table<T, _2D> a3(of_size(1, 2));
-  table<T, of_size_<1, 2> > a4;
+  // table<T, _2D> a3(of_size(1, 2));
+  // table<T, of_size_<1, 2> > a4;
   
   NT2_TEST_EXPR_TYPE( a0
                     , extent_type<_>
@@ -106,12 +106,12 @@ NT2_TEST_CASE( extent_type )
                     , _2D const&
                     );
                     
-  NT2_TEST_EXPR_TYPE( a2 + a3 + a4
-                    , extent_type<_>
-                    , (of_size_<1, 2> const&)
-                    );
+  // NT2_TEST_EXPR_TYPE( a2 + a3 + a4
+  //                   , extent_type<_>
+  //                   , (of_size_<1, 2> const&)
+  //                   );
                    
-//  NT2_TEST_THROW( a0 + a2, nt2::assert_exception );
+  NT2_TEST_THROW( a0 + a2, nt2::assert_exception );
 
   NT2_TEST((a2 + a2).extent() == of_size(1, 2));
                     

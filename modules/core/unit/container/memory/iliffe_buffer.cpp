@@ -293,8 +293,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   iliffe_buffer<2,int,buffer<int>,buffer<byte>,matlab_order_,T,allocator<int> > tab;
 
   boost::array<std::size_t,2> sizes = {{5,2}};
-  //  boost::array<std::size_t,2> bases = {{-2,0}};
-  boost::array<std::size_t,2> bases = {{0,0}};
+  boost::array<std::size_t,2> bases = {{-2,0}};
   boost::array<std::ptrdiff_t,2> pos;
 
   //////////////////////////////////////////////////////////////////////////////
@@ -307,133 +306,98 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   //////////////////////////////////////////////////////////////////////////////
 
   for(pos[1]=0;pos[1]<=1;++pos[1]) {
-    for(pos[0]=0;pos[0]<=4;++pos[0]){
-      std::cout << "pos[0] :" << pos[0] << " pos[1] :" << pos[1] << " value " << int(10*(1+pos[1]) + (1+pos[0])) << std::endl;
+    for(pos[0]=-2;pos[0]<=2;++pos[0]){
       dereference<2UL>(tab,pos) = int(10*(1+pos[1]) + (1+pos[0]));
     }
   }
 
   std::cout << std::endl;
   for(pos[1]=0;pos[1]<=1;++pos[1]) {
-    for(pos[0]=0;pos[0]<=4;++pos[0]){
+    for(pos[0]=-2;pos[0]<=2;++pos[0]){
       NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
     }
   }
 
 
-  // boost::array<std::size_t,2> sizes_1 = {{5,3}};
-  // boost::array<std::size_t,2> bases_1 = {{-3,1}};
+  boost::array<std::size_t,2> sizes_1 = {{5,3}};
+  boost::array<std::size_t,2> bases_1 = {{-3,1}};
 
-  // //////////////////////////////////////////////////////////////////////////////
-  // //  iliffe_buffer supports being resized externally
-  // //////////////////////////////////////////////////////////////////////////////
-  // resize(tab, sizes_1, bases_1, T() );
+  //////////////////////////////////////////////////////////////////////////////
+  //  iliffe_buffer supports being resized externally
+  //////////////////////////////////////////////////////////////////////////////
+  resize(tab, sizes_1, bases_1, T() );
 
-  // //////////////////////////////////////////////////////////////////////////////
-  // // iliffe_buffer supports R/W access through Position
-  // //////////////////////////////////////////////////////////////////////////////
-  // for(pos[1]=1;pos[1]<=3;++pos[1])
-  //   for(pos[0]=-3;pos[0]<=1;++pos[0])
-  //     dereference<2UL>(tab,pos) = int(10*(1+pos[1]) + (1+pos[0]));
+  //////////////////////////////////////////////////////////////////////////////
+  // iliffe_buffer supports R/W access through Position
+  //////////////////////////////////////////////////////////////////////////////
+  for(pos[1]=1;pos[1]<=3;++pos[1])
+    for(pos[0]=-3;pos[0]<=1;++pos[0])
+      dereference<2UL>(tab,pos) = int(10*(1+pos[1]) + (1+pos[0]));
 
-  // for(pos[1]=1;pos[1]<=3;++pos[1])
-  //   for(pos[0]=-3;pos[0]<=1;++pos[0])
-  //   NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
+  for(pos[1]=1;pos[1]<=3;++pos[1])
+    for(pos[0]=-3;pos[0]<=1;++pos[0])
+    NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
 
 
 }
 
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // array type models Buffer Concept
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
-// {
-//   using nt2::memory::allocator;
-//   using nt2::memory::initialize;
-//   using nt2::memory::dereference;
-//   using nt2::memory::iliffe_buffer;
-//   using nt2::memory::buffer;
-//   using nt2::memory::byte;
-//   using nt2::C_order_;
+////////////////////////////////////////////////////////////////////////////////
+// array type models Buffer Concept
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
+{
+  using nt2::memory::allocator;
+  using nt2::memory::initialize;
+  using nt2::memory::dereference;
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using nt2::memory::byte;
+  using nt2::matlab_order_;
 
-//   iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > tab;
+  iliffe_buffer<3,int,buffer<int>,buffer<byte>,matlab_order_,T,allocator<int> > tab;
 
-//   boost::array<std::size_t,3> sizes = {{2,2,2}};
-//   boost::array<std::size_t,3> bases = {{0,0,0}};
-//   boost::array<std::size_t,3> pos;
+  boost::array<std::size_t,3> sizes = {{2,2,2}};
+  boost::array<std::size_t,3> bases = {{0,0,0}};
+  boost::array<std::size_t,3> pos;
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports being initialized externally
-//   //////////////////////////////////////////////////////////////////////////////
-//   initialize(tab, sizes, bases, T() );
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports being initialized externally
+  //////////////////////////////////////////////////////////////////////////////
+  initialize(tab, sizes, bases, T() );
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports R/W access through Position
-//   //////////////////////////////////////////////////////////////////////////////
-//   for(pos[2]=0;pos[2]<2;++pos[2])
-//     for(pos[1]=0;pos[1]<2;++pos[1])
-//       for(pos[0]=0;pos[0]<2;++pos[0])
-//       dereference<3UL>(tab,pos) = int(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports R/W access through Position
+  //////////////////////////////////////////////////////////////////////////////
+  for(pos[2]=0;pos[2]<2;++pos[2])
+    for(pos[1]=0;pos[1]<2;++pos[1])
+      for(pos[0]=0;pos[0]<2;++pos[0])
+      dereference<3UL>(tab,pos) = int(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
 
-//   for(pos[2]=0;pos[2]<2;++pos[2])
-//     for(pos[1]=0;pos[1]<2;++pos[1])
-//       for(pos[0]=0;pos[0]<2;++pos[0])
-//     NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
-
-
-//   boost::array<std::size_t,3> sizes_1 = {{3,3,3}};
-//   boost::array<std::size_t,3> bases_1 = {{0,0,0}};
-
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports being resized externally
-//   //////////////////////////////////////////////////////////////////////////////
-//   resize(tab, sizes_1, bases_1, T() );
+  for(pos[2]=0;pos[2]<2;++pos[2])
+    for(pos[1]=0;pos[1]<2;++pos[1])
+      for(pos[0]=0;pos[0]<2;++pos[0])
+    NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
 
 
-//   for(pos[2]=0;pos[2]<3;++pos[2])
-//     for(pos[1]=0;pos[1]<3;++pos[1])
-//       for(pos[0]=0;pos[0]<3;++pos[0])
-//       dereference<3UL>(tab,pos) = int(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+  boost::array<std::size_t,3> sizes_1 = {{3,3,3}};
+  boost::array<std::size_t,3> bases_1 = {{0,0,0}};
 
-//   for(pos[2]=0;pos[2]<3;++pos[2])
-//     for(pos[1]=0;pos[1]<3;++pos[1])
-//       for(pos[0]=0;pos[0]<3;++pos[0])
-//     NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+  //////////////////////////////////////////////////////////////////////////////
+  // array type supports being resized externally
+  //////////////////////////////////////////////////////////////////////////////
+  resize(tab, sizes_1, bases_1, T() );
 
-// }
 
-// NT2_TEST_CASE( iliffe_buffer_1D_as_buffer_from_data_pointer )
-// {
-//   using nt2::memory::allocator;
-//   using nt2::memory::initialize;
-//   using nt2::memory::dereference;
-//   using nt2::memory::iliffe_buffer;
-//   using nt2::memory::buffer;
-//   using nt2::memory::byte;
-//   using nt2::C_order_;
+  for(pos[2]=0;pos[2]<3;++pos[2])
+    for(pos[1]=0;pos[1]<3;++pos[1])
+      for(pos[0]=0;pos[0]<3;++pos[0])
+      dereference<3UL>(tab,pos) = int(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
 
-//   iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::no_padding,allocator<int> > tab;
+  for(pos[2]=0;pos[2]<3;++pos[2])
+    for(pos[1]=0;pos[1]<3;++pos[1])
+      for(pos[0]=0;pos[0]<3;++pos[0])
+    NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
 
-//   boost::array<std::size_t,1> sizes = {{5}};
-//   boost::array<std::size_t,1> bases = {{1}};
-//   boost::array<std::ptrdiff_t,1> pos;
+}
 
-//   allocator<int> alloc;
-//   int* data = (int*) alloc.allocate(5*sizeof(int));
-
-//   for (int i = 0; i < 5; i++){
-//           data[i] = 10*(i+2);
-//   }
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports being initialized externally
-//   //////////////////////////////////////////////////////////////////////////////
-//   initialize(tab, sizes, bases, nt2::memory::no_padding(), data );
-
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports R/W access through Position
-//   //////////////////////////////////////////////////////////////////////////////
-
-//   for(pos[0]=1;pos[0]<=5;++pos[0])
-//     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
-// }

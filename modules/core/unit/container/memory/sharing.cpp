@@ -33,7 +33,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // iliffe_buffer models Buffer Concept
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_1D_shared_buffer, PADDING )
+NT2_TEST_CASE_TPL( iliffe_buffer_1D_shared_buffer, PADDING)
 {
   using nt2::memory::allocator;
   using nt2::memory::initialize;
@@ -46,187 +46,206 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_shared_buffer, PADDING )
   iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > tab;
 
   boost::array<std::size_t,1> sizes = {{5}};
-  boost::array<std::size_t,1> bases = {{-2}};
+  //  boost::array<std::size_t,1> bases = {{-2}};
+  boost::array<std::size_t,1> bases = {{0}};
   boost::array<std::ptrdiff_t,1> pos;
 
-  int data[5] = {1,2,3,4,5};
+  typedef  buffer<int> buffer_type;
+  buffer_type data(0,5);
+
+
+  for ( buffer_type::index_type i = data.lower(); i <= data.upper(); ++i ){
+    data[i] = buffer_type::value_type(1+i);
+    std::cout << "data[i] = " << data[i] << std::endl;
+  }
+
+  //  int data[5] = {1,2,3,4,5};
 
   //////////////////////////////////////////////////////////////////////////////
   // array type supports being initialized externally
   //////////////////////////////////////////////////////////////////////////////
-  share(tab, sizes, bases, T(), &data[0] );
+  share( tab, sizes, bases,T(), data);
   
   //////////////////////////////////////////////////////////////////////////////
   // array type supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
-   for(pos[0]=-2;pos[0]<=2;++pos[0])
-     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), data[pos[0] + 2] );
+  //   for(pos[0]=-2;pos[0]<=2;++pos[0])
+  for(pos[0]=0;pos[0]<=4;++pos[0]){
+          //    NT2_TEST_EQUAL(dereference<1UL>(tab,pos), data[pos[0] ] );
+    std::cout << "data[i] = " << dereference<1UL>(tab,pos) << std::endl;
+  }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer models Buffer Concept
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_no_padding )
-{
-  using nt2::memory::allocator;
-  using nt2::memory::initialize;
-  using nt2::memory::dereference;
-  using nt2::memory::iliffe_buffer;
-  using nt2::memory::buffer;
-  using nt2::memory::byte;
-  using nt2::C_order_;
+// ////////////////////////////////////////////////////////////////////////////////
+// // iliffe_buffer models Buffer Concept
+// ////////////////////////////////////////////////////////////////////////////////
+// NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_no_padding )
+// {
+//   using nt2::memory::allocator;
+//   using nt2::memory::initialize;
+//   using nt2::memory::dereference;
+//   using nt2::memory::iliffe_buffer;
+//   using nt2::memory::buffer;
+//   using nt2::memory::byte;
+//   using nt2::C_order_;
 
-  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::no_padding,allocator<int> > tab;
+//   iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::no_padding,allocator<int> > tab;
 
-  int data[10] = {1,2,3,4,5,6,7,8,9,10};
+//   typedef  buffer<int> buffer_type;
+//   buffer_type data(0,10);
 
-  boost::array<std::size_t,2> sizes = {{5,2}};
-  boost::array<std::size_t,2> bases = {{-2,0}};
-  boost::array<std::ptrdiff_t,2> pos;
+//   for ( buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+//     data[i] = buffer_type::value_type(1+i);
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Build a iliffe_buffre from shared data
-  //////////////////////////////////////////////////////////////////////////////
-  share(tab, sizes, bases, nt2::memory::no_padding(), &data[0] );
+//   //  int data[10] = {1,2,3,4,5,6,7,8,9,10};
 
-  //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer supports R/W access through Position
-  //////////////////////////////////////////////////////////////////////////////
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=2;++pos[0])
-    {
-      NT2_TEST_EQUAL(dereference<2UL>(tab,pos), data[(2+pos[0]) + pos[1]*5] );
-    }
-}
+//   boost::array<std::size_t,2> sizes = {{5,2}};
+//   boost::array<std::size_t,2> bases = {{-2,0}};
+//   boost::array<std::ptrdiff_t,2> pos;
 
-//////////////////////////////////////////////////////////////////////////////
-//iliffe_buffer models Buffer Concept
-//////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_global_padding )
-{
-  using nt2::memory::allocator;
-  using nt2::memory::initialize;
-  using nt2::memory::dereference;
-  using nt2::memory::iliffe_buffer;
-  using nt2::memory::buffer;
-  using nt2::memory::byte;
-  using nt2::C_order_;
+//   //////////////////////////////////////////////////////////////////////////////
+//   // Build a iliffe_buffre from shared data
+//   //////////////////////////////////////////////////////////////////////////////
+//   share(tab, sizes, bases, nt2::memory::no_padding(), data );
 
-  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::global_padding,allocator<int> > tab;
+//   //////////////////////////////////////////////////////////////////////////////
+//   // iliffe_buffer supports R/W access through Position
+//   //////////////////////////////////////////////////////////////////////////////
+//   for(pos[1]=0;pos[1]<=1;++pos[1])
+//     for(pos[0]=-2;pos[0]<=2;++pos[0])
+//     {
+//       NT2_TEST_EQUAL(dereference<2UL>(tab,pos), data[(2+pos[0]) + pos[1]*5] );
+//     }
+// }
 
-  int data[10] = {1,2,3,4,5,6,7,8,9,10};
+// //////////////////////////////////////////////////////////////////////////////
+// //iliffe_buffer models Buffer Concept
+// //////////////////////////////////////////////////////////////////////////////
+// NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_global_padding )
+// {
+//   using nt2::memory::allocator;
+//   using nt2::memory::initialize;
+//   using nt2::memory::dereference;
+//   using nt2::memory::iliffe_buffer;
+//   using nt2::memory::buffer;
+//   using nt2::memory::byte;
+//   using nt2::C_order_;
 
-  boost::array<std::size_t,2> sizes = {{5,2}};
-  boost::array<std::size_t,2> bases = {{-2,0}};
-  boost::array<std::ptrdiff_t,2> pos;
+//   iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::global_padding,allocator<int> > tab;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Build a iliffe_buffer from shared data
-  //////////////////////////////////////////////////////////////////////////////
-  share(tab, sizes, bases, nt2::memory::global_padding(), &data[0] );
+//   int data[10] = {1,2,3,4,5,6,7,8,9,10};
 
-  //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer supports R/W access through Position
-  //////////////////////////////////////////////////////////////////////////////
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=2;++pos[0])
-    {
-      NT2_TEST_EQUAL(dereference<2UL>(tab,pos), data[(2+pos[0]) + pos[1]*5] );
-    }
-}
+//   boost::array<std::size_t,2> sizes = {{5,2}};
+//   boost::array<std::size_t,2> bases = {{-2,0}};
+//   boost::array<std::ptrdiff_t,2> pos;
 
-////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer models Buffer Concept
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_lead_padding )
-{
-  using nt2::memory::allocator;
-  using nt2::memory::initialize;
-  using nt2::memory::dereference;
-  using nt2::memory::iliffe_buffer;
-  using nt2::memory::buffer;
-  using nt2::memory::byte;
-  using nt2::C_order_;
+//   //////////////////////////////////////////////////////////////////////////////
+//   // Build a iliffe_buffer from shared data
+//   //////////////////////////////////////////////////////////////////////////////
+//   share(tab, sizes, bases, nt2::memory::global_padding(), &data[0] );
 
-  iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::lead_padding,allocator<int> > tab;
+//   //////////////////////////////////////////////////////////////////////////////
+//   // iliffe_buffer supports R/W access through Position
+//   //////////////////////////////////////////////////////////////////////////////
+//   for(pos[1]=0;pos[1]<=1;++pos[1])
+//     for(pos[0]=-2;pos[0]<=2;++pos[0])
+//     {
+//       NT2_TEST_EQUAL(dereference<2UL>(tab,pos), data[(2+pos[0]) + pos[1]*5] );
+//     }
+// }
 
-  int data[2*BOOST_SIMD_CONFIG_ALIGNMENT];
+// ////////////////////////////////////////////////////////////////////////////////
+// // iliffe_buffer models Buffer Concept
+// ////////////////////////////////////////////////////////////////////////////////
+// NT2_TEST_CASE( iliffe_buffer_2D_shared_buffer_lead_padding )
+// {
+//   using nt2::memory::allocator;
+//   using nt2::memory::initialize;
+//   using nt2::memory::dereference;
+//   using nt2::memory::iliffe_buffer;
+//   using nt2::memory::buffer;
+//   using nt2::memory::byte;
+//   using nt2::C_order_;
 
-  for(int i=0;i<2;++i)
-   for(int j=0;j<BOOST_SIMD_CONFIG_ALIGNMENT;++j)
-    data[j + i*BOOST_SIMD_CONFIG_ALIGNMENT] = -1;
+//   iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,nt2::memory::lead_padding,allocator<int> > tab;
 
-  int k = 0;
-  for(int i=0;i<2;++i)
-   for(int j=0;j<5;++j)
-    data[j + i*BOOST_SIMD_CONFIG_ALIGNMENT] = k++;
+//   int data[2*BOOST_SIMD_CONFIG_ALIGNMENT];
 
-  boost::array<std::size_t,2> sizes = {{5,2}};
-  boost::array<std::size_t,2> bases = {{-2,0}};
-  boost::array<std::ptrdiff_t,2> pos;
+//   for(int i=0;i<2;++i)
+//    for(int j=0;j<BOOST_SIMD_CONFIG_ALIGNMENT;++j)
+//     data[j + i*BOOST_SIMD_CONFIG_ALIGNMENT] = -1;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // Build a iliffe_buffer from shared data
-  //////////////////////////////////////////////////////////////////////////////
-  share(tab, sizes, bases, nt2::memory::lead_padding(), &data[0] );
+//   int k = 0;
+//   for(int i=0;i<2;++i)
+//    for(int j=0;j<5;++j)
+//     data[j + i*BOOST_SIMD_CONFIG_ALIGNMENT] = k++;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer supports R/W access through Position
-  //////////////////////////////////////////////////////////////////////////////
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=2;++pos[0])
-    {
-      NT2_TEST_EQUAL( dereference<2UL>(tab,pos)
-                    , data[(2+pos[0]) + pos[1]*BOOST_SIMD_CONFIG_ALIGNMENT] 
-                    );
-    }
+//   boost::array<std::size_t,2> sizes = {{5,2}};
+//   boost::array<std::size_t,2> bases = {{-2,0}};
+//   boost::array<std::ptrdiff_t,2> pos;
 
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=2;++pos[0])
-    {
-      dereference<2UL>(tab,pos) = 999;
-    }
+//   //////////////////////////////////////////////////////////////////////////////
+//   // Build a iliffe_buffer from shared data
+//   //////////////////////////////////////////////////////////////////////////////
+//   share(tab, sizes, bases, nt2::memory::lead_padding(), &data[0] );
+
+//   //////////////////////////////////////////////////////////////////////////////
+//   // iliffe_buffer supports R/W access through Position
+//   //////////////////////////////////////////////////////////////////////////////
+//   for(pos[1]=0;pos[1]<=1;++pos[1])
+//     for(pos[0]=-2;pos[0]<=2;++pos[0])
+//     {
+//       NT2_TEST_EQUAL( dereference<2UL>(tab,pos)
+//                     , data[(2+pos[0]) + pos[1]*BOOST_SIMD_CONFIG_ALIGNMENT] 
+//                     );
+//     }
+
+//   for(pos[1]=0;pos[1]<=1;++pos[1])
+//     for(pos[0]=-2;pos[0]<=2;++pos[0])
+//     {
+//       dereference<2UL>(tab,pos) = 999;
+//     }
       
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=2;++pos[0])
-    {
-      NT2_TEST_EQUAL( dereference<2UL>(tab,pos), 999 );
-    }
-}
+//   for(pos[1]=0;pos[1]<=1;++pos[1])
+//     for(pos[0]=-2;pos[0]<=2;++pos[0])
+//     {
+//       NT2_TEST_EQUAL( dereference<2UL>(tab,pos), 999 );
+//     }
+// }
 
-/*
-////////////////////////////////////////////////////////////////////////////////
-// array type models Buffer Concept
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
-{
-  using nt2::memory::allocator;
-  using nt2::memory::initialize;
-  using nt2::memory::dereference;
-  using nt2::memory::iliffe_buffer;
+// /*
+// ////////////////////////////////////////////////////////////////////////////////
+// // array type models Buffer Concept
+// ////////////////////////////////////////////////////////////////////////////////
+// NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
+// {
+//   using nt2::memory::allocator;
+//   using nt2::memory::initialize;
+//   using nt2::memory::dereference;
+//   using nt2::memory::iliffe_buffer;
 
-  iliffe_buffer<3,int,T,allocator<int> > tab;
+//   iliffe_buffer<3,int,T,allocator<int> > tab;
 
-  boost::array<std::size_t,3> sizes = {{2,2,2}};
-  boost::array<std::size_t,3> bases = {{0,0,0}};
-  boost::array<std::size_t,3> pos;
+//   boost::array<std::size_t,3> sizes = {{2,2,2}};
+//   boost::array<std::size_t,3> bases = {{0,0,0}};
+//   boost::array<std::size_t,3> pos;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // array type supports being initialized externally
-  //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases, T() );
+//   //////////////////////////////////////////////////////////////////////////////
+//   // array type supports being initialized externally
+//   //////////////////////////////////////////////////////////////////////////////
+//   initialize(tab, sizes, bases, T() );
 
-  //////////////////////////////////////////////////////////////////////////////
-  // array type supports R/W access through Position
-  //////////////////////////////////////////////////////////////////////////////
-  for(pos[2]=0;pos[2]<2;++pos[2])
-    for(pos[1]=0;pos[1]<2;++pos[1])
-      for(pos[0]=0;pos[0]<2;++pos[0])
-      dereference<3UL>(tab,pos) = 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]);
+//   //////////////////////////////////////////////////////////////////////////////
+//   // array type supports R/W access through Position
+//   //////////////////////////////////////////////////////////////////////////////
+//   for(pos[2]=0;pos[2]<2;++pos[2])
+//     for(pos[1]=0;pos[1]<2;++pos[1])
+//       for(pos[0]=0;pos[0]<2;++pos[0])
+//       dereference<3UL>(tab,pos) = 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]);
 
-  for(pos[2]=0;pos[2]<2;++pos[2])
-    for(pos[1]=0;pos[1]<2;++pos[1])
-      for(pos[0]=0;pos[0]<2;++pos[0])
-    NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
-}
-*/
+//   for(pos[2]=0;pos[2]<2;++pos[2])
+//     for(pos[1]=0;pos[1]<2;++pos[1])
+//       for(pos[0]=0;pos[0]<2;++pos[0])
+//     NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+// }
+// */

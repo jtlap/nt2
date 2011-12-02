@@ -132,7 +132,7 @@ namespace nt2 { namespace memory
           , typename Sizes, typename Bases
           >
   inline void initialize( iliffe_buffer<D,T,DB,IB,SO,P,A>& v
-                          , Sizes const& s, Bases const& b, P const& p, T* const& d
+                          , Sizes const& s, Bases const& b, P const& p, DB const& d
                         )
   {
      v.initialize(s,b,p,d);
@@ -155,14 +155,14 @@ namespace nt2 { namespace memory
   // iliffe_buffer share - Part of SharingBuffer Concept
   //============================================================================
   template< std::size_t D, typename T, typename DB, typename IB, typename SO, typename P, typename A
-          , typename Sizes, typename Bases, typename Target
+          , typename Sizes, typename Bases
           >
   inline void share( iliffe_buffer<D,T,DB,IB,SO,P,A>& v
                    , Sizes const& s, Bases const& b, P const& p
-                   , Target const& t
+                   , DB const& d
                    )
   {
-    v.initialize(s,b,p,t);
+    v.initialize(s,b,p,d);
   }
 
 } }

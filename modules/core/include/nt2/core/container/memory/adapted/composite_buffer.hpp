@@ -44,6 +44,12 @@ namespace nt2 { namespace meta
         : dimensions_of< B >
   {};
 
+  template<typename B>
+  struct  storage_order_of< memory::composite_buffer<B> >
+        : storage_order_of< B >
+  {};
+
+
   //============================================================================
   // dereference_ specialization
   //============================================================================
@@ -112,7 +118,7 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace nt2 { namespace details
 {
-  template<class Position, std::size_t Level, std::size_t Start>
+  template<class Position, typename SO,std::size_t Level, std::size_t Start>
   struct deref_
   {
     deref_( Position const& p) : pos(p) {}
@@ -136,29 +142,29 @@ namespace nt2 { namespace details
     inline typename result<deref_(Element const&)>::type
     operator()(Element const& t) const
     {      
-      return dereference< Element, Level, Start>::template apply(t,pos);
+            return dereference< Element, SO,Level, Start>::template apply(t,pos);
     };
 
     template<class Element>
     inline typename result<deref_(Element&)>::type
     operator()(Element& t) const
     {
-      return dereference< Element, Level, Start>::template apply(t,pos);
+      return dereference< Element, SO,Level, Start>::template apply(t,pos);
     };
   };
 
   //============================================================================
   // Recursively apply [] on the buffer
   //============================================================================
-  template<typename B, std::size_t Level, std::size_t Start>
-  struct dereference< memory::composite_buffer<B>, Level, Start>
+  template<typename B, typename SO,std::size_t Level, std::size_t Start>
+  struct dereference< memory::composite_buffer<B>, SO,Level, Start>
   {
     template<typename Position>
     static inline typename
     meta::dereference_<memory::composite_buffer<B>&,Level>::type
     apply( memory::composite_buffer<B>& b, Position const& p )
     {
-      typedef deref_<Position,Level,Start> functor_type;
+      typedef deref_<Position,SO,Level,Start> functor_type;
       typedef typename memory::composite_buffer<B>::data_type data_type;
 
       return  boost::fusion::
@@ -172,7 +178,7 @@ namespace nt2 { namespace details
     meta::dereference_<memory::composite_buffer<B> const&,Level>::type
     apply( memory::composite_buffer<B> const& b, Position const& p )
     {
-      typedef deref_<Position,Level,Start> functor_type;
+      typedef deref_<Position,SO,Level,Start> functor_type;
       typedef typename memory::composite_buffer<B>::data_type data_type;
 
       return  boost::fusion::
@@ -182,15 +188,15 @@ namespace nt2 { namespace details
     }
   };
 
-  template<typename B, std::size_t Start>
-  struct dereference< memory::composite_buffer<B>, 1, Start>
+  template<typename B, typename SO, std::size_t Start>
+  struct dereference< memory::composite_buffer<B>, SO,1, Start>
   {
     template<typename Position>
     static inline typename
     meta::dereference_<memory::composite_buffer<B>&,1>::type
     apply( memory::composite_buffer<B>& b, Position const& p )
     {
-      typedef deref_<Position,1,Start> functor_type;
+      typedef deref_<Position,SO,1,Start> functor_type;
       typedef typename memory::composite_buffer<B>::data_type data_type;
 
       return  boost::fusion::
@@ -204,7 +210,7 @@ namespace nt2 { namespace details
     meta::dereference_<memory::composite_buffer<B> const&,1>::type
     apply( memory::composite_buffer<B> const& b, Position const& p )
     {
-      typedef deref_<Position,1,Start> functor_type;
+      typedef deref_<Position,SO,1,Start> functor_type;
       typedef typename memory::composite_buffer<B>::data_type data_type;
 
       return  boost::fusion::

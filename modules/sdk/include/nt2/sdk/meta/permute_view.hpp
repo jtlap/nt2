@@ -34,7 +34,8 @@ namespace nt2
       typedef tag::permute_ fusion_tag;
 
       permute_view(Seq& s) : seq(s) {}
-        Seq& seq;
+      Seq& seq;
+
     };
 
 
@@ -45,6 +46,14 @@ namespace nt2
       permute_view<Seq,Permutation> that(seq);
       return that;
     }
+
+    template <typename Seq, typename Permutation>
+    permute_view<Seq const&,Permutation> permute(Seq const& seq)
+    { 
+      permute_view<Seq const &,Permutation> that(seq);
+      return that;
+    }
+
 
   }
 

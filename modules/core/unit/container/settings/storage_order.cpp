@@ -79,7 +79,7 @@ NT2_TEST_CASE( storage_order_permute_view )
   using boost::fusion::at_c;
 
 
-  typedef boost::array<std::size_t,4> Seq;
+  typedef const boost::array<std::size_t,4> Seq;
   Seq sizes = {{5,2,4,3}};
 
 
