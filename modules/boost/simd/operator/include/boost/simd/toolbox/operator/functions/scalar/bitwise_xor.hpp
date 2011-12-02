@@ -20,8 +20,8 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::mpl::sizeof_<A1>
                                                         >
                                   )
-                                , (scalar_< arithmetic_<A0> >)
-                                  (scalar_< arithmetic_<A1> >)
+                                , (scalar_< fundamental_<A0> >)
+                                  (scalar_< fundamental_<A1> >)
                                 )
   {
     typedef A0 result_type;
