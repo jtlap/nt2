@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOFLOAT_HPP_INCLUDED
-#include <boost/simd/sdk/meta/templatize.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -17,7 +16,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return result_type(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return static_cast<result_type>(a0); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)

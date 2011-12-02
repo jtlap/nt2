@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ONEMINUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ONEMINUS_HPP_INCLUDED
-#include <boost/dispatch/meta/as_signed.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/min.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,9 +21,21 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return static_cast<A0>(One<result_type>()-a0);
+      return One<result_type>()-a0;
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::oneminus_, tag::cpu_,
+                       (A0),
+                       (scalar_<unsigned_<A0> > )
+                       )
+  {
+    typedef A0 result_type; 
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return One<result_type>()-min(a0, One<result_type>());
+    }
+  }; 
 } } }
 
 #endif

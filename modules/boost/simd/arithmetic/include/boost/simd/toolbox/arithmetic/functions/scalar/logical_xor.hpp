@@ -12,32 +12,28 @@
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/bitwise_xor.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
                                  , (A0)(A1)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A1> >)
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type(is_nez(a0)^is_nez(a1));
+      return static_cast<result_type>(b_xor(is_nez(a0), is_nez(a1)));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
                                  , (A0)(A1)
-                            , (scalar_< logical_<A0> >)(scalar_< logical_<A1> >)
+                            , (scalar_< logical_<A0> >)
+                              (scalar_< logical_<A1> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return result_type(a0^a1);
-    }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return static_cast<result_type>(b_xor(a0, a1));}
   };
 } } }
 

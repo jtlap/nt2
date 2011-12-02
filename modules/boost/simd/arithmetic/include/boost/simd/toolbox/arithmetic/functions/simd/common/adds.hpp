@@ -25,9 +25,6 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, tag::cpu_,
@@ -37,16 +34,8 @@ namespace boost { namespace simd { namespace ext
                          )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return boost::simd::add(a0, a1);
-    }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0+a1; }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, tag::cpu_,
                           (A0)(X),
@@ -61,11 +50,6 @@ namespace boost { namespace simd { namespace ext
       return if_else(lt(a0pa1, a0), Valmax<A0>(), a0pa1); 
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, tag::cpu_,
                           (A0)(X),

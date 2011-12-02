@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
-      return A0(saturate<A0>(uptype(a0)*uptype(a1)));
+      return A0(saturate<A0>(static_cast<uptype>(a0)*static_cast<uptype>(a1)));
     }
   };
 
@@ -63,19 +63,12 @@ namespace boost { namespace simd { namespace ext
       {
         A0 z = Valmax<A0>()/a1;
         if (z < a0)
-        {
           return  Valmax<A0>();
-          }
         else
-        {
           return a0*a1; 
-        }
       }
       else
-      {
         return muls(a1, a0); 
-      }
-
     }
   };
 
@@ -87,28 +80,21 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_logical<A0>::type bA0; 
-      if (a1 == 0 || a0 == 0) return Zero<A0>();
-      typedef typename dispatch::meta::as_integer<A0, unsigned>::type untype;
-      A0 sign =  bitofsign(a0)^bitofsign(a1);
+      if (a1 == 0 || a0 == 0) return Zero<result_type>();
+      typedef typename dispatch::meta::as_integer<result_type, unsigned>::type untype;
+      result_type sign =  b_xor(bitofsign(a0), bitofsign(a1));
       untype aa0 = boost::simd::abs(a0);
       untype aa1 = boost::simd::abs(a1);
       if (aa1 >= aa0)
       {
-        untype z = Valmax<A0>()/aa1;
+        untype z = Valmax<result_type>()/aa1;
         if (z < aa0)
-        {
-          return sign ? Valmin<A0>():Valmax<A0>();
-        }
+          return sign ? Valmin<result_type>():Valmax<result_type>();
         else
-        {
           return a0*a1; 
-        }
       }
       else
-      {
         return muls(a1, a0); 
-      }
     }
   };
 } } }

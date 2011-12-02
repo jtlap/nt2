@@ -12,6 +12,7 @@
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/two_split.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,

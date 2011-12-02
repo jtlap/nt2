@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/dist.hpp>
 
+// TO DO proper generator
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 and A1 are not equal types
 // This oddity is due to the fact that many tests up to now
@@ -44,35 +45,35 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return iround(static_cast<double>(a1-a0)*(static_cast<double>(::rand())/RAND_MAX)+
-                static_cast<double>(a0)); //TO DO proper generator
+                static_cast<double>(a0)); 
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::random_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)
-                        (scalar_< unsigned_<A0> >)
+                              (scalar_< unsigned_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return iround(static_cast<double>(dist(a1, a0))*(static_cast<double>(::rand())/RAND_MAX)+
-                static_cast<double>(min(a0, a1))); //TO DO proper generator
+                static_cast<double>(min(a0, a1)));
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::random_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
-                        (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return static_cast<double>(a1-a0)*(static_cast<double>(::rand())/RAND_MAX)+
-      static_cast<double>(a0); //TO DO proper generator
+      static_cast<double>(a0); 
     }
   };
 } } }
