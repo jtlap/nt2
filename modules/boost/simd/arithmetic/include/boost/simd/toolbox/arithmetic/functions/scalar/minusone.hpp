@@ -24,6 +24,7 @@ namespace boost { namespace simd { namespace ext
       return (a0 == Valmin<result_type>()) ? a0 :a0-One<result_type>();
     }
   };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
                        (A0),
                        (scalar_ < floating_<A0> > )
