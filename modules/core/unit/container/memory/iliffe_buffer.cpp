@@ -306,15 +306,19 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
   // iliffe_buffer supports R/W access through Position
   //////////////////////////////////////////////////////////////////////////////
 
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=0;pos[0]<=4;++pos[0])
-    dereference<2UL>(tab,pos) = int(10*(1+pos[1]) + (1+pos[0]));
+  for(pos[1]=0;pos[1]<=1;++pos[1]) {
+    for(pos[0]=0;pos[0]<=4;++pos[0]){
+      std::cout << "pos[0] :" << pos[0] << " pos[1] :" << pos[1] << " value " << int(10*(1+pos[1]) + (1+pos[0])) << std::endl;
+      dereference<2UL>(tab,pos) = int(10*(1+pos[1]) + (1+pos[0]));
+    }
+  }
 
-
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=0;pos[0]<=4;++pos[0])
-    NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
-
+  std::cout << std::endl;
+  for(pos[1]=0;pos[1]<=1;++pos[1]) {
+    for(pos[0]=0;pos[0]<=4;++pos[0]){
+      NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
+    }
+  }
 
 
   // boost::array<std::size_t,2> sizes_1 = {{5,3}};

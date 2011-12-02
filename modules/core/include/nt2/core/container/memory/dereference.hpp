@@ -18,6 +18,7 @@
 #include <nt2/core/settings/details/fusion.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
 #include <nt2/core/container/meta/storage_order_of.hpp>
+#include <iostream>
 
 namespace nt2 { namespace details
 {
@@ -27,6 +28,8 @@ namespace nt2 { namespace details
   template<typename Buffer, std::size_t Level, std::size_t Start>
   struct dereference
   {
+    //typedef typename meta::dimensions_of<Buffer> size;
+
     template<typename Position>
     static BOOST_DISPATCH_FORCE_INLINE
     typename meta::dereference_<Buffer&,Level>::type
@@ -37,9 +40,10 @@ namespace nt2 { namespace details
       typedef typename meta::storage_order_of<Buffer>::type  so;
 
       typedef boost::mpl::int_<Level -1> dim;
-
+      std::cout << "Start " << Start << std::endl;
       typedef typename boost::mpl::apply<so,size,dim >::type new_dim;
-
+      //std::cout <<" S-1-D =" << size::value <<" - " << 1 << " - " << dim::value << std::endl;
+      //      std::cout << "pos[" << dim::value << "]: "<<safe_at_c<new_dim::value>(p) << std::endl;
       return  dereference<base_type,Level-1,Start>
               ::apply ( b[safe_at_c<new_dim::value>(p)]
                       , p
@@ -61,10 +65,10 @@ namespace nt2 { namespace details
       typedef typename meta::storage_order_of<Buffer>::type so;
 
       typedef boost::mpl::int_<Level-1> dim;
-
+      std::cout << "Start " << Start << std::endl;
       typedef typename boost::mpl::apply<so,size,dim >::type new_dim;
-
-
+      //      std::cout <<" S-1-D =" << size::value <<" - " << 1 << " - " << dim::value << std::endl;
+      //      std::cout << "pos[" << dim::value << "]: "<<safe_at_c<new_dim::value>(p) << std::endl;
       return  dereference<base_type,Level -1,Start>
               ::apply ( b[safe_at_c<new_dim::value>(p)]
                       , p
@@ -90,10 +94,12 @@ namespace nt2 { namespace details
       typedef typename meta::storage_order_of<Buffer>::type so;
       typedef boost::mpl::int_<0> dim;
       typedef typename boost::mpl::apply<so,size,dim>::type new_dim;
+      std::cout << "Start " << Start << std::endl;
+      //      std::cout <<" S-1-D =" << size::value <<" - " << 1 << " - " << dim::value << std::endl;
 
+      //      std::cout << " pos[0]: " << safe_at_c<new_dim::value>(p) << " new_dim::value " << new_dim::value <<std::endl << std::endl;
       return b[safe_at_c<new_dim::value>(p)];
-
-            //      return b[safe_at_c<0>(p)];
+      //return b[safe_at_c<0>(p)];
     }
 
     template<typename Position>
@@ -106,10 +112,13 @@ namespace nt2 { namespace details
       typedef typename meta::storage_order_of<Buffer>::type so;
       typedef boost::mpl::int_<0> dim;
       typedef typename boost::mpl::apply<so,size,dim>::type new_dim;
+      std::cout << "Start " << Start << std::endl;
+      //      std::cout <<" S-1-D =" << size::value <<" - " << 1 << " - " << dim::value << std::endl;
+      //      std::cout <<" --> p[0] " << safe_at_c<0>(p) << ", p[1] " << safe_at_c<1>(p) << std::endl;
 
+      //      std::cout << " pos[0]: " << safe_at_c<new_dim::value>(p)  << " new_dim::value " << new_dim::value <<std::endl << std::endl;
       return b[safe_at_c<new_dim::value>(p)];
-
-            //      return b[safe_at_c<0>(p)];
+      //return b[safe_at_c<0>(p)];
     }
   };
 } }

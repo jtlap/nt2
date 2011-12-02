@@ -158,14 +158,14 @@ namespace nt2 { namespace memory
 
       // Computes the number of values to store
       size_type numel_ = slice<1>(meta::permute_view<Sizes const,Storage_order>(szs),p);
-
+      std::cout << "numel_: " << numel_ << std::endl;
       // If non-empty ...
       if(numel_ != 0)
       {
         // Computes the number of bytes for the data and the indexing
         size_type data_size_ = numel_ * sizeof(value_type);
         size_type idx_size_  = index_size(meta::permute_view<Sizes const,Storage_order>(szs),p);
-
+        std::cout << "idx_size_: " << idx_size_/sizeof(void*) << std::endl;
         // Fix numel_ to store the proper number of aligned data
     //        numel_ = idx_size+data_size;
 
@@ -177,7 +177,7 @@ namespace nt2 { namespace memory
 
         // Points to the begining of the data block
         begin_ = reinterpret_cast<value_type*>(data_buffer_.begin());
-        end_   = begin_ + numel_;
+        end_   = begin_ + data_size_;
 
         // Recursively fills out the index
         data_ = link( idx_ptr, begin_ - boost::fusion::at_c<0>(meta::permute_view<Sizes const,Storage_order>(bss))
@@ -218,6 +218,7 @@ namespace nt2 { namespace memory
 
       // Computes the number of values to store
       size_type numel = slice<1>(meta::permute_view<Sizes const,Storage_order>(szs),p);
+
 
       // If non-empty and if we dont try to share empty data
       if(data && numel)
