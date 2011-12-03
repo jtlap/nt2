@@ -164,15 +164,6 @@ namespace boost { namespace simd
 } }
 
 #ifdef __LRB__
-namespace boost { namespace simd { namespace meta
-{
-  template<class T>
-  struct is_vectorizable<logical<T>, boost::simd::tag::lrb_>
-    : boost::mpl::false_
-  {
-  };
-
-} } }
 
 namespace boost { namespace simd
 {
