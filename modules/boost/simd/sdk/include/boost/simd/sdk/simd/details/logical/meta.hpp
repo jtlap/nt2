@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace meta
   template<class T,std::size_t Card>
   struct vector_of<logical<T>,Card> 
   {
-    typedef typename meta::as_logical<typename vector_of<T,Card>::type >::type type;
+    typedef typename boost::simd::meta::as_logical<typename vector_of<T,Card>::type >::type type;
   };
   
   template<class T, class X>
@@ -163,7 +164,16 @@ namespace boost { namespace simd
 } }
 
 #ifdef __LRB__
-zut
+namespace boost { namespace simd { namespace meta
+{
+  template<class T>
+  struct is_vectorizable<logical<T>, boost::simd::tag::lrb_>
+    : boost::mpl::false_
+  {
+  };
+
+} } }
+
 namespace boost { namespace simd
 {
   template<class Scalar> 
@@ -265,7 +275,6 @@ namespace boost { namespace simd
       return value_type(b);
     }    
     
-    native_type data_;
     native_type data_;
     BOOST_DISPATCH_FORCE_INLINE
     value_type* data()

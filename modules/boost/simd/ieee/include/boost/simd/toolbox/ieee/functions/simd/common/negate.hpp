@@ -8,16 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEGATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEGATE_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/sdk/meta/as_logical.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::negate_, tag::cpu_,
@@ -33,11 +31,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::negate_, tag::cpu_,
                          (A0)(X),
                          ((simd_<unsigned_<A0>,X>))
@@ -50,11 +43,6 @@ namespace boost { namespace simd { namespace ext
       return if_else_zero(is_nez(a1), a0);
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::negate_, tag::cpu_,
                          (A0)(X),
