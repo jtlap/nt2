@@ -86,26 +86,29 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::avx_
+ BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::avx_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< logical_<A2>, boost::simd::tag::avx_ > >))
+                              ((target_< simd_< logical_<A2> , boost::simd::tag::avx_ > >))
                             )
   {
     typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    inline result_type operator()(const A0& a0, const A1& a1,
+                                  const A2&)const
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
       , "load has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );
-
-      result_type that = { _mm256_load_si256(reinterpret_cast<__m256i const*>(a0+a1)) };
-      return that;
+      typedef typename result_type::type internal; 
+      internal
+        that = { load<typename result_type::type> (a0, a1) };
+      return bitwise_cast<result_type>(that);
     }
   };
+
 } } }
 
 
