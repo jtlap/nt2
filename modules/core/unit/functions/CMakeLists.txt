@@ -11,6 +11,7 @@ SET( SOURCES
    length.cpp
    ndims.cpp
    numel.cpp
+   sub2ind.cpp
 #  size.cpp
 # List of test files for toolbox core.settings
    )
