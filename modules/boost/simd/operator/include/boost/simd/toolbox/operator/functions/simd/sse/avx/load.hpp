@@ -19,6 +19,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/sdk/details/bitwise_cast.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -103,9 +104,8 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
       typedef typename result_type::type internal; 
-      internal
-        that = { load<typename result_type::type> (a0, a1) };
-      return bitwise_cast<result_type>(that);
+      return bitwise_cast<result_type>(load<typename result_type::type>
+				       (reinterpret_cast<internal const*>(a0), a1));
     }
   };
 

@@ -108,7 +108,7 @@ namespace boost { namespace simd { namespace ext
       );
       typedef typename result_type::type internal; 
       internal
-       that = { load<typename result_type::type> (a0, a1) };
+	that = { load<typename result_type::type> (reinterpret_cast<internal const*>(a0), a1) };
       return bitwise_cast<result_type>(that);
     }
   };
