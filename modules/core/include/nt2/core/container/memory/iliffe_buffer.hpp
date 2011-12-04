@@ -210,7 +210,7 @@ namespace nt2 { namespace memory
 
     {
       // Stores the outer base index required for proper deallocation
-            //      idx_ = boost::fusion::at_c<Dimensions-1>(bss);
+      idx_ = boost::fusion::at_c<Dimensions-1>(bss);
 
       // Computes the number of values to store
       size_type numel = slice<1>(meta::permute_view<Sizes const,StorageOrder>(szs),p);
@@ -220,21 +220,22 @@ namespace nt2 { namespace memory
       if(numel)
       {
         // Setup other pointer and size information
-        numel_ = index_size(meta::permute_view<Sizes const,StorageOrder>(szs),p);
-        begin_ = &data[0];// a changer
+        begin_ = data.begin();
         end_   = begin_ + numel;
 
+        numel_ = index_size(meta::permute_view<Sizes const,StorageOrder>(szs),p);
         index_buffer_.resize(numel_);
         memory::byte* idx_ptr =  reinterpret_cast<memory::byte*>(index_buffer_.begin());
 
         // Recursively fills out the index
-        data_ = link( idx_ptr//alloc_.allocate(numel_)
+        data_ = link( idx_ptr
                     , begin_ - boost::fusion::at_c<0>(meta::permute_view<Sizes const,StorageOrder>(bss))
                     , meta::permute_view<Sizes const,StorageOrder>(szs)
                     , meta::permute_view<Sizes const,StorageOrder>(bss)
                     , p
                     , boost::mpl::int_<Dimensions>()
                     );
+
       }
     }
 
@@ -458,10 +459,9 @@ namespace nt2 { namespace memory
                     )
     {
       size_type numel = slice<1>(meta::permute_view<Sizes const,StorageOrder>(szs),p);
-
       if(numel != 0 )
       {
-        begin_  = &data[0];
+        begin_ = data.begin();
         end_    = begin_ + numel;
         data_   = begin_ - boost::fusion::at_c<0>(meta::permute_view<Sizes const,StorageOrder>(bss));
         sharing_ = true;
