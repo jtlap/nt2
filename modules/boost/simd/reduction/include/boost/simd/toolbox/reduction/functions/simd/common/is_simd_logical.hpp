@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/mone.hpp>
+//#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -26,7 +27,12 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) {
       typedef typename boost::dispatch::meta::as_integer<A0, signed>::type iA0;
-      iA0 tmp = bitwise_cast<iA0>(a0); 
+      iA0 tmp = bitwise_cast<iA0>(a0);
+//       typedef typename meta::as_logical<iA0>::type litype;
+//       litype t1 = is_equal(tmp, Mone<iA0>());
+//       litype t2 = is_equal(tmp, Zero<iA0>());
+//       litype t3 = l_or(t1, t2);
+//       return static_cast<result_type>(all(t3)); 
       return result_type(all(l_or(is_equal(tmp, Mone<iA0>()), is_eqz(tmp))));
     }
   };
