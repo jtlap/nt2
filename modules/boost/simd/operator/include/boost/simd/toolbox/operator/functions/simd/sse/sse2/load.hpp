@@ -106,9 +106,10 @@ namespace boost { namespace simd { namespace ext
       , "load has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );
-      typedef typename result_type::type internal; 
+      typedef typename result_type::type internal;
+      typedef typename internal::const_iterator cti; 
       internal
-	that = { load<typename result_type::type> (reinterpret_cast<internal const*>(a0), a1) };
+        that = { load<typename result_type::type> (reinterpret_cast<cti>(a0), a1) };
       return bitwise_cast<result_type>(that);
     }
   };
