@@ -56,8 +56,8 @@ namespace nt2
     : BOOST_PP_CAT(D, BOOST_PP_DEC(BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n))) != 1  \
     ? BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n)
 
-    // workaround for GCC 4.2
-    #if defined(__GNUC__) && (__GNUC__ < 4 || __GNUC_MINOR__ < 3)
+    // workaround for GCC 4.5
+    #if defined(__GNUC__) && (__GNUC__ < 4 || __GNUC_MINOR__ < 6)
     enum { static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0 };
     #else
     static const std::size_t
