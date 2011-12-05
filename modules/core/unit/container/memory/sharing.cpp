@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_shared_buffer, PADDING)
   using nt2::memory::byte;
   using nt2::C_order_;
 
-  iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,T,allocator<int> > tab;
+  //  iliffe_buffer<1,int,buffer<int>&,buffer<byte>,C_order_,T,allocator<int> > tab;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{-2}};
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_shared_buffer, PADDING)
 
   typedef  buffer<int> buffer_type;
   buffer_type data(-2,5);
-
+  iliffe_buffer<1,int,buffer<int>&,buffer<byte>,C_order_,T,allocator<int> > tab(data);
 
   for ( buffer_type::index_type i = data.lower(); i <= data.upper(); ++i ){
     data[i] = buffer_type::value_type(1+i);

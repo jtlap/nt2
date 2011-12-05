@@ -50,16 +50,48 @@ namespace nt2 { namespace meta
 
 namespace nt2 { namespace memory
 {
+
   //============================================================================
-  // boost::array initialize - Part of Buffer Concept
+  // boost::array resize - Part of Buffer Concept
   //============================================================================
   template< typename T, std::size_t N
           , typename Sizes, typename Bases, typename Padding
           >
-  inline void initialize( boost::array<T,N>&
+  inline void resize( boost::array<T,N>&
                         , Sizes const&, Bases const&, Padding const&
                         )
-  {}
+  {
+    //TODO: embeded std::array in a buffer
+  }
+
+
+  //============================================================================
+  // boost::array rebase - Part of Buffer Concept
+  //============================================================================
+  template< typename T, std::size_t N
+          , typename Sizes, typename Bases, typename Padding
+          >
+  inline void rebase( boost::array<T,N>&
+                        , Sizes const&, Bases const&, Padding const&
+                        )
+  {
+    //TODO: embeded std::array in a buffer
+  }
+
+
+  //============================================================================
+  // boost::array restructure - Part of Buffer Concept
+  //============================================================================
+  template< typename T, std::size_t N
+          , typename Sizes, typename Bases, typename Padding
+          >
+  inline void restructure( boost::array<T,N>&
+                        , Sizes const&, Bases const&, Padding const&
+                        )
+  {
+    //TODO: embeded std::array in a buffer
+  }
+
 } }
 
 #endif

@@ -125,10 +125,12 @@ namespace nt2 { namespace memory
       * Default constructor yields an empty iliffe buffer
      **/
     //==========================================================================
-    iliffe_buffer(Allocator const&  a = Allocator(), 
-          DataBuffer const& db = DataBuffer(), 
-          IndexBuffer const& ib = IndexBuffer(), StorageOrder const& so = StorageOrder() )
-    : data_(0), begin_(0), end_(0), numel_(0), alloc_(a) {}
+    iliffe_buffer(
+          DataBuffer const& db = DataBuffer()
+          //                  IndexBuffer const& ib = IndexBuffer(), StorageOrder const& so = StorageOrder(), Allocator const&  a = Allocator() 
+)
+            : data_(0), begin_(0), end_(0), numel_(0), data_buffer_ (db)
+          {}
 
 
     //==========================================================================
@@ -429,10 +431,11 @@ namespace nt2 { namespace memory
     typedef value_type*                         data_type;
 
 
-    iliffe_buffer(Allocator const&  a = Allocator(), 
-          DataBuffer const& db = DataBuffer(), 
-          IndexBuffer const& ib = IndexBuffer(),  StorageOrder const& so = StorageOrder())
-    : data_(0), begin_(0), end_(0), sharing_(false), alloc_(a), data_buffer_(db), index_buffer_(ib) {}
+    iliffe_buffer(
+          DataBuffer const& db = DataBuffer()
+                  // IndexBuffer const& ib = IndexBuffer(),  StorageOrder const& so = StorageOrder(), Allocator const&  a = Allocator(),
+                  )
+    : data_(0), begin_(0), end_(0), sharing_(false),  data_buffer_(db) {}
 
     template<typename Sizes, typename Bases>
     void initialize ( Sizes const&      szs

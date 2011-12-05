@@ -85,8 +85,23 @@ namespace nt2 { namespace memory
   //============================================================================
   // T* initialize - Part of Buffer Concept
   //============================================================================
+  // template<typename T, typename Sizes, typename Bases, typename Padding>
+  // inline void initialize( T*& , Sizes const&, Bases const&, Padding const& ) {}
   template<typename T, typename Sizes, typename Bases, typename Padding>
-  inline void initialize( T*& , Sizes const&, Bases const&, Padding const& ) {}
+  inline void resize( T*&, Sizes const&, Padding const& ) {}
+
+  template<typename T, typename Sizes, typename Bases, typename Padding>
+  inline void rebase( T*& p, Bases const& b) {
+    //TODO: Check if size of b ==1 
+    return p - boost::fusion::at_c<0>(b);
+  }
+
+  template<typename T, typename Sizes, typename Bases, typename Padding>
+  inline void restructure( T*& p, Sizes const& s, Bases const& b, Padding const& pad) {
+    resize(p,s,pad);
+    rebase(p,b);
+  }
+
 } }
 
 #endif

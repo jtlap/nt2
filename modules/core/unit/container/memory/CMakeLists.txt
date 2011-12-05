@@ -8,15 +8,16 @@
 ##############################################################################
 
 SET( SOURCES
-  array_as_buffer.cpp
-  composite_buffer.cpp
-  dimensions_of.cpp
-  pointer_as_buffer.cpp
-  vector_as_buffer.cpp
-  buffer.cpp
-  iliffe_buffer.cpp
-  sharing.cpp
-# List of scalar test files for toolbox core.memory
+  vector_adaptor.cpp
+#  array_as_buffer.cpp
+#  composite_buffer.cpp
+#  dimensions_of.cpp
+#  pointer_as_buffer.cpp
+#  vector_as_buffer.cpp
+#  buffer.cpp
+#  iliffe_buffer.cpp
+#  sharing.cpp
+## List of scalar test files for toolbox core.memory
    )
 
 nt2_module_add_tests(core.container.memory.unit ${SOURCES})

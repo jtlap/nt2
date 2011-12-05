@@ -15,28 +15,9 @@
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/settings/storage_order.hpp>
+#include <nt2/core/settings/sharing.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
-#include <nt2/core/container/meta/dimensions_of.hpp>
-#include <nt2/core/container/meta/storage_order_of.hpp>
-
-//==============================================================================
-// Fill out the Buffer concepts for std::vector
-//==============================================================================
-namespace nt2 { namespace meta
-{
-  template<typename T, typename A>
-  struct  dimensions_of< std::vector<T,A> >
-        : boost::mpl::size_t<1 + dimensions_of<T>::value>
-  {};
-
-  template<class T, typename A>
-  struct storage_order_of< std::vector<T,A> > 
-  {
-    typedef C_order_  type;
-  };
-
-} }
+#include <nt2/core/container/memory/buffer_adaptor.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -46,6 +27,7 @@ namespace boost { namespace dispatch { namespace meta
   template<typename T, typename A>
   struct value_of< std::vector<T,A> > : value_of<T>
   {};
+
 
   //============================================================================
   // model_of specialization
@@ -68,47 +50,215 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
-namespace nt2 { namespace details
+// namespace nt2 { namespace details
+// {
+//   template<std::size_t Dims> struct build
+//   {
+//     template<typename T, typename A, typename Sizes>
+//     static inline void apply( std::vector<T,A>& v, Sizes const& s)
+//     {
+//       v.resize(boost::fusion::at_c<Dims-1>(s));
+//       inner_apply(v,s,boost::mpl::size_t<Dims>());
+//     }
+
+//     template<typename T, typename A, typename Sizes, typename N> static inline
+//     void inner_apply( std::vector<T,A>& v, Sizes const& s, N)
+//     {
+//       for(std::size_t i=0;i<boost::fusion::at_c<Dims-1>(s);++i)
+//         build<Dims-1>::apply(v[i],s);
+//     }
+
+//     template<typename T, typename A, typename Sizes> static inline
+//     void inner_apply( std::vector<T,A>&, Sizes const&, boost::mpl::size_t<1> const&)
+//     {}
+//   };
+// } }
+
+// namespace nt2 { namespace memory
+// {
+
+//   //============================================================================
+//   // std::vector resize - Part of Buffer Concept
+//   //============================================================================
+
+//   template< typename T, typename A
+//             , typename Sizes, typename Bases, typename Padding
+//             >
+//   inline void resize( std::vector<T,A>& v
+//                       , Sizes const& s
+//                       )
+//   {
+//     v.resize(boost::fusion::at_c<0>(s));
+//   }
+
+
+//   //============================================================================
+//   // std::vector rebase - Part of Buffer Concept
+//   //============================================================================
+
+//     template< typename T, typename A
+//             , typename Sizes, typename Bases, typename Padding
+//             >
+//   inline void rebase( std::vector<T,A>& 
+//                       , Sizes const& , Bases const&, Padding const&
+//                       )
+//   {
+//     //TODO : embedded std::vector into buffer to have mechanism with base and size
+//   }
+
+
+//   //============================================================================
+//   // std::vector restructure - Part of Buffer Concept
+//   //============================================================================
+
+//   template< typename T, typename A
+//             , typename Sizes, typename Bases, typename Padding
+//             >
+//   inline void restructure( std::vector<T,A>& v
+//                            , Sizes const& s, Bases const&, Padding const&
+//                            )
+//   {
+//     //resize
+//     //rebase
+//   }
+
+// } }
+
+namespace nt2 {  namespace memory
 {
-  template<std::size_t Dims> struct build
+
+
+  template<  class Type, class Allocator,
+             class Sizes ,
+             class Bases ,
+             class Padding ,
+          >
+  class buffer_adaptor<std::vector<Type, Allocator>,Sizes, Bases, Padding, owned_>
+    : private std::vector<Type, Allocator>
   {
-    template<typename T, typename A, typename Sizes>
-    static inline void apply( std::vector<T,A>& v, Sizes const& s)
+    public:
+
+    // typedef typename Allocator::template rebind<Type>::other  parent_allocator;
+    typedef std::vector<Type>            parent_data;
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Forwarded types
+    ////////////////////////////////////////////////////////////////////////////
+    typedef typename parent_data::value_type       value_type;
+    typedef typename parent_data::pointer          pointer;
+    typedef typename parent_data::const_pointer    const_pointer;
+    typedef typename parent_data::pointer          iterator;
+    typedef typename parent_data::const_pointer    const_iterator;
+    typedef typename parent_data::reference        reference;
+    typedef typename parent_data::const_reference  const_reference;
+    typedef typename parent_data::size_type        size_type;
+    typedef typename parent_data::difference_type  difference_type;
+    typedef typename parent_data::difference_type  index_type;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Constructor & destructor
+    ////////////////////////////////////////////////////////////////////////////
+
+    buffer_adaptor() {}
+
+    template<class Base, class Size>
+    buffer_adaptor( Base const& b
+                    , Size const& s
+                    )
     {
-      v.resize(boost::fusion::at_c<Dims-1>(s));
-      inner_apply(v,s,boost::mpl::size_t<Dims>());
+      bss_ = b;
+
     }
 
-    template<typename T, typename A, typename Sizes, typename N> static inline
-    void inner_apply( std::vector<T,A>& v, Sizes const& s, N)
+
+    ~buffer_adaptor() {  }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Assignment operator - SG version
+    ////////////////////////////////////////////////////////////////////////////
+    buffer_adaptor& operator=(buffer_adaptor const& src)
     {
-      for(std::size_t i=0;i<boost::fusion::at_c<Dims-1>(s);++i)
-        build<Dims-1>::apply(v[i],s);
+      // we want to have a Strong Garantee and yet be performant
+      // so we check if we need some resizing
+      if(src.size() > this->size())
+      {
+        // If we do, use the SG copy+swap method
+        buffer_adaptor that(src);
+        swap(that);
+      }
+      else
+      {
+        // If not we just need to resize/rebase and copy which is SG here
+        restructure(src.lower(),src.size());
+        std::copy(src.begin(),src.end(),begin());
+      }
+      return *this;
     }
 
-    template<typename T, typename A, typename Sizes> static inline
-    void inner_apply( std::vector<T,A>&, Sizes const&, boost::mpl::size_t<1> const&)
-    {}
+    ////////////////////////////////////////////////////////////////////////////
+    // Iterator related methods
+    ////////////////////////////////////////////////////////////////////////////
+    using parent_data::begin;
+    using parent_data::end;
+    // using parent_data::first;
+    // using parent_data::last;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Forward size related methods
+    ////////////////////////////////////////////////////////////////////////////
+    // using parent_data::lower;
+    // using parent_data::upper;
+    // using parent_data::size;
+
+    ////////////////////////////////////////////////////////////////////////////
+    // RandomAccessContainer Interface
+    ////////////////////////////////////////////////////////////////////////////
+
+    typename parent_data::reference
+    operator[](typename parent_data::difference_type const& i)
+    {
+      return parent_data::begin_[i - boost::fusion::at_c<0>(bss_)];
+    }
+
+    typename parent_data::const_reference
+    operator[](typename parent_data::difference_type const& i) const
+    {
+      return parent_data::begin_[i - boost::fusion::at_c<0>(bss_)];
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Swapping
+    ////////////////////////////////////////////////////////////////////////////
+    void swap( buffer_adaptor& src )
+    {
+    //   parent_data::swap(src);
+    //   boost::swap(allocator(),src.allocator());
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // resize/rebase/restructure buffer
+    ////////////////////////////////////////////////////////////////////////////
+    //    using parent_data::rebase;
+
+    // template<class Size>
+    // void resize(Size s) { parent_data::resize(s); }
+
+    // template<class Base,class Size>
+    // void restructure( Base const& b, Size const& s )
+    // {
+    //   resize(s);
+    //   rebase(b);
+    // }
+
+    protected:
+    ////////////////////////////////////////////////////////////////////////////
+    // Allocator access
+    ////////////////////////////////////////////////////////////////////////////
+    //    using parent_data::allocator;
+    Sizes szs_;
+    Bases bss_;
   };
-} }
-
-namespace nt2 { namespace memory
-{
-  //============================================================================
-  // std::vector initialize - Part of Buffer Concept
-  //============================================================================
-    template< typename T, typename A
-            , typename Sizes, typename Bases, typename Padding
-            >
-  inline void initialize( std::vector<T,A>& v
-                        , Sizes const& s, Bases const&, Padding const&
-                        )
-  {
-    //==========================================================================
-    // Recursively allocate all level of the current std::vector
-    //==========================================================================
-    details::build<meta::dimensions_of<std::vector<T,A> >::value>::apply(v,s);
-  }
-} }
+} } 
 
 #endif

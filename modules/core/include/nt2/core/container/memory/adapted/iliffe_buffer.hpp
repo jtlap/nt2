@@ -159,7 +159,7 @@ namespace nt2 { namespace memory
           >
   inline void share( iliffe_buffer<D,T,DB,IB,SO,P,A>& v
                    , Sizes const& s, Bases const& b, P const& p
-                   , DB const& d
+                   , DB d
                    )
   {
     v.initialize(s,b,p,d);
