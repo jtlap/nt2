@@ -9,11 +9,6 @@
 #define NT2_UNIT_MODULE "nt2::memory dimensions_of"
 
 #include <nt2/core/container/meta/dimensions_of.hpp>
-#include <nt2/core/container/memory/adapted/array.hpp>
-#include <nt2/core/container/memory/adapted/vector.hpp>
-#include <nt2/core/container/memory/iliffe_buffer.hpp>
-#include <nt2/core/container/memory/buffer.hpp>
-#include <nt2/sdk/memory/allocator.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -28,48 +23,4 @@ NT2_TEST_CASE( not_a_buffer )
   NT2_TEST_EQUAL( dimensions_of<int>::value, 0UL );
   NT2_TEST_EQUAL( dimensions_of<long&>::value, 0UL );
   NT2_TEST_EQUAL( dimensions_of<float const&>::value, 0UL );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// array type has some dimensions
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_array_buffer )
-{
-  using nt2::meta::dimensions_of;
-  using boost::array;
-
-  NT2_TEST_EQUAL((dimensions_of< array<int,4> >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< array<array<int,4>,4> >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< array<array<array<int,4>,4>,4> >::value), 3UL);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// vector type has some dimensions
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( std_vector_buffer )
-{
-  using nt2::meta::dimensions_of;
-  using std::vector;
-
-  NT2_TEST_EQUAL((dimensions_of< vector<int> >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< vector<vector<int> > >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< vector<vector<vector<int> > > >::value), 3UL);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer type has some dimensions
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( iliffe_buffer )
-{
-  using nt2::meta::dimensions_of;
-  using nt2::memory::iliffe_buffer;
-  using nt2::memory::no_padding;
-  using nt2::memory::allocator;
-  using nt2::memory::buffer;
-  using nt2::memory::byte;
-  using nt2::C_order_;
-
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,buffer<int>,buffer<byte>,C_order_,no_padding,allocator<int> > >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,buffer<int>,buffer<byte>,C_order_,no_padding,allocator<int> > >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,buffer<int>,buffer<byte>,C_order_,no_padding,allocator<int> > >::value), 3UL );
 }

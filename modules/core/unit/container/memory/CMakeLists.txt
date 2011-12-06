@@ -10,13 +10,9 @@
 SET( SOURCES
   vector_adaptor.cpp
   pointer_adaptor.cpp
-#  array_adaptor.cpp
-  #array_as_buffer.cpp
-  #composite_buffer.cpp
-  #dimensions_of.cpp
-#  buffer.cpp
- # iliffe_buffer.cpp
-#  sharing.cpp
+  dimensions_of.cpp
+  buffer.cpp
+  iliffe_buffer.cpp
 ## List of scalar test files for toolbox core.memory
    )
 
