@@ -25,6 +25,7 @@ SET( SOURCES
     sign_of.cpp
     upgrade.cpp
     iterator.cpp
+    pack.cpp
    )
 
 nt2_module_add_tests(boost.simd.sdk.simd.unit ${SOURCES})

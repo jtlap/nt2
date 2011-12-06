@@ -11,14 +11,11 @@
 #include <boost/simd/sdk/simd/iterator.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/fusion/include/at_c.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <boost/preprocessor/cat.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <vector>
 #include <iostream>
-
-#define MAKE_ARGS(z, n, text) BOOST_PP_CAT(text,(i+n))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test boost::simd::iterator behavior
@@ -31,8 +28,33 @@ NT2_TEST_CASE_TPL(simd_iterator, BOOST_SIMD_SIMD_TYPES )
   static const std::size_t at_ = card - 1;
   BOOST_SIMD_ALIGNED_TYPE(T) data[3*card];
 
+  for(int i=0; i<3*card; ++i) data[i] = i;
+
   it_ begin = boost::simd::begin(&data[0]);
   it_ end   = boost::simd::end(&data[0]+3*card);
+
+  for(int c = 0; begin != end; ++begin, c++)
+  {
+    for(int i=0;i<card;++i)
+     NT2_TEST_EQUAL( (*begin)[i], data[i + c*card]);
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test boost::simd::iterator behavior with std::vector
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(simd_vector_iterator, BOOST_SIMD_SIMD_TYPES )
+{
+  typedef typename boost::simd::iterator<T> it_;
+  typedef typename boost::simd::pack<T> p_t;
+  static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
+  static const std::size_t at_ = card - 1;
+  std::vector<T, boost::simd::memory::allocator<T> > data(3*card);
+
+  for(int i=0; i<3*card; ++i) data[i] = i;
+
+  it_ begin = boost::simd::begin(data.begin());
+  it_ end = boost::simd::end(data.end());
 
   for(int c = 0; begin != end; ++begin, c++)
   {
