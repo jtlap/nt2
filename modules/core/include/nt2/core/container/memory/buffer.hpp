@@ -162,42 +162,24 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // RandomAccessContainer Interface
     ////////////////////////////////////////////////////////////////////////////
-    template<typename Position>
-    typename boost::enable_if < boost::fusion::traits::is_sequence<Position>
-                              , reference
-                              >::type
-    operator[](Position const& p)
-    {
-      BOOST_MPL_ASSERT_MSG( (boost::mpl::size<Position>::value == 1)
-                          , POSITION_SIZE_MISMATCH_IN_BUFFER_ACCESS
-                          , (Position)
-                          );
-                          
-      BOOST_ASSERT_MSG(   (boost::fusion::at_c<0>(p) >= parent_data::lower())
-                      &&  (boost::fusion::at_c<0>(p) <= parent_data::upper())
+    reference operator[](difference_type const& i)
+    {                          
+      BOOST_ASSERT_MSG(   (i >= parent_data::lower())
+                      &&  (i <= parent_data::upper())
                       ,   "Position is out of buffer bounds"
                       );
                       
-      return parent_data::begin_[boost::fusion::at_c<0>(p)];
+      return parent_data::begin_[i];
     }
 
-    template<typename Position>
-    typename boost::enable_if < boost::fusion::traits::is_sequence<Position>
-                              , const_reference
-                              >::type
-    operator[](Position const& p) const
-    {
-      BOOST_MPL_ASSERT_MSG( (boost::mpl::size<Position>::value == 1)
-                          , POSITION_SIZE_MISMATCH_IN_BUFFER_ACCESS
-                          , (Position)
-                          );
-                          
-      BOOST_ASSERT_MSG(   (boost::fusion::at_c<0>(p) >= parent_data::lower())
-                      &&  (boost::fusion::at_c<0>(p) <= parent_data::upper())
+    const_reference operator[](difference_type const& i) const
+    {                          
+      BOOST_ASSERT_MSG(   (i >= parent_data::lower())
+                      &&  (i <= parent_data::upper())
                       ,   "Position is out of buffer bounds"
                       );
                       
-      return parent_data::begin_[boost::fusion::at_c<0>(p)];
+      return parent_data::begin_[i];                      
     }
     
     ////////////////////////////////////////////////////////////////////////////
@@ -212,22 +194,17 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // resize/rebase/restructure buffer
     ////////////////////////////////////////////////////////////////////////////
-    template<class Bases>
-    typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
-    rebase(Bases const& bs)
+    void rebase(difference_type const& bs)
     {
-      parent_data::rebase( boost::fusion::at_c<0>(bs));
+      parent_data::rebase( bs );
     }
 
-    template<class Sizes>
-    typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
-    resize(Sizes const& sz)
+    void resize(size_type const& sz)
     {
-      parent_data::resize( boost::fusion::at_c<0>(sz));
+      parent_data::resize( sz );
     }
 
-    template<class Base,class Size>
-    void restructure( Size const& s, Base const& b )
+    void restructure( size_type const& s, difference_type const& b )
     {
       resize(s);
       rebase(b);

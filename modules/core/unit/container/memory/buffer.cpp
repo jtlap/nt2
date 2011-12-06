@@ -9,7 +9,6 @@
 #define NT2_UNIT_MODULE "nt2::memory::buffer"
 
 #include <nt2/core/container/memory/buffer.hpp>
-//#include <nt2/core/container/memory/dereference.hpp>
 
 /*
 #include <nt2/sdk/memory/slice.hpp>
@@ -50,7 +49,7 @@ NT2_TEST_CASE_TPL(buffer_default_ctor, NT2_TYPES )
   NT2_TEST_EQUAL( b.begin() , b.end() );
 
   boost::array<size_type,1> s = { 10 };
-  b.resize(s);
+  resize(b,s);
   
   NT2_TEST_EQUAL    ( b.size()  , 10      );
   NT2_TEST_NOT_EQUAL( b.begin() , b.end() );
@@ -62,7 +61,8 @@ NT2_TEST_CASE_TPL(buffer_default_ctor, NT2_TYPES )
 NT2_TEST_CASE_TPL(buffer_ctor, NT2_TYPES )
 {
   using nt2::memory::buffer;
-
+  using nt2::memory::dereference;
+  
   typedef          buffer<T>              buffer_type;
   typedef typename buffer_type::size_type size_type;
 
@@ -75,10 +75,10 @@ NT2_TEST_CASE_TPL(buffer_ctor, NT2_TYPES )
   NT2_TEST_NOT_EQUAL( b.begin() , b.end() );
 
   for (typename buffer_type::index_type i = 0; i < 5; ++i )
-    b[boost::fusion::single_view<int>(i)] = typename buffer_type::value_type(1+i);
+    dereference(b,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(1+i);
 
   for ( typename buffer_type::index_type i = 0; i < 5; ++i )
-    NT2_TEST_EQUAL( b[boost::fusion::single_view<int>(i)], 1+i );
+    NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 1+i );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -87,6 +87,7 @@ NT2_TEST_CASE_TPL(buffer_ctor, NT2_TYPES )
 NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
 {
   using nt2::memory::buffer;
+  using nt2::memory::dereference;
 
   typedef          buffer<T>              buffer_type;
   typedef typename buffer_type::size_type size_type;
@@ -97,7 +98,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
   buffer_type b,x(ss,bs);
 
   for( typename buffer_type::index_type i = 0; i < 5; ++i )
-    x[boost::fusion::single_view<int>(i)] = typename buffer_type::value_type(1+i);
+    dereference(x,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(1+i);
 
   b = x;
 
@@ -105,7 +106,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
   NT2_TEST_NOT_EQUAL( b.begin() , b.end() );
 
   for( typename buffer_type::index_type i = 0; i < 5; ++i )
-    NT2_TEST_EQUAL( b[boost::fusion::single_view<int>(i)], 1+i );
+    NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 1+i );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,6 +115,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
 NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 {
   using nt2::memory::buffer;
+  using nt2::memory::dereference;
   
   typedef          buffer<T>              buffer_type;
   typedef typename buffer_type::size_type size_type;
@@ -127,9 +129,9 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
   buffer_type b(sb,bb),x(sx,bx);
 
   for( typename buffer_type::index_type i = 0; i < 5; ++i )
-    x[boost::fusion::single_view<int>(i)] = typename buffer_type::value_type(1+i);
+    dereference(x,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(1+i);
   for( typename buffer_type::index_type i = -1; i < 1; ++i )
-    b[boost::fusion::single_view<int>(i)] = typename buffer_type::value_type(2+i);
+    dereference(b,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(2+i);
 
   swap(b,x);
 
@@ -137,10 +139,10 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL( x.size()      , 3U          );
 
   for( typename buffer_type::index_type i = -1; i < 1; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::single_view<int>(i)], 2+i );
+    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 2+i );
 
   for( typename buffer_type::index_type i = 0; i < 5; ++i )
-    NT2_TEST_EQUAL( b[boost::fusion::single_view<int>(i)], 1+i );
+    NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 1+i );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -166,11 +168,10 @@ NT2_TEST_CASE_TPL( buffer_values, NT2_TYPES)
 
   buffer<T> a0;
   NT2_TEST_EXPR_TYPE(a0, value_of<_>, T );
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// array type has a model
+// 1D buffer type has a model
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( buffer_models, NT2_TYPES )
 {
@@ -181,24 +182,8 @@ NT2_TEST_CASE_TPL( buffer_models, NT2_TYPES )
 
   typedef typename model_of< buffer<T> >::type model1d;
 
-  NT2_TEST((is_same<typename apply<model1d,float>::type, buffer<float> >::value ));
+  NT2_TEST((is_same < typename apply<model1d,float>::type
+                    , buffer<float> >::value
+          ));
 }
-
-/*
-////////////////////////////////////////////////////////////////////////////////
-// buffer has some reference
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( buffer_reference, NT2_TYPES )
-{
-  using boost::is_same;
-  using nt2::meta::dereference_;
-  using nt2::memory::buffer;
-
-  typedef buffer<T> base;
-
-
-  NT2_TEST((is_same< typename dereference_<base&,1>::type, T& >::value) );
-  NT2_TEST((is_same< typename dereference_<base const&,1>::type, T const&  >::value) );
-}
-*/
 

@@ -21,13 +21,95 @@
 #include <nt2/core/container/meta/dimensions_of.hpp>
 #include <nt2/core/container/memory/adapted/pointer.hpp>
 
-//==============================================================================
-// Forward declaration
-//==============================================================================
 namespace nt2 { namespace memory
 {
+  //============================================================================
+  // Forward declaration
+  //============================================================================
   template<typename T, typename A = memory::allocator<T> >
   struct buffer;
+
+  //============================================================================
+  // Buffer are dereferencable
+  //============================================================================
+  template<typename T, typename A, typename Position>
+  typename buffer<T,A>::reference
+  dereference( buffer<T,A>& b, Position const& pos )
+  {
+    BOOST_MPL_ASSERT_MSG( (boost::mpl::size<Position>::value == 1)
+                    , POSITION_SIZE_MISMATCH_IN_BUFFER_ACCESS
+                    , (Position)
+                    );
+    return b[boost::fusion::at_c<0>(pos)];
+  }
+  
+  template<typename T, typename A, typename Position>
+  typename buffer<T,A>::const_reference
+  dereference( buffer<T,A> const& b, Position const& pos )
+  {
+    BOOST_MPL_ASSERT_MSG( (boost::mpl::size<Position>::value == 1)
+                    , POSITION_SIZE_MISMATCH_IN_BUFFER_ACCESS
+                    , (Position)
+                    );
+    return b[boost::fusion::at_c<0>(pos)];
+  }
+
+  //============================================================================
+  // Buffer are rebasable
+  //============================================================================
+  template<typename T, typename A, class Bases>
+  typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
+  rebase(buffer<T,A>& b, Bases const& bs)
+  {
+    BOOST_MPL_ASSERT_MSG
+    ( (boost::mpl::size<Bases>::value == 1)
+    , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
+    , (Bases)
+    );
+
+    b.rebase( boost::fusion::at_c<0>(bs));
+  }
+
+  //============================================================================
+  // Buffer are resizable
+  //============================================================================
+  template<typename T, typename A, class Sizes>
+  typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
+  resize(buffer<T,A>& b, Sizes const& sz)
+  {
+    BOOST_MPL_ASSERT_MSG
+    ( (boost::mpl::size<Sizes>::value == 1)
+    , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
+    , (Sizes)
+    );
+    
+    b.resize( boost::fusion::at_c<0>(sz) );
+  }
+
+  //============================================================================
+  // Buffer are restructurable
+  //============================================================================
+  template<typename T, typename A, class Bases,class Sizes>
+  typename boost::enable_if_c < boost::fusion::traits::is_sequence<Sizes>::value
+                                &&
+                                boost::fusion::traits::is_sequence<Bases>::value
+                              >::type
+  restructure(buffer<T,A>& b, Sizes const& sz, Bases const& bs)
+  {
+    BOOST_MPL_ASSERT_MSG
+    ( (boost::mpl::size<Sizes>::value == 1)
+    , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
+    , (Sizes)
+    );
+
+    BOOST_MPL_ASSERT_MSG
+    ( (boost::mpl::size<Bases>::value == 1)
+    , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
+    , (Bases)
+    );
+
+    b.restructure(boost::fusion::at_c<0>(sz),boost::fusion::at_c<0>(bs));
+  }
 } }
 
 //==============================================================================
@@ -39,48 +121,6 @@ namespace nt2 { namespace meta
   struct  dimensions_of< memory::buffer<T,A> >
         : boost::mpl::size_t<1 + dimensions_of<T>::value>
   {};
-
-  //============================================================================
-  // dereference_ specialization
-  //============================================================================
-  template< typename T,  typename A, std::size_t Level>
-  struct dereference_<memory::buffer<T,A>&,Level>
-  {
-    typedef typename add_pointers<T,1-Level>::type&  type;
-  };
-
-  //============================================================================
-  // dereference_ specialization
-  //============================================================================
-  template<typename T, typename A, std::size_t Level>
-  struct dereference_<memory::buffer<T,A>,Level>
-  {
-    typedef typename add_pointers<T,1-Level>::type  type;
-  };
-
-  template<typename T, typename A, std::size_t Level>
-  struct dereference_<memory::buffer<T,A> const&,Level>
-  {
-    typedef typename add_pointers<T,1-Level>::type const&  type;
-  };
-
-  template<typename T, typename A>
-  struct dereference_<memory::buffer<T,A>&,1>
-  {
-    typedef typename memory::buffer<T,A>::reference type;
-  };
-
-  template<typename T, typename A>
-  struct dereference_<memory::buffer<T,A> const&,1>
-  {
-    typedef typename memory::buffer<T,A>::const_reference type;
-  };
-
-  template<typename T, typename A>
-  struct dereference_<memory::buffer<T,A>,1>
-  {
-    typedef typename memory::buffer<T,A>::value_type type;
-  };
 } }
 
 namespace boost { namespace dispatch { namespace meta
