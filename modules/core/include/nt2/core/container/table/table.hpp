@@ -10,6 +10,7 @@
 #define NT2_CORE_CONTAINER_TABLE_TABLE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/include/functions/construct.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/container/table/table_container.hpp>
@@ -26,8 +27,8 @@ namespace nt2 { namespace container
 
     typedef typename
     boost::dispatch::meta::terminal_of<container_type>::type parent;
-
-    typedef typename parent::extent_type extent_type;
+    typedef typename parent::extent_type                        extent_type;
+    typedef typename parent::index_type                         index_type;
 
     //==========================================================================
     //  table default constructor
@@ -35,60 +36,53 @@ namespace nt2 { namespace container
     table() {}
 
     //==========================================================================
-    //  table constructor from an of_size_ like element
-    //==========================================================================
-    template<class Sz>
-    table ( Sz const& sz
-          , typename boost::
-            disable_if< boost::proto::matches < typename boost::proto::
-                                                result_of::as_expr<Sz>::type
-                                              , grammar
-                                              >
-                      >::type* = 0
-          )
-    {
-      boost::proto::value(*this).resize(extent_type(sz));
-    }
-/*
-    //==========================================================================
-    //  table constructor from an of_size_ like element and a Range
-    //==========================================================================
-    template<class Sz, class Iterator>
-    table ( Sz const& sz, Iterator const& b, Iterator const& e)
-    {
-      boost::proto::value(*this).resize(extent_type(sz));
-
-    }
-*/
-
-    //==========================================================================
-    // table constructor from an expression
-    //==========================================================================
-    template<class Xpr>
-    BOOST_DISPATCH_FORCE_INLINE
-    table ( Xpr const& xpr
-          , typename boost::
-            enable_if < boost::proto::matches < typename boost::proto::
-                                                result_of::as_expr<Xpr>::type
-                                              , grammar
-                                              >
-                      >::type* = 0
-          )
-    {
-      static_cast<parent&>(*this) = xpr;
-    }
-
-    //==========================================================================
     // table copy constructor
     //==========================================================================
-    table( table const& src ) { static_cast<parent&>(*this) = src; }
+    table( table const& src ) { nt2::construct(*this, src); }
 
     //==========================================================================
-    // Enable base expression handlign of assignment
+    // table constructor from a single initializer.
+    // This version handles initializing from of_size or expression.
+    //==========================================================================
+    template<class A0>
+    table( A0 const& a0 )
+    {
+      nt2::construct(*this,a0);
+    }
+
+    //==========================================================================
+    // table constructor from a pair of initializer.
+    //==========================================================================
+    template<class A0, class A1>
+    table( A0 const& a0, A1 const& a1 )
+    {
+      nt2::construct(*this,a0,a1);
+    }
+
+    //==========================================================================
+    // table constructor from a triplet of initializer.
+    // This version handles initializing from : { size, Iterator, Iterator }
+    //==========================================================================
+    template<class A0, class A1, class A2>
+    table( A0 const& a0, A1 const& a1, A2 const& a2 )
+    {
+      nt2::construct(*this,a0,a1,a2);
+    }
+
+    //==========================================================================
+    // Enable base expression handling of assignment
     //==========================================================================
     using parent::operator=;
-  };
 
+    //==========================================================================
+    // Non-content preserving resize.
+    //==========================================================================
+    template<class Size> void resize( Size const& sz )
+    {    
+      boost::proto::value(*this).resize(extent_type(sz));
+    }    
+  };
 } }
 
 #endif
+

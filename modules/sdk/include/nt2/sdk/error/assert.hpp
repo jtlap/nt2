@@ -69,20 +69,18 @@ namespace nt2
   };
 }
 
-#ifndef BOOST_ENABLE_ASSERT_HANDLER
-#define BOOST_ENABLE_ASSERT_HANDLER
 #endif
 
+#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_ENABLE_ASSERT_HANDLER)
+#error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NT2_ASSERTS_AS_EXCEPTIONS
 #endif
 
 //==============================================================================
 // Debug mode has SIGTRAP to the assertion
 //==============================================================================
-#if defined(NT2_DEBUG) && !defined(NT2_ASSERTS_AS_EXCEPTIONS)
+#if defined(NT2_DEBUG) && !defined(NT2_ASSERTS_AS_EXCEPTIONS)                  \
+ && defined(BOOST_ENABLE_ASSERT_HANDLER)
 #include <nt2/sdk/error/trap.hpp>
-#ifndef BOOST_ENABLE_ASSERT_HANDLER
-#define BOOST_ENABLE_ASSERT_HANDLER
-#endif
 #endif
 
 //==============================================================================
@@ -97,8 +95,8 @@ namespace nt2
 
 namespace boost
 {
-  void inline
-  assertion_failed(char const* expr,char const* fn,char const* f,int l)
+  extern inline
+  void assertion_failed(char const* expr, char const* fn, char const* f, long l)
   {
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
     ::boost::exception_detail
@@ -117,8 +115,8 @@ namespace boost
     #endif
   }
 
-  void inline
-  assertion_failed_msg(char const* expr,const char* msg, char const* fn,char const* f,int l)
+  extern inline
+  void assertion_failed_msg(char const* expr, char const* msg, char const* fn, char const* f, long l)
   {
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
     boost::dispatch::ignore_unused(msg); 
@@ -138,10 +136,8 @@ namespace boost
     boost::dispatch::ignore_unused(msg);
 #endif
   }
-
 }
 
-#undef BOOST_ENABLE_ASSERT_HANDLER
 #endif
 
 #endif

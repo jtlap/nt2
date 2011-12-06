@@ -25,7 +25,7 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::One<T>()' : {'result' : 'r_t( 8.825696421567700e-02)','ulp_thresh' : '1.5',},
+                 'nt2::One<T>()' : {'result' : 'r_t( 8.825696421567700e-02)','ulp_thresh' : '2',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Minf<r_t>()','ulp_thresh' : '0',},
                 },
             },

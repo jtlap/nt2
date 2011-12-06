@@ -19,7 +19,7 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/mpl/equal_to.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 #include <cstring>
 
 namespace boost { namespace simd { namespace ext

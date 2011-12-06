@@ -9,15 +9,10 @@
 #ifndef NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED 
 #define NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED 
 
-
-
-namespace nt2{
-
-
+namespace nt2
+{
   struct shared_ {};
-
   struct owned_{};
-
 }
 
 #endif

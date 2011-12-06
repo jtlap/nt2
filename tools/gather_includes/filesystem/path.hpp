@@ -19,7 +19,7 @@ namespace filesystem
         std::string::size_type pos = path.find_last_of( "/\\" );
         if(pos != std::string::npos)
             return path.substr( pos + 1 );
-        return std::string();
+        return path;
     }
     
     inline std::string extension( std::string const & path )

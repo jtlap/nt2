@@ -91,10 +91,11 @@ namespace nt2 { namespace container
                     );
     }
 
-    extent_type const& extent() const { return size_;   }
-
-    block_type&         data()        { return block_;  }    
-    block_type const&   data()  const { return block_;  }
+    index_type          bases()   const { return index_type();  }
+    extent_type const&  extent()  const { return size_;         }
+    
+    block_type&         data()          { return block_;  }    
+    block_type const&   data()  const   { return block_;  }
 
     protected:
     //==========================================================================

@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
