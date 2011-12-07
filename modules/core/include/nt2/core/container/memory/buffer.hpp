@@ -109,11 +109,45 @@ namespace nt2 {  namespace memory
                             );
     }
 
+    //==========================================================================
+    /**!
+     *
+     *
+     **/
+    //==========================================================================
+    template<typename Sizes, typename Bases>
+    buffer( buffer const& src
+          , Sizes           const& sz
+          , Bases           const& bs
+          , allocator_type  const& alloc = allocator_type()
+          , typename  boost::enable_if<
+                      boost::fusion::traits::is_sequence<Sizes>
+                      >::type* = 0
+          , typename  boost::enable_if<
+                      boost::fusion::traits::is_sequence<Bases>
+                      >::type* = 0
+          )
+    : parent_data(alloc)          
+    {
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Sizes>::value == 1)
+      , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
+      , (Sizes)
+      );
+
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Bases>::value == 1)
+      , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
+      , (Bases)
+      );
+
+      this->copy(src, boost::fusion::at_c<0>(bs), boost::fusion::at_c<0>(sz));
+    }
+
     buffer( buffer const& src )
           : parent_data(src.allocator())
     {
-      parent_data::allocate( src.lower(), src.size() );
-      std::copy(src.begin(),src.end(),begin());
+      this->copy( src, src.size(),src.lower());
     }
 
     //==========================================================================
@@ -141,9 +175,7 @@ namespace nt2 {  namespace memory
       }
       else
       {
-        // Just restructuree and copy
-        parent_data::restructure(src.size(),src.lower());
-        std::copy(src.begin(),src.end(),begin());
+        this->copy( src, src.size(),src.lower());
       }
       return *this;
     }
@@ -216,6 +248,12 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     using parent_data::allocator;
     using parent_data::lower;
+
+    void copy( buffer const& src, size_type const& s, difference_type const& b )
+    {
+      this->restructure( s, b );
+      std::copy(src.begin(),src.end(),begin());
+    }
   };
 
   //============================================================================

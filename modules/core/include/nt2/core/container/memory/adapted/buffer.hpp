@@ -11,15 +11,9 @@
 
 #include <boost/mpl/size_t.hpp>
 #include <boost/fusion/include/size.hpp>
-#include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/sdk/meta/add_pointers.hpp>
-#include <nt2/core/container/meta/dereference.hpp>
-#include <nt2/core/container/memory/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
-#include <nt2/core/container/memory/adapted/pointer.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -112,11 +106,11 @@ namespace nt2 { namespace memory
   }
 } }
 
-//==============================================================================
-// Fill out the Buffer concepts
-//==============================================================================
 namespace nt2 { namespace meta
 {
+  //==============================================================================
+  // buffer dimension is 1 + the dimension of the contents
+  //==============================================================================
   template<typename T, typename A>
   struct  dimensions_of< memory::buffer<T,A> >
         : boost::mpl::size_t<1 + dimensions_of<T>::value>
