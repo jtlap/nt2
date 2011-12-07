@@ -195,10 +195,13 @@ namespace nt2 {  namespace memory
     // RandomAccessContainer Interface
     ////////////////////////////////////////////////////////////////////////////
     reference operator[](difference_type const& i)
-    {                          
-      BOOST_ASSERT_MSG(   (i >= parent_data::lower())
-                      &&  (i <= parent_data::upper())
-                      ,   "Position is out of buffer bounds"
+    {
+      BOOST_ASSERT_MSG( (i >= parent_data::lower())
+                      , "Position is below buffer bounds"
+                      );
+                      
+      BOOST_ASSERT_MSG( (i <= parent_data::upper())
+                      , "Position is out of buffer bounds"
                       );
                       
       return parent_data::begin_[i];
@@ -206,9 +209,12 @@ namespace nt2 {  namespace memory
 
     const_reference operator[](difference_type const& i) const
     {                          
-      BOOST_ASSERT_MSG(   (i >= parent_data::lower())
-                      &&  (i <= parent_data::upper())
-                      ,   "Position is out of buffer bounds"
+      BOOST_ASSERT_MSG( (i >= parent_data::lower())
+                      , "Position is below buffer bounds"
+                      );
+                      
+      BOOST_ASSERT_MSG( (i <= parent_data::upper())
+                      , "Position is out of buffer bounds"
                       );
                       
       return parent_data::begin_[i];                      
