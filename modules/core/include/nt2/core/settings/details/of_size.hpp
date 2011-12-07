@@ -15,7 +15,7 @@
 #include <boost/mpl/at.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
@@ -56,31 +56,30 @@ namespace nt2
     : BOOST_PP_CAT(D, BOOST_PP_DEC(BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n))) != 1  \
     ? BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n)
 
-    // workaround for GCC 4.2
-    #if defined(__GNUC__) && (__GNUC__ < 4 || __GNUC_MINOR__ < 3)
-    enum { static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0 };
-    #else
-    static const std::size_t
-    static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0;
-    #endif
+    // this is an 'enum' to workaround some compiler bugs
+    enum {
+      static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0
+    };
     #undef M0
 
     //==========================================================================
     // Check if size is entirely known at compile-time
     //==========================================================================
     #define M0(z,n,t) && (BOOST_PP_CAT(D,n) >= 0)
-    static const bool
-    static_status = (D0 >= 0)
-                    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
+    enum {
+      static_status = (D0 >= 0)
+                      BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~)
+    };
     #undef M0
 
     //==========================================================================
     // Compute its potential compile-time numel
     //==========================================================================
     #define M0(z,n,t) * (BOOST_PP_CAT(D,n) >= 0 ? BOOST_PP_CAT(D,n) : 1)
-    static const std::size_t
-    static_numel = (D0 >= 0 ? D0 : 1)
-                    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
+    enum {
+      static_numel = (D0 >= 0 ? D0 : 1)
+                      BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~)
+    };
     #undef M0
 
     //==========================================================================
@@ -184,7 +183,8 @@ namespace nt2
 
     static std::size_t size() { return static_size; }
 
-    boost::array<std::size_t,static_size> const& data() const { return data_; }
+    std::size_t* data()             { return &data_[0]; }
+    std::size_t const* data() const { return &data_[0]; }
 
     private:
     template<std::size_t N> inline void default_(boost::mpl::size_t<N> const&)
@@ -221,6 +221,9 @@ namespace nt2
     static std::size_t size() { return 0; }
     const_reference    operator[](std::size_t i) const { return 1; }
 
+    std::size_t* data()             { return 0; }
+    std::size_t const* data() const { return 0; }
+
     iterator        begin()       { return iterator(0);       }
     const_iterator  begin() const { return const_iterator(0); }
     iterator        end()         { return iterator(0);       }
@@ -249,6 +252,7 @@ namespace nt2
   /**/
   BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
   #undef M0
+  typedef of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, -1 BOOST_PP_INTERCEPT)> of_size_max;
 
   //============================================================================
   // Equality comparison for of_size_
@@ -280,7 +284,7 @@ namespace nt2
   //============================================================================
   // Inequality comparison for of_size_
   //============================================================================
-    template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
           , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
   bool operator!=( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
                  , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1

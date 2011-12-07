@@ -14,7 +14,7 @@
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
