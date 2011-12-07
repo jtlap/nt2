@@ -232,20 +232,52 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // resize/rebase/restructure buffer
     ////////////////////////////////////////////////////////////////////////////
-    void rebase(difference_type const& bs)
+    template<class Bases>
+    typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
+    rebase(Bases const& bs)
     {
-      parent_data::rebase( bs );
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Bases>::value == 1)
+      , BASE_MISMATCH_IN_BUFFER_REBASE
+      , (Bases)
+      );
+
+      parent_data::rebase( boost::fusion::at_c<0>(bs) );
     }
 
-    void resize(size_type const& sz)
+    template<class Sizes>
+    typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
+    resize(Sizes const& sz)
     {
-      parent_data::resize( sz );
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Sizes>::value == 1)
+      , SIZE_MISMATCH_IN_BUFFER_RESIZE
+      , (Sizes)
+      );
+      
+      parent_data::resize( boost::fusion::at_c<0>(sz) );
     }
 
-    void restructure( size_type const& s, difference_type const& b )
+    template<class Bases,class Sizes>
+    typename boost::enable_if_c < boost::fusion::traits::is_sequence<Sizes>::value
+                                  &&
+                                  boost::fusion::traits::is_sequence<Bases>::value
+                                >::type
+    restructure(Sizes const& sz, Bases const& bs)
     {
-      resize(s);
-      rebase(b);
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Bases>::value == 1)
+      , BASE_MISMATCH_IN_BUFFER_RESTRUCTURE
+      , (Bases)
+      );
+
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Sizes>::value == 1)
+      , SIZE_MISMATCH_IN_BUFFER_RESTRUCTURE
+      , (Sizes)
+      );
+
+      parent_data::restructure(sz,bs);
     }
 
     protected:
@@ -257,7 +289,7 @@ namespace nt2 {  namespace memory
 
     void copy( buffer const& src, size_type const& s, difference_type const& b )
     {
-      this->restructure( s, b );
+      parent_data::restructure(s,b);
       std::copy(src.begin(),src.end(),begin());
     }
   };

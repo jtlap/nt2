@@ -47,63 +47,6 @@ namespace nt2 { namespace memory
                     );
     return b[boost::fusion::at_c<0>(pos)];
   }
-
-  //============================================================================
-  // Buffer are rebasable
-  //============================================================================
-  template<typename T, typename A, class Bases>
-  typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
-  rebase(buffer<T,A>& b, Bases const& bs)
-  {
-    BOOST_MPL_ASSERT_MSG
-    ( (boost::mpl::size<Bases>::value == 1)
-    , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-    , (Bases)
-    );
-
-    b.rebase( boost::fusion::at_c<0>(bs));
-  }
-
-  //============================================================================
-  // Buffer are resizable
-  //============================================================================
-  template<typename T, typename A, class Sizes>
-  typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
-  resize(buffer<T,A>& b, Sizes const& sz)
-  {
-    BOOST_MPL_ASSERT_MSG
-    ( (boost::mpl::size<Sizes>::value == 1)
-    , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-    , (Sizes)
-    );
-    
-    b.resize( boost::fusion::at_c<0>(sz) );
-  }
-
-  //============================================================================
-  // Buffer are restructurable
-  //============================================================================
-  template<typename T, typename A, class Bases,class Sizes>
-  typename boost::enable_if_c < boost::fusion::traits::is_sequence<Sizes>::value
-                                &&
-                                boost::fusion::traits::is_sequence<Bases>::value
-                              >::type
-  restructure(buffer<T,A>& b, Sizes const& sz, Bases const& bs)
-  {
-    BOOST_MPL_ASSERT_MSG
-    ( (boost::mpl::size<Sizes>::value == 1)
-    , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-    , (Sizes)
-    );
-
-    BOOST_MPL_ASSERT_MSG
-    ( (boost::mpl::size<Bases>::value == 1)
-    , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-    , (Bases)
-    );
-
-    b.restructure(boost::fusion::at_c<0>(sz),boost::fusion::at_c<0>(bs));
-  }
 } }
 
 namespace nt2 { namespace meta

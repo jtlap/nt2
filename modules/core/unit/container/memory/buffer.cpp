@@ -10,16 +10,6 @@
 
 #include <nt2/core/container/memory/buffer.hpp>
 
-/*
-#include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/allocator.hpp>
-#include <nt2/sdk/memory/no_padding.hpp>
-#include <nt2/sdk/memory/lead_padding.hpp>
-#include <nt2/sdk/memory/global_padding.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-*/
-
 #include <boost/array.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/fusion/include/single_view.hpp>
@@ -49,7 +39,7 @@ NT2_TEST_CASE_TPL(buffer_default_ctor, NT2_TYPES )
   NT2_TEST_EQUAL( b.begin() , b.end() );
 
   boost::array<size_type,1> s = { 10 };
-  resize(b,s);
+  b.resize(s);
   
   NT2_TEST_EQUAL    ( b.size()  , 10      );
   NT2_TEST_NOT_EQUAL( b.begin() , b.end() );
