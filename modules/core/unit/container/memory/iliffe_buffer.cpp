@@ -120,7 +120,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, NT2_TYPES )
   // iliffe_buffer type supports being resized externally
   //////////////////////////////////////////////////////////////////////////////
   boost::array<std::size_t,1> bases_2 = {{0}};
-  rebase(tab, bases_2 );
+  tab.rebase( bases_2 );
 
   for(pos[0]=0;pos[0]<=4;++pos[0])
     dereference(tab,pos) = T(2*(1+pos[0]));
