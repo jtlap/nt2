@@ -92,7 +92,7 @@ namespace nt2 {  namespace memory
                     , Size const& s
                     ) : parent_data(boost::fusion::at_c<0>(s))
     {
-      bss_ = b;
+      rebase(b);
     }
 
 
@@ -143,14 +143,14 @@ namespace nt2 {  namespace memory
     typename parent_data::reference
     operator[](Position const& i)
     {
-      return parent_data::operator[](i - boost::fusion::at_c<0>(bss_));
+      return parent_data::operator[](i - bss_);
     }
 
     template <typename Position>
     typename parent_data::const_reference
     operator[](Position const& i) const
     {
-      return parent_data::operator[](i - boost::fusion::at_c<0>(bss_));
+      return parent_data::operator[](i - bss_);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -173,7 +173,7 @@ namespace nt2 {  namespace memory
     }
 
     template<class Base>
-    void rebase(Base b) { bss_ = b; }
+    void rebase(Base b) { bss_ = boost::fusion::at_c<0>(b); }
 
     template<class Base,class Size>
     void restructure( Base const& b, Size const& s )
@@ -187,7 +187,7 @@ namespace nt2 {  namespace memory
     // Allocator access
     ////////////////////////////////////////////////////////////////////////////
     //    using parent_data::allocator;
-    Bases bss_;
+    typename parent_data::difference_type bss_;
  
   };
 } } 
