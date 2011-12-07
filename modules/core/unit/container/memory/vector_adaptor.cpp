@@ -97,8 +97,6 @@ NT2_TEST_CASE_TPL( std_vector_bracket, NT2_TYPES)
 {
   using std::vector;
   using boost::is_same;
-
-
   using nt2::memory::buffer_adaptor;
   using nt2::memory::no_padding;
   using nt2::owned_;
@@ -130,8 +128,6 @@ NT2_TEST_CASE_TPL( std_vector_restructure, NT2_TYPES)
 {
   using std::vector;
   using boost::is_same;
-
-
   using nt2::memory::buffer_adaptor;
   using nt2::memory::no_padding;
   using nt2::owned_;

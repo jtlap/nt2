@@ -29,20 +29,18 @@ namespace nt2 {  namespace memory
   // ADL swap
   //////////////////////////////////////////////////////////////////////////////
 
-  template<  class Type, class Allocator,
-             class Sizes ,
-             class Bases ,
-             class Padding ,
-             class Shared
-          >
-
-
-  void swap( buffer_adaptor<std::vector<Type, Allocator>,Sizes, Bases, Padding, Shared >& a
-           , buffer_adaptor<std::vector<Type, Allocator>,Sizes, Bases, Padding, Shared >& b 
-           )
-  {
-    a.swap(b);
-  }
+  // template<  class Type, class Allocator,
+  //            class Sizes ,
+  //            class Bases ,
+  //            class Padding ,
+  //            class Shared
+  //         >
+  // void swap( buffer_adaptor<std::vector<Type, Allocator>,Sizes, Bases, Padding, Shared >& a
+  //          , buffer_adaptor<std::vector<Type, Allocator>,Sizes, Bases, Padding, Shared >& b 
+  //          )
+  // {
+  //   a.swap(b);
+  // }
 } } 
 
 #endif

@@ -116,53 +116,6 @@ namespace nt2 { namespace details
   };
 } }
 
-namespace nt2 { namespace memory
-{
 
-  //============================================================================
-  // std::vector resize - Part of Buffer Concept
-  //============================================================================
-
-  template< typename Type, typename Allocator
-            , typename Sizes, typename Bases, typename Padding, typename Shared
-            >
-  inline void resize( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b
-                      , Sizes const& s
-                      )
-  {
-    b.resize(boost::fusion::at_c<0>(s));
-  }
-
-
-  //============================================================================
-  // std::vector rebase - Part of Buffer Concept
-  //============================================================================
-
-    template< typename Type, typename Allocator
-              , typename Sizes, typename Bases, typename Padding, typename Shared
-            >
-  inline void rebase( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b 
-                      , Bases const& bs
-                      )
-  {
-    b.rebase(bs);
-  }
-
-
-  //============================================================================
-  // std::vector restructure - Part of Buffer Concept
-  //============================================================================
-
-  template< typename Type, typename Allocator
-            , typename Sizes, typename Bases, typename Padding, typename Shared
-            >
-  inline void restructure( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b
-                           , Sizes const& sz, Bases const& bs
-                           )
-  {
-    b.restructure(bs,sz);
-  }
-
-} }
 
 #endif
