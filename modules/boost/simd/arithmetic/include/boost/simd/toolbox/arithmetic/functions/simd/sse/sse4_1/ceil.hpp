@@ -16,8 +16,8 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, boost::simd::tag::sse4_1_
-                            , (A0)(X)
-                            , ((simd_<double_<A0>,X>))
+                            , (A0)
+                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
@@ -29,8 +29,8 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ceil_, boost::simd::tag::sse4_1_
-                            , (A0)(X)
-                            , ((simd_<single_<A0>,X>))
+                            , (A0)
+                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;

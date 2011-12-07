@@ -19,13 +19,13 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::if_zero_else_, boost::simd::tag::sse2_
-                                    , (A0)(A1)(X)
+                                    , (A0)(A1)
                                          , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ((simd_<logical_<A0>,X>))
-                                  ((simd_<arithmetic_<A1>,X>))
+                                , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+                                  ((simd_<arithmetic_<A1>,boost::simd::tag::sse_>))
                                 )
   {
     typedef A1 result_type;

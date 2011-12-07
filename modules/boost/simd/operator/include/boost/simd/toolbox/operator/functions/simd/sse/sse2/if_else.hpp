@@ -14,10 +14,10 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse2_, (A0)(A1)(X)
-                            , ((simd_< logical_<A0>, X >))
-                              ((simd_< arithmetic_<A1>, X >))
-                              ((simd_< arithmetic_<A1>, X >))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse2_, (A0)(A1)
+                            , ((simd_< logical_<A0>, boost::simd::tag::sse_ >))
+                              ((simd_< arithmetic_<A1>, boost::simd::tag::sse_ >))
+                              ((simd_< arithmetic_<A1>, boost::simd::tag::sse_ >))
                             )
   {
     typedef A1 result_type;
@@ -26,10 +26,10 @@ namespace boost { namespace simd { namespace ext
       return bitwise_select(bitwise_cast<A1>(a0), a1, a2);
     }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse2_, (A0)(A1)(X)
-                            , ((simd_< arithmetic_<A0>, X >))
-                              ((simd_< arithmetic_<A1>, X >))
-                              ((simd_< arithmetic_<A1>, X >))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse2_, (A0)(A1)
+                            , ((simd_< arithmetic_<A0>, boost::simd::tag::sse_ >))
+                              ((simd_< arithmetic_<A1>, boost::simd::tag::sse_ >))
+                              ((simd_< arithmetic_<A1>, boost::simd::tag::sse_ >))
                             )
   {
     typedef A1 result_type;

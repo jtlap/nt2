@@ -65,7 +65,6 @@ namespace boost { namespace simd { namespace ext
        isvtype a01 = { _mm256_extractf128_si256(simd::bitwise_cast<itype>(a0), 1)};
        itype that = { _mm256_insertf128_si256(that,genmask(a00), 0)};
        return  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, genmask(a01), 1));
-      //      return if_else(is_nez(a0), Allbits<A0> (), Zero<A0>());
     }
   };
 
@@ -86,7 +85,6 @@ namespace boost { namespace simd { namespace ext
        isvtype a01 = { _mm256_extractf128_si256(simd::bitwise_cast<itype>(a0), 1)};
        itype that = { _mm256_insertf128_si256(that,genmask(a00), 0)};
        return  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, genmask(a01), 1));
-      //      return if_else(is_nez(a0), Allbits<A0> (), Zero<A0>());
     }
   }; 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::avx_
@@ -106,7 +104,6 @@ namespace boost { namespace simd { namespace ext
        isvtype a01 = { _mm256_extractf128_si256(simd::bitwise_cast<itype>(a0), 1)};
        itype that = { _mm256_insertf128_si256(that,genmask(a00), 0)};
        return  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, genmask(a01), 1));
-      //      return if_else(is_nez(a0), Allbits<A0> (), Zero<A0>());
     }
   }; 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::avx_
@@ -126,45 +123,9 @@ namespace boost { namespace simd { namespace ext
        isvtype a01 = { _mm256_extractf128_si256(simd::bitwise_cast<itype>(a0), 1)};
        itype that = { _mm256_insertf128_si256(that,genmask(a00), 0)};
        return  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, genmask(a01), 1));
-      //      return if_else(is_nez(a0), Allbits<A0> (), Zero<A0>());
     }
   };  
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::avx_
-//                             , (A0)(X)
-//                             , ((simd_<logical_<A0>,X>))
-//                             )
-//   {
-//     typedef typename A0::type result_type;
-//     BOOST_SIMD_FUNCTOR_CALL(1)
-//     {
-//       return if_else(a0, Allbits<result_type>(), Zero<result_type>());
-//     }
-//   };
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::avx_
-//                             , (A0)
-//                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-//                             )
-//   {
-//     typedef typename meta::as_logical<A0>::type result_type;
-//     BOOST_SIMD_FUNCTOR_CALL(1)
-//     {
-//       result_type that = { _mm_cmp_pd(a0,Zero<A0>(), _CMP_NEQ_UQ) };
-//       return that;
-//     }
-//   };
 
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::avx_
-//                             , (A0)
-//                             , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-//                             )
-//   {
-//     typedef typename meta::as_logical<A0>::type result_type;
-//     BOOST_SIMD_FUNCTOR_CALL(1)
-//     {
-//       result_type that = { _mm_cmp_ps(a0,Zero<A0>(), _CMP_NEQ_UQ) };
-//       return that;
-//     }
-//   };
 } } }
 
 #endif

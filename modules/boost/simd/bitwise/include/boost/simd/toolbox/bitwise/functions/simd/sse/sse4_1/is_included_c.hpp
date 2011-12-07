@@ -15,9 +15,9 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_c_, boost::simd::tag::sse4_1_
-                            , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A0>,X>))
+                            , (A0)
+                            , ((simd_<arithmetic_<A0>, boost::simd::tag::sse_>))
+                              ((simd_<arithmetic_<A0>, boost::simd::tag::sse_>))
                             )
   {
     typedef typename meta::scalar_of<A0>::type sA0; 
@@ -29,9 +29,9 @@ namespace boost { namespace simd { namespace ext
   };
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_c_, boost::simd::tag::sse4_1_
-                            , (A0)(X)
-                            , ((simd_<floating_<A0>,X>))
-                              ((simd_<floating_<A0>,X>))
+                            , (A0)
+                            , ((simd_<floating_<A0>, boost::simd::tag::sse_>))
+                              ((simd_<floating_<A0>, boost::simd::tag::sse_>))
                             )
   {
     typedef typename meta::scalar_of<A0>::type sA0; 
