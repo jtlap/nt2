@@ -65,8 +65,7 @@ namespace boost { namespace dispatch { namespace meta
              class Shared
           >
   struct model_of< nt2::memory::buffer_adaptor<Type, Sizes, Bases, Padding, Shared> >
-  {
-  };
+  {};
 
 
   template<  class Type, class Allocator,
@@ -124,14 +123,14 @@ namespace nt2 { namespace memory
   // std::vector resize - Part of Buffer Concept
   //============================================================================
 
-  template< typename T, typename A
-            , typename Sizes, typename Bases, typename Padding
+  template< typename Type, typename Allocator
+            , typename Sizes, typename Bases, typename Padding, typename Shared
             >
-  inline void resize( std::vector<T,A>& v
+  inline void resize( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b
                       , Sizes const& s
                       )
   {
-    v.resize(boost::fusion::at_c<0>(s));
+    b.resize(boost::fusion::at_c<0>(s));
   }
 
 
@@ -139,14 +138,14 @@ namespace nt2 { namespace memory
   // std::vector rebase - Part of Buffer Concept
   //============================================================================
 
-    template< typename T, typename A
-            , typename Sizes, typename Bases, typename Padding
+    template< typename Type, typename Allocator
+              , typename Sizes, typename Bases, typename Padding, typename Shared
             >
-  inline void rebase( std::vector<T,A>& 
-                      , Sizes const& , Bases const&, Padding const&
+  inline void rebase( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b 
+                      , Bases const& bs
                       )
   {
-    //TODO : embedded std::vector into buffer to have mechanism with base and size
+    b.rebase(bs);
   }
 
 
@@ -154,15 +153,14 @@ namespace nt2 { namespace memory
   // std::vector restructure - Part of Buffer Concept
   //============================================================================
 
-  template< typename T, typename A
-            , typename Sizes, typename Bases, typename Padding
+  template< typename Type, typename Allocator
+            , typename Sizes, typename Bases, typename Padding, typename Shared
             >
-  inline void restructure( std::vector<T,A>& v
-                           , Sizes const& s, Bases const&, Padding const&
+  inline void restructure( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b
+                           , Sizes const& sz, Bases const& bs
                            )
   {
-    //resize
-    //rebase
+    b.restructure(bs,sz);
   }
 
 } }

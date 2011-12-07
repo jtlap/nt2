@@ -34,9 +34,9 @@ NT2_TEST_CASE_TPL( std_vector_adaptor_dimensions, NT2_TYPES)
   using nt2::memory::no_padding;
   using nt2::owned_;
 
-  typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_1D ;
+  typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type ;
 
-  NT2_TEST_EQUAL((dimensions_of<type_1D >::value), 1UL );
+  NT2_TEST_EQUAL((dimensions_of<type>::value), 1UL );
 }
 
 
@@ -54,9 +54,9 @@ NT2_TEST_CASE_TPL( std_vector_values, NT2_TYPES)
   using boost::mpl::_;
 
 
-  typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_1D ;
+  typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type ;
 
-  type_1D t1;
+  type t1;
   
   NT2_TEST_EXPR_TYPE(t1, value_of<_>, T );
 
@@ -78,150 +78,97 @@ NT2_TEST_CASE_TPL( std_vector_model, NT2_TYPES)
   using boost::mpl::_;
 
 
-  // typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_1D ;
-  // typedef buffer_adaptor<type_1D,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_2D ;
-  // typedef buffer_adaptor<type_2D,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_3D ;
+  // typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type ;
 
-  // typedef model_of< type_1D >::type model1d;
-  // typedef model_of< type_2D >::type model2d;
-  // typedef model_of< type_3D >::type model3d;
+  // typedef model_of<type>::type model;
 
-  // typedef buffer_adaptor<std::vector<float>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_1D_f ;
-  // typedef buffer_adaptor<type_1D_f,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_2D_f ;
-  // typedef buffer_adaptor<type_2D_f,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_3D_f ;
+  // typedef buffer_adaptor<std::vector<float>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_f ;
 
 
-  // NT2_TEST((is_same<apply<model1d,float>::type, type_1D_f >::value ));
-  // NT2_TEST((is_same<apply<model2d,float>::type, type_2D_f >::value ));
-  // NT2_TEST((is_same<apply<model3d,float>::type, type_3D_f >::value ));
+  // NT2_TEST((is_same<apply<model,float>::type, type_f >::value ));
 
 
-  // NT2_TEST((is_same<apply<model1d,float>::type, vector<float> >::value ));
-  // NT2_TEST((is_same<apply<model2d,float>::type, vector<vector<float> > >::value ));
-  // NT2_TEST((is_same<apply<model3d,float>::type, vector<vector<vector<float> > > >::value ));
 }
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // vector type has some reference
-// ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( std_vector_reference, NT2_TYPES)
+////////////////////////////////////////////////////////////////////////////////
+// vector type has some reference
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( std_vector_bracket, NT2_TYPES)
 {
   using std::vector;
   using boost::is_same;
-  using nt2::meta::dereference_;
 
 
   using nt2::memory::buffer_adaptor;
   using nt2::memory::no_padding;
   using nt2::owned_;
 
-  typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_1D ;
-  typedef buffer_adaptor<type_1D,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_2D ;
-  typedef buffer_adaptor<type_2D,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_3D ;
+  boost::array<std::size_t,1> sizes = {{5}};
+  boost::array<std::size_t,1> bases = {{-2}};
+  boost::array<std::ptrdiff_t,1> pos;
+
+  typedef buffer_adaptor<std::vector<T>, boost::array<std::size_t,1>, boost::array<std::size_t,1>, no_padding, owned_ > type ;
+
+  type t1(bases,sizes);
 
 
+  for(pos[0]=-2;pos[0]<=2;++pos[0]){
+    t1[pos[0]]= T(10*(2+pos[0]));
+  }
 
-  // NT2_TEST((is_same< dereference_<type_3D&,1>::type, type_2D& >::value) );
-  // NT2_TEST((is_same< dereference_<type_3D&,2>::type, type_1D& >::value) );
-  // NT2_TEST((is_same< dereference_<type_3D&,3>::type, T& >::value) );
+  for(pos[0]=-2;pos[0]<=2;++pos[0]){
+    NT2_TEST_EQUAL(t1[pos[0]], 10*(2+pos[0]) );
+  }
 
-  // NT2_TEST((is_same< dereference_<type_3D const&,1>::type, type_2D const& >::value) );
-  // NT2_TEST((is_same< dereference_<type_3D const&,2>::type, type_1D const& >::value) );
-  // NT2_TEST((is_same< dereference_<type_3D const&,3>::type, T const& >::value) );
 }
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // array type models Buffer Concept
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE( std_vector_1D_as_buffer )
-// {
-//   using std::vector;
-//   using nt2::memory::initialize;
-//   using nt2::memory::dereference;
 
-//   vector<double> tab;
+////////////////////////////////////////////////////////////////////////////////
+// vector type is restructurable
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( std_vector_restructure, NT2_TYPES)
+{
+  using std::vector;
+  using boost::is_same;
 
-//   boost::array<std::size_t,1> sizes = {{5}};
-//   boost::array<std::size_t,1> bases = {{-2}};
-//   boost::array<std::size_t,1> pos;
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports being initialized externally
-//   //////////////////////////////////////////////////////////////////////////////
-//   initialize(tab, sizes, bases, nt2::memory::no_padding() );
+  using nt2::memory::buffer_adaptor;
+  using nt2::memory::no_padding;
+  using nt2::owned_;
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports R/W access through Position
-//   //////////////////////////////////////////////////////////////////////////////
-//   for(pos[0]=0;pos[0]<5;++pos[0])
-//     dereference<1UL>(tab,pos) = double(10*(1+pos[0]));
+  boost::array<std::size_t,1> sizes = {{5}};
+  boost::array<std::size_t,1> bases = {{-2}};
+  boost::array<std::ptrdiff_t,1> pos;
 
-//   for(pos[0]=0;pos[0]<5;++pos[0])
-//     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
-// }
+  typedef buffer_adaptor<std::vector<T>, boost::array<std::size_t,1>, boost::array<std::size_t,1>, no_padding, owned_ > type ;
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // array type models Buffer Concept
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE( std_vector_2D_as_buffer )
-// {
-//   using std::vector;
-//   using nt2::memory::initialize;
-//   using nt2::memory::dereference;
+  type t1(bases,sizes);
 
-//   vector< vector<double> > tab;
 
-//   boost::array<std::size_t,2> sizes = {{5,2}};
-//   boost::array<std::size_t,2> bases = {{-2,0}};
-//   boost::array<std::size_t,2> pos;
+  for(pos[0]=-2;pos[0]<=2;++pos[0]){
+    t1[pos[0]]= T(10*(2+pos[0]));
+  }
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports being initialized externally
-//   //////////////////////////////////////////////////////////////////////////////
-//   initialize(tab, sizes, bases, nt2::memory::no_padding() );
+  for(pos[0]=-2;pos[0]<=2;++pos[0]){
+    NT2_TEST_EQUAL(t1[pos[0]], 10*(2+pos[0]) );
+  }
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports R/W access through Position
-//   //////////////////////////////////////////////////////////////////////////////
-//   for(pos[1]=0;pos[1]<2;++pos[1])
-//     for(pos[0]=0;pos[0]<5;++pos[0])
-//       dereference<2UL>(tab,pos) = double(10*(1+pos[1]) + (1+pos[0]));
 
-//   for(pos[1]=0;pos[1]<2;++pos[1])
-//     for(pos[0]=0;pos[0]<5;++pos[0])
-//     NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
-// }
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // array type models Buffer Concept
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE( std_vector_3D_as_buffer )
-// {
-//   using std::vector;
-//   using nt2::memory::initialize;
-//   using nt2::memory::dereference;
+  boost::array<std::size_t,1> sizes_ = {{10}};
+  boost::array<std::size_t,1> bases_ = {{-5}};
 
-//   vector< vector< vector<double> > > tab;
 
-//   boost::array<std::size_t,3> sizes = {{2,2,3}};
-//   boost::array<std::size_t,3> bases = {{0,0,0}};
-//   boost::array<std::size_t,3> pos;
+  restructure(t1,sizes_, bases_);
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports being initialized externally
-//   //////////////////////////////////////////////////////////////////////////////
-//   initialize(tab, sizes, bases, nt2::memory::no_padding() );
 
-//   //////////////////////////////////////////////////////////////////////////////
-//   // array type supports R/W access through Position
-//   //////////////////////////////////////////////////////////////////////////////
-//   for(pos[2]=0;pos[2]<3;++pos[2])
-//     for(pos[1]=0;pos[1]<2;++pos[1])
-//       for(pos[0]=0;pos[0]<2;++pos[0])
-//       dereference<3UL>(tab,pos) = double(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+  for(pos[0]=-5;pos[0]<=4;++pos[0]){
+    t1[pos[0]]= T(10*(5+pos[0]));
+  }
 
-//   for(pos[2]=0;pos[2]<3;++pos[2])
-//     for(pos[1]=0;pos[1]<2;++pos[1])
-//       for(pos[0]=0;pos[0]<2;++pos[0])
-//     NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
-// }
+  for(pos[0]=-5;pos[0]<=4;++pos[0]){
+    NT2_TEST_EQUAL(t1[pos[0]], 10*(5+pos[0]) );
+  }
+
+
+}

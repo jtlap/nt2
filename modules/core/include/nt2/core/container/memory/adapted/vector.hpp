@@ -50,80 +50,6 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
-// namespace nt2 { namespace details
-// {
-//   template<std::size_t Dims> struct build
-//   {
-//     template<typename T, typename A, typename Sizes>
-//     static inline void apply( std::vector<T,A>& v, Sizes const& s)
-//     {
-//       v.resize(boost::fusion::at_c<Dims-1>(s));
-//       inner_apply(v,s,boost::mpl::size_t<Dims>());
-//     }
-
-//     template<typename T, typename A, typename Sizes, typename N> static inline
-//     void inner_apply( std::vector<T,A>& v, Sizes const& s, N)
-//     {
-//       for(std::size_t i=0;i<boost::fusion::at_c<Dims-1>(s);++i)
-//         build<Dims-1>::apply(v[i],s);
-//     }
-
-//     template<typename T, typename A, typename Sizes> static inline
-//     void inner_apply( std::vector<T,A>&, Sizes const&, boost::mpl::size_t<1> const&)
-//     {}
-//   };
-// } }
-
-// namespace nt2 { namespace memory
-// {
-
-//   //============================================================================
-//   // std::vector resize - Part of Buffer Concept
-//   //============================================================================
-
-//   template< typename T, typename A
-//             , typename Sizes, typename Bases, typename Padding
-//             >
-//   inline void resize( std::vector<T,A>& v
-//                       , Sizes const& s
-//                       )
-//   {
-//     v.resize(boost::fusion::at_c<0>(s));
-//   }
-
-
-//   //============================================================================
-//   // std::vector rebase - Part of Buffer Concept
-//   //============================================================================
-
-//     template< typename T, typename A
-//             , typename Sizes, typename Bases, typename Padding
-//             >
-//   inline void rebase( std::vector<T,A>& 
-//                       , Sizes const& , Bases const&, Padding const&
-//                       )
-//   {
-//     //TODO : embedded std::vector into buffer to have mechanism with base and size
-//   }
-
-
-//   //============================================================================
-//   // std::vector restructure - Part of Buffer Concept
-//   //============================================================================
-
-//   template< typename T, typename A
-//             , typename Sizes, typename Bases, typename Padding
-//             >
-//   inline void restructure( std::vector<T,A>& v
-//                            , Sizes const& s, Bases const&, Padding const&
-//                            )
-//   {
-//     //resize
-//     //rebase
-//   }
-
-// } }
-
 namespace nt2 {  namespace memory
 {
 
@@ -131,14 +57,13 @@ namespace nt2 {  namespace memory
   template<  class Type, class Allocator,
              class Sizes ,
              class Bases ,
-             class Padding ,
+             class Padding 
           >
   class buffer_adaptor<std::vector<Type, Allocator>,Sizes, Bases, Padding, owned_>
     : private std::vector<Type, Allocator>
   {
     public:
 
-    // typedef typename Allocator::template rebind<Type>::other  parent_allocator;
     typedef std::vector<Type>            parent_data;
 
 
@@ -165,10 +90,9 @@ namespace nt2 {  namespace memory
     template<class Base, class Size>
     buffer_adaptor( Base const& b
                     , Size const& s
-                    )
+                    ) : parent_data(boost::fusion::at_c<0>(s))
     {
       bss_ = b;
-
     }
 
 
@@ -215,16 +139,18 @@ namespace nt2 {  namespace memory
     // RandomAccessContainer Interface
     ////////////////////////////////////////////////////////////////////////////
 
+    template <typename Position>
     typename parent_data::reference
-    operator[](typename parent_data::difference_type const& i)
+    operator[](Position const& i)
     {
-      return parent_data::begin_[i - boost::fusion::at_c<0>(bss_)];
+      return parent_data::operator[](i - boost::fusion::at_c<0>(bss_));
     }
 
+    template <typename Position>
     typename parent_data::const_reference
-    operator[](typename parent_data::difference_type const& i) const
+    operator[](Position const& i) const
     {
-      return parent_data::begin_[i - boost::fusion::at_c<0>(bss_)];
+      return parent_data::operator[](i - boost::fusion::at_c<0>(bss_));
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -241,23 +167,28 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     //    using parent_data::rebase;
 
-    // template<class Size>
-    // void resize(Size s) { parent_data::resize(s); }
+    template<class Size>
+    void resize(Size s) { 
+      parent_data::resize(boost::fusion::at_c<0>(s)); 
+    }
 
-    // template<class Base,class Size>
-    // void restructure( Base const& b, Size const& s )
-    // {
-    //   resize(s);
-    //   rebase(b);
-    // }
+    template<class Base>
+    void rebase(Base b) { bss_ = b; }
+
+    template<class Base,class Size>
+    void restructure( Base const& b, Size const& s )
+    {
+      resize(s);
+      rebase(b);
+    }
 
     protected:
     ////////////////////////////////////////////////////////////////////////////
     // Allocator access
     ////////////////////////////////////////////////////////////////////////////
     //    using parent_data::allocator;
-    Sizes szs_;
     Bases bss_;
+ 
   };
 } } 
 

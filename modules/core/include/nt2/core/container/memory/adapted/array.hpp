@@ -14,84 +14,100 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/array.hpp>
+#include <nt2/core/settings/sharing.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
-#include <nt2/core/container/meta/dimensions_of.hpp>
-#include <nt2/core/container/meta/storage_order_of.hpp>
+
+
+
+
+
+namespace boost { namespace dispatch { namespace meta
+{
+  //============================================================================
+  // value_of specialization
+  //============================================================================
+  // template<typename T, std::size_t N>
+  // struct value_of< boost::array<T,N> > : value_of<T>
+  // {};
+
+
+  //============================================================================
+  // model_of specialization
+  //============================================================================
+  // template<typename T, typename A>
+  // struct model_of< std::vector<T,A> >
+  // {
+  //   struct type
+  //   {
+  //     template<class X> struct apply
+  //     {
+  //       // This recursive build is required to properly handle vector of vector
+  //       // cases and other similar recursive structure
+  //       typedef typename  boost::mpl::
+  //                         apply<typename model_of<T>::type,X>::type base;
+  //       typedef typename A::template rebind<base>::other            alloc;
+  //       typedef std::vector<base,alloc>                             type;
+  //     };
+  //   };
+  // };
+} } }
 
 //==============================================================================
 // Forward declaration
 //==============================================================================
-namespace boost { template<class T, std::size_t N> class array; }
-
-//==============================================================================
-// Fill out the Buffer concepts for boost::array
-//==============================================================================
-namespace nt2 { namespace meta
-{
-  //============================================================================
-  // dimensions_of specialization
-  //============================================================================
-  template<typename T, std::size_t N>
-  struct  dimensions_of< boost::array<T,N> >
-        : boost::mpl::size_t<1 + dimensions_of<T>::value>
-  {};
-
-  template<class T, std::size_t N>
-  struct storage_order_of< boost::array<T,N> > 
-  {
-    typedef C_order_  type;
-  };
+//namespace boost { template<class T, std::size_t N> class array; }
 
 
-} }
 
-namespace nt2 { namespace memory
-{
+// namespace nt2 { namespace memory
+// {
 
-  //============================================================================
-  // boost::array resize - Part of Buffer Concept
-  //============================================================================
-  template< typename T, std::size_t N
-          , typename Sizes, typename Bases, typename Padding
-          >
-  inline void resize( boost::array<T,N>&
-                        , Sizes const&, Bases const&, Padding const&
-                        )
-  {
-    //TODO: embeded std::array in a buffer
-  }
-
-
-  //============================================================================
-  // boost::array rebase - Part of Buffer Concept
-  //============================================================================
-  template< typename T, std::size_t N
-          , typename Sizes, typename Bases, typename Padding
-          >
-  inline void rebase( boost::array<T,N>&
-                        , Sizes const&, Bases const&, Padding const&
-                        )
-  {
-    //TODO: embeded std::array in a buffer
-  }
+//   //============================================================================
+//   // boost::array resize - Part of Buffer Concept
+//   //============================================================================
+//   template< typename T, std::size_t N
+//           , typename Sizes, typename Bases, typename Padding
+//           >
+//   inline void resize( boost::array<T,N>&
+//                         , Sizes const&, Bases const&, Padding const&
+//                         )
+//   {
+//     //TODO: embeded std::array in a buffer
+//   }
 
 
-  //============================================================================
-  // boost::array restructure - Part of Buffer Concept
-  //============================================================================
-  template< typename T, std::size_t N
-          , typename Sizes, typename Bases, typename Padding
-          >
-  inline void restructure( boost::array<T,N>&
-                        , Sizes const&, Bases const&, Padding const&
-                        )
-  {
-    //TODO: embeded std::array in a buffer
-  }
+//   //============================================================================
+//   // boost::array rebase - Part of Buffer Concept
+//   //============================================================================
+//   template< typename T, std::size_t N
+//           , typename Sizes, typename Bases, typename Padding
+//           >
+//   inline void rebase( boost::array<T,N>&
+//                         , Sizes const&, Bases const&, Padding const&
+//                         )
+//   {
+//     //TODO: embeded std::array in a buffer
+//   }
 
-} }
+
+//   //============================================================================
+//   // boost::array restructure - Part of Buffer Concept
+//   //============================================================================
+//   template< typename T, std::size_t N
+//           , typename Sizes, typename Bases, typename Padding
+//           >
+//   inline void restructure( boost::array<T,N>&
+//                         , Sizes const&, Bases const&, Padding const&
+//                         )
+//   {
+//     //TODO: embeded std::array in a buffer
+//   }
+
+// } }
+
+
+
 
 #endif
