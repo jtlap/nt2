@@ -17,12 +17,7 @@
 namespace nt2 {  namespace memory
 {
 
-  template<  class Type,
-             class Sizes ,
-             class Bases ,
-             class Padding ,
-             class Shared
-          >
+  template< class Type >
   class buffer_adaptor;
 
   //////////////////////////////////////////////////////////////////////////////

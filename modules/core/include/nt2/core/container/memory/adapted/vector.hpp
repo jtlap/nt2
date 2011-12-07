@@ -29,6 +29,26 @@ namespace boost { namespace dispatch { namespace meta
   {};
 
 
+  template<  class Type, class Allocator >
+  struct model_of< nt2::memory::buffer_adaptor<std::vector<Type, Allocator> > >
+  {
+    struct type
+    {
+      template<class X> struct apply
+      {
+        // This recursive build is required to properly handle vector of vector
+        // cases and other similar recursive structure
+        typedef typename  boost::mpl::
+                          apply<typename model_of<Type>::type,X>::type base;
+        typedef typename Allocator::template rebind<base>::other       alloc;
+        typedef nt2::memory::buffer_adaptor<std::vector<base,alloc> >  type;
+      };
+    };
+  };
+
+
+
+
   //============================================================================
   // model_of specialization
   //============================================================================
@@ -58,27 +78,24 @@ namespace nt2 {  namespace memory
   // std::vector resize - Part of Buffer Concept
   //============================================================================
 
-  template< typename Type, typename Allocator
-            , typename Sizes, typename Bases, typename Padding, typename Shared
+  template<   typename Type, typename Allocator
+            , typename Sizes
             >
-  inline void resize( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b
+  inline void resize( nt2::memory::buffer_adaptor<std::vector<Type, Allocator> >& b
                       , Sizes const& s
                       )
   {
     b.resize(boost::fusion::at_c<0>(s));
   }
 
-
-
-
   //============================================================================
   // std::vector rebase - Part of Buffer Concept
   //============================================================================
 
-  template< typename Type, typename Allocator
-            , typename Sizes, typename Bases, typename Padding, typename Shared
+  template<   typename Type, typename Allocator
+            , typename Bases
             >
-  inline void rebase( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b 
+  inline void rebase( nt2::memory::buffer_adaptor<std::vector<Type, Allocator> >& b 
                       , Bases const& bs
                       )
   {
@@ -90,10 +107,10 @@ namespace nt2 {  namespace memory
   // std::vector restructure - Part of Buffer Concept
   //============================================================================
 
-  template< typename Type, typename Allocator
-            , typename Sizes, typename Bases, typename Padding, typename Shared
+  template<   typename Type, typename Allocator
+            , typename Sizes, typename Bases
             >
-  inline void restructure( nt2::memory::buffer_adaptor<std::vector<Type, Allocator>, Sizes, Bases, Padding, Shared>& b
+  inline void restructure( nt2::memory::buffer_adaptor<std::vector<Type, Allocator> >& b
                            , Sizes const& sz, Bases const& bs
                            )
   {
@@ -104,17 +121,14 @@ namespace nt2 {  namespace memory
 
 
 
-  template<  class Type, class Allocator,
-             class Sizes ,
-             class Bases ,
-             class Padding 
+  template<  class Type, class Allocator
           >
-  class buffer_adaptor<std::vector<Type, Allocator>,Sizes, Bases, Padding, owned_>
+  class buffer_adaptor<std::vector<Type, Allocator> >
     : private std::vector<Type, Allocator>
   {
     public:
 
-    typedef std::vector<Type>            parent_data;
+    typedef std::vector<Type,Allocator>            parent_data;
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -135,7 +149,8 @@ namespace nt2 {  namespace memory
     // Constructor & destructor
     ////////////////////////////////////////////////////////////////////////////
 
-    buffer_adaptor() {}
+
+    buffer_adaptor( Allocator const& a = Allocator() ) : parent_data(a) {}
 
     template<class Base, class Size>
     buffer_adaptor( Base const& b
@@ -175,30 +190,24 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     using parent_data::begin;
     using parent_data::end;
-    // using parent_data::first;
-    // using parent_data::last;
 
     ////////////////////////////////////////////////////////////////////////////
     // Forward size related methods
     ////////////////////////////////////////////////////////////////////////////
-    // using parent_data::lower;
-    // using parent_data::upper;
-    // using parent_data::size;
+    using parent_data::size;
 
     ////////////////////////////////////////////////////////////////////////////
     // RandomAccessContainer Interface
     ////////////////////////////////////////////////////////////////////////////
 
-    template <typename Position>
-    typename parent_data::reference
-    operator[](Position const& i)
+    reference
+    operator[](difference_type const& i)
     {
       return parent_data::operator[](i - bss_);
     }
 
-    template <typename Position>
-    typename parent_data::const_reference
-    operator[](Position const& i) const
+    const_reference
+    operator[](difference_type const& i) const
     {
       return parent_data::operator[](i - bss_);
     }

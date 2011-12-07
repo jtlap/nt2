@@ -59,23 +59,28 @@ NT2_TEST_CASE_TPL( pointer_values, NT2_TYPES )
 
 }
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // pointer type has a model
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE( pointer_model )
-// {
-//   using boost::mpl::apply;
-//   using boost::is_same;
-//   using boost::dispatch::meta::model_of;
+////////////////////////////////////////////////////////////////////////////////
+// pointer type has a model
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL( pointer_model, NT2_TYPES )
+{
+  using boost::mpl::apply;
+  using boost::is_same;
+  using boost::dispatch::meta::model_of;
+  using nt2::memory::buffer_adaptor;
+  using nt2::memory::no_padding;
+  using nt2::owned_;
 
-//   typedef model_of< int* >::type model1d;
-//   typedef model_of< int** >::type model2d;
-//   typedef model_of< int*** >::type model3d;
+  
+  // typedef buffer_adaptor<T*,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type ;
 
-//   NT2_TEST((is_same<apply<model1d,float>::type, float* >::value ));
-//   NT2_TEST((is_same<apply<model2d,float>::type, float** >::value ));
-//   NT2_TEST((is_same<apply<model3d,float>::type, float*** >::value ));
-// }
+  // typedef model_of<type>::type model;
+
+  // typedef buffer_adaptor<float*,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type_f ;
+
+  // NT2_TEST((is_same<apply<model,float>::type, type_f >::value ));
+
+}
 
 
 NT2_TEST_CASE_TPL( pointer_bracket, NT2_TYPES)
@@ -106,8 +111,9 @@ NT2_TEST_CASE_TPL( pointer_bracket, NT2_TYPES)
     NT2_TEST_EQUAL(t1[pos[0]], 10*(2+pos[0]) );
   }
 
-}
+  delete[] tab;
 
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -160,61 +166,9 @@ NT2_TEST_CASE_TPL( pointer_restructure, NT2_TYPES)
   }
 
 
+  delete[] tab;
+
 }
 
 
-
-// ////////////////////////////////////////////////////////////////////////////////
-// // pointer type has some dimensions
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE( pointer_reference )
-// {
-//   using boost::is_same;
-//   using nt2::meta::dereference_;
-
-//   typedef double***       base;
-//   typedef double const*** cbase;
-
-//   NT2_TEST((is_same< dereference_<base&,1>::type, double**& >::value) );
-//   NT2_TEST((is_same< dereference_<base&,2>::type, double*& >::value) );
-//   NT2_TEST((is_same< dereference_<base&,3>::type, double& >::value) );
-
-//   NT2_TEST((is_same< dereference_<base const&,1>::type, double** const& >::value) );
-//   NT2_TEST((is_same< dereference_<base const&,2>::type, double*  const& >::value) );
-//   NT2_TEST((is_same< dereference_<base const&,3>::type, double   const& >::value) );
-
-//   NT2_TEST((is_same< dereference_<cbase&,1>::type, double const**& >::value) );
-//   NT2_TEST((is_same< dereference_<cbase&,2>::type, double const*& >::value) );
-//   NT2_TEST((is_same< dereference_<cbase&,3>::type, double const& >::value) );
-
-//   NT2_TEST((is_same< dereference_<cbase const&,1>::type, double const** const& >::value) );
-//   NT2_TEST((is_same< dereference_<cbase const&,2>::type, double const*  const& >::value) );
-//   NT2_TEST((is_same< dereference_<cbase const&,3>::type, double const& >::value) );
-// }
-
-// ////////////////////////////////////////////////////////////////////////////////
-// // pointer type models Buffer Concept
-// ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE( pointer_1D_as_buffer )
-// {
-//   using boost::array;
-//   using nt2::memory::initialize;
-//   using nt2::memory::dereference;
-
-//   double* tab = new double[5];
-
-//   boost::array<std::size_t,1> sizes = {{5}};
-//   boost::array<std::size_t,1> bases = {{-2}};
-//   boost::array<std::size_t,1> pos;
-
-//   initialize(tab, sizes, bases, nt2::memory::no_padding() );
-
-//   for(pos[0]=0;pos[0]<5;++pos[0])
-//     dereference<1UL>(tab,pos) = double(10*(1+pos[0]));
-
-//   for(pos[0]=0;pos[0]<5;++pos[0])
-//     NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
-
-//   delete[] tab;
-// }
 

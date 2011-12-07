@@ -54,19 +54,41 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<typename T>
-  struct model_of< T* >
+  // template<typename T>
+  // struct model_of< T* >
+  // {
+  //   struct type
+  //   {
+  //     template<class X> struct apply
+  //     {
+  //       typedef typename  boost::mpl::
+  //                         apply<typename model_of<T>::type,X>::type base;
+  //       typedef typename boost::add_pointer<base>::type             type;
+  //     };
+  //   };
+  // };
+
+
+  template<  class Type,
+             class Sizes ,
+             class Bases ,
+             class Padding ,
+             class Shared
+          >
+  struct model_of< nt2::memory::buffer_adaptor<Type*, Sizes, Bases, Padding, Shared> > 
   {
     struct type
     {
       template<class X> struct apply
       {
         typedef typename  boost::mpl::
-                          apply<typename model_of<T>::type,X>::type base;
+                          apply<typename model_of<Type>::type,X>::type base;
         typedef typename boost::add_pointer<base>::type             type;
       };
     };
   };
+
+
 } } }
 
 namespace nt2 { namespace memory

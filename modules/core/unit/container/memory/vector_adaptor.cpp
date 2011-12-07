@@ -31,10 +31,8 @@ NT2_TEST_CASE_TPL( std_vector_adaptor_dimensions, NT2_TYPES)
   using std::vector;
   using nt2::meta::dimensions_of;
   using nt2::memory::buffer_adaptor;
-  using nt2::memory::no_padding;
-  using nt2::owned_;
 
-  typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type ;
+  typedef buffer_adaptor<std::vector<T> > type ;
 
   NT2_TEST_EQUAL((dimensions_of<type>::value), 1UL );
 }
@@ -49,12 +47,10 @@ NT2_TEST_CASE_TPL( std_vector_values, NT2_TYPES)
   using std::vector;
   using boost::dispatch::meta::value_of;
   using nt2::memory::buffer_adaptor;
-  using nt2::memory::no_padding;
-  using nt2::owned_;
   using boost::mpl::_;
 
 
-  typedef buffer_adaptor<std::vector<T>,boost::array<int,1>,boost::array<int,1>, no_padding, owned_ > type ;
+  typedef buffer_adaptor<std::vector<T> > type ;
 
   type t1;
   
@@ -98,17 +94,14 @@ NT2_TEST_CASE_TPL( std_vector_bracket, NT2_TYPES)
   using std::vector;
   using boost::is_same;
   using nt2::memory::buffer_adaptor;
-  using nt2::memory::no_padding;
-  using nt2::owned_;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{-2}};
   boost::array<std::ptrdiff_t,1> pos;
 
-  typedef buffer_adaptor<std::vector<T>, boost::array<std::size_t,1>, boost::array<std::size_t,1>, no_padding, owned_ > type ;
+  typedef buffer_adaptor<std::vector<T> > type ;
 
   type t1(bases,sizes);
-
 
   for(pos[0]=-2;pos[0]<=2;++pos[0]){
     t1[pos[0]]= T(10*(2+pos[0]));
@@ -129,14 +122,12 @@ NT2_TEST_CASE_TPL( std_vector_restructure, NT2_TYPES)
   using std::vector;
   using boost::is_same;
   using nt2::memory::buffer_adaptor;
-  using nt2::memory::no_padding;
-  using nt2::owned_;
 
   boost::array<std::size_t,1> sizes = {{5}};
   boost::array<std::size_t,1> bases = {{-2}};
   boost::array<std::ptrdiff_t,1> pos;
 
-  typedef buffer_adaptor<std::vector<T>, boost::array<std::size_t,1>, boost::array<std::size_t,1>, no_padding, owned_ > type ;
+  typedef buffer_adaptor<std::vector<T> > type ;
 
   type t1(bases,sizes);
 
