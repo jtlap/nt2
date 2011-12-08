@@ -27,16 +27,6 @@ namespace boost { namespace simd { namespace ext
       return b_or(b_and(a1, a0), b_andnot(a2, a0));
     }
   };
-
-//     BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_select_, tag::cpu_, (A0)
-//                             , (scalar_< bool_<A0> >)
-//                               (scalar_< bool_<A0> >)
-//                               (scalar_< bool_<A0> >)
-//                              )
-//   {
-//     typedef A0 result_type;
-//     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3) { return a0 ? a1 : a2; }
-//   };
 } } }
 
 #endif

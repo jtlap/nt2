@@ -64,7 +64,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type that = { _mm_cmpeq_epi8(a0,Zero<A0>()) };
@@ -78,7 +77,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type that = { _mm_cmpeq_epi16(a0,Zero<A0>()) };

@@ -13,9 +13,6 @@
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int8_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
@@ -28,7 +25,6 @@ namespace boost { namespace simd { namespace ext
     {
       using boost::simd::integral_constant;
       using boost::simd::bitwise_cast;
-
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       utype v = bitwise_cast<utype>(a0);
       const utype m1  = integral_constant<utype,0x55>(); //binary: 0101...
@@ -43,21 +39,13 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A0>(v);
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int64_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int64_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using boost::simd::integral_constant;
@@ -86,14 +74,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A0>(v);
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int16_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int16_<A0>,X>))
@@ -122,14 +103,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A0>(v);
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int32_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int32_<A0>,X>))

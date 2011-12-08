@@ -23,7 +23,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return shli(a0, a1) | shri(a0, (sizeof(A0)*CHAR_BIT-a1));
@@ -35,7 +34,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type itype;

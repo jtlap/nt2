@@ -42,7 +42,6 @@ namespace boost { namespace simd { namespace ext
       return is_included_c(bitwise_cast<iA0>(a0), bitwise_cast<iA0>(a1));
     }
   };
-  
 } } }
 
 #endif

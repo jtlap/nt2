@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTOR_HPP_INCLUDED
-
 #include <boost/simd/toolbox/bitwise/functions/bitwise_notor.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/complement.hpp>

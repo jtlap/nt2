@@ -11,9 +11,6 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::firstbitset_, tag::cpu_
@@ -26,7 +23,6 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename  dispatch::meta::as_integer<A0,unsigned>::type int_type;
       return b_and((b_not(simd::bitwise_cast<int_type>(a0))+One<int_type>()), a0);
-
     }
   };
 } } }

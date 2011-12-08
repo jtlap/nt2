@@ -11,7 +11,6 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/simd/meta/biggest_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/firstbitset.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
@@ -19,9 +18,6 @@
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is types8_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
@@ -43,14 +39,7 @@ namespace boost { namespace simd { namespace ext
               ,  shli(-( genmask(b_and(v, boost::simd::integral_constant<ltype,0xF0F0F0F0F0F0F0F0ll>()))), 2))+One<rtype>());
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type64_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type64_<A0>,X>))
@@ -65,14 +54,7 @@ namespace boost { namespace simd { namespace ext
       return  simd::bitwise_cast<rtype>(map(dispatch::functor<boost::simd::tag::ffs_>(), simd::bitwise_cast<rtype>(a0)));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type16_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type16_<A0>,X>))
@@ -93,14 +75,7 @@ namespace boost { namespace simd { namespace ext
                             ,  shli(-( genmask(b_and(v, boost::simd::integral_constant<ltype,0xFF00FF00FF00FF00ll>()))), 3))+One<rtype>());
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is type32_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ffs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<type32_<A0>,X>))

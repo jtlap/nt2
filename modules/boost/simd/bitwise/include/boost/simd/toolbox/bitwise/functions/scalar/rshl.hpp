@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_RSHL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_RSHL_HPP_INCLUDED
-
 #include <boost/simd/toolbox/bitwise/functions/rshl.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 #include <boost/simd/sdk/details/bitwise_cast.hpp>
@@ -34,10 +33,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return a0 << a1; 
-    }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 << a1; }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rshl_, tag::cpu_ , (A0)(A1)

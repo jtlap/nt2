@@ -40,7 +40,6 @@ namespace boost { namespace simd { namespace ext
       return if_else(a0, Allbits<result_type>(), Zero<result_type>());
     }
   };
-  
 } } }
 
 

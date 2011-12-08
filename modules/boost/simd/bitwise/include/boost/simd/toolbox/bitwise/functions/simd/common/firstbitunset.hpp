@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_FIRSTBITUNSET_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_FIRSTBITUNSET_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
@@ -20,12 +19,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return b_andnot ( simd::bitwise_cast<result_type>(a0)+One<result_type>()
-                      , a0
-                      );
+      return b_andnot(simd::bitwise_cast<result_type>(a0)+One<result_type>(), a0);
     }
   };
 } } }

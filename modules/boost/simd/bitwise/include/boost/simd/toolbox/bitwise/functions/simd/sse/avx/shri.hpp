@@ -31,9 +31,7 @@ namespace boost { namespace simd { namespace ext
       isvtype a01 = { _mm256_extractf128_si256(simd::bitwise_cast<itype>(a0), 1)};
       itype that = { _mm256_insertf128_si256(that,boost::simd::shri( a00, a1), 0)};
       return  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, boost::simd::shri(a01, a1), 1));
-
      }
-
   };
 } } }
 

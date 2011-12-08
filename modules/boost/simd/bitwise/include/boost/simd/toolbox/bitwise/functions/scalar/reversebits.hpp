@@ -17,7 +17,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return uint8_t(
@@ -32,7 +31,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef union { A0 a; boost::simd::uint32_t b[2]; } trick;
@@ -50,7 +48,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef union { A0 a; boost::simd::uint8_t b[2]; } trick;
@@ -68,7 +65,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef union { A0 a; boost::simd::uint16_t b[2]; } trick;

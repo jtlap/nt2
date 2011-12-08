@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_POPCNT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_POPCNT_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/rem.hpp>
 #include <boost/simd/include/functions/shri.hpp>
@@ -22,7 +21,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x55>(); //binary: 0101...
@@ -41,7 +39,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x5555555555555555ULL>(); //binary: 0101...
@@ -63,7 +60,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x5555>(); //binary: 0101...
@@ -83,7 +79,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x55555555>(); //binary: 0101...
@@ -104,7 +99,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return popcnt(simd::bitwise_cast<result_type>(a0));

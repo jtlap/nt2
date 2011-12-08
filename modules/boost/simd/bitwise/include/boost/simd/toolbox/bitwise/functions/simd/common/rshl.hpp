@@ -11,7 +11,6 @@
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>  
 #include <boost/simd/include/functions/is_gtz.hpp>  
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::rshl_, tag::cpu_, (A0)(A1)(X)
