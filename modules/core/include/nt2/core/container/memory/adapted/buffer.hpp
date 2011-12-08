@@ -24,6 +24,27 @@ namespace nt2 { namespace memory
   struct buffer;
 
   //============================================================================
+  // Buffer have size/lower/upper
+  //============================================================================
+  template<std::size_t N, typename T, typename A>
+  typename buffer<T,A>::size_type size( buffer<T,A> const& b )
+  {
+    return (N == 1u) ? b.size() : 1u;
+  }
+  
+  template<std::size_t N, typename T, typename A>
+  typename buffer<T,A>::difference_type lower( buffer<T,A> const& b )
+  {
+    return (N == 1u) ? b.lower() : 1u;
+  }
+  
+  template<std::size_t N, typename T, typename A>
+  typename buffer<T,A>::difference_type upper( buffer<T,A> const& b )
+  {
+    return (N == 1u) ? b.upper() : 1u;
+  }
+  
+  //============================================================================
   // Buffer are dereferencable
   //============================================================================
   template<typename T, typename A, typename Position>
@@ -52,11 +73,10 @@ namespace nt2 { namespace memory
 namespace nt2 { namespace meta
 {
   //==============================================================================
-  // buffer dimension is 1 + the dimension of the contents
+  // buffer dimension is 1
   //==============================================================================
   template<typename T, typename A>
-  struct  dimensions_of< memory::buffer<T,A> >
-        : boost::mpl::size_t<1 + dimensions_of<T>::value>
+  struct  dimensions_of< memory::buffer<T,A> > : boost::mpl::size_t<1>
   {};
 } }
 

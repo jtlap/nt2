@@ -144,7 +144,7 @@ namespace nt2 {  namespace memory
       this->copy(src, boost::fusion::at_c<0>(bs), boost::fusion::at_c<0>(sz));
     }
 
-    buffer_adaptor( buffer const& src )
+    buffer( buffer const& src )
           : parent_data(src.allocator())
     {
       this->copy( src, src.size(),src.lower());
@@ -190,6 +190,8 @@ namespace nt2 {  namespace memory
     // Forward size related methods
     ////////////////////////////////////////////////////////////////////////////
     using parent_data::size;
+    using parent_data::lower;
+    using parent_data::upper;
 
     ////////////////////////////////////////////////////////////////////////////
     // RandomAccessContainer Interface
@@ -285,7 +287,6 @@ namespace nt2 {  namespace memory
     // Allocator access
     ////////////////////////////////////////////////////////////////////////////
     using parent_data::allocator;
-    using parent_data::lower;
 
     void copy( buffer const& src, size_type const& s, difference_type const& b )
     {
