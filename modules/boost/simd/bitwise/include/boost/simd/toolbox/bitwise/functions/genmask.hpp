@@ -30,6 +30,8 @@
  * 
  * \par Alias 
  * \arg typed_mask
+ * \arg logical2mask
+ * \arg l2m
  * 
  * 
  * \synopsis
@@ -62,7 +64,9 @@ namespace boost { namespace simd { namespace tag
     struct genmask_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, genmask, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, typed_mask, 1) 
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, typed_mask, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, logical2mask, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, l2m, 1)
 } }
 
 #endif

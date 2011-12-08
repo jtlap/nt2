@@ -16,7 +16,7 @@ namespace boost { namespace simd { namespace ext
 {
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_notand_, boost::simd::tag::sse_
-				     , (A0)(A1)(X)
+                            , (A0)(A1)(X)
                             , ((simd_<logical_<A0>, X>))
                               ((simd_<logical_<A1>, X>))
                             )

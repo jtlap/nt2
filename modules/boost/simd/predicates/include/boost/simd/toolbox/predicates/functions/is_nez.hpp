@@ -29,6 +29,7 @@
  * 
  * \par Alias 
  * \arg is_true
+ * \arg boolean
  * 
  * \synopsis
  *
@@ -68,6 +69,7 @@ namespace boost { namespace simd { namespace tag
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nez_, is_nez,  1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nez_, is_true, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nez_, boolean, 1)
 } }
 
 #endif

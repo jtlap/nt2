@@ -11,7 +11,6 @@
 #define BOOST_SIMD_SDK_SIMD_EXTENSIONS_META_SSE_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/types.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/meta/biggest_integer.hpp>
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
@@ -59,27 +58,6 @@ namespace boost { namespace simd { namespace meta
   template<class X> struct extension_of<__m128d,X>  { typedef tag::sse_ type; };
   template<class X> struct extension_of<__m128i,X>  { typedef tag::sse_ type; };
 
-} } }
-
-////////////////////////////////////////////////////////////////////////////////
-// Conversion between vector types
-////////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace details
-{
-    #if defined(__GNUC__)
-        #define BOOST_SIMD_SSE_CONVERT convert_cast
-    #else
-        #define BOOST_SIMD_SSE_CONVERT union_cast
-    #endif
-
-    template<> struct bitwise_cast<__m128 , __m128d> : BOOST_SIMD_SSE_CONVERT {};
-    template<> struct bitwise_cast<__m128 , __m128i> : BOOST_SIMD_SSE_CONVERT {};
-    template<> struct bitwise_cast<__m128d, __m128 > : BOOST_SIMD_SSE_CONVERT {};
-    template<> struct bitwise_cast<__m128d, __m128i> : BOOST_SIMD_SSE_CONVERT {};
-    template<> struct bitwise_cast<__m128i, __m128 > : BOOST_SIMD_SSE_CONVERT {};
-    template<> struct bitwise_cast<__m128i, __m128d> : BOOST_SIMD_SSE_CONVERT {};
-
-    #undef BOOST_SIMD_SSE_CONVERT
 } } }
 
 #endif

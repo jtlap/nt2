@@ -12,8 +12,6 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/logical_not.hpp>
-#include <boost/simd/include/functions/boolean.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -38,7 +36,6 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using  boost::simd::is_nan;
       return logical_not(logical_or(is_nan(a0),is_nan(a1)));
     }
   };

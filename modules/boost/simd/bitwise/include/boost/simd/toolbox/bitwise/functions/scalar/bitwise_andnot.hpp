@@ -11,7 +11,7 @@
 #include <boost/simd/toolbox/bitwise/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/bool.hpp>
 

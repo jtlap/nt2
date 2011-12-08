@@ -6,28 +6,27 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_BOOLEAN_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_BOOLEAN_HPP_INCLUDED
-#include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_GENERIC_MASK2LOGICAL_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_GENERIC_MASK2LOGICAL_HPP_INCLUDED
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/toolbox/boolean/functions/mask2logical.hpp>
+#include <boost/simd/include/functions/is_simd_logical.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/assert.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::boolean_, tag::cpu_
-                            , (A0)
-                            , (scalar_< fundamental_<A0> >)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::mask2logical_, tag::cpu_, (A0)
+                            , (generic_< arithmetic_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::call<tag::is_nez_(A0 const&)>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0?One<A0>():Zero<A0>();
+      BOOST_ASSERT_MSG(is_simd_logical(a0), "Argument to mask2logical is not a valid logical mask");
+      return is_nez(a0);
     }
   };
 } } }
-
 
 #endif

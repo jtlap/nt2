@@ -11,7 +11,7 @@
 
 #include <boost/config.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
