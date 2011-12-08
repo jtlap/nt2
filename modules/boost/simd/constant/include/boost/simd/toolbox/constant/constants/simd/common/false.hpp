@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/constant/constants/false.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/include/functions/native_cast.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename result_type::template rebind<base_type>::type  target_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      return native_cast<result_type>(Zero<target_type>());
+      return bitwise_cast<result_type>(Zero<target_type>());
     }
   };
 
