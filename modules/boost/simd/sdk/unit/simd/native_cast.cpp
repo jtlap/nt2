@@ -9,7 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::native_cast"
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/simd/include/functions/native_cast.hpp>
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>

@@ -17,7 +17,8 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <iosfwd>
+#include <ostream>
+#include <ios>
 
 namespace boost { namespace simd
 {

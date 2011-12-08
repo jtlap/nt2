@@ -8,8 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_FIRST_HPP_INCLUDED
-
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
+#include <boost/simd/toolbox/reduction/functions/first.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace meta

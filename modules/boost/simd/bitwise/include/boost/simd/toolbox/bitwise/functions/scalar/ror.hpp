@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext

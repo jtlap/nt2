@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/bitwise/functions/rshl.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
