@@ -11,6 +11,7 @@
 #include <nt2/core/container/memory/vector_buffer.hpp>
 
 #include <boost/array.hpp>
+#include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/fusion/include/single_view.hpp>
 
@@ -64,19 +65,19 @@ NT2_TEST_CASE_TPL(vector_buffer_ctor, NT2_TYPES )
   NT2_TEST_EQUAL    ( b.size()  , 5U      );
   //  NT2_TEST_NOT_EQUAL( b.begin() , b.end() );
 
-  // for (typename buffer_type::index_type i = 0; i < 5; ++i )
-  //   dereference(b,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(1+i);
+  for (typename buffer_type::index_type i = 0; i < 5; ++i )
+    dereference(b,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(1+i);
 
-  // for ( typename buffer_type::index_type i = 0; i < 5; ++i )
-  //   NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 1+i );
+  for ( typename buffer_type::index_type i = 0; i < 5; ++i )
+    NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 1+i );
 }
 
-// ////////////////////////////////////////////////////////////////////////////////
-// // Test for dynamic buffer assignment
-// ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Test for dynamic buffer assignment
+////////////////////////////////////////////////////////////////////////////////
 // NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
 // {
-//   using nt2::memory::buffer;
+//   using nt2::memory::vectorbuffer;
 //   using nt2::memory::dereference;
 
 //   typedef          buffer<T>              buffer_type;

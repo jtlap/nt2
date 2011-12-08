@@ -11,6 +11,7 @@
 #include <nt2/core/container/memory/buffer.hpp>
 
 #include <boost/array.hpp>
+#include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/fusion/include/single_view.hpp>
 

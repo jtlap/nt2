@@ -8,9 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-#  vector_adaptor.cpp
   vector_buffer.cpp
-  pointer_adaptor.cpp
+  pointer_buffer.cpp
 #  dimensions_of.cpp
 #  buffer.cpp
 #  iliffe_buffer.cpp

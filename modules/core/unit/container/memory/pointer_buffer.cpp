@@ -12,8 +12,9 @@
 #include <nt2/core/container/memory/dereference.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/type_traits/is_same.hpp>
+
 #include <boost/array.hpp>
-#include <boost/array.hpp>
+#include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/fusion/include/single_view.hpp>
 
