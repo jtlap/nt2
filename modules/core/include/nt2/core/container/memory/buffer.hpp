@@ -144,7 +144,7 @@ namespace nt2 {  namespace memory
       this->copy(src, boost::fusion::at_c<0>(bs), boost::fusion::at_c<0>(sz));
     }
 
-    buffer( buffer const& src )
+    buffer_adaptor( buffer const& src )
           : parent_data(src.allocator())
     {
       this->copy( src, src.size(),src.lower());
