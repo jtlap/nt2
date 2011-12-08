@@ -15,10 +15,14 @@
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/fusion/include/mpl.hpp>
+#include <boost/fusion/adapted/mpl.hpp>
+#include <boost/swap.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
 #include <nt2/core/container/memory/adapted/vector_buffer.hpp>
 
+#include <iostream>
 
 namespace nt2 {  namespace memory
 {
@@ -115,9 +119,10 @@ namespace nt2 {  namespace memory
 
 
     vector_buffer( vector_buffer const& src )
-                  : parent_data(src.allocator())
+      : parent_data(src.size())
     {
-      this->copy( src, src.size(),src.lower());
+      //      bss_ = src.bss_;
+      this->copy( src, src.size(),src.bss_);
     }
 
 
@@ -129,21 +134,26 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     vector_buffer& operator=(vector_buffer const& src)
     {
+
       // we want to have a Strong Garantee and yet be performant
       // so we check if we need some resizing
       if(src.size() > this->size())
       {
         // If we do, use the SG copy+swap method
+        std::cout << "We need resizing" << std::endl;
         vector_buffer that(src);
         swap(that);
       }
       else
       {
-        // If not we just need to resize/rebase and copy which is SG here
-        restructure(src.lower(),src.size());
+        // // If not we just need to resize/rebase and copy which is SG here
+        //restructure
+        parent_data::resize(src.size());
+        bss_ = src.bss_;
+
         std::copy(src.begin(),src.end(),begin());
       }
-      return *this;
+           return *this;
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -194,8 +204,9 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     void swap( vector_buffer& src )
     {
-    //   parent_data::swap(src);
-    //   boost::swap(allocator(),src.allocator());
+      //      bss_ = src.bss_;
+      boost::swap(bss_, src.bss_);
+      parent_data::swap(src.begin());
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -207,11 +218,11 @@ namespace nt2 {  namespace memory
     template<class Bases>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
     rebase(Bases b) { 
-      // BOOST_MPL_ASSERT_MSG
-      // ( (boost::mpl::size<Bases>::value == 1)
-      // , SIZE_MISMATCH_IN_VECTOR_BUFFER_REBASE
-      // , (Bases)
-      // );
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Bases>::value == 1)
+      , SIZE_MISMATCH_IN_VECTOR_BUFFER_REBASE
+      , (Bases)
+      );
 
       bss_ = boost::fusion::at_c<0>(b); 
     }
@@ -220,11 +231,11 @@ namespace nt2 {  namespace memory
     template<class Sizes>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
     resize(Sizes s) { 
-      // BOOST_MPL_ASSERT_MSG
-      // ( (boost::mpl::size<Sizes>::value == 1)
-      // , BASE_MISMATCH_IN_VECTOR_BUFFER_RESIZE
-      // , (Sizes)
-      // );
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Sizes>::value == 1)
+      , BASE_MISMATCH_IN_VECTOR_BUFFER_RESIZE
+      , (Sizes)
+      );
       parent_data::resize(boost::fusion::at_c<0>(s)); 
     }
 
@@ -236,17 +247,17 @@ namespace nt2 {  namespace memory
                                 >::type
     restructure( Sizes const& sz, Bases const& bs )
     {
-      // BOOST_MPL_ASSERT_MSG
-      // ( (boost::mpl::size<Bases>::value == 1)
-      // , BASE_MISMATCH_IN_VECTOR_BUFFER_RESTRUCTURE
-      // , (Bases)
-      // );
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Bases>::value == 1)
+      , BASE_MISMATCH_IN_VECTOR_BUFFER_RESTRUCTURE
+      , (Bases)
+      );
 
-      // BOOST_MPL_ASSERT_MSG
-      // ( (boost::mpl::size<Sizes>::value == 1)
-      // , SIZE_MISMATCH_IN_VECTOR_BUFFER_RESTRUCTURE
-      // , (Sizes)
-      // );
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Sizes>::value == 1)
+      , SIZE_MISMATCH_IN_VECTOR_BUFFER_RESTRUCTURE
+      , (Sizes)
+      );
 
       resize(sz);
       rebase(bs);
@@ -270,6 +281,16 @@ namespace nt2 {  namespace memory
  
   };
 
+  //============================================================================
+  /**!
+   * Swap the contents of two buffer of same type and allocator settings
+   **/
+  //============================================================================
+  template<class T, class A>
+  void swap( vector_buffer<T,A>& a, vector_buffer<T,A>& b )
+  {
+    a.swap(b);
+  }
 
 
 } } 

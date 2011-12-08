@@ -75,30 +75,31 @@ NT2_TEST_CASE_TPL(vector_buffer_ctor, NT2_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic buffer assignment
 ////////////////////////////////////////////////////////////////////////////////
-// NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
-// {
-//   using nt2::memory::vectorbuffer;
-//   using nt2::memory::dereference;
+NT2_TEST_CASE_TPL(vector_buffer_assignment, NT2_TYPES )
+{
+  // using nt2::memory::vector_buffer;
+  // using nt2::memory::dereference;
 
-//   typedef          buffer<T>              buffer_type;
-//   typedef typename buffer_type::size_type size_type;
+  // typedef          vector_buffer<T>       buffer_type;
+  // typedef typename buffer_type::size_type size_type;
 
-//   boost::array<size_type,1> ss = { 5 };
-//   boost::array<size_type,1> bs = { 0 };
+  // boost::array<size_type,1> ss = { 5 };
+  // boost::array<size_type,1> bs = { 0 };
 
-//   buffer_type b,x(ss,bs);
+  // buffer_type b,x(ss,bs);
+  // //  buffer_type b(ss,bs);
 
-//   for( typename buffer_type::index_type i = 0; i < 5; ++i )
-//     dereference(x,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(1+i);
+  // for( typename buffer_type::index_type i = 0; i < 5; ++i )
+  //   dereference(x,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(1+i);
 
-//   b = x;
+  // b = x;
 
-//   NT2_TEST_EQUAL    ( b.size()      , 5U  );
-//   NT2_TEST_NOT_EQUAL( b.begin() , b.end() );
+  // NT2_TEST_EQUAL    ( b.size()      , 5U  );
+  // //  NT2_TEST_NOT_EQUAL( b.begin() , b.end() );
 
-//   for( typename buffer_type::index_type i = 0; i < 5; ++i )
-//     NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 1+i );
-// }
+  // for( typename buffer_type::index_type i = 0; i < 5; ++i )
+  //   NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 1+i );
+}
 
 // ////////////////////////////////////////////////////////////////////////////////
 // // Test for dynamic buffer swap
