@@ -14,15 +14,12 @@
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/maximum.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/make.hpp>
-
 #include <boost/simd/toolbox/arithmetic/functions/simd/common/tofloat.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -67,16 +64,7 @@ namespace boost { namespace simd { namespace ext
                               , static_cast<stype>(a0[2])
                               , static_cast<stype>(a0[3])
                               );
-      //TO DO
- //      typedef typename meta::scalar_of<A0>::type stype;
-//       typedef typename dispatch::meta::as_integer<A0,signed>::type sint_type;
-//       //      static const sint_type hibitmask = integral_constant<sint_type, 1ll << (8*sizeof(stype)-1) >() ;
-//       const result_type offset = integral_constant<result_type, 1ll << (8*sizeof(stype)-1) >() ;
-//       const sint_type a00 = simd::bitwise_cast<sint_type>(a0);
-//       result_type v1 = {_mm_cvtepi32_ps(a00)};
-//       result_type v2 = {_mm_cvtepi32_ps((b_andnot(a00, Signmask<sint_type>())))};
-//       v2 = v2+offset;
-//       return select(is_gez(a00),v1,v2);
+      //TO DO proper implementation
     }
   };
 

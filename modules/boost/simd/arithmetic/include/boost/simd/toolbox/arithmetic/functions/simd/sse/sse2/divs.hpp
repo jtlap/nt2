@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_DIVS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_DIVS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/arithmetic/functions/divs.hpp>
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
@@ -23,14 +22,12 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
       split(a0, a0l, a0h);
       split(a1, a1l, a1h);
-      
       return group( boost::simd::divs(a0l, a1l)
                   , boost::simd::divs(a0h, a1h)
                   );
@@ -43,14 +40,12 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type ivtype;
       ivtype a0l, a0h, a1l, a1h;
       split(a0, a0l, a0h);
       split(a1, a1l, a1h);
-      
       return group( boost::simd::divs(a0l, a1l)
                   , boost::simd::divs(a0h, a1h)
                   );

@@ -8,12 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOFLOAT_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_
@@ -21,12 +17,8 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return a0;
-    }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 } } }
 

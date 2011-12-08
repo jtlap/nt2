@@ -10,9 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_FLOOR_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, boost::simd::tag::avx_

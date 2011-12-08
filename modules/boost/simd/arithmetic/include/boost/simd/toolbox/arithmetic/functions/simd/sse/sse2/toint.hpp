@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOINT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/arithmetic/functions/toint.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/if_zero_else.hpp>

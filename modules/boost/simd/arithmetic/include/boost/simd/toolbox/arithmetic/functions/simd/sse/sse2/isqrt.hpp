@@ -31,9 +31,6 @@
 #include <boost/simd/include/functions/if_else_allbits.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint8_t
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, boost::simd::tag::sse2_
@@ -60,14 +57,7 @@ namespace boost { namespace simd { namespace ext
       return seladd(na, Zero<A0>(), n);
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<int_<A0>,boost::simd::tag::sse_>))
@@ -83,13 +73,7 @@ namespace boost { namespace simd { namespace ext
                   );
     }
   };
-} } }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint32_t
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
@@ -138,14 +122,7 @@ namespace boost { namespace simd { namespace ext
       return n;
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint64_t
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<uint64_<A0>,boost::simd::tag::sse_>))
@@ -157,14 +134,7 @@ namespace boost { namespace simd { namespace ext
       return simd::bitwise_cast<A0>(boost::simd::toint(boost::simd::sqrt(boost::simd::tofloat(a0))));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint16_t
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
@@ -178,9 +148,7 @@ namespace boost { namespace simd { namespace ext
       A0 const  z1 = add(shri(a0, 6), boost::simd::integral_constant<A0, 16>());
       A0 const  z2 = add(shri(a0,10), boost::simd::integral_constant<A0, 256>());
       A0 const  C1 = boost::simd::integral_constant<A0, 31679>();
-      //////////////////////////////////////////////////////////////////////////
       // choose a proper starting point for approximation
-      //////////////////////////////////////////////////////////////////////////
       A0 n  = if_else(lt(a0, C1), z1, z2);
       bA0 ok =  is_gtz(n);
       static A0 const one = One<A0>();

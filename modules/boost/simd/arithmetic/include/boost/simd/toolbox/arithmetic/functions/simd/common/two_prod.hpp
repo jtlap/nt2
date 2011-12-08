@@ -21,9 +21,6 @@
 #include <boost/simd/toolbox/arithmetic/functions/two_prod.hpp>
 #include <boost/fusion/tuple.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
@@ -47,7 +44,8 @@ namespace boost { namespace simd { namespace ext
       r1 = if_zero_else(isinf, a2*b2 -(((r0-a1*b1)-a2*b1)-a1*b2));
       return 0;
     }
-  }; 
+  };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
                           (A0)(X),
                           ((simd_<floating_<A0>,X>))
@@ -63,6 +61,7 @@ namespace boost { namespace simd { namespace ext
       return a2;
     }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_prod_, tag::cpu_,
                            (A0)(X),
                            ((simd_<floating_<A0>,X>))

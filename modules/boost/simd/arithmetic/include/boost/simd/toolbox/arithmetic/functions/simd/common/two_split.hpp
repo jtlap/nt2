@@ -35,7 +35,8 @@ namespace boost { namespace simd { namespace ext
       r1 = a-r0;
       return 0;
     }
-  }; 
+  };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_split_, tag::cpu_,
                           (A0)(X),
                           ((simd_<floating_<A0>,X>))
@@ -49,7 +50,8 @@ namespace boost { namespace simd { namespace ext
       two_split(a0,a1,a2);
       return a1;
     }
-  }; 
+  };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::two_split_, tag::cpu_,
                             (A0)(X),
                             ((simd_<floating_<A0>,X>))

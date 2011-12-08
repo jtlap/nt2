@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FAST_HYPOT_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/fast_hypot.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/abs.hpp>
@@ -24,9 +23,6 @@
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
@@ -43,9 +39,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))

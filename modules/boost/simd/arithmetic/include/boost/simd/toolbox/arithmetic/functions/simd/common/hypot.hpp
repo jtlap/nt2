@@ -53,10 +53,7 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::hypot(tofloat(a0), tofloat(a1));
     }
   };
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hypot_, tag::cpu_,
                               (A0)(X),
                               ((simd_<floating_<A0>,X>))

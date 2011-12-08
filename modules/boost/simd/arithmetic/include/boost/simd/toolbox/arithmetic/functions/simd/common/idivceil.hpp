@@ -15,10 +15,6 @@
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
@@ -30,14 +26,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return iceil(tofloat(a0)/tofloat(a1)); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
@@ -47,14 +36,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return rdivide(a0+a1-One<A0>(), a1); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int16_t
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int16_<A0>,X>))((simd_<int16_<A0>,X>))
@@ -75,14 +57,7 @@ namespace boost { namespace simd { namespace ext
                                     idivceil(a0h, a1h)));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int8_t
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int8_<A0>,X>))((simd_<int8_<A0>,X>))
@@ -101,14 +76,7 @@ namespace boost { namespace simd { namespace ext
                                idivceil(a0h, a1h) ));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))

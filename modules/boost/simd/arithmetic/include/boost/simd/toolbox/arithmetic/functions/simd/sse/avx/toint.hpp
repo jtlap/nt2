@@ -22,9 +22,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, boost::simd::tag::avx_,
                         (A0),
                         ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -33,7 +30,6 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      //      const A0  aa0 = b_andnot(a0, is_nan(a0));
       const A0 aa0 = if_zero_else(is_nan(a0), a0);
       return select(eq(aa0, Inf<A0>()),
         Inf<result_type>(),
@@ -42,9 +38,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::toint_, boost::simd::tag::avx_,
                         (A0),
                         ((simd_<single_<A0>,boost::simd::tag::avx_>))
@@ -53,7 +46,6 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      //      A0 aa0 = b_andnot(a0, is_nan(a0)); 
       const A0 aa0 = if_zero_else(is_nan(a0), a0);
       result_type that =  {_mm256_cvttps_epi32(aa0)};
       return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), that);

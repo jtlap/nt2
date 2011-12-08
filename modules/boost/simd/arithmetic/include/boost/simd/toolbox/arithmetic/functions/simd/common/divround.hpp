@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVROUND_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/divround.hpp>
 #include <boost/simd/include/functions/iround2even.hpp>
 #include <boost/simd/include/functions/iround.hpp>
@@ -31,47 +30,27 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return iround(tofloat(a0)/tofloat(a1)); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return rdivide(a0+a1/boost::simd::Two<A0>(), a1); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int16_t
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int16_<A0>,X>))((simd_<int16_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
@@ -84,22 +63,13 @@ namespace boost { namespace simd { namespace ext
                                     divround(a0h, a1h)));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int8_t
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int8_<A0>,X>))((simd_<int8_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename meta::scalar_of<A0>::type           stype;
@@ -112,22 +82,13 @@ namespace boost { namespace simd { namespace ext
                                divround(a0h, a1h) ));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return round2even(a0/a1); }
   };

@@ -26,16 +26,14 @@ namespace boost { namespace simd { namespace ext
       return selsub(neq(a0, Valmin<result_type>()), a0, One<A0>());
     }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
                            (A0)(X),
                            ((simd_<floating_<A0>,X>))
                           )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
-    {
-      return a0-One<A0>();
-    }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1) { return a0-One<A0>(); }
   };
 
 } } }

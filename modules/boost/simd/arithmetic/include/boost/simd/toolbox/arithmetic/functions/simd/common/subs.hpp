@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SUBS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SUBS_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/subs.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
@@ -23,9 +22,6 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, tag::cpu_
@@ -33,22 +29,13 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::sub(a0, a1);
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<uint_<A0>,X>))((simd_<uint_<A0>,X>))
@@ -61,14 +48,7 @@ namespace boost { namespace simd { namespace ext
       return if_else_zero(le(a0ma1, a0), a0ma1); 
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::subs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int_<A0>,X>))((simd_<int_<A0>,X>))

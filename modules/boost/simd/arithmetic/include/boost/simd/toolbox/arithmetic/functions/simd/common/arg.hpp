@@ -16,11 +16,8 @@
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
 #include <boost/simd/include/functions/if_allbits_else.hpp>
-// No implementation for signed integer types
+// No implementation for integer types
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::arg_, tag::cpu_,
@@ -33,7 +30,6 @@ namespace boost { namespace simd { namespace ext
     {
       // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 Nan -> Nan
       return if_nan_else(is_nan(a0), if_else_zero(is_ltz(a0), Pi<result_type>())); 
-      //      return is_nan(a0)+b_and(Pi<A0>(), is_ltz(a0));
     }
   };
 } } }

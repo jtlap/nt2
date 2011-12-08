@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_TOFLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
@@ -23,9 +22,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int32_t
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<int32_<A0>,boost::simd::tag::avx_>))
@@ -39,9 +35,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint32_t
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<uint32_<A0>,boost::simd::tag::avx_>))
@@ -61,9 +54,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int64_t
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<int64_<A0>,boost::simd::tag::avx_>))
@@ -76,9 +66,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint64_t
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::tofloat_, boost::simd::tag::avx_,
                           (A0),
                           ((simd_<uint64_<A0>,boost::simd::tag::avx_>))

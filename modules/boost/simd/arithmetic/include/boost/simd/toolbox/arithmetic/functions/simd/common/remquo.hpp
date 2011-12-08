@@ -18,9 +18,6 @@
 #include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/mpl/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::remquo_, tag::cpu_,
@@ -42,10 +39,7 @@ namespace boost { namespace simd { namespace ext
         return res;
       }
   };
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // reference based Implementation
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(A2)(A3)(X)
                                   ,( boost::mpl::and_ <
                                      boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
@@ -70,9 +64,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-  // reference based Implementation
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(  boost::simd::tag::remquo_, tag::cpu_,(A0)(A1)(X)
                                   ,( boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
                                                           , boost::simd::meta::cardinal_of<A1> >)
@@ -91,6 +82,5 @@ namespace boost { namespace simd { namespace ext
       a2 =  if_nan_else(l_or(is_invalid(a0), is_eqz(a1)), a0-a2*a1);
     }
   };
- 
 } } }
 #endif

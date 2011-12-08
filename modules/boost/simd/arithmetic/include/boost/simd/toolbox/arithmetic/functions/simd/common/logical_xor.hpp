@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_LOGICAL_XOR_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/bitwise_xor.hpp>
+// TODO put it in boolean or operator ?
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,6 +25,7 @@ namespace boost { namespace simd { namespace ext
        return is_nez(b_xor(genmask<A0>(a0),genmask<A0>(a1)));
       }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_, (A0)(X)
                             , ((simd_<logical_<A0>,X>))
                               ((simd_<logical_<A0>,X>))

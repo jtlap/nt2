@@ -8,13 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SQR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SQR_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/sqr.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqr_, tag::cpu_,
@@ -23,10 +19,7 @@ namespace boost { namespace simd { namespace ext
                      )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
-    {
-      return a0*a0;
-    }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1) { return a0*a0; }
   };
 } } }
 #endif

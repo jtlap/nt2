@@ -11,9 +11,6 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/simd/common/adds.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint16_t
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, boost::simd::tag::sse2_,
@@ -29,9 +26,6 @@ namespace boost { namespace simd { namespace ext
       }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int16_t
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::adds_, boost::simd::tag::sse2_,
                              (A0),
                              ((simd_<int16_<A0>,boost::simd::tag::sse_>))
@@ -44,10 +38,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A0>(_mm_adds_epi16(a0, a1)); 
     }
   };
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is uint8_t
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_, 
                                      (A0), 
                                      ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
@@ -60,11 +51,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A0>(_mm_adds_epu8(a0, a1)); 
     }
   };
-  
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is int8_t
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::sse2_, 
                                      (A0), 
                                      ((simd_<int8_<A0>,boost::simd::tag::sse_>))
