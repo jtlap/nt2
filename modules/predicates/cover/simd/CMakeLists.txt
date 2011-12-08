@@ -46,7 +46,6 @@ SET( SOURCES
   is_finite.cpp
   is_even.cpp
   is_eqz.cpp
-  boolean.cpp
 # List of simd test files for toolbox predicates
    )
 
