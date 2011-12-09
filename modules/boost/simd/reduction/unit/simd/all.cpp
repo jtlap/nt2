@@ -81,5 +81,7 @@ NT2_TEST_CASE_TPL ( all_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(all(boost::simd::True<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::False<vT>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::False<vT>()),boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::One<vT>()),  boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Zero<vT>()), boost::simd::False<sr_t>());
 } // end of test for integer_
