@@ -95,7 +95,7 @@ namespace nt2 { namespace memory
                            , Sizes const& sz, Bases const& bs
                            )
   {
-    b.restructure(bs,sz);
+    b.restructure(sz,bs);
   }
 
 
@@ -141,7 +141,7 @@ namespace boost { namespace dispatch { namespace meta
       {
         typedef typename  boost::mpl::
                           apply<typename model_of<T>::type,X>::type base;
-        typedef typename boost::add_pointer<base>::type             type;
+        typedef nt2::memory::pointer_buffer<base>  type;
       };
     };
   };

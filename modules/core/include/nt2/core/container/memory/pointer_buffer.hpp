@@ -12,6 +12,7 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/size.hpp>
+#include <boost/swap.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <nt2/sdk/meta/remove_pointers.hpp>
 #include <boost/type_traits/add_pointer.hpp>
@@ -55,9 +56,9 @@ namespace nt2 { namespace memory
     //==========================================================================
     pointer_buffer( allocator_type const& a =allocator_type() ) 
     {
-      szs_ = 0;
       bss_ = 0;
-      buffer_ = 0;
+      begin_ = 0;
+      end_ = 0;
     }
 
     //==========================================================================
@@ -93,7 +94,7 @@ namespace nt2 { namespace memory
 
       resize(sz);
       rebase(bs);
-      buffer_ = 0;
+      begin_ = 0;
 
     }
 
@@ -104,7 +105,7 @@ namespace nt2 { namespace memory
      **/
     //==========================================================================
     template<typename Sizes, typename Bases>
-    pointer_buffer( pointer_buffer  const& src
+    pointer_buffer( Type*           const& src
                   , Sizes           const& sz
                   , Bases           const& bs
                   , allocator_type  const& alloc = allocator_type()
@@ -128,18 +129,17 @@ namespace nt2 { namespace memory
       , (Bases)
       );
 
-      buffer_ = src.buffer_;
-      rebase(bs);
+      begin_ = src;
       resize(sz);
-
+      rebase(bs);
 
     }
 
     pointer_buffer( pointer_buffer const& src )
     {
-      buffer_ = src.buffer_;
+      begin_ = src.begin_;
+      end_ = src.end_;
       bss_ = src.bss_;
-      szs_ = src.szs_;
 
     }
 
@@ -161,9 +161,9 @@ namespace nt2 { namespace memory
     pointer_buffer& operator=(pointer_buffer const& src)
     {
 
-      buffer_ = src.buffer_;
+      begin_ = src.begin_;
       bss_ = src.bss_;
-      szs_ = src.szs_;
+      end_ = src.end_;
 
       return *this;
     }
@@ -176,22 +176,35 @@ namespace nt2 { namespace memory
     iterator
     begin()
     {
-      return buffer_;      
+      return begin_;
     }
+
+    const_iterator
+    begin() const
+    {
+      return begin_;
+    }
+
 
     iterator
     end()
     {
-      return buffer_ + bss_ + szs_;
+      return end_;
+    }
+
+    const_iterator
+    end() const
+    {
+      return end_;
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Forward size related methods
     ////////////////////////////////////////////////////////////////////////////
     size_type
-    size()
+    size() const
     {
-      return szs_;
+      return end_ - begin_;
     }
     ////////////////////////////////////////////////////////////////////////////
     // RandomAccessContainer Interface
@@ -207,7 +220,7 @@ namespace nt2 { namespace memory
       // BOOST_ASSERT_MSG( (i <= upper())
       //                 , "Position is out of buffer bounds"
       //                 );
-      return buffer_[i];
+      return begin_[i - bss_];
     }
 
     const_reference
@@ -220,7 +233,7 @@ namespace nt2 { namespace memory
       // BOOST_ASSERT_MSG( (i <= upper())
       //                 , "Position is out of buffer bounds"
       //                 );
-      return buffer_[i];
+      return begin_[i - bss_];
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -228,21 +241,9 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     void swap( pointer_buffer& src )
     {
-      size_type       src_szs_    = src.szs_;
-      difference_type src_bss_    = src.bss_;
-      Type*           src_buffer_ = src.buffer_;
-
-      src.szs_    = szs_;
-      src.bss_    = bss_;
-      src.buffer_ = buffer_;
-
-      szs_    = src_szs_;
-      bss_    = src_bss_;
-      buffer_ = src_buffer_;
-
-      // boost::swap(src.szs_,szs_);
-      // boost::swap(src.bss_,bss_);
-      // boost::swap(src.buffer_,buffer_);
+      boost::swap(src.bss_,bss_);
+      boost::swap(src.begin_,begin_);
+      boost::swap(src.end_,end_);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -260,15 +261,15 @@ namespace nt2 { namespace memory
       , (Bases)
       );
 
-      if(buffer_){
-        buffer_ += bss_;
-      }
+      // if(begin_){
+      //   begin_ += bss_;
+      // }
 
       bss_ = boost::fusion::at_c<0>(b); 
 
-      if(buffer_){
-        buffer_ -= bss_;
-      }
+      // if(begin_){
+      //   begin_ -= bss_;
+      // }
     }
 
     template<class Sizes>
@@ -279,7 +280,10 @@ namespace nt2 { namespace memory
       , SIZE_MISMATCH_IN_POINTER_BUFFER_RESIZE
       , (Sizes)
       );
-      szs_ = boost::fusion::at_c<0>(s);
+
+
+
+      end_ = begin_+ boost::fusion::at_c<0>(s);
     }
 
    
@@ -311,10 +315,9 @@ namespace nt2 { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Allocator access
     ////////////////////////////////////////////////////////////////////////////
-    size_type szs_;
     difference_type bss_;
-    Type* buffer_;
- 
+    Type *begin_, *end_;
+
 
   };
 

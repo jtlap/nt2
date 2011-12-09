@@ -89,10 +89,10 @@ namespace nt2 {  namespace memory
 
 
     template<typename Sizes, typename Bases>
-    vector_buffer( vector_buffer    const& src
-                  , Sizes           const& sz
-                  , Bases           const& bs
-                  , allocator_type  const& alloc = allocator_type()
+    vector_buffer( std::vector<Type, Allocator>  const& src
+                  , Sizes                        const& sz
+                  , Bases                        const& bs
+                  , allocator_type               const& alloc = allocator_type()
                   , typename  boost::enable_if<
                               boost::fusion::traits::is_sequence<Sizes>
                               >::type* = 0
@@ -100,28 +100,29 @@ namespace nt2 {  namespace memory
                               boost::fusion::traits::is_sequence<Bases>
                               >::type* = 0
                   )
-    : parent_data(boost::fusion::at_c<0>(sz))
+    : parent_data(src)
     {
-      // BOOST_MPL_ASSERT_MSG
-      // ( (boost::mpl::size<Sizes>::value == 1)
-      // , SIZE_MISMATCH_IN_VECTOR_BUFFER_CONSTRUCTOR
-      // , (Sizes)
-      // );
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Sizes>::value == 1)
+      , SIZE_MISMATCH_IN_VECTOR_BUFFER_CONSTRUCTOR
+      , (Sizes)
+      );
 
-      // BOOST_MPL_ASSERT_MSG
-      // ( (boost::mpl::size<Bases>::value == 1)
-      // , BASE_MISMATCH_IN_VECTOR_BUFFER_CONSTRUCTOR
-      // , (Bases)
-      // );
 
-      this->copy(src, boost::fusion::at_c<0>(sz), boost::fusion::at_c<0>(bs));
+      BOOST_MPL_ASSERT_MSG
+      ( (boost::mpl::size<Bases>::value == 1)
+      , BASE_MISMATCH_IN_VECTOR_BUFFER_CONSTRUCTOR
+      , (Bases)
+      );
+
+      resize(sz);
+      rebase(bs);
     }
 
 
     vector_buffer( vector_buffer const& src )
       : parent_data(src.size())
     {
-      //      bss_ = src.bss_;
       this->copy( src, src.size(),src.bss_);
     }
 
@@ -140,7 +141,6 @@ namespace nt2 {  namespace memory
       if(src.size() > this->size())
       {
         // If we do, use the SG copy+swap method
-        std::cout << "We need resizing" << std::endl;
         vector_buffer that(src);
         swap(that);
       }
@@ -204,16 +204,14 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     void swap( vector_buffer& src )
     {
-      //      bss_ = src.bss_;
       boost::swap(bss_, src.bss_);
-      parent_data::swap(src.begin());
+      parent_data::swap(src);
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // resize/rebase/restructure buffer
     ////////////////////////////////////////////////////////////////////////////
-    //    using parent_data::rebase;
-    //    using parent_data::resize;
+
 
     template<class Bases>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
@@ -273,7 +271,6 @@ namespace nt2 {  namespace memory
 
     void copy( vector_buffer const& src, size_type const& s, difference_type const& b )
     {
-      //restructure(s,b);
       parent_data::resize(s);
       bss_ = b;
       std::copy(src.begin(),src.end(),begin());
