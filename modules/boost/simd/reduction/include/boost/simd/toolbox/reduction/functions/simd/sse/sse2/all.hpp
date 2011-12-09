@@ -6,15 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_ALL_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_ALL_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_ALL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/toolbox/reduction/functions/bitwise_all.hpp>
+#include <boost/simd/toolbox/reduction/functions/all.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_all_, boost::simd::tag::sse2_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::all_, boost::simd::tag::sse2_,
                               (A0),
                               ((simd_<type16_<A0>,boost::simd::tag::sse_>))
                             )

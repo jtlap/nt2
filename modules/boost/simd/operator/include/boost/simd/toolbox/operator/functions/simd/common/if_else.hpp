@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
+
 #include <boost/simd/toolbox/operator/functions/if_else.hpp>
 #include <boost/simd/include/functions/bitwise_select.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,8 +30,8 @@ namespace boost { namespace simd { namespace ext
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_< arithmetic_<A0>, X >))
-                              ((simd_< fundamental_<A1>, X >))
-                              ((simd_< fundamental_<A1>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
                             )
   {
     typedef A1 result_type;

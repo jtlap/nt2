@@ -8,49 +8,43 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_GENMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_GENMASK_HPP_INCLUDED
+
+#include <boost/simd/toolbox/bitwise/functions/genmask.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
-#include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <iostream>
-#include <nt2/sdk/details/type_id.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
+#include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/sizeof.hpp>
+#include <boost/mpl/not.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<fundamental_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_arithmetic<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return if_else(is_nez(a0), Allbits<A0> (), Zero<A0>());
+      return if_else_zero(a0, Allbits<result_type>());
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::genmask_, tag::cpu_
                             , (A0)(X)
+                            , (mpl::equal_to< mpl::sizeof_<A0>, mpl::sizeof_<typename A0::type> >)
                             , ((simd_<logical_<A0>,X>))
                             )
   {
-    typedef typename A0::type result_type;
+    typedef typename A0::type const& result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      std::cout << "this functor has not been properly specialized" << std::endl;
-      std::cout << "for type : " << nt2::type_id<A0>() << std::endl; 
-      //      return if_else(a0, Allbits<result_type>(), Zero<result_type>());
-      static const size_t size = boost::simd::meta::cardinal_of<result_type>::value;
-      typedef typename meta::scalar_of<result_type>::type sR;
-      BOOST_SIMD_ALIGNED_TYPE(sR) tmp[size];
-      for(size_t i = 0; i != size; ++i)
-        tmp[i] = a0[i]?Allbits<sR>():Zero<sR>();
-      return load<result_type>(&tmp[0], 0);
-      
+      return bitwise_cast<typename A0::type>(a0);
     }
   };
 } } }
-
 
 #endif

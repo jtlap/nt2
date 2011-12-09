@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_GENMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_GENMASK_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
+#include <boost/simd/toolbox/bitwise/functions/genmask.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/functions/complement.hpp>
@@ -20,22 +22,9 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_, 
-				     (A0), 
-                                   ((simd_<logical_<A0>, boost::simd::tag::sse_>))
-                                  )
-  {
-    typedef typename A0::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      result_type that = bitwise_cast<result_type>(a0);
-      return that;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_, 
-				     (A0), 
-                                   ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                                  )
+                                     (A0), 
+                                     ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
@@ -46,9 +35,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
-				     , (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                            )
+                                   , (A0)
+                                   , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
@@ -59,7 +48,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
-				     , (A0)
+                            , (A0)
                             , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -72,7 +61,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
-				     , (A0)
+                            , (A0)
                             , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -85,7 +74,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
-				     , (A0)
+                            , (A0)
                             , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                             )
   {
@@ -98,7 +87,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::sse2_
-				     , (A0)
+                            , (A0)
                             , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                             )
   {
