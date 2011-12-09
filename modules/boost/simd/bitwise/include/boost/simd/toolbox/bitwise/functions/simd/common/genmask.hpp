@@ -11,6 +11,7 @@
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -37,7 +38,15 @@ namespace boost { namespace simd { namespace ext
     typedef typename A0::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return if_else(a0, Allbits<result_type>(), Zero<result_type>());
+      std::cout << "this functor has not been properly specialized" << std::endl; 
+      //      return if_else(a0, Allbits<result_type>(), Zero<result_type>());
+      static const size_t size = boost::simd::meta::cardinal_of<result_type>::value;
+      typedef typename meta::scalar_of<result_type>::type sR;
+      BOOST_SIMD_ALIGNED_TYPE(sR) tmp[size];
+      for(size_t i = 0; i != size; ++i)
+        tmp[i] = a0[i]?Allbits<sR>():Zero<sR>();
+      return load<result_type>(&tmp[0], 0);
+      
     }
   };
 } } }

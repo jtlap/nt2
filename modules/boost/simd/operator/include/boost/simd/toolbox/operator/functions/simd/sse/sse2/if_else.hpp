@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_IF_ELSE_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/operator/functions/if_else.hpp>
 #include <boost/simd/include/functions/bitwise_select.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
@@ -40,4 +41,5 @@ namespace boost { namespace simd { namespace ext
   };  
 } } }
 
+#endif
 #endif

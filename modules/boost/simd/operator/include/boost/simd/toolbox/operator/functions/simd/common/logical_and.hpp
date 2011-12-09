@@ -1,3 +1,4 @@
+
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
@@ -12,6 +13,7 @@
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -38,7 +40,23 @@ namespace boost { namespace simd { namespace ext
     {
       return is_nez(b_and(genmask(a0), genmask(a1)));
     }
-  };  
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<fundamental_<A0>,X>))
+                              ((simd_<fundamental_<A1>,X>))
+                            )
+  {
+    typedef A0 result_type;
+    inline A0 operator()(const A0 &,  const A1&) const
+    {
+       BOOST_ASSERT_MSG( (true),
+                    "you cannot logical_and a standard simd vector and a simd logical vector"
+                        );
+       return Zero<result_type>(); 
+    }
+  };    
 } } }
 
 

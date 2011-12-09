@@ -12,9 +12,7 @@
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/logical_and.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::majority_, tag::cpu_,
@@ -35,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                  logical_and(aa0, aa1),
                  logical_and(aa1, aa2)
                ),
-               logical_and(aa2, a0)
+               logical_and(aa2, aa0)
              );
       return r; 
     }

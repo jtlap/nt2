@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_AND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_AND_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
@@ -43,4 +44,5 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 
+#endif
 #endif
