@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<result_type>(_mm_blendv_ps(a2, a1, genmask(a0)));
+      return bitwise_cast<result_type>(_mm_blendv_ps(a2, a1, bitwise_cast<A1>(genmask(a0))));
     }
   };
 
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<result_type>(_mm_blendv_pd(a2, a1, genmask(a0)));
+      return bitwise_cast<result_type>(_mm_blendv_pd(a2, a1, bitwise_cast<A1>(genmask(a0))));
     }
   };
 
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<A1>(_mm_blendv_epi8(a2, a1, genmask(a0)));
+      return bitwise_cast<A1>(_mm_blendv_epi8(a2, a1, bitwise_cast<A1>(genmask(a0))));
     }
   };
 } } }
