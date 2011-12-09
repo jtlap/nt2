@@ -116,7 +116,7 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     template<typename Sizes, typename Bases>
-    buffer( buffer const& src
+    buffer( buffer          const& src
           , Sizes           const& sz
           , Bases           const& bs
           , allocator_type  const& alloc = allocator_type()

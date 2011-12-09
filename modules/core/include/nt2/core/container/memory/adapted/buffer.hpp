@@ -24,7 +24,7 @@ namespace nt2 { namespace memory
   struct buffer;
 
   //============================================================================
-  // Buffer have size/lower/upper
+  // Buffer have size
   //============================================================================
   template<std::size_t N, typename T, typename A>
   typename buffer<T,A>::size_type size( buffer<T,A> const& b )
@@ -32,17 +32,17 @@ namespace nt2 { namespace memory
     return (N == 1u) ? b.size() : 1u;
   }
   
-  template<std::size_t N, typename T, typename A>
-  typename buffer<T,A>::difference_type lower( buffer<T,A> const& b )
-  {
-    return (N == 1u) ? b.lower() : 1u;
-  }
+  // template<std::size_t N, typename T, typename A>
+  // typename buffer<T,A>::difference_type lower( buffer<T,A> const& b )
+  // {
+  //   return (N == 1u) ? b.lower() : 1u;
+  // }
   
-  template<std::size_t N, typename T, typename A>
-  typename buffer<T,A>::difference_type upper( buffer<T,A> const& b )
-  {
-    return (N == 1u) ? b.upper() : 1u;
-  }
+  // template<std::size_t N, typename T, typename A>
+  // typename buffer<T,A>::difference_type upper( buffer<T,A> const& b )
+  // {
+  //   return (N == 1u) ? b.upper() : 1u;
+  // }
   
   //============================================================================
   // Buffer are dereferencable
