@@ -49,6 +49,22 @@ namespace boost { namespace simd { namespace ext
       return fma(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), a0);
     }
   };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)(Dom)
+                                   , ((expr_< unspecified_<A0>,Dom,boost::simd::tag::multiplies_>))((expr_< unspecified_<A1>,Dom,boost::simd::tag::multiplies_>))
+                                   )
+  {
+    typedef typename dispatch::meta::call< boost::simd::tag::fma_(
+          typename boost::proto::result_of::child_c<A0, 0>::type const&,
+          typename boost::proto::result_of::child_c<A0, 1>::type const&,
+          A1 const&
+        ) >::type result_type; 
+  
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return fma(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), a1);
+    }
+  };
 } } }
 
 #endif
