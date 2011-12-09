@@ -6,21 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_MULTIPLIES_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_MULTIPLIES_HPP_INCLUDED
-
-#include <boost/simd/toolbox/operator/functions/multiplies.hpp>
-
-namespace nt2
-{
-  namespace tag
-  {
-    using boost::simd::tag::multiplies_;
-  }
-
-  using boost::simd::multiplies;
-  using boost::simd::mul;
-  using boost::simd::times;
-}
-
+#ifndef NT2_INCLUDE_FUNCTIONS_TOC_HPP_INCLUDED
+#define NT2_INCLUDE_FUNCTIONS_TOC_HPP_INCLUDED
+#include <nt2/sdk/timing/tic.hpp>
 #endif

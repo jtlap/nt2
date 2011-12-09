@@ -10,7 +10,7 @@
 #define NT2_SDK_CONFIG_ATTRIBUTES_HPP_INCLUDED
 
 #if defined(__GNUC__)
-#define NT2_FORCE_INLINE __attribute__((always_inline))
+#define NT2_FORCE_INLINE __attribute__((always_inline)) inline
 #elif defined(_MSC_VER)
 #define NT2_FORCE_INLINE __forceinline
 #else

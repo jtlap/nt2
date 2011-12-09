@@ -34,6 +34,7 @@
  * 
  * \par Alias 
  * \arg mul
+ * \arg times
  * 
  * \synopsis
  *
@@ -70,6 +71,7 @@ namespace boost { namespace simd
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , multiplies      , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , mul             , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , times           , 2 )
 } }
 
 #endif
