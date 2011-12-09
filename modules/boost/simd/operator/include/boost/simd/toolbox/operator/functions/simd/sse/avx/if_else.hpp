@@ -6,10 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_SELECT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_SELECT_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_IF_ELSE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_IF_ELSE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/simd/toolbox/operator/functions/if_else.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
@@ -28,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<result_type>(_mm256_blendv_ps(a2, a1, genmask(a0)));
+      return bitwise_cast<result_type>(_mm256_blendv_ps(a2, a1, bitwise_cast<A1>(genmask(a0))));
     }
   };
 
@@ -42,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 const& a1,A1 const& a2) const
     {
-      return bitwise_cast<result_type>(_mm256_blendv_pd(a2, a1, genmask(a0)));
+      return bitwise_cast<result_type>(_mm256_blendv_pd(a2, a1,  bitwise_cast<A1>(genmask(a0))));
     }
   };
   
