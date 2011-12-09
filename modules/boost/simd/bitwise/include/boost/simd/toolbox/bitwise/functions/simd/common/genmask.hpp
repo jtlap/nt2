@@ -12,7 +12,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <iostream>
-
+#include <nt2/sdk/details/type_id.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename A0::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      std::cout << "this functor has not been properly specialized" << std::endl; 
+      std::cout << "this functor has not been properly specialized" << std::endl;
+      std::cout << "for type : " << nt2::type_id<A0>() << std::endl; 
       //      return if_else(a0, Allbits<result_type>(), Zero<result_type>());
       static const size_t size = boost::simd::meta::cardinal_of<result_type>::value;
       typedef typename meta::scalar_of<result_type>::type sR;

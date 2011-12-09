@@ -126,7 +126,19 @@ namespace boost { namespace simd { namespace ext
        itype that = { _mm256_insertf128_si256(that,genmask(a00), 0)};
        return  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, genmask(a01), 1));
     }
-  };  
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, boost::simd::tag::avx_
+                            , (A0)
+                            , ((simd_<logical_<A0>, boost::simd::tag::avx_>))
+                            )
+  {
+    typedef typename A0::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return genmask(bitwise_cast<result_type>(a0)); 
+    }
+  };    
 } } }
 
 #endif
