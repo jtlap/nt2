@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/all.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return result_type(_mm_movemask_epi8(a0) == 0xFFFF);
+      return result_type(_mm_movemask_epi8(genmask(a0)) == 0xFFFF);
     }
   };
 
