@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
 #else
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::bitwise_cast_, tag::cpu_, (A0)(A1)
-                            , (mpl::not_< is_same<A0, typename A1::type>)
+                            , (mpl::not_< is_same<A0, typename A1::type > >)
                             , (unspecified_<A0>)
                               (target_< unspecified_<A1> >)
                             )

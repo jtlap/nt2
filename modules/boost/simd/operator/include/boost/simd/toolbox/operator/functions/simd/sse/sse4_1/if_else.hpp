@@ -27,10 +27,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A1>(_mm_blendv_epi8( a2, a1, genmask(a0)));
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
@@ -44,10 +41,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A1>(_mm_blendv_ps(a2, a1, genmask(a0))); 
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
                             , (A0)(A1)
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
@@ -61,10 +55,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A1>(_mm_blendv_pd(a2, a1, genmask(a0))); 
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
                             , (A0)(A1)
                             , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
@@ -78,9 +69,7 @@ namespace boost { namespace simd { namespace ext
       return if_else(bitwise_cast<A1>(a0), a1, a2); 
     }
   };
-} } }
-namespace boost { namespace simd { namespace ext
-{
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
                             , (A0)(A1)
                             , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
@@ -94,10 +83,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A1>(_mm_blendv_ps(a2, a1, bitwise_cast<A1>(a0))); 
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
                             , (A0)(A1)
                             , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
@@ -111,9 +97,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A1>(_mm_blendv_pd(a2, a1, bitwise_cast<A1>(a0))); 
     }
   };
-} } }
-namespace boost { namespace simd { namespace ext
-{
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::sse4_1_
                             , (A0)(A1)
                             , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
