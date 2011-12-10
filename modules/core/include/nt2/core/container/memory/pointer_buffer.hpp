@@ -9,106 +9,64 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_POINTER_BUFFER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_MEMORY_POINTER_BUFFER_HPP_INCLUDED
 
+#include <boost/swap.hpp>
+#include <boost/assert.hpp>
+#include <boost/mpl/size.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/swap.hpp>
+#include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
-#include <nt2/sdk/meta/remove_pointers.hpp>
-#include <boost/type_traits/add_pointer.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/core/container/memory/adapted/pointer_buffer.hpp>
-
 
 namespace nt2 { namespace memory
 {
-
-  template<class Type>
-  class pointer_buffer
+  template<class Type> class pointer_buffer
   {
     public:
-    //==========================================================================
-    // Inheritance type definition
-    //==========================================================================
-    typedef typename std::allocator<Type>     allocator_type;
-
-
     //============================================================================
     // Buffer type interface
     //============================================================================
-    typedef Type                              value_type;                  
-    typedef Type*                             pointer;
-    typedef const Type*                       const_pointer;
-    typedef Type*                             iterator;
-    typedef const Type*                       const_iterator;
-    typedef Type&                             reference;
-    typedef const Type&                       const_reference;
-    typedef std::size_t                       size_type;
-    typedef std::ptrdiff_t                    difference_type;
-    typedef std::ptrdiff_t                    index_type;
-
+    typedef typename boost::simd::memory::allocator<Type> allocator_type;
+    typedef Type                                          value_type;
+    typedef Type*                                         pointer;
+    typedef const Type*                                   const_pointer;
+    typedef Type*                                         iterator;
+    typedef const Type*                                   const_iterator;
+    typedef Type&                                         reference;
+    typedef const Type&                                   const_reference;
+    typedef std::size_t                                   size_type;
+    typedef std::ptrdiff_t                                difference_type;
+    typedef std::ptrdiff_t                                index_type;
 
     //==========================================================================
     /**!
-     *
-     *
+     * Default constructor for pointer_buffer. 
      **/
     //==========================================================================
-    pointer_buffer( allocator_type const& a =allocator_type() ) 
+    pointer_buffer(allocator_type const& = allocator_type()) 
     {
-      bss_ = 0;
-      begin_ = 0;
-      end_ = 0;
+      base_ = 0;
+      begin_ = end_ = 0;
     }
 
     //==========================================================================
     /**!
+     * Constructs a pointer_buffer from a pointer to \c Type, a dimension set
+     * and a base index sets.
      *
-     *
-     **/
-    //==========================================================================
-
-    template<typename Sizes, typename Bases>
-    pointer_buffer( Sizes           const& sz
-                  , Bases           const& bs
-                  , allocator_type  const& alloc = allocator_type()
-                  , typename  boost::enable_if<
-                              boost::fusion::traits::is_sequence<Sizes>
-                              >::type* = 0
-                  , typename  boost::enable_if<
-                              boost::fusion::traits::is_sequence<Bases>
-                              >::type* = 0
-                  )
-   {
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Sizes>::value == 1)
-      , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-      , (Sizes)
-      );
-
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Bases>::value == 1)
-      , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-      , (Bases)
-      );
-
-      resize(sz);
-      rebase(bs);
-      begin_ = 0;
-
-    }
-
-    //==========================================================================
-    /**!
-     *
-     *
+     * \param src A pointer to \c Type value.
+     * \param sz  A Boost.Fusion \c RandomAccessSequence containing the number
+     * of elements of the buffer.
+     * \param bs  A Boost.Fusion \c RandomAccessSequence containing the base
+     * index of the buffer.
      **/
     //==========================================================================
     template<typename Sizes, typename Bases>
     pointer_buffer( Type*           const& src
                   , Sizes           const& sz
                   , Bases           const& bs
-                  , allocator_type  const& alloc = allocator_type()
+                  , allocator_type const& = allocator_type()
                   , typename  boost::enable_if<
                               boost::fusion::traits::is_sequence<Sizes>
                               >::type* = 0
@@ -116,38 +74,43 @@ namespace nt2 { namespace memory
                               boost::fusion::traits::is_sequence<Bases>
                               >::type* = 0
                   )
+    : base_(0), begin_(src), end_(src)
     {
+      // If you trigger this assertion, your size sequence is missized
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Sizes>::value == 1)
       , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
       , (Sizes)
       );
 
+      // If you trigger this assertion, your index sequence is missized
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Bases>::value == 1)
       , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
       , (Bases)
       );
-
-      begin_ = src;
-      resize(sz);
-      rebase(bs);
-
+      
+      if(begin_) restructure(sz,bs);
     }
 
+    //==========================================================================
+    /**!
+     * Copy constructor for pointer_buffer. When copied, a pointer_buffer shares
+     * the pointer it refers too.
+     *
+     * \param src pointer_buffer to copy
+     **/
+    //==========================================================================
     pointer_buffer( pointer_buffer const& src )
-    {
-      begin_ = src.begin_;
-      end_ = src.end_;
-      bss_ = src.bss_;
-
-    }
-
+      : base_(src.base_), begin_(src.begin_), end_(src.end_)
+    {}
 
     //==========================================================================
-    // Basic destructor 
+    /**!
+     * \c pointer_buffer destructor leave memory management to the actual
+     * pointer's owner.
+     **/
     //==========================================================================
-
     ~pointer_buffer() {}
 
     //==========================================================================
@@ -155,102 +118,120 @@ namespace nt2 { namespace memory
      * Assign a buffer to the current buffer 
      *
      * \param src buffer to assign
-     * \return The now updated buffer
+     * \return The updated \c pointer_buffer pointing to the same pointer and 
+     * with corresponding size and base
      **/
     //==========================================================================
     pointer_buffer& operator=(pointer_buffer const& src)
     {
-
       begin_ = src.begin_;
-      bss_ = src.bss_;
-      end_ = src.end_;
+      end_   = src.end_;
+      base_  = src.base_;
 
       return *this;
     }
 
+    //==========================================================================
+    /**!
+     * Return a (const) iterator to the beginning of the buffer data.
+     **/
+    //==========================================================================
+    iterator        begin()       { return begin_ + base_; }
+    const_iterator  begin() const { return begin_ + base_; }
 
+    //==========================================================================
+    /**!
+     * Return a (const) iterator to the end of the buffer data.
+     **/
+    //==========================================================================
+    iterator        end()       { return end_  + base_; }
+    const_iterator  end() const { return end_  + base_; }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Iterator related methods
-    ////////////////////////////////////////////////////////////////////////////
-    iterator
-    begin()
+    //==========================================================================
+    /**!
+     * Return the number of elements accessible through the buffer.
+     **/
+    //==========================================================================
+    size_type size()  const { return end_ - begin_; }
+
+    //==========================================================================
+    /**!
+     * Return \c true if the buffer contains no elements
+     **/
+    //==========================================================================
+    bool empty()  const { return size() != 0u; }
+
+    //==========================================================================
+    /**!
+     * Return the lowest valid index for accessing a buffer element
+     **/
+    //==========================================================================
+    difference_type lower() const { return base_; }
+
+    //==========================================================================
+    /**!
+     * Return the highest valid index for accessing a buffer element
+     **/
+    //==========================================================================
+    difference_type upper() const { return size() - 1 + base_;  }
+    
+    //==========================================================================
+    /**!
+     * Return the ith element of the buffer.
+     *
+     * \param i Index of the element to retrieve. Note that \c i should be no
+     * lesser than lower() nor bigger than upper() to be valid.
+     **/    
+    //==========================================================================
+    reference operator[](difference_type const& i)
     {
-      return begin_;
-    }
-
-    const_iterator
-    begin() const
-    {
-      return begin_;
-    }
-
-
-    iterator
-    end()
-    {
-      return end_;
-    }
-
-    const_iterator
-    end() const
-    {
-      return end_;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Forward size related methods
-    ////////////////////////////////////////////////////////////////////////////
-    size_type
-    size() const
-    {
-      return end_ - begin_;
-    }
-    ////////////////////////////////////////////////////////////////////////////
-    // RandomAccessContainer Interface
-    ////////////////////////////////////////////////////////////////////////////
-
-    reference
-    operator[](difference_type const& i)
-    {
-      // BOOST_ASSERT_MSG( (i >= lower())
-      //                 , "Position is below buffer bounds"
-      //                 );
+      BOOST_ASSERT_MSG( (i >= lower())
+                      , "Position is below buffer bounds"
+                      );
                       
-      // BOOST_ASSERT_MSG( (i <= upper())
-      //                 , "Position is out of buffer bounds"
-      //                 );
-      return begin_[i - bss_];
-    }
-
-    const_reference
-    operator[](difference_type const& i) const
-    {
-      // BOOST_ASSERT_MSG( (i >= lower())
-      //                 , "Position is below buffer bounds"
-      //                 );
+      BOOST_ASSERT_MSG( (i <= upper())
+                      , "Position is out of buffer bounds"
+                      );
                       
-      // BOOST_ASSERT_MSG( (i <= upper())
-      //                 , "Position is out of buffer bounds"
-      //                 );
-      return begin_[i - bss_];
+      return begin_[i];
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Swapping
-    ////////////////////////////////////////////////////////////////////////////
+    const_reference operator[](difference_type const& i) const
+    {
+      BOOST_ASSERT_MSG( (i >= lower())
+                      , "Position is below buffer bounds"
+                      );
+                      
+      BOOST_ASSERT_MSG( (i <= upper())
+                      , "Position is out of buffer bounds"
+                      );
+
+      return begin_[i];
+    }
+
+    //==========================================================================
+    /**!
+     * Swap the contents of the buffer with another one.
+     *
+     * \param src buffer to swap with
+     **/
+    //==========================================================================
     void swap( pointer_buffer& src )
     {
-      boost::swap(src.bss_,bss_);
+      boost::swap(src.base_,base_);
       boost::swap(src.begin_,begin_);
       boost::swap(src.end_,end_);
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // resize/rebase/restructure buffer
-    ////////////////////////////////////////////////////////////////////////////
-    //    using parent_data::rebase;
-
+    //==========================================================================
+    /**!
+     * Change th ebase index of the buffer. This operation is doen in constant
+     * time and don't trigger any reallocation.
+     *
+     * \param b A Boost.Fusion \c RandomAccessSequence containing the new base
+     * index.
+     **/
+    //==========================================================================
     template<class Bases>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
     rebase(Bases const & b) { 
@@ -261,17 +242,20 @@ namespace nt2 { namespace memory
       , (Bases)
       );
 
-      // if(begin_){
-      //   begin_ += bss_;
-      // }
-
-      bss_ = boost::fusion::at_c<0>(b); 
-
-      // if(begin_){
-      //   begin_ -= bss_;
-      // }
+      begin_ += base_;
+      base_ = boost::fusion::at_c<0>(b);
+      begin_  -= base_;
+      end_    -= base_;
     }
 
+    //==========================================================================
+    /**!
+     * Change the size of the buffer. This operation is done in constant
+     * time and don't trigger any reallocation.
+     *
+     * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
+     **/
+    //==========================================================================
     template<class Sizes>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
     resize(Sizes const& s) {
@@ -281,13 +265,19 @@ namespace nt2 { namespace memory
       , (Sizes)
       );
 
-
-
       end_ = begin_+ boost::fusion::at_c<0>(s);
     }
 
-   
-
+    //==========================================================================
+    /**!
+     * Change the size and base index of the buffer. This operation is done by
+     * calling resize and rebase.
+     *
+     * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
+     * \param b A Boost.Fusion \c RandomAccessSequence containing the new base
+     * index.
+     **/
+    //==========================================================================
     template<class Bases,class Sizes>
     typename boost::enable_if_c < boost::fusion::traits::is_sequence<Sizes>::value
                                   &&
@@ -312,29 +302,22 @@ namespace nt2 { namespace memory
     }
 
     protected:
-    ////////////////////////////////////////////////////////////////////////////
-    // Allocator access
-    ////////////////////////////////////////////////////////////////////////////
-    difference_type bss_;
+    difference_type base_;
     Type *begin_, *end_;
-
-
   };
 
   //============================================================================
   /**!
    * Swap the contents of two buffer of same type and allocator settings
+   * \param a First \c pointer_buffer to swap
+   * \param b Second \c pointer_buffer to swap
    **/
   //============================================================================
   template<class T>
   void swap( pointer_buffer<T>& a, pointer_buffer<T>& b )
   {
     a.swap(b);
-  }
-
-
+  }  
 } }
   
-
-
 #endif
