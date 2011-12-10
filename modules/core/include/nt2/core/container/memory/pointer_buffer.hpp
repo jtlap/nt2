@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_POINTER_BUFFER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_MEMORY_POINTER_BUFFER_HPP_INCLUDED
 
+#include <iterator>
 #include <boost/swap.hpp>
 #include <boost/assert.hpp>
 #include <boost/mpl/size.hpp>
@@ -33,6 +34,8 @@ namespace nt2 { namespace memory
     typedef const Type*                                   const_pointer;
     typedef Type*                                         iterator;
     typedef const Type*                                   const_iterator;
+    typedef std::reverse_iterator<iterator>               reverse_iterator;      
+    typedef std::reverse_iterator<const_iterator>         const_reverse_iterator;
     typedef Type&                                         reference;
     typedef const Type&                                   const_reference;
     typedef std::size_t                                   size_type;
@@ -146,6 +149,22 @@ namespace nt2 { namespace memory
     //==========================================================================
     iterator        end()       { return end_  + base_; }
     const_iterator  end() const { return end_  + base_; }
+
+    //==========================================================================
+    /**!
+     * Return a (const) reverse_iterator to the beginning of the buffer data.
+     **/
+    //==========================================================================
+    reverse_iterator        rbegin()       { return reverse_iterator(end());          }
+    const_reverse_iterator  rbegin() const { return const_reverse_iterator(end());    }
+
+    //==========================================================================
+    /**!
+     * Return a (const) reverse_iterator to the end of the buffer data.
+     **/
+    //==========================================================================
+    reverse_iterator        rend()         { return reverse_iterator(begin());        }
+    const_reverse_iterator  rend()   const { return const_reverse_iterator(begin());  }
 
     //==========================================================================
     /**!
