@@ -9,8 +9,6 @@
 #ifndef NT2_CORE_UTILITY_OF_SIZE_OF_SIZE_HPP_INCLUDED
 #define NT2_CORE_UTILITY_OF_SIZE_OF_SIZE_HPP_INCLUDED
 
-#include <iostream>
-
 #include <cstddef>
 #include <iterator>
 #include <boost/array.hpp>
@@ -186,7 +184,6 @@ namespace nt2
     reference       operator[](std::size_t i)       { return data_[i]; }
     const_reference operator[](std::size_t i) const { return data_[i]; }
 
-
     std::size_t*        data()       { return &data_[0]; }
     std::size_t const*  data() const { return &data_[0]; }
 
@@ -205,5 +202,6 @@ namespace nt2
 #include <nt2/core/utility/of_size/0d.hpp>
 #include <nt2/core/utility/of_size/predef.hpp>
 #include <nt2/core/utility/of_size/comparison.hpp>
+#include <nt2/core/container/memory/adapted/of_size.hpp>
 
 #endif
