@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
       bool that = true;
       for(std::size_t i=0;i<boost::simd::meta::cardinal_of<A0>::value;++i)
         that = that && (a0[i] == a1[i]);
-      return that;
+      return result_type(that);
     }
   };
 } } }

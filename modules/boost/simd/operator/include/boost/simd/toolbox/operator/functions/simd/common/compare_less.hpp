@@ -24,10 +24,10 @@ namespace boost { namespace simd { namespace ext
     {
       for(std::size_t i=0;i<boost::simd::meta::cardinal_of<A0>::value;++i)
       {
-        if (a0[i] < a1[i])  return true;
-        if (a1[i] < a0[i])  return false;
+        if (a0[i] < a1[i])  return result_type(true);
+        if (a1[i] < a0[i])  return result_type(false);
       }
-      return false;
+      return result_type(false);
     }
   };
 } } }
