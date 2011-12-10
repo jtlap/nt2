@@ -10,6 +10,8 @@
 SET( SOURCES
   if_zero_else.cpp
   if_else_zero.cpp
+  if_allbits_else.cpp
+  if_else_allbits.cpp
   negif.cpp
   seladd.cpp
   selsub.cpp
