@@ -200,45 +200,10 @@ namespace nt2
 
     inline void default_(boost::mpl::size_t<0> const&) {}
   };
-
-  //============================================================================
-  // Equality comparison for of_size_
-  //============================================================================
-  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
-          , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
-  bool operator==( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
-                 , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1
-                 )
-  {
-    static const std::size_t
-    a = of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)>::static_size;
-    
-    static const std::size_t
-    b = of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)>::static_size;
-
-    return details::compare_equal(a0,a1,boost::mpl::size_t<((a < b) ? b : a)-1>());
-  }
-
-  //============================================================================
-  // Inequality comparison for of_size_
-  //============================================================================
-  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
-          , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)>
-  bool operator!=( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
-                 , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1
-                 )
-  {
-    static const std::size_t
-    a = of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)>::static_size;
-    
-    static const std::size_t
-    b = of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)>::static_size;
-
-    return details::compare_not_equal(a0,a1,boost::mpl::size_t<((a < b) ? b : a)-1>());
-  }
 }
 
 #include <nt2/core/utility/of_size/0d.hpp>
 #include <nt2/core/utility/of_size/predef.hpp>
+#include <nt2/core/utility/of_size/comparison.hpp>
 
 #endif
