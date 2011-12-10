@@ -9,6 +9,7 @@
 
 SET( SOURCES
   if_zero_else.cpp
+  if_else_zero.cpp
   negif.cpp
   seladd.cpp
   selsub.cpp

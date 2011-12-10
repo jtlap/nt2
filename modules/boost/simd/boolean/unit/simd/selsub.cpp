@@ -55,6 +55,7 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(selsub(boost::simd::False<vT>(),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
   NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(-1));
   NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::Inf<vT>(),boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::One<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Minf<sr_t>());
   NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::Minf<vT>(),boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::Nan<vT>(),boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());

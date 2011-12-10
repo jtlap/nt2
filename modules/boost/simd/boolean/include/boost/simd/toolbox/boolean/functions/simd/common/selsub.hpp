@@ -14,6 +14,7 @@
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/simd/include/functions/minus.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -33,6 +34,26 @@ namespace boost { namespace simd { namespace ext
      return a1 - if_else_zero(a0, a2); 
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::selsub_, tag::cpu_, (A0)(A1)(X)
+                                , (boost::mpl::equal_to < boost::simd::meta::cardinal_of<A0>
+                                                        , boost::simd::meta::cardinal_of<A1>
+                                                        >
+                                  )
+                                , ((simd_<logical_<A0>,X>))
+                                  ((simd_<floating_<A1>,X>))
+                                  ((simd_<floating_<A1>,X>))
+                                )
+  {
+    typedef A1 result_type;
+    inline result_type operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
+    {
+      // this is a workaround for a gcc (at least 4.6) over-optimization in case or a1 and a2 are
+      // equal (constant?) and invalid (inf -inf or nan) in which case the general impl sometimes
+      // return 0 in place of nan in float case
+     return a1 + if_else_zero(a0, -a2); 
+    }
+  };  
 } } }
 
 #endif
