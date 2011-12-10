@@ -8,7 +8,6 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::storage_order "
 
-#include <nt2/table.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/sdk/meta/permute_view.hpp>
 
@@ -22,7 +21,6 @@
 NT2_TEST_CASE( storage_order_apply)
 {
   using boost::is_same;
-  using nt2::table;
   using boost::mpl::int_;
   using boost::mpl::apply;
   using nt2::matlab_order_;
@@ -64,7 +62,6 @@ NT2_TEST_CASE( storage_order_apply)
   NT2_TEST((is_same<C_order_::apply<size, dim_1> ::type, int_<1>  >::value ));
   NT2_TEST((is_same<C_order_::apply<size, dim_2> ::type, int_<2>  >::value ));
   NT2_TEST((is_same<C_order_::apply<size, dim_3> ::type, int_<3>  >::value ));
-
 }
 
 

@@ -15,6 +15,7 @@
  **/
 
 
+#include <boost/mpl/apply.hpp>
 #include <nt2/core/settings/option.hpp>
 
 namespace nt2 

@@ -6,19 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_DETAILS_OF_SIZE_META_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_DETAILS_OF_SIZE_META_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_OF_SIZE_FUSION_HPP_INCLUDED
+#define NT2_CORE_UTILITY_OF_SIZE_FUSION_HPP_INCLUDED
 
-#include <boost/simd/sdk/details/at_iterator.hpp>
-#include <nt2/core/settings/size.hpp>
-#include <boost/fusion/sequence/intrinsic.hpp>
-#include <boost/fusion/support.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/mpl/size_t.hpp>
+#include <boost/fusion/support.hpp>
+#include <nt2/core/settings/size.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <boost/fusion/sequence/intrinsic.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/simd/sdk/details/at_iterator.hpp>
 
 namespace boost { namespace fusion { namespace extension
 {
   //============================================================================
-  // Register of_size_ expression as fusion random access sequence
+  // Register of_size_ as fusion random access sequence
   //============================================================================
   template<> struct is_sequence_impl<nt2::tag::of_size_>
   {
@@ -40,10 +43,7 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct size_impl<nt2::tag::of_size_>
   {
-    template<typename Sequence>
-    struct  apply
-          : mpl::size_t<Sequence::static_size>
-    {};
+    template<typename Seq> struct apply : mpl::size_t<Seq::static_size> {};
   };
 
   //============================================================================
@@ -51,48 +51,42 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct at_impl<nt2::tag::of_size_>
   {
-    template<class Sequence, class Index, std::ptrdiff_t N>
-    struct apply_impl;
+    template<class Seq, class Index, std::ptrdiff_t N> struct apply_impl;
       
-    template<class Sequence, class Index>
-    struct apply
-     : apply_impl< Sequence
-                 , Index
-                 , mpl::
-                   at< typename Sequence::values_type
-                     , Index
-                     >::type::value
-                 >
+    template<class Seq, class Index>
+    struct  apply
+          : apply_impl< Seq, Index
+                      , mpl::at<typename Seq::values_type, Index>::type::value
+                      >
+    {};
+    
+    template<class Seq, class Index>
+    struct apply_impl<Seq, Index, -1>
     {
+      typedef typename mpl::if_ < is_const<Seq>
+                                , std::size_t const&
+                                , std::size_t&
+                                >::type               type;
+         
+      static type call(Seq& seq) { return seq[Index::value]; }
     };
     
-    template<class Sequence, class Index>
-    struct apply_impl<Sequence, Index, -1>
-    {
-        typedef typename mpl::
-        if_< is_const<Sequence>
-           , std::size_t const&
-           , std::size_t&
-           >::type                    type;
-           
-        static type call(Sequence& seq) { return seq[Index::value]; }
-    };
-    
-    template<class Sequence, class Index, std::ptrdiff_t N>
+    template<class Seq, class Index, std::ptrdiff_t N>
     struct apply_impl
     {
       typedef mpl::size_t<N> type;
-      static type call(Sequence& seq) { return type(); }
+      static type call(Seq& seq) { return type(); }
     };
   };
   
   template<> struct value_at_impl<nt2::tag::of_size_>
   {
-    template<class Sequence, class Index>
+    template<class Seq, class Index>
     struct apply
     {
-      typedef typename remove_reference<typename at_impl<nt2::tag::of_size_>::template
-      apply<Sequence, Index>::type>::type      type;
+      typedef typename  at_impl<nt2::tag::of_size_>
+                        ::template apply<Seq, Index>::type  base;
+      typedef typename remove_reference<base>::type         type;
     };
   };
 
