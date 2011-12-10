@@ -14,7 +14,6 @@
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/simd/include/functions/minus.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {

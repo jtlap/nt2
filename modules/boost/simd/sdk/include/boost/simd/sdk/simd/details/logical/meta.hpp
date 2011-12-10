@@ -71,9 +71,9 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // vector size
     ////////////////////////////////////////////////////////////////////////////
-    enum { static_size = sizeof(native_type)/sizeof(value_type)
-                       ? sizeof(native_type)/sizeof(value_type) : 1};
-    //    enum { static_size = meta::cardinal_of<native>::value };
+//     enum { static_size = sizeof(native_type)/sizeof(value_type)
+//                        ? sizeof(native_type)/sizeof(value_type) : 1};
+    enum { static_size = meta::cardinal_of<native>::value };
 
     ////////////////////////////////////////////////////////////////////////////
     // Assignment operator from native vector type
