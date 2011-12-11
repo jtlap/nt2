@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace config{ namespace details {
 #if defined(BOOST_SIMD_COMPILER_GCC)
     enum { eax,ebx,ecx,edx };
     
-#ifndef __PIC__
+#if !defined(__PIC__) || defined(BOOST_SIMD_ARCH_X86_64)
     __asm__ __volatile__
     (
       "cpuid"
