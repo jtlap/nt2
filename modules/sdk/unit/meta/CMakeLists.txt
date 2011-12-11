@@ -31,6 +31,7 @@ SET( SOURCES
     sign_of.cpp
     strip.cpp
     upgrade.cpp
+    view_at.cpp
     permute_view.cpp
    )
 
