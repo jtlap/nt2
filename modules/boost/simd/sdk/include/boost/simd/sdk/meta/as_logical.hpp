@@ -8,9 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_META_AS_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_AS_LOGICAL_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+
+namespace boost { namespace simd {
+  template<typename T> struct logical;
+} }
 
 namespace boost { namespace simd { namespace meta
 {
