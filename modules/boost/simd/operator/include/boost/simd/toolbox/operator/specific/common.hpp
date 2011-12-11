@@ -82,7 +82,7 @@ namespace boost { namespace simd { namespace ext                            \
                                                                             \
     BOOST_DISPATCH_CALL(n)                                                  \
     {                                                                       \
-      return boost::simd::map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));  \
+      return map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a) );    \
     }                                                                       \
   };                                                                        \
 } } }                                                                       \
