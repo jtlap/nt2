@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_GENERIC_MASK2LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_GENERIC_MASK2LOGICAL_HPP_INCLUDED
-
 #include <boost/simd/toolbox/boolean/functions/mask2logical.hpp>
 #include <boost/simd/include/functions/is_simd_logical.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
