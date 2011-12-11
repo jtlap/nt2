@@ -32,6 +32,18 @@ namespace boost { namespace simd { namespace ext
       return if_else_zero(a0, Allbits<result_type>());
     }
   };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<arithmetic_<A0>,X>))
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return genmask(is_nez(a0));
+    }
+  };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::genmask_, tag::cpu_
                             , (A0)(X)
