@@ -8,9 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
+
+#include <boost/simd/toolbox/predicates/functions/is_not_greater_equal.hpp>
+#include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/include/functions/is_greater_equal.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/is_unord.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -25,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(lt(a0,a1), is_unord(a0, a1));
+      return logical_not(ge(a0,a1));
     }
   };
   
