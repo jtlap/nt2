@@ -71,49 +71,6 @@ NT2_TEST_CASE_TPL(buffer_ctor, NT2_TYPES )
     NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 1+i );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Test for dynamic buffer ctor
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(buffer_ctor_from_buffer, NT2_TYPES )
-{
-  // using nt2::memory::buffer;
-  // using nt2::memory::size;
-  // // using nt2::memory::lower;
-  // // using nt2::memory::upper;
-  // using nt2::memory::dereference;
-  
-  // typedef          buffer<T>              buffer_type;
-  // typedef typename buffer_type::size_type size_type;
-
-  // boost::array<size_type,1> ss = { 5 };
-  // boost::array<size_type,1> bs = { 0 };
-
-  // buffer_type b1(ss,bs);
-
-  // NT2_TEST_EQUAL( size<1>(b1)  , 5U      );
-  // // NT2_TEST_EQUAL( lower<1>(b1) , 0       );
-  // // NT2_TEST_EQUAL( upper<1>(b1) , 4       );
-  // NT2_TEST_NOT_EQUAL( b1.begin() , b1.end() );
-
-  // for (typename buffer_type::index_type i = 0; i <= 4; ++i )
-  //   dereference(b1,boost::fusion::single_view<int>(i)) = typename buffer_type::value_type(1+i);
-
-  // boost::array<size_type,1> ss_ = { 6 };
-  // boost::array<size_type,1> bs_ = { -1 };
-
-
-  // buffer_type b(b1,ss,bs);
-
-  // NT2_TEST_EQUAL( size<1>(b)  , 6U      );
-  // // NT2_TEST_EQUAL( lower<1>(b) , -1       );
-  // // NT2_TEST_EQUAL( upper<1>(b) , 4       );
-  // NT2_TEST_NOT_EQUAL( b.begin() , b.end() );
-
-
-
-  // for (typename buffer_type::index_type i = -1; i <= 4; ++i )
-  //   NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 2+i );
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test for dynamic buffer assignment

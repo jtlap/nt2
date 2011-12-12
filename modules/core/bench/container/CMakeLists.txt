@@ -8,7 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-  small_table.cpp
+#  small_table.cpp
+   allocation.cpp
 # List of scalar test files for toolbox fuzzy
    )
 

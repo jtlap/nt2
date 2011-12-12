@@ -112,46 +112,6 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
-     * Constructs a buffer from an other buffer of type \c Type, a dimension set
-     * and a base index sets.
-     *
-     * \param src A buffer of \c Type value.
-     * \param sz  A Boost.Fusion \c RandomAccessSequence containing the number
-     * of elements of the buffer.
-     * \param bs  A Boost.Fusion \c RandomAccessSequence containing the base
-     * index of the buffer.
-     **/
-    //==========================================================================
-    template<typename Sizes, typename Bases>
-    buffer( buffer          const& src
-          , Sizes           const& sz
-          , Bases           const& bs
-          , allocator_type  const& alloc = allocator_type()
-          , typename  boost::enable_if<
-                      boost::fusion::traits::is_sequence<Sizes>
-                      >::type* = 0
-          , typename  boost::enable_if<
-                      boost::fusion::traits::is_sequence<Bases>
-                      >::type* = 0
-          )
-    : parent_data(alloc) 
-    {
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Sizes>::value == 1)
-      , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-      , (Sizes)
-      );
-
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Bases>::value == 1)
-      , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-      , (Bases)
-      );
-
-      this->copy(src, boost::fusion::at_c<0>(bs), boost::fusion::at_c<0>(sz));
-    }
-    //==========================================================================
-    /**!
      * Copy constructor for buffer. 
      *
      * \param src pointer_buffer to copy
