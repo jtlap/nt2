@@ -11,6 +11,8 @@
 #include <boost/simd/toolbox/arithmetic/functions/average.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/bitwise_xor.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/shrai.hpp>
 #include <boost/simd/include/constants/half.hpp>
 
