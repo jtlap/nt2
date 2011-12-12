@@ -22,7 +22,6 @@
 #include <nt2/core/container/meta/dereference.hpp>
 #include <nt2/core/container/memory/adapted/vector_buffer.hpp>
 
-#include <iostream>
 
 namespace nt2 {  namespace memory
 {
@@ -38,26 +37,31 @@ namespace nt2 {  namespace memory
     typedef std::vector<Type,Allocator>            parent_data;
     typedef typename parent_data::allocator_type   allocator_type;
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Forwarded types
-    ////////////////////////////////////////////////////////////////////////////
-    typedef typename parent_data::value_type       value_type;
-    typedef typename parent_data::pointer          pointer;
-    typedef typename parent_data::const_pointer    const_pointer;
-    typedef typename parent_data::pointer          iterator;
-    typedef typename parent_data::const_pointer    const_iterator;
-    typedef typename parent_data::reference        reference;
-    typedef typename parent_data::const_reference  const_reference;
-    typedef typename parent_data::size_type        size_type;
-    typedef typename parent_data::difference_type  difference_type;
-    typedef typename parent_data::difference_type  index_type;
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Constructor & destructor
-    ////////////////////////////////////////////////////////////////////////////
+    //============================================================================
+    // Buffer type interface
+    //============================================================================
+    typedef typename parent_data::value_type             value_type;
+    typedef typename parent_data::pointer                pointer;
+    typedef typename parent_data::const_pointer          const_pointer;
+    typedef typename parent_data::iterator               iterator;
+    typedef typename parent_data::const_iterator         const_iterator;
+    typedef typename parent_data::reverse_iterator       reverse_iterator;
+    typedef typename parent_data::const_reverse_iterator const_reverse_iterator;
+    typedef typename parent_data::reference              reference;
+    typedef typename parent_data::const_reference        const_reference;
+    typedef typename parent_data::size_type              size_type;
+    typedef typename parent_data::difference_type        difference_type;
+    typedef typename parent_data::difference_type        index_type;
 
 
-    vector_buffer( Allocator const& a = Allocator() ) : parent_data(a) {}
+    //==========================================================================
+    /**!
+     * Default constructor for vector_buffer. 
+     **/
+    //==========================================================================
+    vector_buffer( allocator_type const& a = allocator_type() ) 
+      : parent_data(a), base_(0)
+    {}
 
     template<typename Sizes, typename Bases>
     vector_buffer( Sizes            const& sz
@@ -87,7 +91,18 @@ namespace nt2 {  namespace memory
       rebase(bs);
     }
 
-
+    //==========================================================================
+    /**!
+     * Constructs a vector_buffer from a std::vector to \c Type, a dimension set
+     * and a base index sets.
+     *
+     * \param src A std::vector to \c Type value.
+     * \param sz  A Boost.Fusion \c RandomAccessSequence containing the number
+     * of elements of the buffer.
+     * \param bs  A Boost.Fusion \c RandomAccessSequence containing the base
+     * index of the buffer.
+     **/
+    //==========================================================================
     template<typename Sizes, typename Bases>
     vector_buffer( std::vector<Type, Allocator>  const& src
                   , Sizes                        const& sz
@@ -100,39 +115,57 @@ namespace nt2 {  namespace memory
                               boost::fusion::traits::is_sequence<Bases>
                               >::type* = 0
                   )
-    : parent_data(src)
+      : parent_data(src), base_(0)
     {
+      // If you trigger this assertion, your size sequence is missized
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Sizes>::value == 1)
       , SIZE_MISMATCH_IN_VECTOR_BUFFER_CONSTRUCTOR
       , (Sizes)
       );
 
-
+      // If you trigger this assertion, your index sequence is missized
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Bases>::value == 1)
       , BASE_MISMATCH_IN_VECTOR_BUFFER_CONSTRUCTOR
       , (Bases)
       );
 
-      resize(sz);
-      rebase(bs);
+      restructure(sz,bs);
     }
 
-
+    //==========================================================================
+    /**!
+     * Copy constructor for vector_buffer. When copied, a vector_buffer shares
+     * the std::vector it refers too.
+     *
+     * \param src vector_buffer to copy
+     **/
+    //==========================================================================
     vector_buffer( vector_buffer const& src )
       : parent_data(src.size())
     {
-      this->copy( src, src.size(),src.bss_);
+      this->copy( src, src.size(),src.base_);
     }
 
 
-
+    //==========================================================================
+    /**!
+     * \c vector_buffer destructor leave memory management to the actual
+     * std_vector's owner.
+     **/
+    //==========================================================================
     ~vector_buffer() {  }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Assignment operator - SG version
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
+    /**!
+     * Assign a buffer to the current buffer with Strong Garantee
+     *
+     * \param src buffer to assign
+     * \return The updated \c vector_buffer pointing to the same std::vector and 
+     * with corresponding size and base
+     **/
+    //==========================================================================
     vector_buffer& operator=(vector_buffer const& src)
     {
 
@@ -147,72 +180,133 @@ namespace nt2 {  namespace memory
       else
       {
         // // If not we just need to resize/rebase and copy which is SG here
-        //restructure
         parent_data::resize(src.size());
-        bss_ = src.bss_;
+        base_ = src.base_;
 
         std::copy(src.begin(),src.end(),begin());
       }
            return *this;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Iterator related methods
-    ////////////////////////////////////////////////////////////////////////////
+
+    //==========================================================================
+    /**!
+     * Return a (const) iterator to the beginning of the buffer data.
+     **/
+    //==========================================================================
     using parent_data::begin;
+
+    //==========================================================================
+    /**!
+     * Return a (const) iterator to the end of the buffer data.
+     **/
+    //==========================================================================
     using parent_data::end;
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Forward size related methods
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
+    /**!
+     * Return a (const) reverse_iterator to the beginning of the buffer data.
+     **/
+    //==========================================================================
+    reverse_iterator        rbegin()       { return reverse_iterator(end());          }
+    const_reverse_iterator  rbegin() const { return const_reverse_iterator(end());    }
+
+    //==========================================================================
+    /**!
+     * Return a (const) reverse_iterator to the end of the buffer data.
+     **/
+    //==========================================================================
+    reverse_iterator        rend()         { return reverse_iterator(begin());        }
+    const_reverse_iterator  rend()   const { return const_reverse_iterator(begin());  }
+
+    //==========================================================================
+    /**!
+     * Return the number of elements accessible through the buffer.
+     **/
+    //==========================================================================
     using parent_data::size;
 
-    ////////////////////////////////////////////////////////////////////////////
-    // RandomAccessContainer Interface
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
+    /**!
+     * Return \c true if the buffer contains no elements
+     **/
+    //==========================================================================
+    bool empty()  const { return size() != 0u; }
 
+    //==========================================================================
+    /**!
+     * Return the lowest valid index for accessing a buffer element
+     **/
+    //==========================================================================
+    difference_type lower() const { return base_; }
+
+    //==========================================================================
+    /**!
+     * Return the highest valid index for accessing a buffer element
+     **/
+    //==========================================================================
+    difference_type upper() const { return size() - 1 + base_;  }
+
+
+    //==========================================================================
+    /**!
+     * Return the ith element of the buffer.
+     *
+     * \param i Index of the element to retrieve. Note that \c i should be no
+     * lesser than lower() nor bigger than upper() to be valid.
+     **/    
+    //==========================================================================
     reference
     operator[](difference_type const& i)
     {
-      // BOOST_ASSERT_MSG( (i - bss_ >= parent_data::size)
+      // BOOST_ASSERT_MSG( (i - base_ >= parent_data::size)
       //                 , "Position is below buffer bounds"
       //                 );
                       
-      // BOOST_ASSERT_MSG( (i - bss_ <= 0)
+      // BOOST_ASSERT_MSG( (i - base_ <= 0)
       //                 , "Position is out of buffer bounds"
       //                 );
 
-      return parent_data::operator[](i - bss_);
+      return parent_data::operator[](i - base_);
     }
 
     const_reference
     operator[](difference_type const& i) const
     {
-      // BOOST_ASSERT_MSG( (i - bss_ >= parent_data::size)
+      // BOOST_ASSERT_MSG( (i - base_ >= parent_data::size)
       //                 , "Position is below buffer bounds"
       //                 );
                       
-      // BOOST_ASSERT_MSG( (i - bss_ <= 0)
+      // BOOST_ASSERT_MSG( (i - base_ <= 0)
       //                 , "Position is out of buffer bounds"
       //                 );
 
-      return parent_data::operator[](i - bss_);
+      return parent_data::operator[](i - base_);
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Swapping
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
+    /**!
+     * Swap the contents of the buffer with another one.
+     *
+     * \param src buffer to swap with
+     **/
+    //==========================================================================
     void swap( vector_buffer& src )
     {
-      boost::swap(bss_, src.bss_);
+      boost::swap(base_, src.base_);
       parent_data::swap(src);
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // resize/rebase/restructure buffer
-    ////////////////////////////////////////////////////////////////////////////
 
-
+    //==========================================================================
+    /**!
+     * Change the base index of the buffer. This operation is done in constant
+     * time and don't trigger any reallocation.
+     *
+     * \param b A Boost.Fusion \c RandomAccessSequence containing the new base
+     * index.
+     **/
+    //==========================================================================
     template<class Bases>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
     rebase(Bases b) { 
@@ -222,10 +316,17 @@ namespace nt2 {  namespace memory
       , (Bases)
       );
 
-      bss_ = boost::fusion::at_c<0>(b); 
+      base_ = boost::fusion::at_c<0>(b); 
     }
 
-
+    //==========================================================================
+    /**!
+     * Change the size of the buffer. This operation is done in constant
+     * time and don't trigger any reallocation.
+     *
+     * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
+     **/
+    //==========================================================================
     template<class Sizes>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
     resize(Sizes s) { 
@@ -237,7 +338,16 @@ namespace nt2 {  namespace memory
       parent_data::resize(boost::fusion::at_c<0>(s)); 
     }
 
-
+    //==========================================================================
+    /**!
+     * Change the size and base index of the buffer. This operation is done by
+     * calling resize and rebase.
+     *
+     * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
+     * \param b A Boost.Fusion \c RandomAccessSequence containing the new base
+     * index.
+     **/
+    //==========================================================================
     template<class Bases, class Sizes>
     typename boost::enable_if_c < boost::fusion::traits::is_sequence<Sizes>::value
                                   &&
@@ -262,17 +372,13 @@ namespace nt2 {  namespace memory
     }
 
     protected:
-    ////////////////////////////////////////////////////////////////////////////
-    // Allocator access
-    ////////////////////////////////////////////////////////////////////////////
-    //    using parent_data::allocator;
-    typename parent_data::difference_type bss_;
+    typename parent_data::difference_type base_;
 
 
     void copy( vector_buffer const& src, size_type const& s, difference_type const& b )
     {
       parent_data::resize(s);
-      bss_ = b;
+      base_ = b;
       std::copy(src.begin(),src.end(),begin());
     }
  
@@ -281,6 +387,8 @@ namespace nt2 {  namespace memory
   //============================================================================
   /**!
    * Swap the contents of two buffer of same type and allocator settings
+   * \param a First \c pointer_buffer to swap
+   * \param b Second \c pointer_buffer to swap
    **/
   //============================================================================
   template<class T, class A>

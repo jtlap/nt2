@@ -10,6 +10,7 @@
 SET( SOURCES
   vector_buffer.cpp
   pointer_buffer.cpp
+  array_buffer.cpp
   dimensions_of.cpp
   buffer.cpp
   iliffe_buffer.cpp

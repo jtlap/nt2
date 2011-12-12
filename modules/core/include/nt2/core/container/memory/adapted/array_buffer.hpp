@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_VECTOR_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_VECTOR_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_HPP_INCLUDED
 
 #include <vector>
 #include <boost/mpl/apply.hpp>
@@ -26,43 +26,43 @@ namespace nt2 {  namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template<typename Type, typename Allocator>
-  struct vector_buffer;
+  template<typename Type, std::size_t N>
+  struct array_buffer;
 
   //============================================================================
-  // vector_buffer are dereferencable
+  // array_buffer are dereferencable
   //============================================================================
 
-  template<typename T, typename A, typename Position>
-  typename vector_buffer<T,A>::reference
-  dereference( vector_buffer<T,A>& b, Position const& pos )
+  template<typename T, std::size_t N, typename Position>
+  typename array_buffer<T,N>::reference
+  dereference( array_buffer<T,N>& b, Position const& pos )
   {
     BOOST_MPL_ASSERT_MSG( (boost::mpl::size<Position>::value == 1)
-                    , POSITION_SIZE_MISMATCH_IN_VECTOR_BUFFER_ACCESS
+                    , POSITION_SIZE_MISMATCH_IN_ARRAY_BUFFER_ACCESS
                     , (Position)
                     );
     return b[boost::fusion::at_c<0>(pos)];
   }
   
-  template<typename T, typename A, typename Position>
-  typename vector_buffer<T,A>::const_reference
-  dereference( vector_buffer<T,A> const& b, Position const& pos )
+  template<typename T, std::size_t N, typename Position>
+  typename array_buffer<T,N>::const_reference
+  dereference( array_buffer<T,N> const& b, Position const& pos )
   {
     BOOST_MPL_ASSERT_MSG( (boost::mpl::size<Position>::value == 1)
-                    , POSITION_SIZE_MISMATCH_IN_VECTOR_BUFFER_ACCESS
+                    , POSITION_SIZE_MISMATCH_IN_ARRAY_BUFFER_ACCESS
                     , (Position)
                     );
     return b[boost::fusion::at_c<0>(pos)];
   }
 
   //============================================================================
-  // vector_buffer resize - Part of Buffer Concept
+  // array_buffer resize - Part of Buffer Concept
   //============================================================================
 
-  template<   typename Type, typename Allocator
+  template<   typename Type, std::size_t N
             , typename Sizes
             >
-  inline void resize( vector_buffer<Type, Allocator >& b
+  inline void resize( array_buffer<Type, N >& b
                       , Sizes const& s
                       )
   {
@@ -70,13 +70,13 @@ namespace nt2 {  namespace memory
   }
 
   //============================================================================
-  // vector_buffer rebase - Part of Buffer Concept
+  // array_buffer rebase - Part of Buffer Concept
   //============================================================================
 
-  template<   typename Type, typename Allocator
+  template<   typename Type, std::size_t N
             , typename Bases
             >
-  inline void rebase( vector_buffer<Type, Allocator >& b 
+  inline void rebase( array_buffer<Type, N >& b 
                       , Bases const& bs
                       )
   {
@@ -85,13 +85,13 @@ namespace nt2 {  namespace memory
 
 
   //============================================================================
-  // vector_buffer restructure - Part of Buffer Concept
+  // array_buffer restructure - Part of Buffer Concept
   //============================================================================
 
-  template<   typename Type, typename Allocator
+  template<   typename Type, std::size_t N
             , typename Sizes, typename Bases
             >
-  inline void restructure( vector_buffer<Type, Allocator>& b
+  inline void restructure( array_buffer<Type, N>& b
                            , Sizes const& sz, Bases const& bs
                            )
   {
@@ -109,8 +109,8 @@ namespace nt2 { namespace meta
   //============================================================================
   // dimensions_of specialization
   //============================================================================
-  template< class Type, class Alloc >
-  struct  dimensions_of< memory::vector_buffer<Type,Alloc> >
+  template< class Type, std::size_t N>
+  struct  dimensions_of< memory::array_buffer<Type,N> >
         : boost::mpl::size_t<1>
   {};
 
@@ -123,16 +123,16 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template<typename T, typename A>
-  struct value_of< nt2::memory::vector_buffer<T,A > > : value_of<T>
+  template<typename T, std::size_t N>
+  struct value_of< nt2::memory::array_buffer<T,N > > : value_of<T>
   {};
 
   //============================================================================
   // model_of specialization
   //============================================================================
 
-  template<  class Type, class Allocator >
-  struct model_of< nt2::memory::vector_buffer<Type, Allocator> >
+  template<  class Type, std::size_t N >
+  struct model_of< nt2::memory::array_buffer<Type, N> >
   {
     struct type
     {
@@ -142,8 +142,7 @@ namespace boost { namespace dispatch { namespace meta
         // cases and other similar recursive structure
         typedef typename  boost::mpl::
                           apply<typename model_of<Type>::type,X>::type base;
-        typedef typename Allocator::template rebind<base>::other       alloc;
-        typedef nt2::memory::vector_buffer<base,alloc >  type;
+        typedef nt2::memory::array_buffer<base,N >  type;
       };
     };
   };

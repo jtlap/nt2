@@ -27,7 +27,7 @@
 
 namespace nt2
 {
-  namespace tag { struct tag::of_size_; }
+  namespace tag { struct of_size_; }
   
   //============================================================================
   /*!
