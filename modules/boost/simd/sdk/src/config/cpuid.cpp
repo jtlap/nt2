@@ -26,13 +26,30 @@ namespace boost { namespace simd { namespace config{ namespace details {
 
 #if defined(BOOST_SIMD_COMPILER_GCC)
     enum { eax,ebx,ecx,edx };
+    
+#if !defined(__PIC__) || defined(BOOST_SIMD_ARCH_X86_64)
     __asm__ __volatile__
     (
-      "cpuid":\
-      "=a" (CPUInfo[eax]), "=b" (CPUInfo[ebx])
+      "cpuid"
+    : "=a" (CPUInfo[eax]), "=b" (CPUInfo[ebx])
     , "=c" (CPUInfo[ecx]), "=d" (CPUInfo[edx])
     : "a" (InfoType)
+    : "cc"
     );
+#else
+    __asm__ __volatile__
+    (
+      "pushl %%ebx      \n\t" /* save %ebx */
+      "cpuid            \n\t"
+      "movl %%ebx, %1   \n\t" /* save what cpuid just put in %ebx */
+      "popl %%ebx       \n\t" /* restore the old %ebx */
+    : "=a"(CPUInfo[eax]), "=r"(CPUInfo[ebx])
+    , "=c"(CPUInfo[ecx]), "=d"(CPUInfo[edx])
+    : "a"(InfoType)
+    : "cc"
+    );
+#endif
+    
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
     __cpuid(CPUInfo,InfoType);
 #endif
