@@ -8,10 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/bitwise/functions/reversebits.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,8 +29,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::integral_constant;
-      using boost::simd::bitwise_cast;
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       utype v = bitwise_cast<utype>(a0);
       const utype m1  = integral_constant<utype,0x55>(); //binary: 0101...
@@ -49,9 +52,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::integral_constant;
-      using boost::simd::bitwise_cast;
-
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       utype v = bitwise_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555555555555555ull>(); //binary: 0101...
@@ -113,9 +113,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::integral_constant;
-      using boost::simd::bitwise_cast;
-
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
       utype v = bitwise_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...

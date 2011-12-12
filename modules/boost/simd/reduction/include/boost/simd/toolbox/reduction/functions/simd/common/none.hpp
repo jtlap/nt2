@@ -8,6 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_NONE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_NONE_HPP_INCLUDED
+
+#include <boost/simd/toolbox/reduction/functions/none.hpp>
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
@@ -27,9 +31,9 @@ namespace boost { namespace simd { namespace ext
     {
       for(size_t i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)
       {
-        if(a0[i]) return result_type(false);
+        if(a0[i]) return False<result_type>();
       }
-      return result_type(true);
+      return True<result_type>();
     }
   };
 } } }

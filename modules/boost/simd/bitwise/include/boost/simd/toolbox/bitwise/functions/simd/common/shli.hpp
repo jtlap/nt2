@@ -8,9 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_SHLI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_SHLI_HPP_INCLUDED
-#include <boost/dispatch/meta/as_unsigned.hpp>
-#include <boost/simd/include/functions/shift_left.hpp>
+
+#include <boost/simd/toolbox/bitwise/functions/shli.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/map.hpp>
 #include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/shift_left.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
