@@ -15,6 +15,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/bitwise_notand.hpp>
 #include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/include/functions/logical_not.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
@@ -54,7 +55,7 @@ namespace boost { namespace simd { namespace ext
       r0 = b_or(x,splat<int_type>(n2));                   // insert exponent+1 in x
       bA0 test0 = is_nez(a0);
       bint_type test1 = gt(r1,vme);
-      r1 = if_else_zero(logical_and(logical_not(test1), test0), r1); 
+      r1 = if_else_zero(logical_and(logical_not(test1), test0), r1); //logical_notand
       r0 = if_else_zero(test0, seladd(test1,r0,a0));
       return 0; 
     }

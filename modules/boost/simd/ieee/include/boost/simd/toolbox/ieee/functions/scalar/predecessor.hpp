@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_PREDECESSOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_PREDECESSOR_HPP_INCLUDED
 #include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/functions/bitfloating.hpp>
 #include <boost/simd/include/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/minusone.hpp>
