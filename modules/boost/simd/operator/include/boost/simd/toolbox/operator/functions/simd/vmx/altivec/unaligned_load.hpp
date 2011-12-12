@@ -14,7 +14,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, boost::simd::tag::altivec_
                             , (A0)(A1)(A2)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< scalar_< arithmetic_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               ((target_<simd_<arithmetic_<A2>,boost::simd::tag::altivec_> >))
                             )
