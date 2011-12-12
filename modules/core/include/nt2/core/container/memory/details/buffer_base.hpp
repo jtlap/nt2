@@ -29,6 +29,8 @@ namespace nt2 { namespace memory { namespace details
     typedef typename Allocator::const_pointer     const_pointer;
     typedef typename Allocator::pointer           iterator;
     typedef typename Allocator::const_pointer     const_iterator;
+    typedef typename Allocator::pointer           reverse_iterator;
+    typedef typename Allocator::const_pointer     const_reverse_iterator;
     typedef typename Allocator::reference         reference;
     typedef typename Allocator::const_reference   const_reference;
     typedef typename Allocator::size_type         size_type;

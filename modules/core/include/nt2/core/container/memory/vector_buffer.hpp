@@ -159,11 +159,11 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
-     * Assign a buffer to the current buffer with Strong Garantee
+     * Assign a buffer to the current buffer using a copy scheme with Strong
+     * Garantee with respect to exception handling
      *
      * \param src buffer to assign
-     * \return The updated \c vector_buffer pointing to the same std::vector and 
-     * with corresponding size and base
+     * \return The now updated buffer so that *this == src
      **/
     //==========================================================================
     vector_buffer& operator=(vector_buffer const& src)
@@ -387,8 +387,6 @@ namespace nt2 {  namespace memory
   //============================================================================
   /**!
    * Swap the contents of two buffer of same type and allocator settings
-   * \param a First \c pointer_buffer to swap
-   * \param b Second \c pointer_buffer to swap
    **/
   //============================================================================
   template<class T, class A>

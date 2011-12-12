@@ -54,21 +54,22 @@ namespace nt2 {  namespace memory
     //============================================================================
     // Buffer type interface
     //============================================================================
-    typedef typename parent_data::value_type       value_type;
-    typedef typename parent_data::pointer          pointer;
-    typedef typename parent_data::const_pointer    const_pointer;
-    typedef typename parent_data::pointer          iterator;
-    typedef typename parent_data::const_pointer    const_iterator;
-    typedef typename parent_data::reference        reference;
-    typedef typename parent_data::const_reference  const_reference;
-    typedef typename parent_data::size_type        size_type;
-    typedef typename parent_data::difference_type  difference_type;
-    typedef typename parent_data::difference_type  index_type;
+    typedef typename parent_data::value_type              value_type;
+    typedef typename parent_data::pointer                 pointer;
+    typedef typename parent_data::const_pointer           const_pointer;
+    typedef typename parent_data::iterator                iterator;
+    typedef typename parent_data::const_iterator          const_iterator;
+    typedef typename parent_data::reverse_iterator        reverse_iterator;
+    typedef typename parent_data::const_reverse_iterator  const_reverse_iterator;
+    typedef typename parent_data::reference               reference;
+    typedef typename parent_data::const_reference         const_reference;
+    typedef typename parent_data::size_type               size_type;
+    typedef typename parent_data::difference_type         difference_type;
+    typedef typename parent_data::difference_type         index_type;
     
     //==========================================================================
     /**!
-     *
-     *
+     * Default constructor for buffer. 
      **/
     //==========================================================================
     buffer( Allocator const& a = Allocator() ) : parent_data(a) {}
@@ -111,8 +112,14 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
+     * Constructs a buffer from an other buffer of type \c Type, a dimension set
+     * and a base index sets.
      *
-     *
+     * \param src A buffer of \c Type value.
+     * \param sz  A Boost.Fusion \c RandomAccessSequence containing the number
+     * of elements of the buffer.
+     * \param bs  A Boost.Fusion \c RandomAccessSequence containing the base
+     * index of the buffer.
      **/
     //==========================================================================
     template<typename Sizes, typename Bases>
@@ -127,7 +134,7 @@ namespace nt2 {  namespace memory
                       boost::fusion::traits::is_sequence<Bases>
                       >::type* = 0
           )
-    : parent_data(alloc)          
+    : parent_data(alloc) 
     {
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Sizes>::value == 1)
@@ -143,7 +150,13 @@ namespace nt2 {  namespace memory
 
       this->copy(src, boost::fusion::at_c<0>(bs), boost::fusion::at_c<0>(sz));
     }
-
+    //==========================================================================
+    /**!
+     * Copy constructor for buffer. 
+     *
+     * \param src pointer_buffer to copy
+     **/
+    //==========================================================================
     buffer( buffer const& src )
           : parent_data(src.allocator())
     {
@@ -151,7 +164,9 @@ namespace nt2 {  namespace memory
     }
 
     //==========================================================================
-    // Basic destructor - nothing fancy here \_/°>
+    /**!
+     * \c buffer destructor 
+     **/
     //==========================================================================
     ~buffer() { parent_data::deallocate(); }
 
@@ -180,22 +195,73 @@ namespace nt2 {  namespace memory
       return *this;
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Iterator related methods
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
+    /**!
+     * Return a (const) iterator to the beginning of the buffer data.
+     **/
+    //==========================================================================
     using parent_data::begin;
+
+    //==========================================================================
+    /**!
+     * Return a (const) iterator to the end of the buffer data.
+     **/
+    //==========================================================================
     using parent_data::end;
     
-    ////////////////////////////////////////////////////////////////////////////
-    // Forward size related methods
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
+    /**!
+     * Return a (const) reverse_iterator to the beginning of the buffer data.
+     **/
+    //==========================================================================
+    reverse_iterator        rbegin()       { return reverse_iterator(end());          }
+    const_reverse_iterator  rbegin() const { return const_reverse_iterator(end());    }
+
+    //==========================================================================
+    /**!
+     * Return a (const) reverse_iterator to the end of the buffer data.
+     **/
+    //==========================================================================
+    reverse_iterator        rend()         { return reverse_iterator(begin());        }
+    const_reverse_iterator  rend()   const { return const_reverse_iterator(begin());  }
+
+    //==========================================================================
+    /**!
+     * Return the number of elements accessible through the buffer.
+     **/
+    //==========================================================================
     using parent_data::size;
+
+    //==========================================================================
+    /**!
+     * Return \c true if the buffer contains no elements
+     **/
+    //==========================================================================
+    bool empty()  const { return size() != 0u; }
+
+    //==========================================================================
+    /**!
+     * Return the lowest valid index for accessing a buffer element
+     **/
+    //==========================================================================
     using parent_data::lower;
+
+    //==========================================================================
+    /**!
+     * Return the highest valid index for accessing a buffer element
+     **/
+    //==========================================================================
     using parent_data::upper;
 
-    ////////////////////////////////////////////////////////////////////////////
-    // RandomAccessContainer Interface
-    ////////////////////////////////////////////////////////////////////////////
+
+    //==========================================================================
+    /**!
+     * Return the ith element of the buffer.
+     *
+     * \param i Index of the element to retrieve. Note that \c i should be no
+     * lesser than lower() nor bigger than upper() to be valid.
+     **/    
+    //==========================================================================
     reference operator[](difference_type const& i)
     {
       BOOST_ASSERT_MSG( (i >= parent_data::lower())
@@ -222,18 +288,29 @@ namespace nt2 {  namespace memory
       return parent_data::begin_[i];                      
     }
     
-    ////////////////////////////////////////////////////////////////////////////
-    // Swapping
-    ////////////////////////////////////////////////////////////////////////////
+    //==========================================================================
+    /**!
+     * Swap the contents of the buffer with another one.
+     *
+     * \param src buffer to swap with
+     **/
+    //==========================================================================
     void swap( buffer& src )
     {
       parent_data::swap(src);
       boost::swap(allocator(),src.allocator());
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // resize/rebase/restructure buffer
-    ////////////////////////////////////////////////////////////////////////////
+
+    //==========================================================================
+    /**!
+     * Change the base index of the buffer. This operation is done in constant
+     * time and don't trigger any reallocation.
+     *
+     * \param b A Boost.Fusion \c RandomAccessSequence containing the new base
+     * index.
+     **/
+    //==========================================================================
     template<class Bases>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
     rebase(Bases const& bs)
@@ -247,6 +324,14 @@ namespace nt2 {  namespace memory
       parent_data::rebase( boost::fusion::at_c<0>(bs) );
     }
 
+    //==========================================================================
+    /**!
+     * Change the size of the buffer. This operation is done in constant
+     * time and don't trigger any reallocation.
+     *
+     * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
+     **/
+    //==========================================================================
     template<class Sizes>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
     resize(Sizes const& sz)
@@ -260,6 +345,16 @@ namespace nt2 {  namespace memory
       parent_data::resize( boost::fusion::at_c<0>(sz) );
     }
 
+    //==========================================================================
+    /**!
+     * Change the size and base index of the buffer. This operation is done by
+     * calling resize and rebase.
+     *
+     * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
+     * \param b A Boost.Fusion \c RandomAccessSequence containing the new base
+     * index.
+     **/
+    //==========================================================================
     template<class Bases,class Sizes>
     typename boost::enable_if_c < boost::fusion::traits::is_sequence<Sizes>::value
                                   &&
@@ -283,9 +378,7 @@ namespace nt2 {  namespace memory
     }
 
     protected:
-    ////////////////////////////////////////////////////////////////////////////
-    // Allocator access
-    ////////////////////////////////////////////////////////////////////////////
+
     using parent_data::allocator;
 
     void copy( buffer const& src, size_type const& s, difference_type const& b )
