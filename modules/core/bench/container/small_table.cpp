@@ -12,6 +12,8 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/toolbox/operator/operator.hpp>
 #include <nt2/include/functions/function.hpp>
+#include <nt2/include/functions/cos.hpp>
+#include <nt2/include/functions/sin.hpp>
 
 #include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
@@ -29,7 +31,11 @@ template<class T> struct table_test
         a1(i, j) = a2(i, j) = a0(i, j) = roll<T>(min,max);
   }
 
-  void operator()() { a1 = a0+a0+a0; }
+  void operator()()
+  {
+    a1 = nt2::cos(a0)*nt2::cos(a0) + nt2::sin(a0)*nt2::sin(a0);
+    //a1 = a0 + a2;
+  }
 
   nt2::container::table<T,nt2::_2D> a0,a1,a2;
   int N,M;
@@ -47,7 +53,9 @@ template<class T> struct vector_test
 
   void operator()()
   {
-    for(std::size_t i=0; i<M*N; ++i) a1[i] = a0[i] + a0[i] + a0[i];
+    for(std::size_t i=0; i<M*N; ++i)
+      a1[i] = std::cos(a0[i])*std::cos(a0[i]) + std::sin(a0[i])*std::sin(a0[i]);
+      //a1[i] = a0[i]+ a2[i];
   }
 
   std::vector<T> a0,a1,a2;
@@ -56,15 +64,17 @@ template<class T> struct vector_test
 
 NT2_TEST_CASE( small_table )
 {
-  typedef float T;
+  typedef double T;
 
-  int N = 256, M = 256;
+  int N = 4096, M = 4096;
 
-  double dv = nt2::unit::perform_benchmark( table_test<T>(N,M,-62.8319, 62.8319), 5.);
-  std::cout << "table (simd)   : " << dv/(N*M) << " cpe\n";
+  std::cout << "table (simd)   : \n\t";
+  double dv = nt2::unit::perform_benchmark( table_test<T>(N,M,-62.8319, 62.8319), 10.);
+  std::cout << "\tcycles/element : "<< dv/(N*M) << "\n";
 
-  double dw = nt2::unit::perform_benchmark( vector_test<T>(N,M,-62.8319, 62.8319), 5.);
-  std::cout << "std::vector : " << dw/(N*M) << " cpe\n";
+  std::cout << "std::vector   : \n\t";
+  double dw = nt2::unit::perform_benchmark( vector_test<T>(N,M,-62.8319, 62.8319), 10.);
+  std::cout << "\tcycles/element : "<< dw/(N*M) << "\n";
 
   std::cout << "speed-up    : " << dw/dv << "\n";
 }
