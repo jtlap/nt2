@@ -7,5 +7,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(table)
+SET( SOURCES
+  small_table.cpp
+# List of scalar test files for toolbox fuzzy
+   )
+
+nt2_module_add_tests(core.container.table.bench ${SOURCES})

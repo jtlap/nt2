@@ -23,68 +23,67 @@
 
 template<class T> struct std_allocation_test
 {
-  std_allocation_test(int n, T const& min, T const& max )
-    : N(n), i(0)
+  std_allocation_test(int n)
+    : N(n)
   {
-    // for(std::size_t i=0; i<N; ++i)
-    //   a0[i] =  roll<T>(min,max);
+    a0.reserve(32768);
   }
 
   ~std_allocation_test()
   {
-    for(int n=0;n<i;++n) alloc.deallocate(a0[n],N);
+    for(int n=0;n<a0.size();++n) alloc.deallocate(a0[n],N);
   }
 
   void operator()()
   {
-    std::cout << "N° " << i << std::endl;
-    a0[i] = alloc.allocate(N*sizeof(T));
-    ++i;
+    a0.push_back(alloc.allocate(N*sizeof(T)));
   }
 
   std::allocator<T> alloc;
-  T* a0[1024];
-  int i;
+  std::vector<T*> a0;
   int N;
 };
 
 
-template<class T> struct boost_simd_allocation_test
+template<class T> struct simd_allocation_test
 {
-  boost_simd_allocation_test(int n, T const& min, T const& max )
-      : N(n)
+  simd_allocation_test(int n)
+    : N(n)
   {
-    boost::simd::memory::allocator<T> alloc;
-    a0 = alloc.allocate(n*sizeof(T));
+    a0.reserve(32768);
+  }
 
-    // for(std::size_t i=0; i<N; ++i)
-    //   a0[i] =  roll<T>(min,max);
+  ~simd_allocation_test()
+  {
+    for(int n=0;n<a0.size();++n) alloc.deallocate(a0[n],N);
   }
 
   void operator()()
   {
-
-    for(std::size_t i=0; i<N; ++i) 
-      a0[i]++;
+    a0.push_back(alloc.allocate(N*sizeof(T)));
   }
 
-  T* a0;
+  boost::simd::memory::allocator<T> alloc;
+  std::vector<T*> a0;
   int N;
 };
 
 
-NT2_TEST_CASE( small_table )
+
+
+NT2_TEST_CASE( allocation_test )
 {
   typedef float T;
 
-  int N = 128;
+  int N = 1024*1024;
+  simd_allocation_test<T>g(N);
 
-
-  double dw = nt2::unit::perform_benchmark( boost_simd_allocation_test<T>(N,-62.8319, 62.8319), 5.);
+  double dw = nt2::unit::perform_benchmark(g , 1.);
   std::cout << "boost_simd_allocation : " << dw/N << " cpe\n";
 
-  double dv = nt2::unit::perform_benchmark( std_allocation_test<T>(N,-62.8319, 62.8319), 5.);
+  std_allocation_test<T> f(N);
 
-
+  double dv = nt2::unit::perform_benchmark( f, 1.);
   std::cout << "std_allocation        : " << dv/N << " cpe\n";
+
 }
