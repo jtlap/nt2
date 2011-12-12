@@ -75,7 +75,7 @@ namespace boost { namespace simd
      * \brief Define the tag logical_notor_ of functor logical_notor 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::logical_notor logical_notor_;
+    struct logical_notor_ {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_notor_      , logical_notor     , 2 )

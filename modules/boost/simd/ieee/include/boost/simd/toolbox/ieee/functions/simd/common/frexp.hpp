@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
       r0 = b_or(x,splat<int_type>(n2));                   // insert exponent+1 in x
       bA0 test0 = is_nez(a0);
       bint_type test1 = gt(r1,vme);
-      r1 = if_else_zero(logical_and(logical_not(test1), test0), r1); //logical_notand
+      r1 = if_else_zero(logical_notand(test1, test0), r1); 
       r0 = if_else_zero(test0, seladd(test1,r0,a0));
       return 0; 
     }

@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
-	  	  	  	       , (A0)(A1)
+                            , (A0)(A1)
                             , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
                             )
   {
