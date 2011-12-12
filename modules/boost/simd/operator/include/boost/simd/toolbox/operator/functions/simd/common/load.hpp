@@ -9,18 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOAD_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// load for no SIMD types
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/meta/mpl.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+#include <boost/simd/toolbox/operator/functions/load.hpp>
+#include <boost/simd/include/functions/unaligned_load.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/assert.hpp>
-#include <cstring>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -32,7 +25,9 @@ namespace boost { namespace simd { namespace ext
                               ((target_< simd_< fundamental_<A2>, X > >))
                             )
   {
-    typedef typename A2::type result_type;
+    typedef typename dispatch::meta::
+            call<tag::unaligned_load_(A0 const&, A1 const&, A2 const&)>::type
+    result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
       BOOST_ASSERT_MSG
@@ -40,25 +35,22 @@ namespace boost { namespace simd { namespace ext
      && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         " is not aligned on the simd vector size.");
-      result_type that;
-      std::memcpy ( &that
-                  , a0 + a1
-                  , sizeof that
-                  );
-      return that;
+      return unaligned_load<typename A2::type>(a0, a1);
     }
   };
 
   // shifted load
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(X)
-                            , (iterator_<scalar_< fundamental_<A0> > >)
+                            , (iterator_<scalar_< arithmetic_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< fundamental_<A2>, X > >))
+                              ((target_< simd_< arithmetic_<A2>, X > >))
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
-    typedef typename A2::type result_type;
+    typedef typename dispatch::meta::
+            call<tag::unaligned_load_(A0 const&, A1 const&, A2 const&, A3 const&)>::type
+    result_type;
     inline result_type operator()(const A0& a0, const A1& a1,
                                   const A2&, const A3&) const
     {
@@ -67,12 +59,7 @@ namespace boost { namespace simd { namespace ext
      && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         "is not aligned on the simd vector size.");
-      result_type that;
-      std::memcpy ( &that
-                  , a0 + A3::value + a1
-                  , sizeof that
-                  );
-      return that;
+      return unaligned_load<typename A2::type, A3::value>(a0, a1);
     }
   };
   
@@ -83,23 +70,21 @@ namespace boost { namespace simd { namespace ext
                                             , boost::simd::meta::cardinal_of<typename A2::type>
                                             >
                               )
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< scalar_< arithmetic_<A0> > >)
                               ((simd_< integer_<A1>, X >))
                               ((target_< simd_< arithmetic_<A2>, X > >))
                             )
   {
-    typedef typename A2::type result_type;
+    typedef typename dispatch::meta::
+            call<tag::unaligned_load_(A0 const&, A1 const&, A2 const&)>::type
+    result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         "is not aligned on the simd vector size.");
-      result_type that;
-      for(std::size_t i=0; i<meta::cardinal_of<result_type>::value; ++i)
-        that[i] = a0[a1[i]];
-      
-      return that;
+      return unaligned_load<typename A2::type>(a0, a1);
     }
   };
   
