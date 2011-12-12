@@ -11,10 +11,6 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minnummag_, tag::cpu_
@@ -28,14 +24,7 @@ namespace boost { namespace simd { namespace ext
       return (boost::simd::abs(a0) <  boost::simd::abs(a1)) ? a0 : a1;
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minnummag_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
@@ -44,7 +33,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef result_type type;
       if (is_nan(a0)) return a1;
       else if (is_nan(a1)) return a0;
       else return (boost::simd::abs(a0) <  boost::simd::abs(a1) ?a0:a1);

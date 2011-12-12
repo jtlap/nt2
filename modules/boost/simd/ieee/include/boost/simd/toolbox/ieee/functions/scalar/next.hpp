@@ -8,15 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXT_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/functions/oneplus.hpp>
 #include <boost/simd/include/functions/nextafter.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::next_, tag::cpu_
@@ -27,18 +23,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (Valmax<A0>() == a0) return a0; 
       return oneplus(a0);
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::next_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)

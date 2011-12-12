@@ -9,14 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_EXPONENTBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_EXPONENTBITS_HPP_INCLUDED
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponentbits_, tag::cpu_
@@ -27,11 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef  result_type int_type;
-      static const int_type me = Maxexponent<A0>();
-      static const int_type nmb= Nbmantissabits<A0>();
-      static const int_type Mask = (2*me+1)<<nmb;
-      return b_and(Mask, a0);
+      return b_and((2*Maxexponent<A0>()+1)<<Nbmantissabits<A0>(), a0);
     }
   };
 } } }

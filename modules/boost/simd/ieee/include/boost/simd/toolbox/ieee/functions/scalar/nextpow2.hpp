@@ -9,17 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXTPOW2_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXTPOW2_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/half.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nextpow2_, tag::cpu_,
@@ -33,11 +29,6 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::nextpow2(tofloat(a0));
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nextpow2_, tag::cpu_,
                           (A0),

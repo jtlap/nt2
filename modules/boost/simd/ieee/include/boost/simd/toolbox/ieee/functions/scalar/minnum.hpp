@@ -8,14 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MINNUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MINNUM_HPP_INCLUDED
-
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minnum_, tag::cpu_
@@ -24,19 +19,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return boost::simd::min(a0, a1);
-    }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return boost::simd::min(a0, a1); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minnum_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)

@@ -59,12 +59,12 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
     {
       if (is_inf(a0))
-{
-  a2 = 0; 
-  a1 = a0; 
-}
+      {
+        a2 = 0; 
+        a1 = a0; 
+      }
       else
-a1 = ::frexpf(a0, &a2);
+        a1 = ::frexpf(a0, &a2);
       return 0; 
     }
   };
@@ -78,10 +78,10 @@ a1 = ::frexpf(a0, &a2);
     inline result_type operator()(A0 const& a0,A2 & a2) const
     {
       if (is_inf(a0))
-{
-  a2 = 0; 
-  return a0; 
-}
+      {
+        a2 = 0; 
+        return a0; 
+      }
       return ::frexpf(a0, &a2);
     }
   };
@@ -93,7 +93,6 @@ a1 = ::frexpf(a0, &a2);
     typedef A0                                                                     mantissa;
     typedef typename dispatch::meta::as_integer<A0,signed>::type                   exponent;
     typedef boost::fusion::vector<mantissa,exponent>                            result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
@@ -117,7 +116,6 @@ a1 = ::frexpf(a0, &a2);
     typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type mantissa;
     typedef typename dispatch::meta::as_integer<A0,signed>::type                   exponent;
     typedef boost::fusion::vector<mantissa,exponent>                            result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;
