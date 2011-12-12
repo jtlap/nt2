@@ -8,10 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_STORE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_STORE_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// store for SIMD types
-////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
@@ -19,11 +15,11 @@
 #include <boost/assert.hpp>
 #include <cstring>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over store for SIMD types
-////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
+  ////////////////////////////////////////////////////////////////////////////////
+  // Register dispatch over store for SIMD types
+  ////////////////////////////////////////////////////////////////////////////////
   // regular store
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
@@ -33,7 +29,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
@@ -47,6 +42,7 @@ namespace boost { namespace simd { namespace ext
   };
   
   // scatter
+  // TODO Why not a proper scatter functor ?
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>

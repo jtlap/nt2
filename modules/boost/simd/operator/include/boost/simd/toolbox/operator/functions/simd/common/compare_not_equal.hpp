@@ -11,6 +11,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/compare_equal.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_not_equal_, tag::cpu_, (X)(A0)

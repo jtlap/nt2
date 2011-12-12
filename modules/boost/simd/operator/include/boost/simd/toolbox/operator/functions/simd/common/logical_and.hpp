@@ -29,6 +29,7 @@ namespace boost { namespace simd { namespace ext
       return is_nez(b_and(genmask(a0), genmask(a1)));
     }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<logical_<A0>,X>))
@@ -41,7 +42,8 @@ namespace boost { namespace simd { namespace ext
       return is_nez(b_and(genmask(a0), genmask(a1)));
     }
   };
-  
+
+  //TODO why the assert is never taken ?
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<fundamental_<A0>,X>))

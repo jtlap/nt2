@@ -77,6 +77,7 @@ namespace boost { namespace simd { namespace ext
   };
   
   // gather
+  //TODO Why not a proper gather functor ?
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (mpl::equal_to< boost::simd::meta::cardinal_of<A1>

@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return bitwise_and(a0, simd::bitwise_cast<A0>(a1));//TODO !!!
+      return bitwise_and(a0, simd::bitwise_cast<A0>(a1));
     }
   };
 } } }

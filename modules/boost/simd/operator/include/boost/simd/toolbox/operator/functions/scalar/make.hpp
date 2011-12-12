@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_MAKE_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
+// TODO Are this includes necessary and why ?
 
 namespace boost { namespace simd { namespace ext
 {

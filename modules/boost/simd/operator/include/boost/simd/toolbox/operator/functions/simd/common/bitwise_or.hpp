@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_BITWISE_OR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_BITWISE_OR_HPP_INCLUDED
-
 #include <boost/simd/toolbox/operator/functions/bitwise_or.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -24,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return bitwise_or(a0, simd::bitwise_cast<A0>(a1));//TODO !!!
+      return bitwise_or(a0, simd::bitwise_cast<A0>(a1));
     }
   };
 } } }

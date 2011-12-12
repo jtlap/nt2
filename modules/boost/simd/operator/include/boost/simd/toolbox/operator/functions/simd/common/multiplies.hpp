@@ -8,10 +8,9 @@
 //============================================================================== 
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
-
 #include <boost/simd/toolbox/operator/functions/multiplies.hpp>
 #include <boost/simd/include/functions/splat.hpp>
-
+//TODO are these necessary ?
 //////////////////////////////////////////////////////////////////////////////
 // mixed scalar/simd multiplies
 //////////////////////////////////////////////////////////////////////////////

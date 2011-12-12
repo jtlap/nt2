@@ -8,10 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNALIGNED_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNALIGNED_LOAD_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// unaligned_load for no SIMD types
-////////////////////////////////////////////////////////////////////////////////
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
@@ -19,7 +15,7 @@
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <cstring>
 //Identical to common load version
-
+// TODO If so, why not call load inside?
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_

@@ -11,6 +11,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/compare_less.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+
 namespace boost { namespace simd { namespace ext
 {  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_less_equal_,

@@ -8,19 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNALIGNED_STORE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNALIGNED_STORE_HPP_INCLUDED
-
-////////////////////////////////////////////////////////////////////////////////
-// store for SIMD types
-////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <cstring>
 
-////////////////////////////////////////////////////////////////////////////////
-// Register dispatch over store for SIMD types
-////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
+  ////////////////////////////////////////////////////////////////////////////////
+  // Register dispatch over store for SIMD types
+  ////////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , ((simd_< fundamental_<A0>, X >))

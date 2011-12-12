@@ -11,7 +11,6 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -39,7 +38,7 @@ namespace boost { namespace simd { namespace ext
       return is_nez(b_or(genmask(a0), genmask(a1)));
     }
   };
-
+  //TODO assert if mix logical / non logical
 } } }
 
 

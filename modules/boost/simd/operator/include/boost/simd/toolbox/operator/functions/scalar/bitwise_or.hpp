@@ -35,14 +35,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_, tag::cpu_, (A0)(A1)
-//                             , (scalar_< bool_<A0> >)
-//                               (scalar_< bool_<A1> >)
-//                             )
-//   {
-//     typedef A0 result_type;
-//     BOOST_SIMD_FUNCTOR_CALL(2) { return a0 || a1; }
-//   };
+
 //   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_, tag::cpu_, (A0)(A1)
 //                             , (scalar_< logical_<A0> >)
 //                               (scalar_< logical_<A1> >)
