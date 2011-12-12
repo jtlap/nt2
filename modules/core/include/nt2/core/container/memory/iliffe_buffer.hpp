@@ -16,6 +16,7 @@
   **/
 //==============================================================================
 
+#include <nt2/sdk/meta/view_at.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/memory/config.hpp>
@@ -33,26 +34,21 @@ namespace nt2 { namespace memory
     * \brief Multi-dimensionnal memory buffer adaptor.
     *
     * iliffe_buffer is a Buffer adaptor that turns a 1D Buffer into a nD Buffer
-    * by using the Iliffe vector allocation scheme to allow fast multi
-    * dimensionnal access by precomputing index tables of nD pointers.
+    * by using the Iliffe vector allocation scheme to allow multi-dimensionnal
+    * access by precomputing index tables of nD pointers.
     * 
-    * This allows the memory access to be performed as a simple chain of 
-    * operator[] calls. Base indices also have no runtime cost as they are
-    * precomputed as offset on the original addresses.
-    *
     * \tparam Dimensions    Number of dimensions stored in this Buffer
-    * \tparam Data          1D Buffer to use as data storage
+    * \tparam Data          1D Buffer to remodel as data storage
     * \tparam Index         1D Buffer to remodel as indices storage
    **/
   //============================================================================
-#if 0
   template<typename Dimensions, typename Data, typename Index>
   struct iliffe_buffer
   {
     //==========================================================================
     /** Type of the allocator used in current buffer                          */
     //==========================================================================
-    typedef typename Data::allocator                    allocator;
+    typedef typename Data::allocator_type                    allocator_type;
 
     //==========================================================================
     /** Type of the value stored in current buffer                            */
@@ -102,7 +98,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Non-public typedefs
     //==========================================================================
-    typedef typename allocator::template rebind<byte>::other idx_allocator_t;
+    typedef typename allocator_type::template rebind<byte>::other idx_allocator_t;
     
     //==========================================================================
     /**
@@ -112,8 +108,7 @@ namespace nt2 { namespace memory
      *              buffers
      **/
     //==========================================================================
-    template<typename Allocator>
-    iliffe_buffer ( Allocator const& alloc = Allocator())
+    iliffe_buffer ( allocator_type const& alloc = allocator_type())
                   : data_(alloc), index_( idx_allocator_t(alloc) )
     {}
 
@@ -127,22 +122,45 @@ namespace nt2 { namespace memory
       *           of the buffer.
      **/
     //==========================================================================
-    template<typename Sizes, typename Bases, typename Padding, typename Alloc>
+#if 0
+    template<typename Sizes, typename Bases>
     iliffe_buffer ( Sizes const& sz
                   , Bases const& bs
-                  , Padding const& p = Padding()
-                  , Alloc const& alloc = Alloc()
+                  , allocator_type const& alloc = allocator_type()
                   )
-      : data_ ( slice<1>(sz, p);
-              , boost::fusion::at_c<0>(bs)
+      : data_ ( slice<1>(sz, p); // changer ca
+              , meta::view_at<0>(bs)
               , alloc
               )
-      , index_( index_size(sz)
-              , boost::fusion::at_c<Dimensions::value-1>(bs)
+      , index_( index_size(sz) // changer ca aussi
+              , meta::view_at<Dimensions::value-1>(bs)
               , idx_allocator_t(alloc)
               )
     {
+      // link
     }
+
+    template<typename Sizes, typename Bases>
+    iliffe_buffer ( Data const& src
+                  , Sizes const& sz
+                  , Bases const& bs
+                  , allocator_type const& a = allocator_type()
+                  , typename  boost::enable_if<
+                              boost::fusion::traits::is_sequence<Sizes>
+                              >::type* = 0
+                  , typename  boost::enable_if<
+                              boost::fusion::traits::is_sequence<Bases>
+                              >::type* = 0
+                  )
+      : data_ ( src )
+      , index_( index_size(sz)
+              , meta::view_at<Dimensions::value-1>(bs)
+              , idx_allocator_t(alloc)
+              )
+    {
+      // link
+    }
+#endif
 
     //==========================================================================
     // Basic destructor - nothing fancy here \_/°>
@@ -181,14 +199,14 @@ namespace nt2 { namespace memory
     Data    data_;
     Index   index_;
     
-    iliffe_buffer( Data const& d ) {}
-
+#if 0
     iliffe_buffer( iliffe_buffer const& src ) {}
 
     //==========================================================================
     // Forward the canonical RestructurableBuffer interface
     //==========================================================================
     using parent::operator=
+
     using parent::operator[];
 
     //==========================================================================
@@ -289,30 +307,6 @@ namespace nt2 { namespace memory
       }
     }
 
-    //==========================================================================
-    /**
-      * Reallocate a iliffe_bufer to a new size.
-     **/
-    //==========================================================================
-    template<typename Sizes, typename Bases> inline void
-    resize( Sizes const&      szs
-          , Bases const&      bss
-          , Padding const&    p
-          )
-    {
-      initialize(szs,bss,p);
-    }
-
-    //==========================================================================
-    /**
-      * Random access operator to the underlying indexed values.
-      * \param i outer dimension index to access.
-      * \return Current sub-index table at offset i.
-     **/
-    //==========================================================================
-    sub_data_type       operator[](std::ptrdiff_t i)       { return data_[i]; }
-    const_sub_data_type operator[](std::ptrdiff_t i) const { return data_[i]; }
-
     protected:
     //==========================================================================
     /*
@@ -400,8 +394,8 @@ namespace nt2 { namespace memory
       ptr -= boost::fusion::at_c<1>(bss);
       return ptr;
     }
-  };
 #endif
+  };
 
   //============================================================================
   /**
