@@ -175,34 +175,33 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
 
 }
 
-// //==============================================================================
-// // array_buffer Range interface
-// //==============================================================================
-// struct f_
-// {
-//   template<class T> T operator()(T const& e) const { return 10*e; }
-// };
+//==============================================================================
+// array_buffer Range interface
+//==============================================================================
+struct f_
+{
+  template<class T> T operator()(T const& e) const { return 10*e; }
+};
   
-// NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
-// {
-//   using nt2::memory::array_buffer;
+NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
+{
+  using nt2::memory::array_buffer;
 
-//   typedef array_buffer<T> buffer_type ;
+  typedef array_buffer<T,5> buffer_type ;
 
-//   boost::array<std::size_t,1> sx = { 5  };
-//   boost::array<std::size_t,1> bx = { -2 };
-//   T data[5] = {1,2,3,4,5};
+  boost::array<std::size_t,1> sx = { 5  };
+  boost::array<std::size_t,1> bx = { -2 };
+  boost::array<T,5> data = {{1,2,3,4,5}};
 
-//   buffer_type x(&data[0],sx,bx);
-//   f_ f;
+  buffer_type x(data,sx,bx);
+  f_ f;
   
-//   typename buffer_type::iterator b = x.begin();
-//   typename buffer_type::iterator e = x.end();
+  typename buffer_type::iterator b = x.begin();
+  typename buffer_type::iterator e = x.end();
 
-//   std::transform(b,e,b,f);
+  std::transform(b,e,b,f);
 
-//   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-//     NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), f(3+i) );
+  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), f(3+i) );
   
-//   for( int i=0; i < 5; ++i ) NT2_TEST_EQUAL( data[i], f(i+1) );
-// }
+}

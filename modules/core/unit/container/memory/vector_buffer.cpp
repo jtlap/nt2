@@ -78,7 +78,6 @@ NT2_TEST_CASE_TPL( vector_buffer_default_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.size() , 0U );
   NT2_TEST_EQUAL(b.lower(), 0  );
   NT2_TEST_EQUAL(b.upper(), -1 );
-  //  NT2_TEST_EQUAL(b.begin(), b.end() );
 }
 
 //==============================================================================
@@ -105,11 +104,6 @@ NT2_TEST_CASE_TPL( vector_buffer_data_ctor, NT2_TYPES)
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 3+i );
     
-  // for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-  //   dereference(b,boost::fusion::single_view<int>(i)) *= 10;
-
-  // for( int i=0; i < 5; ++i ) 
-  //   NT2_TEST_EQUAL( data[i], 10*(1+i) );
 }
 
 //==============================================================================
@@ -124,7 +118,6 @@ NT2_TEST_CASE_TPL(vector_buffer_assignment, NT2_TYPES )
   boost::array<std::size_t,1> ss = {{ 5 }};
   boost::array<std::size_t,1> bs = {{ -2 }};
 
-  //  T data[5] = {1,2,3,4,5};
   std::vector<T> data(5);
   for (int n=0; n<data.size(); n++) data[n]=n+1;
 
@@ -139,10 +132,6 @@ NT2_TEST_CASE_TPL(vector_buffer_assignment, NT2_TYPES )
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 3+i );
     
-  // for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-  //   dereference(x,boost::fusion::single_view<int>(i)) *= 10;
-
-  // for( int i=0; i < 5; ++i ) NT2_TEST_EQUAL( data[i], 10*(1+i) );
 }
 
 //==============================================================================
@@ -158,16 +147,11 @@ NT2_TEST_CASE_TPL(vector_buffer_swap, NT2_TYPES )
   boost::array<std::size_t,1> bx = { -2 };
   std::vector<T> datax(5);
   for (int n=0; n<datax.size(); n++) datax[n]=n+1;
-  //  T datax[5] = {1,2,3,4,5};
 
   boost::array<std::size_t,1> sb = { 3 };
   boost::array<std::size_t,1> bb = { 1 };
   std::vector<T> datab(3);
   for (int n=0; n<datab.size(); n++) datab[n]=10*(n+1);
-  //  T datab[3] = {10,20,30};
-
-  // buffer_type b(&datab[0],sb,bb);
-  // buffer_type x(&datax[0],sx,bx);
 
   buffer_type b(datab,sb,bb);
   buffer_type x(datax,sx,bx);
@@ -188,15 +172,6 @@ NT2_TEST_CASE_TPL(vector_buffer_swap, NT2_TYPES )
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 10*i );
 
-  // for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-  //   dereference(x,boost::fusion::single_view<int>(i)) = 9*i;
-
-  //  for( int i=0; i < 3; ++i ) NT2_TEST_EQUAL( datab[i], 9*(1+i) );
-    
-  // for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-  //   dereference(b,boost::fusion::single_view<int>(i)) = T(i);
-
-//   for( int i=0; i < 5; ++i ) NT2_TEST_EQUAL( datax[i], T(i-2) );
 }
 
 //==============================================================================
@@ -209,27 +184,24 @@ struct f_
   
 NT2_TEST_CASE_TPL(vector_buffer_iterator, NT2_TYPES )
 {
-  // using nt2::memory::vector_buffer;
+  using nt2::memory::vector_buffer;
 
-  // typedef vector_buffer<T> buffer_type ;
+  typedef vector_buffer<T> buffer_type ;
 
-  // boost::array<std::size_t,1> sx = { 5  };
-  // boost::array<std::size_t,1> bx = { -2 };
-  // std::vector<T> data(5);
-  // for (int n=0; n<data.size(); n++) data[n]=(n+1);
+  boost::array<std::size_t,1> sx = { 5  };
+  boost::array<std::size_t,1> bx = { -2 };
+  std::vector<T> data(5);
+  for (int n=0; n<data.size(); n++) data[n]=(n+1);
 
-  // //  T data[5] = {1,2,3,4,5};
-  // //  buffer_type x(&data[0],sx,bx);
-  // buffer_type x(data,sx,bx);
-  // f_ f;
+  buffer_type x(data,sx,bx);
+  f_ f;
   
-  // typename buffer_type::iterator b = x.begin();
-  // typename buffer_type::iterator e = x.end();
+  typename buffer_type::iterator b = x.begin();
+  typename buffer_type::iterator e = x.end();
 
-  // std::transform(b,e,b,f);
+  std::transform(b,e,b,f);
 
-  // for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-  //   NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), f(3+i) );
+  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), f(3+i) );
   
-  // //  for( int i=0; i < 5; ++i ) NT2_TEST_EQUAL( data[i], f(i+1) );
 }
