@@ -14,6 +14,7 @@
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -47,6 +48,12 @@ namespace boost { namespace simd { namespace ext
   {};
 } } }
 
+namespace boost { namespace simd { namespace tag
+{
+  struct insert_;
+  struct extract_;
+} } }
+
 namespace boost { namespace simd
 {
   template<class Scalar,class Extension> 
@@ -54,14 +61,104 @@ namespace boost { namespace simd
   {
     typedef Extension                                       extension_type;
     typedef typename meta::as_simd<Scalar, Extension>::type    native_type;
-    typedef native<Scalar, Extension>                                 type; 
+    typedef native<logical<Scalar>, Extension>                   this_type;
+    typedef native<Scalar, Extension>                                 type;
     
     typedef logical<Scalar>                                     value_type;
     typedef logical<Scalar>                                      reference;
     typedef logical<Scalar>                                const_reference;
     typedef std::size_t                                          size_type;
-    typedef Scalar*                                               iterator;
-    typedef Scalar const*                                   const_iterator;
+    
+    struct proxy
+    {
+      proxy(this_type& data_, std::size_t index_) : data(data_), index(index_)
+      {
+      }
+      
+      proxy& operator=(value_type const& other) const
+      {
+        typename dispatch::make_functor<tag::insert_, Scalar>::type()(other, data, index);
+        return *this;
+      }
+      
+      operator value_type() const
+      {
+        return typename dispatch::make_functor<tag::extract_, Scalar>::type()(data, index);
+      }
+      
+      operator bool() const
+      {
+        return typename dispatch::make_functor<tag::extract_, Scalar>::type()(data, index);
+      }
+      
+      this_type& data;
+      std::size_t index;
+    };
+    
+    template<class T>
+    struct iterator_base
+    {
+      iterator_base(T& data_, std::size_t index_ = 0) : data(data_), index(index_) {}
+      
+    protected:
+      friend class iterator_core_access;
+      
+      void increment()
+      {
+        ++index;
+      }
+      
+      void advance(std::size_t n)
+      {
+        index += n;
+      }
+      
+      void decrement()
+      {
+        --index;
+      }
+      
+      std::ptrdiff_t distance_to(iterator_base const& other) const
+      {
+        return other.index - index;
+      }
+      
+      bool equal(iterator_base const& other) const
+      {
+        return index == other.index;
+      }
+      
+      T& data;
+      std::size_t index;
+    };
+    
+    struct iterator
+      : iterator_base<this_type>, iterator_facade<iterator, value_type, std::random_access_iterator_tag, proxy>
+    {
+      iterator(this_type& data_, std::size_t index_ = 0) : iterator_base<this_type>(data_, index_) {}
+      
+    private:
+      friend class iterator_core_access;
+      
+      proxy dereference() const
+      {
+        return proxy(this->data, this->index);
+      }
+    };
+    
+    struct const_iterator
+      : iterator_base<this_type const>, iterator_facade<const_iterator, value_type, std::random_access_iterator_tag, value_type const>
+    {
+      const_iterator(this_type const& data_, std::size_t index_ = 0) : iterator_base<this_type const>(data_, index_) {}
+      
+    private:
+      friend class iterator_core_access;
+      
+      value_type const dereference() const
+      {
+        return typename dispatch::make_functor<tag::extract_, Scalar>::type()(this->data, this->index);
+      }
+    };
 
     template<class U> struct rebind
     {
@@ -107,16 +204,16 @@ namespace boost { namespace simd
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
     BOOST_DISPATCH_FORCE_INLINE
-    iterator       begin()       { return data(); };
+    iterator       begin()       { return iterator(*this); };
     
     BOOST_DISPATCH_FORCE_INLINE
-    iterator       end()         { return data() + static_size; };
+    iterator       end()         { return iterator(*this, static_size); };
     
     BOOST_DISPATCH_FORCE_INLINE
-    const_iterator begin() const { return data(); };
+    const_iterator begin() const { return const_iterator(*this); };
     
     BOOST_DISPATCH_FORCE_INLINE
-    const_iterator end()   const { return data() + static_size; };
+    const_iterator end()   const { return const_iterator(*this, static_size); };
 
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface
@@ -124,25 +221,17 @@ namespace boost { namespace simd
     static BOOST_DISPATCH_FORCE_INLINE  std::size_t size() { return static_size; }
     static BOOST_DISPATCH_FORCE_INLINE        bool empty() { return false; }
 
-    value_type operator[](std::size_t i) const
+    proxy operator[](std::size_t i)
     {
-      typedef typename logical<Scalar>::bits bits;
-      bits b  = bitwise_cast<bits>(reinterpret_cast<native<Scalar, Extension> const&>(data_)[i]) & 1;
-      return value_type(b);
-    }    
-    
-    native_type data_;
-    BOOST_DISPATCH_FORCE_INLINE
-    value_type* data()
-    {
-      return reinterpret_cast<value_type*>(&data_);
+      return proxy(*this, i);
     }
 
-    BOOST_DISPATCH_FORCE_INLINE
-    const value_type* data() const
+    value_type operator[](std::size_t i) const
     {
-      return const_cast<native&>(*this).data();
+      return dispatch::make_functor<tag::extract_, Scalar>::type()(*this, i);
     }
+    
+    native_type data_;
   };
 } }
 
