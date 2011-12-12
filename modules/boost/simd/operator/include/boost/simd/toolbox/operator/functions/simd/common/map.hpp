@@ -49,7 +49,7 @@ namespace boost { namespace simd { namespace ext                             \
     inline result_type                                                       \
     operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))   \
     {                                                                        \
-      BOOST_SIMD_ALIGNED_TYPE(stype) tmp[meta::cardinal_of<A0>::value];      \
+      BOOST_SIMD_ALIGNED_TYPE(rtype) tmp[meta::cardinal_of<A0>::value];      \
                                                                              \
       for(size_t i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i) \
         tmp[i] = f(BOOST_PP_ENUM(n, M3, ~));                                 \
