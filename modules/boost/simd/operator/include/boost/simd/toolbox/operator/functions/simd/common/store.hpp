@@ -20,8 +20,8 @@ namespace boost { namespace simd { namespace ext
   // regular store
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
-                            , ((simd_< arithmetic_<A0>, X >))
-                              (iterator_< scalar_< arithmetic_<A1> > >)
+                            , ((simd_< fundamental_<A0>, X >))
+                              (iterator_< scalar_< fundamental_<A1> > >)
                               (scalar_< integer_<A2> >)
                             )
   {
@@ -46,8 +46,8 @@ namespace boost { namespace simd { namespace ext
                                             , boost::simd::meta::cardinal_of<A2>
                                             >
                               )
-                            , ((simd_< arithmetic_<A0>, X >))
-                              (iterator_< scalar_< arithmetic_<A1> > >)
+                            , ((simd_< fundamental_<A0>, X >))
+                              (iterator_< scalar_< fundamental_<A1> > >)
                               ((simd_< integer_<A2>, X >))
                             )
   {

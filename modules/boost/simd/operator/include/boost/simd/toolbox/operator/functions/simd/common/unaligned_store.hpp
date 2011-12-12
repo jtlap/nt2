@@ -12,6 +12,7 @@
 #include <boost/simd/toolbox/operator/functions/unaligned_store.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,6 +28,23 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       return *reinterpret_cast<A0*>(a1+a2) = a0;
+    }
+  };
+  
+  // logical
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_, tag::cpu_
+                            , (A0)(A1)(A2)(X)
+                            , (simd_< logical_<A0>, X >)
+                              (iterator_<scalar_< logical_<A1> > >)
+                              (scalar_< integer_<A2> >)
+                            )
+  {
+    typedef A0 const& result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    {
+      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
+         a1[a2+i] = a0[i];
+      return a0;
     }
   };
   

@@ -10,12 +10,14 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNALIGNED_LOAD_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  // regular
+  // regular load
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
                             , (iterator_<scalar_< arithmetic_<A0> > >)
@@ -29,6 +31,24 @@ namespace boost { namespace simd { namespace ext
       return reinterpret_cast<result_type>(a0[a1]);
     }
   };
+  
+  // logical
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
+                            , (A0)(A1)(A2)(X)
+                            , (iterator_<scalar_< logical_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< logical_<A2>, X > >))
+                            )
+  {
+    typedef typename A2::type result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    {
+      result_type that;
+      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
+        that[i] = a0[a1+i];
+      return that;
+    }
+  };
 
   // shifted
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
@@ -39,11 +59,13 @@ namespace boost { namespace simd { namespace ext
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
-    typedef typename A2::type const& result_type;
+    typedef typename dispatch::meta::
+            call<tag::unaligned_load_(A0 const&, A1 const&, A2 const&)>::type
+    result_type;
     inline result_type operator()(const A0& a0, const A1& a1,
                                   const A2&, const A3&)const
     {
-      return reinterpret_cast<result_type>((a0 + A3::value)[a1]);
+      return unaligned_load<typename A2::type>(a0 + A3::value, a1);
     }
   };
   
