@@ -11,6 +11,7 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_SHLI_HPP_INCLUDED
 #include <boost/dispatch/meta/as_unsigned.hpp>
 #include <boost/simd/include/functions/shift_left.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

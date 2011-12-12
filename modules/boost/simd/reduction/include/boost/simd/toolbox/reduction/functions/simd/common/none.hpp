@@ -27,9 +27,9 @@ namespace boost { namespace simd { namespace ext
     {
       for(size_t i=0; i < boost::simd::meta::cardinal_of<A0>::value; i++)
       {
-        if(a0[i]) return false;
+        if(a0[i]) return result_type(false);
       }
-      return true;
+      return result_type(true);
     }
   };
 } } }
