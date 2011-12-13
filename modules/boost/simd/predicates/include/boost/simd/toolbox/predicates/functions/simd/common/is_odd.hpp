@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return boost::simd::is_even(minusone(a0);
+      return boost::simd::is_even(minusone(a0));
     }
   };
 } } }
