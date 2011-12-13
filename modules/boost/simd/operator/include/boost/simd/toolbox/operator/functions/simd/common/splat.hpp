@@ -8,12 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SPLAT_HPP_INCLUDED
+
 #include <boost/simd/toolbox/operator/functions/splat.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/include/functions/insert.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,12 +27,12 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1&) const
     {
       typedef typename meta::scalar_of<result_type>::type sA1;
-
-      BOOST_SIMD_ALIGNED_TYPE(sA1) tmp[boost::simd::meta::cardinal_of<result_type>::value];
+      
+      result_type tmp;
       for(unsigned int i = 0; i != boost::simd::meta::cardinal_of<result_type>::value; ++i)
         tmp[i] = static_cast<sA1>(a0);
 
-      return load<result_type>(&tmp[0], 0);
+      return tmp;
     }
   };
 } } }
