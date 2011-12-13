@@ -205,3 +205,27 @@ NT2_TEST_CASE_TPL(vector_buffer_iterator, NT2_TYPES )
     NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), f(3+i) );
   
 }
+
+//==============================================================================
+// vector_buffer as_buffer
+//==============================================================================
+NT2_TEST_CASE_TPL(vector_buffer_as_buffer, NT2_TYPES )
+{
+  using nt2::memory::vector_buffer;
+  using nt2::meta::as_buffer;
+
+  typedef vector_buffer<T> buffer_type ;
+
+  boost::array<std::size_t,1> sx = { 5  };
+  boost::array<std::size_t,1> bx = { -2 };
+  std::vector<T> data(5);
+  for (int n=0; n<data.size(); n++) data[n]=(n+1);
+
+  buffer_type x;
+
+  x = as_buffer<std::vector<T> >()(data,sx,bx);
+
+  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 3+i );
+  
+}

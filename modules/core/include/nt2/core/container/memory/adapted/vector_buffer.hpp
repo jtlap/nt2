@@ -17,6 +17,7 @@
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
+#include <nt2/core/container/meta/as_buffer.hpp>
 #include <nt2/core/container/meta/dereference.hpp>
 
 
@@ -113,6 +114,25 @@ namespace nt2 { namespace meta
   struct  dimensions_of< memory::vector_buffer<Type,Alloc> >
         : boost::mpl::size_t<1>
   {};
+
+  //============================================================================
+  // as_buffer specialization
+  //============================================================================
+
+  template< typename Type , typename Alloc>
+  struct  as_buffer <std::vector<Type, Alloc> >
+  {
+    typedef nt2::memory::vector_buffer<Type,Alloc> result_type;
+
+    template <typename Sizes, typename Bases>
+    result_type
+    operator()(std::vector<Type,Alloc> d, Sizes const& s, Bases const& b)
+    {
+      return nt2::memory::vector_buffer<Type,Alloc>(d,s,b);
+    }
+
+  };
+
 
 
 } }
