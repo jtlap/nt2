@@ -10,6 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNALIGNED_LOAD_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
+#include <boost/simd/include/functions/insert.hpp>
+#include <boost/simd/include/functions/extract.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>

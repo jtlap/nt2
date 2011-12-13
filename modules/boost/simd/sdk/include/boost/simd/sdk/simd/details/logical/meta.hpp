@@ -75,15 +75,10 @@ namespace boost { namespace simd
       {
       }
       
-      proxy& operator=(value_type const& other) const
+      proxy const& operator=(value_type const& other) const
       {
         typename dispatch::make_functor<tag::insert_, Scalar>::type()(other, data, index);
         return *this;
-      }
-      
-      operator value_type() const
-      {
-        return typename dispatch::make_functor<tag::extract_, Scalar>::type()(data, index);
       }
       
       operator bool() const
@@ -228,7 +223,7 @@ namespace boost { namespace simd
 
     value_type operator[](std::size_t i) const
     {
-      return dispatch::make_functor<tag::extract_, Scalar>::type()(*this, i);
+      return typename dispatch::make_functor<tag::extract_, Scalar>::type()(*this, i);
     }
     
     native_type data_;

@@ -9,12 +9,13 @@
 #ifndef BOOST_SIMD_SDK_CONSTANT_COMMON_HPP_INCLUDED
 #define BOOST_SIMD_SDK_CONSTANT_COMMON_HPP_INCLUDED
 
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/simd/sdk/simd/tags.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/sdk/simd/category.hpp>
+#include <boost/simd/sdk/simd/tags.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as.hpp>
 
 //==============================================================================
 // Forward all constant call to the simd version of themselves that splat
