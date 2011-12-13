@@ -35,8 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using  boost::simd::is_nan;
-      return logical_or(result_type(a0 > Zero<A0>()), is_nan(a0));
+      return logical_or(result_type(a0 > Zero<A0>()), boost::simd::is_nan(a0));
     }
   };
 } } }

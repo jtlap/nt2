@@ -12,10 +12,6 @@
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_

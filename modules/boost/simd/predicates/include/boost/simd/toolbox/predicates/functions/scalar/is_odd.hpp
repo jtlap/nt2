@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ODD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ODD_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/functions/is_even.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return result_type((a0 & One<A0>()) != 0);
+      return result_type(b_and(a0,One<A0>()) != 0);
     }
   };
 

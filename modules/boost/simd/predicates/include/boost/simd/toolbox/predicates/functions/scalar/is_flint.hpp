@@ -12,9 +12,6 @@
 #include <boost/simd/include/functions/frac.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_flint_, tag::cpu_
@@ -28,14 +25,7 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::True<result_type>();
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_flint_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)

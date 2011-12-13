@@ -12,9 +12,6 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nez_, tag::cpu_

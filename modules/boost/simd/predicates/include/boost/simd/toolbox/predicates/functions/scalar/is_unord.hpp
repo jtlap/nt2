@@ -13,9 +13,6 @@
 #include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_unord_, tag::cpu_
@@ -30,14 +27,7 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::False<result_type>();
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_unord_, tag::cpu_
                                      , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
@@ -46,8 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using  boost::simd::is_nan;
-      return result_type(is_nan(a0) | is_nan(a1));
+      return boost::simd::is_nan(b_or(a0, a1));
     }
   };
 } } }
