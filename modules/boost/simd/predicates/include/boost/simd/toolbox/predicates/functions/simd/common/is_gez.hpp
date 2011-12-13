@@ -14,9 +14,6 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/true.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_gez_, tag::cpu_
@@ -32,14 +29,7 @@ namespace boost { namespace simd { namespace ext
         return ge(a0, Zero<A0>());
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_gez_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))

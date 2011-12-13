@@ -12,9 +12,7 @@
 #include <boost/simd/include/functions/logical_not.hpp>
 #include <boost/simd/include/functions/is_equal_with_equal_nans.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is floating_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, tag::cpu_
@@ -25,13 +23,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return logical_not(is_equal_with_equal_nans(a0,a1)); 
+      return logical_or(neq(a0,a1), logical_and(boost::simd::is_nan(a0), boost::simd::is_nan(a1)));
     }
   };
   
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is integer_
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_equal_with_equal_nans_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<integer_<A0>,X>))

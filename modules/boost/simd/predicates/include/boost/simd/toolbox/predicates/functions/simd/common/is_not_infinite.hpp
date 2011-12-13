@@ -12,9 +12,6 @@
 #include <boost/simd/include/constants/infinites.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_infinite_, tag::cpu_,
@@ -28,11 +25,6 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::True<A0>();
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_infinite_, tag::cpu_,
                                   (A0)(X),

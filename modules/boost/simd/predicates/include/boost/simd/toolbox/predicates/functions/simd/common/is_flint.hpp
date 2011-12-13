@@ -13,9 +13,6 @@
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/frac.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_flint_, tag::cpu_

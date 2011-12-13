@@ -14,9 +14,6 @@
 #include <boost/simd/include/functions/is_less_equal.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_lez_, tag::cpu_,
@@ -30,11 +27,6 @@ namespace boost { namespace simd { namespace ext
       return le(a0, Zero<A0>());
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_lez_, tag::cpu_,
                          (A0)(X),

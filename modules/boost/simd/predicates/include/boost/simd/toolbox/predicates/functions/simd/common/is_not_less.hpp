@@ -8,16 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_LESS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_LESS_HPP_INCLUDED
-
 #include <boost/simd/toolbox/predicates/functions/is_not_less.hpp>
 #include <boost/simd/include/functions/logical_not.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/is_greater_equal.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_less_, tag::cpu_
@@ -31,10 +27,7 @@ namespace boost { namespace simd { namespace ext
       return logical_not(lt(a0,a1));
     }
   };
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is integer_
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_less_, tag::cpu_,
                               (A0)(X),
                               ((simd_<integer_<A0>,X>))

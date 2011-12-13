@@ -11,9 +11,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/is_not_greater_equal.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_ngez_, tag::cpu_,

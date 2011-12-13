@@ -11,13 +11,8 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/shrai.hpp>
-#include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/functions/bitofsign.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_negative_, tag::cpu_,
@@ -49,11 +44,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_negative_, tag::cpu_,
                               (A0)(X),
                               ((simd_<floating_<A0>,X>))
@@ -62,9 +52,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type type;
-      const int32_t nb =  sizeof(typename meta::scalar_of <A0>::type)*8-1;
-      return bitwise_cast<result_type>(shrai(bitwise_cast<type>(a0), nb));
+      return is_equal(b_or(bitofsign(a0), One<A0>()), Mone<A0>());
     }
   };
 } } }

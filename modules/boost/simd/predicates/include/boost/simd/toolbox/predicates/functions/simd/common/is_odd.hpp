@@ -10,15 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_ODD_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_odd.hpp>
-#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/is_even.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_odd_, tag::cpu_,
@@ -46,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return boost::simd::is_even(a0-One<A0>());
+      return boost::simd::is_even(minusone(a0);
     }
   };
 } } }

@@ -14,9 +14,7 @@
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is floating_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_with_equal_nans_, tag::cpu_
@@ -31,9 +29,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is integer_
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_equal_with_equal_nans_, tag::cpu_,
 			     (A0)(X),
 			     ((simd_<integer_<A0>,X>))

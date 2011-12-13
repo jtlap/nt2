@@ -14,9 +14,6 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/false.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, tag::cpu_
@@ -30,14 +27,7 @@ namespace boost { namespace simd { namespace ext
       return lt(a0, Zero<A0>());
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_ltz_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
