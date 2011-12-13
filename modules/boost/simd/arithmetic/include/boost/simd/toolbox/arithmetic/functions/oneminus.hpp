@@ -19,7 +19,8 @@
  * \defgroup boost_simd_arithmetic_oneminus oneminus
  *
  * \par Description
- * returns the saturated $1-a_0$
+ * returns the saturated $1-a_0$ in the input type.
+ * Be warned that for unsigned types the result is always 0 or 1!
  *
  * \par Header file
  * 

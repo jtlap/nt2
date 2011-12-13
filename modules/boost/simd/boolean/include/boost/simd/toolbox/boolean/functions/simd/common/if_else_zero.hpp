@@ -8,15 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ZERO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ZERO_HPP_INCLUDED
-
-#include <boost/assert.hpp>
+#include <boost/simd/toolbox/boolean/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/include/functions/is_simd_logical.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/mpl/equal_to.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::if_else_zero_, tag::cpu_, (A0)(A1)(X)
@@ -24,17 +23,24 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ((simd_<arithmetic_<A0>,X>))
+                                , ((simd_<fundamental_<A0>,X>))
                                   ((simd_<arithmetic_<A1>,X>))
                                 )
   {
     typedef A1 result_type;
-
-    inline result_type
-    operator()(A0 const& a0, A1 const& a1) const
+    
+    template<class A0_>
+    typename enable_if_c< sizeof(typename meta::as_logical<A0_>::type) == sizeof(A1), result_type>::type
+    operator()(A0_ const& a0, A1 const& a1) const
     {
-      BOOST_ASSERT_MSG(is_simd_logical(a0), "Some entries are not legal SIMD True or False in first parameter"); 
-      return bitwise_and(a1, a0);
+      return bitwise_and(a1, genmask(a0));
+    }
+    
+    template<class A0_>
+    typename disable_if_c< sizeof(typename meta::as_logical<A0_>::type) == sizeof(A1), result_type>::type
+    operator()(A0_ const& a0, A1 const& a1) const
+    {
+      return if_else(a0, a1, Zero<A1>());
     }
   };
 } } }

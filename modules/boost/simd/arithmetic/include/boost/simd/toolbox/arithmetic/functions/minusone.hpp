@@ -19,7 +19,8 @@
  * \defgroup boost_simd_arithmetic_minusone minusone
  *
  * \par Description
- * return the entry minus one saturated
+ * return the entry minus one, saturated in the entry type.
+ * minusone(a) is always less or equal to a.
  *
  * \par Header file
  * 

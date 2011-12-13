@@ -14,8 +14,6 @@
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/rec.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -26,9 +24,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return (rec(cos(tofloat(a0))));

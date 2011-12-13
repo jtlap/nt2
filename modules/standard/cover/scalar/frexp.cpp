@@ -69,8 +69,8 @@ NT2_TEST_CASE_TPL ( frexp_float_1_0,  (float))
         r_t r = nt2::standard::frexp(a0);
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-        r_t0 r0 = boost::fusion::get<0>(r);
-        r_t1 r1 = boost::fusion::get<1>(r);
+//         r_t0 r0 = boost::fusion::get<0>(r);
+//         r_t1 r1 = boost::fusion::get<1>(r);
         NT2_TEST_EQUAL( boost::fusion::get<0>(r), nt2::mantissa(a0)/2);
         if (ulpd>ulp0) ulp0=ulpd;
         NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::exponent(a0)+1);
@@ -112,8 +112,8 @@ NT2_TEST_CASE_TPL ( frexp_double_1_0,  (double))
         r_t r = nt2::standard::frexp(a0);
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-        r_t0 r0 = boost::fusion::get<0>(r);
-        r_t1 r1 = boost::fusion::get<1>(r);
+//         r_t0 r0 = boost::fusion::get<0>(r);
+//         r_t1 r1 = boost::fusion::get<1>(r);
         NT2_TEST_EQUAL( boost::fusion::get<0>(r), nt2::mantissa(a0)/2);
         if (ulpd>ulp0) ulp0=ulpd;
         NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::exponent(a0)+1);

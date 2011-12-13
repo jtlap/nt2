@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::native_cast<A0>(toint(anp(tofloat(a0),tofloat(a1))));
+      return boost::simd::bitwise_cast<A0>(toint(anp(tofloat(a0),tofloat(a1))));
     }
   };
   

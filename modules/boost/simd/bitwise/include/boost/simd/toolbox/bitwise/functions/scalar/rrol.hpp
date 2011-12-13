@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_RROL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_RROL_HPP_INCLUDED
-
 #include <boost/simd/toolbox/bitwise/functions/rrol.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 #include <boost/simd/include/functions/ror.hpp>

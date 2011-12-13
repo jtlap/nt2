@@ -9,9 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_XOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_XOR_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,9 +24,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0>::type int_type;
-      A0  that  = { native_cast<A0>
-                    ( _mm_xor_si128 ( native_cast<int_type>( a0 )
-                                    , native_cast<int_type>( a1 )
+      A0  that  = { bitwise_cast<A0>
+                    ( _mm_xor_si128 ( bitwise_cast<int_type>( a0 )
+                                    , bitwise_cast<int_type>( a1 )
                                     )
                     )
                   };

@@ -26,6 +26,7 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/ellpe.hpp>
 #include <nt2/include/functions/ellpk.hpp>
+#include <nt2/include/functions/ceil.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -83,9 +84,7 @@ namespace nt2 { namespace ext
                             , (scalar_< single_<A0> >)(scalar_< single_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type type;
@@ -101,15 +100,15 @@ namespace nt2 { namespace ext
         type a = One<type>();
         type b = nt2::sqrt(oneminus(m));
         type c = nt2::sqrt(m);
-        int d = One<int>();
+        type d = One<type>();
         type e = Zero<type>();
         type t = nt2::tan( lphi );
-        int mod = (lphi + Pio_2<type>())/Pi<type>();
+        int mod = toint((lphi+Pio_2<type>())/Pi<type>());
         while( nt2::abs(c) > Eps<type>()*nt2::abs(a) )
           {
             type temp = b/a;
             lphi = lphi + nt2::atan(t*temp) + mod * Pi<type>();
-            mod = (lphi + Pio_2<type>())/Pi<type>();
+             mod = toint((lphi+Pio_2<type>())/Pi<type>());
             t *= oneplus(temp)/( oneminus(temp * sqr(t)));
             c = average(a,-b);
             temp = nt2::sqrt(a*b);
@@ -121,7 +120,7 @@ namespace nt2 { namespace ext
 
         b = oneminus(m);
         type temp = nt2::ellpe(b)/nt2::ellpk(b);
-        temp *= (nt2::atan(t) + mod * Pi < float>())/(d * a);
+        temp *= (nt2::atan(t) + mod * Pi < type>())/(d * a);
         temp += e;
         if(is_ltz(a0))  temp = -temp;
         return temp ;

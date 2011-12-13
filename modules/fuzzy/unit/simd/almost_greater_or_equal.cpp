@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/fuzzy/include/functions/almost_greater_or_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -59,8 +59,8 @@ NT2_TEST_CASE_TPL ( almost_greater_or_equal_real__3_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0], nt2::False<sr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( almost_greater_or_equal_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -84,8 +84,8 @@ NT2_TEST_CASE_TPL ( almost_greater_or_equal_signed_int__3_0,  NT2_SIMD_INTEGRAL_
 
 
   // specific values tests
-  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
+  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0], nt2::True<sr_t>());
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( almost_greater_or_equal_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYPES)
@@ -109,6 +109,6 @@ NT2_TEST_CASE_TPL ( almost_greater_or_equal_unsigned_int__3_0,  NT2_SIMD_UNSIGNE
 
 
   // specific values tests
-  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0]!=0, nt2::True<sr_t>());
+  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<ivT>(1))[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(almost_greater_or_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<ivT>(1))[0], nt2::True<sr_t>());
 } // end of test for unsigned_int_

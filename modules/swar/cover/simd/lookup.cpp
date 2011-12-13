@@ -57,13 +57,13 @@ NT2_TEST_CASE_TPL ( lookup_real__2_0,  NT2_SIMD_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-  // random verifications
+  // random verifications 
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     NT2_CREATE_BUF(tab_a1,iT, NR, 0, nt2::meta::cardinal_of<T>::value-1);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         ivT a1 = load<ivT>(&tab_a1[0],j);
@@ -99,14 +99,15 @@ NT2_TEST_CASE_TPL ( lookup_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
+    NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(+10000));
     NT2_CREATE_BUF(tab_a1,iT, NR, 0u, nt2::meta::cardinal_of<vT>::value-1);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR; j+= cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         ivT a1 = load<ivT>(&tab_a1[0],j);
-  std::cout << a1 << std::endl; 
+        std::cout << "a0 " << a0 << std::endl; 
+        std::cout << "a1 " << a1 << std::endl; 
         r_t v = nt2::lookup(a0,a1);
         for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)
         {

@@ -8,23 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXT_HPP_INCLUDED
-#include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/constants/eps_related.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/select.hpp>
-#include <boost/simd/include/functions/frexp.hpp>
-#include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/is_finite.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/bitfloating.hpp>
 #include <boost/simd/include/functions/oneplus.hpp>
+
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -55,12 +46,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      //decommenting the following lines make clang works with the ieee.ulp.simd.unit      
-      //       std::cout << "a0                                     " << a0 << std::endl;
-      //       std::cout << "bitinteger(a0)                         " << bitinteger(a0)<< std::endl;
-      //       std::cout << "oneplus(bitinteger(a0))                " << oneplus(bitinteger(a0))<< std::endl;
-      //       std::cout << "bitfloating(oneplus(bitinteger(a0)))   " << bitfloating(oneplus(bitinteger(a0)))<< std::endl;
-       return select(eq(a0, Inf<A0>()), a0,  bitfloating(oneplus(bitinteger(a0))));
+      return select(eq(a0, Inf<A0>()), a0,  bitfloating(oneplus(bitinteger(a0))));
     }
   };
 } } }

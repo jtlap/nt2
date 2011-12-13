@@ -10,10 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_RSQRT_HPP_INCLUDED
 #include <boost/simd/include/functions/rec.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
+//TO DO some asks for a fast inaccurate version
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rsqrt_, tag::cpu_

@@ -97,7 +97,7 @@ NT2_TEST_CASE_TPL ( minusone_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::minusone(a0),a0-1,0);
+        NT2_TEST_ULP_EQUAL( nt2::minusone(a0),a0 == boost::simd::Valmin<T>()?a0:a0-1,0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -133,7 +133,7 @@ NT2_TEST_CASE_TPL ( minusone_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::minusone(a0),a0-1,0);
+        NT2_TEST_ULP_EQUAL( nt2::minusone(a0),a0 == boost::simd::Valmin<T>()?a0:a0-1,0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

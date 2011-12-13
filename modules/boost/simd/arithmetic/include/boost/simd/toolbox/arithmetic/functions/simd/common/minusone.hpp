@@ -8,11 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINUSONE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINUSONE_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/functions/selsub.hpp>
+#include <boost/simd/include/functions/is_not_equal.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
@@ -23,8 +23,18 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return a0-One<A0>();
+      return selsub(neq(a0, Valmin<result_type>()), a0, One<A0>());
     }
   };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
+                           (A0)(X),
+                           ((simd_<floating_<A0>,X>))
+                          )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1) { return a0-One<A0>(); }
+  };
+
 } } }
 #endif

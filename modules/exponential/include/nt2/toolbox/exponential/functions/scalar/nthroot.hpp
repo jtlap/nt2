@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       if (y) y -= (nt2::pow(y, a1) - x) / (aa1* nt2::pow(y,minusone(a1)));
-	  return (is_ltza0) ? -y : y;
+      return (is_ltza0) ? -y : y;
     }
   };
 } }

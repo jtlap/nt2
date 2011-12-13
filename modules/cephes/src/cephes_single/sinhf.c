@@ -69,25 +69,25 @@ else
 if( z > MAXLOGF )
 	{
 	  if( x > 0 )
-	    return( 1.0/ZERO );
+	    return( 1.0f/ZEROF );
 	  else
-	    return( -1.0/ZERO );
+	    return( -1.0f/ZEROF );
 	}
-if( z > 1.0 )
+if( z > 1.0f )
 	{
 	z = cephes_expf(z);
-	z = 0.5*z - (0.5/z);
+	z = 0.5f*z - (0.5f/z);
 	if( x < 0 )
 		z = -z;
 	return z;
 	}
- else if( z <= 1.0 )
+ else if( z <= 1.0f )
 	{
 	z = x * x;
 	z =
-	(( 2.03721912945E-4 * z
-	  + 8.33028376239E-3) * z
-	  + 1.66667160211E-1) * z * x
+	(( 2.03721912945E-4f * z
+	  + 8.33028376239E-3f) * z
+	  + 1.66667160211E-1f) * z * x
 	  + x;
 	return z;
 	}

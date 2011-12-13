@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( cosecant_real__1_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(-nt2::Pi<vT>()/nt2::splat<vT>(2))[0], nt2::Mone<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(-nt2::Pi<vT>()/nt2::splat<vT>(4))[0], -nt2::Sqrt_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(-nt2::Zero<vT>())[0], nt2::Minf<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(nt2::Mzero<vT>())[0], nt2::Minf<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(nt2::Inf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);

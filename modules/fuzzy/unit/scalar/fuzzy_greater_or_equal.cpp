@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/fuzzy/include/functions/fuzzy_greater_or_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( fuzzy_greater_or_equal_real__3_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<fuzzy_greater_or_equal_(T,T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 

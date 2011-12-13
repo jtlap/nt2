@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_flint.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/frac.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL ( is_flint_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -47,16 +47,16 @@ NT2_TEST_CASE_TPL ( is_flint_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_flint(-boost::simd::Zero<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Half<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Inf<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Minf<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Mone<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Nan<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::One<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Quarter<T>()), boost::simd::False<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Two<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Zero<T>()), boost::simd::True<r_t>());
+  NT2_TEST_EQUAL(is_flint(-boost::simd::Zero<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Half<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Inf<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Minf<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Mone<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Nan<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_flint(boost::simd::One<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Quarter<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Two<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Zero<T>()), r_t(true));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_flint_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( is_flint_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -80,10 +80,10 @@ NT2_TEST_CASE_TPL ( is_flint_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_flint(boost::simd::Mone<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::One<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Two<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Zero<T>()), boost::simd::True<r_t>());
+  NT2_TEST_EQUAL(is_flint(boost::simd::Mone<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::One<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Two<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Zero<T>()), r_t(true));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( is_flint_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -96,7 +96,7 @@ NT2_TEST_CASE_TPL ( is_flint_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -107,7 +107,7 @@ NT2_TEST_CASE_TPL ( is_flint_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_flint(boost::simd::One<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Two<T>()), boost::simd::True<r_t>());
-  NT2_TEST_EQUAL(is_flint(boost::simd::Zero<T>()), boost::simd::True<r_t>());
+  NT2_TEST_EQUAL(is_flint(boost::simd::One<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Two<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_flint(boost::simd::Zero<T>()), r_t(true));
 } // end of test for unsigned_int_

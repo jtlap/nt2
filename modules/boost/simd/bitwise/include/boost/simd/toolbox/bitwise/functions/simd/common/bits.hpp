@@ -8,8 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITS_HPP_INCLUDED
-
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -19,10 +17,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type  result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return simd::native_cast<result_type>(a0);
+      return simd::bitwise_cast<result_type>(a0);
     }
   };
 } } }

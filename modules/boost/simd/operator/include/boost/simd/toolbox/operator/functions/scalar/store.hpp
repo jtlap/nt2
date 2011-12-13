@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_STORE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_STORE_HPP_INCLUDED
-
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>

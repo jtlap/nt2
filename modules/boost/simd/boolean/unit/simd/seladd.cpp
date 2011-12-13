@@ -35,13 +35,15 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::load; 
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
+  using boost::simd::logical; 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<seladd_(vT,vT,vT)>::type r_t;
+  typedef native<logical<T> ,ext_t>              vlT;
+  typedef typename boost::dispatch::meta::call<seladd_(vlT,vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
@@ -49,12 +51,14 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(seladd(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<vT>(),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(3));
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<vT>(),boost::simd::Inf<vT>(),boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<vT>(),boost::simd::Minf<vT>(),boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<vT>(),boost::simd::Nan<vT>(),boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<vT>(),boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Zero<vT>()),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Nan<vT>()),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(3));
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Nan<vT>()),boost::simd::Inf<vT>(),boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Nan<vT>()),boost::simd::Inf<vT>(),boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Nan<vT>()),boost::simd::Minf<vT>(),boost::simd::Minf<vT>())[0],boost::simd::Minf<sr_t>());
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Nan<vT>()),boost::simd::Minf<vT>(),boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Nan<vT>()),boost::simd::Nan<vT>(),boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Nan<vT>()),boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0],boost::simd::Zero<sr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -64,13 +68,15 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   using boost::simd::load; 
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
+  using boost::simd::logical; 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<seladd_(vT,vT,vT)>::type r_t;
+  typedef native<logical<T> ,ext_t>              vlT;
+  typedef typename boost::dispatch::meta::call<seladd_(vlT,vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
@@ -78,7 +84,7 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(seladd(boost::simd::splat<vT>(-1),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(3));
-  NT2_TEST_EQUAL(seladd(boost::simd::splat<vT>(0),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
-  NT2_TEST_EQUAL(seladd(boost::simd::Zero<vT>(),boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::One<vT>()),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(3));
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Zero<vT>()),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
+  NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Zero<vT>()),boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for integer_

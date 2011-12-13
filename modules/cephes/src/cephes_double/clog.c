@@ -386,44 +386,12 @@ w->i = -cephes_sinh( 2.0 * z->i ) / d;
 
 /* Program to subtract nearest integer multiple of PI */
 /* extended precision value of PI: */
-#ifdef UNK
+
 static double DP1 = 3.14159265160560607910E0;
 static double DP2 = 1.98418714791870343106E-9;
 static double DP3 = 1.14423774522196636802E-17;
-#endif
 
-#ifdef DEC
-static unsigned short P1[] = {0040511,0007732,0120000,0000000,};
-static unsigned short P2[] = {0031010,0055060,0100000,0000000,};
-static unsigned short P3[] = {0022123,0011431,0105056,0001560,};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-#endif
 
-#ifdef IBMPC
-static unsigned short P1[] = {0x0000,0x5400,0x21fb,0x4009};
-static unsigned short P2[] = {0x0000,0x1000,0x0b46,0x3e21};
-static unsigned short P3[] = {0xc06e,0x3145,0x6263,0x3c6a};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-#endif
-
-#ifdef MIEEE
-static unsigned short P1[] = {
-0x4009,0x21fb,0x5400,0x0000
-};
-static unsigned short P2[] = {
-0x3e21,0x0b46,0x1000,0x0000
-};
-static unsigned short P3[] = {
-0x3c6a,0x6263,0x3145,0xc06e
-};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-#endif
 
 double cephes_redupi(x)
 double x;

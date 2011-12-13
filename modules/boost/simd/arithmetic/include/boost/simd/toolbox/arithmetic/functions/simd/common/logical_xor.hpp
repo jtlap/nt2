@@ -8,8 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_LOGICAL_XOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_LOGICAL_XOR_HPP_INCLUDED
-
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/bitwise_xor.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
+// TODO put it in boolean or operator ?
 
 namespace boost { namespace simd { namespace ext
 {
@@ -18,8 +20,24 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return b_xor(is_nez(a0), is_nez(a1)); }
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+      {
+       return is_nez(b_xor(genmask<A0>(a0),genmask<A0>(a1)));
+      }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_, (A0)(X)
+                            , ((simd_<logical_<A0>,X>))
+                              ((simd_<logical_<A0>,X>))
+                            )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+      {
+       typedef typename A0::type type; 
+       return is_nez(b_xor(genmask(a0),genmask(a1)));
+      }
   };
 } } }
 

@@ -96,26 +96,26 @@ int flag;
 aa = aaa;
 bb = bbb;
 xx = xxx;
-if( (xx <= 0.0) || ( xx >= 1.0) )
+if( (xx <= 0.0f) || ( xx >= 1.0f) )
 	{
-	if( xx == 0.0 )
-		return(0.0);
-	if( xx == 1.0 )
-		return( 1.0 );
+	if( xx == 0.0f )
+		return(0.0f);
+	if( xx == 1.0f )
+		return( 1.0f );
 	cephes_mtherr( "incbetf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
-onemx = 1.0 - xx;
+onemx = 1.0f - xx;
 
 
 /* transformation for small aa */
 
-if( aa <= 1.0 )
+if( aa <= 1.0f )
 	{
-	ans = cephes_incbetf( aa+1.0, bb, xx );
-	t = aa*cephes_logf(xx) + bb*cephes_logf( 1.0-xx )
-		+ cephes_lgamf(aa+bb) - cephes_lgamf(aa+1.0) - cephes_lgamf(bb);
+	ans = cephes_incbetf( aa+1.0f, bb, xx );
+	t = aa*cephes_logf(xx) + bb*cephes_logf( 1.0f-xx )
+		+ cephes_lgamf(aa+bb) - cephes_lgamf(aa+1.0f) - cephes_lgamf(bb);
 	if( t > MINLOGF )
 		ans += cephes_expf(t);
 	return( ans );
@@ -143,7 +143,7 @@ else
 
 /* transformation for small aa */
 /*
-if( a <= 1.0 )
+if( a <= 1.0f )
 	{
 	ans = a*cephes_logf(x) + b*cephes_logf( onemx )
 		+ cephes_lgamf(a+b) - cephes_lgamf(a+1.0) - cephes_lgamf(b);
@@ -156,17 +156,17 @@ if( a <= 1.0 )
 /* Choose expansion for optimal convergence */
 
 
-if( b > 10.0 )
+if( b > 10.0f )
 	{
-if( fabsf(b*x/a) < 0.3 )
+if( fabsf(b*x/a) < 0.3f )
 	{
 	t = cephes_incbpsf( a, b, x );
 	goto bdone;
 	}
 	}
 
-ans = x * (a+b-2.0)/(a-1.0);
-if( ans < 1.0 )
+ans = x * (a+b-2.0f)/(a-1.0f);
+if( ans < 1.0f )
 	{
 	ans = incbcff( a, b, x );
 	t = b * cephes_logf( t );
@@ -174,7 +174,7 @@ if( ans < 1.0 )
 else
 	{
 	ans = incbdf( a, b, x );
-	t = (b-1.0) * cephes_logf(t);
+	t = (b-1.0f) * cephes_logf(t);
 	}
 
 t += a*cephes_logf(x) + cephes_lgamf(a+b) - cephes_lgamf(a) - cephes_lgamf(b);
@@ -182,7 +182,7 @@ t += cephes_logf( ans/a );
 
 if( t < MINLOGF )
 	{
-	t = 0.0;
+	t = 0.0f;
 	if( flag == 0 )
 		{
 		cephes_mtherr( "incbetf", UNDERFLOW );
@@ -195,7 +195,7 @@ else
 bdone:
 
 if( flag )
-	t = 1.0 - t;
+	t = 1.0f - t;
 
 return( t );
 }
@@ -223,17 +223,17 @@ x = xx;
 k1 = a;
 k2 = a + b;
 k3 = a;
-k4 = a + 1.0;
+k4 = a + 1.0f;
 k5 = 1.0;
-k6 = b - 1.0;
+k6 = b - 1.0f;
 k7 = k4;
-k8 = a + 2.0;
+k8 = a + 2.0f;
 
-pkm2 = 0.0;
-qkm2 = 1.0;
-pkm1 = 1.0;
-qkm1 = 1.0;
-ans = 1.0;
+pkm2 = 0.0f;
+qkm2 = 1.0f;
+pkm1 = 1.0f;
+qkm1 = 1.0f;
+ans = 1.0f;
 r = 0.0;
 n = 0;
 do
@@ -263,19 +263,19 @@ do
 		ans = r;
 		}
 	else
-		t = 1.0;
+		t = 1.0f;
 
 	if( t < MACHEPF )
 		goto cdone;
 
-	k1 += 1.0;
-	k2 += 1.0;
-	k3 += 2.0;
-	k4 += 2.0;
-	k5 += 1.0;
-	k6 -= 1.0;
-	k7 += 2.0;
-	k8 += 2.0;
+	k1 += 1.0f;
+	k2 += 1.0f;
+	k3 += 2.0f;
+	k4 += 2.0f;
+	k5 += 1.0f;
+	k6 -= 1.0f;
+	k7 += 2.0f;
+	k8 += 2.0f;
 
 	if( (fabsf(qk) + fabsf(pk)) > big )
 		{
@@ -320,21 +320,21 @@ a = aa;
 b = bb;
 x = xx;
 k1 = a;
-k2 = b - 1.0;
+k2 = b - 1.0f;
 k3 = a;
-k4 = a + 1.0;
-k5 = 1.0;
+k4 = a + 1.0f;
+k5 = 1.0f;
 k6 = a + b;
-k7 = a + 1.0;;
-k8 = a + 2.0;
+k7 = a + 1.0f;
+k8 = a + 2.0f;
 
-pkm2 = 0.0;
-qkm2 = 1.0;
-pkm1 = 1.0;
-qkm1 = 1.0;
-z = x / (1.0-x);
-ans = 1.0;
-r = 0.0;
+pkm2 = 0.0f;
+qkm2 = 1.0f;
+pkm1 = 1.0f;
+qkm1 = 1.0f;
+z = x / (1.0f-x);
+ans = 1.0f;
+r = 0.0f;
 n = 0;
 do
 	{
@@ -363,19 +363,19 @@ do
 		ans = r;
 		}
 	else
-		t = 1.0;
+		t = 1.0f;
 
 	if( t < MACHEPF )
 		goto cdone;
 
-	k1 += 1.0;
-	k2 -= 1.0;
-	k3 += 2.0;
-	k4 += 2.0;
-	k5 += 1.0;
-	k6 += 1.0;
-	k7 += 2.0;
-	k8 += 2.0;
+	k1 += 1.0f;
+	k2 -= 1.0f;
+	k3 += 2.0f;
+	k4 += 2.0f;
+	k5 += 1.0f;
+	k6 += 1.0f;
+	k7 += 2.0f;
+	k8 += 2.0f;
 
 	if( (fabsf(qk) + fabsf(pk)) > big )
 		{
@@ -413,20 +413,20 @@ a = aa;
 b = bb;
 x = xx;
 
-y = a * cephes_logf(x) + (b-1.0)*cephes_logf(1.0-x) - cephes_logf(a);
+y = a * cephes_logf(x) + (b-1.0f)*cephes_logf(1.0f-x) - cephes_logf(a);
 y -= cephes_lgamf(a) + cephes_lgamf(b);
 y += cephes_lgamf(a+b);
 
 
-t = x / (1.0 - x);
-s = 0.0;
-u = 1.0;
+t = x / (1.0f - x);
+s = 0.0f;
+u = 1.0f;
 do
 	{
-	b -= 1.0;
-	if( b == 0.0 )
+	b -= 1.0f;
+	if( b == 0.0f )
 		break;
-	a += 1.0;
+	a += 1.0f;
 	u *= t*b/a;
 	s += u;
 	}
@@ -435,10 +435,10 @@ while( fabsf(u) > MACHEPF );
 if( y < MINLOGF )
 	{
 	cephes_mtherr( "incbetf", UNDERFLOW );
-	s = 0.0;
+	s = 0.0f;
 	}
 else
-	s = cephes_expf(y) * (1.0 + s);
+	s = cephes_expf(y) * (1.0f + s);
 /*printf( "incbpsf: %.4e\n", s );*/
 return(s);
 }

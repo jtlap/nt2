@@ -9,23 +9,21 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EPS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EPS_HPP_INCLUDED
-
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/smallestposval.hpp>
+#include <boost/simd/include/constants/mindenormal.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::eps_, tag::cpu_
@@ -39,22 +37,13 @@ namespace boost { namespace simd { namespace ext
         return One<A0>();
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::eps_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0, signed>::type        int_type;

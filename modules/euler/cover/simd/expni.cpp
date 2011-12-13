@@ -65,15 +65,15 @@ NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,iT, NR, iT(0), iT(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         iT a0 = tab_a0[j];
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = expni(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::expni (tab_a0[j],tab_a1[k])), 10);
+          
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::expni (tab_a0[j],a1[i])), 10);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

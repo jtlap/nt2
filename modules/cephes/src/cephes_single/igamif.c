@@ -77,28 +77,28 @@ double aa, yy0;
 float a, y0, d, y, x0, lgm;
 int i;
 
-if( yy0 > 0.5)
+if( yy0 > 0.5f)
 	cephes_mtherr( "igamif", PLOSS );
 
 a = aa;
 y0 = yy0;
 /* approximation to inverse function */
-d = 1.0/(9.0*a);
-y = ( 1.0 - d - cephes_ndtrif(y0) * cephes_sqrtf(d) );
+d = 1.0f/(9.0f*a);
+y = ( 1.0f - d - cephes_ndtrif(y0) * cephes_sqrtf(d) );
 x0 = a * y * y * y;
 
 lgm = cephes_lgamf(a);
 
 for( i=0; i<10; i++ )
 	{
-	if( x0 <= 0.0 )
+	if( x0 <= 0.0f )
 		{
 		cephes_mtherr( "igamif", UNDERFLOW );
-		return(0.0);
+		return(0.0f);
 		}
 	y = cephes_igamcf(a,x0);
 /* compute the derivative of the function at this point */
-	d = (a - 1.0) * cephes_logf(x0) - x0 - lgm;
+	d = (a - 1.0f) * cephes_logf(x0) - x0 - lgm;
 	if( d < -MAXLOGF )
 		{
 		cephes_mtherr( "igamif", UNDERFLOW );
@@ -106,13 +106,13 @@ for( i=0; i<10; i++ )
 		}
 	d = -cephes_expf(d);
 /* compute the step to the next approximation of x */
-	if( d == 0.0 )
+	if( d == 0.0f )
 		goto done;
 	d = (y - y0)/d;
 	x0 = x0 - d;
 	if( i < 3 )
 		continue;
-	if( fabsf(d/x0) < (2.0 * MACHEPF) )
+	if( fabsf(d/x0) < (2.0f * MACHEPF) )
 		goto done;
 	}
 

@@ -10,9 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MAXMAG_HPP_INCLUDED
 #include <boost/simd/include/functions/abs.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxmag_, tag::cpu_

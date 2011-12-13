@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_POPCNT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_POPCNT_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/lo.hpp>
 #include <boost/simd/include/functions/hi.hpp>
@@ -26,7 +25,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
     #ifdef BOOST_MSVC
@@ -79,7 +77,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
     #ifdef BOOST_MSVC
@@ -95,7 +92,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
     #ifdef BOOST_MSVC
@@ -111,7 +107,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       #if defined BOOST_MSVC && defined _WIN64

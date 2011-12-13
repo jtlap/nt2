@@ -8,46 +8,37 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FAST_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FAST_HYPOT_HPP_INCLUDED
-
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/eps.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/nan.hpp>  
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/eps_related.hpp>
-
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/sqr.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
+                        (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
+    typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::simd::fast_hypot(result_type(a0), result_type(a1));
+      return boost::simd::fast_hypot(static_cast<result_type>(a0),
+                                     static_cast<result_type>(a1));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)
-                            , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
+                            , (scalar_< double_<A0> >)
+                        (scalar_< double_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -62,17 +53,11 @@ namespace boost { namespace simd { namespace ext
       return x*boost::simd::sqrt(One<A0>()+boost::simd::sqr(y/x));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)
-                            , (scalar_< single_<A0> >)(scalar_< single_<A0> >)
+                            , (scalar_< single_<A0> >)
+                        (scalar_< single_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -80,7 +65,8 @@ namespace boost { namespace simd { namespace ext
     {
       // flibc do that in ::fast_hypotf(a0, a1) in asm with no more speed!
       // proper impl as for double is 30% slower
-      return result_type(boost::simd::sqrt(boost::simd::sqr(double(a0))+boost::simd::sqr(double(a1))));
+      return static_cast<result_type>(boost::simd::sqrt(boost::simd::sqr(static_cast<double>(a0))+
+                                                        boost::simd::sqr(static_cast<double>(a1))));
     }
   };
 } } }

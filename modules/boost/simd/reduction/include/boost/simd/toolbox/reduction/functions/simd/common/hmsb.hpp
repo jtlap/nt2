@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
       const result_type N = meta::cardinal_of<A0>::value;
       for(result_type i = 0; i != N; ++i)
       {
-        z |= bits(a0[i]) >> (sizeof(stype)*CHAR_BIT - 1) << (N-i-1);
+        z |= (bits(a0[i]) >> (sizeof(stype)*CHAR_BIT - 1)) << i;
       }
       return z;
     }

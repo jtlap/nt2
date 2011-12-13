@@ -124,32 +124,32 @@ x = xx;
 if( (x <= 0) || ( a <= 0) )
 	return( 1.0 );
 
-if( (x < 1.0) || (x < a) )
-	return( 1.0 - cephes_igamf(a,x) );
+if( (x < 1.0f) || (x < a) )
+	return( 1.0f - cephes_igamf(a,x) );
 
 ax = a * cephes_logf(x) - x - cephes_lgamf(a);
 if( ax < -MAXLOGF )
 	{
 	cephes_mtherr( "igamcf", UNDERFLOW );
-	return( 0.0 );
+	return( 0.0f );
 	}
 ax = cephes_expf(ax);
 
 /* continued fraction */
-y = 1.0 - a;
-z = x + y + 1.0;
-c = 0.0;
-pkm2 = 1.0;
+y = 1.0f - a;
+z = x + y + 1.0f;
+c = 0.0f;
+pkm2 = 1.0f;
 qkm2 = x;
-pkm1 = x + 1.0;
+pkm1 = x + 1.0f;
 qkm1 = z * x;
 ans = pkm1/qkm1;
 
 do
 	{
-	c += 1.0;
-	y += 1.0;
-	z += 2.0;
+	c += 1.0f;
+	y += 1.0f;
+	z += 2.0f;
 	yc = y * c;
 	pk = pkm1 * z  -  pkm2 * yc;
 	qk = qkm1 * z  -  qkm2 * yc;
@@ -160,7 +160,7 @@ do
 		ans = r;
 		}
 	else
-		t = 1.0;
+		t = 1.0f;
 	pkm2 = pkm1;
 	pkm1 = pk;
 	qkm2 = qkm1;
@@ -202,28 +202,28 @@ float a, x, ans, ax, c, r;
 a = aa;
 x = xx;
 if( (x <= 0) || ( a <= 0) )
-	return( 0.0 );
+	return( 0.0f );
 
-if( (x > 1.0) && (x > a ) )
-	return( 1.0 - cephes_igamcf(a,x) );
+if( (x > 1.0f) && (x > a ) )
+	return( 1.0f - cephes_igamcf(a,x) );
 
 /* Compute  x**a * exp(-x) / gamma(a)  */
 ax = a * cephes_logf(x) - x - cephes_lgamf(a);
 if( ax < -MAXLOGF )
 	{
 	cephes_mtherr( "igamf", UNDERFLOW );
-	return( 0.0 );
+	return( 0.0f );
 	}
 ax = cephes_expf(ax);
 
 /* power series */
 r = a;
-c = 1.0;
-ans = 1.0;
+c = 1.0f;
+ans = 1.0f;
 
 do
 	{
-	r += 1.0;
+	r += 1.0f;
 	c *= x/r;
 	ans += c;
 	}

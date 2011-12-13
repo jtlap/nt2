@@ -19,7 +19,8 @@
  * \defgroup boost_simd_arithmetic_oneplus oneplus
  *
  * \par Description
- * returns the saturated $1+a_0$
+ * returns the saturated $1+a_0$
+ * oneplus(a) is always greater or equal to a.
  *
  * \par Header file
  * 

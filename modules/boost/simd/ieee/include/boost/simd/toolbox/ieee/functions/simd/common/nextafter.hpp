@@ -12,7 +12,7 @@
 #include <boost/simd/include/functions/is_not_equal.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/next.hpp>
 #include <boost/simd/include/functions/prev.hpp>
 #include <boost/simd/include/constants/mone.hpp>

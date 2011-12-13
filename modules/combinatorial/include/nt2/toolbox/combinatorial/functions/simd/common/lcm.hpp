@@ -18,14 +18,14 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::lcm_, tag::cpu_,
                       (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
-                      ((simd_<arithmetic_<A0>,X>))
+                      ((simd_<integer_<A0>,X>))
+                      ((simd_<integer_<A0>,X>))
                      )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::abs(round2even(a0)*rdivide(round2even(a1), gcd(a0,a1)));
+      return nt2::abs(a0*rdivide(a1, gcd(a0,a1)));
     }
   };
 } }

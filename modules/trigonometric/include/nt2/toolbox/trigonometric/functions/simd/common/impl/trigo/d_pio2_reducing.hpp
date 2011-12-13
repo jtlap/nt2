@@ -39,7 +39,6 @@ namespace nt2
         
         static inline int_type straight_reduction(const A0& x, A0& xr, A0& xc)
         {
-          //  std::cout << " straight reduction "  << std::endl; 
           // x has to be in [pi/4, pi/2]
           xc = Zero<A0>();
           xr = x-double_constant<A0,0x3FF921FB54400000ll>();
@@ -86,9 +85,6 @@ namespace nt2
         static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
         {
           return nt2::rem_pio2(t, xr, xc);
-//           int_type i;
-//           rpio2<A0, tag::simd_type>::rem_pio2(t, i, xr, xc);
-//           return i;
         }
         
         static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& xc)

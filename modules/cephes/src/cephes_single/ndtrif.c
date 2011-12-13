@@ -149,38 +149,38 @@ float y0, x, y, z, y2, x0, x1;
 int code;
 
 y0 = yy0;
-if( y0 <= 0.0 )
+if( y0 <= 0.0f )
 	{
 	cephes_mtherr( "ndtrif", DOMAIN );
 	return( -MAXNUMF );
 	}
-if( y0 >= 1.0 )
+if( y0 >= 1.0f )
 	{
 	cephes_mtherr( "ndtrif", DOMAIN );
 	return( MAXNUMF );
 	}
 code = 1;
 y = y0;
-if( y > (1.0 - 0.13533528323661269189) ) /* 0.135... = exp(-2) */
+if( y > (1.0f - 0.13533528323661269189f) ) /* 0.135... = exp(-2) */
 	{
-	y = 1.0 - y;
+	y = 1.0f - y;
 	code = 0;
 	}
 
-if( y > 0.13533528323661269189 )
+if( y > 0.13533528323661269189f )
 	{
-	y = y - 0.5;
+	y = y - 0.5f;
 	y2 = y * y;
 	x = y + y * (y2 * cephes_polevlf( y2, P0, 4)/cephes_p1evlf( y2, Q0, 8 ));
 	x = x * s2pi; 
 	return(x);
 	}
 
-x = cephes_sqrtf( -2.0 * cephes_logf(y) );
+x = cephes_sqrtf( -2.0f * cephes_logf(y) );
 x0 = x - cephes_logf(x)/x;
 
-z = 1.0/x;
-if( x < 8.0 ) /* y > exp(-32) = 1.2664165549e-14 */
+z = 1.0f/x;
+if( x < 8.0f ) /* y > exp(-32) = 1.2664165549e-14 */
 	x1 = z * cephes_polevlf( z, P1, 8 )/cephes_p1evlf( z, Q1, 8 );
 else
 	x1 = z * cephes_polevlf( z, P2, 8 )/cephes_p1evlf( z, Q2, 8 );

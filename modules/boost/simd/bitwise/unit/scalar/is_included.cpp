@@ -21,6 +21,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 
 NT2_TEST_CASE_TPL ( is_included_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
@@ -33,8 +34,7 @@ NT2_TEST_CASE_TPL ( is_included_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
-
+  typedef boost::simd::logical<T> wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

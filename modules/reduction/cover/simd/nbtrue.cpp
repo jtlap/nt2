@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
     typedef typename nt2::meta::scalar_of<T>::type sT;
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::nbtrue(a0);
@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
         {
           z+=a0[i] != 0 ;
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,ssr_t(z));
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl;
   }

@@ -9,9 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LTZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LTZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_ltz.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -20,15 +19,13 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef boost::simd::native<typename boost::simd::meta::int32_t_<A0>::type,boost::simd::tag::sse_> type;
-      const type tmp1 = is_ltz(simd::native_cast<type>(a0));
+      const type tmp1 = bitwise_cast<type>(is_ltz(bitwise_cast<type>(a0)));
       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
-      return  simd::native_cast<A0>(tmp);
+      return  bitwise_cast<result_type>(tmp);
     }
   };
 } } }

@@ -64,8 +64,6 @@ Copyright 1984, 1995, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
-#ifdef UNK
-
 static double P[] = {
  1.26177193074810590878E-4,
  3.02994407707441961300E-2,
@@ -79,61 +77,6 @@ static double Q[] = {
 };
 static double C1 = 6.93145751953125E-1;
 static double C2 = 1.42860682030941723212E-6;
-#endif
-
-#ifdef DEC
-static unsigned short P[] = {
-0035004,0047156,0127442,0057502,
-0036770,0033210,0063121,0061764,
-0040200,0000000,0000000,0000000,
-};
-static unsigned short Q[] = {
-0033511,0072665,0160662,0176377,
-0036045,0070715,0124105,0132777,
-0037550,0134114,0142077,0001637,
-0040400,0000000,0000000,0000000,
-};
-static unsigned short sc1[] = {0040061,0071000,0000000,0000000};
-#define C1 (*(double *)sc1)
-static unsigned short sc2[] = {0033277,0137216,0075715,0057117};
-#define C2 (*(double *)sc2)
-#endif
-
-#ifdef IBMPC
-static unsigned short P[] = {
-0x4be8,0xd5e4,0x89cd,0x3f20,
-0x2c7e,0x0cca,0x06d1,0x3f9f,
-0x0000,0x0000,0x0000,0x3ff0,
-};
-static unsigned short Q[] = {
-0x5fa0,0xbc36,0x2eb6,0x3ec9,
-0xb6c0,0xb508,0xae39,0x3f64,
-0xe074,0x9887,0x1709,0x3fcd,
-0x0000,0x0000,0x0000,0x4000,
-};
-static unsigned short sc1[] = {0x0000,0x0000,0x2e40,0x3fe6};
-#define C1 (*(double *)sc1)
-static unsigned short sc2[] = {0xabca,0xcf79,0xf7d1,0x3eb7};
-#define C2 (*(double *)sc2)
-#endif
-
-#ifdef MIEEE
-static unsigned short P[] = {
-0x3f20,0x89cd,0xd5e4,0x4be8,
-0x3f9f,0x06d1,0x0cca,0x2c7e,
-0x3ff0,0x0000,0x0000,0x0000,
-};
-static unsigned short Q[] = {
-0x3ec9,0x2eb6,0xbc36,0x5fa0,
-0x3f64,0xae39,0xb508,0xb6c0,
-0x3fcd,0x1709,0x9887,0xe074,
-0x4000,0x0000,0x0000,0x0000,
-};
-static unsigned short sc1[] = {0x3fe6,0x2e40,0x0000,0x0000};
-#define C1 (*(double *)sc1)
-static unsigned short sc2[] = {0x3eb7,0xf7d1,0xcf79,0xabca};
-#define C2 (*(double *)sc2)
-#endif
 
 #ifdef ANSIPROT
 extern double cephes_polevl ( double, void *, int );

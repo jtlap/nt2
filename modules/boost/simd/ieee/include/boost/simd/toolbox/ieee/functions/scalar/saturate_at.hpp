@@ -14,11 +14,8 @@
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag>
@@ -35,6 +32,7 @@ namespace boost { namespace simd { namespace ext
       return select(gt(a0, z), z, select(lt(a0, unary_minus(z)), unary_minus(z), a0)); 
     }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_at_<Tag>
                                    , tag::cpu_
                                    , (A0)(Tag)

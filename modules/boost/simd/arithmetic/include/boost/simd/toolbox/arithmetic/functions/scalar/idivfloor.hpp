@@ -8,26 +8,26 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVFLOOR_HPP_INCLUDED
-
 #include <boost/simd/include/functions/idivceil.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/ifloor.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_
                             , (A0)
-                            , (scalar_< signed_<A0> >)(scalar_< signed_<A0> >)
+                            , (scalar_< signed_<A0> >)
+                        (scalar_< signed_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
-        return -idivceil(A0(-a0),a1);
+        return -idivceil(static_cast<A0>(-a0),a1);
       else
       {
         typedef result_type type;
@@ -35,17 +35,11 @@ namespace boost { namespace simd { namespace ext
       }
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivfloor_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
+                        (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -57,10 +51,12 @@ namespace boost { namespace simd { namespace ext
         return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }
   };
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
+
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4723) // potential divide by 0
+#endif
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivfloor_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> > )(scalar_< floating_<A0> > )
@@ -73,5 +69,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+  
+#ifdef BOOST_MSVC
+  #pragma warning(pop)
+#endif
 
 #endif

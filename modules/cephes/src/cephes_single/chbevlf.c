@@ -83,5 +83,5 @@ do
 	}
 while( --i );
  
-return( 0.5*(b0-b2) );
+return( 0.5f*(b0-b2) );
 }

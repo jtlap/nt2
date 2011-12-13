@@ -68,10 +68,10 @@ namespace boost { namespace simd { namespace tag
     **/
     struct if_zero_else_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_zero_else_, if_zero_else, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_zero_else_, ifzeroelse, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_zero_else_, if_zero_else,    2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_zero_else_, ifzeroelse,      2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_zero_else_, ifnot_else_zero, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_zero_else_, ifnotelsezero, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_zero_else_, ifnotelsezero,   2)
 } }
  
 #endif

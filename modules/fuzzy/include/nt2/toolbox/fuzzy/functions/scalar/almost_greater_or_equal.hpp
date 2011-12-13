@@ -13,6 +13,10 @@
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/subs.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -25,10 +29,10 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0& a0, const A0& a1,const A2& a2)
     {
-      return a0 >= a1-nt2::abs(a2);
+      return result_type(a0 >= a1-nt2::abs(a2));
     }
   };
 } }
@@ -44,10 +48,10 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0& a0, const A0& a1,const A2& a2)
     {
-      return a0 >= subs(a1, a2);
+      return result_type(a0 >= subs(a1, a2));
     }
   };
 } }
@@ -64,17 +68,17 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0& a0, const A0& a1,const A2& a2)
     {
-      if (a0 == a1) return true;
-      if (is_inf(a0) || is_inf(a1)) return (a0 == a1);
-      if (is_nan(a0) || is_nan(a1)) return false;
+      if (a0 == a1) return True<result_type>();
+      if (logical_or(is_inf(a0), is_inf(a1))) return result_type(a0 == a1);
+      if (logical_or(is_nan(a0), is_nan(a1))) return False<result_type>();
       // see http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
       // by Bruce Dawson
       // Do not choose a2 negative or too large
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
-      return  a0 > predecessor(a1, nt2::abs(a2)); 
+      return  result_type(a0 > predecessor(a1, nt2::abs(a2))); 
     }
   };
 } }

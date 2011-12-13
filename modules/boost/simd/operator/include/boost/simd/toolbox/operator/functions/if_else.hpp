@@ -73,6 +73,8 @@ namespace boost { namespace simd
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , if_else         , 3 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , where           , 3 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , select          , 3 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , sel             , 3 )
 
 } }
 

@@ -179,7 +179,7 @@ static float GD8[] = {
   3.14040098946363335242E-15,
 };
 
-#define EUL 0.57721566490153286061
+#define EUL 0.57721566490153286061f
 extern float MAXNUMF, PIO2F, MACHEPF;
 
 
@@ -205,7 +205,7 @@ float x, z, c, s, f, g;
 int sign;
 
 x = xx;
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	sign = -1;
 	x = -x;
@@ -214,15 +214,15 @@ else
 	sign = 0;
 
 
-if( x == 0.0 )
+if( x == 0.0f )
 	{
-	*si = 0.0;
+	*si = 0.0f;
 	*ci = -MAXNUMF;
 	return( 0 );
 	}
 
 
-if( x > 1.0e9 )
+if( x > 1.0e9f )
 	{
 	*si = PIO2F - cephes_cosf(x)/x;
 	*ci = cephes_sinf(x)/x;
@@ -231,7 +231,7 @@ if( x > 1.0e9 )
 
 
 
-if( x > 4.0 )
+if( x > 4.0f )
 	goto asympt;
 
 z = x * x;
@@ -265,8 +265,8 @@ asympt:
 
 s = cephes_sinf(x);
 c = cephes_cosf(x);
-z = 1.0/(x*x);
-if( x < 8.0 )
+z = 1.0f/(x*x);
+if( x < 8.0f )
 	{
 	f = cephes_polevlf( z, FN4, 6 ) / (x * cephes_p1evlf( z, FD4, 7 ));
 	g = z * cephes_polevlf( z, GN4, 7 ) / cephes_p1evlf( z, GD4, 7 );

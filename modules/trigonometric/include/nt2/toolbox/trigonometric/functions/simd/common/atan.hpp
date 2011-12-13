@@ -25,12 +25,21 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      const result_type r = { impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(tofloat(a0)) }; 
+      return nt2::atan(tofloat(a0));
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<floating_<A0>,X>))
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      const result_type r = { impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(a0) }; 
       return r;
     }
   };

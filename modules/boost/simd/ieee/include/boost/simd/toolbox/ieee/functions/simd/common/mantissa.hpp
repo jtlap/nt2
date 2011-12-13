@@ -9,11 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MANTISSA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MANTISSA_HPP_INCLUDED
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -34,7 +35,7 @@ namespace boost { namespace simd { namespace ext
       const sint_type n2 = (sizeof(sint_type)-2);
       const int_type  mask0 = (splat<int_type>((n1<<2)>>2));
       const int_type  mask1 = (splat<int_type>((~n1)|n2));
-      return select(b_or(is_invalid(a0),is_eqz(a0)),a0,b_or(b_and(a0,mask1),mask0));
+      return select(logical_or(is_invalid(a0),is_eqz(a0)),a0,b_or(b_and(a0,mask1),mask0));
     }
   };
 } } }

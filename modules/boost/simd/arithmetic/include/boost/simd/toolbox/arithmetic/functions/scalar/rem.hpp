@@ -8,9 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REM_HPP_INCLUDED
-
 #include <boost/simd/include/functions/idivfix.hpp>
-
 /////////////////////////////////////////////////////////////////////////////
 //  The rem function computes the floating-point remainder of dividing x by y.
 //  The return value is x - n * y, where n is the quotient of x / y, rounded
@@ -18,9 +16,6 @@
 //  The fmod function is just an alias for the same thing.
 /////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rem_, tag::cpu_
@@ -34,14 +29,7 @@ namespace boost { namespace simd { namespace ext
       if (a1) return a0%a1; else return a0;  
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rem_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)

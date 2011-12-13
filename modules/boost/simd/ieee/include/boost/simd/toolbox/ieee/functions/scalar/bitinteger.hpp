@@ -13,10 +13,6 @@
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitinteger_, tag::cpu_
@@ -24,14 +20,12 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_positive(a0) ?
-	bitwise_cast<result_type, A0>(a0) :
-	Signmask<result_type>()-bitwise_cast<result_type, A0>(a0); 
+	  bitwise_cast<result_type, A0>(a0) :
+	  Signmask<result_type>()-bitwise_cast<result_type, A0>(a0); 
     }
   };
 } } }

@@ -559,7 +559,7 @@ namespace nt2 { namespace ext
 	    fn = (A0)n;
 	    r  = t-fn*pio2_1;
 	    w  = fn*pio2_1t;	/* 1st round good to 85 bit */
-	    if((n<32)&&(n > 0)&&(ix!=npio2_hw[n-1])) {	
+	    if((n<32)&&(n>0)&&(ix!=npio2_hw[n-1])) {	
 	      y[0] = r-w;	/* quick check no cancellation */
 	    } else {
 	      nt2::uint32_t high;

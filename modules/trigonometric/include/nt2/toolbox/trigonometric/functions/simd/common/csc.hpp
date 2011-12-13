@@ -14,6 +14,7 @@
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 
@@ -27,12 +28,10 @@ namespace nt2 { namespace ext
                             , ((simd_<integer_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(rec(sin(tofloat(a0))), is_eqz(a0));
+      return if_nan_else(is_eqz(a0), rec(sin(tofloat(a0))));
     }
   };
 } }
@@ -48,9 +47,7 @@ namespace nt2 { namespace ext
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return rec(sin(a0));

@@ -123,10 +123,10 @@ b = bb;
 x = xx;
 
 
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	cephes_mtherr( "gdtrf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 return(  cephes_igamf( b, a * x )  );
 }
@@ -145,10 +145,10 @@ float a, b, x;
 a = aa;
 b = bb;
 x = xx;
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	cephes_mtherr( "gdtrcf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 return(  cephes_igamcf( b, a * x )  );
 }

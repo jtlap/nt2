@@ -22,10 +22,8 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/bitwise_any.hpp>
+#include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -37,9 +35,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::ellie(tofloat(a0), tofloat(a1));
@@ -58,9 +54,7 @@ namespace nt2 { namespace ext
                             , ((simd_<double_<A0>,X>))((simd_<double_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return map(functor<tag::ellie_>(), a0, a1);
@@ -98,7 +92,7 @@ namespace nt2 { namespace ext
 //       while(1)
 //         {
 //           A0 test = gt(abs(c),Eps<A0>()*abs(a));
-//           if (nt2::bitwise_any(test))
+//           if (nt2::any(test))
 //             {
 //             A0 temp = b/a;
 //             lphi = lphi + atan(t*temp) + mod * Pi < A0>();

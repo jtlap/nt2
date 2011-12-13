@@ -14,9 +14,7 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <math.h>
-/////////////////////////////////////////////////////////////////////////////
-// Compute fast_frexp(const A0& a0)
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
@@ -56,7 +54,6 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type mantissa;
     typedef typename dispatch::meta::as_integer<A0,signed>::type                   exponent;
     typedef boost::fusion::vector<mantissa,exponent>                               result_type;
-    
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;

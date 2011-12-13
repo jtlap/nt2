@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_UNORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_UNORD_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/false.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -18,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0&, const A0&)const
     {
       return boost::simd::False<A0>();
@@ -30,11 +31,11 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = {_mm_cmpunord_pd(a0,a1)};
+      result_type that = {_mm_cmpunord_pd(a0,a1)};
       return that;
     }
   };
@@ -44,11 +45,11 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = {_mm_cmpunord_ps(a0,a1)};
+      result_type that = {_mm_cmpunord_ps(a0,a1)};
       return that;
     }
   };

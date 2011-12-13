@@ -15,9 +15,6 @@
 #include <boost/simd/include/functions/is_positive.hpp>
 #include <boost/simd/include/functions/is_negative.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signnz_, tag::cpu_
@@ -26,50 +23,26 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return is_gez(a0)-is_ltz(a0);
-    }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return is_gez(a0)-is_ltz(a0); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signnz_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)
                             )
   {
     typedef A0 result_type;
-    inline result_type operator()(A0 const &)const
-    {
-      return One<A0>();
-    }
+    inline result_type operator()(A0 const &)const { return One<A0>(); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signnz_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return is_nan(a0)?a0:is_positive(a0)-is_negative(a0);
-    }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return is_nan(a0)?a0:is_positive(a0)-is_negative(a0); }
   };
 } } }
-
 
 #endif

@@ -175,7 +175,7 @@ for( i=0; i<=na; i++ )
 		printf( "\n" );
 		j = d1;
 		}
-	printf( form, a[i] );
+	printf( form, (double)a[i] );
 	}
 printf( "\n" );
 #if !ANSIC
@@ -379,11 +379,11 @@ cephes_polclrf( tq, MAXPOLF );
 /* What to do if leading (constant) coefficient
  * of denominator is zero.
  */
-if( a[0] == 0.0 )
+if( a[0] == 0.0f )
 	{
 	for( i=0; i<=na; i++ )
 		{
-		if( ta[i] != 0.0 )
+		if( ta[i] != 0.0f )
 			goto nzero;
 		}
 	cephes_mtherr( "poldivf", SING );
@@ -393,9 +393,9 @@ nzero:
 /* Reduce the degree of the denominator. */
 	for( i=0; i<na; i++ )
 		ta[i] = ta[i+1];
-	ta[na] = 0.0;
+	ta[na] = 0.0f;
 
-	if( b[0] != 0.0 )
+	if( b[0] != 0.0f )
 		{
 /* Optional message:
 		printf( "poldivf singularity, divide quotient by x\n" );
@@ -407,7 +407,7 @@ nzero:
 /* Reduce degree of numerator. */
 		for( i=0; i<nb; i++ )
 			tb[i] = tb[i+1];
-		tb[nb] = 0.0;
+		tb[nb] = 0.0f;
 		}
 /* Call self, using reduced polynomials. */
 	sing += cephes_poldivf( ta, na, tb, nb, c );
@@ -466,7 +466,7 @@ cephes_polclrf( pt1, MAXPOLF );
 pt1[0] = b[0];
 
 cephes_polclrf( pt2, MAXPOLF );
-pt2[0] = 1.0;
+pt2[0] = 1.0f;
 n2 = 0;
 
 for( i=1; i<=nb; i++ )

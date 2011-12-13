@@ -8,13 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ICEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ICEIL_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -35,8 +35,10 @@ namespace boost { namespace simd { namespace ext
     {
       if (boost::simd::is_inf(a0))
       {
-        if (boost::simd::is_ltz(a0)) return boost::simd::Valmin<result_type>();
-        else                 return  boost::simd::Valmax<result_type>();
+        if (boost::simd::is_ltz(a0))
+        return boost::simd::Valmin<result_type>();
+        else
+        return  boost::simd::Valmax<result_type>();
       }
 
       if (boost::simd::is_nan(a0)) return Zero<result_type>();

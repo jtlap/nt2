@@ -66,7 +66,7 @@ namespace nt2
 
     template<class InB, class InE, class Value>
     BOOST_FORCEINLINE
-    void check_all_equal(InB const& inb, InE const&, Value const&, boost::mpl::true_)
+    void check_all_equal(InB const& /*inb*/, InE const&, Value const&, boost::mpl::true_)
     {
     }
 

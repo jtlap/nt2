@@ -10,6 +10,9 @@
 
 SET( SOURCES
 # List of simd test files for toolbox boolean
+#  negif.cpp
+#  seladd.cpp
+#  selsub.cpp
    )
 
 nt2_module_add_tests(boolean.simd.cover ${SOURCES})

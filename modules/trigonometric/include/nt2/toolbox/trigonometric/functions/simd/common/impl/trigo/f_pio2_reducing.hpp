@@ -14,7 +14,6 @@
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/toolbox/arithmetic/include/functions/toint.hpp>
 #include <nt2/include/constants/digits.hpp>
-//#include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo/rem_pio2.hpp>
 #include <nt2/include/functions/rem_pio2.hpp>
 
 namespace nt2
@@ -35,7 +34,6 @@ namespace nt2
 
         static inline int_type noreduction(const A0& x, A0& xr,  A0& xc)
         {
-          //  std::cout << " no reduction "  << std::endl; 
           // x has to be in [0, pi/4]
           xr =  x;
           xc = Zero<A0>();
@@ -44,7 +42,6 @@ namespace nt2
 
         static inline int_type straight_reduction(const A0& x, A0& xr, A0& xc)
         {
-          //  std::cout << " straight reduction "  << std::endl; 
           // x has to be in [pi/4, pi/2]
           xr = x-single_constant<A0,0x3fc90f80>();
           xr -= single_constant<A0,0x37354400 >();
@@ -55,7 +52,6 @@ namespace nt2
 
         static inline int_type cephes_reduction(const A0& x, A0& xr, A0& xc)
         {
-          //  std::cout << " cephes reduction "  << std::endl; 
           //          A0 xi = round2even(x* Const<A0,invpio2>());
           int_type n = fast_toint(x* single_constant<A0,0x3f22f984>()+Half<A0>());
           A0 xi =  tofloat(n);
@@ -87,9 +83,6 @@ namespace nt2
         static inline int_type fdlibm_big_reduction(const A0& t, A0& xr, A0& xc)
         {
           return nt2::rem_pio2(t, xr, xc);
-//           int_type i;
-//           rpio2<A0, tag::simd_type>::rem_pio2(t, i, xr, xc);
-//           return i;
         }
 
         static inline int_type invalidity_reduction(const A0& t, A0& xr, A0& /*xc*/)

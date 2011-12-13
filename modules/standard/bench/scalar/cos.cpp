@@ -31,12 +31,22 @@ using nt2::standard::tag::cos_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cos_,(RS(T,T(-100),T(100))))
+  NT2_TIMING(cos_,(RS(T,T(-62.8319), T(62.8319))))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cos_,(RS(T,T(-100),T(100))))
+  NT2_TIMING(cos_,(RS(T,T(-62.8319), T(62.8319))))
+}
+namespace n1 {
+  typedef float T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(cos_,(RS(T,T(-0.785398), T(0.785398))))
+}
+namespace n2 {
+  typedef double T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
+  NT2_TIMING(cos_,(RS(T,T(-0.785398), T(0.785398))))
 }
 
 #undef RS

@@ -17,6 +17,9 @@
 
 #include <iomanip>
 #include <nt2/include/functions/random.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/allbits.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/tests.hpp>
@@ -86,7 +89,14 @@
     NAME[k] = nt2::random(MIN, MAX);				\
     }}								\
   /**/
-
+#define NT2_CREATE_LOGICAL_BUF(NAME, TYPE, SIZE)\
+  nt2::memory::buffer<TYPE,\
+          boost::simd::memory::allocator<TYPE> >\
+  NAME(0, SIZE);            \
+  for(int k = 0; k < int(SIZE); ++k){					\
+    NAME[k] = nt2::random(0, 1) ? nt2::Allbits<TYPE>() : nt2::False<TYPE>(); \
+  }                \
+/**/
 #define NT2_CREATE_BUFFER(NAME, TYPE, SIZE, MIN, MAX)	\
   nt2::memory::buffer<TYPE,				\
 		      boost::simd::memory::allocator<TYPE> >    \

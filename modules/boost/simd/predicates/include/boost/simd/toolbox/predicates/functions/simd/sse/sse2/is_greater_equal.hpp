@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_GREATER_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_GREATER_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
-#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/functions/logical_not.hpp>
 #include <boost/simd/include/functions/is_less.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -21,11 +21,11 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_cmpge_pd(a0,a1) };
+      result_type that = { _mm_cmpge_pd(a0,a1) };
       return that;
     }
   };
@@ -36,11 +36,11 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_cmpge_ps(a0,a1) };
+      result_type that = { _mm_cmpge_ps(a0,a1) };
       return that;
     }
   };
@@ -51,11 +51,11 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<integer_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { boost::simd::complement(boost::simd::lt(a0,a1)) };
+      result_type that = { boost::simd::logical_not(boost::simd::lt(a0,a1)) };
       return that;
     }
   };

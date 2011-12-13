@@ -10,13 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_GREATER_HPP_INCLUDED
 
 #include <boost/simd/toolbox/predicates/functions/is_not_greater.hpp>
-#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/include/functions/logical_not.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/is_less_equal.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_greater_, tag::cpu_
@@ -24,23 +22,20 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_not(gt(a0,a1));
+      return logical_not(gt(a0,a1));
     }
   };
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is integer_
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_, tag::cpu_,
                               (A0)(X),
                               ((simd_<integer_<A0>,X>))
                               ((simd_<integer_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return le(a0,a1);

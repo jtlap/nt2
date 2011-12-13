@@ -132,7 +132,7 @@ float f, g, cc, ss, c, s, t, u, x, x2;
 x = xxa;
 x = fabsf(x);
 x2 = x * x;
-if( x2 < 2.5625 )
+if( x2 < 2.5625f )
 	{
 	t = x2 * x2;
 	ss = x * x2 * cephes_polevlf( t, sn, 6);
@@ -140,10 +140,10 @@ if( x2 < 2.5625 )
 	goto done;
 	}
 
-if( x > 36974.0 )
+if( x > 36974.0f )
 	{
-	cc = 0.5;
-	ss = 0.5;
+	cc = 0.5f;
+	ss = 0.5f;
 	goto done;
 	}
 
@@ -153,20 +153,20 @@ if( x > 36974.0 )
  */
 	x2 = x * x;
 	t = PIF * x2;
-	u = 1.0/(t * t);
-	t = 1.0/t;
-	f = 1.0 - u * cephes_polevlf( u, fn, 7);
+	u = 1.0f/(t * t);
+	t = 1.0f/t;
+	f = 1.0f - u * cephes_polevlf( u, fn, 7);
 	g = t * cephes_polevlf( u, gn, 7);
 
 	t = PIO2F * x2;
 	c = cephes_cosf(t);
 	s = cephes_sinf(t);
 	t = PIF * x;
-	cc = 0.5  +  (f * s  -  g * c)/t;
-	ss = 0.5  -  (f * c  +  g * s)/t;
+	cc = 0.5f  +  (f * s  -  g * c)/t;
+	ss = 0.5f  -  (f * c  +  g * s)/t;
 
 done:
-if( xxa < 0.0 )
+if( xxa < 0.0f )
 	{
 	cc = -cc;
 	ss = -ss;

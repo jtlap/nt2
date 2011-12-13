@@ -8,10 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ROUND2EVEN_HPP_INCLUDED
-
 #include <boost/simd/toolbox/ieee/functions/round2even.hpp>
 #include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
@@ -34,16 +33,19 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type v   = boost::simd::abs(a0);
       const result_type t2n = boost::simd::Twotonmb<A0>();
-      const result_type d0  = (v+t2n);
-      const result_type d   = (d0-t2n);
-      const result_type d1  = select(lt(v,t2n),d,v);
+      const result_type d0  = fight_overoptimization(v, t2n);
+      const result_type d   = fight_overoptimization(d0, -t2n);
+      const result_type d1  = if_else(lt(v,t2n),d,v);
       return (d1^bitofsign(a0));
     }
+  private :
+    result_type fight_overoptimization(const result_type& t1,
+                                       const result_type& t2)const
+    { return t1+t2; }
   };
 } } }
 

@@ -47,11 +47,11 @@ NT2_TEST_CASE_TPL ( is_included_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_included(boost::simd::Mone<vT>(),boost::simd::Zero<vT>()), false);
-  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(), boost::simd::One<vT>()), true);
-  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(),boost::simd::Mone<vT>()), true);
-  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(),boost::simd::Three<vT>()), true);
-  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(),boost::simd::Two<vT>()), false);
-  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(),boost::simd::Zero<vT>()), false);
-  NT2_TEST_EQUAL(is_included(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), true);
+  NT2_TEST_EQUAL(is_included(boost::simd::Mone<vT>(),boost::simd::Zero<vT>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(), boost::simd::One<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(),boost::simd::Mone<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(),boost::simd::Three<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(),boost::simd::Two<vT>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_included(boost::simd::One<vT>(),boost::simd::Zero<vT>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_included(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), boost::simd::True<sr_t>());
 } // end of test for integer_

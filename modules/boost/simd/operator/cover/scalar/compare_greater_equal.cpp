@@ -17,7 +17,7 @@
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/all.hpp>
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -36,8 +36,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
-
+  typedef boost::simd::logical<T> wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -57,8 +56,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  BOOST_SIMD_INTEGRAL_
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
-
+  typedef boost::simd::logical<T> wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -78,8 +76,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  BOOST_SIMD_UNSIGNE
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
-
+  typedef boost::simd::logical<T> wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

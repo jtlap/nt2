@@ -31,6 +31,8 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+
 
 
 NT2_TEST_CASE_TPL ( finite_real__1_0,  NT2_REAL_TYPES)
@@ -42,7 +44,7 @@ NT2_TEST_CASE_TPL ( finite_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<finite_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 

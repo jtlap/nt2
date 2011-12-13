@@ -8,31 +8,19 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_GENMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_GENMASK_HPP_INCLUDED
-
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_, (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< fundamental_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0 ? Mone<A0>():Zero<A0>();
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::genmask_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) 
-    {
-      return a0 ? Nan<A0>():Zero<A0>();
+      return a0 ? Allbits<A0>():Zero<A0>();
     }
   };
 } } }

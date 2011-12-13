@@ -8,11 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ULP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ULP_HPP_INCLUDED
-#include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/mindenormal.hpp>
+#include <boost/simd/include/constants/nan.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/eps_related.hpp>
 #include <boost/simd/include/functions/prev.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
@@ -30,19 +29,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    inline result_type operator()(A0 const &)const
-    {
-      return One<A0>();
-    }
+    inline result_type operator()(A0 const &)const { return One<A0>(); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulp_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)

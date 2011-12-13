@@ -8,21 +8,20 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_IS_INCLUDED_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_IS_INCLUDED_HPP_INCLUDED
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_, tag::cpu_, (A0)
                             , (scalar_< fundamental_<A0> >)
                               (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (bitwise_or(a0, a1) == a1); 
+      return result_type(bitwise_or(a0, a1) == a1); 
     }
   };
 } } }
