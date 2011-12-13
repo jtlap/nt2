@@ -16,6 +16,7 @@
 #include <boost/simd/include/functions/bitofsign.hpp>
 #include <boost/simd/include/functions/is_less_equal.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, boost::simd::tag::sse2_, (A0)

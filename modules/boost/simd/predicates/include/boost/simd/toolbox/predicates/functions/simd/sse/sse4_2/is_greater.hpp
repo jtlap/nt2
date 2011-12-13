@@ -11,9 +11,6 @@
 #ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for int64 types
-////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_, boost::simd::tag::sse4_2_

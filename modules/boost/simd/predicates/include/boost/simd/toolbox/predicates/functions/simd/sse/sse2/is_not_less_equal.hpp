@@ -12,9 +12,6 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/simd/common/is_not_less_equal.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_less_equal_, boost::simd::tag::sse2_,
@@ -30,11 +27,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_less_equal_, boost::simd::tag::sse2_,
                          (A0),
                          ((simd_<single_<A0>,boost::simd::tag::sse_>))
@@ -48,5 +40,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+
 #endif
 #endif

@@ -11,9 +11,6 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, boost::simd::tag::sse2_,
@@ -28,11 +25,6 @@ namespace boost { namespace simd { namespace ext
       result_type that =  { _mm_cmpnge_pd(a0,a1)}; return that;
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, boost::simd::tag::sse2_,
                          (A0),
