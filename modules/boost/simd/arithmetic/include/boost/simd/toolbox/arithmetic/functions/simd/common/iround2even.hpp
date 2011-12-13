@@ -11,6 +11,9 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
 #include <boost/simd/include/functions/toint.hpp>
+#include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp> 
 
 namespace boost { namespace simd { namespace ext
 {
@@ -31,7 +34,14 @@ namespace boost { namespace simd { namespace ext
 
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL(1) { return toint(round2even(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1) {
+      A0 tmp = round2even(a0);
+      const A0 vx = tofloat(Valmax<result_type>());
+      const A0 vn = tofloat(Valmin<result_type>());
+      return if_else(gt(tmp, vx), Valmax<result_type>(),
+                   if_else(lt(tmp, vn), Valmin<result_type>(),
+                          toint(tmp)));
+    }
   };
 } } }
 

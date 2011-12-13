@@ -9,8 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/round.hpp>
-#include <boost/simd/include/functions/toint.hpp>
+#include <boost/simd/include/functions/iround2even.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -29,7 +28,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return toint(round(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1)
+      {
+        return iround2even(a0);
+      }
   };
 } } }
 
