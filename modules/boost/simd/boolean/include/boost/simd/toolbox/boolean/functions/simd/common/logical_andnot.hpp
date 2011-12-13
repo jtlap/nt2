@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
   // FIXME: only enable if sizeof(A0) == sizeof(as_arithmetic<A0>::type)
   // but what do we do if A0 is logical. We have also to enforce that
   // A0 and A1 are compatable TODO
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::logical_andnot_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_andnot_, tag::cpu_
                             , (A0)(A1)(X)
                             , ((simd_<fundamental_<A0>,X>))
                               ((simd_<fundamental_<A1>,X>))

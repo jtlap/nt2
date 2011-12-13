@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline A1 operator()(const A0 & a0,const A1 & a1,const A1 & a2) const 
     {
-      return (a0) ? (a1+a2) : a1;
+      return (a0) ? (a1-a2) : a1;
     }
   };
 } } }
