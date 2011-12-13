@@ -217,3 +217,26 @@ NT2_TEST_CASE_TPL(pointer_buffer_iterator, NT2_TYPES )
   
   for( int i=0; i < 5; ++i ) NT2_TEST_EQUAL( data[i], f(i+1) );
 }
+
+//==============================================================================
+// pointer_buffer as_buffer
+//==============================================================================
+NT2_TEST_CASE_TPL(pointer_buffer_as_buffer, NT2_TYPES )
+{
+  using nt2::memory::pointer_buffer;
+  using nt2::meta::as_buffer;
+
+  typedef pointer_buffer<T> buffer_type ;
+
+  boost::array<std::size_t,1> sx = { 5  };
+  boost::array<std::size_t,1> bx = { -2 };
+  T data[5] = {1,2,3,4,5};
+  buffer_type x;
+
+  x = as_buffer<T*>()(&data[0],sx,bx);
+
+
+  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 3+i );
+  
+}
