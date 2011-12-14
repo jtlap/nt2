@@ -6,45 +6,31 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_VECTOR_BUFFER_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_VECTOR_BUFFER_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
 
-#include <vector>
+#include <boost/swap.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <boost/fusion/include/at_c.hpp>
-#include <boost/dispatch/meta/model_of.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
-#include <boost/swap.hpp>
-#include <nt2/core/container/meta/dimensions_of.hpp>
-#include <nt2/core/container/meta/dereference.hpp>
+#include <boost/fusion/include/at_c.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/core/container/memory/adapted/array_buffer.hpp>
 
-
 namespace nt2 {  namespace memory
 {
-
-  template<  class Type, std::size_t N >
-  class array_buffer
-    : private boost::array<Type, N>
+  template<class Type, std::size_t N>
+  class array_buffer: private boost::array<Type, N>
   {
     public:
-
-
-    typedef boost::array<Type,N>                   parent_data;
+    typedef boost::array<Type,N>                          parent_data;
     typedef typename boost::simd::memory::allocator<Type> allocator_type;
-    //    typedef typename parent_data::allocator_type   allocator_type;
-
 
     //============================================================================
     // Buffer type interface
     //============================================================================
     typedef typename parent_data::value_type               value_type;
-    typedef Type*                                          pointer;
-    typedef Type const *                                   const_pointer;
     typedef typename parent_data::iterator                 iterator;
     typedef typename parent_data::const_iterator           const_iterator;
     typedef typename parent_data::reverse_iterator         reverse_iterator;
@@ -60,28 +46,17 @@ namespace nt2 {  namespace memory
      * Default constructor for pointer_buffer. 
      **/
     //==========================================================================
-    array_buffer( allocator_type const& a = allocator_type() ) : base_(0)
-    {}
+    array_buffer( allocator_type const& a = allocator_type() ) : base_(0) {}
 
     template<typename Sizes, typename Bases>
-    array_buffer( Sizes             const& sz
-                  , Bases           const& bs
-                  , allocator_type  const& alloc = allocator_type()
-                  , typename  boost::enable_if<
-                              boost::fusion::traits::is_sequence<Sizes>
-                              >::type* = 0
-                  , typename  boost::enable_if<
-                              boost::fusion::traits::is_sequence<Bases>
-                              >::type* = 0
-                  )
-    : parent_data(boost::fusion::at_c<0>(sz))
+    array_buffer( Sizes           const&
+                , Bases           const& bs
+                , allocator_type  const& alloc = allocator_type()
+                , typename  boost::enable_if<
+                            boost::fusion::traits::is_sequence<Bases>
+                            >::type* = 0
+                )
     {
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Sizes>::value == 1)
-      , SIZE_MISMATCH_IN_ARRAY_BUFFER_CONSTRUCTOR
-      , (Sizes)
-      );
-
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Bases>::value == 1)
       , BASE_MISMATCH_IN_ARRAY_BUFFER_CONSTRUCTOR
@@ -104,26 +79,16 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     template<typename Sizes, typename Bases>
-    array_buffer( boost::array<Type, N>          const& src
-                  , Sizes                        const& sz
-                  , Bases                        const& bs
-                  , allocator_type               const& alloc = allocator_type()
-                  , typename  boost::enable_if<
-                              boost::fusion::traits::is_sequence<Sizes>
-                              >::type* = 0
-                  , typename  boost::enable_if<
-                              boost::fusion::traits::is_sequence<Bases>
-                              >::type* = 0
-                  )
+    array_buffer( boost::array<Type, N>        const& src
+                , Sizes                        const& 
+                , Bases                        const& bs
+                , allocator_type               const& alloc = allocator_type()
+                , typename  boost::enable_if<
+                            boost::fusion::traits::is_sequence<Bases>
+                            >::type* = 0
+                )
       : parent_data(src), base_(0)
-    {
-      // If you trigger this assertion, your size sequence is missized
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Sizes>::value == 1)
-      , SIZE_MISMATCH_IN_ARRAY_BUFFER_CONSTRUCTOR
-      , (Sizes)
-      );
-
+    {      
       // If you trigger this assertion, your index sequence is missized
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Bases>::value == 1)
@@ -131,7 +96,7 @@ namespace nt2 {  namespace memory
       , (Bases)
       );
 
-      restructure(sz,bs);
+      rebase(bs);
     }
 
     //==========================================================================
@@ -143,20 +108,8 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     array_buffer( array_buffer const& src )
-      : parent_data(src)
-    {
-      this->copy( src, src.size(),src.base_);
-    }
-
-
-    //==========================================================================
-    /**!
-     * \c array_buffer destructor leave memory management to the actual
-     * boost::array's owner.
-     **/
-    //==========================================================================
-    ~array_buffer() {  }
-
+        : parent_data(src), base_(src.base_)
+    {}
 
     //==========================================================================
     /**!
@@ -169,24 +122,9 @@ namespace nt2 {  namespace memory
     //==========================================================================
     array_buffer& operator=(array_buffer const& src)
     {
-
-      // we want to have a Strong Garantee and yet be performant
-      // so we check if we need some resizing
-      if(src.size() > this->size())
-      {
-        // If we do, use the SG copy+swap method
-        array_buffer that(src);
-        swap(that);
-      }
-      else
-      {
-        // // If not we just need to resize/rebase and copy which is SG here
-        //        parent_data::resize(src.size());
-        base_ = src.base_;
-
-        std::copy(src.begin(),src.end(),begin());
-      }
-           return *this;
+      parent_data::operator=(src);
+      base_ = src.base_;
+      return *this;
     }
 
     //==========================================================================
@@ -303,7 +241,8 @@ namespace nt2 {  namespace memory
     //==========================================================================
     template<class Bases>
     typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
-    rebase(Bases b) { 
+    rebase(Bases b)
+    { 
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Bases>::value == 1)
       , SIZE_MISMATCH_IN_ARRAY_BUFFER_REBASE
@@ -311,25 +250,6 @@ namespace nt2 {  namespace memory
       );
 
       base_ = boost::fusion::at_c<0>(b); 
-    }
-
-    //==========================================================================
-    /**!
-     * Change the size of the buffer. This operation is done in constant
-     * time and don't trigger any reallocation.
-     *
-     * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
-     **/
-    //==========================================================================
-    template<class Sizes>
-    typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
-    resize(Sizes s) { 
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Sizes>::value == 1)
-      , BASE_MISMATCH_IN_ARRAY_BUFFER_RESIZE
-      , (Sizes)
-      );
-      //      parent_data::resize(boost::fusion::at_c<0>(s)); 
     }
 
     //==========================================================================
@@ -343,39 +263,22 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     template<class Bases, class Sizes>
-    typename boost::enable_if_c < boost::fusion::traits::is_sequence<Sizes>::value
-                                  &&
-                                  boost::fusion::traits::is_sequence<Bases>::value
+    typename boost::enable_if_c < boost::fusion::traits::
+                                  is_sequence<Bases>::value
                                 >::type
-    restructure( Sizes const& sz, Bases const& bs )
+    restructure( Sizes const&, Bases const& bs )
     {
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Bases>::value == 1)
-      , BASE_MISMATCH_IN_ARRAY_BUFFER_RESTRUCTURE
-      , (Bases)
-      );
-
       BOOST_MPL_ASSERT_MSG
       ( (boost::mpl::size<Sizes>::value == 1)
       , SIZE_MISMATCH_IN_ARRAY_BUFFER_RESTRUCTURE
       , (Sizes)
       );
 
-      //      resize(sz);
       rebase(bs);
     }
 
     protected:
-    typename parent_data::difference_type base_;
-
-
-    void copy( array_buffer const& src, size_type const& s, difference_type const& b )
-    {
-      //      parent_data::resize(s);
-      base_ = b;
-      std::copy(src.begin(),src.end(),begin());
-    }
- 
+    difference_type base_;
   };
 
   //============================================================================
@@ -390,10 +293,6 @@ namespace nt2 {  namespace memory
   {
     a.swap(b);
   }
-
-
 } } 
-
-
 
 #endif
