@@ -28,7 +28,7 @@ NT2_TEST_CASE( default_ctor )
 NT2_TEST_CASE( of_size_ctor )
 {
   using nt2::table;
-  using nt2::extent  using nt2::of_size;
+  using nt2::of_size;
   using nt2::of_size_;
 
   {
