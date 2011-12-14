@@ -24,6 +24,7 @@
 #include <boost/config.hpp>
 #include <boost/dispatch/meta/arithmetic.hpp>
 #include <boost/dispatch/meta/floating.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/functor/forward.hpp>
 #include <boost/dispatch/functor/details/call.hpp>
 #include <boost/dispatch/functor/details/dispatch.hpp>
@@ -103,8 +104,8 @@ namespace boost { namespace dispatch
     operator()( Args&& ...args ) const
     {
       return meta::dispatch( Tag(), EvalContext()
-                           , std::forward<Args>(args)... )
-                           ( std::forward<Args>(args)... );
+                           , static_cast<typename meta::as_ref<Args>::type>(args)... )
+                           ( static_cast<typename meta::as_ref<Args>::type>(args)... );
     }
     #elif !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES_NO_0X)
     
@@ -116,7 +117,7 @@ namespace boost { namespace dispatch
 #undef BOOST_FORCEINLINE
 #endif
 
-    #define M1(z,n,t) std::forward<A##n>(a##n)
+    #define M1(z,n,t) static_cast<typename meta::as_ref<A##n>::type>(a##n)
 
     #define M0(z,n,t)                                                         \
     template<class This, BOOST_PP_ENUM_PARAMS(n,class A) >                    \
