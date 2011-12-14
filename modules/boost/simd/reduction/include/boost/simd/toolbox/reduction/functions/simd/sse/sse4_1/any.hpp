@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return result_type(!result_type(_mm_test_all_zeros(a0, Allbits<A0>())));
+      return result_type(!result_type(_mm_testz_si128(a0, Allbits<A0>())));
     }
   };
   
