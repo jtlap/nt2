@@ -108,7 +108,6 @@ NT2_TEST_CASE( integral_subscript_extent )
 {
   using nt2::table;
   using nt2::of_size;
-  using nt2::extent;
   typedef double T;
 
   table<T> a0( of_size(5,4,3,2) );
@@ -148,7 +147,6 @@ NT2_TEST_CASE( colon_subscript_extent )
 {
   using nt2::table;
   using nt2::of_size;
-  using nt2::extent;
   using nt2::_;
   typedef double T;
 
