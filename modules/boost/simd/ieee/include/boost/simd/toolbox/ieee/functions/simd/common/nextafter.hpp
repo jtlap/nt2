@@ -15,14 +15,9 @@
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/next.hpp>
 #include <boost/simd/include/functions/prev.hpp>
-#include <boost/simd/include/constants/mone.hpp>
-#include <boost/simd/include/constants/two.hpp>
-#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/oneplus.hpp>
+#include <boost/simd/include/functions/minusone.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextafter_, tag::cpu_
@@ -35,31 +30,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return seladd(neq(a0,a1),a0,seladd(gt(a1,a0),Mone<A0>(),Two<A0>()));
-      //      return select(eq(a0, a1),  a0, select(gt(a1,a0), oneplus(a0), minusone(a0))); 
-    }
-  };
-} } }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextafter_, tag::cpu_
-                            , (A0)(X)
-                            , ((simd_<unsigned_<A0>,X>))((simd_<unsigned_<A0>,X>))
-                            )
-  {
-
-    typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
       return select(boost::simd::is_equal(a0,a1),
-         a0,
-         select(gt(a1,a0),a0+One<A0>(),a0-One<A0>()));
+                    a0,
+                    select(gt(a1,a0),oneplus(a0),minusone(a0)));
     }
   };
 } } }

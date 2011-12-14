@@ -16,6 +16,9 @@
 #include <nt2/toolbox/fuzzy/include/functions/definitely_greater.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/successor.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_ord.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -74,8 +77,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = definitely_greater(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
         }
       }
     
@@ -117,7 +119,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNE
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
+          NT2_TEST_EQUAL( v[i]!= 0,ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
         }
       }
     
@@ -159,7 +161,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYP
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
+          NT2_TEST_EQUAL( v[i]!= 0,ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
         }
       }
     

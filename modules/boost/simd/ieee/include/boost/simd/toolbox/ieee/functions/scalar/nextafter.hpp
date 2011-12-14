@@ -13,7 +13,7 @@
 #include <boost/simd/toolbox/ieee/details/math.hpp>
 #include <boost/math/special_functions/next.hpp>
 #include <boost/simd/include/functions/oneplus.hpp>
-#include <boost/simd/include/functions/oneminus.hpp>
+#include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 
@@ -96,7 +96,7 @@ namespace boost { namespace simd { namespace details
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (a1 == a0) ? a0 : (a1 > a0) ? oneplus(a0) : oneminus(a0);
+      return (a1 == a0) ? a0 : (a1 > a0) ? oneplus(a0) : minusone(a0);
     }
   };
 } } }
