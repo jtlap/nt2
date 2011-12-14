@@ -18,6 +18,7 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -55,9 +56,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      typedef typename dispatch::meta::as_unsigned<A0>::type utype;
+        
       bool gtza0 = is_gtz(a0);
       bool gtza1 = is_gtz(a1);
-      A0 a0pa1 = a0+a1;
+      A0 a0pa1 = A0(utype(a0)+utype(a1));
       if (gtza0 && gtza1 && (lt(a0pa1, a0)))
       {
         return Valmax<A0>();
