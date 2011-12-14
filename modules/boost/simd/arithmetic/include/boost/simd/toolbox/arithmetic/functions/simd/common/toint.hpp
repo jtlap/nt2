@@ -20,6 +20,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
+
+
 } } }
 
 #endif

@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp> 
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -31,13 +32,12 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1) {
+      typedef typename meta::scalar_of<result_type>::type sr_type; 
       A0 tmp = round2even(a0);
-      const A0 vx = tofloat(Valmax<result_type>());
-      const A0 vn = tofloat(Valmin<result_type>());
+      const A0 vx = splat<A0>(Valmax<sr_type>());
+      const A0 vn = splat<A0>(Valmin<sr_type>());
       return if_else(gt(tmp, vx), Valmax<result_type>(),
                    if_else(lt(tmp, vn), Valmin<result_type>(),
                           toint(tmp)));
