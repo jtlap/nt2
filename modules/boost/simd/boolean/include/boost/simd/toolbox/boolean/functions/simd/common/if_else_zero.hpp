@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ZERO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ZERO_HPP_INCLUDED
-#include <boost/simd/toolbox/boolean/functions/if_else_zero.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+
+#include <boost/simd/toolbox/boolean/functions/if_zero_else.hpp>
+#include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/meta/is_bitwise_logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -30,14 +31,14 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     
     template<class A0_>
-    typename enable_if_c< sizeof(typename meta::as_logical<A0_>::type) == sizeof(A1), result_type>::type
+    typename enable_if< meta::is_bitwise_logical<A0_>, result_type>::type
     operator()(A0_ const& a0, A1 const& a1) const
     {
       return bitwise_and(a1, genmask(a0));
     }
     
     template<class A0_>
-    typename disable_if_c< sizeof(typename meta::as_logical<A0_>::type) == sizeof(A1), result_type>::type
+    typename disable_if< meta::is_bitwise_logical<A0_>, result_type>::type
     operator()(A0_ const& a0, A1 const& a1) const
     {
       return if_else(a0, a1, Zero<A1>());
