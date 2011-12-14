@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ALLBITS_HPP_INCLUDED
 
 #include <boost/simd/toolbox/boolean/functions/if_zero_else.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/bitwise_ornot.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
