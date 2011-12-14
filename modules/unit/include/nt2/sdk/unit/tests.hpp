@@ -94,7 +94,7 @@
           boost::simd::memory::allocator<TYPE> >\
   NAME(0, SIZE);            \
   for(int k = 0; k < int(SIZE); ++k){					\
-    NAME[k] = nt2::random(0, 1) ? nt2::Allbits<TYPE>() : nt2::False<TYPE>(); \
+    NAME[k] = nt2::random(0, 1) ? nt2::True<TYPE>() : nt2::False<TYPE>(); \
   }                \
 /**/
 #define NT2_CREATE_BUFFER(NAME, TYPE, SIZE, MIN, MAX)	\

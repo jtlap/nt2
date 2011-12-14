@@ -88,6 +88,25 @@ namespace boost { namespace simd { namespace ext
       return unaligned_load<typename A2::type>(a0, a1);
     }
   };
+
+  // logical
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+                            , (A0)(A1)(A2)(X)
+                            , (iterator_<scalar_< logical_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< logical_<A2>, X > >))
+                            )
+  {
+    typedef typename A2::type result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    {
+      BOOST_ASSERT_MSG
+      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      , "Unaligned memory location. You tried to load with a pointer that"
+        "is not aligned on the simd vector size.");
+      return unaligned_load<typename A2::type>(a0, a1);
+    }
+  };
   
 } } }
 

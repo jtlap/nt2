@@ -35,6 +35,7 @@
 #include <nt2/sdk/memory/is_aligned.hpp>
 #include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/extract.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
@@ -63,7 +64,7 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  (boost::simd::int32_t))//NT2_SIMD_INT
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_LOGICAL_BUF(tab_a0,T, NR);
+    NT2_CREATE_LOGICAL_BUF(tab_a0,lT, NR);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -78,7 +79,7 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  (boost::simd::int32_t))//NT2_SIMD_INT
         {
 	  //          
           std::cout << i << " -> " << a0[i] << "  " << int(a1[i]) << "  " << int(a2[i]) << "  " << std::endl; 
-         NT2_TEST_EQUAL( v[i], nt2::if_else (a0[i],a1[i],a2[i]));
+         NT2_TEST_EQUAL( v[i], nt2::if_else (nt2::extract(a0, i),a1[i],a2[i]));
         }
       }
     
@@ -109,7 +110,7 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    NT2_CREATE_LOGICAL_BUF(tab_a0,T, NR);
+    NT2_CREATE_LOGICAL_BUF(tab_a0,lT, NR);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
@@ -121,7 +122,7 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = if_else(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-	  NT2_TEST_EQUAL( v[i],nt2::if_else (a0[i],a1[i],a2[i]));
+	  NT2_TEST_EQUAL( v[i],nt2::if_else (nt2::extract(a0, i),a1[i],a2[i]));
         }
       }
     
