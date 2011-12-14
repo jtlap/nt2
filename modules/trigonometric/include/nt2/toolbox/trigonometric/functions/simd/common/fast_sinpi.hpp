@@ -8,14 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_SINPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_SINPI_HPP_INCLUDED
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/functions/genmask.hpp>
-#include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/toolbox/trigonometric/functions/fast_sinpi.hpp>
+#include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/genmask.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_sinpi_, tag::cpu_

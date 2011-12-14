@@ -8,9 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_NOTAND_HPP_INCLUDED
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/bitwise/functions/bitwise_notand.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace simd { namespace ext

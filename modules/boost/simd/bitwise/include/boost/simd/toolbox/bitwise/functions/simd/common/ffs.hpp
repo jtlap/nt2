@@ -8,15 +8,18 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_FFS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_FFS_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/meta/biggest_integer.hpp>
+
+#include <boost/simd/toolbox/bitwise/functions/ffs.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/firstbitset.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/constants/digits.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/meta/biggest_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

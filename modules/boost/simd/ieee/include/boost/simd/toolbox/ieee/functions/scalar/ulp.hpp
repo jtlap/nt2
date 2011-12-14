@@ -8,19 +8,19 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ULP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ULP_HPP_INCLUDED
-#include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/constants/mindenormal.hpp>
-#include <boost/simd/include/constants/nan.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/ulp.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/prev.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/mindenormal.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulp_, tag::cpu_

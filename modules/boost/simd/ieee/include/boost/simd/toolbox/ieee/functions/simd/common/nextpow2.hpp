@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXTPOW2_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXTPOW2_HPP_INCLUDED
-#include <boost/simd/include/constants/half.hpp>
-#include <boost/simd/include/constants/mone.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/nextpow2.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
@@ -18,6 +18,9 @@
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/functions/firstbitset.hpp>
+#include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

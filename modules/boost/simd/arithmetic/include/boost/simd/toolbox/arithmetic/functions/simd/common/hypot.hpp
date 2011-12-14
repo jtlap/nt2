@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_HYPOT_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
+
 #include <boost/simd/toolbox/arithmetic/functions/hypot.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/abs.hpp>
@@ -29,9 +29,11 @@
 #include <boost/simd/include/functions/is_less.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/any.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

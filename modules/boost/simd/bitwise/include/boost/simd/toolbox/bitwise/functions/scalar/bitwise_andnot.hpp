@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_ANDNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_ANDNOT_HPP_INCLUDED
+
 #include <boost/simd/toolbox/bitwise/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>

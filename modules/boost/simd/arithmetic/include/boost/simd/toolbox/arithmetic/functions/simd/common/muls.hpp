@@ -8,11 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MULS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MULS_HPP_INCLUDED
+
+#include <boost/simd/toolbox/arithmetic/functions/muls.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 //TODO...a common version or delete the file
 
 // /////////////////////////////////////////////////////////////////////////////

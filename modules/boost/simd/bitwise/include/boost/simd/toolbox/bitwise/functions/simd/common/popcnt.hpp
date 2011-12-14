@@ -8,11 +8,16 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_POPCNT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_POPCNT_HPP_INCLUDED
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/bitwise/functions/popcnt.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_notand.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/rem.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/bitwise_notand.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

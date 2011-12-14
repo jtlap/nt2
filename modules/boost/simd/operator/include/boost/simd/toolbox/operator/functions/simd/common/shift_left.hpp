@@ -8,6 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SHIFT_LEFT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SHIFT_LEFT_HPP_INCLUDED
+
+#include <boost/simd/toolbox/operator/functions/shift_left.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/logical.hpp>
 #include <boost/mpl/equal_to.hpp>
