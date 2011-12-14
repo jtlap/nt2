@@ -8,6 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_BITWISE_XOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_BITWISE_XOR_HPP_INCLUDED
+
+#include <boost/simd/toolbox/operator/functions/bitwise_xor.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/equal_to.hpp>

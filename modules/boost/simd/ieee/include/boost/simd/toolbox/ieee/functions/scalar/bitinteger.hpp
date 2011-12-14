@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITINTEGER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITINTEGER_HPP_INCLUDED
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/properties.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/bitinteger.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,8 +26,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_positive(a0) ?
-	  bitwise_cast<result_type, A0>(a0) :
-	  Signmask<result_type>()-bitwise_cast<result_type, A0>(a0); 
+            bitwise_cast<result_type, A0>(a0) :
+            Signmask<result_type>()-bitwise_cast<result_type, A0>(a0); 
     }
   };
 } } }

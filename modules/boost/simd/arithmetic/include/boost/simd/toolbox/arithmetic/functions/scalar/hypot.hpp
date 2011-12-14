@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_HYPOT_HPP_INCLUDED
-#include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/include/constants/nan.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/hypot.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/sqr.hpp>
 #include <boost/simd/include/functions/max.hpp>
@@ -19,10 +19,10 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   template < class T, class I = typename dispatch::meta::as_integer<T, signed>::type>

@@ -8,16 +8,19 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FREXP_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/maxexponent.hpp>
-#include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/frexp.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/logical_notand.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/dispatch/meta/adapted_traits.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/type_traits/is_same.hpp>
 

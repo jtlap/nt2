@@ -1,16 +1,16 @@
-/*******************************************************************************
- *         Copyright 2003-2011 LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2009-2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
-#include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
+
+#include <nt2/toolbox/combinatorial/functions/factorial.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -25,9 +25,10 @@
 #include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/if_else.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,

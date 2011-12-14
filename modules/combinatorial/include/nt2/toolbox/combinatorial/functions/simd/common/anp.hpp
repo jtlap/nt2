@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_ANP_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_ANP_HPP_INCLUDED
+
+#include <nt2/toolbox/combinatorial/functions/anp.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/toint.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/group.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/sdk/meta/upgrade.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::anp_, tag::cpu_,

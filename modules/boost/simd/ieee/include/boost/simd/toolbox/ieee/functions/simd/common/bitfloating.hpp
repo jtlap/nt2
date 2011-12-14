@@ -8,10 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITFLOATING_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITFLOATING_HPP_INCLUDED
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/include/constants/signmask.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/bitfloating.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

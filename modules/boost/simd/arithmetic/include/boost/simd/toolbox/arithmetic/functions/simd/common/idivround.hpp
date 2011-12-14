@@ -8,6 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IDIVROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IDIVROUND_HPP_INCLUDED
+
+#include <boost/simd/toolbox/arithmetic/functions/idivround.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/iround2even.hpp>
 #include <boost/simd/include/functions/iround.hpp>
@@ -15,6 +17,7 @@
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

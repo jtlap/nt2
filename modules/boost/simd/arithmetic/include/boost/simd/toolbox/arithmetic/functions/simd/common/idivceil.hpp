@@ -8,12 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IDIVCEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IDIVCEIL_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/idivceil.hpp>
 #include <boost/simd/include/functions/iceil.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/constants/digits.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
