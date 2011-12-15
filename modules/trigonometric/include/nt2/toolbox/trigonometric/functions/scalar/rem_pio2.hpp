@@ -17,6 +17,8 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -422,8 +424,15 @@ namespace nt2 { namespace ext
     typedef nt2::int32_t result_type;    
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
+      if (a0 ==  Inf<A0>())
+        {
+          xc = Zero<A0>();
+          xr = Nan<A0>(); 
+          return 0; 
+        }
+
       A0 y[2];
-     nt2::int32_t n = __ieee754_rem_pio2(a0, y);
+      nt2::int32_t n = __ieee754_rem_pio2(a0, y);
       xr = y[0];
       xc = y[1];
       return n&3; 
