@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/io/ios_state.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -60,13 +61,12 @@ namespace boost { namespace simd
   struct BOOST_SIMD_MAY_ALIAS native<logical<Scalar>, Extension>
   {
     typedef Extension                                       extension_type;
-    typedef typename meta::as_simd<Scalar, Extension>::type    native_type;
+    typedef typename meta::
+            as_simd<logical<Scalar>, Extension>::type          native_type;
     typedef native<logical<Scalar>, Extension>                   this_type;
     typedef native<Scalar, Extension>                                 type;
     
     typedef logical<Scalar>                                     value_type;
-    typedef logical<Scalar>                                      reference;
-    typedef logical<Scalar>                                const_reference;
     typedef std::size_t                                          size_type;
     
     struct proxy
@@ -74,21 +74,24 @@ namespace boost { namespace simd
       proxy(this_type& data_, std::size_t index_) : data(data_), index(index_)
       {
       }
-      
+
       proxy const& operator=(value_type const& other) const
       {
         typename dispatch::make_functor<tag::insert_, Scalar>::type()(other, data, index);
         return *this;
       }
-      
+
       operator bool() const
       {
         return typename dispatch::make_functor<tag::extract_, Scalar>::type()(data, index);
       }
-      
+
       this_type& data;
       std::size_t index;
     };
+    
+    typedef proxy                                                reference;
+    typedef logical<Scalar> const                          const_reference;
     
     template<class T>
     struct iterator_base
@@ -157,7 +160,8 @@ namespace boost { namespace simd
       }
     };
 
-    template<class U> struct rebind
+    template<class U>
+    struct rebind
     {
       typedef native<U, extension_type> type;
     };
@@ -223,7 +227,7 @@ namespace boost { namespace simd
       return proxy(*this, i);
     }
 
-    value_type operator[](std::size_t i) const
+    const_reference operator[](std::size_t i) const
     {
       return typename dispatch::make_functor<tag::extract_, Scalar>::type()(*this, i);
     }
@@ -245,9 +249,10 @@ namespace boost { namespace simd
   template<class S,class E> inline std::ostream&
   operator<<( std::ostream& os, native<logical<S>,E> const & v )
   {
+    boost::io::ios_flags_saver saver(os);
     os << "{" << std::boolalpha; 
     for(std::size_t i=0;i<v.size()-1;++i) os << bool(v[i]) << ",";
-    os << bool(v[v.size()-1UL]) << "}" << std::noboolalpha;
+    os << bool(v[v.size()-1UL]) << "}";
     return os;
   }
 } }
