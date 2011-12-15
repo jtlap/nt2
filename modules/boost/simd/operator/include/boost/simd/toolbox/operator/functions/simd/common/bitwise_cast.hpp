@@ -11,7 +11,6 @@
 
 #include <boost/simd/toolbox/operator/functions/bitwise_cast.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/print.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
