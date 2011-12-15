@@ -23,18 +23,17 @@ NT2_TEST_CASE( single_alignment_ )
 {
   using nt2::aligned_;
   using nt2::unaligned_;
-  using nt2::alignment_;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < aligned_
-              , option< alignment_<aligned_>, nt2::tag::alignment_ >::type 
+              , option< aligned_, nt2::tag::alignment_ >::type 
                       >::value
             ) 
           );
 
   NT2_TEST( ( is_same < unaligned_
-              , option< alignment_<unaligned_>, nt2::tag::alignment_ >::type 
+              , option< unaligned_, nt2::tag::alignment_ >::type 
                       >::value
             ) 
           );
@@ -48,18 +47,17 @@ NT2_TEST_CASE( single_alignment_default )
 {
   using nt2::aligned_;
   using nt2::unaligned_;
-  using nt2::alignment_;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < aligned_
-              , option< void, nt2::tag::alignment_, alignment_<aligned_> >::type 
+              , option< void, nt2::tag::alignment_, aligned_ >::type 
                       >::value
             ) 
           );
 
   NT2_TEST( ( is_same < unaligned_
-              , option< void, nt2::tag::alignment_, alignment_<unaligned_> >::type 
+              , option< void, nt2::tag::alignment_, unaligned_ >::type 
               >::value
             ) 
           );
@@ -73,14 +71,13 @@ NT2_TEST_CASE( setting_alignment_ )
 {
   using nt2::aligned_;
   using nt2::unaligned_;
-  using nt2::alignment_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < aligned_
-              , option< settings(alignment_<unaligned_>, 
-                                 alignment_<aligned_>)
+              , option< settings(unaligned_, 
+                                 aligned_)
                               , nt2::tag::alignment_ 
                               >::type 
                       >::value
@@ -89,8 +86,8 @@ NT2_TEST_CASE( setting_alignment_ )
 
 
   NT2_TEST( ( is_same < unaligned_
-              , option< settings(alignment_<aligned_>, 
-                                 alignment_<unaligned_>)
+              , option< settings(aligned_, 
+                                 unaligned_)
                               , nt2::tag::alignment_ 
                               >::type 
                       >::value
@@ -105,7 +102,6 @@ NT2_TEST_CASE( setting_alignment_default )
 {
   using nt2::aligned_;
   using nt2::unaligned_;
-  using nt2::alignment_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
@@ -113,7 +109,7 @@ NT2_TEST_CASE( setting_alignment_default )
   NT2_TEST( ( is_same < aligned_
               , option< settings(long,int)
                         , nt2::tag::alignment_ 
-                        , alignment_<aligned_>
+                        , aligned_
                         >::type 
               >::value
             ) 
@@ -122,7 +118,7 @@ NT2_TEST_CASE( setting_alignment_default )
   NT2_TEST( ( is_same < unaligned_
               , option< settings(long,int)
                         , nt2::tag::alignment_ 
-                        , alignment_<unaligned_>
+                        , unaligned_
                         >::type 
             >::value
             ) 

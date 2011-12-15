@@ -13,8 +13,7 @@
 
 namespace nt2 
 { 
-  template<typename T>
-  struct alignment_;
+
   //============================================================================
   /*! Current container memory is allocated using an aligning allocator.
    **/
@@ -40,11 +39,18 @@ namespace nt2
 
   namespace meta
   {
-    template<class T, class Default> 
-    struct option<alignment_<T>, tag::alignment_, Default>
+    template<class Default> 
+    struct option<aligned_, tag::alignment_, Default>
     {
-      typedef T type;
+      typedef aligned_ type;
     };
+
+    template<class Default> 
+    struct option<unaligned_, tag::alignment_, Default>
+    {
+      typedef unaligned_ type;
+    };
+
   } 
 }
 
