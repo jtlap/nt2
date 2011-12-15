@@ -8,13 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND2EVEN_HPP_INCLUDED
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/iround2even.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
 #include <boost/simd/include/functions/toint.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp> 
-#include <iostream>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef A0 const& result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
@@ -33,7 +33,8 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) {
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
       typedef typename meta::scalar_of<result_type>::type sr_type; 
       A0 tmp = round2even(a0);
       const A0 vx = splat<A0>(Valmax<sr_type>());
