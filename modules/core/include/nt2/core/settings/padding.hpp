@@ -11,6 +11,7 @@
 
 #include <boost/mpl/eval_if.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/misc.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -43,23 +44,14 @@ namespace nt2 { namespace meta
   {};
 
   //============================================================================
-  // Non-empty padding lists are recursively inspected
+  // padding list of one argument return the argument option value
   //============================================================================
-  #define M0(z,n,t)                                                           \
-  template< BOOST_PP_ENUM_PARAMS(n,class S), class Option, class Default>     \
-  struct option < settings(BOOST_PP_ENUM_PARAMS(n,S)), Option, Default >      \
-  {                                                                           \
-    typedef padding_ tail(BOOST_PP_ENUM_PARAMS(BOOST_PP_DEC(n),S));           \
-    typedef option<BOOST_PP_CAT(S,BOOST_PP_DEC(n)), Option>         current;  \
-    typedef option<tail, Option,Default>                            next;     \
-    typedef boost::is_same< no_such_option, typename current::type> check;    \
-    typedef typename boost::mpl::eval_if<check,next,current>::type type;      \
-  };                                                                          \
-  /**/
+  template<class S0, std::size_t N, class Option, class Default>
+  struct  option< padding_(S0, with_<N>), Option, Default >
+        : option<S0,Option,Default>
+  {};
 
-  BOOST_PP_REPEAT_FROM_TO(2,NT2_META_MAX_OPTIONS_NB,M0,~)
-  
-  #undef M0
+
 } }
 
 #endif

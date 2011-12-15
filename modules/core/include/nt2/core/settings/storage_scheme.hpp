@@ -13,8 +13,6 @@
 
 namespace nt2 
 { 
-  template<typename T>
-  struct storage_scheme_;
   //============================================================================
    /*! The default scheme for storing containers is the obvious contiguous, 
    *   dense storage scheme.
@@ -43,11 +41,18 @@ namespace nt2
   namespace meta
   {
 
-    template<class T, class Default> struct option<storage_scheme_<T>
+    template<class Default> struct option<conventional_
                                           , tag::storage_scheme_
                                           , Default>
     {
-      typedef T type;
+      typedef conventional_ type;
+    };
+
+    template<class Default> struct option<packed_
+                                          , tag::storage_scheme_
+                                          , Default>
+    {
+      typedef packed_ type;
     };
   } 
 }

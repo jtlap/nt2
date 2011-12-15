@@ -23,19 +23,18 @@ NT2_TEST_CASE( single_storage_scheme_ )
 {
   using nt2::conventional_;
   using nt2::packed_;
-  using nt2::storage_scheme_;
   using boost::is_same;
   using nt2::meta::option;
 
 
   NT2_TEST( ( is_same < conventional_
-              , option< storage_scheme_<conventional_>, nt2::tag::storage_scheme_ >::type 
+              , option< conventional_, nt2::tag::storage_scheme_ >::type 
                       >::value
             ) 
           );
 
   NT2_TEST( ( is_same < packed_
-              , option< storage_scheme_<packed_>, nt2::tag::storage_scheme_ >::type 
+              , option< packed_, nt2::tag::storage_scheme_ >::type 
                       >::value
             ) 
           );
@@ -49,18 +48,17 @@ NT2_TEST_CASE( single_storage_scheme_default )
 {
   using nt2::conventional_;
   using nt2::packed_;
-  using nt2::storage_scheme_;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < conventional_
-              , option< void, nt2::tag::storage_scheme_, storage_scheme_<conventional_> >::type 
+              , option< void, nt2::tag::storage_scheme_, conventional_ >::type 
             >::value
             ) 
           );
 
   NT2_TEST( ( is_same < packed_
-              , option< void, nt2::tag::storage_scheme_, storage_scheme_<packed_> >::type 
+              , option< void, nt2::tag::storage_scheme_, packed_ >::type 
             >::value
             ) 
           );
@@ -73,14 +71,13 @@ NT2_TEST_CASE( setting_storage_scheme_ )
 {
   using nt2::conventional_;
   using nt2::packed_;
-  using nt2::storage_scheme_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < conventional_
-              , option< settings(storage_scheme_<packed_>,
-                                 storage_scheme_<conventional_>)
+              , option< settings(packed_,
+                                 conventional_)
               , nt2::tag::storage_scheme_ 
               >::type 
               >::value
@@ -88,8 +85,8 @@ NT2_TEST_CASE( setting_storage_scheme_ )
           );
 
   NT2_TEST( ( is_same < packed_
-              , option< settings(storage_scheme_<conventional_>,
-                                 storage_scheme_<packed_>
+              , option< settings(conventional_,
+                                 packed_
                                  )
               , nt2::tag::storage_scheme_ 
               >::type 
@@ -105,7 +102,6 @@ NT2_TEST_CASE( setting_storage_scheme_default )
 {
   using nt2::conventional_;
   using nt2::packed_;
-  using nt2::storage_scheme_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
@@ -113,7 +109,7 @@ NT2_TEST_CASE( setting_storage_scheme_default )
   NT2_TEST( ( is_same < conventional_
                       , option< settings(long,int)
                               , nt2::tag::storage_scheme_ 
-                              , storage_scheme_<conventional_>
+                              , conventional_
                               >::type 
                       >::value
             ) 
@@ -122,7 +118,7 @@ NT2_TEST_CASE( setting_storage_scheme_default )
   NT2_TEST( ( is_same < packed_
                       , option< settings(long,int)
                               , nt2::tag::storage_scheme_ 
-                              , storage_scheme_<packed_>
+                              , packed_
                               >::type 
                       >::value
             ) 

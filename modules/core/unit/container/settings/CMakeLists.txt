@@ -18,6 +18,7 @@ SET( SOURCES
   storage_duration.cpp
   storage_scheme.cpp
   alignment.cpp
+  padding.cpp
 # List of scalar test files for toolbox core.settings
    )
 

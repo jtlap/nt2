@@ -13,8 +13,6 @@
 
 namespace nt2 
 { 
-  template <typename T>
-  struct buffer_;
 
   namespace tag 
   { 
@@ -28,9 +26,9 @@ namespace nt2
 
   namespace meta
   {
-    template<class T, class Default> struct option<buffer_<T>, tag::buffer_, Default>
+    template<class Default> struct option<buffer_, tag::buffer_, Default>
     {
-      typedef T type;
+      typedef buffer_ type;
     };
   } 
 }
