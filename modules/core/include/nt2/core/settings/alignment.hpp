@@ -6,35 +6,42 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_SHAPE_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_SHAPE_HPP_INCLUDED
+#ifndef NT2_CORE_SETTINGS_ALIGNMENT_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_ALIGNMENT_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
 
 namespace nt2 
 { 
-  template <typename T>
-  struct shape_;
+  template<typename T>
+  struct alignment_;
   //============================================================================
-  /*! The default container shape. Data are laid out in a hypercube 
-   *  of N dimensions and contains only non-trivial values.
+  /*! Current container memory is allocated using an aligning allocator.
    **/
   //============================================================================
-  struct rectangular_;
+  struct aligned_;
+
+  //============================================================================
+  /*! Current container memory is allocated using an allocator with no 
+   *  alignment garantee.
+   **/
+  //============================================================================
+  struct unaligned_;
 
   namespace tag 
   { 
     //==========================================================================
     /*!
-     * Option tag for shape options
+     * Option tag for alignment options
      **/
     //==========================================================================
-    struct shape_ {}; 
+    struct alignment_ {}; 
   }
 
   namespace meta
   {
-    template<class T, class Default> struct option<shape_<T>, tag::shape_, Default>
+    template<class T, class Default> 
+    struct option<alignment_<T>, tag::alignment_, Default>
     {
       typedef T type;
     };

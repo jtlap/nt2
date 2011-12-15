@@ -14,6 +14,10 @@ SET( SOURCES
   of_size.cpp
   size.cpp
   storage_order.cpp
+  shape.cpp
+  storage_duration.cpp
+  storage_scheme.cpp
+  alignment.cpp
 # List of scalar test files for toolbox core.settings
    )
 

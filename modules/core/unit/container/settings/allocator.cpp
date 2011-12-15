@@ -15,16 +15,17 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some allocator_ as an option and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( single_allocator )
 {
-  using std::allocator;
-  using boost::is_same;
-  using nt2::allocator_;
-  using nt2::meta::option;
+   using std::allocator;
+   using boost::is_same;
+   using nt2::allocator_;
+   using nt2::meta::option;
 
   NT2_TEST( (is_same< allocator<float>
                     , option< allocator_< allocator<float> >
@@ -32,6 +33,7 @@ NT2_TEST_CASE( single_allocator )
                             >::type::type
                     >::value) 
           );
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
