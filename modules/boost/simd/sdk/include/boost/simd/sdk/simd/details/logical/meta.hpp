@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace meta
 
 } } }
 
-namespace boost { namespace simd { namespace ext
+namespace boost { namespace simd { namespace meta
 {
   template<class T, class X >
   struct  cardinal_of< simd::native<simd::logical<T>, X> >

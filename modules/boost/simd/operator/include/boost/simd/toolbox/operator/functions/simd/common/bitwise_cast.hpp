@@ -8,8 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_BITWISE_CAST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_BITWISE_CAST_HPP_INCLUDED
+
 #include <boost/simd/toolbox/operator/functions/bitwise_cast.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/print.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

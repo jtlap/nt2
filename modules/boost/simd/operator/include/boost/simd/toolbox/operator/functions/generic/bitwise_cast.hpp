@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_GENERIC_BITWISE_CAST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_GENERIC_BITWISE_CAST_HPP_INCLUDED
+
 #include <boost/simd/toolbox/operator/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/dispatch/meta/identity.hpp>
