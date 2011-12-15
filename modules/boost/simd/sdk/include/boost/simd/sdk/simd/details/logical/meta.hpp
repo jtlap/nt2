@@ -142,9 +142,11 @@ namespace boost { namespace simd
     };
     
     struct const_iterator
-      : iterator_base<this_type const>, iterator_facade<const_iterator, value_type, std::random_access_iterator_tag, value_type const>
+      : iterator_base<this_type const>, iterator_facade<const_iterator, value_type,
+                                                        std::random_access_iterator_tag, value_type const>
     {
-      const_iterator(this_type const& data_, std::size_t index_ = 0) : iterator_base<this_type const>(data_, index_) {}
+      const_iterator(this_type const& data_, std::size_t index_ = 0) :
+        iterator_base<this_type const>(data_, index_) {}
       
     private:
       friend class iterator_core_access;
@@ -229,6 +231,11 @@ namespace boost { namespace simd
     native_type data_;
   };
 } }
+
+#ifdef __LRB__
+#define BOOST_SIMD_HAS_LRB_SUPPORT
+#include <boost/simd/sdk/simd/details/native_logical.hpp>
+#endif
 
 namespace boost { namespace simd
 {
