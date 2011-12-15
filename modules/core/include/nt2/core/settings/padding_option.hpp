@@ -85,18 +85,6 @@ namespace nt2
       typedef lead_padding_ type;
     };
 
-    // template<std::size_t N, class Default> 
-    // struct option<global_, N, tag::padding_, Default>
-    // {
-    //   typedef global_padding_ type;
-    // };
-
-    // template<std::size_t N, class Default> 
-    // struct option<lead_, N, tag::padding_, Default>
-    // {
-    //   typedef lead_padding_ type;
-    // };
-
   } 
 }
 

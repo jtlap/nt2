@@ -26,6 +26,7 @@ NT2_TEST_CASE( single_allocator )
    using boost::is_same;
    using nt2::padding_;
    using nt2::none_;
+   using nt2::with_;
    using nt2::global_;
    using nt2::lead_;
    using nt2::no_padding_;
@@ -47,8 +48,22 @@ NT2_TEST_CASE( single_allocator )
              >::value) 
           );
 
+  NT2_TEST( (is_same< global_padding_ 
+             , option< padding_(global_, with_<32>)
+                       , nt2::tag::padding_
+                       >::type
+             >::value) 
+          );
+
   NT2_TEST( (is_same< lead_padding_ 
              , option< padding_(lead_)
+                       , nt2::tag::padding_
+                       >::type
+             >::value) 
+          );
+
+  NT2_TEST( (is_same< lead_padding_ 
+             , option< padding_(lead_, with_<32>)
                        , nt2::tag::padding_
                        >::type
              >::value) 
@@ -63,6 +78,7 @@ NT2_TEST_CASE( single_padding_default )
    using boost::is_same;
    using nt2::padding_;
    using nt2::none_;
+   using nt2::with_;
    using nt2::global_;
    using nt2::lead_;
    using nt2::no_padding_;
@@ -86,10 +102,26 @@ NT2_TEST_CASE( single_padding_default )
              >::value) 
           );
 
+  NT2_TEST( (is_same< global_padding_ 
+             , option< void
+                       , nt2::tag::padding_
+             , padding_(global_, with_<16>)
+                       >::type
+             >::value) 
+          );
+
   NT2_TEST( (is_same< lead_padding_ 
              , option< void
                        , nt2::tag::padding_
                        , padding_(lead_)
+                       >::type
+             >::value) 
+          );
+
+  NT2_TEST( (is_same< lead_padding_ 
+             , option< void
+                       , nt2::tag::padding_
+             , padding_(lead_, with_<16>)
                        >::type
              >::value) 
           );
@@ -103,12 +135,14 @@ NT2_TEST_CASE( single_padding_settings )
    using boost::is_same;
    using nt2::padding_;
    using nt2::none_;
+   using nt2::with_;
    using nt2::global_;
    using nt2::lead_;
    using nt2::no_padding_;
    using nt2::global_padding_;
    using nt2::lead_padding_;
    using nt2::meta::option;
+   using nt2::settings;
 
   NT2_TEST( (is_same< no_padding_ 
              , option< settings (padding_(global_),
@@ -119,6 +153,41 @@ NT2_TEST_CASE( single_padding_settings )
              >::value) 
           );
 
+  NT2_TEST( (is_same< global_padding_ 
+             , option< settings (padding_(none_),
+                                 padding_(global_)
+                                 )
+                       , nt2::tag::padding_
+                       >::type
+             >::value) 
+          );
+
+  NT2_TEST( (is_same< global_padding_ 
+             , option< settings (padding_(none_),
+                                 padding_(global_, with_<5>)
+                                 )
+                       , nt2::tag::padding_
+                       >::type
+             >::value) 
+          );
+
+  NT2_TEST( (is_same< lead_padding_ 
+             , option< settings (padding_(none_),
+                                 padding_(lead_)
+                                 )
+                       , nt2::tag::padding_
+                       >::type
+             >::value) 
+          );
+
+  NT2_TEST( (is_same< lead_padding_ 
+             , option< settings (padding_(none_),
+                                 padding_(lead_, with_<5>)
+                                 )
+                       , nt2::tag::padding_
+                       >::type
+             >::value) 
+          );
 
 }
 
@@ -131,12 +200,14 @@ NT2_TEST_CASE( single_padding_settings_default )
    using boost::is_same;
    using nt2::padding_;
    using nt2::none_;
+   using nt2::with_;
    using nt2::global_;
    using nt2::lead_;
    using nt2::no_padding_;
    using nt2::global_padding_;
    using nt2::lead_padding_;
    using nt2::meta::option;
+   using nt2::settings;
 
   NT2_TEST( (is_same< no_padding_ 
              , option< settings (double, long )
@@ -146,4 +217,34 @@ NT2_TEST_CASE( single_padding_settings_default )
              >::value) 
           );
 
+  NT2_TEST( (is_same< global_padding_ 
+             , option< settings (double, long )
+                       , nt2::tag::padding_
+                       , padding_(global_)
+                       >::type
+             >::value) 
+          );
+
+NT2_TEST( (is_same< global_padding_ 
+             , option< settings (double, long )
+                       , nt2::tag::padding_
+           , padding_(global_,with_<5>)
+                       >::type
+             >::value) 
+          );
+
+  NT2_TEST( (is_same< lead_padding_ 
+             , option< settings (double, long )
+                       , nt2::tag::padding_
+             , padding_(lead_, with_<6>)
+                       >::type
+             >::value) 
+          );
+  NT2_TEST( (is_same< lead_padding_ 
+             , option< settings (double, long )
+                       , nt2::tag::padding_
+                       , padding_(lead_)
+                       >::type
+             >::value) 
+          );
 }
