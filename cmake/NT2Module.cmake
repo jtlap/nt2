@@ -251,12 +251,13 @@ macro(nt2_module_use_modules)
   endif()
 
   #message(STATUS "[nt2.${NT2_CURRENT_MODULE}]${component_} checking dependencies...")
-  
+
   find_package(NT2 COMPONENTS ${ARGN})
   if(NOT NT2_FOUND)
     message(STATUS "[nt2.${NT2_CURRENT_MODULE}] warning:${component_} dependencies not met, skipping")
     return()
   endif()
+
 
   include_directories(${NT2_INCLUDE_DIR})
   link_directories(${NT2_LIBRARY_DIR})

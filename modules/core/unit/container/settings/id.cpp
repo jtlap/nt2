@@ -24,7 +24,7 @@ NT2_TEST_CASE( single_id )
   using nt2::id_;
   using boost::is_same;
   using boost::mpl::string;
-  using nt2::meta::option;
+   using nt2::meta::option;
 
   NT2_TEST( ( is_same < string<'ping'>
                       , option< id_<'ping'>, nt2::tag::id_ >::type::type 

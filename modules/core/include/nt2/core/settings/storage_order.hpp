@@ -9,17 +9,18 @@
 #ifndef NT2_CORE_SETTINGS_STORAGE_ORDER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_STORAGE_ORDER_HPP_INCLUDED
 
-/**                                                                                                                                                         
- * \file                                                                                                                                                    
- * \brief Define the nt2::storage_order_ type
- **/
-
-
 #include <boost/mpl/apply.hpp>
 #include <nt2/core/settings/option.hpp>
 
 namespace nt2 
 { 
+
+  //============================================================================
+   /*! Specify the SO meta-function as the current container storage order 
+    *  permutation.
+   **/
+  //============================================================================
+
   template <class SO>
   struct storage_order_
   {
@@ -49,9 +50,19 @@ namespace nt2
    using adl_barrier::C_storage_;
   }
 
+  //==========================================================================
+  /*! Predefined settings for Matlab style (column major) storage order.
+  **/
+  //==========================================================================
   typedef storage_order_<details::matlab_storage_>  matlab_order_;
-  typedef storage_order_<details::C_storage_>       C_order_;
   typedef storage_order_<details::matlab_storage_>  fortran_order_;
+
+  //==========================================================================
+  /*! Predefined settings for C style (row major) storage order.
+  **/
+  //==========================================================================
+  typedef storage_order_<details::C_storage_>       C_order_;
+
 
 
   namespace tag

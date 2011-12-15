@@ -200,6 +200,6 @@ namespace nt2
 #include <nt2/core/utility/of_size/0d.hpp>
 #include <nt2/core/utility/of_size/predef.hpp>
 #include <nt2/core/utility/of_size/comparison.hpp>
-#include <nt2/core/container/memory/adapted/of_size.hpp>
+
 
 #endif
