@@ -13,8 +13,6 @@
 
 namespace nt2 
 { 
-  template<typename T>
-  struct storage_duration_;
   //============================================================================
    /*! Default storage duration settings. Current container will use dynamic 
     *  allocation for handling its data.
@@ -43,11 +41,18 @@ namespace nt2
   namespace meta
   {
 
-    template<class T, class Default> struct option<storage_duration_<T>
+    template<class Default> struct option< dynamic_
                                           , tag::storage_duration_
                                           , Default>
     {
-      typedef T type;
+      typedef dynamic_ type;
+    };
+
+    template<class Default> struct option< automatic_
+                                          , tag::storage_duration_
+                                          , Default>
+    {
+      typedef automatic_ type;
     };
   } 
 }

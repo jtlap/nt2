@@ -23,18 +23,17 @@ NT2_TEST_CASE( single_storage_duration_ )
 {
   using nt2::dynamic_;
   using nt2::automatic_;
-  using nt2::storage_duration_;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < dynamic_
-              , option< storage_duration_<dynamic_>, nt2::tag::storage_duration_ >::type 
+              , option< dynamic_, nt2::tag::storage_duration_ >::type 
                       >::value
             ) 
           );
 
   NT2_TEST( ( is_same < automatic_
-              , option< storage_duration_<automatic_>, nt2::tag::storage_duration_ >::type 
+              , option< automatic_, nt2::tag::storage_duration_ >::type 
                       >::value
             ) 
           );
@@ -48,18 +47,17 @@ NT2_TEST_CASE( single_storage_duration_default )
 {
   using nt2::dynamic_;
   using nt2::automatic_;
-  using nt2::storage_duration_;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < dynamic_
-              , option< void, nt2::tag::storage_duration_, storage_duration_<dynamic_> >::type 
+              , option< void, nt2::tag::storage_duration_, dynamic_ >::type 
                       >::value
             ) 
           );
 
   NT2_TEST( ( is_same < automatic_
-              , option< void, nt2::tag::storage_duration_, storage_duration_<automatic_> >::type 
+              , option< void, nt2::tag::storage_duration_, automatic_ >::type 
               >::value
             ) 
           );
@@ -73,14 +71,13 @@ NT2_TEST_CASE( setting_storage_duration_ )
 {
   using nt2::dynamic_;
   using nt2::automatic_;
-  using nt2::storage_duration_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < dynamic_
-              , option< settings(storage_duration_<automatic_>, 
-                                 storage_duration_<dynamic_>)
+              , option< settings(automatic_, 
+                                 dynamic_)
                               , nt2::tag::storage_duration_ 
                               >::type 
                       >::value
@@ -89,8 +86,8 @@ NT2_TEST_CASE( setting_storage_duration_ )
 
 
   NT2_TEST( ( is_same < automatic_
-              , option< settings(storage_duration_<dynamic_>, 
-                                 storage_duration_<automatic_>)
+              , option< settings(dynamic_, 
+                                 automatic_)
                               , nt2::tag::storage_duration_ 
                               >::type 
                       >::value
@@ -105,7 +102,6 @@ NT2_TEST_CASE( setting_storage_duration_default )
 {
   using nt2::dynamic_;
   using nt2::automatic_;
-  using nt2::storage_duration_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
@@ -113,7 +109,7 @@ NT2_TEST_CASE( setting_storage_duration_default )
   NT2_TEST( ( is_same < dynamic_
               , option< settings(long,int)
                         , nt2::tag::storage_duration_ 
-                        , storage_duration_<dynamic_>
+                        , dynamic_
                         >::type 
               >::value
             ) 
@@ -122,7 +118,7 @@ NT2_TEST_CASE( setting_storage_duration_default )
   NT2_TEST( ( is_same < automatic_
               , option< settings(long,int)
                         , nt2::tag::storage_duration_ 
-                        , storage_duration_<automatic_>
+                        , automatic_
                         >::type 
             >::value
             ) 

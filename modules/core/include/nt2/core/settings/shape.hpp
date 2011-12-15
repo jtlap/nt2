@@ -13,8 +13,6 @@
 
 namespace nt2 
 { 
-  template <typename T>
-  struct shape_;
   //============================================================================
   /*! The default container shape. Data are laid out in a hypercube 
    *  of N dimensions and contains only non-trivial values.
@@ -34,9 +32,9 @@ namespace nt2
 
   namespace meta
   {
-    template<class T, class Default> struct option<shape_<T>, tag::shape_, Default>
+    template<class Default> struct option<rectangular_, tag::shape_, Default>
     {
-      typedef T type;
+      typedef rectangular_ type;
     };
   } 
 }

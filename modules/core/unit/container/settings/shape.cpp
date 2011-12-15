@@ -22,12 +22,11 @@
 NT2_TEST_CASE( single_shape_ )
 {
   using nt2::rectangular_;
-  using nt2::shape_;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < rectangular_
-              , option< shape_<rectangular_>, nt2::tag::shape_ >::type 
+              , option< rectangular_, nt2::tag::shape_ >::type 
               >::value
             ) 
           );
@@ -40,12 +39,11 @@ NT2_TEST_CASE( single_shape_ )
 NT2_TEST_CASE( single_shape_default )
 {
   using nt2::rectangular_;
-  using nt2::shape_;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < rectangular_
-              , option< void, nt2::tag::shape_, shape_<rectangular_> >::type 
+              , option< void, nt2::tag::shape_,rectangular_ >::type 
             >::value
             ) 
           );
@@ -58,14 +56,13 @@ NT2_TEST_CASE( single_shape_default )
 NT2_TEST_CASE( setting_shape_ )
 {
   using nt2::rectangular_;
-  using nt2::shape_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
 
   NT2_TEST( ( is_same < rectangular_
-              , option< settings(shape_<rectangular_>,
-                                 shape_<rectangular_>)
+              , option< settings(rectangular_,
+                                 rectangular_)
               , nt2::tag::shape_ 
               >::type 
               >::value
@@ -80,7 +77,6 @@ NT2_TEST_CASE( setting_shape_ )
 NT2_TEST_CASE( setting_shape_default )
 {
   using nt2::rectangular_;
-  using nt2::shape_;
   using nt2::settings;
   using boost::is_same;
   using nt2::meta::option;
@@ -88,7 +84,7 @@ NT2_TEST_CASE( setting_shape_default )
   NT2_TEST( ( is_same < rectangular_
                       , option< settings(long,int)
                               , nt2::tag::shape_ 
-                              , shape_<rectangular_>
+                              , rectangular_
                               >::type 
                       >::value
             ) 
