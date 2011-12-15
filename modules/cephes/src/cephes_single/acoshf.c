@@ -77,9 +77,9 @@ float x, z;
 x = xx;
 if( x < 1.0f || x != x)
 	{
-	  return(0.0f/0.0f);
+	  return(0.0f/ZEROF);
 	}
-if( x == 1.0f/0.0f)return x;
+if( x == 1.0f/ZEROF)return x;
 if( x > 1500.0f )
 	return( cephes_logf(x) + LOGE2F );
 
