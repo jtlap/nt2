@@ -16,6 +16,7 @@
 #include <nt2/include/functions/is_ngez.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_equal.hpp>
+#include <nt2/include/functions/exp.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -38,7 +39,7 @@ namespace nt2 { namespace ext
       if (is_equal(a0, a1)) return (rtype)One<type>(); 
       const type n = oneplus(round2even(a0));
       const type p = oneplus(round2even(a1));
-      return (rtype)round2even(exp(gammaln(n)-gammaln(p)-gammaln(oneplus(n-p))));
+      return (rtype)round2even(nt2::exp(gammaln(n)-gammaln(p)-gammaln(oneplus(n-p))));
     }
   };
 } }

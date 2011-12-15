@@ -69,15 +69,15 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(0), T(10));
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
         r_t v = pow(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow (tab_a0[k],tab_a1[k])), 11);
+          
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow (a0[i],a1[i])), 11);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
@@ -110,15 +110,15 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a1,iT, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         ivT a1 = load<ivT>(&tab_a1[0],j);
         r_t v = pow(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow (tab_a0[k],tab_a1[k])), 2.5);
+          
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::pow (a0[i],a1[i])), 2.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

@@ -8,8 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_F_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_F_EXPO_REDUCTION_HPP_INCLUDED
-
-
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/fma.hpp>
@@ -31,19 +30,20 @@ namespace nt2
 
       template<class A0> struct exp_reduction <A0,natural_tag,float>
       {
-        static inline A0 isgemaxlog(const A0 & a0)
+    typedef typename meta::as_logical<A0>::type bA0; 
+        static inline bA0 isgemaxlog(const A0 & a0)
         {
           return ge(a0,single_constant<A0,0x42b17218>());
         }
 
-        static inline A0 isleminlog(const A0 & a0)
+        static inline bA0 isleminlog(const A0 & a0)
         {
           return le(a0,single_constant<A0,0xc2b17218>());
         }
 
         static inline A0 approx(const A0& x)
         {
-	  typedef typename meta::scalar_of<A0>::type sA0;
+      typedef typename meta::scalar_of<A0>::type sA0;
           const A0 t =  sqr(x);
           return  x -
                   t*horner<NT2_HORNER_COEFF_T(sA0, 3,
@@ -63,25 +63,26 @@ namespace nt2
 
       template < class A0 > struct exp_reduction < A0, two_tag, float>
       {
-        static inline A0 isgemaxlog(const A0 & a0)
+    typedef typename meta::as_logical<A0>::type bA0; 
+        static inline bA0 isgemaxlog(const A0 & a0)
         {
           return ge(a0,single_constant<A0,0x42fe0000>());
         }
 
-        static inline A0 isleminlog(const A0 & a0)
+        static inline bA0 isleminlog(const A0 & a0)
         {
           return le(a0,single_constant<A0,0xc2fe0000>());
         }
 
         static inline A0 approx(const A0& x)
         {
-	  typedef typename meta::scalar_of<A0>::type sA0;
+      typedef typename meta::scalar_of<A0>::type sA0;
           const A0 t =  sqr(x);
           return  x
                  - t*horner<NT2_HORNER_COEFF_T( sA0, 3,
                                              (0x3888d272, 0xbb360954, 0x3e2aaaaa)
                                             )> (t);
-	}
+    }
 
         static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
         {
@@ -93,12 +94,13 @@ namespace nt2
 
       template < class A0 > struct exp_reduction < A0, ten_tag, float>
       {
-        static inline A0 isgemaxlog(const A0 & a0)
+    typedef typename meta::as_logical<A0>::type bA0; 
+        static inline bA0 isgemaxlog(const A0 & a0)
         {
           return ge(a0,single_constant<A0,0x4218ec59 >());
         }
 
-        static inline A0 isleminlog(const A0 & a0)
+        static inline bA0 isleminlog(const A0 & a0)
         {
           return le(a0,single_constant<A0, 0xc2179999 >());
         }

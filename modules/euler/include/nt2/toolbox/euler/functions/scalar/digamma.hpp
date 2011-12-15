@@ -10,8 +10,6 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DIGAMMA_HPP_INCLUDED
 #include <boost/math/special_functions.hpp>
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
@@ -22,9 +20,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       return digamma(result_type(a0));
@@ -43,12 +39,10 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return boost::math::digamma(a0);
+      return result_type(boost::math::digamma(a0));
     }
   };
 } }

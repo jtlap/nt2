@@ -29,7 +29,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( next_real__1_0,  (double))//BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::next;
   using boost::simd::tag::next_;

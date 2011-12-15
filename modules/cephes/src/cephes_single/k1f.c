@@ -82,7 +82,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
  * lim(x->0){ x(K1(x) - log(x/2) I1(x)) } = 1.
  */
 
-#define MINNUMF 6.0e-39
+#define MINNUMF 6.0e-39f
 static float A[] =
 {
 -2.21338763073472585583E-8f,

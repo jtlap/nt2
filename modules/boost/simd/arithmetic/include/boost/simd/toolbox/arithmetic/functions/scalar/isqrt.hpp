@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ISQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ISQRT_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/isqrt.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
@@ -26,15 +25,10 @@ namespace boost { namespace simd { namespace ext
     typedef typename  dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return itrunc(sqrt(a0));
+      return itrunc(boost::simd::sqrt(a0));
     }
   };
-} } }
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
                             , (A0)
                             , (scalar_< uint_<A0> >)
@@ -43,16 +37,10 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return A0(sqrt(result_type(a0)));
+      return static_cast<A0>(boost::simd::sqrt(result_type(a0)));
     }
   };
-} } }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::isqrt_, tag::cpu_
                             , (A0)
                             , (scalar_< int_<A0> >)
@@ -61,7 +49,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (is_ltz(a0)) ?  Zero<A0>() : A0(sqrt(result_type(a0)));
+      return (is_ltz(a0)) ?  Zero<A0>() : static_cast<A0>(boost::simd::sqrt(result_type(a0)));
     }
   };
 } } }

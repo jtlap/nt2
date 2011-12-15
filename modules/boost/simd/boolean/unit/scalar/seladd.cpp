@@ -30,12 +30,13 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::seladd;
   using boost::simd::tag::seladd_;
+  using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<seladd_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::call<seladd_(logical<T>,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 
@@ -46,12 +47,12 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(seladd(T(0),T(1),T(2)), T(1));
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<T>(),T(1),T(2)), T(3));
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<T>(),boost::simd::Inf<T>(),boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<T>(),boost::simd::Minf<T>(),boost::simd::Minf<T>()), boost::simd::Minf<r_t>());
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<T>(),boost::simd::Nan<T>(),boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
-  NT2_TEST_EQUAL(seladd(boost::simd::Nan<T>(),boost::simd::Zero<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(seladd(logical<T>(T(0)),T(1),T(2)), T(1));
+  NT2_TEST_EQUAL(seladd(logical<T>(boost::simd::Nan<T>()),T(1),T(2)), T(3));
+  NT2_TEST_EQUAL(seladd(logical<T>(boost::simd::Nan<T>()),boost::simd::Inf<T>(),boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(seladd(logical<T>(boost::simd::Nan<T>()),boost::simd::Minf<T>(),boost::simd::Minf<T>()), boost::simd::Minf<r_t>());
+  NT2_TEST_EQUAL(seladd(logical<T>(boost::simd::Nan<T>()),boost::simd::Nan<T>(),boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(seladd(logical<T>(boost::simd::Nan<T>()),boost::simd::Zero<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
@@ -59,12 +60,13 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   
   using boost::simd::seladd;
   using boost::simd::tag::seladd_;
+  using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<seladd_(T,T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::call<seladd_(logical<T>,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T,T)>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 
@@ -75,7 +77,7 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(seladd(T(-1),T(1),T(2)), T(3));
-  NT2_TEST_EQUAL(seladd(T(0),T(1),T(2)), T(1));
-  NT2_TEST_EQUAL(seladd(boost::simd::Zero<T>(),boost::simd::Zero<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(seladd(logical<T>(T(-1)),T(1),T(2)), T(3));
+  NT2_TEST_EQUAL(seladd(logical<T>(T(0)),T(1),T(2)), T(1));
+  NT2_TEST_EQUAL(seladd(logical<T>(boost::simd::Zero<T>()),boost::simd::Zero<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for integer_

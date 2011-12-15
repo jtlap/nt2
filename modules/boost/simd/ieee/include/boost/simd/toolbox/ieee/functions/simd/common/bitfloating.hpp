@@ -8,14 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITFLOATING_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITFLOATING_HPP_INCLUDED
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
-#include <boost/simd/include/constants/properties.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/bitfloating.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
-#include <boost/simd/include/functions/select.hpp>
-
-
+#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -33,11 +33,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
-      //A0 s = Signmask<A0>();
-      //      type that = {select(isgez(type(a0)), a0, s-a0)};
       type r;
-      A0 s = simd::native_cast<A0>(Signmask<type>());
-      r = select(is_gez(a0) , simd::native_cast<type>(a0), simd::native_cast<type>(s-a0));
+      A0 s = bitwise_cast<A0>(Signmask<type>());
+      r = bitwise_cast<type>(select(is_gez(a0) , a0, s-a0));
       return r;
     }
   };
@@ -60,7 +58,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
-      return simd::native_cast<type>(a0);
+      return simd::bitwise_cast<type>(a0);
     }
   };
 } } }

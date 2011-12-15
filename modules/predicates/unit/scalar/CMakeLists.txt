@@ -43,7 +43,6 @@ SET( SOURCES
   is_flint.cpp
   is_finite.cpp  is_even.cpp
   is_eqz.cpp
-  boolean.cpp
 # List of scalar test files for toolbox predicates
    )
 

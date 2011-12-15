@@ -15,7 +15,7 @@
 #include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/signnz.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
 
     typedef typename meta::as_floating<A0>::type result_type;
     inline result_type operator()(const typename A0::native_type a0_n,
-				  const typename A0::native_type a1_n) const
+                      const typename A0::native_type a1_n) const
     {
       const A0 a0 = {a0_n};
       const A0 a1 = {a1_n};
@@ -79,11 +79,11 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     inline result_type operator()(const typename A0::native_type a0_n,
-				  const typename A0::native_type a1_n) const
+                      const typename A0::native_type a1_n) const
     {
       const A0 a0 = {a0_n};
       const A0 a1 = {a1_n};
-      A0 z = {impl::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(abs(a0/a1))}; 
+      A0 z = {impl::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1)}; 
       //A0 z = atan(abs(a0/a1));  // case a1 > 0,  a0 > 0
       z = sel(is_gtz(a1), z, Pi<A0>()-z)*signnz(a0);
       return sel(is_eqz(a0), sel(is_ltz(a1), Pi<A0>(), Zero<A0>()), z);

@@ -9,6 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LEZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LEZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/bitofsign.hpp>
+#include <boost/simd/include/functions/is_less_equal.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -16,15 +23,11 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return is_less(a0, Zero<A0>()); //TO DO
-//       typedef typename meta::int32_t_<A0>::type htype;
-//       typedef simd::native<htype,boost::simd::tag::sse_> type;
-//       const type tmp1 = is_lez(simd::native_cast<type>(a0));
-//       const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 2, 0, 0))};
-//       return  simd::native_cast<A0>(tmp);
+      typedef typename dispatch::meta::as_floating<A0>::type ftype;
+      return bitwise_cast<result_type>(is_less_equal(b_or(One<ftype>(), bitofsign(a0))), Zero<ftype>()); 
     }
   };
 } } }

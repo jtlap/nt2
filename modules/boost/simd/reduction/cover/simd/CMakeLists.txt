@@ -9,8 +9,6 @@
 ################################################################################
 
 SET( SOURCES
-  bitwise_any.cpp
-  bitwise_all.cpp
   is_simd_logical.cpp
   none.cpp
   sum.cpp

@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE3_IS_EQZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE3_IS_EQZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE3_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return eq(a0,Zero<A0>()); }
   };
 
@@ -27,19 +27,15 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::native_cast;
-
       typedef simd::native <typename boost::simd::meta::int32_t_<A0>::type, boost::simd::tag::sse_ > itype;
       typedef simd::native <typename boost::simd::meta::float__<A0>::type , boost::simd::tag::sse_ > ftype;
-      ftype tmp1
-      = native_cast<ftype>(eq(native_cast<itype>(a0),Zero<itype>()));
-      A0  l = native_cast<A0>(_mm_moveldup_ps(tmp1));
-      A0  h = native_cast<A0>(_mm_movehdup_ps(tmp1));
-      return b_and(l,h);
+      ftype tmp1 = bitwise_cast<ftype>(eq(bitwise_cast<itype>(a0),Zero<itype>()));
+      A0  l = bitwise_cast<A0>(_mm_moveldup_ps(tmp1));
+      A0  h = bitwise_cast<A0>(_mm_movehdup_ps(tmp1));
+      return bitwise_cast<result_type>(b_and(l,h));
     }
   };
 } } }

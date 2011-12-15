@@ -26,7 +26,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  (boost::simd::int8_t))//BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::divs;
   using boost::simd::tag::divs_;

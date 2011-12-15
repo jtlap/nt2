@@ -11,28 +11,29 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/predicates/functions/is_nez.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/meta/templatize.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nez_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_nez_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < int64_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type sctype;
-      typedef typename boost::simd::meta::int32_t_<sctype >::type htype;
-      typedef boost::simd::native<htype,boost::simd::tag::sse_> type;
-
-      type tmp1 = is_nez(boost::simd::native_cast<type>(a0));
-      const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
-
-      return boost::simd::native_cast<A0>(b_or(tmp1, tmp2));
+      typedef typename dispatch::meta::downgrade<A0>::type          base;
+      typedef typename meta::as_logical<base>::type                lbase; 
+      typedef typename dispatch::meta::downgrade<result_type>::type type;
+      const lbase tmp1 = is_nez(boost::simd::bitwise_cast<base>(a0));
+      const lbase tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
+      return boost::simd::bitwise_cast<result_type>(l_or(tmp1, tmp2));
     }
   };
 } } }

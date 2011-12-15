@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_SIMD_REAL_TYPES)
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,sr_t(z));
       }
     
   }
@@ -107,7 +107,7 @@ NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPE
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -118,7 +118,7 @@ NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPE
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,sr_t(z));
       }
     
   }
@@ -149,7 +149,7 @@ NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -160,7 +160,7 @@ NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
           if (a0[i]<a1[i]) {z=true;break;}
           else if (a0[i]>a1[i]){z=false; break;}
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,sr_t(z));
       }
     
   }

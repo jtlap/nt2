@@ -16,10 +16,9 @@
 #include <boost/simd/include/functions/iceil.hpp>
 #include <boost/simd/include/functions/ceil.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
@@ -40,9 +39,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is unsigned_
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
@@ -56,10 +52,7 @@ namespace boost { namespace simd { namespace ext
       return (a1) ? rdivide(A0(a0+(a1-One<result_type>())), a1) : Valmax<result_type>();
     }
   };
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::idivceil_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> > )

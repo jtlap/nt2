@@ -9,10 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_1_IS_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_1_IS_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#include <boost/simd/sdk/simd/logical.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Overloads implementation for ints64
-////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::sse4_1_
@@ -21,12 +19,11 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_cmpeq_epi64(a0,a1) };
-      return that;
+      result_type that = { _mm_cmpeq_epi64(a0,a1) };
+      return that; 
     }
   };
 } } }

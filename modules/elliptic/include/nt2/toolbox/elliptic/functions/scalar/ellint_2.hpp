@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
 //                                0x3d68ac90,
 //                                0x3ee2e430,
 //                                0x3f800000) ) > (a)
-//                 -log(a)*a*horner< NT2_HORNER_COEFF_T(A0, 10,
+//                 -nt2::log(a)*a*horner< NT2_HORNER_COEFF_T(A0, 10,
 //                                     (0x38098de4,
 //                                      0x3a84557e,
 //                                      0x3bd53114,

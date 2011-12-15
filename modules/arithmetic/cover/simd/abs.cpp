@@ -64,14 +64,14 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  NT2_SIMD_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = abs(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abs (tab_a0[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abs (a0[i])));
         }
       }
     
@@ -102,14 +102,14 @@ NT2_TEST_CASE_TPL ( abs_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = abs(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abs (tab_a0[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abs (a0[i])));
         }
       }
     
@@ -140,14 +140,14 @@ NT2_TEST_CASE_TPL ( abs_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = abs(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abs (tab_a0[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::abs (a0[i])));
         }
       }
     

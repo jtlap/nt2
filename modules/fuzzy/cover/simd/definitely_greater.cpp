@@ -16,7 +16,10 @@
 #include <nt2/toolbox/fuzzy/include/functions/definitely_greater.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/include/functions/successor.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_ord.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -66,7 +69,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a2,iT, NR, iT(-10), iT(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -74,8 +77,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = definitely_greater(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::definitely_greater (tab_a0[k],tab_a1[k],tab_a2[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
         }
       }
     
@@ -108,7 +110,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNE
     NT2_CREATE_BUF(tab_a1,T, NR, T(-10), T(10));
     NT2_CREATE_BUF(tab_a2,iT, NR, iT(-10), iT(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -116,8 +118,8 @@ NT2_TEST_CASE_TPL ( definitely_greater_signed_int__3_0,  NT2_SIMD_INTEGRAL_SIGNE
         r_t v = definitely_greater(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::definitely_greater (tab_a0[k],tab_a1[k],tab_a2[k])));
+          
+          NT2_TEST_EQUAL( v[i]!= 0,ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
         }
       }
     
@@ -150,7 +152,7 @@ NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYP
     NT2_CREATE_BUF(tab_a1,T, NR, T(0), T(10));
     NT2_CREATE_BUF(tab_a2,iT, NR, iT(0), iT(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -158,8 +160,8 @@ NT2_TEST_CASE_TPL ( definitely_greater_unsigned_int__3_0,  NT2_SIMD_UNSIGNED_TYP
         r_t v = definitely_greater(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::definitely_greater (tab_a0[k],tab_a1[k],tab_a2[k])));
+          
+          NT2_TEST_EQUAL( v[i]!= 0,ssr_t(nt2::definitely_greater (a0[i],a1[i],a2[i])));
         }
       }
     

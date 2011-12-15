@@ -50,8 +50,8 @@
 
 #include "mconf.h"
 
-#define EUL 0.57721566490153286060
-#define BIG   16777216.
+#define EUL 0.57721566490153286060f
+#define BIG   16777216.f
 extern float MAXNUMF, MACHEPF, MAXLOGF;
 #ifdef ANSIC
 float cephes_powf(float, float), cephes_gammaf(float), cephes_logf(float), cephes_expf(float);
@@ -87,9 +87,9 @@ domerr:	cephes_mtherr( "expnf", DOMAIN );
 	}
 
 if( x > MAXLOGF )
-	return( 0.0 );
+	return( 0.0f );
 
-if( x == 0.0 )
+if( x == 0.0f )
 	{
 	if( n < 2 )
 		{
@@ -97,7 +97,7 @@ if( x == 0.0 )
 		return( MAXNUMF );
 		}
 	else
-		return( 1.0/(n-1.0) );
+		return( 1.0f/(n-1.0f) );
 	}
 
 if( n == 0 )
@@ -109,16 +109,16 @@ if( n == 0 )
 if( n > 5000 )
 	{
 	xk = x + n;
-	yk = 1.0 / (xk * xk);
+	yk = 1.0f / (xk * xk);
 	t = n;
-	ans = yk * t * (6.0 * x * x  -  8.0 * t * x  +  t * t);
-	ans = yk * (ans + t * (t  -  2.0 * x));
+	ans = yk * t * (6.0f * x * x  -  8.0f * t * x  +  t * t);
+	ans = yk * (ans + t * (t  -  2.0f * x));
 	ans = yk * (ans + t);
-	ans = (ans + 1.0) * cephes_expf( -x ) / xk;
+	ans = (ans + 1.0f) * cephes_expf( -x ) / xk;
 	goto done;
 	}
 
-if( x > 1.0 )
+if( x > 1.0f )
 	goto cfrac;
 
 /*							expn.c	*/
@@ -127,29 +127,29 @@ if( x > 1.0 )
 
 psi = -EUL - cephes_logf(x);
 for( i=1; i<n; i++ )
-	psi = psi + 1.0/i;
+	psi = psi + 1.0f/i;
 
 z = -x;
 xk = 0.0;
 yk = 1.0;
 pk = 1.0 - n;
 if( n == 1 )
-	ans = 0.0;
+	ans = 0.0f;
 else
-	ans = 1.0/pk;
+	ans = 1.0f/pk;
 do
 	{
-	xk += 1.0;
+	xk += 1.0f;
 	yk *= z/xk;
-	pk += 1.0;
-	if( pk != 0.0 )
+	pk += 1.0f;
+	if( pk != 0.0f )
 		{
 		ans += yk/pk;
 		}
-	if( ans != 0.0 )
+	if( ans != 0.0f )
 		t = fabsf(yk/ans);
 	else
-		t = 1.0;
+		t = 1.0f;
 	}
 while( t > MACHEPF );
 k = xk;
@@ -162,9 +162,9 @@ goto done;
 /*		continued fraction		*/
 cfrac:
 k = 1;
-pkm2 = 1.0;
+pkm2 = 1.0f;
 qkm2 = x;
-pkm1 = 1.0;
+pkm1 = 1.0f;
 qkm1 = x + n;
 ans = pkm1/qkm1;
 
@@ -173,7 +173,7 @@ do
 	k += 1;
 	if( k & 1 )
 		{
-		yk = 1.0;
+		yk = 1.0f;
 		xk = n + (k-1)/2;
 		}
 	else

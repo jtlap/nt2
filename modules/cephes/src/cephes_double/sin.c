@@ -87,7 +87,6 @@ Copyright 1985, 1995, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
-#ifdef UNK
 static double sincof[] = {
  1.58962301576546568060E-10,
 -2.50507477628578072866E-8,
@@ -108,90 +107,6 @@ static double DP1 =   7.85398125648498535156E-1;
 static double DP2 =   3.77489470793079817668E-8;
 static double DP3 =   2.69515142907905952645E-15;
 /* static double lossth = 1.073741824e9; */
-#endif
-
-#ifdef DEC
-static unsigned short sincof[] = {
-0030056,0143750,0177214,0163153,
-0131727,0027455,0044510,0175352,
-0033470,0167432,0131752,0042414,
-0135120,0006400,0146776,0174027,
-0036410,0104210,0104207,0137202,
-0137452,0125252,0125252,0125103,
-};
-static unsigned short coscof[24] = {
-0127107,0151115,0002060,0152325,
-0031017,0072353,0155161,0174053,
-0132623,0171173,0172542,0057056,
-0034320,0006400,0147102,0023652,
-0135666,0005540,0133012,0076213,
-0037052,0125252,0125252,0125126,
-};
-/*  7.853981629014015197753906250000E-1 */
-static unsigned short P1[] = {0040111,0007732,0120000,0000000,};
-/*  4.960467869796758577649598009884E-10 */
-static unsigned short P2[] = {0030410,0055060,0100000,0000000,};
-/*  2.860594363054915898381331279295E-18 */
-static unsigned short P3[] = {0021523,0011431,0105056,0001560,};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-#endif
-
-#ifdef IBMPC
-static unsigned short sincof[] = {
-0x9ccd,0x1fd1,0xd8fd,0x3de5,
-0x1f5d,0xa929,0xe5e5,0xbe5a,
-0x48a1,0x567d,0x1de3,0x3ec7,
-0xdf03,0x19bf,0x01a0,0xbf2a,
-0xf7d0,0x1110,0x1111,0x3f81,
-0x5548,0x5555,0x5555,0xbfc5,
-};
-static unsigned short coscof[24] = {
-0x1a9b,0xa086,0xfa49,0xbda8,
-0x3f05,0x7b4e,0xee9d,0x3e21,
-0x4bc6,0x7eac,0x7e4f,0xbe92,
-0x44f5,0x19c8,0x01a0,0x3efa,
-0x4f91,0x16c1,0xc16c,0xbf56,
-0x554b,0x5555,0x5555,0x3fa5,
-};
-/*
-  7.85398125648498535156E-1,
-  3.77489470793079817668E-8,
-  2.69515142907905952645E-15,
-*/
-static unsigned short P1[] = {0x0000,0x4000,0x21fb,0x3fe9};
-static unsigned short P2[] = {0x0000,0x0000,0x442d,0x3e64};
-static unsigned short P3[] = {0x5170,0x98cc,0x4698,0x3ce8};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-#endif
-
-#ifdef MIEEE
-static unsigned short sincof[] = {
-0x3de5,0xd8fd,0x1fd1,0x9ccd,
-0xbe5a,0xe5e5,0xa929,0x1f5d,
-0x3ec7,0x1de3,0x567d,0x48a1,
-0xbf2a,0x01a0,0x19bf,0xdf03,
-0x3f81,0x1111,0x1110,0xf7d0,
-0xbfc5,0x5555,0x5555,0x5548,
-};
-static unsigned short coscof[24] = {
-0xbda8,0xfa49,0xa086,0x1a9b,
-0x3e21,0xee9d,0x7b4e,0x3f05,
-0xbe92,0x7e4f,0x7eac,0x4bc6,
-0x3efa,0x01a0,0x19c8,0x44f5,
-0xbf56,0xc16c,0x16c1,0x4f91,
-0x3fa5,0x5555,0x5555,0x554b,
-};
-static unsigned short P1[] = {0x3fe9,0x21fb,0x4000,0x0000};
-static unsigned short P2[] = {0x3e64,0x442d,0x0000,0x0000};
-static unsigned short P3[] = {0x3ce8,0x4698,0x98cc,0x5170};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-#endif
 
 #ifdef ANSIPROT
 extern double cephes_polevl ( double, void *, int );

@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/fuzzy/include/functions/knuth_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( knuth_equal_real__3_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(knuth_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<vT>(1))[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(knuth_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(0.5))[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(knuth_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(1))[0]!=0, nt2::True<sr_t>());
+  NT2_TEST_EQUAL(knuth_equal(nt2::splat<vT>(0),nt2::splat<vT>(0),nt2::splat<vT>(1))[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(knuth_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(0.5))[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(knuth_equal(nt2::splat<vT>(0),nt2::splat<vT>(1),nt2::splat<vT>(1))[0], nt2::True<sr_t>());
 } // end of test for floating_

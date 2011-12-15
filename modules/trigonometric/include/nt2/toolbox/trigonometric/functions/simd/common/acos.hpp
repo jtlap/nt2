@@ -16,6 +16,7 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 
@@ -34,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(oneminus(nt2::sign(tofloat(a0)))*Pio_2<result_type>(), gt(abs(a0), One<A0>()));
+      return if_nan_else(gt(abs(a0), One<A0>()), oneminus(nt2::sign(tofloat(a0)))*Pio_2<result_type>());
     }
   };
 } }

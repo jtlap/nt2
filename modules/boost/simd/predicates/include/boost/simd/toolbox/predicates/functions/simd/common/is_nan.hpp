@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NAN_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_unord.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return is_unord(a0,a0); }
   };
 } } }

@@ -118,8 +118,8 @@ static float Ainv[] = {
 #define MEXP 2032.0
 #define MNEXP -2032.0
 #else
-#define MEXP 2048.0
-#define MNEXP -2400.0
+#define MEXP 2048.0f
+#define MNEXP -2400.0f
 #endif
 
 /* log2(e) - 1 */
@@ -147,7 +147,7 @@ float cephes_floorf(), cephes_frexpf(), cephes_ldexpf(), cephes_powif();
 #endif
 
 /* Find a multiple of 1/16 that is within 1/16 of x. */
-#define reduc(x)  0.0625 * cephes_floorf( 16 * (x) )
+#define reduc(x)  0.0625f * cephes_floorf( 16 * (x) )
 
 #ifdef ANSIC
 float cephes_powf( float x, float y )
@@ -167,7 +167,7 @@ if( w < 0 )
 	z = -w;
 else
 	z = w;
-if( (w == y) && (z < 32768.0) )
+if( (w == y) && (z < 32768.0f) )
 	{
 	i = w;
 	w = cephes_powif( x, i );
@@ -175,21 +175,21 @@ if( (w == y) && (z < 32768.0) )
 	}
 
 
-if( x <= 0.0F )
+if( x <= 0.0f )
 	{
-	if( x == 0.0 )
+	if( x == 0.0f )
 		{
-		if( y == 0.0 )
-			return( 1.0 );  /*   0**0   */
+		if( y == 0.0f )
+			return( 1.0f );  /*   0**0   */
 		else  
-			return( 0.0 );  /*   0**y   */
+			return( 0.0f );  /*   0**y   */
 		}
 	else
 		{
 		if( w != y )
 			{ /* noninteger power of negative number */
 			cephes_mtherr( fname, DOMAIN );
-			return(0.0);
+			return(0.0f);
 			}
 		nflg = 1;
 		if( x < 0 )
@@ -232,11 +232,11 @@ x *= Ainv[i];
  * on the interval 2^(1/16) - 1  > v > 2^(-1/16) - 1
  */
 z = x*x;
-w = (((-0.1663883081054895  * x
-      + 0.2003770364206271) * x
-      - 0.2500006373383951) * x
-      + 0.3333331095506474) * x * z;
-w -= 0.5 * z;
+w = (((-0.1663883081054895f  * x
+      + 0.2003770364206271f) * x
+      - 0.2500006373383951f) * x
+      + 0.3333331095506474f) * x * z;
+w -= 0.5f * z;
 
 /* Convert to base 2 logarithm:
  * multiply by log2(e)
@@ -252,7 +252,7 @@ z = z + x;
 
 /* Compute exponent term of the base 2 logarithm. */
 w = -i;
-w *= 0.0625;  /* divide by 16 */
+w *= 0.0625f;  /* divide by 16 */
 w += e;
 /* Now base 2 log of x is w + z. */
 
@@ -287,29 +287,29 @@ if( w > MEXP )
 if( w < MNEXP )
 	{
 	cephes_mtherr( fname, UNDERFLOW );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
 e = w;
 Hb = H - Ha;
 
-if( Hb > 0.0 )
+if( Hb > 0.0f )
 	{
 	e += 1;
-	Hb -= 0.0625;
+	Hb -= 0.0625f;
 	}
 
-/* Now the product y * log2(x)  =  Hb + e/16.0.
+/* Now the product y * log2(x)  =  Hb + e/16.0f.
  *
  * Compute base 2 exponential of Hb,
  * where -0.0625 <= Hb <= 0.
  * Theoretical relative error of the approximation is 2.8e-12.
  */
 /*  z  =  2**Hb - 1    */
-z = ((( 9.416993633606397E-003 * Hb
-      + 5.549356188719141E-002) * Hb
-      + 2.402262883964191E-001) * Hb
-      + 6.931471791490764E-001) * Hb;
+z = ((( 9.416993633606397E-003f * Hb
+      + 5.549356188719141E-002f) * Hb
+      + 2.402262883964191E-001f) * Hb
+      + 6.931471791490764E-001f) * Hb;
 
 /* Express e/16 as an integer plus a negative number of 16ths.
  * Find lookup table entry for the fractional power of 2.

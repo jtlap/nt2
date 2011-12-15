@@ -54,14 +54,14 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_T
   {
     NT2_CREATE_BUF(tab_a0,T, NR, -100, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = bitfloating(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::bitfloating (tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::bitfloating (a0[i])));
         }
       }
     
@@ -92,14 +92,14 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT
   {
     NT2_CREATE_BUF(tab_a0,T, NR, 0, 100);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = bitfloating(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::bitfloating (tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::bitfloating (a0[i])));
         }
       }
     

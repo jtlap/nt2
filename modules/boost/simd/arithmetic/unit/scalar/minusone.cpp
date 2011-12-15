@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( minusone_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(minusone(boost::simd::One<T>()), boost::simd::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(minusone(boost::simd::Zero<T>()), boost::simd::Mone<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(minusone(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( minusone_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)

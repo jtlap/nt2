@@ -16,8 +16,6 @@
 #include <nt2/toolbox/predicates/include/functions/is_ord.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/meta/logical.hpp>
-
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -32,6 +30,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 
 NT2_TEST_CASE_TPL ( is_ord_real__2_0,  NT2_REAL_TYPES)
@@ -43,7 +42,7 @@ NT2_TEST_CASE_TPL ( is_ord_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<is_ord_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -65,7 +64,8 @@ NT2_TEST_CASE_TPL ( is_ord_real__2_0,  NT2_REAL_TYPES)
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
+                 << " " << nt2::type_id(nt2::is_ord(a0,a1)) << "  "  << nt2::type_id(nt2::True<r_t>())
+                   << std::endl;
         NT2_TEST_EQUAL( nt2::is_ord(a0,a1),nt2::True<r_t>());
      }
      
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL ( is_ord_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<is_ord_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -103,7 +103,7 @@ NT2_TEST_CASE_TPL ( is_ord_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
         std::cout << "for params "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
+                 << std::endl;
         NT2_TEST_EQUAL( nt2::is_ord(a0,a1),nt2::True<r_t>());
      }
      
@@ -119,7 +119,7 @@ NT2_TEST_CASE_TPL ( is_ord_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<is_ord_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 

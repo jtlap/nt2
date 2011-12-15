@@ -15,8 +15,7 @@
 /// 
 #include <boost/simd/toolbox/operator/include/functions/logical_not.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -28,7 +27,7 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  (boost::simd::uint64_t))//BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_not;
   using boost::simd::tag::logical_not_;
@@ -49,8 +48,8 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::One<vT>())[0]!=0, boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
+   NT2_TEST_EQUAL(logical_not(boost::simd::One<vT>())[0], boost::simd::False<sr_t>());
+   NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -74,8 +73,8 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::Inf<vT>())[0]!=0, boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Minf<vT>())[0]!=0, boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Nan<vT>())[0]!=0, boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Inf<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Minf<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Nan<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for floating_

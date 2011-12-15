@@ -70,20 +70,20 @@ aa = aaa;
 bb = bbb;
 yy0 = yyy0;
 if( yy0 <= 0 )
-	return(0.0);
-if( yy0 >= 1.0 )
-	return(1.0);
+	return(0.0f);
+if( yy0 >= 1.0f )
+	return(1.0f);
 
 /* approximation to inverse function */
 
 yp = -cephes_ndtrif(yy0);
 
-if( yy0 > 0.5 )
+if( yy0 > 0.5f )
 	{
 	rflg = 1;
 	a = bb;
 	b = aa;
-	y0 = 1.0 - yy0;
+	y0 = 1.0f - yy0;
 	yp = -yp;
 	}
 else
@@ -95,21 +95,21 @@ else
 	}
 
 
-if( (aa <= 1.0) || (bb <= 1.0) )
+if( (aa <= 1.0f) || (bb <= 1.0f) )
 	{
-	y = 0.5 * yp * yp;
+	y = 0.5f * yp * yp;
 	}
 else
 	{
-	lgm = (yp * yp - 3.0)* 0.16666666666666667;
-	x0 = 2.0/( 1.0/(2.0*a-1.0)  +  1.0/(2.0*b-1.0) );
+	lgm = (yp * yp - 3.0f)* 0.16666666666666667f;
+	x0 = 2.0f/( 1.0f/(2.0f*a-1.0f)  +  1.0f/(2.0f*b-1.0f) );
 	y = yp * cephes_sqrtf( x0 + lgm ) / x0
-		- ( 1.0/(2.0*b-1.0) - 1.0/(2.0*a-1.0) )
-		* (lgm + 0.833333333333333333 - 2.0/(3.0*x0));
-	y = 2.0 * y;
+		- ( 1.0f/(2.0f*b-1.0f) - 1.0f/(2.0f*a-1.0f) )
+		* (lgm + 0.833333333333333333f - 2.0f/(3.0f*x0));
+	y = 2.0f * y;
 	if( y < MINLOGF )
 		{
-		x0 = 1.0;
+		x0 = 1.0f;
 		goto under;
 		}
 	}
@@ -117,40 +117,40 @@ else
 x = a/( a + b * cephes_expf(y) );
 y = cephes_incbetf( a, b, x );
 yp = (y - y0)/y0;
-if( fabsf(yp) < 0.1 )
+if( fabsf(yp) < 0.1f )
 	goto newt;
 
 /* Resort to interval halving if not close enough */
-x0 = 0.0;
-x1 = 1.0;
-di = 0.5;
+x0 = 0.0f;
+x1 = 1.0f;
+di = 0.5f;
 
 for( i=0; i<20; i++ )
 	{
 	if( i != 0 )
 		{
-		x = di * x1  + (1.0-di) * x0;
+		x = di * x1  + (1.0f-di) * x0;
 		y = cephes_incbetf( a, b, x );
 		yp = (y - y0)/y0;
-		if( fabsf(yp) < 1.0e-3 )
+		if( fabsf(yp) < 1.0e-3f )
 			goto newt;
 		}
 
 	if( y < y0 )
 		{
 		x0 = x;
-		di = 0.5;
+		di = 0.5f;
 		}
 	else
 		{
 		x1 = x;
 		di *= di;
-		if( di == 0.0 )
-			di = 0.5;
+		if( di == 0.0f )
+			di = 0.5f;
 		}
 	}
 
-if( x0 == 0.0 )
+if( x0 == 0.0f )
 	{
 under:
 	cephes_mtherr( "incbif", UNDERFLOW );
@@ -168,10 +168,10 @@ for( i=0; i<10; i++ )
 	if( i != 0 )
 		y = cephes_incbetf(a,b,x0);
 /* compute the derivative of the function at this point */
-	d = (a - 1.0) * cephes_logf(x0) + (b - 1.0) * cephes_logf(1.0-x0) + lgm;
+	d = (a - 1.0f) * cephes_logf(x0) + (b - 1.0f) * cephes_logf(1.0f-x0) + lgm;
 	if( d < MINLOGF )
 		{
-		x0 = 0.0;
+		x0 = 0.0f;
 		goto under;
 		}
 	d = cephes_expf(d);
@@ -179,24 +179,24 @@ for( i=0; i<10; i++ )
 	d = (y - y0)/d;
 	x = x0;
 	x0 = x0 - d;
-	if( x0 <= 0.0 )
+	if( x0 <= 0.0f )
 		{
-		x0 = 0.0;
+		x0 = 0.0f;
 		goto under;
 		}
-	if( x0 >= 1.0 )
+	if( x0 >= 1.0f )
 		{
-		x0 = 1.0;
+		x0 = 1.0f;
 		goto under;
 		}
 	if( i < 2 )
 		continue;
-	if( fabsf(d/x0) < 256.0 * MACHEPF )
+	if( fabsf(d/x0) < 256.0f * MACHEPF )
 		goto done;
 	}
 
 done:
 if( rflg )
-	x0 = 1.0 - x0;
+	x0 = 1.0f - x0;
 return( x0 );
 }

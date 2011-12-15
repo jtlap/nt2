@@ -8,14 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVFIX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVFIX_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfix_, tag::cpu_
@@ -23,28 +18,17 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return rdivide(a0, a1); }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfix_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     { return trunc(a0/a1); }
   };

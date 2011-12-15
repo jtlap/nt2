@@ -43,7 +43,8 @@ namespace boost { namespace simd { namespace meta
                                   , typename  boost::mpl
                                     ::if_ < boost::is_same<T,double>
                                         , __m256d
-                                        , dispatch::meta::na_
+                                        , typename  
+                                          simd::ext::as_simd< T, tag::avx_>::type
                                         >::type
                                   >::type
                           >

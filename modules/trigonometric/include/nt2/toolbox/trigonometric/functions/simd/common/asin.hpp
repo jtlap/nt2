@@ -14,6 +14,7 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/invtrig.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(nt2::sign(tofloat(a0))*Pio_2<result_type>(), gt(abs(a0), One<A0>()));
+      return if_nan_else(gt(abs(a0), One<A0>()), nt2::sign(tofloat(a0))*Pio_2<result_type>());
     }
   };
 } }

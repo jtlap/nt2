@@ -82,18 +82,18 @@ float x, w, y, z;
 int sign;
 
 x = xx;
-if( x > 34.84425627277176174)
+if( x > 34.84425627277176174f)
 	{
 	cephes_mtherr( name, UNDERFLOW );
-	return(1.0/MAXNUMF);
+	return(1.0f/MAXNUMF);
 	}
-if( x < -34.034 )
+if( x < -34.034f )
 	{
 	w = -x;
 	z = cephes_sinf( PIF*w );
-	if( z == 0.0 )
-		return(0.0);
-	if( z < 0.0 )
+	if( z == 0.0f )
+		return(0.0f);
+	if( z < 0.0f )
 		{
 		sign = 1;
 		z = -z;
@@ -105,7 +105,7 @@ if( x < -34.034 )
 	if( y < -MAXLOGF )
 		{
 		cephes_mtherr( name, UNDERFLOW );
-		return( sign * 1.0 / MAXNUMF );
+		return( sign * 1.0f / MAXNUMF );
 		}
 	if( y > MAXLOGF )
 		{
@@ -114,24 +114,24 @@ if( x < -34.034 )
 		}
 	return( sign * cephes_expf(y));
 	}
-z = 1.0;
+z = 1.0f;
 w = x;
 
-while( w > 1.0 )	/* Downward recurrence */
+while( w > 1.0f )	/* Downward recurrence */
 	{
-	w -= 1.0;
+	w -= 1.0f;
 	z *= w;
 	}
-while( w < 0.0 )	/* Upward recurrence */
+while( w < 0.0f )	/* Upward recurrence */
 	{
 	z /= w;
-	w += 1.0;
+	w += 1.0f;
 	}
-if( w == 0.0 )		/* Nonpositive integer */
-	return(0.0);
-if( w == 1.0 )		/* Other integer */
-	return( 1.0/z );
+if( w == 0.0f )		/* Nonpositive integer */
+	return(0.0f);
+if( w == 1.0f )		/* Other integer */
+	return( 1.0f/z );
 
-y = w * ( 1.0 + cephes_chbevlf( 4.0*w-2.0, R, 10 ) ) / z;
+y = w * ( 1.0f + cephes_chbevlf( 4.0f*w-2.0f, R, 10 ) ) / z;
 return(y);
 }

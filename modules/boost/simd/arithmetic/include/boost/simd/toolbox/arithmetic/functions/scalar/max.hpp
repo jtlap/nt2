@@ -17,7 +17,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return std::max(result_type(a0), result_type(a1)); }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+      {
+        return (a0 > a1) ? a0 : a1; 
+      }
   };
 } } }
 

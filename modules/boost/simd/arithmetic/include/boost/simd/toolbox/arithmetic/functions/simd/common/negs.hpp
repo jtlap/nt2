@@ -9,12 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_NEGS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_NEGS_HPP_INCLUDED
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negs_, tag::cpu_
@@ -25,27 +22,17 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return select(eq(a0, boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), unary_minus(a0)); 
+      return if_else(eq(a0, boost::simd::Valmin<A0>()), boost::simd::Valmax<A0>(), unary_minus(a0)); 
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negs_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return unary_minus(a0); 
-    }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return unary_minus(a0); }
   };
 } } }
 

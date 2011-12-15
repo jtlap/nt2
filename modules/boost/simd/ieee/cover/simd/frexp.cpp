@@ -56,14 +56,14 @@ NT2_TEST_CASE_TPL ( frexp_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t r = nt2::frexp(a0);
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
         {
           int k = i+j*cardinal_of<n_t>::value;
-          sr_t sr =  nt2::frexp(tab_a0[k]);
+          sr_t sr =  nt2::frexp(a0[i]);
           NT2_TEST_EQUAL( boost::fusion::get<0>(r)[i],
                                     boost::fusion::get<0>(sr));
           ulp0 = nt2::max(ulpd,ulp0);

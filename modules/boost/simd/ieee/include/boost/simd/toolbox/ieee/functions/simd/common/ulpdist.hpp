@@ -19,12 +19,13 @@
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/frexp.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_zero_else.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/constants/eps.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/fusion/tuple.hpp>
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // It is often difficult to  answer to the following question:
@@ -89,14 +90,15 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type itype;
       itype e1, e2;
       A0 m1, m2;
-      boost::fusion::tie(m1, e1) = boost::simd::frexp(a0);
-      boost::fusion::tie(m2, e2) = boost::simd::frexp(a1);
+      m1 = boost::simd::frexp(a0, e1);
+      m2 = boost::simd::frexp(a1, e2);
       itype expo = -boost::simd::max(e1, e2);
       A0 e = select( boost::simd::is_equal(e1, e2)
                 , boost::simd::abs(m1-m2)
                 , boost::simd::abs(boost::simd::ldexp(a0, expo)-boost::simd::ldexp(a1, expo))
                 );
-      return select((is_nan(a0)&is_nan(a1))|boost::simd::is_equal(a0, a1), Zero<A0>(), e/Eps<A0>());
+      return if_zero_else(logical_or(logical_and(is_nan(a0), is_nan(a1)), boost::simd::is_equal(a0, a1)),
+                          e/Eps<A0>());
     }
   };
 } } }

@@ -17,7 +17,10 @@
 #include <nt2/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/if_else_zero.hpp>
 #include <nt2/include/constants/digits.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 
 namespace nt2
 {
@@ -41,10 +44,7 @@ namespace nt2
           typedef typename meta::as_integer<A0, signed>::type int_type;
           int_type e;
           x = fast_frexp(a0, e);
-          //         std::cout << "x " << x << " e " << e << std::endl;
-          //         bf::tie(x, e) = frexp(a0);
-          //         std::cout << "x " << x << " e " << e << std::endl;
-          int_type x_lt_sqrthf = boost::simd::native_cast<int_type>(gt(single_constant<A0, 0x3f3504f3>(),x));
+          int_type x_lt_sqrthf = if_else_zero(gt(single_constant<A0, 0x3f3504f3>(),x), Mone<int_type>());
           e = e+x_lt_sqrthf;
           x = x+b_and(x, x_lt_sqrthf)+single_constant<A0, 0xbf800000>();
           x2 = sqr(x);
@@ -66,15 +66,10 @@ namespace nt2
           y = madd(fe, single_constant<A0, 0xb95e8083>(), y);
           y = madd(Mhalf<A0>(), x2, y);
           A0 z  = x + y;
-          //         std::cout << "fe " << fe << std::endl;
-          //         std::cout << "z  " << z << std::endl;
-          //         std::cout << "a0 " << a0 << std::endl;
-          //         std::cout << "rec(a0) " << rec(a0) << std::endl;
           A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
           A0 y2 = madd(single_constant<A0, 0x3f318000>(), fe, z);
-          //         std::cout << "y1 " << y1 << std::endl;
-          //         std::cout << "y2 " << y2 << std::endl;
-          return seladd(is_inf(y1),b_or(y2, b_or(is_ltz(a0), is_nan(a0))),y1);
+          y2 = if_nan_else(logical_or(is_ltz(a0), is_nan(a0)), y2); 
+          return seladd(is_inf(y1), y2, y1); 
         }
 
         static inline A0 log2(const A0& a0)
@@ -86,7 +81,7 @@ namespace nt2
           A0 z = madd(x,single_constant<A0, 0x3ee2a8ed>(),mul(y,single_constant<A0, 0x3ee2a8ed>()));// 0.44269504088896340735992
           A0 z1 = ((z+y)+x)+fe;
           A0 y1 = a0-rec(abs(a0)); // trick to reduce selection testing
-          return seladd(is_inf(y1),b_or(z1, b_or(is_ltz(a0), is_nan(a0))),y1);
+          return seladd(is_inf(y1),if_nan_else(logical_or(is_ltz(a0), is_nan(a0)), z1),y1);
         }
 
         static inline A0 log10(const A0& a0)
@@ -100,8 +95,8 @@ namespace nt2
           z = amul(z, x, single_constant<A0, 0x3ede0000>());
           z = amul(z, fe, single_constant<A0, 0x39826a14>());//3.0078125E-1f              // log10(2)hi
           z = amul(z, fe, single_constant<A0, 0x3e9a0000>());//2.48745663981195213739E-4f // log10(2)lo
-          A0 y1 = a0-rec(abs(a0)); // trick to reduce selection testing
-          return seladd(is_inf(y1), b_or(z, b_or(is_ltz(a0), is_nan(a0))),y1);
+          A0 y1 = a0-rec(abs(a0)); // trick to reduce selection testing perhaps bad TODO
+          return seladd(is_inf(y1), if_nan_else(logical_or(is_ltz(a0), is_nan(a0)), z),y1);
         }
       };
     }

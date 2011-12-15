@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/functions/select.hpp>
+#include <nt2/toolbox/boolean/include/functions/if_else.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/predicates/include/functions/is_nez.hpp>
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -74,8 +74,8 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = nt2::select(nt2::is_nez(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (tab_a0[k],tab_a1[k],tab_a2[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (a0[i],a1[i],a2[i])));
         }
       }
     
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -93,8 +93,8 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = nt2::select(nt2::is_nez(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (tab_a0[k],tab_a1[k],tab_a2[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (a0[i],a1[i],a2[i])));
         }
       }
     
@@ -127,7 +127,7 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -135,8 +135,8 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
         r_t v = nt2::select(nt2::is_nez(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (tab_a0[k],tab_a1[k],tab_a2[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (a0[i],a1[i],a2[i])));
         }
       }
     
@@ -146,7 +146,7 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
     NT2_CREATE_BUF(tab_a1,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     NT2_CREATE_BUF(tab_a2,T, NR, nt2::Valmin<T>()/2, nt2::Valmax<T>()/2);
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         vT a1 = load<vT>(&tab_a1[0],j);
@@ -154,8 +154,8 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
         r_t v = nt2::select(nt2::is_nez(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (tab_a0[k],tab_a1[k],tab_a2[k])));
+          
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (a0[i],a1[i],a2[i])));
         }
       }
     

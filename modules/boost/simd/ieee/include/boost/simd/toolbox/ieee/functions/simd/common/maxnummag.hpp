@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MAXNUMMAG_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 /////////////////////////////////////////////////////////////////////////////

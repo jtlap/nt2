@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/predicates/include/functions/is_nlez.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -59,14 +59,14 @@ NT2_TEST_CASE_TPL ( is_nlez_real__1_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_nlez(-nt2::Zero<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::Half<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::Inf<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::Minf<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::Mone<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::Nan<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::One<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::Quarter<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::Two<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_nlez(nt2::Zero<vT>())[0]!=0, nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(-nt2::Zero<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::Half<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::Inf<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::Minf<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::Mone<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::Nan<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::One<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::Quarter<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::Two<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_nlez(nt2::Zero<vT>())[0], nt2::False<sr_t>());
 } // end of test for floating_

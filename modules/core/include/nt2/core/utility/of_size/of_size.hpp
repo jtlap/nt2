@@ -56,31 +56,30 @@ namespace nt2
     : BOOST_PP_CAT(D, BOOST_PP_DEC(BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n))) != 1  \
     ? BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n)
 
-    // workaround for GCC 4.2
-    #if defined(__GNUC__) && (__GNUC__ < 4 || __GNUC_MINOR__ < 3)
-    enum { static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0 };
-    #else
-    static const std::size_t
-    static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0;
-    #endif
+    // this is an 'enum' to workaround some compiler bugs
+    enum {
+      static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0
+    };
     #undef M0
 
     //==========================================================================
     // Check if size is entirely known at compile-time
     //==========================================================================
     #define M0(z,n,t) && (BOOST_PP_CAT(D,n) >= 0)
-    static const bool
-    static_status = (D0 >= 0)
-                    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
+    enum {
+      static_status = (D0 >= 0)
+                      BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~)
+    };
     #undef M0
 
     //==========================================================================
     // Compute its potential compile-time numel
     //==========================================================================
     #define M0(z,n,t) * (BOOST_PP_CAT(D,n) >= 0 ? BOOST_PP_CAT(D,n) : 1)
-    static const std::size_t
-    static_numel = (D0 >= 0 ? D0 : 1)
-                    BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~);
+    enum {
+      static_numel = (D0 >= 0 ? D0 : 1)
+                      BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~)
+    };
     #undef M0
 
     //==========================================================================
@@ -125,9 +124,8 @@ namespace nt2
 
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 
-      for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1;
-
-      details::check_all_equal(details::pop_front_c<msz>(other), 1);
+      for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
+      details::check_all_equal(details::pop_front_c<msz>(other), 1u);
     }
 
     //==========================================================================
@@ -143,7 +141,7 @@ namespace nt2
       const std::size_t msz = (osz < static_size) ? osz : static_size;
 
       std::copy(b, b+msz, &data_[0]);
-      for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1;
+      for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
     }
 
     //==========================================================================
@@ -156,7 +154,7 @@ namespace nt2
     of_size_( BOOST_PP_ENUM_PARAMS(n,std::size_t d) )      \
     {                                                      \
       BOOST_PP_REPEAT(n,M1,~)                              \
-      for(std::size_t i=n;i<static_size;++i) data_[i] = 1; \
+      for(std::size_t i=n;i<static_size;++i) data_[i] = 1u;\
     }                                                      \
     /**/
 

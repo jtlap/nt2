@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FLOOR_HPP_INCLUDED
-
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
@@ -28,7 +27,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const A0 d0 = round2even(a0);

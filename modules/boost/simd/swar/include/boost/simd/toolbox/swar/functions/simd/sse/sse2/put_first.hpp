@@ -14,8 +14,6 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
@@ -55,10 +53,10 @@ namespace boost { namespace simd { namespace ext
 	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_>  type64;
 	if(a1 > 7)
 	  {
-	    A0 t = { _mm_srli_si128(simd::native_cast<type64>(a0), 8 )};
-	    return simd::native_cast<A0>(shri(simd::native_cast<type64>(t), (a1-8) << 3));
+	    A0 t = { _mm_srli_si128(simd::bitwise_cast<type64>(a0), 8 )};
+	    return simd::bitwise_cast<A0>(shri(simd::bitwise_cast<type64>(t), (a1-8) << 3));
 	  }
-	return simd::native_cast<A0>(shri(simd::native_cast<type64>(a0), a1 << 3));
+	return simd::bitwise_cast<A0>(shri(simd::bitwise_cast<type64>(a0), a1 << 3));
       }
   };
   
@@ -77,7 +75,7 @@ namespace boost { namespace simd { namespace ext
 	typedef typename dispatch::meta::as_floating<A0>::type rtype;
 	if(a1)
 	  {
-	    return simd::native_cast<A0>(_mm_unpackhi_pd(simd::native_cast<rtype>(a0),simd::native_cast<rtype>(a0)));
+	    return simd::bitwise_cast<A0>(_mm_unpackhi_pd(simd::bitwise_cast<rtype>(a0),simd::bitwise_cast<rtype>(a0)));
 	  }
 	return a0;
       }
@@ -99,10 +97,10 @@ namespace boost { namespace simd { namespace ext
 	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> type64;
 	if(a1 > 3)
 	  {
-	    A0 t = { _mm_srli_si128(simd::native_cast<type64>(a0), 8 )};
-	    return simd::native_cast<A0>(shri(simd::native_cast<type64>(t), (a1-4) << 4));
+	    A0 t = { _mm_srli_si128(simd::bitwise_cast<type64>(a0), 8 )};
+	    return simd::bitwise_cast<A0>(shri(simd::bitwise_cast<type64>(t), (a1-4) << 4));
 	  }
-	return simd::native_cast<A0>(shri(simd::native_cast<type64>(a0), a1 << 4));
+	return simd::bitwise_cast<A0>(shri(simd::bitwise_cast<type64>(a0), a1 << 4));
       }
   };
   
@@ -122,12 +120,12 @@ namespace boost { namespace simd { namespace ext
 	typedef simd::native<typename boost::simd::meta::int64_t_<A0>::type,boost::simd::tag::sse_> type64;
 	if(a1 > 1)
 	  {
-	    type64 z = simd::native_cast<type64>(a0);
+	    type64 z = simd::bitwise_cast<type64>(a0);
 	    z = _mm_srli_si128(z, 8 ); 
-	    A0 t = simd::native_cast<A0>(z);
-	    return simd::native_cast<A0>(shri(simd::native_cast<type64>(t), (a1-2) << 5));
+	    A0 t = simd::bitwise_cast<A0>(z);
+	    return simd::bitwise_cast<A0>(shri(simd::bitwise_cast<type64>(t), (a1-2) << 5));
 	  }
-	return simd::native_cast<A0>(shri(simd::native_cast<type64>(a0), a1 << 5));
+	return simd::bitwise_cast<A0>(shri(simd::bitwise_cast<type64>(a0), a1 << 5));
       }
   };
 } } }

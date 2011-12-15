@@ -61,21 +61,21 @@ int nn;
 int n, e, sign, asign, lx;
 float w, y, s;
 
-if( x == 0.0 )
+if( x == 0.0f )
 	{
 	if( nn == 0 )
-		return( 1.0 );
+		return( 1.0f );
 	else if( nn < 0 )
 		return( MAXNUMF );
 	else
-		return( 0.0 );
+		return( 0.0f );
 	}
 
 if( nn == 0 )
-	return( 1.0 );
+	return( 1.0f );
 
 
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	asign = -1;
 	x = -x;
@@ -105,8 +105,8 @@ s = cephes_frexpf( x, &lx );
 e = (lx - 1)*n;
 if( (e == 0) || (e > 64) || (e < -64) )
 	{
-	s = (s - 7.0710678118654752e-1) / (s +  7.0710678118654752e-1);
-	s = (2.9142135623730950 * s - 0.5 + lx) * nn * LOGE2F;
+	s = (s - 7.0710678118654752e-1f) / (s +  7.0710678118654752e-1f);
+	s = (2.9142135623730950f * s - 0.5f + lx) * nn * LOGE2F;
 	}
 else
 	{
@@ -121,15 +121,15 @@ if( s > MAXLOGF )
 	}
 
 if( s < MINLOGF )
-	return(0.0);
+	return(0.0f);
 
 /* Handle tiny denormal answer, but with less accuracy
  * since roundoff error in 1.0/x will be amplified.
  * The precise demarcation should be the gradual underflow threshold.
  */
-if( s < (-MAXLOGF+2.0) )
+if( s < (-MAXLOGF+2.0f) )
 	{
-	x = 1.0/x;
+	x = 1.0f/x;
 	sign = 0;
 	}
 
@@ -139,7 +139,7 @@ if( n & 1 )
 		
 else
 	{
-	y = 1.0;
+	y = 1.0f;
 	asign = 0;
 	}
 
@@ -159,6 +159,6 @@ done:
 if( asign )
 	y = -y; /* odd power of negative number */
 if( sign )
-	y = 1.0/y;
+	y = 1.0f/y;
 return(y);
 }

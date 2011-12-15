@@ -8,25 +8,26 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_CBRT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_CBRT_HPP_INCLUDED
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/third.hpp>
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/negate.hpp>
 #include <nt2/include/functions/remquo.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 
 
@@ -73,10 +74,11 @@ namespace nt2 { namespace ext
       const A0 CBRT2I = double_constant< A0, 0x3fe965fea53d6e3dll> ();
       const A0 CBRT4I = double_constant< A0, 0x3fe428a2f98d728bll> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
-      typedef typename meta::scalar_of<A0>::type stype;
+      typedef typename meta::scalar_of<A0>::type             stype;
+      typedef typename meta::as_logical<int_type>::type  bint_type; 
       int_type e;
       A0  x;
-      boost::fusion::tie(x, e) = frexp(z);
+      frexp(z, x, e);
       x = horner < NT2_HORNER_COEFF_T(stype, 5,
                             (0xbfc13c93386fdff6ll,
                              0x3fe17e1fc7e59d58ll,
@@ -84,13 +86,12 @@ namespace nt2 { namespace ext
                              0x3ff23d6ee505873all,
                              0x3fd9c0c12122a4fell)
                             ) > (x);
-      const int_type flag = is_gez(e);
+      const bint_type flag = is_gez(e);
       int_type e1 =  nt2::abs(e);
       int_type rem = e1;
       e1 = rdiv(e1, Three<int_type>());           //TO DO remquo
       rem = sub(rem, mul(e1, Three<int_type>()));
       e =  negate(e1, e);
-
       const A0 cbrt2 = sel(flag, CBRT2, CBRT2I);
       const A0 cbrt4 = sel(flag, CBRT4, CBRT4I);
       A0 fact = sel(is_equal(rem, One<int_type>()), cbrt2, One<A0>());
@@ -98,7 +99,7 @@ namespace nt2 { namespace ext
       x = fast_ldexp(x*fact, e);
       x = x-(x-z/sqr(x))*Third<A0>();
       x = x-(x-z/sqr(x))*Third<A0>(); //two newton passes
-      return sel(b_or(is_eqz(a0),is_inf(a0)), a0, b_or(x, bitofsign(a0)));
+      return sel(l_or(is_eqz(a0),is_inf(a0)), a0, b_or(x, bitofsign(a0)));
     }
   };
 } }
@@ -114,9 +115,7 @@ namespace nt2 { namespace ext
                             , ((simd_<single_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
       const A0 z =  nt2::abs(a0);
@@ -125,10 +124,11 @@ namespace nt2 { namespace ext
       const A0 CBRT2I = single_constant< A0, 0x3f4b2ff5> ();
       const A0 CBRT4I = single_constant< A0, 0x3f214518> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
-      typedef typename meta::scalar_of<A0>::type stype;
+      typedef typename meta::scalar_of<A0>::type             stype;
+      typedef typename meta::as_logical<int_type>::type  bint_type; 
       int_type e;
       A0  x;
-      boost::fusion::tie(x, e) = frexp(z);
+      frexp(z, x, e);
       x = horner < NT2_HORNER_COEFF_T(stype, 5,
                             (0xbe09e49a,
                              0x3f0bf0fe,
@@ -136,36 +136,25 @@ namespace nt2 { namespace ext
                              0x3f91eb77,
                              0x3ece0609)
                             ) > (x);
-      const int_type flag = is_gez(e);
+      const bint_type flag = is_gez(e);
       int_type e1 =  nt2::abs(e);
       int_type rem = e1;
-       e1 = e1/Three<int_type>();           //TO DO remquo
-       rem = rem-e1*Three<int_type>();
-//       int_type rem;
-
-//       boost::fusion::tie(rem, e1) = remquo(e1,Three<int_type>());
-//       std::cout << " e1 " << e1 << std::endl;
-//       std::cout << " rem " << rem << std::endl;
+      e1 = e1/Three<int_type>();           //TO DO remquo
+      rem = rem-e1*Three<int_type>();
       e =  negate(e1, e);
-//       std::cout << " e " << &e << std::endl;
 
       const A0 cbrt2 = sel(flag, CBRT2, CBRT2I);
       const A0 cbrt4 = sel(flag, CBRT4, CBRT4I);
       A0 fact = sel(is_equal(rem, One<int_type>()), cbrt2, One<A0>());
-//       std::cout << " fact " << fact << std::endl;
       fact = sel(is_equal(rem, Two<int_type>()), cbrt4, fact);
-//       std::cout << " fact " << fact << std::endl;
       x = fast_ldexp(x*fact, e);
-//       std::cout << " 2--x " << x << std::endl;
-
       x = x-(x-z/sqr(x))*Third<A0>();
-      return sel( b_or(is_eqz(a0),is_inf(a0))
+      return sel( l_or(is_eqz(a0),is_inf(a0))
                   , a0
                   , b_or(x, bitofsign(a0))
                   );
     }
   };
 } }
-
 
 #endif

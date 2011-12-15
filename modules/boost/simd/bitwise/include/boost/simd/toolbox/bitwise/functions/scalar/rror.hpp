@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_RROR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_RROR_HPP_INCLUDED
-
 #include <boost/simd/toolbox/bitwise/functions/rror.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 #include <boost/simd/include/functions/ror.hpp>
@@ -33,10 +32,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return ror(a0, a1);
-    }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return ror(a0, a1); }
   };  
 } } }
 

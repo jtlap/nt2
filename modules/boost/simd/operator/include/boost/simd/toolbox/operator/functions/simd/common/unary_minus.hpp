@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNARY_MINUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNARY_MINUS_HPP_INCLUDED
-
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/digits.hpp>
@@ -22,7 +21,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return Zero<A0>() - a0;
@@ -34,7 +32,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return b_xor(boost::simd::Mzero<A0>(),a0);

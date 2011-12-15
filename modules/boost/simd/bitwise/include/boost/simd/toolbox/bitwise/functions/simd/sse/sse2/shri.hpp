@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_SHRI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_SHRI_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/dispatch/meta/is_scalar.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
@@ -25,12 +24,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef native<typename boost::simd::meta::int32_t_<A0>::type, boost::simd::tag::sse_> gen_type;
-      result_type const Mask1 =  native_cast<result_type>(boost::simd::integral_constant<gen_type, 0x00ff00ff>());
-      result_type const Mask2 =  native_cast<result_type>(boost::simd::integral_constant<gen_type, 0xff00ff00>());
+      result_type const Mask1 =  bitwise_cast<result_type>(boost::simd::integral_constant<gen_type, 0x00ff00ff>());
+      result_type const Mask2 =  bitwise_cast<result_type>(boost::simd::integral_constant<gen_type, 0xff00ff00>());
       result_type tmp  = b_and(a0, Mask1);
       result_type tmp1 = {_mm_srli_epi16(tmp, a1)};
       tmp1 = b_and(tmp1, Mask1);
@@ -47,14 +45,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0>::type sint;
-      sint const that = { _mm_srli_epi32(native_cast<sint>(a0), int(a1))};
-      return native_cast<A0>(that);
+      sint const that = { _mm_srli_epi32(bitwise_cast<sint>(a0), int(a1))};
+      return bitwise_cast<A0>(that);
     }
   };
 
@@ -65,14 +60,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0>::type sint;
-      sint const that ={ _mm_srli_epi64(native_cast<sint>(a0), int(a1))};
-      return native_cast<result_type>(that);
+      sint const that ={ _mm_srli_epi64(bitwise_cast<sint>(a0), int(a1))};
+      return bitwise_cast<result_type>(that);
     }
   };
 
@@ -83,7 +75,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 that = {_mm_srli_epi16(a0, int(a1))};

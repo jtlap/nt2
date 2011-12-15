@@ -9,10 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NAN_HPP_INCLUDED
 #include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nan_, tag::cpu_
@@ -20,29 +18,22 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0&) const
     {
-      return boost::simd::False<A0>();
+      return boost::simd::False<result_type>();
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nan_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (a0 != a0);
+      return result_type(a0 != a0);
     }
   };
 } } }

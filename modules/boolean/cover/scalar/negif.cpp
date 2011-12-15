@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/functions/negif.hpp>
+#include <nt2/toolbox/boolean/include/functions/negif.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>

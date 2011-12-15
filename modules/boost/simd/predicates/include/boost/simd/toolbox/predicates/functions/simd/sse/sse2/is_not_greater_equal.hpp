@@ -9,10 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-//#include <boost/simd/toolbox/predicates/functions/simd/common/is_not_greater_equal.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/sdk/simd/logical.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, boost::simd::tag::sse2_,
@@ -21,17 +19,12 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<double_<A0>,boost::simd::tag::sse_>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that =  { _mm_cmpnge_pd(a0,a1)}; return that;
+      result_type that =  { _mm_cmpnge_pd(a0,a1)}; return that;
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_greater_equal_, boost::simd::tag::sse2_,
                          (A0),
@@ -39,10 +32,10 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<single_<A0>,boost::simd::tag::sse_>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that =  { _mm_cmpnge_ps(a0,a1)}; return that;
+      result_type that =  { _mm_cmpnge_ps(a0,a1)}; return that;
     }
   };
 } } }

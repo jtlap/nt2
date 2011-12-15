@@ -50,9 +50,7 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       static const boost::array<A0, 10 > AN = {{
@@ -138,7 +136,7 @@ namespace nt2 { namespace ext
         A0 y = rec(xx) + x * polevl( x, BN) / (plevl( x, BD) * xx);
         return copysign(Half<A0>()*y, a0);
       }
-      if( xx > static_cast<A0>(1.E-9) ) return Half<A0>()*copysign(rec(xx), a0);
+      if( xx > static_cast<A0>(1.0e9) ) return Half<A0>()*copysign(rec(xx), a0);
       /* 6.25 to 1.0e9 */
       A0 y = rec(xx) + x * polevl( x, CN) / (plevl( x, CD) * xx);
       return copysign(Half<A0>()*y, a0);

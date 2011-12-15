@@ -100,12 +100,12 @@ double xx;
 float x;
 
 x = xx;
-if( (x <= 0.0) || (x > 1.0) )
+if( (x <= 0.0f) || (x > 1.0f) )
 	{
-	if( x == 0.0 )
-		return( 1.0 );
+	if( x == 0.0f )
+		return( 1.0f );
 	cephes_mtherr( "ellpef", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 return( cephes_polevlf(x,P,10) - cephes_logf(x) * (x * cephes_polevlf(x,Q,9)) );
 }

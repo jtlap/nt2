@@ -28,19 +28,14 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type stype;
-      static const int size = boost::simd::meta::cardinal_of<A0>::value;
+      static const size_t size = boost::simd::meta::cardinal_of<A0>::value;
       BOOST_SIMD_ALIGNED_TYPE(stype) tmp[size];
       boost::simd::store(a0, &tmp[0], 0);
-      
-      for(int i=1; i!=size; ++i)
-        tmp[i] += tmp[i-1];
-      
+      for(size_t i=1; i!=size; ++i) tmp[i] += tmp[i-1];
       return boost::simd::load<A0>(&tmp[0], 0);
     }
   };

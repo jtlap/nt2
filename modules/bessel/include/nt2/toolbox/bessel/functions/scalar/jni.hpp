@@ -15,10 +15,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/select.hpp>
 #include <nt2/include/functions/splat.hpp>
-
 #include <nt2/toolbox/bessel/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -85,7 +82,7 @@ namespace nt2 { namespace ext
     {
       result_type x = a1;
       const int32_t n1 = nt2::abs(a0);
-      result_type sign = a0<0?cospi(n1):1;
+      result_type sign = a0<Zero<A0>()?cospi(n1):One<A0>();
       if( n1 == 0 )
         return( sign * nt2::j0(x) );
       if( n1 == 1 )
@@ -95,7 +92,7 @@ namespace nt2 { namespace ext
 
       /* continued fraction */
       int k = 24;
-      result_type pk = 2*(n1 + k);
+      result_type pk = Two<result_type>()*(result_type(n1) + result_type(k));
       result_type ans = pk;
       result_type xk = sqr(x);
       do {
@@ -124,5 +121,6 @@ namespace nt2 { namespace ext
     }
   };
 } }
+
 
 #endif

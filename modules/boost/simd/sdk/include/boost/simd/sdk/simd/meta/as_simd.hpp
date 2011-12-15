@@ -9,12 +9,20 @@
 #ifndef BOOST_SIMD_SDK_SIMD_META_AS_SIMD_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_META_AS_SIMD_HPP_INCLUDED
 
-namespace boost { namespace simd { namespace meta
+#include <boost/dispatch/meta/na.hpp>
+
+namespace boost { namespace simd { namespace ext
 {
   template<class T,class Extension>
   struct as_simd
   {
+    typedef dispatch::meta::na_ type;
   };
+} } }
+
+namespace boost { namespace simd { namespace meta
+{
+  template<class T,class Extension> struct as_simd;
 } } }
 
 #endif

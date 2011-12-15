@@ -36,24 +36,24 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is floating_
 /////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lcm_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A1> >)
-                            )
-  {
+// namespace nt2 { namespace ext
+// {
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lcm_, tag::cpu_
+//                             , (A0)(A1)
+//                             , (scalar_< floating_<A0> >)(scalar_< floating_<A1> >)
+//                             )
+//   {
 
-    typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
+//     typedef typename meta::result_of<meta::arithmetic(A0,A1)>::type result_type;
 
-    NT2_FUNCTOR_CALL(2)
-    {
-      typedef result_type type; 
-      if (is_invalid(a0+a1)) return Nan<type>(); 
-      return nt2::abs(trunc(a0)*(a1/gcd(a0,a1)));
-    }
-  };
-} }
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       typedef result_type type; 
+//       if (is_invalid(a0+a1)) return Nan<type>(); 
+//       return nt2::abs(trunc(a0)*(a1/gcd(a0,a1)));
+//     }
+//   };
+// } }
 
 
 #endif

@@ -9,16 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_FAST_TOINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_FAST_TOINT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/arithmetic/functions/fast_toint.hpp>
 #include <boost/simd/include/functions/make.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_toint_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
@@ -34,9 +30,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_toint_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::sse_>))

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_JNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_JNI_HPP_INCLUDED
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
@@ -23,7 +24,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 
 
 

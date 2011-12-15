@@ -15,6 +15,9 @@
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_positive.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -23,13 +26,13 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::signnz_, tag::cpu_,
                          (A0)(X),
-                         ((simd_<arithmetic_<A0>,X>))
+                         ((simd_<integer_<A0>,X>))
                         )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return is_ltz(a0)-is_gez(a0); // here True is -1 False 0 !
+      return genmask(is_ltz(a0))-genmask(is_gez(a0)); // here True is -1 False 0 !
     }
   };
 
@@ -63,7 +66,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return seladd(is_nan(a0), seladd(is_positive(a0), Mone<A0>(),Two<A0>()), a0);
+      //      return seladd(is_nan(a0), seladd(is_positive(a0), Mone<A0>(),Two<A0>()), a0);
+      return select(is_nan(a0), a0, select(is_negative(a0), Mone<A0>(), One<A0>())); 
     }
   };
 } } }

@@ -31,6 +31,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 
 NT2_TEST_CASE_TPL ( compare_less_equal_real__2_0,  NT2_REAL_TYPES)
@@ -42,7 +43,7 @@ NT2_TEST_CASE_TPL ( compare_less_equal_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<compare_less_equal_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T>  wished_r_t;
 
 
   // return type conformity test 
@@ -69,7 +70,7 @@ NT2_TEST_CASE_TPL ( compare_less_equal_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYP
   typedef typename nt2::meta::call<compare_less_equal_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T>  wished_r_t;
 
 
   // return type conformity test 
@@ -95,7 +96,7 @@ NT2_TEST_CASE_TPL ( compare_less_equal_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<compare_less_equal_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T>  wished_r_t;
 
 
   // return type conformity test 

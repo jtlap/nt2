@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ADDS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>

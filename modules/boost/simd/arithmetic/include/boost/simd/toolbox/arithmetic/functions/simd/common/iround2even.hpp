@@ -9,15 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND2EVEN_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
 #include <boost/simd/include/functions/toint.hpp>
+#include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp> 
+#include <iostream>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround2even_, tag::cpu_
@@ -25,31 +23,24 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
-    typedef typename dispatch::meta::as_integer<A0>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    { return a0; }
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::iround2even_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return toint(round2even(a0));
+    BOOST_SIMD_FUNCTOR_CALL(1) {
+      typedef typename meta::scalar_of<result_type>::type sr_type; 
+      A0 tmp = round2even(a0);
+      const A0 vx = splat<A0>(Valmax<sr_type>());
+      const A0 vn = splat<A0>(Valmin<sr_type>());
+      return if_else(gt(tmp, vx), Valmax<result_type>(),
+                   if_else(lt(tmp, vn), Valmin<result_type>(),
+                          toint(tmp)));
     }
   };
 } } }

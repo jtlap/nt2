@@ -14,9 +14,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -30,11 +28,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::max_, boost::simd::tag::avx_,
                       (A0),
                       ((simd_<single_<A0>,boost::simd::tag::avx_>))
@@ -47,7 +40,6 @@ namespace boost { namespace simd { namespace ext
       A0 that =  {_mm256_max_ps(a0,a1)}; return that;
     }
   };
-
 } } }
 #endif
 #endif

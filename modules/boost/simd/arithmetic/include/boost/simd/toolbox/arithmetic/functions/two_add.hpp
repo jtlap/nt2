@@ -59,6 +59,8 @@ namespace boost { namespace simd { namespace tag
     struct two_add_ {};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::two_add_, two_add, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_add_, two_add,(A0 const&)(A0 const&)(A0&), 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_add_, two_add,(A0 const&)(A0 const&)(A0&)(A0&), 1)
 } }
 
 #endif

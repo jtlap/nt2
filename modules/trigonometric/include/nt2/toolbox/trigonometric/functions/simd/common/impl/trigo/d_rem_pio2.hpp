@@ -26,7 +26,7 @@ namespace nt2
         typedef rpio2 < sA0, tag::simd_type>                  srpio2; 
         static inline void rem_pio2(const A0& x, int_type &n, A0&xr, A0&xc)
         {
-          for(int i = 0; i < N; i++){
+          for(uint_32_t i = 0; i < N; i++){
             sA0 y[2];
             int32_t n1 = srpio2::__ieee754_rem_pio2(x[i], y);
             at<i>(n) =  n1; 

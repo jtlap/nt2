@@ -23,12 +23,8 @@
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
-    volatile T tt(t);                                                       \
-    volatile U uu(u);                                                       \
-    boost::dispatch::ignore_unused(tt);                                     \
-    boost::dispatch::ignore_unused(uu);                                     \
     typedef typename boost::common_type<T, U>::type R;                      \
-    if( (R)tt OP (R)uu )                                                    \
+    if( R(t) OP R(u) )                                                      \
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
@@ -57,12 +53,8 @@
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
-    volatile T tt(t);                                                       \
-    volatile U uu(u);                                                       \
-    boost::dispatch::ignore_unused(tt);                                     \
-    boost::dispatch::ignore_unused(uu);                                     \
     typedef typename boost::common_type<T, U>::type R;                      \
-    if( (R(t) OP R(u)) || ((t != t) && (u != u)))                           \
+    if( (R(t) OP R(u)) || ((R(t) != R(t)) && (R(u) != R(u))) )              \
       {                                                                     \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \

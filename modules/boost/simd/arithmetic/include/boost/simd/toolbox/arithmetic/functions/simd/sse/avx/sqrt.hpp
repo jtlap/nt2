@@ -9,14 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_SQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_SQRT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/simd/toolbox/arithmetic/functions/sqrt.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, boost::simd::tag::avx_,
                        (A0),
                        ((simd_<double_<A0>,boost::simd::tag::avx_>))
@@ -29,9 +25,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is float
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sqrt_, boost::simd::tag::avx_,
                        (A0),
                        ((simd_<single_<A0>,boost::simd::tag::avx_>))

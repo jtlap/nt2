@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_META_VECTOR_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_META_VECTOR_OF_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/mpl/sizeof.hpp>

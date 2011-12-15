@@ -8,16 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_PREDECESSOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_PREDECESSOR_HPP_INCLUDED
-#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/functions/bitfloating.hpp>
 #include <boost/simd/include/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/minusone.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
@@ -32,11 +30,7 @@ namespace boost { namespace simd { namespace ext
       return a0-boost::simd::abs(a1);
     }
   };
-} } }
 
-
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
@@ -45,10 +39,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (a0 != Valmin<A0>())
-	return minusone(a0);
-      else
-	return Valmin<A0>(); 
+       return minusone(a0);
     }
   };
 } } }
@@ -61,7 +52,7 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::predecessor_, tag::cpu_
-				     , (A0)(A1)
+                            , (A0)(A1)
                             , (scalar_< floating_<A0> >)(scalar_< integer_<A1> >)
                             )
   {

@@ -9,6 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_DIVIDES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_DIVIDES_HPP_INCLUDED
 
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4723) // potential divide by 0
+#endif
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divides_, tag::cpu_, (A0)
@@ -20,5 +25,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return a0/a1; }
   };
 } } }
+
+#ifdef BOOST_MSVC
+  #pragma warning(pop)
+#endif
 
 #endif

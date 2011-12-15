@@ -18,9 +18,12 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/bitwise_all.hpp>
+#include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/false.hpp>
 
 namespace nt2
 {
@@ -34,32 +37,33 @@ namespace nt2
       template < class A0, class mode>
       struct trig_reduction < A0, radian_tag, tag::simd_type, mode, double>
       {
+      typedef typename meta::as_logical<A0>::type bA0; 
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type   sint_type;
 
-        static inline A0 isalreadyreduced(const A0&a0){ return le(a0, Pio_4<A0>()); }
-        static inline A0 ismedium (const A0&a0){return le(a0,double_constant<A0,0x412921fb54442d18ll>()); }
-        static inline A0 issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
-        static inline A0 islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
-        static inline A0 cot_invalid(const A0& ) { return False<A0>(); }
-        static inline A0 tan_invalid(const A0& ) { return False<A0>(); }
+        static inline bA0 isalreadyreduced(const A0&a0){ return le(a0, Pio_4<A0>()); }
+        static inline bA0 ismedium (const A0&a0){return le(a0,double_constant<A0,0x412921fb54442d18ll>()); }
+        static inline bA0 issmall  (const A0&a0){return le(a0,double_constant<A0,0x404f6a7a2955385ell>()); }
+        static inline bA0 islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
+        static inline bA0 cot_invalid(const A0& ) { return False<bA0>(); }
+        static inline bA0 tan_invalid(const A0& ) { return False<bA0>(); }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const big&)
         {
           const A0 x = { x_n };
           // x is always positive here
-          if (bitwise_all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
               xr = x;
               xc = Zero<A0>();
               return Zero<int_type>(); 
             }
-          else if (bitwise_all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             return rem_pio2_straight(x, xr, xc);
-          else if (bitwise_all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
+          else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             return rem_pio2_cephes(x, xr, xc);
-          else if (bitwise_all(ismedium(x))) // all of x are is in [0, 2^18*pi],  fdlibm medium way
+          else if (all(ismedium(x))) // all of x are is in [0, 2^18*pi],  fdlibm medium way
             return rem_pio2_medium(x, xr, xc);
           else  // all of x are in [0, inf],  standard big way
             return rem_pio2(x, xr, xc);
@@ -69,15 +73,15 @@ namespace nt2
         {
           const A0 x = { x_n };
           // x is always positive here
-          if (bitwise_all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
               xr = x;
               xc = Zero<A0>();
               return Zero<int_type>(); 
             }
-          else if (bitwise_all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             return rem_pio2_straight(x, xr, xc);
-          else if (bitwise_all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
+          else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             return rem_pio2_cephes(x, xr, xc);
           else  // correct only if all of x are is in [0, 2^18*pi],  fdlibm medium way
             return rem_pio2_medium(x, xr, xc);
@@ -87,22 +91,18 @@ namespace nt2
         {
           const A0 x = { x_n };
           // x is always positive here
-          if (bitwise_all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
-              //                      std::cout << "1111111111111" << std::endl; 
               xr = x;
               xc = Zero<A0>();
               return Zero<int_type>(); 
             }
-          else if (bitwise_all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (all(islessthanpi_2(x))) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             {
-              //                      std::cout << "2222222222222" << std::endl; 
               return rem_pio2_straight(x, xr, xc);
             }
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             {
-              //                      std::cout << "333333333333" << std::endl;
-              //              A0 x1 = b_or(x, is_invalid(x));
               return rem_pio2_cephes(x, xr, xc);
             }
         }
@@ -145,11 +145,12 @@ namespace nt2
       template < class A0>
       struct trig_reduction < A0, degree_tag,  tag::simd_type, big, double >
       {
-        typedef typename meta::as_integer<A0, signed>::type  int_type;
+       typedef typename meta::as_logical<A0>::type bA0; 
+      typedef typename meta::as_integer<A0, signed>::type  int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
 
-        static inline A0 cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_even(x/_90<A0>())); }
-        static inline A0 tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_odd(x/_90<A0>()); }
+        static inline bA0 cot_invalid(const A0& x) { return (logical_and(is_nez(x), is_even(x/_90<A0>()))); }
+        static inline bA0 tan_invalid(const A0& x) { return is_odd(x/_90<A0>()); }
         static inline int_type reduce(const typename A0::native_type x_n, A0& xr, A0& xc)
         {
           const A0 x = { x_n };
@@ -164,11 +165,12 @@ namespace nt2
       template < class A0>
       struct trig_reduction < A0, pi_tag,  tag::simd_type, big, double>
       {
+        typedef typename meta::as_logical<A0>::type bA0; 
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
 
-        static inline A0 cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x)); }
-        static inline A0 tan_invalid(const A0& x) { return is_flint(x-Half<A0>()); }
+        static inline bA0 cot_invalid(const A0& x) { return logical_and(is_nez(x), is_flint(x)); }
+        static inline bA0 tan_invalid(const A0& x) { return is_flint(x-Half<A0>()); }
         static inline int_type reduce(const typename A0::native_type x_n,  A0& xr, A0&xc)
         {
           const A0 x = { x_n };

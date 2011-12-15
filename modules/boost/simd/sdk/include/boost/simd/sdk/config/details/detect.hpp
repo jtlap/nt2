@@ -32,6 +32,10 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
   bool detect(tag::sse4_2_ const& );
   bool detect(tag::avx_ const&    );
 #endif
+  
+#ifdef BOOST_SIMD_ARCH_LRB
+  bool detect(tag::lrb_ const&);
+#endif
 
 #ifdef BOOST_SIMD_ARCH_POWERPC
   bool detect(tag::altivec_ const&);

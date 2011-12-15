@@ -79,19 +79,19 @@ int d, mod, sign;
 
 phi = phia;
 m = ma;
-if( m == 0.0 )
+if( m == 0.0f )
 	return( phi );
-if( phi < 0.0 )
+if( phi < 0.0f )
 	{
 	phi = -phi;
 	sign = -1;
 	}
 else
 	sign = 0;
-a = 1.0;
-b = 1.0 - m;
-if( b == 0.0 )
-	return(  cephes_logf(  cephes_tanf( 0.5*(PIO2F + phi) )  )   );
+a = 1.0f;
+b = 1.0f - m;
+if( b == 0.0f )
+	return(  cephes_logf(  cephes_tanf( 0.5f*(PIO2F + phi) )  )   );
 b = cephes_sqrtf(b);
 c = cephes_sqrtf(m);
 d = 1;
@@ -103,10 +103,10 @@ while( fabsf(c/a) > MACHEPF )
 	temp = b/a;
 	phi = phi + cephes_atanf(t*temp) + mod * PIF;
 	mod = (phi + PIO2F)/PIF;
-	t = t * ( 1.0 + temp )/( 1.0 - temp * t * t );
-	c = ( a - b )/2.0;
+	t = t * ( 1.0f + temp )/( 1.0f - temp * t * t );
+	c = ( a - b )/2.0f;
 	temp = cephes_sqrtf( a * b );
-	a = ( a + b )/2.0;
+	a = ( a + b )/2.0f;
 	b = temp;
 	d += d;
 	}

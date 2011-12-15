@@ -8,11 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ORD_HPP_INCLUDED
-
 #include <boost/simd/include/constants/true.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/boolean.hpp>
-#include <boost/dispatch/details/ignore_unused.hpp>
+#include <boost/simd/include/functions/is_not_nan.hpp>
+#include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,10 +20,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(A0 const&, A0 const&)const 
     {
-      return boost::simd::True<A0>();
+      return boost::simd::True<result_type>();
     }
   };
 
@@ -33,11 +32,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      using  boost::simd::is_nan;
-      return !(is_nan(a0) || is_nan(a1));
+      return l_and(is_not_nan(a0), is_not_nan(a1));
     }
   };
 } } }

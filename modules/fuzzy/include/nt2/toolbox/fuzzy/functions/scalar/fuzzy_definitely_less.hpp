@@ -23,10 +23,10 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return a0+a2*nt2::max(nt2::abs(a0),nt2::abs(a1))< a1;
+      return result_type(a0+a2*nt2::max(nt2::abs(a0),nt2::abs(a1))< a1);
     }
   };
 } }

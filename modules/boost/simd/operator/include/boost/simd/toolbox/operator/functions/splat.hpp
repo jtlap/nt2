@@ -12,7 +12,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SPLAT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-
 #include <boost/dispatch/meta/as.hpp>
 
 /*!

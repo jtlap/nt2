@@ -8,12 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RSHR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RSHR_HPP_INCLUDED
-
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,10 +26,9 @@ namespace boost { namespace simd { namespace ext
                        )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return select(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
+      return if_else(is_gtz(a1),shr(a0, a1),shl(a0, -a1));
     }
   };
 

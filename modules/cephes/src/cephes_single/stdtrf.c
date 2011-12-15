@@ -82,17 +82,17 @@ t = tt;
 if( k <= 0 )
 	{
 	cephes_mtherr( "stdtrf", DOMAIN );
-	return(0.0);
+	return(0.0f);
 	}
 
 if( t == 0 )
-	return( 0.5 );
+	return( 0.5f );
 
-if( t < -1.0 )
+if( t < -1.0f )
 	{
 	rk = k;
 	z = rk / (rk + t * t);
-	p = 0.5 * cephes_incbetf( 0.5*rk, 0.5, z );
+	p = 0.5f * cephes_incbetf( 0.5f*rk, 0.5f, z );
 	return( p );
 	}
 
@@ -104,7 +104,7 @@ else
 	x = t;
 
 rk = k;	/* degrees of freedom */
-z = 1.0 + ( x * x )/rk;
+z = 1.0f + ( x * x )/rk;
 
 /* test if k is odd or even */
 if( (k & 1) != 0)
@@ -116,8 +116,8 @@ if( (k & 1) != 0)
 	p = cephes_atanf( xsqk );
 	if( k > 1 )
 		{
-		f = 1.0;
-		tz = 1.0;
+		f = 1.0f;
+		tz = 1.0f;
 		j = 3;
 		while(  (j<=(k-2)) && ( (tz/f) > MACHEPF )  )
 			{
@@ -127,7 +127,7 @@ if( (k & 1) != 0)
 			}
 		p += f * xsqk/z;
 		}
-	p *= 2.0/PIF;
+	p *= 2.0f/PIF;
 	}
 
 
@@ -136,8 +136,8 @@ else
 
 	/*	computation for even k	*/
 
-	f = 1.0;
-	tz = 1.0;
+	f = 1.0f;
+	tz = 1.0f;
 	j = 2;
 
 	while(  ( j <= (k-2) ) && ( (tz/f) > MACHEPF )  )
@@ -155,6 +155,6 @@ else
 if( t < 0 )
 	p = -p;	/* note destruction of relative accuracy */
 
-	p = 0.5 + 0.5 * p;
+	p = 0.5f + 0.5f * p;
 return(p);
 }

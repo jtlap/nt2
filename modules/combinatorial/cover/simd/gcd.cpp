@@ -41,26 +41,26 @@
 #include <nt2/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_SIMD_REAL_TYPES)
-{
-  using nt2::gcd;
-  using nt2::tag::gcd_;
-  using nt2::load; 
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<gcd_(vT,vT)>::type r_t;
-  typedef typename nt2::meta::call<gcd_(T,T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+// NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_SIMD_REAL_TYPES)
+// {
+//   using nt2::gcd;
+//   using nt2::tag::gcd_;
+//   using nt2::load; 
+//   using boost::simd::native;
+//   using nt2::meta::cardinal_of;
+//   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+//   typedef typename nt2::meta::upgrade<T>::type   u_t;
+//   typedef native<T,ext_t>                        n_t;
+//   typedef n_t                                     vT;
+//   typedef typename nt2::meta::as_integer<T>::type iT;
+//   typedef native<iT,ext_t>                       ivT;
+//   typedef typename nt2::meta::call<gcd_(vT,vT)>::type r_t;
+//   typedef typename nt2::meta::call<gcd_(T,T)>::type sr_t;
+//   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+//   double ulpd;
+//   ulpd=0.0;
 
-} // end of test for floating_
+// } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( gcd_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {

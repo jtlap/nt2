@@ -14,52 +14,6 @@
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::arg_, tag::cpu_
-                            , (A0)
-                            , (scalar_< signed_<A0> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return (is_ltz(a0))*Pi<result_type>();
-    }
-  };
-} } }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::arg_, tag::cpu_
-                            , (A0)
-                            , (scalar_< unsigned_<A0> >)
-                            )
-  {
-
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
-
-    inline result_type operator()(const A0&)const
-    {
-      return Zero<result_type>();
-    }
-  };
-} } }
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::arg_, tag::cpu_
@@ -67,9 +21,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (is_nan(a0)) return a0;

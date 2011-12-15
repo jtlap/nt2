@@ -8,14 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_GEZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_GEZ_HPP_INCLUDED
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_greater_equal.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/true.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_gez_, tag::cpu_
@@ -24,27 +22,20 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
         return ge(a0, Zero<A0>());
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_gez_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0&)const
     {
       return boost::simd::True<A0>();

@@ -8,11 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_NEGS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_NEGS_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/negs.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (a0 == boost::simd::Valmin<A0>()) ? boost::simd::Valmax<A0>() : -a0; 
+      return (a0 == boost::simd::Valmin<result_type>()) ? boost::simd::Valmax<result_type>() : -a0; 
     }
   };
 

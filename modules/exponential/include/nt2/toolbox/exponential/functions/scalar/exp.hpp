@@ -9,11 +9,9 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_EXP_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_EXP_HPP_INCLUDED
 
+#include <nt2/toolbox/exponential/functions/exp.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo.hpp>
-//  MIGRATION WARNING you have to provide the file for the previous include from
-//  nt2/core/numeric/functions/details/scalar/impl/expo.hpp
-//  of the old nt2
-
+#include <nt2/sdk/meta/floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

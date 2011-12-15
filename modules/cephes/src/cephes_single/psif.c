@@ -67,7 +67,7 @@ static float A[] = {
 };
 
 
-#define EUL 0.57721566490153286061
+#define EUL 0.57721566490153286061f
 
 extern float PIF, MAXNUMF;
 
@@ -92,7 +92,7 @@ int i, n, negative;
 x = xx;
 nz = 0.0;
 negative = 0;
-if( x <= 0.0 )
+if( x <= 0.0f )
 	{
 	negative = 1;
 	q = x;
@@ -103,53 +103,53 @@ if( x <= 0.0 )
 		return( MAXNUMF );
 		}
 	nz = q - p;
-	if( nz != 0.5 )
+	if( nz != 0.5f )
 		{
-		if( nz > 0.5 )
+		if( nz > 0.5f )
 			{
-			p += 1.0;
+			p += 1.0f;
 			nz = q - p;
 			}
 		nz = PIF/cephes_tanf(PIF*nz);
 		}
 	else
 		{
-		nz = 0.0;
+		nz = 0.0f;
 		}
-	x = 1.0 - x;
+	x = 1.0f - x;
 	}
 
 /* check for positive integer up to 10 */
-if( (x <= 10.0) && (x == cephes_floorf(x)) )
+if( (x <= 10.0f) && (x == cephes_floorf(x)) )
 	{
-	y = 0.0;
+	y = 0.0f;
 	n = x;
 	for( i=1; i<n; i++ )
 		{
 		w = i;
-		y += 1.0/w;
+		y += 1.0f/w;
 		}
 	y -= EUL;
 	goto done;
 	}
 
 s = x;
-w = 0.0;
-while( s < 10.0 )
+w = 0.0f;
+while( s < 10.0f )
 	{
-	w += 1.0/s;
-	s += 1.0;
+	w += 1.0f/s;
+	s += 1.0f;
 	}
 
-if( s < 1.0e8 )
+if( s < 1.0e8f )
 	{
-	z = 1.0/(s * s);
+	z = 1.0f/(s * s);
 	y = z * cephes_polevlf( z, A, 3 );
 	}
 else
-	y = 0.0;
+	y = 0.0f;
 
-y = cephes_logf(s)  -  (0.5/s)  -  y  -  w;
+y = cephes_logf(s)  -  (0.5f/s)  -  y  -  w;
 
 done:
 if( negative )

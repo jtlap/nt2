@@ -27,9 +27,13 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/include/functions/bitwise_ornot.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/seladd.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/bitwise_any.hpp>
+#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/if_else_allbits.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -41,9 +45,7 @@ namespace nt2 { namespace ext
                             , (scalar_< integer_<A0> >)((simd_<integer_<A1>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A1>::type result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return expni(a0, tofloat(a1));
@@ -62,8 +64,9 @@ namespace nt2 { namespace ext
     typedef A1 result_type; 
     NT2_FUNCTOR_CALL(2)
     {
-      A1 isltza1 = is_ltz(a1); 
-      A1 x =  b_or(a1, isltza1);
+      typedef typename meta::as_logical<A1>::type bA1; 
+      bA1 isltza1 = is_ltz(a1); 
+      A1 x =  if_nan_else(isltza1, a1);
       const int32_t sn =  a0;
       if( sn == 0 )  return nt2::exp(-x)/x;
       if (sn < 0 )   return Nan<A1>();
@@ -79,30 +82,32 @@ namespace nt2 { namespace ext
         return oneplus(ans)*exp(-x)/xk;
       }
       A1 r =  Nan<A1>();
-      A1 test1 = le(a1, One<A1>());
+      bA1 test1 = le(a1, One<A1>());
       uint32_t nb = 0;
       if ((nb = nbtrue(test1)) > 0)
       {
         A1 xx = sel(test1, x, One<A1>());
         A1 y1 = case_1(xx, sn, n);
-        r = b_ornot(y1, test1);
-        if (nb >= meta::cardinal_of<A1>::value) return b_or(r, isltza1);
+        r = if_else_nan(test1, y1);
+        if (nb >= meta::cardinal_of<A1>::value)
+        return if_nan_else(isltza1, r); 
       }
       A1 xx = sel(test1, Two<A1>(), x);
       A1 y2 =  case_2(xx, sn, n);
-      r &= b_or(y2, test1);
+      r &= if_nan_else(test1, y2);
       r =  seladd(lt(x, Maxlog<A1>()), Zero<A1>(), r);
-      return b_or(r,  b_or(is_nan(a1), isltza1)); // we are done
+      return if_nan_else(logical_or(is_nan(a1), isltza1), r); // we are done
     }
     
   private :
     template < class AA1 >
     static inline AA1 case_1(AA1 & x,  int32_t sn, const AA1 & n)
     {
+      typedef typename meta::as_logical<AA1>::type bAA1; 
       typedef typename meta::scalar_of<AA1>::type sA1; 
-      /*		Power series expansion		*/
-      AA1 eqzx = is_eqz(x);
-      x = seladd(is_eqz(x), x, One<A1>()); //loop is infinite for x == 0
+      /*            Power series expansion            */
+      bAA1 eqzx = is_eqz(x);
+      x = seladd(eqzx, x, One<A1>()); //loop is infinite for x == 0
       sA1 psi1 = Zero<sA1>(); 
       for( int32_t i=sn-1; i; --i )  psi1 += rec((sA1)i);
       AA1 psi = -Euler<A1>()-nt2::log(x)+splat<A1>(psi1); 
@@ -120,7 +125,7 @@ namespace nt2 { namespace ext
         ans = seladd(is_nez(pk), ans, yk/pk); 
         t = select(is_nez(ans), nt2::abs(yk/ans), One<AA1>());
       }
-      while( nt2::bitwise_any(gt(t, Halfeps<A1>())));
+      while( nt2::any(gt(t, Halfeps<A1>())));
       return seladd(eqzx,(nt2::powi(z, sn-1) * psi / nt2::gamma(n)) - ans, Inf<A1>());
       //TO DO pow->powi and gamma splatted from scalar or mere factorial call
     }
@@ -128,6 +133,7 @@ namespace nt2 { namespace ext
     template < class AA1 >
     static inline AA1 case_2(const AA1 & x,  int32_t /*sn*/, const AA1 & n)
     {
+      typedef typename meta::as_logical<AA1>::type bAA1; 
       typedef typename meta::scalar_of<AA1>::type sAA1;
       int32_t sk = 1;
       AA1 t; 
@@ -138,7 +144,7 @@ namespace nt2 { namespace ext
       AA1 ans = pkm1/qkm1;
       do
       {
-        AA1 test =  is_nez(splat<AA1>(is_odd(++sk)));
+        bAA1 test =  is_nez(splat<AA1>(is_odd(++sk)));
         AA1 k_2 =  splat<AA1>(sk >> 1); 
         AA1 yk = sel(test, One<AA1>(), x);
         AA1 xk = seladd(test, k_2, n); 
@@ -159,7 +165,7 @@ namespace nt2 { namespace ext
         qkm2 *= fac;
         qkm1 *= fac;
       }
-      while( nt2::bitwise_any(gt(t, Halfeps<AA1>())) );
+      while( nt2::any(gt(t, Eps<AA1>()))); 
       return ans*nt2::exp(-x);
     }
   };

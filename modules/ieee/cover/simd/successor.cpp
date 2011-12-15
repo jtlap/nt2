@@ -66,14 +66,13 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_SIMD_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = successor(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::successor (tab_a0[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::successor (a0[i])));
         }
       }
     
@@ -104,18 +103,17 @@ NT2_TEST_CASE_TPL ( successor_real__2_1,  NT2_SIMD_REAL_TYPES)
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     typedef typename nt2::meta::as_integer<T>::type iT;
-    NT2_CREATE_BUF(tab_a0,T, NR, T(-10), T(10));
-    NT2_CREATE_BUF(tab_a1,iT, NR, iT(2), iT(2));
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-100), T(100));
+    NT2_CREATE_BUF(tab_a1,iT, NR, iT(-20), iT(20));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         ivT a1 = load<ivT>(&tab_a1[0],j);
         r_t v = successor(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::successor (tab_a0[k],tab_a1[k])));
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::successor (a0[i],a1[i])));
         }
       }
     

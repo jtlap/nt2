@@ -8,9 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_SIMD_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_SIMD_LOGICAL_HPP_INCLUDED
+
+#include <boost/simd/toolbox/reduction/functions/is_simd_logical.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/bitwise_all.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/all.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -18,12 +26,27 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) {
-      typedef typename boost::dispatch::meta::as_integer<A0>::type iA0; 
-      return bitwise_all(eq(bitwise_cast<iA0>(a0), genmask(bitwise_cast<iA0>(a0))));
+    typedef typename meta::scalar_of<A0>::type sA0;
+    typedef typename meta::as_logical<sA0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typedef typename boost::dispatch::meta::as_integer<A0, signed>::type iA0;
+      iA0 tmp = bitwise_cast<iA0>(a0);
+      return result_type(all(l_or(is_equal(tmp, Mone<iA0>()), is_eqz(tmp))));
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_simd_logical_, tag::cpu_,(A0)(X)
+                            , ((simd_<logical_<A0>,X>))
+                            )
+  {
+    typedef typename meta::scalar_of<A0>::type sA0;
+    typedef typename meta::as_logical<sA0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return True<sA0>(); 
+    }
+  };  
 } } }
 
 #endif

@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_ORNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_ORNOT_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/bitwise_ornot.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -23,7 +25,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type bts;
@@ -40,11 +41,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return a0 || !a1; 
-    }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return a0 || !a1; }
   };
 } } }
 

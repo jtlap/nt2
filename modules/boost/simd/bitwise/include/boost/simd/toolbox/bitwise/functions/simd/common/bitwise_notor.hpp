@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTOR_HPP_INCLUDED
-
 #include <boost/simd/toolbox/bitwise/functions/bitwise_notor.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/complement.hpp>
@@ -22,8 +21,8 @@ namespace boost { namespace simd { namespace ext
                                                         , boost::simd::meta::cardinal_of<A1>
                                                         >
                                   )
-                                , ((simd_<arithmetic_<A0>,X>))
-                                  ((simd_<arithmetic_<A1>,X>))
+                                , ((simd_<fundamental_<A0>,X>))
+                                  ((simd_<fundamental_<A1>,X>))
                      )
   {
     typedef A0 result_type;

@@ -22,9 +22,9 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tangent_<mode> , tag::cpu_
-			      , (A0)(mode)(X)
-			      , ((simd_<arithmetic_<A0>,X>))
-			      )
+                     , (A0)(mode)(X)
+                     , ((simd_<arithmetic_<A0>,X>))
+                     )
   {
 
     typedef typename meta::as_floating<A0>::type result_type;

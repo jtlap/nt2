@@ -8,13 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_POSITIVE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_POSITIVE_HPP_INCLUDED
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_positive.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_positive_, tag::cpu_,
@@ -22,28 +22,22 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,X>))
                              )
   {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_gez(a0);
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_positive_, tag::cpu_,
                               (A0)(X),
                               ((simd_<floating_<A0>,X>))
                              )
   {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::as_integer<A0, signed>::type type;
-      return simd::native_cast<A0>(is_gez(simd::native_cast<type>(a0)));
+      return is_equal(b_or(bitofsign(a0), One<A0>()), One<A0>());
     }
   };
 } } }

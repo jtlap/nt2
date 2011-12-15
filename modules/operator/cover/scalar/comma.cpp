@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( comma_integer__2_0,  NT2_INTEGRAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::comma(a0,a1),(a0,a1));
+        NT2_TEST_EQUAL( nt2::comma(a0,a1),(a1));
      }
      
    }

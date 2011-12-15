@@ -16,7 +16,7 @@
 #include <nt2/toolbox/reduction/include/functions/none.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( none_real__1_0,  NT2_SIMD_REAL_TYPES)
   {
     NT2_CREATE_BUF(tab_a0,T, NR, nt2::Valmin<T>(), nt2::Valmax<T>());
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = nt2::none(a0);
@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL ( none_real__1_0,  NT2_SIMD_REAL_TYPES)
         {
           z = z&&!a0[i];
         }
-        NT2_TEST_EQUAL( v,z);
+        NT2_TEST_EQUAL( v,ssr_t(z));
       }
     
   }
