@@ -20,6 +20,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some padding_ as an option and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
+nt2::settings no_padd(nt2::padding_(nt2::lead_),nt2::padding_(nt2::none_));
+
 NT2_TEST_CASE( no_padding )
 {
    using nt2::none_;
@@ -43,9 +45,6 @@ NT2_TEST_CASE( no_padding )
                      ,(padding_strategy_<none_, int_<-1> >)
                      );
 
-  //Pass some padding_ as settings
-  nt2::settings no_padd(padding_(lead_),padding_(none_));
-
   NT2_TEST_EXPR_TYPE( no_padd
                       ,(option<_, nt2::tag::padding_>)
                      ,(padding_strategy_<none_, int_<-1> >)
@@ -56,10 +55,16 @@ NT2_TEST_CASE( no_padding )
                       ,(option<settings(double,float), nt2::tag::padding_,_>)
                      ,(padding_strategy_<none_, int_<-1> >)
                      );
-
-
 }
 
+nt2::padding_ global_32(nt2::global_, nt2::with_<32>);
+nt2::padding_ global_32_permute(nt2::with_<32>, nt2::global_);
+nt2::settings global_padd_sett_32(nt2::padding_(nt2::none_)
+                                  ,nt2::padding_(nt2::global_,nt2::with_<32>)
+                                  );
+nt2::settings global_padd_sett_32_permute(nt2::padding_(nt2::none_)
+                                         ,nt2::padding_(nt2::global_,nt2::with_<32>)
+                                         );
 
 NT2_TEST_CASE( global_padding )
 {
@@ -76,9 +81,6 @@ NT2_TEST_CASE( global_padding )
                      ,(option< _, nt2::tag::padding_>)
                      ,(padding_strategy_<global_, int_<-1> >)
                      );
-
-  nt2::padding_ global_32(global_, nt2::with_<32>);
-  nt2::padding_ global_32_permute(nt2::with_<32>, global_);
 
   NT2_TEST_EXPR_TYPE( global_32
                      ,(option< _, nt2::tag::padding_>)
@@ -102,12 +104,6 @@ NT2_TEST_CASE( global_padding )
                      );
 
   //Pass some padding_ as settings
-  nt2::settings global_padd_sett_32(padding_(none_)
-                                    ,padding_(global_,nt2::with_<32>)
-                                    );
-  nt2::settings global_padd_sett_32_permute(padding_(none_)
-                                           ,padding_(global_,nt2::with_<32>)
-                                           );
   NT2_TEST_EXPR_TYPE( global_padd_sett_32
                       ,(option<_, nt2::tag::padding_>)
                      ,(padding_strategy_<global_, int_<32> >)
@@ -127,10 +123,16 @@ NT2_TEST_CASE( global_padding )
                       ,(option< settings(double, float), nt2::tag::padding_,_>)
                      ,(padding_strategy_<global_, int_<32> >)
                      );
-
 }
 
-
+nt2::padding_ lead_32(nt2::lead_, nt2::with_<32>);
+nt2::padding_ lead_32_permute(nt2::with_<32>, nt2::lead_);
+nt2::settings lead_padd_sett_32 ( nt2::padding_(nt2::none_)
+                                , nt2::padding_(nt2::lead_,nt2::with_<32>)
+                                );
+nt2::settings lead_padd_sett_32_permute ( nt2::padding_(nt2::none_)
+                                        , nt2::padding_(nt2::lead_,nt2::with_<32>)
+                                        );
 NT2_TEST_CASE( lead_padding )
 {
    using nt2::padding_;
@@ -147,9 +149,6 @@ NT2_TEST_CASE( lead_padding )
                      ,(option< _, nt2::tag::padding_>)
                      ,(padding_strategy_<lead_, int_<-1> >)
                      );
-
-  nt2::padding_ lead_32(lead_, nt2::with_<32>);
-  nt2::padding_ lead_32_permute(nt2::with_<32>, lead_);
 
   NT2_TEST_EXPR_TYPE( lead_32
                      ,(option< _, nt2::tag::padding_>)
@@ -173,12 +172,6 @@ NT2_TEST_CASE( lead_padding )
                      );
 
   //Pass some padding_ as settings
-  nt2::settings lead_padd_sett_32( padding_(none_)
-                                  ,padding_(lead_,nt2::with_<32>)
-                                   );
-  nt2::settings lead_padd_sett_32_permute( padding_(none_)
-                                          ,padding_(lead_,nt2::with_<32>)
-                                           );
   NT2_TEST_EXPR_TYPE( lead_padd_sett_32
                       ,(option<_, nt2::tag::padding_>)
                      ,(padding_strategy_<lead_, int_<32> >)
