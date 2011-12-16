@@ -18,14 +18,14 @@ namespace nt2
     *  allocation for handling its data.
    **/
   //============================================================================
-  struct dynamic_;
+  struct dynamic_{};
 
   //============================================================================
    /*! Current container will use a stack allocated memory block for handling 
     *  its data
    **/
   //============================================================================
-  struct automatic_;
+  struct automatic_{};
 
 
   namespace tag 

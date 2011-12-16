@@ -8,7 +8,6 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::settings padding_ is an option"
 
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/padding.hpp>
 

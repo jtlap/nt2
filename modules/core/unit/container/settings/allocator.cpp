@@ -8,7 +8,6 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::settings allocator_ is an option"
 
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
 
@@ -23,17 +22,14 @@
 NT2_TEST_CASE( single_allocator )
 {
    using std::allocator;
-   using boost::is_same;
    using nt2::allocator_;
    using nt2::meta::option;
+   using boost::mpl::_;
 
-  NT2_TEST( (is_same< allocator<float>
-                    , option< allocator_< allocator<float> >
-                            , nt2::tag::allocator_
-                            >::type::type
-                    >::value) 
-          );
-
+   NT2_TEST_EXPR_TYPE( (allocator_<allocator<float> > ())
+                       ,(option< _, nt2::tag::allocator_>)
+                       ,(allocator_< allocator<float> >)
+                     );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,38 +38,33 @@ NT2_TEST_CASE( single_allocator )
 NT2_TEST_CASE( single_allocator_default )
 {
   using std::allocator;
-  using boost::is_same;
   using nt2::allocator_;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( (is_same< allocator<int>
-                    , option< void
-                            , nt2::tag::allocator_
-                            , allocator_< allocator<int> >
-                            >::type::type
-                    >::value) 
-          );
+   NT2_TEST_EXPR_TYPE( (allocator_<allocator<int> > ())
+                       ,(option< void, nt2::tag::allocator_, _>)
+                       ,(allocator_< allocator<int> >)
+                     );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some allocator_ as settings
 ////////////////////////////////////////////////////////////////////////////////
+nt2::settings alloc_int(nt2::allocator_<std::allocator<float> >
+                        ,nt2::allocator_<std::allocator<int> > );
 NT2_TEST_CASE( single_allocator_settings )
 {
   using std::allocator;
-  using boost::is_same;
   using nt2::allocator_;
   using nt2::settings;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( (is_same< allocator<int>
-                    , option< settings( allocator_< allocator<float> >
-                                      , allocator_< allocator<int> >
-                                      )                      
-                            , nt2::tag::allocator_
-                            >::type::type 
-                    >::value) 
-          );
+  NT2_TEST_EXPR_TYPE( alloc_int
+                      ,(option<_ , nt2::tag::allocator_>)
+                      ,(allocator_<allocator<int> >)
+                      );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,16 +73,13 @@ NT2_TEST_CASE( single_allocator_settings )
 NT2_TEST_CASE( single_allocator_settings_default )
 {
   using std::allocator;
-  using boost::is_same;
   using nt2::allocator_;
   using nt2::settings;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( (is_same< allocator<int>
-                    , option< settings( double, long )                      
-                            , nt2::tag::allocator_
-                            , allocator_< allocator<int> >
-                            >::type::type 
-                    >::value) 
-          );
+   NT2_TEST_EXPR_TYPE((allocator_<allocator<int> > ())
+                      ,(option< settings(double,long), nt2::tag::allocator_, _>)
+                      ,(allocator_< allocator<int> >)
+                     );
 }

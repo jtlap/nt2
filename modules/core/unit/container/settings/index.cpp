@@ -10,7 +10,6 @@
 
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/size.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/index.hpp>
 
@@ -24,7 +23,6 @@
 NT2_TEST_CASE( single_index )
 {
   using nt2::index_;
-  using boost::is_same;
   using nt2::meta::option;
 
   typedef option<nt2::index_<3,2,4>, nt2::tag::index_>::type::type index_option;  
@@ -40,7 +38,6 @@ NT2_TEST_CASE( single_index )
 NT2_TEST_CASE( single_index_default )
 {
   using nt2::index_;
-  using boost::is_same;
   using nt2::meta::option;
 
   typedef index_<3,2,5,4> default_;
@@ -62,7 +59,6 @@ NT2_TEST_CASE( single_index_settings )
   using nt2::index_;
   using nt2::C_index_;
   using nt2::settings;
-  using boost::is_same;
   using nt2::meta::option;
 
   typedef option< settings(C_index_), nt2::tag::index_>::type::type index_option;  
@@ -81,7 +77,6 @@ NT2_TEST_CASE( single_id_settings_default )
 {
   using nt2::index_;
   using nt2::settings;
-  using boost::is_same;
   using nt2::meta::option;
 
   typedef settings default_(index_<3,2,5,4>);

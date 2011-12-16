@@ -18,14 +18,14 @@ namespace nt2
   /*! Current container memory is allocated using an aligning allocator.
    **/
   //============================================================================
-  struct aligned_;
+  struct aligned_ {};
 
   //============================================================================
   /*! Current container memory is allocated using an allocator with no 
    *  alignment garantee.
    **/
   //============================================================================
-  struct unaligned_;
+  struct unaligned_ {};
 
   namespace tag 
   { 

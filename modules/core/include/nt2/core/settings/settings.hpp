@@ -11,6 +11,7 @@
 
 #include <boost/mpl/eval_if.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>

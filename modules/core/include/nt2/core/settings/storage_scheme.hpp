@@ -18,14 +18,14 @@ namespace nt2
    *   dense storage scheme.
    **/
   //============================================================================
-  struct conventional_;
+  struct conventional_{};
 
   //============================================================================
    /*! Packed storage infers from the container Shape which elements to store 
     *  and which to regenerate. Usually, packed storage reduces memory usage.
    **/
   //============================================================================
-  struct packed_;
+  struct packed_{};
 
 
   namespace tag 
