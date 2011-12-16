@@ -16,11 +16,6 @@
 
 #include <boost/mpl/size_t.hpp>
 
-namespace boost { namespace simd { namespace ext
-{
-  template<class T> struct cardinal_of : boost::mpl::size_t<1> {};
-} } }
-
 namespace boost { namespace simd { namespace meta
 {
   //============================================================================
@@ -42,7 +37,10 @@ namespace boost { namespace simd { namespace meta
    * \include cardinal_of.cpp
    */
   //============================================================================
-  template<class T> struct cardinal_of : ext::cardinal_of<T> {};
+  template<class T>
+  struct cardinal_of : boost::mpl::size_t<1>
+  {
+  };
 } } }
 
 #endif

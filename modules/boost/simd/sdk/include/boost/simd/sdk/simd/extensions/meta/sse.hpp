@@ -19,6 +19,13 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
+// Forward-declare logical
+namespace boost { namespace simd
+{
+  template<class T>
+  struct logical;
+} }
+
 ////////////////////////////////////////////////////////////////////////////////
 // SSE extensions overload
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,22 +41,32 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
+  template<>
+  struct as_simd<float, tag::sse_>
+  {
+    typedef __m128 type;
+  };
+  
+  template<>
+  struct as_simd<double, tag::sse_>
+  {
+    typedef __m128d type;
+  };
+  
   template<class T>
-  struct  as_simd<T,tag::sse_>
-        : boost::mpl::if_ < boost::is_integral<T>
-                          , __m128i
-                          , typename  boost::mpl
-                            ::if_ < boost::is_same<T,float>
-                                  , __m128
-                                  , typename  boost::mpl
-                                    ::if_ < boost::is_same<T,double>
-                                        , __m128d
-                                        , typename  simd::ext::
-                                                    as_simd<T, tag::sse_>::type
-                                        >::type
-                                  >::type
-                          >
-  {};
+  struct as_simd<T, tag::sse_>
+    : boost::mpl::if_< boost::is_integral<T>
+                     , __m128i
+                     , dispatch::meta::na_
+                     >
+  {
+  };
+  
+  template<class T>
+  struct as_simd<logical<T>, tag::sse_>
+    : as_simd<T, tag::sse_>
+  {
+  };
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given SIMD register type, return the associated SIMD extension tag

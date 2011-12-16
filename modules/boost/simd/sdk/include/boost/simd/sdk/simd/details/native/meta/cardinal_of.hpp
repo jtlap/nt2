@@ -14,7 +14,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 
-namespace boost { namespace simd { namespace ext
+namespace boost { namespace simd { namespace meta
 {
   ////////////////////////////////////////////////////////////////////////////
   // Overload for SIMD native types

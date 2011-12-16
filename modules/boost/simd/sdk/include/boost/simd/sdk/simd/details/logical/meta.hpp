@@ -25,8 +25,8 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T,std::size_t Card>
   struct vector_of<logical<T>,Card> 
+   : as_logical<typename vector_of<T,Card>::type >
   {
-    typedef typename boost::simd::meta::as_logical<typename vector_of<T,Card>::type >::type type;
   };
   
   template<class T, class X>
@@ -35,10 +35,6 @@ namespace boost { namespace simd { namespace meta
   {
   };
 
-} } }
-
-namespace boost { namespace simd { namespace ext
-{
   template<class T, class X >
   struct  cardinal_of< simd::native<simd::logical<T>, X> >
         : cardinal_of< simd::native<T, X> >
@@ -235,11 +231,6 @@ namespace boost { namespace simd
     native_type data_;
   };
 } }
-
-#ifdef __LRB__
-#define BOOST_SIMD_HAS_LRB_SUPPORT
-#include <boost/simd/sdk/simd/details/native_logical.hpp>
-#endif
 
 namespace boost { namespace simd
 {
