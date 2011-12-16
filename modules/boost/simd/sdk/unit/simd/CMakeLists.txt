@@ -26,6 +26,7 @@ SET( SOURCES
     upgrade.cpp
     iterator.cpp
     pack.cpp
+    shifted_iterator.cpp
    )
 
 nt2_module_add_tests(boost.simd.sdk.simd.unit ${SOURCES})
