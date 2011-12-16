@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      if (is_inf(a0)) return Zero<A0>();
+      if (is_inf(a1)) return Zero<A1>();
     #ifdef NT2_TOOLBOX_BESSEL_HAS__YN
       return ::_yn(a0, a1);
     #elif defined(NT2_TOOLBOX_BESSEL_HAS_YN)

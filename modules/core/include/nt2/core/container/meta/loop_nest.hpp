@@ -14,6 +14,7 @@
 #include <boost/fusion/include/array.hpp>
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/as_vector.hpp>
+#include <boost/mpl/int.hpp>
 
 // Experimental OpenMP support
 #if defined(_OPENMP)
@@ -79,7 +80,11 @@ namespace nt2 { namespace meta
     void call(Bases const& bs, Sizes const& sz, Position& p, Step const& s, F const& f)
     {
       std::size_t bound = boost::fusion::at_c<0>(bs) + boost::fusion::at_c<0>(sz);
-      for( boost::fusion::at_c<0>(p)  = boost::fusion::at_c<0>(bs); boost::fusion::at_c<0>(p) < bound; boost::fusion::at_c<0>(p) += s ) f(p);
+      std::size_t aligned_bound = boost::fusion::at_c<0>(bs) + boost::fusion::at_c<0>(sz)/Step::value*Step::value;
+      for( boost::fusion::at_c<0>(p) = boost::fusion::at_c<0>(bs); boost::fusion::at_c<0>(p) != aligned_bound; boost::fusion::at_c<0>(p) += s )
+        f(p, s);
+      for( ; boost::fusion::at_c<0>(p) != bound; ++boost::fusion::at_c<0>(p) )
+        f(p, boost::mpl::int_<1>());
     }
   };
 
@@ -98,7 +103,7 @@ namespace nt2 { namespace meta
     static BOOST_DISPATCH_FORCE_INLINE
     void call(Bases const&, Sizes const&, Position& pos, Step const&, F const& f)
     {
-      f(pos);
+      f(pos, boost::mpl::int_<1>());
     }
   };
 

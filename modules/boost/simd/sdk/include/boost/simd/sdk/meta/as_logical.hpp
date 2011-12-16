@@ -19,15 +19,15 @@ namespace boost { namespace simd { namespace meta
 {
   template<class T> struct as_logical               { typedef logical<T> type; };
   template<class T> struct as_logical< logical<T> > { typedef logical<T> type; };
-  
-  template<class T, class X> 
-  struct  as_logical< native<T,X> >  
+
+  template<class T, class X>
+  struct  as_logical< native<T,X> >
   {
     typedef native<typename as_logical<T>::type,X> type;
   };
 
   template<class T, std::size_t Cardinal>
-  struct  as_logical< pack<T,Cardinal> >  
+  struct  as_logical< pack<T,Cardinal> >
   {
     typedef pack<typename as_logical<T>::type,Cardinal> type;
   };

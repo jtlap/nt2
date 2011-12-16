@@ -71,35 +71,28 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::
     child_c<A0 const&, 0>::type                             result_type;
 
+    typedef typename meta::
+            strip< typename meta::
+                   scalar_of<result_type>::type
+                 >::type                                    stype;
+
 #if !defined(BOOST_SIMD_NO_SIMD)
     //==========================================================================
     // If some SIMD is detected, then return a native
     //==========================================================================
-    typedef boost::simd::
-            native< typename meta::strip< typename meta::
-                                          scalar_of<result_type>::type
-                                        >::type
-                  , BOOST_SIMD_DEFAULT_EXTENSION
-                  >                                         target_type;
+    typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION>
+                                                            target_type;
 #else
     //==========================================================================
     // If no SIMD is detected, stay in scalar mode
     //==========================================================================
-    typedef typename
-            meta::strip< typename meta::scalar_of<result_type>::type>::type
-                                                            target_type;
+    typedef stype                                           target_type;
 #endif
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0) const
     {
-      //========================================================================
-      // Don't resize if unecessary.
-      // TODO: Delegate to block to optimize the test or to the buffer to
-      // optimize the resize itself.
-      //========================================================================
-      if( boost::proto::child_c<0>(a0).extent() != a0.extent() )
-        boost::proto::child_c<0>(a0).resize(a0.extent());
+      boost::proto::child_c<0>(a0).resize(a0.extent());
 
       //==========================================================================
       // Generate a loop nest of proper depth running the expression evaluator
@@ -108,7 +101,7 @@ namespace nt2 { namespace ext
       meta::for_each( typename A0::index_type::type()
                     , nt2::extent(a0)
                     , typename boost::simd::meta::cardinal_of<target_type>::type()
-                    , meta::runner<A0 const&, meta::as_<target_type> >(a0)
+                    , meta::runner<A0, stype>(a0)
                     );
 
       //==========================================================================

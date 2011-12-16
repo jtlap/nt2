@@ -9,11 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_SHIFT_RIGHT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_SHIFT_RIGHT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
-////////////////////////////////////////////////////////////////////////////////
-// operator binary shift right
-////////////////////////////////////////////////////////////////////////////////
+
+#include <boost/simd/toolbox/operator/functions/shift_right.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,7 +25,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)  
     { 
-     typedef typename meta::as_unsigned<A1>::type type;
+     typedef typename dispatch::meta::as_unsigned<A1>::type type;
      type shift = simd::bitwise_cast<type>(a1);
      A0 that = { vec_sr(a0(), shift()) }; 
      return that; 
@@ -42,7 +41,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2) 
    { 
-     typedef typename meta::as_unsigned<A1>::type type;
+     typedef typename dispatch::meta::as_unsigned<A1>::type type;
      type shift = simd::bitwise_cast<type>(a1);
      type value = simd::bitwise_cast<type>(a0);
      A0 that = simd::bitwise_cast<A0>( vec_sr(value(), shift()) ); 
