@@ -39,10 +39,6 @@ namespace boost { namespace simd { namespace meta
   struct  cardinal_of< simd::native<simd::logical<T>, X> >
         : cardinal_of< simd::native<T, X> >
   {};
-
-  template<class T,class Extension>
-  struct as_simd<logical<T>, Extension> : as_simd<T,Extension>
-  {};
 } } }
 
 namespace boost { namespace simd { namespace tag
