@@ -13,19 +13,18 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, boost::simd::tag::altivec_
-                            , (A0)(A1)(A2)
+                            , (A0)(A1)
                             , (iterator_< scalar_< fundamental_<A0> > >)
-                              (scalar_< fundamental_<A1> >)
-                              ((target_<simd_<arithmetic_<A2>,boost::simd::tag::altivec_> >))
+                              ((target_<simd_<arithmetic_<A1>,boost::simd::tag::altivec_> >))
                             )
   {
-    typedef typename A2::type result_type;
+    typedef typename A1::type result_type;
     typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
-    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    inline result_type operator()(const A0& a0, const A1&)const
     {
-      result_type MSQ  = {vec_ld(a1*16  ,a0)};
-      result_type LSQ  = {vec_ld((a1*16)+15 ,a0)};
-      n_t         mask = {vec_lvsl(a1*16,a0)};
+      result_type MSQ  = {vec_ld(0,a0)};
+      result_type LSQ  = {vec_ld(15 ,a0)};
+      n_t         mask = {vec_lvsl(0,a0)};
       result_type that = {vec_perm(MSQ(), LSQ(), mask())};
       return that;
     }
