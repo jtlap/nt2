@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_GREATER_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/simd/toolbox/functions/is_greater_equal.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_greater_equal.hpp>
 #include <boost/simd/include/functions/logical_not.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
