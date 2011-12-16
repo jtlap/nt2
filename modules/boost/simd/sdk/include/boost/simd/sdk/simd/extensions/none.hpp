@@ -44,10 +44,23 @@ namespace boost { namespace simd { namespace detail
   };
 } } }
 
+// Forward-declare logical
+namespace boost { namespace simd
+{
+  template<class T>
+  struct logical;
+} }
+
 namespace boost { namespace simd { namespace meta
 {
   template<class N, class T>
   struct as_simd<T, tag::simd_emulation_<N> >
+  {
+    typedef boost::array<T, N::value / sizeof(T)> type;
+  };
+  
+  template<class N, class T>
+  struct as_simd<logical<T>, tag::simd_emulation_<N> >
   {
     typedef boost::array<T, N::value / sizeof(T)> type;
   };
