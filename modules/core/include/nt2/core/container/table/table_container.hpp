@@ -64,8 +64,11 @@ namespace nt2 { namespace container
     template<class Sz>
     void resize( Sz const& sz ) 
     { 
-      size_ = sz;
-      block_.resize(size_); 
+      if(size_ != sz)
+      {
+        size_ = sz;
+        block_.resize(size_); 
+      }
     }
         
     //==========================================================================
