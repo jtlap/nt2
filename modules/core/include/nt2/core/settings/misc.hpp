@@ -24,7 +24,7 @@ namespace nt2
    *  Generic settings used to pass a numeric value to other composite settings.
    **/
   //============================================================================
-  template<std::size_t N>
+  template<std::ptrdiff_t N>
   struct with_{};
 }
 
