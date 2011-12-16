@@ -166,13 +166,13 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Assignment operator from native vector type
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_DISPATCH_FORCE_INLINE native& operator=(native const& s)
+    BOOST_FORCEINLINE native& operator=(native const& s)
     {
       data_ = s.data_;
       return *this;
     }
     
-    BOOST_DISPATCH_FORCE_INLINE native& operator=(native_type const& s)
+    BOOST_FORCEINLINE native& operator=(native_type const& s)
     {     
       data_ = s;
       return *this;
@@ -182,11 +182,11 @@ namespace boost { namespace simd
     // Type casting operator for compatibility with intrinsic functions
     // Use operator() for explicit conversion.
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_DISPATCH_FORCE_INLINE
-    operator native_type const& ()   const { return data_; }
+    BOOST_FORCEINLINE operator native_type &           ()             { return data_; }
+    BOOST_FORCEINLINE          native_type & operator()()             { return data_; }
     
-    BOOST_DISPATCH_FORCE_INLINE
-    native_type const& operator()()  const { return data_; }
+    BOOST_FORCEINLINE operator native_type const&           ()  const { return data_; }
+    BOOST_FORCEINLINE          native_type const& operator()()  const { return data_; }
 
     ////////////////////////////////////////////////////////////////////////////
     // new/delete operator to force alignment on heap of native values
@@ -196,23 +196,23 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     iterator       begin()       { return iterator(*this); };
     
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     iterator       end()         { return iterator(*this, static_size); };
     
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     const_iterator begin() const { return const_iterator(*this); };
     
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     const_iterator end()   const { return const_iterator(*this, static_size); };
 
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface
     ////////////////////////////////////////////////////////////////////////////
-    static BOOST_DISPATCH_FORCE_INLINE  std::size_t size() { return static_size; }
-    static BOOST_DISPATCH_FORCE_INLINE        bool empty() { return false; }
+    static BOOST_FORCEINLINE  std::size_t size() { return static_size; }
+    static BOOST_FORCEINLINE        bool empty() { return false; }
 
     proxy operator[](std::size_t i)
     {
