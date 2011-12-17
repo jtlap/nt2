@@ -91,14 +91,10 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
 
   typedef buffer<T> buffer_type ;
 
-  boost::array<std::size_t,1> ss = {{ 5 }};
-  boost::array<std::size_t,1> bs = {{ -2 }};
-
-  buffer_type x, b(ss,bs);
+  buffer_type x, b(5,-2);
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     dereference(b,boost::fusion::single_view<int>(i)) = 3+i ;
-
 
   x = b;
   
@@ -120,22 +116,15 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 
   typedef buffer<T> buffer_type ;
 
-  boost::array<std::size_t,1> sx = { 5  };
-  boost::array<std::size_t,1> bx = { -2 };
-
   T datax[5] = {1,2,3,4,5};
 
-  boost::array<std::size_t,1> sb = { 3 };
-  boost::array<std::size_t,1> bb = { 1 };
-
-  buffer_type b(sb,bb);
+  buffer_type b(boost::fusion::single_view<int>(3),1);
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     dereference(b,boost::fusion::single_view<int>(i)) = 10*i ;
 
-  buffer_type x(sx,bx);
+  buffer_type x( 5, boost::fusion::single_view<int>(-2) );
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     dereference(x,boost::fusion::single_view<int>(i)) = 3+i ;
-
 
   swap(b,x);
 
@@ -169,10 +158,7 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
 
   typedef buffer<T> buffer_type ;
 
-  boost::array<std::size_t,1> sx = { 5  };
-  boost::array<std::size_t,1> bx = { -2 };
-
-  buffer_type x(sx,bx);
+  buffer_type x(5,-2);
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     dereference(x,boost::fusion::single_view<int>(i)) = 3+i ;
 
@@ -185,5 +171,4 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), f(3+i) );
-  
 }

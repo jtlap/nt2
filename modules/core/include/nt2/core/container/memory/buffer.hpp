@@ -21,8 +21,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
-#include <nt2/sdk/memory/allocator.hpp>
-#include <boost/fusion/include/is_sequence.hpp>
+#include <nt2/sdk/meta/as_sequence.hpp>
 #include <nt2/core/container/memory/adapted/buffer.hpp>
 #include <nt2/core/container/memory/details/buffer_base.hpp>
 
@@ -55,8 +54,6 @@ namespace nt2 {  namespace memory
     // Buffer type interface
     //============================================================================
     typedef typename parent_data::value_type              value_type;
-    typedef typename parent_data::pointer                 pointer;
-    typedef typename parent_data::const_pointer           const_pointer;
     typedef typename parent_data::iterator                iterator;
     typedef typename parent_data::const_iterator          const_iterator;
     typedef typename parent_data::reverse_iterator        reverse_iterator;
@@ -84,29 +81,11 @@ namespace nt2 {  namespace memory
     buffer( Sizes           const& sz
           , Bases           const& bs
           , allocator_type  const& alloc = allocator_type()
-          , typename  boost::enable_if<
-                      boost::fusion::traits::is_sequence<Sizes>
-                      >::type* = 0
-          , typename  boost::enable_if<
-                      boost::fusion::traits::is_sequence<Bases>
-                      >::type* = 0
           )
     : parent_data(alloc)          
-    {
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Sizes>::value == 1)
-      , SIZE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-      , (Sizes)
-      );
-
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Bases>::value == 1)
-      , BASE_MISMATCH_IN_BUFFER_CONSTRUCTOR
-      , (Bases)
-      );
-
-      parent_data::allocate ( boost::fusion::at_c<0>(bs)
-                            , boost::fusion::at_c<0>(sz)
+    {      
+      parent_data::allocate ( boost::fusion::at_c<0>(meta::as_sequence(bs))
+                            , boost::fusion::at_c<0>(meta::as_sequence(sz))
                             );
     }
 
@@ -174,16 +153,30 @@ namespace nt2 {  namespace memory
      * Return a (const) reverse_iterator to the beginning of the buffer data.
      **/
     //==========================================================================
-    reverse_iterator        rbegin()       { return reverse_iterator(end());          }
-    const_reverse_iterator  rbegin() const { return const_reverse_iterator(end());    }
+    reverse_iterator        rbegin()
+    {
+      return reverse_iterator(end());
+    }
+    
+    const_reverse_iterator  rbegin() const
+    {
+      return const_reverse_iterator(end());
+    }
 
     //==========================================================================
     /**!
      * Return a (const) reverse_iterator to the end of the buffer data.
      **/
     //==========================================================================
-    reverse_iterator        rend()         { return reverse_iterator(begin());        }
-    const_reverse_iterator  rend()   const { return const_reverse_iterator(begin());  }
+    reverse_iterator        rend()
+    {
+      return reverse_iterator(begin());
+    }
+    
+    const_reverse_iterator  rend()   const
+    {
+      return const_reverse_iterator(begin());
+    }
 
     //==========================================================================
     /**!
@@ -260,7 +253,6 @@ namespace nt2 {  namespace memory
       boost::swap(allocator(),src.allocator());
     }
 
-
     //==========================================================================
     /**!
      * Change the base index of the buffer. This operation is done in constant
@@ -270,17 +262,9 @@ namespace nt2 {  namespace memory
      * index.
      **/
     //==========================================================================
-    template<class Bases>
-    typename boost::enable_if< boost::fusion::traits::is_sequence<Bases> >::type
-    rebase(Bases const& bs)
+    template<class Bases> void rebase(Bases const& bs)
     {
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Bases>::value == 1)
-      , BASE_MISMATCH_IN_BUFFER_REBASE
-      , (Bases)
-      );
-
-      parent_data::rebase( boost::fusion::at_c<0>(bs) );
+      parent_data::rebase( boost::fusion::at_c<0>(meta::as_sequence(bs)) );
     }
 
     //==========================================================================
@@ -291,17 +275,9 @@ namespace nt2 {  namespace memory
      * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
      **/
     //==========================================================================
-    template<class Sizes>
-    typename boost::enable_if< boost::fusion::traits::is_sequence<Sizes> >::type
-    resize(Sizes const& sz)
+    template<class Sizes> void resize(Sizes const& sz)
     {
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Sizes>::value == 1)
-      , SIZE_MISMATCH_IN_BUFFER_RESIZE
-      , (Sizes)
-      );
-      
-      parent_data::resize( boost::fusion::at_c<0>(sz) );
+      parent_data::resize( boost::fusion::at_c<0>(meta::as_sequence(sz)) );
     }
 
     //==========================================================================
@@ -315,25 +291,11 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     template<class Bases,class Sizes>
-    typename boost::enable_if_c < boost::fusion::traits::is_sequence<Sizes>::value
-                                  &&
-                                  boost::fusion::traits::is_sequence<Bases>::value
-                                >::type
-    restructure(Sizes const& sz, Bases const& bs)
-    {
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Bases>::value == 1)
-      , BASE_MISMATCH_IN_BUFFER_RESTRUCTURE
-      , (Bases)
-      );
-
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::mpl::size<Sizes>::value == 1)
-      , SIZE_MISMATCH_IN_BUFFER_RESTRUCTURE
-      , (Sizes)
-      );
-
-      parent_data::restructure(sz,bs);
+    void restructure(Sizes const& sz, Bases const& bs)
+    {      
+      parent_data::restructure( boost::fusion::at_c<0>(meta::as_sequence(sz))
+                              , boost::fusion::at_c<0>(meta::as_sequence(bs))
+                              );
     }
 
     protected:
