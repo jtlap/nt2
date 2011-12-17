@@ -8,8 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_META_AS_ARITHMETIC_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_AS_ARITHMETIC_HPP_INCLUDED
-#include <boost/simd/sdk/simd/native_fwd.hpp>
-#include <boost/simd/sdk/simd/pack/forward.hpp>
+
+#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/mpl/apply.hpp>
 
 namespace boost { namespace simd
 {
@@ -17,21 +19,31 @@ namespace boost { namespace simd
   struct logical;
 } }
 
+namespace boost { namespace simd { namespace details
+{
+  template<class T, class F>
+  struct as_arithmetic
+   : mpl::apply1<F, T>
+  {
+  };
+  
+  template<class T, class F>
+  struct as_arithmetic< logical<T>, F >
+   : mpl::apply1<F, T>
+  {
+  };
+} } }
+
 namespace boost { namespace simd { namespace meta
 {
-  template<class T> struct as_arithmetic                  { typedef T type; };
-  template<class T> struct as_arithmetic< logical<T> >    { typedef T type; };
-
-  template<class T, class X> 
-  struct  as_arithmetic< native<T,X> >  
+  template<class T>
+  struct as_arithmetic
+    : details::as_arithmetic< typename dispatch::meta::
+                              primitive_of<T>::type
+                            , typename dispatch::meta::
+                              factory_of<T>::type
+                            >
   {
-    typedef native<typename as_arithmetic<T>::type,X> type;
-  };
-
-  template<class T, std::size_t Cardinal>
-  struct  as_arithmetic< pack<T,Cardinal> >
-  {
-    typedef pack<typename as_arithmetic<T>::type,Cardinal> type;
   };
 } } }
 
