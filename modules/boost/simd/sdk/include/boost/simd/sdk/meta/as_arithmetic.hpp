@@ -8,15 +8,20 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_META_AS_ARITHMETIC_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_AS_ARITHMETIC_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+
+namespace boost { namespace simd
+{
+  template<class T>
+  struct logical;
+} }
 
 namespace boost { namespace simd { namespace meta
 {
   template<class T> struct as_arithmetic                  { typedef T type; };
   template<class T> struct as_arithmetic< logical<T> >    { typedef T type; };
-  
+
   template<class T, class X> 
   struct  as_arithmetic< native<T,X> >  
   {
@@ -24,7 +29,7 @@ namespace boost { namespace simd { namespace meta
   };
 
   template<class T, std::size_t Cardinal>
-  struct  as_arithmetic< pack<T,Cardinal> >  
+  struct  as_arithmetic< pack<T,Cardinal> >
   {
     typedef pack<typename as_arithmetic<T>::type,Cardinal> type;
   };

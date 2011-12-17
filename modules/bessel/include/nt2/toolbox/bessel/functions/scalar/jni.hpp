@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      if (is_inf(a0)) return Zero<A0>();
+      if (is_inf(a1)) return Zero<A1>();
     #if defined(NT2_TOOLBOX_BESSEL_HAS__JN)
       return ::_jn(a0, a1);
     #elif defined(NT2_TOOLBOX_BESSEL_HAS_JN)

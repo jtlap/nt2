@@ -11,18 +11,13 @@
 
 #include <boost/dispatch/meta/na.hpp>
 
-namespace boost { namespace simd { namespace ext
+namespace boost { namespace simd { namespace meta
 {
   template<class T,class Extension>
   struct as_simd
   {
     typedef dispatch::meta::na_ type;
   };
-} } }
-
-namespace boost { namespace simd { namespace meta
-{
-  template<class T,class Extension> struct as_simd;
 } } }
 
 #endif

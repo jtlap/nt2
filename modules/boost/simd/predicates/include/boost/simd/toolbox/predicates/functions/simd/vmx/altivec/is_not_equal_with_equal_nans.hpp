@@ -6,17 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_GREATER_EQUAL_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_GREATER_EQUAL_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_NOT_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_NOT_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/simd/toolbox/predicates/functions/is_greater_equal.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_not_equal_with_equal_nans.hpp>
+#include <boost/simd/include/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/logical_xor.hpp>
 #include <boost/simd/include/functions/logical_not.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, boost::simd::tag::altivec_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, boost::simd::tag::altivec_, (A0)
                             , ((simd_<floating_<A0>, boost::simd::tag::altivec_>))
                               ((simd_<floating_<A0>, boost::simd::tag::altivec_>))
                             )
@@ -24,12 +27,11 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { vec_cmpge(a0(),a1()) };
-      return that;
+      return logical_xor(is_greater_equal(a0, a1), is_greater_equal(a1, a0)));
     }
   };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, boost::simd::tag::altivec_, (A0)
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_with_equal_nans_, boost::simd::tag::altivec_, (A0)
                             , ((simd_<integer_<A0>, boost::simd::tag::altivec_>))
                               ((simd_<integer_<A0>, boost::simd::tag::altivec_>))
                             )
@@ -37,8 +39,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type lt = { vec_cmplt(a0(),a1()) };
-      return !lt;
+      return logical_not(is_equal(a0, a1));
     }
   };
 } } }

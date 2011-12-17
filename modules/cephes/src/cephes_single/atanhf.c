@@ -30,7 +30,6 @@
  *    IEEE      -1,1        100000      1.4e-7      3.1e-8
  *
  */
-
 /*						atanh.c	*/
 
 
@@ -70,10 +69,10 @@ else
 if( z >= 1.0f )
 	{
 	if( x == 1.0f )
-		return( 1.0f/0.0f );
+		return( 1.0f/ZEROF );
 	if( x == -1.0f )
-		return( -1.0f/0.0f );
-	return( 0.0f/0.0f );
+		return( -1.0f/ZEROF );
+	return( 0.0f/ZEROF );
 	}
 
 if( z < 1.0e-4f )
@@ -96,5 +95,5 @@ if( z < 0.5f )
 	z = 0.5f * cephes_logf( (1.0f+x)/(1.0f-x) );
 	return z;
 	}
- return( 0.0f/0.0f);
+ return( 0.0f/ZEROF);
 }
