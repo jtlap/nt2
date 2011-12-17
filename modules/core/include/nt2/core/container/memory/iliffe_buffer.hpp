@@ -49,6 +49,7 @@ namespace nt2 { namespace memory
     /** Type of the allocator used in current buffer                          */
     //==========================================================================
     typedef typename Data::allocator_type                    allocator_type;
+    typedef typename Index::allocator_type                   idx_allocator_t;
 
     //==========================================================================
     /** Type of the value stored in current buffer                            */
@@ -94,11 +95,6 @@ namespace nt2 { namespace memory
     /** Type representing an offset between values                            */
     //==========================================================================
     typedef typename Data::difference_type               difference_type;
-
-    //==========================================================================
-    // Non-public typedefs
-    //==========================================================================
-    typedef typename allocator_type::template rebind<byte>::other idx_allocator_t;
     
     //==========================================================================
     /**
