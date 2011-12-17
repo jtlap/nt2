@@ -6,7 +6,7 @@
          'call_types' : ['T','T','iT'],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::logical<T>::type',
+             'default' : 'typename nt2::meta::as_logical<T>::type',
             },
          'simd_types' : ['real_', 'signed_int_', 'unsigned_int_'],
          'special' : ['fuzzy'],

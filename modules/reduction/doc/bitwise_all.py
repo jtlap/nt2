@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::dispatch::meta::logical<T>::type',
+             'default' : 'typename boost::dispatch::meta::as_logical<T>::type',
             },
          'simd_types' : ['real_','signed_int_','unsigned_int_'],
          'special' : ['reduction'],  

@@ -6,7 +6,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::logical<T>::type',
+             'default' : 'typename nt2::meta::as_logical<T>::type',
             },
          'types' : ['real_'],
          'simd_types' : ['real_'],

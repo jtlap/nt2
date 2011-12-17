@@ -7,7 +7,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::simd::meta::logical<T>::type',
+             'default' : 'typename boost::simd::meta::as_logical<T>::type',
             },
          'simd_types' : ['real_'],
          'special' : ['predicate'],

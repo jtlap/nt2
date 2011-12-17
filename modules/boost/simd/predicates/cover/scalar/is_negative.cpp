@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL ( is_negative_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYP
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -109,7 +109,7 @@ NT2_TEST_CASE_TPL ( is_negative_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
+  typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
