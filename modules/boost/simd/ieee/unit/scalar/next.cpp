@@ -14,7 +14,6 @@
 /// created by jt the 04/12/2010
 /// 
 #include <boost/simd/toolbox/ieee/include/functions/next.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/successor.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
 
@@ -24,6 +23,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_REAL_TYPES)
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(next(boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(next(boost::simd::One<T>()), boost::simd::One<r_t>()+boost::simd::Eps<r_t>());
   NT2_TEST_EQUAL(next(boost::simd::Valmax<T>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(next(boost::simd::Zero<T>()), boost::simd::Zero<r_t>()+boost::simd::Mindenormal<T>());
-} // end of test for floating_
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(next(boost::simd::One<T>()), boost::simd::Two<r_t>());
@@ -100,7 +100,7 @@ NT2_TEST_CASE_TPL ( next_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(next(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
