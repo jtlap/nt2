@@ -15,6 +15,7 @@ SET( SOURCES
   dimensions_of.cpp
   buffer.cpp
   iliffe_buffer.cpp
+  static_allocator.cpp
 ## List of scalar test files for toolbox core.memory
    )
 
