@@ -97,16 +97,24 @@ namespace boost { namespace simd
 
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int32_t,Dummy> 
-          : meta::int_c<boost::simd::int32_t,boost::simd::int32_t(-2147483648L)> {};
-
+#ifdef __clang__
+      : meta::int_c<boost::simd::int32_t, boost::simd::int32_t(-2147483648L)> {};
+#else    
+      : meta::int_c<boost::simd::int32_t,-boost::simd::uint32_t(2147483648UL)> {};
+#endif
+    
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int64_t,Dummy> 
-          : meta::int_c<boost::simd::int64_t,-boost::simd::int64_t(9223372036854775808ULL)> {};
+#ifdef __clang__
+      : meta::int_c<boost::simd::int64_t, boost::simd::int64_t(-0x8000000000000000LL)> {};
+#else    
+      : meta::int_c<boost::simd::int64_t,-boost::simd::uint64_t(9223372036854775808ULL)> {};
+#endif
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmin, Valmin)
 } }
-
+ 
 #ifdef BOOST_MSVC
 #pragma warning(pop)
 #endif
