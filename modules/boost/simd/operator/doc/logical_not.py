@@ -32,19 +32,8 @@
             },
          'specific_values' : {
              'default' : {
-                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0',},
-                },
-             'integer_   ' : {
-                 'boost::simd::Mone<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0',},
-                },
-             'real_' : {
-                 'boost::simd::Inf<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Minf<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Nan<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::True<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::False<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

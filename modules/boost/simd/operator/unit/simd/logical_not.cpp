@@ -14,20 +14,23 @@
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/operator/include/functions/logical_not.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
-NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  (boost::simd::uint64_t))//BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_not;
   using boost::simd::tag::logical_not_;
@@ -45,11 +48,11 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  (boost::simd::uint64_t))//BOOST_S
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-   NT2_TEST_EQUAL(logical_not(boost::simd::One<vT>())[0], boost::simd::False<sr_t>());
-   NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::False<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::True<vT>())[0]!=0, boost::simd::False<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -70,11 +73,9 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::Inf<vT>())[0], boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Minf<vT>())[0], boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Nan<vT>())[0], boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
-} // end of test for floating_
+  NT2_TEST_EQUAL(logical_not(boost::simd::False<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::True<vT>())[0]!=0, boost::simd::False<sr_t>());
+} // end of test for real_

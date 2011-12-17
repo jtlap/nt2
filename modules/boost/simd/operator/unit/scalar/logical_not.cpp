@@ -14,14 +14,15 @@
 /// created  by jt the 18/02/2011
 /// 
 #include <boost/simd/toolbox/operator/include/functions/logical_not.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
@@ -34,7 +35,7 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::logical<T> wished_r_t;
+  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -42,11 +43,11 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::One<T>()), r_t(false));
-  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<T>()), r_t(true));
+  NT2_TEST_EQUAL(logical_not(boost::simd::False<T>()), boost::simd::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::True<T>()), boost::simd::False<r_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_REAL_TYPES)
@@ -59,7 +60,7 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::simd::logical<T> wished_r_t;
+  typedef typename boost::simd::meta::logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -67,11 +68,9 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::Inf<T>()), r_t(false));
-  NT2_TEST_EQUAL(logical_not(boost::simd::Minf<T>()), r_t(false));
-  NT2_TEST_EQUAL(logical_not(boost::simd::Nan<T>()), r_t(false));
-  NT2_TEST_EQUAL(logical_not(boost::simd::Zero<T>()), r_t(true));
-} // end of test for floating_
+  NT2_TEST_EQUAL(logical_not(boost::simd::False<T>()), boost::simd::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::True<T>()), boost::simd::False<r_t>());
+} // end of test for real_

@@ -14,7 +14,6 @@
 /// created by jt the 04/12/2010
 /// 
 #include <nt2/toolbox/ieee/include/functions/next.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 
@@ -32,6 +31,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_REAL_TYPES)
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(next(nt2::Inf<T>()), nt2::Inf<r_t>());
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(next(nt2::One<T>()), nt2::One<r_t>()+nt2::Eps<r_t>());
   NT2_TEST_EQUAL(next(nt2::Valmax<T>()), nt2::Inf<r_t>());
   NT2_TEST_EQUAL(next(nt2::Zero<T>()), nt2::Zero<r_t>()+nt2::Mindenormal<T>());
-} // end of test for floating_
+} // end of test for real_
 
 NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(next(nt2::One<T>()), nt2::Two<r_t>());
@@ -105,7 +105,7 @@ NT2_TEST_CASE_TPL ( next_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(next(nt2::Mone<T>()), nt2::Zero<r_t>());
