@@ -10,23 +10,38 @@
 #define NT2_CORE_CONTAINER_META_RUNNER_HPP_INCLUDED
 
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/store.hpp>
+#include <nt2/sdk/meta/as.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace nt2 { namespace meta
 {
-  template<class A0, class Target> struct runner
+  template<class A0, class Scalar>
+  struct runner
   {
     typedef void result_type;
 
-    runner(A0 a0_) : a0(a0_) {}
+    runner(A0 const& a0_) : a0(a0_) {}
 
-    template<class Position> BOOST_FORCEINLINE result_type
-    operator()(Position const& pos) const
+    template<class Position, class Step>
+    BOOST_FORCEINLINE
+    typename boost::enable_if_c<Step::value == 1, result_type>::type
+    operator()(Position const& pos, Step const&) const
     {
-      nt2::run(a0, pos, Target());
+      nt2::run(a0, pos, meta::as_<Scalar>());
+    }
+    
+    template<class Position, class Step>
+    BOOST_FORCEINLINE
+    typename boost::disable_if_c<Step::value == 1, result_type>::type
+    operator()(Position const& pos, Step const&) const
+    {
+      nt2::run(a0, pos, meta::as_<typename boost::simd::meta::
+                                  vector_of<Scalar, Step::value
+                                 >::type>());
     }
 
-    A0 a0;
+    A0 const& a0;
   };
 } }
 

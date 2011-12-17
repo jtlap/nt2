@@ -8,67 +8,60 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::settings shape is an option"
 
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/shape.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some shape_ as an option and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( single_shape_ )
+NT2_TEST_CASE( shape_ )
 {
   using nt2::rectangular_;
-  using boost::is_same;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( ( is_same < rectangular_
-              , option< rectangular_, nt2::tag::shape_ >::type 
-              >::value
-            ) 
-          );
-
+  NT2_TEST_EXPR_TYPE( rectangular_()
+                      ,(option< _, nt2::tag::shape_>)
+                      ,(rectangular_)
+                      );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some shape_ as default and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( single_shape_default )
+NT2_TEST_CASE( shape_default )
 {
   using nt2::rectangular_;
-  using boost::is_same;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( ( is_same < rectangular_
-              , option< void, nt2::tag::shape_,rectangular_ >::type 
-            >::value
-            ) 
-          );
-
+  NT2_TEST_EXPR_TYPE( rectangular_()
+                      ,(option< void, nt2::tag::shape_,_>)
+                      ,(rectangular_)
+                      );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some shape_ as a setting and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
+nt2::settings rect  (nt2::rectangular_, nt2::rectangular_);
 NT2_TEST_CASE( setting_shape_ )
 {
   using nt2::rectangular_;
   using nt2::settings;
-  using boost::is_same;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( ( is_same < rectangular_
-              , option< settings(rectangular_,
-                                 rectangular_)
-              , nt2::tag::shape_ 
-              >::type 
-              >::value
-            ) 
-          );
 
+  NT2_TEST_EXPR_TYPE( rect
+                      ,(option<_ , nt2::tag::shape_>)
+                      ,(rectangular_)
+                      );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -78,16 +71,11 @@ NT2_TEST_CASE( setting_shape_default )
 {
   using nt2::rectangular_;
   using nt2::settings;
-  using boost::is_same;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( ( is_same < rectangular_
-                      , option< settings(long,int)
-                              , nt2::tag::shape_ 
-                              , rectangular_
-                              >::type 
-                      >::value
-            ) 
-          );
-
+  NT2_TEST_EXPR_TYPE( rectangular_()
+                      ,(option< settings(long,int), nt2::tag::shape_,_>)
+                      ,(rectangular_)
+                      );
 }

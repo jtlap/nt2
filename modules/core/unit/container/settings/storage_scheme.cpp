@@ -8,91 +8,79 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::settings storage_scheme is an option"
 
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some storage_scheme_ as an option and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( single_storage_scheme_ )
+NT2_TEST_CASE( storage_scheme_ )
 {
   using nt2::conventional_;
   using nt2::packed_;
-  using boost::is_same;
   using nt2::meta::option;
+  using boost::mpl::_;
 
+  NT2_TEST_EXPR_TYPE( conventional_()
+                      ,(option< _, nt2::tag::storage_scheme_>)
+                      ,(conventional_)
+                      );
 
-  NT2_TEST( ( is_same < conventional_
-              , option< conventional_, nt2::tag::storage_scheme_ >::type 
-                      >::value
-            ) 
-          );
-
-  NT2_TEST( ( is_same < packed_
-              , option< packed_, nt2::tag::storage_scheme_ >::type 
-                      >::value
-            ) 
-          );
-
+  NT2_TEST_EXPR_TYPE( packed_()
+                      ,(option< _, nt2::tag::storage_scheme_>)
+                      ,(packed_)
+                      );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Pass some storage_scheme_ as default and check everythign go out properly
+// Pass some storage_scheme_ as default and check everything go out properly
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( single_storage_scheme_default )
+NT2_TEST_CASE( storage_scheme_default )
 {
   using nt2::conventional_;
   using nt2::packed_;
-  using boost::is_same;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( ( is_same < conventional_
-              , option< void, nt2::tag::storage_scheme_, conventional_ >::type 
-            >::value
-            ) 
-          );
+  NT2_TEST_EXPR_TYPE( conventional_()
+                      ,(option< void, nt2::tag::storage_scheme_,_>)
+                      ,(conventional_)
+                      );
 
-  NT2_TEST( ( is_same < packed_
-              , option< void, nt2::tag::storage_scheme_, packed_ >::type 
-            >::value
-            ) 
-          );
+  NT2_TEST_EXPR_TYPE( packed_()
+                      ,(option< void, nt2::tag::storage_scheme_,_>)
+                      ,(packed_)
+                      );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some storage_scheme_ as a setting and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
+nt2::settings conv (nt2::packed_      , nt2::conventional_);
+nt2::settings pack (nt2::conventional_, nt2::packed_      );
 NT2_TEST_CASE( setting_storage_scheme_ )
 {
   using nt2::conventional_;
   using nt2::packed_;
   using nt2::settings;
-  using boost::is_same;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( ( is_same < conventional_
-              , option< settings(packed_,
-                                 conventional_)
-              , nt2::tag::storage_scheme_ 
-              >::type 
-              >::value
-            ) 
-          );
 
-  NT2_TEST( ( is_same < packed_
-              , option< settings(conventional_,
-                                 packed_
-                                 )
-              , nt2::tag::storage_scheme_ 
-              >::type 
-              >::value
-            ) 
-          );
+  NT2_TEST_EXPR_TYPE( conv
+                      ,(option<_ , nt2::tag::storage_scheme_>)
+                      ,(conventional_)
+                      );
+
+  NT2_TEST_EXPR_TYPE( pack
+                      ,(option<_ , nt2::tag::storage_scheme_>)
+                      ,(packed_)
+                      );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -103,24 +91,16 @@ NT2_TEST_CASE( setting_storage_scheme_default )
   using nt2::conventional_;
   using nt2::packed_;
   using nt2::settings;
-  using boost::is_same;
   using nt2::meta::option;
+  using boost::mpl::_;
 
-  NT2_TEST( ( is_same < conventional_
-                      , option< settings(long,int)
-                              , nt2::tag::storage_scheme_ 
-                              , conventional_
-                              >::type 
-                      >::value
-            ) 
-          );
+  NT2_TEST_EXPR_TYPE( conventional_()
+                      ,(option< settings(long,int), nt2::tag::storage_scheme_,_>)
+                      ,(conventional_)
+                      );
 
-  NT2_TEST( ( is_same < packed_
-                      , option< settings(long,int)
-                              , nt2::tag::storage_scheme_ 
-                              , packed_
-                              >::type 
-                      >::value
-            ) 
-          );
+  NT2_TEST_EXPR_TYPE( packed_()
+                      ,(option< settings(long,int), nt2::tag::storage_scheme_,_>)
+                      ,(packed_)
+                      );
 }

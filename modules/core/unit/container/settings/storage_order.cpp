@@ -14,18 +14,40 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // storage order apply
 ////////////////////////////////////////////////////////////////////////////////
+template<class T, class U>
+struct  matlab_apply_
+  : nt2::matlab_order_::apply < T
+                              , U
+                              >
+{};
+
+template<class T, class U>
+struct  fortran_apply_
+  : nt2::fortran_order_::apply < T
+                               , U
+                               >
+{};
+
+template<class T, class U>
+struct  C_apply_
+  : nt2::C_order_::apply < T
+                         , U
+                         >
+{};
+
 NT2_TEST_CASE( storage_order_apply)
 {
-  using boost::is_same;
   using boost::mpl::int_;
   using boost::mpl::apply;
   using nt2::matlab_order_;
   using nt2::fortran_order_;
   using nt2::C_order_;
+  using boost::mpl::_;
 
   typedef int_<4> size;
   typedef int_<0> dim_0;
@@ -37,38 +59,33 @@ NT2_TEST_CASE( storage_order_apply)
 ////////////////////////////////////////////////////////////////////////////////
 // matlab_storage order
 ////////////////////////////////////////////////////////////////////////////////
-
-  NT2_TEST((is_same<matlab_order_::apply<size, dim_0> ::type, int_<3>  >::value ));
-  NT2_TEST((is_same<matlab_order_::apply<size, dim_1> ::type, int_<2>  >::value ));
-  NT2_TEST((is_same<matlab_order_::apply<size, dim_2> ::type, int_<1>  >::value ));
-  NT2_TEST((is_same<matlab_order_::apply<size, dim_3> ::type, int_<0>  >::value ));
-
+  NT2_TEST_EXPR_TYPE((dim_0()),(matlab_apply_<size,_>),(int_<3>));
+  NT2_TEST_EXPR_TYPE((dim_1()),(matlab_apply_<size,_>),(int_<2>));
+  NT2_TEST_EXPR_TYPE((dim_2()),(matlab_apply_<size,_>),(int_<1>));
+  NT2_TEST_EXPR_TYPE((dim_3()),(matlab_apply_<size,_>),(int_<0>));
 
 ////////////////////////////////////////////////////////////////////////////////
 // fortran_storage order
 ////////////////////////////////////////////////////////////////////////////////
-
-  NT2_TEST((is_same<fortran_order_::apply<size, dim_0> ::type, int_<3>  >::value ));
-  NT2_TEST((is_same<fortran_order_::apply<size, dim_1> ::type, int_<2>  >::value ));
-  NT2_TEST((is_same<fortran_order_::apply<size, dim_2> ::type, int_<1>  >::value ));
-  NT2_TEST((is_same<fortran_order_::apply<size, dim_3> ::type, int_<0>  >::value ));
-
+  NT2_TEST_EXPR_TYPE((dim_0()),(fortran_apply_<size,_>),(int_<3>));
+  NT2_TEST_EXPR_TYPE((dim_1()),(fortran_apply_<size,_>),(int_<2>));
+  NT2_TEST_EXPR_TYPE((dim_2()),(fortran_apply_<size,_>),(int_<1>));
+  NT2_TEST_EXPR_TYPE((dim_3()),(fortran_apply_<size,_>),(int_<0>));
 
 ////////////////////////////////////////////////////////////////////////////////
 // C_storage order
 ////////////////////////////////////////////////////////////////////////////////
+  NT2_TEST_EXPR_TYPE((dim_0()),(C_apply_<size,_>),(int_<0>));
+  NT2_TEST_EXPR_TYPE((dim_1()),(C_apply_<size,_>),(int_<1>));
+  NT2_TEST_EXPR_TYPE((dim_2()),(C_apply_<size,_>),(int_<2>));
+  NT2_TEST_EXPR_TYPE((dim_3()),(C_apply_<size,_>),(int_<3>));
 
-  NT2_TEST((is_same<C_order_::apply<size, dim_0> ::type, int_<0>  >::value ));
-  NT2_TEST((is_same<C_order_::apply<size, dim_1> ::type, int_<1>  >::value ));
-  NT2_TEST((is_same<C_order_::apply<size, dim_2> ::type, int_<2>  >::value ));
-  NT2_TEST((is_same<C_order_::apply<size, dim_3> ::type, int_<3>  >::value ));
 }
 
 
 NT2_TEST_CASE( storage_order_permute_view )
 {
   using boost::array;
-  using boost::is_same;
   using nt2::meta::permute_view;
   using nt2::matlab_order_;
   using nt2::C_order_;

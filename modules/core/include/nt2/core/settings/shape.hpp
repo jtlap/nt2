@@ -18,7 +18,7 @@ namespace nt2
    *  of N dimensions and contains only non-trivial values.
    **/
   //============================================================================
-  struct rectangular_;
+  struct rectangular_{};
 
   namespace tag 
   { 

@@ -8,7 +8,6 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::settings of_size helper"
 
-#include <boost/type_traits/is_same.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/of_size.hpp>

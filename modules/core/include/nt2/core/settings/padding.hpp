@@ -88,7 +88,9 @@ namespace nt2
 namespace nt2 { namespace meta
 {
   //============================================================================
-  // padding list of one argument return the argument option value
+  /*! padding list of one argument return the padding strategy of 
+   * the argument option with a default value
+  **/
   //============================================================================
   template<class S0, class Default>
   struct  option< padding_(S0), tag::padding_, Default >
@@ -97,7 +99,9 @@ namespace nt2 { namespace meta
   };
 
   //============================================================================
-  // padding list of one argument return the argument option value
+  /*! global_padding_ option return padding_strategy of global 
+   *  with a default value
+  **/
   //============================================================================
   template<class Default>
   struct  option< global_padding_, tag::padding_, Default >
@@ -106,7 +110,8 @@ namespace nt2 { namespace meta
   };
 
   //============================================================================
-  // padding list of one argument return the argument option value
+  /*! lead_padding_ option return padding_strategy of lead with a default value
+  **/
   //============================================================================
   template<class Default>
   struct  option< lead_padding_, tag::padding_, Default >
@@ -114,19 +119,21 @@ namespace nt2 { namespace meta
     typedef padding_strategy_<lead_, boost::mpl::int_<-1> > type;
   };
 
-
-
   //============================================================================
-  // padding list of one argument return the argument option value
+  /*! global_padding_ with alignment value 
+   *  return padding_strategy of global_ with the alignment value
+  **/
   //============================================================================
   template<class Default, std::ptrdiff_t N>
   struct  option< global_padding_(with_<N>), tag::padding_, Default >
   {
-    typedef padding_strategy_<global_, boost::mpl::int_<-1> > type;
+    typedef padding_strategy_<global_, boost::mpl::int_<N> > type;
   };
 
   //============================================================================
-  // padding list of one argument return the argument option value
+  /*! lead_padding_ with alignment value 
+   *  return padding_strategy of lead_ with the alignment value
+  **/
   //============================================================================
   template<class Default, std::ptrdiff_t N>
   struct  option< lead_padding_(with_<N>), tag::padding_, Default >
@@ -134,26 +141,44 @@ namespace nt2 { namespace meta
     typedef padding_strategy_<lead_, boost::mpl::int_<N> > type;
   };
 
-
+  //============================================================================
+  /*! no_padding_ option 
+   *  return padding_strategy of none_ with a default value
+  **/
+  //============================================================================
   template<class Default>
   struct  option< no_padding_, tag::padding_, Default >
   {
     typedef padding_strategy_<none_, boost::mpl::int_<-1> > type;
   };
 
+  //============================================================================
+  /*! padding_ option with alignement value
+   *  return padding_strategy of lead_ with the alignement value
+  **/
+  //============================================================================
   template<std::ptrdiff_t N, class Default>
   struct  option< padding_(with_<N>), tag::padding_, Default >
   {
     typedef padding_strategy_<lead_, boost::mpl::int_<N> > type;
   };
 
-
+  //============================================================================
+  /*! padding_ option with alignement value and padding type
+   *  return padding_strategy of padding type with the alignement value
+  **/
+  //============================================================================
   template<class S0, std::ptrdiff_t N, class Default>
   struct  option< padding_(with_<N>, S0),tag::padding_, Default >
   {
     typedef padding_strategy_<S0, boost::mpl::int_<N> > type;
   };
 
+  //============================================================================
+  /*! padding_ option with padding type and alignement value 
+   *  return padding_strategy of padding type with the alignement value
+  **/
+  //============================================================================
   template<class S0, std::ptrdiff_t N, class Default>
   struct  option< padding_(S0, with_<N>), tag::padding_, Default >
   {
