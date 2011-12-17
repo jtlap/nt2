@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Data holding class for memory buffer
 ////////////////////////////////////////////////////////////////////////////////
-#include <algorithm>
+#include <cstddef>
 #include <boost/swap.hpp>
 
 namespace nt2 { namespace memory { namespace details
@@ -62,22 +62,20 @@ namespace nt2 { namespace memory { namespace details
     template<class Size,class Base>
     void restructure(Size const& s, Base const& b)
     {
-      resize(s);
-      rebase(b);
+      difference_type os = size();
+
+      if(os < s )
+      {
+        deallocate();
+        origin_ = parent_allocator::allocate(s);
+      }
+      
+      clamp(s,b);
     }
 
     template<class Size> void resize(Size const& s)
     {
-      if(!origin_)
-      {
-        origin_ = parent_allocator::allocate(s);
-        clamp(s, 0);
-      }
-      else
-      {
-        origin_ = parent_allocator::resize(origin_,s,end_ - begin_);
-        clamp(s, origin_ - begin_);
-      }
+      restructure(s,lower());
     }
 
     template<class Diff> void rebase(Diff const& b) { clamp(size(), b); }
