@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return b_notand(Mzero<result_type>(),a0);
+      return bitwise_notand(Mzero<result_type>(),a0);
     }
   };
 } } }

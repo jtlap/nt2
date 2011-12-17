@@ -18,6 +18,7 @@
 #include <boost/simd/include/functions/is_finite.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/rshl.hpp>
+#include <boost/simd/include/functions/bitwise_andnot.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
