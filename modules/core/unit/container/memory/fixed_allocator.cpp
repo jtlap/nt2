@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE_TPL(fixed_allocator_usage, NT2_TYPES )
 {
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL(fixed_allocator_usage, NT2_TYPES )
 
   T data[] = { 1, 2, 3, 4, 5 };
 
-  fixed_allocator<T> a(&data[0]);
+  fixed_allocator<T> a(&data[0], &data[0] + 5);
   buffer<T, fixed_allocator<T> > v( ss, bs, a );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL(fixed_allocator_resize, NT2_TYPES )
 
   T data[] = { 1, 2, 3, 4, 5 };
 
-  fixed_allocator<T> a(&data[0]);
+  fixed_allocator<T> a(&data[0], &data[0] + 5);
   buffer<T, fixed_allocator<T> > v( ss, bs, a );
   
   boost::array<std::size_t,1> us = { 3 };
@@ -71,4 +71,8 @@ NT2_TEST_CASE_TPL(fixed_allocator_resize, NT2_TYPES )
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     NT2_TEST_EQUAL( v[i], data[i - v.lower()] );  
+
+  boost::array<std::size_t,1> bads = { 7 };
+
+  NT2_TEST_THROW( v.resize(bads), nt2::assert_exception );
 }

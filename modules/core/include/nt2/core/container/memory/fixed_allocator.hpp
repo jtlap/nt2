@@ -16,7 +16,7 @@ namespace nt2 {  namespace memory
   //============================================================================
   /**!
    * fixed_allocator is a stateful allocator that wraps an already allocated
-   * pointer into an allocator interface.
+   * memory range into an allocator interface.
    **/
   //============================================================================
   template<class T> struct fixed_allocator
@@ -37,38 +37,33 @@ namespace nt2 {  namespace memory
     //==========================================================================
     // Ctor/dtor
     //==========================================================================
-     fixed_allocator( pointer ptr = pointer() ) : pointee_(ptr) {}
+     fixed_allocator( pointer b, pointer e ) : begin_(b), end_(e) {}
     ~fixed_allocator() {}
 
     //==========================================================================
-    // Assignment operator
-    //==========================================================================
-    fixed_allocator& operator=(fixed_allocator const& src)
-    {
-      pointee_ = src.pointee_;
-      return *this;
-    }
-
-    //==========================================================================
-    // Transtyping constructor - Only vlaid if T* and U* are covnertible
+    // Transtyping constructor - Only valid if T* and U* are convertible
     //==========================================================================
     template<class U>
     fixed_allocator(fixed_allocator<U> const& src)
     {
-      pointee_ = static_cast<pointer>(src.pointee());
+      begin_ = static_cast<pointer>(src.begin());
+      end_   = static_cast<pointer>(src.end());
     }
 
     //==========================================================================
     // Original pointer value
     //==========================================================================
-    pointer pointee_;
+    pointer begin_, end_;
 
     //==========================================================================
     // Pointer accessors
     //==========================================================================
-    pointer&        pointee()       { return pointee_; }
-    pointer const&  pointee() const { return pointee_; }
+    pointer&        begin()       { return begin_; }
+    pointer const&  begin() const { return begin_; }
     
+    pointer&        end()       { return end_; }
+    pointer const&  end() const { return end_; }
+
     ////////////////////////////////////////////////////////////////////////////
     // Address handling
     ////////////////////////////////////////////////////////////////////////////
@@ -78,7 +73,7 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Size handling
     ////////////////////////////////////////////////////////////////////////////
-    size_type max_size() const  { return size_type(~0); }
+    size_type max_size() const  { return size_type(end_ - begin_); }
 
     ////////////////////////////////////////////////////////////////////////////
     // Object lifetime handling
@@ -89,8 +84,17 @@ namespace nt2 {  namespace memory
     ////////////////////////////////////////////////////////////////////////////
     // Memory handling
     ////////////////////////////////////////////////////////////////////////////
-    pointer allocate( size_type , const void* = 0 ) const { return pointee_; }
-    void    deallocate(pointer, size_type) const {}
+    pointer allocate( size_type s, const void* = 0 ) const
+    {
+      BOOST_ASSERT_MSG
+      ( (s <= max_size())
+      , "Allocation request more memory than available in this fixed_allocator"
+      );
+
+      return begin_;
+    }
+    
+    void deallocate(pointer, size_type) const {}
   };
 
   //============================================================================
@@ -102,7 +106,7 @@ namespace nt2 {  namespace memory
   template<class T>
   bool operator==(fixed_allocator<T> const& lhs, fixed_allocator<T> const& rhs)
   {
-    return lhs.pointee() == rhs.pointee();
+    return (lhs.begin() == rhs.begin()) && (lhs.end() == rhs.end());
   }
 
   //============================================================================
