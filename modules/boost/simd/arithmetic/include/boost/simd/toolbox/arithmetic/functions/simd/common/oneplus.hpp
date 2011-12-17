@@ -8,6 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ONEPLUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ONEPLUS_HPP_INCLUDED
+
+#include <boost/simd/toolbox/arithmetic/functions/oneplus.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 
@@ -21,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-       return (a0 == Valmax<result_type>()) ? a0 :a0+One<A0>();
+       return if_else(is_equal(a0, Valmax<result_type>()), a0, a0+One<A0>());
     }
   };
 
