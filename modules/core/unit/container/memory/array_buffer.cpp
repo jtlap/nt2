@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL( array_buffer_model_of, NT2_TYPES )
   using nt2::memory::array_buffer;
   using boost::mpl::_;
 
-  typedef array_buffer<T,2> buffer_type;  
+  typedef array_buffer<char,2> buffer_type;  
 
   NT2_TEST_EXPR_TYPE((buffer_type()),(apply_model<_,T>),(array_buffer<T,2>));
 }
@@ -81,10 +81,10 @@ NT2_TEST_CASE_TPL( array_buffer_default_ctor, NT2_TYPES)
 
   type b;
 
-  NT2_TEST_EQUAL(b.size() , 2U );
+  NT2_TEST_EQUAL(b.size() , 0U );
   NT2_TEST_EQUAL(b.lower(), 0  );
-  NT2_TEST_EQUAL(b.upper(), 1 );
-  NT2_TEST_NOT_EQUAL(b.begin(), b.end() );
+  NT2_TEST_EQUAL(b.upper(), -1 );
+  NT2_TEST_EQUAL(b.begin(), b.end() );
 }
 
 //==============================================================================
@@ -108,7 +108,6 @@ NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 3+i );
-    
 }
 
 //==============================================================================
@@ -133,8 +132,7 @@ NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper(), 2  );
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 3+i );
-    
+    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 3+i );    
 }
 
 //==============================================================================
@@ -163,9 +161,9 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(b.lower(), -2 );
   NT2_TEST_EQUAL(b.upper(), 2  );
 
-  NT2_TEST_EQUAL(x.size() , 5U );
+  NT2_TEST_EQUAL(x.size() , 3U );
   NT2_TEST_EQUAL(x.lower(), 1  );
-  NT2_TEST_EQUAL(x.upper(), 5  );
+  NT2_TEST_EQUAL(x.upper(), 3  );
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 3+i );
