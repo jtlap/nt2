@@ -13,7 +13,6 @@
 
 #include <boost/array.hpp>
 #include <boost/fusion/adapted/array.hpp>
-#include <boost/fusion/include/single_view.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
