@@ -8,12 +8,10 @@
 ##############################################################################
 
 SET( SOURCES
-  vector_buffer.cpp
-  pointer_buffer.cpp
   array_buffer.cpp
-  fixed_allocator.cpp
-  dimensions_of.cpp
   buffer.cpp
+  dimensions_of.cpp
+  fixed_allocator.cpp
   iliffe_buffer.cpp
 ## List of scalar test files for toolbox core.memory
    )

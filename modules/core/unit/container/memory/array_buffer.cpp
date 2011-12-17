@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <boost/array.hpp>
 #include <boost/fusion/adapted/array.hpp>
-#include <boost/fusion/include/single_view.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -107,7 +106,7 @@ NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.upper(), 2  );
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 3+i );
+    NT2_TEST_EQUAL( dereference(b,i), 3+i );
 }
 
 //==============================================================================
@@ -132,7 +131,7 @@ NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper(), 2  );
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 3+i );    
+    NT2_TEST_EQUAL( dereference(x,i), 3+i );    
 }
 
 //==============================================================================
@@ -166,10 +165,10 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper(), 3  );
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 3+i );
+    NT2_TEST_EQUAL( dereference(b,i), 3+i );
     
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 10*i );
+    NT2_TEST_EQUAL( dereference(x,i), 10*i );
 
 }
 
@@ -200,29 +199,6 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
   std::transform(b,e,b,f);
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), f(3+i) );
-  
-}
-
-//==============================================================================
-// array_buffer as_buffer
-//==============================================================================
-NT2_TEST_CASE_TPL(array_buffer_as_buffer, NT2_TYPES )
-{
-  using nt2::memory::array_buffer;
-  using nt2::meta::as_buffer;
-
-  typedef array_buffer<T,5> buffer_type ;
-
-  boost::array<std::size_t,1> sx = { 5  };
-  boost::array<std::size_t,1> bx = { -2 };
-  boost::array<T,5> data = {{1,2,3,4,5}};
-
-  buffer_type x;
-
-  x = as_buffer<boost::array<T,5> >()(data,sx,bx);
-
-  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 3+i );
+    NT2_TEST_EQUAL( dereference(x,i), f(3+i) );
   
 }

@@ -17,7 +17,6 @@
 //==============================================================================
 #include <boost/assert.hpp>
 #include <boost/mpl/size.hpp>
-#include <boost/mpl/assert.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
@@ -78,9 +77,8 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     template<typename Sizes, typename Bases>
-    buffer( Sizes           const& sz
-          , Bases           const& bs
-          , allocator_type  const& alloc = allocator_type()
+    buffer( Sizes const& sz, Bases const& bs
+          , allocator_type const& alloc = allocator_type()
           )
     : parent_data(alloc)          
     {      
@@ -96,8 +94,7 @@ namespace nt2 {  namespace memory
      * \param src pointer_buffer to copy
      **/
     //==========================================================================
-    buffer( buffer const& src )
-          : parent_data(src.allocator())
+    buffer( buffer const& src ) : parent_data(src.allocator())
     {
       this->copy( src, src.size(),src.lower());
     }

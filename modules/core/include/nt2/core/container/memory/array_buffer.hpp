@@ -81,8 +81,7 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     array_buffer( array_buffer const& src )
-    : parent_data(src), base_(src.base_), size_(src.size_)
-    {}
+    : parent_data(src), base_(src.base_), size_(src.size_) {}
 
     //==========================================================================
     /**!
@@ -121,7 +120,7 @@ namespace nt2 {  namespace memory
      * Return a (const) reverse_iterator to the beginning of the buffer data.
      **/
     //==========================================================================
-    reverse_iterator        rbegin()
+    reverse_iterator rbegin()
     {
       return reverse_iterator(end());
     }
@@ -136,12 +135,12 @@ namespace nt2 {  namespace memory
      * Return a (const) reverse_iterator to the end of the buffer data.
      **/
     //==========================================================================
-    reverse_iterator        rend()
+    reverse_iterator rend()
     {
       return reverse_iterator(begin());
     }
     
-    const_reverse_iterator  rend()   const
+    const_reverse_iterator rend() const
     {
       return const_reverse_iterator(begin());
     }
