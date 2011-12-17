@@ -29,9 +29,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
        return logical_not(
-         logical_or( is_equal(a, b)
-                   , logical_or( is_greater(b, a)
-                               , is_greater(a, b)
+         logical_or( is_equal(a0, a1)
+                   , logical_or( is_greater(a1, a0)
+                               , is_greater(a0, a1)
                                )
                    )
        );
