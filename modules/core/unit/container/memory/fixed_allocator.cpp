@@ -19,7 +19,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL(fixed_allocator_usage, NT2_TYPES )
+NT2_TEST_CASE_TPL(fixed_allocator, NT2_TYPES )
 {
   using nt2::memory::buffer;
   using nt2::memory::fixed_allocator;
@@ -35,6 +35,26 @@ NT2_TEST_CASE_TPL(fixed_allocator_usage, NT2_TYPES )
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     NT2_TEST_EQUAL( v[i], data[i - v.lower()] );
 
+  for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
+    v[i] = 1+10*(i-v.lower());
+
+  for( std::size_t i=0; i<5; ++i )
+    NT2_TEST_EQUAL( data[i], 1+10*i );
+}
+
+NT2_TEST_CASE_TPL(fixed_allocator_copy, NT2_TYPES )
+{
+  using nt2::memory::buffer;
+  using nt2::memory::fixed_allocator;
+
+  boost::array<std::size_t,1> ss = { 5  };
+  boost::array<std::size_t,1> bs = { -2 };
+
+  T data[] = { 1, 2, 3, 4, 5 };
+
+  fixed_allocator<T> a(&data[0], &data[0] + 5);
+  buffer<T, fixed_allocator<T> > v( ss, bs, a );
+
   buffer<T, fixed_allocator<T> > w(v);
 
   for( std::ptrdiff_t i=w.lower(); i<=w.upper(); ++i )
@@ -45,6 +65,9 @@ NT2_TEST_CASE_TPL(fixed_allocator_usage, NT2_TYPES )
 
   for( std::size_t i=0; i<5; ++i )
     NT2_TEST_EQUAL( data[i], 1+10*i );
+
+  for( std::ptrdiff_t i=w.lower(); i<=w.upper(); ++i )
+    NT2_TEST_EQUAL( w[i], v[i] );
 }
 
 NT2_TEST_CASE_TPL(fixed_allocator_resize, NT2_TYPES )
@@ -60,9 +83,9 @@ NT2_TEST_CASE_TPL(fixed_allocator_resize, NT2_TYPES )
   fixed_allocator<T> a(&data[0], &data[0] + 5);
   buffer<T, fixed_allocator<T> > v( ss, bs, a );
   
-  boost::array<std::size_t,1> us = { 3 };
+  boost::array<std::size_t,1> less_s = { 3 };
 
-  v.resize( us );
+  v.resize( less_s );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     NT2_TEST_EQUAL( v[i], data[i - v.lower()] );  
@@ -72,7 +95,7 @@ NT2_TEST_CASE_TPL(fixed_allocator_resize, NT2_TYPES )
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     NT2_TEST_EQUAL( v[i], data[i - v.lower()] );  
 
-  boost::array<std::size_t,1> bads = { 7 };
+  boost::array<std::size_t,1> more_s = { 7 };
 
-  NT2_TEST_THROW( v.resize(bads), nt2::assert_exception );
+  NT2_TEST_THROW( v.resize(more_s), nt2::assert_exception );
 }
