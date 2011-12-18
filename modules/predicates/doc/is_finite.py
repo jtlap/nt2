@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 21/02/2011',
-             'included' : ['#include <nt2/sdk/meta/logical.hpp>'],
+             'included' : ['#include <nt2/sdk/simd/logical.hpp>'],
              'cover_included' : ['#include <nt2/include/functions/abs.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
