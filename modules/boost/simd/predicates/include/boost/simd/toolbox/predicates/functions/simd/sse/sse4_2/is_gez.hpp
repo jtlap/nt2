@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_2_IS_LEZ_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_2_IS_LEZ_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_2_IS_GEZ_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_2_IS_GEZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_lez_, boost::simd::tag::sse4_2_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_gez_, boost::simd::tag::sse4_2_, (A0)
                             , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
                             )
   {

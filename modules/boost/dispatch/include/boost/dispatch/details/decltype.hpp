@@ -49,7 +49,7 @@
 #ifndef BOOST_NO_DECLTYPE
 #define BOOST_DISPATCH_DECLTYPE(EXPR, TYPE) typedef decltype(EXPR) TYPE;
 #else
-#define BOOST_DISPATCH_DECLTYPE(EXPR, TYPE)                                       \
+#define BOOST_DISPATCH_DECLTYPE(EXPR, TYPE)                            \
 BOOST_TYPEOF_NESTED_TYPEDEF_TPL(BOOST_PP_CAT(nested_, TYPE), (EXPR))   \
 typedef typename BOOST_PP_CAT(nested_, TYPE)::type TYPE;
 #endif
