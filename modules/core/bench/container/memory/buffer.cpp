@@ -33,14 +33,35 @@ template<class T> struct buffer_test
   nt2::memory::buffer<T> data;
 };
 
+template<class T> struct std_test
+{
+  std_test(std::size_t sz) : v(1), data(sz)
+  {}
+
+  ~std_test() {}
+   
+  void operator()()
+  {
+    for(std::size_t i = 0; i < data.size(); ++i) data[i] = v;
+  }
+
+  T v;
+  std::vector<T> data;
+};
+
 NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 {
   int N = 1024*1024;
 
   for(int i=-2;i<=2;++i)
   {
-    buffer_test<T> b(N,i);
+    buffer_test<T> b(1024*1024,i);
     double d = nt2::unit::perform_benchmark( b, 1.);
     std::cout << "buffer access (base=" << i << ") : "<< d/N << " cpe\n";
   }
+
+  std_test<T> y(N);
+  double v = nt2::unit::perform_benchmark( y, 1.);
+  std::cout << "std access : "<< v/N << " cpe\n";
+
 }

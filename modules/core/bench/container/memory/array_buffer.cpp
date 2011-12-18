@@ -32,6 +32,19 @@ template<class T> struct buffer_test
   nt2::memory::array_buffer<T,1024*1024> data;
 };
 
+template<class T> struct raw_test
+{
+  raw_test() : v(1) {}
+
+  void operator()()
+  {
+    for(std::size_t i = 0; i <= 1024*1024; ++i) data[i] = v;
+  }
+
+  T v;
+  T data[1024*1024];
+};
+
 NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 {
   for(int i=-2;i<=2;++i)
@@ -40,4 +53,8 @@ NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
     double d = nt2::unit::perform_benchmark( b, 1.);
     std::cout << "array_buffer access (base=" << i << ") : "<< d/1024 << " cpe\n";
   }
+
+  raw_test<T> b;
+  double d = nt2::unit::perform_benchmark( b, 1.);
+  std::cout << "C array access : "<< d/1024 << " cpe\n";  
 }
