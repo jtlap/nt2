@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_ILIFFE_BUFFER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ILIFFE_BUFFER_HPP_INCLUDED
 
-#include <boost/mpl/size_t.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
@@ -21,31 +20,6 @@ namespace nt2 { namespace memory
 {
   template<typename Dimensions, typename Data, typename Index>
   struct iliffe_buffer;
-
-  //============================================================================
-  // iliffe_buffer are dereferencable
-  //============================================================================
-  template<typename Ds, typename D, typename I, typename Position>
-  typename iliffe_buffer<Ds,D,I>::reference
-  dereference( iliffe_buffer<Ds,D,I>& b, Position const& pos )
-  {
-    BOOST_MPL_ASSERT_MSG( (boost::mpl::size<Position>::value == Ds::value)
-                        , POSITION_SIZE_MISMATCH_IN_ILIFFE_BUFFER_ACCESS
-                        , (Position)
-                        );
-    return b[pos];
-  }
-  
-  template<typename Ds, typename D, typename I, typename Position>
-  typename iliffe_buffer<Ds,D,I>::const_reference
-  dereference( iliffe_buffer<Ds,D,I> const& b, Position const& pos )
-  {
-    BOOST_MPL_ASSERT_MSG( (boost::mpl::size<Position>::value == Ds::value)
-                        , POSITION_SIZE_MISMATCH_IN_ILIFFE_BUFFER_ACCESS
-                        , (Position)
-                        );
-    return b[pos];
-  }
 } }
 
 namespace nt2 { namespace meta
