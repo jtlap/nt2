@@ -219,10 +219,11 @@ namespace nt2 {  namespace memory
      **/    
     //==========================================================================
     template<class Position> BOOST_FORCEINLINE
-    reference operator[](Position const& pos)
+    typename boost::enable_if < boost::is_integral<Position>
+                              , reference
+                              >::type
+    operator[](Position const& i)
     {
-      difference_type i = boost::fusion::at_c<0>( meta::as_sequence(pos) );
-      
       BOOST_ASSERT_MSG( (i >= parent_data::lower())
                       , "Position is below buffer bounds"
                       );
@@ -235,10 +236,11 @@ namespace nt2 {  namespace memory
     }
 
     template<class Position> BOOST_FORCEINLINE
-    const_reference operator[](Position const& pos) const
-    {                          
-      difference_type i = boost::fusion::at_c<0>( meta::as_sequence(pos) );
-      
+    typename boost::enable_if < boost::is_integral<Position>
+                              , const_reference
+                              >::type
+    operator[](Position const& i) const
+    {
       BOOST_ASSERT_MSG( (i >= parent_data::lower())
                       , "Position is below buffer bounds"
                       );
@@ -247,7 +249,50 @@ namespace nt2 {  namespace memory
                       , "Position is out of buffer bounds"
                       );
                       
-      return parent_data::origin_[i];                      
+      return parent_data::origin_[i];
+    }
+
+    //==========================================================================
+    /**!
+     * Return the ith element of the buffer.
+     *
+     * \param pos 1D Fusion RandomAccessSequence containing the index of the
+     * element to retrieve. Note that \c i should be no lesser than lower()
+     * nor bigger than upper() to be valid.
+     **/    
+    //==========================================================================
+    template<class Position> BOOST_FORCEINLINE
+    typename boost::enable_if < boost::fusion::traits::is_sequence<Position>
+                              , reference
+                              >::type
+    operator[](Position const& pos)
+    {
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>( pos ) >= parent_data::lower())
+                      , "Position is below buffer bounds"
+                      );
+                      
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>( pos ) <= parent_data::upper())
+                      , "Position is out of buffer bounds"
+                      );
+                      
+      return parent_data::origin_[boost::fusion::at_c<0>( pos )];
+    }
+
+    template<class Position> BOOST_FORCEINLINE
+    typename boost::enable_if < boost::fusion::traits::is_sequence<Position>
+                              , const_reference
+                              >::type
+    operator[](Position const& pos) const
+    {
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>( pos ) >= parent_data::lower())
+                      , "Position is below buffer bounds"
+                      );
+                      
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>( pos ) <= parent_data::upper())
+                      , "Position is out of buffer bounds"
+                      );
+                      
+      return parent_data::origin_[boost::fusion::at_c<0>( pos )];
     }
     
     //==========================================================================

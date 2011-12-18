@@ -17,12 +17,8 @@
 
 namespace nt2 { namespace memory { namespace details
 {
-  template<class Allocator>
-  struct buffer_data : private Allocator
+  template<class Allocator> struct buffer_data : private Allocator
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // Forwarded types
-    ////////////////////////////////////////////////////////////////////////////
     typedef Allocator                             parent_allocator;
     typedef typename Allocator::value_type        value_type;
     typedef typename Allocator::pointer           pointer;
@@ -65,29 +61,39 @@ namespace nt2 { namespace memory { namespace details
     template<class Size,class Base>
     void restructure(Size const& s, Base const& b)
     {
-      if(size() < s )
-      {
-        deallocate();
-        low_ = b;
-        origin_ = parent_allocator::allocate(s) - low_;
-      }      
-
-      up_  = low_ + s - 1;
+      realloc(s);
+      clamp(b,s);
     }
 
     template<class Size> void resize(Size const& s)
     {
-      restructure(s,low_);
+      realloc(s);
+      up_  = low_ + s - 1;
     }
 
     template<class Diff> void rebase(Diff const& b)
     {
-      up_     = size() - 1;
+      clamp(b,size());
+    }
+
+    template<class Size> void realloc(Size const& s)
+    {
+      if(size() < s )
+      {
+        deallocate();
+        origin_ = parent_allocator::allocate(s) - low_;
+      }
+    }
+    
+    template<class Diff,class Size>
+    void clamp(Diff const& b,Size const& s)
+    {
+      up_     = s - 1;
       origin_ = origin_ + low_ - b;
       low_    = b;
       up_    += low_;
     }
-
+    
     size_type       size()  const { return up_ - low_ + 1;  }
     difference_type lower() const { return low_;            }
     difference_type upper() const { return up_;             }
