@@ -19,8 +19,10 @@
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-//#include <iostream>
+#include <iostream>
 
 namespace nt2
 {
@@ -122,22 +124,20 @@ namespace nt2
           const A0 bte = {eval_t::base_tancot_eval(scale(a0_n))};
           return rec(bte); 
         }
-
         static inline A0_n cota(const A0_n a0_n, const regular&)
         {
+
           const A0 a0 = { a0_n };
-          const A0 x =  nt2::abs(a0); 
+          const A0 x = nt2::abs(a0); 
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const A0 y = {eval_t::cot_eval(xr, oneminus(shli((n&One<int_type>()), 1)))};
           // 1 -- n even -1 -- n odd 
           const bA0 testnan = redu_t::cot_invalid(a0);
-        // these lines make clang sign error on cotd and cotpi at 0 disappear...
-        //         std::cout << "a0            " << a0 << std::endl;
-        //         std::cout << "bitofsign(a0) " << bitofsign(a0)<< std::endl;
-        //         std::cout << "y             " << y            << std::endl;
-        //         std::cout << "xor           " <<  b_xor(y, bitofsign(a0))<< std::endl;
-          return if_nan_else(testnan, b_xor(y, bitofsign(a0)));                        
+          // this if_else is normally not needed but with clang the zero value if eroneous
+          // if not there !
+          A0 result =  b_xor(y, bitofsign(a0));
+          return if_else(is_nez(a0), if_nan_else(testnan, result), rec(a0));
         }
 
         // simultaneous cosa and sina function
