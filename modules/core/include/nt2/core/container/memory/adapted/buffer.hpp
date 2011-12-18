@@ -23,23 +23,6 @@ namespace nt2 { namespace memory
   //============================================================================
   template<typename T, typename A = boost::simd::memory::allocator<T> >
   struct buffer;
-
-  //============================================================================
-  // Buffer are dereferencable
-  //============================================================================
-  template<typename T, typename A, typename Position>
-  typename buffer<T,A>::reference
-  dereference( buffer<T,A>& b, Position const& pos )
-  {
-    return b[boost::fusion::at_c<0>( meta::as_sequence(pos) )];
-  }
-  
-  template<typename T, typename A, typename Position>
-  typename buffer<T,A>::const_reference
-  dereference( buffer<T,A> const& b, Position const& pos )
-  {
-    return b[boost::fusion::at_c<0>( meta::as_sequence(pos) )];
-  }
 } }
 
 namespace nt2 { namespace meta

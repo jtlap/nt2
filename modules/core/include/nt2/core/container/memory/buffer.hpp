@@ -133,6 +133,13 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
+     * Return a (const) pointer to the biased beginning of the buffer data
+     **/
+    //==========================================================================
+    using parent_data::origin;
+    
+    //==========================================================================
+    /**!
      * Return a (const) iterator to the beginning of the buffer data.
      **/
     //==========================================================================
@@ -211,8 +218,11 @@ namespace nt2 {  namespace memory
      * lesser than lower() nor bigger than upper() to be valid.
      **/    
     //==========================================================================
-    reference operator[](difference_type const& i)
+    template<class Position> BOOST_FORCEINLINE
+    reference operator[](Position const& pos)
     {
+      difference_type i = boost::fusion::at_c<0>( meta::as_sequence(pos) );
+      
       BOOST_ASSERT_MSG( (i >= parent_data::lower())
                       , "Position is below buffer bounds"
                       );
@@ -221,11 +231,14 @@ namespace nt2 {  namespace memory
                       , "Position is out of buffer bounds"
                       );
                       
-      return parent_data::begin_[i];
+      return parent_data::origin_[i];
     }
 
-    const_reference operator[](difference_type const& i) const
+    template<class Position> BOOST_FORCEINLINE
+    const_reference operator[](Position const& pos) const
     {                          
+      difference_type i = boost::fusion::at_c<0>( meta::as_sequence(pos) );
+      
       BOOST_ASSERT_MSG( (i >= parent_data::lower())
                       , "Position is below buffer bounds"
                       );
@@ -234,7 +247,7 @@ namespace nt2 {  namespace memory
                       , "Position is out of buffer bounds"
                       );
                       
-      return parent_data::begin_[i];                      
+      return parent_data::origin_[i];                      
     }
     
     //==========================================================================

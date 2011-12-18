@@ -33,75 +33,78 @@ namespace nt2 { namespace memory { namespace details
     typedef typename Allocator::const_pointer     const_reverse_iterator;
     typedef typename Allocator::reference         reference;
     typedef typename Allocator::const_reference   const_reference;
-    typedef typename Allocator::size_type         size_type;
+    typedef typename Allocator::difference_type   size_type;
     typedef typename Allocator::difference_type   difference_type;
     typedef typename Allocator::difference_type   index_type;
 
     buffer_data(Allocator const& a) : parent_allocator(a)
-                                    , origin_(0), begin_(0), end_(0) {}
+                                    , origin_(0), low_(0), up_(-1) {}
 
     template<class Size, class Diff>
     void allocate(Diff const& b, Size const& s)
     {
       if(s)
       {
-        origin_ = parent_allocator::allocate(s);
-        clamp(s, b);
+        low_  = b;
+        origin_ = parent_allocator::allocate(s) - low_;
       }
       else
       {
-        origin_ = begin_ = end_ = 0;
+        origin_ = 0;
+        low_    = 0;
       }
+
+      up_ = low_ + s - 1;
     }
 
     void deallocate()
     {
-      if(origin_) parent_allocator::deallocate(origin_,end_ - begin_);
+      if(origin_) parent_allocator::deallocate(origin_ + low_, size());
     }
 
     template<class Size,class Base>
     void restructure(Size const& s, Base const& b)
     {
-      difference_type os = size();
-
-      if(os < s )
+      if(size() < s )
       {
         deallocate();
-        origin_ = parent_allocator::allocate(s);
-      }
-      
-      clamp(s,b);
+        low_ = b;
+        origin_ = parent_allocator::allocate(s) - low_;
+      }      
+
+      up_  = low_ + s - 1;
     }
 
     template<class Size> void resize(Size const& s)
     {
-      restructure(s,lower());
+      restructure(s,low_);
     }
 
-    template<class Diff> void rebase(Diff const& b) { clamp(size(), b); }
-
-    template<class Size, class Diff>
-    void clamp(Size const& size, Diff const& lower)
+    template<class Diff> void rebase(Diff const& b)
     {
-      begin_  = origin_ - lower;
-      end_    = begin_  + size;
+      up_     = size() - 1;
+      origin_ = origin_ + low_ - b;
+      low_    = b;
+      up_    += low_;
     }
 
-    size_type       size()  const { return end_    - begin_;      }
-    difference_type lower() const { return origin_ - begin_;      }
-    difference_type upper() const { return size()  - 1 + lower(); }
+    size_type       size()  const { return up_ - low_ + 1;  }
+    difference_type lower() const { return low_;            }
+    difference_type upper() const { return up_;             }
 
-    pointer begin() { return origin_;           }
-    pointer end()   { return origin_ + size();  }
+    pointer origin()  { return origin_;           }
+    pointer begin()   { return origin_ + low_;    }
+    pointer end()     { return origin_ + up_ + 1; }
 
-    pointer const begin() const { return origin_;           }
-    pointer const end()   const { return origin_ + size();  }
+    const_pointer origin()  const { return origin_;           }
+    const_pointer begin()   const { return origin_ + low_;    }
+    const_pointer end()     const { return origin_ + up_ + 1; }
 
     void swap(buffer_data& src)
     {
-      boost::swap(origin_, src.origin_ );
-      boost::swap(begin_ , src.begin_  );
-      boost::swap(end_   , src.end_    );
+      boost::swap(origin_ , src.origin_ );
+      boost::swap(low_    , src.low_    );
+      boost::swap(up_     , src.up_     );
     }
 
     parent_allocator& allocator()
@@ -114,7 +117,8 @@ namespace nt2 { namespace memory { namespace details
       return static_cast<parent_allocator const&>(*this);
     }
 
-    pointer origin_, begin_, end_;
+    pointer         origin_;
+    difference_type low_, up_;    
   };
 } } }
 

@@ -78,9 +78,7 @@ NT2_TEST_CASE_TPL( buffer_default_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.size() , 0U );
   NT2_TEST_EQUAL(b.lower(), 0  );
   NT2_TEST_EQUAL(b.upper(), -1 );
-  NT2_TEST_EQUAL(b.begin(), b.end() );
 }
-
 
 //==============================================================================
 // Test for buffer assignment
@@ -94,7 +92,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
   buffer_type x, b(5,-2);
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    dereference(b,boost::fusion::single_view<int>(i)) = 3+i ;
+    b[i] = 3+i ;
 
   x = b;
   
@@ -103,7 +101,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper(), 2  );
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 3+i );
+    NT2_TEST_EQUAL( x[i], 3+i );
     
 }
 
@@ -120,11 +118,11 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 
   buffer_type b(boost::fusion::single_view<int>(3),1);
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    dereference(b,boost::fusion::single_view<int>(i)) = 10*i ;
+    b[i] = 10*i ;
 
   buffer_type x( 5, boost::fusion::single_view<int>(-2) );
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    dereference(x,boost::fusion::single_view<int>(i)) = 3+i ;
+    x[i] = 3+i ;
 
   swap(b,x);
 
@@ -137,10 +135,10 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper(), 3  );
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(b,boost::fusion::single_view<int>(i)), 3+i );
+    NT2_TEST_EQUAL( b[i], 3+i );
     
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), 10*i );
+    NT2_TEST_EQUAL( x[i], 10*i );
 
 }
 
@@ -160,7 +158,7 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
 
   buffer_type x(5,-2);
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    dereference(x,boost::fusion::single_view<int>(i)) = 3+i ;
+    x[i] = 3+i ;
 
   f_ f;
   
@@ -170,5 +168,5 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
   std::transform(b,e,b,f);
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,boost::fusion::single_view<int>(i)), f(3+i) );
+    NT2_TEST_EQUAL( x[i], f(3+i) );
 }
