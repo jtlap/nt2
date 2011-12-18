@@ -16,7 +16,6 @@
 #include <nt2/toolbox/trigonometric/include/functions/cotpi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-extern "C" {extern long double cephes_tanl(long double);}
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

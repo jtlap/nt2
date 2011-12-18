@@ -19,18 +19,18 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
-                      ((simd_<arithmetic_<A0>,X>))
-                     )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return boost::simd::bitwise_cast<A0>(toint(cnp(tofloat(a0),tofloat(a1))));
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
+//                       (A0)(X),
+//                       ((simd_<arithmetic_<A0>,X>))
+//                       ((simd_<arithmetic_<A0>,X>))
+//                      )
+//   {
+//     typedef A0 result_type;
+//     NT2_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       return boost::simd::bitwise_cast<A0>(toint(cnp(tofloat(a0),tofloat(a1))));
+//     }
+//   };
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
                       (A0)(X),
@@ -49,39 +49,39 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<type8_<A0>,X>))
-                      ((simd_<type8_<A0>,X>))
-                     )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      typedef typename meta::upgrade<A0> ::type utype;
-      utype a00, a01, a10, a11;
-      nt2::split(a0, a00, a01);
-      nt2::split(a1, a10, a11);
-      return nt2::group(cnp(a00,a10),cnp(a01,a11)); 
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
+//                       (A0)(X),
+//                       ((simd_<type8_<A0>,X>))
+//                       ((simd_<type8_<A0>,X>))
+//                      )
+//   {
+//     typedef A0 result_type;
+//     NT2_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       typedef typename meta::upgrade<A0> ::type utype;
+//       utype a00, a01, a10, a11;
+//       nt2::split(a0, a00, a01);
+//       nt2::split(a1, a10, a11);
+//       return nt2::group(cnp(a00,a10),cnp(a01,a11)); 
+//     }
+//   };
 
-  /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
+//   /////////////////////////////////////////////////////////////////////////////
+// // Implementation when type A0 is floating_
+// /////////////////////////////////////////////////////////////////////////////
 
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<floating_<A0>,X>))
-                      ((simd_<floating_<A0>,X>))
-                     )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return map(functor<tag::cnp_>(), a0, a1);
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::cnp_, tag::cpu_,
+//                       (A0)(X),
+//                       ((simd_<floating_<A0>,X>))
+//                       ((simd_<floating_<A0>,X>))
+//                      )
+//   {
+//     typedef A0 result_type;
+//     NT2_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       return map(functor<tag::cnp_>(), a0, a1);
+//     }
+//   };
 } }
 #endif

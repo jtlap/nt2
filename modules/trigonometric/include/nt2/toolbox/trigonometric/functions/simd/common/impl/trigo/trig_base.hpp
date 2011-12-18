@@ -20,6 +20,7 @@
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/sdk/simd/tags.hpp>
+//#include <iostream>
 
 namespace nt2
 {
@@ -118,7 +119,7 @@ namespace nt2
 
         static inline A0_n cota(const A0_n a0_n, const fast&)
         {
-         const A0 bte = {eval_t::base_tancot_eval(scale(a0_n))}; 
+          const A0 bte = {eval_t::base_tancot_eval(scale(a0_n))};
           return rec(bte); 
         }
 
@@ -130,7 +131,12 @@ namespace nt2
           const int_type n = redu_t::reduce(x, xr, xc);
           const A0 y = {eval_t::cot_eval(xr, oneminus(shli((n&One<int_type>()), 1)))};
           // 1 -- n even -1 -- n odd 
-          const bA0 testnan = redu_t::cot_invalid(a0); 
+          const bA0 testnan = redu_t::cot_invalid(a0);
+        // these lines make clang sign error on cotd and cotpi at 0 disappear...
+        //         std::cout << "a0            " << a0 << std::endl;
+        //         std::cout << "bitofsign(a0) " << bitofsign(a0)<< std::endl;
+        //         std::cout << "y             " << y            << std::endl;
+        //         std::cout << "xor           " <<  b_xor(y, bitofsign(a0))<< std::endl;
           return if_nan_else(testnan, b_xor(y, bitofsign(a0)));                        
         }
 
