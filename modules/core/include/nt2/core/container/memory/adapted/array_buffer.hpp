@@ -17,7 +17,6 @@
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/container/meta/dereference.hpp>
 #include <nt2/core/container/meta/dimensions_of.hpp>
 
 namespace nt2 {  namespace memory
@@ -26,23 +25,6 @@ namespace nt2 {  namespace memory
   // Forward declaration
   //============================================================================
   template<typename Type, std::size_t N> struct array_buffer;
-
-  //============================================================================
-  // array_buffer are dereferencable
-  //============================================================================
-  template<typename T, std::size_t N, typename Position>
-  typename array_buffer<T,N>::reference
-  dereference( array_buffer<T,N>& b, Position const& pos )
-  {
-    return b[boost::fusion::at_c<0>( meta::as_sequence(pos) )];
-  }
-  
-  template<typename T, std::size_t N, typename Position>
-  typename array_buffer<T,N>::const_reference
-  dereference( array_buffer<T,N> const& b, Position const& pos )
-  {
-    return b[boost::fusion::at_c<0>( meta::as_sequence(pos) )];
-  }
 } } 
 
 namespace nt2 { namespace meta

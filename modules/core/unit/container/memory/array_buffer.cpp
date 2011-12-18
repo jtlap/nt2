@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.upper(), 2  );
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(b,i), 3+i );
+    NT2_TEST_EQUAL( b[i], 3+i );
 }
 
 //==============================================================================
@@ -131,7 +131,7 @@ NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper(), 2  );
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,i), 3+i );    
+    NT2_TEST_EQUAL( x[i], 3+i );    
 }
 
 //==============================================================================
@@ -165,10 +165,10 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper(), 3  );
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(b,i), 3+i );
+    NT2_TEST_EQUAL( b[i], 3+i );
     
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,i), 10*i );
+    NT2_TEST_EQUAL( x[i], 10*i );
 
 }
 
@@ -199,6 +199,5 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
   std::transform(b,e,b,f);
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( dereference(x,i), f(3+i) );
-  
+    NT2_TEST_EQUAL( x[i], f(3+i) );
 }

@@ -102,6 +102,14 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
+     * Return a (const) iterator to the biased beginning of the buffer data.
+     **/
+    //==========================================================================
+    const_iterator  origin() const  { return begin() - base_; }
+    iterator        origin()        { return begin() - base_; }
+
+    //==========================================================================
+    /**!
      * Return a (const) iterator to the beginning of the buffer data.
      **/
     //==========================================================================
@@ -181,9 +189,11 @@ namespace nt2 {  namespace memory
      * lesser than lower() nor bigger than upper() to be valid.
      **/    
     //==========================================================================
-    reference
-    operator[](difference_type const& i)
+    template<class Position> BOOST_FORCEINLINE
+    reference operator[](Position const& pos)
     {
+      difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
+      
       BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
@@ -191,12 +201,15 @@ namespace nt2 {  namespace memory
       BOOST_ASSERT_MSG( (i <= upper())
                       , "Position is out of buffer bounds"
                       );
-      return parent_data::operator[](i - base_);
+                      
+      return parent_data::operator [](i - base_);
     }
 
-    const_reference
-    operator[](difference_type const& i) const
+    template<class Position> BOOST_FORCEINLINE
+    const_reference operator[](Position const& pos) const
     {
+      difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
+      
       BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
@@ -204,7 +217,8 @@ namespace nt2 {  namespace memory
       BOOST_ASSERT_MSG( (i <= upper())
                       , "Position is out of buffer bounds"
                       );
-      return parent_data::operator[](i - base_);
+                      
+      return parent_data::operator [](i - base_);
     }
 
     //==========================================================================
