@@ -9,9 +9,8 @@
 
 SET( SOURCES
    allocation.cpp
-#   deallocation.cpp
-   pointer_buffer.cpp
-   vector_buffer.cpp
+   buffer.cpp
+#   vector_buffer.cpp
 # List of scalar test files for toolbox fuzzy
    )
 

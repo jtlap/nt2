@@ -6,20 +6,16 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2 container pointer_buffer"
+#define NT2_UNIT_MODULE "nt2 container buffer"
 
-#include <nt2/include/functions/of_size.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
-#include <nt2/include/functions/function.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
+#include <nt2/core/container/memory/buffer.hpp>
 
+#include <iostream>
 #include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
 #include <nt2/sdk/unit/perform_benchmark.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
-#include <nt2/core/container/memory/pointer_buffer.hpp>
-
-#include <iostream>
 
 template<class T> struct pointer_buffer_ctor_test
 {
