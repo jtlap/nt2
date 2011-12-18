@@ -15,6 +15,7 @@
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -61,7 +62,7 @@ NT2_TEST_CASE_TPL ( is_gtz_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 } // end of test for floating_
 
 
-NT2_TEST_CASE_TPL ( is_gtz_integer__1_0, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( is_gtz_integer__1_0, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::is_gtz;
   using boost::simd::tag::is_gtz_;
@@ -85,4 +86,6 @@ NT2_TEST_CASE_TPL ( is_gtz_integer__1_0, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(is_gtz(boost::simd::One<vT>())[0], vsr_t(true));
   NT2_TEST_EQUAL(is_gtz(boost::simd::Two<vT>())[0], vsr_t(true));
   NT2_TEST_EQUAL(is_gtz(boost::simd::Zero<vT>())[0], vsr_t(false));
+  NT2_TEST_EQUAL(is_gtz(boost::simd::shli(boost::simd::One<vT>(), 4*sizeof(T)+1))[0], vsr_t(true));
+  NT2_TEST_EQUAL(is_gtz(boost::simd::shli(boost::simd::Mone<vT>(), 4*sizeof(T)+1))[0], vsr_t(false));
 } // end of test for integral_
