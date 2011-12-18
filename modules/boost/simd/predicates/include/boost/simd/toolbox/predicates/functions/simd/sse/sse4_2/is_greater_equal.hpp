@@ -9,8 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_2_IS_GREATER_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_2_IS_GREATER_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
-#include <boost/simd/sdk/simd/logical.hpp>
+
+#include <boost/simd/toolbox/predicates/functions/is_greater_equal.hpp>
 #include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
