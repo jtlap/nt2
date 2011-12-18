@@ -50,16 +50,15 @@ template<class T> struct simd_allocation_test
 
 NT2_TEST_CASE_TPL( allocation_test, NT2_TYPES )
 {
-  for(int N=1;N<1024*1024;N*=2)
-  {
-    simd_allocation_test<T> g(N);
-    std_allocation_test<T>  f(N);
+  int N = 1024*1024;
+  
+  simd_allocation_test<T> g(N*sizeof(T));
+  std_allocation_test<T>  f(N*sizeof(T));
 
-    std::cout << "Allocating " << N << "elements.\n";
-    double dw = nt2::unit::perform_benchmark(g , 1.);
-    std::cout << "boost_simd_allocation : " << dw/N << " cpe\n";
+  std::cout << "Allocating " << N << " elements.\n";
+  double dw = nt2::unit::perform_benchmark(g , 1.);
+  std::cout << "simd::allocator : " << dw/N << " cpe\n";
 
-    double dv = nt2::unit::perform_benchmark( f, 1.);
-    std::cout << "std_allocation        : " << dv/N << " cpe\n";
-  }
+  double dv = nt2::unit::perform_benchmark( f, 1.);
+  std::cout << "std::allocator   : " << dv/N << " cpe\n\n";
 }

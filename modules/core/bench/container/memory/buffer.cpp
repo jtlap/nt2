@@ -17,86 +17,30 @@
 #include <nt2/sdk/unit/perform_benchmark.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-template<class T> struct pointer_buffer_ctor_test
+template<class T> struct buffer_test
 {
-  pointer_buffer_ctor_test(std::size_t size, std::size_t base)
-  {
-    sz[0] = size;
-    bs[0] = base;
-    data = alloc.allocate(size*sizeof(T));
+  typedef typename nt2::memory::buffer<T>::size_type        size_type;
+  typedef typename nt2::memory::buffer<T>::difference_type  difference_type;
 
-  }
-
-  ~pointer_buffer_ctor_test()
-  {
-    //    alloc.deallocate(data,sz[0]);
-  }
+  buffer_test(size_type sz, difference_type bs) : data(sz,bs), v(1) {}
 
   void operator()()
   {
-    nt2::memory::pointer_buffer<T> buffer(&data[0],sz,bs);
+    for(difference_type i = data.lower(); i <= data.upper(); ++i) data[i] = v;
   }
 
-  boost::simd::memory::allocator<T> alloc;
-  boost::array<std::size_t,1> sz;
-  boost::array<std::size_t,1> bs;
-  T* data;
+  T v;
+  nt2::memory::buffer<T> data;
 };
 
-
-template<class T> struct pointer_buffer_acc_test
+NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 {
-  pointer_buffer_acc_test(std::size_t size, std::size_t base)
-  {
-    sz[0] = size;
-    bs[0] = base;
-
-    data = alloc.allocate(size*sizeof(T));
-
-    b = nt2::meta::as_buffer<T*>()(&data[0],sz,bs);
-  }
-
-  ~pointer_buffer_acc_test()
-  {
-    //    alloc.deallocate(data,sz[0]);
-  }
-
-
-  void operator()()
-  {
-    for ( int i = b.lower(); i <= b.upper(); ++i )
-      ++dereference(b,boost::fusion::single_view<int>(i));
-  }
-
-  boost::simd::memory::allocator<T> alloc;
-  boost::array<std::size_t,1> sz;
-  boost::array<std::size_t,1> bs;
-  nt2::memory::pointer_buffer<T> b;
-  T* data;
-};
-
-
-
-NT2_TEST_CASE( pointer_buffer_test )
-{
-  typedef float T;
-
   int N = 1024*1024;
 
-  pointer_buffer_ctor_test<T> f(N,0);
-  double dv = nt2::unit::perform_benchmark( f, 1.);
-  std::cout << "pointer_buffer_ctor              : " << dv/N << " cpe\n";
-
-  pointer_buffer_acc_test<T> g(N,0);
-  double dw = nt2::unit::perform_benchmark( g, 1.);
-  std::cout << "pointer_buffer_acc (base = 0)    : " << dw/N << " cpe\n";
-
-  pointer_buffer_acc_test<T> h(N,3);
-  double dx = nt2::unit::perform_benchmark( h, 1.);
-  std::cout << "pointer_buffer_acc (base = 3)    : " << dx/N << " cpe\n";
-
-  pointer_buffer_acc_test<T> k(N,-2);
-  double dy = nt2::unit::perform_benchmark( k, 1.);
-  std::cout << "pointer_buffer_acc (base = -2)   : " << dy/N << " cpe\n";
-
+  for(int i=-2;i<=2;++i)
+  {
+    buffer_test<T> b(N,i);
+    double d = nt2::unit::perform_benchmark( b, 1.);
+    std::cout << "buffer access (base=" << i << ") : "<< d/N << " cpe\n";
+  }
 }
