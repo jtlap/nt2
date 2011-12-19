@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/core/utility/of_size/pad.hpp>
 #include <nt2/core/utility/of_size/of_size.hpp>
 #include <nt2/core/container/meta/padded_size.hpp>
 
@@ -18,9 +19,9 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Check reference_
+// Check padded_size
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( no_padding )
+NT2_TEST_CASE( padded_size )
 {
   using nt2::of_size_;
   using boost::mpl::int_;
@@ -41,4 +42,23 @@ NT2_TEST_CASE( no_padding )
   NT2_TEST_EQUAL( (padded_size< of_size_<5,4,5>, int_<128>, int_<8> >::value)
                 , 256
                 );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Check pad
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( pad )
+{
+  using nt2::pad;
+  using nt2::of_size_;
+  using boost::mpl::int_;
+  using boost::fusion::at_c;
+  
+  NT2_TEST_EQUAL( at_c<0>( pad(of_size_<6,1,2,3>(), 4) ),  8 );
+  NT2_TEST_EQUAL( at_c<0>( pad(of_size_<6,1,2,3>(), 8) ),  8 );
+  NT2_TEST_EQUAL( at_c<0>( pad(of_size_<6,1,2,3>(),16) ), 16 );
+  NT2_TEST_EQUAL( at_c<0>( pad(of_size_<6,1,2,3>(),32) ), 32 );
+  NT2_TEST_EQUAL( at_c<1>( pad(of_size_<6,1,2,3>(),16) ), 1  );
+  NT2_TEST_EQUAL( at_c<2>( pad(of_size_<6,1,2,3>(),16) ), 2  );
+  NT2_TEST_EQUAL( at_c<3>( pad(of_size_<6,1,2,3>(),16) ), 3  );  
 }
