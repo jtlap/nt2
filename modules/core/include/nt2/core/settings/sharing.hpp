@@ -9,10 +9,50 @@
 #ifndef NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED 
 #define NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED 
 
-namespace nt2
-{
-  struct shared_ {};
-  struct owned_{};
+#include <boost/cstdint.hpp>
+#include <nt2/core/settings/option.hpp>
+
+namespace nt2 
+{ 
+  //============================================================================
+  /*!
+   * shared_ indicates the current container will reuse existing memory as its
+   * data buffer.
+   **/
+  //============================================================================
+  struct shared_;
+  
+  //============================================================================
+  /*!
+   * owned_ indicates the current container will allocates its own memory.
+   **/
+  //============================================================================
+  struct owned_;
+  
+  namespace tag 
+  { 
+    //==========================================================================
+    /*!
+     * Option tag for sharing options
+     **/
+    //==========================================================================
+    struct sharing_ {}; 
+  }
+
+  namespace meta
+  {
+    template<class Default> struct option<shared_, tag::sharing_, Default>
+    {
+      typedef shared_ type;
+    };
+
+    template<class Default> struct option<owned_, tag::sharing_, Default>
+    {
+      typedef owned_ type;
+    };
+  } 
 }
+
+#include <nt2/core/settings/details/sharing.hpp>
 
 #endif

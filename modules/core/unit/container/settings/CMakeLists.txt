@@ -15,6 +15,7 @@ SET( SOURCES
   size.cpp
   storage_order.cpp
   shape.cpp
+  sharing.cpp
   storage_duration.cpp
   storage_scheme.cpp
   alignment.cpp
