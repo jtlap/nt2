@@ -29,7 +29,7 @@ namespace nt2 { namespace memory
     typedef typename Data::const_reference              const_reference;
     typedef typename Data::size_type                    size_type;
     typedef typename Data::difference_type              difference_type;
-    
+
     iliffe_buffer ( allocator_type const& a = allocator_type() ) : data_(a) {}
 
     template<typename Sizes, typename Bases>
@@ -78,12 +78,12 @@ namespace nt2 { namespace memory
     {
       data_.resize(data_size(szs));
       data_.rebase(boost::fusion::at_c<0>(bss));
-      
+
       index_.resize(index_size(szs));
       index_.rebase(boost::fusion::at_c<1>(bss));
 
       inner_ = boost::fusion::at_c<0>(szs);
-      
+
       make_links();
     }
 
@@ -94,7 +94,7 @@ namespace nt2 { namespace memory
                     , boost::fusion::size(meta::as_sequence(pos))
                     );
     }
-    
+
     template<class Position> BOOST_FORCEINLINE
     const_reference operator[]( Position const& pos ) const
     {
@@ -102,14 +102,14 @@ namespace nt2 { namespace memory
                     , boost::fusion::size(meta::as_sequence(pos))
                     );
     }
-    
+
     protected:
     template<class Seq> inline std::size_t
     data_size(Seq const& s) const
     {
       return boost::fusion::fold( s
                                 , boost::mpl::size_t<1>()
-                                , boost::dispatch::functor<tag::multiplies_>() 
+                                , boost::dispatch::functor<tag::multiplies_>()
                                 );
     }
 
@@ -118,14 +118,14 @@ namespace nt2 { namespace memory
     {
       return boost::fusion::fold( boost::fusion::pop_front(s)
                                 , boost::mpl::size_t<1>()
-                                , boost::dispatch::functor<tag::multiplies_>() 
+                                , boost::dispatch::functor<tag::multiplies_>()
                                 );
     }
 
     template<class Position> BOOST_FORCEINLINE
     reference access(Position const& p, boost::mpl::int_<1> const& )
     {
-      return data_[boost::fusion::at_c<0>(p)];      
+      return data_[boost::fusion::at_c<0>(p)];
     }
 
     template<class Position> BOOST_FORCEINLINE
@@ -152,7 +152,7 @@ namespace nt2 { namespace memory
       typename Index::difference_type u = index_.upper();
 
       index_[i++] = data_.origin();
-      for(i; i <= u; ++i) index_[i] = index_[i-1] + inner_;        
+      for(; i <= u; ++i) index_[i] = index_[i-1] + inner_;
     }
 
     private:
