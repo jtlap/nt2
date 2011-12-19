@@ -33,22 +33,22 @@ NT2_TEST_CASE( no_padding )
 
   NT2_TEST_EXPR_TYPE( no_padding_()
                     , (option< _, nt2::tag::lead_padding_>)
-                    , (lead_padding_strategy_< int_<1> >)
+                    , (lead_padding_strategy_<1>)
                     );
 
   NT2_TEST_EXPR_TYPE( no_padding_()
                     , (option< _, nt2::tag::global_padding_>)
-                    , (global_padding_strategy_< int_<1> >)
+                    , (global_padding_strategy_<1>)
                     );
 
   NT2_TEST_EXPR_TYPE( no_padd
                     , (option< _, nt2::tag::lead_padding_>)
-                    , (lead_padding_strategy_< int_<1> >)
+                    , (lead_padding_strategy_<1>)
                     );
 
   NT2_TEST_EXPR_TYPE( no_padd
                     , (option< _, nt2::tag::global_padding_>)
-                    , (global_padding_strategy_< int_<1> >)
+                    , (global_padding_strategy_<1>)
                     );
 }
 
@@ -66,17 +66,17 @@ NT2_TEST_CASE( lead_padding )
 
   NT2_TEST_EXPR_TYPE( global_padding_()
                       ,(option< _, nt2::tag::global_padding_>)
-                      ,(global_padding_strategy_< int_<-1> >)
+                      ,(global_padding_strategy_<-1>)
                      );
 
   NT2_TEST_EXPR_TYPE( global_32
                       ,(option< _, nt2::tag::global_padding_>)
-                      ,(global_padding_strategy_< int_<32> >)
+                      ,(global_padding_strategy_<32>)
                      );
 
   NT2_TEST_EXPR_TYPE( global_set
                       ,(option<_, nt2::tag::global_padding_>)
-                      ,(global_padding_strategy_< int_<64> >)
+                      ,(global_padding_strategy_<64>)
                      );
 }
 
@@ -94,16 +94,16 @@ NT2_TEST_CASE( global_padding )
 
   NT2_TEST_EXPR_TYPE( lead_padding_()
                       ,(option< _, nt2::tag::lead_padding_>)
-                      ,(lead_padding_strategy_< int_<-1> >)
+                      ,(lead_padding_strategy_<-1>)
                      );
 
   NT2_TEST_EXPR_TYPE( lead_32
                       ,(option< _, nt2::tag::lead_padding_>)
-                      ,(lead_padding_strategy_< int_<32> >)
+                      ,(lead_padding_strategy_<32>)
                      );
 
   NT2_TEST_EXPR_TYPE( lead_set
                       ,(option<_, nt2::tag::lead_padding_>)
-                      ,(lead_padding_strategy_< int_<64> >)
+                      ,(lead_padding_strategy_<64>)
                      );
 }
