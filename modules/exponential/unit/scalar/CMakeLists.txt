@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+  logspace_sub.cpp
+  logspace_add.cpp
   sqrt1pm1.cpp
   expx2.cpp
   powi.cpp
