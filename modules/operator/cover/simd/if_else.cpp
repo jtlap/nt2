@@ -40,7 +40,7 @@
 #include <nt2/sdk/simd/logical.hpp>
 
 
-NT2_TEST_CASE_TPL ( if_else_integer__3_0,  (boost::simd::int32_t))//NT2_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::if_else;
   using nt2::tag::if_else_;

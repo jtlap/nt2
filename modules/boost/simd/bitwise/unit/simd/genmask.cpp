@@ -27,7 +27,7 @@
 
 
 
-NT2_TEST_CASE_TPL ( genmask_integer__1_0,  (boost::simd::int32_t))//BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( genmask_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::genmask;
   using boost::simd::tag::genmask_;
