@@ -21,6 +21,7 @@
 #include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/bitwise_xor.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/constants/maxleftshift.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <iostream>
 
@@ -57,7 +58,6 @@ namespace nt2
       private:
         static inline A0_n cosa(const A0_n a0_n, const fast&)
         {
-          //          const A0 a0 = { a0_n };
           const A0 x =  scale(a0_n);
           return  eval_t::cos_eval(sqr(x));
         }
@@ -65,13 +65,11 @@ namespace nt2
         static inline A0_n cosa(const A0_n a0_n, const regular&)
         {
           const A0 a0 = { a0_n };
-          static const sint_type de = sizeof(sint_type)*8-1;
-          // de is the size in bits of the scalar types minus one
           const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
           const int_type n =  redu_t::reduce(x, xr, xc); 
           const int_type swap_bit = n&One<int_type>();
-          const int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), de); 
+          const int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), Maxleftshift<sint_type>()); 
           const A0 z = sqr(xr);
           const A0 se =  {eval_t::sin_eval(z, xr)};
           const A0 ce =  {eval_t::cos_eval(z)}; 
@@ -88,13 +86,12 @@ namespace nt2
         static inline A0_n sina(const A0_n a0_n, const regular&)
         {
           const A0 a0 = { a0_n };
-          static const sint_type de = sizeof(sint_type)*8-1;
-          // size in bits of the scalar types minus one
-          const A0 x = nt2::abs(a0);
+          const A0 x = nt2::abs(a0); 
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const int_type swap_bit = n&One<int_type>();
-          const A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1)); 
+          const A0 sign_bit = b_xor(bitofsign(a0),
+                                    shli(n&Two<int_type>(),Maxleftshift<sint_type>()-1)); 
           const A0 z = sqr(xr);
           const A0 se =  {eval_t::sin_eval(z, xr)};
           const A0 ce =  {eval_t::cos_eval(z)}; 
@@ -136,16 +133,14 @@ namespace nt2
           const bA0 testnan = redu_t::cot_invalid(a0);
           // this if_else is normally not needed but with clang the zero value if eroneous
           // if not there !
-          A0 result =  b_xor(y, bitofsign(a0));
-          return if_else(is_nez(a0), if_nan_else(testnan, result), rec(a0));
+          return if_else(is_nez(a0), if_nan_else(testnan, b_xor(y, bitofsign(a0))), rec(a0));
         }
 
         // simultaneous cosa and sina function
         static inline A0_n sincosa(const A0_n a0_n, A0& c, const fast&)
         {
-          //          const A0 a0 = { a0_n };
-          const A0 x =  scale(a0_n);
-          const A0 z =  sqr(x);
+          const A0 x = scale(a0_n);
+          const A0 z = sqr(x);
           c = eval_t::cos_eval(z);
           return eval_t::sin_eval(z, x);
         }
@@ -153,15 +148,13 @@ namespace nt2
         static inline A0_n sincosa(const A0_n a0_n, A0& c, const regular&)
         {
           const A0 a0 = { a0_n };
-          static const sint_type de = sizeof(sint_type)*8-1;
-          // size in bits of the scalar types minus one
           const A0 x =  nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const int_type swap_bit = n&One<int_type>();
           const A0 z = nt2::sqr(xr);
-          const int_type cos_sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), de); 
-          const int_type sin_sign_bit = b_xor(shli(n&Two<int_type>(), de-1), bitofsign(a0)); 
+          const int_type cos_sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)),  Maxleftshift<A0>()); 
+          const int_type sin_sign_bit = b_xor(shli(n&Two<int_type>(), Maxleftshift<A0>()-1), bitofsign(a0)); 
           const A0 t1 = {eval_t::sin_eval(z, xr)};
           const A0 t2 = {eval_t::cos_eval(z)};
           const bint_type test = is_nez(swap_bit);
