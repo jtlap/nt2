@@ -24,14 +24,11 @@ namespace nt2 { namespace meta
   //============================================================================
   /**
    * Computes the number of elements required to perform a static allocation
-   * from an o_size static sequence and two padding values
+   * from an of_size static sequence and two padding values
   **/
   //============================================================================
   template< typename Size, typename GlobalPadding, typename LeadPadding>
-  struct padded_size
-  {
-    typedef typename Size::values_type base;
-  };
+  struct padded_size;
 
   //============================================================================
   // No padding at all, just prod(Size)
@@ -64,11 +61,35 @@ namespace nt2 { namespace meta
   // No Global padding at all, just align_on(Size[0]) * prod(tail(Size))
   //============================================================================
   template< typename Size, typename LeadPadding>
-  struct padded_size<Size, boost::mpl::int_<1>, LeadPadding >
-  {
-    typedef typename Size::values_type base;
-  };
+  struct  padded_size<Size, boost::mpl::int_<1>, LeadPadding >
+        : boost::mpl::times
+          < typename  boost::mpl::fold< typename boost::mpl::
+                                        pop_front<typename Size::values_type>::type
+                                      , boost::mpl::int_<1>
+                                      , boost::mpl::times < boost::mpl::_1
+                                                          , boost::mpl::_2
+                                                          >
+                                      >::type
+          , boost::simd::meta::align_on
+            < typename boost::mpl::at_c<typename Size::values_type,0>::type
+            , LeadPadding
+            >
+          >
+  {};
 
+  //============================================================================
+  // Both padding
+  //============================================================================
+  template< typename Size, typename GlobalPadding, typename LeadPadding>
+  struct  padded_size
+        : boost::simd::meta::
+          align_on< padded_size < Size
+                                , boost::mpl::int_<1>
+                                , LeadPadding
+                                >
+                  , GlobalPadding
+                  >
+  {};
 } }
 
 #endif

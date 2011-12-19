@@ -33,4 +33,12 @@ NT2_TEST_CASE( no_padding )
   NT2_TEST_EQUAL( (padded_size< of_size_<5,4,2>, int_<32>, int_<1> >::value)
                 , 64
                 );
+
+  NT2_TEST_EQUAL( (padded_size< of_size_<5,4,2>, int_<1>, int_<32> >::value)
+                , 256
+                );
+
+  NT2_TEST_EQUAL( (padded_size< of_size_<5,4,5>, int_<128>, int_<8> >::value)
+                , 256
+                );
 }
