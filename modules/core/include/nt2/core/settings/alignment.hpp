@@ -9,23 +9,23 @@
 #ifndef NT2_CORE_SETTINGS_ALIGNMENT_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_ALIGNMENT_HPP_INCLUDED
 
+#include <boost/mpl/bool.hpp>
 #include <nt2/core/settings/option.hpp>
 
 namespace nt2 
-{ 
-
+{
   //============================================================================
   /*! Current container memory is allocated using an aligning allocator.
    **/
   //============================================================================
-  struct aligned_ {};
+  struct aligned_ : boost::mpl::true_ {};
 
   //============================================================================
   /*! Current container memory is allocated using an allocator with no 
    *  alignment garantee.
    **/
   //============================================================================
-  struct unaligned_ {};
+  struct unaligned_ : boost::mpl::false_  {};
 
   namespace tag 
   { 
@@ -39,18 +39,15 @@ namespace nt2
 
   namespace meta
   {
-    template<class Default> 
-    struct option<aligned_, tag::alignment_, Default>
+    template<class Default> struct option<aligned_, tag::alignment_, Default>
     {
       typedef aligned_ type;
     };
 
-    template<class Default> 
-    struct option<unaligned_, tag::alignment_, Default>
+    template<class Default> struct option<unaligned_, tag::alignment_, Default>
     {
       typedef unaligned_ type;
     };
-
   } 
 }
 
