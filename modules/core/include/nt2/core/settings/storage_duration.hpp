@@ -27,7 +27,6 @@ namespace nt2
   //============================================================================
   struct automatic_;
 
-
   namespace tag 
   { 
     //==========================================================================
@@ -40,17 +39,14 @@ namespace nt2
 
   namespace meta
   {
-
-    template<class Default> struct option< dynamic_
-                                          , tag::storage_duration_
-                                          , Default>
+    template<class Default>
+    struct option< dynamic_, tag::storage_duration_, Default>
     {
       typedef dynamic_ type;
     };
 
-    template<class Default> struct option< automatic_
-                                          , tag::storage_duration_
-                                          , Default>
+    template<class Default>
+    struct option< automatic_, tag::storage_duration_, Default>
     {
       typedef automatic_ type;
     };
