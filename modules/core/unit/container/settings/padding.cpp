@@ -35,24 +35,24 @@ NT2_TEST_CASE( no_padding )
 
   NT2_TEST_EXPR_TYPE( no_padding_()
                      ,(option< _, nt2::tag::padding_>)
-                     ,(padding_strategy_<none_, int_<-1> >)
+                      ,(padding_strategy_<none_, int_<1>, int_<1> >)
                      );
 
   //Pass some padding_ as option with a default
   NT2_TEST_EXPR_TYPE( no_padding_()
                       ,(option< void, nt2::tag::padding_,_>)
-                     ,(padding_strategy_<none_, int_<-1> >)
+                      ,(padding_strategy_<none_, int_<1>, int_<1> >)
                      );
 
   NT2_TEST_EXPR_TYPE( no_padd
                       ,(option<_, nt2::tag::padding_>)
-                     ,(padding_strategy_<none_, int_<-1> >)
+                      ,(padding_strategy_<none_, int_<1>, int_<1> >)
                      );
 
   // Pass some padding_ as settings with a default
   NT2_TEST_EXPR_TYPE( no_padding_()
                       ,(option<settings(double,float), nt2::tag::padding_,_>)
-                     ,(padding_strategy_<none_, int_<-1> >)
+                      ,(padding_strategy_<none_, int_<1>, int_<1> >)
                      );
 }
 
@@ -77,50 +77,50 @@ NT2_TEST_CASE( global_padding )
    using boost::mpl::int_;
 
   NT2_TEST_EXPR_TYPE( global_padding_()
-                     ,(option< _, nt2::tag::padding_>)
-                     ,(padding_strategy_<global_, int_<-1> >)
+                      ,(option< _, nt2::tag::padding_>)
+                      ,(padding_strategy_<global_, int_<-1>, int_<1> >)
                      );
 
   NT2_TEST_EXPR_TYPE( global_32
-                     ,(option< _, nt2::tag::padding_>)
-                     ,(padding_strategy_<global_, int_<32> >)
+                      ,(option< _, nt2::tag::padding_>)
+                      ,(padding_strategy_<global_, int_<-1>, int_<32> >)
                      );
 
   NT2_TEST_EXPR_TYPE( global_32_permute
                      ,(option< _, nt2::tag::padding_>)
-                     ,(padding_strategy_<global_, int_<32> >)
+                      ,(padding_strategy_<global_, int_<-1>, int_<32> >)
                      );
 
   //Pass some padding_ as option with a default
   NT2_TEST_EXPR_TYPE( global_32
                       ,(option< void, nt2::tag::padding_,_>)
-                     ,(padding_strategy_<global_, int_<32> >)
+                      ,(padding_strategy_<global_, int_<-1>, int_<32> >)
                      );
 
   NT2_TEST_EXPR_TYPE( global_32_permute
                       ,(option< void, nt2::tag::padding_,_>)
-                     ,(padding_strategy_<global_, int_<32> >)
+                      ,(padding_strategy_<global_, int_<-1>, int_<32> >)
                      );
 
   //Pass some padding_ as settings
   NT2_TEST_EXPR_TYPE( global_padd_sett_32
                       ,(option<_, nt2::tag::padding_>)
-                     ,(padding_strategy_<global_, int_<32> >)
+                      ,(padding_strategy_<global_, int_<-1>, int_<32> >)
                      );
   NT2_TEST_EXPR_TYPE( global_padd_sett_32_permute
                       ,(option<_, nt2::tag::padding_>)
-                     ,(padding_strategy_<global_, int_<32> >)
+                      ,(padding_strategy_<global_, int_<-1>, int_<32> >)
                      );
 
   // Pass some padding_ as settings with a default
   NT2_TEST_EXPR_TYPE( global_32
                       ,(option< settings(double, float), nt2::tag::padding_,_>)
-                     ,(padding_strategy_<global_, int_<32> >)
+                      ,(padding_strategy_<global_, int_<-1>, int_<32> >)
                      );
 
   NT2_TEST_EXPR_TYPE( global_32_permute
                       ,(option< settings(double, float), nt2::tag::padding_,_>)
-                     ,(padding_strategy_<global_, int_<32> >)
+                      ,(padding_strategy_<global_, int_<-1>, int_<32> >)
                      );
 }
 
@@ -146,49 +146,49 @@ NT2_TEST_CASE( lead_padding )
 
   NT2_TEST_EXPR_TYPE( lead_padding_()
                      ,(option< _, nt2::tag::padding_>)
-                     ,(padding_strategy_<lead_, int_<-1> >)
+                      ,(padding_strategy_<lead_, int_<-1>, int_<1> >)
                      );
 
   NT2_TEST_EXPR_TYPE( lead_32
                      ,(option< _, nt2::tag::padding_>)
-                     ,(padding_strategy_<lead_, int_<32> >)
+                     ,(padding_strategy_<lead_, int_<-1>, int_<32> >)
                      );
 
   NT2_TEST_EXPR_TYPE( lead_32_permute
                      ,(option< _, nt2::tag::padding_>)
-                     ,(padding_strategy_<lead_, int_<32> >)
+                     ,(padding_strategy_<lead_, int_<-1>, int_<32> >)
                      );
 
   //Pass some padding_ as option with a default
   NT2_TEST_EXPR_TYPE( lead_32
                       ,(option< void, nt2::tag::padding_,_>)
-                     ,(padding_strategy_<lead_, int_<32> >)
+                     ,(padding_strategy_<lead_, int_<-1>, int_<32> >)
                      );
 
   NT2_TEST_EXPR_TYPE( lead_32_permute
                       ,(option< void, nt2::tag::padding_,_>)
-                     ,(padding_strategy_<lead_, int_<32> >)
+                     ,(padding_strategy_<lead_, int_<-1>, int_<32> >)
                      );
 
   //Pass some padding_ as settings
   NT2_TEST_EXPR_TYPE( lead_padd_sett_32
                       ,(option<_, nt2::tag::padding_>)
-                     ,(padding_strategy_<lead_, int_<32> >)
+                     ,(padding_strategy_<lead_, int_<-1>, int_<32> >)
                      );
 
   NT2_TEST_EXPR_TYPE( lead_padd_sett_32_permute
                       ,(option<_, nt2::tag::padding_>)
-                     ,(padding_strategy_<lead_, int_<32> >)
+                     ,(padding_strategy_<lead_, int_<-1>, int_<32> >)
                      );
 
   // Pass some padding_ as settings with a default
   NT2_TEST_EXPR_TYPE( lead_32
                       ,(option< settings(double, float), nt2::tag::padding_,_>)
-                      ,(padding_strategy_<lead_, int_<32> >)
+                      ,(padding_strategy_<lead_, int_<-1>, int_<32> >)
                      );
 
   NT2_TEST_EXPR_TYPE( lead_32_permute
                       ,(option< settings(double, float), nt2::tag::padding_,_>)
-                      ,(padding_strategy_<lead_, int_<32> >)
+                      ,(padding_strategy_<lead_, int_<-1>, int_<32> >)
                      );
 }

@@ -20,7 +20,8 @@
 namespace nt2 
 { 
 
-  template<typename Strat, typename Value>
+  template<  typename Strat, typename Value
+           , typename Default = boost::mpl::int_<1> >
   struct padding_strategy_ {};
 
   //===========================================================================
@@ -95,7 +96,7 @@ namespace nt2 { namespace meta
   template<class S0, class Default>
   struct  option< padding_(S0), tag::padding_, Default >
   {
-    typedef padding_strategy_<S0, boost::mpl::int_<-1> > type;
+    typedef padding_strategy_<S0, boost::mpl::int_<1> > type;
   };
 
   //============================================================================
@@ -127,7 +128,10 @@ namespace nt2 { namespace meta
   template<class Default, std::ptrdiff_t N>
   struct  option< global_padding_(with_<N>), tag::padding_, Default >
   {
-    typedef padding_strategy_<global_, boost::mpl::int_<N> > type;
+    typedef padding_strategy_<  global_
+                              , boost::mpl::int_<-1>
+                              , boost::mpl::int_<N> 
+                              > type;
   };
 
   //============================================================================
@@ -138,7 +142,10 @@ namespace nt2 { namespace meta
   template<class Default, std::ptrdiff_t N>
   struct  option< lead_padding_(with_<N>), tag::padding_, Default >
   {
-    typedef padding_strategy_<lead_, boost::mpl::int_<N> > type;
+    typedef padding_strategy_<  lead_
+                              , boost::mpl::int_<-1>
+                              , boost::mpl::int_<N> 
+                              > type;
   };
 
   //============================================================================
@@ -149,7 +156,7 @@ namespace nt2 { namespace meta
   template<class Default>
   struct  option< no_padding_, tag::padding_, Default >
   {
-    typedef padding_strategy_<none_, boost::mpl::int_<-1> > type;
+    typedef padding_strategy_<none_, boost::mpl::int_<1>  > type;
   };
 
   //============================================================================
@@ -160,7 +167,10 @@ namespace nt2 { namespace meta
   template<std::ptrdiff_t N, class Default>
   struct  option< padding_(with_<N>), tag::padding_, Default >
   {
-    typedef padding_strategy_<lead_, boost::mpl::int_<N> > type;
+    typedef padding_strategy_<  lead_
+                              , boost::mpl::int_<-1>
+                              , boost::mpl::int_<N> 
+                              > type;
   };
 
   //============================================================================
@@ -171,7 +181,10 @@ namespace nt2 { namespace meta
   template<class S0, std::ptrdiff_t N, class Default>
   struct  option< padding_(with_<N>, S0),tag::padding_, Default >
   {
-    typedef padding_strategy_<S0, boost::mpl::int_<N> > type;
+    typedef padding_strategy_<  S0
+                              , boost::mpl::int_<-1>
+                              , boost::mpl::int_<N> 
+                              > type;
   };
 
   //============================================================================
@@ -182,7 +195,10 @@ namespace nt2 { namespace meta
   template<class S0, std::ptrdiff_t N, class Default>
   struct  option< padding_(S0, with_<N>), tag::padding_, Default >
   {
-    typedef padding_strategy_<S0, boost::mpl::int_<N> > type;
+    typedef padding_strategy_<  S0
+                              , boost::mpl::int_<-1>
+                              , boost::mpl::int_<N> 
+                              > type;
   };
 } }
 

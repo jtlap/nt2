@@ -10,6 +10,8 @@
 
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
+#include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/core/settings/allocator.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -103,4 +105,35 @@ NT2_TEST_CASE( setting_storage_duration_default )
                       ,(option< settings(long, int), nt2::tag::storage_duration_,_>)
                       ,(automatic_)
                       );
+}
+
+
+template<class U, class T, class S, class D = void>
+struct  apply_
+{
+  typedef typename boost::mpl::apply <U , T, S, D>::type type;
+};
+
+NT2_TEST_CASE( setting_storage_duration_apply )
+{
+  using nt2::dynamic_;
+  using nt2::automatic_;
+  using nt2::settings;
+  using boost::mpl::_;
+  using boost::mpl::apply;
+  using nt2::memory::buffer;
+  using std::allocator;
+  using nt2::allocator_;
+
+  typedef settings settings_type(allocator_<allocator<int> >);
+
+  NT2_TEST_EXPR_TYPE( dynamic_()
+                    ,(apply_<_,int,settings_type>)
+                    ,(buffer<int, allocator<int> >)
+                    );
+
+  NT2_TEST_EXPR_TYPE( dynamic_()
+                      ,(apply_<_,int,settings(),allocator_< allocator<float> > >)
+                    ,(buffer<int, allocator<float> >)
+                    );
 }

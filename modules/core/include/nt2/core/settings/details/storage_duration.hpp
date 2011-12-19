@@ -6,10 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_STORAGE_DURATION_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_STORAGE_DURATION_HPP_INCLUDED
+#ifndef NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/container/memory/array_buffer.hpp>
+#include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/core/settings/size.hpp>
+#include <nt2/core/settings/padding.hpp>
+#include <nt2/core/settings/allocator.hpp>
 
 namespace nt2 
 { 
@@ -18,45 +23,33 @@ namespace nt2
     *  allocation for handling its data.
    **/
   //============================================================================
-  struct dynamic_;
+  struct dynamic_{
+
+    template <typename Type, typename Settings, typename Default = void>
+    struct apply
+    {
+      typedef typename meta::option<Settings, tag::allocator_, Default>::type  allocator_type;
+      typedef memory::buffer<Type, typename allocator_type::type >    type;
+    };  
+
+  };
 
   //============================================================================
    /*! Current container will use a stack allocated memory block for handling 
     *  its data
    **/
   //============================================================================
-  struct automatic_;
-
-
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for storage_duration options
-     **/
-    //==========================================================================
-    struct storage_duration_ {}; 
-  }
-
-  namespace meta
-  {
-
-    template<class Default> struct option< dynamic_
-                                          , tag::storage_duration_
-                                          , Default>
+  struct automatic_{
+    template <typename Type, typename Settings, typename Default = void>
+    struct apply
     {
-      typedef dynamic_ type;
-    };
 
-    template<class Default> struct option< automatic_
-                                          , tag::storage_duration_
-                                          , Default>
-    {
-      typedef automatic_ type;
-    };
-  } 
+    };  
+  };
+
+
 }
 
-#include <nt2/core/settings/details/storage_duration.hpp>
+
 
 #endif
