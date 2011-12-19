@@ -11,6 +11,7 @@ SET( SOURCES
   array_buffer.cpp
   buffer.cpp
   dimensions_of.cpp
+  padded_allocator.cpp
   fixed_allocator.cpp
   iliffe_buffer.cpp
 ## List of scalar test files for toolbox core.memory
