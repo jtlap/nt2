@@ -11,26 +11,38 @@
 
 #include <nt2/core/settings/option.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
+  //============================================================================
+  // Buffer type computing metafunction
+  //============================================================================
+  template<class Buffer = void> struct buffer;
 
-  namespace tag 
-  { 
+  namespace tag
+  {
     //==========================================================================
     /*!
      * Option tag for buffer options
      **/
     //==========================================================================
-    struct buffer_ {}; 
+    struct buffer_ {};
   }
 
   namespace meta
   {
-    template<class Default> struct option<buffer_, tag::buffer_, Default>
+    template<class Default> struct option<buffer_()), tag::buffer_, Default>
     {
-      typedef buffer_ type;
+      typedef buffer<> type;
     };
-  } 
+
+    template<class Buffer, class Default>
+    struct option<buffer_(Buffer)), tag::buffer_, Default>
+    {
+      typedef buffer<Buffer> type;
+    };
+  }
 }
+
+#include <nt2/core/settings/details/buffer.hpp>
 
 #endif
