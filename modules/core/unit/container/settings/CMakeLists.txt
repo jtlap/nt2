@@ -9,6 +9,7 @@
 
 SET( SOURCES
   allocator.cpp
+  buffer.cpp
   id.cpp
   index.cpp
   of_size.cpp

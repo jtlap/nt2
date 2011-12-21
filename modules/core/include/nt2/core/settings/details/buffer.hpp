@@ -20,7 +20,7 @@ namespace nt2
   //============================================================================
   // If any Buffer type is provided, return it w/e other settings are
   //============================================================================
-  template<class Buffer> struct buffer
+  template<class Buffer> struct buffer_generator
   {
     template<class Model, class T,class S> struct apply
     {
@@ -32,16 +32,16 @@ namespace nt2
   // If not, build up the buffer manually from a Model and the value of the
   // various user defined settings.
   //============================================================================
-  template<> struct buffer<void>
+  template<> struct buffer_generator<void>
   {
     template<class Model, class T,class S> struct apply
     {
-      typedef typename option<S, tag::of_size_>::type           size;
-      typedef boost::mpl::int_<size::static_size>               dims;
-      typedef typename option<S, tag::sharing_>::type           mode;
-      typedef typename mode::data::template apply<T,S>::type    data;
-      typedef typename mode::index::template apply<T,S>::type   index;
-      typedef boost::mpl::apply<Model, dims, data, index>::type type;
+      typedef typename meta::option<S, tag::of_size_>::type               size;
+      typedef boost::mpl::int_<size::static_size>                         dims;
+      typedef typename meta::option<S, tag::sharing_>::type               mode;
+      typedef typename mode::data::template apply<T,S>::type              data;
+      typedef typename mode::index::template apply<T,S>::type             index;
+      typedef typename boost::mpl::apply<Model, dims, data, index>::type  type;
     };
   };
 }

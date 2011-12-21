@@ -1,285 +1,183 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2::settings buffer is an option"
 
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/core/container/memory/iliffe_buffer.hpp>
+#include <nt2/core/container/table/normalize_settings.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-/*
-////////////////////////////////////////////////////////////////////////////////
-// Pass some sharing_ as an option
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( sharing_ )
-{
-  using nt2::owned_;
-  using nt2::shared_;
-  using nt2::meta::option;
-  using boost::mpl::_;
+//==============================================================================
+// Pass some buffer_ as an option
+//==============================================================================
+nt2::buffer_ buffer_of_int( nt2::memory::buffer<int> );
+nt2::buffer_ no_buffer();
 
-  NT2_TEST_EXPR_TYPE( shared_()
-                    , (option< _, nt2::tag::sharing_>)
-                    , (shared_)
+NT2_TEST_CASE( buffer_ )
+{
+  using nt2::buffer_;
+  using boost::mpl::_;
+  using nt2::meta::option;
+  using nt2::memory::buffer;
+  using nt2::buffer_generator;
+
+  NT2_TEST_EXPR_TYPE( no_buffer
+                    , (option< _, nt2::tag::buffer_>)
+                    , (buffer_generator<>)
                     );
 
-  NT2_TEST_EXPR_TYPE( owned_()
-                    , (option< _, nt2::tag::sharing_>)
-                    , (owned_)
+  NT2_TEST_EXPR_TYPE( buffer_of_int
+                    , (option< _, nt2::tag::buffer_>)
+                    , (buffer_generator< buffer<int> >)
                     );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Pass some sharing_ as default and check everythign go out properly
+// Pass some buffer_ as default and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( sharing_default )
+NT2_TEST_CASE( buffer_default )
 {
-  using nt2::owned_;
-  using nt2::shared_;
+  using nt2::buffer_;
+  using nt2::memory::buffer;
   using nt2::meta::option;
   using boost::mpl::_;
+  using nt2::buffer_generator;
 
-  NT2_TEST_EXPR_TYPE( owned_()
-                    , (option< void, nt2::tag::sharing_,_>)
-                    , (owned_)
+  NT2_TEST_EXPR_TYPE( no_buffer
+                    , (option< void, nt2::tag::buffer_,_>)
+                    , (buffer_generator<>)
                     );
 
-  NT2_TEST_EXPR_TYPE( shared_()
-                    , (option< void, nt2::tag::sharing_,_>)
-                    , (shared_)
+  NT2_TEST_EXPR_TYPE( buffer_of_int
+                    , (option< void, nt2::tag::buffer_,_>)
+                    , (buffer_generator< buffer<int> >)
                     );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Pass some sharing_ as a setting
+// Pass some buffer_ as a setting
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings own   (nt2::shared_, nt2::owned_);
-nt2::settings share (nt2::owned_ , nt2::shared_);
+nt2::settings s_no_buffer     (nt2::buffer_());
+nt2::settings s_buffer_of_int (nt2::buffer_(nt2::memory::buffer<int>));
 
-NT2_TEST_CASE( setting_sharing_ )
+NT2_TEST_CASE( setting_buffer_ )
 {
-  using nt2::owned_;
-  using nt2::shared_;
+  using nt2::buffer_;
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
+  using nt2::buffer_generator;
+  using nt2::memory::buffer;
 
-  NT2_TEST_EXPR_TYPE( own
-                    , (option<_ , nt2::tag::sharing_>)
-                    , (owned_)
+  NT2_TEST_EXPR_TYPE( s_no_buffer
+                    , (option<_ , nt2::tag::buffer_>)
+                    , (buffer_generator<>)
                     );
 
-  NT2_TEST_EXPR_TYPE( share
-                    , (option<_ , nt2::tag::sharing_>)
-                    , (shared_)
-                    );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Pass some storage_duration_ as a default setting
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( setting_sharing_default )
-{
-  using nt2::owned_;
-  using nt2::shared_;
-  using nt2::settings;
-  using nt2::meta::option;
-  using boost::mpl::_;
-
-  NT2_TEST_EXPR_TYPE( shared_()
-                    , (option < settings(long, int)
-                              , nt2::tag::sharing_
-                              ,_
-                              >
-                      )
-                    , (shared_)
-                    );
-
-  NT2_TEST_EXPR_TYPE( owned_()
-                    , (option < settings(long, int)
-                              , nt2::tag::sharing_
-                              ,_
-                              >
-                      )
-                    , (owned_)
+  NT2_TEST_EXPR_TYPE( s_buffer_of_int
+                    , (option<_ , nt2::tag::buffer_>)
+                    , (buffer_generator< buffer<int> >)
                     );
 }
 
-template<class U, class T, class S>
+template<class U, class M, class T, class S>
 struct  apply_
 {
-  typedef typename boost::mpl::apply <U , T, S>::type type;
+  typedef typename boost::mpl::apply <U , M, T, S>::type type;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// Verify buffer generation for shared_
+// Verify buffer generation for buffer_(X)
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( shared_apply )
+NT2_TEST_CASE( buffer_forced )
 {
   using boost::mpl::_;
   using nt2::settings;
   using nt2::of_size_;
   using nt2::shared_;
   using nt2::automatic_;
-  using nt2::dynamic_;
-  using nt2::aligned_;
-  using nt2::allocator_;
   using nt2::no_padding_;
-  using nt2::lead_padding_strategy_;
-  using nt2::global_padding_strategy_;
+  using nt2::meta::normalize_settings;
+  using nt2::tag::table_;
   using nt2::memory::buffer;
-  using boost::simd::memory::allocator;
-  using nt2::memory::fixed_allocator;
-  using nt2::memory::array_buffer;
-
-  NT2_TEST_EXPR_TYPE( shared_::index()
+  using nt2::buffer_generator;
+  
+  NT2_TEST_EXPR_TYPE( buffer_generator< buffer<int> >()
                     , (apply_ < _
+                              , void
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , automatic_
-                                , aligned_
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings
+                                  ( of_size_<2,2>
+                                  , no_padding_
+                                  , automatic_
+                                  )
+                                >::type
                               >
                       )
-                    , (array_buffer<int*, 4>)
-                    );
-
-  NT2_TEST_EXPR_TYPE( shared_::data()
-                    , (apply_ < _
-                              , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , automatic_
-                                , aligned_
-                                )
-                              >
-                      )
-                    , (buffer<int, fixed_allocator<int> >)
-                    );
-
-  NT2_TEST_EXPR_TYPE( shared_::index()
-                    , (apply_ < _
-                              , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , dynamic_
-                                , aligned_
-                                , allocator_< allocator<int> >
-                                )
-                              >
-                      )
-                    , (buffer<int*, allocator<int> >)
-                    );
-
-  NT2_TEST_EXPR_TYPE( shared_::data()
-                    , (apply_ < _
-                              , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , dynamic_
-                                , aligned_
-                                )
-                              >
-                      )
-                    , (buffer<int, fixed_allocator<int> >)
+                    , (buffer<int>)
                     );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Verify buffer generation for owned_
+// Verify buffer generation for buffer_()
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( owned_apply )
+struct make_iliffe
+{
+  template<class Dims, class Data, class Index>
+  struct apply
+  {
+    typedef nt2::memory::iliffe_buffer<Dims,Data,Index> type;
+  };
+};
+
+NT2_TEST_CASE( buffer_natural )
 {
   using boost::mpl::_;
   using nt2::settings;
   using nt2::of_size_;
-  using nt2::owned_;
+  using nt2::shared_;
   using nt2::automatic_;
-  using nt2::dynamic_;
-  using nt2::aligned_;
-  using nt2::unaligned_;
-  using nt2::allocator_;
   using nt2::no_padding_;
-  using nt2::lead_padding_strategy_;
-  using nt2::global_padding_strategy_;
-  using nt2::memory::buffer;
-  using boost::simd::memory::allocator;
-  using boost::simd::memory::allocator_adaptor;
-  using nt2::memory::fixed_allocator;
+  using nt2::meta::normalize_settings;
+  using nt2::tag::table_;
+  using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
-
-  NT2_TEST_EXPR_TYPE( owned_::index()
+  using nt2::buffer_generator;
+  
+  NT2_TEST_EXPR_TYPE( buffer_generator<>()
                     , (apply_ < _
+                              , make_iliffe
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , automatic_
-                                , aligned_
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings
+                                  ( of_size_<2,2>
+                                  , no_padding_
+                                  , automatic_
+                                  )
+                                >::type
                               >
                       )
-                    , (array_buffer<int*, 4>)
-                    );
-
-  NT2_TEST_EXPR_TYPE( owned_::data()
-                    , (apply_ < _
-                              , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , automatic_
-                                , aligned_
-                                , allocator_< std::allocator<int> >
-                                )
-                              >
+                    , ( iliffe_buffer < mpl_::int_<2>
+                                      , array_buffer<int, 4ul>
+                                      , array_buffer<int*, 2ul>
+                                      >
                       )
-                    , (array_buffer<int, 4>)
-                    );
-
-  NT2_TEST_EXPR_TYPE( owned_::index()
-                    , (apply_ < _
-                              , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , dynamic_
-                                , aligned_
-                                , allocator_< allocator<int> >
-                                )
-                              >
-                      )
-                    , (buffer<int*, allocator<int> >)
-                    );
-
-  NT2_TEST_EXPR_TYPE( owned_::data()
-                    , (apply_ < _
-                              , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , dynamic_
-                                , unaligned_
-                                , allocator_< std::allocator<int> >
-                                )
-                              >
-                      )
-                    , (buffer<int, allocator_adaptor< int, std::allocator<int> > >)
                     );
 }
-*/
