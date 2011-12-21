@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A1)>::type result_type;
+    typedef typename boost::common_type<A0,A1>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {

@@ -22,7 +22,7 @@
  */
 
 #include <boost/config.hpp>
-#include <boost/dispatch/meta/arithmetic.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <boost/dispatch/meta/floating.hpp>
 #include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/functor/forward.hpp>

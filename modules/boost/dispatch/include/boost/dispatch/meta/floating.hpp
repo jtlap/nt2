@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines and implements the meta::arithmetic \metafunction
+ * \brief Defines and implements the meta::floating \metafunction
  */
 
 #include <boost/dispatch/meta/make_floating.hpp>
