@@ -27,9 +27,12 @@ namespace nt2 {  namespace memory
     public:
     typedef boost::array<Type,N>                          parent_data;
 
+    struct no_allocator {};
+    
     //============================================================================
     // Buffer type interface
     //============================================================================
+    typedef no_allocator              allocator_type;
     typedef typename parent_data::value_type               value_type;
     typedef typename parent_data::iterator                 iterator;
     typedef typename parent_data::const_iterator           const_iterator;
