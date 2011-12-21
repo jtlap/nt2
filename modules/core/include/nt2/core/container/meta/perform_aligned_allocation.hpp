@@ -19,7 +19,8 @@ namespace boost { namespace simd {  namespace memory
 
 namespace nt2 {  namespace memory
 {
-  template<typename V, typename A> struct padded_allocator;
+  template<typename A> struct padded_allocator;
+  template<typename T> struct fixed_allocator;
 } }
 
 namespace nt2 {  namespace meta
@@ -28,9 +29,14 @@ namespace nt2 {  namespace meta
   struct perform_aligned_allocation : boost::mpl::false_
   {};
 
-  template<typename V, typename A>
-  struct  perform_aligned_allocation< memory::padded_allocator<V,A> >
+  template<typename A>
+  struct  perform_aligned_allocation< memory::padded_allocator<A> >
         : perform_aligned_allocation<A>
+  {};
+
+  template<typename T>
+  struct  perform_aligned_allocation< memory::fixed_allocator<T> >
+        : boost::mpl::true_
   {};
 
   template<class T>
