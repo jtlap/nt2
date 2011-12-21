@@ -87,4 +87,6 @@
 
 #define BOOST_SIMD_SIMD_GROUPABLE_TYPES (double) \
 /**/
+#define BOOST_SIMD_SIMD_SPLITABLE_TYPES (float) \
+/**/
 #endif
