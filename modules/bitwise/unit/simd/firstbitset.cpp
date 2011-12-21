@@ -57,8 +57,8 @@ NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(firstbitset(nt2::Inf<vT>())[0], 8388608u);
-  NT2_TEST_EQUAL(firstbitset(nt2::Minf<vT>())[0], 8388608u);
+  NT2_TEST_EQUAL(firstbitset(nt2::Inf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(firstbitset(nt2::Minf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
   NT2_TEST_EQUAL(firstbitset(nt2::Nan<vT>())[0], nt2::One<sr_t>());
   NT2_TEST_EQUAL(firstbitset(nt2::Signmask<vT>())[0], nt2::One<sr_t>()+nt2::Valmax<sr_t>()/2);
   NT2_TEST_EQUAL(firstbitset(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
