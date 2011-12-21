@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_DECLTYPE
+#ifndef BOOST_DISPATCH_TYPEOF
 
 /*!
  * \file
@@ -47,9 +47,9 @@
  * \include decltype.cpp
  */
 #ifndef BOOST_NO_DECLTYPE
-#define BOOST_DISPATCH_DECLTYPE(EXPR, TYPE) typedef decltype(EXPR) TYPE;
+#define BOOST_DISPATCH_TYPEOF(EXPR, TYPE) typedef decltype(EXPR) TYPE;
 #else
-#define BOOST_DISPATCH_DECLTYPE(EXPR, TYPE)                            \
+#define BOOST_DISPATCH_TYPEOF(EXPR, TYPE)                            \
 BOOST_TYPEOF_NESTED_TYPEDEF_TPL(BOOST_PP_CAT(nested_, TYPE), (EXPR))   \
 typedef typename BOOST_PP_CAT(nested_, TYPE)::type TYPE;
 #endif

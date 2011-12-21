@@ -187,7 +187,7 @@ NT2_TEST_CASE_TPL(pack_expr_category, BOOST_SIMD_SIMD_TYPES)
 
   pack<T> x,y;
   
-  BOOST_DISPATCH_DECLTYPE(x+y, type_t_);
+  BOOST_DISPATCH_TYPEOF(x+y, type_t_);
   typedef typename strip<type_t_>::type type_t;
   typedef typename boost::proto::domain_of<type_t>::type domain_t;
   typedef typename semantic_of<type_t>::type semantic_t;

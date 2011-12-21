@@ -14,7 +14,7 @@
  * \brief Defines and implements the meta::arithmetic \metafunction
  */
 
-#include <boost/dispatch/details/decltype.hpp>
+#include <boost/dispatch/details/typeof.hpp>
 #include <boost/utility/declval.hpp>
 
 #if defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
@@ -61,7 +61,7 @@ namespace boost { namespace dispatch  { namespace meta
 #else
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/arithmetic.hpp")
-#undef BOOST_DISPATCH_DECLTYPE
+#undef BOOST_DISPATCH_TYPEOF
 #endif
 
     #define M0(z,n,t) 0 ? 
@@ -70,9 +70,9 @@ namespace boost { namespace dispatch  { namespace meta
     template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                                 \
     struct  result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                      \
     {                                                                                    \
-      BOOST_DISPATCH_DECLTYPE( BOOST_PP_REPEAT_FROM_TO(1,n,M0,~)                         \
-                               boost::declval<A0>() BOOST_PP_REPEAT_FROM_TO(1,n,M1,~)    \
-                             , type );                                                   \
+      BOOST_DISPATCH_TYPEOF( BOOST_PP_REPEAT_FROM_TO(1,n,M0,~)                           \
+                             boost::declval<A0>() BOOST_PP_REPEAT_FROM_TO(1,n,M1,~)      \
+                           , type );                                                     \
     };                                                                                   \
     /**/
     BOOST_PP_REPEAT_FROM_TO(2,BOOST_DISPATCH_MAX_ARITY,M2,~)
