@@ -15,12 +15,12 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/padding.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include <nt2/core/settings/alignment.hpp>
 #include <nt2/core/container/memory/buffer.hpp>
 #include <nt2/core/container/meta/padded_size.hpp>
 #include <nt2/core/container/memory/array_buffer.hpp>
-#include <nt2/core/container/meta/make_aligned_allocator.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
+#include <nt2/core/container/memory/padded_allocator.hpp>
+#include <nt2/core/container/meta/make_aligned_allocator.hpp>
 
 namespace nt2 
 { 
@@ -34,22 +34,29 @@ namespace nt2
     // Take whatever allocator someone above me want me to use (see shared_)
     template<typename T, typename S, typename D = void> struct apply
     {            
-      // Get the alignment hint
-      typedef typename meta::option<S,tag::alignment_>::type  align_t;
-      
-      // Make it aligned if needed
-      typedef typename boost::mpl::
-              eval_if < align_t
-                      , D
-                      , meta::make_aligned_allocator<typename D::type>
-                      >::type                             allocator_type;
+      // Get the global padding strategy
+      typedef typename meta::option<S,tag::global_padding_>::type padding_t;
 
+      // Make the allocator aligned if needed
+      typedef typename meta::make_aligned_allocator<typename D::type>::type alloc_t;
+
+      // Wrap it in a padded_allocator if needed
+      typedef typename  boost::mpl
+                      ::if_c< padding_t::value != 1
+                            , memory::padded_allocator<alloc_t>
+                            , alloc_t
+                            >:: type                      allocator_type;
+
+      // Here is the fancy new buffer
       typedef memory::buffer<T,allocator_type>            type;
     };  
 
     template<typename T, typename S> struct apply<T,S>
     {
+      // Get the allocator from the settings
       typedef typename meta::option<S,tag::allocator_>::type  alloc_t;
+
+      // Pass it upward
       typedef typename apply<T,S,alloc_t>::type  type;
     };  
   };
@@ -71,7 +78,7 @@ namespace nt2
       BOOST_MPL_ASSERT_MSG
       ( (size_::static_status)
       , SETTINGS_MISMATCH_AUTOMATIC_STORAGE_REQUESTED_WITH_DYNAMIC_SIZES
-      , (size_)
+      , (size_)      
       );
 
       //========================================================================    
@@ -101,9 +108,21 @@ namespace nt2
       );
 
       //========================================================================
+      // Cut-off the size at proper level for index vs data generation
+      // Index is when we generate a buffer from a pointer type T
+      //========================================================================
+      typedef typename size_::values_type base_size;
+      typedef typename  boost::mpl
+                      ::if_ < boost::is_pointer<T>
+                            , typename boost::mpl::pop_front<base_size>::type
+                            , base_size
+                            >::type               sizes;
+      
+      
+      //========================================================================
       // Make me an array_buffer sandwich
       //========================================================================
-      typedef typename meta::padded_size<size_,global_,lead_>::type dims_;
+      typedef typename meta::padded_size<sizes,global_,lead_>::type dims_;
       typedef memory::array_buffer<T,dims_::value>                  type;
     };  
   };

@@ -1,18 +1,19 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2::settings storage_duration is an option"
 
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/container/memory/buffer.hpp>
-#include <nt2/core/container/memory/fixed_allocator.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
+#include <nt2/core/container/memory/fixed_allocator.hpp>
+#include <nt2/core/container/table/normalize_settings.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -126,22 +127,30 @@ struct  apply_
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( automatic_duration_apply )
 {
+  using nt2::with_;
+  using nt2::none_;
   using boost::mpl::_;
   using nt2::settings;
   using nt2::of_size_;
   using nt2::automatic_;
+  using nt2::tag::table_;
   using nt2::no_padding_;
-  using nt2::lead_padding_strategy_;
-  using nt2::global_padding_strategy_;
+  using nt2::lead_padding_;
+  using nt2::global_padding_;
   using nt2::memory::array_buffer;
+  using nt2::meta::normalize_settings;
 
   NT2_TEST_EXPR_TYPE( automatic_()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( automatic_
+                                          , of_size_<2,2>
+                                          , no_padding_
+                                          )
+                                >::type
                               >
                       )
                     , (array_buffer<int, 4>)
@@ -150,11 +159,14 @@ NT2_TEST_CASE( automatic_duration_apply )
   NT2_TEST_EXPR_TYPE( automatic_()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<3,2>
-                                , lead_padding_strategy_<8>
-                                , global_padding_strategy_<>
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( automatic_
+                                          , of_size_<3,2>
+                                          , lead_padding_(with_<8>)
+                                          )
+                                >::type
                               >
                       )
                     , (array_buffer<int, 16>)
@@ -163,11 +175,15 @@ NT2_TEST_CASE( automatic_duration_apply )
   NT2_TEST_EXPR_TYPE( automatic_()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<3,2>
-                                , lead_padding_strategy_<1>
-                                , global_padding_strategy_<8>
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( automatic_
+                                          , of_size_<3,2>
+                                          , global_padding_(with_<8>)
+                                          , lead_padding_(none_)
+                                          )
+                                >::type
                               >
                       )
                     , (array_buffer<int, 8>)
@@ -176,15 +192,19 @@ NT2_TEST_CASE( automatic_duration_apply )
   NT2_TEST_EXPR_TYPE( automatic_()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<3,2>
-                                , lead_padding_strategy_<4>
-                                , global_padding_strategy_<32>
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( automatic_
+                                          , of_size_<3,2>
+                                          , global_padding_(with_<32>)
+                                          , lead_padding_(with_<4>)
+                                          )
+                                >::type
                               >
                       )
                     , (array_buffer<int, 32>)
-                    );                                        
+                    );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -195,114 +215,75 @@ NT2_TEST_CASE( dynamic_duration_apply )
   using boost::mpl::_;
   using nt2::settings;
   using nt2::allocator_;
-  using nt2::aligned_;
-  using nt2::unaligned_;
   using nt2::dynamic_;
   using nt2::no_padding_;
-  using nt2::lead_padding_strategy_;
-  using nt2::global_padding_strategy_;
+  using nt2::lead_padding_;
+  using nt2::global_padding_;
   using nt2::memory::buffer;
+  using nt2::tag::table_;
+  using nt2::memory::padded_allocator;
   using boost::simd::memory::allocator_adaptor;
   using boost::simd::memory::allocator;
+  using nt2::meta::normalize_settings;
 
   NT2_TEST_EXPR_TYPE( dynamic_()
                     , (apply_ < _
+                            , int
+                            , normalize_settings
+                              < table_
                               , int
-                              , settings
-                                ( no_padding_
-                                , allocator_< std::allocator<int> >
-                                , aligned_
-                                )
-                              >
-                      )
-                    , (buffer<int, std::allocator<int> >)
-                    );
-
-  NT2_TEST_EXPR_TYPE( dynamic_()
-                    , (apply_ < _
-                              , int
-                              , settings
-                                ( no_padding_
-                                , allocator_< std::allocator<int> >
-                                , unaligned_
-                                )
-                              >
+                              , settings( no_padding_
+                                        , allocator_< std::allocator<int> >
+                                        )
+                              >::type
+                            >
                       )
                     , (buffer<int, allocator_adaptor<int,std::allocator<int> > >)
                     );
 
   NT2_TEST_EXPR_TYPE( dynamic_()
                     , (apply_ < _
+                            , int
+                            , normalize_settings
+                              < table_
                               , int
-                              , settings
-                                ( no_padding_
-                                , allocator_< allocator<int> >
-                                , aligned_
-                                )
-                              >
+                              , settings( no_padding_
+                                        , allocator_< allocator<int> >
+                                        )
+                              >::type
+                            >
                       )
                     , (buffer<int, allocator<int> >)
                     );
 
   NT2_TEST_EXPR_TYPE( dynamic_()
                     , (apply_ < _
+                            , int
+                            , normalize_settings
+                              < table_
                               , int
-                              , settings
-                                ( no_padding_
-                                , allocator_< allocator<int> >
-                                , unaligned_
-                                )
-                              >
+                              , settings( lead_padding_
+                                        , allocator_< std::allocator<int> >
+                                        )
+                              >::type
+                            >
                       )
-                    , (buffer<int, allocator<int> >)
-                    );
-
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Verify buffer generation for dynamic_ with special allocator
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( dynamic_duration_apply_with_allocator )
-{
-  using boost::mpl::_;
-  using nt2::settings;
-  using nt2::allocator_;
-  using nt2::aligned_;
-  using nt2::unaligned_;
-  using nt2::dynamic_;
-  using nt2::no_padding_;
-  using nt2::lead_padding_strategy_;
-  using nt2::global_padding_strategy_;
-  using nt2::memory::buffer;
-  using nt2::memory::fixed_allocator;
-  using boost::simd::memory::allocator_adaptor;
-  using boost::simd::memory::allocator;
-
-  NT2_TEST_EXPR_TYPE( dynamic_()
-                    , (apply_ < _
-                              , int
-                              , settings
-                                ( no_padding_
-                                , allocator_< std::allocator<int> >
-                                , aligned_
-                                )
-                              , allocator_< fixed_allocator<int> >
-                              >
-                      )
-                    , (buffer<int, fixed_allocator<int> >)
+                    , (buffer<int, allocator_adaptor<int,std::allocator<int> > >)
                     );
 
   NT2_TEST_EXPR_TYPE( dynamic_()
                     , (apply_ < _
-                              , int
-                              , settings
-                                ( no_padding_
-                                , allocator_< std::allocator<int> >
-                                , unaligned_
-                                )
-                              , allocator_< fixed_allocator<int> >
-                              >
+                            , int
+                            , normalize_settings
+                              < table_
+                                , int
+                              , settings( global_padding_
+                                        , allocator_< std::allocator<int> >
+                                        )
+                              >::type
+                            >
                       )
-                    , (buffer<int, allocator_adaptor<int,fixed_allocator<int> > >)
+                    , (buffer<int, padded_allocator<allocator_adaptor<int, std::allocator<int> > > >)
                     );
+
 }

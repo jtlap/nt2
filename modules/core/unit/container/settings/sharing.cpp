@@ -1,16 +1,17 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2::settings sharing is an option"
 
 #include <nt2/core/settings/sharing.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/core/container/table/normalize_settings.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -131,39 +132,46 @@ NT2_TEST_CASE( shared_apply )
   using nt2::shared_;
   using nt2::automatic_;
   using nt2::dynamic_;
-  using nt2::aligned_;
   using nt2::allocator_;
   using nt2::no_padding_;
-  using nt2::lead_padding_strategy_;
-  using nt2::global_padding_strategy_;
+  using nt2::global_padding_;
   using nt2::memory::buffer;
+  using nt2::tag::table_;
   using boost::simd::memory::allocator;
   using nt2::memory::fixed_allocator;
+  using nt2::memory::padded_allocator;
   using nt2::memory::array_buffer;
+  using nt2::meta::normalize_settings;
 
   NT2_TEST_EXPR_TYPE( shared_::index()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , automatic_
-                                , aligned_
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( automatic_
+                                          , of_size_<2,2>
+                                          , no_padding_
+                                          , shared_                                     
+                                          )
+                                >::type
                               >
                       )
-                    , (array_buffer<int*, 4>)
+                    , (array_buffer<int*, 2>)
                     );
 
   NT2_TEST_EXPR_TYPE( shared_::data()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , automatic_
-                                , aligned_
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( automatic_
+                                          , of_size_<2,2>
+                                          , no_padding_
+                                          , shared_                                     
+                                          )
+                                >::type
                               >
                       )
                     , (buffer<int, fixed_allocator<int> >)
@@ -172,13 +180,16 @@ NT2_TEST_CASE( shared_apply )
   NT2_TEST_EXPR_TYPE( shared_::index()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , dynamic_
-                                , aligned_
-                                , allocator_< allocator<int> >
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( dynamic_
+                                          , of_size_<2,2>
+                                          , no_padding_
+                                          , shared_
+                                          , allocator_< allocator<int> >                                
+                                          )
+                                >::type
                               >
                       )
                     , (buffer<int*, allocator<int> >)
@@ -187,15 +198,19 @@ NT2_TEST_CASE( shared_apply )
   NT2_TEST_EXPR_TYPE( shared_::data()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , dynamic_
-                                , aligned_
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( dynamic_
+                                          , of_size_<2,2>
+                                          , global_padding_
+                                          , shared_
+                                          , allocator_< allocator<int> >                                
+                                          )
+                                >::type
                               >
                       )
-                    , (buffer<int, fixed_allocator<int> >)
+                    , (buffer<int, padded_allocator<fixed_allocator<int> > >)
                     );
 }
 
@@ -208,59 +223,66 @@ NT2_TEST_CASE( owned_apply )
   using nt2::settings;
   using nt2::of_size_;
   using nt2::owned_;
+  using nt2::none_;
+  using nt2::with_;
   using nt2::automatic_;
   using nt2::dynamic_;
-  using nt2::aligned_;
-  using nt2::unaligned_;
   using nt2::allocator_;
   using nt2::no_padding_;
-  using nt2::lead_padding_strategy_;
-  using nt2::global_padding_strategy_;
+  using nt2::global_padding_;
+  using nt2::lead_padding_;
   using nt2::memory::buffer;
+  using nt2::memory::array_buffer;
+  using nt2::memory::fixed_allocator;
+  using nt2::memory::padded_allocator;
   using boost::simd::memory::allocator;
   using boost::simd::memory::allocator_adaptor;
-  using nt2::memory::fixed_allocator;
-  using nt2::memory::array_buffer;
-
+  using nt2::meta::normalize_settings;
+  using nt2::tag::table_;
+  
   NT2_TEST_EXPR_TYPE( owned_::index()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , automatic_
-                                , aligned_
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( automatic_
+                                          , of_size_<2,2>
+                                          , no_padding_
+                                          )
+                                >::type
                               >
-                      )
-                    , (array_buffer<int*, 4>)
+                      )  
+                    , (array_buffer<int*, 2>)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_::data()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , automatic_
-                                , aligned_
-                                , allocator_< std::allocator<int> >
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( automatic_
+                                          , of_size_<2,2>
+                                          , lead_padding_(with_<16>)
+                                          , global_padding_(none_)
+                                          )
+                                >::type
                               >
                       )
-                    , (array_buffer<int, 4>)
+                    , (array_buffer<int, 32>)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_::index()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , dynamic_
-                                , aligned_
-                                , allocator_< allocator<int> >
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( dynamic_
+                                          , of_size_<2,2>
+                                          )
+                                >::type
                               >
                       )
                     , (buffer<int*, allocator<int> >)
@@ -269,15 +291,34 @@ NT2_TEST_CASE( owned_apply )
   NT2_TEST_EXPR_TYPE( owned_::data()
                     , (apply_ < _
                               , int
-                              , settings
-                                ( of_size_<2,2>
-                                , no_padding_
-                                , dynamic_
-                                , unaligned_
-                                , allocator_< std::allocator<int> >
-                                )
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( dynamic_
+                                          , of_size_<2,2>
+                                          , allocator_< std::allocator<int> >
+                                          , global_padding_(none_)
+                                          )
+                                >::type
                               >
                       )
                     , (buffer<int, allocator_adaptor< int, std::allocator<int> > >)
+                    );
+
+  NT2_TEST_EXPR_TYPE( owned_::data()
+                    , (apply_ < _
+                              , int
+                              , normalize_settings
+                                < table_
+                                , int
+                                , settings( dynamic_
+                                          , of_size_<2,2>
+                                          , allocator_< std::allocator<int> >
+                                          , global_padding_
+                                          )
+                                >::type
+                              >
+                      )
+                    , (buffer<int, padded_allocator< allocator_adaptor< int, std::allocator<int> > > >)
                     );
 }

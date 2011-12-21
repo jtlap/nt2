@@ -10,6 +10,7 @@
 #define NT2_CORE_SETTINGS_DETAILS_SHARING_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/alignment.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
 #include <nt2/core/container/memory/fixed_allocator.hpp>
