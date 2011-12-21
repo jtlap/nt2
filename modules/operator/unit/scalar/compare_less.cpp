@@ -53,11 +53,11 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(nt2::Inf<T>(), nt2::Inf<T>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Minf<T>(), nt2::Minf<T>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Nan<T>(), nt2::Nan<T>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::One<T>(),nt2::Zero<T>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), false);
+  NT2_TEST_EQUAL(compare_less(nt2::Inf<T>(), nt2::Inf<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Minf<T>(), nt2::Minf<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Nan<T>(), nt2::Nan<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::One<T>(),nt2::Zero<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -80,10 +80,10 @@ NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(nt2::Mone<T>(),nt2::Zero<T>()), true);
-  NT2_TEST_EQUAL(compare_less(nt2::One<T>(), nt2::One<T>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::One<T>(),nt2::Zero<T>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), false);
+  NT2_TEST_EQUAL(compare_less(nt2::Mone<T>(),nt2::Zero<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_less(nt2::One<T>(), nt2::One<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::One<T>(),nt2::Zero<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(false));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(nt2::One<T>(), nt2::One<T>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::One<T>(),nt2::Zero<T>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), false);
+  NT2_TEST_EQUAL(compare_less(nt2::One<T>(), nt2::One<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::One<T>(),nt2::Zero<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(false));
 } // end of test for unsigned_int_

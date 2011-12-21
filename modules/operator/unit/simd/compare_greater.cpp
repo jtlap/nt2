@@ -59,11 +59,11 @@ NT2_TEST_CASE_TPL ( compare_greater_real__2_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_greater(nt2::Inf<vT>(), nt2::Inf<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(nt2::Minf<vT>(), nt2::Minf<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(nt2::Nan<vT>(), nt2::Nan<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(),nt2::Two<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_greater(nt2::Inf<vT>(), nt2::Inf<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_greater(nt2::Minf<vT>(), nt2::Minf<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_greater(nt2::Nan<vT>(), nt2::Nan<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(),nt2::Two<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_greater(nt2::Zero<vT>(), nt2::Zero<vT>()), ssr_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_greater_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -87,10 +87,10 @@ NT2_TEST_CASE_TPL ( compare_greater_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_T
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_greater(nt2::Mone<vT>(),nt2::Zero<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(), nt2::One<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(),nt2::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_greater(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_greater(nt2::Mone<vT>(),nt2::Zero<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(), nt2::One<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(),nt2::Zero<vT>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater(nt2::Zero<vT>(), nt2::Zero<vT>()), ssr_t(false));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( compare_greater_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
@@ -114,7 +114,7 @@ NT2_TEST_CASE_TPL ( compare_greater_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(), nt2::One<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(),nt2::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_greater(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(), nt2::One<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_greater(nt2::One<vT>(),nt2::Zero<vT>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater(nt2::Zero<vT>(), nt2::Zero<vT>()), ssr_t(false));
 } // end of test for unsigned_int_

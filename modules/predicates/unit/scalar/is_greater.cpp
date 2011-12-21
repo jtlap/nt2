@@ -53,10 +53,10 @@ NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_greater(nt2::Mone<T>(), nt2::Mone<T>()), false);
-  NT2_TEST_EQUAL(is_greater(nt2::One<T>(), nt2::One<T>()), false);
-  NT2_TEST_EQUAL(is_greater(nt2::One<T>(),nt2::Zero<T>()), true);
-  NT2_TEST_EQUAL(is_greater(nt2::Zero<T>(), nt2::Zero<T>()), false);
+  NT2_TEST_EQUAL(is_greater(nt2::Mone<T>(), nt2::Mone<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(is_greater(nt2::One<T>(), nt2::One<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(is_greater(nt2::One<T>(),nt2::Zero<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(is_greater(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(false));
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( is_greater_real__2_0,  NT2_REAL_TYPES)
@@ -79,9 +79,9 @@ NT2_TEST_CASE_TPL ( is_greater_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_greater(nt2::Inf<T>(), nt2::Inf<T>()), false);
-  NT2_TEST_EQUAL(is_greater(nt2::Minf<T>(), nt2::Minf<T>()), false);
-  NT2_TEST_EQUAL(is_greater(nt2::Nan<T>(), nt2::Nan<T>()), false);
-  NT2_TEST_EQUAL(is_greater(nt2::One<T>(),nt2::Zero<T>()), true);
-  NT2_TEST_EQUAL(is_greater(nt2::Zero<T>(), nt2::Zero<T>()), false);
+  NT2_TEST_EQUAL(is_greater(nt2::Inf<T>(), nt2::Inf<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(is_greater(nt2::Minf<T>(), nt2::Minf<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(is_greater(nt2::Nan<T>(), nt2::Nan<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(is_greater(nt2::One<T>(),nt2::Zero<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(is_greater(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(false));
 } // end of test for floating_
