@@ -77,5 +77,5 @@ NT2_TEST_CASE( range_ctor )
 
   for(int j=1;j<=2;++j)
    for(int i=1;i<=3;++i)
-      NT2_TEST_EQUAL( x(i,j), data[(i-1) + (j-1)*3]) ;
+      NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
 }
