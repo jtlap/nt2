@@ -12,8 +12,9 @@
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/sdk/simd/details/logical/proxy_facade.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/io/ios_state.hpp>
 
@@ -61,7 +62,7 @@ namespace boost { namespace simd
     typedef logical<Scalar>                                     value_type;
     typedef std::size_t                                          size_type;
     
-    struct proxy
+    struct proxy : details::proxy_facade<proxy, value_type>
     {
       proxy(this_type& data_, std::size_t index_) : data(data_), index(index_)
       {
@@ -73,7 +74,7 @@ namespace boost { namespace simd
         return *this;
       }
 
-      operator bool() const
+      operator value_type const() const
       {
         return typename dispatch::make_functor<tag::extract_, Scalar>::type()(data, index);
       }
