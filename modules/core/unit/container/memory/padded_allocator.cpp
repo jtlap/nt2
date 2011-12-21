@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL(padded_allocator, NT2_TYPES )
   using nt2::memory::padded_allocator;
 
   std::allocator<T> sa;
-  typedef padded_allocator<int, std::allocator<T> > alloc_t;
+  typedef padded_allocator< std::allocator<T> > alloc_t;
   alloc_t a(16,sa);
   buffer<T, alloc_t > v( 5, 1, a );
 
@@ -43,10 +43,9 @@ NT2_TEST_CASE_TPL(padded_allocator_copy, NT2_TYPES )
   using nt2::memory::buffer;
   using nt2::memory::padded_allocator;
   
-  int_<32> i;
   std::allocator<T> sa;
-  typedef padded_allocator<int_<32>, std::allocator<T> > alloc_t;
-  alloc_t a(i,sa);
+  typedef padded_allocator< std::allocator<T> > alloc_t;
+  alloc_t a(32,sa);
 
   buffer<T, alloc_t > v( 5, 1, a );
 

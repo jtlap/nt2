@@ -20,7 +20,7 @@ namespace nt2 {  namespace memory
    * allocator to force the alignment of its allocation
    **/
   //============================================================================
-  template<typename Value, typename Allocator>
+  template<typename Allocator>
   struct padded_allocator : public Allocator
   {
     //==========================================================================
@@ -37,13 +37,13 @@ namespace nt2 {  namespace memory
     template<class Z> struct rebind
     {
       typedef typename Allocator::template rebind<Z>::other base;
-      typedef padded_allocator<Value,base>                  other;
+      typedef padded_allocator<base>                        other;
     };
 
     //==========================================================================
     // Ctor/dtor
     //==========================================================================
-    padded_allocator( Value const& v, Allocator const& a )
+    padded_allocator( std::size_t const& v, Allocator const& a )
                     : Allocator(a), value_(v)
     {}
     
@@ -51,14 +51,14 @@ namespace nt2 {  namespace memory
     // Transtyping constructor
     //==========================================================================
     template<class Z>
-    padded_allocator( padded_allocator<Value, Z> const& src )
+    padded_allocator( padded_allocator<Z> const& src )
                     : Allocator(src), value_(src.value_)
     {}
 
     //==========================================================================
     // Alignment data
     //==========================================================================
-    Value value_;
+    std::size_t value_;
 
     ////////////////////////////////////////////////////////////////////////////
     // Memory handling
@@ -72,11 +72,11 @@ namespace nt2 {  namespace memory
   //============================================================================
   /**!
    * Checks if two padded_allocator are equal. Such allocators are equal if and
-   * only if they share the same pointee.
+   * only if they have the same base allocator and alignment value.
    **/
   //============================================================================    
-  template<typename V, typename A>
-  bool operator==(padded_allocator<V,A> const& l, padded_allocator<V,A> const& r)
+  template<typename A>
+  bool operator==(padded_allocator<A> const& l, padded_allocator<A> const& r)
   {
     return    (static_cast<A const&>(l) == static_cast<A const&>(r))
           &&  (l.value_ == r.value_);
@@ -85,11 +85,11 @@ namespace nt2 {  namespace memory
   //============================================================================
   /**!
    * Checks if two padded_allocator are non-equal. Such allocators are not equal
-   * only if they share different pointees.
+   * only if they have differet base allocator or alignment value.
    **/
   //============================================================================    
-  template<typename V, typename A>
-  bool operator!=(padded_allocator<V,A> const& l, padded_allocator<V,A> const& r)
+  template<typename A>
+  bool operator!=(padded_allocator<A> const& l, padded_allocator<A> const& r)
   {
     return !(l == r);
   }

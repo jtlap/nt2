@@ -24,7 +24,7 @@ namespace nt2 { namespace meta
   //============================================================================
   /**
    * Computes the number of elements required to perform a static allocation
-   * from an of_size static sequence and two padding values
+   * from a fusion sequence and two padding values
   **/
   //============================================================================
   template< typename Size, typename GlobalPadding, typename LeadPadding>
@@ -35,7 +35,7 @@ namespace nt2 { namespace meta
   //============================================================================
   template< typename Size >
   struct  padded_size<Size, boost::mpl::int_<1>, boost::mpl::int_<1> >
-        : boost::mpl::fold< typename Size::values_type
+        : boost::mpl::fold< Size
                           , boost::mpl::int_<1>
                           , boost::mpl::times < boost::mpl::_1
                                               , boost::mpl::_2
@@ -64,14 +64,14 @@ namespace nt2 { namespace meta
   struct  padded_size<Size, boost::mpl::int_<1>, LeadPadding >
         : boost::mpl::times
           < typename  boost::mpl::fold< typename boost::mpl::
-                                        pop_front<typename Size::values_type>::type
+                                        pop_front<Size>::type
                                       , boost::mpl::int_<1>
                                       , boost::mpl::times < boost::mpl::_1
                                                           , boost::mpl::_2
                                                           >
                                       >::type
           , boost::simd::meta::align_on
-            < typename boost::mpl::at_c<typename Size::values_type,0>::type
+            < typename boost::mpl::at_c<Size,0>::type
             , LeadPadding
             >
           >

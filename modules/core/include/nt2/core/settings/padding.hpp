@@ -97,6 +97,12 @@ namespace nt2 { namespace meta
     typedef global_padding_strategy_<N> type;
   };
 
+  template<class Default>
+  struct  option< global_padding_(none_), tag::global_padding_, Default >
+  {
+    typedef global_padding_strategy_<1> type;
+  };
+
   //============================================================================
   /*! lead_padding_ with alignment value 
    *  return padding_strategy of lead_ with the alignment value
@@ -108,6 +114,11 @@ namespace nt2 { namespace meta
     typedef lead_padding_strategy_<N> type;
   };
 
+  template<class Default>
+  struct  option< lead_padding_(none_), tag::lead_padding_, Default >
+  {
+    typedef lead_padding_strategy_<1> type;
+  };
   //============================================================================
   /*!
    * no_padding_ option 
