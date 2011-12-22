@@ -21,7 +21,7 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 

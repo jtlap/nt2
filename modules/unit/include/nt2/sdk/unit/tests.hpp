@@ -16,6 +16,7 @@
  */
 
 #include <iomanip>
+#include <vector>
 #include <nt2/include/functions/random.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
@@ -23,6 +24,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/tests.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -81,38 +83,36 @@
 /**/
 
 #define NT2_CREATE_BUF(NAME, TYPE, SIZE, MIN, MAX)    \
-  nt2::memory::buffer<TYPE,          \
+  std::vector<TYPE,          \
           boost::simd::memory::allocator<TYPE> >    \
-  NAME(0, SIZE);            \
-  {/*TYPE fac = double((MAX-MIN))/(SIZE+2);*/      \
+  NAME(SIZE);            \
+  {\
     for(int k = 0; k < (int)SIZE; ++k){        \
-    /*NAME[k] = MIN+(k+1)*fac;*/        \
     NAME[k] = nt2::random(MIN, MAX);        \
     }}                \
   /**/
 #define NT2_CREATE_LOGICAL_BUF(NAME, TYPE, SIZE)\
-  nt2::memory::buffer<TYPE,\
+  std::vector<TYPE,\
           boost::simd::memory::allocator<TYPE> >\
-  NAME(0, SIZE);            \
+  NAME(SIZE);            \
   for(int k = 0; k < int(SIZE); ++k){          \
     NAME[k] = nt2::random(0, 1) ? nt2::True<TYPE>() : nt2::False<TYPE>(); \
   }                \
 /**/
 #define NT2_CREATE_BUFFER(NAME, TYPE, SIZE, MIN, MAX)  \
-  nt2::memory::buffer<TYPE,        \
+  std::vector<TYPE,        \
           boost::simd::memory::allocator<TYPE> >    \
-          tab_##NAME(0, SIZE);    \
-  {/*TYPE fac = double((MAX-MIN))/(SIZE+2);*/     \
+          tab_##NAME(SIZE);    \
+  {\
     for(int k = 0; k < (int)SIZE; ++k){      \
-²      /*tab_##NAME[k] = MIN+(k+1)*fac;*/          \
       NAME[k] = nt2::random(MIN, MAX);             \
    }}              \
 /**/
 
 #define NT2_CREATE_SCALAR_BUFFER(NAME, TYPE, SIZE, MIN, MAX)  \
-  nt2::memory::buffer<TYPE,          \
+  std::vector<TYPE,          \
           boost::simd::memory::allocator<TYPE> >    \
-  tab_##NAME(0, SIZE);            \
+  tab_##NAME(SIZE);            \
   for(int k = 0; k < (int)SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \
   }                \
