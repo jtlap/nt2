@@ -8,12 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_SECOND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_SECOND_HPP_INCLUDED
-
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::second_, tag::cpu_,
@@ -22,10 +18,7 @@ namespace boost { namespace simd { namespace ext
                         )
   {
  typedef typename meta::scalar_of<A0>::type result_type; 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
-    {
-       return a0[1];
-    }
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1) { return a0[1]; }
   };
 } } }
 #endif

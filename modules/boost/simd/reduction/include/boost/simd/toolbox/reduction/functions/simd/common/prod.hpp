@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_PROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_PROD_HPP_INCLUDED
-
 #include <boost/simd/toolbox/reduction/functions/prod.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/constants/one.hpp>
@@ -26,11 +25,9 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef typename meta::scalar_of<A0>::type   result_type;
-    
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef result_type     type;
-      return boost::fusion::fold(a0,One<type>(),dispatch::functor<boost::simd::tag::multiplies_>());
+      return boost::fusion::fold(a0,One<result_type>(),dispatch::functor<boost::simd::tag::multiplies_>());
     }
   };
 } } }

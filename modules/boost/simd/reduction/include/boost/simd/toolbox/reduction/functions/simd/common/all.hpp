@@ -13,9 +13,6 @@
 #include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/hmsb.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
@@ -30,6 +27,7 @@ namespace boost { namespace simd { namespace ext
       return result_type(hmsb(genmask(a0)) == (1ull << meta::cardinal_of<A0>::value)-1);
     }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<logical_<A0>,X>))
