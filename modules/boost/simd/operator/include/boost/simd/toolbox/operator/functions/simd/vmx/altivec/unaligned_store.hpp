@@ -10,6 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_STORE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/toolbox/operator/functions/unaligned_store.hpp>
+#include <iterator>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_ , boost::simd::tag::altivec_
@@ -24,15 +27,16 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      result_type   MSQ = {vec_ld(a2*16, a1)};   
-      result_type   LSQ = {vec_ld((a2*16)+15, a1)};   
-      n_t     edgeAlign = {vec_lvsl(a2*16, a1)};
+      static std::size_t sz = sizeof(typename std::iterator_traits<A1>::value_type);
+      result_type   MSQ = {vec_ld(a2*sz, a1)};   
+      result_type   LSQ = {vec_ld((a2*sz)+sz-1, a1)};   
+      n_t     edgeAlign = {vec_lvsl(a2*sz, a1)};
       result_type edges = {vec_perm(LSQ(), MSQ(), edgeAlign())};
-      n_t         align = {vec_lvsr(a2*16, a1)};
+      n_t         align = {vec_lvsr(a2*sz-1, a1)};
       MSQ = vec_perm(edges(), a0(), align());
       LSQ = vec_perm(a0(), edges(), align());
-      vec_st(LSQ(), (a2*16)+15, a1);
-      vec_st(MSQ(), (a2*16)   , a1);
+      vec_st(LSQ(), (a2*sz)+sz-1, a1);
+      vec_st(MSQ(), (a2*sz)     , a1);
       return a0;
     }
   };

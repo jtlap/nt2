@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_IMPL_LOAD_OFFSET_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/toolbox/operator/functions/load.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
