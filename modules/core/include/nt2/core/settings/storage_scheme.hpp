@@ -18,15 +18,14 @@ namespace nt2
    *   dense storage scheme.
    **/
   //============================================================================
-  struct conventional_{};
+  struct conventional_;
 
   //============================================================================
    /*! Packed storage infers from the container Shape which elements to store 
     *  and which to regenerate. Usually, packed storage reduces memory usage.
    **/
   //============================================================================
-  struct packed_{};
-
+  struct packed_;
 
   namespace tag 
   { 
@@ -40,7 +39,6 @@ namespace nt2
 
   namespace meta
   {
-
     template<class Default> struct option<conventional_
                                           , tag::storage_scheme_
                                           , Default>
@@ -56,5 +54,7 @@ namespace nt2
     };
   } 
 }
+
+#include <nt2/core/settings/details/storage_scheme.hpp>
 
 #endif
