@@ -6,22 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_MAKE_BLOCK_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_MAKE_BLOCK_HPP_INCLUDED
+#ifndef NT2_SDK_META_CONTAINER_OF_HPP_INCLUDED
+#define NT2_SDK_META_CONTAINER_OF_HPP_INCLUDED
 
-#include <boost/mpl/apply.hpp>
-#include <nt2/core/settings/shape.hpp>
-#include <nt2/core/settings/option.hpp>
-//#include <nt2/core/settings/location.hpp>
-
-namespace nt2 { namespace container
+namespace nt2
 {
-  template<class Type, class Settings>
-  struct make_block
+  namespace meta
   {
-    typedef typename meta::option<Settings, tag::shape_>::type shape_type;
-    typedef typename boost::mpl::apply<shape_type,Type,Settings>::type type;
-  };
-} }
+    //==========================================================================
+    /*!
+     * Returns meta-function class to build a container in particular domain
+     *
+     * \tparam Domain Domain to find the container type for
+     */
+    //==========================================================================
+    template<class Domain>
+    struct container_of;
+  }
+}
 
 #endif

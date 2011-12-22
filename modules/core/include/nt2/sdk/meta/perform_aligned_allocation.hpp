@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_PERFORM_ALIGNED_ALLOCATION_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_PERFORM_ALIGNED_ALLOCATION_HPP_INCLUDED
+#ifndef NT2_SDK_META_PERFORM_ALIGNED_ALLOCATION_HPP_INCLUDED
+#define NT2_SDK_META_PERFORM_ALIGNED_ALLOCATION_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
 

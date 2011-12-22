@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_MAKE_ALIGNED_ALLOCATOR_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_MAKE_ALIGNED_ALLOCATOR_HPP_INCLUDED
+#ifndef NT2_SDK_META_MAKE_ALIGNED_ALLOCATOR_HPP_INCLUDED
+#define NT2_SDK_META_MAKE_ALIGNED_ALLOCATOR_HPP_INCLUDED
 
 #include <boost/mpl/bool.hpp>
 #include <boost/simd/sdk/memory/allocator_adaptor.hpp>

@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_DETAILS_PERMUTE_META_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_DETAILS_PERMUTE_META_HPP_INCLUDED
+#ifndef NT2_SDK_META_PERMUTE_META_HPP_INCLUDED
+#define NT2_SDK_META_PERMUTE_META_HPP_INCLUDED
 
 #include <boost/simd/sdk/details/at_iterator.hpp>
 #include <boost/fusion/sequence/intrinsic.hpp>

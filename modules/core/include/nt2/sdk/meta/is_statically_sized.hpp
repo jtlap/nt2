@@ -6,21 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_ADAPT_COMPOSITE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_ADAPT_COMPOSITE_HPP_INCLUDED
+#ifndef NT2_SDK_META_IS_STATICALLY_SIZED_HPP_INCLUDED
+#define NT2_SDK_META_IS_STATICALLY_SIZED_HPP_INCLUDED
 
-#include <boost/fusion/include/adapt_struct.hpp>
-#include <nt2/core/container/meta/is_composite.hpp>
+#include <boost/mpl/bool.hpp>
+#include <nt2/core/functions/size.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Adapt a structure to be a NT2 composite type
+// Check if a given Expression type has a size known at compile time
 ////////////////////////////////////////////////////////////////////////////////
-#define NT2_ADAPT_COMPOSITE(Name,Fields)                        \
-BOOST_FUSION_ADAPT_STRUCT(Name,Fields);                         \
-namespace nt2 { namespace meta                                  \
-{                                                               \
-  template<> struct  is_composite<Name> : boost::mpl::true_ {}; \
-} }                                                             \
-/**/
+namespace nt2 { namespace meta
+{
+  template<class Expression>
+  struct is_statically_sized
+   : boost::mpl::bool_< boost::dispatch::meta::
+                        call<tag::extent_(Expression)>::type::static_status
+                      >
+  {};
+} }
 
 #endif

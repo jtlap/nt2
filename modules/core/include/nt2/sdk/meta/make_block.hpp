@@ -6,23 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_DIMENSIONS_OF_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_DIMENSIONS_OF_HPP_INCLUDED
+#ifndef NT2_SDK_META_MAKE_BLOCK_HPP_INCLUDED
+#define NT2_SDK_META_MAKE_BLOCK_HPP_INCLUDED
 
-/**
- * \file
- * \brief Define the nt2::meta::dimensions_of \metafunction
-**/
+#include <boost/mpl/apply.hpp>
+#include <nt2/core/settings/shape.hpp>
+#include <nt2/core/settings/option.hpp>
+//#include <nt2/core/settings/location.hpp>
 
-#include <boost/mpl/size_t.hpp>
-
-namespace nt2 { namespace meta
+namespace nt2 { namespace container
 {
-  /**
-   * Computes the number of dimensions storable in a given Buffer type.
-  **/
-  template< typename Buffer >
-  struct  dimensions_of : boost::mpl::size_t<0> {};
+  template<class Type, class Settings>
+  struct make_block
+  {
+    typedef typename meta::option<Settings, tag::shape_>::type shape_type;
+    typedef typename boost::mpl::apply<shape_type,Type,Settings>::type type;
+  };
 } }
 
 #endif

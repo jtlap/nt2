@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_SDK_MEMORY_BUFFER_BASE_HPP_INCLUDED
-#define NT2_SDK_MEMORY_BUFFER_BASE_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_MEMORY_DETAILS_BUFFER_BASE_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_DETAILS_BUFFER_BASE_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // Data holding class for memory buffer

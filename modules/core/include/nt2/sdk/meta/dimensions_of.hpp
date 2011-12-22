@@ -6,26 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_META_STORAGE_ORDER_OF_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_META_STORAGE_ORDER_OF_HPP_INCLUDED
+#ifndef NT2_SDK_META_DIMENSIONS_OF_HPP_INCLUDED
+#define NT2_SDK_META_DIMENSIONS_OF_HPP_INCLUDED
 
 /**
  * \file
- * \brief Define the nt2::meta::storage_order_of \metafunction
+ * \brief Define the nt2::meta::dimensions_of \metafunction
 **/
 
 #include <boost/mpl/size_t.hpp>
-#include <nt2/core/settings/storage_order.hpp>
-
 
 namespace nt2 { namespace meta
 {
   /**
-   * Gives the storage order of the Buffer type.
+   * Computes the number of dimensions storable in a given Buffer type.
   **/
   template< typename Buffer >
-  struct  storage_order_of : nt2::C_order_ {};
-
+  struct  dimensions_of : boost::mpl::size_t<0> {};
 } }
 
 #endif

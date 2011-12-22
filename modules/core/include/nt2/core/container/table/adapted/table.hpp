@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_TABLE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_TABLE_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_HPP_INCLUDED
 
 #include <boost/mpl/size_t.hpp>
 #include <boost/fusion/include/size.hpp>
@@ -23,8 +23,7 @@
 //==============================================================================
 namespace nt2 { namespace container
 {
-  template<class Type, class Settings>
-  struct table;
+  template<class Type, class Settings> struct table;
 } }
 
 //==============================================================================
@@ -36,13 +35,6 @@ namespace nt2 { namespace meta
   struct dimensions_of< nt2::container::table<T,S> > 
           : boost::mpl::size_t<container::table<T,S>::container_type::extent_type::static_size> 
   {};
-
-
-  template<class T, class S>
-  struct storage_order_of< nt2::container::table<T,S> > 
-  {
-    typedef typename container::table<T, S>::container_type::storage_order_type type;
-  };
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -50,9 +42,7 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-
-  template<class T, class S>
-  struct value_of< nt2::container::table<T,S> >
+  template<class T, class S> struct value_of< nt2::container::table<T,S> >
   {
     typedef T type;
   };
@@ -60,15 +50,12 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<typename T, typename S>
-  struct model_of< nt2::container::table<T,S> >
+  template<typename T, typename S> struct model_of< nt2::container::table<T,S> >
   {
     struct type
     {
-      template<class X> struct apply
-      {
-        typedef nt2::container::table<X,S>    type;
-      };
+      template<class X>
+      struct apply { typedef nt2::container::table<X,S> type; };
     };
   };
 } } }
