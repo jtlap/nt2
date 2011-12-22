@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/negate.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -9,10 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_DOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_DOT_HPP_INCLUDED
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dot_, tag::cpu_
@@ -20,13 +16,8 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A1> >)
                             )
   {
-
     typedef typename boost::common_type<A0,A1>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return a0*a1;
-      }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return a0*a1; }
   };
 } } }
 

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/ieee/functions/simd/common/ilogb.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/is_gtz.hpp>
@@ -19,9 +19,7 @@
 #include <boost/simd/include/functions/predecessor.hpp>
 #include <boost/simd/include/functions/dist.hpp>
 #define MKN(N) simd::bitwise_cast<vtype##N>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
@@ -29,9 +27,7 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<int_<A0>,boost::simd::tag::sse_>))
                        )
   {
-//    typedef typename meta::scalar_of<A0>::type sA0;
-//         typedef typename meta::is_signed<sA0>::type sgn;
-      typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename dispatch::meta::as_integer<A0,unsigned>::type vtype;
@@ -41,19 +37,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint8_t
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint8_<A0>,boost::simd::tag::sse_>))
                        )
   {
-//    typedef typename meta::scalar_of<A0>::type sA0;
-//         typedef typename meta::is_signed<sA0>::type sgn;
-      typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef A0 vtype8;
@@ -81,19 +70,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint32_t
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint32_<A0>,boost::simd::tag::sse_>))
                        )
   {
-//    typedef typename meta::scalar_of<A0>::type sA0;
-//         typedef typename meta::is_signed<sA0>::type sgn;
-      typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename A0::extension_type cat;
@@ -102,7 +84,6 @@ namespace boost { namespace simd { namespace ext
       static const vtype8& z = Zero<vtype8>();
       static const vtype8& o = One<vtype8>();
       static const vtype32 mask = boost::simd::integral_constant<vtype32, 0x7f7f7f7f>();
-      //      vtype8 i = boolean(is_nez((vtype8)a0));
       vtype8 i = if_else(is_eqz(MKN(8)(a0)), z, o);
       vtype8 n = MKN(8)(b_and(MKN(32)(_mm_srli_epi16(a0, 1)), mask));
       i = seladd(is_nez(n), i, o);
@@ -137,19 +118,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint64_t
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint64_<A0>,boost::simd::tag::sse_>))
                        )
   {
-//    typedef typename meta::scalar_of<A0>::type sA0;
-//         typedef typename meta::is_signed<sA0>::type sgn;
-      typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename A0::extension_type cat;
@@ -158,19 +132,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint16_t
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ilogb_, boost::simd::tag::sse2_,
                         (A0),
                         ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
                        )
   {
-//    typedef typename meta::scalar_of<A0>::type sA0;
-//         typedef typename meta::is_signed<sA0>::type sgn;
-      typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
+    typedef typename dispatch::meta::as_integer<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef A0 vtype16;
@@ -180,7 +147,6 @@ namespace boost { namespace simd { namespace ext
       static const vtype8& o = One<vtype8>();
       static const vtype16 mask =  boost::simd::integral_constant<vtype16, 0x7f7f > ();
       vtype8 i = if_else(is_eqz(MKN(8)(a0)), z, o);
-      //      vtype8 i = sb2b(is_nez((vtype8)a0));
       vtype8 n = MKN(8)(b_and(MKN(16)(_mm_srli_epi16(a0, 1)), mask));
       i = seladd(is_nez(n), i, o);
       n = MKN(8)(b_and(MKN(16)(_mm_srli_epi16(n, 1)), mask));
@@ -205,5 +171,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+
 #endif
 #endif

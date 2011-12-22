@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_BITWISE_AND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_BITWISE_AND_HPP_INCLUDED
-
 #include <boost/simd/toolbox/operator/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>

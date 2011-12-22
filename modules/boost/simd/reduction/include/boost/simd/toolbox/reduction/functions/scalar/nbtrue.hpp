@@ -8,13 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_NBTRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_NBTRUE_HPP_INCLUDED
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
-#include <boost/simd/include/functions/is_nez.hpp>
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
@@ -22,12 +18,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return boost::simd::is_nez(a0);
+      {
+        return a0 ? One<result_type>() : Zero<result_type>(); 
       }
   };
 } } }

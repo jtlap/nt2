@@ -9,12 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_FIRST_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::first_, tag::cpu_
@@ -22,13 +16,8 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return a0;
-      }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 } } }
 
