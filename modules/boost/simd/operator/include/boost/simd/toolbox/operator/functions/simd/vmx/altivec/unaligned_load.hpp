@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <iterator>
 
 namespace boost { namespace simd { namespace ext
@@ -26,9 +27,10 @@ namespace boost { namespace simd { namespace ext
     typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      static std::size_t sz = sizeof(typename std::iterator_traits<A0>::value_type);
+      static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);
+      static std::size_t card = meta::cardinal_of<result_type>::value;
       result_type MSQ  = {vec_ld(a1*sz  ,a0)};
-      result_type LSQ  = {vec_ld((a1*sz)+sz-1 ,a0)};
+      result_type LSQ  = {vec_ld((a1*sz)+card*sz-1 ,a0)};
       n_t         mask = {vec_lvsl(a1*sz,a0)};
       result_type that = {vec_perm(MSQ(), LSQ(), mask())};
       return that;
