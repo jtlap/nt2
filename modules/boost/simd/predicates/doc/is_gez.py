@@ -9,7 +9,6 @@
          'rturn' : {
              'default' : 'typename boost::simd::meta::as_logical<T>::type',
             },
-         'simd_types' : ['real_'],
          'special' : ['predicate'],
          'type_defs' : [],
          'types' : ['real_', 'signed_int_', 'unsigned_int_'],
