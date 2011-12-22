@@ -6,39 +6,33 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_SHAPE_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_SHAPE_HPP_INCLUDED
+#ifndef NT2_CORE_SETTINGS_DETAILS_SHAPE_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_DETAILS_SHAPE_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/buffer.hpp>
+#include <nt2/core/container/memory/iliffe_buffer.hpp>
 
 namespace nt2 
 { 
   //============================================================================
-  /*! The default container shape. Data are laid out in a hypercube 
-   *  of N dimensions and contains only non-trivial values.
-   **/
+  // Use iliffe_buffer to build a proper buffer
   //============================================================================
-  struct rectangular_;
-
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for shape options
-     **/
-    //==========================================================================
-    struct shape_ {}; 
-  }
-
-  namespace meta
+  struct rectangular_
   {
-    template<class Default> struct option<rectangular_, tag::shape_, Default>
+    template<class T, class S>
+    struct apply
     {
-      typedef rectangular_ type;
+      typedef typename meta::option<S,tag::buffer_>::type           buffer_t;
+      
+      typedef memory::iliffe_buffer < boost::mpl::_1
+                                    , boost::mpl::_2
+                                    , boost::mpl::_3
+                                    >                               model_t;
+                                    
+      typedef typename buffer_t::template apply<model_t,T,S>::type  type;
     };
-  } 
+  };
 }
-
-#include <nt2/core/settings/details/shape.hpp>
 
 #endif

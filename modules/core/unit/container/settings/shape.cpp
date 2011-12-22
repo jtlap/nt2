@@ -10,6 +10,7 @@
 
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/shape.hpp>
+#include <nt2/core/container/table/normalize_settings.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -75,7 +76,24 @@ NT2_TEST_CASE( setting_shape_default )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE( rectangular_()
-                      ,(option< settings(long,int), nt2::tag::shape_,_>)
-                      ,(rectangular_)
-                      );
+                    , (option< settings(long,int), nt2::tag::shape_,_>)
+                    , (rectangular_)
+                    );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Build the buffer from the shape
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( shape_buffer )
+{
+  using boost::mpl::_;
+  using nt2::settings;
+  using nt2::meta::option;
+  using nt2::rectangular_;
+  using nt2::meta::normalize_settings;
+  
+  NT2_TEST_EXPR_TYPE( rectangular_()
+                    , (option< settings(long,int), nt2::tag::shape_,_>)
+                    , (rectangular_)
+                    );
 }
