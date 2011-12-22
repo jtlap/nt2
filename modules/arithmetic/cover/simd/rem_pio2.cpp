@@ -28,8 +28,7 @@ extern "C" {extern long double cephes_acosl(long double);}
 
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
+
 #include <nt2/include/functions/load.hpp>
 
 

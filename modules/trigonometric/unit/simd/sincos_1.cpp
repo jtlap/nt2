@@ -13,8 +13,6 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 /// modified by jt the 13/02/2011
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <boost/type_traits/is_same.hpp>

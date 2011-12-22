@@ -8,18 +8,8 @@
 ################################################################################
 
 SET( SOURCES
-    is_power_of_2.cpp
-    next_power_of_2.cpp
-    align_on.cpp
-    is_aligned.cpp
-    make_aligned.cpp
-    allocate.cpp
-    overload.cpp
-    allocator.cpp
-    allocator_adaptor.cpp
     slice.cpp
     stride.cpp
-    #block1D.cpp
   )
 
 nt2_module_add_tests(sdk.memory.unit ${SOURCES})
