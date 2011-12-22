@@ -8,8 +8,7 @@
              'default' : 'typename nt2::meta::as_integer<T, unsigned>::type',
             },
          'type_defs' : [],
-         'types' : ['float', 'double', 'signed_int_', 'unsigned_int_'],
-         'simd_types' : ['float', 'double', 'signed_int_', 'unsigned_int_'],
+         'types' : ['real_', 'signed_int_', 'unsigned_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -24,16 +23,9 @@
              'default' : [['nt2::Valmin<T>()/2', 'nt2::Valmax<T>()/2']],
             },
          'specific_values' : {
-             'double' : {
-                 'nt2::Inf<T>()' : {'result' : '53u','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : '53u','ulp_thresh' : '0.5',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
-                 'nt2::Signmask<T>()' : {'result' : 'sizeof(T)*8','ulp_thresh' : '0.5',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
-                },
-             'float' : {
-                 'nt2::Inf<T>()' : {'result' : '24u','ulp_thresh' : '0.5',},
-                 'nt2::Minf<T>()' : {'result' : '24u','ulp_thresh' : '0.5',},
+             'real_' : {
+                 'nt2::Minf<T>()' : {'result' : 'boost::simd::Nbmantissabits<T>()+1','ulp_thresh' : '0.5',},
+                 'nt2::Inf<T>()' : {'result' : 'boost::simd::Nbmantissabits<T>()+1','ulp_thresh' : '0.5',},
                  'nt2::Nan<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0.5',},
                  'nt2::Signmask<T>()' : {'result' : 'sizeof(T)*8','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0.5',},
