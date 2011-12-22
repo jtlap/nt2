@@ -8,10 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory composite_buffer as a Buffer"
 
-#include <nt2/core/container/memory/adapted/array.hpp>
-#include <nt2/core/container/memory/composite_buffer.hpp>
+#include <nt2/sdk/memory/adapted/array.hpp>
+#include <nt2/sdk/memory/composite_buffer.hpp>
 #include <nt2/sdk/meta/adapt_composite.hpp>
-#include <nt2/core/container/memory/dereference.hpp>
+#include <nt2/sdk/memory/dereference.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/array.hpp>

@@ -11,7 +11,7 @@
 
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/buffer.hpp>
-#include <nt2/core/container/memory/iliffe_buffer.hpp>
+#include <nt2/sdk/memory/iliffe_buffer.hpp>
 
 namespace nt2 
 { 

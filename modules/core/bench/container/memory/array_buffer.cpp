@@ -8,7 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2 container buffer"
 
-#include <nt2/core/container/memory/array_buffer.hpp>
+#include <nt2/sdk/memory/array_buffer.hpp>
 
 #include <iostream>
 #include <nt2/sdk/timing/now.hpp>

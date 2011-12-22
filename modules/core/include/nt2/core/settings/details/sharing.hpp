@@ -13,7 +13,7 @@
 #include <nt2/core/settings/alignment.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
-#include <nt2/core/container/memory/fixed_allocator.hpp>
+#include <nt2/sdk/memory/fixed_allocator.hpp>
 
 namespace nt2 
 {

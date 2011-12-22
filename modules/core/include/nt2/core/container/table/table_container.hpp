@@ -24,7 +24,7 @@
 #include <nt2/sdk/meta/is_container.hpp>
 #include <nt2/sdk/meta/container_of.hpp>
 #include <nt2/sdk/meta/make_block.hpp>
-#include <nt2/core/container/memory/dense_block.hpp>
+#include <nt2/sdk/memory/dense_block.hpp>
 
 namespace nt2 { namespace container
 {

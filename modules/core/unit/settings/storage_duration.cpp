@@ -10,9 +10,9 @@
 
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
-#include <nt2/core/container/memory/fixed_allocator.hpp>
+#include <nt2/sdk/memory/fixed_allocator.hpp>
 #include <nt2/core/container/table/normalize_settings.hpp>
 
 #include <nt2/sdk/unit/module.hpp>

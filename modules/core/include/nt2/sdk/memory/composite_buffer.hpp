@@ -24,7 +24,7 @@
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/fusion/include/as_vector.hpp>
-#include <nt2/core/container/memory/adapted/composite_buffer.hpp>
+#include <nt2/sdk/memory/adapted/composite_buffer.hpp>
 
 namespace nt2 { namespace memory
 {

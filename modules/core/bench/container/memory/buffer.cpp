@@ -9,7 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 container buffer"
 
 #include <boost/simd/sdk/memory/allocator.hpp>
-#include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 
 #include <iostream>
 #include <nt2/sdk/timing/now.hpp>

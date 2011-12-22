@@ -21,8 +21,8 @@
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <nt2/sdk/meta/as_sequence.hpp>
-#include <nt2/core/container/memory/adapted/buffer.hpp>
-#include <nt2/core/container/memory/details/buffer_base.hpp>
+#include <nt2/sdk/memory/adapted/buffer.hpp>
+#include <nt2/sdk/memory/details/buffer_base.hpp>
 
 #ifdef BOOST_MSVC
 #pragma warning(push)

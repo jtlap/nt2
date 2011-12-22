@@ -19,7 +19,7 @@
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/copy.hpp>
 #include <nt2/include/functions/multiplies.hpp>
-#include <nt2/core/container/memory/adapted/iliffe_buffer.hpp>
+#include <nt2/sdk/memory/adapted/iliffe_buffer.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -318,7 +318,7 @@ namespace nt2 { namespace memory
   };
 } }
 
-#include <nt2/core/container/memory/details/iliffe_buffer_1d.hpp>
-#include <nt2/core/container/memory/details/iliffe_buffer_2d.hpp>
+#include <nt2/sdk/memory/details/iliffe_buffer_1d.hpp>
+#include <nt2/sdk/memory/details/iliffe_buffer_2d.hpp>
 
 #endif

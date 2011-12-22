@@ -8,8 +8,8 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory fixed_allocator"
 
-#include <nt2/core/container/memory/buffer.hpp>
-#include <nt2/core/container/memory/fixed_allocator.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/fixed_allocator.hpp>
 
 #include <boost/array.hpp>
 #include <boost/fusion/adapted/array.hpp>

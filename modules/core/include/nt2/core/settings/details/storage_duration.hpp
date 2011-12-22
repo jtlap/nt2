@@ -15,11 +15,11 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/padding.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/meta/padded_size.hpp>
-#include <nt2/core/container/memory/array_buffer.hpp>
+#include <nt2/sdk/memory/array_buffer.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
-#include <nt2/core/container/memory/padded_allocator.hpp>
+#include <nt2/sdk/memory/padded_allocator.hpp>
 #include <nt2/sdk/meta/make_aligned_allocator.hpp>
 
 namespace nt2 

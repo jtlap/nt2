@@ -26,8 +26,8 @@
 #include <nt2/sdk/memory/lead_padding.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
-#include <nt2/core/container/memory/buffer.hpp>
-#include <nt2/core/container/memory/iliffe_buffer.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/iliffe_buffer.hpp>
 
 namespace nt2 { namespace memory
 {

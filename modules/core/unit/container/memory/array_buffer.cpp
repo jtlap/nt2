@@ -8,7 +8,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory boost::array adaptation as a Buffer"
 
-#include <nt2/core/container/memory/array_buffer.hpp>
+#include <nt2/sdk/memory/array_buffer.hpp>
 
 #include <algorithm>
 #include <boost/array.hpp>

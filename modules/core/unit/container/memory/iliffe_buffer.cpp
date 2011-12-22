@@ -8,9 +8,9 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory iliffe_buffer"
 
-#include <nt2/core/container/memory/buffer.hpp>
-#include <nt2/core/container/memory/iliffe_buffer.hpp>
-#include <nt2/core/container/memory/fixed_allocator.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/iliffe_buffer.hpp>
+#include <nt2/sdk/memory/fixed_allocator.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>

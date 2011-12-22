@@ -15,7 +15,7 @@
 #include <boost/dispatch/meta/value_of.hpp>
 #include <nt2/sdk/meta/dereference.hpp>
 #include <boost/fusion/include/transform_view.hpp>
-#include <nt2/core/container/memory/dereference.hpp>
+#include <nt2/sdk/memory/dereference.hpp>
 #include <nt2/sdk/meta/dimensions_of.hpp>
 
 //==============================================================================

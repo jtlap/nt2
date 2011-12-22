@@ -17,7 +17,7 @@
 #include <boost/fusion/adapted/mpl.hpp>
 #include <nt2/sdk/meta/as_sequence.hpp>
 #include <boost/fusion/include/at_c.hpp>
-#include <nt2/core/container/memory/adapted/array_buffer.hpp>
+#include <nt2/sdk/memory/adapted/array_buffer.hpp>
 
 namespace nt2 {  namespace memory
 {

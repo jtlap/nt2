@@ -8,9 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::memory iliffe_buffer sharing capability"
 
-#include <nt2/core/container/memory/iliffe_buffer.hpp>
-#include <nt2/core/container/memory/dereference.hpp>
-#include <nt2/core/container/memory/buffer.hpp>
+#include <nt2/sdk/memory/iliffe_buffer.hpp>
+#include <nt2/sdk/memory/dereference.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 
 #include <nt2/sdk/memory/slice.hpp>

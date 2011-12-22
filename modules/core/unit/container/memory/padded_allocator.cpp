@@ -8,8 +8,8 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory padded_allocator"
 
-#include <nt2/core/container/memory/buffer.hpp>
-#include <nt2/core/container/memory/padded_allocator.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/padded_allocator.hpp>
 
 #include <boost/mpl/int.hpp>
 
