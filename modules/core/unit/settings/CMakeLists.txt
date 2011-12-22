@@ -27,4 +27,4 @@ SET( SOURCES
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
   set_property(SOURCE id.cpp PROPERTY COMPILE_FLAGS "-Wno-multichar")
 endif()
-nt2_module_add_tests(core.container.settings.unit ${SOURCES})
+nt2_module_add_tests(core.settings.unit ${SOURCES})
