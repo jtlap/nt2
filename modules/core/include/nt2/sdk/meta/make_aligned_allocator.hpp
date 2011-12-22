@@ -11,7 +11,7 @@
 
 #include <boost/mpl/bool.hpp>
 #include <boost/simd/sdk/memory/allocator_adaptor.hpp>
-#include <nt2/core/container/meta/perform_aligned_allocation.hpp>
+#include <nt2/sdk/meta/perform_aligned_allocation.hpp>
 
 namespace nt2 {  namespace details
 {

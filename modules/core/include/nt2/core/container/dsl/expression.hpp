@@ -21,8 +21,8 @@
 #include <nt2/include/functions/evaluate.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <nt2/core/container/meta/container_traits.hpp>
-#include <nt2/core/container/meta/settings_of.hpp>
+#include <nt2/sdk/meta/container_traits.hpp>
+#include <nt2/sdk/meta/settings_of.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta

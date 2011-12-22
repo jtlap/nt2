@@ -13,10 +13,10 @@
 #include <boost/mpl/size_t.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/container/meta/dereference.hpp>
+#include <nt2/sdk/meta/dereference.hpp>
 #include <boost/fusion/include/transform_view.hpp>
 #include <nt2/core/container/memory/dereference.hpp>
-#include <nt2/core/container/meta/dimensions_of.hpp>
+#include <nt2/sdk/meta/dimensions_of.hpp>
 
 //==============================================================================
 // Forward declaration

@@ -14,7 +14,7 @@
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
-#include <nt2/core/container/meta/dimensions_of.hpp>
+#include <nt2/sdk/meta/dimensions_of.hpp>
 
 namespace nt2 { namespace memory
 {

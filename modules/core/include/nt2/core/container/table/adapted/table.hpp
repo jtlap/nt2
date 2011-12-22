@@ -15,8 +15,8 @@
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/container/meta/dimensions_of.hpp>
-#include <nt2/core/container/meta/storage_order_of.hpp>
+#include <nt2/sdk/meta/dimensions_of.hpp>
+#include <nt2/sdk/meta/storage_order_of.hpp>
 
 //==============================================================================
 // Forward declaration

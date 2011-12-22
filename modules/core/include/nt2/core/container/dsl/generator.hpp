@@ -19,7 +19,7 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/core/container/meta/container_of.hpp>
+#include <nt2/sdk/meta/container_of.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
 #include <nt2/core/container/dsl/details/trait_transform.hpp>
 

@@ -21,9 +21,9 @@
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <nt2/core/container/meta/is_container.hpp>
-#include <nt2/core/container/meta/container_of.hpp>
-#include <nt2/core/container/meta/make_block.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/sdk/meta/container_of.hpp>
+#include <nt2/sdk/meta/make_block.hpp>
 #include <nt2/core/container/memory/dense_block.hpp>
 
 namespace nt2 { namespace container

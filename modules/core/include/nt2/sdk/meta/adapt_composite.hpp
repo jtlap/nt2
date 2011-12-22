@@ -10,7 +10,7 @@
 #define NT2_SDK_META_ADAPT_COMPOSITE_HPP_INCLUDED
 
 #include <boost/fusion/include/adapt_struct.hpp>
-#include <nt2/core/container/meta/is_composite.hpp>
+#include <nt2/sdk/meta/is_composite.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Adapt a structure to be a NT2 composite type

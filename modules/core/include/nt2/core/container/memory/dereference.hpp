@@ -16,8 +16,8 @@
   **/
 //==============================================================================
 #include <nt2/core/settings/details/fusion.hpp>
-#include <nt2/core/container/meta/dimensions_of.hpp>
-#include <nt2/core/container/meta/storage_order_of.hpp>
+#include <nt2/sdk/meta/dimensions_of.hpp>
+#include <nt2/sdk/meta/storage_order_of.hpp>
 #include <iostream>
 
 namespace nt2 { namespace details
