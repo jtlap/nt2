@@ -8,16 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MANTISSA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MANTISSA_HPP_INCLUDED
-#include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/logical_or.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/include/functions/is_invalid.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::mantissa_, tag::cpu_,

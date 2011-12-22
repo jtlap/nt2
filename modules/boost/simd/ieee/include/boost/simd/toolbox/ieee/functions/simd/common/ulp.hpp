@@ -18,9 +18,6 @@
 #include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::ulp_, tag::cpu_,
@@ -34,10 +31,7 @@ namespace boost { namespace simd { namespace ext
         return One<A0>();
       }
   };
-  
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is floating_
-  /////////////////////////////////////////////////////////////////////////////
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ulp_, tag::cpu_
                               , (A0)(X)
                               , ((simd_<floating_<A0>,X>))
@@ -50,8 +44,6 @@ namespace boost { namespace simd { namespace ext
         A0 xp = boost::simd::predecessor(x);
         A0 xs = boost::simd::successor(x); 
 	return if_allbits_else(is_equal(x, Inf<A0>()), boost::simd::min(x-xp, xs - x));
-// 	         return boost::simd::select(boost::simd::is_equal(x, boost::simd::Inf<A0>()),
-//                                  boost::simd::Nan<A0>(), boost::simd::min(x-xp, xs - x));
       }
   };
 } } }

@@ -8,17 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MAXMAG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MAXMAG_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/is_greater.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxmag_, tag::cpu_
@@ -26,15 +21,12 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return select(gt(abs(a0), boost::simd::abs(a1)), a0, a1);
+      return select(gt(boost::simd::abs(a0), boost::simd::abs(a1)), a0, a1);
     }
   };
 } } }
-
 
 #endif

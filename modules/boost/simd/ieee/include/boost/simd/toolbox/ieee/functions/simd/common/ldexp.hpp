@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
 #include <boost/simd/sdk/meta/size.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/constants/ldexpmask.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/shli.hpp>
@@ -34,7 +34,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return rshl(a0, a1); }
   };
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)

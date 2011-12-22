@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITINTEGER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITINTEGER_HPP_INCLUDED
-
 #include <boost/simd/toolbox/ieee/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
@@ -32,7 +31,8 @@ namespace boost { namespace simd { namespace ext
       return select(boost::simd::is_positive(a0), a00, Signmask<result_type>()-a00 );
     }
   };
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitinteger_, tag::cpu_
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitinteger_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )

@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULPDIST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULPDIST_HPP_INCLUDED
-
 #include <boost/simd/toolbox/ieee/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/divides.hpp>

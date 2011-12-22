@@ -8,11 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SATURATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SATURATE_HPP_INCLUDED
-#include <boost/simd/include/constants/real.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_<T>, tag::cpu_,
