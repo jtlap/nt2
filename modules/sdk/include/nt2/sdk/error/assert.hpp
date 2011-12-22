@@ -47,6 +47,7 @@
 //==============================================================================
 #include <iosfwd>
 #include <nt2/sdk/error/error.hpp>
+#include <sstream>
 
 #if  !defined(NT2_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
 
@@ -62,9 +63,9 @@ namespace nt2
    * NT2_ASSERTS_AS_EXCEPTIONS is defined.
    */
   //============================================================================
-  struct assert_exception : virtual nt2::exception
+  struct assert_exception : nt2::exception
   {
-    virtual ~assert_exception() throw() {}
+    assert_exception(std::string const& msg) : nt2::exception(msg) {}
     virtual void display(std::ostream& os) const throw();
   };
 }
@@ -99,8 +100,10 @@ namespace boost
   void assertion_failed(char const* expr, char const* fn, char const* f, long l)
   {
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
+    std::ostringstream ss;
+    ss << f << ':' << l << ": " << fn << ": Assertion " << expr << " failed.";
     ::boost::exception_detail
-    ::throw_exception_(   ::nt2::assert_exception()
+    ::throw_exception_(   ::nt2::assert_exception(ss.str())
                       <<  ::nt2::details::assert_info(expr)
                         , fn,f,l
                       );
@@ -119,9 +122,10 @@ namespace boost
   void assertion_failed_msg(char const* expr, char const* msg, char const* fn, char const* f, long l)
   {
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
-    boost::dispatch::ignore_unused(msg); 
+    std::ostringstream ss;
+    ss << f << ':' << l << ": " << fn << ": Assertion " << expr << " failed.\n\t" << msg;
     ::boost::exception_detail
-    ::throw_exception_(   ::nt2::assert_exception()
+    ::throw_exception_(   ::nt2::assert_exception(ss.str())
                       <<  ::nt2::details::assert_info(expr)
                         , fn,f,l
                       );

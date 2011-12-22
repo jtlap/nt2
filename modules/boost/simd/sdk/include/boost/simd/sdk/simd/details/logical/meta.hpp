@@ -12,8 +12,8 @@
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/io/ios_state.hpp>
 
@@ -73,13 +73,27 @@ namespace boost { namespace simd
         return *this;
       }
 
-      operator bool() const
+      operator value_type() const
       {
         return typename dispatch::make_functor<tag::extract_, Scalar>::type()(data, index);
+      }
+      
+      value_type const operator()() const
+      {
+        return static_cast<value_type const&>(*this);
       }
 
       this_type& data;
       std::size_t index;
+      
+      friend bool operator!(proxy const& a0) { return !a0(); }
+      friend bool operator==(proxy const& a0, proxy const& a1) { return a0() == a1(); }
+      template<class U> friend bool operator==(U const& a0, proxy const& a1) { return a0 == a1(); }
+      template<class U> friend bool operator==(proxy const& a0, U const& a1) { return a0() == a1; }
+      friend bool operator!=(proxy const& a0, proxy const& a1) { return a0() != a1(); }
+      template<class U> friend bool operator!=(U const& a0, proxy const& a1) { return a0 != a1(); }
+      template<class U> friend bool operator!=(proxy const& a0, U const& a1) { return a0() != a1; }
+      friend std::ostream& operator<<(std::ostream& a0, proxy const& a1) { return a0 << a1(); }
     };
     
     typedef proxy                                                reference;

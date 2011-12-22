@@ -8,12 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_HMSB_HPP_INCLUDED
-#include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::hmsb_, tag::cpu_
@@ -21,14 +17,11 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      using boost::simd::Signmask;
-
-      return b_and(a0, Signmask<result_type>()) != 0; }
+      {
+        return b_and(a0, boost::simd::Signmask<result_type>()) != 0;
+      }
   };
 } } }
 

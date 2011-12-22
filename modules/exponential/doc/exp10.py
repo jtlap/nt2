@@ -7,7 +7,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::arithmetic(T)>::type',
+             'default' : 'typename boost::common_type<T>::type',
             },
          'type_defs' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],

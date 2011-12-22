@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of real constants for every base real types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL  (  real_value, (double)(float) )
+NT2_TEST_CASE_TPL  (  real_value, NT2_SIMD_REAL_TYPES )
 {
   NT2_TEST_EQUAL( nt2::Mhalf<T>()       , static_cast<T>(-1./2. ) );
   NT2_TEST_EQUAL( nt2::Mzero<T>()       , static_cast<T>(-0.    ) );

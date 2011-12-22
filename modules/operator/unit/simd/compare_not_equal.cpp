@@ -26,7 +26,7 @@
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -59,11 +59,11 @@ NT2_TEST_CASE_TPL ( compare_not_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_not_equal(nt2::Inf<vT>(), nt2::Inf<vT>()), false);
-  NT2_TEST_EQUAL(compare_not_equal(nt2::Minf<vT>(), nt2::Minf<vT>()), false);
-  NT2_TEST_EQUAL(compare_not_equal(nt2::Nan<vT>(), nt2::Nan<vT>()), true);
-  NT2_TEST_EQUAL(compare_not_equal(nt2::One<vT>(),nt2::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_not_equal(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Inf<vT>(), nt2::Inf<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Minf<vT>(), nt2::Minf<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Nan<vT>(), nt2::Nan<vT>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_not_equal(nt2::One<vT>(),nt2::Zero<vT>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Zero<vT>(), nt2::Zero<vT>()), ssr_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_not_equal_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
@@ -87,8 +87,8 @@ NT2_TEST_CASE_TPL ( compare_not_equal_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_not_equal(nt2::Mone<vT>(),nt2::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_not_equal(nt2::One<vT>(), nt2::One<vT>()), false);
-  NT2_TEST_EQUAL(compare_not_equal(nt2::One<vT>(),nt2::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_not_equal(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Mone<vT>(),nt2::Zero<vT>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_not_equal(nt2::One<vT>(), nt2::One<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_not_equal(nt2::One<vT>(),nt2::Zero<vT>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_not_equal(nt2::Zero<vT>(), nt2::Zero<vT>()), ssr_t(false));
 } // end of test for integer_

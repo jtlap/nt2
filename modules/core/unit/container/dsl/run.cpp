@@ -33,7 +33,7 @@ NT2_TEST_CASE( value_at )
   
   for(std::size_t j=1; j!=3+1; ++j)
     for(std::size_t i=1; i!=2+1; ++i)
-      NT2_TEST_EQUAL( a1(i, j), T(i+j+1) );
+      NT2_TEST_EQUAL( T(a1(i, j)), T(i+j+1) );
 }
 
 NT2_TEST_CASE( scalar_size )
@@ -44,14 +44,14 @@ NT2_TEST_CASE( scalar_size )
     
   table<T> a0 = T(42);
   NT2_TEST( a0.extent() == of_size(1) );
-  NT2_TEST_EQUAL( a0(1), T(42) );
+  NT2_TEST_EQUAL( T(a0(1)), T(42) );
   
   table<T> a1;
   NT2_TEST( a1.extent() == of_size(0) );
   
   a1 = T(42);
   NT2_TEST( a1.extent() == of_size(1) );
-  NT2_TEST_EQUAL( a0(1), T(42) );
+  NT2_TEST_EQUAL( T(a0(1)), T(42) );
 }
 
 NT2_TEST_CASE( element_wise )

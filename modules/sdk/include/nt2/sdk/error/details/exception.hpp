@@ -42,21 +42,9 @@ namespace nt2
    * and can be directly streamed for easy display.
    */
   //============================================================================
-  struct exception : virtual boost::exception, virtual std::exception
+  struct exception : boost::exception, std::runtime_error
   {
-    virtual ~exception() throw() {}
-
-    //==========================================================================
-    /*!
-     * Returns an informative human readable string containing information
-     * about the current exception throwing context. Such informations contains,
-     * but are not limited to filename, line, function adn time of the throw.
-     *
-     * \return A constant C-style string containing the information about the
-     * exception throwing context.
-     */
-    //==========================================================================
-    virtual const char* what() const throw();
+    exception(const std::string& msg) : boost::exception(), std::runtime_error(msg) {}
 
     //==========================================================================
     /*!
@@ -68,8 +56,6 @@ namespace nt2
      */
     //==========================================================================
     virtual void display(std::ostream& os) const throw() = 0;
-    
-    mutable std::string msg;
   };
 
   //============================================================================

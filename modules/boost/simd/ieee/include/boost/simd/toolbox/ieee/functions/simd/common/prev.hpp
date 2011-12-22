@@ -13,9 +13,8 @@
 #include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/simd/include/functions/next.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/include/functions/unary_minus.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::prev_, tag::cpu_,
@@ -30,11 +29,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::prev_, tag::cpu_,
                        (A0)(X),
                        ((simd_<floating_<A0>,X>))
@@ -48,4 +42,4 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 #endif
-// modified by jt the 04/01/2011
+

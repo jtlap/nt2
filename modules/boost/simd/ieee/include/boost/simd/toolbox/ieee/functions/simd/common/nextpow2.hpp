@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXTPOW2_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXTPOW2_HPP_INCLUDED
-
 #include <boost/simd/toolbox/ieee/functions/nextpow2.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
@@ -22,9 +21,6 @@
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
@@ -39,14 +35,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A0>(nextpow2(bitwise_cast<utype >(abs(a0))));
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
@@ -63,14 +52,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<A0>(seladd(boost::simd::is_equal(m, Half<rtype>()), p, Mone<itype>()));
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint16_t
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nextpow2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<uint16_<A0>,X>))

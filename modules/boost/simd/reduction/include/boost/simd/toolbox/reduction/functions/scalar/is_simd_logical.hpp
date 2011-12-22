@@ -20,12 +20,14 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0 == genmask(a0); }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_simd_logical_, tag::cpu_, (A0)
                             , (scalar_<logical_<A0> >)
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return true; }
-  };} } }
+  };
+} } }
 
 #endif

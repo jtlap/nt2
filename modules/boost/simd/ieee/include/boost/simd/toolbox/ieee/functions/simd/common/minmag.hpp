@@ -8,17 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MINMAG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MINMAG_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmag_, tag::cpu_
@@ -26,9 +19,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return select(lt(abs(a0), boost::simd::abs(a1)), a0, a1);

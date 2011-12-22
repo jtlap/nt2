@@ -24,7 +24,6 @@ SET( SOURCES
     is_result_of_supported.cpp
     is_scalar.cpp
     is_signed.cpp
-    m_arithmetic.cpp
     make_integer.cpp
     make_floating.cpp
     scalar_of.cpp

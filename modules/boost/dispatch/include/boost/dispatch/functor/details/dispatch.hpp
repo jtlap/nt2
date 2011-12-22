@@ -10,7 +10,7 @@
 #define BOOST_DISPATCH_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/details/decltype.hpp>
+#include <boost/dispatch/details/typeof.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/functor/details/call.hpp>
@@ -30,7 +30,7 @@
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
-#undef BOOST_DISPATCH_DECLTYPE
+#undef BOOST_DISPATCH_TYPEOF
 #undef BOOST_FORCEINLINE
 #endif
 
@@ -92,7 +92,7 @@ template< class Tag, class Site                                             \
          >                                                                  \
 struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
 {                                                                           \
-  BOOST_DISPATCH_DECLTYPE                                                   \
+  BOOST_DISPATCH_TYPEOF                                                   \
   ( dispatching ( Tag(), Site() BOOST_PP_REPEAT(n,M0,~), adl_helper() )     \
   , type                                                                    \
   );                                                                        \

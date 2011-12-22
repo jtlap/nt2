@@ -14,8 +14,8 @@
 /// created  by jt the 18/02/2011
 /// 
 #include <nt2/toolbox/operator/include/functions/logical_not.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -25,11 +25,12 @@
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_INTEGRAL_TYPES)
@@ -49,12 +50,11 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_INTEGRAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(nt2::Mone<T>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::One<T>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::Zero<T>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::False<T>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::True<T>()), nt2::False<r_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_REAL_TYPES)
@@ -74,11 +74,9 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(nt2::Inf<T>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::Minf<T>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::Nan<T>()), nt2::False<r_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::Zero<T>()), nt2::True<r_t>());
-} // end of test for floating_
+  NT2_TEST_EQUAL(logical_not(nt2::False<T>()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::True<T>()), nt2::False<r_t>());
+} // end of test for real_

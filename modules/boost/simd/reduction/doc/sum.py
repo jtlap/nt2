@@ -7,7 +7,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::dispatch::meta::result_of<boost::dispatch::meta::arithmetic(sT,sT)>::type',
+             'default' : 'typename boost::common_type<sT,sT>::type',
             },
          'simd_types' : ['real_'],
          'special' : ['reduction'],  
@@ -18,7 +18,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'included' : ['#include <boost/simd/sdk/meta/logical.hpp>'],
+             'included' : ['#include <boost/simd/sdk/simd/logical.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },

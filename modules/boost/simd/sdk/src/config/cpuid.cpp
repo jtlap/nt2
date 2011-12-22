@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace config{ namespace details {
   {
 #if defined(BOOST_SIMD_ARCH_X86)
 
-#if defined(BOOST_SIMD_COMPILER_GCC)
+#if defined(BOOST_SIMD_COMPILER_GCC_LIKE)
     enum { eax,ebx,ecx,edx };
     
 #if !defined(__PIC__) || defined(BOOST_SIMD_ARCH_X86_64)
@@ -52,6 +52,8 @@ namespace boost { namespace simd { namespace config{ namespace details {
     
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
     __cpuid(CPUInfo,InfoType);
+#else
+#error compiler not supported
 #endif
 
 #endif

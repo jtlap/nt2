@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return logical_not(logical_or(is_greater(a, b)), is_greater(b, a));
+      return logical_not(logical_or(is_greater(a0, a1), is_greater(a1, a0)));
     }
   };
   

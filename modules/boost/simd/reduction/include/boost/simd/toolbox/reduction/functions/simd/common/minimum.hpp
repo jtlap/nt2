@@ -8,13 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_MINIMUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_MINIMUM_HPP_INCLUDED
-
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, tag::cpu_,
@@ -25,8 +21,7 @@ namespace boost { namespace simd { namespace ext
  typedef typename meta::scalar_of<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef result_type type;
-      type r = a0[0];
+      result_type r = a0[0];
       for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)
       r = (r >  a0[i]) ? a0[i] : r;
       return r;

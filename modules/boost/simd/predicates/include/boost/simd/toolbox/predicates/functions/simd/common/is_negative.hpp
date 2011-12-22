@@ -11,7 +11,11 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/bitofsign.hpp>
+#include <boost/simd/include/constants/mone.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/false.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

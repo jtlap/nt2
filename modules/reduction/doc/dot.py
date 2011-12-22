@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::result_of<nt2::meta::arithmetic(scalar,scalar)>::type',
+             'default' : 'typename boost::common_type<scalar,scalar>::type',
             },
          'simd_types' : ['real_'],
          'special' : ['reduction'],  

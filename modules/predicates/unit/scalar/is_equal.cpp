@@ -26,7 +26,7 @@
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -53,10 +53,10 @@ NT2_TEST_CASE_TPL ( is_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_equal(nt2::Mone<T>(), nt2::Mone<T>()), true);
-  NT2_TEST_EQUAL(is_equal(nt2::One<T>(), nt2::One<T>()), true);
-  NT2_TEST_EQUAL(is_equal(nt2::One<T>(),nt2::Zero<T>()), false);
-  NT2_TEST_EQUAL(is_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(is_equal(nt2::Mone<T>(), nt2::Mone<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(is_equal(nt2::One<T>(), nt2::One<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(is_equal(nt2::One<T>(),nt2::Zero<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(is_equal(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(true));
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( is_equal_real__2_0,  NT2_REAL_TYPES)
@@ -79,9 +79,9 @@ NT2_TEST_CASE_TPL ( is_equal_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_equal(nt2::Inf<T>(), nt2::Inf<T>()), true);
-  NT2_TEST_EQUAL(is_equal(nt2::Minf<T>(), nt2::Minf<T>()), true);
-  NT2_TEST_EQUAL(is_equal(nt2::Nan<T>(), nt2::Nan<T>()), false);
-  NT2_TEST_EQUAL(is_equal(nt2::One<T>(),nt2::Zero<T>()), false);
-  NT2_TEST_EQUAL(is_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(is_equal(nt2::Inf<T>(), nt2::Inf<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(is_equal(nt2::Minf<T>(), nt2::Minf<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(is_equal(nt2::Nan<T>(), nt2::Nan<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(is_equal(nt2::One<T>(),nt2::Zero<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(is_equal(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(true));
 } // end of test for floating_

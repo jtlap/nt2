@@ -24,7 +24,7 @@
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -36,7 +36,7 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( divides_real__2_0,  (double))//NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( divides_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::divides;
   using nt2::tag::divides_;

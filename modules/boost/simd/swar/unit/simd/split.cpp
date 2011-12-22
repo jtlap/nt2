@@ -16,7 +16,7 @@
 #include <boost/simd/toolbox/swar/include/functions/split.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
-
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -56,17 +56,18 @@ NT2_TEST_CASE_TPL ( split_lt_64__1_0, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
   std::cout << a1<< std::endl;
   std::cout << a2<< std::endl; 
 
-//   // specific values tests
-//   typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
-//   typedef typename boost::simd::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-//   {
-//     r_t res = split(boost::simd::One<vT>());
-//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t>());
-//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::One<r_t>());
-//   }
-//   {
-//     r_t res = split(boost::simd::Zero<vT>());
-//     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Zero<r_t>());
-//     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t>());
-//   }
+  // specific values tests
+  typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  std::cout << nt2::type_id <r_t0>() << std::endl; 
+  {
+    r_t res = split(boost::simd::One<vT>());
+     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t0>());
+     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::One<r_t1>());
+  }
+  {
+    r_t res = split(boost::simd::Zero<vT>());
+     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Zero<r_t0>());
+     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t1>());
+  }
 } // end of test for lt_64_

@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
       y = madd(nf, w, (one-nf)*y);
 
       w = rec(y);
-      x = shri(oneplus(sign_n),1);  // 1 if positive, else 0
+      x = type(shri(oneplus(sign_n),1));  // 1 if positive, else 0
       return madd(x,y,(one-x)*w);
     }
   };

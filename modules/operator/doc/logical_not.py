@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-                'default' : 'typename nt2::meta::logical<T>::type',
+                'default' : 'typename nt2::meta::as_logical<T>::type',
             },
          'special' : ['predicate'],
          'type_defs' : [],
@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 18/02/2011',
-             'included' : ['#include <nt2/sdk/meta/logical.hpp>'],
+             'included' : ['#include <nt2/sdk/simd/logical.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 18/02/2011',
@@ -27,19 +27,8 @@
             },
          'specific_values' : {
              'default' : {
-                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
-                },
-             'integer_' : {
-                 'nt2::Mone<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::One<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
-                },
-             'real_' : {
-                 'nt2::Inf<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Minf<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Nan<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
+                 'nt2::True<T>()' : {'result' : 'nt2::False<r_t>()','ulp_thresh' : '0',},
+                 'nt2::False<T>()' : {'result' : 'nt2::True<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

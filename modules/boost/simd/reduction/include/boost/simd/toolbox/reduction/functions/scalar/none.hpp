@@ -10,9 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_NONE_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, tag::cpu_,

@@ -38,8 +38,8 @@ namespace nt2 { namespace ext
       typedef result_type rtype;
       if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();
       if (lt(a0,a1)) return (rtype)Zero<type>();
-      const type n = oneplus(round2even(a0));
-      const type p = round2even(a1);
+      const type n = type(oneplus(round2even(a0)));
+      const type p = type(round2even(a1));
       return (rtype)round2even(nt2::exp(gammaln(n)-gammaln(n-p)));
     }
   };

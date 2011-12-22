@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::arithmetic(T,T)>::type >::type',
+             'default' : 'typename nt2::meta::as_integer<typename boost::common_type<T,T>::type >::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],

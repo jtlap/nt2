@@ -19,7 +19,7 @@
 #include <nt2/sdk/meta/floating.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/type_traits/common_type.hpp>
 
 #include <boost/dispatch/details/ignore_unused.hpp>
 

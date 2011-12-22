@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
       bool is_ltza0 = is_ltz(a0); 
       if (!is_odd(a1) && is_ltza0) return Nan<type>(); 
       if (is_inf(a0)) return a0; 
-      type aa1 = a1;
+      type aa1 = type(a1);
       type x = nt2::abs(a0); 
       type y = nt2::pow(x,rec(aa1));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)

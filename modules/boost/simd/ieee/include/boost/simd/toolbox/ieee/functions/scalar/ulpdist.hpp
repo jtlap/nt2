@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0) >::type type;
+      typedef typename boost::common_type<A0>::type type;
       typedef typename dispatch::meta::as_integer<A0>::type itype;
       if (a0 == a1)               return Zero<type>();
       if (is_nan(a0)&&is_nan(a1)) return Zero<type>();

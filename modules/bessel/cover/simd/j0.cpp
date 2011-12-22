@@ -27,7 +27,7 @@ extern "C" {long double cephes_j0l(long double);}
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -40,7 +40,7 @@ extern "C" {long double cephes_j0l(long double);}
 #include <nt2/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( j0_real__1_0,  (float))//NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( j0_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::j0;
   using nt2::tag::j0_;

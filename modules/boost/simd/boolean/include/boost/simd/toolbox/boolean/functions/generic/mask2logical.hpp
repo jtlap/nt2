@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace ext
                             , (generic_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::call<tag::is_nez_(A0 const&)>::type result_type;
+    typedef typename dispatch::meta::call<tag::is_nez_(A0 const&)>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(is_simd_logical(a0), "Argument to mask2logical is not a valid logical mask");
