@@ -15,7 +15,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
          return static_cast<result_type>(a0);

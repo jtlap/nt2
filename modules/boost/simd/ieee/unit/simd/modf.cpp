@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   using boost::simd::load; 
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
-  typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(T)>::type ftype;
+  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;

@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A1)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A1)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     { return cephes_stdtr(a0, a1); }
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A1)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     { return cephes_stdtrf(a0, a1); }
@@ -87,7 +87,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A1)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     { return cephes_stdtrl(a0, a1); }

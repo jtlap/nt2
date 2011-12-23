@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0, A1)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0, A1>::type result_type;
     NT2_FUNCTOR_CALL(2) { return beta(type(a0), result_type(a1));  }
   };
 } }
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0, A1)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0, A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     { return boost::math::beta(a0, a1, nt2_policy()); }

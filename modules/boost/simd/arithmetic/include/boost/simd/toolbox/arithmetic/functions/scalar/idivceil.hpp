@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::result_of<dispatch::meta::floating(result_type)>::type ftype;
+      typedef typename boost::dispatch::meta::as_floating<result_type>::type ftype;
       ftype r = ceil(ftype(a0)/ftype(a1));
       if (r > Valmax<result_type>()) return Valmax<result_type>();
       else if (r <  Valmin<result_type>()) return Valmin<result_type>();

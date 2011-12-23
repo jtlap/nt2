@@ -11,7 +11,7 @@
 
 #include <nt2/toolbox/exponential/functions/exp.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo.hpp>
-#include <nt2/sdk/meta/floating.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

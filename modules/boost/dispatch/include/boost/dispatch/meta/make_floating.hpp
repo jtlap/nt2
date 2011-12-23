@@ -20,7 +20,8 @@
 namespace boost { namespace dispatch { namespace meta
 {
   template<std::size_t Size, class Transform = na_>
-  struct  make_floating;
+  struct  make_floating
+        : boost::mpl::apply<Transform,float> {};
 
   template<> struct  make_floating<sizeof(double) , na_ > { typedef double  type; };
   template<> struct  make_floating<sizeof(float)  , na_ > { typedef float   type; };

@@ -18,7 +18,6 @@ SET( SOURCES
     as_unsigned.cpp
     cardinal_of.cpp
     downgrade.cpp
-    floating.cpp
     fusion.cpp
     hierarchy.cpp
     is_result_of_supported.cpp

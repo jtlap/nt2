@@ -5,7 +5,7 @@
          'call_types' : ['iT','T'],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+             'default' : 'typename boost::dispatch::meta::as_floating<T>::type',
             },
          'scalar_ints' : True,  
          'simd_types' : ['real_'],

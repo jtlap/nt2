@@ -106,7 +106,7 @@ int main()
 //   typedef typename nt2::meta::as_integer<T>::type iT;
 //   typedef typename nt2::meta::call<cosine_<small>(T)>::type r_t;
 //   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+//   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 //   // return type conformity test 
 //   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );

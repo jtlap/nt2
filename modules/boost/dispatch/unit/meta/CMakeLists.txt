@@ -17,7 +17,6 @@ SET( SOURCES
     as_signed.cpp
     as_unsigned.cpp
     downgrade.cpp
-    floating.cpp
     fusion.cpp
     hierarchy.cpp
     is_scalar.cpp
