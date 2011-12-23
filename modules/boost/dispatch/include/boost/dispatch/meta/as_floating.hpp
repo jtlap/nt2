@@ -58,7 +58,7 @@ namespace boost { namespace dispatch { namespace meta
    * \include as_floating.cpp
    */
   //============================================================================
-  template<class A0, class A1 = void, class A2 = void>
+  template<class A0, class A1 = void, class A2 = void, class A3 = void>
   struct  as_floating;
   
   template<class T>
@@ -99,6 +99,18 @@ namespace boost { namespace dispatch { namespace meta
   };
   
   template<class A0, class A1, class A2>
+  struct  as_floating<A0, A1, A2>
+        : as_floating< typename mpl::
+                       if_c< sizeof(typename meta::primitive_of<typename meta::strip<A0>::type>::type) < sizeof(typename meta::primitive_of<typename meta::strip<A1>::type>::type)
+                           , A1
+                           , A2
+                           >::type
+                     , A2
+                     >
+  {
+  };
+  
+  template<class A0, class A1, class A2, class A3>
   struct  as_floating
         : as_floating< typename mpl::
                        if_c< sizeof(typename meta::primitive_of<typename meta::strip<A0>::type>::type) < sizeof(typename meta::primitive_of<typename meta::strip<A1>::type>::type)
@@ -106,6 +118,7 @@ namespace boost { namespace dispatch { namespace meta
                            , A2
                            >::type
                      , A2
+                     , A3
                      >
   {
   };
