@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0,A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::yni(a0, result_type(a1));

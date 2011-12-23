@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return std::atan2(result_type(a0),result_type(a1));

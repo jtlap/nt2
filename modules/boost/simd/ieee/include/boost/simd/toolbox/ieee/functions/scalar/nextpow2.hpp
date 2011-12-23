@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                           (scalar_ < arithmetic_<A0> > )
                          )
   {
-    typedef typename dispatch::meta::as_integer<typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type, signed>::type result_type;
+    typedef typename dispatch::meta::as_integer<typename boost::dispatch::meta::as_floating<A0>::type, signed>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::nextpow2(tofloat(a0));

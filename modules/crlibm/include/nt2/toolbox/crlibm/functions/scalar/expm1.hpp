@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
                        (scalar_<arithmetic_<A0> > )
                       )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type   base;
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
                        (scalar_<double_<A0> > )
                       )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     template<class A, class R> struct inner_expm1;
     NT2_CRLIBM_INNER_STRUCT(rn, expm1, rn)
     NT2_CRLIBM_INNER_STRUCT(rd, expm1, rd)

@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
                             , ((simd_< arithmetic_<A0>, X>))((simd_< arithmetic_<A0>, X >))
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::logspace_sub(tofloat(a0), tofloat(a1));
