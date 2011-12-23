@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
-#include <nt2/sdk/simd/logical.hpp>
+
 #include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/rem_pio2_cephes.hpp>
 #include <nt2/include/functions/rem_pio2_straight.hpp>
@@ -31,6 +31,10 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/false.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2
 {
@@ -61,16 +65,13 @@ namespace nt2
         static inline bA0 ismedium (const A0&a0)  { return le(a0,single_constant<A0,0x43490fdb>()); }
         static inline bA0 issmall  (const A0&a0)  { return le(a0,single_constant<A0,0x427b53d1>()); }
         static inline bA0 islessthanpi_2  (const A0&a0)  { return le(a0,Pio_2<A0>()); }
-        static inline bool conversion_allowed(){
-          typedef typename meta::upgrade<A0>::type uA0;
-          return boost::mpl::not_<boost::is_same<A0,uA0> >::value; 
-        }
+        typedef typename boost::mpl::not_<boost::is_same<A0,typename meta::upgrade<A0>::type> >::type conversion_allowed;
         
         static inline bA0 cot_invalid(const A0&) { return False<bA0>(); }
         static inline bA0 tan_invalid(const A0&) { return False<bA0>(); }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
-        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const big&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const big& b)
         {
           const A0 x = { x_n };
           // x is always positive here
@@ -86,22 +87,36 @@ namespace nt2
               return rem_pio2_cephes(x, xr, xc);
           else if (all(ismedium(x))) // all of x are in [0, 2^7*pi/2],  fdlibm medium way
               return rem_pio2_medium(x, xr, xc);
-          else if (conversion_allowed())//if (all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
-            {
-              typedef typename meta::upgrade<A0>::type uA0;
-              typedef typename meta::upgrade<int_type>::type uint_type; 
-              typedef trig_reduction< uA0, radian_tag,  tag::simd_type, mode, double> aux_reduction; 
-              uA0 ux1, ux2, uxr1, uxr2, uxc1, uxc2;
-              nt2::split(x, ux1, ux2);
-              uint_type n1 = aux_reduction::reduce(ux1, uxr1, uxc1);
-              uint_type n2 = aux_reduction::reduce(ux2, uxr2, uxc2);
-              xr = nt2::group(uxr1, uxr2);
-              nt2::split(xr, ux1, ux2);
-              xc = nt2::group((uxr1-ux1)+uxc1, (uxr2-ux2)+uxc2);
-              return nt2::group(n1, n2); 
-            }
-          else  // all of x are in [0, inf],  standard big way
-              return rem_pio2(x, xr, xc);
+          else
+              return inner_reduce_big(x, xr, xc, b, conversion_allowed());
+        }
+        
+        template<class m>
+        static inline int_type inner_reduce_big(const A0& x, A0& xr, A0& xc, const m&, boost::mpl::true_)
+        {
+          //if (all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+          typedef typename meta::upgrade<A0>::type uA0;
+          typedef typename meta::upgrade<int_type>::type uint_type; 
+          typedef trig_reduction< uA0, radian_tag,  tag::simd_type, mode, double> aux_reduction; 
+          uA0 ux1, ux2, uxr1, uxr2, uxc1, uxc2;
+          nt2::split(x, ux1, ux2);
+          uint_type n1 = aux_reduction::reduce(ux1, uxr1, uxc1);
+          uint_type n2 = aux_reduction::reduce(ux2, uxr2, uxc2);
+          xr = nt2::group(uxr1, uxr2);
+          nt2::split(xr, ux1, ux2);
+          xc = nt2::group((uxr1-ux1)+uxc1, (uxr2-ux2)+uxc2);
+          return nt2::group(n1, n2); 
+        }
+        
+        static inline int_type inner_reduce_big(const A0& x, A0& xr, A0& xc, const big&, boost::mpl::false_)
+        {
+          // all of x are in [0, inf],  standard big way
+          return rem_pio2(x, xr, xc);
+        }
+        
+        static inline int_type inner_reduce_big(const A0& x, A0& xr, A0& xc, const direct_big&, boost::mpl::false_)
+        {
+          return rem_pio2_big(x, xr, xc);
         }
 
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const medium&)
@@ -146,25 +161,10 @@ namespace nt2
           const A0 x = { x_n };
           return rem_pio2_medium(x, xr, xc);
         }
-        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const direct_big&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const direct_big& b)
         {
           const A0 x = { x_n };
-          if (conversion_allowed())
-            {
-              typedef typename meta::upgrade<A0>::type uA0;
-              typedef typename meta::upgrade<int_type>::type uint_type; 
-              typedef trig_reduction< uA0, radian_tag,  tag::simd_type, mode, double> aux_reduction; 
-              uA0 ux1, ux2, uxr1, uxr2, uxc1, uxc2;
-              nt2::split(x, ux1, ux2);
-              uint_type n1 = aux_reduction::reduce(ux1, uxr1, uxc1);
-              uint_type n2 = aux_reduction::reduce(ux2, uxr2, uxc2);
-              xr = nt2::group(uxr1, uxr2);
-              nt2::split(xr, ux1, ux2);
-              xc = nt2::group((uxr1-ux1)+uxc1, (uxr2-ux2)+uxc2);
-              return nt2::group(n1, n2); 
-            }
-          else
-            return rem_pio2_big(x, xr, xc);
+          inner_reduce_big(x, xr, xc, b);
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const clipped_pio4&)
         {
