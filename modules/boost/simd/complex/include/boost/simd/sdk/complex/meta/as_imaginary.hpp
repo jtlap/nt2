@@ -9,4 +9,10 @@
 #ifndef BOOST_SIMD_SDK_COMPLEX_META_AS_IMAGINARY_HPP_INCLUDED
 #define BOOST_SIMD_SDK_COMPLEX_META_AS_IMAGINARY_HPP_INCLUDED
 
+namespace boost { namespace simd { namespace meta
+{
+  template<class T>
+  struct as_imaginary;
+} } }
+
 #endif
