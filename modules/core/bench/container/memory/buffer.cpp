@@ -51,17 +51,17 @@ template<class T> struct std_test
 
 NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 {
-  int N = 1024*1024;
+  int N = 4096*4096;
 
-  for(int i=-2;i<=2;++i)
+  for(int i=-1;i<=1;++i)
   {
-    buffer_test<T> b(1024*1024,i);
-    double d = nt2::unit::perform_benchmark( b, 1.);
+    buffer_test<T> b(N,i);
+    double d = nt2::unit::perform_benchmark( b, 3.);
     std::cout << "buffer access (base=" << i << ") : "<< d/N << " cpe\n";
   }
 
   std_test<T> y(N);
-  double v = nt2::unit::perform_benchmark( y, 1.);
+  double v = nt2::unit::perform_benchmark( y, 3.);
   std::cout << "std access : "<< v/N << " cpe\n";
 
 }

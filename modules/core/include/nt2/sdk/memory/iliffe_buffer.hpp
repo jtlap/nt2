@@ -15,9 +15,11 @@
   * \brief Defines and implements the \c nt2::memory::iliffe_buffer class
   **/
 //==============================================================================
+#include <nt2/sdk/memory/slice.hpp>
 #include <boost/fusion/include/at.hpp>
+#include <nt2/sdk/meta/as_sequence.hpp>
 #include <boost/fusion/include/fold.hpp>
-#include <boost/fusion/include/copy.hpp>
+#include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/sdk/memory/adapted/iliffe_buffer.hpp>
 
@@ -104,9 +106,8 @@ namespace nt2 { namespace memory
     iliffe_buffer( Sizes const& sz, Bases const& bs )
       : data_ ( data_size(sz), boost::fusion::at_c<0>(bs)  )
       , index_( index_size(sz), boost::fusion::at_c<1>(bs) )
+      , inner_( boost::fusion::at_c<0>(sz) )
     {
-      boost::fusion::copy(sz,sizes_);
-      boost::fusion::copy(bs,bases_);
       make_links();
     }
 
@@ -129,9 +130,8 @@ namespace nt2 { namespace memory
                   )
       : data_ ( data_size(sz) , boost::fusion::at_c<0>(bs), a )
       , index_( index_size(sz), boost::fusion::at_c<1>(bs) )
+      , inner_( boost::fusion::at_c<0>(sz) )
     {
-      boost::fusion::copy(sz,sizes_);
-      boost::fusion::copy(bs,bases_);
       make_links();
     }
 
@@ -172,8 +172,7 @@ namespace nt2 { namespace memory
     {
       data_.resize(data_size(szs));
       index_.resize(index_size(szs));
-      boost::fusion::copy(szs,sizes_);
-      
+      inner_ = boost::fusion::at_c<0>(szs);
       make_links();
     }
 
@@ -186,7 +185,6 @@ namespace nt2 { namespace memory
     {
       data_.rebase(boost::fusion::at_c<0>(bss));
       index_.rebase(boost::fusion::at_c<1>(bss));
-      boost::fusion::copy(bss,bases_);
       make_links();
     }
 
@@ -199,32 +197,32 @@ namespace nt2 { namespace memory
     restructure( Sizes const& szs, Bases const& bss )
     {
       data_.resize(data_size(szs));
-      data_.rebase(boost::fusion::at_c<0>(bss));
-      
       index_.resize(index_size(szs));
+      inner_ = boost::fusion::at_c<0>(szs);
+      
+      data_.rebase(boost::fusion::at_c<0>(bss));      
       index_.rebase(boost::fusion::at_c<1>(bss));
-
-      boost::fusion::copy(szs,sizes_);
-      boost::fusion::copy(bss,bases_);
       
       make_links();
     }
 
     //==========================================================================
     /**
-      * Access to a given position through the iliffe_buffer
+     * Access to a given position through the iliffe_buffer
+     * \param pos nD Index of the element to retrieve passed either as an
+     * integral value or as a Fusion RandomAccessSequence of size 1 or 2.
      **/
     //==========================================================================
-    template<class Position> BOOST_FORCEINLINE
-    reference operator[]( Position const& pos )
+    template<class Position>
+    BOOST_FORCEINLINE reference operator[]( Position const& pos )
     {
       return access ( meta::as_sequence(pos)
                     , boost::fusion::size(meta::as_sequence(pos))
                     );
     }
     
-    template<class Position> BOOST_FORCEINLINE
-    const_reference operator[]( Position const& pos ) const
+    template<class Position>
+    BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
     {
       return access ( meta::as_sequence(pos)
                     , boost::fusion::size(meta::as_sequence(pos))
@@ -302,23 +300,17 @@ namespace nt2 { namespace memory
       typename Index::difference_type i = index_.lower();
       typename Index::difference_type u = index_.upper();
 
-      // Points to the beginning of the data block
       index_[i++] = data_.origin();
-
-      // Fill out the remaining indices
-      std::size_t local_size = boost::fusion::at_c<0>(sizes_);
-      for(i; i <= u; ++i) index_[i] = index_[i-1] + local_size;        
+      for(; i <= u; ++i) index_[i] = index_[i-1] + inner_;
     }
 
     private:
-    Data    data_;
-    Index   index_;
-    boost::array<std::size_t,Dimensions::value>     sizes_;
-    boost::array<std::ptrdiff_t,Dimensions::value>  bases_;
+    Data        data_;
+    Index       index_;
+    std::size_t inner_;
   };
 } }
 
 #include <nt2/sdk/memory/details/iliffe_buffer_1d.hpp>
-#include <nt2/sdk/memory/details/iliffe_buffer_2d.hpp>
 
 #endif

@@ -32,27 +32,31 @@ namespace nt2 {  namespace memory
     //============================================================================
     // Buffer type interface
     //============================================================================
-    typedef no_allocator              allocator_type;
-    typedef typename parent_data::value_type               value_type;
-    typedef typename parent_data::iterator                 iterator;
-    typedef typename parent_data::const_iterator           const_iterator;
-    typedef typename parent_data::reverse_iterator         reverse_iterator;
-    typedef typename parent_data::const_reverse_iterator   const_reverse_iterator;
-    typedef typename parent_data::reference                reference;
-    typedef typename parent_data::const_reference          const_reference;
-    typedef typename parent_data::size_type                size_type;
-    typedef typename parent_data::difference_type          difference_type;
-    typedef typename parent_data::difference_type          index_type;
+    typedef no_allocator                                    allocator_type;
+    typedef typename parent_data::value_type                value_type;
+    typedef typename parent_data::iterator                  iterator;
+    typedef typename parent_data::const_iterator            const_iterator;
+    typedef typename parent_data::reverse_iterator          reverse_iterator;
+    typedef typename parent_data::const_reverse_iterator    const_reverse_iterator;
+    typedef typename parent_data::reference                 reference;
+    typedef typename parent_data::const_reference           const_reference;
+    typedef typename parent_data::size_type                 size_type;
+    typedef typename parent_data::difference_type           difference_type;
+    typedef typename parent_data::difference_type           index_type;
 
     //==========================================================================
     /**!
      * Default constructor for pointer_buffer. 
      **/
     //==========================================================================
-    array_buffer() : base_(0), size_(0) {}
+    array_buffer(allocator_type const& = allocator_type())
+                : origin_(0), low_(0), up_(-1)
+    {}
 
     template<typename Sizes, typename Bases>
-    array_buffer( Sizes const& sz, Bases const& bs )
+    array_buffer( Sizes const& sz, Bases const& bs
+                , allocator_type const& = allocator_type()
+                )
     {
       restructure(sz,bs);
     }
@@ -78,38 +82,11 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
-     * Copy constructor for array_buffer.
-     *
-     * \param src array_buffer to copy
-     **/
-    //==========================================================================
-    array_buffer( array_buffer const& src )
-    : parent_data(src), base_(src.base_), size_(src.size_) {}
-
-    //==========================================================================
-    /**!
-     * Assign a buffer to the current buffer with Strong Garantee
-     *
-     * \param src buffer to assign
-     * \return The updated \c array_buffer pointing to the same boost::array and 
-     * with corresponding size and base
-     **/
-    //==========================================================================
-    array_buffer& operator=(array_buffer const& src)
-    {
-      parent_data::operator=(src);
-      base_ = src.base_;
-      size_ = src.size_;
-      return *this;
-    }
-
-    //==========================================================================
-    /**!
      * Return a (const) iterator to the biased beginning of the buffer data.
      **/
     //==========================================================================
-    const_iterator  origin() const  { return begin() - base_; }
-    iterator        origin()        { return begin() - base_; }
+    const_iterator  origin() const  { return origin_; }
+    iterator        origin()        { return origin_; }
 
     //==========================================================================
     /**!
@@ -123,8 +100,8 @@ namespace nt2 {  namespace memory
      * Return a (const) iterator to the end of the buffer data.
      **/
     //==========================================================================
-    iterator        end()       { return begin() + size_; }
-    const_iterator  end() const { return begin() + size_; }
+    iterator        end()       { return begin() + size(); }
+    const_iterator  end() const { return begin() + size(); }
 
     //==========================================================================
     /**!
@@ -161,35 +138,37 @@ namespace nt2 {  namespace memory
      * Return the number of elements accessible through the buffer.
      **/
     //==========================================================================
-    difference_type size() const { return size_; }
+    difference_type size() const { return up_ - low_ + 1; }
 
     //==========================================================================
     /**!
      * Return \c true if the buffer contains no elements
      **/
     //==========================================================================
-    bool empty() const { return size_ == 0u; }
+    bool empty() const { return size() == 0u; }
 
     //==========================================================================
     /**!
      * Return the lowest valid index for accessing a buffer element
      **/
     //==========================================================================
-    difference_type lower() const { return base_; }
+    difference_type lower() const { return low_; }
 
     //==========================================================================
     /**!
      * Return the highest valid index for accessing a buffer element
      **/
     //==========================================================================
-    difference_type upper() const { return size() - 1 + base_;  }
+    difference_type upper() const { return up_;  }
 
     //==========================================================================
     /**!
      * Return the ith element of the buffer.
      *
-     * \param i Index of the element to retrieve. Note that \c i should be no
-     * lesser than lower() nor bigger than upper() to be valid.
+     * \param  pos 1D Index of the element to retrieve passed either as an
+     * integral value or as a Fusion RandomAccessSequence of size 1.
+     * Note that \c pos should be no lesser than lower() nor bigger than upper()
+     * to be valid.
      **/    
     //==========================================================================
     template<class Position> BOOST_FORCEINLINE
@@ -205,9 +184,9 @@ namespace nt2 {  namespace memory
                       , "Position is out of buffer bounds"
                       );
                       
-      return parent_data::operator [](i - base_);
+      return origin_[i];
     }
-
+    
     template<class Position> BOOST_FORCEINLINE
     const_reference operator[](Position const& pos) const
     {
@@ -221,9 +200,9 @@ namespace nt2 {  namespace memory
                       , "Position is out of buffer bounds"
                       );
                       
-      return parent_data::operator [](i - base_);
+      return origin_[i];
     }
-
+    
     //==========================================================================
     /**!
      * Swap the contents of the buffer with another one.
@@ -233,8 +212,9 @@ namespace nt2 {  namespace memory
     //==========================================================================
     void swap( array_buffer& src )
     {
-      boost::swap(base_, src.base_);
-      boost::swap(size_, src.size_);
+      boost::swap(origin_ , src.origin_);
+      boost::swap(low_    , src.low_);
+      boost::swap(up_     , src.up_);
       parent_data::swap(src);
     }
 
@@ -251,8 +231,10 @@ namespace nt2 {  namespace memory
     {
       BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(meta::as_sequence(s)) <= N)
                       , "Allocation request too much memory"
-                      );      
-      size_ = boost::fusion::at_c<0>(meta::as_sequence(s)); 
+                      );
+
+      up_ = boost::fusion::at_c<0>(meta::as_sequence(s)) + low_ -1;
+      origin_ = &parent_data::operator[](0) - low_;
     }
     
     //==========================================================================
@@ -265,8 +247,9 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     template<class Bases> void rebase(Bases const& bs)
-    { 
-      base_ = boost::fusion::at_c<0>(meta::as_sequence(bs)); 
+    {
+      low_    = boost::fusion::at_c<0>(meta::as_sequence(bs));
+      origin_ = &parent_data::operator[](0) - low_;
     }
 
     //==========================================================================
@@ -282,13 +265,14 @@ namespace nt2 {  namespace memory
     template<class Bases, class Sizes>
     void restructure( Sizes const& sz, Bases const& bs )
     {
-      resize(sz);
-      rebase(bs);
+      low_    = boost::fusion::at_c<0>(meta::as_sequence(bs));
+      up_     = boost::fusion::at_c<0>(meta::as_sequence(sz)) + low_ -1;
+      origin_ = &parent_data::operator[](0) - low_;
     }
 
     protected:
-    difference_type base_;
-    size_type       size_;
+    value_type*     origin_;
+    difference_type low_, up_;
   };
 
   //============================================================================

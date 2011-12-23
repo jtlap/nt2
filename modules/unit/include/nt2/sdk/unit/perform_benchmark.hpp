@@ -36,7 +36,7 @@ namespace nt2 { namespace unit
   template<class Test> inline
   double perform_benchmark(Test test, double duration)
   {
-    std::vector<double> cycles,timings;
+    std::vector<double> cycles;
     double c(0.),t(0.),vt(0.),vc(0.);
 
     do
@@ -50,12 +50,8 @@ namespace nt2 { namespace unit
       vt = nt2::details::now() - vt;
       t += vt;
       cycles.push_back(vc);
-      timings.push_back(vt);
     } while(t < duration);
 
-    std::cout << "# samples  : " << cycles.size() << "\n\t"
-              << "run/second : " << cycles.size()/duration << "\n\t"
-              << "runtime    : " << timings[timings.size()/2] << "\n";
     return median(cycles.begin(),cycles.end());
   }
 } }
