@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
                       (scalar_<double_<A0> > )
                      )
   {
-    typedef typename meta::result_of < meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     template<class A, class R> struct inner_acos;
     NT2_CRLIBM_INNER_STRUCT(rn, acos, rn)
     NT2_CRLIBM_INNER_STRUCT(rd, acos, rd)
