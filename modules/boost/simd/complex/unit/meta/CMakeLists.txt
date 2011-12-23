@@ -7,5 +7,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit)
-add_subdirectory(meta)
+set( SOURCES
+     hierarchy.cpp
+   )
+
+nt2_module_add_tests(boost.simd.complex.meta.unit ${SOURCES})
