@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_MULTIPLIES_HPP_INCLUDED
-
 #include <boost/simd/toolbox/operator/functions/multiplies.hpp>
 #include <boost/simd/include/functions/real.hpp>
 #include <boost/simd/include/functions/imag.hpp>
