@@ -21,7 +21,8 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename A0::type base_type;
-    typedef typename meta::as_imaginary<base_type>::type result_type;
+    //    typedef typename meta::as_imaginary<base_type>::type result_type;
+    typedef                   imaginary<base_type>       result_type;      
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
       return result_type(One<typename result_type::type>());

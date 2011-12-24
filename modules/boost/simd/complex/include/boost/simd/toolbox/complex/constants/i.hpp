@@ -28,7 +28,10 @@
  * \code
  * #include <nt2/include/functions/i.hpp>
  * \endcode
- * 
+ *
+ * \alias:
+ *    J
+ *
  * \synopsis
  *
  * \code
@@ -63,6 +66,7 @@ namespace boost { namespace simd
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::I, I)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::I, J)
 } }
 
 #endif

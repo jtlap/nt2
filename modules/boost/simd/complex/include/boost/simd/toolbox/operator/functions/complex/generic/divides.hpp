@@ -6,18 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_PLUS_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_PLUS_HPP_INCLUDED
-#include <boost/simd/toolbox/operator/functions/plus.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_MULTIPLIES_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_MULTIPLIES_HPP_INCLUDED
+
+#include <boost/simd/toolbox/operator/functions/multiplies.hpp>
 #include <boost/simd/include/functions/real.hpp>
 #include <boost/simd/include/functions/imag.hpp>
+#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/unary_minus.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/rec.hpp>
+#include <boost/simd/include/functions/sqr_abs.hpp>
+#include <boost/simd/sdk/complex/complex.hpp>
 #include <boost/simd/sdk/complex/imaginary.hpp>
-#include <boost/simd/sdk/complex/meta/as_complex.hpp>
+#include <boost/simd/sdk/complex/meta/real_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   // complex/complex
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< complex_< arithmetic_<A0> > >)
                             )
@@ -25,14 +32,14 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type( real(a0) + real(a1)
-                        , imag(a0) + imag(a1)
-                        );
+      typedef typename meta::real_of<A0>::type real_t;
+      real_t d = sqr_abs(a1); 
+      return (a0*a1)/sqr_abs(a1); 
     }
   };
   
   // complex/real
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
@@ -40,13 +47,11 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type( real(a0) + real(a1)
-                        , imag(a1)
-                        );
+      return a0*rec(a1); 
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
                             )
@@ -54,14 +59,14 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type( real(a0) + real(a1)
-                        , imag(a0)
+      return result_type( real(a0) / a1
+                        , imag(a0) / a1
                         );
     }
   };
   
   // complex/imaginary
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
@@ -69,14 +74,11 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type( real(a1)
-                        , imag(a0) + imag(a1)
-                        );
+      return a0*rec(a1); 
     }
   };
-  
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< imaginary_< arithmetic_<A1> > >)
                             )
@@ -84,51 +86,47 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type( real(a0)
-                        , imag(a0) + imag(a1)
+      return result_type( -(imag(a0) / imag(a1))
+                        , real(a0) / imag(a1)
                         );
     }
   };
   
   // imaginary/real
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< imaginary_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename meta::as_complex<A1>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A1 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type( real(a0)
-                        , imag(a1)
-                        );
+      return result_type(a0 / imag(a1));
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
                             )
   {
-    typedef typename meta::as_complex<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef A1 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type( real(a1)
-                        , imag(a0)
-                        );
+      return result_type(imag(a0) / a1);
     }
   };
   
   // imaginary/imaginary
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                               (generic_< imaginary_< arithmetic_<A1> > >)
                             )
   {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2)
+    typedef typename meta::real_of<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(imag(a0) + imag(a1));
+      return -(imag(a0) / imag(a1));
     }
   };
   
