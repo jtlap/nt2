@@ -7,6 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(NT2Module)
-nt2_module_source_setup(boost.simd.complex)
-nt2_module_configure_toolbox(complex 1)
+SET(NT2_BOOST.SIMD.COMPLEX.CONSTANT_DEPENDENCIES_EXTRA boost.simd.constant)

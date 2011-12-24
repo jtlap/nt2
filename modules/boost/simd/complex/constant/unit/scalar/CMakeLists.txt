@@ -8,7 +8,6 @@
 ##############################################################################
 
 set( SOURCES
-     hierarchy.cpp
    )
 
-nt2_module_add_tests(boost.simd.complex.meta.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.complex.constant.scalar.unit ${SOURCES})
