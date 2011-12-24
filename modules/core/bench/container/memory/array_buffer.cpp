@@ -18,43 +18,44 @@
 
 template<class T> struct buffer_test
 {
-  typedef typename nt2::memory::array_buffer<T,1024*1024>::size_type        size_type;
-  typedef typename nt2::memory::array_buffer<T,1024*1024>::difference_type  difference_type;
+  typedef nt2::memory::array_buffer<T,1024,1>  buffer_t;
+  typedef typename buffer_t::size_type              size_type;
+  typedef typename buffer_t::difference_type        difference_type;
 
-  buffer_test(size_type sz, difference_type bs) : data(sz,bs), v(1) {}
+  buffer_test(size_type sz) : data(sz) {}
 
   void operator()()
   {
-    for(difference_type i = data.lower(); i <= data.upper(); ++i) data[i] = v;
+    for(difference_type i = data.lower(); i <= data.upper(); ++i) ++data[i];
   }
 
-  T v;
-  nt2::memory::array_buffer<T,1024*1024> data;
+  buffer_t data;
 };
 
 template<class T> struct raw_test
 {
-  raw_test() : v(1) {}
+  raw_test(int i) : size_(i) {}
 
   void operator()()
   {
-    for(std::size_t i = 0; i <= 1024*1024; ++i) data[i] = v;
+    for(std::size_t i = 0; i < size_; ++i) ++data[i];
   }
 
-  T v;
-  T data[1024*1024];
+  T   data[1024];
+  int size_;
 };
 
 NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 {
-  for(int i=-2;i<=2;++i)
+  for(int i=1;i<=1024;i*=2)
   {
-    buffer_test<T> b(1024*1024,i);
+    raw_test<T>     b(i);
+    buffer_test<T>  c(i);
     double d = nt2::unit::perform_benchmark( b, 1.);
-    std::cout << "array_buffer access (base=" << i << ") : "<< d/1024 << " cpe\n";
+    double e = nt2::unit::perform_benchmark( c, 1.);
+    printf( "Size: %d - array_buffer %3.3f c/e - C array %3.3f c/e"
+            " - overhead %3.3f %%\n"
+          , i, e/i, d/i, ((e-d)/d)*100
+          );
   }
-
-  raw_test<T> b;
-  double d = nt2::unit::perform_benchmark( b, 1.);
-  std::cout << "C array access : "<< d/1024 << " cpe\n";  
 }

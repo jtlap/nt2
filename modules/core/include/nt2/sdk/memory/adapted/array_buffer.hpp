@@ -24,7 +24,7 @@ namespace nt2 {  namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template<typename Type, std::size_t N> struct array_buffer;
+  template<typename Type, std::size_t N, std::ptrdiff_t B> struct array_buffer;
 } } 
 
 namespace nt2 { namespace meta
@@ -32,8 +32,8 @@ namespace nt2 { namespace meta
   //============================================================================
   // dimensions_of specialization
   //============================================================================
-  template< class Type, std::size_t N>
-  struct  dimensions_of< memory::array_buffer<Type,N> >
+  template< class Type, std::size_t N, std::ptrdiff_t B>
+  struct  dimensions_of< memory::array_buffer<Type,N,B> >
         : boost::mpl::size_t<1>
   {};
 } }
@@ -43,15 +43,15 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template<typename T, std::size_t N>
-  struct value_of< nt2::memory::array_buffer<T,N > > : value_of<T>
+  template<typename T, std::size_t N, std::ptrdiff_t B>
+  struct value_of< nt2::memory::array_buffer<T,N,B> > : value_of<T>
   {};
-
+  
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<  class Type, std::size_t N >
-  struct model_of< nt2::memory::array_buffer<Type, N> >
+  template<  class Type, std::size_t N, std::ptrdiff_t B >
+  struct model_of< nt2::memory::array_buffer<Type,N,B> >
   {
     struct type
     {
@@ -59,7 +59,7 @@ namespace boost { namespace dispatch { namespace meta
       {
         typedef typename  boost::mpl::
                           apply<typename model_of<Type>::type,X>::type base;
-        typedef nt2::memory::array_buffer<base,N >  type;
+        typedef nt2::memory::array_buffer<base,N,B>  type;
       };
     };
   };
