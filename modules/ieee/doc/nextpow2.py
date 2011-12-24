@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::as_integer<typename boost::result_of<nt2::meta::floating(T)>::type, signed>::type',
+             'default' : 'typename nt2::meta::as_integer<typename boost::dispatch::meta::as_floating<T>::type, signed>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],

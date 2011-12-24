@@ -25,7 +25,7 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( two_prod_real__2_0,  NT2_REAL_TYPES)
   
   using nt2::two_prod;
   using nt2::tag::two_prod_;
-  typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;
+  typedef typename boost::dispatch::meta::as_floating<T,T>::type r0_t;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<two_prod_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;

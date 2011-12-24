@@ -17,10 +17,10 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::ellint_rj_, tag::cpu_,
                            (A0)(A1)(A2)(A3),
                            (scalar_<arithmetic_<A0> >)(scalar_<arithmetic_<A1> >)
-			   (scalar_<arithmetic_<A2> >)(scalar_<arithmetic_<A3> >)
+                           (scalar_<arithmetic_<A2> >)(scalar_<arithmetic_<A3> >)
                           )
   {
-    typedef typename meta::result_of<meta::floating(A0, A1, A2, A3) > ::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0, A1, A2, A3>::type result_type;
     NT2_FUNCTOR_CALL(4)
     {
       typedef result_type type;
@@ -36,10 +36,10 @@ namespace nt2 { namespace ext
 NT2_FUNCTOR_IMPLEMENTATION(nt2::boost_math::tag::ellint_rj_, tag::cpu_,
                            (A0)(A1)(A2)(A3),
                            (scalar_<floating_<A0> >)(scalar_<floating_<A1> >)
-			   (scalar_<floating_<A2> >)(scalar_<floating_<A3> >)
+                           (scalar_<floating_<A2> >)(scalar_<floating_<A3> >)
                           )
   {
-    typedef typename meta::result_of<meta::floating(A0, A1, A2/*, A3*/)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0, A1, A2/*, A3*/>::type result_type;
       NT2_FUNCTOR_CALL(4){ return boost::math::ellint_rj(a0, a1, a2, a3, nt2_policy()); }
   };
 } }

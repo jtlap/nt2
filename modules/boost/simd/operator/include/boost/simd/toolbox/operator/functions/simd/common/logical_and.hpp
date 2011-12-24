@@ -9,10 +9,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_AND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_AND_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
+
+#include <boost/simd/toolbox/operator/functions/logical_and.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/mask2logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -26,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return is_nez(b_and(genmask(a0), genmask(a1)));
+      return mask2logical(b_and(genmask(a0), genmask(a1)));
     }
   };
   
@@ -39,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return is_nez(b_and(genmask(a0), genmask(a1)));
+      return mask2logical(b_and(genmask(a0), genmask(a1)));
     }
   };
 

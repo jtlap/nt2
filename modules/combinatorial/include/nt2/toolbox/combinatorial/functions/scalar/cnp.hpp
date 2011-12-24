@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::result_of<meta::floating(A0)>::type type;
+      typedef typename boost::dispatch::meta::as_floating<A0>::type type;
       typedef result_type rtype;
       if (is_inf(a1)) return (rtype)Nan<type>(); 
       if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();

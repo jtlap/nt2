@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::sqrt(result_type(a0));
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< double_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return (is_ltz(a0)) ?  Nan<A0>() : ::sqrt(a0);
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< single_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       // libc has a very poor treatment of exceptions regarding performance

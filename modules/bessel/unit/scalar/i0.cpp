@@ -25,7 +25,7 @@ extern "C" {double cephes_i0( double);}
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( i0_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<i0_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
   // return type conformity test 

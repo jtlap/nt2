@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       if (!a0) return Nan<result_type>();

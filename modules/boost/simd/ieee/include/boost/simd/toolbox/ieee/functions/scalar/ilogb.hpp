@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0, signed>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename dispatch::meta::result_of<dispatch::meta::floating(A0)>::type type;
+      typedef typename boost::dispatch::meta::as_floating<A0>::type type;
       return boost::simd::ilogb(type(a0));
     }
   };

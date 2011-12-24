@@ -8,9 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
+
+#include <boost/simd/toolbox/operator/functions/logical_not.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/include/functions/mask2logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -30,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return complement(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return mask2logical(complement(genmask(a0))); }
   };
 } } }
 

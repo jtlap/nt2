@@ -6,15 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_META_FLOATING_HPP_INCLUDED
-#define NT2_SDK_META_FLOATING_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_COMPLEX_META_REAL_OF_HPP_INCLUDED
+#define BOOST_SIMD_SDK_COMPLEX_META_REAL_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/make_floating.hpp>
-#include <boost/dispatch/meta/floating.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 
-namespace nt2 { namespace meta
+namespace boost { namespace simd { namespace meta
 {
-  using boost::dispatch::meta::floating;
-} }
+  template<class T>
+  struct real_of
+   : real_of<typename dispatch::meta::primitive_of<T>::type>
+  {
+  };
+} } }
 
 #endif

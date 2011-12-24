@@ -31,7 +31,7 @@
          'simd_types' : ['real_'],
          'special' : ['trigonometric'],
          'tpl'   : '<nt2::medium>',   
-         'type_defs' : ['typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;'],
+         'type_defs' : ['typedef typename boost::dispatch::meta::as_floating<T>::type ftype;'],
          'types' : ['real_'],
         },
      'info' : 'manually modified',

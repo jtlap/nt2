@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_LOAD_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/toolbox/operator/functions/load.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/assert.hpp>
 

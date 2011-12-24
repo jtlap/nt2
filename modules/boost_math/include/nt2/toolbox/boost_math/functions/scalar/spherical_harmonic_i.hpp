@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A2, A3)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A2, A3>::type result_type;
 
     NT2_FUNCTOR_CALL(4)
     {
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A2, A3)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A2, A3>::type result_type;
 
     NT2_FUNCTOR_CALL(4)
     { return boost::math::spherical_harmonic_i(a0, a1, a2, a3, nt2_policy()); }

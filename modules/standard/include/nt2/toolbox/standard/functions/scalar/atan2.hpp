@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     { return std::atan2(a0, a1); }
