@@ -18,27 +18,27 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_, (A0)
-                            , (generic_< complex_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::real_of<A0>::type real_t;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return hypot(real(a0),imag(a0)); 
-    }
-  };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_, (A0)
+//                             , (generic_< complex_< arithmetic_<A0> > >)
+//                             )
+//   {
+//     typedef typename meta::real_of<A0>::type real_t;
+//     BOOST_SIMD_FUNCTOR_CALL(1)
+//     {
+//       return hypot(real(a0),imag(a0)); 
+//     }
+//   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::real_of<A0>::type real_t;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return sqr_abs(imag(a0)); 
-    }
-  };
+//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_, (A0)
+//                             , (generic_< imaginary_< arithmetic_<A0> > >)
+//                             )
+//   {
+//     typedef typename meta::real_of<A0>::type real_t;
+//     BOOST_SIMD_FUNCTOR_CALL(1)
+//     {
+//       return sqr_abs(imag(a0)); 
+//     }
+//   };
   
 } } }
 
