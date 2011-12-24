@@ -19,7 +19,7 @@
 #include <boost/simd/include/functions/sqr_abs.hpp>
 #include <boost/simd/sdk/complex/complex.hpp>
 #include <boost/simd/sdk/complex/imaginary.hpp>
-#include <boost/simd/sdk/complex/meta/real_of.hpp>
+#include <boost/simd/sdk/complex/meta/as_real.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::real_of<A0>::type real_t;
+      typedef typename meta::as_real<A0>::type real_t;
       real_t d = sqr_abs(a1); 
       return (a0*a1)/sqr_abs(a1); 
     }
@@ -123,7 +123,7 @@ namespace boost { namespace simd { namespace ext
                               (generic_< imaginary_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename meta::real_of<A0>::type result_type;
+    typedef typename meta::as_real<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return -(imag(a0) / imag(a1));

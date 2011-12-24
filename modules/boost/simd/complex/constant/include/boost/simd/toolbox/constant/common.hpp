@@ -15,7 +15,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/complex/complex.hpp>
 #include <boost/simd/sdk/complex/imaginary.hpp>
-#include <boost/simd/sdk/complex/meta/real_of.hpp>
+#include <boost/simd/sdk/complex/meta/as_real.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      typedef typename meta::real_of<result_type>::type real_t;
+      typedef typename meta::as_real<result_type>::type real_t;
            
       return result_type( dispatch::functor<Tag>()(dispatch::meta::as_<real_t>())
                         , Zero<real_t>()
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      typedef typename meta::real_of<result_type>::type real_t;
+      typedef typename meta::as_real<result_type>::type real_t;
       return result_type(dispatch::functor<Tag>()(dispatch::meta::as_<real_t>()));
     }
   };
