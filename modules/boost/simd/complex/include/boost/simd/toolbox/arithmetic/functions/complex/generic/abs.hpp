@@ -12,6 +12,7 @@
 #include <boost/simd/include/functions/real.hpp>
 #include <boost/simd/include/functions/imag.hpp>
 #include <boost/simd/include/functions/hypot.hpp>
+#include <boost/simd/include/functions/sqr_abs.hpp>
 #include <boost/simd/sdk/complex/meta/as_complex.hpp>
 #include <boost/simd/sdk/complex/meta/real_of.hpp>
 
@@ -27,6 +28,18 @@ namespace boost { namespace simd { namespace ext
       return hypot(real(a0),imag(a0)); 
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, tag::cpu_, (A0)
+                            , (generic_< imaginary_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::real_of<A0>::type real_t;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return sqr_abs(imag(a0)); 
+    }
+  };
+  
 } } }
 
 #endif

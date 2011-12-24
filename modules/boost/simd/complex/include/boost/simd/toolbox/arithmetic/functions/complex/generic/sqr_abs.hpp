@@ -38,6 +38,7 @@ namespace boost { namespace simd { namespace ext
       return sqr(real(a0)) + sqr(real(a1)); 
     }
   };
+  
 } } }
 
 #endif
