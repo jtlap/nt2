@@ -9,6 +9,7 @@
 
 set( SOURCES
      hierarchy.cpp
+     properties.cpp
    )
 
 nt2_module_add_tests(boost.simd.complex.sdk.meta.unit ${SOURCES})

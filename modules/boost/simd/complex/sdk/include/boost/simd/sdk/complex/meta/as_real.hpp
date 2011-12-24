@@ -6,38 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_COMPLEX_META_REAL_OF_HPP_INCLUDED
-#define BOOST_SIMD_SDK_COMPLEX_META_REAL_OF_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_COMPLEX_META_AS_REAL_HPP_INCLUDED
+#define BOOST_SIMD_SDK_COMPLEX_META_AS_REAL_HPP_INCLUDED
 
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/simd/sdk/complex/meta/real_of.hpp>
+#include <boost/dispatch/meta/factory_of.hpp>
+#include <boost/mpl/apply.hpp>
 
-namespace boost { namespace simd
-{
-namespace meta
+namespace boost { namespace simd { namespace meta
 {
   template<class T>
-  struct real_of;
-}
-
-namespace details
-{
-  template<class T, class U = typename dispatch::meta::primitive_of<T>::type>
-  struct real_of : meta::real_of<U>
-  {
-  };
-  
-  template<class T>
-  struct real_of<T, T>
-  {
-    typedef T type;
-  };
-}
-    
-namespace meta
-{
-  template<class T>
-  struct real_of
-   : details::real_of<T>
+  struct as_real
+   : mpl::apply1< typename dispatch::meta::factory_of<T>::type
+                , typename real_of<T>::type
+                >
   {
   };
 } } }
