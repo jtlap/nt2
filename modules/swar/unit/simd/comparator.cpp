@@ -42,7 +42,7 @@
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 //COMMENTED
-NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::comparator;
   using nt2::tag::comparator_;
