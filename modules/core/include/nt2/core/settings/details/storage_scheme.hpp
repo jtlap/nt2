@@ -22,7 +22,7 @@ namespace nt2
     template<class T, class S>
     struct apply
     {
-      typedef typename rectangular_::template apply<T,S>::type type;
+      typedef typename rectangular_::apply<T,S>::type type;
     };
   };
 
