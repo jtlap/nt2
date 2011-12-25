@@ -13,6 +13,7 @@
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/shape.hpp>
+#include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/sharing.hpp>
 #include <nt2/core/settings/padding.hpp>
 #include <nt2/core/settings/allocator.hpp>
@@ -31,7 +32,7 @@ namespace nt2
   namespace meta
   {
     //==========================================================================
-    // Table settings normalization specify the followign default :
+    // Table settings normalization specify the following default :
     //
     // Info:
     // + table has no static ID
@@ -72,8 +73,8 @@ namespace nt2
                                , global_padding_strategy_<>           >::type gp;
       typedef typename option<S,tag::lead_padding_
                                , lead_padding_strategy_<>             >::type lp;
-
-      typedef settings type(id,sz,sh,bs,ag,so,sg,sd,ss,al,gp,lp);
+      typedef typename option<S,tag::buffer_, buffer_generator<>      >::type bf;
+      typedef settings type(id,sz,sh,bs,ag,so,sg,sd,ss,al,gp,lp,bf);
     };
 } }
 
