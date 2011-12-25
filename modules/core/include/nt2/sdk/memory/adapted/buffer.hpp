@@ -21,7 +21,9 @@ namespace nt2 { namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template<typename T, typename A = boost::simd::memory::allocator<T> >
+  template< typename T
+          , std::ptrdiff_t B
+          , typename A = boost::simd::memory::allocator<T> >
   struct buffer;
 } }
 
@@ -30,8 +32,8 @@ namespace nt2 { namespace meta
   //==============================================================================
   // buffer dimension is 1
   //==============================================================================
-  template<typename T, typename A>
-  struct  dimensions_of< memory::buffer<T,A> > : boost::mpl::size_t<1> {};
+  template<typename T, std::ptrdiff_t B, typename A>
+  struct  dimensions_of< memory::buffer<T,B,A> > : boost::mpl::size_t<1> {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -39,7 +41,8 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template< typename T, typename A> struct value_of< nt2::memory::buffer<T,A> >
+  template< typename T, std::ptrdiff_t B, typename A>
+  struct value_of< nt2::memory::buffer<T,B,A> >
   {
     typedef T type;
   };
@@ -47,14 +50,15 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<typename T, typename A> struct model_of< nt2::memory::buffer<T,A> >
+  template<typename T, std::ptrdiff_t B, typename A>
+  struct model_of< nt2::memory::buffer<T,B,A> >
   {
     struct type
     {
       template<class X> struct apply
       {
         typedef nt2::memory::
-                buffer<X,typename A::template rebind<X>::other>  type;
+                buffer<X,B,typename A::template rebind<X>::other>  type;
       };
     };
   };

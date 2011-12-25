@@ -17,7 +17,8 @@
 
 namespace nt2 { namespace memory { namespace details
 {
-  template<class Allocator> struct buffer_data : private Allocator
+  template<std::ptrdiff_t BaseIndex,class Allocator>
+  struct buffer_data : private Allocator
   {
     typedef Allocator                             parent_allocator;
     typedef typename Allocator::value_type        value_type;
@@ -32,85 +33,73 @@ namespace nt2 { namespace memory { namespace details
     typedef typename Allocator::difference_type   size_type;
     typedef typename Allocator::difference_type   difference_type;
     typedef typename Allocator::difference_type   index_type;
+    typedef boost::mpl::integral_c<std::ptrdiff_t,BaseIndex>  base_index_type;
 
-    buffer_data(Allocator const& a) : parent_allocator(a)
-                                    , origin_(0), low_(0), up_(-1) {}
+    buffer_data ( Allocator const& a )
+                : parent_allocator(a), origin_(0), up_(BaseIndex-1) {}
 
-    template<class Size, class Diff>
-    void allocate(Diff const& b, Size const& s)
+    template<class Size> void allocate(Size const& s)
     {
       if(s)
       {
-        low_  = b;
-        origin_ = parent_allocator::allocate(s) - low_;
+        origin_ = parent_allocator::allocate(s) - BaseIndex;
       }
       else
       {
         origin_ = 0;
-        low_    = 0;
       }
 
-      up_ = low_ + s - 1;
+      up_ = BaseIndex + s - 1;
     }
 
     void deallocate()
     {
-      if(origin_) parent_allocator::deallocate(origin_ + low_, size());
-    }
-
-    template<class Size,class Base>
-    void restructure(Size const& s, Base const& b)
-    {
-      realloc(s);
-      clamp(b,s);
+      if(origin_) parent_allocator::deallocate(origin_ + BaseIndex, size());
     }
 
     template<class Size> void resize(Size const& s)
     {
       realloc(s);
-      up_  = low_ + s - 1;
+      clamp(s);
     }
 
-    template<class Diff> void rebase(Diff const& b)
+    template<class Size> void clamp(Size const& s)
     {
-      clamp(b,size());
+      up_  = BaseIndex + s - 1;
     }
-
+    
     template<class Size> void realloc(Size const& s)
     {
       if(size() < s )
       {
         deallocate();
-        origin_ = parent_allocator::allocate(s) - low_;
+        origin_ = parent_allocator::allocate(s) - BaseIndex;
       }
     }
     
-    template<class Diff,class Size>
-    void clamp(Diff const& b,Size const& s)
+    size_type       size()  const { return up_ - BaseIndex + 1; }
+    difference_type lower() const { return BaseIndex;           }
+    difference_type upper() const { return up_;                 }
+
+    pointer origin()  { return origin_;             }
+    pointer begin()   { return origin_ + BaseIndex; }
+    pointer end()     { return origin_ + up_ + 1;   }
+
+    const_pointer origin()  const { return origin_;             }
+    const_pointer begin()   const { return origin_ + BaseIndex; }
+    const_pointer end()     const { return origin_ + up_ + 1;   }
+
+    template<std::ptrdiff_t B2>
+    void swap(buffer_data<B2,Allocator>& src)
     {
-      up_     = s - 1;
-      origin_ = origin_ + low_ - b;
-      low_    = b;
-      up_    += low_;
-    }
-    
-    size_type       size()  const { return up_ - low_ + 1;  }
-    difference_type lower() const { return low_;            }
-    difference_type upper() const { return up_;             }
+      pointer tmp     = origin_;
+      size_type tmps  = size();
+      
+      origin_     = src.origin_ + B2        - BaseIndex;
+      clamp(src.size());
 
-    pointer origin()  { return origin_;           }
-    pointer begin()   { return origin_ + low_;    }
-    pointer end()     { return origin_ + up_ + 1; }
-
-    const_pointer origin()  const { return origin_;           }
-    const_pointer begin()   const { return origin_ + low_;    }
-    const_pointer end()     const { return origin_ + up_ + 1; }
-
-    void swap(buffer_data& src)
-    {
-      boost::swap(origin_ , src.origin_ );
-      boost::swap(low_    , src.low_    );
-      boost::swap(up_     , src.up_     );
+      src.origin_ = tmp         + BaseIndex - B2;  
+      src.clamp(tmps);
     }
 
     parent_allocator& allocator()
@@ -124,7 +113,7 @@ namespace nt2 { namespace memory { namespace details
     }
 
     pointer         origin_;
-    difference_type low_, up_;    
+    difference_type up_;    
   };
 } } }
 

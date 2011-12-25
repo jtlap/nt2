@@ -102,34 +102,10 @@ namespace nt2 { namespace memory
       *           of the buffer.
      **/
     //==========================================================================
-    template<typename Sizes, typename Bases>
-    iliffe_buffer( Sizes const& sz, Bases const& bs )
-      : data_ ( data_size(sz), boost::fusion::at_c<0>(bs)  )
-      , index_( index_size(sz), boost::fusion::at_c<1>(bs) )
-      , inner_( boost::fusion::at_c<0>(sz) )
-    {
-      make_links();
-    }
-
-    //==========================================================================
-    /**
-      * Initializes a Iliffe buffer from a dimensions and bases set.
-      * 
-      * \param sz FusionRandomAccessSequence containing the dimensions set 
-      *           of the buffer.
-      * \param bs FusionRandomAccessSequence containing the base indices set
-      *           of the buffer.
-      * \param a  Allocator to pass to Data buffer.
-      * 
-     **/
-    //==========================================================================
-    template<typename Sizes, typename Bases>
-    iliffe_buffer ( Sizes const& sz
-                  , Bases const& bs
-                  , allocator_type const& a
-                  )
-      : data_ ( data_size(sz) , boost::fusion::at_c<0>(bs), a )
-      , index_( index_size(sz), boost::fusion::at_c<1>(bs) )
+    template<typename Sizes>
+    iliffe_buffer( Sizes const& sz, allocator_type const& a = allocator_type() )
+      : data_ ( data_size(sz), a )
+      , index_( index_size(sz) )
       , inner_( boost::fusion::at_c<0>(sz) )
     {
       make_links();
@@ -178,36 +154,6 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /**
-      * Rebase an iliffe_bufer to a new base set.
-     **/
-    //==========================================================================
-    template<typename Bases> inline void rebase( Bases const& bss )
-    {
-      data_.rebase(boost::fusion::at_c<0>(bss));
-      index_.rebase(boost::fusion::at_c<1>(bss));
-      make_links();
-    }
-
-    //==========================================================================
-    /**
-      * Resize and rebase a iliffe_bufer to a new size/base set.
-     **/
-    //==========================================================================
-    template<typename Sizes, typename Bases> inline void
-    restructure( Sizes const& szs, Bases const& bss )
-    {
-      data_.resize(data_size(szs));
-      index_.resize(index_size(szs));
-      inner_ = boost::fusion::at_c<0>(szs);
-      
-      data_.rebase(boost::fusion::at_c<0>(bss));      
-      index_.rebase(boost::fusion::at_c<1>(bss));
-      
-      make_links();
-    }
-
-    //==========================================================================
-    /**
      * Access to a given position through the iliffe_buffer
      * \param pos nD Index of the element to retrieve passed either as an
      * integral value or as a Fusion RandomAccessSequence of size 1 or 2.
@@ -239,7 +185,7 @@ namespace nt2 { namespace memory
     template<class Seq> inline std::size_t
     data_size(Seq const& s) const
     {
-      return boost::fusion::fold( s
+      return boost::fusion::fold( meta::as_sequence(s)
                                 , boost::mpl::size_t<1>()
                                 , boost::dispatch::functor<tag::multiplies_>() 
                                 );
@@ -254,7 +200,7 @@ namespace nt2 { namespace memory
     template<class Seq> inline std::size_t
     index_size(Seq const& s) const
     {
-      return boost::fusion::fold( boost::fusion::pop_front(s)
+      return boost::fusion::fold( boost::fusion::pop_front(meta::as_sequence(s))
                                 , boost::mpl::size_t<1>()
                                 , boost::dispatch::functor<tag::multiplies_>() 
                                 );
@@ -312,5 +258,6 @@ namespace nt2 { namespace memory
 } }
 
 #include <nt2/sdk/memory/details/iliffe_buffer_1d.hpp>
+#include <nt2/sdk/memory/details/iliffe_buffer_2d.hpp>
 
 #endif

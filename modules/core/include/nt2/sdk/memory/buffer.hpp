@@ -16,7 +16,7 @@
  **/
 //==============================================================================
 #include <boost/assert.hpp>
-#include <boost/mpl/size.hpp>
+#include <boost/mpl/integral_c.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
@@ -37,17 +37,19 @@ namespace nt2 {  namespace memory
    *
    **/
   //============================================================================
-  template<class Type, class Allocator>
+  template<class Type, std::ptrdiff_t BaseIndex, class Allocator>
   class buffer
       : private
-        details::buffer_data<typename Allocator::template rebind<Type>::other>
+        details::buffer_data< BaseIndex
+                            , typename Allocator::template rebind<Type>::other
+                            >
   {
     public:
     //==========================================================================
     // Inheritance type definition
     //==========================================================================
     typedef typename Allocator::template rebind<Type>::other  allocator_type;
-    typedef details::buffer_data<allocator_type>              parent_data;
+    typedef details::buffer_data<BaseIndex,allocator_type>    parent_data;
 
     //============================================================================
     // Buffer type interface
@@ -76,15 +78,11 @@ namespace nt2 {  namespace memory
      *
      **/
     //==========================================================================
-    template<typename Sizes, typename Bases>
-    buffer( Sizes const& sz, Bases const& bs
-          , allocator_type const& alloc = allocator_type()
-          )
+    template<typename Sizes>
+    buffer( Sizes const& sz, allocator_type const& alloc = allocator_type() )
     : parent_data(alloc)          
     {      
-      parent_data::allocate ( boost::fusion::at_c<0>(meta::as_sequence(bs))
-                            , boost::fusion::at_c<0>(meta::as_sequence(sz))
-                            );
+      parent_data::allocate( boost::fusion::at_c<0>(meta::as_sequence(sz)) );
     }
 
     //==========================================================================
@@ -96,7 +94,7 @@ namespace nt2 {  namespace memory
     //==========================================================================
     buffer( buffer const& src ) : parent_data(src.allocator())
     {
-      this->copy( src, src.size(),src.lower());
+      this->copy( src, src.size() );
     }
 
     //==========================================================================
@@ -126,7 +124,7 @@ namespace nt2 {  namespace memory
       }
       else
       {
-        this->copy( src, src.size(),src.lower());
+        this->copy(src, src.size());
       }
       return *this;
     }
@@ -225,7 +223,7 @@ namespace nt2 {  namespace memory
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
       
-      BOOST_ASSERT_MSG( (i >= lower())
+      BOOST_ASSERT_MSG( (i >= BaseIndex)
                       , "Position is below buffer bounds"
                       );
                       
@@ -241,7 +239,7 @@ namespace nt2 {  namespace memory
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
       
-      BOOST_ASSERT_MSG( (i >= lower())
+      BOOST_ASSERT_MSG( (i >= BaseIndex)
                       , "Position is below buffer bounds"
                       );
                       
@@ -259,24 +257,10 @@ namespace nt2 {  namespace memory
      * \param src buffer to swap with
      **/
     //==========================================================================
-    void swap( buffer& src )
+    template<std::ptrdiff_t B2> void swap( buffer<Type,B2,Allocator>& src )
     {
       parent_data::swap(src);
       boost::swap(allocator(),src.allocator());
-    }
-
-    //==========================================================================
-    /**!
-     * Change the base index of the buffer. This operation is done in constant
-     * time and don't trigger any reallocation.
-     *
-     * \param b A Boost.Fusion \c RandomAccessSequence containing the new base
-     * index.
-     **/
-    //==========================================================================
-    template<class Bases> void rebase(Bases const& bs)
-    {
-      parent_data::rebase( boost::fusion::at_c<0>(meta::as_sequence(bs)) );
     }
 
     //==========================================================================
@@ -292,31 +276,13 @@ namespace nt2 {  namespace memory
       parent_data::resize( boost::fusion::at_c<0>(meta::as_sequence(sz)) );
     }
 
-    //==========================================================================
-    /**!
-     * Change the size and base index of the buffer. This operation is done by
-     * calling resize and rebase.
-     *
-     * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
-     * \param b A Boost.Fusion \c RandomAccessSequence containing the new base
-     * index.
-     **/
-    //==========================================================================
-    template<class Bases,class Sizes>
-    void restructure(Sizes const& sz, Bases const& bs)
-    {      
-      parent_data::restructure( boost::fusion::at_c<0>(meta::as_sequence(sz))
-                              , boost::fusion::at_c<0>(meta::as_sequence(bs))
-                              );
-    }
-
     protected:
 
     using parent_data::allocator;
 
-    void copy( buffer const& src, size_type const& s, difference_type const& b )
+    void copy( buffer const& src, size_type const& s )
     {
-      parent_data::restructure(s,b);
+      parent_data::resize(s);
       std::copy(src.begin(),src.end(),begin());
     }
   };
@@ -326,8 +292,8 @@ namespace nt2 {  namespace memory
    * Swap the contents of two buffer of same type and allocator settings
    **/
   //============================================================================
-  template<class T, class A>
-  void swap( buffer<T,A>& a, buffer<T,A>& b )
+  template<class T, std::ptrdiff_t B1, std::ptrdiff_t B2, class A>
+  void swap( buffer<T,B1,A>& a, buffer<T,B2,A>& b )
   {
     a.swap(b);
   }

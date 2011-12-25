@@ -51,15 +51,11 @@ namespace nt2 {  namespace memory
      * Default constructor for pointer_buffer. 
      **/
     //==========================================================================
-    array_buffer(allocator_type const& = allocator_type())
-                : up_(BaseIndex-1)
-    {}
+    array_buffer(allocator_type const& = allocator_type()) {}
 
     template<typename Sizes>
-    array_buffer( Sizes const& sz, allocator_type const& = allocator_type() )
-    {
-      resize(sz);
-    }
+    array_buffer( Sizes const& , allocator_type const& = allocator_type() )
+    {}
 
     //==========================================================================
     /**!
@@ -82,8 +78,8 @@ namespace nt2 {  namespace memory
      * Return a (const) iterator to the end of the buffer data.
      **/
     //==========================================================================
-    iterator        end()       { return storage_ + size(); }
-    const_iterator  end() const { return storage_ + size(); }
+    iterator        end()       { return storage_ + N; }
+    const_iterator  end() const { return storage_ + N; }
 
     //==========================================================================
     /**!
@@ -120,28 +116,28 @@ namespace nt2 {  namespace memory
      * Return the number of elements accessible through the buffer.
      **/
     //==========================================================================
-    difference_type size() const { return up_ - BaseIndex + 1; }
+    static difference_type size() { return N; }
 
     //==========================================================================
     /**!
      * Return \c true if the buffer contains no elements
      **/
     //==========================================================================
-    bool empty() const { return size() == 0u; }
+    static bool empty() { return size() == 0u; }
 
     //==========================================================================
     /**!
      * Return the lowest valid index for accessing a buffer element
      **/
     //==========================================================================
-    difference_type lower() const { return BaseIndex; }
+    static difference_type lower() { return BaseIndex; }
 
     //==========================================================================
     /**!
      * Return the highest valid index for accessing a buffer element
      **/
     //==========================================================================
-    difference_type upper() const { return up_;  }
+    static difference_type upper() { return BaseIndex+N-1; }
 
     //==========================================================================
     /**!
@@ -162,7 +158,7 @@ namespace nt2 {  namespace memory
                       , "Position is below buffer bounds"
                       );
                       
-      BOOST_ASSERT_MSG( (i <= upper())
+      BOOST_ASSERT_MSG( (i <= BaseIndex+N-1)
                       , "Position is out of buffer bounds"
                       );
                       
@@ -178,7 +174,7 @@ namespace nt2 {  namespace memory
                       , "Position is below buffer bounds"
                       );
                       
-      BOOST_ASSERT_MSG( (i <= upper())
+      BOOST_ASSERT_MSG( (i <= BaseIndex+N-1)
                       , "Position is out of buffer bounds"
                       );
                       
@@ -195,10 +191,6 @@ namespace nt2 {  namespace memory
     template<std::ptrdiff_t B2>
     void swap( array_buffer<T,N,B2>& src )
     {
-      size_type sz = src.size();
-      src.resize(size());
-      resize(sz);
-      
       for(size_type i = 0; i < N; ++i)
         boost::swap(storage_[i],src.storage_[i]);
     }
@@ -212,17 +204,9 @@ namespace nt2 {  namespace memory
      * index.
      **/
     //==========================================================================
-    template<class Sizes> void resize(Sizes const& s)
-    {
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(meta::as_sequence(s)) <= N)
-                      , "Allocation request too much memory"
-                      );
-
-      up_ = boost::fusion::at_c<0>(meta::as_sequence(s)) + BaseIndex -1;
-    }
+    template<class Sizes> void resize(Sizes const& ) {}
 
     BOOST_SIMD_ALIGNED_TYPE(value_type) storage_[N];
-    difference_type                     up_;
   };
 
   //============================================================================

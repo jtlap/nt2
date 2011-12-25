@@ -10,15 +10,13 @@
 #define NT2_CORE_CONTAINER_MEMORY_DETAILS_ILIFFE_BUFFER_1D_HPP_INCLUDED
 
 //==============================================================================
-// 1D specialisation for iliffe_buffer
+// 
 //==============================================================================
 
 namespace nt2 { namespace memory
 {
   //============================================================================
-  // iliffe_buffer is specialized in 1D case to not allocate any indexing table
-  // nor store any outer-size informations. Note that we don't specify any
-  // special 1D Index type but just ignore it.
+  // iliffe_buffer is specialized for 1D buffers to just forward to Data.
   //============================================================================
   template<typename Data, typename Index>
   struct iliffe_buffer<boost::mpl::size_t<1>,Data,Index> : public Data
@@ -35,24 +33,10 @@ namespace nt2 { namespace memory
 
     iliffe_buffer( allocator_type const& a = allocator_type()) : parent(a) {}
 
-    template<typename Sizes, typename Bases>
-    iliffe_buffer ( Sizes const& sz
-                  , Bases const& bs
-                  , allocator_type const& a = allocator_type()
-                  )
-    : parent(sz,bs,a)
+    template<typename Sizes>
+    iliffe_buffer ( Sizes const& sz, allocator_type const& a = allocator_type() )
+                  : parent(sz,a)
     {}
-    
-    template<typename Sizes, typename Bases>
-    iliffe_buffer ( Data const& src
-                  , Sizes const& sz
-                  , Bases const& bs
-                  , allocator_type const& a = allocator_type()
-                  )
-    : parent(src,sz,bs,a)
-    {}
-    
-    iliffe_buffer( iliffe_buffer const& src ) : parent(src) {}
   };
 } }
 

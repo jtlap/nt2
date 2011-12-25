@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dimensions, DIMS )
   using nt2::meta::dimensions_of;
   using nt2::memory::buffer;
 
-  typedef iliffe_buffer<T, buffer<int>, buffer<int*> > type;
+  typedef iliffe_buffer<T, buffer<int,1>, buffer<int*,1> > type;
   
   NT2_TEST_EQUAL((dimensions_of<type>::value), T::value );
 }
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_values, NT2_TYPES )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE
-  ( (iliffe_buffer<boost::mpl::size_t<1>, buffer<T>, void >())
+  ( (iliffe_buffer<boost::mpl::size_t<1>, buffer<T,1>, void >())
   , value_of<_>
   , T
   );
@@ -75,9 +75,9 @@ NT2_TEST_CASE_TPL( iliffe_buffer_models, NT2_TYPES )
   using boost::mpl::_;
   
   NT2_TEST_EXPR_TYPE
-  ( (iliffe_buffer<boost::mpl::size_t<1>, buffer<int>, void >())
+  ( (iliffe_buffer<boost::mpl::size_t<1>, buffer<int,1>, void >())
   , (apply_model<_,T>)
-  , (iliffe_buffer<boost::mpl::size_t<1>, buffer<T>, T >)
+  , (iliffe_buffer<boost::mpl::size_t<1>, buffer<T,1>, T >)
   );
 }
 
@@ -92,8 +92,8 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, NT2_TYPES )
   //////////////////////////////////////////////////////////////////////////////
   // iliffe_buffer constructor
   //////////////////////////////////////////////////////////////////////////////
-  typedef iliffe_buffer<boost::mpl::size_t<1>,buffer<T>,void> tab_t;
-  tab_t tab(5,-2);
+  typedef iliffe_buffer<boost::mpl::size_t<1>,buffer<T,-2>,void> tab_t;
+  tab_t tab(5);
 
   //////////////////////////////////////////////////////////////////////////////
   // iliffe_buffer type supports R/W access through Position
@@ -105,17 +105,6 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, NT2_TYPES )
     NT2_TEST_EQUAL(tab[pos], T(10*(3+pos)) );
 
   //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer type supports being rebased
-  //////////////////////////////////////////////////////////////////////////////
-  tab.rebase( 0 );
-
-  for(typename tab_t::difference_type pos=tab.lower();pos <= tab.upper();++pos)
-    tab[pos] = T(2*(1+pos));
-
-  for(typename tab_t::difference_type pos=tab.lower();pos <= tab.upper();++pos)
-    NT2_TEST_EQUAL(tab[pos], T(2*(1+pos) ) );
-
-  //////////////////////////////////////////////////////////////////////////////
   // iliffe_buffer type supports being resized
   //////////////////////////////////////////////////////////////////////////////
   tab.resize( 6u );
@@ -125,17 +114,6 @@ NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, NT2_TYPES )
 
   for(typename tab_t::difference_type pos=tab.lower();pos <= tab.upper();++pos)
     NT2_TEST_EQUAL(tab[pos], T(10*(1+pos)) );
-
-  //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer type supports being restructured
-  //////////////////////////////////////////////////////////////////////////////
-  tab.restructure( 4u, 1 );
-
-  for(typename tab_t::difference_type pos=tab.lower();pos <= tab.upper();++pos)
-    tab[pos] = T(pos);
-
-  for(typename tab_t::difference_type pos=tab.lower();pos <= tab.upper();++pos)
-    NT2_TEST_EQUAL(tab[pos], T(pos) );
 }
 
 //==============================================================================
@@ -151,12 +129,10 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, (double) ) //NT2_TYPES )
   // iliffe_buffer constructor
   //////////////////////////////////////////////////////////////////////////////
   typedef
-  iliffe_buffer< boost::mpl::size_t<2>, buffer<T>, buffer<T*> > tab_t;
+  iliffe_buffer< boost::mpl::size_t<2>, buffer<T,-1>, buffer<T*,-2> > tab_t;
 
   boost::array<std::size_t,2> sz = {{ 3 ,  5 }};
-  boost::array<std::size_t,2> bs = {{ -1, -2 }};
-  
-  tab_t tab( sz, bs );
+  tab_t tab( sz );
 
   //////////////////////////////////////////////////////////////////////////////
   // iliffe_buffer type supports R/W access through 1D Position
@@ -177,20 +153,6 @@ NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, (double) ) //NT2_TYPES )
   for(int j=-2;j<=2;++j)
     for(int i=-1;i<=1;++i)
       NT2_TEST_EQUAL( tab[ boost::fusion::vector_tie(i,j) ], (2+i) + 10*(3+j) );
-
-  //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer type supports being rebased externally
-  //////////////////////////////////////////////////////////////////////////////
-  boost::array<std::size_t,2> bs2 = {{ 0, 1 }};
-  tab.rebase( bs2 );
-
-  for(int j=1;j<=5;++j)
-    for(int i=0;i<=2;++i)
-      tab[ boost::fusion::vector_tie(i,j) ] = j*(i+1);
-
-  for(int j=1;j<=5;++j)
-    for(int i=0;i<=2;++i)
-      NT2_TEST_EQUAL( tab[ boost::fusion::vector_tie(i,j) ], j*(i+1) );
 
   //////////////////////////////////////////////////////////////////////////////
   // iliffe_buffer type supports being resized externally

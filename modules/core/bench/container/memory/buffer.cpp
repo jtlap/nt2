@@ -19,49 +19,45 @@
 
 template<class T> struct buffer_test
 {
-  typedef typename nt2::memory::buffer<T>::size_type        size_type;
-  typedef typename nt2::memory::buffer<T>::difference_type  difference_type;
+  typedef nt2::memory::buffer<T,1>            buffer_t;
+  typedef typename buffer_t::size_type        size_type;
+  typedef typename buffer_t::difference_type  difference_type;
 
-  buffer_test(size_type sz, difference_type bs) : data(sz,bs), v(1) {}
+  buffer_test(size_type sz) : data(sz) {}
 
   void operator()()
   {
-    for(difference_type i = data.lower(); i <= data.upper(); ++i) data[i] = v;
+    for(difference_type i = data.lower(); i <= data.upper(); ++i) ++data[i];
   }
 
-  T v;
-  nt2::memory::buffer<T> data;
+  buffer_t data;
 };
 
 template<class T> struct std_test
 {
-  std_test(std::size_t sz) : v(1), data(sz)
-  {}
+  std_test(std::size_t sz) : data(sz) {}
 
   ~std_test() {}
    
   void operator()()
   {
-    for(std::size_t i = 0; i < data.size(); ++i) data[i] = v;
+    for(std::size_t i = 0; i < data.size(); ++i) ++data[i];
   }
 
-  T v;
   std::vector<T> data;
 };
 
 NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 {
-  int N = 4096*4096;
-
-  for(int i=-1;i<=1;++i)
+  for(int i=1;i<=4096;i*=2)
   {
-    buffer_test<T> b(N,i);
+    std_test<T>     b(i);
+    buffer_test<T>  c(i);
     double d = nt2::unit::perform_benchmark( b, 3.);
-    std::cout << "buffer access (base=" << i << ") : "<< d/N << " cpe\n";
+    double e = nt2::unit::perform_benchmark( c, 3.);
+    printf( "Size: %d - buffer %3.3f c/e - std::vector %3.3f c/e"
+            " - overhead %3.3f %%\n"
+          , i, e/i, d/i, ((e-d)/d)*100
+          );
   }
-
-  std_test<T> y(N);
-  double v = nt2::unit::perform_benchmark( y, 3.);
-  std::cout << "std access : "<< v/N << " cpe\n";
-
 }
