@@ -35,4 +35,6 @@ namespace nt2
   };
 }
 
+#include <nt2/sdk/memory/rectangular_block.hpp>
+
 #endif
