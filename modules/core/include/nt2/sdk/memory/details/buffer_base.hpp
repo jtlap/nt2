@@ -89,17 +89,10 @@ namespace nt2 { namespace memory { namespace details
     const_pointer begin()   const { return origin_ + BaseIndex; }
     const_pointer end()     const { return origin_ + up_ + 1;   }
 
-    template<std::ptrdiff_t B2>
-    void swap(buffer_data<B2,Allocator>& src)
+    void swap(buffer_data& src)
     {
-      pointer tmp     = origin_;
-      size_type tmps  = size();
-      
-      origin_     = src.origin_ + B2        - BaseIndex;
-      clamp(src.size());
-
-      src.origin_ = tmp         + BaseIndex - B2;  
-      src.clamp(tmps);
+      boost::swap(origin_ , src.origin_ );
+      boost::swap(up_     , src.up_     );
     }
 
     parent_allocator& allocator()

@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL(padded_allocator, NT2_TYPES )
   std::allocator<T> sa;
   typedef padded_allocator< std::allocator<T> > alloc_t;
   alloc_t a(16,sa);
-  buffer<T, alloc_t > v( 5, 1, a );
+  buffer<T, 1, alloc_t > v( 5, a );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     v[i] = 1+10*i;
@@ -47,12 +47,12 @@ NT2_TEST_CASE_TPL(padded_allocator_copy, NT2_TYPES )
   typedef padded_allocator< std::allocator<T> > alloc_t;
   alloc_t a(32,sa);
 
-  buffer<T, alloc_t > v( 5, 1, a );
+  buffer<T, 1, alloc_t > v( 5, a );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     v[i] = 1+10*i;
 
-  buffer<T, alloc_t > w(v);
+  buffer<T, 1, alloc_t > w(v);
 
   for( std::ptrdiff_t i=w.lower(); i<=w.upper(); ++i )
     NT2_TEST_EQUAL( w[i], 1+10*i );

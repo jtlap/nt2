@@ -24,13 +24,10 @@ NT2_TEST_CASE_TPL(fixed_allocator, NT2_TYPES )
   using nt2::memory::buffer;
   using nt2::memory::fixed_allocator;
 
-  boost::array<std::size_t,1> ss = { 5  };
-  boost::array<std::size_t,1> bs = { -2 };
-
   T data[] = { 1, 2, 3, 4, 5 };
 
   fixed_allocator<T> a(&data[0], &data[0] + 5);
-  buffer<T, fixed_allocator<T> > v( ss, bs, a );
+  buffer<T, -2 ,fixed_allocator<T> > v( 5, a );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     NT2_TEST_EQUAL( v[i], data[i - v.lower()] );
@@ -47,15 +44,12 @@ NT2_TEST_CASE_TPL(fixed_allocator_copy, NT2_TYPES )
   using nt2::memory::buffer;
   using nt2::memory::fixed_allocator;
 
-  boost::array<std::size_t,1> ss = { 5  };
-  boost::array<std::size_t,1> bs = { -2 };
-
   T data[] = { 1, 2, 3, 4, 5 };
 
   fixed_allocator<T> a(&data[0], &data[0] + 5);
-  buffer<T, fixed_allocator<T> > v( ss, bs, a );
-
-  buffer<T, fixed_allocator<T> > w(v);
+  
+  buffer<T, -2 ,fixed_allocator<T> > v( 5, a );
+  buffer<T, -2, fixed_allocator<T> > w(v);
 
   for( std::ptrdiff_t i=w.lower(); i<=w.upper(); ++i )
     NT2_TEST_EQUAL( w[i], data[i - w.lower()] );
@@ -75,27 +69,22 @@ NT2_TEST_CASE_TPL(fixed_allocator_resize, NT2_TYPES )
   using nt2::memory::buffer;
   using nt2::memory::fixed_allocator;
 
-  boost::array<std::size_t,1> ss = { 5  };
-  boost::array<std::size_t,1> bs = { -2 };
-
   T data[] = { 1, 2, 3, 4, 5 };
 
   fixed_allocator<T> a(&data[0], &data[0] + 5);
-  buffer<T, fixed_allocator<T> > v( ss, bs, a );
+  buffer<T, -2 ,fixed_allocator<T> > v( 5, a );
   
   boost::array<std::size_t,1> less_s = { 3 };
 
-  v.resize( less_s );
+  v.resize( 3 );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     NT2_TEST_EQUAL( v[i], data[i - v.lower()] );  
 
-  v.resize( ss );
+  v.resize( 5 );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
     NT2_TEST_EQUAL( v[i], data[i - v.lower()] );  
 
-  boost::array<std::size_t,1> more_s = { 7 };
-
-  NT2_TEST_THROW( v.resize(more_s), nt2::assert_exception );
+  NT2_TEST_THROW( v.resize(7), nt2::assert_exception );
 }

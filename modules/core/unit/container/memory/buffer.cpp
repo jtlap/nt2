@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2::memory buffer adaptation as a Buffer"
+#define NT2_UNIT_MODULE "nt2::memory buffer"
 
 #include <nt2/sdk/memory/buffer.hpp>
 
@@ -78,6 +78,30 @@ NT2_TEST_CASE_TPL( buffer_default_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.size() , 0U );
   NT2_TEST_EQUAL(b.lower(), 1  );
   NT2_TEST_EQUAL(b.upper(), 0 );
+}
+
+//==============================================================================
+// Test for dynamic default buffer copy ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_copy_ctor, NT2_TYPES)
+{
+  using nt2::memory::buffer;
+
+  typedef buffer<T,1> type ;
+
+  type b(5);
+
+  for ( typename type::index_type i = b.lower(); i <= b.upper(); ++i )
+  b[i] = 3+i ;
+
+  type x(b);
+  
+  NT2_TEST_EQUAL(x.size() , 5U );
+  NT2_TEST_EQUAL(x.lower(), 1 );
+  NT2_TEST_EQUAL(x.upper(), 5  );
+
+  for ( typename type::index_type i = x.lower(); i <= x.upper(); ++i )
+    NT2_TEST_EQUAL( x[i], 3+i );
 }
 
 //==============================================================================
@@ -167,4 +191,3 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x[i], f(3+i) );
 }
-

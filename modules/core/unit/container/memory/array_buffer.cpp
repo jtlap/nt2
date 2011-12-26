@@ -70,43 +70,40 @@ NT2_TEST_CASE_TPL( array_buffer_model_of, NT2_TYPES )
 }
 
 //==============================================================================
-// Test for dynamic default array_buffer default ctor
+// Test for dynamic default array_buffer ctor
 //==============================================================================
 NT2_TEST_CASE_TPL( array_buffer_default_ctor, NT2_TYPES)
 {
   using nt2::memory::array_buffer;
 
-  typedef array_buffer<T,2,1> type ;
+  array_buffer<T,2,1> b;
 
-  type b;
-
-  NT2_TEST_EQUAL(b.size() , 0U );
+  NT2_TEST_EQUAL(b.size() , 2U );
   NT2_TEST_EQUAL(b.lower(), 1  );
-  NT2_TEST_EQUAL(b.upper(), 0 );
-  NT2_TEST_EQUAL(b.begin(), b.end() );
+  NT2_TEST_EQUAL(b.upper(), 2 );
 }
 
 //==============================================================================
-// Test for dynamic array_buffer ctor
+// Test for dynamic array_buffer copy ctor
 //==============================================================================
 NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
 {
   using nt2::memory::array_buffer;
+
   typedef array_buffer<T,5,-2> buffer_type ;
-
-  boost::array<std::size_t,1> ss = {{ 5 }};
-
-  buffer_type b(ss);
-
-  NT2_TEST_EQUAL(b.size() , 5U );
-  NT2_TEST_EQUAL(b.lower(), -2 );
-  NT2_TEST_EQUAL(b.upper(), 2  );
+  buffer_type b;
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     b[i] =3+i;
-    
-  for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( b[i], 3+i );
+
+  buffer_type x(b);
+  
+  NT2_TEST_EQUAL(x.size() , 5U );
+  NT2_TEST_EQUAL(x.lower(), -2 );
+  NT2_TEST_EQUAL(x.upper(), 2  );
+
+  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+    NT2_TEST_EQUAL( x[i], 3+i );    
 }
 
 //==============================================================================
@@ -117,19 +114,13 @@ NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
   using nt2::memory::array_buffer;
 
   typedef array_buffer<T,5,-2> buffer_type ;
-
-  boost::array<std::size_t,1> ss = {{ 5 }};
-  buffer_type x, b(ss);
+  buffer_type x, b;
 
   for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     b[i] =3+i;
 
   x = b;
   
-  NT2_TEST_EQUAL(x.size() , 5U );
-  NT2_TEST_EQUAL(x.lower(), -2 );
-  NT2_TEST_EQUAL(x.upper(), 2  );
-
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x[i], 3+i );    
 }
@@ -141,36 +132,24 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
 {
   using nt2::memory::array_buffer;
 
-  typedef array_buffer<T,5,-2> buffer1_type ;
-  typedef array_buffer<T,5,1>  buffer2_type ;
+  typedef array_buffer<T,5,1> buffer_type ;
 
-  boost::array<std::size_t,1> sx = { 5 };
-  boost::array<std::size_t,1> sb = { 3 };
+  buffer_type b;
+  buffer_type x;
 
-  buffer1_type b(sb);
-  buffer2_type x(sx);
-
-  for ( typename buffer1_type::index_type i = b.lower(); i <= b.upper(); ++i )
+  for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
     b[i] = 3+i;
 
-  for ( typename buffer2_type::index_type i = x.lower(); i <= x.upper(); ++i )
+  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     x[i] = 10*i;
 
   swap(b,x);
 
-  NT2_TEST_EQUAL(b.size() , 5U );
-  NT2_TEST_EQUAL(b.lower(), -2 );
-  NT2_TEST_EQUAL(b.upper(), 2  );
-
-  NT2_TEST_EQUAL(x.size() , 3U );
-  NT2_TEST_EQUAL(x.lower(), 1  );
-  NT2_TEST_EQUAL(x.upper(), 3  );
-
-  for ( typename buffer2_type::index_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[i], i );
+  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+    NT2_TEST_EQUAL( x[i], 3+i );
     
-  for ( typename buffer1_type::index_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( b[i], 10*(3+i) );
+  for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+    NT2_TEST_EQUAL( b[i], 10*i );
 }
 
 //==============================================================================

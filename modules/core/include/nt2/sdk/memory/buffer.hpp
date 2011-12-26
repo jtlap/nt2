@@ -257,9 +257,9 @@ namespace nt2 {  namespace memory
      * \param src buffer to swap with
      **/
     //==========================================================================
-    template<std::ptrdiff_t B2> void swap( buffer<Type,B2,Allocator>& src )
+    void swap( buffer&src )
     {
-      parent_data::swap(src);
+      parent_data::swap( src );
       boost::swap(allocator(),src.allocator());
     }
 

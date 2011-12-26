@@ -47,15 +47,21 @@ namespace nt2 {  namespace memory
     typedef boost::mpl::integral_c<std::ptrdiff_t,BaseIndex>  base_index_type;
 
     //==========================================================================
-    /**!
-     * Default constructor for pointer_buffer. 
-     **/
+    // Default constructor
     //==========================================================================
     array_buffer(allocator_type const& = allocator_type()) {}
 
+    //==========================================================================
+    // Constructor from Size. Size information is discarded but checked if
+    // comaptible with static storage size
+    //==========================================================================
     template<typename Sizes>
-    array_buffer( Sizes const& , allocator_type const& = allocator_type() )
-    {}
+    array_buffer( Sizes const& s, allocator_type const& = allocator_type() )
+    {
+      BOOST_ASSERT_MSG( (N == boost::fusion::at_c<0>(meta::as_sequence(s)))
+                      , "Array buffer constructed wiht incompatible size."
+                      );
+    }
 
     //==========================================================================
     /**!
@@ -137,7 +143,7 @@ namespace nt2 {  namespace memory
      * Return the highest valid index for accessing a buffer element
      **/
     //==========================================================================
-    static difference_type upper() { return BaseIndex+N-1; }
+    static difference_type upper() { return BaseIndex + N - 1; }
 
     //==========================================================================
     /**!
@@ -154,11 +160,11 @@ namespace nt2 {  namespace memory
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
       
-      BOOST_ASSERT_MSG( (i >= BaseIndex)
+      BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
                       
-      BOOST_ASSERT_MSG( (i <= BaseIndex+N-1)
+      BOOST_ASSERT_MSG( (i <= upper())
                       , "Position is out of buffer bounds"
                       );
                       
@@ -170,11 +176,11 @@ namespace nt2 {  namespace memory
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
       
-      BOOST_ASSERT_MSG( (i >= BaseIndex)
+      BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
                       
-      BOOST_ASSERT_MSG( (i <= BaseIndex+N-1)
+      BOOST_ASSERT_MSG( (i <= upper())
                       , "Position is out of buffer bounds"
                       );
                       
@@ -188,11 +194,9 @@ namespace nt2 {  namespace memory
      * \param src buffer to swap with
      **/
     //==========================================================================
-    template<std::ptrdiff_t B2>
-    void swap( array_buffer<T,N,B2>& src )
+    void swap( array_buffer& src )
     {
-      for(size_type i = 0; i < N; ++i)
-        boost::swap(storage_[i],src.storage_[i]);
+      for(size_type i = 0; i < N; ++i) boost::swap(storage_[i],src.storage_[i]);
     }
 
     //==========================================================================
@@ -204,8 +208,14 @@ namespace nt2 {  namespace memory
      * index.
      **/
     //==========================================================================
-    template<class Sizes> void resize(Sizes const& ) {}
+    template<class Sizes> void resize(Sizes const& s)
+    {
+      BOOST_ASSERT_MSG( (N == boost::fusion::at_c<0>(meta::as_sequence(s)))
+                      , "Array buffer resized wiht incompatible size."
+                      );
+    }
 
+    protected:
     BOOST_SIMD_ALIGNED_TYPE(value_type) storage_[N];
   };
 
