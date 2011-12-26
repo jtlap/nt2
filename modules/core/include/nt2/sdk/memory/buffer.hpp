@@ -223,7 +223,7 @@ namespace nt2 {  namespace memory
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
       
-      BOOST_ASSERT_MSG( (i >= BaseIndex)
+      BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
                       
@@ -239,7 +239,7 @@ namespace nt2 {  namespace memory
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
       
-      BOOST_ASSERT_MSG( (i >= BaseIndex)
+      BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
                       

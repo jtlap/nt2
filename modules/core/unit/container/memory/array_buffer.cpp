@@ -18,6 +18,7 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 //==============================================================================
 // array_buffer dimensions traits
@@ -107,6 +108,18 @@ NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
 }
 
 //==============================================================================
+// Test for array_buffer asserting constructor
+//==============================================================================
+NT2_TEST_CASE_TPL( array_buffer_wrong_data_ctor, NT2_TYPES)
+{
+  using nt2::memory::array_buffer;
+  typedef array_buffer<T,5,-2> buffer_type ;
+
+  NT2_TEST_ASSERT( buffer_type too_much(7) );
+  NT2_TEST_ASSERT( buffer_type too_few(3)  );
+}
+
+//==============================================================================
 // Test for array_buffer assignment
 //==============================================================================
 NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
@@ -181,4 +194,33 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
 
   for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x[i], f(3+i) );
+}
+
+//==============================================================================
+// Test for array_buffer asserting resize
+//==============================================================================
+NT2_TEST_CASE_TPL( array_buffer_wrong_resize, NT2_TYPES)
+{
+  using nt2::memory::array_buffer;
+  typedef array_buffer<T,5,-2> buffer_type ;
+  buffer_type b;
+  
+  NT2_TEST_ASSERT( b.resize(7) );
+  NT2_TEST_ASSERT( b.resize(3) );
+}
+
+//==============================================================================
+// Test for array_buffer asserting access
+//==============================================================================
+NT2_TEST_CASE_TPL( array_buffer_wrong_access, NT2_TYPES)
+{
+  using nt2::memory::array_buffer;
+  typedef array_buffer<T,5,-2> buffer_type ;
+  buffer_type b;
+  T value;
+  
+  NT2_TEST_ASSERT( value  = b[-3] );
+  NT2_TEST_ASSERT( value  = b[9]  );
+  NT2_TEST_ASSERT( b[-5]  = value );
+  NT2_TEST_ASSERT( b[7]   = value );
 }
