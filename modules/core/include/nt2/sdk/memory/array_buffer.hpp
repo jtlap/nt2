@@ -195,8 +195,8 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     void swap( array_buffer& src )
-    {
-      for(size_type i = 0; i < N; ++i) boost::swap(storage_[i],src.storage_[i]);
+    {      
+      for(size_type i = 0; i < N; ++i) boost::swap(storage_[i],src.storage_[i]);        
     }
 
     //==========================================================================
@@ -226,8 +226,8 @@ namespace nt2 {  namespace memory
    * \param b Second \c pointer_buffer to swap
    **/
   //============================================================================
-  template<class T, std::size_t N, std::ptrdiff_t B1, std::ptrdiff_t B2>
-  void swap( array_buffer<T,N,B1>& a, array_buffer<T,N,B2>& b )
+  template<class T, std::size_t N, std::ptrdiff_t B>
+  void swap( array_buffer<T,N,B>& a, array_buffer<T,N,B>& b )
   {
     a.swap(b);
   }

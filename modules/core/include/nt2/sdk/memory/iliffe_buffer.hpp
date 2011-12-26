@@ -78,6 +78,12 @@ namespace nt2 { namespace memory
     typedef typename Data::size_type                    size_type;
 
     //==========================================================================
+    /** Type representing an index inside the iliffe_buffer                   */
+    //==========================================================================
+    typedef typename Data::index_type                   index_type;
+    
+
+    //==========================================================================
     /** Type representing an offset between values                            */
     //==========================================================================
     typedef typename Data::difference_type              difference_type;
@@ -90,8 +96,20 @@ namespace nt2 { namespace memory
      *              buffers
      **/
     //==========================================================================
-    iliffe_buffer ( allocator_type const& a = allocator_type() ) : data_(a) {}
-
+    iliffe_buffer ( allocator_type const& a = allocator_type() )
+                  : data_(a), inner_(0)
+    {
+      //========================================================================
+      // If index has some size, then we can retrieve the inner size
+      // This is required to handle automatic internal buffers
+      //========================================================================
+      if( index_.size() && data_.size() )
+      {
+        inner_ = data_.size()/index_.size();
+        make_links();
+      }
+    }
+                  
     //==========================================================================
     /**
       * Initializes a Iliffe buffer from a dimensions and bases set.
@@ -141,6 +159,50 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /**
+      * Return the lowest indices of the iliffe_buffer
+     **/
+    //==========================================================================
+    boost::fusion::
+    vector<typename Data::difference_type, typename Index::difference_type>
+    lower() const
+    {
+      boost::fusion::
+      vector<typename Data::difference_type, typename Index::difference_type>
+      that(data_.lower(),index_.lower());
+      return that;
+    }
+
+    //==========================================================================
+    /**
+      * Return the upper indices of the iliffe_buffer
+     **/
+    //==========================================================================
+    boost::fusion::
+    vector<typename Data::difference_type, typename Index::difference_type>
+    upper() const
+    {
+      boost::fusion::
+      vector<typename Data::difference_type, typename Index::difference_type>
+      that(data_.lower()+inner_-1,index_.upper());
+      return that;
+    }
+
+    //==========================================================================
+    /**
+      * Return the sizes of the iliffe_buffer
+     **/
+    //==========================================================================
+    boost::fusion::
+    vector<typename Data::size_type, typename Index::size_type>
+    size() const
+    {
+      boost::fusion::vector<typename Data::size_type, typename Index::size_type>
+      that(inner_,index_.size());
+      return that;
+    }
+    
+    //==========================================================================
+    /**
       * Reallocate a iliffe_bufer to a new size.
      **/
     //==========================================================================
@@ -174,8 +236,25 @@ namespace nt2 { namespace memory
                     , boost::fusion::size(meta::as_sequence(pos))
                     );
     }
+
+    void swap( iliffe_buffer& src )
+    {
+      data_.swap(src.data_);
+      boost::swap(inner_,src.inner_);
+      index_swap(index_,src.index_);
+    }
     
     protected:
+
+    template<class TT, std::ptrdiff_t BB>
+    void index_swap( buffer<TT,BB>& local,buffer<TT,BB>& src )
+    {
+      local.swap(src);
+    }
+
+    template<class TT, std::size_t SS, std::ptrdiff_t BB>
+    void index_swap( array_buffer<TT,SS,BB>&, array_buffer<TT,SS,BB>& ) {}
+
     //==========================================================================
     /*
      * data_size computes the number of elements required to store the data 
@@ -251,10 +330,16 @@ namespace nt2 { namespace memory
     }
 
     private:
-    Data        data_;
-    Index       index_;
-    std::size_t inner_;
+    Data      data_;
+    Index     index_;
+    size_type inner_;
   };
+
+  template<typename Ds, typename D, typename I>
+  void swap( iliffe_buffer<Ds,D,I>& a, iliffe_buffer<Ds,D,I>& b )
+  {
+    a.swap(b);
+  }
 } }
 
 #include <nt2/sdk/memory/details/iliffe_buffer_1d.hpp>
