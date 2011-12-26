@@ -36,6 +36,15 @@ do {                                                                        \
 } while(0)                                                                  \
 /**/
 
+//==============================================================================
+/*!
+ * \ingroup utests
+ * Checks if an expression is triggering any runtime assertion at evaluation and
+ * raise the failure count if not.
+ * \param X Expression to check
+ */
+//==============================================================================
+#define NT2_TEST_ASSERT(X) NT2_TEST_THROW(X, nt2::assert_exception)
 
 //==============================================================================
 /*!
