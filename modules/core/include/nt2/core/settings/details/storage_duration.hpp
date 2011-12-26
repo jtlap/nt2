@@ -11,16 +11,17 @@
 
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/eval_if.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/core/settings/size.hpp>
+#include <nt2/core/settings/index.hpp>
+#include <nt2/sdk/meta/padded_size.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/padding.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/meta/padded_size.hpp>
 #include <nt2/sdk/memory/array_buffer.hpp>
-#include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 #include <nt2/sdk/memory/padded_allocator.hpp>
 #include <nt2/sdk/meta/make_aligned_allocator.hpp>
+#include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 
 namespace nt2 
 { 
@@ -34,6 +35,9 @@ namespace nt2
     // Take whatever allocator someone above me want me to use (see shared_)
     template<typename T, typename S, typename D = void> struct apply
     {            
+      // Get the base index
+      typedef typename meta::option<S,tag::index_>::type index_t;
+
       // Get the global padding strategy
       typedef typename meta::option<S,tag::global_padding_>::type padding_t;
 
@@ -45,19 +49,24 @@ namespace nt2
                       ::if_c< padding_t::value != 1
                             , memory::padded_allocator<alloc_t>
                             , alloc_t
-                            >:: type                      allocator_type;
+                            >:: type                      base_alloc_type;
 
+      // Extract the proper Index (0 if T, 1 if T*)
+      typedef typename  boost::mpl
+                      ::eval_if < boost::is_pointer<T>
+                                , boost::mpl::at_c< typename index_t::type, 1>
+                                , boost::mpl::at_c< typename index_t::type, 0>
+                                >::type base_t;
+                      
       // Here is the fancy new buffer
-      typedef memory::buffer<T,allocator_type>            type;
+      typedef typename base_alloc_type::template rebind<T>::other allocator_type;
+      typedef memory::buffer<T,base_t::value,allocator_type>      type;
     };  
 
     template<typename T, typename S> struct apply<T,S>
     {
-      // Get the allocator from the settings
-      typedef typename meta::option<S,tag::allocator_>::type  alloc_t;
-
-      // Pass it upward
-      typedef typename apply<T,S,alloc_t>::type  type;
+      typedef typename meta::option<S,tag::allocator_>::type  allocator_type;
+      typedef typename apply<T,S,allocator_type>::type        type;
     };  
   };
 
@@ -118,12 +127,21 @@ namespace nt2
                             , base_size
                             >::type               sizes;
       
+      // Get the base index
+      typedef typename meta::option<S,tag::index_>::type index_t;
+
+      // Extract the proper Index (0 if T, 1 if T*)
+      typedef typename  boost::mpl
+                      ::eval_if < boost::is_pointer<T>
+                                , boost::mpl::at_c< typename index_t::type, 1>
+                                , boost::mpl::at_c< typename index_t::type, 0>
+                                >::type base_t;
       
       //========================================================================
       // Make me an array_buffer sandwich
       //========================================================================
       typedef typename meta::padded_size<sizes,global_,lead_>::type dims_;
-      typedef memory::array_buffer<T,dims_::value>                  type;
+      typedef memory::array_buffer<T,dims_::value,base_t::value>    type;
     };  
   };
 }
