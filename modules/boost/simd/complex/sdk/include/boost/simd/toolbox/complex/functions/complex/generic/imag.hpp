@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
       return boost::fusion::at_c<1>(a0);
     }
   };
-  
+
 } } }
 
 #endif

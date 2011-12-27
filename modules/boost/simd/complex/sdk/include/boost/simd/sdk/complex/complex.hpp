@@ -11,5 +11,6 @@
 
 #include <boost/simd/sdk/complex/details/complex/meta.hpp>
 #include <boost/simd/sdk/simd/composite.hpp>
+#include <boost/simd/sdk/complex/details/complex/logical.hpp>
 
 #endif

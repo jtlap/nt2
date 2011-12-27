@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_SDK_COMPLEX_DETAILS_IMAGINARY_META_HPP_INCLUDED
 #define BOOST_SIMD_SDK_COMPLEX_DETAILS_IMAGINARY_META_HPP_INCLUDED
-
 #include <boost/simd/sdk/complex/meta/real_of.hpp>
 #include <boost/simd/sdk/complex/hierarchy.hpp>
 #include <boost/dispatch/meta/property_of.hpp>

@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return adds(sqr_abs(real(a0)) + sqr_abs(real(a0))); 
+      return adds(sqr_abs(real(a0)) + sqr_abs(imag(a0))); 
     }
   };
   
@@ -31,11 +31,11 @@ namespace boost { namespace simd { namespace ext
                             , (generic_< complex_< floating_<A0> > >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_real<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type result_type;
-      return sqr(real(a0)) + sqr(real(a0)); 
+      return sqr(real(a0)) + sqr(imag(a0)); 
     }
   };
   

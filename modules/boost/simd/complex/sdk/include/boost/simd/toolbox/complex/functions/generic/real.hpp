@@ -30,10 +30,10 @@ namespace boost { namespace simd { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::real_of<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return Zero<A0>();
+      return Zero<result_type>();
     }
   };
   

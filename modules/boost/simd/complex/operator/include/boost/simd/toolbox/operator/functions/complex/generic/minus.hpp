@@ -100,7 +100,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return result_type( real(a0)
-                        , imag(a1)
+                        , -imag(a1)
                         );
     }
   };

@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_IMAG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_IMAG_HPP_INCLUDED
-
 #include <boost/simd/toolbox/complex/functions/imag.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/complex/imaginary.hpp>
+#include <boost/simd/sdk/complex/meta/as_real.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -30,10 +30,10 @@ namespace boost { namespace simd { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef A0 const& result_type;
+    typedef typename meta::as_real<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return a0;
+      return a0();
     }
   };
   

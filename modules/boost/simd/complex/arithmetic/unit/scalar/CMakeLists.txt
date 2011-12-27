@@ -8,6 +8,8 @@
 ##############################################################################
 
 set( SOURCES
+  sqr_abs.cpp
+  abs.cpp    
    )
 
 nt2_module_add_tests(boost.simd.complex.arithmetic.scalar.unit ${SOURCES})

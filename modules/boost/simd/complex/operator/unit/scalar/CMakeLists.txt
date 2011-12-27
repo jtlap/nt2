@@ -8,6 +8,10 @@
 ##############################################################################
 
 set( SOURCES
+  plus.cpp
+  minus.cpp
+  multiplies.cpp
+  divides.cpp
    )
 
 nt2_module_add_tests(boost.simd.complex.operator.scalar.unit ${SOURCES})

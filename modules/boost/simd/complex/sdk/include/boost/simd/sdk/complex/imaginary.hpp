@@ -24,10 +24,21 @@ namespace boost { namespace simd
     explicit imaginary(T const& value_) : value(value_)
     {
     }
+    bool operator == (const imaginary<T>&a) const{return value == a.value; }
+    bool operator != (const imaginary<T>&a) const{return value != a.value; }
     
     T&       operator()()       { return value; }
     T const& operator()() const { return value; }
   };
+    ////////////////////////////////////////////////////////////////////////////
+  // Stream insertion for imaginary<T>
+  ////////////////////////////////////////////////////////////////////////////
+  template<class T>
+  BOOST_DISPATCH_FORCE_INLINE
+  std::ostream& operator<<(std::ostream& os, imaginary<T> const& v )
+  {
+    return os << v() << "*i";
+  }
 } }
 
 #endif

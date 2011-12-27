@@ -105,7 +105,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A1 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return result_type(a0 * imag(a1));
     }
@@ -116,8 +116,8 @@ namespace boost { namespace simd { namespace ext
                               (generic_< arithmetic_<A1> >)
                             )
   {
-    typedef A1 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return result_type(imag(a0) * a1);
     }
@@ -130,7 +130,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
       return -(imag(a0) * imag(a1));
     }
