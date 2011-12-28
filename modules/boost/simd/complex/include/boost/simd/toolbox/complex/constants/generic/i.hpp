@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_COMPLEX_CONSTANTS_GENERIC_I_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_COMPLEX_CONSTANTS_GENERIC_I_HPP_INCLUDED
-
 #include <boost/simd/toolbox/complex/constants/i.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/sdk/complex/imaginary.hpp>
