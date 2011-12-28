@@ -22,7 +22,7 @@
 //==============================================================================
 // Pass some buffer_ as an option
 //==============================================================================
-nt2::buffer_ buffer_of_int( nt2::memory::buffer<int> );
+nt2::buffer_ buffer_of_int( nt2::memory::buffer<int,-2> );
 nt2::buffer_ no_buffer();
 
 NT2_TEST_CASE( buffer_ )
@@ -40,7 +40,7 @@ NT2_TEST_CASE( buffer_ )
 
   NT2_TEST_EXPR_TYPE( buffer_of_int
                     , (option< _, nt2::tag::buffer_>)
-                    , (buffer_generator< buffer<int> >)
+                    , (buffer_generator< buffer<int,-2> >)
                     );
 }
 
@@ -62,7 +62,7 @@ NT2_TEST_CASE( buffer_default )
 
   NT2_TEST_EXPR_TYPE( buffer_of_int
                     , (option< void, nt2::tag::buffer_,_>)
-                    , (buffer_generator< buffer<int> >)
+                    , (buffer_generator< buffer<int,-2> >)
                     );
 }
 
@@ -70,7 +70,7 @@ NT2_TEST_CASE( buffer_default )
 // Pass some buffer_ as a setting
 ////////////////////////////////////////////////////////////////////////////////
 nt2::settings s_no_buffer     (nt2::buffer_());
-nt2::settings s_buffer_of_int (nt2::buffer_(nt2::memory::buffer<int>));
+nt2::settings s_buffer_of_int (nt2::buffer_(nt2::memory::buffer<int,1>));
 
 NT2_TEST_CASE( setting_buffer_ )
 {
@@ -88,7 +88,7 @@ NT2_TEST_CASE( setting_buffer_ )
 
   NT2_TEST_EXPR_TYPE( s_buffer_of_int
                     , (option<_ , nt2::tag::buffer_>)
-                    , (buffer_generator< buffer<int> >)
+                    , (buffer_generator< buffer<int,1> >)
                     );
 }
 
@@ -114,7 +114,7 @@ NT2_TEST_CASE( buffer_forced )
   using nt2::memory::buffer;
   using nt2::buffer_generator;
   
-  NT2_TEST_EXPR_TYPE( buffer_generator< buffer<int> >()
+  NT2_TEST_EXPR_TYPE( (buffer_generator< buffer<int,1> >())
                     , (apply_ < _
                               , void
                               , int
@@ -129,7 +129,7 @@ NT2_TEST_CASE( buffer_forced )
                                 >::type
                               >
                       )
-                    , (buffer<int>)
+                    , (buffer<int,1>)
                     );
 }
 
@@ -175,8 +175,8 @@ NT2_TEST_CASE( buffer_natural )
                               >
                       )
                     , ( iliffe_buffer < mpl_::int_<2>
-                                      , array_buffer<int, 4ul>
-                                      , array_buffer<int*, 2ul>
+                                      , array_buffer<int , 4ul, 1>
+                                      , array_buffer<int*, 2ul, 1>
                                       >
                       )
                     );

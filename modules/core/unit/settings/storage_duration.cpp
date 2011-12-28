@@ -135,6 +135,7 @@ NT2_TEST_CASE( automatic_duration_apply )
   using nt2::automatic_;
   using nt2::tag::table_;
   using nt2::no_padding_;
+  using nt2::index_;
   using nt2::lead_padding_;
   using nt2::global_padding_;
   using nt2::memory::array_buffer;
@@ -153,7 +154,7 @@ NT2_TEST_CASE( automatic_duration_apply )
                                 >::type
                               >
                       )
-                    , (array_buffer<int, 4>)
+                    , (array_buffer<int, 4, 1>)
                     );
 
   NT2_TEST_EXPR_TYPE( automatic_()
@@ -169,7 +170,7 @@ NT2_TEST_CASE( automatic_duration_apply )
                                 >::type
                               >
                       )
-                    , (array_buffer<int, 16>)
+                    , (array_buffer<int, 16, 1>)
                     );
 
   NT2_TEST_EXPR_TYPE( automatic_()
@@ -182,11 +183,12 @@ NT2_TEST_CASE( automatic_duration_apply )
                                           , of_size_<3,2>
                                           , global_padding_(with_<8>)
                                           , lead_padding_(none_)
+                                          , index_<0>
                                           )
                                 >::type
                               >
                       )
-                    , (array_buffer<int, 8>)
+                    , (array_buffer<int, 8, 0>)
                     );                   
 
   NT2_TEST_EXPR_TYPE( automatic_()
@@ -203,7 +205,7 @@ NT2_TEST_CASE( automatic_duration_apply )
                                 >::type
                               >
                       )
-                    , (array_buffer<int, 32>)
+                    , (array_buffer<int, 32, 1>)
                     );
 }
 
@@ -216,6 +218,7 @@ NT2_TEST_CASE( dynamic_duration_apply )
   using nt2::settings;
   using nt2::allocator_;
   using nt2::dynamic_;
+  using nt2::index_;
   using nt2::no_padding_;
   using nt2::lead_padding_;
   using nt2::global_padding_;
@@ -238,7 +241,7 @@ NT2_TEST_CASE( dynamic_duration_apply )
                               >::type
                             >
                       )
-                    , (buffer<int, allocator_adaptor<int,std::allocator<int> > >)
+                    , (buffer<int, 1, allocator_adaptor<int,std::allocator<int> > >)
                     );
 
   NT2_TEST_EXPR_TYPE( dynamic_()
@@ -253,7 +256,7 @@ NT2_TEST_CASE( dynamic_duration_apply )
                               >::type
                             >
                       )
-                    , (buffer<int, allocator<int> >)
+                    , (buffer<int, 1, allocator<int> >)
                     );
 
   NT2_TEST_EXPR_TYPE( dynamic_()
@@ -268,7 +271,7 @@ NT2_TEST_CASE( dynamic_duration_apply )
                               >::type
                             >
                       )
-                    , (buffer<int, allocator_adaptor<int,std::allocator<int> > >)
+                    , (buffer<int, 1, allocator_adaptor<int,std::allocator<int> > >)
                     );
 
   NT2_TEST_EXPR_TYPE( dynamic_()
@@ -279,11 +282,12 @@ NT2_TEST_CASE( dynamic_duration_apply )
                                 , int
                               , settings( global_padding_
                                         , allocator_< std::allocator<int> >
+                                        , index_<0>
                                         )
                               >::type
                             >
                       )
-                    , (buffer<int, padded_allocator<allocator_adaptor<int, std::allocator<int> > > >)
+                    , (buffer<int, 0, padded_allocator<allocator_adaptor<int, std::allocator<int> > > >)
                     );
 
 }

@@ -157,7 +157,7 @@ NT2_TEST_CASE( shared_apply )
                                 >::type
                               >
                       )
-                    , (array_buffer<int*, 2>)
+                    , (array_buffer<int*, 2, 1>)
                     );
 
   NT2_TEST_EXPR_TYPE( shared_::data()
@@ -174,7 +174,7 @@ NT2_TEST_CASE( shared_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int, fixed_allocator<int> >)
+                    , (buffer<int, 1, fixed_allocator<int> >)
                     );
 
   NT2_TEST_EXPR_TYPE( shared_::index()
@@ -192,7 +192,7 @@ NT2_TEST_CASE( shared_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int*, allocator<int> >)
+                    , (buffer<int*, 1, allocator<int*> >)
                     );
 
   NT2_TEST_EXPR_TYPE( shared_::data()
@@ -210,7 +210,7 @@ NT2_TEST_CASE( shared_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int, padded_allocator<fixed_allocator<int> > >)
+                    , (buffer<int, 1, padded_allocator<fixed_allocator<int> > >)
                     );
 }
 
@@ -253,7 +253,7 @@ NT2_TEST_CASE( owned_apply )
                                 >::type
                               >
                       )  
-                    , (array_buffer<int*, 2>)
+                    , (array_buffer<int*, 2, 1>)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_::data()
@@ -270,7 +270,7 @@ NT2_TEST_CASE( owned_apply )
                                 >::type
                               >
                       )
-                    , (array_buffer<int, 32>)
+                    , (array_buffer<int, 32, 1>)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_::index()
@@ -285,7 +285,7 @@ NT2_TEST_CASE( owned_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int*, allocator<int> >)
+                    , (buffer<int*, 1, allocator<int*> >)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_::data()
@@ -302,7 +302,7 @@ NT2_TEST_CASE( owned_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int, allocator_adaptor< int, std::allocator<int> > >)
+                    , (buffer<int, 1, allocator_adaptor< int, std::allocator<int> > >)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_::data()
@@ -319,6 +319,6 @@ NT2_TEST_CASE( owned_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int, padded_allocator< allocator_adaptor< int, std::allocator<int> > > >)
+                    , (buffer<int, 1, padded_allocator< allocator_adaptor< int, std::allocator<int> > > >)
                     );
 }
