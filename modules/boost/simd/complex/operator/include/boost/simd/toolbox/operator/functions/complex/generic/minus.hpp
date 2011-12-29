@@ -99,7 +99,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type( real(a0)
+      return result_type( a0
                         , -imag(a1)
                         );
     }
@@ -113,7 +113,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type( -real(a1)
+      return result_type( -a1
                         , imag(a0)
                         );
     }
@@ -131,7 +131,8 @@ namespace boost { namespace simd { namespace ext
       return result_type(imag(a0) - imag(a1));
     }
   };
-  
+
+
 } } }
 
 #endif

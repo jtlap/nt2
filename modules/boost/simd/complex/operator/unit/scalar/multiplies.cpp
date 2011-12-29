@@ -45,16 +45,36 @@ NT2_TEST_CASE_TPL ( multiplies_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(multiplies(cT(boost::simd::Inf<T>()),  cT(boost::simd::Inf<T>())),  cT(boost::simd::Inf<T>(), boost::simd::Nan <T>()));
-  NT2_TEST_EQUAL(multiplies(cT(boost::simd::Minf<T>()), cT(boost::simd::Minf<T>())), cT(boost::simd::Inf<T>(), boost::simd::Nan <T>()));
-  NT2_TEST_EQUAL(multiplies(cT(boost::simd::Nan<T>()),  cT(boost::simd::Nan<T>())),  cT(boost::simd::Nan <T>()));   
-  NT2_TEST_EQUAL(multiplies(cT(boost::simd::One<T>()),  cT(boost::simd::Zero<T>())), cT(boost::simd::Zero<T>())); 
-  NT2_TEST_EQUAL(multiplies(cT(boost::simd::Zero<T>()), cT(boost::simd::Zero<T>())), cT(boost::simd::Zero<T>())); 
-  NT2_TEST_EQUAL(multiplies(cT(0, 1), cT(0, 1)), cT(-1, 0));
-  NT2_TEST_EQUAL(multiplies(cT(1, 0), T(1))    , cT(1, 0)); 
-  NT2_TEST_EQUAL(multiplies(cT(0, 2), cT(0, 1)), cT(-2, 0));
-  NT2_TEST_EQUAL(multiplies(cT(0, 1), ciT(1))   ,cT(-1, 0)); 
-  NT2_TEST_EQUAL(multiplies(ciT(1), ciT(1))     , T(-1)); 
-  NT2_TEST_EQUAL(multiplies(ciT(0), ciT(1))     , T(0));
-  NT2_TEST_EQUAL(multiplies(T(1),   ciT(2))     , ciT(2)); 
+  cT infz = cT(boost::simd::Inf<T>());
+  cT zinf = cT(0, boost::simd::Inf<T>());  
+  cT nanz = cT(boost::simd::Nan<T>());
+  cT znan = cT(0, boost::simd::Nan<T>());
+  cT z    = cT(0, 0); 
+  NT2_TEST_EQUAL(multiplies(infz,zinf), zinf);
+  std::cout << multiplies(infz,zinf) << std::endl; 
+  NT2_TEST_EQUAL(multiplies(infz,z), nanz);
+  std::cout << multiplies(infz, z) << std::endl; 
+  NT2_TEST_EQUAL(multiplies(zinf, z), znan);
+  std::cout << multiplies(zinf, z) << std::endl; 
+  NT2_TEST_EQUAL(multiplies(cT(boost::simd::Inf<T>()),  cT(boost::simd::Inf<T>())),  cT(boost::simd::Inf<T>()));
+  cT infinf = cT(boost::simd::Inf<T>(),boost::simd::Inf<T>()); 
+  NT2_TEST_EQUAL(multiplies(infinf,infinf),  cT(boost::simd::Nan<T>(), boost::simd::Inf<T>()));
+  std::cout << multiplies(infinf,infinf) << std::endl; 
+  NT2_TEST_EQUAL(multiplies(cT(boost::simd::Inf<T>()),  cT(boost::simd::Inf<T>())),  cT(boost::simd::Inf<T>()));
+  std::cout << multiplies(cT(boost::simd::Inf<T>()),  cT(boost::simd::Inf<T>())) << std::endl; 
+  NT2_TEST_EQUAL(multiplies(cT(boost::simd::Minf<T>()), cT(boost::simd::Minf<T>())), cT(boost::simd::Inf<T>()));
+  std::cout << multiplies(cT(boost::simd::Minf<T>()), cT(boost::simd::Minf<T>()))<< std::endl; 
+//   NT2_TEST_EQUAL(multiplies(cT(boost::simd::Nan<T>()),  cT(boost::simd::Nan<T>())),  cT(boost::simd::Nan <T>()));   
+//   std::cout <<multiplies(cT(boost::simd::Nan<T>()),  cT(boost::simd::Nan<T>())) << std::endl; 
+//   NT2_TEST_EQUAL(multiplies(cT(boost::simd::One<T>()),  cT(boost::simd::Zero<T>())), cT(boost::simd::Zero<T>())); 
+//   std::cout <<multiplies(cT(boost::simd::One<T>()),  cT(boost::simd::Zero<T>())) << std::endl; 
+//   NT2_TEST_EQUAL(multiplies(cT(boost::simd::Zero<T>()), cT(boost::simd::Zero<T>())), cT(boost::simd::Zero<T>())); 
+//   std::cout << multiplies(cT(boost::simd::Zero<T>()), cT(boost::simd::Zero<T>())) << std::endl; 
+//   NT2_TEST_EQUAL(multiplies(cT(0, 1), cT(0, 1)), cT(-1, 0));
+//   NT2_TEST_EQUAL(multiplies(cT(1, 0), T(1))    , cT(1, 0)); 
+//   NT2_TEST_EQUAL(multiplies(cT(0, 2), cT(0, 1)), cT(-2, 0));
+//   NT2_TEST_EQUAL(multiplies(cT(0, 1), ciT(1))   ,cT(-1, 0)); 
+//   NT2_TEST_EQUAL(multiplies(ciT(1), ciT(1))     , T(-1)); 
+//   NT2_TEST_EQUAL(multiplies(ciT(0), ciT(1))     , T(0));
+//   NT2_TEST_EQUAL(multiplies(T(1),   ciT(2))     , ciT(2)); 
 } // end of test for floating_
