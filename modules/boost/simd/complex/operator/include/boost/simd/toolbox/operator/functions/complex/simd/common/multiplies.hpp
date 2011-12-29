@@ -40,6 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
         typedef typename meta::as_real<A0>::type rA0;
+        typedef typename meta::as_logical<rA0>::type lA0; 
         rA0 a0a1r = real(a0) * real(a1);
         rA0 a0a1i = imag(a0) * imag(a1);
         rA0 x = a0a1r - a0a1i; 
@@ -47,10 +48,14 @@ namespace boost { namespace simd { namespace ext
         result_type r = result_type(x, y); 
         if (any(logical_or(is_invalid(x), is_invalid(y))))
           {
-            r = if_else(is_real(a0), multiplies(real(a0), a1), r);
-            r = if_else(is_imag(a0), multiplies(pure(a0), a1), r);
-            r = if_else(is_real(a1), multiplies(a0, real(a1)), r);
-            r = if_else(is_imag(a1), multiplies(a0, pure(a1)), r);
+            lA0 test = is_real(a0); 
+            r = if_else(test, multiplies(real(a0), a1), r);
+            test = logical_andnot(is_imag(a0), test); 
+            r = if_else(test, multiplies(pure(a0), a1), r);
+            test = logical_andnot(is_real(a1), test); 
+            r = if_else(test, multiplies(a0, real(a1)), r);
+            test = logical_andnot(is_imag(a1), test); 
+            r = if_else(test, multiplies(a0, pure(a1)), r);
           }
         return r;
       }
