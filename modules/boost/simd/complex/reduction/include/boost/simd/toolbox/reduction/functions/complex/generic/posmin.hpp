@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::as_logical<rtype>::type ltype;
       rtype absa0 = abs(a0); 
       boost::simd::int32_t tmp = posmin(absa0);
-      ltype test = eq(absa0, absa0[tmp]))
+      ltype test = eq(absa0, absa0[tmp]); 
       if (nbtrue(test) > 1)
         {
           rtype z = if_else(test, arg(a0), Inf<rtype>);
