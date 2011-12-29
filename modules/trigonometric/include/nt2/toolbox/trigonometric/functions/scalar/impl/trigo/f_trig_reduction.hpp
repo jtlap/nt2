@@ -37,6 +37,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
 

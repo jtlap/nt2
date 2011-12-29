@@ -23,6 +23,7 @@
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 
 namespace nt2
 {
