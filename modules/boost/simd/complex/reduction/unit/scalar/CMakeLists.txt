@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+  eps.cpp
    )
 
-nt2_module_add_tests(boost.simd.complex.reduction.simd.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.complex.ieee.scalar.unit ${SOURCES})

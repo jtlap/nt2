@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_MULTIPLIES_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_MULTIPLIES_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_SCALAR_MULTIPLIES_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_SCALAR_MULTIPLIES_HPP_INCLUDED
 #include <boost/simd/toolbox/operator/functions/multiplies.hpp>
 #include <boost/simd/include/functions/real.hpp>
 #include <boost/simd/include/functions/imag.hpp>
@@ -19,6 +19,7 @@
 #include <boost/simd/include/functions/is_inf.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
+#include <boost/simd/include/functions/any.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -29,7 +30,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  //These are scalar versions TODO simd
   // complex/complex
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
         rA0 a0a1i = imag(a0) * imag(a1);
         
         rA0 x = a0a1r - a0a1i; 
-        rA0 y = (real(a0) + imag(a0)) * (real(a1) + imag(a1)) - a0a1r - a0a1i; 
+        rA0 y = (real(a0) + imag(a0)) * (real(a1) + imag(a1)) - a0a1r - a0a1i;
         if (is_invalid(x) || is_invalid(y))
           {
             if (is_real(a0))
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
             if (is_imag(a0))
               return multiplies(pure(a0), a1);
             if (is_real(a1))
-              return multiplies(a0, real(a1));
+              return multiplies(a0, real(a1)); 
             if (is_imag(a1))
               return multiplies(a0, pure(a1));
           }
@@ -166,5 +166,6 @@ namespace boost { namespace simd { namespace ext
   };
   
 } } }
+
 
 #endif

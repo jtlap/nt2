@@ -51,6 +51,41 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tocomplex_, tag::cpu_, (A0)
+                            , (generic_< arithmetic_<A0> >)
+                              (generic_< arithmetic_<A0> >)              
+                            )
+  {
+    typedef typename meta::as_complex<A0>::type const &result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
+    {
+      return result_type(a0, a1);
+    }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tocomplex_, tag::cpu_, (A0)(A1)
+                            , (generic_< arithmetic_<A0> >)
+                              (generic_< imaginary_<A1> >)              
+                            )
+  {
+    typedef typename meta::as_complex<A0>::type const &result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    {
+      return result_type(a0, imag(a1));
+    }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tocomplex_, tag::cpu_, (A0)(A1)
+                            , (generic_< imaginary_<A0> >)
+                              (generic_< arithmetic_<A1> >)              
+                            )
+  {
+    typedef typename meta::as_complex<A0>::type const &result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    {
+      return result_type(a1, imag(a0));
+    }
+  };
 } } }
 
 #endif

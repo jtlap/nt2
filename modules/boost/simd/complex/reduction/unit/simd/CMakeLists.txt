@@ -10,4 +10,4 @@
 set( SOURCES
    )
 
-nt2_module_add_tests(boost.simd.complex.reduction.simd.unit ${SOURCES})
+nt2_module_add_tests(boost.simd.complex.ieee.simd.unit ${SOURCES})

@@ -68,10 +68,10 @@ namespace boost { namespace simd { namespace ext
 
     static inline float internal(const float& a0, const  float& a1)
       {
-      // flibc do that in ::hypotf(a0, a1) in asm with no more speed!
+      // flibc does that in ::hypotf(a0, a1) in asm with no more speed!
       // proper internal is 30% slower
-      return float(boost::simd::sqrt(boost::simd::sqr(static_cast<double>(a0))+
-                                       boost::simd::sqr(static_cast<double>(a1))));      
+        return static_cast<float>(::sqrt(boost::simd::sqr(static_cast<double>(a0))+
+                                         boost::simd::sqr(static_cast<double>(a1))));      
       }
     
     template < class AA0>

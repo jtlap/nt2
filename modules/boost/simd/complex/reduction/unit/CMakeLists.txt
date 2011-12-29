@@ -7,7 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-set( SOURCES
-   )
-
-nt2_module_add_tests(boost.simd.complex.reduction.simd.unit ${SOURCES})
+nt2_module_use_modules(unit)
+add_subdirectory(scalar)
+add_subdirectory(simd)

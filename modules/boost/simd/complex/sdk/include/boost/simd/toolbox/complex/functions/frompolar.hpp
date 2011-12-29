@@ -9,8 +9,8 @@
 /*!
  * \file
 **/
-#ifndef BOOST_SIMD_TOOLBOX_COMPLEX_FUNCTIONS_TOCOMPLEX_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_COMPLEX_FUNCTIONS_TOCOMPLEX_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_COMPLEX_FUNCTIONS_FROMPOLAR_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_COMPLEX_FUNCTIONS_FROMPOLAR_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
@@ -18,15 +18,15 @@
 
 /*!
  * \ingroup boost_simd_complex
- * \defgroup boost_simd_complex_tocomplex tocomplex
+ * \defgroup boost_simd_complex_frompolar frompolar
  *
  * \par Description
- * return a complex constructed from the parameter(s)
+ * return a complex from the modulus and argument
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/tocomplex.hpp>
+ * #include <nt2/include/functions/frompolar.hpp>
  * \endcode
  * 
  * \synopsis
@@ -35,16 +35,12 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::tocomplex_(A0)>::type
- *     tocomplex(const A0 & a0);
- *   template <class A0>
- *     meta::call<tag::tocomplex_(A0, A0)>::type
- *     tocomplex(const A0 & a0, const A0& a1);
+ *     meta::call<tag::frompolar_(A0, A0)>::type
+ *     frompolar(const A0 & a0, const A0 & a1);
  * }
  * \endcode
  *
- * \param a0 the first parameter of tocomplex
- * \param a1 the second parameter of tocomplex
+ * \param a0 the first parameter of frompolar
  * 
  * \return a real value
  *  
@@ -59,14 +55,13 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag tocomplex_ of functor tocomplex 
+     * \brief Define the tag frompolar_ of functor frompolar 
      *        in namespace boost::simd::tag for toolbox boost.simd.complex
     **/
-    struct tocomplex_ {};
+    struct frompolar_ {};
   }
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tocomplex_, tocomplex, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tocomplex_, tocomplex, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::frompolar_, frompolar, 2)
 } }
 
 #endif
