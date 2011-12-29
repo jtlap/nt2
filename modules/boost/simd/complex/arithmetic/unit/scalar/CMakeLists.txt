@@ -10,6 +10,13 @@
 set( SOURCES
   sqr_abs.cpp
   abs.cpp    
+  arg.cpp
+  dist.cpp
+  sqrt.cpp
+  fma.cpp
+  average.cpp
+  min.cpp
+  max.cpp
    )
 
 nt2_module_add_tests(boost.simd.complex.arithmetic.scalar.unit ${SOURCES})
