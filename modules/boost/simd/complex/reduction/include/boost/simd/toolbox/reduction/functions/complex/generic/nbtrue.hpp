@@ -6,9 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_ANY_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_ANY_HPP_INCLUDED
-#include <boost/simd/include/functions/any.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_NBTRUE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_NBTRUE_HPP_INCLUDED
+#include <boost/simd/include/functions/all.hpp>
 #include <boost/simd/include/functions/imag.hpp>
 #include <boost/simd/include/functions/real.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
@@ -17,29 +17,25 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::scalar_of<rtype>::type stype;
-    typedef typename meta::as_logical<stype>::type result_type; 
+    typedef boost::simd::int32_t result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return boost::simd::any(is_nez(a0));  
+      return boost::simd::nbtrue(is_nez(a0));  
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::any_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_, (A0)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::scalar_of<rtype>::type stype;
-    typedef typename meta::as_logical<stype>::type result_type; 
+    typedef boost::simd::int32_t result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return boost::simd::any(is_nez(a0)); 
+      return boost::simd::nbtrue(is_nez(a0)); 
     }
   };
   

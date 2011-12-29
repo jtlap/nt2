@@ -11,7 +11,7 @@
 #include <boost/simd/include/functions/none.hpp>
 #include <boost/simd/include/functions/imag.hpp>
 #include <boost/simd/include/functions/real.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/sdk/complex/meta/as_complex.hpp>
 #include <boost/simd/sdk/complex/meta/as_real.hpp>
 
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<stype>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return boost::simd::none(logical_or(real(a0), imag(a0)));  
+      return boost::simd::none(is_nez(a0));  
     }
   };
 
@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<stype>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return boost::simd::none(imag(a0)); 
+      return boost::simd::none(is_nez(a0)); 
     }
   };
   
