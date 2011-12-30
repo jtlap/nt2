@@ -84,9 +84,9 @@ namespace nt2
 
         static inline A0 acos(const  A0& a0)
         {
-          if (a0 < Malf<float>())
+          if (a0 < Mhalf<float>())
             return Pi<float>()-asin( nt2::sqrt(oneplus(a0)*Half<float>()))*Two<float>();
-          else if (a0 > Half < float>())
+          else if (a0 > Half<float>())
             return asin( nt2::sqrt(oneminus(a0)*Half<float>()))*Two<float>();
           return (Pio_2<float>()-asin(a0));
         }
