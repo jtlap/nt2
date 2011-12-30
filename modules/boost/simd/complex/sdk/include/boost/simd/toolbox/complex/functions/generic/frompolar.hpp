@@ -11,7 +11,7 @@
 #include <boost/simd/toolbox/complex/functions/frompolar.hpp>
 #include <boost/simd/sdk/complex/complex.hpp>
 #include <boost/simd/sdk/complex/meta/as_complex.hpp>
-#include <nt2/include/functions/sincos.hpp>
+//#include <nt2/include/functions/sincos.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       A0 s, c;
-      sincos(a1, s, c);
+      ::sincos(a1, s, c); //TO DO nt2::sincos
       return a0*result_type(c, s); 
     }
   };

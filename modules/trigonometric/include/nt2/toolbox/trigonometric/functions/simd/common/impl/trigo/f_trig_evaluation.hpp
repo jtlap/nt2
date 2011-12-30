@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
-
+#include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 namespace nt2
 {
   namespace details

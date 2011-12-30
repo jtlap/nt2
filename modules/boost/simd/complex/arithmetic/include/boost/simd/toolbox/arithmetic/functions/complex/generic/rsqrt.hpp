@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_complex<rA0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const rA0 root = rsqrt(boost::simd::abs(imag(a0)))); 
+      const rA0 root = rsqrt(boost::simd::abs(imag(a0))); 
       return result_type(One<result_type>(), sign(imag(a0)))*root*Sqrt_2o_2<rA0>(); 
     }
   };

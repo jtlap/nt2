@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::prod_, tag::cpu_, (A0)(X)
-                            , (simd_< imaginary_< arithmetic_<A0> >, X >)
+                                     , ((simd_< imaginary_< arithmetic_<A0> >, X >))
                             )
   {
     typedef typename meta::as_real<A0>::type rtype;
