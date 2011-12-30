@@ -32,7 +32,7 @@ namespace nt2 { namespace memory
     * iliffe_buffer is a Buffer adaptor that turns a 1D Buffer into a nD Buffer
     * by using the Iliffe vector allocation scheme to allow multi-dimensionnal
     * access by precomputing index tables of nD pointers.
-    * 
+    *
     * \tparam Dimensions    Number of dimensions stored in this Buffer
     * \tparam Data          1D Buffer to remodel as data storage
     * \tparam Index         1D Buffer to remodel as indices storage
@@ -78,16 +78,10 @@ namespace nt2 { namespace memory
     typedef typename Data::size_type                    size_type;
 
     //==========================================================================
-    /** Type representing an index inside the iliffe_buffer                   */
-    //==========================================================================
-    typedef typename Data::index_type                   index_type;
-    
-
-    //==========================================================================
     /** Type representing an offset between values                            */
     //==========================================================================
     typedef typename Data::difference_type              difference_type;
-    
+
     //==========================================================================
     /**
      *  Default constructor builds an empty iliffe buffer
@@ -109,12 +103,12 @@ namespace nt2 { namespace memory
         make_links();
       }
     }
-                  
+
     //==========================================================================
     /**
       * Initializes a Iliffe buffer from a dimensions and bases set.
-      * 
-      * \param sz FusionRandomAccessSequence containing the dimensions set 
+      *
+      * \param sz FusionRandomAccessSequence containing the dimensions set
       *           of the buffer.
       * \param bs FusionRandomAccessSequence containing the base indices set
       *           of the buffer.
@@ -149,7 +143,7 @@ namespace nt2 { namespace memory
       * begin() and end() are both returning un-biased iterator, making them
       * suitable arguments for standard algorithms. Note that such iterators
       * dont walk over padding.
-      * 
+      *
       * \return A pointer pointing past the last element of the buffer segment
       * holding values.
      **/
@@ -162,45 +156,29 @@ namespace nt2 { namespace memory
       * Return the lowest indices of the iliffe_buffer
      **/
     //==========================================================================
-    boost::fusion::
-    vector<typename Data::difference_type, typename Index::difference_type>
-    lower() const
-    {
-      boost::fusion::
-      vector<typename Data::difference_type, typename Index::difference_type>
-      that(data_.lower(),index_.lower());
-      return that;
-    }
+    inline difference_type lower() const { return data_.lower(); }
 
     //==========================================================================
     /**
       * Return the upper indices of the iliffe_buffer
      **/
     //==========================================================================
-    boost::fusion::
-    vector<typename Data::difference_type, typename Index::difference_type>
-    upper() const
-    {
-      boost::fusion::
-      vector<typename Data::difference_type, typename Index::difference_type>
-      that(data_.lower()+inner_-1,index_.upper());
-      return that;
-    }
+    inline difference_type upper() const { return data_.upper(); }
 
     //==========================================================================
     /**
       * Return the sizes of the iliffe_buffer
      **/
     //==========================================================================
-    boost::fusion::
-    vector<typename Data::size_type, typename Index::size_type>
-    size() const
-    {
-      boost::fusion::vector<typename Data::size_type, typename Index::size_type>
-      that(inner_,index_.size());
-      return that;
-    }
-    
+    inline size_type size() const { return data_.size(); }
+
+    //==========================================================================
+    /**
+      * Return true if the iliffe_buffer contains no elements
+     **/
+    //==========================================================================
+    inline bool empty() const { return size() == 0; }
+
     //==========================================================================
     /**
       * Reallocate a iliffe_bufer to a new size.
@@ -228,7 +206,7 @@ namespace nt2 { namespace memory
                     , boost::fusion::size(meta::as_sequence(pos))
                     );
     }
-    
+
     template<class Position>
     BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
     {
@@ -243,9 +221,12 @@ namespace nt2 { namespace memory
       boost::swap(inner_,src.inner_);
       index_swap(index_,src.index_);
     }
-    
-    protected:
 
+    protected:
+    //==========================================================================
+    // Partial swap based on actual sub-buffer type
+    // TODO: Probably fix this properly in a non-concrete type based way ?
+    //==========================================================================
     template<class TT, std::ptrdiff_t BB>
     void index_swap( buffer<TT,BB>& local,buffer<TT,BB>& src )
     {
@@ -256,32 +237,28 @@ namespace nt2 { namespace memory
     void index_swap( array_buffer<TT,SS,BB>&, array_buffer<TT,SS,BB>& ) {}
 
     //==========================================================================
-    /*
-     * data_size computes the number of elements required to store the data 
-     * table of the Iliffe vector
-     */
+    // data_size computes the number of elements required to store the data
+    // table of the Iliffe vector
     //==========================================================================
     template<class Seq> inline std::size_t
     data_size(Seq const& s) const
     {
       return boost::fusion::fold( meta::as_sequence(s)
                                 , boost::mpl::size_t<1>()
-                                , boost::dispatch::functor<tag::multiplies_>() 
+                                , boost::dispatch::functor<tag::multiplies_>()
                                 );
     }
 
     //==========================================================================
-    /*
-     * index_size computes the number of elements required to store the index 
-     * table of the Iliffe vector
-     */
+    // index_size computes the number of elements required to store the index
+    // table of the Iliffe vector
     //==========================================================================
     template<class Seq> inline std::size_t
     index_size(Seq const& s) const
     {
       return boost::fusion::fold( boost::fusion::pop_front(meta::as_sequence(s))
                                 , boost::mpl::size_t<1>()
-                                , boost::dispatch::functor<tag::multiplies_>() 
+                                , boost::dispatch::functor<tag::multiplies_>()
                                 );
     }
 
@@ -291,7 +268,7 @@ namespace nt2 { namespace memory
     template<class Position> BOOST_FORCEINLINE
     reference access(Position const& p, boost::mpl::int_<1> const& )
     {
-      return data_[boost::fusion::at_c<0>(p)];      
+      return data_[boost::fusion::at_c<0>(p)];
     }
 
     template<class Position> BOOST_FORCEINLINE
@@ -314,11 +291,9 @@ namespace nt2 { namespace memory
     {
       return index_[boost::fusion::at_c<1>(p)][boost::fusion::at_c<0>(p)];
     }
-    
+
     //==========================================================================
-    /*
-     * link performs the indexing of the Iliffe vector
-     */
+    //link performs the indexing of the Iliffe vector
     //==========================================================================
     void make_links()
     {

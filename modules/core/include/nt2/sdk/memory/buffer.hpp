@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED 
-#define NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED 
+#ifndef NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED
 
 //==============================================================================
 /**!
@@ -63,11 +63,10 @@ namespace nt2 {  namespace memory
     typedef typename parent_data::const_reference         const_reference;
     typedef typename parent_data::size_type               size_type;
     typedef typename parent_data::difference_type         difference_type;
-    typedef typename parent_data::difference_type         index_type;
-    
+
     //==========================================================================
     /**!
-     * Default constructor for buffer. 
+     * Default constructor for buffer.
      **/
     //==========================================================================
     buffer( Allocator const& a = Allocator() ) : parent_data(a) {}
@@ -80,14 +79,14 @@ namespace nt2 {  namespace memory
     //==========================================================================
     template<typename Sizes>
     buffer( Sizes const& sz, allocator_type const& alloc = allocator_type() )
-    : parent_data(alloc)          
-    {      
+    : parent_data(alloc)
+    {
       parent_data::allocate( boost::fusion::at_c<0>(meta::as_sequence(sz)) );
     }
 
     //==========================================================================
     /**!
-     * Copy constructor for buffer. 
+     * Copy constructor for buffer.
      *
      * \param src pointer_buffer to copy
      **/
@@ -99,7 +98,7 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
-     * \c buffer destructor 
+     * \c buffer destructor
      **/
     //==========================================================================
     ~buffer() { parent_data::deallocate(); }
@@ -135,7 +134,7 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     using parent_data::origin;
-    
+
     //==========================================================================
     /**!
      * Return a (const) iterator to the beginning of the buffer data.
@@ -149,36 +148,6 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     using parent_data::end;
-    
-    //==========================================================================
-    /**!
-     * Return a (const) reverse_iterator to the beginning of the buffer data.
-     **/
-    //==========================================================================
-    reverse_iterator        rbegin()
-    {
-      return reverse_iterator(end());
-    }
-    
-    const_reverse_iterator  rbegin() const
-    {
-      return const_reverse_iterator(end());
-    }
-
-    //==========================================================================
-    /**!
-     * Return a (const) reverse_iterator to the end of the buffer data.
-     **/
-    //==========================================================================
-    reverse_iterator        rend()
-    {
-      return reverse_iterator(begin());
-    }
-    
-    const_reverse_iterator  rend()   const
-    {
-      return const_reverse_iterator(begin());
-    }
 
     //==========================================================================
     /**!
@@ -216,37 +185,37 @@ namespace nt2 {  namespace memory
      * integral value or as a Fusion RandomAccessSequence of size 1.
      * Note that \c pos should be no lesser than lower() nor bigger than upper()
      * to be valid.
-     **/    
+     **/
     //==========================================================================
     template<class Position>
     BOOST_FORCEINLINE reference operator[](Position const& pos)
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
-      
+
       BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
-                      
+
       BOOST_ASSERT_MSG( (i <= upper())
                       , "Position is out of buffer bounds"
                       );
-                      
+
       return parent_data::origin_[i];
     }
-    
+
     template<class Position>
     BOOST_FORCEINLINE const_reference operator[](Position const& pos) const
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
-      
+
       BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
-                      
+
       BOOST_ASSERT_MSG( (i <= upper())
                       , "Position is out of buffer bounds"
                       );
-                      
+
       return parent_data::origin_[i];
     }
 
@@ -297,7 +266,7 @@ namespace nt2 {  namespace memory
   {
     a.swap(b);
   }
-} } 
+} }
 
 #ifdef BOOST_MSVC
 #pragma warning(pop)

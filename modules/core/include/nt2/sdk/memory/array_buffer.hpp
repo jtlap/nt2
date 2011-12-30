@@ -29,22 +29,18 @@ namespace nt2 {  namespace memory
     // Some fake allocator_type to satisfy Sequence requirement
     //============================================================================
     struct no_allocator {};
-    
+
     //============================================================================
     // Buffer type interface
     //============================================================================
-    typedef no_allocator                                      allocator_type;
-    typedef T                                                 value_type;
-    typedef T*                                                iterator;
-    typedef const T*                                          const_iterator;
-    typedef std::reverse_iterator<iterator>                   reverse_iterator;
-    typedef std::reverse_iterator<const_iterator>             const_reverse_iterator;
-    typedef T&                                                reference;
-    typedef const T&                                          const_reference;
-    typedef std::size_t                                       size_type;
-    typedef std::ptrdiff_t                                    difference_type;
-    typedef std::ptrdiff_t                                    index_type;
-    typedef boost::mpl::integral_c<std::ptrdiff_t,BaseIndex>  base_index_type;
+    typedef no_allocator                              allocator_type;
+    typedef T                                         value_type;
+    typedef T*                                        iterator;
+    typedef T const*                                  const_iterator;
+    typedef T&                                        reference;
+    typedef const T&                                  const_reference;
+    typedef std::size_t                               size_type;
+    typedef std::ptrdiff_t                            difference_type;
 
     //==========================================================================
     // Default constructor
@@ -89,40 +85,10 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
-     * Return a (const) reverse_iterator to the beginning of the buffer data.
-     **/
-    //==========================================================================
-    reverse_iterator rbegin()
-    {
-      return reverse_iterator(end());
-    }
-    
-    const_reverse_iterator  rbegin() const
-    {
-      return const_reverse_iterator(end());
-    }
-
-    //==========================================================================
-    /**!
-     * Return a (const) reverse_iterator to the end of the buffer data.
-     **/
-    //==========================================================================
-    reverse_iterator rend()
-    {
-      return reverse_iterator(begin());
-    }
-    
-    const_reverse_iterator rend() const
-    {
-      return const_reverse_iterator(begin());
-    }
-    
-    //==========================================================================
-    /**!
      * Return the number of elements accessible through the buffer.
      **/
     //==========================================================================
-    static difference_type size() { return N; }
+    static size_type size() { return N; }
 
     //==========================================================================
     /**!
@@ -153,40 +119,40 @@ namespace nt2 {  namespace memory
      * integral value or as a Fusion RandomAccessSequence of size 1.
      * Note that \c pos should be no lesser than lower() nor bigger than upper()
      * to be valid.
-     **/    
+     **/
     //==========================================================================
     template<class Position> BOOST_FORCEINLINE
     reference operator[](Position const& pos)
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
-      
+
       BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
-                      
+
       BOOST_ASSERT_MSG( (i <= upper())
                       , "Position is out of buffer bounds"
                       );
-                      
+
       return storage_[i-BaseIndex];
     }
-    
+
     template<class Position> BOOST_FORCEINLINE
     const_reference operator[](Position const& pos) const
     {
       difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
-      
+
       BOOST_ASSERT_MSG( (i >= lower())
                       , "Position is below buffer bounds"
                       );
-                      
+
       BOOST_ASSERT_MSG( (i <= upper())
                       , "Position is out of buffer bounds"
                       );
-                      
+
       return storage_[i-BaseIndex];
     }
-    
+
     //==========================================================================
     /**!
      * Swap the contents of the buffer with another one.
@@ -195,8 +161,8 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     void swap( array_buffer& src )
-    {      
-      for(size_type i = 0; i < N; ++i) boost::swap(storage_[i],src.storage_[i]);        
+    {
+      for(size_type i = 0; i < N; ++i) boost::swap(storage_[i],src.storage_[i]);
     }
 
     //==========================================================================
@@ -231,6 +197,6 @@ namespace nt2 {  namespace memory
   {
     a.swap(b);
   }
-} } 
+} }
 
 #endif

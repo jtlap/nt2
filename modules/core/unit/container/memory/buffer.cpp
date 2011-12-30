@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL( buffer_dimensions, NT2_TYPES )
   using nt2::memory::buffer;
   using boost::mpl::size_t;
   using boost::mpl::_;
-  
+
   NT2_TEST_EXPR_TYPE((buffer<T,1>()), dimensions_of<_>, size_t<1> );
 }
 
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL( buffer_model_of, NT2_TYPES )
   using boost::dispatch::meta::model_of;
   using nt2::memory::buffer;
   using boost::mpl::_;
-  
+
   NT2_TEST_EXPR_TYPE((buffer<int,1>()),(apply_model<_,T>),(buffer<T,1>));
 }
 
@@ -92,16 +92,16 @@ NT2_TEST_CASE_TPL( buffer_copy_ctor, NT2_TYPES)
 
   type b(5);
 
-  for ( typename type::index_type i = b.lower(); i <= b.upper(); ++i )
+  for ( typename type::difference_type i = b.lower(); i <= b.upper(); ++i )
   b[i] = 3+i ;
 
   type x(b);
-  
+
   NT2_TEST_EQUAL(x.size() , 5U );
   NT2_TEST_EQUAL(x.lower(), 1 );
   NT2_TEST_EQUAL(x.upper(), 5  );
 
-  for ( typename type::index_type i = x.lower(); i <= x.upper(); ++i )
+  for ( typename type::difference_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x[i], 3+i );
 }
 
@@ -116,18 +116,17 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
 
   buffer_type x, b(5);
 
-  for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+  for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
     b[i] = 3+i ;
 
   x = b;
-  
+
   NT2_TEST_EQUAL(x.size() , 5U );
   NT2_TEST_EQUAL(x.lower(), -2 );
   NT2_TEST_EQUAL(x.upper(), 2  );
 
-  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+  for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x[i], 3+i );
-    
 }
 
 //==============================================================================
@@ -140,11 +139,11 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
   typedef buffer<T,1> buffer_type ;
 
   buffer_type b(boost::fusion::single_view<int>(3));
-  for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+  for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
     b[i] = 10*i ;
 
   buffer_type x( 5 );
-  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+  for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     x[i] = 3+i ;
 
   swap(b,x);
@@ -157,10 +156,10 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(x.lower(), 1  );
   NT2_TEST_EQUAL(x.upper(), 3  );
 
-  for ( typename buffer_type::index_type i = b.lower(); i <= b.upper(); ++i )
+  for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
     NT2_TEST_EQUAL( b[i], 3+i );
-    
-  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+
+  for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x[i], 10*i );
 }
 
@@ -171,7 +170,7 @@ struct f_
 {
   template<class T> T operator()(T const& e) const { return 10*e; }
 };
-  
+
 NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
 {
   using nt2::memory::buffer;
@@ -179,17 +178,17 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
   typedef buffer<T,-2> buffer_type ;
 
   buffer_type x(5);
-  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+  for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     x[i] = 3+i ;
 
   f_ f;
-  
+
   typename buffer_type::iterator b = x.begin();
   typename buffer_type::iterator e = x.end();
 
   std::transform(b,e,b,f);
 
-  for ( typename buffer_type::index_type i = x.lower(); i <= x.upper(); ++i )
+  for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x[i], f(3+i) );
 }
 
@@ -202,7 +201,7 @@ NT2_TEST_CASE_TPL( buffer_wrong_access, NT2_TYPES)
   typedef buffer<T,-2> buffer_type ;
   buffer_type b;
   T value;
-  
+
   NT2_TEST_ASSERT( value  = b[-3] );
   NT2_TEST_ASSERT( value  = b[9]  );
   NT2_TEST_ASSERT( b[-5]  = value );

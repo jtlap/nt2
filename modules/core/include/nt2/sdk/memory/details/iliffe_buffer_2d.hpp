@@ -33,13 +33,8 @@ namespace nt2 { namespace memory
     typedef array_buffer<T,S,BI>                      parent;
     typedef array_buffer<T*,S,BO>                     index_parent;
     typedef typename parent::allocator_type           allocator_type;
-    typedef typename parent::value_type               value_type;
-    typedef typename parent::iterator                 iterator;
-    typedef typename parent::const_iterator           const_iterator;
     typedef typename parent::reference                reference;
     typedef typename parent::const_reference          const_reference;
-    typedef typename parent::size_type                size_type;
-    typedef typename parent::difference_type          difference_type;
 
     iliffe_buffer( allocator_type const& a = allocator_type()) : parent(a) {}
 
@@ -48,6 +43,9 @@ namespace nt2 { namespace memory
                   : parent(sz,a)
     {}
 
+    //==========================================================================
+    // Element random access
+    //==========================================================================
     template<class Position>
     BOOST_FORCEINLINE reference operator[]( Position const& pos )
     {
@@ -55,7 +53,7 @@ namespace nt2 { namespace memory
                     , boost::fusion::size(meta::as_sequence(pos))
                     );
     }
-    
+
     template<class Position>
     BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
     {
@@ -64,63 +62,7 @@ namespace nt2 { namespace memory
                     );
     }
 
-    //==========================================================================
-    /**
-      * Return the lowest indices of the iliffe_buffer
-     **/
-    //==========================================================================
-    boost::fusion::
-    vector< typename parent::difference_type
-          , typename index_parent::difference_type
-          >
-    lower() const
-    {
-      boost::fusion::
-      vector< typename parent::difference_type
-            , typename index_parent::difference_type
-            >
-      that(BI,BO);
-      return that;
-    }
-
-    //==========================================================================
-    /**
-      * Return the upper indices of the iliffe_buffer
-     **/
-    //==========================================================================
-    boost::fusion::
-    vector< typename parent::difference_type
-          , typename index_parent::difference_type
-          >
-    upper() const
-    {
-    boost::fusion::
-    vector< typename parent::difference_type
-          , typename index_parent::difference_type
-          > that(BI,array_buffer<T*,S,BO>::upper());
-      return that;
-    }
-
-    //==========================================================================
-    /**
-      * Return the sizes of the iliffe_buffer
-     **/
-    //==========================================================================
-    boost::fusion::
-    vector< typename parent::size_type
-          , typename index_parent::size_type
-          >
-    size() const
-    {
-      boost::fusion::
-      vector< typename parent::size_type
-            , typename index_parent::size_type
-            > that(1,S);
-      return that;
-    }
-
     protected:
-    
     //==========================================================================
     // Access for 1D Position
     //==========================================================================

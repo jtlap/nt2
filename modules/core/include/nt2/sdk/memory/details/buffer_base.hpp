@@ -22,8 +22,6 @@ namespace nt2 { namespace memory { namespace details
   {
     typedef Allocator                             parent_allocator;
     typedef typename Allocator::value_type        value_type;
-    typedef typename Allocator::pointer           pointer;
-    typedef typename Allocator::const_pointer     const_pointer;
     typedef typename Allocator::pointer           iterator;
     typedef typename Allocator::const_pointer     const_iterator;
     typedef typename Allocator::pointer           reverse_iterator;
@@ -32,24 +30,15 @@ namespace nt2 { namespace memory { namespace details
     typedef typename Allocator::const_reference   const_reference;
     typedef typename Allocator::difference_type   size_type;
     typedef typename Allocator::difference_type   difference_type;
-    typedef typename Allocator::difference_type   index_type;
-    typedef boost::mpl::integral_c<std::ptrdiff_t,BaseIndex>  base_index_type;
 
     buffer_data ( Allocator const& a )
                 : parent_allocator(a), origin_(0), up_(BaseIndex-1) {}
 
-    template<class Size> void allocate(Size const& s)
+    void allocate(size_type const& s)
     {
-      if(s)
-      {
-        origin_ = parent_allocator::allocate(s) - BaseIndex;
-      }
-      else
-      {
-        origin_ = 0;
-      }
-
-      up_ = BaseIndex + s - 1;
+      if(s) origin_ = parent_allocator::allocate(s) - BaseIndex;
+      else  origin_ = 0;
+      clamp(s);
     }
 
     void deallocate()
@@ -57,18 +46,18 @@ namespace nt2 { namespace memory { namespace details
       if(origin_) parent_allocator::deallocate(origin_ + BaseIndex, size());
     }
 
-    template<class Size> void resize(Size const& s)
+    void resize(size_type const& s)
     {
       realloc(s);
       clamp(s);
     }
 
-    template<class Size> void clamp(Size const& s)
+    void clamp(size_type const& s)
     {
       up_  = BaseIndex + s - 1;
     }
     
-    template<class Size> void realloc(Size const& s)
+    void realloc(size_type const& s)
     {
       if(size() < s )
       {
@@ -81,13 +70,13 @@ namespace nt2 { namespace memory { namespace details
     difference_type lower() const { return BaseIndex;           }
     difference_type upper() const { return up_;                 }
 
-    pointer origin()  { return origin_;             }
-    pointer begin()   { return origin_ + BaseIndex; }
-    pointer end()     { return origin_ + up_ + 1;   }
+    iterator origin()  { return origin_;             }
+    iterator begin()   { return origin_ + BaseIndex; }
+    iterator end()     { return origin_ + up_ + 1;   }
 
-    const_pointer origin()  const { return origin_;             }
-    const_pointer begin()   const { return origin_ + BaseIndex; }
-    const_pointer end()     const { return origin_ + up_ + 1;   }
+    const_iterator origin()  const { return origin_;             }
+    const_iterator begin()   const { return origin_ + BaseIndex; }
+    const_iterator end()     const { return origin_ + up_ + 1;   }
 
     void swap(buffer_data& src)
     {
@@ -105,7 +94,7 @@ namespace nt2 { namespace memory { namespace details
       return static_cast<parent_allocator const&>(*this);
     }
 
-    pointer         origin_;
+    iterator        origin_;
     difference_type up_;    
   };
 } } }
