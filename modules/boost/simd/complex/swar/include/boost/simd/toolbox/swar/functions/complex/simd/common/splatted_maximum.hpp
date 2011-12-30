@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return splat<A0>(maximum(a0))
+      return splat<A0>(maximum(a0));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_maximum_, tag::cpu_
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return splat<A0>(maximum(a0))
+      return splat<A0>(maximum(a0));
     }
   };
    

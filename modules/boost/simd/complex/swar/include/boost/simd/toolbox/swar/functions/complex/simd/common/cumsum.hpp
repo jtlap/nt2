@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-        return result_type(cumsum(imag(a0)); 
+        return result_type(cumsum(imag(a0))); 
       }
   };
 } } }
