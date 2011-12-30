@@ -8,7 +8,9 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_COMPARE_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_COMPARE_LESS_HPP_INCLUDED
-#include <boost/simd/sdk/simd/logical.hpp>
+
+#include <nt2/toolbox/operator/functions/compare_less.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <nt2/sdk/complex/complex.hpp>

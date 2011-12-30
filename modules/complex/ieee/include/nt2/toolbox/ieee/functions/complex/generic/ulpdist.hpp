@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_ULPDIST_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_ULPDIST_HPP_INCLUDED
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
