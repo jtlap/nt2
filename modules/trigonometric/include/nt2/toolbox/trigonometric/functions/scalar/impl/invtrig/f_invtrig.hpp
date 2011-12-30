@@ -29,6 +29,10 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/mhalf.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/nan.hpp>
 
 namespace nt2
 {
@@ -80,7 +84,7 @@ namespace nt2
 
         static inline A0 acos(const  A0& a0)
         {
-          if (a0 < -Half<float>())
+          if (a0 < Malf<float>())
             return Pi<float>()-asin( nt2::sqrt(oneplus(a0)*Half<float>()))*Two<float>();
           else if (a0 > Half < float>())
             return asin( nt2::sqrt(oneminus(a0)*Half<float>()))*Two<float>();
