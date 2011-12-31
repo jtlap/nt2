@@ -45,7 +45,6 @@ NT2_TEST_CASE(properties)
   NT2_TEST_EXPR_TYPE(c, as_complex<_>, complex<double>);
 }
 
-#if 0
 NT2_TEST_CASE(properties_simd)
 {
   using namespace nt2::meta;
@@ -67,8 +66,9 @@ NT2_TEST_CASE(properties_simd)
   composite<complex<double>, ext_t> c;
   NT2_TEST_EXPR_TYPE(c, scalar_of<_>, complex<double>);
   NT2_TEST_EXPR_TYPE(c, real_of<_>, double);
+#if 0
   NT2_TEST_EXPR_TYPE(c, as_real<_>, (native<double, ext_t>));
   NT2_TEST_EXPR_TYPE(c, as_imaginary<_>, (native<imaginary<double>, ext_t>));
   NT2_TEST_EXPR_TYPE(c, as_complex<_>, (native<complex<double>, ext_t>));
-}
 #endif
+}
