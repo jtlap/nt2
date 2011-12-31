@@ -6,18 +6,19 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_FINITE_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_FINITE_HPP_INCLUDED
-#include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/logical_and.hpp>
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NGEZ_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NGEZ_HPP_INCLUDED
+#include <nt2/include/functions/is_ngez.hpp>
+#include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 namespace nt2 { namespace ext
 {
   // complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_finite_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_ngez_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -25,20 +26,20 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return logical_and(is_finite(imag(a0)),is_finite(real(a0))); 
+      return is_ngez(real(a0)); 
     }
   };
 
   // imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_finite_, tag::cpu_, (A0), 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_ngez_, tag::cpu_, (A0), 
                               (generic_< imaginary_< arithmetic_<A0> > > )
                             )
   {
     typedef typename  meta::real_of<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
+    inline result_type operator()(const A0&) const
     {
-      return is_finite(a0()); 
+      return False<rA0>(); 
     }
   };
 } }

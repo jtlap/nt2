@@ -6,18 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_LESS_EQUAL_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_LESS_EQUAL_HPP_INCLUDED
-#include <nt2/include/functions/is_less_equal.hpp>
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
+#include <nt2/include/functions/is_equal_with_equal_nans.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/is_gez.hpp>
-#include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
-#include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -25,20 +21,20 @@
 namespace nt2 { namespace ext
 {
   // complex/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_less_equal_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_equal_with_equal_nans_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
-                              (generic_< complex_< arithmetic_<A0> > >)
+                              (generic_< complex_< arithmetic_<A1> > >)
                             )
   {
     typedef typename  meta::real_of<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    NT2_FUNCTOR_CALL(2)
     {
-      return is_less_equal(real(a0),real(a1)); 
+      return logical_and(is_equal_with_equal_nans(real(a0),real(a1)), is_equal_with_equal_nans(imag(a0),imag(a1))); 
     }
   };
   // complex/arithmetic
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_less_equal_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_equal_with_equal_nans_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
                             )
@@ -47,11 +43,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_less_equal(real(a0), a1); 
+      return logical_and(is_equal_with_equal_nans(real(a0), a1), is_real(a0)); 
     }
   };
   // arithmetic/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_less_equal_, tag::cpu_, (A0)(A1), 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_equal_with_equal_nans_, tag::cpu_, (A0)(A1), 
                               (generic_< arithmetic_<A0> >)
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
@@ -60,11 +56,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_less_equal(real(a1),a0); 
+      return logical_and(is_equal_with_equal_nans(real(a1),a0), is_real(a1)); 
     }
   };
   // complex/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_less_equal_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_equal_with_equal_nans_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< imaginary_< arithmetic_<A1> > >)
                             )
@@ -73,11 +69,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_lez(real(a0)); 
+      return logical_and(is_equal_with_equal_nans(imag(a0), imag(a1)), is_imag(a0)); 
     }
   };
   // imaginary/complex
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_less_equal_, tag::cpu_, (A0)(A1), 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_equal_with_equal_nans_, tag::cpu_, (A0)(A1), 
                               (generic_< imaginary_< arithmetic_<A0> > > )
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
@@ -86,24 +82,24 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_gez(real(a1)); 
+      return logical_and(is_equal_with_equal_nans(imag(a1),imag(a0)), is_imag(a1)); 
     }
   };
   // imaginary/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_less_equal_, tag::cpu_, (A0), 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_equal_with_equal_nans_, tag::cpu_, (A0)(A1), 
                               (generic_< imaginary_< arithmetic_<A0> > > )
-                              (generic_< imaginary_< arithmetic_<A0> > >)
+                              (generic_< imaginary_< arithmetic_<A1> > >)
                             )
   {
     typedef typename  meta::real_of<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
-    inline result_type operator()(const A0&, const A0&) const
+    NT2_FUNCTOR_CALL(2)
     {
-      return True<result_type>(); 
+      return is_equal_with_equal_nans(imag(a0),imag(a1)); 
     }
   };
   // imaginary/arithmetic
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_less_equal_, tag::cpu_, (A0)(A1), 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_equal_with_equal_nans_, tag::cpu_, (A0)(A1), 
                               (generic_< imaginary_< arithmetic_<A0> > > )
                               (generic_< arithmetic_<A1> >)
                             )
@@ -112,11 +108,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_gez(a1); 
+      return logical_and(is_real(a0), is_imag(a1)); 
     }
   };
   // arithmetic/imaginary
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_less_equal_, tag::cpu_, (A0)(A1), 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_equal_with_equal_nans_, tag::cpu_, (A0)(A1), 
                               (generic_< arithmetic_<A0> >)
                               (generic_< imaginary_< arithmetic_<A1> > > )
                             )
@@ -125,7 +121,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return  is_lez(a0); 
+      return logical_and(is_real(a1), is_imag(a0)); 
     }
   };
 

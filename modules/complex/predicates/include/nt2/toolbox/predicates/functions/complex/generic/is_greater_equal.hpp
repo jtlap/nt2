@@ -20,6 +20,7 @@
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/include/constants/true.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 namespace nt2 { namespace ext
 {

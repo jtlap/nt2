@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLIT_HPP_INCLUDED
-#define NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLIT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_SPLIT_HPP_INCLUDED
+#define NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_SPLIT_HPP_INCLUDED
 #include <nt2/toolbox/swar/functions/group.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
@@ -18,6 +18,8 @@
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -38,6 +40,8 @@ namespace nt2 { namespace ext
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
     {
+      typedef typename meta::as_real<A1>::type rA1; 
+      rA1 ar0, ar1, ai0, ai1; 
       split(real(a0), ar0, ar1); 
       split(imag(a0), ai0, ai1);
       a1 = A1(ar0, ai0);
@@ -52,7 +56,7 @@ namespace nt2 { namespace ext
                               ((simd_<complex_<arithmetic_<A0> >,X>))
                             )
   {
-    typedef typename dispatch::meta::upgrade<A0>::type rtype;
+    typedef typename boost::dispatch::meta::upgrade<A0>::type rtype;
     typedef boost::fusion::tuple<rtype, rtype> result_type;
     
     NT2_FUNCTOR_CALL_REPEAT(1)

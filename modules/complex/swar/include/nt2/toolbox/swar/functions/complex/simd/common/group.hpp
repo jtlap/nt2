@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
                           ((simd_<complex_<arithmetic_<A0> >,X>))
                         )
   {
-    typedef typename dispatch::meta::downgrade<A0>::type result_type;
+    typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return result_type(group(real(a0), group(imag(a0)))); 
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
                           ((simd_<imaginary_<arithmetic_<A0> >,X>))
                         )
   {
-    typedef typename dispatch::meta::downgrade<A0>::type result_type;
+    typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return result_type(group(imag(a0), imag(a1))); 
