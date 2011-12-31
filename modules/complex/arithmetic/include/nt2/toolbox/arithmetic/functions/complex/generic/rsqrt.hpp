@@ -15,6 +15,7 @@
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
