@@ -27,12 +27,12 @@
 NT2_TEST_CASE_TPL ( sqr_abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using boost::simd::sqr_abs;
-  using boost::simd::tag::sqr_abs_;
+  using nt2::sqr_abs;
+  using nt2::tag::sqr_abs_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<sqr_abs_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename std::complex<T> cT;
   typedef T wished_r_t;
@@ -44,20 +44,20 @@ NT2_TEST_CASE_TPL ( sqr_abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   double ulpd;
  ulpd=0.0; 
 
-  // std::cout << nt2::type_id(boost::simd::I<T>()) << std::endl; 
+  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
   // specific values tests
    NT2_TEST_EQUAL(sqr_abs(cT(1)), T(1));
-   NT2_TEST_EQUAL(sqr_abs(cT(boost::simd::Inf<T>())), boost::simd::Inf<T>());
-   NT2_TEST_EQUAL(sqr_abs(cT(boost::simd::Minf<T>())), boost::simd::Inf<T>());
-   NT2_TEST_EQUAL(sqr_abs(cT(boost::simd::Mone<T>())), boost::simd::One<T>());
-   NT2_TEST_EQUAL(sqr_abs(cT(boost::simd::Nan<T>())), boost::simd::Nan<T>());
-   NT2_TEST_EQUAL(sqr_abs(cT(boost::simd::One<T>())), boost::simd::One<T>());
-   NT2_TEST_EQUAL(sqr_abs(cT(boost::simd::Valmax<T>())), boost::simd::Inf<T>());
-   NT2_TEST_EQUAL(sqr_abs(cT(boost::simd::Valmin<T>())), boost::simd::Inf<T>());
-   NT2_TEST_EQUAL(sqr_abs(cT(boost::simd::Zero<T>())), boost::simd::Zero<T>());
+   NT2_TEST_EQUAL(sqr_abs(cT(nt2::Inf<T>())), nt2::Inf<T>());
+   NT2_TEST_EQUAL(sqr_abs(cT(nt2::Minf<T>())), nt2::Inf<T>());
+   NT2_TEST_EQUAL(sqr_abs(cT(nt2::Mone<T>())), nt2::One<T>());
+   NT2_TEST_EQUAL(sqr_abs(cT(nt2::Nan<T>())), nt2::Nan<T>());
+   NT2_TEST_EQUAL(sqr_abs(cT(nt2::One<T>())), nt2::One<T>());
+   NT2_TEST_EQUAL(sqr_abs(cT(nt2::Valmax<T>())), nt2::Inf<T>());
+   NT2_TEST_EQUAL(sqr_abs(cT(nt2::Valmin<T>())), nt2::Inf<T>());
+   NT2_TEST_EQUAL(sqr_abs(cT(nt2::Zero<T>())), nt2::Zero<T>());
    std::complex < T > a(1, 0);
-   NT2_TEST_EQUAL(sqr_abs(a), boost::simd::One<T>());
+   NT2_TEST_EQUAL(sqr_abs(a), nt2::One<T>());
    std::complex < T > b(1, 2);
-   NT2_TEST_EQUAL(sqr_abs(b), boost::simd::Five<T>());
+   NT2_TEST_EQUAL(sqr_abs(b), nt2::Five<T>());
 } // end of test for floating_
 

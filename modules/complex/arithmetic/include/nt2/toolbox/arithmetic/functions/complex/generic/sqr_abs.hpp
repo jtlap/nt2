@@ -11,6 +11,7 @@
 #include <nt2/toolbox/arithmetic/functions/sqr_abs.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/sqr.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 
@@ -35,7 +36,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type result_type;
-      return sqr(real(a0)) + sqr(imag(a0)); 
+      return sqr(real(a0)) + sqr(imag(a0)); //TODO avoid overflow
     }
   };
   

@@ -26,15 +26,15 @@
 NT2_TEST_CASE_TPL ( average_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using boost::simd::average;
-  using boost::simd::tag::average_;
+  using nt2::average;
+  using nt2::tag::average_;
   typedef std::complex<T> cT; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<average_(cT, cT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::simd::imaginary<T> ciT; 
+  typedef nt2::imaginary<T> ciT; 
   typedef cT wished_r_t;
 
   // return type conformity test 
@@ -45,12 +45,12 @@ NT2_TEST_CASE_TPL ( average_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   
   // specific values tests
-  NT2_TEST_EQUAL(average(cT(boost::simd::Inf<T>()), cT(boost::simd::Inf<T>())), cT(boost::simd::Inf<T>()));
-  NT2_TEST_EQUAL(average(cT(boost::simd::One<T>()), cT(boost::simd::Zero<T>())), cT(boost::simd::Half<T>())); 
-  NT2_TEST_EQUAL(average(cT(boost::simd::Zero<T>()), cT(boost::simd::Zero<T>())),cT(boost::simd::Zero<T>())); 
-  NT2_TEST_EQUAL(average(cT(0, 1), cT(1, 0)), cT(boost::simd::Half<T>(),boost::simd::Half<T>()));
-  NT2_TEST_EQUAL(average(cT(1, 0), cT(1, 0)), cT(boost::simd::One<T>()));
-  NT2_TEST_EQUAL(average(cT(2, 1), ciT(1)), cT(boost::simd::One<T>(), boost::simd::One<T>()));
-  NT2_TEST_EQUAL(average(ciT(1), ciT(0)), ciT(boost::simd::Half<T>()));
-  NT2_TEST_EQUAL(average(ciT(1), T(0)), cT(0, boost::simd::Half<T>()));
+  NT2_TEST_EQUAL(average(cT(nt2::Inf<T>()), cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
+  NT2_TEST_EQUAL(average(cT(nt2::One<T>()), cT(nt2::Zero<T>())), cT(nt2::Half<T>())); 
+  NT2_TEST_EQUAL(average(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),cT(nt2::Zero<T>())); 
+  NT2_TEST_EQUAL(average(cT(0, 1), cT(1, 0)), cT(nt2::Half<T>(),nt2::Half<T>()));
+  NT2_TEST_EQUAL(average(cT(1, 0), cT(1, 0)), cT(nt2::One<T>()));
+  NT2_TEST_EQUAL(average(cT(2, 1), ciT(1)), cT(nt2::One<T>(), nt2::One<T>()));
+  NT2_TEST_EQUAL(average(ciT(1), ciT(0)), ciT(nt2::Half<T>()));
+  NT2_TEST_EQUAL(average(ciT(1), T(0)), cT(0, nt2::Half<T>()));
 } // end of test for floating_

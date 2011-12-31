@@ -44,7 +44,7 @@ struct hierarchy
 NT2_TEST_CASE(imaginary_hierarchy)
 {
   using namespace boost::dispatch::meta;
-  using boost::simd::imaginary;
+  using nt2::imaginary;
   
   imaginary<double> im;
   
@@ -62,7 +62,7 @@ NT2_TEST_CASE(imaginary_hierarchy)
 NT2_TEST_CASE(imaginary_hierarchy_simd)
 {
   using namespace boost::dispatch::meta;
-  using boost::simd::imaginary;
+  using nt2::imaginary;
   using boost::simd::native;
   
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;

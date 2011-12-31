@@ -14,7 +14,7 @@
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/real_of.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
@@ -24,8 +24,8 @@
 
 NT2_TEST_CASE(properties)
 {
-  using namespace boost::simd::meta;
-  using boost::simd::imaginary;
+  using namespace nt2::meta;
+  using nt2::imaginary;
   using std::complex;
   using boost::mpl::_;
   
@@ -47,8 +47,8 @@ NT2_TEST_CASE(properties)
 #if 0
 NT2_TEST_CASE(properties_simd)
 {
-  using namespace boost::simd::meta;
-  using boost::simd::imaginary;
+  using namespace nt2::meta;
+  using nt2::imaginary;
   using std::complex;
   using boost::mpl::_;
   using boost::simd::native;
