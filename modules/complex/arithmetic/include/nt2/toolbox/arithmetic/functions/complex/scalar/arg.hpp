@@ -27,8 +27,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      std::cout << "icitte" <<  std::endl; 
-      return std::abs(static_cast<std::complex<result_type> >(a0)); 
+      return std::arg(static_cast<std::complex<result_type> >(a0)); 
     }
   };
 
@@ -39,7 +38,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::abs(imag(a0)); 
+      return nt2::arg(imag(a0)); 
     }
   };
   

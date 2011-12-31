@@ -61,7 +61,9 @@
  * \par
  *  
 **/
-
+#ifdef frexp
+#undef frexp
+#endif
 namespace boost { namespace simd { namespace tag
   {         
     /*!

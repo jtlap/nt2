@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+   exp.cpp
    )
 
-nt2_module_add_tests(complex.ieee.simd.unit ${SOURCES})
+nt2_module_add_tests(complex.exponential.scalar.unit ${SOURCES})

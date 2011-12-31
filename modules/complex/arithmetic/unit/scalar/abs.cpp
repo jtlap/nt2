@@ -46,18 +46,18 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
   // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
   // specific values tests
-   NT2_TEST_EQUAL(abs(cT(1)), T(1));
-   NT2_TEST_EQUAL(abs(cT(nt2::Inf<T>())), nt2::Inf<T>());
-   NT2_TEST_EQUAL(abs(cT(nt2::Minf<T>())), nt2::Inf<T>());
-   NT2_TEST_EQUAL(abs(cT(nt2::Mone<T>())), nt2::One<T>());
-   NT2_TEST_EQUAL(abs(cT(nt2::Nan<T>())), nt2::Nan<T>());
-   NT2_TEST_EQUAL(abs(cT(nt2::One<T>())), nt2::One<T>());
-   NT2_TEST_EQUAL(abs(cT(nt2::Valmax<T>())), nt2::Valmax<T>());
-   NT2_TEST_EQUAL(abs(cT(nt2::Valmin<T>())), nt2::Valmax<T>());
-   NT2_TEST_EQUAL(abs(cT(nt2::Zero<T>())), nt2::Zero<T>());
+   NT2_TEST_EQUAL(nt2::abs(cT(1)), T(1));
+   NT2_TEST_EQUAL(nt2::abs(cT(nt2::Inf<T>())), nt2::Inf<T>());
+   NT2_TEST_EQUAL(nt2::abs(cT(nt2::Minf<T>())), nt2::Inf<T>());
+   NT2_TEST_EQUAL(nt2::abs(cT(nt2::Mone<T>())), nt2::One<T>());
+   NT2_TEST_EQUAL(nt2::abs(cT(nt2::Nan<T>())), nt2::Nan<T>());
+   NT2_TEST_EQUAL(nt2::abs(cT(nt2::One<T>())), nt2::One<T>());
+   NT2_TEST_EQUAL(nt2::abs(cT(nt2::Valmax<T>())), nt2::Valmax<T>());
+   NT2_TEST_EQUAL(nt2::abs(cT(nt2::Valmin<T>())), nt2::Valmax<T>());
+   NT2_TEST_EQUAL(nt2::abs(cT(nt2::Zero<T>())), nt2::Zero<T>());
    std::complex < T > a(1, 0);
-   NT2_TEST_EQUAL(abs(a), nt2::One<T>());
+   NT2_TEST_EQUAL(nt2::abs(a), nt2::One<T>());
    std::complex < T > b(3, 4);
-   NT2_TEST_EQUAL(abs(b), nt2::Five<T>());
+   NT2_TEST_EQUAL(nt2::abs(b), nt2::Five<T>());
 } // end of test for floating_
 
