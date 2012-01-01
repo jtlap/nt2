@@ -57,9 +57,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Default Constructor
     //==========================================================================
-    block_facade( allocator_type const& a = allocator_type() )
-                : data_(a)
-    {}
+    block_facade( allocator_type const& a = allocator_type() ) : data_(a) {}
 
     //==========================================================================
     // Size based Constructor
@@ -68,11 +66,10 @@ namespace nt2 { namespace memory
     // shape related adaptation on Size/Base is handled by the specialisation.
     //==========================================================================
     template<class Size>
-    block_facade( Size const& sz
-                , allocator_type const& a = allocator_type()
-                )
+    block_facade( Size const& sz, allocator_type const& a = allocator_type() )
                 : data_(sz,a)
     {}
+
     //==========================================================================
     /**
      * Access to a given position in the underlying buffer
@@ -103,10 +100,19 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Size related informations
     //==========================================================================
-    inline size_type        size()  const { return data_.size();  }
-    inline bool             empty() const { return data_.empty(); }
-    inline difference_type  lower() const { return data_.lower(); }
-    inline difference_type  upper() const { return data_.upper(); }
+    BOOST_FORCEINLINE size_type size()        const { return data_.size();       }
+    BOOST_FORCEINLINE size_type inner_size()  const { return data_.inner_size(); }
+    BOOST_FORCEINLINE size_type outer_size()  const { return data_.outer_size(); }
+
+    BOOST_FORCEINLINE bool empty() const { return data_.empty(); }
+
+    BOOST_FORCEINLINE difference_type lower()       const { return data_.lower();        }
+    BOOST_FORCEINLINE difference_type inner_lower() const { return data_.inner_upper();  }
+    BOOST_FORCEINLINE difference_type outer_lower() const { return data_.outer_lower();  }
+
+    BOOST_FORCEINLINE difference_type upper()       const { return data_.upper();        }
+    BOOST_FORCEINLINE difference_type inner_upper() const { return data_.inner_upper();  }
+    BOOST_FORCEINLINE difference_type outer_upper() const { return data_.outer_upper();  }
 
     //==========================================================================
     // Access to data
