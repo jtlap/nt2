@@ -26,13 +26,13 @@
 NT2_TEST_CASE_TPL ( fma_real__3_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using boost::simd::fma;
-  using boost::simd::tag::fma_;
+  using nt2::fma;
+  using nt2::tag::fma_;
   typedef std::complex<T> cT; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<fma_(cT,cT,cT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef cT wished_r_t;
 
@@ -45,11 +45,11 @@ NT2_TEST_CASE_TPL ( fma_real__3_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(fma(cT(boost::simd::Inf<T>()), cT(boost::simd::Inf<T>()), cT(boost::simd::Inf<T>())), cT(boost::simd::Inf<T>(), boost::simd::Nan<T>()));
-  NT2_TEST_EQUAL(fma(cT(boost::simd::Minf<T>()), cT(boost::simd::Minf<T>()), cT(boost::simd::Minf<T>())), cT(boost::simd::Nan<T>()));
-  NT2_TEST_EQUAL(fma(cT(boost::simd::Mone<T>()), cT(boost::simd::Mone<T>()), cT(boost::simd::Mone<T>())), cT(boost::simd::Zero<T>()));
-  NT2_TEST_EQUAL(fma(cT(boost::simd::Nan<T>()), cT(boost::simd::Nan<T>()), cT(boost::simd::Nan<T>())), cT(boost::simd::Nan<T>()));
-  NT2_TEST_EQUAL(fma(cT(boost::simd::One<T>()), cT(boost::simd::One<T>()), cT(boost::simd::One<T>())), cT(boost::simd::Two<T>()));
-  NT2_TEST_EQUAL(fma(cT(boost::simd::Zero<T>()), cT(boost::simd::Zero<T>()), cT(boost::simd::Zero<T>())), cT(boost::simd::Zero<T>()));
+  NT2_TEST_EQUAL(fma(cT(nt2::Inf<T>()), cT(nt2::Inf<T>()), cT(nt2::Inf<T>())), cT(nt2::Inf<T>(), nt2::Nan<T>()));
+  NT2_TEST_EQUAL(fma(cT(nt2::Minf<T>()), cT(nt2::Minf<T>()), cT(nt2::Minf<T>())), cT(nt2::Nan<T>()));
+  NT2_TEST_EQUAL(fma(cT(nt2::Mone<T>()), cT(nt2::Mone<T>()), cT(nt2::Mone<T>())), cT(nt2::Zero<T>()));
+  NT2_TEST_EQUAL(fma(cT(nt2::Nan<T>()), cT(nt2::Nan<T>()), cT(nt2::Nan<T>())), cT(nt2::Nan<T>()));
+  NT2_TEST_EQUAL(fma(cT(nt2::One<T>()), cT(nt2::One<T>()), cT(nt2::One<T>())), cT(nt2::Two<T>()));
+  NT2_TEST_EQUAL(fma(cT(nt2::Zero<T>()), cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), cT(nt2::Zero<T>()));
 } // end of test for floating_
 

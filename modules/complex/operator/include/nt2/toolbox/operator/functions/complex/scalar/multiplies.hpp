@@ -19,6 +19,8 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -107,7 +109,7 @@ namespace nt2 { namespace ext
           return result_type(real(a1), imag(a0)*imag(a1));
         else
           return result_type(if_zero_else(is_real(a1), -imag(a0)*imag(a1)),
-                             if_zero_else(is_imag(a1),imag(a0)*real(a1))); 
+                             if_zero_else(is_real(a0),imag(a0)*real(a1))); 
       }
   };
   
@@ -122,8 +124,8 @@ namespace nt2 { namespace ext
         if(is_eqz(a0))
           return result_type(real(a0), imag(a0)*imag(a1));
         else
-        return result_type(if_zero_else(is_imag(a0),-imag(a0)*imag(a1)),
-                           if_zero_else(is_imag(a1),real(a0)*imag(a1))); 
+        return result_type(if_zero_else(is_real(a0),-imag(a0)*imag(a1)),
+                           if_zero_else(is_real(a1),real(a0)*imag(a1))); 
       }
   };
   

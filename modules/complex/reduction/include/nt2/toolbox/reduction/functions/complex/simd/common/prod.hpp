@@ -14,8 +14,11 @@
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/arg.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 namespace nt2 { namespace ext
 {

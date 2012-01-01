@@ -26,16 +26,16 @@
 NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using boost::simd::is_not_equal;
-  using boost::simd::tag::is_not_equal_;
+  using nt2::is_not_equal;
+  using nt2::tag::is_not_equal_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<is_not_equal_(T,T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::simd::logical<T> wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
   typedef std::complex<T> cT; 
-  typedef boost::simd::imaginary<T> ciT; 
+  typedef nt2::imaginary<T> ciT; 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -45,11 +45,11 @@ NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_equal(cT(boost::simd::Inf<T>()),  cT(boost::simd::Inf<T>())),  r_t(false));
-  NT2_TEST_EQUAL(is_not_equal(cT(boost::simd::Minf<T>()), cT(boost::simd::Minf<T>())), r_t(false));
-  NT2_TEST_EQUAL(is_not_equal(cT(boost::simd::Nan<T>()),  cT(boost::simd::Nan<T>())),  r_t(true));
-  NT2_TEST_EQUAL(is_not_equal(cT(boost::simd::One<T>()),  cT(boost::simd::Zero<T>())), r_t(true));
-  NT2_TEST_EQUAL(is_not_equal(cT(boost::simd::Zero<T>()), cT(boost::simd::Zero<T>())), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal(cT(nt2::Inf<T>()),  cT(nt2::Inf<T>())),  r_t(false));
+  NT2_TEST_EQUAL(is_not_equal(cT(nt2::Minf<T>()), cT(nt2::Minf<T>())), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())),  r_t(true));
+  NT2_TEST_EQUAL(is_not_equal(cT(nt2::One<T>()),  cT(nt2::Zero<T>())), r_t(true));
+  NT2_TEST_EQUAL(is_not_equal(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), r_t(false));
   NT2_TEST_EQUAL(is_not_equal(cT(0, 1), cT(0, 1)), r_t(false));
   NT2_TEST_EQUAL(is_not_equal(cT(1, 0), T(1))    , r_t(false));
   NT2_TEST_EQUAL(is_not_equal(cT(0, 2), cT(0, 1)), r_t(true));

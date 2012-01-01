@@ -14,6 +14,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/arg.hpp>
 #include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

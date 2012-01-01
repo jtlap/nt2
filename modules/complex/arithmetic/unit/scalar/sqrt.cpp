@@ -27,13 +27,13 @@
 NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using boost::simd::sqrt;
-  using boost::simd::tag::sqrt_;
+  using nt2::sqrt;
+  using nt2::tag::sqrt_;
   typedef typename std::complex<T> cT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<sqrt_(cT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef cT wished_r_t;
 
@@ -44,16 +44,16 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   double ulpd;
  ulpd=0.0; 
 
-  // std::cout << nt2::type_id(boost::simd::I<T>()) << std::endl; 
+  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
   // specific values tests
    NT2_TEST_EQUAL(sqrt(cT(1)), T(1));
-   NT2_TEST_EQUAL(sqrt(cT(boost::simd::Inf<T>())), cT(boost::simd::Inf<T>()));
-   NT2_TEST_EQUAL(sqrt(cT(boost::simd::Minf<T>())), cT(0, boost::simd::Inf<T>()));
-   NT2_TEST_EQUAL(sqrt(cT(boost::simd::Mone<T>())), cT(0, boost::simd::One<T>()));
-   NT2_TEST_EQUAL(sqrt(cT(boost::simd::Nan<T>())), cT(boost::simd::Nan<T>()));
-   NT2_TEST_EQUAL(sqrt(cT(boost::simd::One<T>())), cT(boost::simd::One<T>()));
-   NT2_TEST_EQUAL(sqrt(cT(boost::simd::Zero<T>())), cT(boost::simd::Zero<T>()));
+   NT2_TEST_EQUAL(sqrt(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
+   NT2_TEST_EQUAL(sqrt(cT(nt2::Minf<T>())), cT(0, nt2::Inf<T>()));
+   NT2_TEST_EQUAL(sqrt(cT(nt2::Mone<T>())), cT(0, nt2::One<T>()));
+   NT2_TEST_EQUAL(sqrt(cT(nt2::Nan<T>())), cT(nt2::Nan<T>()));
+   NT2_TEST_EQUAL(sqrt(cT(nt2::One<T>())), cT(nt2::One<T>()));
+   NT2_TEST_EQUAL(sqrt(cT(nt2::Zero<T>())), cT(nt2::Zero<T>()));
    std::complex < T > a(1, 0);
-   NT2_TEST_EQUAL(sqrt(a), boost::simd::One<T>());
+   NT2_TEST_EQUAL(sqrt(a), nt2::One<T>());
 } // end of test for floating_
 

@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_EPS_HPP_INCLUDED
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 

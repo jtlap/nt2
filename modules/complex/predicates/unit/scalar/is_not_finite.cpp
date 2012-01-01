@@ -28,14 +28,14 @@
 NT2_TEST_CASE_TPL ( is_not_finite_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using boost::simd::is_not_finite;
-  using boost::simd::tag::is_not_finite_;
+  using nt2::is_not_finite;
+  using nt2::tag::is_not_finite_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<is_not_finite_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::simd::logical<T> wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -46,29 +46,29 @@ NT2_TEST_CASE_TPL ( is_not_finite_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_finite(-boost::simd::Zero<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Half<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Inf<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Minf<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Mone<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Nan<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::One<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Quarter<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Two<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(-nt2::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Half<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Inf<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Minf<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Mone<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Nan<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_finite(nt2::One<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Quarter<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Two<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Zero<T>()), r_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_not_finite_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   
-  using boost::simd::is_not_finite;
-  using boost::simd::tag::is_not_finite_;
+  using nt2::is_not_finite;
+  using nt2::tag::is_not_finite_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<is_not_finite_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::simd::logical<T> wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -79,23 +79,23 @@ NT2_TEST_CASE_TPL ( is_not_finite_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_T
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Mone<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::One<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Two<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Mone<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::One<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Two<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Zero<T>()), r_t(false));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( is_not_finite_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
   
-  using boost::simd::is_not_finite;
-  using boost::simd::tag::is_not_finite_;
+  using nt2::is_not_finite;
+  using nt2::tag::is_not_finite_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<is_not_finite_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef boost::simd::logical<T> wished_r_t;
+  typedef nt2::logical<T> wished_r_t;
 
 
   // return type conformity test 
@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL ( is_not_finite_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::One<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Two<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(boost::simd::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::One<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Two<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(nt2::Zero<T>()), r_t(false));
 } // end of test for unsigned_int_

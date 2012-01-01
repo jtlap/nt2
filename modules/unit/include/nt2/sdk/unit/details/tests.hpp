@@ -24,88 +24,90 @@
 
 namespace nt2 { namespace details
 {
-  template<class T, class U, class V>					
+  template<class T, class U, class V>                                   
   inline bool test_ulp_eq( char const* x1
-			   , char const* x2		
-			   , char const* x3				
-			   , int line
-			   , char const * fn			
-			   , T const & t
-			   , U const & u			
-			   , V const & v				
-			   )						
-  {									
-    test_count()++;							
+                           , char const* x2             
+                           , char const* x3                             
+                           , int line
+                           , char const * fn                    
+                           , T const & t
+                           , U const & u                        
+                           , V const & v                                
+                           )                                            
+  {                                                                     
+    test_count()++;                                                     
     /*volatile*/ T tt(t);
     /*volatile*/ U uu(u);
     /*volatile*/ V vv(v);
-    typedef typename boost::dispatch::meta::upgrade<T>::type TT;
-    typedef typename boost::dispatch::meta::upgrade<U>::type UU;
+//     typedef typename boost::dispatch::meta::upgrade<T>::type TT;
+//     typedef typename boost::dispatch::meta::upgrade<U>::type UU;
+       typedef T TT;
+       typedef U UU; 
     typedef typename boost::dispatch::meta::call<nt2::tag::ulpdist_(T, U)>::type R;
     if( nt2::ulpdist(T(tt), U(uu) ) <= (R)vv)
-    {									
-      std::cout << " * Test `"					
-                << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
-                << "` **passed**."					
-                << " (" << line << ")"				
+    {                                                                   
+      std::cout << " * Test `"                                  
+                << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3     
+                << "` **passed**."                                      
+                << " (" << line << ")"                          
                 << std::endl;
       return true; 
-    }									
-    else								
+    }                                                                   
+    else                                                                
     {
-      std::cout << " * Test `"					
-                << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
-                << "` **failed** in function "			
-                << fn << " (" << line << ")"				
-                << "ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "		
+      std::cout << " * Test `"                                  
+                << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3     
+                << "` **failed** in function "                  
+                << fn << " (" << line << ")"                            
+                << "ulpdist(" << TT(tt) << ", " <<  UU(uu) << ") == "           
                 <<  nt2::ulpdist(T(tt), U(uu) )
-                << std::endl;						
+                << std::endl;                                           
       ++error_count();
       return false; 
     }
   }
 
-  template<class T, class U, class V>					
+  template<class T, class U, class V>                                   
   inline bool test_ulp_tuple_eq( char const* x1
-			   , char const* x2		
-			   , char const* x3				
-			   , int line
-			   , char const * fn			
-			   , T const & t
-			   , U const & u			
-			   , V const & v				
-			   )						
-  {									
+                           , char const* x2             
+                           , char const* x3                             
+                           , int line
+                           , char const * fn                    
+                           , T const & t
+                           , U const & u                        
+                           , V const & v                                
+                           )                                            
+  {                                                                     
     boost::dispatch::ignore_unused(fn);                                     \
-    test_count()++;							
-    volatile T tt(t);							
-    volatile U uu(u);							
+    test_count()++;                                                     
+    volatile T tt(t);                                                   
+    volatile U uu(u);                                                   
     volatile V vv(v);
     typedef typename boost::dispatch::meta::upgrade<T>::type TT;
     typedef typename boost::dispatch::meta::upgrade<U>::type UU;
     bool r =   nt2::ulpdist(boost::fusion::at_c<0>(u), boost::fusion::at_c<0>(t)) <= v;
     r &= nt2::ulpdist(boost::fusion::at_c<1>(u), boost::fusion::at_c<1>(t)) <= v; 
-    if(r)					
-    {									
-      std::cout << " * Test `"					
-                << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
-                << "` **passed**."					
-                << " (" << line << ")"				
+    if(r)                                       
+    {                                                                   
+      std::cout << " * Test `"                                  
+                << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3     
+                << "` **passed**."                                      
+                << " (" << line << ")"                          
                 << std::endl;
       return true; 
-    }									
-    else								
-    {									
-//    std::cout << " * Test `"					
-//              << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3	
-//              << "` **failed** in function "			
-//              << fn << " (" << line << ")"				
-//              << "ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "		
-//              <<  nt2::ulpdist(tt, uu )				
-//              << std::endl;						
+    }                                                                   
+    else                                                                
+    {                                                                   
+//    std::cout << " * Test `"                                  
+//              << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3     
+//              << "` **failed** in function "                  
+//              << fn << " (" << line << ")"                            
+//              << "ulpdist(" << TT(t) << ", " <<  UU(u) << ") == "             
+//              <<  nt2::ulpdist(tt, uu )                               
+//              << std::endl;                                           
       ++error_count();
       return false; 
-    }									
+    }                                                                   
   }
 
 } }

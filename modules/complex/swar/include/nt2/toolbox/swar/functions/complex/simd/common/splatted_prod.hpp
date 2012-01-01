@@ -13,6 +13,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/splat.hpp>
 
 namespace nt2 { namespace ext
 {

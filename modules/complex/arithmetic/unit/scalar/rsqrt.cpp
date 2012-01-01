@@ -27,13 +27,13 @@
 NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using boost::simd::rsqrt;
-  using boost::simd::tag::rsqrt_;
+  using nt2::rsqrt;
+  using nt2::tag::rsqrt_;
   typedef typename std::complex<T> cT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<rsqrt_(cT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef cT wished_r_t;
 
@@ -44,18 +44,18 @@ NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   double ulpd;
  ulpd=0.0; 
 
-  // std::cout << nt2::type_id(boost::simd::I<T>()) << std::endl; 
+  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
   // specific values tests
    NT2_TEST_EQUAL(rsqrt(cT(1)), T(1));
-   NT2_TEST_EQUAL(rsqrt(cT(boost::simd::Inf<T>())), cT(boost::simd::Zero<T>()));
-   NT2_TEST_EQUAL(rsqrt(cT(boost::simd::Minf<T>())), cT(0, boost::simd::Zero<T>()));
-   NT2_TEST_EQUAL(rsqrt(cT(boost::simd::Mone<T>())), cT(0, boost::simd::Mone<T>()));
-   NT2_TEST_EQUAL(rsqrt(cT(boost::simd::Nan<T>())), cT(boost::simd::Nan<T>()));
-   NT2_TEST_EQUAL(rsqrt(cT(boost::simd::One<T>())), cT(boost::simd::One<T>()));
-   NT2_TEST_EQUAL(rsqrt(cT(boost::simd::Zero<T>())), cT(boost::simd::Zero<T>()));
+   NT2_TEST_EQUAL(rsqrt(cT(nt2::Inf<T>())), cT(nt2::Zero<T>()));
+   NT2_TEST_EQUAL(rsqrt(cT(nt2::Minf<T>())), cT(0, nt2::Zero<T>()));
+   NT2_TEST_EQUAL(rsqrt(cT(nt2::Mone<T>())), cT(0, nt2::Mone<T>()));
+   NT2_TEST_EQUAL(rsqrt(cT(nt2::Nan<T>())), cT(nt2::Nan<T>()));
+   NT2_TEST_EQUAL(rsqrt(cT(nt2::One<T>())), cT(nt2::One<T>()));
+   NT2_TEST_EQUAL(rsqrt(cT(nt2::Zero<T>())), cT(nt2::Zero<T>()));
    std::complex < T > a(1, 0);
-   NT2_TEST_EQUAL(rsqrt(a), boost::simd::One<T>());
+   NT2_TEST_EQUAL(rsqrt(a), nt2::One<T>());
    std::complex < T > b(0, i);
-   NT2_TEST_EQUAL(rsqrt(b), cT(boost::simd::Sqrt_2o_2<T>(),boost::simd::Sqrt_2o_2<T>()));
+   NT2_TEST_EQUAL(rsqrt(b), cT(nt2::Sqrt_2o_2<T>(),nt2::Sqrt_2o_2<T>()));
 } // end of test for floating_
 
