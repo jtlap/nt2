@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_FRAC_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_FRAC_HPP_INCLUDED
-#include <nt2/include/functions/frac.hpp>
+#ifndef NT2_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_FRAC_HPP_INCLUDED
+#define NT2_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_FRAC_HPP_INCLUDED
+
+#include <nt2/toolbox/ieee/functions/frac.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/include/functions/real.hpp>
 
 namespace nt2 { namespace ext
 {

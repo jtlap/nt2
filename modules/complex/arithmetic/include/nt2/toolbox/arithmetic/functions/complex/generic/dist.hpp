@@ -8,13 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_DIST_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_DIST_HPP_INCLUDED
+
 #include <nt2/toolbox/arithmetic/functions/dist.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/hypot.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/minus.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
@@ -27,7 +24,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::abs(minus(a0, a1)); 
+      return nt2::abs(nt2::minus(a0, a1)); 
     }
   };
 
@@ -39,7 +36,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::abs(minus(a0, a1)); 
+      return nt2::abs(nt2::minus(a0, a1)); 
     }
   };
   
@@ -52,7 +49,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::abs(minus(a0, a1)); 
+      return nt2::abs(nt2::minus(a0, a1)); 
     }
   };
   
@@ -65,7 +62,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::abs(minus(a0, a1)); 
+      return nt2::abs(nt2::minus(a0, a1)); 
     }
   };
 
@@ -78,7 +75,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::abs(minus(a0, a1)); 
+      return nt2::abs(nt2::minus(a0, a1)); 
     }
   };
   
@@ -91,7 +88,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::abs(minus(a0, a1)); 
+      return nt2::abs(nt2::minus(a0, a1)); 
     }
   };
 
@@ -104,7 +101,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::abs(minus(a0, a1)); 
+      return nt2::abs(nt2::minus(a0, a1)); 
     }
   };
   
@@ -117,7 +114,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::abs(minus(a0, a1)); 
+      return nt2::abs(nt2::minus(a0, a1)); 
     }
   };  
 } }
