@@ -21,6 +21,14 @@ namespace nt2 { namespace memory
   struct container : nt2::details::container_base<Tag,T,S>
   {
     typedef nt2::details::container_base<Tag,T,S>         parent;
+    typedef typename parent::block_t                      block_t;
+    typedef typename parent::allocator_type               allocator_type;
+    typedef typename parent::extent_type                  extent_type;
+    typedef typename parent::size_type                    size_type;
+    typedef typename parent::difference_type              difference_type;
+    typedef typename parent::is_static_sized              is_static_sized;
+    typedef typename parent::reference                    reference;
+    typedef typename parent::const_reference              const_reference;
 
     //==========================================================================
     // Default constructor can be called endlessly to reuse data
@@ -29,7 +37,7 @@ namespace nt2 { namespace memory
     {
       if(!status_)
       {
-        parent::init(block_,sizes_, typename parent::is_static_sized());
+        parent::init(block_,sizes_, is_static_sized());
         status_ = true;
       }
     }
@@ -39,7 +47,7 @@ namespace nt2 { namespace memory
     // Default constructor never throw nor assert as multiple instance can
     // coexist
     //==========================================================================
-    container( typename parent::allocator_type const& a )
+    container( allocator_type const& a )
     {
       if(!status_)
       {
@@ -51,29 +59,28 @@ namespace nt2 { namespace memory
 
     template<class Size>
     container ( Size const& sz
-              , typename parent::allocator_type const&
-                a = typename parent::allocator_type()
+              , allocator_type const& a = allocator_type()
               )
     {
       if(!status_)
       {
-        typename parent::block_t that(sz,a);
+        block_t that(sz,a);
         block_.swap(that);
         status_ = true;
       }
     }
 
     //==========================================================================
-    // Element access
+    // Element access from instance
     //==========================================================================
-    template<class Position> BOOST_FORCEINLINE
-    typename parent::reference operator[]( Position const& pos )
+    template<class Position>
+    BOOST_FORCEINLINE reference operator[]( Position const& pos )
     {
       return block_[pos];
     }
 
-    template<class Position> BOOST_FORCEINLINE
-    typename parent::const_reference operator[]( Position const& pos ) const
+    template<class Position>
+    BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
     {
       return block_[pos];
     }
@@ -81,20 +88,19 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Size of the container
     //==========================================================================
-    static typename parent::extent_type const&  sizes() { return sizes_;        }
-    static typename parent::size_type           size()  { return block_.size(); }
-    static bool                                 empty() { return block_.empty();}
-    static typename parent::difference_type     lower() { return block_.lower();}
-    static typename parent::difference_type     upper() { return block_.upper();}
+    static BOOST_FORCEINLINE extent_type const& sizes() { return sizes_; }
+
+    static BOOST_FORCEINLINE size_type        size()  { return block_.size();  }
+    static BOOST_FORCEINLINE bool             empty() { return block_.empty(); }
+    static BOOST_FORCEINLINE difference_type  lower() { return block_.lower(); }
+    static BOOST_FORCEINLINE difference_type  upper() { return block_.upper(); }
 
     //==========================================================================
     // Resize of the container
     //==========================================================================
-    template<class Size> static void resize( Size const& szs )
+    template<class Size> static BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize( block_,sizes_,szs
-                    , boost::mpl::bool_<parent::extent_type::static_status>()
-                    );
+      parent::resize( block_,sizes_,szs, is_static_sized() );
     }
 
     private:

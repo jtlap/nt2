@@ -155,6 +155,8 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     using parent_data::size;
+    using parent_data::inner_size;
+    using parent_data::outer_size;
 
     //==========================================================================
     /**!
@@ -169,6 +171,8 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     using parent_data::lower;
+    using parent_data::inner_lower;
+    using parent_data::outer_lower;
 
     //==========================================================================
     /**!
@@ -176,6 +180,8 @@ namespace nt2 {  namespace memory
      **/
     //==========================================================================
     using parent_data::upper;
+    using parent_data::inner_upper;
+    using parent_data::outer_upper;
 
     //==========================================================================
     /**!

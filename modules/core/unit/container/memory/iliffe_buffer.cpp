@@ -95,13 +95,19 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dynamic_1D_default_ctor, NT2_TYPES)
 
   buffer_t b;
 
-  NT2_TEST_EQUAL(b.size() , 0U);
-  NT2_TEST_EQUAL(b.lower(), -2);
-  NT2_TEST_EQUAL(b.upper(), -3);
+  NT2_TEST_EQUAL(b.size()       ,  0 );
+  NT2_TEST_EQUAL(b.inner_size() ,  0 );
+  NT2_TEST_EQUAL(b.outer_size() ,  1 );
+  NT2_TEST_EQUAL(b.lower()      , -2 );
+  NT2_TEST_EQUAL(b.inner_lower(), -2 );
+  NT2_TEST_EQUAL(b.outer_lower(),  1 );
+  NT2_TEST_EQUAL(b.upper()      , -3 );
+  NT2_TEST_EQUAL(b.inner_upper(), -3 );
+  NT2_TEST_EQUAL(b.outer_upper(),  1 );
 }
 
 //==============================================================================
-// Test for 1D autotmatic iliffe_ buffer default ctor
+// Test for 1D automatic iliffe_ buffer default ctor
 //==============================================================================
 NT2_TEST_CASE_TPL( iliffe_buffer_automatic_1D_default_ctor, NT2_TYPES)
 {
@@ -113,9 +119,15 @@ NT2_TEST_CASE_TPL( iliffe_buffer_automatic_1D_default_ctor, NT2_TYPES)
 
   buffer_t b;
 
-  NT2_TEST_EQUAL(b.size() , 5U  );
-  NT2_TEST_EQUAL(b.lower(), -2  );
-  NT2_TEST_EQUAL(b.upper(), 2   );
+  NT2_TEST_EQUAL(b.size()       ,  5 );
+  NT2_TEST_EQUAL(b.inner_size() ,  5 );
+  NT2_TEST_EQUAL(b.outer_size() ,  1 );
+  NT2_TEST_EQUAL(b.lower()      , -2 );
+  NT2_TEST_EQUAL(b.inner_lower(), -2 );
+  NT2_TEST_EQUAL(b.outer_lower(),  1 );
+  NT2_TEST_EQUAL(b.upper()      ,  2 );
+  NT2_TEST_EQUAL(b.inner_upper(),  2 );
+  NT2_TEST_EQUAL(b.outer_upper(),  1 );
 }
 
 //==============================================================================
@@ -134,9 +146,15 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dynamic_nD_default_ctor, NT2_TYPES)
 
   buffer_t b;
 
-  NT2_TEST_EQUAL(b.size() ,  0  );
-  NT2_TEST_EQUAL(b.lower(), -2  );
-  NT2_TEST_EQUAL(b.upper(), -3  );
+  NT2_TEST_EQUAL(b.size()       ,  0 );
+  NT2_TEST_EQUAL(b.inner_size() ,  0 );
+  NT2_TEST_EQUAL(b.outer_size() ,  0 );
+  NT2_TEST_EQUAL(b.lower()      , -2 );
+  NT2_TEST_EQUAL(b.inner_lower(), -2 );
+  NT2_TEST_EQUAL(b.outer_lower(),  1 );
+  NT2_TEST_EQUAL(b.upper()      , -3 );
+  NT2_TEST_EQUAL(b.inner_upper(), -3 );
+  NT2_TEST_EQUAL(b.outer_upper(),  0 );
 }
 
 //==============================================================================
@@ -155,9 +173,15 @@ NT2_TEST_CASE_TPL( iliffe_buffer_automatic_nD_default_ctor, NT2_TYPES)
 
   buffer_t b;
 
-  NT2_TEST_EQUAL(b.size() , 56  );
-  NT2_TEST_EQUAL(b.lower(), -2  );
-  NT2_TEST_EQUAL(b.upper(), 53  );
+  NT2_TEST_EQUAL(b.size()       ,  56 );
+  NT2_TEST_EQUAL(b.inner_size() ,   7 );
+  NT2_TEST_EQUAL(b.outer_size() ,   8 );
+  NT2_TEST_EQUAL(b.lower()      ,  -2 );
+  NT2_TEST_EQUAL(b.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(b.outer_lower(),   1 );
+  NT2_TEST_EQUAL(b.upper()      ,  53 );
+  NT2_TEST_EQUAL(b.inner_upper(),   4 );
+  NT2_TEST_EQUAL(b.outer_upper(),   8 );
 }
 
 //==============================================================================
@@ -176,9 +200,15 @@ NT2_TEST_CASE_TPL( iliffe_buffer_automatic__nD_default_ctor, NT2_TYPES)
 
   buffer_t b;
 
-  NT2_TEST_EQUAL(b.size() , 7 );
-  NT2_TEST_EQUAL(b.lower(), 1 );
-  NT2_TEST_EQUAL(b.upper(), 7 );
+  NT2_TEST_EQUAL(b.size()       ,   7 );
+  NT2_TEST_EQUAL(b.inner_size() ,   1 );
+  NT2_TEST_EQUAL(b.outer_size() ,   7 );
+  NT2_TEST_EQUAL(b.lower()      ,   1 );
+  NT2_TEST_EQUAL(b.inner_lower(),   1 );
+  NT2_TEST_EQUAL(b.outer_lower(),  -2 );
+  NT2_TEST_EQUAL(b.upper()      ,   7 );
+  NT2_TEST_EQUAL(b.inner_upper(),   1 );
+  NT2_TEST_EQUAL(b.outer_upper(),   4 );
 }
 
 //==============================================================================
@@ -199,9 +229,15 @@ NT2_TEST_CASE_TPL( buffer_1D_copy_ctor, NT2_TYPES)
 
   buffer_t x(b);
 
-  NT2_TEST_EQUAL( x.size()  , 7 );
-  NT2_TEST_EQUAL( x.lower() , -3);
-  NT2_TEST_EQUAL( x.upper() , 3 );
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], 4+i);
@@ -224,9 +260,15 @@ NT2_TEST_CASE_TPL( buffer_static_1D_copy_ctor, NT2_TYPES)
 
   buffer_t x(b);
 
-  NT2_TEST_EQUAL( x.size()  , 7 );
-  NT2_TEST_EQUAL( x.lower() , -3);
-  NT2_TEST_EQUAL( x.upper() , 3 );
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], 4+i);
@@ -254,10 +296,15 @@ NT2_TEST_CASE_TPL( buffer_2D_copy_ctor, NT2_TYPES)
 
   buffer_t x(b);
 
-
-  NT2_TEST_EQUAL( x.size()  , 15  );
-  NT2_TEST_EQUAL( x.lower() , -2  );
-  NT2_TEST_EQUAL( x.upper() , 12  );
+  NT2_TEST_EQUAL(x.size()       ,  15 );
+  NT2_TEST_EQUAL(x.inner_size() ,   5 );
+  NT2_TEST_EQUAL(x.outer_size() ,   3 );
+  NT2_TEST_EQUAL(x.lower()      ,  -2 );
+  NT2_TEST_EQUAL(x.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(x.outer_lower(),   1 );
+  NT2_TEST_EQUAL(x.upper()      ,  12 );
+  NT2_TEST_EQUAL(x.inner_upper(),   2 );
+  NT2_TEST_EQUAL(x.outer_upper(),   3 );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
@@ -286,9 +333,15 @@ NT2_TEST_CASE_TPL( buffer_static_2D_copy_ctor, NT2_TYPES)
 
   buffer_t x(b);
 
-  NT2_TEST_EQUAL( x.size()  , 15  );
-  NT2_TEST_EQUAL( x.lower() , -2  );
-  NT2_TEST_EQUAL( x.upper() , 12  );
+  NT2_TEST_EQUAL(x.size()       ,  15 );
+  NT2_TEST_EQUAL(x.inner_size() ,   5 );
+  NT2_TEST_EQUAL(x.outer_size() ,   3 );
+  NT2_TEST_EQUAL(x.lower()      ,  -2 );
+  NT2_TEST_EQUAL(x.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(x.outer_lower(),   1 );
+  NT2_TEST_EQUAL(x.upper()      ,  12 );
+  NT2_TEST_EQUAL(x.inner_upper(),   2 );
+  NT2_TEST_EQUAL(x.outer_upper(),   3 );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
@@ -312,9 +365,15 @@ NT2_TEST_CASE_TPL( buffer_1D_assignment, NT2_TYPES)
 
   x = b;
 
-  NT2_TEST_EQUAL( x.size()  , 7 );
-  NT2_TEST_EQUAL( x.lower() , -3);
-  NT2_TEST_EQUAL( x.upper() , 3 );
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], 4+i);
@@ -340,9 +399,15 @@ NT2_TEST_CASE_TPL( buffer_static_1D_assignment, NT2_TYPES)
 
   x = b;
 
-  NT2_TEST_EQUAL( x.size()  , 7 );
-  NT2_TEST_EQUAL( x.lower() , -3);
-  NT2_TEST_EQUAL( x.upper() , 3 );
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], 4+i);
@@ -370,9 +435,15 @@ NT2_TEST_CASE_TPL( buffer_2D_assignment, NT2_TYPES)
 
   x = b;
 
-  NT2_TEST_EQUAL( x.size()  , 15  );
-  NT2_TEST_EQUAL( x.lower() , -2  );
-  NT2_TEST_EQUAL( x.upper() , 12  );
+  NT2_TEST_EQUAL(x.size()       ,  15 );
+  NT2_TEST_EQUAL(x.inner_size() ,   5 );
+  NT2_TEST_EQUAL(x.outer_size() ,   3 );
+  NT2_TEST_EQUAL(x.lower()      ,  -2 );
+  NT2_TEST_EQUAL(x.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(x.outer_lower(),   1 );
+  NT2_TEST_EQUAL(x.upper()      ,  12 );
+  NT2_TEST_EQUAL(x.inner_upper(),   2 );
+  NT2_TEST_EQUAL(x.outer_upper(),   3 );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
@@ -401,9 +472,15 @@ NT2_TEST_CASE_TPL( buffer_static_2D_assignment, NT2_TYPES)
 
   x = b;
 
-  NT2_TEST_EQUAL( x.size()  , 15  );
-  NT2_TEST_EQUAL( x.lower() , -2  );
-  NT2_TEST_EQUAL( x.upper() , 12  );
+  NT2_TEST_EQUAL(x.size()       ,  15 );
+  NT2_TEST_EQUAL(x.inner_size() ,   5 );
+  NT2_TEST_EQUAL(x.outer_size() ,   3 );
+  NT2_TEST_EQUAL(x.lower()      ,  -2 );
+  NT2_TEST_EQUAL(x.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(x.outer_lower(),   1 );
+  NT2_TEST_EQUAL(x.upper()      ,  12 );
+  NT2_TEST_EQUAL(x.inner_upper(),   2 );
+  NT2_TEST_EQUAL(x.outer_upper(),   3 );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
@@ -434,9 +511,25 @@ NT2_TEST_CASE_TPL( buffer_1D_swap, NT2_TYPES)
   NT2_TEST_EQUAL( b.lower() , -3);
   NT2_TEST_EQUAL( b.upper() , 0 );
 
-  NT2_TEST_EQUAL( x.size()  , 7 );
-  NT2_TEST_EQUAL( x.lower() , -3);
-  NT2_TEST_EQUAL( x.upper() , 3 );
+  NT2_TEST_EQUAL(b.size()       ,    4 );
+  NT2_TEST_EQUAL(b.inner_size() ,    4 );
+  NT2_TEST_EQUAL(b.outer_size() ,    1 );
+  NT2_TEST_EQUAL(b.lower()      ,   -3 );
+  NT2_TEST_EQUAL(b.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(b.outer_lower(),    1 );
+  NT2_TEST_EQUAL(b.upper()      ,    0 );
+  NT2_TEST_EQUAL(b.inner_upper(),    0 );
+  NT2_TEST_EQUAL(b.outer_upper(),    1 );
+
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], 4+i);
@@ -468,13 +561,25 @@ NT2_TEST_CASE_TPL( buffer_static_1D_swap, NT2_TYPES)
 
   swap(b,x);
 
-  NT2_TEST_EQUAL( b.size()  , 7 );
-  NT2_TEST_EQUAL( b.lower() , -3);
-  NT2_TEST_EQUAL( b.upper() , 3 );
+  NT2_TEST_EQUAL(b.size()       ,    7 );
+  NT2_TEST_EQUAL(b.inner_size() ,    7 );
+  NT2_TEST_EQUAL(b.outer_size() ,    1 );
+  NT2_TEST_EQUAL(b.lower()      ,   -3 );
+  NT2_TEST_EQUAL(b.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(b.outer_lower(),    1 );
+  NT2_TEST_EQUAL(b.upper()      ,    3 );
+  NT2_TEST_EQUAL(b.inner_upper(),    3 );
+  NT2_TEST_EQUAL(b.outer_upper(),    1 );
 
-  NT2_TEST_EQUAL( x.size()  , 7 );
-  NT2_TEST_EQUAL( x.lower() , -3);
-  NT2_TEST_EQUAL( x.upper() , 3 );
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], 4);
@@ -508,13 +613,25 @@ NT2_TEST_CASE_TPL( buffer_static_2D_swap, NT2_TYPES)
 
   swap(b,x);
 
-  NT2_TEST_EQUAL( b.size()  , 15  );
-  NT2_TEST_EQUAL( b.lower() ,  1  );
-  NT2_TEST_EQUAL( b.upper() , 15  );
+  NT2_TEST_EQUAL(b.size()       ,   15 );
+  NT2_TEST_EQUAL(b.inner_size() ,    5 );
+  NT2_TEST_EQUAL(b.outer_size() ,    3 );
+  NT2_TEST_EQUAL(b.lower()      ,    1 );
+  NT2_TEST_EQUAL(b.inner_lower(),    1 );
+  NT2_TEST_EQUAL(b.outer_lower(),    1 );
+  NT2_TEST_EQUAL(b.upper()      ,   15 );
+  NT2_TEST_EQUAL(b.inner_upper(),    5 );
+  NT2_TEST_EQUAL(b.outer_upper(),    3 );
 
-  NT2_TEST_EQUAL( x.size()  , 15  );
-  NT2_TEST_EQUAL( x.lower() ,  1  );
-  NT2_TEST_EQUAL( x.upper() , 15  );
+  NT2_TEST_EQUAL(x.size()       ,   15 );
+  NT2_TEST_EQUAL(x.inner_size() ,    5 );
+  NT2_TEST_EQUAL(x.outer_size() ,    3 );
+  NT2_TEST_EQUAL(x.lower()      ,    1 );
+  NT2_TEST_EQUAL(x.inner_lower(),    1 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,   15 );
+  NT2_TEST_EQUAL(x.inner_upper(),    5 );
+  NT2_TEST_EQUAL(x.outer_upper(),    3 );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )

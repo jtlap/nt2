@@ -56,7 +56,7 @@ namespace nt2 { namespace memory { namespace details
     {
       up_  = BaseIndex + s - 1;
     }
-    
+
     void realloc(size_type const& s)
     {
       if(size() < s )
@@ -65,10 +65,18 @@ namespace nt2 { namespace memory { namespace details
         origin_ = parent_allocator::allocate(s) - BaseIndex;
       }
     }
-    
-    size_type       size()  const { return up_ - BaseIndex + 1; }
-    difference_type lower() const { return BaseIndex;           }
-    difference_type upper() const { return up_;                 }
+
+    size_type       size()        const { return up_ - BaseIndex + 1; }
+    size_type       inner_size()  const { return size();              }
+    size_type       outer_size()  const { return 1;                   }
+
+    difference_type lower()       const { return BaseIndex; }
+    difference_type inner_lower() const { return BaseIndex; }
+    difference_type outer_lower() const { return 1;         }
+
+    difference_type upper()       const { return up_; }
+    difference_type inner_upper() const { return up_; }
+    difference_type outer_upper() const { return 1;   }
 
     iterator origin()  { return origin_;             }
     iterator begin()   { return origin_ + BaseIndex; }
@@ -95,7 +103,7 @@ namespace nt2 { namespace memory { namespace details
     }
 
     iterator        origin_;
-    difference_type up_;    
+    difference_type up_;
   };
 } } }
 

@@ -102,6 +102,8 @@ namespace nt2 { namespace memory
         inner_ = data_.size()/index_.size();
         make_links();
       }
+
+      inner_up_ = data_.lower() + inner_ - 1;
     }
 
     //==========================================================================
@@ -121,6 +123,7 @@ namespace nt2 { namespace memory
       , inner_( boost::fusion::at_c<0>(sz) )
     {
       make_links();
+      inner_up_ = data_.lower() + inner_ - 1;
     }
 
     //==========================================================================
@@ -156,21 +159,27 @@ namespace nt2 { namespace memory
       * Return the lowest indices of the iliffe_buffer
      **/
     //==========================================================================
-    inline difference_type lower() const { return data_.lower(); }
+    inline difference_type lower()        const { return data_.lower();   }
+    inline difference_type inner_lower()  const { return data_.lower();   }
+    inline difference_type outer_lower()  const { return index_.lower();  }
 
     //==========================================================================
     /**
       * Return the upper indices of the iliffe_buffer
      **/
     //==========================================================================
-    inline difference_type upper() const { return data_.upper(); }
+    inline difference_type upper()        const { return data_.upper();   }
+    inline difference_type inner_upper()  const { return inner_up_;       }
+    inline difference_type outer_upper()  const { return index_.upper();  }
 
     //==========================================================================
     /**
       * Return the sizes of the iliffe_buffer
      **/
     //==========================================================================
-    inline size_type size() const { return data_.size(); }
+    inline size_type size()       const { return data_.size();  }
+    inline size_type inner_size() const { return inner_;        }
+    inline size_type outer_size() const { return index_.size(); }
 
     //==========================================================================
     /**
@@ -188,7 +197,8 @@ namespace nt2 { namespace memory
     {
       data_.resize(data_size(szs));
       index_.resize(index_size(szs));
-      inner_ = boost::fusion::at_c<0>(szs);
+      inner_    = boost::fusion::at_c<0>(szs);
+      inner_up_ = data_.lower() + inner_ - 1;
       make_links();
     }
 
@@ -219,6 +229,7 @@ namespace nt2 { namespace memory
     {
       data_.swap(src.data_);
       boost::swap(inner_,src.inner_);
+      boost::swap(inner_up_,src.inner_up_);
       index_swap(index_,src.index_);
     }
 
@@ -308,6 +319,7 @@ namespace nt2 { namespace memory
     Data      data_;
     Index     index_;
     size_type inner_;
+    size_type inner_up_;
   };
 
   template<typename Ds, typename D, typename I>

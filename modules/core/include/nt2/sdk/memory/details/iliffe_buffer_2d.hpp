@@ -30,11 +30,13 @@ namespace nt2 { namespace memory
                         >
         : public array_buffer<T,S,BI>
   {
-    typedef array_buffer<T,S,BI>                      parent;
-    typedef array_buffer<T*,S,BO>                     index_parent;
-    typedef typename parent::allocator_type           allocator_type;
-    typedef typename parent::reference                reference;
-    typedef typename parent::const_reference          const_reference;
+    typedef array_buffer<T,S,BI>              parent;
+    typedef array_buffer<T*,S,BO>             index_parent;
+    typedef typename parent::allocator_type   allocator_type;
+    typedef typename parent::size_type        size_type;
+    typedef typename parent::difference_type  difference_type;
+    typedef typename parent::reference        reference;
+    typedef typename parent::const_reference  const_reference;
 
     iliffe_buffer( allocator_type const& a = allocator_type()) : parent(a) {}
 
@@ -61,6 +63,15 @@ namespace nt2 { namespace memory
                     , boost::fusion::size(meta::as_sequence(pos))
                     );
     }
+
+    inline size_type        inner_size()  const { return 1;       }
+    inline size_type        outer_size()  const { return S;       }
+
+    inline difference_type  inner_lower() const { return BI;      }
+    inline difference_type  outer_lower() const { return BO;      }
+
+    inline difference_type  inner_upper() const { return 1;       }
+    inline difference_type  outer_upper() const { return BO+S-1;  }
 
     protected:
     //==========================================================================

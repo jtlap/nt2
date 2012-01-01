@@ -9,10 +9,6 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_DETAILS_ILIFFE_BUFFER_1D_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_MEMORY_DETAILS_ILIFFE_BUFFER_1D_HPP_INCLUDED
 
-//==============================================================================
-//
-//==============================================================================
-
 namespace nt2 { namespace memory
 {
   //============================================================================
@@ -22,6 +18,8 @@ namespace nt2 { namespace memory
   struct iliffe_buffer<boost::mpl::size_t<1>,Data,Index> : public Data
   {
     typedef Data                              parent;
+    typedef typename parent::size_type        size_type;
+    typedef typename parent::difference_type  difference_type;
     typedef typename parent::allocator_type   allocator_type;
 
     iliffe_buffer( allocator_type const& a = allocator_type()) : parent(a) {}
@@ -30,6 +28,15 @@ namespace nt2 { namespace memory
     iliffe_buffer ( Sizes const& sz, allocator_type const& a = allocator_type() )
                   : parent(sz,a)
     {}
+
+    inline size_type        inner_size()  const { return parent::size();  }
+    inline size_type        outer_size()  const { return 1;               }
+
+    inline difference_type  inner_lower() const { return parent::lower(); }
+    inline difference_type  outer_lower() const { return 1;               }
+
+    inline difference_type  inner_upper() const { return parent::upper(); }
+    inline difference_type  outer_upper() const { return 1;               }
   };
 } }
 

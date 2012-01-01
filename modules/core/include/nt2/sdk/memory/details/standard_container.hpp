@@ -29,18 +29,23 @@ namespace nt2 { namespace memory
   struct container<Tag, id_<0>, T, S> : nt2::details::container_base<Tag,T,S>
   {
     typedef nt2::details::container_base<Tag,T,S>         parent;
+    typedef typename parent::block_t                      block_t;
+    typedef typename parent::allocator_type               allocator_type;
+    typedef typename parent::extent_type                  extent_type;
+    typedef typename parent::size_type                    size_type;
+    typedef typename parent::difference_type              difference_type;
+    typedef typename parent::is_static_sized              is_static_sized;
+    typedef typename parent::reference                    reference;
+    typedef typename parent::const_reference              const_reference;
 
     //==========================================================================
     /*!
      * Default constructor
      */
     //==========================================================================
-    container ( typename parent::allocator_type const&
-                a = typename parent::allocator_type()
-              )
-              : block_(a)
+    container( allocator_type const& a = allocator_type() ) : block_(a)
     {
-      parent::init(block_,sizes_, typename parent::is_static_sized());
+      parent::init(block_,sizes_, is_static_sized());
     }
 
     //==========================================================================
@@ -49,11 +54,8 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     template<class Size>
-    container ( Size const& sz
-              , typename parent::allocator_type const&
-                a = typename parent::allocator_type()
-              )
-              : block_(sz,a), sizes_(sz)
+    container( Size const& sz, allocator_type const& a = allocator_type() )
+            : block_(sz,a), sizes_(sz)
     {}
 
     //==========================================================================
@@ -62,13 +64,13 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     template<class Position> BOOST_FORCEINLINE
-    typename parent::reference operator[]( Position const& pos )
+    reference operator[]( Position const& pos )
     {
       return block_[pos];
     }
 
     template<class Position> BOOST_FORCEINLINE
-    typename parent::const_reference operator[]( Position const& pos ) const
+    const_reference operator[]( Position const& pos ) const
     {
       return block_[pos];
     }
@@ -78,11 +80,9 @@ namespace nt2 { namespace memory
      * Redefine the container shape using a new Dimensions Set
      */
     //==========================================================================
-    template<class Size> void resize( Size const& szs )
+    template<class Size> BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize( block_,sizes_,szs
-                    , typename parent::is_static_sized()
-                    );
+      parent::resize( block_,sizes_,szs, is_static_sized() );
     }
 
     //==========================================================================
@@ -90,34 +90,40 @@ namespace nt2 { namespace memory
      * Return the current container dimensions set
      */
     //==========================================================================
-    typename parent::extent_type const&  sizes() const { return sizes_;  }
+    BOOST_FORCEINLINE extent_type const&  sizes() const { return sizes_;  }
 
     //==========================================================================
     /*!
      * Return the number of allocated element of the container
      */
     //==========================================================================
-    typename parent::size_type size() const { return block_.size(); }
+    BOOST_FORCEINLINE size_type size() const { return block_.size(); }
 
     //==========================================================================
     /*!
      * Return true if the container is empty
      */
     //==========================================================================
-    bool empty() const { return block_.empty(); }
+    BOOST_FORCEINLINE bool empty() const { return block_.empty(); }
 
-    typename parent::difference_type  lower() const { return block_.lower(); }
-    typename parent::difference_type  upper() const { return block_.upper(); }
+    BOOST_FORCEINLINE difference_type  lower() const { return block_.lower(); }
+    BOOST_FORCEINLINE difference_type  upper() const { return block_.upper(); }
 
     //==========================================================================
     /*!
-     * Return the current container dimensions set
+     * Return the current container dimensions inner boundaries
+     */
+    //==========================================================================
+
+    //==========================================================================
+    /*!
+     * Return the current container dimensions outer boundaries
      */
     //==========================================================================
 
     private:
-    typename parent::block_t      block_;
-    typename parent::extent_type  sizes_;
+    block_t      block_;
+    extent_type  sizes_;
   };
 } }
 
