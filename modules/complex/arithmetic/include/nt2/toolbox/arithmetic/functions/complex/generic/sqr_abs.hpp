@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type result_type;
-      return sqr(real(a0)) + sqr(imag(a0)); 
+      return sqr(real(a0)) + sqr(imag(a0)); //TODO avoid overflow
     }
   };
   

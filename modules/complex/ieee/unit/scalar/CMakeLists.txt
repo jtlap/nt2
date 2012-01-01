@@ -10,4 +10,4 @@
 set( SOURCES
    )
 
-nt2_module_add_tests(complex.reduction.scalar.unit ${SOURCES})
+nt2_module_add_tests(complex.ieee.scalar.unit ${SOURCES})

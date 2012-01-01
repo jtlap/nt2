@@ -11,7 +11,8 @@
 
 #include <nt2/toolbox/exponential/functions/exp.hpp>
 #include <nt2/include/functions/sincos.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <complex>

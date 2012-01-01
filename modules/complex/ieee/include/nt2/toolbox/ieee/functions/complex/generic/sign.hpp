@@ -8,14 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_SIGN_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_SIGN_HPP_INCLUDED
+
 #include <nt2/toolbox/ieee/functions/sign.hpp>
-#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
