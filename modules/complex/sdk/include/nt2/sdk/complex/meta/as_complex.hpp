@@ -51,9 +51,11 @@ namespace nt2 { namespace meta
   template<class T>
   struct as_complex
     : details::as_complex< typename boost::dispatch::meta::
-                           primitive_of<T>::type
+                           scalar_of<T>::type
                          , typename boost::dispatch::meta::
-                           factory_of<T>::type
+                           factory_of<T, typename boost::dispatch::meta::
+                                         scalar_of<T>::type
+                                     >::type
                          >
   {
   };

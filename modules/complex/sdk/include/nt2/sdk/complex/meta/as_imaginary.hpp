@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_COMPLEX_META_AS_IMAGINARY_HPP_INCLUDED
 #define NT2_SDK_COMPLEX_META_AS_IMAGINARY_HPP_INCLUDED
 
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/mpl/apply.hpp>
 
@@ -51,9 +51,11 @@ namespace nt2 { namespace meta
   template<class T>
   struct as_imaginary
     : details::as_imaginary< typename boost::dispatch::meta::
-                             primitive_of<T>::type
+                             scalar_of<T>::type
                            , typename boost::dispatch::meta::
-                             factory_of<T>::type
+                             factory_of<T, typename boost::dispatch::meta::
+                                           scalar_of<T>::type
+                                       >::type
                            >
   {
   };

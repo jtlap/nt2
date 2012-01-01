@@ -53,7 +53,6 @@ NT2_TEST_CASE(properties_simd)
   using std::complex;
   using boost::mpl::_;
   using boost::simd::native;
-  using boost::simd::composite;
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
   
   native<imaginary<double>, ext_t> im;
@@ -63,12 +62,10 @@ NT2_TEST_CASE(properties_simd)
   NT2_TEST_EXPR_TYPE(im, as_imaginary<_>, (native<imaginary<double>, ext_t>));
   NT2_TEST_EXPR_TYPE(im, as_complex<_>, (native<complex<double>, ext_t>));
   
-  composite<complex<double>, ext_t> c;
+  native<complex<double>, ext_t> c;
   NT2_TEST_EXPR_TYPE(c, scalar_of<_>, complex<double>);
   NT2_TEST_EXPR_TYPE(c, real_of<_>, double);
-#if 0
   NT2_TEST_EXPR_TYPE(c, as_real<_>, (native<double, ext_t>));
   NT2_TEST_EXPR_TYPE(c, as_imaginary<_>, (native<imaginary<double>, ext_t>));
   NT2_TEST_EXPR_TYPE(c, as_complex<_>, (native<complex<double>, ext_t>));
-#endif
 }

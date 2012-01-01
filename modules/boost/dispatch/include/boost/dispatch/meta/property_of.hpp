@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -33,7 +33,7 @@ namespace details
 {
   template<class T, class Origin = T, class Enable = void>
   struct  property_of
-   : meta::property_of<typename meta::primitive_of<T>::type, Origin>
+   : meta::property_of<typename meta::scalar_of<T>::type, Origin>
   {
   };
 }
