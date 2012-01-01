@@ -23,18 +23,18 @@
 #include <nt2/sdk/meta/make_aligned_allocator.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   //============================================================================
    /*!
-    * Default storage duration settings. 
+    * Default storage duration settings.
    **/
   //============================================================================
   struct dynamic_
   {
     // Take whatever allocator someone above me want me to use (see shared_)
     template<typename T, typename S, typename D = void> struct apply
-    {            
+    {
       // Get the base index
       typedef typename meta::option<S,tag::index_>::type index_t;
 
@@ -57,17 +57,17 @@ namespace nt2
                                 , boost::mpl::at_c< typename index_t::type, 1>
                                 , boost::mpl::at_c< typename index_t::type, 0>
                                 >::type base_t;
-                      
+
       // Here is the fancy new buffer
       typedef typename base_alloc_type::template rebind<T>::other allocator_type;
       typedef memory::buffer<T,base_t::value,allocator_type>      type;
-    };  
+    };
 
     template<typename T, typename S> struct apply<T,S>
     {
       typedef typename meta::option<S,tag::allocator_>::type  allocator_type;
       typedef typename apply<T,S,allocator_type>::type        type;
-    };  
+    };
   };
 
   //============================================================================
@@ -87,10 +87,10 @@ namespace nt2
       BOOST_MPL_ASSERT_MSG
       ( (size_::static_status)
       , SETTINGS_MISMATCH_AUTOMATIC_STORAGE_REQUESTED_WITH_DYNAMIC_SIZES
-      , (size_)      
+      , (size_)
       );
 
-      //========================================================================    
+      //========================================================================
       // If you trigger this assertion, you specified a lead padding value
       // which is either runtime-specified or not aligned on a power of 2.
       // Check your container settings.
@@ -126,7 +126,7 @@ namespace nt2
                             , typename boost::mpl::pop_front<base_size>::type
                             , base_size
                             >::type               sizes;
-      
+
       // Get the base index
       typedef typename meta::option<S,tag::index_>::type index_t;
 
@@ -136,13 +136,20 @@ namespace nt2
                                 , boost::mpl::at_c< typename index_t::type, 1>
                                 , boost::mpl::at_c< typename index_t::type, 0>
                                 >::type base_t;
-      
-      //========================================================================
+
+      // Pad the data but not the pointer
+      typedef typename  boost::mpl
+                      ::eval_if < boost::is_pointer<T>
+                                , meta::padded_size < sizes
+                                                    , boost::mpl::int_<1>
+                                                    , boost::mpl::int_<1>
+                                                    >
+                                , meta::padded_size<sizes,global_,lead_>
+                                >::type dims_;
+
       // Make me an array_buffer sandwich
-      //========================================================================
-      typedef typename meta::padded_size<sizes,global_,lead_>::type dims_;
       typedef memory::array_buffer<T,dims_::value,base_t::value>    type;
-    };  
+    };
   };
 }
 
