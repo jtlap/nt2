@@ -103,20 +103,20 @@ NT2_TEST_CASE(complex_hierarchy_simd)
 {
   using namespace boost::dispatch::meta;
   using std::complex;
-  using boost::simd::composite;
+  using boost::simd::native;
   
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
   
-  composite<complex<double>, ext_t> im;
+  native<complex<double>, ext_t> im;
   
-  NT2_TEST_EXPR_TYPE(im, hierarchy<0>, (simd_< complex_< double_< composite<complex<double>, ext_t> > >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<1>, (simd_< complex_< type64_< composite<complex<double>, ext_t> > >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<2>, (simd_< complex_< floating_sized_< composite<complex<double>, ext_t> > >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<3>, (simd_< complex_< floating_< composite<complex<double>, ext_t> > >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<4>, (simd_< complex_< signed_< composite<complex<double>, ext_t> > >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<5>, (simd_< complex_< arithmetic_< composite<complex<double>, ext_t> > >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<6>, (simd_< complex_< fundamental_< composite<complex<double>, ext_t> > >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<7>, (simd_< complex_< unspecified_< composite<complex<double>, ext_t> > >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<8>, (simd_< unspecified_< composite<complex<double>, ext_t> >, ext_t >));
-  NT2_TEST_EXPR_TYPE(im, hierarchy<9>, (generic_< complex_< double_< composite<complex<double>, ext_t> > > >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<0>, (simd_< complex_< double_< native<complex<double>, ext_t> > >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<1>, (simd_< complex_< type64_< native<complex<double>, ext_t> > >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<2>, (simd_< complex_< floating_sized_< native<complex<double>, ext_t> > >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<3>, (simd_< complex_< floating_< native<complex<double>, ext_t> > >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<4>, (simd_< complex_< signed_< native<complex<double>, ext_t> > >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<5>, (simd_< complex_< arithmetic_< native<complex<double>, ext_t> > >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<6>, (simd_< complex_< fundamental_< native<complex<double>, ext_t> > >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<7>, (simd_< complex_< unspecified_< native<complex<double>, ext_t> > >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<8>, (simd_< unspecified_< native<complex<double>, ext_t> >, ext_t >));
+  NT2_TEST_EXPR_TYPE(im, hierarchy<9>, (generic_< complex_< double_< native<complex<double>, ext_t> > > >));
 }

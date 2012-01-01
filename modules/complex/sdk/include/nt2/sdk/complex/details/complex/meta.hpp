@@ -12,6 +12,9 @@
 #include <nt2/sdk/complex/details/complex/fusion_adapt.hpp>
 #include <nt2/sdk/complex/meta/real_of.hpp>
 #include <nt2/sdk/complex/hierarchy.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -35,14 +38,19 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef scalar_< complex_< typename property_of<T, Origin>::type > > type;
   };
-} } }
-
-namespace boost
-{
+  
   template<class T>
-  struct is_floating_point< std::complex<T> > : is_floating_point<T>
+  struct scalar_of< std::complex<T> >
   {
+    typedef std::complex<T> type;
   };
-}
+  
+  template<class T>
+  struct value_of< std::complex<T> >
+  {
+    typedef T type;
+  };
+  
+} } }
 
 #endif

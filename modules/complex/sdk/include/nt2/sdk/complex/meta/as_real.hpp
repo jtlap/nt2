@@ -17,7 +17,7 @@ namespace nt2 { namespace meta
 {
   template<class T>
   struct as_real
-   : boost::mpl::apply1< typename boost::dispatch::meta::factory_of<T>::type
+   : boost::mpl::apply1< typename boost::dispatch::meta::factory_of<T, typename real_of<T>::type>::type
                        , typename real_of<T>::type
                        >
   {

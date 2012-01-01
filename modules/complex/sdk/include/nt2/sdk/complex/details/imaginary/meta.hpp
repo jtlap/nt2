@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef NT2_SDK_COMPLEX_DETAILS_IMAGINARY_META_HPP_INCLUDED
 #define NT2_SDK_COMPLEX_DETAILS_IMAGINARY_META_HPP_INCLUDED
-#include <nt2/sdk/complex/meta/real_of.hpp>
+
 #include <nt2/sdk/complex/hierarchy.hpp>
+#include <nt2/sdk/complex/meta/real_of.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace nt2
 {
@@ -41,14 +43,19 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef scalar_< imaginary_< typename property_of<T, Origin>::type > > type;
   };
-} } }
-
-namespace boost
-{
+  
   template<class T>
-  struct is_floating_point< nt2::imaginary<T> > : is_floating_point<T>
+  struct scalar_of< nt2::imaginary<T> >
   {
+    typedef nt2::imaginary<T> type;
   };
-}
+  
+  template<class T>
+  struct value_of< nt2::imaginary<T> >
+  {
+    typedef T type;
+  };
+  
+} } }
 
 #endif
