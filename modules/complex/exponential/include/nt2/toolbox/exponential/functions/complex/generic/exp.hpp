@@ -10,8 +10,9 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXP_HPP_INCLUDED
 
 #include <nt2/toolbox/exponential/functions/exp.hpp>
-#include <nt2/toolbox/exponential/functions/sincos.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
+#include <nt2/include/functions/sincos.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <complex>
@@ -25,7 +26,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
                             , (A0)
-                            , (scalar_< complex_<floating_<A0> > >)
+                            , (generic_< complex_<floating_<A0> > >)
                             )
   {
     typedef A0 result_type;
@@ -40,7 +41,7 @@ namespace nt2 { namespace ext
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
                             , (A0)
-                            , (scalar_< imaginary_<floating_<A0> > >)
+                            , (generic_< imaginary_<floating_<A0> > >)
                             )
   {
     typedef typename meta::as_real<A0>::type             rtype; 
