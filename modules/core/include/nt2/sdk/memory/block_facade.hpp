@@ -23,14 +23,14 @@ namespace nt2 { namespace memory
 {
   //============================================================================
   /**!
-   * 
+   *
    **/
   //============================================================================
   template<class Shape, class Type, class Settings> class block;
-  
+
   //============================================================================
   /**!
-   * 
+   *
    **/
   //============================================================================
   template<class T, class S> class block_facade
@@ -72,7 +72,7 @@ namespace nt2 { namespace memory
                 , allocator_type const& a = allocator_type()
                 )
                 : data_(sz,a)
-    {}    
+    {}
     //==========================================================================
     /**
      * Access to a given position in the underlying buffer
@@ -85,13 +85,13 @@ namespace nt2 { namespace memory
     {
       return data_[pos];
     }
-    
+
     template<class Position>
     BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
     {
       return data_[pos];
     }
-    
+
     //==========================================================================
     // Shape management
     // These are the base case, any special handling can be overloaded in the
@@ -101,11 +101,19 @@ namespace nt2 { namespace memory
     template<class Size> void resize( Size const& szs ) { data_.resize(szs); }
 
     //==========================================================================
+    // Size related informations
+    //==========================================================================
+    inline size_type        size()  const { return data_.size();  }
+    inline bool             empty() const { return data_.empty(); }
+    inline difference_type  lower() const { return data_.lower(); }
+    inline difference_type  upper() const { return data_.upper(); }
+
+    //==========================================================================
     // Access to data
     //==========================================================================
     buffer_t&       data()        { return data_; }
     buffer_t const& data() const  { return data_; }
-    
+
     private:
     buffer_t    data_;
   };
