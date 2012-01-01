@@ -81,7 +81,11 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Size of the container
     //==========================================================================
-    static typename parent::extent_type const& sizes() { return sizes_; }
+    static typename parent::extent_type const&  sizes() { return sizes_;        }
+    static typename parent::size_type           size()  { return block_.size(); }
+    static bool                                 empty() { return block_.empty();}
+    static typename parent::difference_type     lower() { return block_.lower();}
+    static typename parent::difference_type     upper() { return block_.upper();}
 
     //==========================================================================
     // Resize of the container

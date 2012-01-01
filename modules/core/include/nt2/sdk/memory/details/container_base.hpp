@@ -49,6 +49,9 @@ namespace nt2 { namespace details
     typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
     typedef typename meta::option<settings_type, tag::index_>::type   index_type;
 
+    //==========================================================================
+    // container knows if its size is statically defined or not
+    //==========================================================================
     typedef boost::mpl::bool_<extent_type::static_status>  is_static_sized;
 
     //==========================================================================

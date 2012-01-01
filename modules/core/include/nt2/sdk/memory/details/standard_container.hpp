@@ -30,6 +30,11 @@ namespace nt2 { namespace memory
   {
     typedef nt2::details::container_base<Tag,T,S>         parent;
 
+    //==========================================================================
+    /*!
+     * Default constructor
+     */
+    //==========================================================================
     container ( typename parent::allocator_type const&
                 a = typename parent::allocator_type()
               )
@@ -38,6 +43,11 @@ namespace nt2 { namespace memory
       parent::init(block_,sizes_, typename parent::is_static_sized());
     }
 
+    //==========================================================================
+    /*!
+     * Constructor from a Dimensions set
+     */
+    //==========================================================================
     template<class Size>
     container ( Size const& sz
               , typename parent::allocator_type const&
@@ -46,6 +56,11 @@ namespace nt2 { namespace memory
               : block_(sz,a), sizes_(sz)
     {}
 
+    //==========================================================================
+    /*!
+     * Random access to container element
+     */
+    //==========================================================================
     template<class Position> BOOST_FORCEINLINE
     typename parent::reference operator[]( Position const& pos )
     {
@@ -58,13 +73,47 @@ namespace nt2 { namespace memory
       return block_[pos];
     }
 
+    //==========================================================================
+    /*!
+     * Redefine the container shape using a new Dimensions Set
+     */
+    //==========================================================================
     template<class Size> void resize( Size const& szs )
     {
       parent::resize( block_,sizes_,szs
                     , typename parent::is_static_sized()
                     );
     }
+
+    //==========================================================================
+    /*!
+     * Return the current container dimensions set
+     */
+    //==========================================================================
     typename parent::extent_type const&  sizes() const { return sizes_;  }
+
+    //==========================================================================
+    /*!
+     * Return the number of allocated element of the container
+     */
+    //==========================================================================
+    typename parent::size_type size() const { return block_.size(); }
+
+    //==========================================================================
+    /*!
+     * Return true if the container is empty
+     */
+    //==========================================================================
+    bool empty() const { return block_.empty(); }
+
+    typename parent::difference_type  lower() const { return block_.lower(); }
+    typename parent::difference_type  upper() const { return block_.upper(); }
+
+    //==========================================================================
+    /*!
+     * Return the current container dimensions set
+     */
+    //==========================================================================
 
     private:
     typename parent::block_t      block_;

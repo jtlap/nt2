@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL( container_values, NT2_TYPES )
 }
 
 //==============================================================================
-// iliffe_buffer type has a model
+// container type has a model
 //==============================================================================
 template<class T, class U>
 struct  apply_model
@@ -92,13 +92,23 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, NT2_TYPES)
 
   container<table_,id_<0>,T,settings()> classic_container;
 
+  NT2_TEST(classic_container.empty());
+  NT2_TEST_EQUAL(classic_container.size(), 0u);
+  NT2_TEST_EQUAL(classic_container.lower(), 1);
+  NT2_TEST_EQUAL(classic_container.upper(), 0);
   NT2_TEST(classic_container.sizes() == of_size_<0>());
+
   NT2_TEST_ASSERT(T k = classic_container[1]);
   NT2_TEST_ASSERT(classic_container[1] = 0.);
 
   container<table_,id_<1337>,T,settings()> container_id_1337;
 
+  NT2_TEST(container_id_1337.empty());
+  NT2_TEST_EQUAL(container_id_1337.size(), 0u);
+  NT2_TEST_EQUAL(container_id_1337.lower(), 1);
+  NT2_TEST_EQUAL(container_id_1337.upper(), 0);
   NT2_TEST(container_id_1337.sizes() == of_size_<0>());
+
   NT2_TEST_ASSERT(T k = container_id_1337[1]);
   NT2_TEST_ASSERT(container_id_1337[1] = 0.);
 }
@@ -114,16 +124,49 @@ NT2_TEST_CASE_TPL( container_static_default_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  container<table_,id_<0>,T,settings(of_size_<3,7>)> classic_container;
+  container<table_,id_<0>,T,settings(of_size_<32,7>)> classic_container;
 
-  NT2_TEST( (classic_container.sizes() == of_size_<3,7>()) );
-  NT2_TEST_NO_ASSERT(T k = classic_container[1]);
-  NT2_TEST_NO_ASSERT(classic_container[1] = 0.);
+  NT2_TEST( !classic_container.empty());
+  NT2_TEST_EQUAL(classic_container.size(), 32*7);
+  NT2_TEST_EQUAL(classic_container.lower(), 1);
+  NT2_TEST_EQUAL(classic_container.upper(), 32*7);
+  NT2_TEST( (classic_container.sizes() == of_size_<32,7>()) );
 
-  container<table_,id_<42>,T,settings(of_size_<3,7>)> container_id_42;
-  NT2_TEST( (container_id_42.sizes() == of_size_<3,7>()) );
-  NT2_TEST_NO_ASSERT(T k = container_id_42[1]);
-  NT2_TEST_NO_ASSERT(container_id_42[1] = 0.);
+  container<table_,id_<42>,T,settings(of_size_<32,7>)> container_id_42;
+
+  NT2_TEST( !container_id_42.empty());
+  NT2_TEST_EQUAL(container_id_42.size(), 32*7);
+  NT2_TEST_EQUAL(container_id_42.lower(), 1);
+  NT2_TEST_EQUAL(container_id_42.upper(), 32*7);
+  NT2_TEST( (container_id_42.sizes() == of_size_<32,7>()) );
+}
+//==============================================================================
+// Test for container default ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( container_automatic_static_default_ctor, NT2_TYPES)
+{
+  using nt2::id_;
+  using nt2::of_size_;
+  using nt2::settings;
+  using nt2::automatic_;
+  using nt2::tag::table_;
+  using nt2::memory::container;
+
+  container<table_,id_<0>,T,settings(of_size_<32,7>, automatic_)> classic_container;
+
+  NT2_TEST( !classic_container.empty());
+  NT2_TEST_EQUAL(classic_container.size(), 32*7);
+  NT2_TEST_EQUAL(classic_container.lower(), 1);
+  NT2_TEST_EQUAL(classic_container.upper(), 32*7);
+  NT2_TEST( (classic_container.sizes() == of_size_<32,7>()) );
+
+  container<table_,id_<7>,T,settings(automatic_, of_size_<32,7>)> container_id_7;
+
+  NT2_TEST( !container_id_7.empty());
+  NT2_TEST_EQUAL(container_id_7.size(), 32*7);
+  NT2_TEST_EQUAL(container_id_7.lower(), 1);
+  NT2_TEST_EQUAL(container_id_7.upper(), 32*7);
+  NT2_TEST( (container_id_7.sizes() == of_size_<32,7>()) );
 }
 
 /*
