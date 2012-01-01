@@ -13,20 +13,28 @@
 #include <nt2/include/functions/construct.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
-#include <nt2/core/container/table/table_container.hpp>
 #include <nt2/core/container/table/adapted/table.hpp>
+
+namespace nt2 { namespace meta
+{
+  template<class Tag, class T, class S>
+  struct make_terminal
+  {
+    typedef typename meta::option<S, tag::id_, id_<0> >::type           id_t;
+    typedef boost::dispatch::
+            meta::terminal_of< memory::container<Tag,id_t,T,S> >::type  type;
+  };
+} }
 
 namespace nt2 { namespace container
 {
-  template<class Type, class Settings>
-  struct table
-       : boost::dispatch::
-         meta::terminal_of< table_container<Type,Settings> >::type
+  template<class T, class S>
+  struct  table
+        : meta::make_terminal<tag::table_,T,S>::type
   {
-    typedef table_container<Type,Settings> container_type;
+    //typedef memory::container<tag::table_,T,S> container_type;
 
-    typedef typename
-    boost::dispatch::meta::terminal_of<container_type>::type parent;
+    typedef typename meta::make_terminal<tag::table_,T,S>::type parent;
     typedef typename parent::extent_type                        extent_type;
     typedef typename parent::index_type                         index_type;
 

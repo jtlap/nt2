@@ -12,12 +12,10 @@
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/shape.hpp>
 #include <nt2/core/settings/option.hpp>
-#include <nt2/sdk/meta/is_container.hpp>
-#include <nt2/sdk/meta/container_of.hpp>
 #include <nt2/sdk/memory/block_facade.hpp>
-#include <boost/dispatch/meta/terminal_of.hpp>
-#include <nt2/core/settings/normalize_settings.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/sdk/memory/adapted/container.hpp>
+#include <nt2/core/settings/normalize_settings.hpp>
 
 namespace nt2 { namespace details
 {
@@ -50,51 +48,49 @@ namespace nt2 { namespace details
     //==========================================================================
     typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
     typedef typename meta::option<settings_type, tag::index_>::type   index_type;
+
+    typedef boost::mpl::bool_<extent_type::static_status>  is_static_sized;
+
+    //==========================================================================
+    // If size is static, perform allocation from default constructor
+    //==========================================================================
+    template<class Size>
+    inline void init( block_t& block, Size const& sz, boost::mpl::true_ const& )
+    {
+      block.resize(sz);
+    }
+
+    template<class Size>
+    inline void init( block_t&, Size const&, boost::mpl::false_ const& ) {}
+
+    //==========================================================================
+    // Resize inner block if resizing is allowed
+    //==========================================================================
+    template<class Size> inline
+    void resize ( block_t& block, Size const& new_sz, extent_type& old_sz
+                , boost::mpl::false_ const&
+                )
+    {
+      if( new_sz != old_sz )
+      {
+        old_sz = extent_type(new_sz);
+        block.resize(new_sz);
+      }
+    }
+
+    //==========================================================================
+    // Force a static assert if a statically sized container is resized
+    //==========================================================================
+    template<class Size> inline
+    void resize( block_t&, Size const&, extent_type&, boost::mpl::true_ const&)
+    {
+      BOOST_MPL_ASSERT_MSG
+      ( (sizeof(Size) == 0)
+      , STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY
+      , (Size)
+      );
+    }
   };
 } }
 
-namespace nt2 { namespace memory
-{
-  template<class Tag, class ID, class T, class S> struct container;
-} }
-
-namespace nt2 { namespace meta
-{
-  //============================================================================
-  // Register container as a proper container
-  //============================================================================
-  template<class Tag, class ID, class T, class S>
-  struct is_container< memory::container<Tag, ID, T, S> > : boost::mpl::true_ {};
-} }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  //============================================================================
-  // Register table_container as a proper Hierarchizable
-  //============================================================================
-  template<class Tag, class ID, class T, class S>
-  struct value_of< nt2::memory::container<Tag, ID, T, S> >
-  {
-    typedef T type;
-  };
-
-  //============================================================================
-  // table_container produce container expression from proper type and settings.
-  //============================================================================
-  template<class Tag, class ID, class T, class S>
-  struct terminal_of< nt2::memory::container<Tag,ID,T,S> >
-  {
-    typedef nt2::memory::container<Tag,ID,T, S>
-    /*
-                                                        base_t;
-    typedef typename base_t::settings_type              settings_t;
-    typedef nt2::memory::container<Tag,ID,T,settings_t>*/
-                                                        container_t;
-
-    typedef nt2::container::
-            expression< typename boost::proto::terminal< container_t >::type
-                      , container_t
-                      >                                                    type;
-  };
-} } }
 #endif

@@ -10,20 +10,35 @@
 #define NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_HPP_INCLUDED
 
 #include <boost/mpl/size_t.hpp>
-#include <boost/fusion/include/size.hpp>
-#include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/no_padding.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include <nt2/sdk/meta/dimensions_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/sdk/meta/dimensions_of.hpp>
-#include <nt2/sdk/meta/storage_order_of.hpp>
 
 //==============================================================================
 // Forward declaration
 //==============================================================================
-namespace nt2 { namespace container
+namespace nt2
 {
-  template<class Type, class Settings> struct table;
+  namespace tag       { struct table_; }
+  namespace container { template<class T, class S> struct table; }
+}
+
+namespace nt2 { namespace meta
+{
+  //============================================================================
+  // Container of the main nt2 proto domain act as tables
+  //============================================================================
+  template<> struct container_of<container::domain>
+  {
+    struct type
+    {
+      template<class T, class S> struct apply
+      {
+        typedef container::container<tag::table_, T, S> type;
+      };
+    };
+  };
 } }
 
 //==============================================================================
@@ -33,7 +48,7 @@ namespace nt2 { namespace meta
 {
   template<class T, class S>
   struct dimensions_of< nt2::container::table<T,S> > 
-          : boost::mpl::size_t<container::table<T,S>::container_type::extent_type::static_size> 
+          : boost::mpl::size_t<container::table<T,S>::extent_type::static_size> 
   {};
 } }
 
@@ -58,6 +73,24 @@ namespace boost { namespace dispatch { namespace meta
       struct apply { typedef nt2::container::table<X,S> type; };
     };
   };
+
+  template<class T, class S, class Origin>
+  struct hierarchy_of< nt2::memory::container<tag::table_, T, S>, Origin >
+  {
+    typedef table_< typename property_of< typename value_of<T>::type
+                                        , Origin
+                                        >::type
+                  , S
+                  >                                   type;
+  };
+
+  //============================================================================
+  // table use container<tag::table_> to do its biddings
+  //============================================================================
+  template<class T, class S> struct semantic_of< nt2::container::table<T, S> >
+  {
+    typedef nt2::memory::container<tag::table_,T, S> type;
+  };  
 } } }
 
 #endif

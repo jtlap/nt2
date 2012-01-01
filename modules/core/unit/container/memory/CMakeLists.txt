@@ -14,6 +14,7 @@ SET( SOURCES
   padded_allocator.cpp
   fixed_allocator.cpp
   iliffe_buffer.cpp
+  container.cpp
 ## List of scalar test files for toolbox core.memory
    )
 

@@ -19,12 +19,12 @@ namespace nt2 { namespace memory
    * container is the base class handling a container semantic, layout and
    * memory used by the table proto terminal class. It is built from a value
    * \c Type and a list of \c Settings describing how it should behave both at
-   * runtime and compile-time.  
+   * runtime and compile-time.
    *
    * \tparam Type Value type to store in the table
    * \tparam Setting Compound options list describing the behavior of the table
    **/
-  //============================================================================  
+  //============================================================================
   template<class Tag, class T, class S>
   struct container<Tag, id_<0>, T, S> : nt2::details::container_base<Tag,T,S>
   {
@@ -34,37 +34,39 @@ namespace nt2 { namespace memory
                 a = typename parent::allocator_type()
               )
               : block_(a)
-    {}
+    {
+      parent::init(block_,sizes_, typename parent::is_static_sized());
+    }
 
     template<class Size>
     container ( Size const& sz
               , typename parent::allocator_type const&
                 a = typename parent::allocator_type()
               )
-              : block_(sz,a)
+              : block_(sz,a), sizes_(sz)
     {}
-    
+
     template<class Position> BOOST_FORCEINLINE
     typename parent::reference operator[]( Position const& pos )
     {
       return block_[pos];
     }
-    
+
     template<class Position> BOOST_FORCEINLINE
     typename parent::const_reference operator[]( Position const& pos ) const
     {
       return block_[pos];
     }
-    
+
     template<class Size> void resize( Size const& szs )
     {
-      sizes_ = typename parent::extent_type(szs);
-      block_.resize(szs);
+      parent::resize( block_,sizes_,szs
+                    , typename parent::is_static_sized()
+                    );
     }
-
     typename parent::extent_type const&  sizes() const { return sizes_;  }
 
-    //private:
+    private:
     typename parent::block_t      block_;
     typename parent::extent_type  sizes_;
   };

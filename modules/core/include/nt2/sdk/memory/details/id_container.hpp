@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_SDK_MEMORY_DETAILS_ID_CONTAINER_HPP_INCLUDED
 #define NT2_SDK_MEMORY_DETAILS_ID_CONTAINER_HPP_INCLUDED
+
 #include <nt2/sdk/memory/details/container_base.hpp>
 
 namespace nt2 { namespace memory
@@ -21,18 +22,30 @@ namespace nt2 { namespace memory
   {
     typedef nt2::details::container_base<Tag,T,S>         parent;
 
-    container ( typename parent::allocator_type const&
-                a = typename parent::allocator_type()
-              )
+    //==========================================================================
+    // Default constructor can be called endlessly to reuse data
+    //==========================================================================
+    container()
     {
-      //========================================================================
-      // First constructor call is given priority over the others
-      // TODO: Check if additional construction attempt should assert or throw.
-      //========================================================================
+      if(!status_)
+      {
+        parent::init(block_,sizes_, typename parent::is_static_sized());
+        status_ = true;
+      }
+    }
+
+    //==========================================================================
+    // First constructor call is given priority over the others
+    // Default constructor never throw nor assert as multiple instance can
+    // coexist
+    //==========================================================================
+    container( typename parent::allocator_type const& a )
+    {
       if(!status_)
       {
         typename parent::block_t that(a);
         block_.swap(that);
+        status_ = true;
       }
     }
 
@@ -42,38 +55,45 @@ namespace nt2 { namespace memory
                 a = typename parent::allocator_type()
               )
     {
-      //========================================================================
-      // First constructor call is given priority over the others
-      // TODO: Check if additional construction attempt should assert or throw.
-      //========================================================================
       if(!status_)
       {
         typename parent::block_t that(sz,a);
         block_.swap(that);
+        status_ = true;
       }
     }
-    
+
+    //==========================================================================
+    // Element access
+    //==========================================================================
     template<class Position> BOOST_FORCEINLINE
     typename parent::reference operator[]( Position const& pos )
     {
       return block_[pos];
     }
-    
+
     template<class Position> BOOST_FORCEINLINE
     typename parent::const_reference operator[]( Position const& pos ) const
     {
       return block_[pos];
     }
 
+    //==========================================================================
+    // Size of the container
+    //==========================================================================
     static typename parent::extent_type const& sizes() { return sizes_; }
 
+    //==========================================================================
+    // Resize of the container
+    //==========================================================================
     template<class Size> static void resize( Size const& szs )
     {
-      sizes_ = typename parent::extent_type(szs);
-      block_.resize(szs); 
+      parent::resize( block_,sizes_,szs
+                    , boost::mpl::bool_<parent::extent_type::static_status>()
+                    );
     }
-      
-    //private:
+
+    private:
     static bool                         status_;
     static typename parent::block_t     block_;
     static typename parent::extent_type sizes_;
