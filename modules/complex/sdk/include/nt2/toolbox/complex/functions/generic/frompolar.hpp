@@ -11,7 +11,7 @@
 #include <nt2/toolbox/complex/functions/frompolar.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-//#include <nt2/include/functions/sincos.hpp>
+#include <nt2/include/functions/sincos.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
       A0 s, c;
-      ::sincos(a1, s, c); //TO DO nt2::sincos
+      nt2::sincos(a1, s, c);
       return a0*result_type(c, s); 
     }
   };
