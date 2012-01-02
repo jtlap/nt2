@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINH_HPP_INCLUDED
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/expm1.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -19,11 +16,6 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_
