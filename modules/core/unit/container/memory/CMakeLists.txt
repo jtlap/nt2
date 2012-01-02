@@ -10,11 +10,12 @@
 SET( SOURCES
   array_buffer.cpp
   buffer.cpp
+  container.cpp
+  container_id.cpp
   dimensions_of.cpp
   padded_allocator.cpp
   fixed_allocator.cpp
   iliffe_buffer.cpp
-  container.cpp
 ## List of scalar test files for toolbox core.memory
    )
 

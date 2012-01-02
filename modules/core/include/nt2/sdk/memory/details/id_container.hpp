@@ -90,10 +90,19 @@ namespace nt2 { namespace memory
     //==========================================================================
     static BOOST_FORCEINLINE extent_type const& sizes() { return sizes_; }
 
-    static BOOST_FORCEINLINE size_type        size()  { return block_.size();  }
-    static BOOST_FORCEINLINE bool             empty() { return block_.empty(); }
-    static BOOST_FORCEINLINE difference_type  lower() { return block_.lower(); }
-    static BOOST_FORCEINLINE difference_type  upper() { return block_.upper(); }
+    static BOOST_FORCEINLINE size_type size()       { return block_.size();       }
+    static BOOST_FORCEINLINE size_type inner_size() { return block_.inner_size(); }
+    static BOOST_FORCEINLINE size_type outer_size() { return block_.outer_size(); }
+
+    static BOOST_FORCEINLINE bool empty() { return block_.empty(); }
+
+    static BOOST_FORCEINLINE difference_type lower()        { return block_.lower();        }
+    static BOOST_FORCEINLINE difference_type inner_lower()  { return block_.inner_upper();  }
+    static BOOST_FORCEINLINE difference_type outer_lower()  { return block_.outer_lower();  }
+
+    static BOOST_FORCEINLINE difference_type upper()        { return block_.upper();        }
+    static BOOST_FORCEINLINE difference_type inner_upper()  { return block_.inner_upper();  }
+    static BOOST_FORCEINLINE difference_type outer_upper()  { return block_.outer_upper();  }
 
     //==========================================================================
     // Resize of the container
