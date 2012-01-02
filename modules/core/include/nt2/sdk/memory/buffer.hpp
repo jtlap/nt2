@@ -163,7 +163,7 @@ namespace nt2 {  namespace memory
      * Return \c true if the buffer contains no elements
      **/
     //==========================================================================
-    bool empty()  const { return size() != 0u; }
+    bool empty()  const { return size() == 0u; }
 
     //==========================================================================
     /**!
