@@ -45,17 +45,17 @@ NT2_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(divides(cT(nt2::Inf<T>()),  cT(nt2::Inf<T>())),  cT(nt2::Nan<T>(), nt2::Nan<T>()));
-  NT2_TEST_EQUAL(divides(cT(nt2::Minf<T>()), cT(nt2::Minf<T>())), cT(nt2::Nan<T>(), nt2::Nan<T>()));
-  NT2_TEST_EQUAL(divides(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()));   
-  NT2_TEST_EQUAL(divides(cT(nt2::One<T>()),  cT(nt2::Zero<T>())), cT(nt2::Inf<T>(), nt2::Nan<T>())); 
-  NT2_TEST_EQUAL(divides(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), cT(nt2::Nan<T>(), nt2::Nan<T>())); 
-  NT2_TEST_EQUAL(divides(cT(0, 1), cT(0, 1)), cT(1, 0));
-  NT2_TEST_EQUAL(divides(cT(1, 0), T(1))    , cT(1, 0)); 
-  NT2_TEST_EQUAL(divides(cT(0, 2), cT(0, 1)), cT(2, 0));
-  NT2_TEST_EQUAL(divides(cT(0, 1), ciT(1))   ,cT(1, 0)); 
-  NT2_TEST_EQUAL(divides(ciT(1), ciT(1))     , T(1)); 
-  NT2_TEST_EQUAL(divides(ciT(0), ciT(1))     , T(0));
-  NT2_TEST_EQUAL(divides(T(1),   ciT(2))     , ciT(-0.5));
-  NT2_TEST_EQUAL(divides(cT(1, 1), cT(1, -1)), cT(0, 1)); 
+  NT2_TEST_EQUAL(nt2::divides(cT(nt2::Inf<T>()),  cT(nt2::Inf<T>())),  cT(nt2::Nan<T>(), nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::divides(cT(nt2::Minf<T>()), cT(nt2::Minf<T>())), cT(nt2::Nan<T>(), nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::divides(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()));   
+  NT2_TEST_EQUAL(nt2::divides(cT(nt2::One<T>()),  cT(nt2::Zero<T>())), cT(nt2::Inf<T>(), nt2::Nan<T>())); 
+  NT2_TEST_EQUAL(nt2::divides(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), cT(nt2::Nan<T>(), nt2::Nan<T>())); 
+  NT2_TEST_EQUAL(nt2::divides(cT(0, 1), cT(0, 1)), cT(1, 0));
+  NT2_TEST_EQUAL(nt2::divides(cT(1, 0), T(1))    , cT(1, 0)); 
+  NT2_TEST_EQUAL(nt2::divides(cT(0, 2), cT(0, 1)), cT(2, 0));
+  NT2_TEST_EQUAL(nt2::divides(cT(0, 1), ciT(1))   ,cT(1, 0)); 
+  NT2_TEST_EQUAL(nt2::divides(ciT(1), ciT(1))     , T(1)); 
+  NT2_TEST_EQUAL(nt2::divides(ciT(0), ciT(1))     , T(0));
+  NT2_TEST_EQUAL(nt2::divides(T(1),   ciT(2))     , ciT(-0.5));
+  NT2_TEST_EQUAL(nt2::divides(cT(1, 1), cT(1, -1)), cT(0, 1)); 
 } // end of test for floating_

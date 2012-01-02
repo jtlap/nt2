@@ -45,16 +45,16 @@ NT2_TEST_CASE_TPL ( plus_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(plus(cT(nt2::Inf<T>()),  cT(nt2::Inf<T>())),  cT(nt2::Inf<T>()));
-  NT2_TEST_EQUAL(plus(cT(nt2::Minf<T>()), cT(nt2::Minf<T>())), cT(nt2::Minf<T>()));
-  NT2_TEST_EQUAL(plus(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())),  cT(nt2::Nan <T>()));   
-  NT2_TEST_EQUAL(plus(cT(nt2::One<T>()),  cT(nt2::Zero<T>())), cT(nt2::One<T>())); 
-  NT2_TEST_EQUAL(plus(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), cT(nt2::Zero<T>())); 
-  NT2_TEST_EQUAL(plus(cT(0, 1), cT(0, 1)), cT(0, 2));
-  NT2_TEST_EQUAL(plus(cT(1, 0), T(1))    , cT(2, 0)); 
-  NT2_TEST_EQUAL(plus(cT(0, 2), cT(0, 1)), cT(0, 3));
-  NT2_TEST_EQUAL(plus(cT(0, 1), ciT(1))   ,cT(0, 2)); 
-  NT2_TEST_EQUAL(plus(ciT(1), ciT(1))     , ciT(2)); 
-  NT2_TEST_EQUAL(plus(ciT(0), ciT(1))     , ciT(1));
-  NT2_TEST_EQUAL(plus(T(1),   ciT(2))     , cT(1, 2)); 
+  NT2_TEST_EQUAL(nt2::plus(cT(nt2::Inf<T>()),  cT(nt2::Inf<T>())),  cT(nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::plus(cT(nt2::Minf<T>()), cT(nt2::Minf<T>())), cT(nt2::Minf<T>()));
+  NT2_TEST_EQUAL(nt2::plus(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())),  cT(nt2::Nan <T>()));   
+  NT2_TEST_EQUAL(nt2::plus(cT(nt2::One<T>()),  cT(nt2::Zero<T>())), cT(nt2::One<T>())); 
+  NT2_TEST_EQUAL(nt2::plus(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), cT(nt2::Zero<T>())); 
+  NT2_TEST_EQUAL(nt2::plus(cT(0, 1), cT(0, 1)), cT(0, 2));
+  NT2_TEST_EQUAL(nt2::plus(cT(1, 0), T(1))    , cT(2, 0)); 
+  NT2_TEST_EQUAL(nt2::plus(cT(0, 2), cT(0, 1)), cT(0, 3));
+  NT2_TEST_EQUAL(nt2::plus(cT(0, 1), ciT(1))   ,cT(0, 2)); 
+  NT2_TEST_EQUAL(nt2::plus(ciT(1), ciT(1))     , ciT(2)); 
+  NT2_TEST_EQUAL(nt2::plus(ciT(0), ciT(1))     , ciT(1));
+  NT2_TEST_EQUAL(nt2::plus(T(1),   ciT(2))     , cT(1, 2)); 
 } // end of test for floating_
