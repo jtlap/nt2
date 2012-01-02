@@ -6,10 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXP_HPP_INCLUDED
-#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXP_HPP_INCLUDED
-#include <nt2/toolbox/exponential/functions/exp.hpp>
-#include <nt2/include/functions/sincos.hpp>
+#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_LOG1P_HPP_INCLUDED
+#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_LOG1P_HPP_INCLUDED
+#include <nt2/include/functions/log1p.hpp>
+#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
@@ -17,35 +18,40 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
                             , (A0)
-                            , (generic_< complex_<floating_<A0> > >)
+                            , ((generic_<complex_<floating_<A0> > >))
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype; 
-      rtype c, s;
-      sincos(real(a0), s, c);      
-      return exp(real(a0))*result_type(c, s); 
+      typedef typename meta::as_logical<rtype>::type bA0;
+      result_type m = oneplus(a0);
+      rtype theta = nt2::arg(m);
+      rtype ra =  real(a0);
+      rtype rb2 =  sqr(imag(a0)); 
+      return result_type(Half<rtype>()*nt2::log1p(ra*(ra+Two<rtype>())+rb2), theta); 
     }
   };
-  
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
                             , (A0)
-                            , (generic_< imaginary_<floating_<A0> > >)
+                            , ((generic_<imaginary_<floating_<A0> > >))
                             )
   {
-    typedef typename meta::as_real<A0>::type             rtype; 
-    typedef typename meta::as_complex<rtype>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      rtype  c, s;
-      sincos(imag(a0), s, c); 
-      return result_type(c, s); 
+      typedef typename meta::as_real<A0>::type rtype; 
+      typedef typename meta::as_logical<rtype>::type bA0;
+      result_type m = oneplus(a0);
+      rtype theta = nt2::arg(m);
+      rtype rb2 =  sqr(imag(a0)); 
+      return result_type(Half<rtype>()*nt2::log1p(rb2), theta); 
     }
-  };
+  };    
 } }
 
 
