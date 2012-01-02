@@ -88,34 +88,34 @@ namespace nt2 {  namespace memory
      * Return the number of elements accessible through the buffer.
      **/
     //==========================================================================
-    static inline size_type size()        { return N; }
-    static inline size_type inner_size()  { return N; }
-    static inline size_type outer_size()  { return 1; }
+    static BOOST_FORCEINLINE size_type size()        { return N; }
+    static BOOST_FORCEINLINE size_type inner_size()  { return N; }
+    static BOOST_FORCEINLINE size_type outer_size()  { return 1; }
 
     //==========================================================================
     /**!
      * Return \c true if the buffer contains no elements
      **/
     //==========================================================================
-    static inline bool empty() { return size() == 0u; }
+    static BOOST_FORCEINLINE bool empty() { return size() == 0u; }
 
     //==========================================================================
     /**!
      * Return the lowest valid index for accessing a buffer element
      **/
     //==========================================================================
-    static inline difference_type lower()       { return BaseIndex; }
-    static inline difference_type inner_lower() { return BaseIndex; }
-    static inline difference_type outer_lower() { return 1;         }
+    static BOOST_FORCEINLINE difference_type lower()       { return BaseIndex; }
+    static BOOST_FORCEINLINE difference_type inner_lower() { return BaseIndex; }
+    static BOOST_FORCEINLINE difference_type outer_lower() { return 1;         }
 
     //==========================================================================
     /**!
      * Return the highest valid index for accessing a buffer element
      **/
     //==========================================================================
-    static inline difference_type upper()       { return BaseIndex + N - 1; }
-    static inline difference_type inner_upper() { return upper();           }
-    static inline difference_type outer_upper() { return 1;                 }
+    static BOOST_FORCEINLINE difference_type upper()       { return BaseIndex + N - 1; }
+    static BOOST_FORCEINLINE difference_type inner_upper() { return upper();           }
+    static BOOST_FORCEINLINE difference_type outer_upper() { return 1;                 }
 
     //==========================================================================
     /**!
