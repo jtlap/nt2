@@ -13,6 +13,8 @@
 
 #include <boost/fusion/include/transform.hpp>
 #include <boost/fusion/include/as_vector.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
+#include <boost/utility/enable_if.hpp>
 
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -38,7 +40,7 @@ namespace boost { namespace simd
   }
   
   template<class T, class X>
-  struct composite
+  struct native<T, X, typename boost::enable_if< boost::fusion::traits::is_sequence<T> >::type>
    : fusion::result_of::
      as_vector< typename fusion::result_of::
                 transform< T
@@ -53,13 +55,13 @@ namespace boost { namespace simd
                                 >::type
                      >::type                                             parent;
     
-    composite()
+    native()
     {
     }
     
     #define M0(z, n, t)                                                        \
     template<BOOST_PP_ENUM_PARAMS(n, class A)>                                 \
-    composite(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))                     \
+    native(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))                        \
       : parent(BOOST_PP_ENUM_PARAMS(n, a))                                     \
     {                                                                          \
     }                                                                          \
@@ -70,51 +72,5 @@ namespace boost { namespace simd
   };
   
 } }
-
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/dispatch/meta/property_of.hpp>
-#include <boost/dispatch/meta/model_of.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class T, class X, class Origin>
-  struct hierarchy_of< simd::composite<T, X>, Origin>
-  {
-    typedef typename simd::ext::simd_<typename property_of<T, Origin>::type, X> type;
-  };
-  
-  template<class T, class X>
-  struct value_of< simd::composite<T, X> >
-  {
-    typedef T type;
-  };
-  
-  template<class T, class X>
-  struct model_of< simd::composite<T, X> >
-  {
-    struct type
-    {
-      template<class U>
-      struct apply
-      {
-          typedef simd::composite<U, X> type;
-      };
-    };
-  };
-  
-} } }
-
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
-
-namespace boost { namespace simd { namespace meta
-{
-  template<class T, class X>
-  struct cardinal_of< simd::composite<T, X> >
-   : cardinal_of< simd::native<T, X> >
-  {
-  };
-} } }
 
 #endif

@@ -19,16 +19,17 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
-NT2_TEST_CASE_TPL ( as_logical, BOOST_SIMD_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL ( as_logical, BOOST_SIMD_TYPES )
 {
   using boost::is_same;
   using boost::simd::logical;
   using boost::simd::meta::as_logical;
 
   NT2_TEST( (is_same<logical<T>, typename as_logical<T>::type >::value ));
+  NT2_TEST( (is_same<logical<T>, typename as_logical<logical<T> >::type >::value ));
 }
 
-NT2_TEST_CASE_TPL ( as_logical_simd, BOOST_SIMD_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL ( as_logical_simd, BOOST_SIMD_TYPES )
 {
   using boost::is_same;
   using boost::simd::native;
@@ -38,6 +39,7 @@ NT2_TEST_CASE_TPL ( as_logical_simd, BOOST_SIMD_INTEGRAL_TYPES )
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   
   NT2_TEST( (is_same< native<logical<T>,ext_t>, typename as_logical< native<T,ext_t> >::type >::value ));
+  NT2_TEST( (is_same< native<logical<T>,ext_t>, typename as_logical< native<logical<T>,ext_t> >::type >::value ));
 }
 
 NT2_TEST_CASE_TPL ( logical_integral, BOOST_SIMD_INTEGRAL_TYPES )
@@ -95,7 +97,7 @@ NT2_TEST_CASE_TPL ( logical_simd, BOOST_SIMD_TYPES )
   native< logical<T>, ext_t > bool_true;
   bool_true = boost::simd::splat< native<T, ext_t > >(1);
   
-  for( int i=0; i < bool_true.size(); ++i ) NT2_TEST( bool_true[i] );
+  for( int i=0; i < bool_true.size(); ++i ) NT2_TEST( !!bool_true[i] );
 
   bool_true = boost::simd::splat< native<T, ext_t > >(0);
   

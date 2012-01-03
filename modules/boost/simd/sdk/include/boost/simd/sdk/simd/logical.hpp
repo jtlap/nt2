@@ -12,9 +12,9 @@
 #include <climits>
 #include <boost/assert.hpp>
 #include <boost/dispatch/attributes.hpp>
-#include <boost/dispatch/meta/sign_of.hpp>
-#include <boost/dispatch/meta/upgrade.hpp>
-#include <boost/dispatch/meta/downgrade.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <ostream>
@@ -118,25 +118,30 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef simd::ext::logical_<Origin> type;
   };
-} } }
-
-namespace boost { namespace dispatch { namespace ext
-{
-  template<class T> 
-  struct  sign_of< boost::simd::logical<T> > : meta::sign_of<T> {};
   
-  template<typename Type, typename Sign>
-  struct upgrade< boost::simd::logical<Type>, Sign, void >
+  template<class T>
+  struct value_of< simd::logical<T> >
   {
-    typedef typename upgrade<Type,Sign>::type base;
-    typedef boost::simd::logical<base>        type;
+    typedef T type;
   };
-
-  template<typename Type, typename Sign>
-  struct downgrade< boost::simd::logical<Type>, Sign, void >
+  
+  template<class T>
+  struct model_of< simd::logical<T> >
   {
-    typedef typename downgrade<Type,Sign>::type base;
-    typedef boost::simd::logical<base>          type;
+    struct type
+    {
+      template<class X>
+      struct apply
+      {
+        typedef simd::logical<X> type;
+      };
+    };
+  };
+  
+  template<class T>
+  struct scalar_of< simd::logical<T> >
+  {
+    typedef simd::logical<T> type;
   };
 } } }
 

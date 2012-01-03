@@ -47,11 +47,10 @@ namespace boost { namespace simd { namespace ext
     #if defined BOOST_MSVC && defined _WIN64
       return __popcnt64(v);
     #elif defined BOOST_MSVC
-      return  __popcnt( hi(v) )
-            + __popcnt( lo(v) );
+      return  __popcnt( hi(v) ) + __popcnt( lo(v) );
     #else
       return  __builtin_popcount( hi(v) )
-            + __builtin_popcount( lo(v) );
+        + __builtin_popcount( lo(v));
     #endif
     }
   };

@@ -14,20 +14,21 @@
  */
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
 #include <boost/mpl/apply.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {
-  template<class T, class Origin>
+  template<class T, class U>
   struct factory_of_impl
   {
     struct type
     {
       template<class X>
       struct apply
-       : mpl::apply< typename meta::model_of<Origin>::type
+       : mpl::apply< typename meta::model_of<T>::type
                    , typename mpl::apply< typename factory_of_impl< typename meta::value_of<T>::type
-                                                                  , T
+                                                                  , U
                                                                   >::type
                                         , X
                                         >::type
@@ -39,8 +40,15 @@ namespace boost { namespace dispatch { namespace details
   
   template<class T>
   struct factory_of_impl<T, T>
-   : meta::model_of<T>
   {
+    struct type
+    {
+      template<class X>
+      struct apply
+      {
+        typedef X type;
+      };
+    };
   };
 }
 
@@ -73,9 +81,9 @@ namespace meta
    *
    * \include factory_of.cpp
    */
-  template<class T>
+  template<class T, class U = typename meta::primitive_of<T>::type>
   struct factory_of
-    : details::factory_of_impl<typename value_of<T>::type, T>
+    : details::factory_of_impl<T, U>
   {
   };
 
