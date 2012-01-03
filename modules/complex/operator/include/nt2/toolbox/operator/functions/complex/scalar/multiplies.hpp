@@ -51,13 +51,13 @@ namespace nt2 { namespace ext
         if (is_invalid(x) || is_invalid(y))
           {
             if (is_real(a0))
-              return multiplies(real(a0), a1);
+              return nt2::multiplies(real(a0), a1);
             if (is_imag(a0))
-              return multiplies(pure(a0), a1);
+              return nt2::multiplies(pure(a0), a1);
             if (is_real(a1))
-              return multiplies(a0, real(a1)); 
+              return nt2::multiplies(a0, real(a1)); 
             if (is_imag(a1))
-              return multiplies(a0, pure(a1));
+              return nt2::multiplies(a0, pure(a1));
           }
         return result_type(x, y);
       }

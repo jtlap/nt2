@@ -65,9 +65,9 @@ NT2_TEST_CASE_TPL ( multiplies_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::Minf<T>()), cT(nt2::Minf<T>())), cT(nt2::Inf<T>()));
   std::cout << nt2::multiplies(cT(nt2::Minf<T>()), cT(nt2::Minf<T>()))<< std::endl; 
   NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())),  cT(nt2::Nan <T>()));   
-  std::cout <<multiplies(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())) << std::endl; 
+  std::cout <<nt2::multiplies(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())) << std::endl; 
   NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::One<T>()),  cT(nt2::Zero<T>())), cT(nt2::Zero<T>())); 
-  std::cout <<multiplies(cT(nt2::One<T>()),  cT(nt2::Zero<T>())) << std::endl; 
+  std::cout <<nt2::multiplies(cT(nt2::One<T>()),  cT(nt2::Zero<T>())) << std::endl; 
   NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), cT(nt2::Zero<T>())); 
   std::cout << nt2::multiplies(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())) << std::endl; 
   NT2_TEST_EQUAL(nt2::multiplies(cT(0, 1), cT(0, 1)), cT(-1, 0));
