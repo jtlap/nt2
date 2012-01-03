@@ -11,7 +11,7 @@
 #include <nt2/toolbox/complex/functions/pure.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 
 namespace nt2 { namespace ext
 {

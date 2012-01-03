@@ -14,7 +14,7 @@
 #include <nt2/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-#include <nt2/toolbox/complex/complex.hpp>
+#include <nt2/sdk/complex/complex.hpp>
 
 /*!
  * \ingroup nt2_complex
