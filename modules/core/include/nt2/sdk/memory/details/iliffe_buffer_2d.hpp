@@ -24,7 +24,7 @@ namespace nt2 { namespace memory
   template< typename T, std::size_t S
           , std::ptrdiff_t BI , std::ptrdiff_t BO
           >
-  struct  iliffe_buffer < boost::mpl::size_t<2>
+  struct  iliffe_buffer < boost::mpl::int_<2>
                         , array_buffer<T ,S,BI>
                         , array_buffer<T*,S,BO>
                         >

@@ -23,7 +23,7 @@
 template<class T> struct iliffe_buffer_1D_dynamic_test
 {
   typedef nt2::memory::
-          iliffe_buffer < boost::mpl::size_t<1>
+          iliffe_buffer < boost::mpl::int_<1>
                         , nt2::memory::buffer<T,1>
                         , void
                         >                           buffer_t;
@@ -45,7 +45,7 @@ template<class T> struct iliffe_buffer_1D_dynamic_test
 template<class T> struct iliffe_buffer_1D_static_test
 {
   typedef nt2::memory::
-          iliffe_buffer < boost::mpl::size_t<1>
+          iliffe_buffer < boost::mpl::int_<1>
                         , nt2::memory::array_buffer<T,256*256,1>
                         , void
                         >                           buffer_t;
@@ -58,7 +58,7 @@ template<class T> struct iliffe_buffer_1D_static_test
   {
     for(std::ptrdiff_t i = 1; i <= s0_; ++i) data[i] = v;
   }
-  
+
   T v;
   buffer_t        data;
   std::ptrdiff_t  s0_;
@@ -67,7 +67,7 @@ template<class T> struct iliffe_buffer_1D_static_test
 template<class T> struct iliffe_buffer_2D_static_test
 {
   typedef nt2::memory::
-          iliffe_buffer < boost::mpl::size_t<2>
+          iliffe_buffer < boost::mpl::int_<2>
                         , nt2::memory::array_buffer<T,256*256,1>
                         , nt2::memory::array_buffer<T*,256,1>
                         >                           buffer_t;
@@ -92,11 +92,11 @@ template<class T> struct iliffe_buffer_2D_static_test
 template<class T> struct iliffe_buffer_2D_dynamic_test
 {
   typedef nt2::memory::
-          iliffe_buffer < boost::mpl::size_t<2>
+          iliffe_buffer < boost::mpl::int_<2>
                         , nt2::memory::buffer<T,1>
                         , nt2::memory::buffer<T*,1>
                         >                           buffer_t;
-  
+
   typedef typename buffer_t::size_type        size_type;
   typedef typename buffer_t::difference_type  difference_type;
 
@@ -156,7 +156,7 @@ template<class T> void do_large(int H, int W)
 {
   iliffe_buffer_1D_dynamic_test<T> b(H*W);
   double d = nt2::unit::perform_benchmark( b, 3.);
-  
+
   iliffe_buffer_2D_dynamic_test<T> c(H,W);
   double e = nt2::unit::perform_benchmark( c, 3.);
 
@@ -186,7 +186,7 @@ template<class T> void do_small(int H, int W)
 {
   iliffe_buffer_1D_dynamic_test<T> b(H*W);
   double d = nt2::unit::perform_benchmark( b, 1.);
-    
+
   std_1D_test<T> z(H,W);
   double w = nt2::unit::perform_benchmark( z, 1.);
 

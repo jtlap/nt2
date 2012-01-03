@@ -23,8 +23,8 @@
 #include <boost/fusion/include/make_vector.hpp>
 
 #define DIMS                                    \
-(boost::mpl::size_t<1>)(boost::mpl::size_t<2>)  \
-(boost::mpl::size_t<3>)(boost::mpl::size_t<4>)  \
+(boost::mpl::int_<1>)(boost::mpl::int_<2>)  \
+(boost::mpl::int_<3>)(boost::mpl::int_<4>)  \
 /**/
 
 //==============================================================================
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_values, NT2_TYPES )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE
-  ( (iliffe_buffer<boost::mpl::size_t<1>, buffer<T,1>, void >())
+  ( (iliffe_buffer<boost::mpl::int_<1>, buffer<T,1>, void >())
   , value_of<_>
   , T
   );
@@ -76,9 +76,9 @@ NT2_TEST_CASE_TPL( iliffe_buffer_models, NT2_TYPES )
   using boost::mpl::_;
 
   NT2_TEST_EXPR_TYPE
-  ( (iliffe_buffer<boost::mpl::size_t<1>, buffer<int,1>, void >())
+  ( (iliffe_buffer<boost::mpl::int_<1>, buffer<int,1>, void >())
   , (apply_model<_,T>)
-  , (iliffe_buffer<boost::mpl::size_t<1>, buffer<T,1>, T >)
+  , (iliffe_buffer<boost::mpl::int_<1>, buffer<T,1>, T >)
   );
 }
 
@@ -91,7 +91,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dynamic_1D_default_ctor, NT2_TYPES)
   using nt2::memory::buffer;
   using nt2::memory::iliffe_buffer;
 
-  typedef iliffe_buffer<boost::mpl::size_t<1>,buffer<T,-2>,void> buffer_t;
+  typedef iliffe_buffer<boost::mpl::int_<1>,buffer<T,-2>,void> buffer_t;
 
   buffer_t b;
 
@@ -115,7 +115,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_automatic_1D_default_ctor, NT2_TYPES)
   using nt2::memory::array_buffer;
   using nt2::memory::iliffe_buffer;
 
-  typedef iliffe_buffer<boost::mpl::size_t<1>,array_buffer<T,5,-2>,void> buffer_t;
+  typedef iliffe_buffer<boost::mpl::int_<1>,array_buffer<T,5,-2>,void> buffer_t;
 
   buffer_t b;
 
@@ -139,7 +139,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_dynamic_nD_default_ctor, NT2_TYPES)
   using nt2::memory::buffer;
   using nt2::memory::iliffe_buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<2>
+  typedef iliffe_buffer < boost::mpl::int_<2>
                         , buffer<T,-2>
                         , buffer<T*,1>
                         > buffer_t;
@@ -166,7 +166,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_automatic_nD_default_ctor, NT2_TYPES)
   using nt2::memory::array_buffer;
   using nt2::memory::iliffe_buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<2>
+  typedef iliffe_buffer < boost::mpl::int_<2>
                         , array_buffer<T ,7*8,-2>
                         , array_buffer<T*,  8, 1>
                         > buffer_t;
@@ -193,7 +193,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_automatic__nD_default_ctor, NT2_TYPES)
   using nt2::memory::array_buffer;
   using nt2::memory::iliffe_buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<2>
+  typedef iliffe_buffer < boost::mpl::int_<2>
                         , array_buffer<T ,7, 1>
                         , array_buffer<T*,7,-2>
                         > buffer_t;
@@ -220,7 +220,7 @@ NT2_TEST_CASE_TPL( buffer_1D_copy_ctor, NT2_TYPES)
   using nt2::memory::buffer;
   using nt2::memory::iliffe_buffer;
 
-  typedef iliffe_buffer<boost::mpl::size_t<1>, buffer<T,-3>, void> buffer_t;
+  typedef iliffe_buffer<boost::mpl::int_<1>, buffer<T,-3>, void> buffer_t;
 
   buffer_t b( 7 );
 
@@ -251,7 +251,7 @@ NT2_TEST_CASE_TPL( buffer_static_1D_copy_ctor, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
 
-  typedef iliffe_buffer<boost::mpl::size_t<1>, array_buffer<T,7,-3>, void> buffer_t;
+  typedef iliffe_buffer<boost::mpl::int_<1>, array_buffer<T,7,-3>, void> buffer_t;
 
   buffer_t b( 7 );
 
@@ -282,7 +282,7 @@ NT2_TEST_CASE_TPL( buffer_2D_copy_ctor, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<2>
+  typedef iliffe_buffer < boost::mpl::int_<2>
                         , buffer<T,-2>
                         , buffer<T*,1>
                         > buffer_t;
@@ -319,7 +319,7 @@ NT2_TEST_CASE_TPL( buffer_static_2D_copy_ctor, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<2>
+  typedef iliffe_buffer < boost::mpl::int_<2>
                         , array_buffer<T, 15,-2>
                         , array_buffer<T*,3 , 1>
                         > buffer_t;
@@ -356,7 +356,7 @@ NT2_TEST_CASE_TPL( buffer_1D_assignment, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
 
-  typedef iliffe_buffer<boost::mpl::size_t<1>, buffer<T,-3>, void> buffer_t;
+  typedef iliffe_buffer<boost::mpl::int_<1>, buffer<T,-3>, void> buffer_t;
 
   buffer_t x,b( 7 );
 
@@ -387,7 +387,7 @@ NT2_TEST_CASE_TPL( buffer_static_1D_assignment, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<1>
+  typedef iliffe_buffer < boost::mpl::int_<1>
                         , array_buffer<T,7,-3>
                         , void
                         > buffer_t;
@@ -421,7 +421,7 @@ NT2_TEST_CASE_TPL( buffer_2D_assignment, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<2>
+  typedef iliffe_buffer < boost::mpl::int_<2>
                         , buffer<T,-2>
                         , buffer<T*,1>
                         > buffer_t;
@@ -458,7 +458,7 @@ NT2_TEST_CASE_TPL( buffer_static_2D_assignment, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<2>
+  typedef iliffe_buffer < boost::mpl::int_<2>
                         , array_buffer<T ,15,-2>
                         , array_buffer<T*, 3, 1>
                         > buffer_t;
@@ -495,7 +495,7 @@ NT2_TEST_CASE_TPL( buffer_1D_swap, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::buffer;
 
-  typedef iliffe_buffer<boost::mpl::size_t<1>, buffer<T,-3>, void> buffer_t;
+  typedef iliffe_buffer<boost::mpl::int_<1>, buffer<T,-3>, void> buffer_t;
 
   buffer_t x(4),b( 7 );
 
@@ -546,7 +546,7 @@ NT2_TEST_CASE_TPL( buffer_static_1D_swap, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<1>
+  typedef iliffe_buffer < boost::mpl::int_<1>
                         , array_buffer<T,7,-3>
                         , void
                         > buffer_t;
@@ -596,7 +596,7 @@ NT2_TEST_CASE_TPL( buffer_static_2D_swap, NT2_TYPES)
   using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
 
-  typedef iliffe_buffer < boost::mpl::size_t<2>
+  typedef iliffe_buffer < boost::mpl::int_<2>
                         , array_buffer<T ,15,1>
                         , array_buffer<T*, 3,1>
                         > buffer_t;

@@ -15,7 +15,7 @@ namespace nt2 { namespace memory
   // iliffe_buffer is specialized for 1D buffers to just forward to Data.
   //============================================================================
   template<typename Data, typename Index>
-  struct iliffe_buffer<boost::mpl::size_t<1>,Data,Index> : public Data
+  struct iliffe_buffer<boost::mpl::int_<1>,Data,Index> : public Data
   {
     typedef Data                              parent;
     typedef typename parent::size_type        size_type;
