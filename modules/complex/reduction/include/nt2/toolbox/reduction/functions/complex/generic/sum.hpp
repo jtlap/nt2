@@ -6,12 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SUM_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SUM_HPP_INCLUDED
-#include <nt2/include/functions/sum.hpp>
+#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_SUM_HPP_INCLUDED
+#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_SUM_HPP_INCLUDED
+#include <nt2/toolbox/reduction/functions/sum.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
