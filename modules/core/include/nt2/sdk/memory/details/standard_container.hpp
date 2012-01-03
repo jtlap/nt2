@@ -43,7 +43,7 @@ namespace nt2 { namespace memory
      * Default constructor
      */
     //==========================================================================
-    container( allocator_type const& a = allocator_type() ) : block_(a)
+    container( allocator_type const& a = allocator_type() )
     {
       parent::init(block_,sizes_, is_static_sized());
     }
@@ -109,7 +109,7 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE bool empty() const { return block_.empty(); }
 
     BOOST_FORCEINLINE difference_type lower()       const { return block_.lower();        }
-    BOOST_FORCEINLINE difference_type inner_lower() const { return block_.inner_upper();  }
+    BOOST_FORCEINLINE difference_type inner_lower() const { return block_.inner_lower();  }
     BOOST_FORCEINLINE difference_type outer_lower() const { return block_.outer_lower();  }
 
     BOOST_FORCEINLINE difference_type upper()       const { return block_.upper();        }

@@ -107,7 +107,7 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE bool empty() const { return data_.empty(); }
 
     BOOST_FORCEINLINE difference_type lower()       const { return data_.lower();        }
-    BOOST_FORCEINLINE difference_type inner_lower() const { return data_.inner_upper();  }
+    BOOST_FORCEINLINE difference_type inner_lower() const { return data_.inner_lower();  }
     BOOST_FORCEINLINE difference_type outer_lower() const { return data_.outer_lower();  }
 
     BOOST_FORCEINLINE difference_type upper()       const { return data_.upper();        }
