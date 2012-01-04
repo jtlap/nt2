@@ -194,10 +194,10 @@ NT2_TEST_CASE_TPL( buffer_1D_copy_ctor, NT2_TYPES)
 
   typedef iliffe_buffer<buffer<T,-3>, void> buffer_t;
 
-  buffer_t b( 7 );
+  buffer_t b( boost::fusion::make_vector(7) );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    b[boost::fusion::vector_tie(i)] = 4+i;
+    b[boost::fusion::make_vector(i)] = 4+i;
 
   buffer_t x(b);
 
@@ -225,7 +225,7 @@ NT2_TEST_CASE_TPL( buffer_static_1D_copy_ctor, NT2_TYPES)
 
   typedef iliffe_buffer<array_buffer<T,7,-3>, void> buffer_t;
 
-  buffer_t b( 7 );
+  buffer_t b( boost::fusion::make_vector(7) );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     b[boost::fusion::vector_tie(i)] = 4+i;
@@ -256,8 +256,7 @@ NT2_TEST_CASE_TPL( buffer_2D_copy_ctor, NT2_TYPES)
 
   typedef iliffe_buffer< buffer<T,-2>, buffer<T*,1> > buffer_t;
 
-  boost::array<std::size_t,2> ss = {{5,3}};
-  buffer_t b( ss );
+  buffer_t b( boost::fusion::make_vector(5,3) );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
@@ -291,7 +290,7 @@ NT2_TEST_CASE_TPL( buffer_static_2D_copy_ctor, NT2_TYPES)
   typedef iliffe_buffer<array_buffer<T,15,-2>, array_buffer<T*,3,1> > buffer_t;
 
   boost::array<std::size_t,2> ss = {{5,3}};
-  buffer_t b( ss );
+  buffer_t b( boost::fusion::make_vector(5,3) );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
@@ -324,7 +323,7 @@ NT2_TEST_CASE_TPL( buffer_1D_assignment, NT2_TYPES)
 
   typedef iliffe_buffer<buffer<T,-3>, void> buffer_t;
 
-  buffer_t x,b( 7 );
+  buffer_t x,b( boost::fusion::make_vector(7) );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     b[boost::fusion::vector_tie(i)] = 4+i;
@@ -355,7 +354,7 @@ NT2_TEST_CASE_TPL( buffer_static_1D_assignment, NT2_TYPES)
 
   typedef iliffe_buffer<array_buffer<T,7,-3>, void> buffer_t;
 
-  buffer_t x,b( 7 );
+  buffer_t x,b( boost::fusion::make_vector(7) );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     b[boost::fusion::vector_tie(i)] = 4+i;
@@ -386,8 +385,7 @@ NT2_TEST_CASE_TPL( buffer_2D_assignment, NT2_TYPES)
 
   typedef iliffe_buffer<buffer<T,-2>,buffer<T*,1> > buffer_t;
 
-  boost::array<std::size_t,2> ss = {{5,3}};
-  buffer_t x, b( ss );
+  buffer_t x, b( boost::fusion::make_vector(5,3) );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
@@ -420,8 +418,7 @@ NT2_TEST_CASE_TPL( buffer_static_2D_assignment, NT2_TYPES)
 
   typedef iliffe_buffer<array_buffer<T ,15,-2>, array_buffer<T*, 3, 1> > buffer_t;
 
-  boost::array<std::size_t,2> ss = {{5,3}};
-  buffer_t x, b( ss );
+  buffer_t x, b( boost::fusion::make_vector(5,3) );
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
@@ -454,7 +451,7 @@ NT2_TEST_CASE_TPL( buffer_1D_swap, NT2_TYPES)
 
   typedef iliffe_buffer<buffer<T,-3>, void> buffer_t;
 
-  buffer_t x(4),b( 7 );
+  buffer_t x(boost::fusion::make_vector(4)),b(boost::fusion::make_vector(7));
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     b[boost::fusion::vector_tie(i)] = 4+i;

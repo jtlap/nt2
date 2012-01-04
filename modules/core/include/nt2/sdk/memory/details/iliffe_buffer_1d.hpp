@@ -38,24 +38,6 @@ namespace nt2 { namespace memory
 
     inline difference_type  inner_upper() const { return parent::upper(); }
     inline difference_type  outer_upper() const { return 1;               }
-
-    //==========================================================================
-    /**
-     * Access to a given position through the iliffe_buffer
-     * \param pos 2D Index of the element to retrieve.
-     **/
-    //==========================================================================
-    template<class Position>
-    BOOST_FORCEINLINE reference operator[]( Position const& p )
-    {
-      return parent::operator[](boost::fusion::at_c<0>(p));
-    }
-
-    template<class Position>
-    BOOST_FORCEINLINE const_reference operator[]( Position const& p ) const
-    {
-      return parent::operator[](boost::fusion::at_c<0>(p));
-    }
   };
 } }
 

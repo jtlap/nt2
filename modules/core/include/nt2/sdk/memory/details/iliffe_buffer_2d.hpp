@@ -10,6 +10,7 @@
 #define NT2_CORE_CONTAINER_MEMORY_DETAILS_ILIFFE_BUFFER_AUTO_2D_HPP_INCLUDED
 
 #include <nt2/sdk/memory/array_buffer.hpp>
+#include <nt2/sdk/meta/view_at.hpp>
 
 //==============================================================================
 // nD specialisation for iliffe_buffer of "compact" automatic storage
@@ -50,13 +51,13 @@ namespace nt2 { namespace memory
     template<class Position>
     BOOST_FORCEINLINE reference operator[]( Position const& p )
     {
-      return parent::operator[] ( boost::fusion::at_c<1>(p) );
+      return parent::operator[] ( meta::view_at<1>(p) );
     }
 
     template<class Position>
     BOOST_FORCEINLINE const_reference operator[]( Position const& p ) const
     {
-      return parent::operator[] ( boost::fusion::at_c<1>(p) );
+      return parent::operator[] ( meta::view_at<1>(p) );
     }
 
     inline size_type        inner_size()  const { return 1;       }

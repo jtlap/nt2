@@ -26,7 +26,8 @@ template<class T> struct iliffe_buffer_1D_dynamic_test
           iliffe_buffer < nt2::memory::buffer<T,1>, void>  buffer_t;
 
   iliffe_buffer_1D_dynamic_test ( std::ptrdiff_t s0 )
-                              : data(s0), s0_(s0), v(s0*s0)
+                              : data(boost::fusion::vector_tie(s0))
+                              , s0_(s0), v(s0*s0)
   {}
 
   void operator()()
@@ -48,7 +49,8 @@ template<class T> struct iliffe_buffer_1D_static_test
                         >                           buffer_t;
 
   iliffe_buffer_1D_static_test ( std::ptrdiff_t s0 )
-                              : data(s0), s0_(s0), v(s0*s0)
+                              : data(boost::fusion::vector_tie(s0))
+                              , s0_(s0), v(s0*s0)
   {}
 
   void operator()()
