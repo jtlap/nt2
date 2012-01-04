@@ -169,29 +169,41 @@ namespace nt2 { namespace details
   }
 
   template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<0> const&)
+  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<-1> const&)
+  {
+    return true;
+  }
+
+  template<typename A1, typename A2> BOOST_FORCEINLINE
+  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<0> const&)
   {
     return (details::safe_at_c<0>(a1) == details::safe_at_c<0>(a2) );
   }
 
-  template<typename A1, typename A2, std::size_t N> BOOST_FORCEINLINE
-  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<N> const&)
+  template<typename A1, typename A2, std::ptrdiff_t N> BOOST_FORCEINLINE
+  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<N> const&)
   {
     return (details::safe_at_c<N>(a1) == details::safe_at_c<N>(a2) )
-        &&  compare_equal(a1,a2,boost::mpl::size_t<N-1>());
+        &&  compare_equal(a1,a2,boost::mpl::long_<N-1>());
   }
-  
+
   template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<0> const&)
+  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<-1> const&)
+  {
+    return false;
+  }
+
+  template<typename A1, typename A2> BOOST_FORCEINLINE
+  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<0> const&)
   {
     return (details::safe_at_c<0>(a1) != details::safe_at_c<0>(a2) );
   }
 
-  template<typename A1, typename A2, std::size_t N> BOOST_FORCEINLINE
-  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<N> const&)
+  template<typename A1, typename A2, std::ptrdiff_t N> BOOST_FORCEINLINE
+  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<N> const&)
   {
     return (details::safe_at_c<N>(a1) != details::safe_at_c<N>(a2) )
-        ||  compare_not_equal(a1,a2,boost::mpl::size_t<N-1>());
+        ||  compare_not_equal(a1,a2,boost::mpl::long_<N-1>());
   }
 } }
 

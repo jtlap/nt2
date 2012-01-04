@@ -27,11 +27,11 @@ namespace nt2
   {
     static const std::size_t
     a = of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)>::static_size;
-    
+
     static const std::size_t
     b = of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)>::static_size;
 
-    return details::compare_equal(a0,a1,boost::mpl::size_t<((a < b) ? b : a)-1>());
+    return details::compare_equal(a0,a1,boost::mpl::long_<((a < b) ? b : a)-1>());
   }
 
   //============================================================================
@@ -45,11 +45,11 @@ namespace nt2
   {
     static const std::size_t
     a = of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)>::static_size;
-    
+
     static const std::size_t
     b = of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)>::static_size;
 
-    return details::compare_not_equal(a0,a1,boost::mpl::size_t<((a < b) ? b : a)-1>());
+    return details::compare_not_equal(a0,a1,boost::mpl::long_<((a < b) ? b : a)-1>());
   }
 }
 
