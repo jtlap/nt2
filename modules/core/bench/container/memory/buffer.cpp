@@ -17,17 +17,20 @@
 #include <nt2/sdk/unit/perform_benchmark.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
+#include <boost/fusion/include/vector_tie.hpp>
+
 template<class T> struct buffer_test
 {
   typedef nt2::memory::buffer<T,1>            buffer_t;
   typedef typename buffer_t::size_type        size_type;
   typedef typename buffer_t::difference_type  difference_type;
 
-  buffer_test(size_type sz) : data(sz) {}
+  buffer_test(size_type sz) : data(boost::fusion::vector_tie(sz)) {}
 
   void operator()()
   {
-    for(difference_type i = data.lower(); i <= data.upper(); ++i) ++data[i];
+    for(difference_type i = data.lower(); i <= data.upper(); ++i)
+      ++data[boost::fusion::vector_tie(i)];
   }
 
   buffer_t data;
@@ -38,7 +41,7 @@ template<class T> struct std_test
   std_test(std::size_t sz) : data(sz) {}
 
   ~std_test() {}
-   
+
   void operator()()
   {
     for(std::size_t i = 0; i < data.size(); ++i) ++data[i];

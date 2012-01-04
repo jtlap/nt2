@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <boost/array.hpp>
 #include <boost/fusion/adapted/array.hpp>
-#include <boost/fusion/include/single_view.hpp>
+#include <boost/fusion/include/make_vector.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -83,10 +83,10 @@ NT2_TEST_CASE_TPL( buffer_copy_ctor, NT2_TYPES)
 
   typedef buffer<T,1> type ;
 
-  type b(5);
+  type b(boost::fusion::make_vector(5));
 
   for ( typename type::difference_type i = b.lower(); i <= b.upper(); ++i )
-  b[i] = 3+i ;
+  b[boost::fusion::make_vector(i)] = 3+i ;
 
   type x(b);
 
@@ -101,7 +101,7 @@ NT2_TEST_CASE_TPL( buffer_copy_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(), 1 );
 
   for ( typename type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[i], 3+i );
+    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], 3+i );
 }
 
 //==============================================================================
@@ -113,10 +113,10 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
 
   typedef buffer<T,-2> buffer_type ;
 
-  buffer_type x, b(5);
+  buffer_type x, b(boost::fusion::make_vector(5));
 
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    b[i] = 3+i ;
+    b[boost::fusion::make_vector(i)] = 3+i ;
 
   x = b;
 
@@ -131,7 +131,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
   NT2_TEST_EQUAL(x.outer_upper(),  1 );
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[i], 3+i );
+    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], 3+i );
 }
 
 //==============================================================================
@@ -143,13 +143,13 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 
   typedef buffer<T,1> buffer_type ;
 
-  buffer_type b(boost::fusion::single_view<int>(3));
+  buffer_type b(boost::fusion::make_vector<int>(3));
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    b[i] = 10*i ;
+    b[boost::fusion::make_vector(i)] = 10*i ;
 
-  buffer_type x( 5 );
+  buffer_type x( boost::fusion::make_vector(5) );
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    x[i] = 3+i ;
+    x[boost::fusion::make_vector(i)] = 3+i ;
 
   swap(b,x);
 
@@ -174,10 +174,10 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(b.outer_upper(),  1 );
 
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( b[i], 3+i );
+    NT2_TEST_EQUAL( b[boost::fusion::make_vector(i)], 3+i );
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[i], 10*i );
+    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], 10*i );
 }
 
 //==============================================================================
@@ -194,9 +194,9 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
 
   typedef buffer<T,-2> buffer_type ;
 
-  buffer_type x(5);
+  buffer_type x(boost::fusion::make_vector(5));
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    x[i] = 3+i ;
+    x[boost::fusion::make_vector(i)] = 3+i ;
 
   f_ f;
 
@@ -206,7 +206,7 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
   std::transform(b,e,b,f);
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[i], f(3+i) );
+    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], f(3+i) );
 }
 
 //==============================================================================
@@ -219,8 +219,8 @@ NT2_TEST_CASE_TPL( buffer_wrong_access, NT2_TYPES)
   buffer_type b;
   T value;
 
-  NT2_TEST_ASSERT( value  = b[-3] );
-  NT2_TEST_ASSERT( value  = b[9]  );
-  NT2_TEST_ASSERT( b[-5]  = value );
-  NT2_TEST_ASSERT( b[7]   = value );
+  NT2_TEST_ASSERT( value  = b[boost::fusion::make_vector(-3)] );
+  NT2_TEST_ASSERT( value  = b[boost::fusion::make_vector(9)]  );
+  NT2_TEST_ASSERT( b[boost::fusion::make_vector(-5)]  = value );
+  NT2_TEST_ASSERT( b[boost::fusion::make_vector(7)]   = value );
 }

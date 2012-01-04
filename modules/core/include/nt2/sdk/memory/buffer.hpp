@@ -81,7 +81,7 @@ namespace nt2 {  namespace memory
     buffer( Sizes const& sz, allocator_type const& alloc = allocator_type() )
     : parent_data(alloc)
     {
-      parent_data::allocate( boost::fusion::at_c<0>(meta::as_sequence(sz)) );
+      parent_data::allocate( boost::fusion::at_c<0>(sz) );
     }
 
     //==========================================================================
@@ -196,33 +196,29 @@ namespace nt2 {  namespace memory
     template<class Position>
     BOOST_FORCEINLINE reference operator[](Position const& pos)
     {
-      difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
-
-      BOOST_ASSERT_MSG( (i >= lower())
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
                       , "Position is below buffer bounds"
                       );
 
-      BOOST_ASSERT_MSG( (i <= upper())
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
                       , "Position is out of buffer bounds"
                       );
 
-      return parent_data::origin_[i];
+      return parent_data::origin_[boost::fusion::at_c<0>(pos)];
     }
 
     template<class Position>
     BOOST_FORCEINLINE const_reference operator[](Position const& pos) const
     {
-      difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
-
-      BOOST_ASSERT_MSG( (i >= lower())
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
                       , "Position is below buffer bounds"
                       );
 
-      BOOST_ASSERT_MSG( (i <= upper())
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
                       , "Position is out of buffer bounds"
                       );
 
-      return parent_data::origin_[i];
+      return parent_data::origin_[boost::fusion::at_c<0>(pos)];
     }
 
     //==========================================================================
@@ -248,7 +244,7 @@ namespace nt2 {  namespace memory
     //==========================================================================
     template<class Sizes> void resize(Sizes const& sz)
     {
-      parent_data::resize( boost::fusion::at_c<0>(meta::as_sequence(sz)) );
+      parent_data::resize( boost::fusion::at_c<0>(sz) );
     }
 
     protected:
