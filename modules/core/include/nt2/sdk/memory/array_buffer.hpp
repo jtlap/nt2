@@ -54,7 +54,7 @@ namespace nt2 {  namespace memory
     template<typename Sizes>
     array_buffer( Sizes const& s, allocator_type const& = allocator_type() )
     {
-      BOOST_ASSERT_MSG( (N == boost::fusion::at_c<0>(meta::as_sequence(s)))
+      BOOST_ASSERT_MSG( (N == boost::fusion::at_c<0>(s))
                       , "Array buffer constructed wiht incompatible size."
                       );
     }
@@ -130,33 +130,29 @@ namespace nt2 {  namespace memory
     template<class Position> BOOST_FORCEINLINE
     reference operator[](Position const& pos)
     {
-      difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
-
-      BOOST_ASSERT_MSG( (i >= lower())
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
                       , "Position is below buffer bounds"
                       );
 
-      BOOST_ASSERT_MSG( (i <= upper())
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
                       , "Position is out of buffer bounds"
                       );
 
-      return storage_[i-BaseIndex];
+      return storage_[boost::fusion::at_c<0>(pos)-BaseIndex];
     }
 
     template<class Position> BOOST_FORCEINLINE
     const_reference operator[](Position const& pos) const
     {
-      difference_type i = boost::fusion::at_c<0>(meta::as_sequence(pos));
-
-      BOOST_ASSERT_MSG( (i >= lower())
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
                       , "Position is below buffer bounds"
                       );
 
-      BOOST_ASSERT_MSG( (i <= upper())
+      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
                       , "Position is out of buffer bounds"
                       );
 
-      return storage_[i-BaseIndex];
+      return storage_[boost::fusion::at_c<0>(pos)-BaseIndex];
     }
 
     //==========================================================================
@@ -182,7 +178,7 @@ namespace nt2 {  namespace memory
     //==========================================================================
     template<class Sizes> void resize(Sizes const& s)
     {
-      BOOST_ASSERT_MSG( (N == boost::fusion::at_c<0>(meta::as_sequence(s)))
+      BOOST_ASSERT_MSG( (N == boost::fusion::at_c<0>(s))
                       , "Array buffer resized wiht incompatible size."
                       );
     }
