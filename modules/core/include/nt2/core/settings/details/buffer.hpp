@@ -36,12 +36,17 @@ namespace nt2
   {
     template<class Model, class T,class S> struct apply
     {
-      typedef typename meta::option<S, tag::of_size_>::type               size;
-      typedef boost::mpl::int_<size::static_size>                         dims;
-      typedef typename meta::option<S, tag::sharing_>::type               mode;
-      typedef typename mode::data::template apply<T,S>::type              data;
-      typedef typename mode::index::template apply<T,S>::type             index;
-      typedef typename boost::mpl::apply<Model, dims, data, index>::type  type;
+      typedef typename meta::option<S, tag::of_size_>::type                 size;
+      typedef boost::mpl::int_<size::static_size>                           dims;
+      typedef typename meta::option<S, tag::sharing_>::type                 mode;
+      typedef typename mode::data::template apply<T,S>::type                data;
+      typedef typename mode::index::template apply<T,S>::type               index;
+      typedef typename  boost::mpl::
+                        if_c< size::static_size == 1
+                            , void
+                            , index
+                            >::type                                         index_t;
+      typedef typename boost::mpl::apply<Model, dims, data, index_t>::type  type;
     };
   };
 }

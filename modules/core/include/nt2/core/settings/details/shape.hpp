@@ -13,8 +13,8 @@
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/sdk/memory/iliffe_buffer.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   //============================================================================
   // Use iliffe_buffer to build a proper buffer
   //============================================================================
@@ -24,12 +24,11 @@ namespace nt2
     struct apply
     {
       typedef typename meta::option<S,tag::buffer_>::type           buffer_t;
-      
-      typedef memory::iliffe_buffer < boost::mpl::_1
-                                    , boost::mpl::_2
+
+      typedef memory::iliffe_buffer < boost::mpl::_2
                                     , boost::mpl::_3
                                     >                               model_t;
-                                    
+
       typedef typename buffer_t::template apply<model_t,T,S>::type  type;
     };
   };

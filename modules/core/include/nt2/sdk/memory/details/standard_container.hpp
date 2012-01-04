@@ -82,7 +82,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size> BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize( block_,sizes_,szs, is_static_sized() );
+      parent::resize( block_,szs,sizes_,is_static_sized() );
     }
 
     //==========================================================================
@@ -90,7 +90,7 @@ namespace nt2 { namespace memory
      * Return the current container dimensions set
      */
     //==========================================================================
-    BOOST_FORCEINLINE extent_type const&  sizes() const { return sizes_;  }
+    BOOST_FORCEINLINE extent_type const&  extent() const { return sizes_;  }
 
     //==========================================================================
     /*!
@@ -108,25 +108,23 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE bool empty() const { return block_.empty(); }
 
+    //==========================================================================
+    /*!
+     * Return the current container dimensions lower indices
+     */
+    //==========================================================================
     BOOST_FORCEINLINE difference_type lower()       const { return block_.lower();        }
     BOOST_FORCEINLINE difference_type inner_lower() const { return block_.inner_lower();  }
     BOOST_FORCEINLINE difference_type outer_lower() const { return block_.outer_lower();  }
 
+    //==========================================================================
+    /*!
+     * Return the current container dimensions upper indices
+     */
+    //==========================================================================
     BOOST_FORCEINLINE difference_type upper()       const { return block_.upper();        }
     BOOST_FORCEINLINE difference_type inner_upper() const { return block_.inner_upper();  }
     BOOST_FORCEINLINE difference_type outer_upper() const { return block_.outer_upper();  }
-
-    //==========================================================================
-    /*!
-     * Return the current container dimensions inner boundaries
-     */
-    //==========================================================================
-
-    //==========================================================================
-    /*!
-     * Return the current container dimensions outer boundaries
-     */
-    //==========================================================================
 
     private:
     block_t      block_;

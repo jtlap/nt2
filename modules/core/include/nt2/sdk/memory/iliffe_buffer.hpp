@@ -29,16 +29,14 @@ namespace nt2 { namespace memory
   /**
     * \brief Multi-dimensionnal memory buffer adaptor.
     *
-    * iliffe_buffer is a Buffer adaptor that turns a 1D Buffer into a nD Buffer
-    * by using the Iliffe vector allocation scheme to allow multi-dimensionnal
-    * access by precomputing index tables of nD pointers.
+    * iliffe_buffer is a Buffer adaptor that aggregate a Data and an Index
+    * buffer into an Iliffe vector to allow bidimensionnal access.
     *
-    * \tparam Dimensions    Number of dimensions stored in this Buffer
-    * \tparam Data          1D Buffer to remodel as data storage
-    * \tparam Index         1D Buffer to remodel as indices storage
+    * \tparam Data  1D Buffer to remodel as data storage
+    * \tparam Index 1D Buffer to remodel as indices storage
    **/
   //============================================================================
-  template<typename Dimensions, typename Data, typename Index>
+  template<typename Data, typename Index>
   struct iliffe_buffer
   {
     //==========================================================================
@@ -205,24 +203,19 @@ namespace nt2 { namespace memory
     //==========================================================================
     /**
      * Access to a given position through the iliffe_buffer
-     * \param pos nD Index of the element to retrieve passed either as an
-     * integral value or as a Fusion RandomAccessSequence of size 1 or 2.
+     * \param pos 2D Index of the element to retrieve.
      **/
     //==========================================================================
     template<class Position>
-    BOOST_FORCEINLINE reference operator[]( Position const& pos )
+    BOOST_FORCEINLINE reference operator[]( Position const& p )
     {
-      return access ( meta::as_sequence(pos)
-                    , boost::fusion::size(meta::as_sequence(pos))
-                    );
+      return index_[boost::fusion::at_c<1>(p)][boost::fusion::at_c<0>(p)];
     }
 
     template<class Position>
-    BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
+    BOOST_FORCEINLINE const_reference operator[]( Position const& p ) const
     {
-      return access ( meta::as_sequence(pos)
-                    , boost::fusion::size(meta::as_sequence(pos))
-                    );
+      return index_[boost::fusion::at_c<1>(p)][boost::fusion::at_c<0>(p)];
     }
 
     void swap( iliffe_buffer& src )
@@ -274,36 +267,6 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
-    // Access for 1D Position
-    //==========================================================================
-    template<class Position> BOOST_FORCEINLINE
-    reference access(Position const& p, boost::mpl::int_<1> const& )
-    {
-      return data_[boost::fusion::at_c<0>(p)];
-    }
-
-    template<class Position> BOOST_FORCEINLINE
-    const_reference access(Position const& p, boost::mpl::int_<1> const& ) const
-    {
-      return data_[boost::fusion::at_c<0>(p)];
-    }
-
-    //==========================================================================
-    // Access for 2D Position
-    //==========================================================================
-    template<class Position> BOOST_FORCEINLINE
-    reference access(Position const& p, boost::mpl::int_<2> const& )
-    {
-      return index_[boost::fusion::at_c<1>(p)][boost::fusion::at_c<0>(p)];
-    }
-
-    template<class Position> BOOST_FORCEINLINE
-    const_reference access(Position const& p, boost::mpl::int_<2> const& ) const
-    {
-      return index_[boost::fusion::at_c<1>(p)][boost::fusion::at_c<0>(p)];
-    }
-
-    //==========================================================================
     //link performs the indexing of the Iliffe vector
     //==========================================================================
     void make_links()
@@ -322,8 +285,8 @@ namespace nt2 { namespace memory
     size_type inner_up_;
   };
 
-  template<typename Ds, typename D, typename I>
-  void swap( iliffe_buffer<Ds,D,I>& a, iliffe_buffer<Ds,D,I>& b )
+  template<typename D, typename I>
+  void swap( iliffe_buffer<D,I>& a, iliffe_buffer<D,I>& b )
   {
     a.swap(b);
   }

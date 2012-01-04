@@ -14,12 +14,13 @@ namespace nt2 { namespace memory
   //============================================================================
   // iliffe_buffer is specialized for 1D buffers to just forward to Data.
   //============================================================================
-  template<typename Data, typename Index>
-  struct iliffe_buffer<boost::mpl::int_<1>,Data,Index> : public Data
+  template<typename Data> struct iliffe_buffer<Data,void> : public Data
   {
     typedef Data                              parent;
     typedef typename parent::size_type        size_type;
     typedef typename parent::difference_type  difference_type;
+    typedef typename parent::reference        reference;
+    typedef typename parent::const_reference  const_reference;
     typedef typename parent::allocator_type   allocator_type;
 
     iliffe_buffer( allocator_type const& a = allocator_type()) : parent(a) {}
@@ -37,6 +38,24 @@ namespace nt2 { namespace memory
 
     inline difference_type  inner_upper() const { return parent::upper(); }
     inline difference_type  outer_upper() const { return 1;               }
+
+    //==========================================================================
+    /**
+     * Access to a given position through the iliffe_buffer
+     * \param pos 2D Index of the element to retrieve.
+     **/
+    //==========================================================================
+    template<class Position>
+    BOOST_FORCEINLINE reference operator[]( Position const& p )
+    {
+      return parent::operator[](boost::fusion::at_c<0>(p));
+    }
+
+    template<class Position>
+    BOOST_FORCEINLINE const_reference operator[]( Position const& p ) const
+    {
+      return parent::operator[](boost::fusion::at_c<0>(p));
+    }
   };
 } }
 

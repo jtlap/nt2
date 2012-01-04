@@ -24,8 +24,7 @@ namespace nt2 { namespace memory
   template< typename T, std::size_t S
           , std::ptrdiff_t BI , std::ptrdiff_t BO
           >
-  struct  iliffe_buffer < boost::mpl::int_<2>
-                        , array_buffer<T ,S,BI>
+  struct  iliffe_buffer < array_buffer<T ,S,BI>
                         , array_buffer<T*,S,BO>
                         >
         : public array_buffer<T,S,BI>
@@ -49,19 +48,15 @@ namespace nt2 { namespace memory
     // Element random access
     //==========================================================================
     template<class Position>
-    BOOST_FORCEINLINE reference operator[]( Position const& pos )
+    BOOST_FORCEINLINE reference operator[]( Position const& p )
     {
-      return access ( meta::as_sequence(pos)
-                    , boost::fusion::size(meta::as_sequence(pos))
-                    );
+      return parent::operator[] ( boost::fusion::at_c<1>(p) );
     }
 
     template<class Position>
-    BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
+    BOOST_FORCEINLINE const_reference operator[]( Position const& p ) const
     {
-      return access ( meta::as_sequence(pos)
-                    , boost::fusion::size(meta::as_sequence(pos))
-                    );
+      return parent::operator[] ( boost::fusion::at_c<1>(p) );
     }
 
     inline size_type        inner_size()  const { return 1;       }
@@ -72,37 +67,6 @@ namespace nt2 { namespace memory
 
     inline difference_type  inner_upper() const { return 1;       }
     inline difference_type  outer_upper() const { return BO+S-1;  }
-
-    protected:
-    //==========================================================================
-    // Access for 1D Position
-    //==========================================================================
-    template<class Position> BOOST_FORCEINLINE
-    reference access(Position const& p, boost::mpl::int_<1> const& )
-    {
-      return parent::operator[] ( boost::fusion::at_c<0>(p) );
-    }
-
-    template<class Position> BOOST_FORCEINLINE
-    const_reference access(Position const& p, boost::mpl::int_<1> const& ) const
-    {
-      return parent::operator[] ( boost::fusion::at_c<0>(p) );
-    }
-
-    //==========================================================================
-    // Access for 2D Position
-    //==========================================================================
-    template<class Position> BOOST_FORCEINLINE
-    reference access(Position const& p, boost::mpl::int_<2> const& )
-    {
-      return parent::operator[] ( boost::fusion::at_c<1>(p) );
-    }
-
-    template<class Position> BOOST_FORCEINLINE
-    const_reference access(Position const& p, boost::mpl::int_<2> const& ) const
-    {
-      return parent::operator[] ( boost::fusion::at_c<1>(p) );
-    }
   };
 } }
 

@@ -23,10 +23,7 @@
 template<class T> struct iliffe_buffer_1D_dynamic_test
 {
   typedef nt2::memory::
-          iliffe_buffer < boost::mpl::int_<1>
-                        , nt2::memory::buffer<T,1>
-                        , void
-                        >                           buffer_t;
+          iliffe_buffer < nt2::memory::buffer<T,1>, void>  buffer_t;
 
   iliffe_buffer_1D_dynamic_test ( std::ptrdiff_t s0 )
                               : data(s0), s0_(s0), v(s0*s0)
@@ -34,7 +31,8 @@ template<class T> struct iliffe_buffer_1D_dynamic_test
 
   void operator()()
   {
-    for(std::ptrdiff_t i = 1; i <= s0_; ++i) data[i] = v;
+    for(std::ptrdiff_t i = 1; i <= s0_; ++i)
+      data[boost::fusion::vector_tie(i)] = v;
   }
 
   T v;
@@ -45,8 +43,7 @@ template<class T> struct iliffe_buffer_1D_dynamic_test
 template<class T> struct iliffe_buffer_1D_static_test
 {
   typedef nt2::memory::
-          iliffe_buffer < boost::mpl::int_<1>
-                        , nt2::memory::array_buffer<T,256*256,1>
+          iliffe_buffer < nt2::memory::array_buffer<T,256*256,1>
                         , void
                         >                           buffer_t;
 
@@ -56,7 +53,8 @@ template<class T> struct iliffe_buffer_1D_static_test
 
   void operator()()
   {
-    for(std::ptrdiff_t i = 1; i <= s0_; ++i) data[i] = v;
+    for(std::ptrdiff_t i = 1; i <= s0_; ++i)
+      data[boost::fusion::vector_tie(i)] = v;
   }
 
   T v;
@@ -67,8 +65,7 @@ template<class T> struct iliffe_buffer_1D_static_test
 template<class T> struct iliffe_buffer_2D_static_test
 {
   typedef nt2::memory::
-          iliffe_buffer < boost::mpl::int_<2>
-                        , nt2::memory::array_buffer<T,256*256,1>
+          iliffe_buffer < nt2::memory::array_buffer<T,256*256,1>
                         , nt2::memory::array_buffer<T*,256,1>
                         >                           buffer_t;
 
@@ -92,8 +89,7 @@ template<class T> struct iliffe_buffer_2D_static_test
 template<class T> struct iliffe_buffer_2D_dynamic_test
 {
   typedef nt2::memory::
-          iliffe_buffer < boost::mpl::int_<2>
-                        , nt2::memory::buffer<T,1>
+          iliffe_buffer < nt2::memory::buffer<T,1>
                         , nt2::memory::buffer<T*,1>
                         >                           buffer_t;
 

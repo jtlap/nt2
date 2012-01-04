@@ -9,27 +9,16 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_ILIFFE_BUFFER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ILIFFE_BUFFER_HPP_INCLUDED
 
+#include <boost/type_traits/is_void.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/sdk/meta/dimensions_of.hpp>
 
 //==============================================================================
 // Forward declaration
 //==============================================================================
 namespace nt2 { namespace memory
 {
-  template<typename Dimensions, typename Data, typename Index>
-  struct iliffe_buffer;
-} }
-
-namespace nt2 { namespace meta
-{
-  //============================================================================
-  // iliffe_buffer dimensions are in Ds
-  //============================================================================
-  template<typename Ds, typename D, typename I>
-  struct dimensions_of< memory::iliffe_buffer<Ds,D,I> > : Ds
-  {};
+  template<typename Data, typename Index> struct iliffe_buffer;
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -37,16 +26,16 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template<typename Ds, typename D, typename I>
-  struct  value_of< nt2::memory::iliffe_buffer<Ds,D,I> >
+  template<typename D, typename I>
+  struct  value_of< nt2::memory::iliffe_buffer<D,I> >
         : value_of<D>
   {};
 
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<typename Ds, typename D, typename I>
-  struct model_of< nt2::memory::iliffe_buffer<Ds,D,I> >
+  template<typename D, typename I>
+  struct model_of< nt2::memory::iliffe_buffer<D,I> >
   {
     struct type
     {
@@ -54,11 +43,18 @@ namespace boost { namespace dispatch { namespace meta
       {
         typedef typename model_of<D>::type model_data;
         typedef typename model_of<I>::type model_index;
-        
+
+        typedef typename  boost::mpl::
+                          if_ < boost::is_void<I>
+                              , void
+                              , typename  boost::mpl::
+                                          apply<model_index,X>::type
+                              >::type                               index_t;
+
+
         typedef nt2::memory::iliffe_buffer
-                < Ds
-                , typename boost::mpl::apply<model_data ,X>::type
-                , typename boost::mpl::apply<model_index,X>::type
+                < typename boost::mpl::apply<model_data ,X>::type
+                , index_t
                 >                                                   type;
       };
     };
