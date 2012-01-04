@@ -6,9 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_AT_I_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_AT_I_HPP_INCLUDED
-#include <nt2/include/functions/at_i.hpp>
+#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_AT_I_HPP_INCLUDED
+#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_AT_I_HPP_INCLUDED
+#include <nt2/toolbox/reduction/functions/at_i.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
@@ -17,9 +17,9 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/arg.hpp>
-#include <nt2/include/functions/at_i.hpp>
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
