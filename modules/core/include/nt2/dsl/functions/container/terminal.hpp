@@ -16,6 +16,7 @@
 #include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/core/container/category.hpp>
 
 namespace nt2 { namespace ext
 {
