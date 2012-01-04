@@ -14,7 +14,6 @@
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
-#include <nt2/sdk/meta/dimensions_of.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -25,15 +24,6 @@ namespace nt2 { namespace memory
           , std::ptrdiff_t B
           , typename A = boost::simd::memory::allocator<T> >
   struct buffer;
-} }
-
-namespace nt2 { namespace meta
-{
-  //==============================================================================
-  // buffer dimension is 1
-  //==============================================================================
-  template<typename T, std::ptrdiff_t B, typename A>
-  struct  dimensions_of< memory::buffer<T,B,A> > : boost::mpl::size_t<1> {};
 } }
 
 namespace boost { namespace dispatch { namespace meta

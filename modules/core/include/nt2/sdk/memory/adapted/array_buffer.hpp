@@ -17,7 +17,6 @@
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/sdk/meta/dimensions_of.hpp>
 
 namespace nt2 {  namespace memory
 {
@@ -25,17 +24,6 @@ namespace nt2 {  namespace memory
   // Forward declaration
   //============================================================================
   template<typename Type, std::size_t N, std::ptrdiff_t B> struct array_buffer;
-} } 
-
-namespace nt2 { namespace meta
-{
-  //============================================================================
-  // dimensions_of specialization
-  //============================================================================
-  template< class Type, std::size_t N, std::ptrdiff_t B>
-  struct  dimensions_of< memory::array_buffer<Type,N,B> >
-        : boost::mpl::size_t<1>
-  {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -46,7 +34,7 @@ namespace boost { namespace dispatch { namespace meta
   template<typename T, std::size_t N, std::ptrdiff_t B>
   struct value_of< nt2::memory::array_buffer<T,N,B> > : value_of<T>
   {};
-  
+
   //============================================================================
   // model_of specialization
   //============================================================================

@@ -21,21 +21,6 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 //==============================================================================
-// array_buffer dimensions traits
-//==============================================================================
-NT2_TEST_CASE_TPL( array_buffer_dimensions, NT2_TYPES )
-{
-  using nt2::meta::dimensions_of;
-  using nt2::memory::array_buffer;
-  using boost::mpl::size_t;
-  using boost::mpl::_;
-
-  typedef array_buffer<T,2,0> buffer_type;
-
-  NT2_TEST_EXPR_TYPE(buffer_type(), dimensions_of<_>, size_t<1> );
-}
-
-//==============================================================================
 // array_buffer value_of traits
 //==============================================================================
 NT2_TEST_CASE_TPL( array_buffer_value_of, NT2_TYPES )
