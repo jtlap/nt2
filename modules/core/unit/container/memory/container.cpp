@@ -8,7 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory container"
 
+#include <iostream>
+
 #include <nt2/sdk/memory/container.hpp>
+#include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/container/table/normalize_settings.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -16,6 +19,8 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+
+#include <boost/fusion/include/vector_tie.hpp>
 
 #define DIMS (nt2::_1D)(nt2::_2D)(nt2::_3D)(nt2::_4D)
 
@@ -82,7 +87,7 @@ NT2_TEST_CASE_TPL( container_models, NT2_TYPES )
 //==============================================================================
 // Test for container default ctor
 //==============================================================================
-NT2_TEST_CASE_TPL( container_dynamic_default_ctor, NT2_TYPES)
+NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
 {
   using nt2::id_;
   using nt2::settings;
@@ -90,16 +95,20 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  container<table_,id_<0>,T,settings()> classic_container;
+  container<table_,id_<0>,double,settings(T)> b;
+  int dims = T::static_size;
 
-  NT2_TEST(classic_container.empty());
-  NT2_TEST_EQUAL(classic_container.size(), 0u);
-  NT2_TEST_EQUAL(classic_container.lower(), 1);
-  NT2_TEST_EQUAL(classic_container.upper(), 0);
-  NT2_TEST(classic_container.sizes() == of_size_<0>());
-
-  NT2_TEST_ASSERT(T k = classic_container[1]);
-  NT2_TEST_ASSERT(classic_container[1] = 0.);
+  NT2_TEST(b.empty());
+  NT2_TEST_EQUAL(b.size()       ,  0 );
+  NT2_TEST_EQUAL(b.inner_size() ,  0 );
+  NT2_TEST_EQUAL(b.outer_size() ,  (dims==1) ? 1 : 0 );
+  NT2_TEST_EQUAL(b.lower()      ,  1 );
+  NT2_TEST_EQUAL(b.inner_lower(),  1 );
+  NT2_TEST_EQUAL(b.outer_lower(),  1 );
+  NT2_TEST_EQUAL(b.upper()      ,  0 );
+  NT2_TEST_EQUAL(b.inner_upper(),  0 );
+  NT2_TEST_EQUAL(b.outer_upper(),  (dims==1) ? 1 : 0 );
+  NT2_TEST(b.extent() == of_size_<0>());
 }
 
 //==============================================================================
@@ -113,13 +122,19 @@ NT2_TEST_CASE_TPL( container_static_default_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  container<table_,id_<0>,T,settings(of_size_<32,7>)> classic_container;
+  container<table_,id_<0>,T,settings(of_size_<32,7>)> b;
 
-  NT2_TEST( !classic_container.empty());
-  NT2_TEST_EQUAL(classic_container.size(), 32*7);
-  NT2_TEST_EQUAL(classic_container.lower(), 1);
-  NT2_TEST_EQUAL(classic_container.upper(), 32*7);
-  NT2_TEST( (classic_container.sizes() == of_size_<32,7>()) );
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.size()       ,  32*7 );
+  NT2_TEST_EQUAL(b.inner_size() ,  32   );
+  NT2_TEST_EQUAL(b.outer_size() ,  7    );
+  NT2_TEST_EQUAL(b.lower()      ,  1    );
+  NT2_TEST_EQUAL(b.inner_lower(),  1    );
+  NT2_TEST_EQUAL(b.outer_lower(),  1    );
+  NT2_TEST_EQUAL(b.upper()      ,  32*7 );
+  NT2_TEST_EQUAL(b.inner_upper(),  32   );
+  NT2_TEST_EQUAL(b.outer_upper(),  7    );
+  NT2_TEST( (b.extent() == of_size_<32,7>()) );
 }
 
 //==============================================================================
@@ -134,33 +149,79 @@ NT2_TEST_CASE_TPL( container_automatic_static_default_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  container<table_,id_<0>,T,settings(of_size_<32,7>, automatic_)> classic_container;
+  container<table_,id_<0>,T,settings(of_size_<32,7>, automatic_)> b;
 
-  NT2_TEST( !classic_container.empty());
-  NT2_TEST_EQUAL(classic_container.size(), 32*7);
-  NT2_TEST_EQUAL(classic_container.lower(), 1);
-  NT2_TEST_EQUAL(classic_container.upper(), 32*7);
-  NT2_TEST( (classic_container.sizes() == of_size_<32,7>()) );
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.size()       ,  32*7 );
+  NT2_TEST_EQUAL(b.inner_size() ,  32   );
+  NT2_TEST_EQUAL(b.outer_size() ,  7    );
+  NT2_TEST_EQUAL(b.lower()      ,  1    );
+  NT2_TEST_EQUAL(b.inner_lower(),  1    );
+  NT2_TEST_EQUAL(b.outer_lower(),  1    );
+  NT2_TEST_EQUAL(b.upper()      ,  32*7 );
+  NT2_TEST_EQUAL(b.inner_upper(),  32   );
+  NT2_TEST_EQUAL(b.outer_upper(),  7    );
+  NT2_TEST( (b.extent() == of_size_<32,7>()) );
+}
+
+//==============================================================================
+// Test for container size ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( container_size_ctor, NT2_TYPES)
+{
+  using nt2::id_;
+  using nt2::of_size;
+  using nt2::settings;
+  using nt2::tag::table_;
+  using nt2::memory::container;
+
+  container<table_,id_<0>,T,settings()> b( of_size(3,3) );
+
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.size()       ,  3*3 );
+  NT2_TEST_EQUAL(b.inner_size() ,  3   );
+  NT2_TEST_EQUAL(b.outer_size() ,  3    );
+  NT2_TEST_EQUAL(b.lower()      ,  1    );
+  NT2_TEST_EQUAL(b.inner_lower(),  1    );
+  NT2_TEST_EQUAL(b.outer_lower(),  1    );
+  NT2_TEST_EQUAL(b.upper()      ,  3*3 );
+  NT2_TEST_EQUAL(b.inner_upper(),  3   );
+  NT2_TEST_EQUAL(b.outer_upper(),  3    );
+  NT2_TEST( (b.extent() == of_size(3,3)) );
+
+  for(int j=b.outer_lower();j<=b.outer_upper();++j)
+    for(int i=b.inner_lower();i<=b.inner_upper();++i)
+      b[boost::fusion::vector_tie(i,j)] = i + j;
+
+  for(int j=b.outer_lower();j<=b.outer_upper();++j)
+    for(int i=b.inner_lower();i<=b.inner_upper();++i)
+      NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], i + j);
 }
 
 /*
 //==============================================================================
 // Test for container assignment
 //==============================================================================
-NT2_TEST_CASE_TPL(container_assignment, NT2_TYPES )
+NT2_TEST_CASE_TPL(container_assignment, DIMS )
 {
   using nt2::id_;
   using nt2::settings;
+  using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<nt2::tag::table_,id_<0>, T,settings()> type ;
-  typedef container<nt2::tag::table_,id_<'lol'>, T,settings(id_<'lol'>)> stype ;
+  container<table_,id_<0>,T,settings(T)> b;
 
-  type b;
-  stype sb,sc;
-
-  std::cout << (void*)(&b.block_) << "\n";
-  std::cout << (void*)(&sb.block_) << "\n";
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.size()       ,  32*7 );
+  NT2_TEST_EQUAL(b.inner_size() ,  32   );
+  NT2_TEST_EQUAL(b.outer_size() ,  7    );
+  NT2_TEST_EQUAL(b.lower()      ,  1    );
+  NT2_TEST_EQUAL(b.inner_lower(),  1    );
+  NT2_TEST_EQUAL(b.outer_lower(),  1    );
+  NT2_TEST_EQUAL(b.upper()      ,  32*7 );
+  NT2_TEST_EQUAL(b.inner_upper(),  32   );
+  NT2_TEST_EQUAL(b.outer_upper(),  7    );
+  NT2_TEST( (b.extent() == of_size_<32,7>()) );
 }
 
 /*

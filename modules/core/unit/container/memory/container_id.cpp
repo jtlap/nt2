@@ -97,9 +97,6 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(container_id_1337.lower(), 1);
   NT2_TEST_EQUAL(container_id_1337.upper(), 0);
   NT2_TEST(container_id_1337.sizes() == of_size_<0>());
-
-  NT2_TEST_ASSERT(T k = container_id_1337[1]);
-  NT2_TEST_ASSERT(container_id_1337[1] = 0.);
 }
 
 //==============================================================================

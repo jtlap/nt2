@@ -16,18 +16,37 @@
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/sharing.hpp>
 #include <nt2/core/settings/padding.hpp>
+#include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/settings/alignment.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
+#include <nt2/core/container/table/category.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
-#include <boost/simd/sdk/memory/allocator.hpp>
-#include <nt2/core/settings/settings.hpp>
 
 namespace nt2
 {
-  namespace tag { struct table_; }
+  namespace tag
+  {
+    struct table_
+    {
+      template<class T, class S, class O> struct apply
+      {
+        typedef ext::table_
+                < typename  boost::dispatch::meta::
+                            property_of< typename boost::dispatch::meta::
+                                                  value_of<T>::type
+                                        , O
+                                        >::type
+                , S
+                >                                   type;
+      };
+    };
+  }
 
   namespace meta
   {
@@ -36,14 +55,14 @@ namespace nt2
     //
     // Info:
     // + table has no static ID
-    //    
+    //
     // Layout:
     // + table is _4D
     // + table is rectangular_
     // + table has a base index of 1
     // + table contains aligned data
     // + table use Matlab storage order
-    //    
+    //
     // Memory:
     // + table owns its memory
     // + table uses no global padding value
@@ -68,7 +87,7 @@ namespace nt2
       typedef typename option<S,tag::storage_scheme_  , conventional_ >::type ss;
       typedef typename option<S,tag::allocator_
                                ,allocator_< boost::simd::memory::allocator<T> >
-                               >::type                                        al;      
+                               >::type                                        al;
       typedef typename option<S,tag::global_padding_
                                , global_padding_strategy_<>           >::type gp;
       typedef typename option<S,tag::lead_padding_

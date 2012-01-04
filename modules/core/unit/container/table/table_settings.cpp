@@ -39,7 +39,6 @@ NT2_TEST_CASE_TPL( table_dimensions ,NT2_TYPES)
   NT2_TEST_EQUAL( (dimensions_of<table<T,_4D> >::value), 4UL) ;
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // table type has some value
 ////////////////////////////////////////////////////////////////////////////////
@@ -62,7 +61,6 @@ NT2_TEST_CASE_TPL( table_values, NT2_TYPES )
   NT2_TEST_EXPR_TYPE(t2D, value_of<_>, T );
   NT2_TEST_EXPR_TYPE(t3D, value_of<_>, T );
   NT2_TEST_EXPR_TYPE(t4D, value_of<_>, T );
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -89,78 +87,4 @@ NT2_TEST_CASE_TPL( table_models, NT2_TYPES )
   NT2_TEST((is_same<typename apply<model2d,float>::type, table<float,_2D> >::value ));
   NT2_TEST((is_same<typename apply<model3d,float>::type, table<float,_3D> >::value ));
   NT2_TEST((is_same<typename apply<model4d,float>::type, table<float,_4D> >::value ));
-
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// table type has storage_order
-////////////////////////////////////////////////////////////////////////////////
-
-NT2_TEST_CASE_TPL( table_storage_order ,NT2_TYPES)
-{
-  using nt2::table;
-  using nt2::meta::storage_order_of;
-  using nt2::_1D;
-  using nt2::_2D;
-  using nt2::_3D;
-  using nt2::_4D;
-  using nt2::matlab_order_;
-  using nt2::C_order_;
-  using nt2::fortran_order_;
-  using boost::mpl::_;
-
-  using nt2::settings;
-
-  //Test default table storage order
-  table<T> a0;
-  NT2_TEST_EXPR_TYPE(a0, storage_order_of<_>, matlab_order_ );
-
-  table<T,_1D> t1D;
-  table<T,_2D> t2D;
-  table<T,_3D> t3D;
-  table<T,_4D> t4D;
-
-  NT2_TEST_EXPR_TYPE(t1D, storage_order_of<_>, matlab_order_ );
-  NT2_TEST_EXPR_TYPE(t2D, storage_order_of<_>, matlab_order_ );
-  NT2_TEST_EXPR_TYPE(t3D, storage_order_of<_>, matlab_order_ );
-  NT2_TEST_EXPR_TYPE(t4D, storage_order_of<_>, matlab_order_ );
-
-
-  //Test storage order in settings
-
-  //test matlab storage order
-  table<T,settings(_1D,matlab_order_)> t1D_;
-  table<T,settings(_2D,matlab_order_)> t2D_;
-  table<T,settings(_3D,matlab_order_)> t3D_;
-  table<T,settings(_4D,matlab_order_)> t4D_;
-
-  NT2_TEST_EXPR_TYPE(t1D_, storage_order_of<_>, matlab_order_ );
-  NT2_TEST_EXPR_TYPE(t2D_, storage_order_of<_>, matlab_order_ );
-  NT2_TEST_EXPR_TYPE(t3D_, storage_order_of<_>, matlab_order_ );
-  NT2_TEST_EXPR_TYPE(t4D_, storage_order_of<_>, matlab_order_ );
-
-
-  //test C storage order
-  table<T,settings(_1D,C_order_)> t1D__;
-  table<T,settings(_2D,C_order_)> t2D__;
-  table<T,settings(_3D,C_order_)> t3D__;
-  table<T,settings(_4D,C_order_)> t4D__;
-
-  NT2_TEST_EXPR_TYPE(t1D__, storage_order_of<_>, C_order_ );
-  NT2_TEST_EXPR_TYPE(t2D__, storage_order_of<_>, C_order_ );
-  NT2_TEST_EXPR_TYPE(t3D__, storage_order_of<_>, C_order_ );
-  NT2_TEST_EXPR_TYPE(t4D__, storage_order_of<_>, C_order_ );
-
-  //test Fortran storage order
-  table<T,settings(_1D,fortran_order_)> _t1D__;
-  table<T,settings(_2D,fortran_order_)> _t2D__;
-  table<T,settings(_3D,fortran_order_)> _t3D__;
-  table<T,settings(_4D,fortran_order_)> _t4D__;
-
-  NT2_TEST_EXPR_TYPE(_t1D__, storage_order_of<_>, fortran_order_ );
-  NT2_TEST_EXPR_TYPE(_t2D__, storage_order_of<_>, fortran_order_ );
-  NT2_TEST_EXPR_TYPE(_t3D__, storage_order_of<_>, fortran_order_ );
-  NT2_TEST_EXPR_TYPE(_t4D__, storage_order_of<_>, fortran_order_ );
-
-
 }

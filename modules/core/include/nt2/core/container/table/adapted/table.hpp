@@ -10,10 +10,13 @@
 #define NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_HPP_INCLUDED
 
 #include <boost/mpl/size_t.hpp>
+#include <nt2/core/settings/id.hpp>
+#include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/sdk/meta/dimensions_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <nt2/core/container/table/normalize_settings.hpp>
 
 //==============================================================================
 // Forward declaration
@@ -35,7 +38,11 @@ namespace nt2 { namespace meta
     {
       template<class T, class S> struct apply
       {
-        typedef container::container<tag::table_, T, S> type;
+        typedef memory::container < tag::table_
+                                  , typename option<S,tag::id_>::type
+                                  , T
+                                  , S
+                                  >                                     type;
       };
     };
   };
@@ -47,8 +54,8 @@ namespace nt2 { namespace meta
 namespace nt2 { namespace meta
 {
   template<class T, class S>
-  struct dimensions_of< nt2::container::table<T,S> > 
-          : boost::mpl::size_t<container::table<T,S>::extent_type::static_size> 
+  struct dimensions_of< nt2::container::table<T,S> >
+          : boost::mpl::size_t<container::table<T,S>::extent_type::static_size>
   {};
 } }
 
@@ -74,23 +81,13 @@ namespace boost { namespace dispatch { namespace meta
     };
   };
 
-  template<class T, class S, class Origin>
-  struct hierarchy_of< nt2::memory::container<tag::table_, T, S>, Origin >
-  {
-    typedef table_< typename property_of< typename value_of<T>::type
-                                        , Origin
-                                        >::type
-                  , S
-                  >                                   type;
-  };
-
   //============================================================================
   // table use container<tag::table_> to do its biddings
   //============================================================================
   template<class T, class S> struct semantic_of< nt2::container::table<T, S> >
   {
-    typedef nt2::memory::container<tag::table_,T, S> type;
-  };  
+    typedef typename nt2::container::table<T, S>::container_type  type;
+  };
 } } }
 
 #endif

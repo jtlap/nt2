@@ -18,11 +18,17 @@
 namespace nt2 { namespace meta
 {
   template<class Tag, class T, class S>
+  struct make_container
+  {
+    typedef typename meta::option<S, tag::id_, id_<0> >::type   id_t;
+    typedef memory::container<Tag,id_t,T,S>                     type;
+  };
+
+  template<class Tag, class T, class S>
   struct make_terminal
   {
-    typedef typename meta::option<S, tag::id_, id_<0> >::type           id_t;
-    typedef boost::dispatch::
-            meta::terminal_of< memory::container<Tag,id_t,T,S> >::type  type;
+    typedef typename make_container<Tag,T,S>::type                    cont_t;
+    typedef typename boost::dispatch::meta::terminal_of<cont_t>::type type;
   };
 } }
 
@@ -32,11 +38,10 @@ namespace nt2 { namespace container
   struct  table
         : meta::make_terminal<tag::table_,T,S>::type
   {
-    //typedef memory::container<tag::table_,T,S> container_type;
-
-    typedef typename meta::make_terminal<tag::table_,T,S>::type parent;
-    typedef typename parent::extent_type                        extent_type;
-    typedef typename parent::index_type                         index_type;
+    typedef typename meta::make_container<tag::table_,T,S>::type  container_type;
+    typedef typename meta::make_terminal<tag::table_,T,S>::type   parent;
+    typedef typename container_type::extent_type                  extent_type;
+    typedef typename container_type::index_type                   index_type;
 
     //==========================================================================
     //  table default constructor
@@ -86,9 +91,9 @@ namespace nt2 { namespace container
     // Non-content preserving resize.
     //==========================================================================
     template<class Size> void resize( Size const& sz )
-    {    
+    {
       boost::proto::value(*this).resize(extent_type(sz));
-    }    
+    }
   };
 } }
 

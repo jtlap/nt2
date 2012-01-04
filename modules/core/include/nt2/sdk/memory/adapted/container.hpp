@@ -73,6 +73,13 @@ namespace boost { namespace dispatch { namespace meta
     };
   };
 
+  template<class Tag, class ID, class T, class S, class Origin>
+  struct hierarchy_of< nt2::memory::container<Tag, ID, T, S>, Origin >
+  {
+    typedef typename Tag::template apply<T,S,Origin>::type type;
+  };
+
+
   //============================================================================
   // container produce container expression from proper type and settings.
   //============================================================================
