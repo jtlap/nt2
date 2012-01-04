@@ -56,14 +56,14 @@ namespace boost { namespace simd
       value_ = v; return *this; 
     }
     
-    BOOST_DISPATCH_FORCE_INLINE 
-    bool operator ==(logical<T> const& a) const { return value_ == a.value_; }
+    friend BOOST_DISPATCH_FORCE_INLINE
+    bool operator ==(logical<T> const& a0, logical<T> const& a1) { return a0.value() == a1.value(); }
     
-    BOOST_DISPATCH_FORCE_INLINE 
-    bool operator !=(logical<T> const& a) const { return value_ !=  a.value_; }
+    friend BOOST_DISPATCH_FORCE_INLINE
+    bool operator !=(logical<T> const& a0, logical<T> const& a1) { return a0.value() != a1.value(); }
     
-    BOOST_DISPATCH_FORCE_INLINE logical<T> operator ~() const { return logical<T>(~value_); }
-    BOOST_DISPATCH_FORCE_INLINE logical<T> operator !() const { return logical<T>(!value_); }
+    friend BOOST_DISPATCH_FORCE_INLINE logical<T> operator ~(logical<T> const& a0) { return logical<T>(~a0.value()); }
+    friend BOOST_DISPATCH_FORCE_INLINE logical<T> operator !(logical<T> const& a0) { return logical<T>(!a0.value()); }
 
     //==========================================================================    
     /*!
