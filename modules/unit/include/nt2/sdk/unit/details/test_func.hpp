@@ -19,11 +19,13 @@
   template<class T, class U>                                                \
   inline void NAME( char const* x1, char const* x2                          \
                   , int line, char const * fn                               \
-                  , T const & t, U const & u                                \
+                  , T const & t_, U const & u_                              \
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
-    if( t OP u )                                                      \
+    volatile T t = t_;                                                      \
+    volatile U u = u_;                                                      \
+    if( t OP u )                                                            \
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
@@ -48,10 +50,12 @@
   template<class T, class U>                                                \
   inline void NAME( char const* x1, char const* x2                          \
                   , int line, char const * fn                               \
-                  , T const & t, U const & u                                \
+                  , T const & t_, U const & u_                              \
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
+    volatile T t = t_;                                                      \
+    volatile U u = u_;                                                      \
     if( (t OP u) || ((t != t) && (u != u)) )                                \
     {                                                                       \
       std::cout << " * Test `"                                              \
