@@ -16,7 +16,7 @@
 namespace std
 {
   template<class T>
-  struct complex;
+  class complex;
 }
 
 namespace nt2
