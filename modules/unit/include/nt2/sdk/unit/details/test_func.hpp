@@ -8,8 +8,8 @@
  ******************************************************************************/
 #ifndef NT2_SDK_UNIT_DETAILS_TEST_FUNC_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_TEST_FUNC_HPP_INCLUDED
-#include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/type_traits/common_type.hpp>
+
+#include <nt2/sdk/unit/details/stats.hpp>
 #include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,8 +23,8 @@
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
-    volatile T t = t_;                                                      \
-    volatile U u = u_;                                                      \
+    T t = through_volatile(t_);                                             \
+    T u = through_volatile(u_);                                             \
     if( t OP u )                                                            \
     {                                                                       \
       std::cout << " * Test `"                                              \
@@ -54,8 +54,8 @@
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
-    volatile T t = t_;                                                      \
-    volatile U u = u_;                                                      \
+    T t = through_volatile(t_);                                             \
+    U u = through_volatile(u_);                                             \
     if( (t OP u) || ((t != t) && (u != u)) )                                \
     {                                                                       \
       std::cout << " * Test `"                                              \
@@ -77,6 +77,9 @@
         
 namespace nt2 { namespace details
 {
+  template<class T>
+  T through_volatile(T const& t) { return const_cast<T const&>(const_cast<T const volatile&>(t)); }
+
   NT2_MAKE_TEST_NAN_FUNC(test_eq  , ==, !=  )
   NT2_MAKE_TEST_FUNC(test_neq , !=, ==  )
   NT2_MAKE_TEST_FUNC(test_lt  , < , >=  )
