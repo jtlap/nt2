@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2 container iliffe_buffer"
+#define NT2_UNIT_MODULE "nt2 container container"
 
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/core/functions/of_size.hpp>
@@ -166,7 +166,7 @@ template<class T> void do_large(int H, int W)
         );
 }
 
-NT2_TEST_CASE_TPL( iliffe_buffer_large, (double)(float)(short)(char) )
+NT2_TEST_CASE_TPL( container_large, (double)(float)(short)(char) )
 {
   do_large<T>(320 , 240);
   do_large<T>(640 , 480);
@@ -203,7 +203,7 @@ template<class T> void do_small(int H, int W)
         );
 }
 
-NT2_TEST_CASE_TPL( iliffe_buffer_small, (double)(float)(short)(char) )
+NT2_TEST_CASE_TPL( container_small, (double)(float)(short)(char) )
 {
   for(int W=1;W<=256;W*=2)
     for(int H=1;H<=256;H*=2)

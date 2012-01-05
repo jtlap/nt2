@@ -71,6 +71,21 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
+    // If I construct some container<ID> from another one, it is already in
+    //==========================================================================
+    container( container const& sz ) {}
+
+    //==========================================================================
+    // If I assign some container<ID> to another one, it is already in
+    //==========================================================================
+    container& operator=( container const& ) { return *this; }
+
+    //==========================================================================
+    // If I swap some container<ID> with another one, it is already in
+    //==========================================================================
+    void swap( container & ) {}
+
+    //==========================================================================
     // Element access from instance
     //==========================================================================
     template<class Position>
