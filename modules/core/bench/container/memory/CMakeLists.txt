@@ -11,6 +11,7 @@ SET( SOURCES
    allocation.cpp
    array_buffer.cpp
    buffer.cpp
+   container.cpp
    iliffe_buffer.cpp
 # List of scalar test files for toolbox fuzzy
    )
