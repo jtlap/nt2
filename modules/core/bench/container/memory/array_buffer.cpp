@@ -25,7 +25,7 @@ template<class T> struct buffer_test
   typedef typename buffer_t::size_type         size_type;
   typedef typename buffer_t::difference_type   difference_type;
 
-  buffer_test(size_type sz) : up(sz+data.lower()-1), v(rand()) {}
+  buffer_test(size_type sz) : up(sz+data.lower()-1) {}
 
   ~buffer_test()
   {
@@ -36,13 +36,13 @@ template<class T> struct buffer_test
   void operator()()
   {
     for(difference_type i = data.lower(); i <= up; ++i)
-      data[boost::fusion::vector_tie(i)] = v;
+      data[boost::fusion::vector_tie(i)] = data2[boost::fusion::vector_tie(i)];
   }
 
   T   v;
   difference_type up;
   static T pump;
-  buffer_t data;
+  buffer_t data,data2;
 };
 
 template<class T> struct std_test
@@ -51,7 +51,7 @@ template<class T> struct std_test
   typedef typename buffer_t::size_type         size_type;
   typedef typename buffer_t::difference_type   difference_type;
 
-  std_test(size_type sz) : data(sz), v(rand()) {}
+  std_test(size_type sz) : data(sz),data2(sz) {}
 
   ~std_test()
   {
@@ -61,12 +61,12 @@ template<class T> struct std_test
   void operator()()
   {
     for(difference_type i = 0; i < data.size(); ++i)
-      data[i] = v;
+      data[i] = data2[i];
   }
 
   T   v;
   static T pump;
-  buffer_t data;
+  buffer_t data,data2;
 };
 
 template<class T> struct raw_test
@@ -75,13 +75,14 @@ template<class T> struct raw_test
 
   void operator()()
   {
-    for(std::size_t i = 0; i < size_; ++i) data[i] = v;
+    for(std::size_t i = 0; i < size_; ++i) data[i] = data2[i];
   }
 
   ~raw_test() { pump = data[rand() % size_]; }
 
   T   v;
   T   data[1024];
+  T   data2[1024];
   static T pump;
   int size_;
 };
@@ -98,19 +99,19 @@ NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
   for(int i=0;i<11;++i)
   {
     raw_test<T>     b(1 << i);
-    raw[i] = nt2::unit::perform_benchmark( b, 1.) / (1 << i);
+    raw[i] = (nt2::unit::perform_benchmark( b, 1.) / (1 << i))/2.;
   }
 
   for(int i=0;i<11;++i)
   {
     buffer_test<T>     b(1 << i);
-    buff[i] = nt2::unit::perform_benchmark( b, 1.) / (1 << i);
+    buff[i] = (nt2::unit::perform_benchmark( b, 1.) / (1 << i))/2.;
   }
 
   for(int i=0;i<11;++i)
   {
     std_test<T>     b(1 << i);
-    std_[i] = nt2::unit::perform_benchmark( b, 1.) / (1 << i);
+    std_[i] = (nt2::unit::perform_benchmark( b, 1.) / (1 << i))/2.;
   }
 
   for(int i=0;i<11;++i)

@@ -25,29 +25,31 @@ template<class T> struct buffer_test
   typedef typename buffer_t::size_type        size_type;
   typedef typename buffer_t::difference_type  difference_type;
 
-  buffer_test(size_type sz) : data(boost::fusion::vector_tie(sz)) {}
+  buffer_test ( size_type sz)
+              : data(boost::fusion::vector_tie(sz))
+              , data2(boost::fusion::vector_tie(sz)) {}
 
   void operator()()
   {
     for(difference_type i = data.lower(); i <= data.upper(); ++i)
-      ++data[boost::fusion::vector_tie(i)];
+      data[boost::fusion::vector_tie(i)] = data2[boost::fusion::vector_tie(i)];
   }
 
-  buffer_t data;
+  buffer_t data,data2;
 };
 
 template<class T> struct std_test
 {
-  std_test(std::size_t sz) : data(sz) {}
+  std_test(std::size_t sz) : data(sz), data2(sz) {}
 
   ~std_test() {}
 
   void operator()()
   {
-    for(std::size_t i = 0; i < data.size(); ++i) ++data[i];
+    for(std::size_t i = 0; i < data.size(); ++i) data[i] = data2[i];
   }
 
-  std::vector<T> data;
+  std::vector<T> data,data2;
 };
 
 NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
@@ -56,8 +58,8 @@ NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
   {
     std_test<T>     b(i);
     buffer_test<T>  c(i);
-    double d = nt2::unit::perform_benchmark( b, 3.);
-    double e = nt2::unit::perform_benchmark( c, 3.);
+    double d = nt2::unit::perform_benchmark( b, 1.) / 2.;
+    double e = nt2::unit::perform_benchmark( c, 1.) / 2.;
     printf( "Size: %d - buffer %3.3f c/e - std::vector %3.3f c/e"
             " - overhead %3.3f %%\n"
           , i, e/i, d/i, ((e-d)/d)*100

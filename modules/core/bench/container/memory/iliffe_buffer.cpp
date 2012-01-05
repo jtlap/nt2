@@ -27,17 +27,17 @@ template<class T> struct iliffe_buffer_1D_dynamic_test
 
   iliffe_buffer_1D_dynamic_test ( std::ptrdiff_t s0 )
                               : data(boost::fusion::vector_tie(s0))
-                              , s0_(s0), v(s0*s0)
+                              , data2(boost::fusion::vector_tie(s0))
+                              , s0_(s0)
   {}
 
   void operator()()
   {
     for(std::ptrdiff_t i = 1; i <= s0_; ++i)
-      data[boost::fusion::vector_tie(i)] = v;
+      data[boost::fusion::vector_tie(i)] = data2[boost::fusion::vector_tie(i)];
   }
 
-  T v;
-  buffer_t        data;
+  buffer_t        data,data2;
   std::ptrdiff_t  s0_;
 };
 
@@ -50,17 +50,17 @@ template<class T> struct iliffe_buffer_1D_static_test
 
   iliffe_buffer_1D_static_test ( std::ptrdiff_t s0 )
                               : data(boost::fusion::vector_tie(s0))
-                              , s0_(s0), v(s0*s0)
+                              , data2(boost::fusion::vector_tie(s0))
+                              , s0_(s0)
   {}
 
   void operator()()
   {
     for(std::ptrdiff_t i = 1; i <= s0_; ++i)
-      data[boost::fusion::vector_tie(i)] = v;
+      data[boost::fusion::vector_tie(i)] = data2[boost::fusion::vector_tie(i)];
   }
 
-  T v;
-  buffer_t        data;
+  buffer_t        data,data2;
   std::ptrdiff_t  s0_;
 };
 
@@ -73,18 +73,18 @@ template<class T> struct iliffe_buffer_2D_static_test
 
   iliffe_buffer_2D_static_test( std::size_t s0, std::size_t s1 )
                               : data( boost::fusion::make_vector(s0,s1) )
-                              , s0_(s0), s1_(s1), v(s0*s1)
+                              , data2( boost::fusion::make_vector(s0,s1) )
+                              , s0_(s0), s1_(s1)
   {}
 
   void operator()()
   {
     for(std::ptrdiff_t j = 1; j <= s1_; ++j)
       for(std::ptrdiff_t i = 1; i <= s0_; ++i)
-        data[boost::fusion::vector_tie(i,j)] = v;
+        data[boost::fusion::vector_tie(i,j)] = data2[boost::fusion::vector_tie(i,j)];
   }
 
-  T v;
-  buffer_t        data;
+  buffer_t        data,data2;
   std::ptrdiff_t s0_,s1_;
 };
 
@@ -100,39 +100,38 @@ template<class T> struct iliffe_buffer_2D_dynamic_test
 
   iliffe_buffer_2D_dynamic_test ( std::size_t s0, std::size_t s1)
                               : data( boost::fusion::make_vector(s0,s1) )
-                              , s0_(s0),s1_(s1), v(s0*s1)
+                              , data2( boost::fusion::make_vector(s0,s1) )
+                              , s0_(s0), s1_(s1)
   {}
 
   void operator()()
   {
     for(std::ptrdiff_t j = 1; j <= s1_; ++j)
       for(std::ptrdiff_t i = 1; i <= s0_; ++i)
-        data[boost::fusion::vector_tie(i,j)] = v;
+        data[boost::fusion::vector_tie(i,j)] = data2[boost::fusion::vector_tie(i,j)];
   }
 
-  T v;
-  buffer_t        data;
+  buffer_t        data,data2;
   std::ptrdiff_t s0_,s1_;
 };
 
 template<class T> struct std_1D_test
 {
-  std_1D_test(std::ptrdiff_t h, std::ptrdiff_t w) : data(h*w), v(h*w)
+  std_1D_test(std::ptrdiff_t h, std::ptrdiff_t w) : data(h*w),data2(h*w)
   {}
 
   void operator()()
   {
     for(std::size_t i = 0; i < data.size(); ++i)
-      data[i] = v;
+      data[i] = data2[i];
   }
 
-  T v;
-  std::vector<T,boost::simd::memory::allocator<T> > data;
+  std::vector<T,boost::simd::memory::allocator<T> > data,data2;
 };
 
 template<class T> struct std_2D_test
 {
-  std_2D_test(std::ptrdiff_t h, std::ptrdiff_t w) : data(h*w), v(h*w)
+  std_2D_test(std::ptrdiff_t h, std::ptrdiff_t w) : data(h*w),data2(h*w)
   {
     s = h;
     d = w;
@@ -142,27 +141,26 @@ template<class T> struct std_2D_test
   {
     for(std::size_t j = 0; j < d; ++j)
       for(std::size_t i = 0; i < s; ++i)
-        data[i+s*j] = v;
+        data[i+s*j] = data2[i+s*j];
   }
 
-  T v;
   std::ptrdiff_t d,s;
-  std::vector<T,boost::simd::memory::allocator<T> > data;
+  std::vector<T,boost::simd::memory::allocator<T> > data,data2;
 };
 
 template<class T> void do_large(int H, int W)
 {
   iliffe_buffer_1D_dynamic_test<T> b(H*W);
-  double d = nt2::unit::perform_benchmark( b, 3.);
+  double d = nt2::unit::perform_benchmark( b, 1.)/2.;
 
   iliffe_buffer_2D_dynamic_test<T> c(H,W);
-  double e = nt2::unit::perform_benchmark( c, 3.);
+  double e = nt2::unit::perform_benchmark( c, 1.)/2.;
 
   std_1D_test<T> z(H,W);
-  double w = nt2::unit::perform_benchmark( z, 3.);
+  double w = nt2::unit::perform_benchmark( z, 1.)/2.;
 
   std_2D_test<T> y(H,W);
-  double v = nt2::unit::perform_benchmark( y, 3.);
+  double v = nt2::unit::perform_benchmark( y, 1.)/2.;
 
   printf( "%d x %d : 1D %3.3f %3.3f (%3.3f%%) | 2D: %3.3f %3.3f (%3.3f%%)\n"
         , H, W
@@ -183,22 +181,22 @@ NT2_TEST_CASE_TPL( iliffe_buffer_large, (double)(float)(short)(char) )
 template<class T> void do_small(int H, int W)
 {
   iliffe_buffer_1D_dynamic_test<T> b(H*W);
-  double d = nt2::unit::perform_benchmark( b, 1.);
+  double d = nt2::unit::perform_benchmark( b, 1.)/2;
 
   std_1D_test<T> z(H,W);
-  double w = nt2::unit::perform_benchmark( z, 1.);
+  double w = nt2::unit::perform_benchmark( z, 1.)/2;
 
   iliffe_buffer_2D_dynamic_test<T> c(H,W);
-  double e = nt2::unit::perform_benchmark( c, 1.);
+  double e = nt2::unit::perform_benchmark( c, 1.)/2;
 
   iliffe_buffer_1D_static_test<T> bs(H*W);
-  double ds = nt2::unit::perform_benchmark( bs, 1.);
+  double ds = nt2::unit::perform_benchmark( bs, 1.)/2;
 
   iliffe_buffer_2D_static_test<T> cs(H,W);
-  double es = nt2::unit::perform_benchmark( cs, 1.);
+  double es = nt2::unit::perform_benchmark( cs, 1.)/2;
 
   std_2D_test<T> y(H,W);
-  double v = nt2::unit::perform_benchmark( y, 1.);
+  double v = nt2::unit::perform_benchmark( y, 1.)/2;
 
   printf( "%d x %d : 1D %3.3f (%3.3f%%) %3.3f [%3.3f%%] %3.3f "
                   "| 2D %3.3f (%3.3f%%) %3.3f [%3.3f%%] %3.3f \n"
