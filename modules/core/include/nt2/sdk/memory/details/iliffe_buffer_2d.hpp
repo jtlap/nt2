@@ -67,7 +67,7 @@ namespace nt2 { namespace memory
     inline difference_type  outer_lower() const { return BO;      }
 
     inline difference_type  inner_upper() const { return 1;       }
-    inline difference_type  outer_upper() const { return BO+S-1;  }
+    inline difference_type  outer_upper() const { return BO+difference_type(S-1);  }
   };
 } }
 
