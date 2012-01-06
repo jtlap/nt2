@@ -175,19 +175,19 @@ NT2_TEST_CASE_TPL( container_size_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  container<table_,id_<0>,T,settings()> b( of_size(3,3) );
+  container<table_,id_<0>,T,settings()> b( of_size(32,3) );
   typedef typename container<table_,id_<0>,T,settings()>::difference_type diff_t;
   NT2_TEST(!b.empty());
-  NT2_TEST_EQUAL(b.size()       ,  3*3 );
-  NT2_TEST_EQUAL(b.inner_size() ,  3   );
+  NT2_TEST_EQUAL(b.size()       ,  32*3 );
+  NT2_TEST_EQUAL(b.inner_size() ,  32   );
   NT2_TEST_EQUAL(b.outer_size() ,  3    );
   NT2_TEST_EQUAL(b.lower()      ,  1    );
   NT2_TEST_EQUAL(b.inner_lower(),  1    );
   NT2_TEST_EQUAL(b.outer_lower(),  1    );
-  NT2_TEST_EQUAL(b.upper()      ,  3*3 );
-  NT2_TEST_EQUAL(b.inner_upper(),  3   );
+  NT2_TEST_EQUAL(b.upper()      ,  32*3 );
+  NT2_TEST_EQUAL(b.inner_upper(),  32   );
   NT2_TEST_EQUAL(b.outer_upper(),  3    );
-  NT2_TEST( (b.extent() == of_size(3,3)) );
+  NT2_TEST( (b.extent() == of_size(32,3)) );
 
   for(diff_t j=b.outer_lower();j<=b.outer_upper();++j)
     for(diff_t i=b.inner_lower();i<=b.inner_upper();++i)
