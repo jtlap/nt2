@@ -104,4 +104,18 @@ namespace nt2 { namespace details
   };
 } }
 
+namespace nt2 { namespace memory
+{
+  template<class Tag, class ID, class T, class S> struct container;
+
+  //============================================================================
+  // Generic swap for container of any kind
+  //============================================================================
+  template<class Tag, class ID, class T, class S>
+  void swap(container<Tag,ID,T,S>& a,container<Tag,ID,T,S>& b)
+  {
+    a.swap(b);
+  }
+} }
+
 #endif
