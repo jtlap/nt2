@@ -132,6 +132,7 @@ NT2_TEST_CASE( shared_apply )
   using nt2::shared_;
   using nt2::automatic_;
   using nt2::dynamic_;
+  using nt2::with_;
   using nt2::allocator_;
   using nt2::no_padding_;
   using nt2::global_padding_;
@@ -152,7 +153,7 @@ NT2_TEST_CASE( shared_apply )
                                 , settings( automatic_
                                           , of_size_<2,2>
                                           , no_padding_
-                                          , shared_                                     
+                                          , shared_
                                           )
                                 >::type
                               >
@@ -169,7 +170,7 @@ NT2_TEST_CASE( shared_apply )
                                 , settings( automatic_
                                           , of_size_<2,2>
                                           , no_padding_
-                                          , shared_                                     
+                                          , shared_
                                           )
                                 >::type
                               >
@@ -187,7 +188,7 @@ NT2_TEST_CASE( shared_apply )
                                           , of_size_<2,2>
                                           , no_padding_
                                           , shared_
-                                          , allocator_< allocator<int> >                                
+                                          , allocator_< allocator<int> >
                                           )
                                 >::type
                               >
@@ -203,14 +204,14 @@ NT2_TEST_CASE( shared_apply )
                                 , int
                                 , settings( dynamic_
                                           , of_size_<2,2>
-                                          , global_padding_
+                                          , global_padding_(with_<16>)
                                           , shared_
-                                          , allocator_< allocator<int> >                                
+                                          , allocator_< allocator<int> >
                                           )
                                 >::type
                               >
                       )
-                    , (buffer<int, 1, padded_allocator<fixed_allocator<int> > >)
+                    , (buffer<int, 1, padded_allocator<16,fixed_allocator<int> > >)
                     );
 }
 
@@ -239,7 +240,7 @@ NT2_TEST_CASE( owned_apply )
   using boost::simd::memory::allocator_adaptor;
   using nt2::meta::normalize_settings;
   using nt2::tag::table_;
-  
+
   NT2_TEST_EXPR_TYPE( owned_::index()
                     , (apply_ < _
                               , int
@@ -252,7 +253,7 @@ NT2_TEST_CASE( owned_apply )
                                           )
                                 >::type
                               >
-                      )  
+                      )
                     , (array_buffer<int*, 2, 1>)
                     );
 
@@ -314,11 +315,11 @@ NT2_TEST_CASE( owned_apply )
                                 , settings( dynamic_
                                           , of_size_<2,2>
                                           , allocator_< std::allocator<int> >
-                                          , global_padding_
+                                          , global_padding_(with_<16>)
                                           )
                                 >::type
                               >
                       )
-                    , (buffer<int, 1, padded_allocator< allocator_adaptor< int, std::allocator<int> > > >)
+                    , (buffer<int, 1, padded_allocator< 16,allocator_adaptor< int, std::allocator<int> > > >)
                     );
 }

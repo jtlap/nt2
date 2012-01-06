@@ -64,11 +64,6 @@ NT2_TEST_CASE( lead_padding )
   using boost::mpl::_;
   using boost::mpl::int_;
 
-  NT2_TEST_EXPR_TYPE( global_padding_()
-                      ,(option< _, nt2::tag::global_padding_>)
-                      ,(global_padding_strategy_<-1>)
-                     );
-
   NT2_TEST_EXPR_TYPE( global_32
                       ,(option< _, nt2::tag::global_padding_>)
                       ,(global_padding_strategy_<32>)
@@ -91,11 +86,6 @@ NT2_TEST_CASE( global_padding )
   using nt2::settings;
   using boost::mpl::_;
   using boost::mpl::int_;
-
-  NT2_TEST_EXPR_TYPE( lead_padding_()
-                      ,(option< _, nt2::tag::lead_padding_>)
-                      ,(lead_padding_strategy_<-1>)
-                     );
 
   NT2_TEST_EXPR_TYPE( lead_32
                       ,(option< _, nt2::tag::lead_padding_>)

@@ -113,7 +113,7 @@ NT2_TEST_CASE( buffer_forced )
   using nt2::tag::table_;
   using nt2::memory::buffer;
   using nt2::buffer_generator;
-  
+
   NT2_TEST_EXPR_TYPE( (buffer_generator< buffer<int,1> >())
                     , (apply_ < _
                               , void
@@ -141,7 +141,7 @@ struct make_iliffe
   template<class Dims, class Data, class Index>
   struct apply
   {
-    typedef nt2::memory::iliffe_buffer<Dims,Data,Index> type;
+    typedef nt2::memory::iliffe_buffer<Data,Index> type;
   };
 };
 
@@ -158,7 +158,7 @@ NT2_TEST_CASE( buffer_natural )
   using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
   using nt2::buffer_generator;
-  
+
   NT2_TEST_EXPR_TYPE( buffer_generator<>()
                     , (apply_ < _
                               , make_iliffe
@@ -174,8 +174,7 @@ NT2_TEST_CASE( buffer_natural )
                                 >::type
                               >
                       )
-                    , ( iliffe_buffer < mpl_::int_<2>
-                                      , array_buffer<int , 4ul, 1>
+                    , ( iliffe_buffer < array_buffer<int , 4ul, 1>
                                       , array_buffer<int*, 2ul, 1>
                                       >
                       )
