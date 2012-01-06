@@ -53,10 +53,10 @@ namespace boost { namespace fusion { namespace extension
   template<> struct at_impl<nt2::tag::padded_sequence_tag>
   {
     template<class Seq, std::ptrdiff_t N> struct apply_impl;
-      
+
     template<class Seq, class Index>
     struct  apply : apply_impl< Seq, Index::value> {};
-    
+
     template<class Seq> struct apply_impl<Seq, 0>
     {
       typedef typename Seq::sequence_type seq_type;
@@ -64,26 +64,26 @@ namespace boost { namespace fusion { namespace extension
       typedef typename boost::fusion::result_of::at_c<seq_type,0>::type base;
       typedef typename boost::dispatch::meta::
               call<boost::simd::tag::align_on_(base,value_type)>::type type;
-              
+
       static type call(Seq& seq)
       {
         return  boost::simd::memory::
                 align_on(boost::fusion::at_c<0>(seq.seq_),seq.value_);
       }
     };
-    
+
     template<class Seq, std::ptrdiff_t N> struct apply_impl
     {
       typedef typename Seq::sequence_type seq_type;
       typedef typename boost::fusion::result_of::at_c<seq_type,N>::type type;
-      
+
       static type call(Seq& seq)
       {
         return boost::fusion::at_c<N>(seq.seq_);
       }
     };
   };
-  
+
   template<> struct value_at_impl<nt2::tag::padded_sequence_tag>
   {
     template<class Seq, class Index>
@@ -115,7 +115,9 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence>
     struct apply
     {
-      typedef boost::simd::at_iterator<Sequence, Sequence::static_size> type;
+      typedef typename boost::fusion::result_of::
+              size<typename Sequence::sequence_type>::type      size_;
+      typedef boost::simd::at_iterator<Sequence, size_::value>  type;
       static type call(Sequence& seq) { return type(seq); }
     };
   };
