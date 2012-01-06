@@ -75,7 +75,7 @@ namespace boost { namespace fusion { namespace extension
     template<class Seq, std::ptrdiff_t N> struct apply_impl
     {
       typedef typename Seq::sequence_type seq_type;
-      typedef typename boost::fusion::result_of::at_c<seq_type,N>::type type;
+      typedef typename boost::fusion::result_of::at_c<seq_type const,N>::type type;
 
       static type call(Seq& seq)
       {

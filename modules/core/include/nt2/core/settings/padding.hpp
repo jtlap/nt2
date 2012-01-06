@@ -17,8 +17,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   template<std::ptrdiff_t Value = 1>
   struct global_padding_strategy_ : boost::mpl::int_<Value> {};
 
@@ -27,14 +27,14 @@ namespace nt2
 
   //============================================================================
   /*!
-   * Specify that current container doesn't pad its memory. 
+   * Specify that current container doesn't pad its memory.
    **/
   //============================================================================
   struct no_padding_ {};
 
   //============================================================================
   /*!
-   * Specify a global padding strategy will be used. 
+   * Specify a global padding strategy will be used.
    * The padding value will have to be specified at runtime using the
    * appropriate container constructor.
    **/
@@ -43,51 +43,29 @@ namespace nt2
 
   //============================================================================
   /*!
-   * Specify a lead dimension padding strategy will be used. 
-   * The padding value will have to be specified at runtime using 
+   * Specify a lead dimension padding strategy will be used.
+   * The padding value will have to be specified at runtime using
    * the appropriate container constructor.
    **/
   //============================================================================
   struct lead_padding_  {};
 
-  namespace tag 
-  { 
+  namespace tag
+  {
     //==========================================================================
     /*!
      * Option tag for padding options
      **/
     //==========================================================================
     struct global_padding_  {};
-    struct lead_padding_    {}; 
+    struct lead_padding_    {};
   }
 }
 
 namespace nt2 { namespace meta
 {
   //============================================================================
-  /*!
-   * global_padding_ option return padding_strategy of global
-   **/
-  //============================================================================
-  template<class Default>
-  struct  option< global_padding_, tag::global_padding_, Default >
-  {
-    typedef global_padding_strategy_<-1> type;
-  };
-
-  //============================================================================
-  /*!
-   * lead_padding_ option return padding_strategy of lead
-   **/
-  //============================================================================
-  template<class Default>
-  struct  option< lead_padding_, tag::lead_padding_, Default >
-  {
-    typedef lead_padding_strategy_<-1> type;
-  };
-
-  //============================================================================
-  /*! global_padding_ with alignment value 
+  /*! global_padding_ with alignment value
    *  return padding_strategy of global_ with the alignment value
    **/
   //============================================================================
@@ -104,7 +82,7 @@ namespace nt2 { namespace meta
   };
 
   //============================================================================
-  /*! lead_padding_ with alignment value 
+  /*! lead_padding_ with alignment value
    *  return padding_strategy of lead_ with the alignment value
    **/
   //============================================================================
@@ -121,7 +99,7 @@ namespace nt2 { namespace meta
   };
   //============================================================================
   /*!
-   * no_padding_ option 
+   * no_padding_ option
    **/
   //============================================================================
   template<class Default>

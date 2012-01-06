@@ -47,7 +47,7 @@ namespace nt2
       // Wrap it in a padded_allocator if needed
       typedef typename  boost::mpl
                       ::if_c< padding_t::value != 1
-                            , memory::padded_allocator<alloc_t>
+                            , memory::padded_allocator<padding_t::value,alloc_t>
                             , alloc_t
                             >:: type                      base_alloc_type;
 

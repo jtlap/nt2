@@ -16,11 +16,11 @@ namespace nt2 {  namespace memory
 {
   //============================================================================
   /**!
-   * padded_allocator is a stateful allocator adaptor that wraps an existing
+   * padded_allocator is an allocator adaptor that wraps an existing
    * allocator to force the alignment of its allocation
    **/
   //============================================================================
-  template<typename Allocator>
+  template<std::size_t Alignment, typename Allocator>
   struct padded_allocator : public Allocator
   {
     //==========================================================================
@@ -37,35 +37,29 @@ namespace nt2 {  namespace memory
     template<class Z> struct rebind
     {
       typedef typename Allocator::template rebind<Z>::other base;
-      typedef padded_allocator<base>                        other;
+      typedef padded_allocator<Alignment,base>              other;
     };
 
     //==========================================================================
     // Ctor/dtor
     //==========================================================================
-    padded_allocator( std::size_t const& v, Allocator const& a )
-                    : Allocator(a), value_(v)
-    {}
-    
+    padded_allocator( Allocator const& a ) : Allocator(a) {}
+    padded_allocator() {}
+
     //==========================================================================
     // Transtyping constructor
     //==========================================================================
     template<class Z>
-    padded_allocator( padded_allocator<Z> const& src )
-                    : Allocator(src), value_(src.value_)
+    padded_allocator( padded_allocator<Alignment,Z> const& src )
+                    : Allocator(src)
     {}
-
-    //==========================================================================
-    // Alignment data
-    //==========================================================================
-    std::size_t value_;
 
     ////////////////////////////////////////////////////////////////////////////
     // Memory handling
     ////////////////////////////////////////////////////////////////////////////
     pointer allocate( size_type s, const void* h = 0 )
     {
-      return Allocator::allocate( boost::simd::memory::align_on(s,value_), h );
+      return Allocator::allocate(boost::simd::memory::align_on(s,Alignment),h);
     }
   };
 
@@ -74,12 +68,13 @@ namespace nt2 {  namespace memory
    * Checks if two padded_allocator are equal. Such allocators are equal if and
    * only if they have the same base allocator and alignment value.
    **/
-  //============================================================================    
-  template<typename A>
-  bool operator==(padded_allocator<A> const& l, padded_allocator<A> const& r)
+  //============================================================================
+  template<std::size_t Align,typename A>
+  bool operator== ( padded_allocator<Align,A> const& l
+                  , padded_allocator<Align,A> const& r
+                  )
   {
-    return    (static_cast<A const&>(l) == static_cast<A const&>(r))
-          &&  (l.value_ == r.value_);
+    return  (static_cast<A const&>(l) == static_cast<A const&>(r));
   }
 
   //============================================================================
@@ -87,9 +82,11 @@ namespace nt2 {  namespace memory
    * Checks if two padded_allocator are non-equal. Such allocators are not equal
    * only if they have differet base allocator or alignment value.
    **/
-  //============================================================================    
-  template<typename A>
-  bool operator!=(padded_allocator<A> const& l, padded_allocator<A> const& r)
+  //============================================================================
+  template<std::size_t Align,typename A>
+  bool operator!= ( padded_allocator<Align,A> const& l
+                  , padded_allocator<Align,A> const& r
+                  )
   {
     return !(l == r);
   }
