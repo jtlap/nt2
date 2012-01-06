@@ -28,7 +28,11 @@ namespace nt2 {  namespace memory
     //============================================================================
     // Some fake allocator_type to satisfy Sequence requirement
     //============================================================================
-    struct no_allocator {};
+    struct no_allocator 
+    {
+      typedef T*        pointer;
+      typedef T const*  const_pointer;
+    };
 
     //============================================================================
     // Buffer type interface
@@ -113,7 +117,11 @@ namespace nt2 {  namespace memory
      * Return the highest valid index for accessing a buffer element
      **/
     //==========================================================================
-    static BOOST_FORCEINLINE difference_type upper()       { return BaseIndex + N - 1; }
+    static BOOST_FORCEINLINE difference_type upper()       
+    { 
+      return difference_type(N - 1) + BaseIndex; 
+    }
+
     static BOOST_FORCEINLINE difference_type inner_upper() { return upper();           }
     static BOOST_FORCEINLINE difference_type outer_upper() { return 1;                 }
 
@@ -133,7 +141,6 @@ namespace nt2 {  namespace memory
       BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
                       , "Position is below buffer bounds"
                       );
-
       BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
                       , "Position is out of buffer bounds"
                       );
@@ -147,11 +154,9 @@ namespace nt2 {  namespace memory
       BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
                       , "Position is below buffer bounds"
                       );
-
       BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
                       , "Position is out of buffer bounds"
                       );
-
       return storage_[boost::fusion::at_c<0>(pos)-BaseIndex];
     }
 
