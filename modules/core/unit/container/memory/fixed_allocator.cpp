@@ -13,6 +13,7 @@
 
 #include <boost/array.hpp>
 #include <boost/fusion/adapted/array.hpp>
+#include <boost/fusion/include/make_vector.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -27,13 +28,13 @@ NT2_TEST_CASE_TPL(fixed_allocator, NT2_TYPES )
   T data[] = { 1, 2, 3, 4, 5 };
 
   fixed_allocator<T> a(&data[0], &data[0] + 5);
-  buffer<T, -2 ,fixed_allocator<T> > v( 5, a );
+  buffer<T, -2 ,fixed_allocator<T> > v( boost::fusion::make_vector(5), a );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
-    NT2_TEST_EQUAL( v[i], data[i - v.lower()] );
+    NT2_TEST_EQUAL( v[boost::fusion::make_vector(i)], data[i - v.lower()] );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
-    v[i] = 1+10*(i-v.lower());
+    v[boost::fusion::make_vector(i)] = T(1+10*(i-v.lower()));
 
   for( std::size_t i=0; i<5; ++i )
     NT2_TEST_EQUAL( data[i], 1+10*i );
@@ -48,20 +49,22 @@ NT2_TEST_CASE_TPL(fixed_allocator_copy, NT2_TYPES )
 
   fixed_allocator<T> a(&data[0], &data[0] + 5);
   
-  buffer<T, -2 ,fixed_allocator<T> > v( 5, a );
+  buffer<T, -2 ,fixed_allocator<T> > v( boost::fusion::make_vector(5), a );
   buffer<T, -2, fixed_allocator<T> > w(v);
 
   for( std::ptrdiff_t i=w.lower(); i<=w.upper(); ++i )
-    NT2_TEST_EQUAL( w[i], data[i - w.lower()] );
+    NT2_TEST_EQUAL( w[boost::fusion::make_vector(i)], data[i - w.lower()] );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
-    v[i] = 1+10*(i-v.lower());
+    v[boost::fusion::make_vector(i)] = T(1+10*(i-v.lower()));
 
   for( std::size_t i=0; i<5; ++i )
     NT2_TEST_EQUAL( data[i], 1+10*i );
 
   for( std::ptrdiff_t i=w.lower(); i<=w.upper(); ++i )
-    NT2_TEST_EQUAL( w[i], v[i] );
+    NT2_TEST_EQUAL( w[boost::fusion::make_vector(i)]
+                  , v[boost::fusion::make_vector(i)] 
+                  );
 }
 
 NT2_TEST_CASE_TPL(fixed_allocator_resize, NT2_TYPES )
@@ -72,19 +75,17 @@ NT2_TEST_CASE_TPL(fixed_allocator_resize, NT2_TYPES )
   T data[] = { 1, 2, 3, 4, 5 };
 
   fixed_allocator<T> a(&data[0], &data[0] + 5);
-  buffer<T, -2 ,fixed_allocator<T> > v( 5, a );
+  buffer<T, -2 ,fixed_allocator<T> > v( boost::fusion::make_vector(5), a );
   
-  boost::array<std::size_t,1> less_s = { 3 };
-
-  v.resize( 3 );
+  v.resize( boost::fusion::make_vector(3) );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
-    NT2_TEST_EQUAL( v[i], data[i - v.lower()] );  
+    NT2_TEST_EQUAL( v[boost::fusion::make_vector(i)], data[i - v.lower()] );  
 
-  v.resize( 5 );
+  v.resize( boost::fusion::make_vector(5) );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
-    NT2_TEST_EQUAL( v[i], data[i - v.lower()] );  
+    NT2_TEST_EQUAL( v[boost::fusion::make_vector(i)], data[i - v.lower()] );  
 
-  NT2_TEST_THROW( v.resize(7), nt2::assert_exception );
+  NT2_TEST_THROW( v.resize(boost::fusion::make_vector(7)), nt2::assert_exception );
 }

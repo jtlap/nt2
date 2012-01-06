@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL( buffer_copy_ctor, NT2_TYPES)
   type b(boost::fusion::make_vector(5));
 
   for ( typename type::difference_type i = b.lower(); i <= b.upper(); ++i )
-  b[boost::fusion::make_vector(i)] = 3+i ;
+  b[boost::fusion::make_vector(i)] = T(3+i);
 
   type x(b);
 
@@ -101,7 +101,7 @@ NT2_TEST_CASE_TPL( buffer_copy_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(), 1 );
 
   for ( typename type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], 3+i );
+    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], T(3+i) );
 }
 
 //==============================================================================
@@ -116,7 +116,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
   buffer_type x, b(boost::fusion::make_vector(5));
 
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    b[boost::fusion::make_vector(i)] = 3+i ;
+    b[boost::fusion::make_vector(i)] = T(3+i);
 
   x = b;
 
@@ -131,7 +131,7 @@ NT2_TEST_CASE_TPL(buffer_assignment, NT2_TYPES )
   NT2_TEST_EQUAL(x.outer_upper(),  1 );
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], 3+i );
+    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], T(3+i) );
 }
 
 //==============================================================================
@@ -145,11 +145,11 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
 
   buffer_type b(boost::fusion::make_vector<int>(3));
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    b[boost::fusion::make_vector(i)] = 10*i ;
+    b[boost::fusion::make_vector(i)] = T(10*i) ;
 
   buffer_type x( boost::fusion::make_vector(5) );
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    x[boost::fusion::make_vector(i)] = 3+i ;
+    x[boost::fusion::make_vector(i)] = T(3+i) ;
 
   swap(b,x);
 
@@ -174,10 +174,10 @@ NT2_TEST_CASE_TPL(buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(b.outer_upper(),  1 );
 
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( b[boost::fusion::make_vector(i)], 3+i );
+    NT2_TEST_EQUAL( b[boost::fusion::make_vector(i)], T(3+i) );
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], 10*i );
+    NT2_TEST_EQUAL( x[boost::fusion::make_vector(i)], T(10*i) );
 }
 
 //==============================================================================
@@ -196,7 +196,7 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
 
   buffer_type x(boost::fusion::make_vector(5));
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    x[boost::fusion::make_vector(i)] = 3+i ;
+    x[boost::fusion::make_vector(i)] = T(3+i) ;
 
   f_ f;
 
