@@ -19,6 +19,7 @@
 #include <nt2/core/utility/of_size/fusion.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
+#include <boost/type_traits/is_integral.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
