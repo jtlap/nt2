@@ -13,6 +13,7 @@
 #include <nt2/core/settings/shape.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/memory/block_facade.hpp>
+#include <nt2/core/utility/of_size/pad.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
@@ -52,6 +53,11 @@ namespace nt2 { namespace details
     typedef typename meta::option<settings_type, tag::index_>::type   index_type;
 
     //==========================================================================
+    // Potential container lead padding value
+    //==========================================================================
+    typedef typename meta::option<settings_type,tag::lead_padding_>::type lead_t;
+
+    //==========================================================================
     // container knows if its size is statically defined or not
     //==========================================================================
     typedef boost::mpl::bool_<extent_type::static_status>  is_static_sized;
@@ -62,7 +68,7 @@ namespace nt2 { namespace details
     template<class Size>
     inline void init( block_t& block, Size const& sz, boost::mpl::true_ const& )
     {
-      block.resize(sz);
+      block.resize( pad(sz,lead_t::value) );
     }
 
     template<class Size>
@@ -79,7 +85,7 @@ namespace nt2 { namespace details
       if( new_sz != old_sz )
       {
         old_sz = extent_type(new_sz);
-        block.resize(new_sz);
+        block.resize( pad(old_sz,lead_t::value) );
       }
     }
 

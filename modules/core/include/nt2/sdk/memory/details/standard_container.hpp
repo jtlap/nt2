@@ -55,7 +55,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size>
     container( Size const& sz, allocator_type const& a = allocator_type() )
-            : block_(sz,a), sizes_(sz)
+            : block_( pad(sz,parent::lead_t::value) ,a), sizes_(sz)
     {}
 
     //==========================================================================
@@ -66,12 +66,14 @@ namespace nt2 { namespace memory
     template<class Position> BOOST_FORCEINLINE
     reference operator[]( Position const& pos )
     {
+      // return parent::access(pos,block_,sizes_);
       return block_[pos];
     }
 
     template<class Position> BOOST_FORCEINLINE
     const_reference operator[]( Position const& pos ) const
     {
+      // return parent::access(pos,block_,sizes_);
       return block_[pos];
     }
 

@@ -64,7 +64,7 @@ namespace nt2 { namespace memory
     {
       if(!status_)
       {
-        block_t that(sz,a);
+        block_t that(pad(sz,parent::lead_t::value),a);
         block_.swap(that);
         status_ = true;
       }
