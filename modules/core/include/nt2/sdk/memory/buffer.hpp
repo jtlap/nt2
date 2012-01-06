@@ -38,7 +38,7 @@ namespace nt2 {  namespace memory
    **/
   //============================================================================
   template<class Type, std::ptrdiff_t BaseIndex, class Allocator>
-  class buffer
+  struct buffer
       : private
         details::buffer_data< BaseIndex
                             , typename Allocator::template rebind<Type>::other

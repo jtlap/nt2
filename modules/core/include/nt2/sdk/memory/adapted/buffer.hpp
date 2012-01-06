@@ -20,9 +20,9 @@ namespace nt2 { namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template< typename T
+  template< typename Type
           , std::ptrdiff_t B
-          , typename A = boost::simd::memory::allocator<T> >
+          , typename A = boost::simd::memory::allocator<Type> >
   struct buffer;
 } }
 
