@@ -195,7 +195,7 @@ namespace nt2 {  namespace memory
    * \param b Second \c pointer_buffer to swap
    **/
   //============================================================================
-  template<class T, std::size_t N, std::ptrdiff_t B>
+  template<class T, std::ptrdiff_t N, std::ptrdiff_t B>
   void swap( array_buffer<T,N,B>& a, array_buffer<T,N,B>& b )
   {
     a.swap(b);
