@@ -21,14 +21,14 @@
 
 namespace nt2 {  namespace memory
 {
-  template<class T, std::size_t N, std::ptrdiff_t BaseIndex>
+  template<class T, std::ptrdiff_t N, std::ptrdiff_t BaseIndex>
   struct array_buffer
   {
     public:
     //============================================================================
     // Some fake allocator_type to satisfy Sequence requirement
     //============================================================================
-    struct no_allocator 
+    struct no_allocator
     {
       typedef T*        pointer;
       typedef T const*  const_pointer;
@@ -43,7 +43,7 @@ namespace nt2 {  namespace memory
     typedef T const*                                  const_iterator;
     typedef T&                                        reference;
     typedef const T&                                  const_reference;
-    typedef std::size_t                               size_type;
+    typedef std::ptrdiff_t                            size_type;
     typedef std::ptrdiff_t                            difference_type;
 
     //==========================================================================
@@ -117,11 +117,7 @@ namespace nt2 {  namespace memory
      * Return the highest valid index for accessing a buffer element
      **/
     //==========================================================================
-    static BOOST_FORCEINLINE difference_type upper()       
-    { 
-      return difference_type(N - 1) + BaseIndex; 
-    }
-
+    static BOOST_FORCEINLINE difference_type upper()       { return N - 1 + BaseIndex; }
     static BOOST_FORCEINLINE difference_type inner_upper() { return upper();           }
     static BOOST_FORCEINLINE difference_type outer_upper() { return 1;                 }
 

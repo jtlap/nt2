@@ -23,7 +23,7 @@ namespace nt2 {  namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template<typename Type, std::size_t N, std::ptrdiff_t B> struct array_buffer;
+  template<typename Type, std::ptrdiff_t N, std::ptrdiff_t B> struct array_buffer;
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -31,14 +31,14 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template<typename T, std::size_t N, std::ptrdiff_t B>
+  template<typename T, std::ptrdiff_t N, std::ptrdiff_t B>
   struct value_of< nt2::memory::array_buffer<T,N,B> > : value_of<T>
   {};
 
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<  class Type, std::size_t N, std::ptrdiff_t B >
+  template<  class Type, std::ptrdiff_t N, std::ptrdiff_t B >
   struct model_of< nt2::memory::array_buffer<Type,N,B> >
   {
     struct type
