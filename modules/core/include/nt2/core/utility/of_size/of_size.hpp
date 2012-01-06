@@ -29,10 +29,10 @@
 namespace nt2
 {
   namespace tag { struct of_size_; }
-  
+
   //============================================================================
   /*!
-   * \c of_size_ is a thin buffer containing values of a dimensions set in an 
+   * \c of_size_ is a thin buffer containing values of a dimensions set in an
    * hybrid static/dynamic way.
    **/
   //============================================================================
@@ -47,7 +47,7 @@ namespace nt2
     typedef std::size_t const&                    const_reference;
     typedef std::size_t*                          iterator;
     typedef std::size_t const*                    const_iterator;
-    typedef std::reverse_iterator<iterator>       reverse_iterator;      
+    typedef std::reverse_iterator<iterator>       reverse_iterator;
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
     //==========================================================================
@@ -109,6 +109,11 @@ namespace nt2
     // Copy constructor
     //==========================================================================
     of_size_( of_size_ const& src ) : data_(src.data_) {}
+
+    //==========================================================================
+    // Swap
+    //==========================================================================
+    void swap( of_size_ & src ) { data_.swap(src.data_); }
 
     //==========================================================================
     // Constructor from a Fusion sequence - smaller sequence are padded with 1
@@ -196,11 +201,21 @@ namespace nt2
 
     inline void default_(boost::mpl::size_t<0> const&) {}
   };
+
+  //============================================================================
+  // of_size_ swap
+  //============================================================================
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
+  void swap ( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)>& a
+            , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)>& b
+            )
+  {
+    a.swap(b);
+  }
 }
 
 #include <nt2/core/utility/of_size/0d.hpp>
 #include <nt2/core/utility/of_size/predef.hpp>
 #include <nt2/core/utility/of_size/comparison.hpp>
-
 
 #endif
