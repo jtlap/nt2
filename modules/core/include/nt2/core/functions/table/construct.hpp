@@ -19,7 +19,7 @@
 namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::iterator_;
-  
+
   //============================================================================
   // Construct a terminal from a size
   //============================================================================
@@ -29,6 +29,7 @@ namespace nt2 { namespace ext
                                       , nt2::container::domain
                                       , tag::terminal_
                                       , Arity
+                                      >
                               ))
                               (fusion_sequence_<A1>)
                             )
@@ -80,6 +81,7 @@ namespace nt2 { namespace ext
                                       , nt2::container::domain
                                       , tag::terminal_
                                       , Arity
+                                      >
                               ))
                               (scalar_< unspecified_<A1> >)
                             )
@@ -107,7 +109,7 @@ namespace nt2 { namespace ext
                               ))
                               (fusion_sequence_<A1>)
                               (iterator_< scalar_< arithmetic_<A2> > >)
-                              (iterator_< scalar_< arithmetic_<A3> > >)                              
+                              (iterator_< scalar_< arithmetic_<A3> > >)
                             )
   {
     typedef void result_type;
@@ -126,19 +128,19 @@ namespace nt2 { namespace ext
         >= std::distance(a2,a3)
       , "Source range is larger than destination container."
       );
-                      
+
       //========================================================================
       // Resize to target extent
       //========================================================================
       typedef typename A0::extent_type extent_type;
-      boost::proto::value(a0).resize(extent_type(a1));      
-      
+      boost::proto::value(a0).resize(extent_type(a1));
+
       //========================================================================
       // copy elementwisely
       //========================================================================
       boost::array<std::size_t,1> pos;
       pos[0] = boost::mpl::at_c<typename A0::index_type::type,0>::type::value;
-      
+
       for(A2 beg_ = a2; beg_ != a3; ++pos[0], ++beg_)
         boost::proto::value(a0)( pos ) = *beg_;
     }
