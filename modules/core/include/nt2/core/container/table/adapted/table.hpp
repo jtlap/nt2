@@ -39,9 +39,8 @@ namespace nt2 { namespace meta
       template<class T, class S> struct apply
       {
         typedef memory::container < tag::table_
-                                  , typename option<S,tag::id_>::type
-                                  , T
-                                  , S
+                                  , typename option<S, tag::id_, id_<0> >::type
+                                  , T, S
                                   >                                     type;
       };
     };

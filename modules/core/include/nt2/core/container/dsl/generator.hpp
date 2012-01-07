@@ -14,12 +14,12 @@
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
 #include <nt2/core/settings/size.hpp>
+#include <nt2/sdk/meta/container_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/core/functions/extent.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/sdk/meta/container_of.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
 #include <nt2/core/container/dsl/details/trait_transform.hpp>
 
@@ -78,7 +78,7 @@ namespace nt2 { namespace container
 
     //==========================================================================
     /*!
-     * proto::transfrom performing the computation of the type and the generation
+     * proto::transform performing the computation of the type and the generation
      * of a nt2::container::expression
      **/
     //==========================================================================
