@@ -32,6 +32,7 @@ namespace nt2 { namespace memory
     typedef typename parent::block_t                      block_t;
     typedef typename parent::allocator_type               allocator_type;
     typedef typename parent::extent_type                  extent_type;
+    typedef typename parent::sizes_type                   sizes_type;
     typedef typename parent::size_type                    size_type;
     typedef typename parent::difference_type              difference_type;
     typedef typename parent::is_static_sized              is_static_sized;
@@ -103,7 +104,7 @@ namespace nt2 { namespace memory
      * Return the current container dimensions set
      */
     //==========================================================================
-    BOOST_FORCEINLINE extent_type const&  extent() const { return sizes_;  }
+    BOOST_FORCEINLINE extent_type extent() const { return sizes_;  }
 
     //==========================================================================
     /*!
@@ -140,8 +141,8 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE difference_type outer_upper() const { return block_.outer_upper();  }
 
     private:
-    block_t      block_;
-    extent_type  sizes_;
+    block_t     block_;
+    sizes_type  sizes_;
   };
 } }
 

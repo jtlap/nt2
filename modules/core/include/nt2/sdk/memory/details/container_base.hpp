@@ -49,8 +49,9 @@ namespace nt2 { namespace details
     //==========================================================================
     // container is handling the size/base storage for the proto terminal
     //==========================================================================
-    typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
+    typedef typename meta::option<settings_type, tag::of_size_>::type sizes_type;
     typedef typename meta::option<settings_type, tag::index_>::type   index_type;
+    typedef sizes_type const&                                         extent_type;
 
     //==========================================================================
     // Potential container lead padding value
@@ -60,7 +61,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // container knows if its size is statically defined or not
     //==========================================================================
-    typedef boost::mpl::bool_<extent_type::static_status>  is_static_sized;
+    typedef boost::mpl::bool_<sizes_type::static_status>  is_static_sized;
 
     //==========================================================================
     // If size is static, perform allocation from default constructor
@@ -78,13 +79,13 @@ namespace nt2 { namespace details
     // Resize inner block if resizing is allowed
     //==========================================================================
     template<class Size> inline
-    void resize ( block_t& block, Size const& new_sz, extent_type& old_sz
+    void resize ( block_t& block, Size const& new_sz, sizes_type& old_sz
                 , boost::mpl::false_ const&
                 )
     {
       if( new_sz != old_sz )
       {
-        old_sz = extent_type(new_sz);
+        old_sz = sizes_type(new_sz);
         block.resize( pad(old_sz,lead_t::value) );
       }
     }
@@ -93,7 +94,7 @@ namespace nt2 { namespace details
     // Force a static assert if a statically sized container is resized
     //==========================================================================
     template<class Size> inline
-    void resize( block_t&, Size const&, extent_type&, boost::mpl::true_ const&)
+    void resize( block_t&, Size const&, sizes_type&, boost::mpl::true_ const&)
     {
       BOOST_MPL_ASSERT_MSG
       ( (sizeof(Size) == 0)

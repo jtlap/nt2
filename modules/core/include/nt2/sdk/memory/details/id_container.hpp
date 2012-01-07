@@ -23,6 +23,7 @@ namespace nt2 { namespace memory
     typedef nt2::details::container_base<Tag,T,S>         parent;
     typedef typename parent::block_t                      block_t;
     typedef typename parent::allocator_type               allocator_type;
+    typedef typename parent::sizes_type                   sizes_type;
     typedef typename parent::extent_type                  extent_type;
     typedef typename parent::size_type                    size_type;
     typedef typename parent::difference_type              difference_type;
@@ -104,7 +105,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Size of the container
     //==========================================================================
-    static BOOST_FORCEINLINE extent_type const& extent() { return sizes_; }
+    static BOOST_FORCEINLINE extent_type extent() { return sizes_; }
 
     static BOOST_FORCEINLINE size_type size()       { return block_.size();       }
     static BOOST_FORCEINLINE size_type inner_size() { return block_.inner_size(); }
@@ -131,7 +132,7 @@ namespace nt2 { namespace memory
     private:
     static bool                         status_;
     static typename parent::block_t     block_;
-    static typename parent::extent_type sizes_;
+    static typename parent::sizes_type  sizes_;
   };
 
   //========================================================================
@@ -151,7 +152,7 @@ namespace nt2 { namespace memory
   // Set size to default value
   //========================================================================
   template<class Tag, class ID, class T, class S>
-  typename nt2::details::container_base<Tag,T,S>::extent_type
+  typename nt2::details::container_base<Tag,T,S>::sizes_type
   container<Tag, ID, T, S>::sizes_;
 } }
 
