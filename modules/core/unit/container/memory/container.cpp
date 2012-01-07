@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL( container_buffer_dimensions, DIMS )
 
   NT2_TEST_EQUAL
   ((dimensions_of< container<table_, id_<0>, double, settings(T)> >::value)
-  , T::static_size
+  , std::size_t(T::static_size)
   );
 }
 
