@@ -90,16 +90,16 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Element access from instance
     //==========================================================================
-    template<class Position>
-    BOOST_FORCEINLINE reference operator[]( Position const& pos )
+    template<class Position> BOOST_FORCEINLINE
+    reference operator[]( Position const& pos )
     {
-      return block_[pos];
+      return parent::access(pos,block_,sizes_);
     }
 
-    template<class Position>
-    BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
+    template<class Position> BOOST_FORCEINLINE
+    const_reference operator[]( Position const& pos ) const
     {
-      return block_[pos];
+      return parent::access(pos,block_,sizes_);
     }
 
     //==========================================================================

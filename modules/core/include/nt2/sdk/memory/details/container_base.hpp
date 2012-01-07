@@ -35,16 +35,16 @@ namespace nt2 { namespace details
     //==========================================================================
     // Public type interface
     //==========================================================================
-    typedef typename block_t::allocator_type   allocator_type;
-    typedef typename block_t::value_type       value_type;
-    typedef typename block_t::iterator         iterator;
-    typedef typename block_t::const_iterator   const_iterator;
-    typedef typename block_t::reference        reference;
-    typedef typename block_t::const_reference  const_reference;
-    typedef typename block_t::size_type        size_type;
-    typedef typename block_t::difference_type  difference_type;
-    typedef typename allocator_type::pointer   pointer;
-    typedef typename allocator_type::const_pointer   const_pointer;
+    typedef typename block_t::allocator_type        allocator_type;
+    typedef typename block_t::value_type            value_type;
+    typedef typename block_t::iterator              iterator;
+    typedef typename block_t::const_iterator        const_iterator;
+    typedef typename block_t::reference             reference;
+    typedef typename block_t::const_reference       const_reference;
+    typedef typename block_t::size_type             size_type;
+    typedef typename block_t::difference_type       difference_type;
+    typedef typename allocator_type::pointer        pointer;
+    typedef typename allocator_type::const_pointer  const_pointer;
 
     //==========================================================================
     // container is handling the size/base storage for the proto terminal
@@ -101,6 +101,190 @@ namespace nt2 { namespace details
       , STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY
       , (Size)
       );
+    }
+
+
+    //==========================================================================
+    // Multidimensionnal access handling
+    // Various cases to take care of to optimize access to storage:
+    //==========================================================================
+    template<class Position>
+    BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const& s)
+    {
+      typedef typename boost::fusion::result_of::size<Position>::type ps_t;
+
+      return access ( p , b , s
+                    , boost::mpl::size_t<sizes_type::static_size>()
+                    , boost::mpl::size_t<ps_t::value>()
+                    );
+    }
+
+    template<class Position>
+    BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const& s) const
+    {
+      typedef typename boost::fusion::result_of::size<Position>::type ps_t;
+
+      return access ( p , b , s
+                    , boost::mpl::size_t<sizes_type::static_size>()
+                    , boost::mpl::size_t<ps_t::value>()
+                    );
+    }
+
+    //==========================================================================
+    // Access a 1D Block with a 1D position -> go directly to the block
+    // Access a 2D Block with a 2D position -> go directly to the block
+    //==========================================================================
+    template<class Position>
+    BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<1> const&
+          )
+    {
+      return b[p];
+    }
+
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<1> const&
+          ) const
+    {
+      return b[p];
+    }
+
+    template<class Position>
+    BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const&
+          , boost::mpl::size_t<2> const&, boost::mpl::size_t<2> const&
+          )
+    {
+      return b[p];
+    }
+
+    template<class Position>
+    BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<2> const&, boost::mpl::size_t<2> const&
+          ) const
+    {
+      return b[p];
+    }
+
+    //==========================================================================
+    // Access a nD Block with a 2D position -> go directly to the block
+    //==========================================================================
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const&
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<2> const&
+          )
+    {
+      return b[p];
+    }
+
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<2> const&
+          ) const
+    {
+      return b[p];
+    }
+
+    //==========================================================================
+    // Access from a 2D position - 1D Block.
+    //==========================================================================
+
+    //==========================================================================
+    // Access a nD Block with a 1D or 0D position -> unpack if needed and go 2D
+    //==========================================================================
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const& s
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
+          )
+    {
+      return b[unpack(p,s,lead_t())];
+    }
+
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const& s
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
+          ) const
+    {
+      return b[unpack(p,s,lead_t())];
+    }
+
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const& s
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
+          )
+    {
+      return b[unpack(p,s,lead_t())];
+    }
+
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const& s
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
+          ) const
+    {
+      return b[unpack(p,s,lead_t())];
+    }
+
+    //==========================================================================
+    // Access a nD Block with a mD position -> flatten and go 2D
+    //==========================================================================
+    template<class Position, std::size_t N, std::size_t M>
+    BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const&
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<M> const&
+          )
+    {
+      return b[p]; // TO CHANGE
+    }
+
+    template<class Position, std::size_t N, std::size_t M>
+    BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<M> const&
+          ) const
+    {
+      return b[p]; // TO CHANGE
+    }
+
+    //==========================================================================
+    // Unpack 1D position if lead padding is present
+    //==========================================================================
+    template<class Pos> BOOST_FORCEINLINE
+    Pos const&
+    unpack( Pos const& p, sizes_type const&
+          , lead_padding_strategy_<1> const&
+          ) const
+    {
+      return p;
+    }
+
+    template<class Pos,std::ptrdiff_t N> BOOST_FORCEINLINE
+    boost::fusion::vector<difference_type,difference_type>
+    unpack( Pos const& p, sizes_type const& sz
+          , lead_padding_strategy_<N> const&
+          ) const
+    {
+      difference_type const& i = boost::fusion::at_c<0>(p);
+      difference_type const& s = boost::fusion::at_c<0>(sz);
+      typedef boost::mpl::at_c<typename index_type::type,0> b;
+
+      boost::fusion::vector<difference_type,difference_type>
+      that( (i-b::type::value) % s + b::type::value
+          , (i-b::type::value) / s + b::type::value
+          );
+
+      return that;
     }
   };
 } }

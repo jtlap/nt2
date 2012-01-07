@@ -78,15 +78,13 @@ namespace nt2 { namespace memory
     template<class Position> BOOST_FORCEINLINE
     reference operator[]( Position const& pos )
     {
-      // return parent::access(pos,block_,sizes_);
-      return block_[pos];
+      return parent::access(pos,block_,sizes_);
     }
 
     template<class Position> BOOST_FORCEINLINE
     const_reference operator[]( Position const& pos ) const
     {
-      // return parent::access(pos,block_,sizes_);
-      return block_[pos];
+      return parent::access(pos,block_,sizes_);
     }
 
     //==========================================================================
