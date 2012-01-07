@@ -60,7 +60,6 @@ NT2_TEST_CASE( resize_smaller )
     NT2_TEST_EQUAL(float(x(i,j)), u++);
 }
 
-/*
 NT2_TEST_CASE( resize_more_dims )
 {
   using nt2::table;
@@ -72,6 +71,7 @@ NT2_TEST_CASE( resize_more_dims )
   x.resize( of_size(2,2,2) );
   NT2_TEST( nt2::extent(x) == of_size(2,2,2) );
 
+/*
   float u = 0;
   for(int k=1;k<=2;++k)
    for(int j=1;j<=2;++j)
@@ -83,6 +83,7 @@ NT2_TEST_CASE( resize_more_dims )
    for(int j=1;j<=2;++j)
     for(int i=1;i<=2;++i)
       NT2_TEST_EQUAL(float(x(i,j,k)), u++);
+*/
 }
 
 NT2_TEST_CASE( resize_less_dims )
@@ -104,4 +105,3 @@ NT2_TEST_CASE( resize_less_dims )
   for(int i=1;i<=9;++i)
     NT2_TEST_EQUAL(float(x(i)), u++);
 }
-*/
