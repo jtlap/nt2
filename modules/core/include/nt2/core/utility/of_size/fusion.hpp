@@ -51,15 +51,26 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct at_impl<nt2::tag::of_size_>
   {
-    template<class Seq, class Index, std::ptrdiff_t N> struct apply_impl;
-      
+    template<class Seq, class Index, std::size_t S>     struct select_apply;
+    template<class Seq, class Index, std::ptrdiff_t N>  struct apply_impl;
+
     template<class Seq, class Index>
     struct  apply
+          : select_apply< Seq, Index, Seq::static_size>
+    {};
+
+    template<class Seq, class Index, std::size_t S>
+    struct  select_apply
           : apply_impl< Seq, Index
                       , mpl::at<typename Seq::values_type, Index>::type::value
                       >
     {};
-    
+
+    template<class Seq, class Index>
+    struct select_apply<Seq,Index,0> : apply_impl<Seq,Index,1> {};
+
+    template<class Seq, class Index, std::size_t S> struct select_apply;
+
     template<class Seq, class Index>
     struct apply_impl<Seq, Index, -1>
     {
@@ -67,10 +78,10 @@ namespace boost { namespace fusion { namespace extension
                                 , std::size_t const&
                                 , std::size_t&
                                 >::type               type;
-         
+
       static type call(Seq& seq) { return seq[Index::value]; }
     };
-    
+
     template<class Seq, class Index, std::ptrdiff_t N>
     struct apply_impl
     {
@@ -78,7 +89,7 @@ namespace boost { namespace fusion { namespace extension
       static type call(Seq& seq) { return type(); }
     };
   };
-  
+
   template<> struct value_at_impl<nt2::tag::of_size_>
   {
     template<class Seq, class Index>

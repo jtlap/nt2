@@ -24,17 +24,16 @@ namespace nt2
   //============================================================================
   template<> struct of_size_<>
   {
-    typedef tag::of_size_                       fusion_tag;
-    typedef boost::fusion::fusion_sequence_tag  tag;
-    typedef boost::mpl::vector_c<std::size_t>   values_type;
-
-    typedef std::size_t        value_type;
-    typedef std::size_t        reference;
-    typedef std::size_t        const_reference;
-    typedef std::size_t*       iterator;
-    typedef std::size_t const* const_iterator;
-    typedef std::reverse_iterator<iterator>       reverse_iterator;      
-    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+    typedef tag::of_size_                           fusion_tag;
+    typedef boost::fusion::fusion_sequence_tag      tag;
+    typedef boost::mpl::vector_c< std::ptrdiff_t >  values_type;
+    typedef std::size_t                             value_type;
+    typedef std::size_t                             reference;
+    typedef std::size_t                             const_reference;
+    typedef std::size_t*                            iterator;
+    typedef std::size_t const*                      const_iterator;
+    typedef std::reverse_iterator<iterator>         reverse_iterator;
+    typedef std::reverse_iterator<const_iterator>   const_reverse_iterator;
 
     static const std::size_t  static_size   = 0;
     static const bool         static_status = true;
@@ -42,7 +41,7 @@ namespace nt2
 
     static std::size_t size() { return 0;     }
     static bool empty()       { return true;  }
-    
+
     const_reference    operator[](std::size_t i) const { return 1; }
 
     std::size_t* data()             { return 0; }
