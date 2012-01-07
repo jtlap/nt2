@@ -54,7 +54,10 @@ namespace nt2 { namespace meta
 {
   template<class T, class S>
   struct dimensions_of< nt2::container::table<T,S> >
-          : boost::mpl::size_t<container::table<T,S>::extent_type::static_size>
+          : boost::mpl::
+            size_t<container::table<T,S>::container_type
+                            ::sizes_type::static_size
+                  >
   {};
 } }
 

@@ -32,7 +32,7 @@ namespace nt2 { namespace meta
   template<class Tag, class ID, class T, class S>
   struct  dimensions_of< memory::container<Tag,ID,T,S> >
         : boost::mpl::
-          size_t<memory::container<Tag,ID,T,S>::extent_type::static_size>
+          size_t<memory::container<Tag,ID,T,S>::sizes_type::static_size>
   {};
 
   //============================================================================
