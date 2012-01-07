@@ -70,6 +70,8 @@ namespace nt2 { namespace memory
                 : data_(sz,a)
     {}
 
+    block_facade( block_facade const& s ) : data_(s.data_) {}
+
     //==========================================================================
     /**
      * Access to a given position in the underlying buffer

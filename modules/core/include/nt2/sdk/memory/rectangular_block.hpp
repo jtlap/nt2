@@ -36,6 +36,8 @@ namespace nt2 { namespace memory
           : parent(sz,a)
     {}
 
+    block( block const& s ) : parent( static_cast<parent const&>(s) ) {}
+
     void swap( block& src ) { parent::data().swap( src.data() ); }
   };
 } }
