@@ -8,8 +8,10 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::length function"
 
-#include <boost/array.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
+
+#include <boost/array.hpp>
+#include <boost/fusion/include/make_vector.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -18,31 +20,55 @@
 NT2_TEST_CASE( sub2ind_1D )
 {
   using nt2::sub2ind;
-  using boost::array;
+  using boost::fusion::make_vector;
 
-  array<int,1> sub, size = {{ 5 }};
-
-  for(int i=1;i<=5;++i)
-  {
-    sub[0] = i;
-    std::cout << sub2ind( size, sub ) << "\n";
-  }
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector(1) ), 1);
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector(2) ), 2);
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector(3) ), 3);
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector(4) ), 4);
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector(5) ), 5);
 }
 
 NT2_TEST_CASE( sub2ind_2D )
 {
   using nt2::sub2ind;
-  using boost::array;
+  using boost::fusion::make_vector;
 
-  array<int,2> sub, size = {{ 3,5 }};
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(1,1) ), 1);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(2,1) ), 2);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(3,1) ), 3);
 
-  for(int j=1;j<=5;++j)
-  {
-    for(int i=1;i<=3;++i)
-    {
-      sub[0] = i; sub[1] = j;
-      std::cout << sub2ind( size, sub ) << " ";
-    }
-    std::cout << "\n";
-  }
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(1,2) ), 4);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(2,2) ), 5);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(3,2) ), 6);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(1,3) ), 7);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(2,3) ), 8);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(3,3) ), 9);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(1,4) ), 10);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(2,4) ), 11);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(3,4) ), 12);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(1,5) ), 13);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(2,5) ), 14);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(3,5) ), 15);
+}
+
+NT2_TEST_CASE( sub2ind_3D )
+{
+  using nt2::sub2ind;
+  using boost::fusion::make_vector;
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(2,2,2), make_vector(1,1,1) ), 1);
+  NT2_TEST_EQUAL( sub2ind( make_vector(2,2,2), make_vector(2,1,1) ), 2);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(2,2,2), make_vector(1,2,1) ), 3);
+  NT2_TEST_EQUAL( sub2ind( make_vector(2,2,2), make_vector(2,2,1) ), 4);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(2,2,2), make_vector(1,1,2) ), 5);
+  NT2_TEST_EQUAL( sub2ind( make_vector(2,2,2), make_vector(2,1,2) ), 6);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(2,2,2), make_vector(1,2,2) ), 7);
+  NT2_TEST_EQUAL( sub2ind( make_vector(2,2,2), make_vector(2,2,2) ), 8);
 }
