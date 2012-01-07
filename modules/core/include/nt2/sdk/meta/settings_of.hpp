@@ -13,7 +13,6 @@
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
-#include <nt2/core/settings/normalize_settings.hpp>
 
 namespace nt2
 {
@@ -23,8 +22,9 @@ namespace nt2
   {
     template<class T, class Enable = void>
     struct  settings_of
-          : meta::normalize_settings<tag::table_,T,settings(matlab_index_,_0D)>
-    {};
+    {
+      typedef settings type(matlab_index_,_0D);
+    };
 
     template<class T>
     struct settings_of< T
