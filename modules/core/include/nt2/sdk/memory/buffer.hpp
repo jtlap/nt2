@@ -93,7 +93,8 @@ namespace nt2 {  namespace memory
     //==========================================================================
     buffer( buffer const& src ) : parent_data(src.allocator())
     {
-      this->copy( src, src.size() );
+      parent_data::allocate(src.size());
+      std::copy(src.begin(),src.end(),begin());      
     }
 
     //==========================================================================
@@ -123,7 +124,8 @@ namespace nt2 {  namespace memory
       }
       else
       {
-        this->copy(src, src.size());
+        parent_data::resize(s);
+        std::copy(src.begin(),src.end(),parent_data::begin());
       }
       return *this;
     }
@@ -248,14 +250,7 @@ namespace nt2 {  namespace memory
     }
 
     protected:
-
     using parent_data::allocator;
-
-    void copy( buffer const& src, size_type const& s )
-    {
-      parent_data::resize(s);
-      std::copy(src.begin(),src.end(),begin());
-    }
   };
 
   //============================================================================
