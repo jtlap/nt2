@@ -17,8 +17,8 @@
 #include <nt2/include/functions/store.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/details/type_id.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/memory/allocator.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/if.hpp>
 #include <nt2/sdk/meta/strip.hpp>
@@ -35,8 +35,8 @@ void timing_test( Func callee, size_t size
                 , MN0 min0, MX0 max0
                 , MN1 min1, MX1 max1
                 , MN2 min2, MX2 max2
-                , MN3 min3, MX3 max3   
-                , MN4 min4, MX4 max4   
+                , MN3 min3, MX3 max3
+                , MN4 min4, MX4 max4
                 , const char* name = NULL )
 {
   typedef T0                                      r_in0;
@@ -51,22 +51,22 @@ void timing_test( Func callee, size_t size
   typedef typename nt2::meta::scalar_of<T4>::type t_in4;
 
   // Input samples
-  static std::vector<t_in0, nt2::memory::allocator<t_in0> >  in0(size);
-  static std::vector<t_in1, nt2::memory::allocator<t_in1> >  in1(size);
-  static std::vector<t_in2, nt2::memory::allocator<t_in2> >  in2(size);
-  static std::vector<t_in3, nt2::memory::allocator<t_in3> >  in3(size);
-  static std::vector<t_in4, nt2::memory::allocator<t_in4> >  in4(size);
-  
+  static std::vector<t_in0, boost::simd::memory::allocator<t_in0> >  in0(size);
+  static std::vector<t_in1, boost::simd::memory::allocator<t_in1> >  in1(size);
+  static std::vector<t_in2, boost::simd::memory::allocator<t_in2> >  in2(size);
+  static std::vector<t_in3, boost::simd::memory::allocator<t_in3> >  in3(size);
+  static std::vector<t_in4, boost::simd::memory::allocator<t_in4> >  in4(size);
+
   // Output samples
   typedef typename nt2::meta::result_of<Func(r_in0,r_in1,r_in2,r_in3,r_in4)>::type  r_out;
   typedef typename nt2::meta::scalar_of<r_out>::type         scalar_out;
-  typedef typename nt2::meta::strip<scalar_out>::type         strip_out; 
+  typedef typename nt2::meta::strip<scalar_out>::type         strip_out;
   typedef typename boost::mpl::if_< typename boost::is_same< strip_out
                                                            , bool >::type
                                   , typename std::vector<nt2::uint8_t
-                                                        , nt2::memory::allocator<nt2::uint8_t> >
+                                                        , boost::simd::memory::allocator<nt2::uint8_t> >
                                   , typename std::vector<strip_out
-                                                        , nt2::memory::allocator<strip_out> >
+                                                        , boost::simd::memory::allocator<strip_out> >
                                   >::type out_;
   static out_ out(size);
 
@@ -84,8 +84,8 @@ void timing_test( Func callee, size_t size
                     << nt2::type_id<r_in0>().c_str()
             << ", " << nt2::type_id<r_in1>().c_str()
             << ", " << nt2::type_id<r_in2>().c_str()
-            << ", " << nt2::type_id<r_in3>().c_str()  
-            << ", " << nt2::type_id<r_in4>().c_str()  
+            << ", " << nt2::type_id<r_in3>().c_str()
+            << ", " << nt2::type_id<r_in4>().c_str()
             << ") " << std::flush;
 
   std::vector<double> timings;
@@ -96,10 +96,10 @@ void timing_test( Func callee, size_t size
   static const size_t c2 = nt2::meta::cardinal_of<r_in2>::value;
   static const size_t c3 = nt2::meta::cardinal_of<r_in3>::value;
   static const size_t c4 = nt2::meta::cardinal_of<r_in4>::value;
-  static const size_t nb1 = (c0 < c1) ? c1 : c0; 
+  static const size_t nb1 = (c0 < c1) ? c1 : c0;
   static const size_t nb2 = (c2 < nb1) ? nb1 : c2;
-  static const size_t nb3 = (c3 < nb2) ? nb2 : c3; 
-  static const size_t nb = (c4 < nb3) ? nb3 : c4; 
+  static const size_t nb3 = (c3 < nb2) ? nb2 : c3;
+  static const size_t nb = (c4 < nb3) ? nb3 : c4;
 
   do
   {
