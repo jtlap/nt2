@@ -21,6 +21,7 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 #include <boost/fusion/include/vector_tie.hpp>
+#include <boost/fusion/include/make_vector.hpp>
 
 #define DIMS (nt2::_1D)(nt2::_2D)(nt2::_3D)(nt2::_4D)
 

@@ -14,6 +14,8 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/sdk/memory/block_facade.hpp>
 #include <nt2/core/utility/of_size/pad.hpp>
+#include <nt2/include/functions/deflate.hpp>
+#include <nt2/include/functions/inflate.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
@@ -103,7 +105,6 @@ namespace nt2 { namespace details
       );
     }
 
-
     //==========================================================================
     // Multidimensionnal access handling
     // Various cases to take care of to optimize access to storage:
@@ -133,51 +134,30 @@ namespace nt2 { namespace details
     }
 
     //==========================================================================
-    // Access a 1D Block with a 1D position -> go directly to the block
-    // Access a 2D Block with a 2D position -> go directly to the block
-    //==========================================================================
-    template<class Position>
-    BOOST_FORCEINLINE reference
-    access( Position const& p, block_t& b, sizes_type const&
-          , boost::mpl::size_t<1> const&, boost::mpl::size_t<1> const&
-          )
-    {
-      return b[p];
-    }
-
-    template<class Position, std::size_t N>
-    BOOST_FORCEINLINE const_reference
-    access( Position const& p, block_t const& b, sizes_type const&
-          , boost::mpl::size_t<1> const&, boost::mpl::size_t<1> const&
-          ) const
-    {
-      return b[p];
-    }
-
-    template<class Position>
-    BOOST_FORCEINLINE reference
-    access( Position const& p, block_t& b, sizes_type const&
-          , boost::mpl::size_t<2> const&, boost::mpl::size_t<2> const&
-          )
-    {
-      return b[p];
-    }
-
-    template<class Position>
-    BOOST_FORCEINLINE const_reference
-    access( Position const& p, block_t const& b, sizes_type const&
-          , boost::mpl::size_t<2> const&, boost::mpl::size_t<2> const&
-          ) const
-    {
-      return b[p];
-    }
-
-    //==========================================================================
+    // Access a 1D Block with a nD position -> go directly to the block
     // Access a nD Block with a 2D position -> go directly to the block
     //==========================================================================
     template<class Position, std::size_t N>
     BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<N> const&
+          )
+    {
+      return b[boost::fusion::at_c<0>(p)];
+    }
+
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<N> const&
+          ) const
+    {
+      return b[boost::fusion::at_c<0>(p)];
+    }
+
+    template<class Position, std::size_t N>
+    BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const&
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<2> const&
           )
     {
@@ -192,10 +172,6 @@ namespace nt2 { namespace details
     {
       return b[p];
     }
-
-    //==========================================================================
-    // Access from a 2D position - 1D Block.
-    //==========================================================================
 
     //==========================================================================
     // Access a nD Block with a 1D or 0D position -> unpack if needed and go 2D
@@ -221,40 +197,40 @@ namespace nt2 { namespace details
     template<class Position, std::size_t N>
     BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const& s
-          , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
+          , boost::mpl::size_t<N> const& n, boost::mpl::size_t<0> const&
           )
     {
-      return b[unpack(p,s,lead_t())];
+      return access(p, b, s, n, boost::mpl::size_t<1>() );
     }
 
     template<class Position, std::size_t N>
     BOOST_FORCEINLINE const_reference
     access( Position const& p, block_t const& b, sizes_type const& s
-          , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
+          , boost::mpl::size_t<N> const& n, boost::mpl::size_t<0> const&
           ) const
     {
-      return b[unpack(p,s,lead_t())];
+      return access(p, b, s, n, boost::mpl::size_t<1>() );
     }
 
     //==========================================================================
-    // Access a nD Block with a mD position -> flatten and go 2D
+    // Access a nD Block with a mD position -> deflate
     //==========================================================================
     template<class Position, std::size_t N, std::size_t M>
     BOOST_FORCEINLINE reference
-    access( Position const& p, block_t& b, sizes_type const&
+    access( Position const& p, block_t& b, sizes_type const& s
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<M> const&
           )
     {
-      return b[p]; // TO CHANGE
+      return b[deflate(s,p,typename index_type::type())];
     }
 
     template<class Position, std::size_t N, std::size_t M>
     BOOST_FORCEINLINE const_reference
-    access( Position const& p, block_t const& b, sizes_type const&
+    access( Position const& p, block_t const& b, sizes_type const& s
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<M> const&
           ) const
     {
-      return b[p]; // TO CHANGE
+      return b[deflate(s,p,typename index_type::type())];
     }
 
     //==========================================================================
@@ -275,16 +251,7 @@ namespace nt2 { namespace details
           , lead_padding_strategy_<N> const&
           ) const
     {
-      difference_type const& i = boost::fusion::at_c<0>(p);
-      difference_type const& s = boost::fusion::at_c<0>(sz);
-      typedef boost::mpl::at_c<typename index_type::type,0> b;
-
-      boost::fusion::vector<difference_type,difference_type>
-      that( (i-b::type::value) % s + b::type::value
-          , (i-b::type::value) / s + b::type::value
-          );
-
-      return that;
+      return nt2::inflate(sz,p,typename index_type::type());
     }
   };
 } }
