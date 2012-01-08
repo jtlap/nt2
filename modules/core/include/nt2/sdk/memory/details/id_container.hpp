@@ -126,7 +126,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size> static BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize( block_,sizes_,szs, is_static_sized() );
+      parent::resize( block_, szs, sizes_, is_static_sized() );
     }
 
     private:

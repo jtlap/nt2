@@ -68,19 +68,19 @@ namespace nt2 { namespace details
     //==========================================================================
     // If size is static, perform allocation from default constructor
     //==========================================================================
-    template<class Size>
+    template<class Size> static
     inline void init( block_t& block, Size const& sz, boost::mpl::true_ const& )
     {
       block.resize( pad(sz,lead_t::value) );
     }
 
-    template<class Size>
+    template<class Size> static
     inline void init( block_t&, Size const&, boost::mpl::false_ const& ) {}
 
     //==========================================================================
     // Resize inner block if resizing is allowed
     //==========================================================================
-    template<class Size> inline
+    template<class Size> static inline
     void resize ( block_t& block, Size const& new_sz, sizes_type& old_sz
                 , boost::mpl::false_ const&
                 )
@@ -95,7 +95,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // Force a static assert if a statically sized container is resized
     //==========================================================================
-    template<class Size> inline
+    template<class Size> static inline
     void resize( block_t&, Size const&, sizes_type&, boost::mpl::true_ const&)
     {
       BOOST_MPL_ASSERT_MSG
@@ -110,7 +110,7 @@ namespace nt2 { namespace details
     // Various cases to take care of to optimize access to storage:
     //==========================================================================
     template<class Position>
-    BOOST_FORCEINLINE reference
+    static BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const& s)
     {
       typedef typename boost::fusion::result_of::size<Position>::type ps_t;
@@ -122,8 +122,8 @@ namespace nt2 { namespace details
     }
 
     template<class Position>
-    BOOST_FORCEINLINE const_reference
-    access( Position const& p, block_t const& b, sizes_type const& s) const
+    static BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const& s)
     {
       typedef typename boost::fusion::result_of::size<Position>::type ps_t;
 
@@ -138,7 +138,7 @@ namespace nt2 { namespace details
     // Access a nD Block with a 2D position -> go directly to the block
     //==========================================================================
     template<class Position, std::size_t N>
-    BOOST_FORCEINLINE reference
+    static BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const&
           , boost::mpl::size_t<1> const&, boost::mpl::size_t<N> const&
           )
@@ -147,16 +147,16 @@ namespace nt2 { namespace details
     }
 
     template<class Position, std::size_t N>
-    BOOST_FORCEINLINE const_reference
+    static BOOST_FORCEINLINE const_reference
     access( Position const& p, block_t const& b, sizes_type const&
           , boost::mpl::size_t<1> const&, boost::mpl::size_t<N> const&
-          ) const
+          )
     {
       return b[boost::fusion::at_c<0>(p)];
     }
 
     template<class Position, std::size_t N>
-    BOOST_FORCEINLINE reference
+    static BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const&
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<2> const&
           )
@@ -165,10 +165,10 @@ namespace nt2 { namespace details
     }
 
     template<class Position, std::size_t N>
-    BOOST_FORCEINLINE const_reference
+    static BOOST_FORCEINLINE const_reference
     access( Position const& p, block_t const& b, sizes_type const&
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<2> const&
-          ) const
+          )
     {
       return b[p];
     }
@@ -177,7 +177,7 @@ namespace nt2 { namespace details
     // Access a nD Block with a 1D or 0D position -> unpack if needed and go 2D
     //==========================================================================
     template<class Position, std::size_t N>
-    BOOST_FORCEINLINE reference
+    static BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const& s
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
           )
@@ -186,16 +186,16 @@ namespace nt2 { namespace details
     }
 
     template<class Position, std::size_t N>
-    BOOST_FORCEINLINE const_reference
+    static BOOST_FORCEINLINE const_reference
     access( Position const& p, block_t const& b, sizes_type const& s
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
-          ) const
+          )
     {
       return b[unpack(p,s,lead_t())];
     }
 
     template<class Position, std::size_t N>
-    BOOST_FORCEINLINE reference
+    static BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const& s
           , boost::mpl::size_t<N> const& n, boost::mpl::size_t<0> const&
           )
@@ -204,10 +204,10 @@ namespace nt2 { namespace details
     }
 
     template<class Position, std::size_t N>
-    BOOST_FORCEINLINE const_reference
+    static BOOST_FORCEINLINE const_reference
     access( Position const& p, block_t const& b, sizes_type const& s
           , boost::mpl::size_t<N> const& n, boost::mpl::size_t<0> const&
-          ) const
+          )
     {
       return access(p, b, s, n, boost::mpl::size_t<1>() );
     }
@@ -216,7 +216,7 @@ namespace nt2 { namespace details
     // Access a nD Block with a mD position -> deflate
     //==========================================================================
     template<class Position, std::size_t N, std::size_t M>
-    BOOST_FORCEINLINE reference
+    static BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const& s
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<M> const&
           )
@@ -225,10 +225,10 @@ namespace nt2 { namespace details
     }
 
     template<class Position, std::size_t N, std::size_t M>
-    BOOST_FORCEINLINE const_reference
+    static BOOST_FORCEINLINE const_reference
     access( Position const& p, block_t const& b, sizes_type const& s
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<M> const&
-          ) const
+          )
     {
       return b[deflate(s,p,typename index_type::type())];
     }
@@ -236,20 +236,20 @@ namespace nt2 { namespace details
     //==========================================================================
     // Unpack 1D position if lead padding is present
     //==========================================================================
-    template<class Pos> BOOST_FORCEINLINE
+    template<class Pos> static BOOST_FORCEINLINE
     Pos const&
     unpack( Pos const& p, sizes_type const&
           , lead_padding_strategy_<1> const&
-          ) const
+          )
     {
       return p;
     }
 
-    template<class Pos,std::ptrdiff_t N> BOOST_FORCEINLINE
+    template<class Pos,std::ptrdiff_t N> static BOOST_FORCEINLINE
     boost::fusion::vector<difference_type,difference_type>
     unpack( Pos const& p, sizes_type const& sz
           , lead_padding_strategy_<N> const&
-          ) const
+          )
     {
       return nt2::inflate(sz,p,typename index_type::type());
     }
