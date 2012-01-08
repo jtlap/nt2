@@ -139,8 +139,8 @@ template<class T> struct std_2D_test
 
   void operator()()
   {
-    for(std::size_t j = 0; j < d; ++j)
-      for(std::size_t i = 0; i < s; ++i)
+    for(std::ptrdiff_t j = 0; j < d; ++j)
+      for(std::ptrdiff_t i = 0; i < s; ++i)
         data[i+s*j] = data2[i+s*j];
   }
 

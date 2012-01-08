@@ -27,7 +27,10 @@ template<class T> struct buffer_test
 
   buffer_test ( size_type sz)
               : data(boost::fusion::vector_tie(sz))
-              , data2(boost::fusion::vector_tie(sz)) {}
+              , data2(boost::fusion::vector_tie(sz)) 
+  {}
+
+  buffer_test ( buffer_test const& s) : data(s.data), data2(s.data2)  {}
 
   void operator()()
   {
@@ -38,11 +41,11 @@ template<class T> struct buffer_test
   buffer_t data,data2;
 };
 
-template<class T> struct std_test
+template<class T> struct buffer_std_test
 {
-  std_test(std::size_t sz) : data(sz), data2(sz) {}
+  buffer_std_test(std::size_t sz) : data(sz), data2(sz) {}
 
-  ~std_test() {}
+  ~buffer_std_test() {}
 
   void operator()()
   {
@@ -56,7 +59,7 @@ NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 {
   for(int i=1;i<=4096;i*=2)
   {
-    std_test<T>     b(i);
+    buffer_std_test<T>     b(i);
     buffer_test<T>  c(i);
     double d = nt2::unit::perform_benchmark( b, 1.) / 2.;
     double e = nt2::unit::perform_benchmark( c, 1.) / 2.;

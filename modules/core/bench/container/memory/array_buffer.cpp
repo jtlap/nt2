@@ -19,15 +19,15 @@
 
 #include <boost/fusion/include/vector_tie.hpp>
 
-template<class T> struct buffer_test
+template<class T> struct array_buffer_test
 {
   typedef nt2::memory::array_buffer<T,1024,1>  buffer_t;
   typedef typename buffer_t::size_type         size_type;
   typedef typename buffer_t::difference_type   difference_type;
 
-  buffer_test(size_type sz) : up(sz+data.lower()-1) {}
+  array_buffer_test(size_type sz) : up(sz+data.lower()-1) {}
 
-  ~buffer_test()
+  ~array_buffer_test()
   {
     int i = 1 + rand() % up;
     pump = data[boost::fusion::vector_tie(i)];
@@ -45,52 +45,49 @@ template<class T> struct buffer_test
   buffer_t data,data2;
 };
 
-template<class T> struct std_test
+template<class T> struct array_buffer_std_test
 {
   typedef std::vector<T>  buffer_t;
   typedef typename buffer_t::size_type         size_type;
   typedef typename buffer_t::difference_type   difference_type;
 
-  std_test(size_type sz) : data(sz),data2(sz) {}
+  array_buffer_std_test(size_type sz) : data(sz),data2(sz) {}
 
-  ~std_test()
+  ~array_buffer_std_test()
   {
     pump = data[rand() % data.size()];
   }
 
   void operator()()
   {
-    for(difference_type i = 0; i < data.size(); ++i)
+    for(size_type i = 0; i < data.size(); ++i)
       data[i] = data2[i];
   }
 
-  T   v;
   static T pump;
   buffer_t data,data2;
 };
 
-template<class T> struct raw_test
+template<class T> struct array_buffer_raw_test
 {
-  raw_test(int i) : size_(i), v(rand()) {}
+  array_buffer_raw_test(int i) : size_(i) {}
 
   void operator()()
   {
     for(std::size_t i = 0; i < size_; ++i) data[i] = data2[i];
   }
 
-  ~raw_test() { pump = data[rand() % size_]; }
+  ~array_buffer_raw_test() { pump = data[rand() % size_]; }
 
-  T   v;
   T   data[1024];
   T   data2[1024];
   static T pump;
   int size_;
 };
 
-template<class T> T raw_test<T>::pump;
-template<class T> T std_test<T>::pump;
-template<class T> T buffer_test<T>::pump;
-
+template<class T> T array_buffer_raw_test<T>::pump;
+template<class T> T array_buffer_std_test<T>::pump;
+template<class T> T array_buffer_test<T>::pump;
 
 NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 {
@@ -98,20 +95,20 @@ NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
 
   for(int i=0;i<11;++i)
   {
-    raw_test<T>     b(1 << i);
-    raw[i] = (nt2::unit::perform_benchmark( b, 1.) / (1 << i))/2.;
+    array_buffer_raw_test<T>     b(1 << i);
+    raw[i] = (nt2::unit::perform_benchmark( b, 1.) / (int(1 << i)))/2.;
   }
 
   for(int i=0;i<11;++i)
   {
-    buffer_test<T>     b(1 << i);
-    buff[i] = (nt2::unit::perform_benchmark( b, 1.) / (1 << i))/2.;
+    array_buffer_test<T>     b(1 << i);
+    buff[i] = (nt2::unit::perform_benchmark( b, 1.) / (int(1 << i)))/2.;
   }
 
   for(int i=0;i<11;++i)
   {
-    std_test<T>     b(1 << i);
-    std_[i] = (nt2::unit::perform_benchmark( b, 1.) / (1 << i))/2.;
+    array_buffer_std_test<T>     b(1 << i);
+    std_[i] = (nt2::unit::perform_benchmark( b, 1.) / (int(1 << i)))/2.;
   }
 
   for(int i=0;i<11;++i)
