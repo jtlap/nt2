@@ -72,14 +72,12 @@ NT2_TEST_CASE( range_ctor )
                   , 4,5,6
                   };
 
-/*
   table<float> x( of_size(3,2), &data[0], &data[0] + 6 );
   NT2_TEST( nt2::extent(x) == of_size(3,2) );
 
   for(int j=1;j<=2;++j)
    for(int i=1;i<=3;++i)
       NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
-*/
 }
 
 NT2_TEST_CASE( shared_ctor )
