@@ -44,7 +44,7 @@ namespace nt2 { namespace memory
      * Default constructor
      */
     //==========================================================================
-    container( allocator_type const& a = allocator_type() )
+    container( allocator_type const& a = allocator_type() ) : block_(a)
     {
       parent::init(block_,sizes_, is_static_sized());
     }
