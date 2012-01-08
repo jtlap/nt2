@@ -10,6 +10,7 @@
 #define NT2_CORE_CONTAINER_MEMORY_FIXED_ALLOCATOR_HPP_INCLUDED
 
 #include <cstddef>
+#include <boost/assert.hpp>
 
 namespace nt2 {  namespace memory
 {
@@ -37,6 +38,7 @@ namespace nt2 {  namespace memory
     //==========================================================================
     // Ctor/dtor
     //==========================================================================
+     fixed_allocator() : begin_(0), end_(0) {}
      fixed_allocator( pointer b, pointer e ) : begin_(b), end_(e) {}
     ~fixed_allocator() {}
 
@@ -60,7 +62,7 @@ namespace nt2 {  namespace memory
     //==========================================================================
     pointer&        begin()       { return begin_; }
     pointer const&  begin() const { return begin_; }
-    
+
     pointer&        end()       { return end_; }
     pointer const&  end() const { return end_; }
 
@@ -93,7 +95,7 @@ namespace nt2 {  namespace memory
 
       return begin_;
     }
-    
+
     void deallocate(pointer, size_type) const {}
   };
 
@@ -102,7 +104,7 @@ namespace nt2 {  namespace memory
    * Checks if two fixed_allocator are equal. Such allocators are equal if and
    * only if they share the same pointee.
    **/
-  //============================================================================    
+  //============================================================================
   template<class T>
   bool operator==(fixed_allocator<T> const& lhs, fixed_allocator<T> const& rhs)
   {
@@ -114,7 +116,7 @@ namespace nt2 {  namespace memory
    * Checks if two fixed_allocator are non-equal. Such allocators are not equal
    * only if they share different pointees.
    **/
-  //============================================================================    
+  //============================================================================
   template<class T>
   bool operator!=(fixed_allocator<T> const& lhs, fixed_allocator<T> const& rhs)
   {
