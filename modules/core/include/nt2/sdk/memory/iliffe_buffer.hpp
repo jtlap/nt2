@@ -234,8 +234,8 @@ namespace nt2 { namespace memory
     // Partial swap based on actual sub-buffer type
     // TODO: Probably fix this properly in a non-concrete type based way ?
     //==========================================================================
-    template<class TT, std::ptrdiff_t BB>
-    void index_swap( buffer<TT,BB>& local,buffer<TT,BB>& src )
+    template<class TT, std::ptrdiff_t BB, class AA>
+    void index_swap( buffer<TT,BB,AA>& local,buffer<TT,BB,AA>& src )
     {
       local.swap(src);
     }
