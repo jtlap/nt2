@@ -31,12 +31,9 @@ namespace nt2 { namespace ext
 
     typedef boost::mpl::bool_< boost::mpl::size<A1>::value==0>      is_0d_t;
 
-    typedef typename boost::mpl::if_< is_0d_t
-                                    , boost::fusion::vector < std::ptrdiff_t
-                                                            , std::ptrdiff_t
-                                                            >
-                                    , boost::fusion::vector<index_t,index_t>
-                                    >::type                         result_type;
+    typedef boost::fusion::vector < std::ptrdiff_t
+                                  , std::ptrdiff_t
+                                  >                                 result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos ) const
@@ -83,12 +80,9 @@ namespace nt2 { namespace ext
 
     typedef boost::mpl::bool_< boost::mpl::size<A1>::value==0>      is_0d_t;
 
-    typedef typename boost::mpl::if_< is_0d_t
-                                    , boost::fusion::vector < std::ptrdiff_t
-                                                            , std::ptrdiff_t
-                                                            >
-                                    , boost::fusion::vector<index_t,index_t>
-                                    >::type                         result_type;
+    typedef boost::fusion::vector < std::ptrdiff_t
+                                  , std::ptrdiff_t
+                                  >                                 result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos, const A2& base) const
