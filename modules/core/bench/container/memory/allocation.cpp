@@ -52,7 +52,7 @@ template<class T> struct simd_allocation_test
 
 template<class T> struct padded_allocation_test
 {
-  padded_allocation_test(int n) : alloc(32,base), N(n) {}
+  padded_allocation_test(int n) : alloc(base), N(n) {}
 
   ~padded_allocation_test()
   {
@@ -61,8 +61,8 @@ template<class T> struct padded_allocation_test
 
   void operator()() { a0.push_back(alloc.allocate(N)); }
 
-  boost::simd::memory::allocator<T>                                   base;
-  nt2::memory::padded_allocator< boost::simd::memory::allocator<T> >  alloc;
+  boost::simd::memory::allocator<T> base;
+  nt2::memory::padded_allocator<32,boost::simd::memory::allocator<T> >  alloc;
   std::vector<T*> a0;
   int N;
 };
@@ -88,17 +88,17 @@ NT2_TEST_CASE_TPL( allocation_test, NT2_TYPES )
     std_allocation_test<T>    f(N);
 
     std::cout << "Allocating " << N << " elements.\n";
-    double dv = nt2::unit::perform_benchmark( f, 1.);
-    std::cout << "std::allocator   : " << dv/N << " cpe\n";
+    nt2::details::cycles_t dv = nt2::unit::perform_benchmark( f, 1.);
+    std::cout << "std::allocator   : " << dv/double(N) << " cpe\n";
 
-    double dw = nt2::unit::perform_benchmark(g , 1.);
-    std::cout << "simd::allocator  : " << dw/N << " cpe\n";
+    nt2::details::cycles_t dw = nt2::unit::perform_benchmark(g , 1.);
+    std::cout << "simd::allocator  : " << dw/double(N) << " cpe\n";
 
-    double dz = nt2::unit::perform_benchmark(h , 1.);
-    std::cout << "padded allocator : " << dz/N << " cpe\n";
+    nt2::details::cycles_t dz = nt2::unit::perform_benchmark(h , 1.);
+    std::cout << "padded allocator : " << dz/double(N) << " cpe\n";
 
-    double du = nt2::unit::perform_benchmark(i , 1.);
-    std::cout << "padded allocator : " << du/N << " cpe\n";
+    nt2::details::cycles_t du = nt2::unit::perform_benchmark(i , 1.);
+    std::cout << "fixed allocator : " << du/double(N) << " cpe\n";
     std::cout << "\n";
   }
 }
