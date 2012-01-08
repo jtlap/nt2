@@ -29,6 +29,18 @@ NT2_TEST_CASE( sub2ind_1D )
   NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector(5) ), 5);
 }
 
+NT2_TEST_CASE( sub2ind_1D_base )
+{
+  using nt2::sub2ind;
+  using boost::fusion::make_vector;
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector(-2), make_vector(-1) ), -2);
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector(-1), make_vector(-1) ), -1);
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector( 0), make_vector(-1) ),  0);
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector( 1), make_vector(-1) ),  1);
+  NT2_TEST_EQUAL( sub2ind( make_vector(5), make_vector( 2), make_vector(-1) ),  2);
+}
+
 NT2_TEST_CASE( sub2ind_2D )
 {
   using nt2::sub2ind;
@@ -53,6 +65,32 @@ NT2_TEST_CASE( sub2ind_2D )
   NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(1,5) ), 13);
   NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(2,5) ), 14);
   NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(3,5) ), 15);
+}
+
+NT2_TEST_CASE( sub2ind_2D_base )
+{
+  using nt2::sub2ind;
+  using boost::fusion::make_vector;
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(-1,-2), make_vector(-1,-2) ), -1);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 0,-2), make_vector(-1,-2) ),  0);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 1,-2), make_vector(-1,-2) ),  1);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(-1,-1), make_vector(-1,-2) ), 2);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 0,-1), make_vector(-1,-2) ), 3);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 1,-1), make_vector(-1,-2) ), 4);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(-1, 0), make_vector(-1,-2) ), 5);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 0, 0), make_vector(-1,-2) ), 6);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 1, 0), make_vector(-1,-2) ), 7);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(-1, 1), make_vector(-1,-2) ), 8);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 0, 1), make_vector(-1,-2) ), 9);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 1, 1), make_vector(-1,-2) ), 10);
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector(-1, 2), make_vector(-1,-2) ), 11);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 0, 2), make_vector(-1,-2) ), 12);
+  NT2_TEST_EQUAL( sub2ind( make_vector(3,5), make_vector( 1, 2), make_vector(-1,-2) ), 13);
 }
 
 NT2_TEST_CASE( sub2ind_3D )
