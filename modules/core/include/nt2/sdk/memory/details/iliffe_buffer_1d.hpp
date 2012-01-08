@@ -30,6 +30,10 @@ namespace nt2 { namespace memory
                   : parent(sz,a)
     {}
 
+    iliffe_buffer ( iliffe_buffer const& s) 
+                  : parent(static_cast<parent const&>(s)) 
+    {}
+
     inline size_type        inner_size()  const { return parent::size();  }
     inline size_type        outer_size()  const { return 1;               }
 
