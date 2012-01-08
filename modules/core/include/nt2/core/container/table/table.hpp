@@ -42,11 +42,21 @@ namespace nt2 { namespace container
     typedef typename meta::make_terminal<tag::table_,T,S>::type   parent;
     typedef typename container_type::extent_type                  extent_type;
     typedef typename container_type::index_type                   index_type;
+    typedef typename container_type::allocator_type               allocator_type;
 
     //==========================================================================
     //  table default constructor
     //==========================================================================
     table() {}
+
+    //==========================================================================
+    //  table constructor from its allocator
+    //==========================================================================
+    table( allocator_type const& a)
+    {
+      container_type that(a);
+      boost::proto::value(*this).swap(that);
+    }
 
     //==========================================================================
     // table copy constructor
@@ -57,8 +67,7 @@ namespace nt2 { namespace container
     // table constructor from a single initializer.
     // This version handles initializing from of_size or expression.
     //==========================================================================
-    template<class A0>
-    table( A0 const& a0 )
+    template<class A0> table( A0 const& a0 )
     {
       nt2::construct(*this,a0);
     }
@@ -66,8 +75,7 @@ namespace nt2 { namespace container
     //==========================================================================
     // table constructor from a pair of initializer.
     //==========================================================================
-    template<class A0, class A1>
-    table( A0 const& a0, A1 const& a1 )
+    template<class A0, class A1> table( A0 const& a0, A1 const& a1 )
     {
       nt2::construct(*this,a0,a1);
     }

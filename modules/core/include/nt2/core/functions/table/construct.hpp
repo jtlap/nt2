@@ -33,13 +33,42 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A1>)
                             )
   {
-    typedef void result_type;
+    typedef typename A0::extent_type    extent_type;
+    typedef typename A0::container_type container_type;
+    typedef void                        result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
-      typedef typename A0::extent_type extent_type;
-      boost::proto::value(a0).resize(extent_type(a1));
+      container_type that((extent_type(a1)));
+      boost::proto::value(a0).swap(that);
+    }
+  };
+
+  //============================================================================
+  // Construct a terminal from a size and some unspecified allocator
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , ((expr_ < unspecified_<A0>
+                                      , nt2::container::domain
+                                      , tag::terminal_
+                                      >
+                              ))
+                              (fusion_sequence_<A1>)
+                              (unspecified_<A2>)
+                            )
+  {
+    typedef typename A0::extent_type    extent_type;
+    typedef typename A0::allocator_type allocator_type;
+    typedef typename A0::container_type container_type;
+    typedef void                        result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0& a0, A1 const& a1, A2 const& a2) const
+    {
+      container_type that((extent_type(a1)),(allocator_type(a2)));
+      boost::proto::value(a0).swap(that);
     }
   };
 
