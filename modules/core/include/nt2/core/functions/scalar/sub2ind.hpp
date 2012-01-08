@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos) const
     {
-      typedef typename boost::fusion::result_of::size<A0>::type dims;
+      typedef typename boost::fusion::result_of::size<A1>::type dims;
       return eval ( size, pos
                   , boost::mpl::int_<0>()
                   , boost::mpl::int_<dims::value-1>()
@@ -43,18 +43,33 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0& s, const A1& p, const Idx&, const Sz& sz) const
     {
-      return  boost::fusion::at_c<Idx::value>(p)
-            - (Idx::value != 0 ? 1 : 0)
+      return  boost::fusion::at_c<Idx::value>(p) - 1
             + boost::fusion::at_c<Idx::value>(s)
             * eval(s,p,boost::mpl::int_<Idx::value+1>(),sz);
     }
 
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval(const A0&, const A1& p, const Sz&, const Sz&) const
+    eval(const A0& s,const A1& p,const boost::mpl::int_<0>&,const Sz& sz) const
     {
-      return  boost::fusion::at_c<Sz::value>(p)
-            - (Sz::value != 0 ? 1 : 0);
+      return  boost::fusion::at_c<0>(p)
+            + boost::fusion::at_c<0>(s)
+            * eval(s,p,boost::mpl::int_<1>(),sz);
+    }
+
+    template<class Sz>
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval(const A0& s, const A1& p, const Sz&, const Sz&) const
+    {
+      return boost::fusion::at_c<Sz::value>(p) - 1;
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval( const A0& s, const A1& p
+        , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
+        ) const
+    {
+      return boost::fusion::at_c<0>(p);
     }
   };
 
@@ -73,7 +88,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos, const A2& base) const
     {
-      typedef typename boost::mpl::size<A0>::type dims;
+      typedef typename boost::fusion::result_of::size<A1>::type dims;
       return eval ( size,pos,base
                   , boost::mpl::int_<0>()
                   , boost::mpl::int_<dims::value-1>()
@@ -85,16 +100,35 @@ namespace nt2 { namespace ext
     eval(const A0& s, const A1& p, const A2& b, const Idx&, const Sz& sz) const
     {
       return  boost::fusion::at_c<Idx::value>(p)
-            - (Idx::value != 0 ? boost::fusion::at_c<Idx::value>(p) : 0)
+            - boost::fusion::at_c<Idx::value>(b)
             + boost::fusion::at_c<Idx::value>(s)
-            * eval(s,p,b,boost::mpl::int_<Idx::value-1>(),sz);
+            * eval(s,p,b,boost::mpl::int_<Idx::value+1>(),sz);
+    }
+
+    template<class Sz>
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval( const A0& s, const A1& p, const A2& b
+        , const boost::mpl::int_<0>&, const Sz& sz
+        ) const
+    {
+      return  boost::fusion::at_c<0>(p)
+            + boost::fusion::at_c<0>(s)
+            * eval(s,p,b,boost::mpl::int_<1>(),sz);
     }
 
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0& s, const A1& p, const A2& b, const Sz&, const Sz&) const
     {
-      return boost::fusion::at_c<Sz::value>(p);
+      return boost::fusion::at_c<Sz::value>(p) - boost::fusion::at_c<Sz::value>(b);
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval( const A0& s, const A1& p, const A2& b
+        , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
+        ) const
+    {
+      return boost::fusion::at_c<0>(p);
     }
   };
 } }
