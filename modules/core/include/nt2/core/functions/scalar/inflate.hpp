@@ -29,15 +29,35 @@ namespace nt2 { namespace ext
     typedef typename boost::fusion::result_of::
                             value_at<A1,boost::mpl::int_<0> >::type index_t;
 
-    typedef boost::fusion::vector<index_t,index_t>                  result_type;
+    typedef boost::mpl::bool_< boost::mpl::size<A1>::value==0>      is_0d_t;
+
+    typedef typename boost::mpl::if_< is_0d_t
+                                    , boost::fusion::vector < std::ptrdiff_t
+                                                            , std::ptrdiff_t
+                                                            >
+                                    , boost::fusion::vector<index_t,index_t>
+                                    >::type                         result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos ) const
+    {
+      return eval(size,pos,is_0d_t());
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval(const A0& size, const A1& pos, boost::mpl::false_ const& ) const
     {
       index_t const& i = boost::fusion::at_c<0>(pos);
       dims_t  const& s = boost::fusion::at_c<0>(size);
 
       result_type that( (i-1) % s + 1, (i-1) / s + 1 );
+      return that;
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval(const A0& size, const A1& pos, boost::mpl::true_ const& ) const
+    {
+      result_type that(1,1);
       return that;
     }
   };
@@ -61,17 +81,42 @@ namespace nt2 { namespace ext
     typedef typename boost::fusion::result_of::
                             value_at<A2,boost::mpl::int_<0> >::type base_t;
 
-    typedef boost::fusion::vector<index_t,index_t>                  result_type;
+    typedef boost::mpl::bool_< boost::mpl::size<A1>::value==0>      is_0d_t;
+
+    typedef typename boost::mpl::if_< is_0d_t
+                                    , boost::fusion::vector < std::ptrdiff_t
+                                                            , std::ptrdiff_t
+                                                            >
+                                    , boost::fusion::vector<index_t,index_t>
+                                    >::type                         result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos, const A2& base) const
+    {
+      return eval(size,pos,base,is_0d_t());
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval( const A0& size, const A1& pos, const A2& base
+        , boost::mpl::false_ const&
+        ) const
     {
       index_t const& i = boost::fusion::at_c<0>(pos);
       dims_t  const& s = boost::fusion::at_c<0>(size);
       base_t  const& b = boost::fusion::at_c<0>(base);
 
       result_type that( (i-b) % s + b, (i-b) / s + b );
+      return that;
+    }
 
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval( const A0& size, const A1& pos, const A2& base
+        , boost::mpl::true_ const&
+        ) const
+    {
+      result_type that( boost::fusion::at_c<0>(base)
+                      , boost::fusion::at_c<0>(base)
+                      );
       return that;
     }
   };
