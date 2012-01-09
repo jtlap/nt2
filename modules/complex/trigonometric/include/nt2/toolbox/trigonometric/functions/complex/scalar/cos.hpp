@@ -6,47 +6,42 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXP_HPP_INCLUDED
-#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXP_HPP_INCLUDED
-#include <nt2/toolbox/exponential/functions/exp.hpp>
-#include <nt2/include/functions/sincos.hpp>
+#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_COS_HPP_INCLUDED
+#define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_COS_HPP_INCLUDED
+#include <nt2/include/cos.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/cosh.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <complex>
+#include <cmath>
+/* ccos (x + I * y) = cos (x) * cosh (y)  + I * (sin (x) * sinh (y)) */
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
-                            , (A0)
-                            , (generic_< complex_<floating_<A0> > >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cos_, tag::cpu_, (A0)
+                            , (scalar_< complex_< arithmetic_<A0> > >)
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
-      rtype c, s;
-      sincos(real(a0), s, c);      
-      return exp(real(a0))*result_type(c, s); 
+      return std::cos(a0); 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cos_, tag::cpu_, (A0)
+                            , (scalar_< imaginary_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::cosh(a0); 
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
-                            , (A0)
-                            , (generic_< imaginary_<floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type             rtype; 
-    typedef typename meta::as_complex<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      rtype  c, s;
-      sincos(imag(a0), s, c); 
-      return result_type(c, s); 
-    }
-  };
 } }
-
 
 #endif

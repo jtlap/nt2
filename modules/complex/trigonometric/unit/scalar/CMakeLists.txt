@@ -7,23 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES
-  sinhcosh.cpp
-  asech1m.cpp
-  sinhc.cpp
-  tanh.cpp
-  sinh.cpp
-  sech.cpp
-  csch.cpp
-  coth.cpp
-  cosh.cpp
-  atanh.cpp
-  asinh.cpp
-  asech.cpp
-  acsch.cpp
-  acoth.cpp
-  acosh.cpp
-# List of simd test files for toolbox hyperbolic
+set( SOURCES
    )
 
-nt2_module_add_tests(hyperbolic.simd.unit ${SOURCES})
+nt2_module_add_tests(complex.trigonometic.scalar.unit ${SOURCES})

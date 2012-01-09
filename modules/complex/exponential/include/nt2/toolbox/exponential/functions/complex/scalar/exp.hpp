@@ -14,11 +14,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <complex>
 #include <cmath>
- 
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
@@ -29,7 +25,6 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
       return static_cast<result_type>(std::exp(a0));
     }
   };
