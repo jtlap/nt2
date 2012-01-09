@@ -143,7 +143,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<1> const&, boost::mpl::size_t<N> const&
           )
     {
-      return b[boost::fusion::at_c<0>(p)];
+      return b[meta::view_at<0>(p)];
     }
 
     template<class Position, std::size_t N>
@@ -152,7 +152,25 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<1> const&, boost::mpl::size_t<N> const&
           )
     {
-      return b[boost::fusion::at_c<0>(p)];
+      return b[meta::view_at<0>(p)];
+    }
+
+    template<class Position>
+    static BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<1> const&
+          )
+    {
+      return b[p];
+    }
+
+    template<class Position>
+    static BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<1> const&
+          )
+    {
+      return b[p];
     }
 
     template<class Position, std::size_t N>
