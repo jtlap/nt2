@@ -19,6 +19,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_true.hpp>
+#include <cstddef>
 
 NT2_TEST_CASE_TPL ( as_logical, BOOST_SIMD_TYPES )
 {
@@ -98,11 +99,11 @@ NT2_TEST_CASE_TPL ( logical_simd, BOOST_SIMD_SIMD_TYPES )
   native< logical<T>, ext_t > bool_true;
   bool_true = boost::simd::is_true(boost::simd::splat< native<T, ext_t > >(1));
   
-  for( int i=0; i < bool_true.size(); ++i ) NT2_TEST( !!bool_true[i] );
+  for( std::size_t i=0; i < bool_true.size(); ++i ) NT2_TEST( !!bool_true[i] );
 
   bool_true = boost::simd::is_true(boost::simd::splat< native<T, ext_t > >(0));
   
-  for( int i=0; i < bool_true.size(); ++i ) NT2_TEST( !bool_true[i] );
+  for( std::size_t i=0; i < bool_true.size(); ++i ) NT2_TEST( !bool_true[i] );
 }
 
 NT2_TEST_CASE_TPL ( logical_value_of, BOOST_SIMD_TYPES )
