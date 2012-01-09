@@ -23,16 +23,16 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
-                            , (scalar_< complex_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return std::sqrt(a0); 
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
+//                             , (scalar_< complex_< arithmetic_<A0> > >)
+//                             )
+//   {
+//     typedef A0 result_type;
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return std::sqrt(a0); //erroneous in 4.6 for inf*i
+//     }
+//   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
                             , (scalar_< imaginary_< arithmetic_<A0> > >)
@@ -44,12 +44,13 @@ namespace nt2 { namespace ext
     {
       if (is_eqz(a0))
         {
-          return Zero<result_type>();
+          return result_type(Zero<rA0>());
         }
       else
         {
-          const rA0 root = nt2::sqrt(nt2::abs(imag(a0))); 
-          return result_type(One<result_type>(), sign(imag(a0)))*root*Sqrt_2o_2<rA0>();
+          const rA0 root = nt2::sqrt(nt2::abs(imag(a0)))*Sqrt_2o_2<rA0>();
+          result_type res = result_type(root, sign(imag(a0))*root); 
+          return res; 
         }
     }
   };
