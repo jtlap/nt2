@@ -41,6 +41,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
+        //        return a0*a1; 
         typedef typename meta::as_real<A0>::type rA0;
         
         rA0 a0a1r = real(a0) * real(a1);

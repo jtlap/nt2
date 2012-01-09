@@ -12,27 +12,40 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/hypot.hpp>
-#include <nt2/include/functions/sqr_abs.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/sqr.hpp>
+#include <nt2/include/functions/exponent.hpp>
+#include <nt2/include/functions/ldexp.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
-                            , (generic_< complex_< arithmetic_<A0> > >)
+                            , (generic_< complex_< floating_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_real<A0>::type       result_type;
+    typedef typename meta::as_integer<result_type>::type itype; 
     NT2_FUNCTOR_CALL(1)
     {
-      return hypot(real(a0),imag(a0)); 
+      //      return hypot(real(a0),imag(a0));
+      result_type r =  nt2::abs(real(a0));
+      result_type i =  nt2::abs(imag(a0));
+      itype e =  if_else(lt(r, i), exponent(i), exponent(r));
+      return ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e); 
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
+                            , (generic_< imaginary_< floating_<A0> > >)
                             )
   {
     typedef typename meta::as_real<A0>::type result_type;

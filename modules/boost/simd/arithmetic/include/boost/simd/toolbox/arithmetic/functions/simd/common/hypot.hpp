@@ -32,14 +32,12 @@
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::hypot_, tag::cpu_
@@ -93,42 +91,47 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_logical<A0>::type bA0; 
-      typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
-      typedef typename meta::as_logical<int_type>::type bint_type; 
-      typedef hypot_ctnts<A0, int_type> cts;
-      A0 x =  boost::simd::abs(a0);
-      A0 y =  boost::simd::abs(a1);
-      bA0 tinf = is_inf(x+y);
-      A0 a =  boost::simd::max(x, y);
-      A0 b =  boost::simd::min(x, y);
-      int_type ea =   exponent(a);
-      int_type eb  =  exponent(b);
-      bint_type te1 = gt(ea,cts::C1());
-      bint_type te2 = lt(eb,cts::MC1());
-      bool te3 = boost::simd::any(logical_or(te1, te2));
-      int_type e = Zero<int_type>();
-      if (te3)
-      {
-        e = select(te1, cts::MC2(), e);
-        e = select(te2, cts::C1(),  e);
-        a =  ldexp(a, e);
-        b =  ldexp(b, e);
-      }
-      A0 w = a-b;
-      bA0 test =  gt(w,b);
-      A0 t1 = a& cts::M1();
-      A0 t2 = a-t1;
-      A0 w1_2  = (t1*t1-(b*(-b)-t2*(a+t1)));
-      A0 y1 = b& cts::M1();
-      A0 y2 = b - y1;
-      t1 = bitwise_cast<A0>(bitwise_cast<int_type>(a)+cts::C3()) ;
-      t2 = (a+a) - t1;
-      A0 w2_2  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
-      w =  select(test, w1_2, w2_2);
-      w = boost::simd::sqrt(w);
-      if (te3) w = ldexp(w, -e);
-      return select(tinf, Inf<A0>(), w);
+      typedef typename dispatch::meta::as_integer<result_type>::type itype; 
+      result_type r =  boost::simd::abs(a0);
+      result_type i =  boost::simd::abs(a1);
+      itype e =  exponent(boost::simd::max(i, r));
+      return ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e);
+//       typedef typename meta::as_logical<A0>::type bA0; 
+//       typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
+//       typedef typename meta::as_logical<int_type>::type bint_type; 
+//       typedef hypot_ctnts<A0, int_type> cts;
+//       A0 x =  boost::simd::abs(a0);
+//       A0 y =  boost::simd::abs(a1);
+//       bA0 tinf = is_inf(x+y);
+//       A0 a =  boost::simd::max(x, y);
+//       A0 b =  boost::simd::min(x, y);
+//       int_type ea =   exponent(a);
+//       int_type eb  =  exponent(b);
+//       bint_type te1 = gt(ea,cts::C1());
+//       bint_type te2 = lt(eb,cts::MC1());
+//       bool te3 = boost::simd::any(logical_or(te1, te2));
+//       int_type e = Zero<int_type>();
+//       if (te3)
+//       {
+//         e = select(te1, cts::MC2(), e);
+//         e = select(te2, cts::C1(),  e);
+//         a =  ldexp(a, e);
+//         b =  ldexp(b, e);
+//       }
+//       A0 w = a-b;
+//       bA0 test =  gt(w,b);
+//       A0 t1 = a& cts::M1();
+//       A0 t2 = a-t1;
+//       A0 w1_2  = (t1*t1-(b*(-b)-t2*(a+t1)));
+//       A0 y1 = b& cts::M1();
+//       A0 y2 = b - y1;
+//       t1 = bitwise_cast<A0>(bitwise_cast<int_type>(a)+cts::C3()) ;
+//       t2 = (a+a) - t1;
+//       A0 w2_2  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
+//       w =  select(test, w1_2, w2_2);
+//       w = boost::simd::sqrt(w);
+//       if (te3) w = ldexp(w, -e);
+//       return select(tinf, Inf<A0>(), w);
     }
   };
 } } }

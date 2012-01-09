@@ -36,17 +36,12 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_real<A0>::type rtype;
-      typedef typename meta::as_logical<A0>::type ltype;
-      rtype r = nt2::abs(a0);
-      rtype i = nt2::arg(a0);
-      ltype test =  is_real(a0);
-      rtype rho =  nt2::log(r);
-      rtype theta =  seladd(logical_not(test), i*real(a1), rho*imag(a1));
-      rho = if_else(is_real(a0), pow(r, real(a1)),  exp (rho *real(a1) - i * imag(a1)));
+      typedef typename meta::as_real<result_type>::type rtype;
+      result_type tmp = result_type(nt2::log(nt2::abs(a0)), nt2::arg(a0)); 
+      tmp = a1*tmp; 
       rtype c, s; 
-      sincos(theta, c, s); 
-      return result_type(c, s)*rho; 
+      sincos(imag(tmp), c, s); 
+      return result_type(c, s)*real(tmp); 
     }
   };
   
@@ -59,56 +54,104 @@ namespace nt2 { namespace ext
     typedef A0  result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_real<A0>::type rtype;
-      rtype rho = pow(nt2::abs(a0), a1);
-      rtype theta = arg(a0)*a1;
-      A1 c, s; 
-      sincos(theta, c, s); 
-      return result_type(c, s)*rho; 
- 
+      typedef typename meta::as_real<result_type>::type rtype;
+      result_type tmp = result_type(nt2::log(nt2::abs(a0)), nt2::arg(a0)); 
+      tmp = a1*tmp; 
+      rtype c, s; 
+      sincos(imag(tmp), c, s); 
+      return result_type(c, s)*real(tmp); 
     }
   };
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-//                               , (A0)(A1)
-//                               , (generic_< floating_<A1> >)
-//                                 (generic_< complex_<floating_<A0> > >)
-//                             )
-//   {
-//     typedef A0  result_type;
-//     NT2_FUNCTOR_CALL(2)
-//     {
-//       typedef typename meta::as_real<A0>::type rtype;
-//       rtype rho = pow(nt2::abs(a0), real(a1));
-//       rtype theta = arg(a0)*real(a1)+imag(a1)*nt2::log(rho);
-//       sincos(theta, c, s)
-//       return result_type(c, s)*rho; 
- 
-//     }
-//   };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+                              , (A0)(A1)
+                              , (generic_< floating_<A0> >)
+                                (generic_< complex_<floating_<A1> > >)
+                            )
+  {
+    typedef A1 result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::as_real<result_type>::type rtype;
+      result_type tmp = result_type(nt2::log(nt2::abs(a0)), nt2::arg(a0)); 
+      tmp = a1*tmp; 
+      rtype c, s; 
+      sincos(imag(tmp), c, s); 
+      return result_type(c, s)*real(tmp); 
+    }
+  };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-//                             , (A0)
-//                             , (generic_< complex_<floating_<A0> > >)
-//                             , (generic_< imaginary_<floating_<A0> > >)
-//                             )
-//   {
-//     typedef typename meta::as_real<A0>::type             rtype; 
-//     typedef typename meta::as_complex<rtype>::type result_type;
-//     NT2_FUNCTOR_CALL(2)
-//     {
-//       typedef typename meta::as_real<A0>::type rtype;
-//       rtype r =  nt2::abs(a0);
-//       rtype i = arg(a0);
-//       ltype test =  is_real(a0);
-//       rtype rho =  nt2::log(r);
-//       rtype theta =  seladd(logical_not(test), i*real(a1), rho*imag(a1));
-//       rho = if_else(is_real(a0), pow(r, real(a1)),  exp (rho *real(a1) - i * imag(a1)));
-//       rtype c, s; 
-//       sincos(theta, c, s)
-//       return result_type(c, s)*rho; 
- 
-//     }
-//   };  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+                            , (A0)(A1)
+                            , (generic_< complex_<floating_<A0> > >)
+                              (generic_< imaginary_<floating_<A1> > >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::as_real<result_type>::type             rtype; 
+      result_type tmp = result_type(nt2::log(nt2::abs(a0)), nt2::arg(a0)); 
+      tmp = a1*tmp; 
+      rtype c, s; 
+      sincos(imag(tmp), c, s); 
+      return result_type(c, s)*real(tmp); 
+     }
+   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+                            , (A0)(A1)
+                            , (generic_< imaginary_<floating_<A0> > >)
+                             (generic_< complex_<floating_<A1> > >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::as_real<result_type>::type             rtype; 
+      result_type tmp = result_type(nt2::log(nt2::abs(a0)), nt2::arg(a0)); 
+      tmp = a1*tmp; 
+      rtype c, s; 
+      sincos(imag(tmp), c, s); 
+      return result_type(c, s)*real(tmp); 
+     }
+   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+                            , (A0)(A1)
+                            , (generic_< imaginary_<floating_<A0> > >)
+                              (generic_< floating_<A1> >)
+                            )
+  {
+    typedef meta::as_complex<A1> result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::as_real<result_type>::type             rtype; 
+      result_type tmp = result_type(nt2::log(nt2::abs(a0)), nt2::arg(a0)); 
+      tmp = a1*tmp; 
+      rtype c, s; 
+      sincos(imag(tmp), c, s); 
+      return result_type(c, s)*real(tmp); 
+     }
+   };
+  
+   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+                            , (A0)(A1)
+                            ,  (generic_< floating_<A0> >)
+                               (generic_< imaginary_<floating_<A1> > >)
+                            )
+  {
+    typedef meta::as_complex<A0> result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      typedef typename meta::as_real<result_type>::type             rtype;  
+      result_type tmp = result_type(nt2::log(nt2::abs(a0)), nt2::arg(a0)); 
+      tmp = a1*tmp; 
+      rtype c, s; 
+      sincos(imag(tmp), c, s); 
+      return result_type(c, s)*real(tmp); 
+     }
+   }; 
 } }
 
 
