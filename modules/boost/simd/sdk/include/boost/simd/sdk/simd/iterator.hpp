@@ -26,9 +26,9 @@ namespace boost { namespace simd
         : public  boost
                   ::iterator_adaptor< iterator<T,C>
                                     , typename pack<T,C>::data_type const *
-                                    , pack<T,C> const
+                                    , pack<T,C>
                                     , boost::random_access_traversal_tag
-                                    , pack<T,C> const
+                                    , pack<T,C>
                                     >
   {
     private:
