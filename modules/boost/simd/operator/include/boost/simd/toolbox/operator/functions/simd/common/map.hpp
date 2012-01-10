@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MAP_HPP_INCLUDED
 #include <boost/simd/toolbox/operator/functions/map.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/include/functions/insert.hpp>
+#include <boost/simd/include/functions/extract.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
@@ -26,7 +26,6 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
-#undef BOOST_SIMD_ALIGNED_TYPE
 #undef BOOST_FORCEINLINE
 #endif
 
@@ -52,12 +51,12 @@ namespace boost { namespace simd { namespace ext                             \
     inline result_type                                                       \
     operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))   \
     {                                                                        \
-      BOOST_SIMD_ALIGNED_TYPE(rtype) tmp[meta::cardinal_of<A0>::value];      \
+      result_type that;                                                      \
                                                                              \
       for(size_t i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i) \
-        tmp[i] = f(BOOST_PP_ENUM(n, M3, ~));                                 \
+        that[i] = f(BOOST_PP_ENUM(n, M3, ~));                                \
                                                                              \
-      return load<result_type>(&tmp[0], 0);                                  \
+      return that;                                                           \
     }                                                                        \
   };                                                                         \
 } } }                                                                        \
