@@ -79,17 +79,17 @@ namespace nt2
                                           0xc04898220a3607acll)
                                          )>(zz2);
           zz2 = x*z+x;
-          return if_nan_else(gt(x, One<A0>()),
-			   b_xor(select(small,
-					x,
-					select(gt(x, ct1),
-					       zz1,
-					       zz2
-					       )
-					),
-				 bitofsign(a0)
-				 )
-			   );
+          return if_nan_else( gt(x, One<A0>())
+                            , b_xor ( select( small
+                                            , x
+                                            , select( gt(x, ct1)
+                                                    , zz1
+                                                    , zz2
+                                                    )
+                                            )
+                                    , bitofsign(a0)
+                                    )
+                            );
         }
 
         static inline A0_n acos(const A0_n a0_n)
@@ -101,21 +101,20 @@ namespace nt2
           A0 z2 = ((Pio_4<A0>() - as1)+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
           return if_nan_else( gt(abs(a0),One<A0>()), sel( gt(a0,Half<A0>()), z1, z2));
         }
-	
+
         static inline A0_n atan(const A0_n a0_n)
-	{
-	  const A0 a0 = {a0_n};
-	  const A0 x  = {kernel_atan(a0)}; 
-	  return b_xor(x, bitofsign(a0));
-	}
+        {
+          const A0 a0 = {a0_n};
+          const A0 x  = {kernel_atan(a0)}; 
+          return b_xor(x, bitofsign(a0));
+        }
 
         static inline A0_n kernel_atan(const A0_n a0_n)
         {
           typedef typename meta::scalar_of<A0>::type sA0;
           const A0 tan3pio8  = double_constant<A0, 0x4003504f333f9de6ll>();
-          //      static const A0 Twothird = double_constant<A0, 0x3fe51eb851eb851fll>();
           const A0 tanpio8 = double_constant<A0, 0x3fda827999fcef31ll>();
-	  const A0 a0 = {a0_n};
+          const A0 a0 = {a0_n};
           const A0 x =  nt2::abs(a0);
           const bA0 flag1 = lt(x,  tan3pio8);             
           const bA0 flag2 = logical_and(ge(x, tanpio8), flag1); 
@@ -151,7 +150,3 @@ namespace nt2
 }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of d_invtrig.hpp
-// /////////////////////////////////////////////////////////////////////////////

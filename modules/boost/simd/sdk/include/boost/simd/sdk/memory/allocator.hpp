@@ -79,25 +79,6 @@ namespace boost { namespace simd {  namespace memory
     {
       boost::simd::memory::deallocate(reinterpret_cast<byte*>(p),s*sizeof(value_type));
     }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Extended Allocator interface -- reallocate
-    ////////////////////////////////////////////////////////////////////////////
-    pointer resize(pointer p, size_type n, size_type o )
-    {
-      if( o < n )
-      {
-        byte* ptr = reallocate( reinterpret_cast<byte*>(p)
-                              , n*sizeof(value_type)
-                              , o*sizeof(value_type)
-                              );
-        return reinterpret_cast<pointer>(ptr);
-      }
-      else
-      {
-        return p;
-      }
-    }
   };
 
   template<class T>

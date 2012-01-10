@@ -29,6 +29,8 @@ namespace boost { namespace simd { namespace details
     typedef typename Allocator::const_pointer     const_pointer;
     typedef typename Allocator::pointer           iterator;
     typedef typename Allocator::const_pointer     const_iterator;
+    typedef typename Allocator::pointer           reverse_iterator;
+    typedef typename Allocator::const_pointer     const_reverse_iterator;
     typedef typename Allocator::reference         reference;
     typedef typename Allocator::const_reference   const_reference;
     typedef typename Allocator::size_type         size_type;
@@ -57,18 +59,23 @@ namespace boost { namespace simd { namespace details
       if(origin_) parent_allocator::deallocate(origin_,end_ - begin_);
     }
 
+    template<class Size,class Base>
+    void restructure(Size const& s, Base const& b)
+    {
+      difference_type os = size();
+
+      if(os < s )
+      {
+        deallocate();
+        origin_ = parent_allocator::allocate(s);
+      }
+      
+      clamp(s,b);
+    }
+
     template<class Size> void resize(Size const& s)
     {
-      if(!origin_)
-      {
-        origin_ = parent_allocator::allocate(s);
-        clamp(s, 0);
-      }
-      else
-      {
-        origin_ = parent_allocator::resize(origin_,s,end_ - begin_);
-        clamp(s, origin_ - begin_);
-      }
+      restructure(s,lower());
     }
 
     template<class Diff> void rebase(Diff const& b) { clamp(size(), b); }
@@ -87,14 +94,8 @@ namespace boost { namespace simd { namespace details
     pointer begin() { return origin_;           }
     pointer end()   { return origin_ + size();  }
 
-    pointer first() { return begin_;           }
-    pointer last()  { return begin_ + size();  }
-
     pointer const begin() const { return origin_;           }
     pointer const end()   const { return origin_ + size();  }
-
-    pointer const first() const { return begin_;           }
-    pointer const last()  const { return begin_ + size();  }
 
     void swap(buffer_data& src)
     {

@@ -17,6 +17,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
+
 extern "C" {extern long double cephes_sinl(long double);}
 
 #include <boost/type_traits/is_same.hpp>
@@ -35,11 +36,8 @@ extern "C" {extern long double cephes_sinl(long double);}
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-
 
 NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
@@ -68,11 +66,9 @@ NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-	//	std::cout << "a0 " << a0 << std::endl; 
         r_t v = sin(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::sin (a0[i])), 0.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
@@ -109,10 +105,8 @@ NT2_TEST_CASE_TPL ( sin_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = sin(a0);
-	//	std::cout << "a0 " << a0 << std::endl; 
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          
+        {          
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::sin (a0[i])), 0.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }
@@ -149,11 +143,6 @@ NT2_TEST_CASE_TPL ( sin_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = sin(a0);
-	//	std::cout << "a0 " << a0 << std::endl; 
-//         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-//         {
-// 	  std::cout << tab_a0[i+j*cardinal_of<n_t>::value] << ",  "; 
-// 	}
          for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           

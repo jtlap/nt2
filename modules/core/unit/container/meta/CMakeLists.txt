@@ -8,9 +8,10 @@
 ##############################################################################
 
 SET( SOURCES
-  container_traits.cpp  
+  container_traits.cpp
  is_container.cpp
 # is_statically_sized.cpp
+ padded_size.cpp
  settings_of.cpp
 # List of scalar test files for toolbox core.settings
    )

@@ -35,8 +35,6 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
@@ -59,8 +57,8 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-	std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
-	std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
+  std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
+  std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
@@ -72,11 +70,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_SIMD_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = is_negative(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::is_negative (a0[i])));
-        }
       }
-    
   }
 } // end of test for floating_

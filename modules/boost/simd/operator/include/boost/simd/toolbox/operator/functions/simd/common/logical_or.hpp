@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
       return mask2logical(b_or(genmask(a0), genmask(a1)));
     }
   };
-  //TODO assert if mix logical / non logical
+  // TODO assert if mix logical / non logical
 } } }
 
 

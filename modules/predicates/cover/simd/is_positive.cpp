@@ -34,8 +34,6 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
@@ -65,18 +63,14 @@ NT2_TEST_CASE_TPL ( is_positive_real__1_0,  NT2_SIMD_REAL_TYPES)
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
-      {
-        vT a0 = load<vT>(&tab_a0[0],j);
-	std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
-	std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
-	//	std::cout << nt2::type_id(is_positive(a0)) << std::endl;
-        r_t v = is_positive(a0);
-        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          
-          NT2_TEST_EQUAL( v[i],ssr_t(nt2::is_positive (a0[i])));
-        }
-      }
-    
+    {
+      vT a0 = load<vT>(&tab_a0[0],j);
+      std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
+      std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
+        
+      r_t v = is_positive(a0);
+      for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+      NT2_TEST_EQUAL( v[i],ssr_t(nt2::is_positive (a0[i])));
+    }    
   }
 } // end of test for floating_

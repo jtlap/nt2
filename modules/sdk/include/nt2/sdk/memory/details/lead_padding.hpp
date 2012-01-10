@@ -16,8 +16,8 @@
 #include <boost/typeof/typeof.hpp>
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
-#include <nt2/sdk/memory/align_on.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
+#include <boost/simd/sdk/memory/align_on.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -28,7 +28,6 @@ namespace boost { namespace dispatch { namespace meta
     typedef nt2::ext::padding_<nt2::memory::lead_padding>  type;
   };
 } } }
-
 
 namespace nt2 { namespace ext
 {
@@ -51,7 +50,7 @@ namespace nt2 { namespace ext
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( true_case
     ,   slice<2>(s,memory::no_padding())
-      * memory::align_on( boost::fusion::at_c<0>(s), 0UL )
+      * boost::simd::memory::align_on( boost::fusion::at_c<0>(s), 0UL )
     );
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
@@ -75,7 +74,7 @@ namespace nt2 { namespace ext
     inline result_type eval( A0 const& a0, std::size_t p, boost::mpl::true_ const& ) const
     {
       return   slice<2>(a0,memory::no_padding())
-             * memory::align_on( boost::fusion::at_c<0>(a0), p );
+             * boost::simd::memory::align_on( boost::fusion::at_c<0>(a0), p );
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -107,7 +106,9 @@ namespace nt2 { namespace ext
     static  A0 const& s;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-    ( true_case , memory::align_on( boost::fusion::at_c<0>(s), 0UL ) );
+    ( true_case
+    , boost::simd::memory::align_on( boost::fusion::at_c<0>(s), 0UL )
+    );
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( false_case, boost::fusion::at_c<arg2::value-1>(s) );
@@ -129,7 +130,7 @@ namespace nt2 { namespace ext
     inline result_type 
     eval(A0 const& a0, std::size_t p, boost::mpl::true_ const&) const
     {
-      return memory::align_on( boost::fusion::at_c<0>(a0), p );
+      return boost::simd::memory::align_on( boost::fusion::at_c<0>(a0), p );
     }
 
     ////////////////////////////////////////////////////////////////////////////

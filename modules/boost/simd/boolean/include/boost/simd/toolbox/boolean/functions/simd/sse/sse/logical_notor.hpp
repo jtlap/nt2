@@ -14,11 +14,11 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_notor_, boost::simd::tag::sse_
-				     , (A0)(A1)(X)
-                            , ((simd_<logical_<A0>, X>))
-                              ((simd_<logical_<A1>, X>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION
+  ( boost::simd::tag::logical_notor_, boost::simd::tag::sse_, (A0)(A1)(X)
+  , ((simd_<logical_<A0>, X>))
+    ((simd_<logical_<A1>, X>))
+  )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
@@ -28,6 +28,5 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
-
 
 #endif
