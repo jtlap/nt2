@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_IS_INCLUDED_C_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_IS_INCLUDED_C_HPP_INCLUDED
-#include <boost/simd/toolbox/bitwise/functions/is_included_c.hpp>
+#include <boost/simd/toolbox/reduction/functions/is_included_c.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/is_eqz.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
