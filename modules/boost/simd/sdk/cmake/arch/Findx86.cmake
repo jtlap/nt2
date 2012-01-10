@@ -86,6 +86,7 @@ macro(nt2_simd_cpuid_check ext)
       
   if(NT2_HAS_${ext}_SUPPORT)
     message(STATUS "[boost.simd.sdk] ${ext} available")
+    set(NT2_SIMD_EXT ${ext_l} CACHE STRING "SIMD extension being built for (informative)")
     nt2_simd_set_fpmath(${ext})
     set(NT2_SIMD_FLAGS ${NT2_SIMD_FLAGS} PARENT_SCOPE)
     return()
