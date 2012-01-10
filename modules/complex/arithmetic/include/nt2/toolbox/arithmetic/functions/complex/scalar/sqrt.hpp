@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_SQRT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_SQRT_HPP_INCLUDED
 #include <nt2/toolbox/arithmetic/functions/sqrt.hpp>
+#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sqrt.hpp>
@@ -44,7 +45,7 @@ namespace nt2 { namespace ext
     {
       if (is_eqz(a0))
         {
-          return result_type(Zero<rA0>());
+          return Zero<result_type>();
         }
       else
         {

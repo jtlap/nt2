@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<result_type>::type real_t;
            
-      return result_type( dispatch::functor<Tag>()(dispatch::meta::as_<real_t>())
+      return result_type( boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>())
                         , Zero<real_t>()
                         );
     }
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
       typedef typename meta::as_real<result_type>::type real_t;
-      return result_type(dispatch::functor<Tag>()(dispatch::meta::as_<real_t>()));
+      return result_type(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
     }
   };
   

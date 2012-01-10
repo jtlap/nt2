@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SQRT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SQRT_HPP_INCLUDED
 #include <nt2/toolbox/arithmetic/functions/sqrt.hpp>
+#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sqrt.hpp>
@@ -76,7 +77,7 @@ namespace nt2 { namespace ext
     {
           const rA0 root = nt2::sqrt(nt2::abs(imag(a0)))*Sqrt_2o_2<rA0>();
           result_type res = result_type(root, sign(imag(a0))*root); 
-          return if_else(is_eqz(a0), result_type(Zero<rA0>()), res); 
+          return if_else(is_eqz(a0), Zero<result_type>(), res); 
     }
   };
   
