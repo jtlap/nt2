@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_TAN_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_TAN_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_TANH_HPP_INCLUDED
+#define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_TANH_HPP_INCLUDED
 #include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -18,8 +18,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-/* ctan (x + I * y) = (sin (2 * x)  +  I * sinh(2 * y))
-                      / (cos (2 * x)  +  cosh (2 * y)) */
+//tanh ( x + iy ) = tanh ( x ) + i . tan ( y ) 1 + i . tanh ( x ) tan ( y ) .
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tan_, tag::cpu_, (A0)
@@ -31,11 +30,10 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype;
       result_type aa0 =  a0+a0; 
-      rtype c, s;
-      sincos(real(aa0), s, c);
-      rtype ch, sh; 
-      sinhcosh(imag(aa0), sh, ch);
-      return result_type(s, sh)/(c+ch);     
+      rtype c, s, ch, sh;
+      sincos(imag(aa0), s, c);
+      sinhcosh(real(aa0), sh, ch);
+      return result_type(sh, s)/(c+ch);     
     }
   };
 
@@ -47,7 +45,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::tanh(imag(a0))); 
+      return result_type(nt2::tan(imag(a0))); 
     }
   };
   

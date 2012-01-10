@@ -17,8 +17,10 @@
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/pure.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -30,7 +32,6 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -60,7 +61,7 @@ namespace nt2 { namespace ext
                        if_else(is_gez(real(a0)),
                                result_type(sqrtx,Zero<rA0>()),
                                result_type(Zero<rA0>(),sqrtx)),
-                       z); 
+                       if_else(is_imag(a0), nt2::sqrt(pure(a0)), z)); 
       }
   };
 

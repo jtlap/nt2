@@ -6,9 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_LOG_HPP_INCLUDED
-#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_LOG_HPP_INCLUDED
-#include <nt2/include/functions/log.hpp>
+#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_LOG2_HPP_INCLUDED
+#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_LOG2_HPP_INCLUDED
+#include <nt2/include/functions/log2.hpp>
 #include <nt2/include/functions/arg.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
@@ -17,7 +17,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log2_, tag::cpu_
                             , (A0)
                             , (generic_< complex_<floating_<A0> > >)
                             )
@@ -25,11 +25,11 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     { 
-      return result_type(nt2::log(nt2::abs(a0)), arg(a0)); 
+      return result_type(nt2::log2(nt2::abs(a0)), arg(a0)); 
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log2_, tag::cpu_
                             , (A0)
                             , (generic_< imaginary_<floating_<A0> > >)
                             )
