@@ -80,7 +80,7 @@ namespace boost { namespace simd
 
     template<class Dummy>
     struct  Signmask::apply<boost::simd::int8_t,Dummy> 
-          : meta::int_c<boost::simd::int8_t,boost::simd::int8_t(0x80)> {};
+          : meta::int_c<boost::simd::int8_t,boost::simd::int8_t(0x80U)> {};
 
     template<class Dummy>
     struct  Signmask::apply<boost::simd::int16_t,Dummy> 
