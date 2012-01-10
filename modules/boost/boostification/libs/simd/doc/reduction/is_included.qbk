@@ -1,4 +1,4 @@
-[section is_included_c]
+[section is_included]
 
 [h5 Description]
 
@@ -15,7 +15,7 @@
 ]
 
 [h5 Header]
-   #include <boost/simd/toolbox/bitwise/include/is_included_c.hpp>
+   #include <boost/simd/toolbox/reduction/include/is_included.hpp>
 [h5 Expression Semantics]
 
 [*Return type: ]

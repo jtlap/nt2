@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/all.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>

@@ -9,23 +9,23 @@
 /*!
  * \file
 **/
-#ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_IS_INCLUDED_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_IS_INCLUDED_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_IS_INCLUDED_C_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_IS_INCLUDED_C_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
- * \ingroup boost_simd_bitwise
- * \defgroup boost_simd_bitwise_is_included is_included
+ * \ingroup boost.simd.reduction
+ * \defgroup boost.simd.reduction_is_included_c is_included_c
  *
  * \par Description
  * The function returns the a bool
- * true is only if all bits set in a0 are also set in a1
+ * true is only if all bits set in a0 are not set in a1
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/is_included.hpp>
+ * #include <nt2/include/functions/is_included_c.hpp>
  * \endcode
  * 
  * \par Alias 
@@ -37,13 +37,13 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::is_included_(A0,A0)>::type
- *     is_included(const A0 & a0,const A0 & a1);
+ *     meta::call<tag::is_included_c_(A0,A0)>::type
+ *     is_included_c(const A0 & a0,const A0 & a1);
  * }
  * \endcode
  *
- * \param a0 the first parameter of is_included
- * \param a1 the second parameter of is_included
+ * \param a0 the first parameter of is_included_c
+ * \param a1 the second parameter of is_included_c
  * 
  * \return an integer value
  *  
@@ -63,13 +63,14 @@
 namespace boost { namespace simd { namespace tag
   {         
     /*!
-     * \brief Define the tag is_included_ of functor is_included 
-     *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
+     * \brief Define the tag is_included_c_ of functor is_included_c 
+     *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct is_included_ {};
+    struct is_included_c_ {};
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_, is_included, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_, testz, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, is_included_c, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, testz, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, are_disjoint, 2) 
 } }
 
 #endif

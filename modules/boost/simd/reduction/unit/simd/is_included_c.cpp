@@ -6,10 +6,10 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.bitwise toolbox - is_included_c/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.reduction toolbox - is_included_c/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.bitwise components in simd mode
+// unit test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
