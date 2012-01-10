@@ -13,7 +13,10 @@
 #include <nt2/toolbox/operator/operator.hpp>
 #include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/cos.hpp>
+#include <nt2/include/functions/fast_cos.hpp>
 #include <nt2/include/functions/sin.hpp>
+#include <nt2/include/functions/fast_sin.hpp>
+#include <nt2/include/functions/sqrt.hpp>
 
 #include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
@@ -33,11 +36,10 @@ template<class T> struct table_test
 
   void operator()()
   {
-    a1 = nt2::cos(a0)*nt2::cos(a0) + nt2::sin(a0)*nt2::sin(a0);
-    //a1 = a0 + a2;
+    a1 = nt2::sqrt(nt2::cos(a0)/nt2::sin(a0) + a2*a2/a1);
   }
 
-  nt2::container::table<T,nt2::_2D> a0,a1,a2;
+  nt2::container::table<T> a0,a1,a2;
   int N,M;
 };
 
@@ -54,7 +56,7 @@ template<class T> struct vector_test
   void operator()()
   {
     for(std::size_t i=0; i<M*N; ++i)
-      a1[i] = std::cos(a0[i])*std::cos(a0[i]) + std::sin(a0[i])*std::sin(a0[i]);
+      a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
       //a1[i] = a0[i]+ a2[i];
   }
 
@@ -66,15 +68,20 @@ NT2_TEST_CASE( small_table )
 {
   typedef double T;
 
-  int N = 4096, M = 4096;
+  for(int M=1;M<=8192;M*=2)
+    for(int N=1;N<=8192;N*=2)
+  {
+    std::cout << N << "\t" << M << "\t";
+    table_test<T> tt(N,M,-.28319, .28319);
+    //std::cout << "table (simd)   : ";
+    double dv = nt2::unit::perform_benchmark( tt, 1.);
+    std::cout << dv/(N*M) << "\t"; // << " cycles/elements\n";
 
-  std::cout << "table (simd)   : \n\t";
-  double dv = nt2::unit::perform_benchmark( table_test<T>(N,M,-62.8319, 62.8319), 10.);
-  std::cout << "\tcycles/element : "<< dv/(N*M) << "\n";
+    vector_test<T> vv(N,M,-.28319, .28319);
+    //std::cout << "std::vector    : ";
+    double dw = nt2::unit::perform_benchmark( vv, 1.);
+    std::cout << dw/(N*M) << "\t";// << " cycles/elements\n";
 
-  std::cout << "std::vector   : \n\t";
-  double dw = nt2::unit::perform_benchmark( vector_test<T>(N,M,-62.8319, 62.8319), 10.);
-  std::cout << "\tcycles/element : "<< dw/(N*M) << "\n";
-
-  std::cout << "speed-up    : " << dw/dv << "\n";
+    std::cout /*<< "speed-up       : " */<< dw/dv << "\n";
+  }
 }
