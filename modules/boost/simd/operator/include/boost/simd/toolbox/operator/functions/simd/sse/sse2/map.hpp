@@ -30,6 +30,7 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
+#undef BOOST_FORCEINLINE
 #endif
 
 #define M0(z,n,h) ((simd_< h <A##n>, boost::simd::tag::sse_ >))

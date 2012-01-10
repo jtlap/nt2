@@ -72,6 +72,7 @@ namespace tag
 #else
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/call.hpp")
+#undef BOOST_FORCEINLINE
 #endif
 
 #define M1(z,n,t) boost::dispatch::meta::as_child(BOOST_PP_CAT(a,n))

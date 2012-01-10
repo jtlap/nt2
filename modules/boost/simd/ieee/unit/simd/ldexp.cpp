@@ -25,7 +25,6 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
-
 NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::ldexp;
@@ -49,7 +48,12 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   for(unsigned int i = 0; i < cardinal_of<vT>::value; ++i)
     {
       std::cout << i << std::endl; 
-      NT2_TEST_EQUAL(boost::simd::ldexp (boost::simd::One<vT>(), boost::simd::Two<ivT>())[i] ,
-		     boost::simd::ldexp (boost::simd::One<T>(), boost::simd::Two<iT>()));
+      NT2_TEST_EQUAL( boost::simd::ldexp( boost::simd::One<vT>()
+                                        , boost::simd::Two<ivT>()
+                                        )[i]
+                    , boost::simd::ldexp( boost::simd::One<T>()
+                                        , boost::simd::Two<iT>()
+                                        )
+                    );
     }
 } // end of test for floating_

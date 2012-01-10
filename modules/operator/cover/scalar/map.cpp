@@ -21,11 +21,10 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
-//COMMENTED
-
+#include <nt2/include/functions/load.hpp>
 
 NT2_TEST_CASE_TPL ( map_integer__2_0,  NT2_INTEGRAL_TYPES)
 {

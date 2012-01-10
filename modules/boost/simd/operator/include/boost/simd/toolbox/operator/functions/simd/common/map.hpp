@@ -27,6 +27,7 @@
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
 #undef BOOST_SIMD_ALIGNED_TYPE
+#undef BOOST_FORCEINLINE
 #endif
 
 #define M0(z,n,t) ((simd_< unspecified_<A##n>, X >))

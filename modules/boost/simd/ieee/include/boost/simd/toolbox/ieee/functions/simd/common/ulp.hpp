@@ -39,14 +39,15 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-        const A0 x = boost::simd::abs(a0);
-        A0 xp = boost::simd::predecessor(x);
-        A0 xs = boost::simd::successor(x); 
-	return if_allbits_else(is_equal(x, Inf<A0>()), boost::simd::min(x-xp, xs - x));
-      }
+    {
+      const A0 x = boost::simd::abs(a0);
+      A0 xp = boost::simd::predecessor(x);
+      A0 xs = boost::simd::successor(x); 
+      return if_allbits_else( is_equal(x, Inf<A0>())
+                            , boost::simd::min(x-xp, xs - x)
+                            );
+    }
   };
 } } }
-
 
 #endif

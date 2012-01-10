@@ -14,10 +14,10 @@
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/core/container/meta/runner.hpp>
+#include <nt2/sdk/meta/runner.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <nt2/core/container/meta/loop_nest.hpp>
+#include <nt2/sdk/meta/loop_nest.hpp>
 
 namespace nt2 { namespace ext
 {

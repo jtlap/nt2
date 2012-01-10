@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_NTHROOT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_NTHROOT_HPP_INCLUDED
+
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -25,9 +26,6 @@
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
@@ -43,10 +41,6 @@ namespace nt2 { namespace ext
   };
 } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nthroot_, tag::cpu_
@@ -64,23 +58,27 @@ namespace nt2 { namespace ext
       A0 y =nt2::pow(x,rec(aa1));
       bA1 nul_a1 = is_eqz(a1);
       A0 a11 = tofloat(a1-select(nul_a1, Mone<A1>(), Zero<A1>())); 
-      y = seladd(logical_or(is_nez(y), nul_a1), y,
-		 - (pow(y, aa1) - x)/(aa1* pow(y, sub(a11, One<A0>()))));
+      y = seladd( logical_or(is_nez(y), nul_a1)
+                , y
+                , -(pow(y, aa1) - x)/(aa1* pow(y, sub(a11, One<A0>())))
+                );
+
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       bA0 invalid = logical_and(is_ltz(a0), is_even(a1)); 
-      return  select(is_eqz(a0),
-		     Zero<A0>(), 
-		     select(invalid,
-			    Nan<A0>(),   
-			    sel(is_eqz(aa1), One<A0>(),  
-				sel(l_or(eq(a1, One<A1>()), is_inf(a0)),
-				    a0,
-				    b_or(y, bitofsign(a0))
-				    )
-				)
-			    )
-		     );
+      return  select( is_eqz(a0),
+                      Zero<A0>(), 
+                      select( invalid,
+                              Nan<A0>(),   
+                              sel ( is_eqz(aa1)
+                                  , One<A0>()
+                                  , sel ( l_or(eq(a1, One<A1>()), is_inf(a0))
+                                        , a0
+                                        , b_or(y, bitofsign(a0))
+                                        )
+                                  )
+                            )
+                    );
     }
   };
 } }

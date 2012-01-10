@@ -13,7 +13,7 @@
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/function.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/meta/is_colon.hpp>
+#include <nt2/sdk/meta/is_colon.hpp>
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/sdk/memory/slice.hpp>

@@ -8,22 +8,11 @@
  ******************************************************************************/
 #ifndef BOOST_SIMD_SDK_MEMORY_PARAMETERS_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_PARAMETERS_HPP_INCLUDED
-//TODO compute alignement according instruction set
-//nosimd -> 0 sse2 -> 16 avx -> 32 altivec ? etc.
-#include <cstddef>
+
 #include <boost/detail/workaround.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Selecting alignment with the extension family
-////////////////////////////////////////////////////////////////////////////////
-#if defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_SSE_FAMILY)
-#define BOOST_SIMD_CONFIG_ALIGNMENT 32
-#elif defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_VMX_FAMILY)
-#define BOOST_SIMD_CONFIG_ALIGNMENT 16
-#else 
-#define BOOST_SIMD_CONFIG_ALIGNMENT 16
-#endif
+#define BOOST_SIMD_CONFIG_ALIGNMENT BOOST_SIMD_BYTES
 
 ////////////////////////////////////////////////////////////////////////////////
 // On g++ before 4.3, alignment can't be more than 16

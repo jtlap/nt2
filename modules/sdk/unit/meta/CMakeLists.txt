@@ -29,6 +29,8 @@ SET( SOURCES
     sign_of.cpp
     strip.cpp
     upgrade.cpp
+    view_at.cpp
+    permute_view.cpp
    )
 
 nt2_module_add_tests(sdk.meta.unit ${SOURCES})

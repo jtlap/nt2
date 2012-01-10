@@ -31,7 +31,7 @@ namespace nt2
       struct invtrig_base<A0,radian_tag,tag::simd_type, float>
       {
         typedef typename meta::as_logical<A0>::type    bA0;
-	typedef typename A0::native_type              A0_n; 
+        typedef typename A0::native_type              A0_n; 
         static inline A0_n asin(const A0_n a0_n)
         {
           const A0 a0 = { a0_n };
@@ -73,21 +73,21 @@ namespace nt2
             }
           z2 = select(lt(a0, -Half<A0>()), Pi<A0>()-z2, z2);
           return select(isgtxh, z2, Pio_2<A0>()-z2);
-          //    return Pi_o_2<A0>()-asin(a0); 
         }
         
         static inline A0_n atan(const A0_n a0_n)
-	{
-	  const A0 a0 = {a0_n};
-	  A0 x  = {kernel_atan(a0)}; 
-	  return b_xor(x, bitofsign(a0));
-	}
+        {
+          const A0 a0 = {a0_n};
+          A0 x  = {kernel_atan(a0)}; 
+          return b_xor(x, bitofsign(a0));
+        }
 
         static inline A0_n kernel_atan(const A0_n a0_n)
         {
-	  const A0 a0 = {a0_n};
+          const A0 a0 = {a0_n};
           const A0 x = nt2::abs(a0);
-	  //here x is positive	  
+
+          //here x is positive
           const bA0 flag1 = lt(x, single_constant<A0, 0x401a827a>()); //tan3pio8);
           const bA0 flag2 = logical_and(ge(x, single_constant<A0, 0x3ed413cd>()), flag1);
           A0 yy =  if_zero_else(flag1, Pio_2<A0>());
@@ -106,7 +106,3 @@ namespace nt2
 }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of f_invtrig.hpp
-// /////////////////////////////////////////////////////////////////////////////

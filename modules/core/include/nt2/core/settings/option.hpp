@@ -19,11 +19,11 @@
 //==============================================================================
 /*!
  * Defines the maximum number of options that can be passed to a composite
- * settings. Thismacro can be set by users if needed. 
+ * settings. This macro can be set by users if needed. 
  **/
 //==============================================================================
 #ifndef NT2_META_MAX_OPTIONS_NB
-#define NT2_META_MAX_OPTIONS_NB 8
+#define NT2_META_MAX_OPTIONS_NB 16
 #endif
 
 namespace nt2 { namespace meta

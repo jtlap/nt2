@@ -28,6 +28,7 @@
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/throw_exception.hpp>
 #include <nt2/include/error.hpp>
 #include <stdexcept>
 #include <cstdio>

@@ -18,7 +18,6 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/constants/sin_2o_2.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 /* ccos (x + I * y) = cos (x) * cosh (y) + I * (sin (x) * sinh (y)) */

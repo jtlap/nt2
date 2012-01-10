@@ -19,7 +19,7 @@
 namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::iterator_;
-  
+
   //============================================================================
   // Construct a terminal from a size
   //============================================================================
@@ -33,13 +33,42 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A1>)
                             )
   {
-    typedef void result_type;
+    typedef typename A0::extent_type    extent_type;
+    typedef typename A0::container_type container_type;
+    typedef void                        result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
-      typedef typename A0::extent_type extent_type;
-      boost::proto::value(a0).resize(extent_type(a1));
+      container_type that((extent_type(a1)));
+      boost::proto::value(a0).swap(that);
+    }
+  };
+
+  //============================================================================
+  // Construct a terminal from a size and some unspecified allocator
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , ((expr_ < unspecified_<A0>
+                                      , nt2::container::domain
+                                      , tag::terminal_
+                                      >
+                              ))
+                              (fusion_sequence_<A1>)
+                              (unspecified_<A2>)
+                            )
+  {
+    typedef typename A0::extent_type    extent_type;
+    typedef typename A0::allocator_type allocator_type;
+    typedef typename A0::container_type container_type;
+    typedef void                        result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0& a0, A1 const& a1, A2 const& a2) const
+    {
+      container_type that((extent_type(a1)),(allocator_type(a2)));
+      boost::proto::value(a0).swap(that);
     }
   };
 
@@ -104,7 +133,7 @@ namespace nt2 { namespace ext
                               ))
                               (fusion_sequence_<A1>)
                               (iterator_< scalar_< arithmetic_<A2> > >)
-                              (iterator_< scalar_< arithmetic_<A3> > >)                              
+                              (iterator_< scalar_< arithmetic_<A3> > >)
                             )
   {
     typedef void result_type;
@@ -123,21 +152,21 @@ namespace nt2 { namespace ext
         >= static_cast<size_t>(std::distance(a2,a3))
       , "Source range is larger than destination container."
       );
-                      
+
       //========================================================================
       // Resize to target extent
       //========================================================================
       typedef typename A0::extent_type extent_type;
-      boost::proto::value(a0).resize(extent_type(a1));      
-      
+      boost::proto::value(a0).resize(extent_type(a1));
+
       //========================================================================
       // copy elementwisely
       //========================================================================
       boost::array<std::size_t,1> pos;
       pos[0] = boost::mpl::at_c<typename A0::index_type::type,0>::type::value;
-      
+
       for(A2 beg_ = a2; beg_ != a3; ++pos[0], ++beg_)
-        boost::proto::value(a0)( pos ) = *beg_;
+        boost::proto::value(a0)[ pos ] = *beg_;
     }
   };
 } }

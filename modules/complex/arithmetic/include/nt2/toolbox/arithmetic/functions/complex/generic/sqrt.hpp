@@ -16,6 +16,7 @@
 #include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_equal.hpp>
+#include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/ldexp.hpp>

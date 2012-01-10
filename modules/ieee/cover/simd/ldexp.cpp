@@ -32,8 +32,6 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
@@ -70,13 +68,13 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  NT2_SIMD_REAL_TYPES)
         vT a0 = load<vT>(&tab_a0[0],j);
         ivT a1 = load<ivT>(&tab_a1[0],j);
         r_t v = ldexp(a0,a1);
-	std::cout << "a0 " << a0 << std::endl;
-	std::cout << "a1 " << a1 << std::endl;   
-	std::cout << "v " << v << std::endl; 
+        std::cout << "a0 " << a0 << std::endl;
+        std::cout << "a1 " << a1 << std::endl;   
+        std::cout << "v " << v << std::endl; 
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-	  std::cout << "(a0[i],a1[i]) =  " << "(" << a0[i] << ", " << a1[i] << ")" << std::endl; 
-
+          std::cout << "(a0[i],a1[i]) =  " << "("
+                    << a0[i] << ", " << a1[i] << ")" << std::endl; 
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::ldexp (a0[i],a1[i])));
         }
       }

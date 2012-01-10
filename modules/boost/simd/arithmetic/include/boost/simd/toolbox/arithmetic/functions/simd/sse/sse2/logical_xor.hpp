@@ -13,11 +13,11 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, boost::simd::tag::sse2_,
-				     (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION
+  ( boost::simd::tag::logical_xor_, boost::simd::tag::sse2_, (A0)
+  , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+    ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+  )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
@@ -26,11 +26,11 @@ namespace boost { namespace simd { namespace ext
                                              genmask<A0>(a1)));
       }
   };
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, boost::simd::tag::sse2_,
-				     (A0)
-                            , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                              ((simd_<logical_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION
+  ( boost::simd::tag::logical_xor_, boost::simd::tag::sse2_, (A0)
+  , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+    ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+  )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
