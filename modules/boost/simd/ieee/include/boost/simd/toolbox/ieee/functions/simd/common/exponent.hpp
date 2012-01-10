@@ -8,20 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EXPONENT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EXPONENT_HPP_INCLUDED
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/properties.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/exponentbits.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/is_invalid.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::exponent_, tag::cpu_
@@ -38,7 +33,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<result_type>::type sint_type;
       const int nmb= int(Nbmantissabits<s_type>());
       const result_type x = shri(exponentbits(a0), nmb);
-      return b_andnot(x-b_and(Maxexponent<A0>(), is_nez(a0)), is_invalid(a0));
+      return if_zero_else( is_invalid(a0), x-if_else_zero(is_nez(a0), Maxexponent<A0>())); 
     }
   };
 } } }

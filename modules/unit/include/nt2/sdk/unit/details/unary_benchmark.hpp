@@ -17,8 +17,8 @@
 #include <nt2/include/functions/store.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/details/type_id.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/memory/allocator.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/memory/allocator.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/if.hpp>
 #include <nt2/sdk/meta/strip.hpp>
@@ -32,18 +32,18 @@ void timing_test( Func callee, size_t size
   typedef typename nt2::meta::scalar_of<T0>::type t_in0;
 
   // Input samples
-  static std::vector<t_in0, nt2::memory::allocator<t_in0> >  in0(size);
-  
+  static std::vector<t_in0, boost::simd::memory::allocator<t_in0> >  in0(size);
+
   // Output samples
   typedef typename nt2::meta::result_of<Func(r_in0)>::type        r_out;
   typedef typename nt2::meta::scalar_of<r_out>::type         scalar_out;
-  typedef typename nt2::meta::strip<scalar_out>::type         strip_out; 
+  typedef typename nt2::meta::strip<scalar_out>::type         strip_out;
   typedef typename boost::mpl::if_< typename boost::is_same< strip_out
                                                            , bool >::type
                                  , typename std::vector< nt2::uint8_t
-                                                       , nt2::memory::allocator<nt2::uint8_t> >
+                                                       , boost::simd::memory::allocator<nt2::uint8_t> >
                                  , typename std::vector< strip_out
-                                                        , nt2::memory::allocator<strip_out> >
+                                                        , boost::simd::memory::allocator<strip_out> >
                                  >::type out_;
   static out_ out(size);
 

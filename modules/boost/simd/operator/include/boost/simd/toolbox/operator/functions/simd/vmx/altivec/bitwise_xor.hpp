@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_BITWISE_XOR_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/simd/toolbox/operator/functions/bitwise_xor.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,9 +22,9 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      A0 other = simd::native_cast<A0>( a1 );
+      A0 other = simd::bitwise_cast<A0>( a1 );
       A0 that = { vec_xor(a0(),other()) };
       return that;
     }

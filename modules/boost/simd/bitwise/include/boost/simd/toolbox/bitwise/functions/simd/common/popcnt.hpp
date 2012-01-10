@@ -9,11 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_POPCNT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_POPCNT_HPP_INCLUDED
 
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/toolbox/bitwise/functions/popcnt.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_notand.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/rem.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/bitwise_notand.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,13 +26,12 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x55>(); //binary: 0101...
       const result_type m2  = boost::simd::integral_constant<result_type,0x33>(); //binary: 00110011..
       const result_type m4  = boost::simd::integral_constant<result_type,0x0f>(); //binary:  4 zeros,  4 ones ...
-      result_type x = simd::native_cast<result_type>(a0);
+      result_type x = simd::bitwise_cast<result_type>(a0);
       x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
       x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits
       x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits
@@ -41,13 +44,12 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x5555555555555555ULL>(); //binary: 0101...
       const result_type m2  = boost::simd::integral_constant<result_type,0x3333333333333333ULL>(); //binary: 00110011..
       const result_type m4  = boost::simd::integral_constant<result_type,0x0f0f0f0f0f0f0f0fULL>(); //binary:  4 zeros,  4 ones ...
-      result_type x = simd::native_cast<result_type>(a0);
+      result_type x = simd::bitwise_cast<result_type>(a0);
       x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
       x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits
       x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits
@@ -63,13 +65,12 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x5555>(); //binary: 0101...
       const result_type m2  = boost::simd::integral_constant<result_type,0x3333>(); //binary: 00110011..
       const result_type m4  = boost::simd::integral_constant<result_type,0x0f0f>(); //binary:  4 zeros,  4 ones ...
-      result_type x = simd::native_cast<result_type>(a0);
+      result_type x = simd::bitwise_cast<result_type>(a0);
       x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
       x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits
       x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits
@@ -83,13 +84,12 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const result_type m1  = boost::simd::integral_constant<result_type,0x55555555>(); //binary: 0101...
       const result_type m2  = boost::simd::integral_constant<result_type,0x33333333>(); //binary: 00110011..
       const result_type m4  = boost::simd::integral_constant<result_type,0x0f0f0f0f>(); //binary:  4 zeros,  4 ones ...
-      result_type x = simd::native_cast<result_type>(a0);
+      result_type x = simd::bitwise_cast<result_type>(a0);
       x -= (shri(x, 1)) & m1;             //put count of each 2 bits into those 2 bits
       x = (x & m2) + (shri(x, 2) & m2); //put count of each 4 bits into those 4 bits
       x = (x + shri(x, 4)) & m4;        //put count of each 8 bits into those 8 bits
@@ -104,10 +104,9 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return popcnt(simd::native_cast<result_type>(a0));
+      return popcnt(simd::bitwise_cast<result_type>(a0));
     }
   };
 } } }

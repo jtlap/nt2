@@ -25,12 +25,12 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      const type tmp=exp(type(a0));
+      const type tmp=nt2::exp(type(a0));
       return (tmp+rec(tmp))*Half<type>();
     }
   };

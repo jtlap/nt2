@@ -8,14 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEGATION_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEGATION_HPP_INCLUDED
-
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/is_gez.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negation_, tag::cpu_
@@ -29,14 +24,7 @@ namespace boost { namespace simd { namespace ext
       return is_nez(a1)*(is_gez(a1)?a0:-a0);
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::negation_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)

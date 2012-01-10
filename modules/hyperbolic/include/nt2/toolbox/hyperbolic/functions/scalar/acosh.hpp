@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
 	if (a0 < One<A0>()) return Nan<A0>();
 	if (a0 == Inf<A0>()) return a0;
 	A0 t = minusone(a0);
-	if (t < 16*Sqrteps<A0>()) return sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160));
+	if (t < 16*Sqrteps<A0>()) return nt2::sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160));
 	return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));
       }
   };

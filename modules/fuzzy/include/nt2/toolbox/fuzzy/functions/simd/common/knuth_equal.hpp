@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_KNUTH_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_KNUTH_EQUAL_HPP_INCLUDED
-
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/toolbox/fuzzy/functions/knuth_equal.hpp>
 #include <nt2/include/functions/bitwise_or.hpp>
 #include <nt2/include/functions/is_equal.hpp>
@@ -30,10 +30,10 @@ namespace nt2 { namespace ext
                               ((simd_<floating_<A0>,X>))
                              )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return b_or( eq(a0, a1)
+      return l_or( eq(a0, a1)
                    , le( dist(a0, a1)
                      , ldexp(a2,
                            exponent(maxnummag(a0, a1))

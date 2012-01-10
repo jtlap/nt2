@@ -9,16 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
-
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/signnz.hpp>
-
 #include <boost/simd/toolbox/ieee/details/math.hpp>
 #include <boost/math/special_functions/sign.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::copysign_, tag::cpu_
@@ -32,20 +27,12 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::abs(a0)*boost::simd::signnz(a1);
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::copysign_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
                             )
   {
-
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
@@ -58,14 +45,7 @@ namespace boost { namespace simd { namespace ext
     #endif
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::copysign_, tag::cpu_
                             , (A0)
                             , (scalar_< single_<A0> >)(scalar_< single_<A0> >)

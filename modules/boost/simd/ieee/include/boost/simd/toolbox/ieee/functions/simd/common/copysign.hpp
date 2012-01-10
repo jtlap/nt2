@@ -30,11 +30,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is unsigned_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::copysign_, tag::cpu_,
                            (A0)(X),
                            ((simd_<unsigned_<A0>,X>))
@@ -48,11 +43,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::copysign_, tag::cpu_,
                            (A0)(X),
                            ((simd_<floating_<A0>,X>))
@@ -62,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(abs(a0), bitofsign(a1));
+      return b_or(boost::simd::abs(a0), bitofsign(a1));
     }
   };
 } } }

@@ -8,16 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_LOAD_HPP_INCLUDED
-
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
+namespace boost { namespace simd { namespace ext
+{
 //==============================================================================
 // load_ without offset
 //==============================================================================
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
@@ -33,13 +32,10 @@ namespace boost { namespace simd { namespace ext
       return *that;
     }
   };
-} } }
 
 //==============================================================================
 // load_ with offset
 //==============================================================================
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(  boost::simd::tag::load_ , tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)

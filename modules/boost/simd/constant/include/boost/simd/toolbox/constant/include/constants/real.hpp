@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_INCLUDE_CONSTANTS_REAL_HPP_INCLUDED
 
 #include <boost/simd/toolbox/constant/include/constants/pi.hpp>
+#include <boost/simd/toolbox/constant/include/constants/pio_2.hpp>
 #include <boost/simd/toolbox/constant/include/constants/inf.hpp>
 #include <boost/simd/toolbox/constant/include/constants/nan.hpp>
 #include <boost/simd/toolbox/constant/include/constants/half.hpp>

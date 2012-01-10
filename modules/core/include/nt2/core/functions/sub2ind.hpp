@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -16,14 +16,14 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   namespace tag { struct sub2ind_ {}; }
 
   //============================================================================
   /*!
    * Determines the linear index equivalents to the specified subscripts for
-   * each dimension of an N-dimensional container of size . 
+   * each dimension of an N-dimensional container of size .
    *
    * \param size Size sequence of target container
    * \param pos  Subscript to convert

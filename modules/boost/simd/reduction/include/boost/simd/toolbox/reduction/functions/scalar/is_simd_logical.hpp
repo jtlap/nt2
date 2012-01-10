@@ -8,17 +8,25 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_IS_SIMD_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_IS_SIMD_LOGICAL_HPP_INCLUDED
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/functions/all.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_simd_logical_, tag::cpu_, (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_<arithmetic_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0 == genmask(a0); }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_simd_logical_, tag::cpu_, (A0)
+                            , (scalar_<logical_<A0> >)
+                            )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return true; }
   };
 } } }
 

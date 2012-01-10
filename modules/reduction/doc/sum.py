@@ -5,7 +5,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::result_of<nt2::meta::arithmetic(sT,sT)>::type',
+             'default' : 'typename boost::common_type<sT,sT>::type',
             },
          'simd_types' : ['real_'],
          'special' : ['reduction'],  
@@ -16,7 +16,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'included' : ['#include <nt2/sdk/meta/logical.hpp>'],
+             'included' : ['#include <nt2/sdk/simd/logical.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },

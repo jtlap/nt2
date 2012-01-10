@@ -25,12 +25,14 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+
 
 
 NT2_TEST_CASE_TPL ( finite_real__1_0,  NT2_REAL_TYPES)
@@ -42,7 +44,7 @@ NT2_TEST_CASE_TPL ( finite_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<finite_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef boost::simd::logical<T> wished_r_t;
 
 
   // return type conformity test 

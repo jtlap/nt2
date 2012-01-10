@@ -9,16 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
-
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
 #include <boost/simd/include/functions/make.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is type16
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::hmsb_, boost::simd::tag::ssse3_,
                        (A0),
                        ((simd_<type16_<A0>,boost::simd::tag::sse_>))
@@ -32,12 +27,10 @@ namespace boost { namespace simd { namespace ext
                                        0x80,0x80,0x80,0x80,0x80,0x80,0x80,0x80
                                      
                                );
-      type8 r = {_mm_shuffle_epi8(native_cast<type8>(a0), mask)};
+      type8 r = {_mm_shuffle_epi8(bitwise_cast<type8>(a0), mask)};
       return _mm_movemask_epi8(r); 
     }
   };
-   
- 
 } } }
 #endif
 #endif

@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_DEFINITELY_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_DEFINITELY_GREATER_HPP_INCLUDED
-
 #include <nt2/include/functions/is_ord.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/bitwise_and.hpp>
+#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -25,10 +26,10 @@ namespace nt2 { namespace ext
                             , (scalar_< integer_<A0> >)(scalar_< integer_<A0> >)(scalar_< integer_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return (a0 > a1+nt2::abs(a2));
+      return result_type(a0 > a1+nt2::abs(a2));
     }
   };
 } }
@@ -44,10 +45,10 @@ namespace nt2 { namespace ext
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)(scalar_< integer_<A2> >)
                             )
   {
-    typedef bool result_type;
-    inline A0 operator()(const A0& a0,const A0& a1, const A2& a2)
+    typedef typename meta::as_logical<A0>::type result_type;
+    inline result_type operator()(const A0& a0,const A0& a1, const A2& a2)
     {
-      return b_and(
+      return logical_and(
                is_ord(a0, a1),
                gt(a0, successor(a1, nt2::abs(a2)))
                );

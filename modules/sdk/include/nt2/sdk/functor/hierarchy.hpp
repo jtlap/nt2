@@ -16,10 +16,10 @@
 #include <nt2/sdk/meta/as.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 
-#include <nt2/sdk/meta/floating.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <nt2/sdk/meta/result_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/type_traits/common_type.hpp>
 
 #include <boost/dispatch/details/ignore_unused.hpp>
 

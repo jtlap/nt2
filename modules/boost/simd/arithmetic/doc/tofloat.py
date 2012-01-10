@@ -8,7 +8,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<boost::dispatch::meta::floating(T)>::type',
+             'default' : 'typename boost::dispatch::meta::as_floating<T>::type',
             },
          'simd_types' : ['real_','uint64_t','int64_t','uint32_t','int32_t'],
          'type_defs' : [],

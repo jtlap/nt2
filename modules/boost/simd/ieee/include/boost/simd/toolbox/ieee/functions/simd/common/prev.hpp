@@ -8,21 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_PREV_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_PREV_HPP_INCLUDED
-#include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/select.hpp>
-#include <boost/simd/include/functions/fast_frexp.hpp>
-#include <boost/simd/include/functions/fast_ldexp.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/functions/subs.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/simd/include/functions/next.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/include/functions/unary_minus.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::prev_, tag::cpu_,
@@ -33,14 +25,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return a0-One<A0>();
+      return subs(a0, One<A0>());
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::prev_, tag::cpu_,
                        (A0)(X),
@@ -50,17 +37,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return b_or(-boost::simd::next(-a0), is_nan(a0));
-//       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
-//       A0 m;
-//       itype expon;
-//       boost::fusion::tie(m, expon) = fast_frexp(a0);
-//       expon =  seladd(iseq(m, Mhalf<A0>()), expon, Mone<itype>());
-//       A0 diff =  fast_ldexp(Mone<A0>(), expon-Nbdigits<A0>());
-//       diff = select(iseqz(diff)||iseqz(a0),  Mindenormal<A0>(), diff);
-//       return a0+diff;
+      return if_nan_else(is_nan(a0), -boost::simd::next(-a0));
     }
   };
 } } }
 #endif
-// modified by jt the 04/01/2011
+

@@ -13,6 +13,7 @@
 #include <cstdlib>
 #include <boost/simd/sdk/memory/forward.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 namespace boost { namespace simd {  namespace memory
 {
@@ -35,7 +36,7 @@ namespace boost { namespace simd {  namespace memory
                         , std::size_t align
                         )
   {
-    boost::dispatch::ignore_unused(nbytes); 
+    boost::dispatch::ignore_unused(nbytes);
     boost::dispatch::ignore_unused(align); 
     #if defined(BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN)
     //==========================================================================

@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( arg_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::dispatch::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -52,53 +52,3 @@ NT2_TEST_CASE_TPL ( arg_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( arg_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-  
-  using boost::simd::arg;
-  using boost::simd::tag::arg_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<arg_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::dispatch::meta::floating(T)>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::One<T>()), boost::simd::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( arg_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-  
-  using boost::simd::arg;
-  using boost::simd::tag::arg_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<arg_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::dispatch::meta::floating(T)>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::Mone<T>()), boost::simd::Pi<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::One<T>()), boost::simd::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
-} // end of test for signed_int_

@@ -34,13 +34,13 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::result_of<meta::floating(A0)>::type type;
+      typedef typename boost::dispatch::meta::as_floating<A0>::type type;
       typedef result_type rtype;
       if (is_ngez(a0)||is_ngez(a1)) return (rtype)Nan<type>();
       if (lt(a0,a1)) return (rtype)Zero<type>();
-      const type n = oneplus(round2even(a0));
-      const type p = round2even(a1);
-      return (rtype)round2even(exp(gammaln(n)-gammaln(n-p)));
+      const type n = type(oneplus(round2even(a0)));
+      const type p = type(round2even(a1));
+      return (rtype)round2even(nt2::exp(gammaln(n)-gammaln(n-p)));
     }
   };
 } }

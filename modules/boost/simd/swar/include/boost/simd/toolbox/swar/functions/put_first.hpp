@@ -14,8 +14,6 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
-#include <boost/simd/sdk/simd/native_cast.hpp>
-
 /*!
  * \ingroup boost_simd_swar
  * \defgroup boost_simd_swar_put_first put_first

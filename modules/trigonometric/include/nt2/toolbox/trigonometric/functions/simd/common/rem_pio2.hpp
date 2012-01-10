@@ -10,19 +10,19 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_REM_PIO2_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/rem_pio2.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
+
 #include <boost/fusion/tuple.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/load.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
                       (A0)(X),
                       ((simd_ < floating_<A0>,X > ))
@@ -55,9 +55,9 @@ namespace nt2 { namespace ext
       typedef typename meta::scalar_of<A0>::type          stype;
       typedef typename meta::scalar_of<result_type>::type itype; 
       static const nt2::uint32_t size = meta::cardinal_of<result_type>::value;
-      NT2_ALIGNED_TYPE(itype) tmp[size];
-      NT2_ALIGNED_TYPE(stype) txr[size];
-      NT2_ALIGNED_TYPE(stype) txc[size];
+      BOOST_SIMD_ALIGNED_TYPE(itype) tmp[size];
+      BOOST_SIMD_ALIGNED_TYPE(stype) txr[size];
+      BOOST_SIMD_ALIGNED_TYPE(stype) txc[size];
       for(nt2::uint32_t i=0; i!=size; ++i)
         tmp[i] =  nt2::rem_pio2(a0[i], txr[i], txc[i]);
 

@@ -11,15 +11,12 @@
 #include <boost/simd/include/functions/trunc.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfix_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
+                        (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -28,17 +25,11 @@ namespace boost { namespace simd { namespace ext
        return boost::simd::rdivide(a0, a1);
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfix_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                            , (scalar_< floating_<A0> >)
+                        (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;

@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_GRAMMAR_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/meta/is_container.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
 #include <boost/dispatch/meta/lambda_terminal.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
 

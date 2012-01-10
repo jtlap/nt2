@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_YNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_YNI_HPP_INCLUDED
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -20,6 +21,7 @@
 #include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 
@@ -80,7 +82,7 @@ namespace nt2 { namespace ext
           ++k;
         }
       while( k < n1 );
-      return b_or(is_ltz(a1),sign*an);
+      return if_nan_else(is_ltz(a1),sign*an);
     }
   };
 } }

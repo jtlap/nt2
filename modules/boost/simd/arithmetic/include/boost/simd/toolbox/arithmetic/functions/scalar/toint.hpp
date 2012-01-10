@@ -9,8 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOINT_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -32,6 +35,7 @@ namespace boost { namespace simd { namespace ext
     {
       if (boost::simd::is_nan(a0))       return Zero<result_type>();
       if (a0 == boost::simd::Inf<A0>())  return boost::simd::Valmax<result_type>();
+      if (a0 == boost::simd::Minf<A0>())  return boost::simd::Valmin<result_type>(); 
       return result_type(a0);
     }
   };

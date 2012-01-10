@@ -44,9 +44,18 @@
     NAME[k] = nt2::random(MIN, MAX);      \
   }                \
 /**/
+
+#define NT2_CREATE_LOGICAL_BUF(NAME, TYPE, SIZE)  \
+  nt2::memory::buffer<TYPE,        \
+          boost::simd::memory::allocator<TYPE> >    \
+  NAME(0, SIZE);            \
+  for(int k = 0; k < int(SIZE); ++k){\
+    NAME[k] = nt2::random(0, 1) ? nt2::True<TYPE>() : False<TYPE>();\
+  }                \
+/**/
 #define NT2_CREATE_BUFFER(NAME, TYPE, SIZE, MIN, MAX)	\
   nt2::memory::buffer<TYPE,        \
-          boost::simd::memory::allocator�<TYPE> >    \
+          boost::simd::memory::allocator<TYPE> >    \
   tab_##NAME(0, SIZE);            \
   for(int k = 0; k < SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \

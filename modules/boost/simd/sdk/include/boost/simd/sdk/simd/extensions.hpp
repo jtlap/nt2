@@ -13,6 +13,7 @@
 // Regular SIMD extensions
 ////////////////////////////////////////////////////////////////////////////////
 #if !defined(BOOST_SIMD_DISABLE_SIMD)
+#include <boost/simd/sdk/simd/extensions/lrb.hpp>
 #include <boost/simd/sdk/simd/extensions/sse.hpp>
 #include <boost/simd/sdk/simd/extensions/altivec.hpp>
 #endif

@@ -27,7 +27,7 @@
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/is_flint.hpp>
 #include <nt2/include/functions/is_ltz.hpp> 
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/functions/signnz.hpp>
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

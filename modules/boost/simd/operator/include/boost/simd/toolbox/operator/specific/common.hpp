@@ -40,6 +40,7 @@ namespace boost { namespace simd { namespace details
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/common.hpp")
 #undef BOOST_SIMD_MAP_LOG
+#undef BOOST_FORCEINLINE
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +83,7 @@ namespace boost { namespace simd { namespace ext                            \
                                                                             \
     BOOST_DISPATCH_CALL(n)                                                  \
     {                                                                       \
-      return boost::simd::map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));  \
+      return map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a) );    \
     }                                                                       \
   };                                                                        \
 } } }                                                                       \

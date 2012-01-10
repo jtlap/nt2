@@ -12,6 +12,13 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/function.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/sdk/meta/is_colon.hpp>
+#include <nt2/dsl/functions/run.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/sdk/memory/slice.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <boost/type_traits/remove_reference.hpp>
@@ -34,7 +41,7 @@ namespace nt2
       that[N::value] = relative_index(boost::fusion::at_c<N::value>(i), p, n);
       reindex( that, i, sz, p, boost::mpl::int_<N::value+1>());
     }
-    
+
     template<class Indexes, class Size, class Position>
     boost::array<std::ptrdiff_t, Size::value>
     reindex( Indexes const& i, Size const& sz, Position const& p )
@@ -69,7 +76,7 @@ namespace nt2
 
       BOOST_FORCEINLINE result_type
       operator()(Expr const& expr, State const& state, Data const& data) const
-      {                  
+      {
         return nt2::run( boost::proto::child_c<0>(expr)
                        , details::reindex ( boost::fusion::pop_front(expr)
                                           , boost::mpl::int_<Arity::value-1>()

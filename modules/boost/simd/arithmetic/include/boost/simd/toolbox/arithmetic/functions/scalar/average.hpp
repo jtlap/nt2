@@ -11,9 +11,6 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/shrai.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::average_, tag::cpu_
@@ -27,17 +24,10 @@ namespace boost { namespace simd { namespace ext
       return b_and(a0, a1)+(shrai(b_xor(a0, a1), 1));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::average_, tag::cpu_
-			      , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                        , (A0)
+                              , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;

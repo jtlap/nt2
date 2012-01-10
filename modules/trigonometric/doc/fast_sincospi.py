@@ -28,7 +28,7 @@
             },
          'simd_types' : ['real_'],
          'special' : ['trigonometric'],
-         'type_defs' : ['typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;'],
+         'type_defs' : ['typedef typename boost::dispatch::meta::as_floating<T>::type ftype;'],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',

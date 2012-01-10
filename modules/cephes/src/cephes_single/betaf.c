@@ -53,7 +53,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 
 #define fabsf(x) ( (x) < 0 ? -(x) : (x) )
 
-#define MAXGAM 34.84425627277176174
+#define MAXGAM 34.84425627277176174f
 
 
 extern float MAXLOGF, MAXNUMF;
@@ -78,12 +78,12 @@ int sign;
 sign = 1;
 a = aa;
 b = bb;
-if( a <= 0.0 )
+if( a <= 0.0f )
 	{
 	if( a == cephes_floorf(a) )
 		goto over;
 	}
-if( b <= 0.0 )
+if( b <= 0.0f )
 	{
 	if( b == cephes_floorf(b) )
 		goto over;
@@ -109,7 +109,7 @@ over:
 	}
 
 y = cephes_gammaf(y);
-if( y == 0.0 )
+if( y == 0.0f )
 	goto over;
 
 if( a > b )

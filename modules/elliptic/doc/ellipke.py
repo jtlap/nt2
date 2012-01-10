@@ -31,7 +31,7 @@
             },
          'simd_types' : ['real_'],
          'type_defs' : 
-            ['typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;',
+            ['typedef typename boost::dispatch::meta::as_floating<T>::type etype;',
              'typedef boost::fusion::tuple<etype,etype> rtype;'],
          'types' : ['real_'],
         },
@@ -69,7 +69,7 @@
          'simd_types' : ['real_'],
          'type_defs' : 
             [   'typedef T scalar;',
-                'typedef typename boost::result_of<nt2::meta::floating(T)>::type etype;',
+                'typedef typename boost::dispatch::meta::as_floating<T>::type etype;',
              'typedef boost::fusion::tuple<etype,etype> rtype;'],
          'types' : ['real_'],
         },

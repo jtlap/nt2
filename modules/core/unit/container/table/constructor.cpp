@@ -18,67 +18,118 @@
 NT2_TEST_CASE( default_ctor )
 {
   using nt2::table;
-  using nt2::extent;
   using nt2::of_size;
 
   table<float> x;
 
-  NT2_TEST( extent(x) == of_size(0) );
+  NT2_TEST( nt2::extent(x) == of_size(0) );
 }
 
 NT2_TEST_CASE( of_size_ctor )
 {
   using nt2::table;
-  using nt2::extent;
   using nt2::of_size;
   using nt2::of_size_;
 
   {
     table<float> x( of_size(2,3) );
-    NT2_TEST( extent(x) == of_size(2,3) );
+    NT2_TEST( nt2::extent(x) == of_size(2,3) );
   }
 
   {
     table<float> x( of_size(2,3,4) );
-    NT2_TEST( extent(x) == of_size(2,3,4) );
+    NT2_TEST( nt2::extent(x) == of_size(2,3,4) );
   }
 
   {
     table<float> x( of_size(2,3,4,5) );
-    NT2_TEST( extent(x) == of_size(2,3,4,5) );
+    NT2_TEST( nt2::extent(x) == of_size(2,3,4,5) );
   }
 
   {
     table<float, of_size_<2,3> > x;
-    NT2_TEST( extent(x) == of_size(2,3) );
+    NT2_TEST( nt2::extent(x) == of_size(2,3) );
   }
 
   {
     table<float, of_size_<2,3,4> > x;
-    NT2_TEST( extent(x) == of_size(2,3,4) );
+    NT2_TEST( nt2::extent(x) == of_size(2,3,4) );
   }
 
   {
     table<float, of_size_<2,3,4,5> > x;
-    NT2_TEST( extent(x) == of_size(2,3,4,5) );
+    NT2_TEST( nt2::extent(x) == of_size(2,3,4,5) );
   }
 }
 
 NT2_TEST_CASE( range_ctor )
 {
   using nt2::table;
-  using nt2::extent;
   using nt2::of_size;
 
   float data[] =  {
                     1,2,3
                   , 4,5,6
                   };
-                                    
+
   table<float> x( of_size(3,2), &data[0], &data[0] + 6 );
-  NT2_TEST( extent(x) == of_size(3,2) );
+  NT2_TEST( nt2::extent(x) == of_size(3,2) );
 
   for(int j=1;j<=2;++j)
    for(int i=1;i<=3;++i)
-      NT2_TEST_EQUAL( x(i,j), data[(i-1) + (j-1)*3]) ;
+      NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
+}
+
+NT2_TEST_CASE( shared_ctor )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::shared_;
+  using nt2::settings;
+  using nt2::no_padding_;
+  using nt2::global_padding_;
+  using nt2::lead_padding_;
+  using nt2::with_;
+  using nt2::share;
+
+  float data[] =  {
+                    1,2,3,0
+                  , 4,5,6,0
+                  , 0,0,0,0
+                  , 0,0,0,0
+                  };
+  {
+    table<float, settings(shared_,no_padding_)>
+    x(of_size(4,2), share(&data[0], &data[0] + 8));
+
+    NT2_TEST( nt2::extent(x) == of_size(4,2) );
+
+    for(int j=1;j<=2;++j)
+     for(int i=1;i<=4;++i)
+        NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
+  }
+
+  {
+    table<float, settings(shared_,lead_padding_(with_<4>))>
+    x(of_size(3,2), share(&data[0], &data[0] + 8));
+
+    NT2_TEST( nt2::extent(x) == of_size(3,2) );
+
+    for(int j=1;j<=2;++j)
+     for(int i=1;i<=3;++i)
+        NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
+  }
+
+  {
+    table < float, settings ( shared_ , global_padding_(with_<16>)
+                                      , lead_padding_(with_<4>)
+                            )
+          > x(of_size(3,2), share(&data[0], &data[0] + 16));
+
+    NT2_TEST( nt2::extent(x) == of_size(3,2) );
+
+    for(int j=1;j<=2;++j)
+     for(int i=1;i<=3;++i)
+        NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
+  }
 }

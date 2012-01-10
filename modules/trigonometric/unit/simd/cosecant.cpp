@@ -26,16 +26,14 @@ extern "C" {extern long double cephes_sinl(long double);}
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 
 
@@ -62,7 +60,7 @@ NT2_TEST_CASE_TPL ( cosecant_real__1_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(-nt2::Pi<vT>()/nt2::splat<vT>(2))[0], nt2::Mone<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(-nt2::Pi<vT>()/nt2::splat<vT>(4))[0], -nt2::Sqrt_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(-nt2::Zero<vT>())[0], nt2::Minf<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(nt2::Mzero<vT>())[0], nt2::Minf<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(nt2::Inf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(cosecant<nt2::medium>(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);

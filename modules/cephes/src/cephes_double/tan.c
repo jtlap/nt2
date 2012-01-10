@@ -81,7 +81,6 @@ yright 1984, 1995, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
-#ifdef UNK
 static double P[] = {
 -1.30936939181383777646E4,
  1.15351664838587416140E6,
@@ -98,86 +97,6 @@ static double DP1 = 7.853981554508209228515625E-1;
 static double DP2 = 7.94662735614792836714E-9;
 static double DP3 = 3.06161699786838294307E-17;
 static double lossth = 1.073741824e9;
-#endif
-
-#ifdef DEC
-static unsigned short P[] = {
-0143514,0113306,0111171,0174674,
-0045214,0147545,0027744,0167346,
-0146210,0177526,0114514,0105660
-};
-static unsigned short Q[] = {
-/*0040200,0000000,0000000,0000000,*/
-0043525,0142457,0072633,0025617,
-0145241,0036742,0140525,0162256,
-0046276,0146176,0013526,0143573,
-0146515,0077401,0162762,0150607
-};
-/*  7.853981629014015197753906250000E-1 */
-static unsigned short P1[] = {0040111,0007732,0120000,0000000,};
-/*  4.960467869796758577649598009884E-10 */
-static unsigned short P2[] = {0030410,0055060,0100000,0000000,};
-/*  2.860594363054915898381331279295E-18 */
-static unsigned short P3[] = {0021523,0011431,0105056,0001560,};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-static double lossth = 1.073741824e9;
-#endif
-
-#ifdef IBMPC
-static unsigned short P[] = {
-0x3f38,0xd24f,0x92d8,0xc0c9,
-0x9ddd,0xa5fc,0x99ec,0x4131,
-0x9176,0xd329,0x1fea,0xc171
-};
-static unsigned short Q[] = {
-/*0x0000,0x0000,0x0000,0x3ff0,*/
-0x6572,0xeeb3,0xb8a5,0x40ca,
-0xbc96,0x582a,0x27bc,0xc134,
-0xd8ef,0xc2ea,0xd98f,0x4177,
-0x5a31,0x3cbe,0xafe0,0xc189
-};
-/*
-  7.85398125648498535156E-1,
-  3.77489470793079817668E-8,
-  2.69515142907905952645E-15,
-*/
-static unsigned short P1[] = {0x0000,0x4000,0x21fb,0x3fe9};
-static unsigned short P2[] = {0x0000,0x0000,0x442d,0x3e64};
-static unsigned short P3[] = {0x5170,0x98cc,0x4698,0x3ce8};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-static double lossth = 1.073741824e9;
-#endif
-
-#ifdef MIEEE
-static unsigned short P[] = {
-0xc0c9,0x92d8,0xd24f,0x3f38,
-0x4131,0x99ec,0xa5fc,0x9ddd,
-0xc171,0x1fea,0xd329,0x9176
-};
-static unsigned short Q[] = {
-0x40ca,0xb8a5,0xeeb3,0x6572,
-0xc134,0x27bc,0x582a,0xbc96,
-0x4177,0xd98f,0xc2ea,0xd8ef,
-0xc189,0xafe0,0x3cbe,0x5a31
-};
-static unsigned short P1[] = {
-0x3fe9,0x21fb,0x4000,0x0000
-};
-static unsigned short P2[] = {
-0x3e64,0x442d,0x0000,0x0000
-};
-static unsigned short P3[] = {
-0x3ce8,0x4698,0x98cc,0x5170,
-};
-#define DP1 *(double *)P1
-#define DP2 *(double *)P2
-#define DP3 *(double *)P3
-static double lossth = 1.073741824e9;
-#endif
 
 #ifdef ANSIPROT
 extern double cephes_polevl ( double, void *, int );

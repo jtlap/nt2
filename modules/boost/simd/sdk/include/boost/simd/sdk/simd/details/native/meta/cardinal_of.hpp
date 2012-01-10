@@ -9,20 +9,23 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_CARDINAL_OF_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_NATIVE_META_CARDINAL_OF_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/native_fwd.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/size_t.hpp>
+#include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
 
-namespace boost { namespace simd { namespace ext
+namespace boost { namespace simd { namespace meta
 {
   ////////////////////////////////////////////////////////////////////////////
   // Overload for SIMD native types
   ////////////////////////////////////////////////////////////////////////////
-  template<class T, class H, class X>
-  struct  cardinal_of_impl<T , dispatch::meta::simd_<H,X> >
-        : boost::mpl::size_t<T::static_size> {};
+  template<class T, class X>
+  struct  cardinal_of< native<T,X> >
+        : boost::mpl::size_t< sizeof(typename meta::as_simd<T,X>::type)/sizeof(T)
+                            ? sizeof(typename meta::as_simd<T,X>::type)/sizeof(T) 
+                            : 1
+                            > 
+  {};
 } } }
 
 #endif
-

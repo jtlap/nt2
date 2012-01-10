@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::j0(result_type(a0));
@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
       typedef typename meta::scalar_of<A0>::type stype;
       if (is_inf(a0)) return Zero<A0>();
       A0 x = nt2::abs(a0);
-      if (x < 1.0e-3f) return oneminus(Quarter<A0>()*sqr(x));
+      //      if (x < 1.0e-3f) return oneminus(Quarter<A0>()*sqr(x));
       if (x <= Two<A0>())
         {
           A0 z = sqr(x);

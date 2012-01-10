@@ -15,8 +15,7 @@
 /// 
 #include <boost/simd/toolbox/reduction/include/functions/all.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -52,12 +51,12 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(all(boost::simd::Inf<vT>()), boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::Minf<vT>()), boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::Mone<vT>()), boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::Nan<vT>()), boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::One<vT>()), boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Inf<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Minf<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Mone<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Nan<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::True<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::False<vT>()), boost::simd::False<sr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( all_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -81,6 +80,8 @@ NT2_TEST_CASE_TPL ( all_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(all(boost::simd::One<vT>()), boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::True<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::False<vT>()),boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::One<vT>()),  boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(all(boost::simd::Zero<vT>()), boost::simd::False<sr_t>());
 } // end of test for integer_

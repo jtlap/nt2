@@ -39,8 +39,6 @@ namespace boost { namespace simd { namespace memory
     // Forwarded types
     ////////////////////////////////////////////////////////////////////////////
     typedef typename parent_data::value_type       value_type;
-    typedef typename parent_data::pointer          pointer;
-    typedef typename parent_data::const_pointer    const_pointer;
     typedef typename parent_data::pointer          iterator;
     typedef typename parent_data::const_pointer    const_iterator;
     typedef typename parent_data::reference        reference;
@@ -104,8 +102,6 @@ namespace boost { namespace simd { namespace memory
     ////////////////////////////////////////////////////////////////////////////
     using parent_data::begin;
     using parent_data::end;
-    using parent_data::first;
-    using parent_data::last;
 
     ////////////////////////////////////////////////////////////////////////////
     // Forward size related methods

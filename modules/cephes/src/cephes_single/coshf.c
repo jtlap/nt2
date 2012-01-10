@@ -70,6 +70,6 @@ if( x > MAXLOGF )
 	return( 1.0f/ZEROF );
 	}	
 y = cephes_expf(x);
-y = y + 1.0/y;
-return( 0.5*y );
+y = y + 1.0f/y;
+return( 0.5f*y );
 }

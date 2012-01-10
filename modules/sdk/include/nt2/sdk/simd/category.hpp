@@ -10,10 +10,12 @@
 #define NT2_SDK_SIMD_CATEGORY_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/category.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace nt2 { namespace ext
 {
   using boost::simd::ext::simd_;
+  using boost::simd::ext::logical_;
 } }
 
 #endif

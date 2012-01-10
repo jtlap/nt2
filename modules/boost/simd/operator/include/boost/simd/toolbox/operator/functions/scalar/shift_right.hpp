@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_SHIFT_RIGHT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_SHIFT_RIGHT_HPP_INCLUDED
-
+#include <boost/simd/toolbox/operator/functions/shift_right.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,10 +26,7 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<result_type>(shift_right(bitwise_cast<itype>(a0),a1));
     }
   };
-} } }
 
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shift_right_ , tag::cpu_
                             , (A0)(A1)
                             , (scalar_< integer_<A0> >)

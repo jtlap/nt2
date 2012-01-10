@@ -56,8 +56,6 @@ namespace nt2 { namespace ext
     typedef typename meta::as_integer<A0>::type result_type;    
     inline result_type operator()(A0 const& t, A0 & xr, A0& xc) const
     {
-      //static int i = 0;
-      //std::cout << "fdlibm_medium_reduction " << i++ << std::endl; 
       A0 fn = nt2::round2even(t*Invpio_2<A0>());
       A0 r  = t-fn*Pio2_1<A0>(); 
       A0 w  = fn*Pio2_1t<A0>(); 
@@ -71,8 +69,6 @@ namespace nt2 { namespace ext
       w  = fn*Pio2_3t<A0>()-((t2-r)-w);
       xr = r-w;
       xc = (r-xr)-w;
-      //std::cout << "medium fn " << fn << std::endl; 
-      //std::cout << "xc  " << xc << std::endl; 
       return  b_and(fast_toint(fn), Three<result_type>());    
     }
   }; 

@@ -18,19 +18,19 @@ SET( SOURCES
     as_unsigned.cpp
     cardinal_of.cpp
     downgrade.cpp
-    floating.cpp
     fusion.cpp
     hierarchy.cpp
     is_result_of_supported.cpp
     is_scalar.cpp
     is_signed.cpp
-    m_arithmetic.cpp
     make_integer.cpp
     make_floating.cpp
     scalar_of.cpp
     sign_of.cpp
     strip.cpp
     upgrade.cpp
+    view_at.cpp
+    permute_view.cpp
    )
 
 nt2_module_add_tests(sdk.meta.unit ${SOURCES})

@@ -8,11 +8,10 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_D_TRIG_EVALUATION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_D_TRIG_EVALUATION_HPP_INCLUDED
+#include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-
-
 
 namespace nt2
 {
@@ -27,7 +26,7 @@ namespace nt2
         typedef typename A0::native_type                            A0_n;
         typedef typename int_type::native_type                     iA0_n;
         
-        static inline A0_n cos_eval(const A0_n z_n)//, const A0&, const A0&)
+        static inline A0_n cos_eval(const A0_n z_n)
         {
           const A0 z = { z_n };
           const A0 y = horner< NT2_HORNER_COEFF_T(stype, 7, (0x3da8ff831ad9b219ll, 
@@ -39,7 +38,7 @@ namespace nt2
                                                             0x3fe0000000000000ll) ) > (z);
           return oneminus(y*z);
         }
-        static inline A0_n sin_eval(const A0_n z_n, const A0& x)//, const A0&)
+        static inline A0_n sin_eval(const A0_n z_n, const A0& x)
         {
           const A0 z = { z_n };
           const A0 y1 = horner< NT2_HORNER_COEFF_T(stype, 6, (0x3de5d8fd1fcf0ec1ll, 

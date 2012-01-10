@@ -14,14 +14,12 @@
 // return value is x-n*y, where n is the value x / y, rounded to -inf.
 /////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::mod_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;

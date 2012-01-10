@@ -8,11 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_HYPOT_HPP_INCLUDED
-#include <boost/simd/include/constants/infinites.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/digits.hpp>
 
+#include <boost/simd/toolbox/arithmetic/functions/hypot.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/sqrt.hpp>
 #include <boost/simd/include/functions/sqr.hpp>
 #include <boost/simd/include/functions/max.hpp>
@@ -20,12 +18,11 @@
 #include <boost/simd/include/functions/exponent.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/bits.hpp>
 #include <boost/simd/include/functions/ldexp.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   template < class T, class I = typename dispatch::meta::as_integer<T, signed>::type>
@@ -61,7 +58,7 @@ namespace boost { namespace simd { namespace ext
                        (scalar_<arithmetic_<A0> >)(scalar_<arithmetic_<A0> >)
                       )
  {
-   typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
+   typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
@@ -71,9 +68,10 @@ namespace boost { namespace simd { namespace ext
 
     static inline float internal(const float& a0, const  float& a1)
       {
-	// flibc do that in ::hypotf(a0, a1) in asm with no more speed!
-	// proper internal is 30% slower
-	return float(boost::simd::sqrt(boost::simd::sqr(double(a0))+boost::simd::sqr(double(a1))));	
+      // flibc does that in ::hypotf(a0, a1) in asm with no more speed!
+      // proper internal is 30% slower
+        return static_cast<float>(::sqrt(boost::simd::sqr(static_cast<double>(a0))+
+                                         boost::simd::sqr(static_cast<double>(a1))));      
       }
     
     template < class AA0>
@@ -101,7 +99,6 @@ namespace boost { namespace simd { namespace ext
       }
       if (eb < hypot_constants<AA0>::MC1())
       {
-
         e = hypot_constants<AA0>::C1();
       }
       if (e)
@@ -120,11 +117,8 @@ namespace boost { namespace simd { namespace ext
       {
         AA0 y1 = b_and(b, hypot_constants<AA0>::M1());
         AA0 y2 = b - y1;
-	//         typedef typename meta::f rom_bits<AA0, unsigned>::type type;
-	//         type that = {bits(a)+hypot_constants<AA0>::C3()};
         typedef typename dispatch::meta::as_integer<AA0, unsigned>::type type;
-        AA0 t1 =  boost::simd::bitwise_cast<AA0>(boost::simd::bitwise_cast<type>(a)+hypot_constants<AA0>::C3());
-	  //        AA0 t1 = that.value;
+        AA0 t1 =  bitwise_cast<AA0>(bitwise_cast<type>(a)+hypot_constants<AA0>::C3());
         AA0 t2 = (a+a) - t1;
         w  = (t1*y1-(w*(-w)-(t1*y2+t2*b)));
       }

@@ -8,16 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_NOTAND_HPP_INCLUDED
-
 #include <boost/simd/toolbox/bitwise/functions/bitwise_notand.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type is arithmetic_ of same size
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF(boost::simd::tag::bitwise_notand_, tag::cpu_,
@@ -28,11 +24,7 @@ namespace boost { namespace simd { namespace ext
                                )
   {
     typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(2)
-    {
-      return bitwise_and(complement(a0), a1);
-    }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return bitwise_and(complement(a0), a1); }
 
   };
 } } }

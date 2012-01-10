@@ -9,9 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_NONE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_NONE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
+#include <boost/simd/include/functions/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,10 +21,11 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type sA0;
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return _mm_test_all_zeros(a0, True<A0>()) ;
+      return result_type(_mm_testz_si128(a0, Allbits<A0>()));
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::none_, boost::simd::tag::sse4_1_,
@@ -31,11 +33,12 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<floating_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef bool result_type;
+    typedef typename meta::scalar_of<A0>::type sA0;
+    typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type iA0; 
-      return none(bitwise_cast<iA0>(a0)) ;
+      return result_type(none(bitwise_cast<iA0>(boost::simd::abs(a0)))) ;
     }
   };
 } } }  

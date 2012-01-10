@@ -35,7 +35,7 @@ NT2_TEST_CASE( integral_subscript )
       for(int j=1;j<=4;j++)
         for(int i=1;i<=5;i++)
         {
-          NT2_TEST_EQUAL( a0(i,j,k,l) , T(ii)); 
+          NT2_TEST_EQUAL( T(a0(i,j,k,l)) , T(ii)); 
           ii++;
         }
   
@@ -55,7 +55,7 @@ NT2_TEST_CASE( integral_subscript )
         ii = 1;
         for(int i=1;i<=5;i++)
         {
-          NT2_TEST_EQUAL( a0(i,j,k,l) , T(ii + 10*jj));
+          NT2_TEST_EQUAL( T(a0(i,j,k,l)) , T(ii + 10*jj));
           ii++;
         }
         jj++;
@@ -80,7 +80,7 @@ NT2_TEST_CASE( integral_subscript )
         ii = 1;
         for(int i=1;i<=5;i++)
         {
-          NT2_TEST_EQUAL( a0(i,j,k,l) , T(ii + 10*jj + 100*kk));
+          NT2_TEST_EQUAL( T(a0(i,j,k,l)) , T(ii + 10*jj + 100*kk));
           ii++;
         }
         jj++;
@@ -101,14 +101,13 @@ NT2_TEST_CASE( integral_subscript )
     for(int k=1;k<=3;k++)
       for(int j=1;j<=4;j++)
         for(int i=1;i<=5;i++)
-          NT2_TEST_EQUAL( a0(i,j,k,l) , T(i + 10*j + 100*k + 1000*l) );
+          NT2_TEST_EQUAL( T(a0(i,j,k,l)) , T(i + 10*j + 100*k + 1000*l) );
 }
 
 NT2_TEST_CASE( integral_subscript_extent )
 {
   using nt2::table;
   using nt2::of_size;
-  using nt2::extent;
   typedef double T;
 
   table<T> a0( of_size(5,4,3,2) );
@@ -233,7 +232,6 @@ NT2_TEST_CASE( colon_subscript_extent )
 {
   using nt2::table;
   using nt2::of_size;
-  using nt2::extent;
   using nt2::_;
   typedef double T;
 

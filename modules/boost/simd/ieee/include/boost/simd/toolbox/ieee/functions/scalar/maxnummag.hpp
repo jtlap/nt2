@@ -8,14 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MAXNUMMAG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MAXNUMMAG_HPP_INCLUDED
-
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/abs.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxnummag_, tag::cpu_
@@ -23,39 +18,28 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return boost::simd::abs(a0) >  boost::simd::abs(a1) ? a0 : a1;
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::maxnummag_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
                             )
   {
-
-    typedef typename dispatch::meta::result_of<dispatch::meta::arithmetic(A0,A0)>::type result_type;
-
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type type;
       if (is_nan(a0))
-	return a1;
+	  return a1;
       else if (is_nan(a1))
-	return a0;
+	  return a0;
       else
-	return boost::simd::abs(a0) > boost::simd::abs(a1) ? a0 : a1;
+	  return boost::simd::abs(a0) > boost::simd::abs(a1) ? a0 : a1;
     }
   };
 } } }

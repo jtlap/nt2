@@ -18,6 +18,13 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
+// Forward-declare logical
+namespace boost { namespace simd
+{
+  template<class T>
+  struct logical;
+} }
+
 ////////////////////////////////////////////////////////////////////////////////
 // AVX extensions overload
 ////////////////////////////////////////////////////////////////////////////////
@@ -33,21 +40,32 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
+  template<>
+  struct as_simd<float, tag::avx_>
+  {
+    typedef __m256 type;
+  };
+  
+  template<>
+  struct as_simd<double, tag::avx_>
+  {
+    typedef __m256d type;
+  };
+  
   template<class T>
-  struct  as_simd<T,tag::avx_>
-        : boost::mpl::if_ < boost::is_integral<T>
-                          , __m256i
-                          , typename  boost::mpl
-                            ::if_ < boost::is_same<T,float>
-                                  , __m256
-                                  , typename  boost::mpl
-                                    ::if_ < boost::is_same<T,double>
-                                        , __m256d
-                                        , dispatch::meta::na_
-                                        >::type
-                                  >::type
-                          >
-  {};
+  struct as_simd<T, tag::avx_>
+    : boost::mpl::if_< boost::is_integral<T>
+                     , __m256i
+                     , dispatch::meta::na_
+                     >
+  {
+  };
+  
+  template<class T>
+  struct as_simd<logical<T>, tag::avx_>
+    : as_simd<T, tag::avx_>
+  {
+  };
 
   //////////////////////////////////////////////////////////////////////////////
   // For a given SIMD register type, return the associated SIMD extension tag

@@ -16,7 +16,7 @@
 namespace nt2 { namespace unit
 {
   template<class RandAccessIter> inline
-  double median(RandAccessIter begin, RandAccessIter end)
+  nt2::details::cycles_t median(RandAccessIter begin, RandAccessIter end)
   {
     std::size_t size = end - begin;
     std::size_t middleIdx = size/2;
@@ -26,18 +26,19 @@ namespace nt2 { namespace unit
     if(size % 2) return *target;
     else
     {
-      double a = *target;
+      nt2::details::cycles_t a = *target;
       RandAccessIter targetNeighbor= target-1;
       std::nth_element(begin, targetNeighbor, end);
-      return (a+*targetNeighbor)/2.0;
+      return (a+*targetNeighbor)/nt2::details::cycles_t(2);
     }
   }
 
   template<class Test> inline
-  double perform_benchmark(Test test, double duration)
+  nt2::details::cycles_t perform_benchmark(Test test, double duration)
   {
-    std::vector<double> timings;
-    double c(0.),t(0.),vt(0.),vc(0.);
+    std::vector<nt2::details::cycles_t> cycles;
+    double c(0.),t(0.),vt(0.);   
+    nt2::details::cycles_t vc;
 
     do
     {
@@ -49,11 +50,10 @@ namespace nt2 { namespace unit
       }
       vt = nt2::details::now() - vt;
       t += vt;
-      timings.push_back(vc);
+      cycles.push_back(vc);
     } while(t < duration);
-
-//    for(int i=0;i<timings.size();++i) std::cout << timings[i] << "\n";
-    return median(timings.begin(),timings.end());
+    
+    return median(cycles.begin(),cycles.end());
   }
 } }
 

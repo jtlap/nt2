@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_SELECT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_SELECT_HPP_INCLUDED
-
 #include <boost/simd/toolbox/bitwise/functions/bitwise_select.hpp>
 #include <boost/simd/include/functions/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
@@ -29,9 +28,7 @@ namespace boost { namespace simd { namespace ext
                      )
   {
     typedef A1 result_type;
-
-    inline result_type
-    operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
+    inline result_type operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
       return b_or(b_and(a1,a0),b_andnot(a2,a0));
     }

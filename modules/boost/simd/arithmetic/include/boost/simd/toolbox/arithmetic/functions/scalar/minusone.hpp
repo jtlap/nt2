@@ -8,26 +8,34 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MINUSONE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MINUSONE_HPP_INCLUDED
-#include <boost/dispatch/meta/as_signed.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-//TODO a minusone saturated
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
-			     (A0),
-			     (scalar_ < arithmetic_<A0> > )
-			     )
+                       (A0),
+                       (scalar_ < arithmetic_<A0> > )
+                       )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return (a0 == Valmin<result_type>()) ? a0 :a0-One<result_type>();
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minusone_, tag::cpu_,
+                       (A0),
+                       (scalar_ < floating_<A0> > )
+                       )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0-One<result_type>();
     }
-  };
+  };  
 } } }
 
 #endif

@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPLEMENT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPLEMENT_HPP_INCLUDED
-
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/bitwise_xor.hpp>
+#include <boost/simd/include/functions/logical_xor.hpp>
 #include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/allbits.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,8 +21,19 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return b_xor(boost::simd::True<A0>(), a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return b_xor(boost::simd::Allbits<A0>(), a0); }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::complement_, tag::cpu_, (A0)(X)
+                            , ((simd_<logical_<A0>,X>))
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) {
+      return logical_xor(boost::simd::True<A0>(), a0);
+    }
+  };
+
+  
 } } }
 
 #endif

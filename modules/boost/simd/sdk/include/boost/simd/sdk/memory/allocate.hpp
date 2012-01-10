@@ -49,7 +49,7 @@ namespace boost { namespace simd {  namespace memory
     //==========================================================================
     if(posix_memalign(&result, align, nbytes))
     {
-      BOOST_THROW_EXCEPTION( std::bad_alloc() );
+      boost::throw_exception( std::bad_alloc() );
       result = 0;
     }
     #elif defined (_MSC_VER)
@@ -58,7 +58,7 @@ namespace boost { namespace simd {  namespace memory
     //==========================================================================
     if( !(result = _aligned_malloc(nbytes, align) ) )
     {
-      BOOST_THROW_EXCEPTION( std::bad_alloc() );
+      boost::throw_exception( std::bad_alloc() );
       result = 0;
     }
     #else
@@ -69,7 +69,7 @@ namespace boost { namespace simd {  namespace memory
     const std::size_t fix = ~(std::size_t(align-1));
     if( !(base = std::malloc(nbytes+align+sizeof(void*))) )
     {
-      BOOST_THROW_EXCEPTION( std::bad_alloc() );
+      boost::throw_exception( std::bad_alloc() );
       result = 0;
     }
     else

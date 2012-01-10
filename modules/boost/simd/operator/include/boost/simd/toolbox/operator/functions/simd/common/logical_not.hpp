@@ -9,9 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_NOT_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/toolbox/operator/functions/logical_not.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/include/functions/mask2logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,13 +22,18 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return is_eqz(a0); }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<logical_<A0>,X>))
 
-    typedef A0 result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return boost::simd::eq(a0,Zero<A0>());
-    }
+                            )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return mask2logical(complement(genmask(a0))); }
   };
 } } }
 

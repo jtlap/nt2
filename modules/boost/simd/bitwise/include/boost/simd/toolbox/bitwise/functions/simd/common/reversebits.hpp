@@ -8,15 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_REVERSEBITS_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+
+#include <boost/simd/toolbox/bitwise/functions/reversebits.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/constants/int_splat.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int8_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
@@ -25,14 +27,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::integral_constant;
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
-      utype v = native_cast<utype>(a0);
+      utype v = bitwise_cast<utype>(a0);
       const utype m1  = integral_constant<utype,0x55>(); //binary: 0101...
       const utype m2  = integral_constant<utype,0x33>(); //binary: 00110011..
       const utype m4  = integral_constant<utype,0x0f>(); //binary:  4 zeros,  4 ones ...
@@ -42,31 +40,20 @@ namespace boost { namespace simd { namespace ext
       v = (shri(v, 2) & m2) | shli((v & m2), 2);
       // swap nibbles ...
       v = (shri(v, 4) & m4) | shli((v & m4), 4);
-      return native_cast<A0>(v);
+      return bitwise_cast<A0>(v);
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int64_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int64_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::integral_constant;
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
-      utype v = native_cast<utype>(a0);
+      utype v = bitwise_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555555555555555ull>(); //binary: 0101...
       const result_type m2  = integral_constant<result_type,0x3333333333333333ull>(); //binary: 00110011..
       const result_type m4  = integral_constant<result_type,0x0f0f0f0f0f0f0f0full>(); //binary:  4 zeros,  4 ones ...
@@ -85,31 +72,23 @@ namespace boost { namespace simd { namespace ext
       v = (shri(v, 16) & m16) | shli((v & m16), 16);
       // swap ints ...
       v = (shri(v, 32) & m32) | shli((v & m32), 32);
-      return native_cast<A0>(v);
+      return bitwise_cast<A0>(v);
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int16_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int16_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       using boost::simd::integral_constant;
-      using boost::simd::native_cast;
+      using boost::simd::bitwise_cast;
 
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
-      utype v = native_cast<utype>(a0);
+      utype v = bitwise_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x5555>(); //binary: 0101...
       const result_type m2  = integral_constant<result_type,0x3333>(); //binary: 00110011..
       const result_type m4  = integral_constant<result_type,0x0f0f>(); //binary:  4 zeros,  4 ones ...
@@ -122,31 +101,20 @@ namespace boost { namespace simd { namespace ext
       v = (shri(v, 4) & m4) | shli((v & m4), 4);
       // swap bytes ...
       v = (shri(v, 8) & m8) | shli((v & m8), 8);
-      return native_cast<A0>(v);
+      return bitwise_cast<A0>(v);
       }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int32_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reversebits_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<int32_<A0>,X>))
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      using boost::simd::integral_constant;
-      using boost::simd::native_cast;
-
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type utype;
-      utype v = native_cast<utype>(a0);
+      utype v = bitwise_cast<utype>(a0);
       const result_type m1  = integral_constant<result_type,0x55555555>(); //binary: 0101...
       const result_type m2  = integral_constant<result_type,0x33333333>(); //binary: 00110011..
       const result_type m4  = integral_constant<result_type,0x0f0f0f0f>(); //binary:  4 zeros,  4 ones ...
@@ -162,7 +130,7 @@ namespace boost { namespace simd { namespace ext
       v = (shri(v, 8) & m8) | shli((v & m8), 8);
       // swap shorts ...
       v = (shri(v, 16) & m16) | shli((v & m16), 16);
-      return native_cast<A0>(v);
+      return bitwise_cast<A0>(v);
       }
   };
 } } }

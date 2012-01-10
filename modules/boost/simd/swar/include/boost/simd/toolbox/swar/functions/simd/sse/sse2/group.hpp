@@ -14,7 +14,6 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 // TODO no float no int8_
 #define BOOST_SIMD_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
@@ -37,8 +36,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef result_type rtype;
       typedef typename dispatch::meta::as_integer<rtype>::type itype;
-      rtype r = simd::native_cast<rtype>(_mm_slli_si128(simd::native_cast<itype >(_mm_cvtpd_ps(a1)), 8));
-      return b_or(r, simd::native_cast<rtype>(_mm_cvtpd_ps(a0)));
+      rtype r = simd::bitwise_cast<rtype>(_mm_slli_si128(simd::bitwise_cast<itype >(_mm_cvtpd_ps(a1)), 8));
+      return b_or(r, simd::bitwise_cast<rtype>(_mm_cvtpd_ps(a0)));
     }
   };
 
@@ -60,7 +59,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      return simd::native_cast<rtype>(_mm_packs_epi32(a0, a1));
+      return simd::bitwise_cast<rtype>(_mm_packs_epi32(a0, a1));
     }
   };
 
@@ -112,7 +111,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      return simd::native_cast<rtype>(_mm_packs_epi16(a0, a1));
+      return simd::bitwise_cast<rtype>(_mm_packs_epi16(a0, a1));
     }
   };
 
@@ -134,10 +133,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      rtype r = simd::native_cast<rtype > (_mm_set_epi16(a1[3], a1[2], a1[1], a1[0], a0[3], a0[2], a0[1], a0[0]));  
+      rtype r = simd::bitwise_cast<rtype > (_mm_set_epi16(a1[3], a1[2], a1[1], a1[0], a0[3], a0[2], a0[1], a0[0]));  
       //	make<rtype>( a0[0], a0[1], a0[2], a0[3], a1[0], a1[1], a1[2], a1[3] );
       return r; 
-      //      return simd::native_cast<rtype>(_mm_packus_epi32(a0, a1)); //_mm_packus_epi32 pas existe avant sse4.1
+      //      return simd::bitwise_cast<rtype>(_mm_packus_epi32(a0, a1)); //_mm_packus_epi32 pas existe avant sse4.1
     }
   };
 
@@ -159,7 +158,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      return simd::native_cast<rtype>(_mm_packus_epi16(a0, a1));
+      return simd::bitwise_cast<rtype>(_mm_packus_epi16(a0, a1));
     }
   };
 
@@ -181,9 +180,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type rtype;
-      rtype b = {_mm_slli_si128(simd::native_cast<rtype>(a1),4)};// works only for int64 that are int32 representable
+      rtype b = {_mm_slli_si128(simd::bitwise_cast<rtype>(a1),4)};// works only for int64 that are int32 representable
       b = b_or(b, a0);
-      return simd::native_cast<rtype>(_mm_shuffle_epi32(b, BOOST_SIMD_SH(0, 2, 1, 3)));
+      return simd::bitwise_cast<rtype>(_mm_shuffle_epi32(b, BOOST_SIMD_SH(0, 2, 1, 3)));
     }
   };
 } } }

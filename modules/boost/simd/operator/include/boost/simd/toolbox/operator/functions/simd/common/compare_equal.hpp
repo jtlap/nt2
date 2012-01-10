@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_EQUAL_HPP_INCLUDED
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -18,14 +19,14 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef bool result_type;
-
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef logical<sA0> result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       bool that = true;
       for(std::size_t i=0;i<boost::simd::meta::cardinal_of<A0>::value;++i)
         that = that && (a0[i] == a1[i]);
-      return that;
+      return result_type(that);
     }
   };
 } } }

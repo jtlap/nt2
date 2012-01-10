@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_GREATER_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_GREATER_EQUAL_HPP_INCLUDED
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/compare_less.hpp>
-
+#include <boost/dispatch/meta/scalar_of.hpp>
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::compare_greater_equal_,
@@ -18,8 +19,9 @@ namespace boost { namespace simd { namespace ext
                                      ((simd_<arithmetic_<A0>,X>))
                                    )
   {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return !compare_less(a0, a1); }
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(!compare_less(a0, a1)); }
   };
 } } }
 

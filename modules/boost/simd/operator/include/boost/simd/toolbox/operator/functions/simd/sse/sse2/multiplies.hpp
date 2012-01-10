@@ -12,7 +12,6 @@
 
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/constants/digits.hpp>

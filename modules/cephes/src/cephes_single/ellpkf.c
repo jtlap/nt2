@@ -109,10 +109,10 @@ double xx;
 float x;
 
 x = xx;
-if( (x < 0.0) || (x > 1.0) )
+if( (x < 0.0f) || (x > 1.0f) )
 	{
 	cephes_mtherr( "ellpkf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
 if( x > MACHEPF )
@@ -121,14 +121,14 @@ if( x > MACHEPF )
 	}
 else
 	{
-	if( x == 0.0 )
+	if( x == 0.0f )
 		{
 		cephes_mtherr( "ellpkf", SING );
 		return( MAXNUMF );
 		}
 	else
 		{
-		return( C1 - 0.5 * cephes_logf(x) );
+		return( C1 - 0.5f * cephes_logf(x) );
 		}
 	}
 }

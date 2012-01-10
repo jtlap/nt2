@@ -13,25 +13,50 @@
 #include <nt2/include/functions/construct.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
-#include <nt2/core/container/table/table_container.hpp>
+#include <nt2/core/container/table/adapted/table.hpp>
+
+namespace nt2 { namespace meta
+{
+  template<class Tag, class T, class S>
+  struct make_container
+  {
+    typedef typename meta::option<S, tag::id_, id_<0> >::type   id_t;
+    typedef memory::container<Tag,id_t,T,S>                     type;
+  };
+
+  template<class Tag, class T, class S>
+  struct make_terminal
+  {
+    typedef typename make_container<Tag,T,S>::type                    cont_t;
+    typedef typename boost::dispatch::meta::terminal_of<cont_t>::type type;
+  };
+} }
 
 namespace nt2 { namespace container
 {
-  template<class Type, class Settings>
-  struct table
-       : boost::dispatch::
-         meta::terminal_of< table_container<Type,Settings> >::type
+  template<class T, class S>
+  struct  table
+        : meta::make_terminal<tag::table_,T,S>::type
   {
-    typedef typename
-            boost::dispatch::meta::
-            terminal_of< table_container<Type,Settings> >::type parent;
-    typedef typename parent::extent_type                        extent_type;
-    typedef typename parent::index_type                         index_type;
+    typedef typename meta::make_container<tag::table_,T,S>::type  container_type;
+    typedef typename meta::make_terminal<tag::table_,T,S>::type   parent;
+    typedef typename container_type::extent_type                  extent_type;
+    typedef typename container_type::index_type                   index_type;
+    typedef typename container_type::allocator_type               allocator_type;
 
     //==========================================================================
     //  table default constructor
     //==========================================================================
     table() {}
+
+    //==========================================================================
+    //  table constructor from its allocator
+    //==========================================================================
+    table( allocator_type const& a)
+    {
+      container_type that(a);
+      boost::proto::value(*this).swap(that);
+    }
 
     //==========================================================================
     // table copy constructor
@@ -42,8 +67,7 @@ namespace nt2 { namespace container
     // table constructor from a single initializer.
     // This version handles initializing from of_size or expression.
     //==========================================================================
-    template<class A0>
-    table( A0 const& a0 )
+    template<class A0> table( A0 const& a0 )
     {
       nt2::construct(*this,a0);
     }
@@ -51,8 +75,7 @@ namespace nt2 { namespace container
     //==========================================================================
     // table constructor from a pair of initializer.
     //==========================================================================
-    template<class A0, class A1>
-    table( A0 const& a0, A1 const& a1 )
+    template<class A0, class A1> table( A0 const& a0, A1 const& a1 )
     {
       nt2::construct(*this,a0,a1);
     }
@@ -76,10 +99,11 @@ namespace nt2 { namespace container
     // Non-content preserving resize.
     //==========================================================================
     template<class Size> void resize( Size const& sz )
-    {    
+    {
       boost::proto::value(*this).resize(extent_type(sz));
-    }    
+    }
   };
 } }
 
 #endif
+

@@ -28,12 +28,13 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::negif;
   using boost::simd::tag::negif_;
+  using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<negif_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::call<negif_(logical<T>,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type wished_r_t;
+  typedef typename boost::common_type<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -44,12 +45,12 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(negif(T(0),T(1)), 1);
-  NT2_TEST_EQUAL(negif(T(1),T(1)), -1);
-  NT2_TEST_EQUAL(negif(boost::simd::Inf<T>(),T(1)), -1);
-  NT2_TEST_EQUAL(negif(boost::simd::Minf<T>(),T(1)), -1);
-  NT2_TEST_EQUAL(negif(boost::simd::Nan<T>(),T(1)), -1);
-  NT2_TEST_EQUAL(negif(boost::simd::Zero<T>(),T(1)), 1);
+  NT2_TEST_EQUAL(negif(logical<T>(T(0)),T(1)), 1);
+  NT2_TEST_EQUAL(negif(logical<T>(T(1)),T(1)), -1);
+  NT2_TEST_EQUAL(negif(logical<T>(boost::simd::Inf<T>()),T(1)), -1);
+  NT2_TEST_EQUAL(negif(logical<T>(boost::simd::Minf<T>()),T(1)), -1);
+  NT2_TEST_EQUAL(negif(logical<T>(boost::simd::Nan<T>()),T(1)), -1);
+  NT2_TEST_EQUAL(negif(logical<T>(boost::simd::Zero<T>()),T(1)), 1);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -57,12 +58,13 @@ NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   
   using boost::simd::negif;
   using boost::simd::tag::negif_;
+  using boost::simd::logical; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<negif_(T,T)>::type r_t;
+  typedef typename boost::dispatch::meta::call<negif_(logical<T>,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type wished_r_t;
+  typedef typename boost::common_type<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -73,7 +75,6 @@ NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(negif(T(0),T(1)), 1);
-  NT2_TEST_EQUAL(negif(T(1),T(1)), -1);
-  NT2_TEST_EQUAL(negif(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(negif(logical<T>(T(0)),T(1)), 1);
+  NT2_TEST_EQUAL(negif(logical<T>(T(1)),T(1)), -1);
 } // end of test for signed_int_

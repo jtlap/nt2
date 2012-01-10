@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -46,11 +46,11 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(boost::simd::Inf<T>(), boost::simd::Inf<T>()), false);
-  NT2_TEST_EQUAL(compare_less(boost::simd::Minf<T>(), boost::simd::Minf<T>()), false);
-  NT2_TEST_EQUAL(compare_less(boost::simd::Nan<T>(), boost::simd::Nan<T>()), false);
-  NT2_TEST_EQUAL(compare_less(boost::simd::One<T>(),boost::simd::Zero<T>()), false);
-  NT2_TEST_EQUAL(compare_less(boost::simd::Zero<T>(), boost::simd::Zero<T>()), false);
+  NT2_TEST_EQUAL(compare_less(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::Minf<T>(), boost::simd::Minf<T>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::Nan<T>(), boost::simd::Nan<T>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::One<T>(),boost::simd::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(boost::simd::One<T>(), boost::simd::One<T>()), false);
-  NT2_TEST_EQUAL(compare_less(boost::simd::One<T>(),boost::simd::Zero<T>()), false);
-  NT2_TEST_EQUAL(compare_less(boost::simd::Zero<T>(), boost::simd::Zero<T>()), false);
+  NT2_TEST_EQUAL(compare_less(boost::simd::One<T>(), boost::simd::One<T>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::One<T>(),boost::simd::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(false));
 } // end of test for integer_

@@ -67,7 +67,7 @@
 //       return boost::simd::load<A0>(&tmp1[0], 0);
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int64_t mask = _mm_movemask_epi8(is_lt(a1, N));
-// //       return simd::native_cast<A0>(_mm_blendv_epi8(a0, mask));
+// //       return simd::bitwise_cast<A0>(_mm_blendv_epi8(a0, mask));
 //     }
 //   };
 // } } }
@@ -101,8 +101,8 @@
 // //       typedef typename dispatch::meta::as_floating<A0>::type real_type;
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int32_t mask = _mm_movemask_ps(is_lt(a1, N));
-// //       real_type tmp = {simd::native_cast<real_type>(a0)}; 
-// //       return simd::native_cast<A0>(_mm_blend_ps(tmp, mask));
+// //       real_type tmp = {simd::bitwise_cast<real_type>(a0)}; 
+// //       return simd::bitwise_cast<A0>(_mm_blend_ps(tmp, mask));
 //     }
 //   };
 // } } }
@@ -136,7 +136,7 @@
 // //       typedef typename dispatch::meta::as_floating<A0>::type real_type;
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int32_t mask = _mm_movemask_pd(is_lt(a1, N));
-// //       return simd::native_cast<A0>(_mm_blend_pd(simd::native_cast<real_type>(a0), mask));
+// //       return simd::bitwise_cast<A0>(_mm_blend_pd(simd::bitwise_cast<real_type>(a0), mask));
 //     }
 //   };
 // } } }
@@ -163,7 +163,7 @@
 //     {
 //       const int32_t N = meta::cardinal_of<A0>::value;
 //       int32_t mask = _mm_movemask_epi16(is_lt(a1, N));
-//       return simd::native_cast<A0>(_mm_blend_epi16(a0, mask));
+//       return simd::bitwise_cast<A0>(_mm_blend_epi16(a0, mask));
 //     }
 //   };
 // } } }

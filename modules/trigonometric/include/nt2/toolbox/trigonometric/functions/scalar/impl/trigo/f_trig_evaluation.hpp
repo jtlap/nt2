@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_F_TRIG_EVALUATION_HPP_INCLUDED
-
+#include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -28,12 +28,12 @@ namespace nt2
       struct trig_evaluation{
 //   	static inline A0 cos_eval(const A0&, const A0&, const A0&)
 // 	{
-// 	  nt2::assert("you cannot be here"); //std::cout << "icitte " << style::value << std::endl;
+// 	  nt2::assert("you cannot be here"); 
 // 	  exit(1); 
 // 	}       
 //   	static inline A0 sin_eval(const A0&, const A0&, const A0&)
 // 	{
-// 	  nt2::assert("you cannot be here"); //std::cout << "icitte " << style::value << std::endl;
+// 	  nt2::assert("you cannot be here"); 
 // 	  exit(1); 
 // 	}       
       };

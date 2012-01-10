@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -119,9 +119,9 @@ namespace nt2 { namespace ext
       if( x <= 8.0 )
       {
         A0 y = x*Half<A0>() - Two<A0>();
-        return( exp(x) * tchebeval( y, A) );
+        return( nt2::exp(x) * tchebeval( y, A) );
       }
-      return(  exp(x) * tchebeval( 32.0/x - 2.0, B) / sqrt(x) );
+      return(  nt2::exp(x) * tchebeval( 32.0/x - 2.0, B) / nt2::sqrt(x) );
     }
   };
 } }
@@ -137,9 +137,7 @@ namespace nt2 { namespace ext
                             , (scalar_< single_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       /* Chebyshev coefficients for exp(-x) I0(x)

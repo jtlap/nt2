@@ -8,26 +8,20 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TOINT_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/toint.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is integer_
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::toint_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<integer_<A0>,X>))
                             )
   {
-
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return a0;
-    }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
+
+
 } } }
 
 #endif

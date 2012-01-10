@@ -24,16 +24,15 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
+
 #include <nt2/include/functions/load.hpp>
 
 
@@ -44,7 +43,7 @@ NT2_TEST_CASE_TPL ( two_prod_real__2_0,  NT2_SIMD_REAL_TYPES)
   using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;
+  typedef typename boost::dispatch::meta::as_floating<T,T>::type r0_t;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;

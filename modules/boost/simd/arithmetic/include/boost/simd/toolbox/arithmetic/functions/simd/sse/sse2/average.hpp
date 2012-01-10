@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_AVERAGE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_AVERAGE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/arithmetic/functions/average.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
 #include <boost/simd/include/functions/bitwise_xor.hpp>
@@ -36,11 +35,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint16_t
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
                           (A0),
                           ((simd_<uint16_<A0>,boost::simd::tag::sse_>))
@@ -51,14 +45,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
-      //     A0 that = {_mm_avg_epu16(a0,a1)}; return that; //(a+b + 1) >> 1;
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint8_t
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
                           (A0),
@@ -70,14 +58,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return b_and(a0, a1)+shrai(b_xor(a0, a1),1);
-      //     A0 that = {_mm_avg_epu8(a0,a1)}; return that; //  (a+b + 1) >> 1;
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::average_, boost::simd::tag::sse2_,
                           (A0),

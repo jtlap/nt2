@@ -47,9 +47,7 @@ namespace nt2 { namespace ext
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return cscpi(Oneo_180<result_type>()*a0);

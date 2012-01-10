@@ -35,7 +35,7 @@ if(NT2_HAS_VMX_SUPPORT)
   check_cxx_compiler_flag("-maltivec" HAS_GCC_VMX)
 
   if(HAS_GCC_VMX)
-    set(NT2_SIMD_FLAGS "-maltivec")
+    set(NT2_SIMD_FLAGS "-maltivec -Uvector")
   else()
     set(NT2_SIMD_FLAGS "-DBOOST_SIMD_HAS_VMX_SUPPORT")
   endif()

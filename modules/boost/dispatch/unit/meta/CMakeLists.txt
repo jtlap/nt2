@@ -17,12 +17,10 @@ SET( SOURCES
     as_signed.cpp
     as_unsigned.cpp
     downgrade.cpp
-    floating.cpp
     fusion.cpp
     hierarchy.cpp
     is_scalar.cpp
     is_signed.cpp
-    m_arithmetic.cpp
     make_integer.cpp
     make_floating.cpp
     scalar_of.cpp

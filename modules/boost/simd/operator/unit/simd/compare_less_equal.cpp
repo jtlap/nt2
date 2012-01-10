@@ -50,11 +50,11 @@ NT2_TEST_CASE_TPL ( compare_less_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), true);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), true);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), true);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>()), false);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), true);
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(), boost::simd::Inf<vT>()), r_t(true));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Minf<vT>(), boost::simd::One<vT>()), r_t(true));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), r_t(true));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Zero<vT>(), boost::simd::One<vT>()), r_t(true));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_less_equal_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -78,10 +78,10 @@ NT2_TEST_CASE_TPL ( compare_less_equal_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRA
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Mone<vT>(),boost::simd::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(), boost::simd::One<vT>()), true);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>()), false);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), true);
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Mone<vT>(),boost::simd::Zero<vT>()), r_t(true));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(), boost::simd::One<vT>()), r_t(true));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), r_t(true));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( compare_less_equal_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
@@ -105,7 +105,7 @@ NT2_TEST_CASE_TPL ( compare_less_equal_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIG
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(), boost::simd::One<vT>()), true);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>()), false);
-  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), true);
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(), boost::simd::One<vT>()), r_t(true));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::One<vT>(),boost::simd::Zero<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_less_equal(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), r_t(true));
 } // end of test for unsigned_int_

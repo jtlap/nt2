@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -179,7 +179,7 @@ namespace nt2 { namespace ext
       return ::_y1f(a0);
     #elif defined(NT2_TOOLBOX_BESSEL_HAS_Y1F)
       return ::y1f(a0);
-    #else
+    #elif 0 // TODO: fix single-precision implementation
        typedef typename meta::scalar_of<A0>::type stype;
        if (is_ltz(a0)) return Nan<float>();
        if (is_eqz(a0)) return Minf<float>();
@@ -222,6 +222,8 @@ namespace nt2 { namespace ext
                          0x3ebfffdd
                          ) ) > (w)-single_constant<float,0x4016cbe4 > ();
            return p3*nt2::cos(xn+x);
+    #else
+      return float(y1(double(a0)));
     #endif
     }
   };

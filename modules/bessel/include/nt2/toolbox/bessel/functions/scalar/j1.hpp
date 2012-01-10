@@ -22,7 +22,7 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/splat.hpp>
 
 #include <nt2/toolbox/bessel/details/math.hpp>
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
                               ) ) > (z);
         }
       A0 q = rec(x);
-      A0 w = sqrt(q);
+      A0 w = nt2::sqrt(q);
       A0 p3 = w *
         horner< NT2_HORNER_COEFF_T(A0, 8,
                            (0x3d8d98f9,

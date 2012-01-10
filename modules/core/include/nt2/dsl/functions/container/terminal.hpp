@@ -16,6 +16,7 @@
 #include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/core/container/category.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig>
     struct result;
-      
+
     template<class This, class A0_, class State_, class Data_>
     struct result<This(A0_, State_, Data_)>
     {
@@ -60,7 +61,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig>
     struct result;
-    
+
     template<class This, class A0_, class State_, class Data_>
     struct result<This(A0_, State_, Data_)>
     {
@@ -74,10 +75,10 @@ namespace nt2 { namespace ext
     typename result<implement(A0_&, State const&, Data const&)>::type
     operator()(A0_& a0, State const& state, Data const&) const
     {
-       return boost::proto::value(a0)(state);
+       return boost::proto::value(a0)[state];
     }
   };
-  
+
   //============================================================================
   // table terminal with a position in scalar write mode
   //============================================================================
@@ -90,7 +91,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig>
     struct result;
-      
+
     template<class This, class A0_, class State_, class Data_>
     struct result<This(A0_, State_, Data_)>
     {
@@ -104,7 +105,7 @@ namespace nt2 { namespace ext
     typename result<implement(A0_&, State const&, Data const&)>::type
     operator()(A0_& a0, State const& state, Data const& data) const
     {
-       return boost::proto::value(a0)(state) = data;
+       return boost::proto::value(a0)[state] = data;
     }
   };
 
@@ -123,10 +124,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
-      return load<result_type>(&boost::proto::value(a0)(state));
+      return load<result_type>(&boost::proto::value(a0)[state]);
     }
   };
-  
+
   //============================================================================
   // table terminal with a position in SIMD write mode
   //============================================================================
@@ -143,7 +144,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0_& a0, State const& state, Data const& data) const
     {
-      return store(data, &boost::proto::value(a0)(state));
+      return store(data, &boost::proto::value(a0)[state]);
     }
   };
 
@@ -159,7 +160,7 @@ namespace nt2 { namespace ext
   {
     template<class Sig>
     struct result;
-      
+
     template<class This, class A0_, class State_, class Data_>
     struct result<This(A0_, State_, Data_)>
     {

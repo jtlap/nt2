@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_FUZZY_DEFINITELY_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_FUZZY_DEFINITELY_GREATER_HPP_INCLUDED
-
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/toolbox/fuzzy/functions/fuzzy_definitely_greater.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/plus.hpp>
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
                                            ((simd_<arithmetic_<A0>,X>))
                                           )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
       return gt(a0,a1+max(abs(a0),abs(a1))*a2);

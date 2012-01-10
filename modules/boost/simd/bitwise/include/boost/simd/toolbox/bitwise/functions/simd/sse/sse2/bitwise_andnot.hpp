@@ -22,13 +22,12 @@ namespace boost { namespace simd { namespace ext
                               )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer< A0 >::type int_type;
-      A0     that = { simd::native_cast<A0>
-                      ( _mm_andnot_si128( simd::native_cast<int_type>(a1)
-                                        , simd::native_cast<int_type>(a0)
+      A0     that = { bitwise_cast<A0>
+                      ( _mm_andnot_si128( simd::bitwise_cast<int_type>(a1)
+                                        , simd::bitwise_cast<int_type>(a0)
                                         )
                       )
                     };
@@ -42,7 +41,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm_andnot_pd(a1, a0)};
@@ -56,7 +54,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 that = {_mm_andnot_ps(a1, a0)};

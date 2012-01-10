@@ -15,7 +15,7 @@
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_invalid.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -49,14 +49,14 @@ NT2_TEST_CASE_TPL ( is_invalid_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_invalid(-boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::Half<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::Inf<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::Minf<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::Mone<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::Nan<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::One<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::Quarter<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::Two<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_invalid(boost::simd::Zero<vT>())[0]!=0, boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(-boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::Half<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::Inf<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::Minf<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::Mone<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::Nan<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::One<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::Quarter<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::Two<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_invalid(boost::simd::Zero<vT>())[0], boost::simd::False<sr_t>());
 } // end of test for floating_

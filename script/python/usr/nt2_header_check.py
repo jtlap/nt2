@@ -5,11 +5,11 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
+from __future__ import print_function
 
 __author__    = "Pyry Jahkola (pyry.jahkola@iki.fi)"
 __license__   = "Boost Software License, Version 1.0"
 
-from __future__ import print_function
 
 from os import walk, listdir
 from os.path import dirname, basename, sep, normpath, isdir, isfile, join

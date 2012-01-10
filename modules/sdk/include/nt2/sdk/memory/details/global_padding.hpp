@@ -16,7 +16,7 @@
 #include <nt2/sdk/memory/slice.hpp>
 #include <nt2/sdk/memory/stride.hpp>
 #include <nt2/sdk/meta/fusion.hpp>
-#include <nt2/sdk/memory/align_on.hpp>
+#include <boost/simd/sdk/memory/align_on.hpp>
 #include <nt2/sdk/memory/details/no_padding.hpp>
 #include <nt2/sdk/functor/preprocessor/call.hpp>
 
@@ -49,7 +49,9 @@ namespace nt2 { namespace ext
     typedef A2        arg2;
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
-    ( true_case, memory::align_on( slice<1>(s,memory::no_padding()), 0UL ) );
+    ( true_case
+    , boost::simd::memory::align_on( slice<1>(s,memory::no_padding()), 0UL )
+    );
 
     BOOST_TYPEOF_NESTED_TYPEDEF_TPL
     ( false_case , slice<arg2::value>(s,memory::no_padding()) );
@@ -71,7 +73,7 @@ namespace nt2 { namespace ext
     inline result_type 
     eval(A0 const& a0, std::size_t p,boost::mpl::true_ const&) const
     {
-      return memory::align_on( slice<1>(a0,memory::no_padding()), p );
+      return boost::simd::memory::align_on(slice<1>(a0,memory::no_padding()),p);
     }
 
     ////////////////////////////////////////////////////////////////////////////
