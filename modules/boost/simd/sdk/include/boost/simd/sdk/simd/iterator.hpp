@@ -25,16 +25,16 @@ namespace boost { namespace simd
   struct  iterator
         : public  boost
                   ::iterator_adaptor< iterator<T,C>
-                                    , typename pack<T,C>::data_type const *
+                                    , typename pack<T,C>::data_type*
                                     , pack<T,C>
                                     , boost::random_access_traversal_tag
-                                    , pack<T,C>
+                                    , pack<T,C>&
                                     >
   {
     private:
     struct enabler {};
 
-    typedef pack<T,C> const * pack_type;
+    typedef pack<T,C>* pack_type;
     typedef typename pack<T,C>::data_type native_type;
 
     public:
