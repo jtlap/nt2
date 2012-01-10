@@ -8,8 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  is_included_c.cpp
-  is_included.cpp
   genmask.cpp
   twopower.cpp
   shri.cpp

@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+  is_included_c.cpp
+  is_included.cpp
   is_simd_logical.cpp
   none.cpp
   at_i.cpp
