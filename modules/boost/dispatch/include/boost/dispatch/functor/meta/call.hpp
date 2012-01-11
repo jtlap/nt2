@@ -61,7 +61,7 @@ namespace boost { namespace dispatch { namespace meta
 #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
   template<class Tag, class... Args, class Site>
   struct call<Tag(Args...),Site>
-        : meta::result_of<functor<Tag,typename mpl::eval_if< is_same<Site, void>, default_site<Site>, Site>::type>(Args...)>
+        : meta::result_of<functor<Tag,typename mpl::eval_if< is_same<Site, void>, default_site<Tag>, Site>::type>(Args...)>
   {};
 #else
 
@@ -75,7 +75,7 @@ namespace boost { namespace dispatch { namespace meta
 #define M0(z,n,t) \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site> \
 struct call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site> \
-: meta::result_of<functor<Tag, typename mpl::eval_if< is_same<Site, void>, default_site<Site>, Site>::type>(BOOST_PP_ENUM_PARAMS(n,A))> \
+: meta::result_of<functor<Tag, typename mpl::eval_if< is_same<Site, void>, default_site<Tag>, Site>::type>(BOOST_PP_ENUM_PARAMS(n,A))> \
 {}; \
 /**/
 
