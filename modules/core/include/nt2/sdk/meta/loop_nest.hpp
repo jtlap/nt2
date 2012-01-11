@@ -51,7 +51,7 @@ namespace nt2 { namespace meta
         std::ptrdiff_t obound = olow
                               + boost::fusion::fold
                                 ( boost::fusion::pop_front(sz)
-                                , value_type(1)
+                                , std::size_t(1)
                                 , functor<tag::multiplies_>()
                                 );
 

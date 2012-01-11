@@ -27,8 +27,12 @@ macro(nt2_module_source_setup module)
   
   set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${NT2_BINARY_DIR}/lib)
-  set(LIBRARY_OUTPUT_PATH_DEBUG ${NT2_BINARY_DIR}/lib)
-  set(LIBRARY_OUTPUT_PATH_RELEASE ${NT2_BINARY_DIR}/lib)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH})
   
   include_directories(${NT2_${NT2_CURRENT_MODULE_U}_INCLUDE_DIR})
   link_directories(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARY_DIR})
@@ -114,7 +118,7 @@ endfunction()
 macro(nt2_module_set_build_type BUILD_TYPE)
   if(CMAKE_CONFIGURATION_TYPES)
     set(OLD_CONFIGURATION_TYPES ${CMAKE_CONFIGURATION_TYPES})
-    set(CMAKE_CONFIGURATION_TYPES ${BUILD_TYPE})
+    set(CMAKE_CONFIGURATION_TYPES ${BUILD_TYPE} CACHE STRING "" FORCE)
   else()
     set(OLD_BUILD_TYPE ${CMAKE_BUILD_TYPE})
     set(CMAKE_BUILD_TYPE ${BUILD_TYPE})
@@ -123,7 +127,7 @@ endmacro()
 
 macro(nt2_module_restore_build_type)
   if(CMAKE_CONFIGURATION_TYPES)
-    set(CMAKE_CONFIGURATION_TYPES ${OLD_CONFIGURATION_TYPES})
+    set(CMAKE_CONFIGURATION_TYPES ${OLD_CONFIGURATION_TYPES} CACHE STRING "" FORCE)
   else()
     set(CMAKE_BUILD_TYPE ${OLD_BUILD_TYPE})
   endif()
@@ -134,17 +138,44 @@ macro(nt2_module_dir dir)
       add_custom_target(${NT2_CURRENT_MODULE}.${dir})
       set_property(TARGET ${NT2_CURRENT_MODULE}.${dir} PROPERTY FOLDER ${dir})
       nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
-      
+
       if(${dir} STREQUAL bench)
         set(BUILD_TYPE NT2Bench)
       else()
         set(BUILD_TYPE NT2Test)
       endif()
-      
+
       nt2_module_set_build_type(${BUILD_TYPE})
+      project(${NT2_CURRENT_MODULE}.${dir}) # would be better in directory
       add_subdirectory(${dir})
       nt2_module_restore_build_type()
     endif()
+endmacro()
+
+macro(nt2_configure_tests)
+  if(CMAKE_GENERATOR MATCHES "Make")
+    set(NT2_WITH_TESTS_ 1)
+  else()
+    set(NT2_WITH_TESTS_ 0)
+  endif()
+  option(NT2_WITH_TESTS "Enable benchmarks and unit tests" ${NT2_WITH_TESTS_})
+  option(NT2_WITH_TESTS_FULL "Use one executable per test" OFF)
+  option(NT2_WITH_TESTS_BENCH "Register benchmarks with ctest" OFF)
+  option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
+  set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST} CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
+
+  if(NT2_WITH_TESTS)
+    enable_testing()
+    include(CTest)
+
+    foreach(target bench unit cover)
+      get_target_property(${target}_exists ${target} EXCLUDE_FROM_ALL)
+      if(${target}_exists MATCHES "NOTFOUND$")
+        add_custom_target(${target})
+        set_property(TARGET ${target} PROPERTY FOLDER ${target})
+      endif()
+    endforeach()
+  endif()
 endmacro()
 
 macro(nt2_module_main module)
@@ -165,20 +196,8 @@ macro(nt2_module_main module)
   set(NT2_CURRENT_MODULE ${module})
   nt2_module_use_modules(${module})
   
-  if(CMAKE_GENERATOR MATCHES "Make")
-    set(NT2_WITH_TESTS_ 1)
-  else()
-    set(NT2_WITH_TESTS_ 0)
-  endif()
-  option(NT2_WITH_TESTS "Enable benchmarks and unit tests" ${NT2_WITH_TESTS_})
-  option(NT2_WITH_TESTS_FULL "Use one executable per test" OFF)
-  option(NT2_WITH_TESTS_BENCH "Register benchmarks with ctest" OFF)
-  option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
-  set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST} CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
-
+  nt2_configure_tests()
   if(NT2_WITH_TESTS)
-    enable_testing()
-    
     nt2_module_dir(bench)
     nt2_module_dir(examples)
     nt2_module_dir(unit)
@@ -195,34 +214,41 @@ endmacro()
 
 macro(nt2_module_add_library libname)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
-  
+
   if(${libname} MATCHES "_d$")
     set(BUILD_TYPE Debug)
-  else()
+  elseif(NOT CMAKE_CONFIGURATION_TYPES)
     nt2_module_add_library("${libname}_d" ${ARGN})
     set(BUILD_TYPE Release)
   endif()
-  
+
   if(DEFINED NT2_USE_STATIC_LIBS AND NOT DEFINED NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
     set(NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS NT2_USE_STATIC_LIBS)
   endif()
 
+  set(library_keyword)
   if(DEFINED NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
     if(NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
-      nt2_add_library(${BUILD_TYPE} ${libname} SHARED ${ARGN})
+      set(library_keyword SHARED)
       set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK 1)
     else()
-      nt2_add_library(${BUILD_TYPE} ${libname} STATIC ${ARGN})
+      set(library_keyword STATIC)
     endif()
   else()
-    nt2_add_library(${BUILD_TYPE} ${libname} ${ARGN})
     set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK ${BUILD_SHARED_LIBS})
+  endif()
+
+  if(NOT CMAKE_CONFIGURATION_TYPES)
+    nt2_add_library(${BUILD_TYPE} ${libname} ${library_keyword} ${ARGN})
+  else()
+    add_library(${libname} ${library_keyword} ${ARGN})
+    set_property(TARGET ${libname} PROPERTY OUTPUT_NAME_DEBUG "${libname}_d")
   endif()
 
   set_property(TARGET ${libname} PROPERTY VERSION 3.0.0)
   set_property(TARGET ${libname} PROPERTY SOVERSION 3)
   set_property(TARGET ${libname} PROPERTY FOLDER lib)
-  
+
   if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
     string(REPLACE "." "_" macro_name ${NT2_CURRENT_MODULE_U})
   else()
@@ -233,14 +259,14 @@ macro(nt2_module_add_library libname)
     set(FLAGS "${FLAGS} -D${macro_name}_DYN_LINK")
   endif()
   set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
-  
+
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     install( DIRECTORY ${NT2_BINARY_DIR}/lib
              DESTINATION . COMPONENT ${NT2_CURRENT_MODULE}
              FILES_MATCHING PATTERN "*${libname}.*"
            )
   endif()
-  
+
 endmacro()
 
 macro(nt2_module_use_modules)
@@ -272,6 +298,17 @@ macro(nt2_module_add_exe name)
   set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
   set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/${suffix})
+
+  set(BUILD_TYPE)
+  if(suffix STREQUAL unit OR suffix STREQUAL cover)
+    set(BUILD_TYPE NT2TEST)
+  elseif(suffix STREQUAL bench)
+    set(BUILD_TYPE NT2BENCH)
+  endif()
+  if(BUILD_TYPE)
+    set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY_${BUILD_TYPE} ${NT2_BINARY_DIR}/${suffix})
+  endif()
+
   nt2_module_target_parent(${name})
   
 endmacro()
@@ -321,7 +358,7 @@ macro(nt2_module_add_tests name)
       if(NOT suffix STREQUAL bench OR NT2_WITH_TESTS_BENCH)
         if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
           add_test(${prefix}.${basename}-${suffix} /bin/sh -c
-                   "scp \"${NT2_BINARY_DIR}/${suffix}/${CMAKE_CFG_INTDIR}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
+                   "scp \"${NT2_BINARY_DIR}/${suffix}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
                   )
         else()
           add_test(${prefix}.${basename}-${suffix} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})

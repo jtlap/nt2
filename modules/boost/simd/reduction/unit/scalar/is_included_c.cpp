@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <boost/simd/toolbox/bitwise/include/functions/is_included_c.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/is_included_c.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>

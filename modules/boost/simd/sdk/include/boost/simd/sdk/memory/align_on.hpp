@@ -11,7 +11,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
@@ -67,6 +66,15 @@ namespace boost { namespace simd
       return callee(a0,boost::mpl::int_<N>());
     }
   }
+} }
+
+namespace boost { namespace dispatch
+{
+  template<>
+  struct default_site< boost::simd::tag::align_on_, void >
+  {
+    typedef tag::cpu_ type;
+  };
 } }
 
 #include <boost/simd/sdk/memory/details/align_on.hpp>

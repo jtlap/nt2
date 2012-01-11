@@ -93,13 +93,14 @@ namespace nt2 { namespace details
     }
 
     //==========================================================================
-    // Force a static assert if a statically sized container is resized
+    // Force a static assert if a statically sized container is resized with
+    // a size not compatible with its own
     //==========================================================================
     template<class Size> static inline
     void resize( block_t&, Size const&, sizes_type&, boost::mpl::true_ const&)
     {
       BOOST_MPL_ASSERT_MSG
-      ( (sizeof(Size) == 0)
+      ( (boost::is_same<Size,sizes_type>::value)
       , STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY
       , (Size)
       );
