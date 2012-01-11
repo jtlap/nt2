@@ -33,9 +33,9 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type       result_type;
-    typedef typename meta::as_integer<result_type>::type itype; 
     NT2_FUNCTOR_CALL(1)
     {
+    typedef typename meta::as_integer<result_type>::type itype; 
       //      return hypot(real(a0),imag(a0));
       result_type r =  nt2::abs(real(a0));
       result_type i =  nt2::abs(imag(a0));

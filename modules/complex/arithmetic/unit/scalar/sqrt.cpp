@@ -25,6 +25,8 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/dry.hpp>
 
 NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
@@ -37,6 +39,7 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename nt2::meta::as_dry<T>::type dT;
   typedef cT wished_r_t;
 
 
@@ -65,6 +68,12 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
    std::complex < T > b(nt2::Zero<T>(), nt2::Inf<T>());
    
    NT2_TEST_EQUAL(nt2::sqrt(nt2::pure(b)), cT(nt2::Inf<T>(), nt2::Inf<T>()));
-   
+   dT aa = dT(nt2::One<T>());
+   dT bb = dT(nt2::Mone<T>());   
+   std::cout << nt2::sqrt(aa) << std::endl;
+   std::cout << nt2::sqrt(bb) << std::endl;
+   typename nt2::meta::as_real<dT>::type bbb = bb;
+   std::cout << nt2::sqrt(nt2::real(aa)) << std::endl;
+   std::cout << nt2::sqrt(nt2::real(bb)) << std::endl;   
 } // end of test for floating_
 

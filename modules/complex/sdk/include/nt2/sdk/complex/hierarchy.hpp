@@ -39,12 +39,25 @@ namespace boost { namespace dispatch { namespace meta
     typedef complex_< typename property_of<typename nt2::meta::real_of<T>::type, T>::type > parent;
   };
   
+  template<class T>
+  struct dry_ : dry_<typename T::parent>
+  {
+    typedef dry_<typename T::parent>  parent;
+  };
+
+  template<class T>
+  struct dry_< unspecified_<T> > : complex_< typename property_of<typename nt2::meta::real_of<T>::type, T>::type >
+  {
+    typedef complex_< typename property_of<typename nt2::meta::real_of<T>::type, T>::type > parent;
+  };
+    
 } } }
 
 namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::complex_;
   using boost::dispatch::meta::imaginary_;
+  using boost::dispatch::meta::dry_; 
 } }
 
 #endif

@@ -6,37 +6,40 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_COMPLEX_IMAGINARY_HPP_INCLUDED
-#define NT2_SDK_COMPLEX_IMAGINARY_HPP_INCLUDED
+#ifndef NT2_SDK_COMPLEX_DRY_HPP_INCLUDED
+#define NT2_SDK_COMPLEX_DRY_HPP_INCLUDED
 
-#include <nt2/sdk/complex/details/imaginary/meta.hpp>
-#include <nt2/sdk/complex/details/imaginary/native.hpp>
-
+#include <nt2/sdk/complex/details/dry/meta.hpp>
+#include <nt2/sdk/complex/details/dry/native.hpp>
 
 namespace nt2
 {
   template<class T>
-  struct imaginary
+  struct dry
   {
     typedef T type;
     T value;
     
-    imaginary() {}
-    explicit imaginary(T const& value_) : value(value_){ }
-    bool operator == (const imaginary<T>&a) const{return value == a.value; }
-    bool operator != (const imaginary<T>&a) const{return value != a.value; }
+    dry() {}
+    explicit dry(T const& value_) : value(value_)
+    {
+    }
+     operator T () const {return value; }
+     operator T&()       {return value; }
+    bool operator == (const dry<T>&a) const{return value == a.value; }
+    bool operator != (const dry<T>&a) const{return value != a.value; }
     
     T&       operator()()       { return value; }
     T const& operator()() const { return value; }
   };
-  ////////////////////////////////////////////////////////////////////////////
-  // Stream insertion for imaginary<T>
+    ////////////////////////////////////////////////////////////////////////////
+  // Stream insertion for dry<T>
   ////////////////////////////////////////////////////////////////////////////
   template<class T>
   BOOST_DISPATCH_FORCE_INLINE
-  std::ostream& operator<<(std::ostream& os, imaginary<T> const& v )
+  std::ostream& operator<<(std::ostream& os, dry<T> const& v )
   {
-    return os << v() << "*i";
+    return os << "(" << v() << ", 0)";
   }
 }
 
