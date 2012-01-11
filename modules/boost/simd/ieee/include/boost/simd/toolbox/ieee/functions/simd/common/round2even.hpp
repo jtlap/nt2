@@ -21,13 +21,14 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, tag::cpu_, (A0)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
+                            , ((simd_<integer_<A0>,X>))
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
+#ifndef BOOST_SIMD_NO_SIMD
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, tag::cpu_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
@@ -37,16 +38,14 @@ namespace boost { namespace simd { namespace ext
     {
       const result_type v   = boost::simd::abs(a0);
       const result_type t2n = boost::simd::Twotonmb<A0>();
-      const result_type d0  = fight_overoptimization(v, t2n);
-      const result_type d   = fight_overoptimization(d0, -t2n);
+      const result_type d0  = v+t2n;
+      const result_type d   = d0-t2n;
       const result_type d1  = if_else(lt(v,t2n),d,v);
       return (d1^bitofsign(a0));
     }
-  private :
-    result_type fight_overoptimization(const result_type& t1,
-                                       const result_type& t2)const
-    { return t1+t2; }
   };
+#endif
+
 } } }
 
 #endif
