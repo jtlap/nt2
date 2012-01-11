@@ -39,7 +39,7 @@ if(UNIX AND NOT CMAKE_CROSSCOMPILING)
     set(COMPILER "${COMPILER}${COMPILER_VERSION}")
   endif()
 
-  if(NOT NT2_SIMD_EXT)
+  if(NOT DEFINED NT2_SIMD_EXT)
     set(OLD_MODULE_PATH ${CMAKE_MODULE_PATH})
     set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules/boost/simd/sdk/cmake)
     include(nt2.simd)
