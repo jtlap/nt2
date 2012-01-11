@@ -171,7 +171,7 @@ namespace nt2 { namespace container { namespace ext
   #undef M3
 
   template<class Expr, class Domain, int N>
-  struct size<tag::function_, Domain, N, Expr>
+  struct size_of<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::
     child_c<Expr, 0>::type                             child0;

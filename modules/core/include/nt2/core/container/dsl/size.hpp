@@ -36,12 +36,13 @@ namespace nt2 { namespace container
      *
     **/
     //==========================================================================
-    template<class Tag, class Domain, int Arity, class Expr> struct size;
+    template<class Tag, class Domain, int Arity, class Expr> struct size_of;
 
     //==========================================================================
     // Terminal size is stored as a reference to the terminal value size
     //==========================================================================
-    template<class Tag, class Domain, class Expr> struct size<Tag,Domain,0,Expr>
+    template<class Tag, class Domain, class Expr>
+    struct size_of<Tag,Domain,0,Expr>
     {
       typedef typename boost::proto::result_of::value<Expr&>::type  value_type;
       typedef typename meta::call<tag::extent_(value_type)>::type   result_type;
@@ -60,7 +61,7 @@ namespace nt2 { namespace container
      **/
     //==========================================================================
     template<class Domain>
-    struct size_transform : details::trait_transform< ext::size, Domain >
+    struct size_transform : details::trait_transform< ext::size_of, Domain >
     {};
 } }
 

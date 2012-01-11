@@ -16,11 +16,11 @@ namespace nt2 { namespace container { namespace ext
 {
   // size is that of right-hand side
   template<class Domain, class Expr>
-  struct size<boost::proto::tag::assign, Domain, 2, Expr>
+  struct size_of<boost::proto::tag::assign, Domain, 2, Expr>
   {
     typedef typename boost::proto::result_of::
     child_c<Expr&, 1>::type                         child1;
-    
+
     typedef typename size_transform<Domain>::template
     result<size_transform<Domain>(child1)>::type    result_type;
 
@@ -30,7 +30,7 @@ namespace nt2 { namespace container { namespace ext
       return size_transform<Domain>()(boost::proto::child_c<1>(e));
     }
   };
-  
+
 } } }
 
 #endif
