@@ -16,6 +16,7 @@
 #include <nt2/toolbox/arithmetic/include/functions/sqrt.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/pure.hpp>
+#include <nt2/include/functions/plus.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -72,8 +73,10 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
    dT bb = dT(nt2::Mone<T>());   
    std::cout << nt2::sqrt(aa) << std::endl;
    std::cout << nt2::sqrt(bb) << std::endl;
-   typename nt2::meta::as_real<dT>::type bbb = bb;
+   typename nt2::meta::as_real<dT>::type bbb(real(bb));
    std::cout << nt2::sqrt(nt2::real(aa)) << std::endl;
-   std::cout << nt2::sqrt(nt2::real(bb)) << std::endl;   
+   std::cout << nt2::sqrt(nt2::real(bb)) << std::endl;
+   std::cout <<  nt2::plus(aa, T(1)) << std::endl;
+   std::cout <<  nt2::plus(nt2::sqrt(bb), aa)<< std::endl;
 } // end of test for floating_
 
