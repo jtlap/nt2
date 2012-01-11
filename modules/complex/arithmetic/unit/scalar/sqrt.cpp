@@ -70,7 +70,9 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
    
    NT2_TEST_EQUAL(nt2::sqrt(nt2::pure(b)), cT(nt2::Inf<T>(), nt2::Inf<T>()));
    dT aa = dT(nt2::One<T>());
-   dT bb = dT(nt2::Mone<T>());   
+   dT bb = dT(nt2::Mone<T>());
+   dT cc =    nt2::Mone<dT>();
+   std::cout << cc<< std::endl;
    std::cout << nt2::sqrt(aa) << std::endl;
    std::cout << nt2::sqrt(bb) << std::endl;
    typename nt2::meta::as_real<dT>::type bbb(real(bb));
