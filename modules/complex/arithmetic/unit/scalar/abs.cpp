@@ -35,6 +35,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename std::complex<T> cT;
+  typedef typename nt2::meta::as_imaginary<T>::type ciT; 
   typedef T wished_r_t;
 
 
@@ -59,5 +60,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(nt2::abs(a), nt2::One<T>());
    std::complex < T > b(3, 4);
    NT2_TEST_EQUAL(nt2::abs(b), nt2::Five<T>());
+   std::cout << nt2::One<cT>() << std::endl;
+   std::cout << nt2::One<ciT>() << std::endl;
 } // end of test for floating_
 

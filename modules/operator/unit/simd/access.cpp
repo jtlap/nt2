@@ -13,6 +13,7 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/unaligned_load.hpp>
 #include <nt2/include/functions/unaligned_store.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
 
 #include <boost/mpl/int.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

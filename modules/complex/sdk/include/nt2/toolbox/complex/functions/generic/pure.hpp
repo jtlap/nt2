@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_PURE_HPP_INCLUDED
 #define NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_PURE_HPP_INCLUDED
+#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/toolbox/complex/functions/pure.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
@@ -22,7 +23,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& ) const
     {
-      return result_type(Zero<A0>()); //TODO this must return a constant of result_type
+      return Zero<result_type>();
     }
   };
   

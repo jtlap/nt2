@@ -43,10 +43,8 @@ include(nt2.package)
 
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 include(NT2Module)
+nt2_configure_tests()
 nt2_postconfigure_init()
-
-enable_testing()
-include(CTest)
 
 ################################################################################
 # Module inclusion
@@ -122,4 +120,4 @@ nt2_postconfigure_run()
 ################################################################################
 # Post-config message
 ################################################################################
-INCLUDE(nt2.directive) 
+include(nt2.directive)

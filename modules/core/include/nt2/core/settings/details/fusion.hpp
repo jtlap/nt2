@@ -180,7 +180,7 @@ namespace nt2 { namespace details
     return (details::safe_at_c<0>(a1) == details::safe_at_c<0>(a2) );
   }
 
-  template<typename A1, typename A2, std::ptrdiff_t N> BOOST_FORCEINLINE
+  template<typename A1, typename A2, long N> BOOST_FORCEINLINE
   bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<N> const&)
   {
     return (details::safe_at_c<N>(a1) == details::safe_at_c<N>(a2) )
@@ -199,7 +199,7 @@ namespace nt2 { namespace details
     return (details::safe_at_c<0>(a1) != details::safe_at_c<0>(a2) );
   }
 
-  template<typename A1, typename A2, std::ptrdiff_t N> BOOST_FORCEINLINE
+  template<typename A1, typename A2, long N> BOOST_FORCEINLINE
   bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<N> const&)
   {
     return (details::safe_at_c<N>(a1) != details::safe_at_c<N>(a2) )

@@ -51,7 +51,7 @@ namespace nt2 { namespace container
     template<class Tag, class Domain, int Arity, class Expr> struct generator
     {
       typedef typename value_type<Tag, Domain, Arity, Expr>::type   value_type;
-      typedef typename size<Tag, Domain, Arity, Expr>::result_type  extent_type;
+      typedef typename size_of<Tag,Domain,Arity,Expr>::result_type  extent_type;
       typedef typename meta::strip<extent_type>::type               size_type;
 
       typedef typename boost::mpl::
@@ -71,7 +71,7 @@ namespace nt2 { namespace container
 
       BOOST_FORCEINLINE result_type operator()(Expr& e) const
       {
-        return result_type(e, size<Tag, Domain, Arity, Expr>()(e));
+        return result_type(e, size_of<Tag, Domain, Arity, Expr>()(e));
       }
     };
   }

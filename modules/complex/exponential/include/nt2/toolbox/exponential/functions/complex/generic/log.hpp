@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return arg(a0); 
+      return result_type(arg(a0)); 
     }
   };
 } }

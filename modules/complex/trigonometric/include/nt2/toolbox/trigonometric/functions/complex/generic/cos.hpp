@@ -9,8 +9,9 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SIN_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SIN_HPP_INCLUDED
 #include <nt2/include/functions/sincos.hpp>
-#include <nt2/include/functions/sinh.hpp>
+#include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/cosh.hpp>
+#include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sin.hpp>
@@ -31,10 +32,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype; 
-      rtype c, s;
-      sincos(real(a0), c, s);
-      rtype ch =  cosh(imag(a0));
-      rtype sh =  sinh(imag(a0));
+      rtype c, s, ch, sh;
+      sincos(real(a0), s, c);
+      sinhcosh(imag(a0), sh, ch);
       return result_type(c*ch, s*sh);     
     }
   };

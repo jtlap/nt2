@@ -161,8 +161,7 @@ namespace nt2 { namespace ext
       //========================================================================
       // Resize to target extent
       //========================================================================
-      typedef typename A0::extent_type extent_type;
-      boost::proto::value(a0).resize(extent_type(a1));
+      boost::proto::value(a0).resize(a1);
 
       //========================================================================
       // copy elementwisely

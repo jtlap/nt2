@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SQRT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SQRT_HPP_INCLUDED
 #include <nt2/toolbox/arithmetic/functions/sqrt.hpp>
+#include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sqrt.hpp>
@@ -18,8 +19,10 @@
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/pure.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -31,7 +34,6 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -61,7 +63,7 @@ namespace nt2 { namespace ext
                        if_else(is_gez(real(a0)),
                                result_type(sqrtx,Zero<rA0>()),
                                result_type(Zero<rA0>(),sqrtx)),
-                       z); 
+                       if_else(is_imag(a0), nt2::sqrt(pure(a0)), z)); 
       }
   };
 
@@ -75,7 +77,7 @@ namespace nt2 { namespace ext
     {
           const rA0 root = nt2::sqrt(nt2::abs(imag(a0)))*Sqrt_2o_2<rA0>();
           result_type res = result_type(root, sign(imag(a0))*root); 
-          return if_else(is_eqz(a0), result_type(Zero<rA0>()), res); 
+          return if_else(is_eqz(a0), Zero<result_type>(), res); 
     }
   };
   

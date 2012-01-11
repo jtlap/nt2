@@ -104,11 +104,11 @@ namespace nt2 { namespace ext
                               (generic_< complex_< arithmetic_<A2> > >)
                             )
   {
-    typedef A1 result_type;
+    typedef A2 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return result_type(if_else(a0, result_type(Zero<rtype>(), imag(a1)), a2));
+      return if_else(a0, result_type(Zero<rtype>(), imag(a1)), a2);
     }
   };
   
@@ -118,10 +118,11 @@ namespace nt2 { namespace ext
                               (generic_< complex_< arithmetic_<A2> > >)
                             )
   {
-    typedef A1 result_type;
+    typedef A2 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return if_else(is_nez(a0), a1, a2 );
+      typedef typename meta::as_real<result_type>::type rtype;
+      return if_else(is_nez(a0), result_type(Zero<rtype>(), imag(a1)), a2 );
     }
   };
   

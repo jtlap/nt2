@@ -12,7 +12,6 @@
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/tan.hpp>
 #include <nt2/include/functions/tanh.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/sign.hpp>
@@ -33,9 +32,9 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A0>::type rtype;
       result_type aa0 =  a0+a0; 
       rtype c, s;
-      sincos(real(aa0), c, s);
+      sincos(real(aa0), s, c);
       rtype ch, sh; 
-      sinhcosh(imag(aa0), ch, sh);
+      sinhcosh(imag(aa0), sh, ch);
       return result_type(s, sh)/(c+ch);     
     }
   };

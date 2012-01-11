@@ -57,31 +57,29 @@ template<class T> struct vector_test
   {
     for(std::size_t i=0; i<M*N; ++i)
       a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
-      //a1[i] = a0[i]+ a2[i];
   }
 
   std::vector<T> a0,a1,a2;
   int N,M;
 };
 
-NT2_TEST_CASE( small_table )
+template<class T> void do_test()
 {
-  typedef double T;
-
-  for(int M=1;M<=8192;M*=2)
-    for(int N=1;N<=8192;N*=2)
+  for(int N=1;N<=8192;N*=2)
   {
-    std::cout << N << "\t" << M << "\t";
-    table_test<T> tt(N,M,-.28319, .28319);
-    //std::cout << "table (simd)   : ";
+    std::cout << N << "\t" << N << "\t";
+    table_test<T> tt(N,N,-.28319, .28319);
     double dv = nt2::unit::perform_benchmark( tt, 1.);
-    std::cout << dv/(N*M) << "\t"; // << " cycles/elements\n";
+    std::cout << dv/(N*N) << "\t";
 
-    vector_test<T> vv(N,M,-.28319, .28319);
-    //std::cout << "std::vector    : ";
+    vector_test<T> vv(N,N,-.28319, .28319);
     double dw = nt2::unit::perform_benchmark( vv, 1.);
-    std::cout << dw/(N*M) << "\t";// << " cycles/elements\n";
-
-    std::cout /*<< "speed-up       : " */<< dw/dv << "\n";
+    std::cout << dw/(N*N) << "\t";
+    std::cout << dw/dv << "\n";
   }
+}
+
+NT2_TEST_CASE_TPL( small_table, (double)(float) )
+{
+  do_test<T>();
 }
