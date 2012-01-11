@@ -12,6 +12,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -34,6 +35,17 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return a0();
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::imag_, tag::cpu_, (A0)
+                            , (generic_< dry_<arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_imaginary<A0>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& ) const
+    {
+      return Zero<result_type>();
     }
   };
   

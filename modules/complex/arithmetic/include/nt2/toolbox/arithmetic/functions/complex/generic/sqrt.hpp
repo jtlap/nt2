@@ -15,6 +15,7 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
@@ -34,6 +35,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -66,21 +68,35 @@ namespace nt2 { namespace ext
                        if_else(is_imag(a0), nt2::sqrt(pure(a0)), z)); 
       }
   };
-
+  
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
+                              , (generic_< imaginary_< arithmetic_<A0> > >)
+                              )
   {
     typedef typename meta::as_real<A0>::type rA0;
     typedef typename meta::as_complex<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
-    {
-          const rA0 root = nt2::sqrt(nt2::abs(imag(a0)))*Sqrt_2o_2<rA0>();
-          result_type res = result_type(root, sign(imag(a0))*root); 
-          return if_else(is_eqz(a0), Zero<result_type>(), res); 
-    }
+      {
+        const rA0 root = nt2::sqrt(nt2::abs(imag(a0)))*Sqrt_2o_2<rA0>();
+        result_type res = result_type(root, sign(imag(a0))*root); 
+        return if_else(is_eqz(a0), Zero<result_type>(), res); 
+      }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
+                              , (generic_< dry_< arithmetic_<A0> > >)
+                              )
+  {
+    typedef typename meta::as_real<A0>::type rA0;
+    typedef typename meta::as_complex<rA0>::type result_type; 
+    NT2_FUNCTOR_CALL(1)
+      {
+        const rA0 root = nt2::sqrt(nt2::abs(real(a0))); 
+        return if_else(is_ltz(a0),
+                       result_type(Zero<rA0>(), root),
+                       result_type(root, Zero<rA0>())); 
+      }
+  };
 } }
 
 #endif
