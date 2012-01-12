@@ -16,8 +16,7 @@ namespace nt2
   //============================================================================
   // Buffer type computing metafunction
   //============================================================================
-  template<class Buffer = void> struct buffer_generator;
-  struct buffer_ {};
+  template<class Buffer = void> struct buffer_;
 
   namespace tag
   {
@@ -31,21 +30,10 @@ namespace nt2
 
   namespace meta
   {
-    template<class Default> struct option<buffer_(), tag::buffer_, Default>
-    {
-      typedef buffer_generator<> type;
-    };
-
     template<class Buffer, class Default>
-    struct option<buffer_(Buffer), tag::buffer_, Default>
+    struct option<buffer_<Buffer>, tag::buffer_, Default>
     {
-      typedef buffer_generator<Buffer> type;
-    };
-
-    template<class Buffer, class Default>
-    struct option<buffer_generator<Buffer>, tag::buffer_, Default>
-    {
-      typedef buffer_generator<Buffer> type;
+      typedef buffer_<Buffer> type;
     };
   }
 }

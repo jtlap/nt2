@@ -92,7 +92,7 @@ namespace nt2
                                , global_padding_strategy_<>           >::type gp;
       typedef typename option<S,tag::lead_padding_
                                , lead_padding_strategy_<>             >::type lp;
-      typedef typename option<S,tag::buffer_, buffer_generator<>      >::type bf;
+      typedef typename option<S,tag::buffer_, buffer_<>               >::type bf;
       typedef settings type(id,sz,sh,bs,ag,so,sg,sd,ss,al,gp,lp,bf);
     };
 } }

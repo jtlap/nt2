@@ -20,7 +20,7 @@ namespace nt2
   //============================================================================
   // If any Buffer type is provided, return it w/e other settings are
   //============================================================================
-  template<class Buffer> struct buffer_generator
+  template<class Buffer> struct buffer_
   {
     template<class Model, class T,class S> struct apply
     {
@@ -32,7 +32,7 @@ namespace nt2
   // If not, build up the buffer manually from a Model and the value of the
   // various user defined settings.
   //============================================================================
-  template<> struct buffer_generator<void>
+  template<> struct buffer_<void>
   {
     template<class Model, class T,class S> struct apply
     {
