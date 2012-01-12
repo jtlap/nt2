@@ -258,7 +258,7 @@ namespace nt2 { namespace details
     template<class Pos> static BOOST_FORCEINLINE
     Pos const&
     unpack( Pos const& p, sizes_type const&
-          , lead_padding_strategy_<1> const&
+          , lead_padding_<1> const&
           )
     {
       return p;
@@ -267,7 +267,7 @@ namespace nt2 { namespace details
     template<class Pos,std::ptrdiff_t N> static BOOST_FORCEINLINE
     boost::fusion::vector<difference_type,difference_type>
     unpack( Pos const& p, sizes_type const& sz
-          , lead_padding_strategy_<N> const&
+          , lead_padding_<N> const&
           )
     {
       return nt2::inflate(sz,p,typename index_type::type());
