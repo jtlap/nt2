@@ -61,11 +61,5 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(nt2::abs(a), nt2::One<T>());
    std::complex < T > b(3, 4);
    NT2_TEST_EQUAL(nt2::abs(b), nt2::Five<T>());
-   std::cout << nt2::One<cT>() << std::endl;
-   std::cout << nt2::One<ciT>() << std::endl;
-   std::cout << dT(nt2::One<T>()) << std::endl;
-   T aa = dT(nt2::One<T>());
-   std::cout << aa << std::endl;
-  
 } // end of test for floating_
 
