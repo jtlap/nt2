@@ -19,11 +19,21 @@
 
 namespace nt2
 {
+  //============================================================================
+  /*!
+   * Specify a global padding strategy will be used.
+   **/
+  //============================================================================
   template<std::ptrdiff_t Value = 1>
-  struct global_padding_strategy_ : boost::mpl::int_<Value> {};
+  struct global_padding_ : boost::mpl::int_<Value> {};
 
+  //============================================================================
+  /*!
+   * Specify a lead dimension padding strategy will be used.
+   **/
+  //============================================================================
   template<std::ptrdiff_t Value = BOOST_SIMD_CONFIG_ALIGNMENT>
-  struct lead_padding_strategy_   : boost::mpl::int_<Value> {};
+  struct lead_padding_  : boost::mpl::int_<Value> {};
 
   //============================================================================
   /*!
@@ -31,24 +41,6 @@ namespace nt2
    **/
   //============================================================================
   struct no_padding_ {};
-
-  //============================================================================
-  /*!
-   * Specify a global padding strategy will be used.
-   * The padding value will have to be specified at runtime using the
-   * appropriate container constructor.
-   **/
-  //============================================================================
-  struct global_padding_{};
-
-  //============================================================================
-  /*!
-   * Specify a lead dimension padding strategy will be used.
-   * The padding value will have to be specified at runtime using
-   * the appropriate container constructor.
-   **/
-  //============================================================================
-  struct lead_padding_  {};
 
   namespace tag
   {
@@ -70,15 +62,9 @@ namespace nt2 { namespace meta
    **/
   //============================================================================
   template<class Default, std::ptrdiff_t N>
-  struct  option< global_padding_(with_<N>), tag::global_padding_, Default >
+  struct  option< global_padding_<N>, tag::global_padding_, Default >
   {
-    typedef global_padding_strategy_<N> type;
-  };
-
-  template<class Default>
-  struct  option< global_padding_(none_), tag::global_padding_, Default >
-  {
-    typedef global_padding_strategy_<1> type;
+    typedef global_padding_<N> type;
   };
 
   //============================================================================
@@ -87,16 +73,11 @@ namespace nt2 { namespace meta
    **/
   //============================================================================
   template<class Default, std::ptrdiff_t N>
-  struct  option< lead_padding_(with_<N>), tag::lead_padding_, Default >
+  struct  option< lead_padding_<N>, tag::lead_padding_, Default >
   {
-    typedef lead_padding_strategy_<N> type;
+    typedef lead_padding_<N> type;
   };
 
-  template<class Default>
-  struct  option< lead_padding_(none_), tag::lead_padding_, Default >
-  {
-    typedef lead_padding_strategy_<1> type;
-  };
   //============================================================================
   /*!
    * no_padding_ option
@@ -105,25 +86,13 @@ namespace nt2 { namespace meta
   template<class Default>
   struct  option< no_padding_, tag::lead_padding_, Default >
   {
-    typedef lead_padding_strategy_<1> type;
+    typedef lead_padding_<1> type;
   };
 
   template<class Default>
   struct  option< no_padding_, tag::global_padding_, Default >
   {
-    typedef global_padding_strategy_<1> type;
-  };
-
-  template<std::ptrdiff_t N, class Default>
-  struct  option<global_padding_strategy_<N>, tag::global_padding_, Default >
-  {
-    typedef global_padding_strategy_<N> type;
-  };
-
-  template<std::ptrdiff_t N, class Default>
-  struct  option<lead_padding_strategy_<N>, tag::lead_padding_, Default >
-  {
-    typedef lead_padding_strategy_<N> type;
+    typedef global_padding_<1> type;
   };
 } }
 
