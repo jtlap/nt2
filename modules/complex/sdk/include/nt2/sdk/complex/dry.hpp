@@ -24,8 +24,8 @@ namespace nt2
     explicit dry(T const& value_) : value(value_)
     {
     }
-//     operator T () const {return value; }
-//     operator T&()       {return value; }
+    operator T () const {return value; }
+    operator T&()       {return value; }
     bool operator == (const dry<T>&a) const{return value == a.value; }
     bool operator != (const dry<T>&a) const{return value != a.value; }
     

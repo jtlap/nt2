@@ -14,6 +14,7 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -43,6 +44,19 @@ namespace nt2 { namespace ext
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sum_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type rtype;
+    typedef typename meta::scalar_of<rtype>::type stype;
+    typedef typename meta::as_dry<stype>::type result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return result_type(nt2::sum(real(a0))); 
+    }
+  };
+    
 } }
 
 #endif

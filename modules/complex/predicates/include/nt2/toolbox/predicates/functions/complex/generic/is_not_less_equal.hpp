@@ -21,6 +21,7 @@
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -28,6 +29,19 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                               (generic_< complex_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename meta::as_logical<rA0>::type result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return is_not_less_equal(real(a0),real(a1)); 
+    }
+  };
+  // dry/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                              (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
     typedef typename  meta::real_of<A0>::type rA0; 
@@ -50,6 +64,19 @@ namespace nt2 { namespace ext
       return is_not_less_equal(real(a0), a1); 
     }
   };
+  // complex/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1)
+                            , (generic_< complex_< arithmetic_<A0> > >)
+                              (generic_< dry_ < arithmetic_<A1> > >)
+                            )
+  {
+    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename meta::as_logical<rA0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return is_not_less_equal(real(a0), real(a1)); 
+    }
+  };
   // arithmetic/complex
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1), 
                               (generic_< arithmetic_<A0> >)
@@ -61,6 +88,19 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       return is_not_less_equal(real(a1),a0); 
+    }
+  };
+  // dry/complex
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1), 
+                              (generic_< dry_ < arithmetic_<A0> > >)
+                              (generic_< complex_< arithmetic_<A1> > >)
+                            )
+  {
+    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename meta::as_logical<rA0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return is_not_less_equal(real(a1),real(a0)); 
     }
   };
   // complex/imaginary
@@ -115,6 +155,19 @@ namespace nt2 { namespace ext
       return is_ngez(a1); 
     }
   };
+   // imaginary/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1), 
+                              (generic_< imaginary_< arithmetic_<A0> > > )
+                              (generic_< dry_ < arithmetic_<A1> > >)
+                            )
+  {
+    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename meta::as_logical<rA0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return is_ngez(real(a1)); 
+    }
+  };
   // arithmetic/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1), 
                               (generic_< arithmetic_<A0> >)
@@ -128,7 +181,19 @@ namespace nt2 { namespace ext
       return  is_nlez(a0); 
     }
   };
-
+  // dry/imaginary
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_not_less_equal_, tag::cpu_, (A0)(A1), 
+                              (generic_< dry_ < arithmetic_<A0> > >)
+                              (generic_< imaginary_< arithmetic_<A1> > > )
+                            )
+  {
+    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename meta::as_logical<rA0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return  is_nlez(real(a0)); 
+    }
+  };
 } }
 
 #endif

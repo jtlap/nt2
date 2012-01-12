@@ -42,6 +42,16 @@ namespace nt2 { namespace ext
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arg_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::arg(real(a0)); 
+    }
+  };  
 } }
 
 #endif

@@ -35,6 +35,34 @@ namespace nt2 { namespace ext
       return compare_less(a1, a0); 
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compare_greater_, tag::cpu_, (A0), 
+                                     ((generic_ < imaginary_< arithmetic_ <A0> > > ))
+                                     ((generic_ < imaginary_< arithmetic_ <A0> > > ))     
+                      )
+  {
+    typedef typename meta::as_real<A0>::type    rA0; 
+    typedef typename meta::scalar_of<rA0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return compare_less(a1, a0); 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compare_greater_, tag::cpu_, (A0), 
+                                     ((generic_ < dry_< arithmetic_ <A0> > > ))
+                                     ((generic_ < dry_< arithmetic_ <A0> > > ))     
+                      )
+  {
+    typedef typename meta::as_real<A0>::type    rA0; 
+    typedef typename meta::scalar_of<rA0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return compare_less(a1, a0); 
+    }
+  };    
 } }
 
 #endif

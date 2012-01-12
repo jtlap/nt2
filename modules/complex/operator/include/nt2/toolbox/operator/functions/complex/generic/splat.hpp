@@ -45,7 +45,21 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A1>::type rtype; 
       return result_type(splat<rtype>(imag(a0))); 
     }
-  };  
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::splat_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , (unspecified_<A0>)
+                              ((target_<simd_<dry_< arithmetic_<A1> >, X > >))
+                            )
+  {
+    typedef typename A1::type result_type;
+    inline result_type operator()(const A0& a0, const A1&) const
+    {
+      typedef typename meta::as_real<A1>::type rtype; 
+      return result_type(splat<rtype>(real(a0))); 
+    }
+  };    
 } }
 
 #endif

@@ -13,6 +13,7 @@
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -38,9 +39,22 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_finite(a0()); 
+      return is_finite(imag(a0)); 
     }
   };
+  // dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_finite_, tag::cpu_, (A0), 
+                              (generic_< imaginary_< arithmetic_<A0> > > )
+                            )
+  {
+    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename meta::as_logical<rA0>::type result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return is_finite(real(a0)); 
+    }
+  };
+
 } }
 
 #endif

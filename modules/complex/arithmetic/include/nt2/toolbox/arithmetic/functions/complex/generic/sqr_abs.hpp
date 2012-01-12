@@ -18,16 +18,6 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_abs_, tag::cpu_, (A0)
-                            , (generic_< complex_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return adds(sqr_abs(real(a0)) + sqr_abs(imag(a0))); 
-    }
-  };
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_abs_, tag::cpu_, (A0)
                             , (generic_< complex_< floating_<A0> > >)
@@ -37,10 +27,34 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type result_type;
-      return sqr(real(a0)) + sqr(imag(a0)); //TODO avoid overflow
+      return sqr(real(a0)) + sqr(imag(a0));
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_abs_, tag::cpu_, (A0)
+                            , (generic_< imaginary_< floating_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_real<A0>::type result_type;
+      return sqr(imag(a0)); 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_abs_, tag::cpu_, (A0)
+                            , (generic_< dry_< floating_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_real<A0>::type result_type;
+      return sqr(real(a0)); 
+    }
+  };
+    
 } }
 
 #endif

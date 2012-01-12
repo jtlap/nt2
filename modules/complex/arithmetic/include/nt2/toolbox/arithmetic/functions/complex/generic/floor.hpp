@@ -14,6 +14,7 @@
 #include <nt2/include/functions/hypot.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -21,7 +22,7 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return result_type(floor(real(a0)),floor(imag(a0))); 
@@ -32,13 +33,24 @@ namespace nt2 { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::floor(imag(a0)); 
+      return result_type(nt2::floor(imag(a0))); 
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::floor_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nresult_type(nt2::floor(imag(a0))); 
+    }
+  };
+
 } }
 
 #endif

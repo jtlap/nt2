@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
         const rA0 root = nt2::sqrt(nt2::abs(real(a0))); 
         return if_else(is_ltz(a0),
                        result_type(Zero<rA0>(), root),
-                       result_type(root, Zero<rA0>())); 
+                       result_type(root)); 
       }
   };
 } }

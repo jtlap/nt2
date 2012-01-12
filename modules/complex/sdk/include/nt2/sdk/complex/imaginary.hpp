@@ -8,21 +8,24 @@
 //==============================================================================
 #ifndef NT2_SDK_COMPLEX_IMAGINARY_HPP_INCLUDED
 #define NT2_SDK_COMPLEX_IMAGINARY_HPP_INCLUDED
-
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/details/imaginary/meta.hpp>
 #include <nt2/sdk/complex/details/imaginary/native.hpp>
-
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
 
 namespace nt2
 {
   template<class T>
   struct imaginary
   {
+    typedef typename meta::as_complex<T>::type c_type; 
     typedef T type;
     T value;
     
     imaginary() {}
     explicit imaginary(T const& value_) : value(value_){ }
+    operator c_type () const {return ctype(Zero<type>(), value); }
     bool operator == (const imaginary<T>&a) const{return value == a.value; }
     bool operator != (const imaginary<T>&a) const{return value != a.value; }
     

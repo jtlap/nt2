@@ -213,6 +213,20 @@ namespace nt2 { namespace ext
     {
       return result_type(real(a1)+a0);
     }
+  };
+  
+  // dry/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                              (generic_< dry_< arithmetic_<A0> > >)
+                              
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return result_type(real(a0)+real(a1));
+    }
   };  
   
 } }

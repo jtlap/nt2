@@ -46,6 +46,18 @@ namespace nt2 { namespace ext
       return result_type(c, s); 
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exp_, tag::cpu_
+                            , (A0)
+                            , (generic_< dry_<floating_<A0> > >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return result_type(nt2::exp(real(a0))); 
+    }
+  };  
 } }
 
 

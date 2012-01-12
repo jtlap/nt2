@@ -15,6 +15,7 @@
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -40,6 +41,17 @@ namespace nt2 { namespace ext
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::conj_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return a0; 
+    }
+  };
+
 } }
 
 #endif

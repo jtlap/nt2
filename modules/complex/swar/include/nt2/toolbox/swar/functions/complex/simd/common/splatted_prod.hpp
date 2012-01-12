@@ -14,6 +14,7 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -32,6 +33,17 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_prod_, tag::cpu_,
                                 (A0)(X),
                                 ((simd_<imaginary_<arithmetic_<A0> >,X>))
+                               )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(1)
+    {
+      return nt2::splat<A0>(prod(a0));
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_prod_, tag::cpu_,
+                                (A0)(X),
+                                ((simd_<dry_<arithmetic_<A0> >,X>))
                                )
   {
     typedef A0 result_type;

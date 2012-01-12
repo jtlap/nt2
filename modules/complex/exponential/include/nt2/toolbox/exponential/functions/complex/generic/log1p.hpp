@@ -27,7 +27,6 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype; 
-      typedef typename meta::as_logical<rtype>::type bA0;
       result_type m = oneplus(a0);
       rtype theta = nt2::arg(m);
       rtype ra =  real(a0);
@@ -41,17 +40,32 @@ namespace nt2 { namespace ext
                             , ((generic_<imaginary_<floating_<A0> > >))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_real<A0>::type rtype; 
+    typedef typename meta::as_complex<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
-      typedef typename meta::as_logical<rtype>::type bA0;
       result_type m = oneplus(a0);
       rtype theta = nt2::arg(m);
       rtype rb2 =  sqr(imag(a0)); 
       return result_type(Half<rtype>()*nt2::log1p(rb2), theta); 
     }
-  };    
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
+                            , (A0)
+                            , (generic_< dry_<floating_<A0> > >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_real<A0>::type rtype; 
+      rtype m = oneplus(real(a0));
+      rtype theta = nt2::arg(m);
+      rtype ra =  real(a0);
+      return result_type(Half<rtype>()*nt2::log1p(ra*(ra+Two<rtype>())), theta); 
+    }
+  };        
 } }
 
 

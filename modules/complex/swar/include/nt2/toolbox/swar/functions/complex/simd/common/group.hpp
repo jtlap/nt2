@@ -21,6 +21,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is downgradable
@@ -53,6 +54,19 @@ namespace nt2 { namespace ext
     {
       return result_type(group(imag(a0), imag(a1))); 
     }
-  };  
+  };
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
+                          (A0)(X),
+                          (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
+                          ((simd_<dry_<arithmetic_<A0> >,X>))
+                          ((simd_<dry_<arithmetic_<A0> >,X>))
+                        )
+  {
+    typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return result_type(group(real(a0), real(a1))); 
+    }
+  };    
 } }
 #endif

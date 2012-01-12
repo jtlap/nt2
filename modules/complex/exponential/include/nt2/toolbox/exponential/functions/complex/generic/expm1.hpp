@@ -58,7 +58,19 @@ namespace nt2 { namespace ext
       // cos(t)-1 + i sin(t) with  t =  imag(a0)
       return result_type(Mtwo<rtype>()*sqr(sin(imag(a0)*Half<rtype>()), sin(imag(a0))));
     }
-  };  
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
+                            , (A0)
+                            , (generic_< dry_<floating_<A0> > >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return result_type(nt2::expm1(real(a0)); 
+    }
+  };    
 } }
 
 

@@ -14,6 +14,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -39,7 +40,17 @@ namespace nt2 { namespace ext
       return splat<A0>(maximum(a0));
     }
   };
-   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::splatted_maximum_, tag::cpu_
+                            , (A0)(X)
+                            , ((simd_<dry_<arithmetic_<A0> >,X>))
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return splat<A0>(maximum(a0));
+    }
+  };   
 } }
 
 
