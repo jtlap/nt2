@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+  abs.cpp
    )
 
 nt2_module_add_tests(complex.arithmetic.simd.unit ${SOURCES})

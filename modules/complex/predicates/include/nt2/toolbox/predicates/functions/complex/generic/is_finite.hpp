@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
   };
   // dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::is_finite_, tag::cpu_, (A0), 
-                              (generic_< imaginary_< arithmetic_<A0> > > )
+                              (generic_< dry_< arithmetic_<A0> > > )
                             )
   {
     typedef typename  meta::real_of<A0>::type rA0; 

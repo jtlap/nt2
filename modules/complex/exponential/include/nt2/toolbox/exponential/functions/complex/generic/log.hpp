@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::log(nt2::abs(real(a0)), nt2::arg(real(a0))); 
+      return result_type(nt2::log(nt2::abs(real(a0)), nt2::arg(real(a0)))); 
     }
   };    
 } }
