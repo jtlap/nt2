@@ -21,6 +21,7 @@
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/pure.hpp>
@@ -61,11 +62,15 @@ namespace nt2 { namespace ext
         A0 z = if_else(is_gez(real(a0)),
                        result_type(w, imag(a0)*Half<rA0>()/w),
                        result_type(tmp, imag(a0)*Half<rA0>()/tmp));
+        z = if_else(is_inf(a0), a0, z); 
         return if_else(is_real(a0),
                        if_else(is_gez(real(a0)),
                                result_type(sqrtx,Zero<rA0>()),
                                result_type(Zero<rA0>(),sqrtx)),
-                       if_else(is_imag(a0), nt2::sqrt(pure(a0)), z)); 
+                       if_else(is_imag(a0),
+                               nt2::sqrt(pure(a0)),
+                               z)
+                       ); 
       }
   };
   

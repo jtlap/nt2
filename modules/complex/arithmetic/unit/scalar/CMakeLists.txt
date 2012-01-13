@@ -8,6 +8,13 @@
 ##############################################################################
 
 set( SOURCES
+  ceil.cpp
+  floor.cpp
+  round.cpp
+  trunc.cpp
+  oneminus.cpp
+  oneplus.cpp
+  minusone.cpp
   sqr_abs.cpp
   abs.cpp    
   arg.cpp

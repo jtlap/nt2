@@ -57,5 +57,7 @@ NT2_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::divides(ciT(1), ciT(1))     , T(1)); 
   NT2_TEST_EQUAL(nt2::divides(ciT(0), ciT(1))     , T(0));
   NT2_TEST_EQUAL(nt2::divides(T(1),   ciT(2))     , ciT(-0.5));
-  NT2_TEST_EQUAL(nt2::divides(cT(1, 1), cT(1, -1)), cT(0, 1)); 
+  NT2_TEST_EQUAL(nt2::divides(cT(1, 1), cT(1, -1)), cT(0, 1));
+  NT2_TEST_EQUAL(nt2::divides(cT(0, 1), cT(nt2::Inf<T>())), cT(0)); 
+  NT2_TEST_EQUAL(nt2::divides(T(1), cT(nt2::Inf<T>())), cT(0)); 
 } // end of test for floating_
