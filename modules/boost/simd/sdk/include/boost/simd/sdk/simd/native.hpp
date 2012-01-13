@@ -14,9 +14,9 @@
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
-#include <boost/simd/sdk/simd/details/native/fusion.hpp>
 #include <boost/simd/sdk/simd/details/native/operators.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
+#include <boost/fusion/adapted/boost_array.hpp>
 
 namespace boost { namespace simd
 {
@@ -41,6 +41,7 @@ namespace boost { namespace simd
     typedef std::size_t                                          size_type;
     typedef Scalar*                                               iterator;
     typedef Scalar const*                                   const_iterator;
+    typedef boost::fusion::boost_array_tag                      fusion_tag;
 
     template<class U> struct rebind
     {

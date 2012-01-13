@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_IO_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/fusion/sequence/io/out.hpp>
 
 namespace boost { namespace simd
 {
@@ -19,6 +20,8 @@ namespace boost { namespace simd
   template<class S,class E> inline std::ostream&
   operator<<( std::ostream& os, native<S,E> const & v )
   {
+    return boost::fusion::operators::operator<<(os, v);
+    #if 0
     // We want to display (u)int8_t as a number
     typedef typename
             boost::mpl::if_c< (sizeof(S)==1)
@@ -31,6 +34,7 @@ namespace boost { namespace simd
       os << static_cast<display_type>(v[i]) << ",";
     os << static_cast<display_type>(v[v.size()-1UL]) << "}";
     return os;
+    #endif
   }
 } }
 

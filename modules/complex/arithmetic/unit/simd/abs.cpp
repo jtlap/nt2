@@ -45,12 +45,12 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   typedef native<T ,ext_t>                        vT;
   typedef native<cT ,ext_t>                      vcT;
 
-  //  vcT vca0  nt2::splat<vcT>(nt2::Two<cT>()); 
+  vcT vca0 = nt2::splat<vcT>(nt2::Two<cT>());
   vcT vca = vcT(nt2::Two<vT>(), nt2::One<vT>());
-  //  vT  vra = nt2::real(vca); 
-  //  std::cout << nt2::real(vca) << std::endl; 
-  //  std::cout << vca << std::endl;
-  //  std::cout << nt2::abs(vca) << std::endl; 
+  vT  vra = nt2::real(vca);
+  std::cout << nt2::real(vca) << std::endl;
+  std::cout << vca << std::endl;
+  std::cout << nt2::abs(vca) << std::endl;
 } // end of test for floating_
 
 
