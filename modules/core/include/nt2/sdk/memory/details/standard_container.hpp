@@ -31,6 +31,8 @@ namespace nt2 { namespace memory
     typedef nt2::details::container_base<Tag,T,S>         parent;
     typedef typename parent::block_t                      block_t;
     typedef typename parent::allocator_type               allocator_type;
+    typedef typename parent::iterator                     iterator;
+    typedef typename parent::const_iterator               const_iterator;
     typedef typename parent::extent_type                  extent_type;
     typedef typename parent::sizes_type                   sizes_type;
     typedef typename parent::size_type                    size_type;
@@ -127,6 +129,21 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE bool empty() const { return block_.empty(); }
 
+    //==========================================================================
+    /*!
+     * Return the begin of the data
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE iterator       begin()       { return block_.data().begin(); }
+    BOOST_FORCEINLINE const_iterator begin() const { return block_.data().begin(); }
+
+    //==========================================================================
+    /*!
+     * Return the end of the data
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE iterator       end()       { return block_.data().end(); }
+    BOOST_FORCEINLINE const_iterator end() const { return block_.data().end(); }
     //==========================================================================
     /*!
      * Return the current container dimensions lower indices
