@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+  all.cpp
    )
 
 nt2_module_add_tests(complex.reduction.simd.unit ${SOURCES})

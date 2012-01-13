@@ -9,11 +9,13 @@
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NEZ_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NEZ_HPP_INCLUDED
 #include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,7 +24,7 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
@@ -35,11 +37,11 @@ namespace nt2 { namespace ext
                               (generic_< imaginary_< arithmetic_<A0> > > )
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_nez(a0()); 
+      return is_nez(imag(a0)); 
     }
   };
 
@@ -48,7 +50,7 @@ namespace nt2 { namespace ext
                               (generic_< dry_< arithmetic_<A0> > > )
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
