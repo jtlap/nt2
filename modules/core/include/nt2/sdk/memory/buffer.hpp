@@ -23,11 +23,8 @@
 #include <nt2/sdk/meta/as_sequence.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
-
-#ifdef BOOST_MSVC
-#pragma warning(push)
-#pragma warning(disable: 4996) // std::copy may be unsafe
-#endif
+#include <boost/detail/workaround.hpp>
+#include <iterator>
 
 namespace nt2 {  namespace memory
 {
@@ -94,7 +91,13 @@ namespace nt2 {  namespace memory
     buffer( buffer const& src ) : parent_data(src.allocator())
     {
       parent_data::allocate(src.size());
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+      stdext::unchecked_copy(src.begin(),src.end(),begin());
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+      std::copy(src.begin(),src.end(),stdext::make_unchecked_array_iterator(begin()));
+#else
       std::copy(src.begin(),src.end(),begin());
+#endif
     }
 
     //==========================================================================
@@ -125,7 +128,14 @@ namespace nt2 {  namespace memory
       else
       {
         parent_data::resize(src.size());
+
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+        stdext::unchecked_copy(src.begin(),src.end(),parent_data::begin());
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+        std::copy(src.begin(),src.end(),stdext::make_unchecked_array_iterator(parent_data::begin()));
+#else
         std::copy(src.begin(),src.end(),parent_data::begin());
+#endif
       }
       return *this;
     }
@@ -198,11 +208,11 @@ namespace nt2 {  namespace memory
     template<class Position>
     BOOST_FORCEINLINE reference operator[](Position const& pos)
     {
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
+      BOOST_ASSERT_MSG( (difference_type(boost::fusion::at_c<0>(pos)) >= lower())
                       , "Position is below buffer bounds"
                       );
 
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
+      BOOST_ASSERT_MSG( (difference_type(boost::fusion::at_c<0>(pos)) <= upper())
                       , "Position is out of buffer bounds"
                       );
 
@@ -212,11 +222,11 @@ namespace nt2 {  namespace memory
     template<class Position>
     BOOST_FORCEINLINE const_reference operator[](Position const& pos) const
     {
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
+      BOOST_ASSERT_MSG( (difference_type(boost::fusion::at_c<0>(pos)) >= lower())
                       , "Position is below buffer bounds"
                       );
 
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
+      BOOST_ASSERT_MSG( (difference_type(boost::fusion::at_c<0>(pos)) <= upper())
                       , "Position is out of buffer bounds"
                       );
 
@@ -264,9 +274,5 @@ namespace nt2 {  namespace memory
     a.swap(b);
   }
 } }
-
-#ifdef BOOST_MSVC
-#pragma warning(pop)
-#endif
 
 #endif
