@@ -22,25 +22,21 @@
 //==============================================================================
 // Pass some buffer_ as an option
 //==============================================================================
-nt2::buffer_ buffer_of_int( nt2::memory::buffer<int,-2> );
-nt2::buffer_ no_buffer();
-
 NT2_TEST_CASE( buffer_ )
 {
   using nt2::buffer_;
   using boost::mpl::_;
   using nt2::meta::option;
   using nt2::memory::buffer;
-  using nt2::buffer_generator;
 
-  NT2_TEST_EXPR_TYPE( no_buffer
+  NT2_TEST_EXPR_TYPE( buffer_<>()
                     , (option< _, nt2::tag::buffer_>)
-                    , (buffer_generator<>)
+                    , (buffer_<>)
                     );
 
-  NT2_TEST_EXPR_TYPE( buffer_of_int
+  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int,-2> >() )
                     , (option< _, nt2::tag::buffer_>)
-                    , (buffer_generator< buffer<int,-2> >)
+                    , (buffer_< buffer<int,-2> >)
                     );
 }
 
@@ -53,24 +49,23 @@ NT2_TEST_CASE( buffer_default )
   using nt2::memory::buffer;
   using nt2::meta::option;
   using boost::mpl::_;
-  using nt2::buffer_generator;
 
-  NT2_TEST_EXPR_TYPE( no_buffer
+  NT2_TEST_EXPR_TYPE( buffer_<>()
                     , (option< void, nt2::tag::buffer_,_>)
-                    , (buffer_generator<>)
+                    , (buffer_<>)
                     );
 
-  NT2_TEST_EXPR_TYPE( buffer_of_int
+  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int,-2> >())
                     , (option< void, nt2::tag::buffer_,_>)
-                    , (buffer_generator< buffer<int,-2> >)
+                    , (buffer_< buffer<int,-2> >)
                     );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some buffer_ as a setting
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings s_no_buffer     (nt2::buffer_());
-nt2::settings s_buffer_of_int (nt2::buffer_(nt2::memory::buffer<int,1>));
+nt2::settings s_no_buffer(nt2::buffer_<>);
+nt2::settings s_int_buffer(nt2::buffer_< nt2::memory::buffer<int,1> >);
 
 NT2_TEST_CASE( setting_buffer_ )
 {
@@ -78,17 +73,16 @@ NT2_TEST_CASE( setting_buffer_ )
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
-  using nt2::buffer_generator;
   using nt2::memory::buffer;
 
-  NT2_TEST_EXPR_TYPE( s_no_buffer
+  NT2_TEST_EXPR_TYPE( (s_no_buffer)
                     , (option<_ , nt2::tag::buffer_>)
-                    , (buffer_generator<>)
+                    , (buffer_<>)
                     );
 
-  NT2_TEST_EXPR_TYPE( s_buffer_of_int
+  NT2_TEST_EXPR_TYPE( s_int_buffer
                     , (option<_ , nt2::tag::buffer_>)
-                    , (buffer_generator< buffer<int,1> >)
+                    , (buffer_< buffer<int,1> >)
                     );
 }
 
@@ -107,14 +101,14 @@ NT2_TEST_CASE( buffer_forced )
   using nt2::settings;
   using nt2::of_size_;
   using nt2::shared_;
+  using nt2::buffer_;
   using nt2::automatic_;
   using nt2::no_padding_;
   using nt2::meta::normalize_settings;
   using nt2::tag::table_;
   using nt2::memory::buffer;
-  using nt2::buffer_generator;
 
-  NT2_TEST_EXPR_TYPE( (buffer_generator< buffer<int,1> >())
+  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int,1> >())
                     , (apply_ < _
                               , void
                               , int
@@ -152,14 +146,14 @@ NT2_TEST_CASE( buffer_natural )
   using nt2::of_size_;
   using nt2::shared_;
   using nt2::automatic_;
+  using nt2::buffer_;
   using nt2::no_padding_;
   using nt2::meta::normalize_settings;
   using nt2::tag::table_;
   using nt2::memory::iliffe_buffer;
   using nt2::memory::array_buffer;
-  using nt2::buffer_generator;
 
-  NT2_TEST_EXPR_TYPE( buffer_generator<>()
+  NT2_TEST_EXPR_TYPE( buffer_<>()
                     , (apply_ < _
                               , make_iliffe
                               , int

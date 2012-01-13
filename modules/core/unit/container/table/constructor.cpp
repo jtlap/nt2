@@ -110,7 +110,7 @@ NT2_TEST_CASE( shared_ctor )
   }
 
   {
-    table<float, settings(shared_,lead_padding_(with_<4>))>
+    table<float, settings(shared_,lead_padding_<4>)>
     x(of_size(3,2), share(&data[0], &data[0] + 8));
 
     NT2_TEST( nt2::extent(x) == of_size(3,2) );
@@ -121,8 +121,8 @@ NT2_TEST_CASE( shared_ctor )
   }
 
   {
-    table < float, settings ( shared_ , global_padding_(with_<16>)
-                                      , lead_padding_(with_<4>)
+    table < float, settings ( shared_ , global_padding_<16>
+                                      , lead_padding_<4>
                             )
           > x(of_size(3,2), share(&data[0], &data[0] + 16));
 

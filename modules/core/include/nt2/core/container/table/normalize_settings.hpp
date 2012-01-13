@@ -89,10 +89,12 @@ namespace nt2
                                ,allocator_< boost::simd::memory::allocator<T> >
                                >::type                                        al;
       typedef typename option<S,tag::global_padding_
-                               , global_padding_strategy_<>           >::type gp;
+                               , global_padding_<>           
+                               >::type                                        gp;
       typedef typename option<S,tag::lead_padding_
-                               , lead_padding_strategy_<>             >::type lp;
-      typedef typename option<S,tag::buffer_, buffer_generator<>      >::type bf;
+                               , lead_padding_<> 
+                               >::type                                        lp;
+      typedef typename option<S,tag::buffer_, buffer_<>               >::type bf;
       typedef settings type(id,sz,sh,bs,ag,so,sg,sd,ss,al,gp,lp,bf);
     };
 } }

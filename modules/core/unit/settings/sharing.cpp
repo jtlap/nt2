@@ -132,7 +132,6 @@ NT2_TEST_CASE( shared_apply )
   using nt2::shared_;
   using nt2::automatic_;
   using nt2::dynamic_;
-  using nt2::with_;
   using nt2::allocator_;
   using nt2::no_padding_;
   using nt2::global_padding_;
@@ -204,7 +203,7 @@ NT2_TEST_CASE( shared_apply )
                                 , int
                                 , settings( dynamic_
                                           , of_size_<2,2>
-                                          , global_padding_(with_<16>)
+                                          , global_padding_<16>
                                           , shared_
                                           , allocator_< allocator<int> >
                                           )
@@ -224,8 +223,6 @@ NT2_TEST_CASE( owned_apply )
   using nt2::settings;
   using nt2::of_size_;
   using nt2::owned_;
-  using nt2::none_;
-  using nt2::with_;
   using nt2::automatic_;
   using nt2::dynamic_;
   using nt2::allocator_;
@@ -265,8 +262,8 @@ NT2_TEST_CASE( owned_apply )
                                 , int
                                 , settings( automatic_
                                           , of_size_<2,2>
-                                          , lead_padding_(with_<16>)
-                                          , global_padding_(none_)
+                                          , lead_padding_<16>
+                                          , global_padding_<>
                                           )
                                 >::type
                               >
@@ -298,7 +295,7 @@ NT2_TEST_CASE( owned_apply )
                                 , settings( dynamic_
                                           , of_size_<2,2>
                                           , allocator_< std::allocator<int> >
-                                          , global_padding_(none_)
+                                          , global_padding_<>
                                           )
                                 >::type
                               >
@@ -315,7 +312,7 @@ NT2_TEST_CASE( owned_apply )
                                 , settings( dynamic_
                                           , of_size_<2,2>
                                           , allocator_< std::allocator<int> >
-                                          , global_padding_(with_<16>)
+                                          , global_padding_<16>
                                           )
                                 >::type
                               >
