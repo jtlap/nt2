@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 complex.exponential toolbox - exp/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 exponential toolbox - logspace_sub/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 /// 
-#include <nt2/include/functions/exp.hpp>
+#include <nt2/toolbox/exponential/include/functions/logspace_sub.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -30,18 +30,16 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
-
-NT2_TEST_CASE_TPL ( exp_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( logspace_sub_real__2_1,  NT2_REAL_TYPES)
 {
   
-  using nt2::exp;
-  using nt2::tag::exp_;
-  typedef std::complex<T> cT; 
+  using nt2::logspace_sub;
+  using nt2::tag::logspace_sub_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<exp_(cT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename nt2::meta::call<logspace_sub_(T,T)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -52,12 +50,11 @@ NT2_TEST_CASE_TPL ( exp_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(nt2::exp(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
-  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Minf<T>())), cT(nt2::Zero<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Mone<T>())), cT(nt2::One<T>()/nt2::Exp_1<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Nan<T>())), cT(nt2::Nan<T>(), nt2::Nan<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::One<T>())), cT(nt2::Exp_1<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Zero<T>())), cT(nt2::One<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(cT(0, nt2::Pi<T>())),  cT(nt2::Mone<T>()), 0.75);
- } // end of test for floating_
-
+  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Inf<T>(),nt2::Inf<T>()), nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Minf<T>(),nt2::Minf<T>()), nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Mone<T>(),nt2::Mone<T>()), nt2::Minf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Nan<T>(),nt2::Nan<T>()), nt2::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::One<T>(),nt2::One<T>()), nt2::Minf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Two <T>(),nt2::Two <T>()), nt2::Minf<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_sub(nt2::Zero<T>(),nt2::Zero<T>()), nt2::Minf<sr_t>(), 0);
+} // end of test for floating_

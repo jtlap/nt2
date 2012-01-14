@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       rtype c, s;
-      sincos(real(a0), s, c);      
+      sincos(imag(a0), s, c);      
       return exp(real(a0))*result_type(c, s); 
     }
   };

@@ -9,6 +9,7 @@
 
 set( SOURCES
    exp.cpp
+   exp10.cpp
    )
 
 nt2_module_add_tests(complex.exponential.scalar.unit ${SOURCES})
