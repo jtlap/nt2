@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       A0 tmp = a0/sqr_abs(a1); 
-      return if_else(is_inf(a1), tmp, tmp*conj(a1)); 
+      return if_else(is_inf(a1), result_type(tmp), tmp*conj(a1)); 
     }
   };
 
