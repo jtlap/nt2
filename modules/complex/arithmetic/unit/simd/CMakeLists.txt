@@ -9,6 +9,9 @@
 
 set( SOURCES
   abs.cpp
+  arg.cpp
+  average.cpp
+  ceil.cpp
    )
 
 nt2_module_add_tests(complex.arithmetic.simd.unit ${SOURCES})

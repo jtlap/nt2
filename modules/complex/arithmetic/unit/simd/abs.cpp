@@ -51,6 +51,19 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   std::cout << nt2::real(vca) << std::endl;
   std::cout << vca << std::endl;
   std::cout << nt2::abs(vca) << std::endl;
+  
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Inf<vT>(),nt2::Nan<vT>())), nt2::Inf<vT>());
+  vcT a = vcT(nt2::Inf<vT>(), nt2::Zero<vT>()); 
+  NT2_TEST_EQUAL(nt2::abs(a), nt2::Inf<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Minf<vT>(), nt2::Zero<vT>())), nt2::Inf<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Mone<vT>(), nt2::Zero<vT>())), nt2::One<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Nan<vT>(), nt2::Zero<vT>())), nt2::Nan<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::One<vT>(), nt2::Zero<vT>())), nt2::One<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Valmax<vT>(), nt2::Zero<vT>())), nt2::Valmax<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Valmin<vT>(), nt2::Zero<vT>())), nt2::Valmax<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Zero<vT>(), nt2::Zero<vT>())), nt2::Zero<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::One<vT>(), nt2::One<vT>())), nt2::Sqrt_2<vT>());
+  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Four<vT>(), nt2::Three<vT>())), nt2::Five<vT>());
 } // end of test for floating_
 
 

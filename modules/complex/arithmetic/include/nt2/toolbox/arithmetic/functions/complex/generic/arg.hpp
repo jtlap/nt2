@@ -12,6 +12,7 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/atan2.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/pio_2.hpp>
@@ -27,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return atan2(real(a0),imag(a0)); //TODO nt2::atan2
+      return nt2::atan2(imag(a0),real(a0));
     }
   };
 

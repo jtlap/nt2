@@ -6,16 +6,15 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 complex.operator toolbox - arg/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 complex.operator toolbox - dist/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/arithmetic/include/functions/arg.hpp>
+#include <nt2/toolbox/arithmetic/include/functions/dist.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/atan2.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -24,14 +23,14 @@
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
-NT2_TEST_CASE_TPL ( arg_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( dist_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
   
-  using nt2::arg;
-  using nt2::tag::arg_;
+  using nt2::dist;
+  using nt2::tag::dist_;
   typedef std::complex<T> cT; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<arg_(cT)>::type r_t;
+  typedef typename boost::dispatch::meta::call<dist_(cT, cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
@@ -46,14 +45,12 @@ NT2_TEST_CASE_TPL ( arg_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(arg(cT(nt2::Inf<T>())), nt2::Zero<T>());
-  NT2_TEST_EQUAL(arg(cT(nt2::Minf<T>())),nt2::Pi<T>());
-  NT2_TEST_EQUAL(arg(cT(nt2::Nan<T>())), nt2::Nan<T>());   
-  NT2_TEST_EQUAL(arg(cT(nt2::One<T>())), nt2::Zero<T>()); 
-  NT2_TEST_EQUAL(arg(cT(nt2::Zero<T>())),nt2::Zero<T>()); 
-  NT2_TEST_EQUAL(arg(cT(0, 1)), nt2::Pio_2<T>());
-  NT2_TEST_EQUAL(arg(cT(1, 0)), nt2::Zero<T>());
-  NT2_TEST_EQUAL(arg(cT(2, 2)), nt2::Pio_2<T>()/2);
-  NT2_TEST_EQUAL(arg(cT(2,-2)),-nt2::Pio_2<T>()/2);
-  NT2_TEST_EQUAL(arg(ciT(1)), nt2::Pio_2<T>());
+  NT2_TEST_EQUAL(dist(cT(nt2::Inf<T>()), cT(nt2::Inf<T>())), nt2::Nan<T>());
+  NT2_TEST_EQUAL(dist(cT(nt2::One<T>()), cT(nt2::Zero<T>())), nt2::One<T>()); 
+  NT2_TEST_EQUAL(dist(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),nt2::Zero<T>()); 
+  NT2_TEST_ULP_EQUAL(dist(cT(0, 1), cT(1, 0)), nt2::Sqrt_2<T>(), 0.5);
+  NT2_TEST_EQUAL(dist(cT(1, 0), cT(1, 0)), nt2::Zero<T>());
+  NT2_TEST_EQUAL(dist(cT(2, 1), ciT(1)), nt2::Two<T>());
+  NT2_TEST_EQUAL(dist(ciT(1), ciT(0)), nt2::One<T>());
+  NT2_TEST_EQUAL(dist(ciT(1), T(0)), nt2::One<T>());
 } // end of test for floating_
