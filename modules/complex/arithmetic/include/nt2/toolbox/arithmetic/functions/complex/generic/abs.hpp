@@ -29,6 +29,7 @@
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
+#include <nt2/include/constants/inf.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -48,7 +49,10 @@ namespace nt2 { namespace ext
                                logical_or(is_inf(r),is_inf(i)));
       // nan^2 + inf^2 is always inf whatever nan is
       itype e =  if_else(lt(r, i), exponent(i), exponent(r));
-      return if_else(test, Inf<result_type>(), ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e)); 
+      return if_else(test,
+                     Inf<result_type>(),
+                     ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e)
+                     ); 
     }
   };
 
