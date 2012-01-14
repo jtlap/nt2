@@ -119,8 +119,6 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     BOOST_FORCEINLINE size_type size()        const { return block_.size();       }
-    BOOST_FORCEINLINE size_type inner_size()  const { return block_.inner_size(); }
-    BOOST_FORCEINLINE size_type outer_size()  const { return block_.outer_size(); }
 
     //==========================================================================
     /*!
@@ -144,23 +142,6 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE iterator       end()       { return block_.data().end(); }
     BOOST_FORCEINLINE const_iterator end() const { return block_.data().end(); }
-    //==========================================================================
-    /*!
-     * Return the current container dimensions lower indices
-     */
-    //==========================================================================
-    BOOST_FORCEINLINE difference_type lower()       const { return block_.lower();        }
-    BOOST_FORCEINLINE difference_type inner_lower() const { return block_.inner_lower();  }
-    BOOST_FORCEINLINE difference_type outer_lower() const { return block_.outer_lower();  }
-
-    //==========================================================================
-    /*!
-     * Return the current container dimensions upper indices
-     */
-    //==========================================================================
-    BOOST_FORCEINLINE difference_type upper()       const { return block_.upper();        }
-    BOOST_FORCEINLINE difference_type inner_upper() const { return block_.inner_upper();  }
-    BOOST_FORCEINLINE difference_type outer_upper() const { return block_.outer_upper();  }
 
     private:
     block_t     block_;

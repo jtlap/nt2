@@ -209,16 +209,25 @@ namespace nt2 { namespace memory
      * \param pos 2D Index of the element to retrieve.
      **/
     //==========================================================================
-    template<class Position>
-    BOOST_FORCEINLINE reference operator[]( Position const& p )
+    BOOST_FORCEINLINE reference operator()( difference_type i )
     {
-      return index_[meta::view_at<1>(p)][boost::fusion::at_c<0>(p)];
+      return data_(i);
     }
 
-    template<class Position>
-    BOOST_FORCEINLINE const_reference operator[]( Position const& p ) const
+    BOOST_FORCEINLINE const_reference operator()( difference_type i ) const
     {
-      return index_[meta::view_at<1>(p)][boost::fusion::at_c<0>(p)];
+      return data_(i);
+    }
+
+    BOOST_FORCEINLINE reference operator()(difference_type i, difference_type j)
+    {
+      return index_(j)[i];
+    }
+
+    BOOST_FORCEINLINE const_reference
+    operator()(difference_type i, difference_type j) const
+    {
+      return index_(j)[i];
     }
 
     void swap( iliffe_buffer& src )
@@ -247,36 +256,29 @@ namespace nt2 { namespace memory
     // data_size computes the number of elements required to store the data
     // table of the Iliffe vector
     //==========================================================================
-    template<class Seq>
-    boost::fusion::vector<std::size_t> data_size(Seq const& s) const
+    template<class Seq> size_type data_size(Seq const& s) const
     {
       boost::dispatch::functor<tag::multiplies_> func;
-
-      return  boost::fusion::make_vector
-              ( boost::fusion::fold ( boost::fusion::pop_front(s)
-                                    , boost::fusion::front(s)
-                                    , func
-                                    )
-              );
+      return  boost::fusion::fold ( boost::fusion::pop_front(s)
+                                  , boost::fusion::front(s)
+                                  , func
+                                  );
     }
 
     //==========================================================================
     // index_size computes the number of elements required to store the index
     // table of the Iliffe vector
     //==========================================================================
-    template<class Seq>
-    boost::fusion::vector<std::size_t> index_size(Seq const& s) const
+    template<class Seq> size_type index_size(Seq const& s) const
     {
       boost::dispatch::functor<tag::multiplies_> func;
 
-      return  boost::fusion::make_vector
-              ( boost::fusion::fold ( boost::fusion::
-                                      pop_front(boost::fusion::pop_front(s))
-                                    , boost::fusion::
-                                      front(boost::fusion::pop_front(s))
-                                    , func
-                                    )
-              );
+      return  boost::fusion::fold ( boost::fusion::
+                                    pop_front(boost::fusion::pop_front(s))
+                                  , boost::fusion::
+                                    front(boost::fusion::pop_front(s))
+                                  , func
+                                  );
     }
 
     //==========================================================================
@@ -287,10 +289,8 @@ namespace nt2 { namespace memory
       typename Index::difference_type i = index_.lower();
       typename Index::difference_type u = index_.upper();
 
-      index_[boost::fusion::make_vector(i++)] = data_.origin();
-      for(; i <= u; ++i)
-          index_[boost::fusion::make_vector(i)]
-        = index_[boost::fusion::make_vector(i-1)] + inner_;
+      index_(i++) = data_.origin();
+      for(; i <= u; ++i) index_(i) = index_(i-1) + inner_;
     }
 
     private:

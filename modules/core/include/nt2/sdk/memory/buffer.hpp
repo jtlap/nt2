@@ -74,11 +74,10 @@ namespace nt2 {  namespace memory
      *
      **/
     //==========================================================================
-    template<typename Sizes>
-    buffer( Sizes const& sz, allocator_type const& alloc = allocator_type() )
+    buffer( size_type sz, allocator_type const& alloc = allocator_type() )
     : parent_data(alloc)
     {
-      parent_data::allocate( boost::fusion::at_c<0>(sz) );
+      parent_data::allocate( sz );
     }
 
     //==========================================================================
@@ -205,32 +204,33 @@ namespace nt2 {  namespace memory
      * to be valid.
      **/
     //==========================================================================
-    template<class Position>
-    BOOST_FORCEINLINE reference operator[](Position const& pos)
+    BOOST_FORCEINLINE reference operator()(difference_type i)
     {
-      BOOST_ASSERT_MSG( (difference_type(boost::fusion::at_c<0>(pos)) >= lower())
-                      , "Position is below buffer bounds"
-                      );
-
-      BOOST_ASSERT_MSG( (difference_type(boost::fusion::at_c<0>(pos)) <= upper())
-                      , "Position is out of buffer bounds"
-                      );
-
-      return parent_data::origin_[boost::fusion::at_c<0>(pos)];
+      return parent_data::origin_[i];
     }
 
-    template<class Position>
-    BOOST_FORCEINLINE const_reference operator[](Position const& pos) const
+    BOOST_FORCEINLINE const_reference operator()(difference_type i) const
     {
-      BOOST_ASSERT_MSG( (difference_type(boost::fusion::at_c<0>(pos)) >= lower())
-                      , "Position is below buffer bounds"
-                      );
+      return parent_data::origin_[i];
+    }
 
-      BOOST_ASSERT_MSG( (difference_type(boost::fusion::at_c<0>(pos)) <= upper())
-                      , "Position is out of buffer bounds"
-                      );
+    //==========================================================================
+    /**!
+     * Return the ith element of the buffer.
+     *
+     * \param pos 1D Index of the element to retrieve passed either as an
+     * integral value or as a Fusion RandomAccessSequence of size 1.
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE reference operator()(difference_type i, difference_type )
+    {
+      return parent_data::origin_[i];
+    }
 
-      return parent_data::origin_[boost::fusion::at_c<0>(pos)];
+    BOOST_FORCEINLINE const_reference
+    operator()(difference_type i, difference_type ) const
+    {
+      return parent_data::origin_[i];
     }
 
     //==========================================================================
@@ -254,10 +254,7 @@ namespace nt2 {  namespace memory
      * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
      **/
     //==========================================================================
-    template<class Sizes> void resize(Sizes const& sz)
-    {
-      parent_data::resize( boost::fusion::at_c<0>(sz) );
-    }
+    void resize(size_type sz) { parent_data::resize( sz ); }
 
     protected:
     using parent_data::allocator;

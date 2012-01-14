@@ -27,11 +27,11 @@ namespace nt2 { namespace memory
 
     template<typename Sizes>
     iliffe_buffer ( Sizes const& sz, allocator_type const& a = allocator_type() )
-                  : parent(sz,a)
+                  : parent(boost::fusion::at_c<0>(sz),a)
     {}
 
-    iliffe_buffer ( iliffe_buffer const& s) 
-                  : parent(static_cast<parent const&>(s)) 
+    iliffe_buffer ( iliffe_buffer const& s)
+                  : parent(static_cast<parent const&>(s))
     {}
 
     inline size_type        inner_size()  const { return parent::size();  }

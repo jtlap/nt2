@@ -79,16 +79,25 @@ namespace nt2 { namespace memory
      * integral value or as a Fusion RandomAccessSequence of size 1 or 2.
      **/
     //==========================================================================
-    template<class Position>
-    BOOST_FORCEINLINE reference operator[]( Position const& pos )
+    BOOST_FORCEINLINE reference operator()( difference_type i )
     {
-      return data_[pos];
+      return data_(i);
     }
 
-    template<class Position>
-    BOOST_FORCEINLINE const_reference operator[]( Position const& pos ) const
+    BOOST_FORCEINLINE const_reference operator()( difference_type i ) const
     {
-      return data_[pos];
+      return data_(i);
+    }
+
+    BOOST_FORCEINLINE reference operator()(difference_type i, difference_type j)
+    {
+      return data_(i,j);
+    }
+
+    BOOST_FORCEINLINE const_reference
+    operator()(difference_type i, difference_type j) const
+    {
+      return data_(i,j);
     }
 
     //==========================================================================

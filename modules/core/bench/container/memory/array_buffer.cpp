@@ -27,16 +27,11 @@ template<class T> struct array_buffer_test
 
   array_buffer_test(size_type sz) : up(sz+data.lower()-1) {}
 
-  ~array_buffer_test()
-  {
-    int i = 1 + rand() % up;
-    pump = data[boost::fusion::vector_tie(i)];
-  }
+  ~array_buffer_test() { pump = data(1 + rand() % up); }
 
   void operator()()
   {
-    for(difference_type i = data.lower(); i <= up; ++i)
-      data[boost::fusion::vector_tie(i)] = data2[boost::fusion::vector_tie(i)];
+    for(difference_type i = data.lower(); i <= up; ++i) data(i) = data2(i);
   }
 
   T   v;

@@ -144,7 +144,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<1> const&, boost::mpl::size_t<N> const&
           )
     {
-      return b[meta::view_at<0>(p)];
+      return b(boost::fusion::at_c<0>(p));
     }
 
     template<class Position, std::size_t N>
@@ -153,7 +153,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<1> const&, boost::mpl::size_t<N> const&
           )
     {
-      return b[meta::view_at<0>(p)];
+      return b(boost::fusion::at_c<0>(p));
     }
 
     template<class Position>
@@ -162,7 +162,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<1> const&, boost::mpl::size_t<1> const&
           )
     {
-      return b[p];
+      return b(boost::fusion::at_c<0>(p));
     }
 
     template<class Position>
@@ -171,7 +171,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<1> const&, boost::mpl::size_t<1> const&
           )
     {
-      return b[p];
+      return b(boost::fusion::at_c<0>(p));
     }
 
     template<class Position, std::size_t N>
@@ -180,7 +180,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<2> const&
           )
     {
-      return b[p];
+      return b(boost::fusion::at_c<0>(p),boost::fusion::at_c<1>(p));
     }
 
     template<class Position, std::size_t N>
@@ -189,7 +189,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<2> const&
           )
     {
-      return b[p];
+      return b(boost::fusion::at_c<0>(p),boost::fusion::at_c<1>(p));
     }
 
     //==========================================================================
@@ -201,7 +201,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
           )
     {
-      return b[unpack(p,s,lead_t())];
+      return access( unpack(p,s,lead_t()), b, s );
     }
 
     template<class Position, std::size_t N>
@@ -210,7 +210,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
           )
     {
-      return b[unpack(p,s,lead_t())];
+      return access( unpack(p,s,lead_t()), b, s );
     }
 
     template<class Position, std::size_t N>
@@ -240,7 +240,9 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<M> const&
           )
     {
-      return b[deflate(s,p,typename index_type::type())];
+      return access ( deflate(s,p,typename index_type::type())
+                    , b, s
+                    );
     }
 
     template<class Position, std::size_t N, std::size_t M>
@@ -249,17 +251,18 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<M> const&
           )
     {
-      return b[deflate(s,p,typename index_type::type())];
+      return access ( deflate(s,p,typename index_type::type())
+                    , b, s
+                    );
     }
 
     //==========================================================================
     // Unpack 1D position if lead padding is present
     //==========================================================================
     template<class Pos> static BOOST_FORCEINLINE
-    Pos const&
-    unpack( Pos const& p, sizes_type const&
-          , lead_padding_<1> const&
-          )
+    Pos const&  unpack( Pos const& p, sizes_type const&
+                      , lead_padding_<1> const&
+                      )
     {
       return p;
     }

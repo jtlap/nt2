@@ -88,7 +88,7 @@ NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
   buffer_type b;
 
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    b[boost::fusion::vector_tie(i)] = T(3+i);
+    b(i) = T(3+i);
 
   buffer_type x(b);
 
@@ -103,7 +103,7 @@ NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(),  1 );
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(3+i) );
+    NT2_TEST_EQUAL( x(i), T(3+i) );
 }
 
 //==============================================================================
@@ -114,8 +114,8 @@ NT2_TEST_CASE_TPL( array_buffer_wrong_data_ctor, NT2_TYPES)
   using nt2::memory::array_buffer;
   typedef array_buffer<T,5,-2> buffer_type ;
 
-  NT2_TEST_ASSERT( buffer_type too_much(boost::fusion::make_vector(7)) );
-  NT2_TEST_ASSERT( buffer_type too_few(boost::fusion::make_vector(2))  );
+  NT2_TEST_ASSERT( buffer_type too_much(7) );
+  NT2_TEST_ASSERT( buffer_type too_few(2)  );
 }
 
 //==============================================================================
@@ -129,7 +129,7 @@ NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
   buffer_type x, b;
 
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    b[boost::fusion::vector_tie(i)] = T(3+i);
+    b(i) = T(3+i);
 
   x = b;
 
@@ -144,7 +144,7 @@ NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
   NT2_TEST_EQUAL(x.outer_upper(),  1 );
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(3+i) );
+    NT2_TEST_EQUAL( x(i), T(3+i) );
 }
 
 //==============================================================================
@@ -160,10 +160,10 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
   buffer_type x;
 
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    b[boost::fusion::vector_tie(i)] = T(3+i);
+    b(i) = T(3+i);
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    x[boost::fusion::vector_tie(i)] = T(10*i);
+    x(i) = T(10*i);
 
   swap(b,x);
 
@@ -188,10 +188,10 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(b.outer_upper(),  1 );
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(3+i) );
+    NT2_TEST_EQUAL( x(i), T(3+i) );
 
   for ( typename buffer_type::difference_type i = b.lower(); i <= b.upper(); ++i )
-    NT2_TEST_EQUAL( b[boost::fusion::vector_tie(i)], T(10*i) );
+    NT2_TEST_EQUAL( b(i), T(10*i) );
 }
 
 //==============================================================================
@@ -208,11 +208,9 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
 
   typedef array_buffer<T,5,-2> buffer_type ;
 
-  boost::array<std::size_t,1> sx = { 5 };
-
-  buffer_type x(sx);
+  buffer_type x;
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-  x[boost::fusion::vector_tie(i)] = T(3+i);
+  x(i) = T(3+i);
 
   f_ f;
 
@@ -222,7 +220,7 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
   std::transform(b,e,b,f);
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], f(3+i) );
+    NT2_TEST_EQUAL( x(i), f(3+i) );
 }
 
 //==============================================================================
@@ -234,22 +232,6 @@ NT2_TEST_CASE_TPL( array_buffer_wrong_resize, NT2_TYPES)
   typedef array_buffer<T,5,-2> buffer_type ;
   buffer_type b;
 
-  NT2_TEST_ASSERT( b.resize(boost::fusion::make_vector(7)) );
-  NT2_TEST_ASSERT( b.resize(boost::fusion::make_vector(1)) );
-}
-
-//==============================================================================
-// Test for array_buffer asserting access
-//==============================================================================
-NT2_TEST_CASE_TPL( array_buffer_wrong_access, NT2_TYPES)
-{
-  using nt2::memory::array_buffer;
-  typedef array_buffer<T,5,-2> buffer_type ;
-  buffer_type b;
-  T value;
-
-  NT2_TEST_ASSERT( value  = b[boost::fusion::make_vector(-3)] );
-  NT2_TEST_ASSERT( value  = b[boost::fusion::make_vector(9)]  );
-  NT2_TEST_ASSERT( b[boost::fusion::make_vector(-5)]  = value );
-  NT2_TEST_ASSERT( b[boost::fusion::make_vector(7)]   = value );
+  NT2_TEST_ASSERT( b.resize(7) );
+  NT2_TEST_ASSERT( b.resize(1) );
 }

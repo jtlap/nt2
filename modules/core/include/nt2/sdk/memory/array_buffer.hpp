@@ -55,12 +55,9 @@ namespace nt2 {  namespace memory
     // Constructor from Size. Size information is discarded but checked if
     // comaptible with static storage size
     //==========================================================================
-    template<typename Sizes>
-    array_buffer( Sizes const& s, allocator_type const& = allocator_type() )
+    array_buffer( size_type s, allocator_type const& = allocator_type() )
     {
-      BOOST_ASSERT_MSG( (N == boost::fusion::at_c<0>(s))
-                      , "Array buffer constructed wiht incompatible size."
-                      );
+      BOOST_ASSERT_MSG(N == s, "Buffer constructed with incompatible size.");
     }
 
     //==========================================================================
@@ -131,29 +128,35 @@ namespace nt2 {  namespace memory
      * to be valid.
      **/
     //==========================================================================
-    template<class Position> BOOST_FORCEINLINE
-    reference operator[](Position const& pos)
+    BOOST_FORCEINLINE reference operator()(difference_type i)
     {
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
-                      , "Position is below buffer bounds"
-                      );
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
-                      , "Position is out of buffer bounds"
-                      );
-
-      return storage_[boost::fusion::at_c<0>(pos)-BaseIndex];
+      return storage_[i-BaseIndex];
     }
 
-    template<class Position> BOOST_FORCEINLINE
-    const_reference operator[](Position const& pos) const
+    BOOST_FORCEINLINE const_reference operator()(difference_type i) const
     {
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) >= lower())
-                      , "Position is below buffer bounds"
-                      );
-      BOOST_ASSERT_MSG( (boost::fusion::at_c<0>(pos) <= upper())
-                      , "Position is out of buffer bounds"
-                      );
-      return storage_[boost::fusion::at_c<0>(pos)-BaseIndex];
+      return storage_[i-BaseIndex];
+    }
+
+    //==========================================================================
+    /**!
+     * Return the ith element of the buffer.
+     *
+     * \param  pos 1D Index of the element to retrieve passed either as an
+     * integral value or as a Fusion RandomAccessSequence of size 1.
+     * Note that \c pos should be no lesser than lower() nor bigger than upper()
+     * to be valid.
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE reference operator()(difference_type i,difference_type)
+    {
+      return storage_[i-BaseIndex];
+    }
+
+    BOOST_FORCEINLINE const_reference
+    operator()(difference_type i,difference_type) const
+    {
+      return storage_[i-BaseIndex];
     }
 
     //==========================================================================
@@ -177,11 +180,9 @@ namespace nt2 {  namespace memory
      * index.
      **/
     //==========================================================================
-    template<class Sizes> void resize(Sizes const& s)
+    void resize(size_type s)
     {
-      BOOST_ASSERT_MSG( (N == boost::fusion::at_c<0>(s))
-                      , "Array buffer resized wiht incompatible size."
-                      );
+      BOOST_ASSERT_MSG(N == s, "Buffer resized with incompatible size.");
     }
 
     protected:
