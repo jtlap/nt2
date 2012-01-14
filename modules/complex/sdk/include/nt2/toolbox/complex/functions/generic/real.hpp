@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::real_of<A0>::type result_type;
+    typedef typename meta::as_real<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return Zero<result_type>();
