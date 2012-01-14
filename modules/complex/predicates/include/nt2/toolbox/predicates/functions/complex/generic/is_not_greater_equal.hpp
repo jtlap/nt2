@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
                               (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
                               (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
                               (generic_< arithmetic_<A1> >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
                               (generic_< dry_ < arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
                               (generic_< imaginary_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
                               (generic_< complex_< arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -134,7 +134,7 @@ namespace nt2 { namespace ext
                               (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     inline result_type operator()(const A0&, const A0&) const
     {
@@ -147,7 +147,7 @@ namespace nt2 { namespace ext
                               (generic_< arithmetic_<A1> >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -160,7 +160,7 @@ namespace nt2 { namespace ext
                               (generic_< dry_ < arithmetic_<A1> > >)
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -173,7 +173,7 @@ namespace nt2 { namespace ext
                               (generic_< imaginary_< arithmetic_<A1> > > )
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
@@ -186,7 +186,7 @@ namespace nt2 { namespace ext
                               (generic_< imaginary_< arithmetic_<A1> > > )
                             )
   {
-    typedef typename  meta::real_of<A0>::type rA0; 
+    typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
