@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+  ulpdist.cpp
    )
 
 nt2_module_add_tests(complex.ieee.scalar.unit ${SOURCES})
