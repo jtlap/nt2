@@ -22,6 +22,7 @@
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {

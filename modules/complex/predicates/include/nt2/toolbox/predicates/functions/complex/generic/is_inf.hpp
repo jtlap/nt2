@@ -16,6 +16,7 @@
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -28,7 +29,9 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return logical_andnot(logical_or(is_inf(imag(a0)),is_inf(real(a0))), is_nan(a0)); 
+      //C99 standard:A complex or imaginary value with at least one infinite part
+      //is regarded as an infinity (even if its other part is a NaN).
+      return logical_or(is_inf(imag(a0)),is_inf(real(a0))); 
     }
   };
 
