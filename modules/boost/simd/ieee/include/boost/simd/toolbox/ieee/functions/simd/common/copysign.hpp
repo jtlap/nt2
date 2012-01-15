@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/bitofsign.hpp>
+#include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/functions/signnz.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -26,20 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-        return  signnz(a1)*abs(a0);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::copysign_, tag::cpu_,
-                           (A0)(X),
-                           ((simd_<unsigned_<A0>,X>))
-                           ((simd_<unsigned_<A0>,X>))
-                          )
-  {
-    typedef A0 result_type;
-    inline result_type operator()(const A0& a0, const A0&)const 
-    {
-      return  a0;
+      return boost::simd::abs(a0)*boost::simd::signnz(a1);
     }
   };
 
@@ -52,8 +40,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return b_or(boost::simd::abs(a0), bitofsign(a1));
+      return  bitwise_or(bitofsign(a1), boost::simd::abs(a0));
     }
   };
+
 } } }
 #endif
