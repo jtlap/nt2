@@ -8,18 +8,14 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_SQRT1PM1_HPP_INCLUDED
-
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/log1p.hpp>
-#include <nt2/include/functions/is_equal.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/constants/half.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt1pm1_, tag::cpu_
@@ -49,9 +45,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return  eq(a0, Mone<A0>())?
-	Mone<A0>():
-	nt2::expm1(nt2::log1p(a0)*Half<A0>()); 
+      A0 tmp = sqrt(oneplus(a0)); 
+      return lt(nt2::abs(a0), Half<A0>()) ? a0/(oneplus(tmp) : minusone(tmp); 
     }
   };
 } }

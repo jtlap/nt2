@@ -9,16 +9,13 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_SQRT1PM1_HPP_INCLUDED
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/log1p.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/constants/half.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt1pm1_, tag::cpu_
@@ -31,11 +28,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_floating<A0>::type rtype; 
-      return sel(eq(a0, Mone<rtype>()),
-		 Mone<rtype>(),
-		 nt2::expm1(nt2::log1p(tofloat(a0))*Half<rtype>())
-		 );
+      result_type tmp = sqrt(oneplus(tofloat(a0))); 
+      return if_else(lt(nt2::abs(a0), Half<A0>()),
+                     a0/oneplus(tmp),
+                     minusone(tmp)); 
     }
   };
 } }
