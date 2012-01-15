@@ -29,31 +29,31 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
-                            , (A0)
-                            , (generic_< imaginary_<floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type             rtype; 
-    typedef typename meta::as_complex<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return result_type(arg(a0)); 
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
+//                             , (A0)
+//                             , (generic_< imaginary_<floating_<A0> > >)
+//                             )
+//   {
+//     typedef typename meta::as_real<A0>::type             rtype; 
+//     typedef typename meta::as_complex<rtype>::type result_type;
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return result_type(arg(a0)); 
+//     }
+//   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
-                            , (A0)
-                            , (generic_< dry_<floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type             rtype; 
-    typedef typename meta::as_complex<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return result_type(nt2::log(nt2::abs(real(a0)), nt2::arg(real(a0)))); 
-    }
-  };    
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
+//                             , (A0)
+//                             , (generic_< dry_<floating_<A0> > >)
+//                             )
+//   {
+//     typedef typename meta::as_real<A0>::type             rtype; 
+//     typedef typename meta::as_complex<rtype>::type result_type;
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return result_type(nt2::log(nt2::abs(real(a0)), nt2::arg(real(a0)))); 
+//     }
+//   };    
 } }
 
 

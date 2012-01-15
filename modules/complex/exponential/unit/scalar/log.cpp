@@ -36,12 +36,9 @@ NT2_TEST_CASE_TPL ( log_real__1_0,  NT2_REAL_TYPES)
   
   using nt2::log;
   using nt2::tag::log_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<log_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
+  typedef std::complex<T> cT; 
+  typedef typename nt2::meta::call<log_(cT)>::type r_t;
+  typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -49,61 +46,51 @@ NT2_TEST_CASE_TPL ( log_real__1_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
   // specific values tests
-  NT2_TEST_ULP_EQUAL(log(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log(nt2::Minf<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log(nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log(nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log(nt2::Inf<cT>()), nt2::Inf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log(nt2::Minf<cT>()), cT(nt2::Inf<T>(), nt2::Pi<T>()), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log(nt2::Mone<cT>()), cT(nt2::Zero<T>(), nt2::Pi<T>()), 0); 
+  NT2_TEST_ULP_EQUAL(nt2::log(nt2::Nan<cT>()),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan<T>(), nt2::Nan<T>())),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log(nt2::One<cT>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log(nt2::Zero<cT>()), nt2::Minf<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log(nt2::Mzero<cT>()), cT(nt2::Minf<T>(), nt2::Pi<T>()), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Zero<T>(), nt2::One<T>())),cT(nt2::Zero<T>(), nt2::Pio_2<T>()), 0);
+
+//  clog($B!](B0 + i0) returns $B!]!g(B + i-Fð and raises the ¡¡divide-by-zero¢¢ floating-point exception.-A
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Mzero<T>(), nt2::Zero<T>())),  cT(nt2::Minf<T>(), nt2::Pi<T>()), 0.75); 
+//  clog(+0 + i0) returns $B!]!g(B + i0 and raises the -F¡¡divide-by-zero¢¢ floating-point exception.-A
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Zero<T>(),  nt2::Zero<T>())),  cT(nt2::Minf<T>(), nt2::Zero<T>()), 0.75);
+//  clog(x + i $B!g(B) returns +$B!g(B + i-Fð /2, for finite x.-A
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::One  <T>(), nt2::Inf <T>())), cT(nt2::Inf<T>(), nt2::Pio_2<T>()), 0.75);
+//  clog(x + iNaN) returns NaN + iNaN and optionally raises the -F¡¡invalid¢¢ floating-point exception, for finite x.-A
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::One  <T>(), nt2::Nan <T>())), cT(nt2::Nan<T>(), nt2::Nan<T>()), 0.75);
+//  clog(+$B!g(B + iy) returns +$B!g(B + i0, for finite positive-signed y.
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::Zero<T>())), cT(nt2::Inf<T>(), nt2::Zero<T>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Inf<T>(), nt2::Zero<T>()), 0.75);    
+//  clog($B!]!g(B + iy) returns +$B!g(B + i-Fð , for finite positive-signed y.-A
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), nt2::One<T>())),  cT(nt2::Inf<T>(), nt2::Pi<T>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), nt2::Zero<T>())),  cT(nt2::Inf<T>(), nt2::Pi<T>()), 0.75);
+//  clog(+$B!g(B + iy) returns +$B!g(B + i0, for finite positive-signed y.
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Inf <T>(), nt2::Zero <T>()), 0.75);   
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::Zero<T>())), cT(nt2::Inf <T>(), nt2::Zero <T>()), 0.75);
+//  clog($B!]!g(B + i $B!g(B) returns +$B!g(B + i3-Fð /4.  -A
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), nt2::Inf<T>())),  cT(nt2::Inf <T>(), 3*nt2::Pi<T>()/4), 0.75);
+//  clog(+$B!g(B + i $B!g(B) returns +$B!g(B + i-Fð /4.-A
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::Inf<T>())),  cT(nt2::Inf <T>(), nt2::Pi<T>()/4), 0.75);
+//  clog(±$B!g(B + iNaN) returns +$B!g(B + iNaN.
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), nt2::Nan<T>())),  cT(nt2::Inf <T>(), nt2::Nan<T>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::Nan<T>())),  cT(nt2::Inf <T>(), nt2::Nan<T>()), 0.75);
+//  clog(NaN + iy) returns NaN + iNaN and optionally raises the -F¡¡invalid¢¢ floating-point exception, for finite y.-A
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan  <T>(), nt2::Zero<T>())), cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan  <T>(), nt2::One<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan  <T>(), nt2::Mone<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
+//  clog(NaN + i $B!g(B) returns +$B!g(B + iNaN.
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan  <T>(), nt2::Inf<T>())), cT(nt2::Inf <T>(), nt2::Nan<T>()), 0.75);
+//  clog(NaN + iNaN) returns NaN + iNaN.
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan  <T>(), nt2::Nan<T>())), cT(nt2::Inf <T>(), nt2::Nan<T>()), 0.75);
+  
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( log_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
-{
-  
-  using nt2::log;
-  using nt2::tag::log_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<log_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
+//  clog(conj(z)) = conj(clog(z)).
 
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(log(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log(nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( log_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  
-  using nt2::log;
-  using nt2::tag::log_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<log_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(log(nt2::Mone<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log(nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(log(nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
-} // end of test for signed_int_

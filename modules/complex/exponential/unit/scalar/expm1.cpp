@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 exponential toolbox - expm1/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 complex.exponential toolbox - expm1/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of exponential components in scalar mode
@@ -36,12 +36,10 @@ NT2_TEST_CASE_TPL ( expm1_real__1_0,  NT2_REAL_TYPES)
   
   using nt2::expm1;
   using nt2::tag::expm1_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<expm1_(T)>::type r_t;
+  typedef std::complex<T> cT; 
+  typedef typename nt2::meta::call<expm1_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
+  typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -49,61 +47,11 @@ NT2_TEST_CASE_TPL ( expm1_real__1_0,  NT2_REAL_TYPES)
   double ulpd;
   ulpd=0.0;
 
-
   // specific values tests
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Inf<T>()), nt2::Inf<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Minf<T>()), nt2::Mone<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Mone<T>()), nt2::One<r_t>()/nt2::Exp_1<r_t>()-nt2::One<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Nan<T>()), nt2::Nan<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::One<T>()), nt2::Exp_1<r_t>()-nt2::One<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Zero<T>()), nt2::Zero<r_t>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expm1(nt2::Inf<cT>()), nt2::Inf<cT>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expm1(nt2::Minf<cT>()), nt2::Mone<cT>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expm1(nt2::Mone<cT>()), nt2::One<cT>()/nt2::Exp_1<cT>()-nt2::One<cT>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expm1(nt2::Nan<cT>()), nt2::Nan<cT>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expm1(nt2::One<cT>()), nt2::Exp_1<cT>()-nt2::One<cT>(), 1.0);
+  NT2_TEST_ULP_EQUAL(expm1(nt2::Zero<cT>()), nt2::Zero<cT>(), 1.0);
 } // end of test for floating_
-
-NT2_TEST_CASE_TPL ( expm1_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
-{
-  
-  using nt2::expm1;
-  using nt2::tag::expm1_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<expm1_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(expm1(nt2::One<T>()), nt2::Exp_1<r_t>()-nt2::One<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Zero<T>()), nt2::Zero<r_t>(), 1.0);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( expm1_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  
-  using nt2::expm1;
-  using nt2::tag::expm1_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<expm1_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Mone<T>()), nt2::One<r_t>()/nt2::Exp_1<r_t>()-nt2::One<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::One<T>()), nt2::Exp_1<r_t>()-nt2::One<r_t>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Zero<T>()), nt2::Zero<r_t>(), 1.0);
-} // end of test for signed_int_
