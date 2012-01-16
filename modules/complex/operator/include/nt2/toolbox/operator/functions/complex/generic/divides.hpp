@@ -44,8 +44,8 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<result_type>::type rtype; 
       typedef typename meta::as_integer<rtype>::type itype; 
-      rtype rr =  nt2::abs(real(a0));
-      rtype ii =  nt2::abs(imag(a0));
+      rtype rr =  nt2::abs(real(a1));
+      rtype ii =  nt2::abs(imag(a1));
       itype e =  -if_else(lt(rr, ii), exponent(ii), exponent(rr));
       A0 aa1 =  nt2::ldexp(a1, e); 
       rtype denom =  sqr_abs(aa1);
