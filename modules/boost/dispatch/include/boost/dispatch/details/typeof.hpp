@@ -38,20 +38,18 @@
 
 /*!
  * \ingroup meta
- * Defines a type equivalent to the type of the epxression passed as arguments
+ * Defines a type equivalent to the type of the expression passed as arguments,
+ * CV-qualifiers unspecified.
  * \param EXPR Expression which type has to be evaluated
- * \param TYPE Typename to create
  *
  * \par Example Usage:
  *
  * \include decltype.cpp
  */
 #ifndef BOOST_NO_DECLTYPE
-#define BOOST_DISPATCH_TYPEOF(EXPR, TYPE) typedef decltype(EXPR) TYPE;
+#define BOOST_DISPATCH_TYPEOF(EXPR) decltype(EXPR)
 #else
-#define BOOST_DISPATCH_TYPEOF(EXPR, TYPE)                            \
-BOOST_TYPEOF_NESTED_TYPEDEF_TPL(BOOST_PP_CAT(nested_, TYPE), (EXPR))   \
-typedef typename BOOST_PP_CAT(nested_, TYPE)::type TYPE;
+#define BOOST_DISPATCH_TYPEOF(EXPR) BOOST_TYPEOF(EXPR)
 #endif
 
 #endif
