@@ -29,7 +29,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/dry.hpp>
 
-NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
 {
   
   using nt2::sqrt;
@@ -45,10 +45,10 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  //  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
- ulpd=0.0; 
+  ulpd=0.0; 
 
   // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
   // specific values tests
@@ -80,5 +80,41 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
    std::cout << nt2::sqrt(nt2::real(bb)) << std::endl;
    std::cout <<  nt2::plus(aa, T(1)) << std::endl;
    std::cout <<  nt2::plus(nt2::sqrt(bb), aa)<< std::endl;
-} // end of test for floating_
+   
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>(),nt2::Zero<T>())),cT(nt2::Zero<T>(),nt2::Zero<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Mzero<T>(),nt2::Zero<T>())),cT(nt2::Zero<T>(),nt2::Zero<T>()));
+  std::cout << nt2::sqrt(cT(nt2::Mzero<T>(),nt2::Zero<T>())) << std::endl; 
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
+   
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan <T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
 
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan <T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
+   
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::One<T>())),cT(nt2::Zero<T>(),nt2::Inf<T>()));
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Mone<T>())),cT(nt2::Zero<T>(),nt2::Minf<T>()));
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Zero<T>())),cT(nt2::Zero<T>(),nt2::Inf<T>()));
+  
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Inf<T>()));
+   
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::One<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));  
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));  
+
+   
+} // end of test for floating_
+ 
+// csqrt(conj(z)) = conj(csqrt(z)).
+//  csqrt((+/-)0 + i0) returns +0 + i0.
+//  csqrt(x + i inf) returns +inf + i inf, for all x (including NaN).
+//  csqrt(x + iNaN) returns NaN + iNaN and optionally raises the invalid floating-point exception, for finite x.
+//  csqrt(−inf + iy) returns +0 + i inf, for finite positive-signed y.
+//  csqrt(+inf + iy) returns +inf + i0, for finite positive-signed y.
+//  csqrt(−inf + iNaN) returns NaN (+/-) i inf (where the sign of the imaginary part of the
+// result is unspecified).
+//  csqrt(+inf + iNaN) returns +inf + iNaN.
+//  csqrt(NaN + iy) returns NaN + iNaN and optionally raises the invalid floating-point exception, for finite y.
+//  csqrt(NaN + iNaN) returns NaN + iNaN.
