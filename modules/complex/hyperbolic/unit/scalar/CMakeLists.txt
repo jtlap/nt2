@@ -8,6 +8,8 @@
 ##############################################################################
 
 set( SOURCES
+  acosh.cpp
+  asinh.cpp
    )
 
 nt2_module_add_tests(complex.hyperbolic.scalar.unit ${SOURCES})

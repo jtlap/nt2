@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<result_type>::type rtype; 
@@ -49,8 +49,8 @@ namespace nt2 { namespace ext
       A0 num = conj(aa0);
       A0 r =  ldexp(num/denom, e);
       if (all(is_finite(r))) return r; 
-      r = if_else(is_eqz(denom), copysign(Inf<rtype>(), real(a0)));
-      r = if_else(is_inf(a0),    rec(copysign(denom, real(a0))), r);
+      r = if_else(is_eqz(denom), result_type(copysign(Inf<rtype>(), real(a0)), Zero<rtype>()), r);
+      r = if_else(is_inf(a0),    result_type(rec(copysign(denom, real(a0))), Zero<rtype>()), r);
       return r;
     }
   };
