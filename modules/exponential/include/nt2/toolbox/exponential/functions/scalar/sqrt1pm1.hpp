@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       A0 tmp = sqrt(oneplus(a0)); 
-      return lt(nt2::abs(a0), Half<A0>()) ? a0/(oneplus(tmp) : minusone(tmp); 
+      return lt(nt2::abs(a0), Half<A0>()) ? a0/oneplus(tmp) : minusone(tmp); 
     }
   };
 } }

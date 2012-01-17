@@ -24,6 +24,7 @@ set( SOURCES
   average.cpp
   min.cpp
   max.cpp
+  rec.cpp
    )
 
 nt2_module_add_tests(complex.arithmetic.scalar.unit ${SOURCES})
