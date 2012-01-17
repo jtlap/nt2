@@ -56,7 +56,6 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>())); 
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Inf<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));  
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>())), cT(0, nt2::Inf<T>()));
@@ -81,29 +80,38 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
    std::cout <<  nt2::plus(aa, T(1)) << std::endl;
    std::cout <<  nt2::plus(nt2::sqrt(bb), aa)<< std::endl;
    
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>(),nt2::Zero<T>())),cT(nt2::Zero<T>(),nt2::Zero<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>(),nt2::Zero<T>())), cT(nt2::Zero<T>(),nt2::Zero<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Mzero<T>(),nt2::Zero<T>())),cT(nt2::Zero<T>(),nt2::Zero<T>()));
-  std::cout << nt2::sqrt(cT(nt2::Mzero<T>(),nt2::Zero<T>())) << std::endl; 
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
-   
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan <T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Zero<T>())), cT(nt2::Zero<T>(),nt2::Inf<T>()));
+ 
 
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan <T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::One<T>())),cT(nt2::Zero<T>(),nt2::Inf<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Mone<T>())),cT(nt2::Zero<T>(),nt2::Minf<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Zero<T>())),cT(nt2::Zero<T>(),nt2::Inf<T>()));
-  
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Inf<T>()));
-   
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::One<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));  
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));  
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(), nt2::Inf<T>())), cT(nt2::Inf<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), nt2::Inf<T>())), cT(nt2::Inf<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Inf<T>())), cT(nt2::Inf<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan <T>(),nt2::Inf<T>())), cT(nt2::Inf<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(), nt2::Nan<T>())), cT(nt2::Nan<T>(),nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), nt2::Nan<T>())), cT(nt2::Nan<T>(),nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Nan<T>())), cT(nt2::Nan<T>(),nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan <T>(),nt2::Nan<T>())), cT(nt2::Nan<T>(),nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::One<T>())), cT(nt2::Zero<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Mone<T>())),cT(nt2::Zero<T>(),nt2::Minf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),  cT(nt2::Nan<T>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::One<T>())),  cT(nt2::Nan<T>(),nt2::Nan<T>()));  
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),  cT(nt2::Nan<T>(),nt2::Nan<T>()));  
 
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(), -nt2::Inf<T>())), cT(nt2::Inf<T>(),-nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), -nt2::Inf<T>())), cT(nt2::Inf<T>(),-nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),-nt2::Inf<T>())), cT(nt2::Inf<T>(),-nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan <T>(),-nt2::Inf<T>())), cT(nt2::Inf<T>(),-nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),-nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan <T>(),-nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),-nt2::One<T>())), cT(nt2::Zero<T>(),-nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),-nt2::Mone<T>())),cT(nt2::Zero<T>(),-nt2::Minf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Inf<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(), -nt2::One<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));  
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));  
    
 } // end of test for floating_
  

@@ -52,10 +52,15 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
+        //always compute the sqroot of the complex with positive imaginary part
+        //then conjugate if necessary
         typedef typename meta::as_real<A0>::type rtype;
         typedef typename meta::as_logical<rtype>::type ltype;
+        rtype ia0 = imag(a0);
+        ltype negimag = is_ltz(ia0);
         rtype x = nt2::abs(real(a0));
-        rtype y = nt2::abs(imag(a0));
+        rtype y = nt2::abs(ia0);
+        rtype iaa0 = negif(negimag, ia0); // always >= 0 or -Nan
         ltype gtxy = gt(x, y);
         ltype gezra0 = is_gez(real(a0)); 
         rtype r = if_else(gtxy, y/x, x/y);
@@ -64,29 +69,25 @@ namespace nt2 { namespace ext
         rtype w = if_else(gtxy,
                           sqrtx*sqrt(Half<rtype>()*oneplus(rr)),
                           sqrt(y)*sqrt(Half<rtype>()*(r+rr)));
-        rtype tmp = negif(is_ltz(imag(a0)), w); 
-        A0 z = if_else(gezra0,
-                       result_type(w, imag(a0)*Half<rtype>()/w),
-                       result_type(tmp, imag(a0)*Half<rtype>()/tmp)
-                       );
+        A0 z = result_type(w, iaa0*Half<rtype>()/w);
         z = if_else(is_real(a0),
                     if_else(gezra0,
                             result_type(sqrtx,Zero<rtype>()),
                             result_type(Zero<rtype>(),sqrtx)),
                     if_else(is_imag(a0),
-                            nt2::sqrt(pure(a0)),
+                            result_type(Zero<rtype>(), nt2::sqrt(iaa0)),
                             z)
-                    ); 
-        if (all(is_finite(z))) return z;                      
-        z = if_else(eq(imag(a0), Inf<rtype>()),
+                    );  // perhaps put that after test
+        if (all(is_finite(z))) return if_else(negimag, conj(z), z);
+        z = if_else(eq(iaa0, Inf<rtype>()),
                     result_type(Inf<rtype>(), Inf<rtype>()),
                     z);
-        z = if_else(logical_andnot(eq(real(a0), Minf<rtype>()), is_nan(imag(a0))),
-                    result_type(if_else_zero(eq(imag(a0), Inf<rtype>()), imag(a0)),
-                                copysign(Inf<rtype>(), imag(a0))
+        z = if_else(logical_andnot(eq(real(a0), Minf<rtype>()), is_nan(iaa0)),
+                    result_type(if_else_zero(eq(iaa0, Inf<rtype>()), iaa0),
+                                Inf<rtype>()
                                 ),
                     z);
-        return z;    
+        return if_else(negimag, conj(z), z);    
       }
   };
   
