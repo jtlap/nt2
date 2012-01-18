@@ -13,6 +13,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_BITWISE_CAST_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/simd/toolbox/operator/functions/map.hpp>
 
 /*!
  * \ingroup boost_simd_operator
@@ -66,7 +67,7 @@ namespace boost { namespace simd
      * \brief Define the tag bitwise_cast_ of functor bitwise_cast
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct bitwise_cast_ {};
+    struct bitwise_cast_ : ext::elementwise_<bitwise_cast_> {};
   }
 
   template<class T, class A0>

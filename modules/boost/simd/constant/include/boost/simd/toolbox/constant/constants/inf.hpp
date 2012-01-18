@@ -66,7 +66,7 @@ namespace boost { namespace simd
      * \brief Define the tag Inf of functor Inf 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Inf 
+    struct Inf : ext::constant_<Inf>
     { 
       typedef double default_type;
       template<class Target, class Dummy=void> 
