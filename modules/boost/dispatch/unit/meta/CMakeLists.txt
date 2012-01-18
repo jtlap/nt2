@@ -28,6 +28,7 @@ SET( SOURCES
     strip.cpp
     upgrade.cpp
     counter.cpp
+    combine.cpp
    )
 
 nt2_module_add_tests(boost.dispatch.meta.unit ${SOURCES})
