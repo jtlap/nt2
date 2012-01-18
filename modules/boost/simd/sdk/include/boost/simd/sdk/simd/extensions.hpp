@@ -22,13 +22,7 @@
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 
 #include <boost/dispatch/functor/forward.hpp>
-namespace boost { namespace dispatch
-{
-  template<class Tag>
-  struct default_site<Tag>
-  {
-    typedef BOOST_SIMD_DEFAULT_SITE type;
-  };
-} }
+
+BOOST_DISPATCH_COMBINE_SITE( BOOST_SIMD_DEFAULT_SITE )
 
 #endif

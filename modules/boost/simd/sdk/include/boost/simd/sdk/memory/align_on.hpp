@@ -68,14 +68,7 @@ namespace boost { namespace simd
   }
 } }
 
-namespace boost { namespace dispatch
-{
-  template<>
-  struct default_site< boost::simd::tag::align_on_, void >
-  {
-    typedef tag::cpu_ type;
-  };
-} }
+BOOST_DISPATCH_DEFAULT_SITE_FOR( boost::simd::tag::align_on_ )
 
 #include <boost/simd/sdk/memory/details/align_on.hpp>
 

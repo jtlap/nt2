@@ -13,7 +13,7 @@
 #include <boost/preprocessor/cat.hpp>
 
 #ifndef BOOST_DISPATCH_COUNTER_MAX
-#define BOOST_DISPATCH_COUNTER_MAX 32
+#define BOOST_DISPATCH_COUNTER_MAX 8
 #endif
 
 namespace boost { namespace dispatch { namespace details
@@ -40,14 +40,14 @@ namespace boost { namespace dispatch { namespace details
 
 namespace meta
 {
-  struct adl_helper {};
+  struct adl_helper_ {};
 }
 } }
 
 #define BOOST_DISPATCH_COUNTER_INIT(name)                                                          \
 namespace boost { namespace dispatch { namespace meta                                              \
 {                                                                                                  \
-  boost::mpl::int_<0> name( details::depth_<0>, adl_helper const& );                               \
+  boost::mpl::int_<0> name( details::depth_<0>, adl_helper_ const& );                              \
 } } }                                                                                              \
 /**/
 
@@ -55,7 +55,7 @@ namespace boost { namespace dispatch { namespace meta                           
 boost::dispatch::details::                                                                         \
 identity< BOOST_DISPATCH_TYPEOF(name                                                               \
                                 ( boost::dispatch::details::depth_<BOOST_DISPATCH_COUNTER_MAX>()   \
-                                , boost::dispatch::meta::adl_helper()                              \
+                                , boost::dispatch::meta::adl_helper_()                             \
                                 )                                                                  \
                                )                                                                   \
         >::type::value                                                                             \
@@ -70,7 +70,7 @@ identity< BOOST_DISPATCH_TYPEOF(name                                            
                                            , dummy                                                 \
                                            >::type()                                               \
                                   )                                                                \
-                                , boost::dispatch::meta::adl_helper()                              \
+                                , boost::dispatch::meta::adl_helper_()                             \
                                 )                                                                  \
                                )                                                                   \
         >::type::value                                                                             \
@@ -81,8 +81,8 @@ namespace boost { namespace dispatch { namespace meta                           
 {                                                                                                  \
   boost::mpl::int_< BOOST_DISPATCH_COUNTER_VALUE(name) + 1 >                                       \
   name( details::depth_< BOOST_DISPATCH_COUNTER_VALUE(name) + 1 >                                  \
-                              , adl_helper const&                                                  \
-                              );                                                                   \
+      , adl_helper_ const&                                                                         \
+      );                                                                                           \
 } } }                                                                                              \
 /**/
 

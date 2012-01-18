@@ -9,7 +9,7 @@
 #ifndef BOOST_DISPATCH_META_COMBINE_HPP_INCLUDED
 #define BOOST_DISPATCH_META_COMBINE_HPP_INCLUDED
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch
 {
   // TODO: simplify
   namespace details
@@ -114,13 +114,16 @@ namespace boost { namespace dispatch { namespace meta
     };
   }
   
-  /** \brief Combines two nested template types by inserting the top-most node of \c U at the same height in \c T */
-  template<class T, class U, int N = details::outer_count<U>::value>
-  struct combine
-   : details::combine_impl<T, U, details::outer_count<T>::value - N, !(details::outer_count<T>::value < N)>
+  namespace meta
   {
-  };
+    /** \brief Combines two nested template types by inserting the top-most node of \c U at the same height in \c T */
+    template<class T, class U, int N = details::outer_count<U>::value>
+    struct combine
+     : details::combine_impl<T, U, details::outer_count<T>::value - N, !(details::outer_count<T>::value < N)>
+    {
+    };
+  }
   
-} } }
+} }
 
 #endif
