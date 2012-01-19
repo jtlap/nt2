@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+  asin.cpp
    )
 
-nt2_module_add_tests(complex.trigonometic.scalar.unit ${SOURCES})
+nt2_module_add_tests(complex.trigonometric.scalar.unit ${SOURCES})

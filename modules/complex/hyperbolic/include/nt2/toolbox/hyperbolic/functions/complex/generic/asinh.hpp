@@ -8,9 +8,14 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASINH_HPP_INCLUDED
+#include <nt2/include/functions/asin.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/mul_i.hpp>
+#include <nt2/include/functions/mul_minus_i.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
@@ -24,11 +29,16 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
-      A0 y = result_type(oneplus((real(a0)-imag(a0))*(real(a0)+imag(a0))), 
-                         Two<rtype>()*real(a0)*imag(a0));
-      A0 res = nt2::log(nt2::sqrt(y)+a0);
-      return res;     
+//       result_type res = if_else(is_real(a0),
+//                                 result_type(nt2::asinh(real(a0))), 
+//                                 mul_i(nt2::asin(mul_minus_i(a0)))
+//                                 );
+      result_type res =  mul_i(nt2::asin(mul_minus_i(a0))); 
+//       typedef typename meta::as_real<A0>::type rtype; 
+//       A0 y = result_type(oneplus((real(a0)-imag(a0))*(real(a0)+imag(a0))), 
+//                          if_zero_else(is_real(a0), Two<rtype>()*real(a0)*imag(a0)));
+//       A0 res = nt2::log(nt2::sqrt(y)+a0);
+       return res;     
     }
   };
 

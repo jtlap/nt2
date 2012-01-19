@@ -25,7 +25,7 @@ namespace nt2
     
     imaginary() {}
     explicit imaginary(T const& value_) : value(value_){ }
-    operator c_type () const {return ctype(Zero<type>(), value); }
+    //    operator c_type () const {return c_type(Zero<type>(), value); }
     bool operator == (const imaginary<T>&a) const{return value == a.value; }
     bool operator != (const imaginary<T>&a) const{return value != a.value; }
     

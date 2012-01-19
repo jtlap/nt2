@@ -15,6 +15,7 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
