@@ -158,7 +158,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return divides(real(a0), a1);
+      return nt2::divides(real(a0), a1);
     }
   };
   

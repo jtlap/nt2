@@ -60,28 +60,28 @@ namespace nt2 { namespace ext
         lA0 cur  = is_real(a0);
         if (any(cur))
           {
-            r = if_else(cur, multiplies(real(a0), a1), r);
+            r = if_else(cur, nt2::multiplies(real(a0), a1), r);
             test = logical_or(test, cur);
             if (all(test)) return r; 
           }
         cur = is_imag(a0);
         if (any(cur))
           {
-            r = if_else(cur, multiplies(pure(a0), a1), r);
+            r = if_else(cur, nt2::multiplies(pure(a0), a1), r);
             test = logical_or(test, cur);
             if (all(test)) return r; 
           }         
         cur = is_real(a1);
         if (any(cur))
           {
-            r = if_else(cur, multiplies(a0, real(a1)), r);
+            r = if_else(cur, nt2::multiplies(a0, real(a1)), r);
             test = logical_or(test, cur);
             if (all(test)) return r;
           }
         cur = is_imag(a1); 
         if (any(cur))
           {
-            r = if_else(cur, multiplies(a0, pure(a1)), r);
+            r = if_else(cur, nt2::multiplies(a0, pure(a1)), r);
             test = logical_or(test, cur);
             if (all(test)) return r;
           }
