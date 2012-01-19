@@ -66,8 +66,21 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)(Dom)
-                                   , ((expr_< unspecified_<A0>,Dom,boost::simd::tag::multiplies_>))((expr_< unspecified_<A1>,Dom,boost::simd::tag::multiplies_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_
+                                   , boost::simd::tag::optimize_
+                                   , (A0)(A1)(Domain)(Arity0)(Arity1)
+                                   , ((expr_< unspecified_<A0>
+                                            , Domain
+                                            , boost::simd::tag::multiplies_
+                                            , Arity0
+                                            >
+                                     ))
+                                     ((expr_< unspecified_<A1>
+                                            , Domain
+                                            , boost::simd::tag::multiplies_
+                                            , Arity1
+                                            >
+                                     ))
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
