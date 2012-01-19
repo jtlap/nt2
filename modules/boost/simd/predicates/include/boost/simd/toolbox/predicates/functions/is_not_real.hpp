@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_not_real_ of functor is_not_real 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_not_real_ {};
+    struct is_not_real_ : ext::elementwise_<is_not_real_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_real_, is_not_real,   1)
 } }

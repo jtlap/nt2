@@ -66,7 +66,7 @@ namespace boost { namespace simd
      * \brief Define the tag multiplies_ of functor multiplies 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct multiplies_ {};
+    struct multiplies_ : ext::elementwise_<multiplies_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , multiplies      , 2 )

@@ -50,25 +50,18 @@
  * \par
  *  
 **/
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class T>
-  struct elementwise_ : unspecified_<T>
-  {
-    typedef unspecified_<T> parent;
-  };
-} } }
 
-namespace boost { namespace simd { namespace ext
+namespace boost { namespace simd
 {
-  using boost::dispatch::meta::elementwise_;
-} } }
-
-namespace boost { namespace simd { namespace tag { struct map_ : ext::elementwise_<map_> {}; } } }
   /*!
    * \brief Define the tag map_ of functor map 
    *        in namespace boost::simd::tag for toolbox boost.simd.operator
   **/
+  namespace tag
+  {
+    struct map_ : ext::elementwise_<map_> {};
+  }
+} }
 
 namespace boost { namespace simd
 {

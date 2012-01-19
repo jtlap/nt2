@@ -16,6 +16,10 @@ namespace nt2 { namespace ext
 {
   using boost::simd::ext::simd_;
   using boost::simd::ext::logical_;
+  
+  using boost::simd::ext::elementwise_;
+  using boost::simd::ext::reduction_;
+  using boost::simd::ext::constant_;
 } }
 
 #endif

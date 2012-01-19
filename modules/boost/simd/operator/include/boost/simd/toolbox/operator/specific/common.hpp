@@ -49,10 +49,11 @@ namespace boost { namespace simd { namespace details
 #define M0(z,n,t) (A##n)
 #define M1(z,n,t) (generic_< unspecified_<A##n> >)
 
-#define M2(z,n,t)                                            \
-BOOST_SIMD_REGISTER_DISPATCH ( Tag , tag::cpu_, (Tag)BOOST_PP_REPEAT(n,M0,~) \
-                             , BOOST_PP_REPEAT(n,M1,~)       \
-                             )                               \
+#define M2(z,n,t)                                                              \
+BOOST_SIMD_REGISTER_DISPATCH ( elementwise_<Tag> , tag::cpu_                   \
+                             , (Tag)BOOST_PP_REPEAT(n,M0,~)                    \
+                             , BOOST_PP_REPEAT(n,M1,~)                         \
+                             )                                                 \
 /**/
 
 namespace boost { namespace simd { namespace ext
@@ -69,24 +70,26 @@ namespace boost { namespace simd { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 #define M0(z,n,t) generic_< unspecified_<A##n> >
 
-#define M1(z,n,t)                                                           \
-namespace boost { namespace simd { namespace ext                            \
-{                                                                           \
-  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>          \
-  struct implement<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy>          \
-  {                                                                         \
-    BOOST_SIMD_MAP_LOG(Tag);                                                \
-    typedef typename dispatch::meta::                                       \
-    call<tag::map_ ( dispatch::functor<Tag>                                 \
-                   , BOOST_PP_ENUM_PARAMS(n,A)                              \
-                   )>::type result_type;                                    \
-                                                                            \
-    BOOST_DISPATCH_CALL(n)                                                  \
-    {                                                                       \
-      return map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a) );    \
-    }                                                                       \
-  };                                                                        \
-} } }                                                                       \
+#define M1(z,n,t)                                                              \
+namespace boost { namespace simd { namespace ext                               \
+{                                                                              \
+  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>             \
+  struct implement< elementwise_<Tag>( BOOST_PP_ENUM(n,M0,~) )                 \
+                  , tag::cpu_, Dummy                                           \
+                  >                                                            \
+  {                                                                            \
+    BOOST_SIMD_MAP_LOG(Tag);                                                   \
+    typedef typename dispatch::meta::                                          \
+    call<tag::map_ ( dispatch::functor<Tag>                                    \
+                   , BOOST_PP_ENUM_PARAMS(n,A)                                 \
+                   )>::type result_type;                                       \
+                                                                               \
+    BOOST_DISPATCH_CALL(n)                                                     \
+    {                                                                          \
+      return map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a) );       \
+    }                                                                          \
+  };                                                                           \
+} } }                                                                          \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M1,~)

@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag all_ of functor all 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct all_ {};
+    struct all_ : ext::reduction_<all_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 1)
 } }

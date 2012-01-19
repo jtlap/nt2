@@ -69,7 +69,7 @@ namespace boost { namespace simd {
      * \brief Define the tag at_i_ of functor at_i 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct at_i_ {};
+    struct at_i_ : ext::reduction_<at_i_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::at_i_, at_i, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::at_i_, at, 2)

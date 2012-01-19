@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_not_equal_with_equal_nans_ of functor is_not_equal_with_equal_nans 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_not_equal_with_equal_nans_ {};
+    struct is_not_equal_with_equal_nans_ : ext::elementwise_<is_not_equal_with_equal_nans_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_with_equal_nans_, is_not_equal_with_equal_nans, 2)
 } }

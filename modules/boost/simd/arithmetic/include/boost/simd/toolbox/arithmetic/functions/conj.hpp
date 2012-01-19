@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag conj_ of functor conj 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct conj_ {};
+    struct conj_ : ext::elementwise_<conj_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::conj_, conj, 1)

@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag ifloor_ of functor ifloor 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct ifloor_ {};
+    struct ifloor_ : ext::elementwise_<ifloor_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ifloor_, ifloor, 1)
 } }

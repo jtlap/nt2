@@ -56,7 +56,7 @@ namespace boost { namespace simd {
      * \brief Define the tag fast_toint_ of functor fast_toint 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct fast_toint_ {};
+    struct fast_toint_ : ext::elementwise_<fast_toint_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_toint_, fast_toint, 1)
 } }

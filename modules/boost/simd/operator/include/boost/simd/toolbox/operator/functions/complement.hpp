@@ -65,7 +65,7 @@ namespace boost { namespace simd
      * \brief Define the tag complement_ of functor complement 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct complement_ {};
+    struct complement_ : ext::elementwise_<complement_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , complement  , 1 )

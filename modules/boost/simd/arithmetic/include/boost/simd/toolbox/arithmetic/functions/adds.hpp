@@ -60,7 +60,7 @@ namespace boost { namespace simd {
      * \brief Define the tag adds_ of functor adds 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct adds_ {};
+    struct adds_ : ext::elementwise_<adds_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::adds_, adds, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::adds_, saturated_add, 2)

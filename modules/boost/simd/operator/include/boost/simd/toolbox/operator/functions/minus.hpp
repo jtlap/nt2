@@ -65,7 +65,7 @@ namespace boost { namespace simd
      * \brief Define the tag minus_ of functor minus 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct minus_ {};
+    struct minus_ : ext::elementwise_<minus_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minus_             , minus            , 2 )

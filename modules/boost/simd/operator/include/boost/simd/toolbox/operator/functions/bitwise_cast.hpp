@@ -13,7 +13,6 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_BITWISE_CAST_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/operator/functions/map.hpp>
 
 /*!
  * \ingroup boost_simd_operator

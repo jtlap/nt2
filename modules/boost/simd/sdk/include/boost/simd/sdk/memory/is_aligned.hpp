@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd
 {
-  namespace tag { struct is_aligned_ {}; }
+  namespace tag { struct is_aligned_ : dispatch::meta::unspecified_<is_aligned_> {}; }
 
   namespace memory
   {

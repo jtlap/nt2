@@ -68,7 +68,7 @@ namespace boost { namespace simd
      * \brief Define the tag if_else_ of functor if_else 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct if_else_ {};
+    struct if_else_ : ext::elementwise_<if_else_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , if_else         , 3 )

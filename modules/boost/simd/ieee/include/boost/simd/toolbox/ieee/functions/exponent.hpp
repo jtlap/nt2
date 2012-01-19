@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag exponent_ of functor exponent 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct exponent_ {};
+    struct exponent_ : ext::elementwise_<exponent_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::exponent_, exponent, 1)
 } }

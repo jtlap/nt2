@@ -75,7 +75,7 @@ namespace boost { namespace simd
      * \brief Define the tag logical_notand_ of functor logical_notand 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct logical_notand_ {};
+    struct logical_notand_ : ext::elementwise_<logical_notand_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_notand_      , logical_notand     , 2 )

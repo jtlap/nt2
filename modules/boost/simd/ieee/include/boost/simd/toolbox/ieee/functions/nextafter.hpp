@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag nextafter_ of functor nextafter 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct nextafter_ {};
+    struct nextafter_ : ext::elementwise_<nextafter_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::nextafter_, nextafter, 2)
 } }

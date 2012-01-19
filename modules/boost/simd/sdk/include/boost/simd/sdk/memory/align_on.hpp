@@ -17,7 +17,7 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct align_on_ {}; }
+  namespace tag { struct align_on_ : dispatch::meta::unspecified_<align_on_> {}; }
 
   namespace memory
   {

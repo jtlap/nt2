@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag rem_ of functor rem 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct rem_ {};
+    struct rem_ : ext::elementwise_<rem_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rem_, rem, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rem_, fmod, 2)

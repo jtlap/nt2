@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag trunc_ of functor trunc 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct trunc_ {};
+    struct trunc_ : ext::elementwise_<trunc_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, trunc, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trunc_, fix, 1)

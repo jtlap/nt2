@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag mantissa_ of functor mantissa 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct mantissa_ {};
+    struct mantissa_ : ext::elementwise_<mantissa_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mantissa_, mantissa, 1)
 } }

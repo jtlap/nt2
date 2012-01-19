@@ -74,7 +74,7 @@ namespace boost { namespace simd
      * \brief Define the tag logical_or_ of functor logical_or 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct logical_or_ {};
+    struct logical_or_ : ext::elementwise_<logical_or_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_or_      , logical_or     , 2 )

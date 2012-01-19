@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag ldexp_ of functor ldexp 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct ldexp_ {};
+    struct ldexp_ : ext::elementwise_<ldexp_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ldexp_, ldexp, 2)
 } }

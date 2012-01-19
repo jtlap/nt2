@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd
 {
-  namespace tag { struct is_power_of_2_ {}; }
+  namespace tag { struct is_power_of_2_ : dispatch::meta::unspecified_<is_power_of_2_> {}; }
   namespace memory
   {
     BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_power_of_2_, is_power_of_2, 1);

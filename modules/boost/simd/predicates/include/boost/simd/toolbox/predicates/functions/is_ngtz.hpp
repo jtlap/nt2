@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_ngtz_ of functor is_ngtz 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_ngtz_ {};
+    struct is_ngtz_ : ext::elementwise_<is_ngtz_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_ngtz_, is_ngtz, 1)
 } }

@@ -66,7 +66,7 @@ namespace boost { namespace simd
      * \brief Define the tag unary_plus_ of functor unary_plus 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct unary_plus_ {};
+    struct unary_plus_ : ext::elementwise_<unary_plus_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , unary_plus  , 1 )

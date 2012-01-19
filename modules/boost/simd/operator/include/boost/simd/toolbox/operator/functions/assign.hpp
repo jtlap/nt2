@@ -19,7 +19,6 @@ namespace boost { namespace simd
   namespace tag
   {
     struct assign_ : ext::elementwise_<assign_> {};
-    boost::proto::tag::assign assign_;
   }
   
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::assign_ , assign , 2 )

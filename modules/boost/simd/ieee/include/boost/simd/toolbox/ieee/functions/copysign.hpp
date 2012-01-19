@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag copysign_ of functor copysign 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct copysign_ {};
+    struct copysign_ : ext::elementwise_<copysign_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::copysign_, copysign, 2)
 } }

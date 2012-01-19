@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag ilogb_ of functor ilogb 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct ilogb_ {};
+    struct ilogb_ : ext::elementwise_<ilogb_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ilogb_, ilogb, 1)
 } }

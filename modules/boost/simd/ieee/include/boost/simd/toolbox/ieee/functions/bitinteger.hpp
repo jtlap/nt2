@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag bitinteger_ of functor bitinteger 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct bitinteger_ {};
+    struct bitinteger_ : ext::elementwise_<bitinteger_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitinteger_, bitinteger, 1)
 } }

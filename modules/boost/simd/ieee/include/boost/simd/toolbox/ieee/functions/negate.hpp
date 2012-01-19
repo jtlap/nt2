@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag negate_ of functor negate 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct negate_ {};
+    struct negate_ : ext::elementwise_<negate_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negate_, negate, 2)
 } }

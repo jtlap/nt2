@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag prev_ of functor prev 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct prev_ {};
+    struct prev_ : ext::elementwise_<prev_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prev_, prev, 1)
 } }
