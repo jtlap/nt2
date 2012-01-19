@@ -64,11 +64,20 @@ namespace boost { namespace simd
      * \brief Define the tag unary_minus_ of functor unary_minus 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::negate unary_minus_;
+    struct unary_minus_ {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, unary_minus , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_minus_, neg         , 1 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::negate>
+  {
+    typedef boost::simd::tag::unary_minus_ type;
+  };
+} } }
 
 #endif

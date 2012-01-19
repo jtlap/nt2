@@ -68,7 +68,7 @@ namespace boost { namespace simd
      * \brief Define the tag if_else_ of functor if_else 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::if_else_ if_else_;
+    struct if_else_ {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , if_else         , 3 )
@@ -77,5 +77,14 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_          , sel             , 3 )
 
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::if_else_>
+  {
+    typedef boost::simd::tag::if_else_ type;
+  };
+} } }
 
 #endif

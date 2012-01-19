@@ -68,7 +68,7 @@ namespace boost { namespace simd
      * \brief Define the tag load_ of functor load 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct load_ : ext::unspecified_<load_> {};
+    struct load_ : ext::elementwise_<load_> {};
   }
   //////////////////////////////////////////////////////////////////////////////
   // Load a data of type T from the memory zone given by (a0,a1)

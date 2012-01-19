@@ -64,10 +64,19 @@ namespace boost { namespace simd
      * \brief Define the tag modulo_ of functor modulo 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::modulus modulo_;
+    struct modulo_ {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::modulo_             , modulo      , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::modulus>
+  {
+    typedef boost::simd::tag::modulo_ type;
+  };
+} } }
 
 #endif

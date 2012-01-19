@@ -66,12 +66,21 @@ namespace boost { namespace simd
      * \brief Define the tag unary_plus_ of functor unary_plus 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::unary_plus unary_plus_;
+    struct unary_plus_ {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , unary_plus  , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , identity    , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::unary_plus_ , id          , 1 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::unary_plus>
+  {
+    typedef boost::simd::tag::unary_plus_ type;
+  };
+} } }
 
 #endif
