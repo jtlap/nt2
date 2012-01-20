@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_FUNCTIONS_TABLE_EXTENT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TABLE_EXTENT_HPP_INCLUDED
 
-#include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
 
 namespace nt2 { namespace ext

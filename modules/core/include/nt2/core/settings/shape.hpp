@@ -10,26 +10,10 @@
 #define NT2_CORE_SETTINGS_SHAPE_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/forward/shape.hpp>
 
 namespace nt2 
 { 
-  //============================================================================
-  /*! The default container shape. Data are laid out in a hypercube 
-   *  of N dimensions and contains only non-trivial values.
-   **/
-  //============================================================================
-  struct rectangular_;
-
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for shape options
-     **/
-    //==========================================================================
-    struct shape_ {}; 
-  }
-
   namespace meta
   {
     template<class Default> struct option<rectangular_, tag::shape_, Default>

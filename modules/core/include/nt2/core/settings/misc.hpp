@@ -9,23 +9,6 @@
 #ifndef NT2_CORE_SETTINGS_MISC_HPP_INCLUDED 
 #define NT2_CORE_SETTINGS_MISC_HPP_INCLUDED 
 
-namespace nt2
-{
-  //============================================================================
-  /*! 
-   *  Generic settings used to specify current composite settings use a 
-   *  default behavior.
-   **/
-  //============================================================================
-  struct none_ {};
-
-  //============================================================================
-  /*! 
-   *  Generic settings used to pass a numeric value to other composite settings.
-   **/
-  //============================================================================
-  template<std::ptrdiff_t N>
-  struct with_{};
-}
+#include <nt2/core/settings/forward/misc.hpp>
 
 #endif

@@ -89,7 +89,6 @@ NT2_TEST_CASE( shared_ctor )
   using nt2::no_padding_;
   using nt2::global_padding_;
   using nt2::lead_padding_;
-  using nt2::with_;
   using nt2::share;
 
   float data[] =  {

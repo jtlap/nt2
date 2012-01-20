@@ -40,7 +40,7 @@ namespace nt2 { namespace memory
     typedef typename parent::is_static_sized              is_static_sized;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
-    typedef T                                             value_type;
+    typedef Tag                                           tag_type;
     //==========================================================================
     /*!
      * Default constructor

@@ -10,32 +10,10 @@
 #define NT2_CORE_SETTINGS_STORAGE_DURATION_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/forward/storage_duration.hpp>
 
 namespace nt2 
 { 
-  //============================================================================
-   /*! Default storage duration settings. Current container will use dynamic 
-    *  allocation for handling its data.
-   **/
-  //============================================================================
-  struct dynamic_;
-
-  //============================================================================
-   /*! Current container will use a stack allocated memory block for handling 
-    *  its data
-   **/
-  //============================================================================
-  struct automatic_;
-
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for storage_duration options
-     **/
-    //==========================================================================
-    struct storage_duration_ {}; 
-  }
 
   namespace meta
   {

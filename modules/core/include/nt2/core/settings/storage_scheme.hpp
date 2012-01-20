@@ -10,32 +10,9 @@
 #define NT2_CORE_SETTINGS_STORAGE_SCHEME_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
-
+#include <nt2/core/settings/forward/storage_scheme.hpp>
 namespace nt2 
 { 
-  //============================================================================
-   /*! The default scheme for storing containers is the obvious contiguous, 
-   *   dense storage scheme.
-   **/
-  //============================================================================
-  struct conventional_;
-
-  //============================================================================
-   /*! Packed storage infers from the container Shape which elements to store 
-    *  and which to regenerate. Usually, packed storage reduces memory usage.
-   **/
-  //============================================================================
-  struct packed_;
-
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for storage_scheme options
-     **/
-    //==========================================================================
-    struct storage_scheme_ {}; 
-  }
 
   namespace meta
   {

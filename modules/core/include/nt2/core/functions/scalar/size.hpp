@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
     {
       result_type that;
-      that(1) = that(2) = 1;
+      that(1) = that(2) = std::size_t(1);
       return that;
     }
   };
