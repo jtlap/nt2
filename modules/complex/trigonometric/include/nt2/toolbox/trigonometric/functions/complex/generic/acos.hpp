@@ -172,29 +172,31 @@ namespace nt2 { namespace ext
           ltype nany = is_nan(y);
           ltype infx = eq(x, Inf<rtype>()) ;
           ltype infy = eq(y, Inf<rtype>()) ;
+          if (any(infx))
+            {
+              r =  if_else(infx, Zero<rtype>(), r);
+              i =  if_else(infx, Minf<rtype>(), i);
+              r =  if_else(logical_and(infx, infy), Pi<rtype>()/Four<rtype>(), r);
+              i =  if_else(logical_and(infx, infy), Minf<rtype>(), i);
+              r =  if_else(logical_and(infx, nany), y, r);
+              i =  if_else(logical_and(infx, nany), Minf<rtype>(), i);
+            }
           if (any(nanx))
             {
-              r =  if_else(logical_and(nanx, infy), x, r);
-              i =  if_else(logical_and(nanx, infy), y, i);
+              ltype isimag = is_imag(a0);
+              r =  if_else(nanx, x, r); 
+              i =  if_else(nanx, x, i);
+              i =  if_else(logical_and(nanx, infy), y, i); 
             }
-          if (any(nany))
-            {
-              ltype isimag = is_imag(a0); 
-              r =  if_zero_else(logical_and(is_imag(a0), nany), r); 
-              r =  if_else(logical_and(nany, infx),y, r); 
-              i =  if_allbits_else(logical_and(is_imag(a0), nany), i); 
-              i =  if_else(logical_and(nany, infx), x, i);
-            }
-          ltype test = logical_notand(logical_or(is_nan(x), is_nan(y)), infx);
+          ltype test = logical_notand(logical_or(infx, nanx), infy);
           if (any(test))
             {
-              r = if_else(logical_and(infx, test),
-                          if_else(infy, nt2::Pi<rtype>()/nt2::Four<rtype>(), nt2::Pio_2<rtype>()),
-                          r);
+              r = if_else(logical_and(infy, test), Pio_2<rtype>(), r); 
+              i = if_else(logical_and(infy, test), -y, i); 
             }
-          test = logical_notand(logical_or(is_nan(x), is_nan(y)),
-                                logical_andnot(infy, infx));
-          r = if_zero_else(test,r); 
+          test = logical_notand(logical_or(infx, nanx), nany);
+          r = if_else(test,if_else(is_imag(a0), Pio_2<rtype>(), y), r);
+          i = if_else(test,y,i); 
         }
       // use proper real results
       r = if_else(is_proper_real, proper_real,   r);

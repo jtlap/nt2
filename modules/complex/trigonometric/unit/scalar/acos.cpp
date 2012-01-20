@@ -50,27 +50,27 @@ NT2_TEST_CASE_TPL ( acos_real__1_0,  (double))//NT2_REAL_TYPES)
 
   // specific values tests
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Zero<T>(),  nt2::Zero<T>())), cT(nt2::Pio_2<T>(), nt2::Zero<T>()), 0.75);
-   //   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan <T>(),  nt2::Zero<T>())), cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan <T>(),  nt2::Zero<T>())), cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
 
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), nt2::One<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), nt2::Inf<T>())),  cT(nt2::Nan <T>(), nt2::Inf<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Zero <T>(), nt2::Nan <T>())), cT(nt2::Zero<T>(), nt2::Nan<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::Nan <T>())), cT(nt2::Nan<T>(),  nt2::Nan<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Inf<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::Inf <T>())), cT(nt2::Zero<T>(), nt2::Inf<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Pio_2<T>(), nt2::Inf <T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), nt2::Inf<T>())),  cT(nt2::Pi<T>()/nt2::Four<T>(), nt2::Inf <T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), nt2::One<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), nt2::Inf<T>())),  cT(nt2::Nan <T>(), -nt2::Inf<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Zero <T>(), nt2::Nan <T>())), cT(nt2::Pio_2<T>(), nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::Nan <T>())), cT(nt2::Nan<T>(),  nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Minf<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::Inf <T>())), cT(nt2::Pio_2<T>(), nt2::Inf<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Zero<T>(), nt2::Inf <T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), nt2::Inf<T>())),  cT(nt2::Pi<T>()/nt2::Four<T>(), nt2::Inf <T>()), 0.75);
 
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), -nt2::One<T>())),  cT(nt2::Nan <T>(), -nt2::Nan<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), -nt2::Inf<T>())),  cT(nt2::Nan <T>(), -nt2::Inf<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), -nt2::Nan<T>())),  cT(nt2::Nan <T>(), -nt2::Nan<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Zero <T>(), -nt2::Nan <T>())), cT(nt2::Zero<T>(), -nt2::Nan<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), -nt2::Nan <T>())), cT(nt2::Nan<T>(),  -nt2::Nan<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), -nt2::Nan<T>())),  cT(nt2::Nan <T>(),  nt2::Inf<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), -nt2::Inf <T>())), cT(nt2::Zero<T>(), -nt2::Inf<T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), -nt2::One <T>())), cT(nt2::Pio_2<T>(), -nt2::Inf <T>()), 0.75);
-//   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Inf  <T>(), -nt2::Inf<T>())),  cT(nt2::Pi<T>()/nt2::Four<T>(), -nt2::Inf <T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Nan  <T>(), nt2::One<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Nan  <T>(), nt2::Inf<T>())),  cT(nt2::Nan <T>(), -nt2::Inf<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Nan  <T>(), nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Zero <T>(), nt2::Nan <T>())), cT(nt2::Pio_2<T>(), nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::One  <T>(), nt2::Nan <T>())), cT(nt2::Nan<T>(),  nt2::Nan<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Inf  <T>(), nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Minf<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::One  <T>(), nt2::Inf <T>())), cT(nt2::Pio_2<T>(), nt2::Inf<T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Pi<T>(), nt2::Inf <T>()), 0.75);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Inf  <T>(), nt2::Inf<T>())),  cT(nt2::Three<T>()*nt2::Pi<T>()/nt2::Four<T>(), nt2::Inf <T>()), 0.75);
 
   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::One <T>())),   cT(0.904556894302381, -1.061275061905036), 2); 
   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::Mone <T>())),  cT(0.904556894302381,  1.061275061905036), 2);  
