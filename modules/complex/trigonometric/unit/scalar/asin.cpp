@@ -72,4 +72,8 @@ NT2_TEST_CASE_TPL ( asin_real__1_0,  (double))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::Inf  <T>(), -nt2::One <T>())), cT(nt2::Pio_2<T>(), -nt2::Inf <T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::Inf  <T>(), -nt2::Inf<T>())),  cT(nt2::Pi<T>()/nt2::Four<T>(), -nt2::Inf <T>()), 0.75);
 
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::One  <T>(), nt2::One <T>())),  cT(0.666239432492515, 1.061275061905036), 2);
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::One  <T>(), nt2::Mone <T>())),  cT(0.666239432492515, -1.061275061905036), 2);  
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::Mone  <T>(), nt2::One <T>())),  cT(-0.666239432492515, 1.061275061905036), 2);
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::Mone  <T>(), nt2::Mone <T>())), cT(-0.666239432492515, -1.061275061905036), 2);  
  } // end of test for floating_

@@ -60,7 +60,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrtvalmax , double, 1
-                                , x5f800000, 0x5ff0000000000001ll
+                                , 0x5f800000, 0x5ff0000000000001ll
                                 );
   }
 

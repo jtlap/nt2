@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASIN_HPP_INCLUDED
-#define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASIN_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ACOS_HPP_INCLUDED
+#define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ACOS_HPP_INCLUDED
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/oneplus.hpp>
@@ -21,7 +21,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/asin.hpp>
+#include <nt2/include/functions/acos.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
@@ -58,7 +58,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asin_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_, (A0)
                             , (generic_< complex_< floating_<A0> > >)
                             )
   {
@@ -75,16 +75,16 @@ namespace nt2 { namespace ext
       //
       typedef typename meta::as_real<A0>::type rtype;  
       typedef typename meta::as_logical<rtype>::type ltype; 
-      //
-      // Begin by insuring real(a0) >= 0 and imag(a0) >= 0 :
-      //
       const rtype a_crossover = splat<rtype>(1.5);
       const rtype b_crossover = splat<rtype>(0.6417);
       ltype  ltzra0 = is_ltz(real(a0)); 
-      ltype  ltzia0 = is_ltz(imag(a0));
+      ltype  gtzia0 = is_gtz(imag(a0));
+      //
+      // Begin by insuring real(a0) >= 0 and imag(a0) >= 0 :
+      //
       rtype x = nt2::abs(real(a0));
       rtype y = nt2::abs(imag(a0));
-      rtype proper_real = nt2::asin(x);
+      rtype proper_real = nt2::acos(x);
       ltype lexone = le(x, One<rtype>()); 
       ltype is_proper_real = logical_and(is_real(a0), lexone);
       
@@ -105,12 +105,12 @@ namespace nt2 { namespace ext
       //compute r for b >  b_crossover
       rtype apx = a + x;
       r = if_else(lexone, 
-                  nt2::atan(x/nt2::sqrt(Half<rtype>()*apx*(yy/(tr+xp1)+(ts-xm1)))), 
-                  nt2::atan(x/(y*nt2::sqrt(Half<rtype>()*(apx/(tr+xp1)+apx/(ts+xm1)))))
+                  nt2::atan(nt2::sqrt(Half<rtype>()*apx*(yy/(tr+xp1)+(ts-xm1)))/x), 
+                  nt2::atan((y*nt2::sqrt(Half<rtype>()*(apx/(tr+xp1)+apx/(ts+xm1))))/x)
                   );
       // r is computed
-      r = if_else(le(b, b_crossover), r, nt2::asin(b)); 
-      //compute am 1 temporary for i for a <= a_crossover
+      r = if_else(le(b, b_crossover), r, nt2::acos(b)); 
+      //compute am1 temporary for i for a <= a_crossover
       rtype tmp = yy/(r+xp1); 
       rtype am1 = if_else(lexone, 
                           Half<rtype>()*(tmp+yy/(ts-xm1)),
@@ -126,8 +126,8 @@ namespace nt2 { namespace ext
           ltype zone1 =  le(y, nt2::Eps<rtype>()*nt2::abs(xm1));
           if (any(logical_and(zone1, not_in_safe_zone)))
             {
-              rtype rr = if_else(lexone, nt2::asin(x), Pio_2<rtype>());
-              rtype ii = if_else(lexone, y/nt2::sqrt(xp1*xm1),
+              rtype rr = if_else(lexone, nt2::acos(x), Zero<rtype>());
+              rtype ii = if_else(lexone, y/nt2::sqrt(-xp1*xm1),
                                  if_else(gt(Valmax<rtype>()/xp1, xm1),
                                          nt2::log1p(xm1 + nt2::sqrt(xp1*xm1)),
                                          Log_2<rtype>() + nt2::log(x)
@@ -140,28 +140,29 @@ namespace nt2 { namespace ext
           ltype not_treated = logical_notand(zone1, not_in_safe_zone); 
           if (any(logical_and(zone2, not_treated)))
             {
-              r = if_else(zone2, Pio_2<rtype>() - nt2::sqrt(y), r);
-              i = if_else(zone2, nt2::sqrt(y), i);
+              rtype sqrty =  nt2::sqrt(y); 
+              r = if_else(zone2, sqrty, r);
+              i = if_else(zone2, sqrty, i);
             }
           ltype zone3 = ge(minusone(Eps<rtype>()*y), x);
           not_treated = logical_notand(zone2, not_treated); 
           if (any(logical_and(zone3, not_treated)))
             {
-              r = if_else(zone3,  x/y, r);
+              r = if_else(zone3,  Pio_2<rtype>(), r);
               i = if_else(zone3,  Log_2<rtype>() + nt2::log(y), i); 
             }
           ltype zone4 = gt(x, One<rtype>());
-              not_treated = logical_notand(zone3, not_treated); 
+          not_treated = logical_notand(zone3, not_treated); 
           if (any(logical_and(zone4, not_treated)))
             {
-              r = if_else(zone4, nt2::atan(x/y), r);
+              r = if_else(zone4, nt2::atan(y/x), r);
               i = if_else(zone4, Log_2<rtype>() + nt2::log(y) + Half<rtype>()*nt2::log1p(sqr(x/y)), i); 
             }
-              not_treated = logical_notand(zone4, not_treated); 
-              if (any(not_treated))
-                {
+          not_treated = logical_notand(zone4, not_treated); 
+          if (any(not_treated))
+            {
               rtype a = nt2::sqrt(oneplus(sqr(y)));
-              r = if_else(not_treated, x/a, r);
+              r = if_else(not_treated, Pio_2<rtype>(), r);
               i = if_else(not_treated, Half<rtype>()*nt2::log1p(Two<rtype>()*y*(y+a)), i);
             }
         }
@@ -173,9 +174,7 @@ namespace nt2 { namespace ext
           ltype infy = eq(y, Inf<rtype>()) ;
           if (any(nanx))
             {
-              r =  if_else(nanx, x, r);
               r =  if_else(logical_and(nanx, infy), x, r);
-              i =  if_else(nanx, x, i);
               i =  if_else(logical_and(nanx, infy), y, i);
             }
           if (any(nany))
@@ -186,7 +185,7 @@ namespace nt2 { namespace ext
               i =  if_allbits_else(logical_and(is_imag(a0), nany), i); 
               i =  if_else(logical_and(nany, infx), x, i);
             }
-          ltype test = logical_notand(logical_or(nanx, nany), infx);
+          ltype test = logical_notand(logical_or(is_nan(x), is_nan(y)), infx);
           if (any(test))
             {
               r = if_else(logical_and(infx, test),
@@ -201,8 +200,8 @@ namespace nt2 { namespace ext
       r = if_else(is_proper_real, proper_real,   r);
       i = if_else(is_proper_real, Zero<rtype>(), i); 
       // restore signs
-      r = negif(ltzra0, r); 
-      i = negif(ltzia0, i);
+      r = if_else(ltzra0, Pi<rtype>()-r, r); 
+      i = negif(gtzia0, i);
       result_type res = result_type(r, i);
       return res; 
     }
@@ -218,7 +217,7 @@ namespace nt2 { namespace ext
       }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asin_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_, (A0)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
@@ -233,14 +232,14 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asin_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acos_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
-    { //incorrect
-      return result_type(nt2::asin(real(a0))); 
+    {
+      return result_type(nt2::acos(real(a0))); //incorrect
     }
   };
   
