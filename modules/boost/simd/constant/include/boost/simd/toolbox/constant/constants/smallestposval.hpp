@@ -65,7 +65,7 @@ namespace boost { namespace simd
 
   }
 
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrtsmallestposval, Sqrtsmallestposval)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Smallestposval, Smallestposval)
 } }
 
 #endif
