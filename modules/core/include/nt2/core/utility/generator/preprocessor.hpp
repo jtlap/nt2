@@ -20,7 +20,7 @@
 /**/
 
 //============================================================================
-// Construct a generative node from a Constant and a set of integrals
+// Construct a generative node from a Constant node
 //============================================================================
 #define NT2_PP_GENERATIVE_MAKE_FROM_SIZE(z,n,Tag)                             \
 NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_                                    \
