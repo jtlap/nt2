@@ -47,7 +47,8 @@ namespace nt2 { namespace details
     typedef typename block_t::difference_type       difference_type;
     typedef typename allocator_type::pointer        pointer;
     typedef typename allocator_type::const_pointer  const_pointer;
-
+    typedef Tag                                     tag_type; 
+    typedef S                                       base_settings_type;
     //==========================================================================
     // container is handling the size/base storage for the proto terminal
     //==========================================================================
