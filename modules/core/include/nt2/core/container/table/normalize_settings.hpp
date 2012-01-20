@@ -18,7 +18,6 @@
 #include <nt2/core/settings/padding.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
-#include <nt2/core/settings/misc.hpp>
 #include <nt2/core/settings/alignment.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
