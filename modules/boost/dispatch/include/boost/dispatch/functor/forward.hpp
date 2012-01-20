@@ -14,13 +14,17 @@
 #include <boost/dispatch/meta/combine.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/proto/tags.hpp>
+#include <boost/config.hpp>
 
 BOOST_DISPATCH_COUNTER_INIT(default_site_stack)
 
 namespace boost { namespace dispatch
 {
   template<class Tag, int N>
-  struct default_site_impl
+  struct default_site_impl;
+
+  template<class Tag>
+  struct default_site_impl<Tag, 0>
   {
     typedef tag::cpu_ type;
   };
@@ -33,12 +37,18 @@ namespace boost { namespace dispatch
   //============================================================================
 #ifndef BOOST_MSVC
   using meta::default_site_stack;
-#endif
   template<class Tag>
   struct default_site
   {
     typedef typename default_site_impl<Tag, BOOST_DISPATCH_COUNTER_VALUE_TPL(default_site_stack, Tag)>::type type;
   };
+#else
+  template<class Tag>
+  struct default_site
+  {
+    typedef typename default_site_impl<Tag, 1>::type type;
+  };
+#endif
 
   template< class Tag
           , class EvalContext = typename default_site<Tag>::type
@@ -60,6 +70,7 @@ namespace boost { namespace dispatch
 } }
 
 #ifdef BOOST_MSVC
+/*
 #define BOOST_DISPATCH_COMBINE_SITE(new_site) BOOST_DISPATCH_COMBINE_SITE_(new_site, __COUNTER__)
 
 #define BOOST_DISPATCH_COMBINE_SITE_(new_site, N)                                                  \
@@ -78,6 +89,16 @@ namespace boost { namespace dispatch                                            
   };                                                                                               \
 } }                                                                                                \
 BOOST_DISPATCH_COUNTER_INCREMENT(default_site_stack)                                               \
+/**/
+#define BOOST_DISPATCH_COMBINE_SITE(new_site) \
+namespace boost { namespace dispatch \
+{ \
+  template<class Tag> \
+  struct default_site_impl<Tag, 1> \
+  { \
+    typedef new_site type; \
+  }; \
+} } \
 /**/
 #else
 #define BOOST_DISPATCH_COMBINE_SITE(new_site)                                                      \
