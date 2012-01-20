@@ -50,10 +50,11 @@ namespace nt2 { namespace ext
   // Construct a terminal from a size and some unspecified allocator
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(A1)(A2)
+                            , (A0)(A1)(A2)(Arity)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
                                       , tag::terminal_
+                                      , Arity
                                       >
                               ))
                               (fusion_sequence_<A1>)
