@@ -17,6 +17,6 @@
 #include <nt2/core/container/dsl/grammar.hpp>
 #include <nt2/core/container/dsl/domain.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/dsl/functions/container/terminal.hpp>
+#include <nt2/include/functions/terminal.hpp>
 
 #endif
