@@ -6,33 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_ID_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_ID_HPP_INCLUDED
-
-
+#ifndef NT2_CORE_SETTINGS_FORWARD_ID_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_FORWARD_ID_HPP_INCLUDED
 
 #include <boost/cstdint.hpp>
 #include <boost/mpl/string.hpp>
-#include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/forward/id.hpp>
-
 
 namespace nt2 
 { 
-
-  namespace meta
+  //============================================================================
+  /*! id_ gives a container with a 32bits ID, either numerical or by using
+   *  multi-byte character. This ID is usable to allow deeper compile-time
+   * analysis and optimization.
+   * 
+   * \tparam ID 32 byte multi-bytes character unique identifier
+   **/
+  //============================================================================
+  template<boost::uint32_t ID> struct id_ 
   {
+    typedef boost::mpl::string<ID> type;
+  }; 
+  
+  namespace tag 
+  { 
     //==========================================================================
-    // Make options extracting the ID from id_
+    /*!
+     * Option tag for id options
+     **/
     //==========================================================================
-    template<boost::uint32_t ID, class Default>
-    struct option<id_<ID>, tag::id_, Default>
-    {
-      typedef id_<ID> type;
-    };
-  } 
+    struct id_ {}; 
+  }
+
 }
-
-
 
 #endif

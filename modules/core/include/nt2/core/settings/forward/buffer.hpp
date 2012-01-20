@@ -6,26 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_ALLOCATOR_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_ALLOCATOR_HPP_INCLUDED
+#ifndef NT2_CORE_SETTINGS_FORWARD_BUFFER_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_FORWARD_BUFFER_HPP_INCLUDED
 
-#include <nt2/core/settings/forward/allocator.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <nt2/core/settings/option.hpp>
+namespace nt2
+{
+  //============================================================================
+  // Buffer type computing metafunction
+  //============================================================================
+  template<class Buffer = void> struct buffer_;
 
-namespace nt2 
-{ 
-  namespace meta
+  namespace tag
   {
     //==========================================================================
-    // Make options extracting the Allocator from allcoator_
+    /*!
+     * Option tag for buffer options
+     **/
     //==========================================================================
-    template<class Allocator, class Default>
-    struct option<allocator_<Allocator>, tag::allocator_, Default>
-    {
-      typedef allocator_<Allocator> type;
-    };
-  } 
+    struct buffer_ {};
+  }
 }
+
 
 #endif

@@ -11,33 +11,10 @@
 
 #include <boost/cstdint.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/forward/sharing.hpp>
 
 namespace nt2 
 { 
-  //============================================================================
-  /*!
-   * shared_ indicates the current container will reuse existing memory as its
-   * data buffer.
-   **/
-  //============================================================================
-  struct shared_;
-  
-  //============================================================================
-  /*!
-   * owned_ indicates the current container will allocates its own memory.
-   **/
-  //============================================================================
-  struct owned_;
-  
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for sharing options
-     **/
-    //==========================================================================
-    struct sharing_ {}; 
-  }
 
   namespace meta
   {

@@ -6,25 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_BUFFER_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_BUFFER_HPP_INCLUDED
-
-#include <nt2/core/settings/forward/buffer.hpp>
-#include <nt2/core/settings/option.hpp>
+#ifndef NT2_CORE_SETTINGS_FORWARD_SETTINGS_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_FORWARD_SETTINGS_HPP_INCLUDED
 
 namespace nt2
 {
-
-  namespace meta
-  {
-    template<class Buffer, class Default>
-    struct option<buffer_<Buffer>, tag::buffer_, Default>
-    {
-      typedef buffer_<Buffer> type;
-    };
-  }
+  //===========================================================================
+  /*! 
+   * settings is a seed type that allow contruction of multiple options pack.
+   * If a given container needs to have options A and B set, settings(A,B) will
+   * perform such a task. 
+   **/
+  //============================================================================
+  struct settings {};
 }
-
-#include <nt2/core/settings/details/buffer.hpp>
+ 
 
 #endif
