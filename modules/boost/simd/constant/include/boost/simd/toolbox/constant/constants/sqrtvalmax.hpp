@@ -9,8 +9,8 @@
 /*!
  * \file
 **/
-#ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SMALLESTPOSVAL_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SMALLESTPOSVAL_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SQRTVALMAX_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SQRTVALMAX_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
@@ -19,16 +19,16 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_smallestposval Smallestposval
+ * \defgroup boost_simd_constant_sqrtvalmax Sqrtvalmax
  *
  * \par Description
- * Constant Smallestposval : the least non zero positive value of floating point numbers,
+ * Constant Sqrtvalmax : the least non zero positive value of floating point numbers,
  * i.e. 2.225073858507201e-308 for double and  1.1754944e-38 for float
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/smallestposval.hpp>
+ * #include <nt2/include/functions/sqrtvalmax.hpp>
  * \endcode
  * 
  * 
@@ -38,13 +38,13 @@
  * namespace boost::simd
  * {
  *   template <class T,class A0>
- *     meta::call<tag::sqrtsmallestposval_(A0)>::type
- *     Sqrtsmallestposval();
+ *     meta::call<tag::sqrtvalmax_(A0)>::type
+ *     Sqrtvalmax();
  * }
  * \endcode
  *
  * 
- * \param T template parameter of Sqrtsmallestposval
+ * \param T template parameter of Sqrtvalmax
  * 
  * \return type T value
  *  
@@ -56,16 +56,15 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Sqrtsmallestposval of functor Sqrtsmallestposval 
+     * \brief Define the tag Sqrtvalmax of functor Sqrtvalmax 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( Smallestposval , double, 1
-                                , 0x00800000, 0x0010000000000000ULL
+    BOOST_SIMD_CONSTANT_REGISTER( Sqrtvalmax , double, 1
+                                , x5f800000, 0x5ff0000000000001ll
                                 );
-
   }
 
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrtsmallestposval, Sqrtsmallestposval)
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrtvalmax, Sqrtvalmax)
 } }
 
 #endif
