@@ -7,5 +7,14 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_UNIT_DEPENDENCIES_EXTRA sdk ieee arithmetic constant operator)
-SET(NT2_UNIT_LIBRARIES nt2)
+include(NT2Module)
+nt2_module_source_setup(unit)
+
+set(SOURCES
+    error/assert_exception.cpp
+    error/exception.cpp
+    timing/now.cpp
+    timing/timers.cpp
+    config/version.cpp
+   )
+nt2_module_add_library(nt2 ${SOURCES})
