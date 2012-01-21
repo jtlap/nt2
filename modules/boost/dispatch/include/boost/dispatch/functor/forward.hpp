@@ -44,11 +44,6 @@ namespace boost { namespace dispatch
     typedef typename default_site_impl<Tag, BOOST_DISPATCH_COUNTER_VALUE_TPL(default_site_stack, Tag)>::type type;
   };
 #endif
-  template<class Tag>
-  struct default_site
-  {
-    typedef typename default_site_impl<Tag, 1>::type type;
-  };
 
   template< class Tag
           , class EvalContext = typename default_site<Tag>::type
