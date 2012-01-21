@@ -284,7 +284,6 @@ macro(nt2_module_use_modules)
     return()
   endif()
 
-
   include_directories(${NT2_INCLUDE_DIR})
   link_directories(${NT2_LIBRARY_DIR})
   link_libraries(${NT2_LIBRARIES})
