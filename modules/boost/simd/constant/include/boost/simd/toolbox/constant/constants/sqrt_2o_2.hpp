@@ -59,9 +59,10 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrt_2o_2, double, 0
-                                , 0x3F3504F3, 0x3FE6A09E667F3BCDULL
+                                , 0x3F3504F3, 0x3FE6A09E667F3BCCULL
                                 );
   }
+
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt_2o_2, Sqrt_2o_2)
 } }
