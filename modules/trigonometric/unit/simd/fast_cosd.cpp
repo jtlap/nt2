@@ -59,14 +59,14 @@ NT2_TEST_CASE_TPL ( fast_cosd_real__1_0,  NT2_SIMD_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_180<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 1);
   NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_90<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Inf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_180<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 1);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_90<vT>())[0], nt2::Nan<sr_t>(), 0.5);
 } // end of test for floating_
 
