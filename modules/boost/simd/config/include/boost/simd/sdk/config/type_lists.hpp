@@ -17,13 +17,13 @@
     (boost::simd::uint32_t)(boost::simd::int32_t)(float)                       \
     (boost::simd::uint16_t)(boost::simd::int16_t)                              \
     (boost::simd::uint8_t) (boost::simd::int8_t)                               \
-/**/                                                                           \
+/**/
 #endif
 
 #if !defined(BOOST_SIMD_REAL_TYPES)
-#define BOOST_SIMD_REAL_TYPES             \
-  (double)                             \
-  (float)                             \
+#define BOOST_SIMD_REAL_TYPES                                                  \
+  (double)                                                                     \
+  (float)                                                                      \
 /**/
 #define BOOST_SIMD_REAL BOOST_SIMD_REAL_TYPES
 #endif
