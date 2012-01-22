@@ -7,8 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET( SOURCES
-     is_supported.cpp
-   )
-
-nt2_module_add_tests(boost.simd.sdk.config.unit ${SOURCES})
+SET(NT2_BOOST.SIMD.CONFIG_DEPENDENCIES_EXTRA boost.dispatch)

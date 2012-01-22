@@ -21,12 +21,14 @@
 #include <Gestalt.h>
 #endif
 
-#define BOOST_SIMD_DECLARE_X86_DETECTION_CALL(x, y, z)            \
-static const int bit = x, function = y, register_id = z;	  \
-int regs_x86[4]; boost::simd::config::details::cpuid(regs_x86, function); \
-return boost::simd::config::details::has_bit_set(regs_x86[register_id-1], bit);
+#define BOOST_SIMD_DECLARE_X86_DETECTION_CALL(x, y, z)                         \
+static const int bit = x, function = y, register_id = z;                       \
+int regs_x86[4]; boost::simd::config::details::cpuid(regs_x86, function);      \
+return boost::simd::config::details::has_bit_set(regs_x86[register_id-1], bit);\
+/**/
 
-namespace boost{ namespace simd{ namespace config{ namespace details{
+namespace boost { namespace simd { namespace config { namespace details
+{
 
 #if defined(BOOST_SIMD_ARCH_X86)
 

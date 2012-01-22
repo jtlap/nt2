@@ -9,7 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::is_supported"
 
 #include <boost/simd/sdk/config/arch.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 #include <boost/simd/sdk/config/is_supported.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>

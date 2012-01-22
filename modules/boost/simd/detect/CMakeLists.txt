@@ -7,10 +7,20 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.simd)
+cmake_minimum_required(VERSION 2.6)
 
-MESSAGE( STATUS "[boost.simd.sdk] target system: ${NT2_OS} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-MESSAGE( STATUS "[boost.simd.sdk] target processor: ${NT2_ARCH} (${CMAKE_SYSTEM_PROCESSOR})" )
+if(NOT DEFINED NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
+  set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
+endif()
+if(NOT DEFINED NT2_ROOT AND DEFINED ENV{NT2_ROOT})
+  set(NT2_ROOT $ENV{NT2_ROOT})
+endif()
+if(DEFINED NT2_SOURCE_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
+endif()
+if(DEFINED NT2_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_ROOT}/cmake)
+endif()
 
-SET(NT2_BOOST.SIMD.SDK_FLAGS ${NT2_SIMD_FLAGS})
-SET(NT2_BOOST.SIMD.SDK_DEPENDENCIES_EXTRA boost.dispatch boost.simd.config)
+include(NT2Module)
+nt2_module_main(boost.simd.detect)

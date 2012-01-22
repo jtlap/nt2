@@ -7,10 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.simd)
+SET( SOURCES
+     is_supported.cpp
+   )
 
-MESSAGE( STATUS "[boost.simd.sdk] target system: ${NT2_OS} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
-MESSAGE( STATUS "[boost.simd.sdk] target processor: ${NT2_ARCH} (${CMAKE_SYSTEM_PROCESSOR})" )
-
-SET(NT2_BOOST.SIMD.SDK_FLAGS ${NT2_SIMD_FLAGS})
-SET(NT2_BOOST.SIMD.SDK_DEPENDENCIES_EXTRA boost.dispatch boost.simd.config)
+nt2_module_add_tests(boost.simd.detect.config.unit ${SOURCES})
