@@ -29,6 +29,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/math/complex/asin.hpp>
 
 
 NT2_TEST_CASE_TPL ( asin_real__1_0,  (double))//NT2_REAL_TYPES)
@@ -76,4 +77,9 @@ NT2_TEST_CASE_TPL ( asin_real__1_0,  (double))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::One  <T>(), nt2::Mone <T>())),  cT(0.666239432492515, -1.061275061905036), 2);  
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::Mone  <T>(), nt2::One <T>())),  cT(-0.666239432492515, 1.061275061905036), 2);
   NT2_TEST_ULP_EQUAL(nt2::asin(cT(nt2::Mone  <T>(), nt2::Mone <T>())), cT(-0.666239432492515, -1.061275061905036), 2);  
+
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(1, 1)),  boost::math::asin(cT(1, 1)), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(1, 10)),  boost::math::asin(cT(1, 10)), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(10, 10)),  boost::math::asin(cT(10, 10)), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::asin(cT(10, 1)),  boost::math::asin(cT(10, 1)), 0.75);
  } // end of test for floating_

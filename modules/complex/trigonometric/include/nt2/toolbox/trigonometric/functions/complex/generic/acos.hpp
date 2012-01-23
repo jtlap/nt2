@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
                   nt2::atan((y*nt2::sqrt(Half<rtype>()*(apx/(tr+xp1)+apx/(ts+xm1))))/x)
                   );
       // r is computed
-      r = if_else(le(b, b_crossover), r, nt2::acos(b)); 
+      r = if_else(le(b, b_crossover), nt2::acos(b), r); 
       //compute am1 temporary for i for a <= a_crossover
       rtype tmp = yy/(r+xp1); 
       rtype am1 = if_else(lexone, 
@@ -177,7 +177,7 @@ namespace nt2 { namespace ext
               r =  if_else(infx, Zero<rtype>(), r);
               i =  if_else(infx, Minf<rtype>(), i);
               r =  if_else(logical_and(infx, infy), Pi<rtype>()/Four<rtype>(), r);
-              i =  if_else(logical_and(infx, infy), Minf<rtype>(), i);
+              i =  if_else(logical_and(infx, infy), Inf<rtype>(), i);//**
               r =  if_else(logical_and(infx, nany), y, r);
               i =  if_else(logical_and(infx, nany), Minf<rtype>(), i);
             }
@@ -192,7 +192,7 @@ namespace nt2 { namespace ext
           if (any(test))
             {
               r = if_else(logical_and(infy, test), Pio_2<rtype>(), r); 
-              i = if_else(logical_and(infy, test), -y, i); 
+              i = if_else(logical_and(infy, test), y, i); //**
             }
           test = logical_notand(logical_or(infx, nanx), nany);
           r = if_else(test,if_else(is_imag(a0), Pio_2<rtype>(), y), r);
