@@ -14,7 +14,6 @@
 #include <nt2/core/settings/forward/buffer.hpp>
 #include <nt2/core/settings/forward/id.hpp>
 #include <nt2/core/settings/forward/index.hpp>
-#include <nt2/core/settings/forward/misc.hpp>
 #include <nt2/core/settings/forward/padding.hpp>
 #include <nt2/core/settings/forward/settings.hpp>
 #include <nt2/core/settings/forward/shape.hpp>
