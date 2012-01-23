@@ -29,10 +29,8 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/pi.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, tag::cpu_
@@ -48,13 +46,7 @@ namespace nt2 { namespace ext
       return nt2::atan2(tofloat(a0), tofloat(a1));
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<uint_<A0>,X>))((simd_<uint_<A0>,X>))
@@ -71,13 +63,7 @@ namespace nt2 { namespace ext
       return sel(is_eqz(a0), Zero<result_type>(), z);
     }
   };
-} }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is uint_
-/////////////////////////////////////////////////////////////////////////////
-namespace nt2 { namespace ext
-{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atan2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))((simd_<floating_<A0>,X>))
