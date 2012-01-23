@@ -23,6 +23,7 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/if_else.hpp> 
 #include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -32,6 +33,8 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/smallestposval.hpp>
 #include <iostream>
 
 namespace nt2 { namespace ext
@@ -67,17 +70,10 @@ namespace nt2 { namespace ext
       rtype s_min = safe_min(Two<rtype>());
       rtype two =  Two<rtype>();
       rtype one =  One<rtype>();
-      rtype inf =  Inf<rtype>();
-      std::cout << "s_max " << s_max << std::endl;
-      std::cout << "s_min " << s_min << std::endl;
-
-      
+      rtype inf =  Inf<rtype>();    
       rtype x = nt2::abs(real(a0));
       rtype y = nt2::abs(imag(a0));
      
-      std::cout << "x " << x << std::endl;
-      std::cout << "y " << y << std::endl;
-
       rtype r = Zero<rtype>();
       rtype i = Zero<rtype>(); 
       ltype gtxmax = gt(x,s_max);
@@ -93,7 +89,6 @@ namespace nt2 { namespace ext
       ltype invalid = is_invalid(a0);
       if(any(not_in_safe_zone))
         {
-          std::cout << std::endl<< "icitte " << a0 << std::endl; 
           //treat underflow or overflow
           // one or both of x and y are small, calculate divisor carefully:
           rtype div =  One<rtype>();
@@ -121,12 +116,10 @@ namespace nt2 { namespace ext
           tmp_alpha = if_zero_else(logical_or(eq(y,inf), eq(x, inf)), tmp_alpha);
           
           alpha = if_else(test, tmp_alpha, alpha);  
-          std::cout << "tmp_alpha " << tmp_alpha << std::endl; 
           r = if_else(lt(alpha, alpha_crossover),
                       nt2::log1p(alpha) - nt2::log1p(-alpha), 
                       nt2::log(one + two*x + xx) - std::log(sqr(x-one))
                       )/Four<rtype>();
-          std::cout << "not safe r " << r << std::endl; 
           //compute the imaginary part
           // y^2 is negligible:
           i =  std::atan2(two*y, one - xx);
@@ -134,13 +127,28 @@ namespace nt2 { namespace ext
           rtype tmp_i = if_else(ltymin, atan2(two*y, one),
                                 nt2::atan2(two*y, one - yy));
           i =  if_else(ltxmin, tmp_i, i); 
-          std::cout << "not safe i " << i << std::endl; 
-          if(any(is_invalid(a0)))
-            {
-              r = if_else(is_invalid(a0), Nan<rtype>(), r);
-              i = if_else(is_invalid(a0), Nan<rtype>(), r); 
-            }
         }
+      ltype test = logical_and(eq(inf, x), eq(inf, y));
+      if(any(test))
+        {
+          //inf x, inf y
+          r = if_zero_else(test, r);
+          i = if_else(test, Pi<rtype>(), r);
+        }      
+      test = is_nan(a0);
+      
+      if(any(test))
+        {
+          //nan x, inf y
+          r = if_zero_else(logical_and(is_nan(x), eq(y, inf)), r);
+          i = if_else(logical_and(is_nan(x), eq(y, inf)), Pi<rtype>(), r);
+          
+          r = if_zero_else(logical_and(is_nan(y), eq(x, inf)), r); 
+          i = if_else(logical_and(is_nan(y), eq(x, inf)), y, i);
+
+          r = if_zero_else(logical_and(is_nan(y), is_eqz(x)), r); 
+          i = if_allbits_else(logical_and(is_nan(y), is_eqz(x)), i); 
+       }
       //compute for safe zone
       // The real part is given by:
       // 
