@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
-#include <nt2/include/constants/eps_related.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/mone.hpp>
 
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <iostream>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -55,6 +56,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
+      if (nt2::abs(a0) < Eps<A0>()) return a0; 
       if (a0 < Mone<A0>())   return Nan<A0>();
       if (a0 == Inf<A0>())   return Inf<A0>();
       volatile type u = oneplus(a0);
@@ -62,10 +64,14 @@ namespace nt2 { namespace ext
       volatile type t =(minusone(uu)-a0);
       type v = u; 
       type r =nt2::log(v);
+      std::cout << "a0  " << a0 << std::endl;
+      std::cout << "t  " << t << std::endl;
+      std::cout << "r*(a0/minusone(v)) " << r*(a0/minusone(v)) << std::endl; 
+      std::cout << "r  " << r << std::endl;   
       if (t)
-      return r*(a0/minusone(v)); //-t/u; /* cancels errors with IEEE arithmetic */
+        return r*(a0/minusone(v)); //-t/u; /* cancels errors with IEEE arithmetic */
       else
-      return r;
+        return r;
     }
   };
 } }
