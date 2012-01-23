@@ -16,8 +16,6 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/oneplus.hpp>
-#include <iostream>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -64,10 +62,6 @@ namespace nt2 { namespace ext
       volatile type t =(minusone(uu)-a0);
       type v = u; 
       type r =nt2::log(v);
-      std::cout << "a0  " << a0 << std::endl;
-      std::cout << "t  " << t << std::endl;
-      std::cout << "r*(a0/minusone(v)) " << r*(a0/minusone(v)) << std::endl; 
-      std::cout << "r  " << r << std::endl;   
       if (t)
         return r*(a0/minusone(v)); //-t/u; /* cancels errors with IEEE arithmetic */
       else
