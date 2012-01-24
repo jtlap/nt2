@@ -11,21 +11,11 @@
 # Check for Altivec VMX availability
 ################################################################################
 
-# On UNIX, we grep the /proc/cpuinfo entry
-if(NT2_OS_UNIX)
-  find_file(ALTIVEC_SH arch/altivec.sh ${CMAKE_MODULE_PATH})
-  execute_process( COMMAND ${ALTIVEC_SH}
-                   OUTPUT_VARIABLE NT2_HAS_VMX_SUPPORT
-                   OUTPUT_STRIP_TRAILING_WHITESPACE
-                 )
-endif()
-
-# On OS X, we use systcl
-if(NT2_OS_MAC_OS)
-  execute_process( COMMAND sysctl -n hw.optional.altivec
-                   OUTPUT_VARIABLE NT2_HAS_VMX_SUPPORT
-                   OUTPUT_STRIP_TRAILING_WHITESPACE
-                 )
+nt2_module_tool(is_supported vmx RESULT_VARIABLE RESULT_VAR OUTPUT_QUIET)
+if(RUN_RESULT_VAR EQUAL 0)
+  set(NT2_HAS_VMX_SUPPORT 1)
+else()
+  set(NT2_HAS_VMX_SUPPORT 0)
 endif()
   
 if(NT2_HAS_VMX_SUPPORT)
