@@ -44,13 +44,24 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_complex<rA0>::type result_type; 
+    typedef typename meta::as_imaginary<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       return result_type(nt2::sinh(imag(a0))); 
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sin_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type rA0;
+    typedef typename meta::as_dry<rA0>::type result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return result_type(nt2::sin(real(a0))); 
+    }
+  };
 } }
 
 #endif
