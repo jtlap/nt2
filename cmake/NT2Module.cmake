@@ -609,9 +609,15 @@ macro(nt2_module_tool_setup tool)
 endmacro()
 
 macro(nt2_module_tool tool)
+  string(TOUPPER ${tool} tool_U)
 
-  nt2_module_tool_setup(${tool})
-  execute_process(COMMAND ${NT2_BINARY_DIR}/tools/${tool}/${tool} ${ARGN})
+  find_program(NT2_TOOL_${tool_U} ${tool} PATHS ${NT2_ROOT}/tools/${tool} NO_DEFAULT_PATH)
+  mark_as_advanced(NT2_TOOL_${tool_U})
+  if(NOT NT2_TOOL_${tool_U})
+    nt2_module_tool_setup(${tool})
+    set(NT2_TOOL_${tool_U} ${NT2_BINARY_DIR}/tools/${tool}/${tool})
+  endif()
+  execute_process(COMMAND ${NT2_TOOL_${tool_U}} ${ARGN})
 
 endmacro()
 
