@@ -19,8 +19,7 @@
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-/* ctan (x + I * y) = (sin (2 * x)  +  I * sinh(2 * y))
-                      / (cos (2 * x)  +  cosh (2 * y)) */
+/* ctan (x + I * y) = (sin (2 * x)  +  I * sinh(2 * y)) / (cos (2 * x)  +  cosh (2 * y)) */
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tan_, tag::cpu_, (A0)
