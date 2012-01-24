@@ -9,16 +9,11 @@
 #ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_GET_VENDOR_HPP_INCLUDED
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_GET_VENDOR_HPP_INCLUDED
 
-/*!
- *\file get_vendor.hpp
- *\brief Runtime function to get the Vendor Processor. 
-*/
+enum{intel, amd, ibm};
 
-namespace boost { namespace simd { namespace config{ namespace details {
+#include <boost/simd/sdk/config/details/x86/get_vendor.hpp>
+#include <boost/simd/sdk/config/details/powerpc/get_vendor.hpp>
+#include <boost/simd/sdk/config/details/arm/get_vendor.hpp>
 
-  enum{intel, amd, ibm};
-  int get_vendor();
-
-} } } } 
 
 #endif

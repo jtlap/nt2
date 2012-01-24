@@ -9,10 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(boost.simd.detect)
-
-set(SOURCES
-    cpuid.cpp
-    get_vendor.cpp
-    detect.cpp
-   )
-nt2_module_add_library(boost_simd ${SOURCES})
+nt2_module_configure_toolbox(detect 1)

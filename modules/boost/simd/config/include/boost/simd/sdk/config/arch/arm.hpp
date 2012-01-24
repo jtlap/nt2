@@ -6,11 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
-#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONFIG_ARCH_ARM_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_ARCH_ARM_HPP_INCLUDED
 
-#include <boost/simd/sdk/config/details/x86/detect.hpp>
-#include <boost/simd/sdk/config/details/powerpc/detect.hpp>
-#include <boost/simd/sdk/config/details/arm/detect.hpp>
+#if !defined(BOOST_SIMD_ARCH)
 
+  #if     defined(__arm__)     || defined(_ARM) ||  defined(DOXYGEN_ONLY)
+    #define BOOST_SIMD_ARCH_ARM
+    #define BOOST_SIMD_ARCH "ARM"
+    #define BOOST_SIMD_ARCH_ALIGNMENT 16
+  #endif
+
+#endif
 #endif

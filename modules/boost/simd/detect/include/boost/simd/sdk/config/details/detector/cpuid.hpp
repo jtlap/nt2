@@ -6,27 +6,31 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/sdk/config/details/cpuid.hpp>
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECTOR_CPUID_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECTOR_CPUID_HPP_INCLUDED
+
+/*!
+ *\file cpuid.hpp
+ *\brief cpuid function to get x86 processor infos
+*/
+
+#include <boost/simd/sdk/config/compiler.hpp>
+#include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/sdk/config/os.hpp>
 
 #if defined(BOOST_SIMD_COMPILER_MSVC)
 #include <intrin.h>
 #endif
 
-namespace boost { namespace simd { namespace config{ namespace details {
+namespace boost { namespace simd { namespace config{ namespace x86 {
 
-  bool has_bit_set(int value, int bit)
-  {
-    return (value & (1<<bit)) != 0;
-  }
-
-  void cpuid(int CPUInfo[4],int InfoType)
+  inline void cpuid(int CPUInfo[4],int InfoType)
   {
 #if defined(BOOST_SIMD_ARCH_X86)
 
 #if defined(BOOST_SIMD_COMPILER_GCC_LIKE)
     enum { eax,ebx,ecx,edx };
-    
+
 #if !defined(__PIC__) || defined(BOOST_SIMD_ARCH_X86_64)
     __asm__ __volatile__
     (
@@ -49,7 +53,7 @@ namespace boost { namespace simd { namespace config{ namespace details {
     : "cc"
     );
 #endif
-    
+
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
     __cpuid(CPUInfo,InfoType);
 #else
@@ -62,3 +66,4 @@ namespace boost { namespace simd { namespace config{ namespace details {
 } } } }
 
 
+#endif

@@ -6,34 +6,43 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_X86_GET_VENDOR_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_X86_GET_VENDOR_HPP_INCLUDED
+
+#include <boost/simd/sdk/config/arch/x86.hpp>
+#ifdef BOOST_SIMD_ARCH_X86
 #include <boost/simd/sdk/config/details/get_vendor.hpp>
-#include <boost/simd/sdk/config/details/cpuid.hpp>
+#include <boost/simd/sdk/config/details/detector/cpuid.hpp>
+#include <cstring>
+
+/*!
+ *\file get_vendor.hpp
+ *\brief Runtime function to get the Vendor Processor.
+*/
 
 #define INTEL "GenuineIntel"
 #define AMD   "AuthenticAMD"
 
-namespace boost { namespace simd { namespace config{ namespace details {
-  
-  static bool str_match(const int abcd[4], const char* vendor)
+namespace boost { namespace simd { namespace config
+{
+  inline static bool str_match(const int abcd[4], const char* vendor)
   {
-    return (abcd[1] == ((int*)(vendor))[0] && abcd[2] == ((int*)(vendor))[2] && abcd[3] == ((int*)(vendor))[1]);
+    return ( !std::memcmp(abcd + 1, vendor,     4)
+          && !std::memcmp(abcd + 2, vendor + 8, 4)
+          && !std::memcmp(abcd + 3, vendor + 4, 4) );
   }
 
-  int get_vendor()
+  inline int get_vendor()
   {
-#if defined(BOOST_SIMD_ARCH_X86)
     static const int function = 0x00000000;
-    int regs_x86[4]; 
-    cpuid(regs_x86, function);
+    int regs_x86[4];
+    config::x86::cpuid(regs_x86, function);
     if( str_match(regs_x86, INTEL) ) return intel;
     else if( str_match(regs_x86, AMD) ) return amd;
     else return -1;
-#elif defined(BOOST_SIMD_ARCH_POWERPC)
-    return ibm;
-#else
-    return -1;
-#endif
   }
+} } }
 
+#endif
 
-} } } }
+#endif

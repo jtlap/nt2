@@ -23,6 +23,7 @@
 #include <boost/simd/sdk/config/arch/powerpc.hpp>
 #include <boost/simd/sdk/config/arch/x86.hpp>
 #include <boost/simd/sdk/config/arch/ia64.hpp>
+#include <boost/simd/sdk/config/arch/arm.hpp>
 #include <boost/simd/sdk/config/arch/none.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
