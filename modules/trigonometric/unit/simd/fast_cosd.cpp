@@ -92,7 +92,7 @@ NT2_TEST_CASE_TPL ( fast_cosd_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 1);
 } // end of test for int_convert_
 
 NT2_TEST_CASE_TPL ( fast_cosd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
@@ -117,5 +117,5 @@ NT2_TEST_CASE_TPL ( fast_cosd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<vT>())[0], nt2::Sqrt_2o_2<sr_t>(), 1);
 } // end of test for uint_convert_
