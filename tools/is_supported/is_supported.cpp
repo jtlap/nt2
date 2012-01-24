@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
   
   for(std::size_t i=0; i!=sizeof data/sizeof *data; ++i)
   {
-    if(!strcmp(argv[1], data[i].name))
+    if(!std::strcmp(argv[1], data[i].name))
     {
       bool b = data[i].function();
       std::cout << argv[1] << ": " << (b ? "supported" : "not supported") << std::endl;
