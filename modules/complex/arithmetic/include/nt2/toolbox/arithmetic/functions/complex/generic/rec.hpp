@@ -48,10 +48,10 @@ namespace nt2 { namespace ext
       rtype denom =  sqr_abs(aa0);
       A0 num = conj(aa0);
       A0 r =  ldexp(num/denom, e);
-      if (all(is_finite(r))) return r; 
       r = if_else(is_eqz(denom), result_type(copysign(Inf<rtype>(), real(a0)), Zero<rtype>()), r);
-      r = if_else(is_inf(a0),    result_type(rec(copysign(denom, real(a0))), Zero<rtype>()), r);
-      r = if_else(is_imag(a0), result_type(imag(r)), r);
+      if (all(is_finite(a0))) return r; 
+      r = if_else(is_inf(a0),  result_type(rec(copysign(denom, real(a0))), Zero<rtype>()), r);
+      r = if_else(is_imag(a0), result_type(Zero<rtype>(), imag(r)), r);
       r = if_else(is_real(a0), result_type(real(r)), r);
       return r;
     }
