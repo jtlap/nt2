@@ -77,9 +77,13 @@ int main(int argc, char* argv[])
         std::cout << "usage: " << argv[0] << " <new> <old>" << std::endl;
         return EXIT_FAILURE;
     }
-    
+
     if(fs::exists(argv[2]))
         delete_files(argv[2], argv[1]);
-    move_files(argv[2], argv[1]);
-    fs::remove_all(argv[1]);
+
+    if(fs::exists(argv[1]))
+    {
+        move_files(argv[2], argv[1]);
+        fs::remove_all(argv[1]);
+    }
 }

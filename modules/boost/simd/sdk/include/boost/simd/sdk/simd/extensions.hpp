@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Regular SIMD extensions
 ////////////////////////////////////////////////////////////////////////////////
-#if !defined(BOOST_SIMD_DISABLE_SIMD)
+#if !defined(BOOST_SIMD_DISABLE_SIMD) && !defined(NVCC)
 #include <boost/simd/sdk/simd/extensions/lrb.hpp>
 #include <boost/simd/sdk/simd/extensions/sse.hpp>
 #include <boost/simd/sdk/simd/extensions/altivec.hpp>
@@ -22,13 +22,7 @@
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 
 #include <boost/dispatch/functor/forward.hpp>
-namespace boost { namespace dispatch
-{
-  template<class Tag>
-  struct default_site<Tag>
-  {
-    typedef BOOST_SIMD_DEFAULT_SITE type;
-  };
-} }
+
+BOOST_DISPATCH_COMBINE_SITE( BOOST_SIMD_DEFAULT_SITE )
 
 #endif

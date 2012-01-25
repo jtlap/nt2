@@ -38,26 +38,34 @@ namespace nt2 { namespace memory
     typedef typename parent::reference        reference;
     typedef typename parent::const_reference  const_reference;
 
-    iliffe_buffer( allocator_type const& a = allocator_type()) : parent(a) {}
+    iliffe_buffer( allocator_type const& = allocator_type()) {}
 
     template<typename Sizes>
-    iliffe_buffer (Sizes const& sz, allocator_type const& a = allocator_type())
-                  : parent(sz,a)
+    iliffe_buffer (Sizes const& sz, allocator_type const& = allocator_type())
     {}
 
     //==========================================================================
     // Element random access
     //==========================================================================
-    template<class Position>
-    BOOST_FORCEINLINE reference operator[]( Position const& p )
+    BOOST_FORCEINLINE reference operator()( difference_type i )
     {
-      return parent::operator[] ( meta::view_at<1>(p) );
+      return parent::operator()(i);
     }
 
-    template<class Position>
-    BOOST_FORCEINLINE const_reference operator[]( Position const& p ) const
+    BOOST_FORCEINLINE const_reference operator()( difference_type i ) const
     {
-      return parent::operator[] ( meta::view_at<1>(p) );
+      return parent::operator()(i);
+    }
+
+    BOOST_FORCEINLINE reference operator()(difference_type i, difference_type )
+    {
+      return parent::operator()(i);
+    }
+
+    BOOST_FORCEINLINE const_reference
+    operator()(difference_type i, difference_type ) const
+    {
+      return parent::operator()(i);
     }
 
     inline size_type        inner_size()  const { return 1;       }

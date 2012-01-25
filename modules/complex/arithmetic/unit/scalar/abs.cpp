@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - abs/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 complex.arithmetic toolbox - abs/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.arithmetic components in scalar mode
@@ -22,7 +22,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-
+#include <nt2/sdk/complex/dry.hpp>
 
 NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
@@ -35,7 +35,8 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename std::complex<T> cT;
-  typedef typename nt2::meta::as_imaginary<T>::type ciT; 
+  typedef typename nt2::meta::as_imaginary<T>::type ciT;
+  typedef typename nt2::meta::as_dry<T>::type dT;
   typedef T wished_r_t;
 
 
@@ -60,7 +61,5 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(nt2::abs(a), nt2::One<T>());
    std::complex < T > b(3, 4);
    NT2_TEST_EQUAL(nt2::abs(b), nt2::Five<T>());
-   std::cout << nt2::One<cT>() << std::endl;
-   std::cout << nt2::One<ciT>() << std::endl;
 } // end of test for floating_
 

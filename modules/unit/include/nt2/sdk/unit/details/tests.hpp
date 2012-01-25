@@ -47,7 +47,7 @@ namespace nt2 { namespace details
     if( nt2::ulpdist(T(tt), U(uu) ) <= (R)vv)
     {                                                                   
       std::cout << " * Test `"                                  
-                << "ulpdist(" << x1 << ", " <<  x2 << ") <= " << x3     
+                << "ulpdist(" << x1 << ", " <<  x2 << ") ( == " << nt2::ulpdist(T(tt), U(uu) ) << ") <= " << x3     
                 << "` **passed**."                                      
                 << " (" << line << ")"                          
                 << std::endl;

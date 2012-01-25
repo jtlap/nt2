@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SINH_HPP_INCLUDED
-#define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SINH_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_SINH_HPP_INCLUDED
+#define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_SINH_HPP_INCLUDED
 #include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/sinh.hpp>
@@ -20,6 +20,8 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
+
 //sinh(x+iy)=sinh(x)cos(y)+i.cosh(x)sin(y).
 namespace nt2 { namespace ext
 {
@@ -42,11 +44,21 @@ namespace nt2 { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_imaginary<rA0>::type result_type; 
+    typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       return result_type(nt2::sin(imag(a0))); 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinh_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef A0 result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return result_type(nt2::sinh(real(a0))); 
     }
   };
   

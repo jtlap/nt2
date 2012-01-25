@@ -31,8 +31,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (is_nan(a0)) return a1;
-      else if (is_nan(a1)) return a0;
-      else return boost::simd::max(a0, a1);
+      else return a0 <=  a1 ? a1 : a0; 
     }
   };
 } } }

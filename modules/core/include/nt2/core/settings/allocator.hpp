@@ -9,33 +9,12 @@
 #ifndef NT2_CORE_SETTINGS_ALLOCATOR_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_ALLOCATOR_HPP_INCLUDED
 
+#include <nt2/core/settings/forward/allocator.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <nt2/core/settings/option.hpp>
 
 namespace nt2 
 { 
-  //============================================================================
-  /*! allocator_<A> defines a custom allocator to be used by the container.
-   * 
-   * \tparam Allocator Allocator type to be used by current container
-   **/
-  //============================================================================
-  template<class Allocator> 
-  struct allocator_ 
-  {
-    typedef Allocator type;
-  }; 
-
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for allocator options
-     **/
-    //==========================================================================
-    struct allocator_ {}; 
-  }
-
   namespace meta
   {
     //==========================================================================

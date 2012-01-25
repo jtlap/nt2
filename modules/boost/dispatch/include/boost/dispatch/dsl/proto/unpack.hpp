@@ -92,7 +92,7 @@ struct  unpack_impl<Fun, Expr, State, Data, BOOST_PROTO_ARITY>
       which;
 
   typedef typename
-          which::template impl<Expr, State, Data>::result_type result_type;
+          which::template impl<typename unpack_impl::expr, State, Data>::result_type result_type;
 
   result_type const
   operator()(
@@ -101,7 +101,7 @@ struct  unpack_impl<Fun, Expr, State, Data, BOOST_PROTO_ARITY>
     , typename unpack_impl::data_param d
   ) const
   {
-    return typename which:: template impl<Expr, State, Data>()(e, s, d);
+    return typename which:: template impl<typename unpack_impl::expr, State, Data>()(e, s, d);
   }
 };
 
@@ -116,7 +116,7 @@ struct  unpack_impl<Fun(E), Expr, State, Data, BOOST_PROTO_ARITY>
       >::type
       which;
 
-  typedef typename which::template impl<Expr, State, Data>::result_type result_type;
+  typedef typename which::template impl<typename unpack_impl::expr, State, Data>::result_type result_type;
 
   result_type const
   operator()(
@@ -125,7 +125,7 @@ struct  unpack_impl<Fun(E), Expr, State, Data, BOOST_PROTO_ARITY>
     , typename unpack_impl::data_param d
   ) const
   {
-      return typename which:: template impl<Expr, State, Data>()(e, s, d);
+      return typename which:: template impl<typename unpack_impl::expr, State, Data>()(e, s, d);
   }
 };
 
@@ -141,7 +141,7 @@ struct  unpack_impl<Fun(E, S), Expr, State, Data, BOOST_PROTO_ARITY>
         which;
 
     typedef typename
-            which::template impl<Expr, State, Data>::result_type result_type;
+            which::template impl<typename unpack_impl::expr, State, Data>::result_type result_type;
 
     result_type const
     operator()(
@@ -150,7 +150,7 @@ struct  unpack_impl<Fun(E, S), Expr, State, Data, BOOST_PROTO_ARITY>
       , typename unpack_impl::data_param d
     ) const
     {
-        return typename which:: template impl<Expr, State, Data>()(e, s, d);
+        return typename which:: template impl<typename unpack_impl::expr, State, Data>()(e, s, d);
     }
 };
 
@@ -166,7 +166,7 @@ struct  unpack_impl<Fun(E, S, D), Expr, State, Data, BOOST_PROTO_ARITY>
         which;
 
     typedef typename
-            which::template impl<Expr, State, Data>::result_type result_type;
+            which::template impl<typename unpack_impl::expr, State, Data>::result_type result_type;
 
     result_type const
     operator()(
@@ -175,7 +175,7 @@ struct  unpack_impl<Fun(E, S, D), Expr, State, Data, BOOST_PROTO_ARITY>
       , typename unpack_impl::data_param d
     ) const
     {
-        return typename which:: template impl<Expr, State, Data>()(e, s, d);
+        return typename which:: template impl<typename unpack_impl::expr, State, Data>()(e, s, d);
     }
 };
 

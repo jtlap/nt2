@@ -15,6 +15,9 @@
 #include <boost/simd/include/functions/min.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
+#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/functions/minus.hpp>
 #include <boost/simd/include/functions/unary_minus.hpp>
@@ -91,11 +94,15 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::as_integer<result_type>::type itype; 
+      typedef typename dispatch::meta::as_integer<result_type>::type itype;
       result_type r =  boost::simd::abs(a0);
       result_type i =  boost::simd::abs(a1);
       itype e =  exponent(boost::simd::max(i, r));
-      return ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e);
+      return  if_else( logical_or(logical_and(is_nan(a0), is_inf(a1)),
+                                  logical_and(is_nan(a1), is_inf(a0))),
+                       Inf<result_type>(), 
+                       ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e)
+                       );
 //       typedef typename meta::as_logical<A0>::type bA0; 
 //       typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
 //       typedef typename meta::as_logical<int_type>::type bint_type; 

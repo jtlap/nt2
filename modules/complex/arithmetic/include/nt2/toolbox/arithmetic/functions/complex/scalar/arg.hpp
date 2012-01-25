@@ -20,16 +20,16 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
-                            , (scalar_< complex_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return std::arg(static_cast<std::complex<result_type> >(a0)); 
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
+//                             , (scalar_< complex_< arithmetic_<A0> > >)
+//                             )
+//   {
+//     typedef typename meta::as_real<A0>::type result_type;
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return std::arg(a0); 
+//     }
+//   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::abs_, tag::cpu_, (A0)
                             , (scalar_< imaginary_< arithmetic_<A0> > >)

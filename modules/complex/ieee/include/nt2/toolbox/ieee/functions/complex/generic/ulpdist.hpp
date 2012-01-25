@@ -14,6 +14,8 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -26,6 +28,18 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::max(ulpdist(real(a0), real(a1)),ulpdist(imag(a0), imag(a1))); 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ulpdist_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                              (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return ulpdist(real(a0), real(a1)); 
     }
   };
 

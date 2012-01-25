@@ -33,8 +33,7 @@ template<class T> struct iliffe_buffer_1D_dynamic_test
 
   void operator()()
   {
-    for(std::ptrdiff_t i = 1; i <= s0_; ++i)
-      data[boost::fusion::vector_tie(i)] = data2[boost::fusion::vector_tie(i)];
+    for(std::ptrdiff_t i = 1; i <= s0_; ++i) data(i) = data2(i);
   }
 
   buffer_t        data,data2;
@@ -56,8 +55,7 @@ template<class T> struct iliffe_buffer_1D_static_test
 
   void operator()()
   {
-    for(std::ptrdiff_t i = 1; i <= s0_; ++i)
-      data[boost::fusion::vector_tie(i)] = data2[boost::fusion::vector_tie(i)];
+    for(std::ptrdiff_t i = 1; i <= s0_; ++i) data(i) = data2(i);
   }
 
   buffer_t        data,data2;
@@ -81,7 +79,7 @@ template<class T> struct iliffe_buffer_2D_static_test
   {
     for(std::ptrdiff_t j = 1; j <= s1_; ++j)
       for(std::ptrdiff_t i = 1; i <= s0_; ++i)
-        data[boost::fusion::vector_tie(i,j)] = data2[boost::fusion::vector_tie(i,j)];
+        data(i,j) = data2(i,j);
   }
 
   buffer_t        data,data2;
@@ -108,7 +106,7 @@ template<class T> struct iliffe_buffer_2D_dynamic_test
   {
     for(std::ptrdiff_t j = 1; j <= s1_; ++j)
       for(std::ptrdiff_t i = 1; i <= s0_; ++i)
-        data[boost::fusion::vector_tie(i,j)] = data2[boost::fusion::vector_tie(i,j)];
+        data(i,j) = data2(i,j);
   }
 
   buffer_t        data,data2;

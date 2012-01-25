@@ -26,13 +26,13 @@ NT2_TEST_CASE_TPL(padded_allocator, NT2_TYPES )
   using nt2::memory::padded_allocator;
 
   typedef padded_allocator< 16, std::allocator<T> > alloc_t;
-  buffer<T, 1, alloc_t > v( boost::fusion::make_vector(5) );
+  buffer<T, 1, alloc_t > v( 5 );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
-    v[boost::fusion::make_vector(i)] = T(1+10*i);
+    v(i) = T(1+10*i);
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
-    NT2_TEST_EQUAL( v[boost::fusion::make_vector(i)], T(1+10*i) );
+    NT2_TEST_EQUAL( v(i), T(1+10*i) );
 }
 
 NT2_TEST_CASE_TPL(padded_allocator_copy, NT2_TYPES )
@@ -43,13 +43,13 @@ NT2_TEST_CASE_TPL(padded_allocator_copy, NT2_TYPES )
   using nt2::memory::padded_allocator;
 
   typedef padded_allocator< 32, std::allocator<T> > alloc_t;
-  buffer<T, 1, alloc_t > v( boost::fusion::make_vector(5) );
+  buffer<T, 1, alloc_t > v( 5 );
 
   for( std::ptrdiff_t i=v.lower(); i<=v.upper(); ++i )
-    v[boost::fusion::make_vector(i)] = T(1+10*i);
+    v(i) = T(1+10*i);
 
   buffer<T, 1, alloc_t > w(v);
 
   for( std::ptrdiff_t i=w.lower(); i<=w.upper(); ++i )
-    NT2_TEST_EQUAL( w[boost::fusion::make_vector(i)], T(1+10*i) );
+    NT2_TEST_EQUAL( w(i), T(1+10*i) );
 }

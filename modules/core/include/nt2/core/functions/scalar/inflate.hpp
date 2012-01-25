@@ -69,14 +69,9 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A2>)
                             )
   {
-    typedef typename boost::fusion::result_of::
-                            value_at<A0,boost::mpl::int_<0> >::type dims_t;
-
-    typedef typename boost::fusion::result_of::
-                            value_at<A1,boost::mpl::int_<0> >::type index_t;
-
-    typedef typename boost::fusion::result_of::
-                            value_at<A2,boost::mpl::int_<0> >::type base_t;
+    typedef typename boost::fusion::result_of::at_c<A0 const,0 >::type dims_t;
+    typedef typename boost::fusion::result_of::at_c<A1 const,0 >::type index_t;
+    typedef typename boost::fusion::result_of::at_c<A2 const,0 >::type base_t;
 
     typedef boost::mpl::bool_< boost::mpl::size<A1>::value==0>      is_0d_t;
 
@@ -95,9 +90,9 @@ namespace nt2 { namespace ext
         , boost::mpl::false_ const&
         ) const
     {
-      index_t const& i = boost::fusion::at_c<0>(pos);
-      dims_t  const& s = boost::fusion::at_c<0>(size);
-      base_t  const& b = boost::fusion::at_c<0>(base);
+      index_t i = boost::fusion::at_c<0>(pos);
+      dims_t  s = boost::fusion::at_c<0>(size);
+      base_t  b = boost::fusion::at_c<0>(base);
 
       result_type that( (i-b) % s + b, (i-b) / s + b );
       return that;

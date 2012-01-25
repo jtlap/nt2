@@ -16,6 +16,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -43,6 +44,18 @@ namespace nt2 { namespace ext
       return result_type(put_first(imag(a0), a1)); 
     }
   };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::put_first_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<dry_<arithmetic_<A0> >,X>))
+                              (scalar_< integer_<A1> >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return result_type(put_first(real(a0), a1)); 
+    }
+  };  
 } }
 
 

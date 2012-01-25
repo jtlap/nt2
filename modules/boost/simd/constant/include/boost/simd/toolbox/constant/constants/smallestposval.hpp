@@ -38,13 +38,13 @@
  * namespace boost::simd
  * {
  *   template <class T,class A0>
- *     meta::call<tag::smallestposval_(A0)>::type
- *     Smallestposval();
+ *     meta::call<tag::sqrtsmallestposval_(A0)>::type
+ *     Sqrtsmallestposval();
  * }
  * \endcode
  *
  * 
- * \param T template parameter of Smallestposval
+ * \param T template parameter of Sqrtsmallestposval
  * 
  * \return type T value
  *  
@@ -56,12 +56,13 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Smallestposval of functor Smallestposval 
+     * \brief Define the tag Sqrtsmallestposval of functor Sqrtsmallestposval 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Smallestposval , double, 1
                                 , 0x00800000, 0x0010000000000000ULL
                                 );
+
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Smallestposval, Smallestposval)

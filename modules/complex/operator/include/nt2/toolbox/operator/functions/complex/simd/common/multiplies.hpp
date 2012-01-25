@@ -50,13 +50,13 @@ namespace nt2 { namespace ext
         if (any(logical_or(is_invalid(x), is_invalid(y))))
           {
             lA0 test = is_real(a0); 
-            r = if_else(test, multiplies(real(a0), a1), r);
+            r = if_else(test, nt2::multiplies(real(a0), a1), r);
             test = logical_andnot(is_imag(a0), test); 
-            r = if_else(test, multiplies(pure(a0), a1), r);
+            r = if_else(test, nt2::multiplies(pure(a0), a1), r);
             test = logical_andnot(is_real(a1), test); 
-            r = if_else(test, multiplies(a0, real(a1)), r);
+            r = if_else(test, nt2::multiplies(a0, real(a1)), r);
             test = logical_andnot(is_imag(a1), test); 
-            r = if_else(test, multiplies(a0, pure(a1)), r);
+            r = if_else(test, nt2::multiplies(a0, pure(a1)), r);
           }
         return r;
       }

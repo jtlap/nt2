@@ -54,13 +54,15 @@ NT2_TEST_CASE_TPL ( atan2_real__2_0,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(atan2(nt2::Half<T>(), nt2::Half<T>()), nt2::Pi<r_t>()/4, 0.5);
-  NT2_TEST_ULP_EQUAL(atan2(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(atan2(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Pi<r_t>()/4, 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::Inf<T>(),nt2::One<T>()), nt2::Pio_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::Mhalf<T>(), nt2::Mhalf<T>()), -3*nt2::Pi<r_t>()/4, 0.5);
-  NT2_TEST_ULP_EQUAL(atan2(nt2::Minf<T>(), nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(atan2(nt2::Minf<T>(), nt2::Minf<T>()), -3*nt2::Pi<r_t>()/4, 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::Minf<T>(),nt2::One<T>()), -nt2::Pio_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::Mone<T>(), nt2::Mone<T>()), -3*nt2::Pi<r_t>()/4, 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(atan2(nt2::Nan<T>(), nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(atan2(nt2::Zero<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);   
   NT2_TEST_ULP_EQUAL(atan2(nt2::One<T>(), nt2::One<T>()), nt2::Pi<r_t>()/4, 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::One<T>(),nt2::Inf<T>()), nt2::Zero<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(atan2(nt2::One<T>(),nt2::Minf<T>()), nt2::Pi<r_t>(), 0.5);

@@ -132,6 +132,103 @@ namespace nt2 { namespace ext
     }
   };
   
+  // dry/complex
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                              (generic_< complex_< arithmetic_<A1> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type rtype;
+    typedef typename meta::as_complex<A0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return result_type(real(a1)+real(a0), imag(a1));
+    }
+  };
+  
+  // complex/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
+                            , (generic_< complex_< arithmetic_<A0> > > )
+                              (generic_< dry_< arithmetic_<A1> > >)
+                            )
+  {
+    typedef typename meta::as_real<A1>::type rtype;
+    typedef typename meta::as_complex<A1>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return result_type(real(a0)+real(a1), imag(a0));
+    }
+  };
+
+  // dry/imaginary
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                              (generic_< imaginary_< arithmetic_<A1> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type rtype;
+    typedef typename meta::as_complex<A0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return result_type(real(a0), imag(a1));
+    }
+  };
+  
+  // imaginary/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
+                            , (generic_< imaginary_< arithmetic_<A0> > > )
+                              (generic_< dry_< arithmetic_<A1> > >)
+                            )
+  {
+    typedef typename meta::as_real<A1>::type rtype;
+    typedef typename meta::as_complex<A1>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return result_type(real(a1), imag(a0));
+    }
+  };
+  
+  // dry/arithmetic
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                              (generic_< arithmetic_<A1> >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return result_type(real(a0)+a1);
+    }
+  };
+  
+  // arithmetic/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
+                            , (generic_< arithmetic_<A0> >)
+                              (generic_< dry_< arithmetic_<A1> > >)
+                              
+                            )
+  {
+    typedef A1 result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return result_type(real(a1)+a0);
+    }
+  };
+  
+  // dry/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                              (generic_< dry_< arithmetic_<A0> > >)
+                              
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL_REPEAT(2)
+    {
+      return result_type(real(a0)+real(a1));
+    }
+  };  
+  
 } }
 
 #endif

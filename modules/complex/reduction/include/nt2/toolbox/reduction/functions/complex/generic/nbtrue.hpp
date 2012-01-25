@@ -14,6 +14,7 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -39,6 +40,17 @@ namespace nt2 { namespace ext
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef nt2::int32_t result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return nt2::nbtrue(is_nez(real(a0))); 
+    }
+  };
+
 } }
 
 #endif

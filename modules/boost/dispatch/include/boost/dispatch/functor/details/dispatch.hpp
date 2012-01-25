@@ -92,10 +92,9 @@ template< class Tag, class Site                                             \
          >                                                                  \
 struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
 {                                                                           \
-  BOOST_DISPATCH_TYPEOF                                                   \
+  typedef BOOST_DISPATCH_TYPEOF                                             \
   ( dispatching ( Tag(), Site() BOOST_PP_REPEAT(n,M0,~), adl_helper() )     \
-  , type                                                                    \
-  );                                                                        \
+  ) type;                                                                   \
 };                                                                          \
                                                                             \
 template< class Tag, class Site                                             \

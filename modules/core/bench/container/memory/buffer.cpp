@@ -27,7 +27,7 @@ template<class T> struct buffer_test
 
   buffer_test ( size_type sz)
               : data(boost::fusion::vector_tie(sz))
-              , data2(boost::fusion::vector_tie(sz)) 
+              , data2(boost::fusion::vector_tie(sz))
   {}
 
   buffer_test ( buffer_test const& s) : data(s.data), data2(s.data2)  {}
@@ -35,7 +35,7 @@ template<class T> struct buffer_test
   void operator()()
   {
     for(difference_type i = data.lower(); i <= data.upper(); ++i)
-      data[boost::fusion::vector_tie(i)] = data2[boost::fusion::vector_tie(i)];
+      data(i) = data2(i);
   }
 
   buffer_t data,data2;

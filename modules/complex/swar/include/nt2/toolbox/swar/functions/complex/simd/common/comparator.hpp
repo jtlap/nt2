@@ -19,6 +19,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

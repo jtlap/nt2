@@ -178,34 +178,36 @@ NT2_TEST_CASE_TPL( container_large, (double)(float)(short)(char) )
 template<class T> void do_small(int H, int W)
 {
   container_1D_dynamic_test<T> b(H*W);
-  nt2::details::cycles_t d = nt2::unit::perform_benchmark( b, 1.)/2;
+  double d = nt2::unit::perform_benchmark( b, 1.)/2.;
 
   std_1D_test<T> z(H,W);
-  nt2::details::cycles_t w = nt2::unit::perform_benchmark( z, 1.)/2;
+  double w = nt2::unit::perform_benchmark( z, 1.)/2.;
 
   container_2D_dynamic_test<T> c(H,W);
-  nt2::details::cycles_t e = nt2::unit::perform_benchmark( c, 1.)/2;
+  double e = nt2::unit::perform_benchmark( c, 1.)/2.;
 
   container_1D_static_test<T> bs(H*W);
-  nt2::details::cycles_t ds = nt2::unit::perform_benchmark( bs, 1.)/2;
+  double ds = nt2::unit::perform_benchmark( bs, 1.)/2.;
 
   container_2D_static_test<T> cs(H,W);
-  nt2::details::cycles_t es = nt2::unit::perform_benchmark( cs, 1.)/2;
+  double es = nt2::unit::perform_benchmark( cs, 1.)/2.;
 
   std_2D_test<T> y(H,W);
-  nt2::details::cycles_t v = nt2::unit::perform_benchmark( y, 1.)/2;
+  double v = nt2::unit::perform_benchmark( y, 1.)/2.;
 
-  printf( "%d x %d : 1D %3.3f (%3.3f%%) %3.3f [%3.3f%%] %3.3f "
-                  "| 2D %3.3f (%3.3f%%) %3.3f [%3.3f%%] %3.3f \n"
-        , H, W
-        , d/(H*W), ((d-w)/w)*100, ds/(H*W), ((ds-w)/w)*100  , w/(H*W)
-        , e/(H*W), ((e-v)/v)*100, es/(H*W), ((es-v)/v)*100  , v/(H*W)
-        );
+  std::cout << H << "x" << W << " : "
+            << "1D "  << d/(H*W) << " (" <<  ((d-w)/w)*100    << ") "
+                      << ds/(H*W) << " [" <<  ((ds-w)/w)*100  << "] "
+                      << w/(H*W)
+            << " | "
+            << "2D "  << e/(H*W) << " (" <<  ((e-v)/v)*100    << ") "
+                      << es/(H*W) << " [" <<  ((es-v)/v)*100  << "] "
+                      << v/(H*W)
+            << "\n";
 }
 
 NT2_TEST_CASE_TPL( container_small, (double)(float)(short)(char) )
 {
-  for(int W=1;W<=256;W*=2)
-    for(int H=1;H<=256;H*=2)
-      do_small<T>(H,W);
+  for(int N=1;N<=256;N*=2)
+    do_small<T>(N,N);
 }

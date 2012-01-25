@@ -19,12 +19,15 @@
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/is_not_equal.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <iostream>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
@@ -37,11 +40,11 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rA0; 
       typedef typename meta::as_logical<rA0>::type bA0; 
-      const A0 u =  exp(a0);
-      const bA0 p = logical_or(is_eqz(u),is_inf(u));
+      const A0 u =  nt2::exp(a0);
+      const bA0 p = logical_or(is_eqz(u),is_invalid(u)); 
       const A0 y1 = minusone(u);
       const bA0 m = logical_notand(p, is_not_equal(u, One<A0>()));
-      const A0 y2 = y1*(a0/log(u));
+      const A0 y2 = y1*(a0/nt2::log(u));
       return select(p,y1,select(m, y2, a0));
     }
   };
@@ -56,9 +59,21 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype;
       // cos(t)-1 + i sin(t) with  t =  imag(a0)
-      return result_type(Mtwo<rtype>()*sqr(sin(imag(a0)*Half<rtype>()), sin(imag(a0))));
+      return result_type(Mtwo<rtype>()*sqr(nt2::sin(imag(a0)*Half<rtype>()), nt2::sin(imag(a0))));
     }
-  };  
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm1_, tag::cpu_
+                            , (A0)
+                            , (generic_< dry_<floating_<A0> > >)
+                            )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+    {
+      return result_type(nt2::expm1(real(a0))); 
+    }
+  };    
 } }
 
 

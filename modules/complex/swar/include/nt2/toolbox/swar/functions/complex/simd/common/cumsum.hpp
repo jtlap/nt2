@@ -17,6 +17,7 @@
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
 
@@ -50,6 +51,17 @@ namespace nt2 { namespace ext
         return result_type(cumsum(imag(a0))); 
       }
   };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cumsum_, tag::cpu_
+                                     , (A0)(X)
+                                     , ((simd_<dry_<arithmetic_<A0> >,X>))
+                                     )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(1)
+      {
+        return result_type(cumsum(real(a0))); 
+      }
+  };  
 } }
   
   

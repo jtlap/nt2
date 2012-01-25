@@ -58,6 +58,7 @@ NT2_TEST_CASE_TPL ( log1p_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(log1p(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(log1p(nt2::One<T>()), nt2::Log_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(log1p(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(log1p(nt2::Smallestposval<T>()), nt2::Smallestposval<T>(), 0.5);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( log1p_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)

@@ -31,6 +31,8 @@ namespace nt2 { namespace memory
     typedef nt2::details::container_base<Tag,T,S>         parent;
     typedef typename parent::block_t                      block_t;
     typedef typename parent::allocator_type               allocator_type;
+    typedef typename parent::iterator                     iterator;
+    typedef typename parent::const_iterator               const_iterator;
     typedef typename parent::extent_type                  extent_type;
     typedef typename parent::sizes_type                   sizes_type;
     typedef typename parent::size_type                    size_type;
@@ -38,7 +40,7 @@ namespace nt2 { namespace memory
     typedef typename parent::is_static_sized              is_static_sized;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
-
+    typedef Tag                                           tag_type;
     //==========================================================================
     /*!
      * Default constructor
@@ -117,8 +119,6 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     BOOST_FORCEINLINE size_type size()        const { return block_.size();       }
-    BOOST_FORCEINLINE size_type inner_size()  const { return block_.inner_size(); }
-    BOOST_FORCEINLINE size_type outer_size()  const { return block_.outer_size(); }
 
     //==========================================================================
     /*!
@@ -129,21 +129,19 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /*!
-     * Return the current container dimensions lower indices
+     * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE difference_type lower()       const { return block_.lower();        }
-    BOOST_FORCEINLINE difference_type inner_lower() const { return block_.inner_lower();  }
-    BOOST_FORCEINLINE difference_type outer_lower() const { return block_.outer_lower();  }
+    BOOST_FORCEINLINE iterator       begin()       { return block_.data().begin(); }
+    BOOST_FORCEINLINE const_iterator begin() const { return block_.data().begin(); }
 
     //==========================================================================
     /*!
-     * Return the current container dimensions upper indices
+     * Return the end of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE difference_type upper()       const { return block_.upper();        }
-    BOOST_FORCEINLINE difference_type inner_upper() const { return block_.inner_upper();  }
-    BOOST_FORCEINLINE difference_type outer_upper() const { return block_.outer_upper();  }
+    BOOST_FORCEINLINE iterator       end()       { return block_.data().end(); }
+    BOOST_FORCEINLINE const_iterator end() const { return block_.data().end(); }
 
     private:
     block_t     block_;

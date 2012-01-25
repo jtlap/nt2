@@ -16,6 +16,7 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/rec.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -29,9 +30,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rA0;
-      rA0 r = nt2::abs(a0);
-      return rec(result_type(nt2::sqrt(r+a0), sign(imag(a0))*nt2::sqrt(r-a0))*Sqrt_2o_2<rA0>());//TODO optimize
+      return rec(sqrt(a0)); //TO DO better
     }
   };
 
@@ -48,6 +47,20 @@ namespace nt2 { namespace ext
     }
   };
   
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rsqrt_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type rA0;
+    typedef typename meta::as_complex<rA0>::type result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      const rA0 root = rsqrt(nt2::abs(a0)); 
+      return if_else(is_gtz(real(a0)), result_type(root), result_type(Zero<rA0>(), root)); 
+    }
+  };
+
 } }
 
 #endif

@@ -25,7 +25,7 @@ namespace nt2
   /**/
   BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
   #undef M0
-  
+
   //============================================================================
   // Defines the type of largest of_size available
   //============================================================================
@@ -33,6 +33,21 @@ namespace nt2
                                         , -1 BOOST_PP_INTERCEPT
                                         )
                   >                                                 of_size_max;
+
+  //============================================================================
+  // Maps a constant to the proper of_size specialization
+  //============================================================================
+  template<std::size_t D> struct make_size
+  {
+    typedef of_size_max type;
+  };
+
+  #define M0(z,n,t)                                     \
+  template<> struct make_size<n>                        \
+  { typedef BOOST_PP_CAT(BOOST_PP_CAT(_,n),D) type; };  \
+  /**/
+  BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
+  #undef M0
 }
 
 #endif

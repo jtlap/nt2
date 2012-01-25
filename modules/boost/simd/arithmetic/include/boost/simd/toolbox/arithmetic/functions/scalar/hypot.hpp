@@ -15,6 +15,8 @@
 #include <boost/simd/include/functions/sqr.hpp>
 #include <boost/simd/include/functions/max.hpp>
 #include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/logical_and.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
@@ -82,6 +84,8 @@ namespace boost { namespace simd { namespace ext
       // the straightforward preceding overload for floats
       // The float constants are provided in order to modify
       // the algorithm if a architecture gived different speed results
+      if ( logical_or(logical_and(is_nan(a0), is_inf(a1)),
+                      logical_and(is_nan(a1), is_inf(a0)))) return Inf<result_type>();
       typedef typename dispatch::meta::as_integer<AA0, signed>::type  int_type;
       AA0 x =  boost::simd::abs(a0);
       AA0 y =  boost::simd::abs(a1);

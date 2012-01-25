@@ -21,6 +21,7 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -34,7 +35,7 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::scalar_of<rtype>::type stype;
       typedef typename meta::as_logical<rtype>::type ltype;
-      rtype absa0 = abs(a0); 
+      rtype absa0 = nt2::abs(a0); 
       nt2::int32_t tmp = posmax(absa0);
       ltype test = eq(absa0, absa0[tmp]); 
         if (nbtrue(test) > 1)
@@ -53,10 +54,20 @@ namespace nt2 { namespace ext
     typedef nt2::int32_t result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return posmax(abs(a0));
+      return posmax(nt2::abs(a0));
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posmax_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef nt2::int32_t result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return posmax(nt2::abs(a0));
+    }
+  };
 } }
 
 #endif
