@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace config{ namespace x86 {
 #endif
   }
 
-  void cpuidex(int CPUInfo[4],int InfoType, int ECXValue)
+  inline void cpuidex(int CPUInfo[4],int InfoType, int ECXValue)
   {
 #if defined(BOOST_SIMD_ARCH_X86)
 

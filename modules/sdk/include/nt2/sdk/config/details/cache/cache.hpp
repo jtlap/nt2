@@ -31,8 +31,6 @@ namespace nt2{ namespace config{ namespace details{
     typedef boost::fusion::result_of::begin<vector_type>::type begin_iterator;
     typedef boost::fusion::result_of::end<vector_type>::type   end_iterator;
 
-    friend inline void detect_cache(cache_infos const& c);
-
     inline void init() const
     {
       if(!is_init_)
@@ -44,7 +42,9 @@ namespace nt2{ namespace config{ namespace details{
 
     inline result_type cache_size(int const& level) const
     {
-      BOOST_ASSERT_MSG(is_init_ == true, "Objet needs to be initialized first.");
+      BOOST_ASSERT_MSG(is_init_ == true, 
+                      "The class cache_infos needs to be initialized via the "
+                      "function cache_init before accessing its members.");
       if(level > cache_sizes_.size())
         throw cache_exc("This level of cache is not available on the current target.");
       else return cache_sizes_[level-1];
@@ -52,7 +52,9 @@ namespace nt2{ namespace config{ namespace details{
 
     inline result_type cache_line_size(int const& level) const
     {
-      BOOST_ASSERT_MSG(is_init_ == true, "Objet needs to be initialized first.");
+      BOOST_ASSERT_MSG(is_init_ == true, 
+                      "The class cache_infos needs to be initialized via the "
+                      "function cache_init before accessing its members.");
       if(level > cache_line_sizes_.size())
         throw cache_exc("This level of cache is not available on the current target.");
       else return cache_line_sizes_[level-1];
@@ -60,34 +62,44 @@ namespace nt2{ namespace config{ namespace details{
 
     inline result_type get_max_level() const
     {
-      BOOST_ASSERT_MSG(is_init_ == true, "Objet needs to be initialized first.");
+      BOOST_ASSERT_MSG(is_init_ == true,
+                       "The class cache_infos needs to be initialized via the "
+                       "function cache_init before accessing its members.");
       return cache_sizes_.size();
     }
 
     inline begin_iterator cache_size_begin() const
     {
-      BOOST_ASSERT_MSG(is_init_ == true, "Objet needs to be initialized first.");
+      BOOST_ASSERT_MSG(is_init_ == true,
+                      "The class cache_infos needs to be initialized via the "
+                      "function cache_init before accessing its members.");
       begin_iterator it = boost::fusion::begin(cache_sizes_);
       return it;
     }
 
     inline begin_iterator cache_line_size_begin() const
     {
-      BOOST_ASSERT_MSG(is_init_ == true, "Objet needs to be initialized first.");
+      BOOST_ASSERT_MSG(is_init_ == true,
+                      "The class cache_infos needs to be initialized via the "
+                      "function cache_init before accessing its members.");
       begin_iterator it = boost::fusion::begin(cache_line_sizes_);
       return it;
     }
 
     inline end_iterator cache_size_end() const
     {
-      BOOST_ASSERT_MSG(is_init_ == true, "Objet needs to be initialized first.");
+      BOOST_ASSERT_MSG(is_init_ == true, 
+                      "The class cache_infos needs to be initialized via the "
+                      "function cache_init before accessing its members.");
       end_iterator it = boost::fusion::end(cache_sizes_);
       return it;
     }
 
     inline end_iterator cache_line_size_end() const
     {
-      BOOST_ASSERT_MSG(is_init_ == true, "Objet needs to be initialized first.");
+      BOOST_ASSERT_MSG(is_init_ == true, 
+                      "The class cache_infos needs to be initialized via the "
+                      "function cache_init before accessing its members.");
       end_iterator it = boost::fusion::end(cache_line_sizes_);
       return it;
     }

@@ -16,7 +16,6 @@
 #include <boost/simd/sdk/config/details/get_vendor.hpp>
 #include <nt2/sdk/error/assert.hpp>
 #include <boost/array.hpp>
-#include <vector>
 
 namespace bsc = boost::simd::config;
 

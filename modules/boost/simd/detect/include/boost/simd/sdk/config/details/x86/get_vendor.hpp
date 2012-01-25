@@ -20,8 +20,8 @@
  *\brief Runtime function to get the Vendor Processor.
 */
 
-#define INTEL "GenuineIntel"
-#define AMD   "AuthenticAMD"
+#define BOOST_SIMD_VENDOR_INTEL "GenuineIntel"
+#define BOOST_SIMD_VENDOR_AMD   "AuthenticAMD"
 
 namespace boost { namespace simd { namespace config
 {
@@ -37,8 +37,8 @@ namespace boost { namespace simd { namespace config
     static const int function = 0x00000000;
     int regs_x86[4];
     config::x86::cpuid(regs_x86, function);
-    if( str_match(regs_x86, INTEL) ) return intel;
-    else if( str_match(regs_x86, AMD) ) return amd;
+    if( str_match(regs_x86, BOOST_SIMD_VENDOR_INTEL) ) return intel;
+    else if( str_match(regs_x86, BOOST_SIMD_VENDOR_AMD) ) return amd;
     else return -1;
   }
 } } }
