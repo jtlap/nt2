@@ -9,6 +9,7 @@
 
 SET( SOURCES
    length.cpp
+   linspace.cpp
    ndims.cpp
    numel.cpp
    ones.cpp
