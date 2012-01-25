@@ -25,7 +25,7 @@
 #include <nt2/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( is_nan_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( is_nan_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   
   using nt2::is_nan;
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( is_nan_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_EQUAL(is_nan(nt2::Zero<T>()), r_t(false));
 } // end of test for signed_int_
 
-NT2_TEST_CASE_TPL ( is_nan_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( is_nan_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   
   using nt2::is_nan;

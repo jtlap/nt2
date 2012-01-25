@@ -23,7 +23,7 @@
 #include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( sqr_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sqr_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   
   using boost::simd::sqr;
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( sqr_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sqr(boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( sqr_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( sqr_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   
   using boost::simd::sqr;

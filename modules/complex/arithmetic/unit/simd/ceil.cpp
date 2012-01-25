@@ -25,7 +25,7 @@
 #include <nt2/sdk/complex/dry.hpp>
 
 
-NT2_TEST_CASE_TPL ( ceil_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( ceil_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
    using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
