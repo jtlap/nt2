@@ -12,6 +12,10 @@
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/sinh.hpp>
+#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sin.hpp>
@@ -35,7 +39,7 @@ namespace nt2 { namespace ext
       rtype c, s, ch, sh;
       sincos(real(a0), s, c);
       sinhcosh(imag(a0), sh, ch);
-      return result_type(c*ch, -s*sh);     
+      return result_type(c*ch, if_zero_else(logical_or(is_imag(a0), is_real(a0)), -s*sh));     
     }
   };
 

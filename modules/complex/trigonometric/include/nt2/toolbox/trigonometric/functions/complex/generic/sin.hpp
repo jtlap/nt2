@@ -18,6 +18,9 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
@@ -35,7 +38,9 @@ namespace nt2 { namespace ext
       rtype c, s, ch, sh;
       sincos(real(a0), s, c);
       sinhcosh(imag(a0), sh, ch);
-      return result_type(s*ch, c*sh);     
+      rtype r = if_zero_else(is_imag(a0), s*ch);
+      rtype i = if_zero_else(is_real(a0), c*sh);
+      return result_type(r, i);     
     }
   };
 
