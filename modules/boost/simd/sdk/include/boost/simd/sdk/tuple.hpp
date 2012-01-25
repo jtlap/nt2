@@ -34,11 +34,6 @@
 #include <boost/fusion/include/size.hpp>
 #include <boost/simd/sdk/details/at_iterator.hpp>
 
-#define TUPLE_TYPES(z, n, t) typedef T##n m##n##_type;
-#define TUPLE_MEMBERS(z, n, t) T##n m##n;
-#define TUPLE_CTORS(z, n, t) BOOST_FORCEINLINE tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) : BOOST_PP_ENUM(t, TUPLE_CTORS_, n) {}
-#define TUPLE_CTORS_(z, n, t) BOOST_PP_IF(BOOST_PP_LESS(n, t), m##n(a##n), m##n())
-
 namespace boost { namespace simd
 {
   namespace tag
@@ -165,20 +160,25 @@ namespace boost { namespace simd
   }
 } }
 
-#define HEAD <BOOST_PP_ENUM_PARAMS(N, T)>
+#define BOOST_SIMD_TUPLE_TYPES(z, n, t) typedef T##n m##n##_type;
+#define BOOST_SIMD_TUPLE_MEMBERS(z, n, t) T##n m##n;
+#define BOOST_SIMD_TUPLE_CTORS(z, n, t) BOOST_FORCEINLINE tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) : BOOST_PP_ENUM(t, BOOST_SIMD_TUPLE_CTORS_, n) {}
+#define BOOST_SIMD_TUPLE_CTORS_(z, n, t) BOOST_PP_IF(BOOST_PP_LESS(n, t), m##n(a##n), m##n())
+
+#define BOOST_SIMD_TUPLE_HEAD <BOOST_PP_ENUM_PARAMS(N, T)>
 #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_PP_DEC(BOOST_DISPATCH_MAX_ARITY), "boost/simd/sdk/tuple.hpp"))
 #include BOOST_PP_ITERATE()
 
-#undef HEAD
-#define HEAD
+#undef BOOST_SIMD_TUPLE_HEAD
+#define BOOST_SIMD_TUPLE_HEAD
 #define BOOST_PP_ITERATION_PARAMS_1 (3, ( BOOST_DISPATCH_MAX_ARITY, BOOST_DISPATCH_MAX_ARITY, "boost/simd/sdk/tuple.hpp"))
 #include BOOST_PP_ITERATE()
 
-#undef HEAD
-#undef TUPLE_CTORS_
-#undef TUPLE_CTORS
-#undef TUPLE_MEMBERS
-#undef TUPLE_TYPES
+#undef BOOST_SIMD_TUPLE_HEAD
+#undef BOOST_SIMD_TUPLE_CTORS_
+#undef BOOST_SIMD_TUPLE_CTORS
+#undef BOOST_SIMD_TUPLE_MEMBERS
+#undef BOOST_SIMD_TUPLE_TYPES
 
 #endif
 
@@ -243,5 +243,7 @@ namespace boost { namespace fusion { namespace extension
     }
   };
 } } }
+
+#undef N
 
 #endif
