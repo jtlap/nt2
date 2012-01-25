@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
-#if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
+#if 0//!defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/toolbox/operator/functions/simd/common/preprocessed/map.hpp>
 #else
 #include <boost/dispatch/details/parameters.hpp>
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext                             \
       result_type that;                                                      \
                                                                              \
       for(size_t i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i) \
-        that[i] = f(BOOST_PP_ENUM(n, M3, ~));                                \
+        insert(f(BOOST_PP_ENUM(n, M3, ~)), that, i);                         \
                                                                              \
       return that;                                                           \
     }                                                                        \
