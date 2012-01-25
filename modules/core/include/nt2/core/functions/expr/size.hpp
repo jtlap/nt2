@@ -17,9 +17,11 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
-                            , (A0)(T)
+                            , (A0)(T)(Arity)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain, T
+                                      , nt2::container::domain
+                                      , T
+                                      , Arity
                                       >
                               ))
                             )

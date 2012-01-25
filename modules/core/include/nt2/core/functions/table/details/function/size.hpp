@@ -52,7 +52,7 @@ namespace nt2 { namespace details
                   >::type                                                       \
             >::value                                                            \
   /**/
-  
+
   #define M2(z,n,t)                                                           \
   that[n] = nt2::relative_size( boost::fusion::at_c<n>(children), sz          \
                               , boost::mpl::int_<n>(), boost::mpl::int_<t>()  \
@@ -100,7 +100,7 @@ namespace nt2 { namespace details
 namespace nt2 { namespace container { namespace ext
 {
   template<class Expr, class Domain, int N>
-  struct size<tag::function_, Domain, N, Expr>
+  struct size_of<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of
                           ::child_c<Expr, 0>::type      child0;
