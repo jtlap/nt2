@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/complex/hierarchy.hpp>
 #include <nt2/sdk/complex/meta/real_of.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
@@ -29,6 +30,15 @@ namespace nt2 { namespace meta
     typedef T type;
   };
 } }
+
+namespace boost { namespace simd { namespace meta
+{
+  template<class T, class X>
+  struct as_simd<nt2::imaginary<T>, X>
+    : as_simd<T, X>
+  {
+  };
+} } }
 
 namespace boost { namespace dispatch { namespace meta
 {
