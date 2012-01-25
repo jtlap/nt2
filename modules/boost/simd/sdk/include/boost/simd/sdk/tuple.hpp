@@ -14,9 +14,11 @@
 #include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/control/expr_if.hpp>
+#include <boost/preprocessor/comparison/less.hpp>
+#include <boost/preprocessor/control/if.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -33,8 +35,8 @@
 
 #define TUPLE_TYPES(z, n, t) typedef T##n m##n##_type;
 #define TUPLE_MEMBERS(z, n, t) T##n m##n;
-#define TUPLE_CTORS(z, n, t) BOOST_FORCEINLINE tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) BOOST_PP_EXPR_IF(n, :) BOOST_PP_ENUM(n, TUPLE_CTORS_, ~) {}
-#define TUPLE_CTORS_(z, n, t) m##n(a##n)
+#define TUPLE_CTORS(z, n, t) BOOST_FORCEINLINE tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) : BOOST_PP_ENUM(t, TUPLE_CTORS_, n) {}
+#define TUPLE_CTORS_(z, n, t) BOOST_PP_IF(BOOST_PP_LESS(n, t), m##n(a##n), m##n())
 
 namespace boost { namespace simd
 {
@@ -192,7 +194,8 @@ namespace boost { namespace simd
     static const std::size_t static_size = N;
     BOOST_PP_REPEAT(N, TUPLE_TYPES, ~)
     
-    BOOST_PP_REPEAT(BOOST_PP_INC(N), TUPLE_CTORS, ~)
+    tuple() {}
+    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(N), TUPLE_CTORS, N)
     BOOST_PP_REPEAT(N, TUPLE_MEMBERS, ~)
   };
 } }
