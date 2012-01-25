@@ -32,6 +32,7 @@
 #include <boost/fusion/support.hpp>
 #include <boost/fusion/include/value_at.hpp>
 #include <boost/fusion/include/size.hpp>
+#include <boost/simd/sdk/details/at_iterator.hpp>
 
 #define TUPLE_TYPES(z, n, t) typedef T##n m##n##_type;
 #define TUPLE_MEMBERS(z, n, t) T##n m##n;
