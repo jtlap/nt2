@@ -175,7 +175,7 @@ namespace nt2 { namespace ext
           if (any(infx))
             {
               r =  if_else(infx, Zero<rtype>(), r);
-              i =  if_else(infx, Minf<rtype>(), i);
+              i =  if_else(infx, Inf<rtype>(), i);
               r =  if_else(logical_and(infx, infy), Pi<rtype>()/Four<rtype>(), r);
               i =  if_else(logical_and(infx, infy), Inf<rtype>(), i);//**
               r =  if_else(logical_and(infx, nany), y, r);

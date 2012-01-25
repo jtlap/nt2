@@ -10,7 +10,6 @@
 #define NT2_SDK_COMPLEX_DRY_HPP_INCLUDED
 
 #include <nt2/sdk/complex/details/dry/meta.hpp>
-#include <nt2/sdk/complex/details/dry/native.hpp>
 
 namespace nt2
 {

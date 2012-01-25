@@ -10,7 +10,6 @@
 #define NT2_SDK_COMPLEX_IMAGINARY_HPP_INCLUDED
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/details/imaginary/meta.hpp>
-#include <nt2/sdk/complex/details/imaginary/native.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 

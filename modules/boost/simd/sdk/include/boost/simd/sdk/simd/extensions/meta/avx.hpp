@@ -15,8 +15,8 @@
 #include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/utility/enable_if.hpp>
 
 // Forward-declare logical
 namespace boost { namespace simd
@@ -53,12 +53,9 @@ namespace boost { namespace simd { namespace meta
   };
   
   template<class T>
-  struct as_simd<T, tag::avx_>
-    : boost::mpl::if_< boost::is_integral<T>
-                     , __m256i
-                     , dispatch::meta::na_
-                     >
+  struct as_simd<T, tag::avx_, typename enable_if< is_integral<T> >::type>
   {
+    typedef __m256i type;
   };
   
   template<class T>

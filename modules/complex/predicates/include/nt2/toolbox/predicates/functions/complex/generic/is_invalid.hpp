@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_invalid(a0()); 
+      return is_invalid(imag(a0)); 
     }
   };
 

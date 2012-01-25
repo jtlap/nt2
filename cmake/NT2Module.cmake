@@ -555,6 +555,10 @@ endmacro()
 
 macro(nt2_module_tool_setup tool)
 
+  if(NOT NT2_SOURCE_ROOT)
+    message(FATAL_ERROR "[nt2] tool ${tool} was not found and cannot be built")
+  endif()
+
   get_property(NT2_TOOL_${tool}_BUILT GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT)
   if(NOT NT2_TOOL_${tool}_BUILT)
 
@@ -598,7 +602,7 @@ macro(nt2_module_tool_setup tool)
     endif()
 
     if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
-      install( FILES ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
+      install( PROGRAMS ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
                DESTINATION tools/${tool}
                COMPONENT tools
              )
@@ -609,9 +613,15 @@ macro(nt2_module_tool_setup tool)
 endmacro()
 
 macro(nt2_module_tool tool)
+  string(TOUPPER ${tool} tool_U)
 
-  nt2_module_tool_setup(${tool})
-  execute_process(COMMAND ${NT2_BINARY_DIR}/tools/${tool}/${tool} ${ARGN})
+  find_program(NT2_TOOL_${tool_U} ${tool} PATHS ${NT2_ROOT}/tools/${tool} NO_DEFAULT_PATH)
+  mark_as_advanced(NT2_TOOL_${tool_U})
+  if(NOT NT2_TOOL_${tool_U})
+    nt2_module_tool_setup(${tool})
+    set(NT2_TOOL_${tool_U} ${NT2_BINARY_DIR}/tools/${tool}/${tool})
+  endif()
+  execute_process(COMMAND ${NT2_TOOL_${tool_U}} ${ARGN})
 
 endmacro()
 

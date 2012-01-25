@@ -64,15 +64,15 @@ NT2_TEST_CASE_TPL ( rec_real__1_0,  BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::Zero<T>())), nt2::Nan<cT>());
    NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Nan<T>())), nt2::Nan<cT>());
    
-//    std::complex < T > a(1, 0);
-//    NT2_TEST_EQUAL(nt2::rec(a), nt2::One<T>());
-//    std::complex < T > b(3, 4);
-//    NT2_TEST_EQUAL(nt2::rec(b), nt2::Five<T>());
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Inf<cT>()), nt2::Zero<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Minf<cT>()), nt2::Zero<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Mone<cT>()), nt2::Mone<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Nan<cT>()), nt2::Nan<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::One<cT>()), nt2::One<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Zero<cT>()), nt2::Inf<cT>(), 0);
+   std::complex < T > a(1, 0);
+   NT2_TEST_EQUAL(nt2::rec(a), nt2::One<T>());
+   std::complex < T > b(1, 1);
+   NT2_TEST_ULP_EQUAL(nt2::rec(b), cT(0.5, -0.5), 0);
+   NT2_TEST_ULP_EQUAL(rec(nt2::Inf<cT>()), nt2::Zero<cT>(), 0);
+   NT2_TEST_ULP_EQUAL(rec(nt2::Minf<cT>()), nt2::Zero<cT>(), 0);
+   NT2_TEST_ULP_EQUAL(rec(nt2::Mone<cT>()), nt2::Mone<cT>(), 0);
+   NT2_TEST_ULP_EQUAL(rec(nt2::Nan<cT>()), nt2::Nan<cT>(), 0);
+   NT2_TEST_ULP_EQUAL(rec(nt2::One<cT>()), nt2::One<cT>(), 0);
+   NT2_TEST_ULP_EQUAL(rec(nt2::Zero<cT>()), nt2::Inf<cT>(), 0);
 } // end of test for floating_
 

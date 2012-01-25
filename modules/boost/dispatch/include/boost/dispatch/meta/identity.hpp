@@ -16,6 +16,12 @@ namespace boost { namespace dispatch
 {
   struct identity
   {
+    template<class X>
+    struct apply
+    {
+      typedef X type;
+    };
+    
     template<class Sig>
     struct result;
     

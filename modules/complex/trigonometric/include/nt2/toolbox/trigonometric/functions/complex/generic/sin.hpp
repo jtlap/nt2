@@ -18,6 +18,9 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
@@ -35,7 +38,9 @@ namespace nt2 { namespace ext
       rtype c, s, ch, sh;
       sincos(real(a0), s, c);
       sinhcosh(imag(a0), sh, ch);
-      return result_type(s*ch, c*sh);     
+      rtype r = if_zero_else(is_imag(a0), s*ch);
+      rtype i = if_zero_else(is_real(a0), c*sh);
+      return result_type(r, i);     
     }
   };
 
@@ -44,13 +49,24 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_complex<rA0>::type result_type; 
+    typedef typename meta::as_imaginary<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       return result_type(nt2::sinh(imag(a0))); 
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sin_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef typename meta::as_real<A0>::type rA0;
+    typedef typename meta::as_dry<rA0>::type result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return result_type(nt2::sin(real(a0))); 
+    }
+  };
 } }
 
 #endif

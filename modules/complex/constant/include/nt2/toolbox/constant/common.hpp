@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/constant/common.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
@@ -34,9 +35,9 @@ namespace nt2 { namespace ext
                         );
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)
-                                   , ((target_< generic_< imaginary_< arithmetic_<A0> > > >))
+                                   , ((target_< scalar_< imaginary_< arithmetic_<A0> > > >))
                                    )
   {
     typedef typename A0::type                               result_type;
@@ -47,9 +48,22 @@ namespace nt2 { namespace ext
       return result_type(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)(X)
+                                   , ((target_< simd_< imaginary_< arithmetic_<A0> >, X > >))
+                                   )
+  {
+    typedef typename A0::type                               result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    {
+      typedef typename meta::as_real<result_type>::type real_t;
+      return bitwise_cast<result_type>(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
+    }
+  };
   
   NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)
-                                   , ((target_< generic_< dry_< arithmetic_<A0> > > >))
+                                   , ((target_< scalar_< dry_< arithmetic_<A0> > > >))
                                    )
   {
     typedef typename A0::type                               result_type;
@@ -58,6 +72,19 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<result_type>::type real_t;
       return result_type(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)(X)
+                                   , ((target_< simd_< dry_< arithmetic_<A0> >, X > >))
+                                   )
+  {
+    typedef typename A0::type                               result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    {
+      typedef typename meta::as_real<result_type>::type real_t;
+      return bitwise_cast<result_type>(boost::dispatch::functor<Tag>()(boost::dispatch::meta::as_<real_t>()));
     }
   };
 } }
