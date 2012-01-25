@@ -6,22 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_ARM_GET_VENDOR_HPP_INCLUDED
-#define BOOST_SIMD_SDK_CONFIG_DETAILS_ARM_GET_VENDOR_HPP_INCLUDED
+#ifndef NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED
+#define NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED
 
-#include <boost/simd/sdk/config/arch/arm.hpp>
+#define NT2_MAX_CACHE_LEVEL 3
 
-#ifdef BOOST_SIMD_ARCH_ARM
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
+#include <nt2/sdk/config/details/cache/x86/detect_cache.hpp>
+//#include <nt2/sdk/config/details/cache/powerpc/detect_cache.hpp>
+//#include <nt2/sdk/config/details/cache/arm/detect_cache.hpp>
 
-namespace boost { namespace simd { namespace config
-{
-    inline int get_vendor()
-    {
-        return arm; // TODO
-    }
-} } }
-
-#endif
-
-#endif
+#endif /* NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED */

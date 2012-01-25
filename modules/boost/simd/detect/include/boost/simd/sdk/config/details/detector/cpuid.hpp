@@ -63,6 +63,27 @@ namespace boost { namespace simd { namespace config{ namespace x86 {
 #endif
   }
 
+  void cpuidex(int CPUInfo[4],int InfoType, int ECXValue)
+  {
+#if defined(BOOST_SIMD_ARCH_X86)
+
+#if defined(BOOST_SIMD_COMPILER_GCC_LIKE)
+    enum { eax,ebx,ecx,edx };
+    __asm__ __volatile__
+    (
+        "cpuid":\
+        "=a" (CPUInfo[eax]), "=b" (CPUInfo[ebx])
+        , "=c" (CPUInfo[ecx]), "=d" (CPUInfo[edx])
+        : "a" (InfoType), "c" (ECXValue)
+    );
+
+#elif defined(BOOST_SIMD_COMPILER_MSVC)
+    __cpuidex(CPUInfo,InfoType,ECXValue);
+#endif
+
+#endif
+  }
+
 } } } }
 
 
