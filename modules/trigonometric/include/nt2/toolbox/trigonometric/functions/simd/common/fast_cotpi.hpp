@@ -19,7 +19,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cotpi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cotpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<signed_<A0>,X>))
                             )
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cotpi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cotpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<unsigned_<A0>,X>))
                             )
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cotpi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cotpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

@@ -28,8 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
 
-#ifndef BOOST_SIMD_NO_SIMD
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round2even_, boost::simd::tag::simd_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
@@ -44,7 +43,6 @@ namespace boost { namespace simd { namespace ext
       return (d1^bitofsign(a0));
     }
   };
-#endif
 
 } } }
 

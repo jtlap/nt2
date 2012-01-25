@@ -25,7 +25,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosd_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosd_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
