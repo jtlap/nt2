@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
-#if 0//!defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
+#if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/toolbox/operator/functions/simd/common/preprocessed/map.hpp>
 #else
 #include <boost/dispatch/details/parameters.hpp>
