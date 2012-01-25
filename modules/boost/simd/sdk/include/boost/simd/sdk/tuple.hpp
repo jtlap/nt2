@@ -33,7 +33,7 @@
 
 #define TUPLE_TYPES(z, n, t) typedef T##n m##n##_type;
 #define TUPLE_MEMBERS(z, n, t) T##n m##n;
-#define TUPLE_CTORS(z, n, t) tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) BOOST_PP_EXPR_IF(n, :) BOOST_PP_ENUM(n, TUPLE_CTORS_, ~) {}
+#define TUPLE_CTORS(z, n, t) BOOST_FORCEINLINE tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) BOOST_PP_EXPR_IF(n, :) BOOST_PP_ENUM(n, TUPLE_CTORS_, ~) {}
 #define TUPLE_CTORS_(z, n, t) m##n(a##n)
 
 namespace boost { namespace simd
@@ -150,13 +150,13 @@ namespace boost { namespace fusion { namespace extension
 namespace boost { namespace simd
 {
   template<class Seq, int N>
-  typename fusion::extension::template at_impl<tag::tuple_>::template apply_c<Seq const, N>::type at_c(Seq const& seq)
+  BOOST_FORCEINLINE typename fusion::extension::template at_impl<tag::tuple_>::template apply_c<Seq const, N>::type at_c(Seq const& seq)
   {
     return fusion::extension::template at_impl<tag::tuple_>::template apply_c<Seq const, N>::call(seq);
   }
   
   template<class Seq, int N>
-  typename fusion::extension::template at_impl<tag::tuple_>::template apply_c<Seq, N>::type at_c(Seq& seq)
+  BOOST_FORCEINLINE typename fusion::extension::template at_impl<tag::tuple_>::template apply_c<Seq, N>::type at_c(Seq& seq)
   {
     return fusion::extension::template at_impl<tag::tuple_>::template apply_c<Seq, N>::call(seq);
   }
