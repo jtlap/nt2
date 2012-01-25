@@ -13,4 +13,13 @@
 #include <boost/simd/sdk/config/details/powerpc/detect.hpp>
 #include <boost/simd/sdk/config/details/arm/detect.hpp>
 
+namespace boost{ namespace simd{ namespace config{ namespace details{
+
+  inline bool detect(dispatch::tag::cpu_ const& )
+  {
+    return false;
+  }
+
+} } } }
+
 #endif

@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_X86_DETECT_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch/x86.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 
 /*!
  *\file detect.hpp
