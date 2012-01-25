@@ -15,6 +15,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/minus.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
@@ -41,7 +42,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(average(real(a0), real(a1))) ; 
+      return bitwise_cast<result_type>(average(real(a0), real(a1))) ; 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::average_, tag::cpu_, (A0)(A1)
@@ -80,7 +81,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(average(imag(a0), imag(a1))); 
+      return bitwise_cast<result_type>(average(imag(a0), imag(a1))); 
     }
   };
 

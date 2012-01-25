@@ -57,9 +57,39 @@ NT2_TEST_CASE_TPL ( average_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::native;
   
   // specific values tests
-    NT2_TEST_EQUAL(nt2::average(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>())), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()));
-    NT2_TEST_EQUAL(nt2::average(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Half<vT>(),nt2::Zero<vT>())); 
-    NT2_TEST_EQUAL(nt2::average(vcT(nt2::Zero<vT>(),nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())); 
-    NT2_TEST_EQUAL(nt2::average(vcT(nt2::Zero<vT>(),nt2::One<vT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::Half<vT>(),nt2::Half<vT>()));
-    NT2_TEST_EQUAL(nt2::average(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::One<vT>(), nt2::Zero<vT>()));
+  NT2_TEST_EQUAL(nt2::average(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>())), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()));
+  NT2_TEST_EQUAL(nt2::average(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Half<vT>(),nt2::Zero<vT>())); 
+  NT2_TEST_EQUAL(nt2::average(vcT(nt2::Zero<vT>(),nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())); 
+  NT2_TEST_EQUAL(nt2::average(vcT(nt2::Zero<vT>(),nt2::One<vT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::Half<vT>(),nt2::Half<vT>()));
+  NT2_TEST_EQUAL(nt2::average(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::One<vT>(), nt2::Zero<vT>()));
+  
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::Inf<vciT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>())), vcT(nt2::Inf<vT>(), nt2::Inf<vT>()));
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::One<vciT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::Half<vT>())); 
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::Zero<vciT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())); 
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::Zero<vciT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::Half<vT>(),nt2::Zero<vT>()));
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::One<vciT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::Half<vT>(), nt2::Half<vT>()));
+  
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::Inf<vdT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>())), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()));
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::One<vdT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Half<vT>(),nt2::Zero<vT>())); 
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::Zero<vdT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())), vcT(nt2::Zero<vT>(),nt2::Zero<vT>())); 
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::Zero<vdT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::Half<vT>(),nt2::Zero<vT>()));
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::One<vdT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>())), vcT(nt2::One<vT>(), nt2::Zero<vT>()));
+
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::Inf<vciT>()),   vciT(nt2::Inf<vciT>())),  vciT(nt2::Inf<vciT>() ));
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::One<vciT>()),   vciT(nt2::Zero<vciT>())), vciT(nt2::Half<vciT>())); 
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::Zero<vciT>()),  vciT(nt2::Zero<vciT>())), vciT(nt2::Zero<vciT>())); 
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::Zero<vciT>()),  vciT(nt2::One<vciT>())),  vciT(nt2::Half<vciT>()));
+  NT2_TEST_EQUAL(nt2::average(vciT(nt2::One<vciT>()),   vciT(nt2::One<vciT>())),  vciT(nt2::One<vciT>() ));
+  
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::Inf<vdT>()),   vdT(nt2::Inf<vdT>())),  vdT(nt2::Inf<vdT>() ));
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::One<vdT>()),   vdT(nt2::Zero<vdT>())), vdT(nt2::Half<vdT>())); 
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::Zero<vdT>()),  vdT(nt2::Zero<vdT>())), vdT(nt2::Zero<vdT>())); 
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::Zero<vdT>()),  vdT(nt2::One<vdT>())),  vdT(nt2::Half<vdT>()));
+  NT2_TEST_EQUAL(nt2::average(vdT(nt2::One<vdT>()),   vdT(nt2::One<vdT>())),  vdT(nt2::One<vdT>() ));
+  
+  NT2_TEST_EQUAL(nt2::average(nt2::Inf<vdT>(),   nt2::Inf<vciT>()) , vcT(nt2::Inf<vT>() ,  nt2::Inf<vT>()) );
+  NT2_TEST_EQUAL(nt2::average(nt2::One<vdT>(),   nt2::Zero<vciT>()), vcT(nt2::Half<vT>(),  nt2::Zero<vT>())); 
+  NT2_TEST_EQUAL(nt2::average(nt2::Zero<vdT>(),  nt2::Zero<vciT>()), vcT(nt2::Zero<vT>(),  nt2::Zero<vT>())); 
+  NT2_TEST_EQUAL(nt2::average(nt2::Zero<vdT>(),  nt2::One<vciT>()) , vcT(nt2::Zero<vT>(),  nt2::Half<vT>()));
+  NT2_TEST_EQUAL(nt2::average(nt2::One<vdT>(),   nt2::One<vciT>()) , vcT(nt2::Half<vT>(),  nt2::Half<vT>()));
 } // end of test for floating_

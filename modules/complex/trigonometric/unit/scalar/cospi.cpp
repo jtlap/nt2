@@ -6,15 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 cosdonential toolbox - cosd/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 cospionential toolbox - cospi/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of cosdonential components in scalar mode
+// unit test behavior of cospionential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 /// 
-#include <nt2/include/functions/cosd.hpp>
-#include <nt2/include/functions/cos.hpp>
+#include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -30,19 +29,19 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/include/constants/deginrad.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <complex>
 
 
 
-NT2_TEST_CASE_TPL ( cosd_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( cospi_real__1_0,  NT2_REAL_TYPES)
 {
   
-  using nt2::cosd;
-  using nt2::tag::cosd_;
+  using nt2::cospi;
+  using nt2::tag::cospi_;
   typedef std::complex<T> cT; 
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<cosd_(cT)>::type r_t;
+  typedef typename nt2::meta::call<cospi_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
@@ -56,14 +55,14 @@ NT2_TEST_CASE_TPL ( cosd_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(1, 1)),std::cos(nt2::Deginrad<T>()*cT(1.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(1, 10)),std::cos(nt2::Deginrad<T>()*cT(1.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(10, 1)),std::cos(nt2::Deginrad<T>()*cT(10.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(10, 10)),std::cos(nt2::Deginrad<T>()*cT(10.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(0, 1)),std::cos(nt2::Deginrad<T>()*cT(0.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(0, 10)),std::cos(nt2::Deginrad<T>()*cT(0.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cosd(cT(10, 0)),std::cos(nt2::Deginrad<T>()*cT(10.0, 0.0)), 2);
- } // end of test for floating_
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.431, 0.431)),std::cos(nt2::Pi<T>()*cT(0.431, 0.431)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.431, 0.628)),std::cos(nt2::Pi<T>()*cT(0.431, 0.628)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.628, 0.431)),std::cos(nt2::Pi<T>()*cT(0.628, 0.431)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.628, 0.628)),std::cos(nt2::Pi<T>()*cT(0.628, 0.628)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0, 0.431)),std::cos(nt2::Pi<T>()*cT(0.0, 0.431)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0, 0.628)),std::cos(nt2::Pi<T>()*cT(0.0, 0.628)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.628, 0)),std::cos(nt2::Pi<T>()*cT(0.628, 0.0)), 2);
+} // end of test for floating_
 
