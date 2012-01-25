@@ -189,15 +189,15 @@ namespace boost { namespace simd
 namespace boost { namespace simd
 {
   template<BOOST_PP_ENUM_PARAMS(N, class T)>
-  struct tuple HEAD
+  struct tuple BOOST_SIMD_TUPLE_HEAD
   {
     typedef tag::tuple_ fusion_tag;
     static const std::size_t static_size = N;
-    BOOST_PP_REPEAT(N, TUPLE_TYPES, ~)
+    BOOST_PP_REPEAT(N, BOOST_SIMD_TUPLE_TYPES, ~)
     
     tuple() {}
-    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(N), TUPLE_CTORS, N)
-    BOOST_PP_REPEAT(N, TUPLE_MEMBERS, ~)
+    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(N), BOOST_SIMD_TUPLE_CTORS, N)
+    BOOST_PP_REPEAT(N, BOOST_SIMD_TUPLE_MEMBERS, ~)
   };
 } }
 
