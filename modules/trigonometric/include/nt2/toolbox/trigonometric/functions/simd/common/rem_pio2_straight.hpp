@@ -20,7 +20,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_straight_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_straight_, boost::simd::tag::simd_,
                       (A0)(X),
                       ((simd_ < floating_<A0>,X > ))
                     )
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation when real
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_straight_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_straight_, boost::simd::tag::simd_,
                       (A0)(X),
                       ((simd_ < floating_<A0>, X > ))
                       ((simd_ < floating_<A0>, X > ))

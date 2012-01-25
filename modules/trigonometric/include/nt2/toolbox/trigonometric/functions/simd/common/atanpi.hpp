@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanpi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
