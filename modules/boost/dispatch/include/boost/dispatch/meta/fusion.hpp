@@ -91,6 +91,7 @@ namespace details
     typedef meta::fusion_sequence_<Origin> type;
   };
 
+#if 0
   template<class T,class Origin>
   struct   property_of< T
                       , Origin
@@ -104,6 +105,7 @@ namespace details
   {
     typedef meta::fusion_sequence_<Origin> type;
   };
+#endif
 }
 
 namespace meta
