@@ -24,6 +24,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 /* ccos (x + I * y) = cos (x) * cosh (y) - I * (sin (x) * sinh (y)) */
 
 namespace nt2 { namespace ext
@@ -51,7 +52,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::cosh(imag(a0))); 
+      return bitwise_cast<result_type>(nt2::cosh(imag(a0))); 
     }
   };
   
@@ -63,7 +64,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::cos(real(a0))); 
+      return bitwise_cast<result_type>(nt2::cos(real(a0))); 
     }
   };
 } }

@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SEC_HPP_INCLUDED
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
@@ -32,10 +33,11 @@ namespace nt2 { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef A0 result_type; 
+    typedef typename meta::as_real<A0>::type rA0;
+    typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return rec(nt2::cos(a0)); 
+      return bitwise_cast<result_type>(rec(nt2::cosh(imag(a0)))); 
     }
   };
 
@@ -46,7 +48,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return rec(nt2::cos(a0)); 
+      return bitwise_cast<result_type>(rec(nt2::cos(real(a0)))); 
     }
   };
   

@@ -6,12 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COSPI_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COSPI_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SINPI_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SINPI_HPP_INCLUDED
 #include <nt2/include/functions/sincospi.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
-#include <nt2/include/functions/sinpi.hpp>
-#include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -23,14 +21,14 @@
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/include/functions/cospi.hpp>
 #include <nt2/include/constants/pi.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
+/* csin (x + I * y) = sin (x) * cosh (y)  + I * (cos (x) * sinh (y)) */
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cospi_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpi_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
@@ -39,35 +37,35 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       rtype c, s, ch, sh;
-      s = sincospi(real(a0), c);
+      sincospi(real(a0), s, c);
       sinhcosh(imag(a0)*Pi<rtype>(), sh, ch);
-      rtype r = c*ch;
-      rtype i = if_zero_else(logical_or(is_imag(a0),is_real(a0)),-s*sh); 
+      rtype r = if_zero_else(is_imag(a0), s*ch);
+      rtype i = if_zero_else(is_real(a0), c*sh);
       return result_type(r, i);     
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cospi_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpi_, tag::cpu_, (A0)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_dry<rtype>::type result_type; 
+    typedef typename meta::as_real<A0>::type rA0;
+    typedef typename meta::as_imaginary<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::cosh(imag(a0)*Pi<rtype>())); 
+      return bitwise_cast<result_type>(nt2::sinh(imag(a0))); 
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cospi_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpi_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_dry<rtype>::type result_type; 
+    typedef typename meta::as_real<A0>::type rA0;
+    typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::cospi(real(a0))); 
+      return bitwise_cast<result_type>(nt2::sin(real(a0))); 
     }
   };
 } }

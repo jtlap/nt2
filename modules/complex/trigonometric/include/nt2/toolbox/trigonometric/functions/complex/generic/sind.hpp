@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::sinh(imag(a0)*Deginrad<rtype>())); 
+      return bitwise_cast<result_type>(nt2::sinh(imag(a0)*Deginrad<rtype>())); 
     }
   };
   
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::sind(real(a0))); 
+      return bitwise_cast<result_type>(nt2::sind(real(a0))); 
     }
   };
 } }
