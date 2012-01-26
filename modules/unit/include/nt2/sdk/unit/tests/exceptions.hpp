@@ -15,6 +15,7 @@
  */
 
 #include <nt2/sdk/unit/details/stats.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 //==============================================================================
 /*!
@@ -25,15 +26,18 @@
  * \param E Exception expected to be caught
  */
 //==============================================================================
-#define NT2_TEST_THROW(X,E)                                                 \
-do {                                                                        \
-  ::nt2::details::test_count()++;                                           \
-  bool catched = false;                                                     \
-  try             { X; }                                                    \
-  catch( E& ex )  { ::nt2::details::pass(#X); catched = true; }             \
-  catch(...)      {}                                                        \
-  if(!catched) ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION);  \
-} while(0)                                                                  \
+#define NT2_TEST_THROW(X,E)                                             \
+  do {                                                                  \
+    ::nt2::details::test_count()++;                                     \
+    bool catched = false;                                               \
+    try             { X; }                                              \
+    catch( E& ex )  {                                                   \
+      ::boost::dispatch::ignore_unused(ex);                             \
+      ::nt2::details::pass(#X); catched = true;                         \
+    }                                                                   \
+    catch(...)      {}                                                  \
+    if(!catched) ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
+  } while(0)                                                            \
 /**/
 
 //==============================================================================
