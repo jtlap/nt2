@@ -131,4 +131,17 @@ NT2_TEST_CASE( shared_ctor )
      for(int i=1;i<=3;++i)
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
   }
+
+  {
+    float f = 1.f;
+    
+    table < float, settings ( shared_ , no_padding_ )
+          > x(nt2::extent(f), share(&f, &f + 1));
+
+    NT2_TEST( nt2::extent(x) == of_size(1) );
+
+    NT2_TEST_EQUAL( float(x(1,1)), 1.f );
+    x = 2.f;
+    NT2_TEST_EQUAL( float(x(1,1)), 2.f );
+  }
 }
