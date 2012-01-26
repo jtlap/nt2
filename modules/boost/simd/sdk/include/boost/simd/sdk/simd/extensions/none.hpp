@@ -32,6 +32,8 @@
 #include <boost/array.hpp>
 #include <boost/mpl/times.hpp>
 #include <boost/mpl/sizeof.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace simd { namespace detail
 {
@@ -54,7 +56,7 @@ namespace boost { namespace simd
 namespace boost { namespace simd { namespace meta
 {
   template<class N, class T>
-  struct as_simd<T, tag::simd_emulation_<N> >
+  struct as_simd<T, tag::simd_emulation_<N>, typename enable_if< is_fundamental<T> >::type>
   {
     typedef boost::array<T, N::value / sizeof(T)> type;
   };
