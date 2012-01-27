@@ -93,14 +93,14 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   // specific values tests
   {
     typedef vcT r_t; 
-    NT2_TEST_ULP_EQUAL(extract(ceil(nt2::splat<vcT>(cT(-1.1, -1.6))), 0), cT(-1, -1),0);
-    NT2_TEST_ULP_EQUAL(extract(ceil(nt2::splat<vcT>(cT(1.1, 1.6))),  0),  cT(2, 2),0);  
-    NT2_TEST_ULP_EQUAL(extract(ceil(nt2::Inf<vcT>()),           0), nt2::Inf<cT>(),0);
-    NT2_TEST_ULP_EQUAL(extract(ceil(nt2::Minf<vcT>()),          0), nt2::Minf<cT>(),0);
-    NT2_TEST_ULP_EQUAL(extract(ceil(nt2::Mone<vcT>()),          0), nt2::Mone<cT>(),0);
-    NT2_TEST_ULP_EQUAL(extract(ceil(nt2::Nan<vcT>()),           0), nt2::Nan<cT>(),0);
-    NT2_TEST_ULP_EQUAL(extract(ceil(nt2::One<vcT>()),           0), nt2::One<cT>(),0);
-    NT2_TEST_ULP_EQUAL(extract(ceil(nt2::Zero<vcT>()),          0), nt2::Zero<cT>(),0);
+    NT2_TEST_ULP_EQUAL(ceil(nt2::splat<vcT>(cT(-1.1, -1.6)))[0], cT(-1, -1),0);
+    NT2_TEST_ULP_EQUAL(ceil(nt2::splat<vcT>(cT(1.1, 1.6)))[0],  cT(2, 2),0);  
+    NT2_TEST_ULP_EQUAL(ceil(nt2::Inf<vcT>())[0], nt2::Inf<cT>(),0);
+    NT2_TEST_ULP_EQUAL(ceil(nt2::Minf<vcT>())[0], nt2::Minf<cT>(),0);
+    NT2_TEST_ULP_EQUAL(ceil(nt2::Mone<vcT>())[0], nt2::Mone<cT>(),0);
+    NT2_TEST_ULP_EQUAL(ceil(nt2::Nan<vcT>())[0], nt2::Nan<cT>(),0);
+    NT2_TEST_ULP_EQUAL(ceil(nt2::One<vcT>())[0], nt2::One<cT>(),0);
+    NT2_TEST_ULP_EQUAL(ceil(nt2::Zero<vcT>())[0], nt2::Zero<cT>(),0);
   }  
   {
     typedef vciT r_t; 
