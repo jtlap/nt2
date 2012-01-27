@@ -211,7 +211,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
           )
     {
-      return access( unpack(p,s,lead_t()), b, s );
+      return unpack(p,b,s,lead_t());
     }
 
     template<class Position, std::size_t N>
