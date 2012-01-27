@@ -24,11 +24,11 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      int p = 0;
+      result_type p = 0;
       stype m = a0[0];
       for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)// TODO UNROLL
       {
-        if (m > a0[i]){m = a0[i]; p = i; }
+        if (m > a0[i]) { m = a0[i]; p = static_cast<result_type>(i); }
       }
       return p;
     }
