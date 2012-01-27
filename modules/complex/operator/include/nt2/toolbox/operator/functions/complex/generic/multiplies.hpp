@@ -35,7 +35,6 @@
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {

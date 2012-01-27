@@ -38,8 +38,27 @@ namespace nt2
   BOOST_DISPATCH_FORCE_INLINE
   std::ostream& operator<<(std::ostream& os, imaginary<T> const& v )
   {
-    return os << v() << "*i";
+     return os << "( _ , " << v() << ")";
   }
-}
+} 
+
+namespace boost { namespace simd
+{
+  template<class T, class Ext>
+  BOOST_DISPATCH_FORCE_INLINE
+  std::ostream& operator<<(std::ostream& os, boost::simd::native<nt2::imaginary<T>,Ext> const& v )
+  {
+    typedef boost::simd::native<std::complex<T>, Ext> cvtype;
+    const std::size_t size = meta::cardinal_of<boost::simd::native<T, Ext> >::value;
+    os << "{"; 
+    for(std::size_t i = 0;  i < size; ++i)
+      {
+        os << v[i] << ((i+1 == size) ? "}" :", ");
+      }
+    return os; 
+  }
+} }
+  
+
 
 #endif
