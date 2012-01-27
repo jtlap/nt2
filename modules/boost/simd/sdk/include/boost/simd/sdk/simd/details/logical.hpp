@@ -11,14 +11,16 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/memory/overload.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
   template<class T,std::size_t Card>
-  struct vector_of<logical<T>,Card> 
+  struct vector_of<logical<T>,Card>
    : as_logical<typename vector_of<T,Card>::type >
   {
   };
@@ -31,7 +33,7 @@ namespace boost { namespace simd { namespace meta
 
 namespace boost { namespace simd
 {
-  template<class Scalar,class Extension> 
+  template<class Scalar,class Extension>
   struct native<logical<Scalar>, Extension>
   {
     typedef Extension                                       extension_type;
@@ -61,9 +63,9 @@ namespace boost { namespace simd
       data_ = s.data_;
       return *this;
     }
-    
+
     BOOST_FORCEINLINE native& operator=(native_type const& s)
-    {     
+    {
       data_ = s;
       return *this;
     }
@@ -74,7 +76,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     BOOST_FORCEINLINE operator native_type &           ()             { return data_; }
     BOOST_FORCEINLINE          native_type & operator()()             { return data_; }
-    
+
     BOOST_FORCEINLINE operator native_type const&           ()  const { return data_; }
     BOOST_FORCEINLINE          native_type const& operator()()  const { return data_; }
 
@@ -91,16 +93,16 @@ namespace boost { namespace simd
     typedef value_type const                                     const_reference;
     typedef details::soa_iterator<value_type, Extension>         iterator;
     typedef details::soa_const_iterator<value_type, Extension>   const_iterator;
-    
+
     BOOST_FORCEINLINE
     iterator       begin()       { return iterator(*this);               };
-    
+
     BOOST_FORCEINLINE
     iterator       end()         { return iterator(*this, size());       };
-    
+
     BOOST_FORCEINLINE
     const_iterator begin() const { return const_iterator(*this);         };
-    
+
     BOOST_FORCEINLINE
     const_iterator end()   const { return const_iterator(*this, size()); };
 
@@ -119,7 +121,7 @@ namespace boost { namespace simd
     {
       return typename dispatch::make_functor<tag::extract_, value_type>::type()(*this, i);
     }
-    
+
     native_type data_;
   };
 } }
