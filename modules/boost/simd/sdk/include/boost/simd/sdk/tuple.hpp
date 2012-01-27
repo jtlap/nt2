@@ -26,6 +26,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/identity.hpp>
 #include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/result_of.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/apply.hpp>
@@ -46,17 +47,29 @@ namespace boost { namespace simd
   
   namespace details
   {
-    template<class Seq, class Lambda, int N>
+    template<class Seq, class F, int N>
     struct as_tuple;
   }
   
   namespace meta
   {
-    template<class Seq, class Lambda = boost::dispatch::identity>
+    template<class Seq, class F = boost::dispatch::identity>
     struct as_tuple
-     : details::as_tuple<Seq, Lambda, fusion::result_of::size<Seq>::type::value>
+     : details::as_tuple<Seq, F, fusion::result_of::size<Seq>::type::value>
     {
     };
+  }
+  
+  template<class Seq, class F>
+  typename meta::as_tuple<Seq const, F const>::type as_tuple(Seq const& seq, F const& f)
+  {
+    return meta::as_tuple<Seq const, F const>::call(seq, f);
+  }
+  
+  template<class Seq, class F>
+  typename meta::as_tuple<Seq const, F>::type as_tuple(Seq const& seq, F& f)
+  {
+    return meta::as_tuple<Seq const, F>::call(seq, f);
   }
   
 } }
@@ -203,12 +216,18 @@ namespace boost { namespace simd
 
 namespace boost { namespace simd { namespace details
 {
-  template<class Seq, class Lambda>
-  struct as_tuple<Seq, Lambda, N>
+  template<class Seq, class F>
+  struct as_tuple<Seq, F, N>
   {
-    #define M0(z, n, t) typename boost::mpl::apply<Lambda, typename fusion::result_of::value_at_c<Seq, n>::type>::type
+    #define M0(z, n, t) typename dispatch::meta::result_of<F(typename fusion::result_of::value_at_c<Seq, n>::type)>::type
     typedef tuple<BOOST_PP_ENUM(N, M0, ~)> type;
     #undef M0
+    BOOST_FORCEINLINE static type call(Seq& seq, F& f)
+    {
+    #define M0(z, n, t) f(fusion::at_c<n>(seq))
+      return type(BOOST_PP_ENUM(N, M0, ~));
+    #undef M0
+    }
   };
 } } }
 

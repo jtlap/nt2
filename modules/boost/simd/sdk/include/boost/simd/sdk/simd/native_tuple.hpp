@@ -14,6 +14,7 @@
 #include <boost/simd/sdk/tuple.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
@@ -26,10 +27,14 @@ namespace boost { namespace simd
     template<class X>
     struct vector_of_
     {
-      template<class U>
-      struct apply
+      template<class Sig>
+      struct result;
+      
+      template<class This, class U>
+      struct result<This(U)>
       {
-        typedef simd::native<U, X> type;
+        typedef typename dispatch::meta::strip<U>::type sU;
+        typedef simd::native<sU, X> type;
       };
     };
   }
