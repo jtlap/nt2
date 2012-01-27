@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_NATIVE_TUPLE_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
@@ -31,7 +32,7 @@ namespace boost { namespace simd
     {
       template<class Sig>
       struct result;
-      
+
       template<class This, class U>
       struct result<This(U)>
       {
@@ -62,7 +63,7 @@ namespace boost { namespace simd
 
     BOOST_PP_REPEAT_FROM_TO(1, BOOST_DISPATCH_MAX_META_ARITY, M0, ~)
     #undef M0
-    
+
     ////////////////////////////////////////////////////////////////////////////
     // Range interface
     ////////////////////////////////////////////////////////////////////////////
@@ -71,16 +72,16 @@ namespace boost { namespace simd
     typedef value_type const                                     const_reference;
     typedef details::soa_iterator<value_type, X>                 iterator;
     typedef details::soa_const_iterator<value_type, X>           const_iterator;
-    
+
     BOOST_FORCEINLINE
     iterator       begin()       { return iterator(*this);               };
-    
+
     BOOST_FORCEINLINE
     iterator       end()         { return iterator(*this, size());       };
-    
+
     BOOST_FORCEINLINE
     const_iterator begin() const { return const_iterator(*this);         };
-    
+
     BOOST_FORCEINLINE
     const_iterator end()   const { return const_iterator(*this, size()); };
 
