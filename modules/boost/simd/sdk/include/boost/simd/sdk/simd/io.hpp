@@ -11,6 +11,7 @@
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/fusion/sequence/io/out.hpp>
+#include <complex>
 
 namespace boost { namespace simd
 {
@@ -22,6 +23,7 @@ namespace boost { namespace simd
   {
     return boost::fusion::operators::operator<<(os, v);
   }
+
 } }
 
 #endif

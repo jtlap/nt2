@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
+#include <boost/simd/sdk/memory/overload.hpp>
 
 namespace boost { namespace simd { namespace meta
 {

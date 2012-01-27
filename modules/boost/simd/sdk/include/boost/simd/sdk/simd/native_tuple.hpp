@@ -11,6 +11,7 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 #include <boost/simd/sdk/tuple.hpp>
 #include <boost/fusion/include/is_sequence.hpp>

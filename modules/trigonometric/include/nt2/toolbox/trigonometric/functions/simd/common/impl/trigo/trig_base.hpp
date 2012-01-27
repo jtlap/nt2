@@ -23,7 +23,6 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/constants/maxleftshift.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-#include <iostream>
 
 namespace nt2
 {
