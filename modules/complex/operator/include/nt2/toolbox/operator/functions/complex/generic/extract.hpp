@@ -9,11 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_EXTRACT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_EXTRACT_HPP_INCLUDED
 
-#include <nt2/include/functions/extract.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/toolbox/operator/functions/extract.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
@@ -38,12 +34,11 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::scalar_of<A0>::type stype;
-    typedef typename meta::as_imaginary<stype>::type istype; 
-    typedef istype const& result_type;
+    typedef stype const& result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       typedef BOOST_SIMD_MAY_ALIAS stype stype_alias;
-      return bitwise_cast<result_type>(reinterpret_cast<stype_alias const*>(&a0)[a1]);
+      return reinterpret_cast<stype_alias const*>(&a0)[a1];
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)
@@ -52,12 +47,11 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::scalar_of<A0>::type stype;
-    typedef typename meta::as_dry<stype>::type istype; 
-    typedef istype const& result_type;
+    typedef stype const& result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       typedef BOOST_SIMD_MAY_ALIAS stype stype_alias;
-      return bitwise_cast<result_type>(reinterpret_cast<stype_alias const*>(&a0)[a1]);
+      return reinterpret_cast<stype_alias const*>(&a0)[a1];
     }
   };
   
