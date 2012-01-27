@@ -21,20 +21,6 @@ namespace boost { namespace simd
   operator<<( std::ostream& os, native<S,E> const & v )
   {
     return boost::fusion::operators::operator<<(os, v);
-    #if 0
-    // We want to display (u)int8_t as a number
-    typedef typename
-            boost::mpl::if_c< (sizeof(S)==1)
-                            , int
-                            , typename native<S,E>::value_type
-                            >::type display_type;
-
-    os << "{";
-    for(std::size_t i=0;i<v.size()-1;++i)
-      os << static_cast<display_type>(v[i]) << ",";
-    os << static_cast<display_type>(v[v.size()-1UL]) << "}";
-    return os;
-    #endif
   }
 } }
 

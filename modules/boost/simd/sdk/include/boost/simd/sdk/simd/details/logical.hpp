@@ -93,6 +93,7 @@ namespace boost { namespace simd
     typedef value_type const                                     const_reference;
     typedef details::soa_iterator<value_type, Extension>         iterator;
     typedef details::soa_const_iterator<value_type, Extension>   const_iterator;
+    typedef boost::fusion::boost_array_tag                       fusion_tag;
 
     BOOST_FORCEINLINE
     iterator       begin()       { return iterator(*this);               };
