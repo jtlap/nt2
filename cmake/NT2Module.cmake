@@ -259,6 +259,7 @@ macro(nt2_module_add_library libname)
     set(FLAGS "${FLAGS} -D${macro_name}_DYN_LINK")
   endif()
   set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
+  set_property(TARGET ${libname} PROPERTY LINK_FLAGS ${FLAGS})
 
   if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     install( DIRECTORY ${NT2_BINARY_DIR}/lib
@@ -296,6 +297,7 @@ macro(nt2_module_add_exe name)
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
   set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
+  set_property(TARGET ${name} PROPERTY LINK_FLAGS ${NT2_CURRENT_FLAGS})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/${suffix})
 
   set(BUILD_TYPE)
@@ -317,6 +319,7 @@ macro(nt2_module_add_example name)
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER examples)
   set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
+  set_property(TARGET ${name} PROPERTY LINK_FLAGS ${NT2_CURRENT_FLAGS})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/examples)
 
   string(REGEX REPLACE "\\.sample$" ".examples" suite ${name})
