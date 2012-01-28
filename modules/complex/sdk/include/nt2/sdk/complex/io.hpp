@@ -29,7 +29,12 @@ namespace boost { namespace simd
     os << "{"; 
     for(std::size_t i = 0;  i < size; ++i)
       {
-        os << v[i] << ((i+1 == size) ? "}" :", ");
+        os << "("
+           << boost::fusion::at_c<0>(v)[i]
+           << ", "
+           << boost::fusion::at_c<1>(v)[i]
+           << ")"
+           << ((i+1 == size) ? "}" :", ");
       }
     return os; 
   }

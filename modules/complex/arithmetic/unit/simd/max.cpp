@@ -73,13 +73,13 @@ NT2_TEST_CASE_TPL ( max_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
      NT2_TEST_EQUAL(nt2::max(vciT(nt2::One<vciT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::One<vT>())[0]); 
      NT2_TEST_EQUAL(nt2::max(vciT(nt2::Zero<vciT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]); 
      NT2_TEST_EQUAL(nt2::max(vciT(nt2::Zero<vciT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(),nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::max(vciT(nt2::One<vciT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::One<vT>())[0]);
+     NT2_TEST_EQUAL(nt2::max(vciT(nt2::One<vciT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(), nt2::One<vT>())[0]);
      
      NT2_TEST_EQUAL(nt2::max(vdT(nt2::Inf<vdT>()),  vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Inf<vT>(), nt2::Zero<vT>())[0]);
      NT2_TEST_EQUAL(nt2::max(vdT(nt2::One<vdT>()),  vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(),nt2::Zero<vT>())[0]); 
      NT2_TEST_EQUAL(nt2::max(vdT(nt2::Zero<vdT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]); 
      NT2_TEST_EQUAL(nt2::max(vdT(nt2::Zero<vdT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(),nt2::Zero<vT>())[0]);
-     NT2_TEST_EQUAL(nt2::max(vdT(nt2::One<vdT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::One<vT>())[0]);
+     NT2_TEST_EQUAL(nt2::max(vdT(nt2::One<vdT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::Zero<vT>())[0]);
      
      NT2_TEST_EQUAL(nt2::max(nt2::Inf<vdT>(),   nt2::Inf<vciT>())[0] , vcT(nt2::Zero<vT>() ,  nt2::Inf<vT>())[0] );
      NT2_TEST_EQUAL(nt2::max(nt2::One<vdT>(),   nt2::Zero<vciT>())[0], vcT(nt2::One<vT>(),  nt2::Zero<vT>())[0]); 
