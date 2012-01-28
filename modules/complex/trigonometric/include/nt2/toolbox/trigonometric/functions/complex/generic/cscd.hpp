@@ -9,11 +9,10 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSCD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSCD_HPP_INCLUDED
 
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/toolbox/trigonometric/functions/cscd.hpp>
 #include <nt2/include/functions/sind.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/include/functions/rec.hpp>
+#include <nt2/sdk/complex/complex.hpp>
 
 //cscd(x+iy)=rec(sind(x+iy)).
 namespace nt2 { namespace ext
