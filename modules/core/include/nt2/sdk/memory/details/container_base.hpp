@@ -216,20 +216,20 @@ namespace nt2 { namespace details
 
     template<class Position, std::size_t N>
     static BOOST_FORCEINLINE reference
-    access( Position const& p, block_t& b, sizes_type const& s
-          , boost::mpl::size_t<N> const& n, boost::mpl::size_t<0> const&
+    access( Position const&, block_t& b, sizes_type const& s
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
           )
     {
-      return access(p, b, s, n, boost::mpl::size_t<1>() );
+      return b(boost::fusion::at_c<0>(typename index_type::type()));
     }
 
     template<class Position, std::size_t N>
     static BOOST_FORCEINLINE const_reference
     access( Position const& p, block_t const& b, sizes_type const& s
-          , boost::mpl::size_t<N> const& n, boost::mpl::size_t<0> const&
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
           )
     {
-      return access(p, b, s, n, boost::mpl::size_t<1>() );
+      return b(boost::fusion::at_c<0>(typename index_type::type()));
     }
 
     //==========================================================================
