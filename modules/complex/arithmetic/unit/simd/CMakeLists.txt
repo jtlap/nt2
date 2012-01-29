@@ -17,6 +17,7 @@ set( SOURCES
   trunc.cpp
   max.cpp
   min.cpp
+  minusone.cpp
   )
 
 nt2_module_add_tests(complex.arithmetic.simd.unit ${SOURCES})
