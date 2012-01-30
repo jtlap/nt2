@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace tag
   {         
-    struct hermite_ {};
+    struct hermite_ : ext::elementwise_<hermite_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::hermite_, hermite, 2)
 }

@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace tag
   {         
-    struct polevl_ {};
+    struct polevl_ : ext::elementwise_<polevl_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::polevl_, polevl, 2)
 }
