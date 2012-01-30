@@ -242,7 +242,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag sine_ of functor sine 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    template <class T> struct sine_ {};
+    template <class T> struct sine_ : ext::elementwise_< sine_<T> > {};
   }
 
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::sine_<A0> , sine, (A1 const&), 2)
