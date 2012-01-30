@@ -49,14 +49,6 @@ namespace boost { namespace dispatch { namespace meta
   template< class Signature , class Site, class Dummy = void> struct implement;
 } } }
 
-namespace boost { namespace dispatch
-{
-  namespace tag
-  {
-    typedef boost::proto::tag::terminal terminal_;
-  }
-} }
-
 #define BOOST_DISPATCH_COMBINE_SITE(new_site)                                                      \
 namespace boost { namespace dispatch                                                               \
 {                                                                                                  \

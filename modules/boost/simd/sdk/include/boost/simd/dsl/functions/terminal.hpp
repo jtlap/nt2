@@ -16,7 +16,7 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    struct terminal_ {};
+    struct terminal_ : ext::unspecified_<terminal_> {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::terminal_, terminal, 1)
