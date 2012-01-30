@@ -59,7 +59,7 @@ namespace nt2
      * \brief Define the tag pure_ of functor pure 
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct pure_ {};
+    struct pure_ : ext::elementwise_<pure_> {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pure_, pure, 1)
