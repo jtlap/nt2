@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_ENUMERATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_ENUMERATE_HPP_INCLUDED
-
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/toolbox/swar/functions/enumerate.hpp>
+#include <boost/simd/include/functions/make.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -51,6 +52,25 @@ namespace boost { namespace simd { namespace ext
     {
       result_type that = {_mm_set_ps(a0+3,a0+2,a0+1,a0)};
       return that;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(T)
+                                    , (scalar_< arithmetic_<A0> >)
+                                      ((target_ < simd_ < ints64_<T>
+                                                        , boost::simd::tag::sse_
+                                                        >
+                                                >
+                                      ))
+                                    )
+  {
+    typedef typename T::type result_type;
+
+    result_type operator()(A0 const& a0, T const& ) const
+    {
+      return make<result_type>(a0, a0+1) };
     }
   };
 

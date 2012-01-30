@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_VMX_ALTIVEC_ENUMERATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_VMX_ALTIVEC_ENUMERATE_HPP_INCLUDED
-
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
-#include <boost/simd/toolbox/operator/functions/splat.hpp>
+
 #include <boost/simd/toolbox/swar/functions/enumerate.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -42,5 +42,4 @@ namespace boost { namespace simd { namespace ext
 } } }
 
 #endif
-
 #endif
