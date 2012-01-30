@@ -18,16 +18,22 @@
 
 namespace nt2{ namespace config{
 
-  enum{L1cache=1, L2cache=2, L3cache=3 };
+  enum{L1Code=0, L1Data=1, L1=1, L2=2, L3=3 };
 
-  inline int cache_size(int const& cache_level)
+  inline int cache_size(int const& level)
   {
-    return details::detected_cache.cache_size(cache_level);
+    return details::init_cache()[0][level];
   }
 
-  inline int cache_line_size(int const& cache_level)
+  inline int cache_line_size(int const& level)
   {
-    return details::detected_cache.cache_line_size(cache_level);
+    return details::init_cache()[1][level];
+  }
+
+  inline bool as_cache(int const& level)
+  {
+    if(details::init_cache()[0][level] == 0) return false;
+    else return true;
   }
 
 } }

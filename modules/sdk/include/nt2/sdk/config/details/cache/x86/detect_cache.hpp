@@ -15,7 +15,6 @@
 #include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 #include <boost/simd/sdk/config/details/get_vendor.hpp>
 #include <nt2/sdk/error/assert.hpp>
-#include <boost/array.hpp>
 
 namespace bsc = boost::simd::config;
 
@@ -35,7 +34,7 @@ namespace nt2{ namespace config{ namespace details{
     int regs[4] = {0,0,0,0};
     int byte0, byte1, byte2, byte3;
     int cache_ecx = 0;
-    int cache_eax = 0;
+    int type;
 
     switch(bsc::get_vendor())
     {
@@ -43,39 +42,51 @@ namespace nt2{ namespace config{ namespace details{
 
         do{
             bsc::x86::cpuidex(regs, 0x00000004, cache_ecx);
-            cache_eax = regs[0] & 0x0000001F;
-            if(cache_eax == 1 || cache_eax == 3)
-            {
-              int level      = (regs[0] & 0x000000E0) >> 5;
-              int ways       = (regs[1] & 0xFFC00000) >> 22;
-              int partitions = (regs[1] & 0x003FF000) >> 12;
-              int line_size  = (regs[1] & 0x00000FFF) >>  0;
-              int sets       = (regs[2]);
-              int size       = (ways+1)*(partitions+1)*(line_size+1)*(sets+1);
 
-              cache_sizes_[level-1]      = size/1024;
-              cache_line_sizes_[level-1] = line_size+1;
+            int level      = (regs[0] & 0x000000E0) >> 5;
+            int ways       = (regs[1] & 0xFFC00000) >> 22;
+            int partitions = (regs[1] & 0x003FF000) >> 12;
+            int line_size  = (regs[1] & 0x00000FFF) >>  0;
+            int sets       = (regs[2]);
+            int size       = (ways+1)*(partitions+1)*(line_size+1)*(sets+1);
+            type           = (regs[0] & 0x0000001F);
+
+            switch(type)
+            {
+            case 1 :  cache_sizes_[level]      = size/1024;
+                      cache_line_sizes_[level] = line_size+1;
+                      break;
+            case 2 :  cache_sizes_[0]      = size/1024;
+                      cache_line_sizes_[0] = line_size+1;
+                      break;
+            case 3 :  cache_sizes_[level]      = size/1024;
+                      cache_line_sizes_[level] = line_size+1;
+                      break;
+            default : break;
             }
+
             cache_ecx++;
-        }while(cache_eax != 0x00000000);
+        }while(type != 0x00000000);
 
         break;
 
       case amd :
 
         bsc::x86::cpuidex(regs,0x80000005,0);
-        cache_line_sizes_[0] = regs[2] & 0x000000FF;
-        cache_sizes_[0] = regs[2] >> 24;
+        cache_line_sizes_[0] = regs[3] & 0x000000FF;
+        cache_sizes_[0]      = regs[3] >> 24;
+        cache_line_sizes_[1] = regs[2] & 0x000000FF;
+        cache_sizes_[1]      = regs[2] >> 24;
 
         regs[0] = regs[1] = regs[2] = regs[3] = 0;
         bsc::x86::cpuidex(regs,0x80000006,0);
 
         if(get_range(regs[0], 0, 4) != 0)
         {
-          cache_line_sizes_[1] = regs[2] & 0x000000FF;
-          cache_sizes_[1] = regs[2] >> 16;
-          cache_line_sizes_[2] = regs[3] & 0x000000FF;
-          cache_sizes_[2] = (((regs[3] & 0xFFFC000) >> 18)*512); // D[31;18] = l3 cache size in 512KB
+          cache_line_sizes_[2] = regs[2] & 0x000000FF;
+          cache_sizes_[2] = regs[2] >> 16;
+          cache_line_sizes_[3] = regs[3] & 0x000000FF;
+          cache_sizes_[3] = (((regs[3] & 0xFFFC000) >> 18)*512); // D[31;18] = l3 cache size in 512KB
         }
 
         break;
