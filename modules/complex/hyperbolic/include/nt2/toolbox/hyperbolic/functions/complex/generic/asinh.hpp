@@ -13,6 +13,7 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/mul_i.hpp>
 #include <nt2/include/functions/mul_minus_i.hpp>
@@ -49,8 +50,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      result_type res =  mul_i(nt2::asin(mul_minus_i(a0))); 
-      return res;     
+      return bitwise_cast<result_type>(mul_i(nt2::asin(mul_minus_i(a0)))); 
     }
   };
 
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     {
       //asinh is bijective on the real axis and its computation
       // involves no proper complex value
-      return result_type(nt2::asinh(real(a0))); 
+      return bitwise_cast<result_type>(nt2::asinh(real(a0))); 
     }
   };
   

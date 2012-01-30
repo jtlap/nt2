@@ -26,7 +26,6 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -54,7 +53,7 @@ namespace nt2 { namespace ext
                             , ((generic_<imaginary_<floating_<A0> > >))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype;

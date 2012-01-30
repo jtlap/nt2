@@ -17,7 +17,6 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -62,7 +61,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::exp(real(a0))); 
+      return bitwise_cast<result_type>(nt2::exp(real(a0))); 
     }
   };  
 } }

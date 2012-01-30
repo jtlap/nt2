@@ -26,6 +26,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/identity.hpp>
 #include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/result_of.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/apply.hpp>
@@ -33,11 +34,6 @@
 #include <boost/fusion/include/value_at.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <boost/simd/sdk/details/at_iterator.hpp>
-
-#define TUPLE_TYPES(z, n, t) typedef T##n m##n##_type;
-#define TUPLE_MEMBERS(z, n, t) T##n m##n;
-#define TUPLE_CTORS(z, n, t) BOOST_FORCEINLINE tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) : BOOST_PP_ENUM(t, TUPLE_CTORS_, n) {}
-#define TUPLE_CTORS_(z, n, t) BOOST_PP_IF(BOOST_PP_LESS(n, t), m##n(a##n), m##n())
 
 namespace boost { namespace simd
 {
@@ -51,17 +47,29 @@ namespace boost { namespace simd
   
   namespace details
   {
-    template<class Seq, class Lambda, int N>
+    template<class Seq, class F, int N>
     struct as_tuple;
   }
   
   namespace meta
   {
-    template<class Seq, class Lambda = boost::dispatch::identity>
+    template<class Seq, class F = boost::dispatch::identity>
     struct as_tuple
-     : details::as_tuple<Seq, Lambda, fusion::result_of::size<Seq>::type::value>
+     : details::as_tuple<Seq, F, fusion::result_of::size<Seq>::type::value>
     {
     };
+  }
+  
+  template<class Seq, class F>
+  typename meta::as_tuple<Seq const, F const>::type as_tuple(Seq const& seq, F const& f)
+  {
+    return meta::as_tuple<Seq const, F const>::call(seq, f);
+  }
+  
+  template<class Seq, class F>
+  typename meta::as_tuple<Seq const, F>::type as_tuple(Seq const& seq, F& f)
+  {
+    return meta::as_tuple<Seq const, F>::call(seq, f);
   }
   
 } }
@@ -165,20 +173,25 @@ namespace boost { namespace simd
   }
 } }
 
-#define HEAD <BOOST_PP_ENUM_PARAMS(N, T)>
+#define BOOST_SIMD_TUPLE_TYPES(z, n, t) typedef T##n m##n##_type;
+#define BOOST_SIMD_TUPLE_MEMBERS(z, n, t) T##n m##n;
+#define BOOST_SIMD_TUPLE_CTORS(z, n, t) BOOST_FORCEINLINE tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) : BOOST_PP_ENUM(t, BOOST_SIMD_TUPLE_CTORS_, n) {}
+#define BOOST_SIMD_TUPLE_CTORS_(z, n, t) BOOST_PP_IF(BOOST_PP_LESS(n, t), m##n(a##n), m##n())
+
+#define BOOST_SIMD_TUPLE_HEAD <BOOST_PP_ENUM_PARAMS(N, T)>
 #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_PP_DEC(BOOST_DISPATCH_MAX_ARITY), "boost/simd/sdk/tuple.hpp"))
 #include BOOST_PP_ITERATE()
 
-#undef HEAD
-#define HEAD
+#undef BOOST_SIMD_TUPLE_HEAD
+#define BOOST_SIMD_TUPLE_HEAD
 #define BOOST_PP_ITERATION_PARAMS_1 (3, ( BOOST_DISPATCH_MAX_ARITY, BOOST_DISPATCH_MAX_ARITY, "boost/simd/sdk/tuple.hpp"))
 #include BOOST_PP_ITERATE()
 
-#undef HEAD
-#undef TUPLE_CTORS_
-#undef TUPLE_CTORS
-#undef TUPLE_MEMBERS
-#undef TUPLE_TYPES
+#undef BOOST_SIMD_TUPLE_HEAD
+#undef BOOST_SIMD_TUPLE_CTORS_
+#undef BOOST_SIMD_TUPLE_CTORS
+#undef BOOST_SIMD_TUPLE_MEMBERS
+#undef BOOST_SIMD_TUPLE_TYPES
 
 #endif
 
@@ -189,26 +202,32 @@ namespace boost { namespace simd
 namespace boost { namespace simd
 {
   template<BOOST_PP_ENUM_PARAMS(N, class T)>
-  struct tuple HEAD
+  struct tuple BOOST_SIMD_TUPLE_HEAD
   {
     typedef tag::tuple_ fusion_tag;
     static const std::size_t static_size = N;
-    BOOST_PP_REPEAT(N, TUPLE_TYPES, ~)
+    BOOST_PP_REPEAT(N, BOOST_SIMD_TUPLE_TYPES, ~)
     
     tuple() {}
-    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(N), TUPLE_CTORS, N)
-    BOOST_PP_REPEAT(N, TUPLE_MEMBERS, ~)
+    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(N), BOOST_SIMD_TUPLE_CTORS, N)
+    BOOST_PP_REPEAT(N, BOOST_SIMD_TUPLE_MEMBERS, ~)
   };
 } }
 
 namespace boost { namespace simd { namespace details
 {
-  template<class Seq, class Lambda>
-  struct as_tuple<Seq, Lambda, N>
+  template<class Seq, class F>
+  struct as_tuple<Seq, F, N>
   {
-    #define M0(z, n, t) typename boost::mpl::apply<Lambda, typename fusion::result_of::value_at_c<Seq, n>::type>::type
+    #define M0(z, n, t) typename dispatch::meta::result_of<F(typename fusion::result_of::value_at_c<Seq, n>::type)>::type
     typedef tuple<BOOST_PP_ENUM(N, M0, ~)> type;
     #undef M0
+    BOOST_FORCEINLINE static type call(Seq& seq, F& f)
+    {
+    #define M0(z, n, t) f(fusion::at_c<n>(seq))
+      return type(BOOST_PP_ENUM(N, M0, ~));
+    #undef M0
+    }
   };
 } } }
 
@@ -243,5 +262,7 @@ namespace boost { namespace fusion { namespace extension
     }
   };
 } } }
+
+#undef N
 
 #endif

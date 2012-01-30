@@ -50,8 +50,8 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A0>::type rtype; 
       rtype ch, sh;
       sincos(imag(a0), sh, ch);
-      a1 =  A0(sh);
-      a2 =  A1(ch);     
+      a1 =  bitwise_cast<A0>(sh);
+      a2 =  bitwise_cast<A1>(ch);     
       return 0; 
     }
   };
@@ -69,8 +69,8 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A0>::type rtype; 
       rtype ch, sh;
       sinhcosh(real(a0), sh, ch);
-      a1 =  A0(sh);
-      a2 =  A0(ch);     
+      a1 =  bitwise_cast<A0>(sh);
+      a2 =  bitwise_cast<A0>(ch);     
       return 0; 
     }
   };

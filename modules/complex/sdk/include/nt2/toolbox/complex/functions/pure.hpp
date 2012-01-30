@@ -63,6 +63,7 @@ namespace nt2
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pure_, pure, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pure_, c_imag, 1)
 }
 
 #endif

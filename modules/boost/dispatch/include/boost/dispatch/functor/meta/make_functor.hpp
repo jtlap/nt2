@@ -8,6 +8,9 @@
 //==============================================================================
 #ifndef BOOST_DISPATCH_FUNCTOR_META_MAKE_FUNCTOR_HPP_INCLUDED
 #define BOOST_DISPATCH_FUNCTOR_META_MAKE_FUNCTOR_HPP_INCLUDED
+#include <boost/dispatch/functor/functor.hpp>
+
+#include <boost/dispatch/functor/functor.hpp>
 
 /*!
  * \file

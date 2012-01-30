@@ -16,25 +16,25 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincospi_, tag::cpu_,
-			     (A0)(A1),
-			     (scalar_ < arithmetic_<A0> > )
-			     (scalar_ < floating_<A1> > )
-			     (scalar_ < floating_<A1> > )
-			     )
+                             (A0)(A1),
+                             (scalar_ < arithmetic_<A0> > )
+                             (scalar_ < floating_<A1> > )
+                             (scalar_ < floating_<A1> > )
+                             )
   {
     typedef int result_type;    
     inline int operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
-      a1 = impl::trig_base <A1,pi_tag,tag::not_simd_type>::sincosa(A1(a0),a1,a2);
+      a1 = impl::trig_base <A1,pi_tag,tag::not_simd_type>::sincosa(A1(a0),a2);
       return 0; 
     }
   };
   
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincospi_, tag::cpu_,
-			     (A0)(A1),
-			     (scalar_ < arithmetic_<A0> > )
-			     (scalar_ < floating_<A1> > )
-			     )
+                             (A0)(A1),
+                             (scalar_ < arithmetic_<A0> > )
+                             (scalar_ < floating_<A1> > )
+                             )
   {
     typedef A1 result_type;    
     inline A1 operator()(A0 const& a0,A1 & a2) const

@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
   // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
   // specific values tests
-   NT2_TEST_EQUAL(nt2::abs(cT(1)), T(1));
+   NT2_TEST_ULP_EQUAL(nt2::abs(cT(1)), T(1), 0);
    NT2_TEST_EQUAL(nt2::abs(cT(nt2::Inf<T>())), nt2::Inf<T>());
    NT2_TEST_EQUAL(nt2::abs(cT(nt2::Minf<T>())), nt2::Inf<T>());
    NT2_TEST_EQUAL(nt2::abs(cT(nt2::Mone<T>())), nt2::One<T>());

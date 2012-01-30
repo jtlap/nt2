@@ -22,6 +22,9 @@ namespace std
 namespace nt2
 {
   template<class T>
+  struct dry;
+
+  template<class T>
   struct imaginary;
 }
 
@@ -41,6 +44,12 @@ namespace nt2 { namespace details
   
   template<class T, class F>
   struct as_imaginary< imaginary<T>, F >
+   : boost::mpl::apply1<F, imaginary<T> >
+  {
+  };
+  
+  template<class T, class F>
+  struct as_imaginary< dry<T>, F >
    : boost::mpl::apply1<F, imaginary<T> >
   {
   };

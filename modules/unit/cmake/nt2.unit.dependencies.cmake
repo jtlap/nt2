@@ -8,4 +8,4 @@
 ################################################################################
 
 SET(NT2_UNIT_DEPENDENCIES_EXTRA sdk ieee arithmetic constant operator)
-SET(NT2_UNIT_LIBRARIES nt2)
+SET(NT2_UNIT_LIBRARIES optimized nt2 debug nt2_d)

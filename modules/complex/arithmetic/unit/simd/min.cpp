@@ -2,7 +2,7 @@
 ///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
 ///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
 ///
-///          Minributed under the Boost Software License, Version 1.0
+///          Distributed under the Boost Software License, Version 1.0
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
@@ -14,44 +14,93 @@
 /// created  by jt the 18/02/2011
 /// 
 #include <nt2/toolbox/arithmetic/include/functions/min.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
+#include <nt2/include/functions/real.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
+
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/splat.hpp>
 
-NT2_TEST_CASE_TPL ( min_real__2_0,  BOOST_SIMD_REAL_TYPES)
+#include <nt2/include/functions/load.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_imaginary.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/functions/average.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/include/functions/extract.hpp>
+
+NT2_TEST_CASE_TPL ( min_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  
-  using nt2::min;
-  using nt2::tag::min_;
-  typedef std::complex<T> cT; 
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<min_(cT, cT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef nt2::imaginary<T> ciT; 
-  typedef cT wished_r_t;
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  
-  
-  // specific values tests
-  T inf = nt2::Inf<T>();
-  NT2_TEST_EQUAL(nt2::min(cT(inf), cT(inf)), cT(inf));
-  NT2_TEST_EQUAL(nt2::min(cT(nt2::One<T>()), cT(nt2::Zero<T>())), cT(nt2::Zero<T>())); 
-  NT2_TEST_EQUAL(nt2::min(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),cT(nt2::Zero<T>())); 
-  NT2_TEST_EQUAL(nt2::min(cT(0, 1), cT(1, 0)), cT(1, 0)); 
-  NT2_TEST_EQUAL(nt2::min(cT(2, 1), cT(2, 2)), cT(2, 1));
-  NT2_TEST_EQUAL(nt2::min(ciT(1), ciT(0)), ciT(0));
-  NT2_TEST_EQUAL(nt2::min(ciT(1), T(0)), cT(0));
-  NT2_TEST_EQUAL(nt2::min(ciT(1), T(-1)), cT(0, 1)); 
+  using boost::simd::native;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef std::complex<T>                              cT; 
+  typedef native<T ,ext_t>                             vT;
+  typedef native<cT ,ext_t>                           vcT;
+  typedef typename nt2::meta::as_imaginary<T>::type   ciT; 
+  typedef native<ciT ,ext_t>                         vciT;
+  typedef typename nt2::meta::as_dry<T>::type          dT; 
+  typedef native<dT ,ext_t>                           vdT; 
+  using boost::simd::native;
+   double ulpd;
+   ulpd=0.0;
+   
+   // specific values tests
+   {
+     typedef vcT r_t; 
+     NT2_TEST_ULP_EQUAL(nt2::min(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Inf<vT>(), nt2::Zero<vT>())[0], 0);
+     NT2_TEST_EQUAL(nt2::min(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vcT(nt2::Zero<vT>(),nt2::Zero<vT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vcT(nt2::Zero<vT>(),nt2::One<vT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(),nt2::Zero<vT>())[0]);
+     NT2_TEST_EQUAL(nt2::min(vcT(nt2::One<vT>(), nt2::Zero<vT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::Zero<vT>())[0]);
+    
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::Inf<vciT>()), vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Inf<vT>(), nt2::Zero<vT>())[0]);
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::One<vciT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::Zero<vciT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::Zero<vciT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::One<vciT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::Zero<vT>())[0]);
+     
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Inf<vdT>()),  vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Inf<vT>(), nt2::Zero<vT>())[0]);
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),  vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()), vcT(nt2::Zero<vT>(),nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()), vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::Zero<vT>(),nt2::Zero<vT>())[0]);
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),  vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], vcT(nt2::One<vT>(), nt2::Zero<vT>())[0]);
+     
+     NT2_TEST_EQUAL(nt2::min(nt2::Inf<vdT>(),   nt2::Inf<vciT>())[0] , vcT(nt2::Inf<vT>() ,  nt2::Zero<vT>())[0] );
+     NT2_TEST_EQUAL(nt2::min(nt2::One<vdT>(),   nt2::Zero<vciT>())[0], vcT(nt2::Zero<vT>(),  nt2::Zero<vT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(nt2::Zero<vdT>(),  nt2::Zero<vciT>())[0], vcT(nt2::Zero<vT>(),  nt2::Zero<vT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(nt2::Zero<vdT>(),  nt2::One<vciT>())[0] , vcT(nt2::Zero<vT>(),  nt2::Zero<vT>())[0]);
+     NT2_TEST_EQUAL(nt2::min(nt2::One<vdT>(),   nt2::One<vciT>())[0] , vcT(nt2::One<vT>(),  nt2::Zero<vT>())[0]);
+   }
+   {
+     typedef vciT r_t; 
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::Inf<vciT>()),   vciT(nt2::Inf<vciT>()))[0],  vciT(nt2::Inf<vciT>() )[0]);
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::One<vciT>()),   vciT(nt2::Zero<vciT>()))[0], vciT(nt2::Zero<vciT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::Zero<vciT>()),  vciT(nt2::Zero<vciT>()))[0], vciT(nt2::Zero<vciT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::Zero<vciT>()),  vciT(nt2::One<vciT>()))[0],  vciT(nt2::Zero<vciT>())[0]);
+     NT2_TEST_EQUAL(nt2::min(vciT(nt2::One<vciT>()),   vciT(nt2::One<vciT>()))[0],  vciT(nt2::One<vciT>() )[0]);
+   }
+   {
+     typedef vdT r_t;   
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Inf<vdT>()),   vdT(nt2::Inf<vdT>()))[0],  vdT(nt2::Inf<vdT>() )[0]);
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),   vdT(nt2::Zero<vdT>()))[0], vdT(nt2::Zero<vdT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()),  vdT(nt2::Zero<vdT>()))[0], vdT(nt2::Zero<vdT>())[0]); 
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::Zero<vdT>()),  vdT(nt2::One<vdT>()))[0],  vdT(nt2::Zero<vdT>())[0]);
+     NT2_TEST_EQUAL(nt2::min(vdT(nt2::One<vdT>()),   vdT(nt2::One<vdT>()))[0],  vdT(nt2::One<vdT>() )[0]);
+   } 
 } // end of test for floating_

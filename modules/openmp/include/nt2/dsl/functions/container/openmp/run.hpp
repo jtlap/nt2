@@ -6,25 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_META_LOOP_NEST_HPP_INCLUDED
-#define NT2_SDK_META_LOOP_NEST_HPP_INCLUDED
+#ifndef NT2_DSL_FUNCTIONS_CONTAINER_OPENMP_RUN_HPP_INCLUDED
+#define NT2_DSL_FUNCTIONS_CONTAINER_OPENMP_RUN_HPP_INCLUDED
+#ifdef _OPENMP
 
-#include <boost/mpl/int.hpp>
-#include <nt2/sdk/meta/view_at.hpp>
+#include <nt2/dsl/functions/run.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/runner.hpp>
+#include <nt2/sdk/openmp/openmp.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/fusion/include/value_at.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/size.hpp>
-#include <boost/fusion/include/fold.hpp>
-#include <boost/fusion/include/value_at.hpp>
-#include <boost/fusion/include/pop_front.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
-#include <nt2/include/functions/multiplies.hpp>
+#include <boost/mpl/int.hpp>
+#include <cstddef>
 
-// TODO: Move to modules/openmp
-#if defined(_OPENMP)
-#include <omp.h>
-#endif
-
-namespace nt2 { namespace meta
+namespace nt2 { namespace openmp
 {
   //============================================================================
   // Loop nest generator
@@ -48,12 +48,7 @@ namespace nt2 { namespace meta
                               + (boost::fusion::at_c<0>(sz)/Step::value)
                               * Step::value;
 
-        std::ptrdiff_t obound = olow
-                              + boost::fusion::fold
-                                ( boost::fusion::pop_front(sz)
-                                , std::size_t(1)
-                                , functor<tag::multiplies_>()
-                                );
+        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(sz));
 
         #pragma omp for
         for(std::ptrdiff_t j=olow;j < obound;++j)
@@ -101,19 +96,6 @@ namespace nt2 { namespace meta
     }
   };
 
-  //==============================================================================
-  // Loop nest generator - Special scalar case
-  //==============================================================================
-  template<> struct for_each_impl<0>
-  {
-    template<class Bases, class Sizes, class Step, class F>
-    static BOOST_DISPATCH_FORCE_INLINE
-    void call(Bases const& bs, Sizes const&, Step const&, F const& f)
-    {
-      f( meta::view_at<0>(bs), boost::mpl::int_<1>() );
-    }
-  };
-
   //============================================================================
   /*!
    * for_each generates a loop nest from a dimensions set. This
@@ -128,6 +110,61 @@ namespace nt2 { namespace meta
     for_each_impl<boost::fusion::result_of::size<Sizes>::value>
                  ::call(bases, sz, st, f);
   }
+
 } }
 
+namespace nt2 { namespace ext
+{
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, nt2::tag::openmp_<Site>
+                            , (A0)(S0)(Site)
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , nt2::container::domain
+                                     , nt2::tag::assign_
+                                     >
+                              ))
+                            )
+  {
+    typedef typename boost::proto::result_of::
+    child_c<A0 const&, 0>::type                             result_type;
+
+    typedef typename meta::
+            strip< typename meta::
+                   scalar_of<result_type>::type
+                 >::type                                    stype;
+
+#if !defined(BOOST_SIMD_NO_SIMD)
+    //==========================================================================
+    // If some SIMD is detected, then return a native
+    //==========================================================================
+    typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION>
+                                                            target_type;
+#else
+    //==========================================================================
+    // If no SIMD is detected, stay in scalar mode
+    //==========================================================================
+    typedef stype                                           target_type;
+#endif
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0) const
+    {
+      boost::proto::child_c<0>(a0).resize(a0.extent());
+
+      //==========================================================================
+      // Generate a loop nest of proper depth running the expression evaluator
+      // as its body and using indices/extent as loop bounds
+      //==========================================================================
+      openmp::for_each( typename A0::index_type::type()
+                      , nt2::extent(a0)
+                      , typename boost::simd::meta::cardinal_of<target_type>::type()
+                      , meta::runner<A0, stype>(a0)
+                      );
+
+      return boost::proto::child_c<0>(a0);
+    }
+  };
+
+} }
+
+#endif
 #endif

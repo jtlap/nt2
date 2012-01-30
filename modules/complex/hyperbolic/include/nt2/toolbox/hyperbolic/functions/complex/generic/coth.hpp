@@ -21,6 +21,7 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 //coth ( x + iy ) = coth ( x ) + i . tan ( y ) 1 + i . coth ( x ) tan ( y ) .
 namespace nt2 { namespace ext
 {
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::cot(imag(a0))); 
+      return bitwise_cast<result_type>(nt2::cot(imag(a0))); 
     }
   };
   
@@ -60,7 +61,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(-nt2::coth(real(a0))); 
+      return bitwise_cast<result_type>(-nt2::coth(real(a0))); 
     }
   };
 

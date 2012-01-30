@@ -12,6 +12,13 @@ set( SOURCES
   arg.cpp
   average.cpp
   ceil.cpp
-   )
+  dist.cpp
+  floor.cpp
+  trunc.cpp
+  max.cpp
+  min.cpp
+  minusone.cpp
+  oneminus.cpp
+  )
 
 nt2_module_add_tests(complex.arithmetic.simd.unit ${SOURCES})

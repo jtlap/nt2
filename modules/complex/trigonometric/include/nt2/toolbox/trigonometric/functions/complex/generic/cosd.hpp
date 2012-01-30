@@ -21,6 +21,7 @@
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/cosd.hpp>
@@ -51,7 +52,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::cosh(imag(a0)*Deginrad<rtype>())); 
+      return bitwise_cast<result_type>(nt2::cosh(imag(a0)*Deginrad<rtype>())); 
     }
   };
   
@@ -63,7 +64,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::cosd(real(a0))); 
+      return bitwise_cast<result_type>(nt2::cosd(real(a0))); 
     }
   };
 } }

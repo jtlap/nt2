@@ -225,11 +225,9 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type rtype;
     typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
-    { //incorrect
-      typedef typename meta::as_real<A0>::type rtype; 
-      rtype y = oneminus(sqr(imag(a0)));
-      A0 res = nt2::log(nt2::sqrt(y)+a0);
-      return res;     
+    {
+      //TODO optimize it
+      return nt2::asin(result_type(Zero<rtype>(), imag(a0)));
     }
   };
 
@@ -237,10 +235,12 @@ namespace nt2 { namespace ext
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef A0 result_type; 
+    typedef typename meta::as_real<A0>::type rtype;
+    typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
-    { //incorrect
-      return result_type(nt2::asin(real(a0))); 
+    {
+      //TODO optimize it
+      return nt2::asin(result_type(real(a0), Zero<rtype>()));
     }
   };
   

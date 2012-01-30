@@ -35,7 +35,6 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/smallestposval.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {

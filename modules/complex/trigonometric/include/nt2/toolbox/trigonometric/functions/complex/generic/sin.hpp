@@ -23,6 +23,7 @@
 #include <nt2/include/functions/is_imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 
 /* csin (x + I * y) = sin (x) * cosh (y)  + I * (cos (x) * sinh (y)) */
 namespace nt2 { namespace ext
@@ -52,7 +53,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::sinh(imag(a0))); 
+      return bitwise_cast<result_type>(nt2::sinh(imag(a0))); 
     }
   };
   
@@ -64,7 +65,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::sin(real(a0))); 
+      return bitwise_cast<result_type>(nt2::sin(real(a0))); 
     }
   };
 } }

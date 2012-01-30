@@ -23,7 +23,7 @@
 #include <nt2/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( fma_real__3_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( fma_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   
   using nt2::fma;

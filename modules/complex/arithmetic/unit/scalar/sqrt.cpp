@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
 
   // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
   // specific values tests
-   NT2_TEST_EQUAL(nt2::sqrt(cT(1)), cT(1));
+   NT2_TEST_ULP_EQUAL(nt2::sqrt(cT(1)), cT(1), 0);
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>())); 
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
@@ -74,7 +74,6 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
    std::cout << cc<< std::endl;
    std::cout << nt2::sqrt(aa) << std::endl;
    std::cout << nt2::sqrt(bb) << std::endl;
-   typename nt2::meta::as_real<dT>::type bbb(real(bb));
    std::cout << nt2::sqrt(nt2::real(aa)) << std::endl;
    std::cout << nt2::sqrt(nt2::real(bb)) << std::endl;
    std::cout <<  nt2::plus(aa, T(1)) << std::endl;

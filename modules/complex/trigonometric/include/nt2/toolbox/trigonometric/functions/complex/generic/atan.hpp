@@ -70,14 +70,6 @@ namespace nt2 { namespace ext
     {
       // C99 definition here; atan(z) = -i atanh(iz):
       return mul_minus_i(nt2::atanh(mul_i(a0)));
-      
-//    if(x.real() == 0)
-//    {
-//       if(x.imag() == 1)
-//          return std::complex<T>(0, std::numeric_limits<T>::has_infinity ? std::numeric_limits<T>::infinity() : static_cast<T>(HUGE_VAL));
-//       if(x.imag() == -1)
-//          return std::complex<T>(0, std::numeric_limits<T>::has_infinity ? -std::numeric_limits<T>::infinity() : -static_cast<T>(HUGE_VAL));
-//    }
     }
   };
 
