@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag expint_ of functor expint 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct expint_ {};
+    struct expint_ : ext::elementwise_<expint_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::expint_, expint, 1)
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::expint_, ei, 1)

@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag fast_cospi_ of functor fast_cospi 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct fast_cospi_ {};
+    struct fast_cospi_ : ext::elementwise_<fast_cospi_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_cospi_, fast_cospi, 1)
 }

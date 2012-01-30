@@ -69,7 +69,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_ci_ of functor gsl_sf_ci 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_ci_ {};
+    struct gsl_sf_ci_ : ext::elementwise_<gsl_sf_ci_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_ci_, gsl_sf_ci, 1)
   } }

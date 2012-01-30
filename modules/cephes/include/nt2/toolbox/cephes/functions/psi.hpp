@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag psi_ of functor psi 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct psi_ {};
+    struct psi_ : ext::elementwise_<psi_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::psi_, psi, 1)
   } }

@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag asin_ of functor asin 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct asin_ {};
+    struct asin_ : ext::elementwise_<asin_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::asin_, asin, 1)
   } }

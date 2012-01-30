@@ -70,7 +70,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag remainder_ of functor remainder 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct remainder_ {};
+    struct remainder_ : ext::elementwise_<remainder_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::remainder_, remainder, 2)
   } }

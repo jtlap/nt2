@@ -70,7 +70,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag ldexp_ of functor ldexp 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct ldexp_ {};
+    struct ldexp_ : ext::elementwise_<ldexp_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::ldexp_, ldexp, 2)
   } }

@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag tanh_ of functor tanh 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct tanh_ {};
+    struct tanh_ : ext::elementwise_<tanh_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::tanh_, tanh, 1)
   } }

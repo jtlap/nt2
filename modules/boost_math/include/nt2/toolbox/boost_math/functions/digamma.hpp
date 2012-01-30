@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag digamma_ of functor digamma 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct digamma_ {};
+    struct digamma_ : ext::elementwise_<digamma_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::digamma_, digamma, 1)
   } }

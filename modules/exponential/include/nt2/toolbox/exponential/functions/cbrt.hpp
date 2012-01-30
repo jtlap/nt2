@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag cbrt_ of functor cbrt 
      *        in namespace nt2::tag for toolbox exponential
     **/
-    struct cbrt_ {};
+    struct cbrt_ : ext::elementwise_<cbrt_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::cbrt_, cbrt, 1)
 }

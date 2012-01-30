@@ -65,7 +65,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag rem_pio2_cephes_ of functor rem_pio2_cephes 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct rem_pio2_cephes_ {};
+    struct rem_pio2_cephes_ : ext::elementwise_<rem_pio2_cephes_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_cephes_, rem_pio2_cephes,(A0 const&)(A0&)(A0&),1)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_cephes_, rem_pio2_cephes,(A0 const&),1)

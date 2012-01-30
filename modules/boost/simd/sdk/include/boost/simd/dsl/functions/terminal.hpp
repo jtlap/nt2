@@ -16,12 +16,21 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    typedef proto::tag::terminal terminal_;
+    struct terminal_ {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::terminal_, terminal, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::terminal_, terminal, (A0 const&)(A1&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::terminal_, terminal, (A0 const&)(A1&)(A2 const&), 3)
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::terminal>
+  {
+    typedef boost::simd::tag::terminal_;
+  };
+} } }
 
 #endif

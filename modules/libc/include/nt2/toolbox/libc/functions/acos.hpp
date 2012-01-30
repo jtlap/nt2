@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag acos_ of functor acos 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct acos_ {};
+    struct acos_ : ext::elementwise_<acos_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::acos_, acos, 1)
   } }

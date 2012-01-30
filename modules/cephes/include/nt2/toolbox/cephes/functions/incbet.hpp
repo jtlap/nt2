@@ -74,7 +74,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag incbet_ of functor incbet 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct incbet_ {};
+    struct incbet_ : ext::elementwise_<incbet_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::incbet_, incbet, 3)
   } }

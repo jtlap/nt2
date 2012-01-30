@@ -18,7 +18,7 @@
 
 namespace nt2
 {
-  namespace tag { struct ndims_ {}; }
+  namespace tag { struct ndims_ : ext::unspecified_<ndims_> {}; }
 
   //============================================================================
   /*!

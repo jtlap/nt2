@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag atanh_ of functor atanh 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct atanh_ {};
+    struct atanh_ : ext::elementwise_<atanh_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::atanh_, atanh, 1)
   } }

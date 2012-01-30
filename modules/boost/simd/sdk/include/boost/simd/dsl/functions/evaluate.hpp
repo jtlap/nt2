@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct evaluate_ {}; }
+  namespace tag { struct evaluate_ : ext::unspecified_<evaluate_>{}; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::evaluate_, evaluate, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::evaluate_, evaluate, (A0 const&)(A1&), 2)

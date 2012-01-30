@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag atan_rz_ of functor atan_rz 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct atan_rz_ {};
+    struct atan_rz_ : ext::elementwise_<atan_rz_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::atan_rz_, atan_rz, 1)
 } }

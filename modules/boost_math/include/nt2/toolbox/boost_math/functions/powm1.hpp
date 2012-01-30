@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag powm1_ of functor powm1 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct powm1_ {};
+    struct powm1_ : ext::elementwise_<powm1_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::powm1_, powm1, 2)
   } }

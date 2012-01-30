@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag cospi_rn_ of functor cospi_rn 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct cospi_rn_ {};
+    struct cospi_rn_ : ext::elementwise_<cospi_rn_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::cospi_rn_, cospi_rn, 1)
   } }

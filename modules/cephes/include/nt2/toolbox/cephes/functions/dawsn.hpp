@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag dawsn_ of functor dawsn 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct dawsn_ {};
+    struct dawsn_ : ext::elementwise_<dawsn_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::dawsn_, dawsn, 1)
   } }

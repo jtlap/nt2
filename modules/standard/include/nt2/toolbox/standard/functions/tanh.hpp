@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag tanh_ of functor tanh 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct tanh_ {};
+    struct tanh_ : ext::elementwise_<tanh_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::tanh_, tanh, 1)
   } }

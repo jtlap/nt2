@@ -18,7 +18,7 @@
 
 namespace nt2
 {
-  namespace tag { struct inflate_ {}; }
+  namespace tag { struct inflate_ : ext::unspecified_<inflate_> {}; }
 
   //============================================================================
   /*!

@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag cos_rn_ of functor cos_rn 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct cos_rn_ {};
+    struct cos_rn_ : ext::elementwise_<cos_rn_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::cos_rn_, cos_rn, 1)
 } }

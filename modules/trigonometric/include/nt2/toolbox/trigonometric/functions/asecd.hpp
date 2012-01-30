@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag asecd_ of functor asecd 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct asecd_ {};
+    struct asecd_ : ext::elementwise_<asecd_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::asecd_, asecd, 1)
 }

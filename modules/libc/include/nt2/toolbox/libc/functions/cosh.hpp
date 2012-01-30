@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag cosh_ of functor cosh 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct cosh_ {};
+    struct cosh_ : ext::elementwise_<cosh_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::cosh_, cosh, 1)
   } }

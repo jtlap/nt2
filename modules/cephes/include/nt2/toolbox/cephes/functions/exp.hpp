@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag exp_ of functor exp 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct exp_ {};
+    struct exp_ : ext::elementwise_<exp_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::exp_, exp, 1)
   } }

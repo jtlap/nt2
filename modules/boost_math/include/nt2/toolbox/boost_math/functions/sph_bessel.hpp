@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag sph_bessel_ of functor sph_bessel 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct sph_bessel_ {};
+    struct sph_bessel_ : ext::elementwise_<sph_bessel_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sph_bessel_, sph_bessel, 2)
   } }

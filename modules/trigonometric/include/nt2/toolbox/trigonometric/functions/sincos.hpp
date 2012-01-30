@@ -65,7 +65,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag sincos_ of functor sincos 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct sincos_ {};
+    struct sincos_ : ext::elementwise_<sincos_> {};
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::sincos_, sincos, 1)

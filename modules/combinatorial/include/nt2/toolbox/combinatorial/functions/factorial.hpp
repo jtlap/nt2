@@ -60,7 +60,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag factorial_ of functor factorial 
      *        in namespace nt2::tag for toolbox combinatorial
     **/
-    struct factorial_ {};
+    struct factorial_ : ext::elementwise_<factorial_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::factorial_,factorial, 1)
 } 

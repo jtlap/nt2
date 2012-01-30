@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag tanh_ of functor tanh 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct tanh_ {};
+    struct tanh_ : ext::elementwise_<tanh_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::tanh_, tanh, 1)
   } }

@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag ceil_ of functor ceil 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct ceil_ {};
+    struct ceil_ : ext::elementwise_<ceil_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::ceil_, ceil, 1)
   } }

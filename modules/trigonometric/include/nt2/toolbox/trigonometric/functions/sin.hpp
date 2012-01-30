@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag sin_ of functor sin 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct sin_ {};
+    struct sin_ : ext::elementwise_<sin_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sin_, sin, 1)
 }

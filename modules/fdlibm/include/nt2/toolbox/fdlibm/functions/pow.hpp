@@ -70,7 +70,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag pow_ of functor pow 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct pow_ {};
+    struct pow_ : ext::elementwise_<pow_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::pow_, pow, 2)
   } }

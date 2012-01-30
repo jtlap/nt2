@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag hermite_ of functor hermite 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct hermite_ {};
+    struct hermite_ : ext::elementwise_<hermite_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::hermite_, hermite, 2)
   } }
