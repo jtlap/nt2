@@ -13,7 +13,6 @@
 #include <boost/dispatch/meta/counter.hpp>
 #include <boost/dispatch/meta/combine.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
-#include <boost/proto/tags.hpp>
 
 BOOST_DISPATCH_COUNTER_INIT(default_site_stack)
 

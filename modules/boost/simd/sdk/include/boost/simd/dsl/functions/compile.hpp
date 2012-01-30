@@ -10,6 +10,7 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_COMPILE_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
 {

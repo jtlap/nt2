@@ -11,6 +11,7 @@
 
 #include <boost/proto/tags.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
 {
