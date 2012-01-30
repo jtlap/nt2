@@ -10,13 +10,6 @@
 include(NT2Module)
 nt2_module_source_setup(boost.simd.sdk)
 
-set(SOURCES
-    config/cpuid.cpp
-    config/get_vendor.cpp
-    config/detect.cpp
-   )
-nt2_module_add_library(boost_simd ${SOURCES})
-
 nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          boost/simd/dsl/functions
                                          --out  boost/simd/dsl/include/functions

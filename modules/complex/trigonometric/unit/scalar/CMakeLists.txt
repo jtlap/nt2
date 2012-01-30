@@ -8,6 +8,17 @@
 ##############################################################################
 
 set( SOURCES
+  asin.cpp
+  acos.cpp
+  atan.cpp
+  cos.cpp
+  sin.cpp
+  tan.cpp
+  cot.cpp
+  cosd.cpp
+  cospi.cpp
+  sind.cpp
+  tand.cpp
    )
 
-nt2_module_add_tests(complex.trigonometic.scalar.unit ${SOURCES})
+nt2_module_add_tests(complex.trigonometric.scalar.unit ${SOURCES})

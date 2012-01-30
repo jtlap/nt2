@@ -35,7 +35,7 @@
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <iostream>
+#include <nt2/include/functions/bitwise_cast.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -60,28 +60,28 @@ namespace nt2 { namespace ext
         lA0 cur  = is_real(a0);
         if (any(cur))
           {
-            r = if_else(cur, multiplies(real(a0), a1), r);
+            r = if_else(cur, nt2::multiplies(real(a0), a1), r);
             test = logical_or(test, cur);
             if (all(test)) return r; 
           }
         cur = is_imag(a0);
         if (any(cur))
           {
-            r = if_else(cur, multiplies(pure(a0), a1), r);
+            r = if_else(cur, nt2::multiplies(pure(a0), a1), r);
             test = logical_or(test, cur);
             if (all(test)) return r; 
           }         
         cur = is_real(a1);
         if (any(cur))
           {
-            r = if_else(cur, multiplies(a0, real(a1)), r);
+            r = if_else(cur, nt2::multiplies(a0, real(a1)), r);
             test = logical_or(test, cur);
             if (all(test)) return r;
           }
         cur = is_imag(a1); 
         if (any(cur))
           {
-            r = if_else(cur, multiplies(a0, pure(a1)), r);
+            r = if_else(cur, nt2::multiplies(a0, pure(a1)), r);
             test = logical_or(test, cur);
             if (all(test)) return r;
           }
@@ -174,7 +174,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(a0*imag(a1));
+        return bitwise_cast<result_type>(a0*imag(a1));
       }
   };
   
@@ -186,7 +186,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(imag(a0)*a1);
+        return bitwise_cast<result_type>(imag(a0)*a1);
       }
   };
   
@@ -196,10 +196,10 @@ namespace nt2 { namespace ext
                                      ((generic_< imaginary_< arithmetic_<A1> > >))
                                      )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return -(imag(a0) * imag(a1));
+        return bitwise_cast<result_type>(-imag(a0) * imag(a1));
       }
   };
   

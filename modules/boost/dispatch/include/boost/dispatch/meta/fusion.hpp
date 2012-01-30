@@ -88,9 +88,22 @@ namespace details
                                       >::type
                       >
   {
-    typedef meta::fusion_sequence_<T> type;
+    typedef meta::fusion_sequence_<Origin> type;
   };
 
+  template<class T,class Origin>
+  struct   property_of< T
+                      , Origin
+                      , typename boost
+                        ::enable_if_c < boost::fusion
+                                        ::traits::is_sequence<T>::value
+                                        && !is_array<T>::value
+                                        && !proto::is_expr<T>::value
+                                      >::type
+                      >
+  {
+    typedef meta::fusion_sequence_<Origin> type;
+  };
 }
 
 namespace meta

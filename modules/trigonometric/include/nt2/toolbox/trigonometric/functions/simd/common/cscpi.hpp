@@ -23,7 +23,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscpi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<integer_<A0>,X>))
                             )
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscpi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

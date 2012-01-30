@@ -24,7 +24,7 @@
 #include <nt2/sdk/complex/dry.hpp>
 
 
-NT2_TEST_CASE_TPL ( oneplus_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( oneplus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   
   using nt2::oneplus;

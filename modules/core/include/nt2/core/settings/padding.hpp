@@ -9,50 +9,8 @@
 #ifndef NT2_CORE_SETTINGS_PADDING_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_PADDING_HPP_INCLUDED
 
-#include <boost/mpl/int.hpp>
-#include <nt2/core/settings/misc.hpp>
+#include <nt2/core/settings/forward/padding.hpp>
 #include <nt2/core/settings/option.hpp>
-#include <boost/simd/sdk/memory/parameters.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-
-namespace nt2
-{
-  //============================================================================
-  /*!
-   * Specify a global padding strategy will be used.
-   **/
-  //============================================================================
-  template<std::ptrdiff_t Value = 1>
-  struct global_padding_ : boost::mpl::int_<Value> {};
-
-  //============================================================================
-  /*!
-   * Specify a lead dimension padding strategy will be used.
-   **/
-  //============================================================================
-  template<std::ptrdiff_t Value = BOOST_SIMD_CONFIG_ALIGNMENT>
-  struct lead_padding_  : boost::mpl::int_<Value> {};
-
-  //============================================================================
-  /*!
-   * Specify that current container doesn't pad its memory.
-   **/
-  //============================================================================
-  struct no_padding_ {};
-
-  namespace tag
-  {
-    //==========================================================================
-    /*!
-     * Option tag for padding options
-     **/
-    //==========================================================================
-    struct global_padding_  {};
-    struct lead_padding_    {};
-  }
-}
 
 namespace nt2 { namespace meta
 {

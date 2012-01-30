@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext                             \
       result_type that;                                                      \
                                                                              \
       for(size_t i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i) \
-        that[i] = f(BOOST_PP_ENUM(n, M3, ~));                                \
+        insert(f(BOOST_PP_ENUM(n, M3, ~)), that, i);                         \
                                                                              \
       return that;                                                           \
     }                                                                        \

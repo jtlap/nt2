@@ -8,19 +8,20 @@
 ##############################################################################
 
 SET( SOURCES
-  group.cpp
-  splatted_second.cpp
   comparator.cpp
-  lookup.cpp
-  sort.cpp
   cumsum.cpp
-  split.cpp
+  enumerate.cpp
+  group.cpp
+  lookup.cpp
+  put_first.cpp
+  sort.cpp
+  splatted_first.cpp
   splatted_maximum.cpp
   splatted_minimum.cpp
   splatted_prod.cpp
-  splatted_first.cpp
+  splatted_second.cpp
   splatted_sum.cpp
-  put_first.cpp
+  split.cpp
 # List of simd test files for toolbox swar
    )
 

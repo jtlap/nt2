@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      return result_type(if_else(a0, imag(a1), imag(a2)));
+      return bitwise_cast<result_type>(if_else(a0, imag(a1), imag(a2)));
     }
   };
   
@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return if_else(a0, a1, result_type(Zero<rtype>(), a2));
+      return if_else(a0, a1, result_type(Zero<rtype>(), imag(a2)));
     }
   };
   

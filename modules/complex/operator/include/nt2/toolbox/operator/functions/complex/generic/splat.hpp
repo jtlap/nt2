@@ -16,6 +16,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -43,7 +44,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1&) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return result_type(splat<rtype>(imag(a0))); 
+      return bitwise_cast<result_type>(splat<rtype>(imag(a0))); 
     }
   };
 
@@ -57,7 +58,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1&) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return result_type(splat<rtype>(real(a0))); 
+      return bitwise_cast<result_type>(splat<rtype>(real(a0))); 
     }
   };    
 } }

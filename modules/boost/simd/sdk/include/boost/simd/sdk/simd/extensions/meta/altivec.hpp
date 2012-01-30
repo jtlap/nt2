@@ -18,9 +18,10 @@
 #include <boost/simd/sdk/meta/is_logical.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 #include <boost/type_traits/is_signed.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <climits>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,10 +46,10 @@ namespace boost { namespace simd { namespace meta
   //////////////////////////////////////////////////////////////////////////////
   // For a given type and extension, return the associated SIMD register type
   //////////////////////////////////////////////////////////////////////////////
-  template<class T> struct  as_simd<T,tag::altivec_>
+  template<class T>
+  struct as_simd<T, tag::altivec_, typename enable_if< is_fundamental<T> >::type>
   {
     template< class Type
-            , bool is_logical
             , std::size_t Sz = sizeof(Type)*CHAR_BIT
             , bool Integral = boost::is_integral<T>::value
             , bool Signed = boost::is_signed<T>::value
@@ -60,28 +61,37 @@ namespace boost { namespace simd { namespace meta
     };
 
     template<bool Sign, class Dummy>
-    struct entry<float, false, 32, false, Sign, Dummy> { typedef __vector float  type;         };
+    struct entry<float, 32, false, Sign, Dummy> { typedef __vector float  type;         };
     template<class Type, class Dummy>
-    struct entry<Type , false, 32, true, false, Dummy> { typedef __vector unsigned int   type; };
+    struct entry<Type,  32, true, false, Dummy> { typedef __vector unsigned int   type; };
     template<class Type, class Dummy>
-    struct entry<Type , false, 16, true, false, Dummy> { typedef __vector unsigned short type; };
+    struct entry<Type,  16, true, false, Dummy> { typedef __vector unsigned short type; };
     template<class Type, class Dummy>
-    struct entry<Type , false,  8, true, false, Dummy> { typedef __vector unsigned char  type; };
+    struct entry<Type,   8, true, false, Dummy> { typedef __vector unsigned char  type; };
     template<class Type, class Dummy>
-    struct entry<Type , false, 32, true, true,  Dummy> { typedef __vector signed int   type;   };
+    struct entry<Type,  32, true, true,  Dummy> { typedef __vector signed int   type;   };
     template<class Type, class Dummy>
-    struct entry<Type , false, 16, true, true,  Dummy> { typedef __vector signed short type;   };
+    struct entry<Type,  16, true, true,  Dummy> { typedef __vector signed short type;   };
     template<class Type, class Dummy>
-    struct entry<Type , false,  8, true, true,  Dummy> { typedef __vector signed char  type;   };
-    
-    template<class Type, bool Int, bool Sign, class Dummy>
-    struct entry<Type, true, 32, Int, Sign, Dummy>     { typedef __vector __bool int type;     };
-    template<class Type, bool Int, bool Sign, class Dummy>
-    struct entry<Type, true, 16, Int, Sign, Dummy>     { typedef __vector __bool short type;   };
-    template<class Type, bool Int, bool Sign, class Dummy>
-    struct entry<Type, true,  8, Int, Sign, Dummy>     { typedef __vector __bool char type;    };
+    struct entry<Type,   8, true, true,  Dummy> { typedef __vector signed char  type;   };
 
-    typedef typename entry<typename meta::as_arithmetic<T>::type, meta::is_logical<T>::value>::type type;
+    typedef typename entry<T>::type type;
+  };
+
+  template<class T>
+  struct as_simd<logical<T>, tag::altivec_>
+  {
+    template<class Type, std::size_t Sz = sizeof(Type)*CHAR_BIT, class Dummy = void>
+    struct entry;
+
+    template<class Type, class Dummy>
+    struct entry<Type, 32, Dummy>     { typedef __vector __bool int type;     };
+    template<class Type, class Dummy>
+    struct entry<Type, 16, Dummy>     { typedef __vector __bool short type;   };
+    template<class Type, class Dummy>
+    struct entry<Type,  8, Dummy>     { typedef __vector __bool char type;    };
+
+    typedef typename entry<T>::type type;
   };
 
   //////////////////////////////////////////////////////////////////////////////

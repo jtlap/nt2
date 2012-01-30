@@ -23,7 +23,6 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/constants/maxleftshift.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-#include <iostream>
 
 namespace nt2
 {
@@ -153,8 +152,8 @@ namespace nt2
           const int_type n = redu_t::reduce(x, xr, xc);
           const int_type swap_bit = n&One<int_type>();
           const A0 z = nt2::sqr(xr);
-          const int_type cos_sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)),  Maxleftshift<A0>()); 
-          const int_type sin_sign_bit = b_xor(shli(n&Two<int_type>(), Maxleftshift<A0>()-1), bitofsign(a0)); 
+          const int_type cos_sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)),  Maxleftshift<sint_type>());
+          const int_type sin_sign_bit = b_xor(shli(n&Two<int_type>(), Maxleftshift<sint_type>()-1), bitofsign(a0));
           const A0 t1 = {eval_t::sin_eval(z, xr)};
           const A0 t2 = {eval_t::cos_eval(z)};
           const bint_type test = is_nez(swap_bit);

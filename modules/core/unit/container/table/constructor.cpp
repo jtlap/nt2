@@ -89,7 +89,6 @@ NT2_TEST_CASE( shared_ctor )
   using nt2::no_padding_;
   using nt2::global_padding_;
   using nt2::lead_padding_;
-  using nt2::with_;
   using nt2::share;
 
   float data[] =  {
@@ -131,5 +130,18 @@ NT2_TEST_CASE( shared_ctor )
     for(int j=1;j<=2;++j)
      for(int i=1;i<=3;++i)
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
+  }
+
+  {
+    float f = 1.f;
+    
+    table < float, settings ( shared_ , no_padding_ )
+          > x(nt2::extent(f), share(&f, &f + 1));
+
+    NT2_TEST( nt2::extent(x) == of_size(1) );
+
+    NT2_TEST_EQUAL( float(x(1,1)), 1.f );
+    x = 2.f;
+    NT2_TEST_EQUAL( float(x(1,1)), 2.f );
   }
 }

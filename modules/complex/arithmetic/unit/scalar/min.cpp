@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( min_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   // specific values tests
   T inf = nt2::Inf<T>();
-  NT2_TEST_EQUAL(nt2::min(cT(inf), cT(inf)), cT(inf));
+  NT2_TEST_ULP_EQUAL(nt2::min(cT(inf), cT(inf)), cT(inf), 0);
   NT2_TEST_EQUAL(nt2::min(cT(nt2::One<T>()), cT(nt2::Zero<T>())), cT(nt2::Zero<T>())); 
   NT2_TEST_EQUAL(nt2::min(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),cT(nt2::Zero<T>())); 
   NT2_TEST_EQUAL(nt2::min(cT(0, 1), cT(1, 0)), cT(1, 0)); 

@@ -8,18 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COT_HPP_INCLUDED
-#include <nt2/include/functions/sincos.hpp>
-#include <nt2/include/functions/sinhcosh.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/tan.hpp>
+#include <nt2/include/functions/cot.hpp>
 #include <nt2/include/functions/coth.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-/* ccot (x + I * y) = (sin (2 * x)  +  I * sinh(2 * y))
-                      / (cos (2 * x)  +  cosh (2 * y)) */
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cot_, tag::cpu_, (A0)
@@ -29,13 +21,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype;
-      result_type aa0 =  a0+a0; 
-      rtype c, s;
-      sincos(real(aa0), s, c);
-      rtype ch, sh; 
-      sinhcosh(imag(aa0), sh, ch);
-      return (c+ch)/result_type(s, sh);     
+      return rec(nt2::tan(a0));     
     }
   };
 
@@ -43,14 +29,23 @@ namespace nt2 { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_imaginary<rA0>::type result_type; 
+    typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(-nt2::coth(imag(a0))); 
+      return bitwise_cast<result_type>(-nt2::coth(imag(a0))); 
     }
   };
   
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cot_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef A0 result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return bitwise_cast<result_type>(nt2::cot(a0)); 
+    }
+  };
 } }
 
 #endif

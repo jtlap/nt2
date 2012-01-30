@@ -9,24 +9,11 @@
 #ifndef NT2_CORE_SETTINGS_BUFFER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_BUFFER_HPP_INCLUDED
 
+#include <nt2/core/settings/forward/buffer.hpp>
 #include <nt2/core/settings/option.hpp>
 
 namespace nt2
 {
-  //============================================================================
-  // Buffer type computing metafunction
-  //============================================================================
-  template<class Buffer = void> struct buffer_;
-
-  namespace tag
-  {
-    //==========================================================================
-    /*!
-     * Option tag for buffer options
-     **/
-    //==========================================================================
-    struct buffer_ {};
-  }
 
   namespace meta
   {

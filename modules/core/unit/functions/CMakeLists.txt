@@ -9,12 +9,15 @@
 
 SET( SOURCES
    length.cpp
+   linspace.cpp
    ndims.cpp
    numel.cpp
+   ones.cpp
 #  ind2sub.cpp
    sub2ind.cpp
 #  sub2sub.cpp
   size.cpp
+  zeros.cpp
 # List of test files for toolbox core.settings
    )
 

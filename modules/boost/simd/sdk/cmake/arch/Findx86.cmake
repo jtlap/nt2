@@ -57,18 +57,9 @@ macro(nt2_simd_cpuid_check ext)
   # Check for ext availability
   string(TOLOWER ${ext} ext_l)
   string(REPLACE "_" "." ext_l ${ext_l})
-    
-  find_file(SRC_CPUID src/cpuid.cpp ${CMAKE_MODULE_PATH} NO_DEFAULT_PATH)
-  set(SRC_CPUID ${SRC_CPUID} CACHE INTERNAL "" FORCE)
-  try_run(RUN_RESULT_VAR COMPILE_RESULT_VAR
-          ${NT2_BINARY_DIR}/cmake
-          ${SRC_CPUID}
-          OUTPUT_VARIABLE LOG
-          ARGS ${ext_l}
-         )
 
-  # If file compiles and doesn't return an error, host CPU supports the extension
-  if(COMPILE_RESULT_VAR AND RUN_RESULT_VAR EQUAL 0)
+  nt2_module_tool(is_supported ${ext_l} RESULT_VARIABLE RESULT_VAR OUTPUT_QUIET)
+  if(RESULT_VAR EQUAL 0)
     set(NT2_HAS_${ext}_SUPPORT 1)
   else()
     set(NT2_HAS_${ext}_SUPPORT 0)
@@ -86,8 +77,8 @@ macro(nt2_simd_cpuid_check ext)
       
   if(NT2_HAS_${ext}_SUPPORT)
     message(STATUS "[boost.simd.sdk] ${ext} available")
-    nt2_simd_set_fpmath(${ext})
     set(NT2_SIMD_EXT ${ext_l} PARENT_SCOPE)
+    nt2_simd_set_fpmath(${ext})
     set(NT2_SIMD_FLAGS ${NT2_SIMD_FLAGS} PARENT_SCOPE)
     return()
   else()

@@ -8,12 +8,21 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASINH_HPP_INCLUDED
+#include <nt2/include/functions/asin.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/mul_i.hpp>
+#include <nt2/include/functions/mul_minus_i.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/functions/mul_minus_i.hpp>
+#include <nt2/include/functions/mul_i.hpp>
+#include <nt2/include/functions/asin.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -24,10 +33,11 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
-      A0 y = result_type(oneplus((real(a0)-imag(a0))*(real(a0)+imag(a0))), 
-                         Two<rtype>()*real(a0)*imag(a0));
-      A0 res = nt2::log(nt2::sqrt(y)+a0);
+      // We use asinh(z) = i asin(-i z);
+      // Note that C99 defines this the other way around (which is
+      // to say asin is specified in terms of asinh), this is consistent
+      // with C99 though:
+      result_type res =  mul_i(nt2::asin(mul_minus_i(a0))); 
       return res;     
     }
   };
@@ -40,10 +50,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
-      rtype y = oneminus(sqr(imag(a0)));
-      A0 res = nt2::log(nt2::sqrt(y)+a0);
-      return res;     
+      return bitwise_cast<result_type>(mul_i(nt2::asin(mul_minus_i(a0)))); 
     }
   };
 
@@ -54,7 +61,9 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::asinh(real(a0))); 
+      //asinh is bijective on the real axis and its computation
+      // involves no proper complex value
+      return bitwise_cast<result_type>(nt2::asinh(real(a0))); 
     }
   };
   

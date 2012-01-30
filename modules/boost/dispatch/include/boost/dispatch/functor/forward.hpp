@@ -13,14 +13,17 @@
 #include <boost/dispatch/meta/counter.hpp>
 #include <boost/dispatch/meta/combine.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/config.hpp>
 
 BOOST_DISPATCH_COUNTER_INIT(default_site_stack)
 
 namespace boost { namespace dispatch
 {
-  using meta::default_site_stack;
-  template<class Tag, int N = BOOST_DISPATCH_COUNTER_VALUE_TPL(default_site_stack, Tag)>
-  struct default_site_impl
+  template<class Tag, int N>
+  struct default_site_impl;
+
+  template<class Tag>
+  struct default_site_impl<Tag, 0>
   {
     typedef tag::cpu_ type;
   };
@@ -31,10 +34,13 @@ namespace boost { namespace dispatch
    * for functors.
    */
   //============================================================================
+#ifndef BOOST_MSVC
+  using meta::default_site_stack;
+#endif
   template<class Tag>
   struct default_site
-   : default_site_impl<Tag>
   {
+    typedef typename default_site_impl<Tag, BOOST_DISPATCH_COUNTER_VALUE_TPL(default_site_stack, Tag)>::type type;
   };
 
   template< class Tag
@@ -48,12 +54,34 @@ namespace boost { namespace dispatch { namespace meta
   template< class Signature , class Site, class Dummy = void> struct implement;
 } } }
 
+
+#ifdef BOOST_MSVC
+#define BOOST_DISPATCH_COMBINE_SITE(new_site) BOOST_DISPATCH_COMBINE_SITE_(new_site, __COUNTER__)
+
+#define BOOST_DISPATCH_COMBINE_SITE_(new_site, N)                                                  \
+namespace boost { namespace dispatch                                                               \
+{                                                                                                  \
+  static const int BOOST_PP_CAT(default_site_stack_value_,  N)                                     \
+    = BOOST_DISPATCH_COUNTER_VALUE(default_site_stack);                                            \
+  template<class Tag>                                                                              \
+  struct default_site_impl<Tag, BOOST_PP_CAT(default_site_stack_value_,  N) + 1>                   \
+   : meta::combine< typename default_site_impl< Tag                                                \
+                                              , BOOST_PP_CAT(default_site_stack_value_,  N)        \
+                                              >::type                                              \
+                  , BOOST_DISPATCH_PP_STRIP(new_site)                                              \
+                  >                                                                                \
+  {                                                                                                \
+  };                                                                                               \
+} }                                                                                                \
+BOOST_DISPATCH_COUNTER_INCREMENT(default_site_stack)                                               \
+/**/
+#else
 #define BOOST_DISPATCH_COMBINE_SITE(new_site)                                                      \
 namespace boost { namespace dispatch                                                               \
 {                                                                                                  \
   template<class Tag>                                                                              \
   struct default_site_impl<Tag, BOOST_DISPATCH_COUNTER_VALUE(default_site_stack) + 1>              \
-   : meta::combine< typename default_site_impl<Tag                                                 \
+   : meta::combine< typename default_site_impl< Tag                                                \
                                               , BOOST_DISPATCH_COUNTER_VALUE(default_site_stack)   \
                                               >::type                                              \
                   , BOOST_DISPATCH_PP_STRIP(new_site)                                              \
@@ -63,6 +91,7 @@ namespace boost { namespace dispatch                                            
 } }                                                                                                \
 BOOST_DISPATCH_COUNTER_INCREMENT(default_site_stack)                                               \
 /**/
+#endif
 
 #define BOOST_DISPATCH_DEFAULT_SITE_FOR(Tag)                                                       \
 namespace boost { namespace dispatch                                                               \

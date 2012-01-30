@@ -11,22 +11,27 @@
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/logical_andnot.hpp>
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/none.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/if_else.hpp> 
+#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/mul_i.hpp>
+#include <nt2/include/functions/mul_minus_i.hpp>
+#include <nt2/include/functions/acos.hpp>
 
-//  cacosh(conj(z)) = conj(cacosh(z)).
-//  cacosh(±0 + i0) returns +0 + i-Fð /2.-A
-//  cacosh(x + i $B!g(B) returns +$B!g(B + i-Fð /2, for finite x.-A
-//  cacosh(x + iNaN) returns NaN + iNaN and optionally raises the invalid floating-point exception, for finite x.
-//  cacosh($B!]!g(B + iy) returns +$B!g(B + i-Fð , for positive-signed finite y.-A
-//  cacosh(+$B!g(B + iy) returns +$B!g(B + i0, for positive-signed finite y.
-//  cacosh($B!]!g(B + i $B!g(B) returns +$B!g(B + i3-Fð /4.-A
-//  cacosh(+$B!g(B + i $B!g(B) returns +$B!g(B + i-Fð /4.-A
-//  cacosh(±$B!g(B + iNaN) returns +$B!g(B + iNaN.
-//  cacosh(NaN + iy) returns NaN + iNaN and optionally raises the -F¡¡invalid floating-point exception, for finite y.-A
-//  cacosh(NaN + i $B!g(B) returns +$B!g(B + iNaN.
-//  cacosh(NaN + iNaN) returns NaN + iNaN.
+#include <nt2/include/constants/four.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/three.hpp>
+#include <nt2/include/constants/nan.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -37,10 +42,14 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
-      A0 y = result_type(minusone((real(a0)-imag(a0))*(real(a0)+imag(a0))), 
-                         Two<rtype>()*real(a0)*imag(a0));
-      A0 res = nt2::log(nt2::sqrt(y)+a0);
+      // acosh(a0) = +/-i acos(a0)
+      // Choosing the sign of multiplier to give real(acosh(a0)) >= 0
+      // we have compatibility with C99.
+      typedef typename meta::as_real<A0>::type rtype;
+      typedef typename meta::as_logical<rtype>::type ltype;
+      result_type res = nt2::acos(a0);
+      res = if_else(logical_notand(is_nan(imag(res)), is_lez(imag(res))),
+                    mul_i(res), mul_minus_i(res)); 
       return res;     
     }
   };
@@ -53,8 +62,9 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      rtype y = oneplus(sqr(imag(a0)));
-      A0 res = nt2::log(A0(nt2::sqrt(y))+a0);
+      result_type res = nt2::acos(a0);
+      res = if_else(logical_notand(is_nan(imag(res)), is_lez(imag(res))),
+                    mul_i(res), mul_minus_i(res)); 
       return res;     
     }
   };
@@ -63,10 +73,15 @@ namespace nt2 { namespace ext
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef A0 result_type; 
+    typedef typename meta::as_real<A0>::type rtype;
+    typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::acosh(real(a0))); 
+      result_type res = nt2::acos(a0);
+      res = if_else(logical_notand(is_nan(imag(res)), is_lez(imag(res))),
+                    mul_i(res),
+                    mul_minus_i(res)); 
+      return res;     
     }
   };
   
