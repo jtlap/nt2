@@ -149,7 +149,7 @@ struct child0
 {
   template<class X>
   struct apply
-   : boost::proto::result_of::child_c<X, 0>
+   : boost::proto::result_of::child_c<X const&, 0>
   {
   };
 };
@@ -175,7 +175,7 @@ NT2_TEST_CASE( terminal_ref )
                     , type
                     , table<T>&
                     );
-  
+
   NT2_TEST_EXPR_TYPE( nt2::optimize(a0(1))
                     , child0
                     , table<T>::parent&
