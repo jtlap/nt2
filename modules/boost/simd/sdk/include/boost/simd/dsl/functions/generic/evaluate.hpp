@@ -24,16 +24,16 @@ namespace boost { namespace simd { namespace ext
                             , ((ast_< unspecified_<A0> >))
                             )
   {
-      
     typedef typename dispatch::meta::call<tag::optimize_(A0 const&)>::type optimized;
     typedef typename dispatch::meta::call<tag::schedule_(optimized)>::type scheduled;
     typedef typename dispatch::meta::call<tag::compile_(scheduled)>::type  compiled;
-    typedef typename dispatch::meta::result_of<compiled(A0 const&)>::type  result_type;
+    typedef typename dispatch::meta::result_of<compiled(scheduled)>::type  result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0) const
     {
-      return simd::compile(schedule(optimize(a0)))(a0);
+      scheduled s = schedule(optimize(a0));
+      return simd::compile(s)(s);
     }
   };
 } } }
