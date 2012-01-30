@@ -35,6 +35,7 @@
 #include <iostream>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 namespace nt2 {  namespace details
 {
@@ -101,7 +102,7 @@ namespace nt2
   template<typename T> inline std::string type_id()
   {
     std::string s = details::demangle(typeid(T).name());
-    if(boost::is_const<T>::value)
+    if(boost::is_const<typename boost::remove_reference<T>::type>::value)
       s += " const";
     if(boost::is_reference<T>::value)
       s += "&";
