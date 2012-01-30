@@ -31,6 +31,12 @@ namespace nt2 { namespace container { namespace ext
     }
   };
 
+  template<class Domain, class Expr>
+  struct size_of<nt2::tag::assign_, Domain, 2, Expr>
+   : size_of<boost::proto::tag::assign, Domain, 2, Expr>
+  {
+  };
+
 } } }
 
 #endif

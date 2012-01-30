@@ -194,6 +194,11 @@ namespace nt2 { namespace container { namespace ext
       );
     }
   };
+  template<class Expr, class Domain, int N>
+  struct size_of<tag::function_, Domain, N, Expr>
+   : size_of<boost::proto::tag::function, Domain, N, Expr>
+  {
+  };
 
   template<class Expr, class Domain, int N>
   struct value_type<boost::proto::tag::function, Domain, N, Expr>
@@ -205,6 +210,11 @@ namespace nt2 { namespace container { namespace ext
     scalar_of< typename boost::dispatch::meta::
                semantic_of<child0>::type
              >::type                                type;
+  };
+  template<class Expr, class Domain, int N>
+  struct value_type<tag::function_, Domain, N, Expr>
+   : value_type<boost::proto::tag::function, Domain, N, Expr>
+  {
   };
 
   // assumes all nodes are terminals, incorrect
