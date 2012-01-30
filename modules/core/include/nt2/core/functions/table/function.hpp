@@ -171,7 +171,7 @@ namespace nt2 { namespace container { namespace ext
   #undef M3
 
   template<class Expr, class Domain, int N>
-  struct size_of<boost::proto::tag::function, Domain, N, Expr>
+  struct size_of<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::
     child_c<Expr, 0>::type                             child0;
@@ -194,14 +194,9 @@ namespace nt2 { namespace container { namespace ext
       );
     }
   };
-  template<class Expr, class Domain, int N>
-  struct size_of<tag::function_, Domain, N, Expr>
-   : size_of<boost::proto::tag::function, Domain, N, Expr>
-  {
-  };
 
   template<class Expr, class Domain, int N>
-  struct value_type<boost::proto::tag::function, Domain, N, Expr>
+  struct value_type<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::
     child_c<Expr&, 0>::type                         child0;
@@ -210,11 +205,6 @@ namespace nt2 { namespace container { namespace ext
     scalar_of< typename boost::dispatch::meta::
                semantic_of<child0>::type
              >::type                                type;
-  };
-  template<class Expr, class Domain, int N>
-  struct value_type<tag::function_, Domain, N, Expr>
-   : value_type<boost::proto::tag::function, Domain, N, Expr>
-  {
   };
 
   // assumes all nodes are terminals, incorrect
@@ -265,7 +255,7 @@ namespace ext
                             , (Expr)(State)(Data)
                             , ((expr_< unspecified_<Expr>
                                      , nt2::container::domain
-                                     , boost::proto::tag::function
+                                     , nt2::tag::function_
                                      >
                               ))
                               (fusion_sequence_<State>)

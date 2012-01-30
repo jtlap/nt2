@@ -69,7 +69,7 @@ namespace boost { namespace dispatch { namespace details
                                       , Origin
                                       >::type
                         , domain_type
-                        , tag_type
+                        , typename meta::hierarchy_of<tag_type>::type
                         >                        type;
   };
   

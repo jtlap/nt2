@@ -97,7 +97,7 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(Domain)(State)
                                     , ((expr_ < unspecified_<A0>
                                               , Domain
-                                              , boost::proto::tag::terminal
+                                              , boost::simd::tag::terminal_
                                               >
                                       ))
                                       (unspecified_<State>)
@@ -169,7 +169,7 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(Domain)(State)(Data)
                                     , ((expr_ < unspecified_<A0>
                                               , Domain
-                                              , boost::proto::tag::terminal
+                                              , boost::simd::tag::terminal_
                                               >
                                       ))
                                       (unspecified_<State>)
