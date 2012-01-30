@@ -11,6 +11,7 @@
 
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
 
 namespace nt2 { namespace ext
 {
