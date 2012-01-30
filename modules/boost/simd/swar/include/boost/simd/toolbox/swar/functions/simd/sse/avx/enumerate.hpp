@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a0, T const& ) const
     {
-      return make<result_type>(a0, a0+1, a0+2, a0+3) };
+      return make<result_type>(a0, a0+1, a0+2, a0+3);
     }
   };
 
