@@ -91,7 +91,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   vcT z(z1, z2); 
   std::cout <<  z << std::endl;
   // specific values tests
-  {
+  { 
     typedef vcT r_t; 
     NT2_TEST_ULP_EQUAL(floor(nt2::splat<vcT>(cT(-1.1, -1.6)))[0], cT(-2, -2),0);
     NT2_TEST_ULP_EQUAL(floor(nt2::splat<vcT>(cT(1.1, 1.6)))[0],  cT(1, 1),0);  

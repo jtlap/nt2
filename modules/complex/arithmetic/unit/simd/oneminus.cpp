@@ -48,7 +48,7 @@
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
+NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   {
     typedef vcT r_t;
     NT2_TEST_ULP_EQUAL(oneminus(nt2::splat<vciT>(ciT(T(-1))))[0], cT(T(1.0), T(1)),0);
-    NT2_TEST_ULP_EQUAL(oneminus(nt2::splat<vciT>(ciT(T(1))))[0], cT(T(-1.0), T(1)),0);  
+    NT2_TEST_ULP_EQUAL(oneminus(nt2::splat<vciT>(ciT(T(1))))[0], cT(T(1.0), T(-1)),0);  
     NT2_TEST_ULP_EQUAL(oneminus(nt2::Inf<vciT>())[0], -cT(-1, nt2::Inf<T>()),0);
     NT2_TEST_ULP_EQUAL(oneminus(nt2::Minf<vciT>())[0], -cT(-1, nt2::Minf<T>()),0);
     NT2_TEST_ULP_EQUAL(oneminus(nt2::Mone<vciT>())[0], -cT(-1, nt2::Mone<T>()),0);

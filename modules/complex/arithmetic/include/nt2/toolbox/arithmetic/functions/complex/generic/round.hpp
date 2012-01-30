@@ -11,7 +11,7 @@
 #include <nt2/toolbox/arithmetic/functions/round.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/hypot.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::round(imag(a0))); 
+      return bitwise_cast<result_type>(nt2::round(imag(a0))); 
     }
   };
   
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::round(real(a0))); 
+      return bitwise_cast<result_type>(nt2::round(real(a0))); 
     }
   };
 

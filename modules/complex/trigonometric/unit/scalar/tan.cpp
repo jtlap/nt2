@@ -54,14 +54,14 @@ NT2_TEST_CASE_TPL ( tan_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(1, 1)),std::tan(cT(1.0, 1.0)), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(1, 10)),std::tan(cT(1.0, 10.0)), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(10, 1)),std::tan(cT(10.0, 1.0)), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(10, 10)),std::tan(cT(10.0, 10.0)), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0, 1)),std::tan(cT(0.0, 1.0)), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0, 10)),std::tan(cT(0.0, 10.0)), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(10, 0)),std::tan(cT(10.0, 0.0)), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(1, 1)),std::tan(cT(1.0, 1.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(1, 10)),std::tan(cT(1.0, 10.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(10, 1)),std::tan(cT(10.0, 1.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(10, 10)),std::tan(cT(10.0, 10.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0, 1)),std::tan(cT(0.0, 1.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0, 10)),std::tan(cT(0.0, 10.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tan(cT(10, 0)),std::tan(cT(10.0, 0.0)), 2);
  } // end of test for floating_
 

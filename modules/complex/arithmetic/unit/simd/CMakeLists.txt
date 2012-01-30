@@ -15,10 +15,12 @@ set( SOURCES
   dist.cpp
   floor.cpp
   trunc.cpp
+  round.cpp
   max.cpp
   min.cpp
   minusone.cpp
   oneminus.cpp
+  oneplus.cpp
   )
 
 nt2_module_add_tests(complex.arithmetic.simd.unit ${SOURCES})
