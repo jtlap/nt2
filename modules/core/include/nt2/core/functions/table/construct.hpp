@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
-                                      , tag::terminal_
+                                      , nt2::tag::terminal_
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
-                                      , tag::terminal_
+                                      , nt2::tag::terminal_
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(Tag)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
-                                      , tag::terminal_
+                                      , nt2::tag::terminal_
                                       >
                               ))
                               ((expr_ < unspecified_<A1>
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
-                                      , tag::terminal_
+                                      , nt2::tag::terminal_
                                       >
                               ))
                               (scalar_< unspecified_<A1> >)
@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)(A3)
                             , ((expr_ < unspecified_<A0>
                                       , nt2::container::domain
-                                      , tag::terminal_
+                                      , nt2::tag::terminal_
                                       >
                               ))
                               (fusion_sequence_<A1>)

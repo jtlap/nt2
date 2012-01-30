@@ -15,7 +15,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_TPL( boost::simd::tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
                                   (class Data)(std::size_t N)
                                 , ((array_<scalar_< arithmetic_<Value > >,N>))
