@@ -147,7 +147,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(a0*imag(a1));
+        return bitwise_cast<result_type>(a0*imag(a1));
       }
   };
   
@@ -159,7 +159,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(imag(a0)*a1);
+        return bitwise_cast<result_type>(imag(a0)*a1);
       }
   };
   

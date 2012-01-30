@@ -21,6 +21,7 @@ set( SOURCES
   minusone.cpp
   oneminus.cpp
   oneplus.cpp
+  sqr.cpp
   )
 
 nt2_module_add_tests(complex.arithmetic.simd.unit ${SOURCES})
