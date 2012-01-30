@@ -27,7 +27,7 @@ namespace boost { namespace dispatch { namespace meta
   template<>
   struct hierarchy_of<boost::proto::tag::function>
   {
-    typedef nt2::tag::function_;
+    typedef nt2::tag::function_ type;
   };
 } } }
 

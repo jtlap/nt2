@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
   template<>
   struct hierarchy_of<boost::proto::tag::terminal>
   {
-    typedef boost::simd::tag::terminal_;
+    typedef boost::simd::tag::terminal_ type;
   };
 } } }
 
