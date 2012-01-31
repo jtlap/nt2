@@ -13,7 +13,6 @@
 #include <boost/dispatch/meta/counter.hpp>
 #include <boost/dispatch/meta/combine.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
-#include <boost/proto/tags.hpp>
 #include <boost/config.hpp>
 
 BOOST_DISPATCH_COUNTER_INIT(default_site_stack)
@@ -55,13 +54,6 @@ namespace boost { namespace dispatch { namespace meta
   template< class Signature , class Site, class Dummy = void> struct implement;
 } } }
 
-namespace boost { namespace dispatch
-{
-  namespace tag
-  {
-    typedef boost::proto::tag::terminal terminal_;
-  }
-} }
 
 #ifdef BOOST_MSVC
 #define BOOST_DISPATCH_COMBINE_SITE(new_site) BOOST_DISPATCH_COMBINE_SITE_(new_site, __COUNTER__)

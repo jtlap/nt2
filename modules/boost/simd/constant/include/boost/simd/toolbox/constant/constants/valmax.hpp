@@ -67,7 +67,7 @@ namespace boost { namespace simd
      * \brief Define the tag Valmax of functor Valmax 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Valmax 
+    struct Valmax : ext::constant_<Valmax>
     { 
       typedef double default_type;
       template<class Target, class Dummy=void> 

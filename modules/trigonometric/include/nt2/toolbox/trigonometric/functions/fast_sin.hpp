@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag fast_sin_ of functor fast_sin 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct fast_sin_ {};
+    struct fast_sin_ : ext::elementwise_<fast_sin_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_sin_, fast_sin, 1)
 }

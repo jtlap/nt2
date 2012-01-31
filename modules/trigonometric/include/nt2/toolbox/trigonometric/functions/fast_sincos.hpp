@@ -65,7 +65,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag fast_sincos_ of functor fast_sincos 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct fast_sincos_ {};
+    struct fast_sincos_ : ext::elementwise_<fast_sincos_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_sincos_, fast_sincos, 1)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::fast_sincos_, fast_sincos,(A0 const&)(A1&),2)

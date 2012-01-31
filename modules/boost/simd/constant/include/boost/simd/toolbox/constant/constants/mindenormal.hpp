@@ -64,7 +64,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mindenormal of functor Mindenormal 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Mindenormal 
+    struct Mindenormal : ext::constant_<Mindenormal>
     { 
       template<class Target, class Dummy=void> 
       struct apply : meta::int_c<Target,1> {};  

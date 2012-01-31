@@ -10,10 +10,11 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_SCHEDULE_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct schedule_ {}; }
+  namespace tag { struct schedule_ : ext::unspecified_<schedule_> {}; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::schedule_, schedule, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_, schedule, (A0 const&)(A1&), 2)

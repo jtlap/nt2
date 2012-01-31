@@ -59,7 +59,7 @@ namespace boost { namespace simd
      * \brief Define the tag enumerate_ of functor enumerate
      *        in namespace boost::simd::tag for toolbox boost.simd.enumerate
     **/
-    struct enumerate_ {};
+    struct enumerate_ : ext::unspecified_<enumerate_> {};
   }
 
   template<class T,class A0> BOOST_FORCEINLINE

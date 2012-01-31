@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag frexp_ of functor frexp 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct frexp_ {};
+    struct frexp_ : ext::elementwise_<frexp_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::frexp_, frexp, 1)
   NT2_FUNCTION_IMPLEMENTATION_TPL(fdlibm::tag::frexp_, frexp, (A0 const&)(A1&), 2)

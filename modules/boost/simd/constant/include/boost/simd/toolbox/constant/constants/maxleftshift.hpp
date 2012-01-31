@@ -64,7 +64,7 @@ namespace boost { namespace simd
      * \brief Define the tag Maxleftshift of functor Maxleftshift 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Maxleftshift 
+    struct Maxleftshift : ext::constant_<Maxleftshift>
     { 
       template<class Target, class Dummy=void> 
       struct  apply 

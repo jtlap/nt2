@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace tag
   {         
-    struct tchebeval_ {};
+    struct tchebeval_ : ext::elementwise_<tchebeval_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::tchebeval_, tchebeval, 2)
 }

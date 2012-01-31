@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_even_ of functor is_even 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_even_ {};
+    struct is_even_ : ext::elementwise_<is_even_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_even_, is_even, 1)
 } }

@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag ceil_ of functor ceil 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct ceil_ {};
+    struct ceil_ : ext::elementwise_<ceil_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::ceil_, ceil, 1)
   } }

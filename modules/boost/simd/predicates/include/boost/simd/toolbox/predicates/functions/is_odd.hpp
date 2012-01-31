@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_odd_ of functor is_odd 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_odd_ {};
+    struct is_odd_ : ext::elementwise_<is_odd_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_odd_, is_odd, 1)
 } }

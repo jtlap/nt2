@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag erfc_inv_ of functor erfc_inv 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct erfc_inv_ {};
+    struct erfc_inv_ : ext::elementwise_<erfc_inv_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::erfc_inv_, erfc_inv, 1)
   } }

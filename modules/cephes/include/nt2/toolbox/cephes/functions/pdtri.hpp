@@ -73,7 +73,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag pdtri_ of functor pdtri 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct pdtri_ {};
+    struct pdtri_ : ext::elementwise_<pdtri_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::pdtri_, pdtri, 2)
   } }

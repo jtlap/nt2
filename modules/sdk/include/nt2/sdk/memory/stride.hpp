@@ -23,7 +23,7 @@
 
 namespace nt2
 {
-  namespace tag { struct stride_ {}; }
+  namespace tag { struct stride_ : boost::dispatch::meta::unspecified_<stride_> {}; }
 
   //////////////////////////////////////////////////////////////////////////////
   // stride_ computes the jump in elements between two elements on a given dim

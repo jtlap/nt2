@@ -68,7 +68,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag ibeta_derivative_ of functor ibeta_derivative 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct ibeta_derivative_ {};
+    struct ibeta_derivative_ : ext::elementwise_<ibeta_derivative_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ibeta_derivative_, ibeta_derivative, 3)
   } }

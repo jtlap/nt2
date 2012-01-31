@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag floor_ of functor floor 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct floor_ {};
+    struct floor_ : ext::elementwise_<floor_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::floor_, floor, 1)
   } }

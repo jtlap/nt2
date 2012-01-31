@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag cosh_ of functor cosh 
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
-    struct cosh_ {};
+    struct cosh_ : ext::elementwise_<cosh_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::cosh_, cosh, 1)
 }

@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag lgam_ of functor lgam 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct lgam_ {};
+    struct lgam_ : ext::elementwise_<lgam_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::lgam_, lgam, 1)
   } }

@@ -59,7 +59,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag nthroot_ of functor nthroot 
      *        in namespace nt2::tag for toolbox exponential
     **/
-    struct nthroot_ {};
+    struct nthroot_ : ext::elementwise_<nthroot_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::nthroot_, nthroot, 2)
 }

@@ -67,13 +67,12 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag double_factorial_ of functor double_factorial 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    template <class T> struct double_factorial_ {};
+    template <class T> struct double_factorial_ : ext::elementwise_< double_factorial_<T> > {};
   }
   NT2_BOOST_MATH_FUNCTION_IMPLEMENTATION_TPL(double_factorial,1)
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/double_factorial.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/double_factorial.hpp> 
 
 #endif
 

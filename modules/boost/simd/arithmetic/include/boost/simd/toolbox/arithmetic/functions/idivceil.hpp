@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag idivceil_ of functor idivceil 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct idivceil_ {};
+    struct idivceil_ : ext::elementwise_<idivceil_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::idivceil_, idivceil, 2)
 } }

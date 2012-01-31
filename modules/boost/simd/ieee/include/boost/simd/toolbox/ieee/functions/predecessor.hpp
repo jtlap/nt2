@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag predecessor_ of functor predecessor 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct predecessor_ {};
+    struct predecessor_ : ext::elementwise_<predecessor_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::predecessor_, predecessor, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::predecessor_, predecessor, 1)

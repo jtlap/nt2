@@ -97,7 +97,7 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(Domain)(State)
                                     , ((expr_ < unspecified_<A0>
                                               , Domain
-                                              , tag::terminal_ 
+                                              , boost::simd::tag::terminal_
                                               >
                                       ))
                                       (unspecified_<State>)
@@ -107,13 +107,13 @@ namespace boost { namespace simd { namespace ext
     
     template<class This, class A0_, class State_>
     struct  result<This(A0_, State_)>
-          : dispatch::meta::call<tag::terminal_(A0_, State_)> {};
+          : dispatch::meta::call<boost::proto::tag::terminal(A0_, State_)> {};
       
     template<class A0_, class State_>
     BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, State_&)>::type
     operator()(A0_& a0, State_& state) const
     {
-      typename dispatch::make_functor<tag::terminal_, A0>::type callee;
+      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
       return callee(a0, state);
     }
   };
@@ -169,7 +169,7 @@ namespace boost { namespace simd { namespace ext
                                     , (A0)(Domain)(State)(Data)
                                     , ((expr_ < unspecified_<A0>
                                               , Domain
-                                              , tag::terminal_ 
+                                              , boost::simd::tag::terminal_
                                               >
                                       ))
                                       (unspecified_<State>)
@@ -180,14 +180,14 @@ namespace boost { namespace simd { namespace ext
     
     template<class This, class A0_, class State_, class Data_>
     struct  result<This(A0_, State_, Data_)>
-          : dispatch::meta::call<tag::terminal_(A0_, State_, Data_)>
+          : dispatch::meta::call<boost::proto::tag::terminal(A0_, State_, Data_)>
     {};
       
     template<class A0_, class State_, class Data_> BOOST_DISPATCH_FORCE_INLINE 
     typename result<implement(A0_&, State_&, Data_&)>::type
     operator()(A0_& a0, State_& state, Data_& data) const
     {
-      typename dispatch::make_functor<tag::terminal_, A0>::type callee;
+      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
       return callee(a0, state,data);
     }
   }; 

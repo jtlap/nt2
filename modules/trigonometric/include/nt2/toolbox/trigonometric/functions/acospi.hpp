@@ -56,7 +56,7 @@ namespace nt2 {
      * \brief Define the tag acospi_ of functor acospi 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct acospi_ {};
+    struct acospi_ : ext::elementwise_<acospi_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::acospi_, acospi, 1)
 }

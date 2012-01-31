@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag sph_neumann_ of functor sph_neumann 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct sph_neumann_ {};
+    struct sph_neumann_ : ext::elementwise_<sph_neumann_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sph_neumann_, sph_neumann, 2)
   } }

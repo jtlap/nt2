@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_unord_ of functor is_unord 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_unord_ {};
+    struct is_unord_ : ext::elementwise_<is_unord_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_unord_, is_unord, 2)
 } }

@@ -62,7 +62,7 @@ namespace nt2
      * \brief Define the tag tocomplex_ of functor tocomplex 
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct tocomplex_ {};
+    struct tocomplex_ : ext::elementwise_<tocomplex_> {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tocomplex_, tocomplex, 1)

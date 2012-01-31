@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag cos_ of functor cos 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct cos_ {};
+    struct cos_ : ext::elementwise_<cos_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::cos_, cos, 1)
   } }

@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag erfc_ of functor erfc 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct erfc_ {};
+    struct erfc_ : ext::elementwise_<erfc_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::erfc_, erfc, 1)
   } }

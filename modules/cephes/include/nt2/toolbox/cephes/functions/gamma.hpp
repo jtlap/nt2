@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag gamma_ of functor gamma 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct gamma_ {};
+    struct gamma_ : ext::elementwise_<gamma_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::gamma_, gamma, 1)
   } }

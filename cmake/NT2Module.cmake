@@ -146,7 +146,7 @@ macro(nt2_module_dir dir)
       endif()
 
       nt2_module_set_build_type(${BUILD_TYPE})
-      project(${NT2_CURRENT_MODULE}.${dir}) # would be better in directory
+      project(NT2_${NT2_CURRENT_MODULE_U}.${dir}) # would be better in directory
       add_subdirectory(${dir})
       nt2_module_restore_build_type()
     endif()

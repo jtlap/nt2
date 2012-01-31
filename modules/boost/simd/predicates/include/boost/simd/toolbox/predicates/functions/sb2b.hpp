@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag sb2b_ of functor sb2b 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct sb2b_ {};
+    struct sb2b_ : ext::elementwise_<sb2b_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sb2b_, sb2b, 1)
 } }

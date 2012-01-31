@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag sbits_ of functor sbits 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct sbits_ {};
+    struct sbits_ : ext::elementwise_<sbits_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sbits_, sbits, 1)
 } }

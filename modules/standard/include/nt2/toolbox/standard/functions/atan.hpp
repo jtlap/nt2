@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag atan_ of functor atan 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct atan_ {};
+    struct atan_ : ext::elementwise_<atan_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::atan_, atan, 1)
   } }

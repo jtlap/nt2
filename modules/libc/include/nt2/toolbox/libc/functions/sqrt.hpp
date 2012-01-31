@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag sqrt_ of functor sqrt 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct sqrt_ {};
+    struct sqrt_ : ext::elementwise_<sqrt_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::sqrt_, sqrt, 1)
   } }

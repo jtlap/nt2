@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag bitwise_ornot_ of functor bitwise_ornot 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
-    struct bitwise_ornot_ {};
+    struct bitwise_ornot_ : ext::elementwise_<bitwise_ornot_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, bitwise_ornot, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_ornot_, b_ornot, 2)

@@ -78,11 +78,20 @@ namespace boost { namespace simd
      * \brief Define the tag compare_not_equal_ of functor compare_not_equal 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::not_equal_to compare_not_equal_;
+    struct compare_not_equal_ : ext::reduction_<compare_not_equal_> {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_not_equal_, compare_not_equal , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_not_equal_, compare_neq       , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::not_equal_to>
+  {
+    typedef boost::simd::tag::compare_not_equal_ type;
+  };
+} } }
 
 #endif

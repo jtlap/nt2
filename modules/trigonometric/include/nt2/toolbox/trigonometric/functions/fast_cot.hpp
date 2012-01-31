@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag fast_cot_ of functor fast_cot 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct fast_cot_ {};
+    struct fast_cot_ : ext::elementwise_<fast_cot_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fast_cot_, fast_cot, 1)
 }

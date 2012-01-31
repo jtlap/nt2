@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag j0_ of functor j0 
      *        in namespace nt2::tag for toolbox bessel
     **/
-    struct j0_ {};
+    struct j0_ : ext::elementwise_<j0_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::j0_, j0, 1)
 }

@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag acot_ of functor acot 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct acot_ {};
+    struct acot_ : ext::elementwise_<acot_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::acot_, acot, 1)
 }

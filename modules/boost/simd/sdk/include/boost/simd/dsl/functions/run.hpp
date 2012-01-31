@@ -10,10 +10,11 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_RUN_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct run_ {}; }
+  namespace tag { struct run_ : ext::unspecified_<run_>{}; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::run_, run, (A0 const&), 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::run_, run, (A0&), 1)

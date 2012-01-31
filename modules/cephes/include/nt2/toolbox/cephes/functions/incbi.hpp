@@ -74,7 +74,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag incbi_ of functor incbi 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct incbi_ {};
+    struct incbi_ : ext::elementwise_<incbi_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::incbi_, incbi, 3)
   } }

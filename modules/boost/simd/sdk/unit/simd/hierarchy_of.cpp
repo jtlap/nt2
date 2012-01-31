@@ -94,9 +94,9 @@ NT2_TEST_CASE(pack_category)
   using boost::is_same;
   using namespace boost::simd;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION    ext_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION   ext_t;
   typedef boost::simd::domain            domain_;
-  typedef boost::proto::tag::terminal      tag_;
+  typedef boost::simd::tag::terminal_    tag_;
 
   std::cout << nt2::type_id< hierarchy_of< pack<double> >::type >() << std::endl;
 
@@ -180,7 +180,7 @@ NT2_TEST_CASE_TPL(pack_expr_category, BOOST_SIMD_SIMD_TYPES)
                 pack<T>
             >::type
           , typename boost::proto::domain_of<pack<T> >::type
-          , boost::proto::tag::terminal
+          , boost::simd::tag::terminal_
         >
     >::value
   ));
@@ -195,7 +195,7 @@ NT2_TEST_CASE_TPL(pack_expr_category, BOOST_SIMD_SIMD_TYPES)
   NT2_TEST(( is_same< typename hierarchy_of<type_t>::type
                     , expr_< typename hierarchy_of<semantic_t, type_t>::type
                            , domain_t
-                           , boost::proto::tag::plus
+                           , boost::simd::tag::plus_
                            >
                     >::value
           ));

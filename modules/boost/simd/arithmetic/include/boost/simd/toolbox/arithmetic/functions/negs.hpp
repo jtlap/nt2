@@ -58,7 +58,7 @@ namespace boost { namespace simd {
      * \brief Define the tag negs_ of functor negs 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct negs_ {};
+    struct negs_ : ext::elementwise_<negs_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, negs, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negs_, saturated_neg, 1)

@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag sinhc_pi_ of functor sinhc_pi 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct sinhc_pi_ {};
+    struct sinhc_pi_ : ext::elementwise_<sinhc_pi_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sinhc_pi_, sinhc_pi, 1)
   } }

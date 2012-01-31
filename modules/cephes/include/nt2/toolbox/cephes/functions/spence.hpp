@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag spence_ of functor spence 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct spence_ {};
+    struct spence_ : ext::elementwise_<spence_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::spence_, spence, 1)
   } }

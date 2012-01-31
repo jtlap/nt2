@@ -26,11 +26,26 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef generic_< typename property_of<T>::type > parent;
   };
+  
+  template<class T>
+  struct elementwise_ : unspecified_<T>
+  {
+    typedef unspecified_<T> parent;
+  };
+  
+  template<class T>
+  struct reduction_ : unspecified_<T>
+  {
+    typedef unspecified_<T> parent;
+  };
+  
 } } }
 
 namespace boost { namespace simd { namespace ext
 {
   using boost::dispatch::meta::simd_;
+  using boost::dispatch::meta::elementwise_;
+  using boost::dispatch::meta::reduction_;
 } } }
 
 #endif

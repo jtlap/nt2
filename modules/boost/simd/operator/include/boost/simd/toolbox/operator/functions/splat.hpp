@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag splat_ of functor splat 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct splat_  {};
+    struct splat_ : ext::elementwise_<splat_> {};
   }
 
   template<class T, class A0> inline

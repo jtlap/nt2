@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag sinh_ of functor sinh 
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
-    struct sinh_ {};
+    struct sinh_ : ext::elementwise_<sinh_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sinh_, sinh, 1)
 }

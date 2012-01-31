@@ -76,11 +76,20 @@ namespace boost { namespace simd
      * \brief Define the tag compare_less_equal_ of functor compare_less_equal 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::less_equal compare_less_equal_;
+    struct compare_less_equal_ : ext::reduction_<compare_less_equal_> {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_less_equal_, compare_less_equal , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_less_equal_, compare_le         , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::less_equal>
+  {
+    typedef boost::simd::tag::compare_less_equal_ type;
+  };
+} } }
 
 #endif

@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag sqrt1pm1_ of functor sqrt1pm1 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct sqrt1pm1_ {};
+    struct sqrt1pm1_ : ext::elementwise_<sqrt1pm1_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sqrt1pm1_, sqrt1pm1, 1)
   } }

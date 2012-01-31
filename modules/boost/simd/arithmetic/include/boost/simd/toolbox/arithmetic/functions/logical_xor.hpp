@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag logical_xor_ of functor logical_xor 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct logical_xor_ {};
+    struct logical_xor_ : ext::elementwise_<logical_xor_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_xor_, logical_xor, 2)
 } }

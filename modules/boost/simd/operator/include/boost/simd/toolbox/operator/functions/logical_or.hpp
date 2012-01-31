@@ -74,11 +74,20 @@ namespace boost { namespace simd
      * \brief Define the tag logical_or_ of functor logical_or 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::logical_or logical_or_;
+    struct logical_or_ : ext::elementwise_<logical_or_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_or_      , logical_or     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_or_      , l_or           , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::logical_or>
+  {
+    typedef boost::simd::tag::logical_or_ type;
+  };
+} } }
 
 #endif

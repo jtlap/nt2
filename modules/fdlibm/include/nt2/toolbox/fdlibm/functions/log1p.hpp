@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag log1p_ of functor log1p 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct log1p_ {};
+    struct log1p_ : ext::elementwise_<log1p_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::log1p_, log1p, 1)
   } }

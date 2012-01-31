@@ -63,11 +63,20 @@ namespace boost { namespace simd
      * \brief Define the tag comma_ of functor comma 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::comma comma_;
+    struct comma_ : ext::elementwise_<comma_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comma_ , comma  , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comma_ , then   , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::comma>
+  {
+    typedef boost::simd::tag::comma_ type;
+  };
+} } }
 
 #endif

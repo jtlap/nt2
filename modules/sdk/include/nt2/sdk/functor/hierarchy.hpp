@@ -33,9 +33,6 @@ namespace nt2
     // Sites
     using boost::dispatch::tag::formal_;
     using boost::dispatch::tag::cpu_;
-    
-    // Tags
-    using boost::dispatch::tag::terminal_;
   }
   
 namespace ext

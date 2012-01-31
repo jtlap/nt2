@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace tag
   {         
-    struct laguerre_ {};
+    struct laguerre_ : ext::elementwise_<laguerre_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::laguerre_, laguerre, 2)
 }

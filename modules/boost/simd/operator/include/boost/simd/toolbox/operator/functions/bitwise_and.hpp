@@ -69,11 +69,20 @@ namespace boost { namespace simd
      * \brief Define the tag bitwise_and_ of functor bitwise_and 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::bitwise_and bitwise_and_;
+    struct bitwise_and_ : ext::elementwise_<bitwise_and_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_and_      , bitwise_and     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_and_      , b_and           , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::bitwise_and>
+  {
+    typedef boost::simd::tag::bitwise_and_ type;
+  };
+} } }
 
 #endif

@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag tofloat_ of functor tofloat 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct tofloat_ {};
+    struct tofloat_ : ext::elementwise_<tofloat_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tofloat_, tofloat, 1)
 } }

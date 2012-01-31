@@ -65,12 +65,21 @@ namespace boost { namespace simd
      * \brief Define the tag complement_ of functor complement 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::complement complement_;
+    struct complement_ : ext::elementwise_<complement_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , complement  , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , bitwise_not , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::complement_ , b_not       , 1 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::complement>
+  {
+    typedef boost::simd::tag::complement_ type;
+  };
+} } }
 
 #endif

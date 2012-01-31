@@ -57,7 +57,7 @@ namespace boost { namespace simd {
      * \brief Define the tag muls_ of functor muls 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct muls_ {};
+    struct muls_ : ext::elementwise_<muls_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::muls_, muls, 2)
 } }

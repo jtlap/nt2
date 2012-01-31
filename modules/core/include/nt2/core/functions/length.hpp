@@ -18,7 +18,7 @@
 
 namespace nt2 
 { 
-  namespace tag { struct length_ {}; }
+  namespace tag { struct length_ : ext::unspecified_<length_> {}; }
 
   //============================================================================
   /*!

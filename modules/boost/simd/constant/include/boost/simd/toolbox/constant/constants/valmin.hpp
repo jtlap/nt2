@@ -72,7 +72,7 @@ namespace boost { namespace simd
      * \brief Define the tag Valmin of functor Valmin 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Valmin
+    struct Valmin : ext::constant_<Valmin>
     { 
       typedef double default_type;
       template<class Target, class Dummy=void> 

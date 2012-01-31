@@ -59,7 +59,7 @@ namespace nt2
      * \brief Define the tag c_real_ of functor c_real 
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct c_real_ {};
+    struct c_real_ : ext::elementwise_<c_real_> {};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::c_real_, c_real, 1)

@@ -13,7 +13,7 @@
 
 namespace nt2
 {
-  namespace tag { struct size_ {}; }
+  namespace tag { struct size_ : ext::unspecified_<size_> {}; }
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::size_, size, 1)
 }
 

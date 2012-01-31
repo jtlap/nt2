@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag sum_ of functor sum 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct sum_ {};
+    struct sum_ : ext::reduction_<sum_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 1)
 } }

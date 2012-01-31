@@ -67,7 +67,7 @@ namespace boost { namespace simd
      * \brief Define the tag is_greater_ of functor is_greater 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_greater_ {};
+    struct is_greater_ : ext::elementwise_<is_greater_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_greater_, is_greater , 2 )

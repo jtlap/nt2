@@ -68,7 +68,7 @@ namespace boost { namespace simd
      * \brief Define the tag is_not_equal_ of functor is_not_equal 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_not_equal_ {};
+    struct is_not_equal_ : ext::elementwise_<is_not_equal_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_equal_, is_not_equal , 2 )

@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag cyl_bessel_k_ of functor cyl_bessel_k 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct cyl_bessel_k_ {};
+    struct cyl_bessel_k_ : ext::elementwise_<cyl_bessel_k_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::cyl_bessel_k_, cyl_bessel_k, 2)
   } }

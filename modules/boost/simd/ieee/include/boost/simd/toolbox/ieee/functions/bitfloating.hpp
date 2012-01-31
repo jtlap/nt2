@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag bitfloating_ of functor bitfloating 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct bitfloating_ {};
+    struct bitfloating_ : ext::elementwise_<bitfloating_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitfloating_, bitfloating, 1)
 } }

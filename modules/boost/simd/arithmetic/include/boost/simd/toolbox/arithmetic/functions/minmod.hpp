@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag minmod_ of functor minmod 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct minmod_ {};
+    struct minmod_ : ext::elementwise_<minmod_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minmod_, minmod, 2)
 } }

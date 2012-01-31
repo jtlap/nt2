@@ -13,7 +13,7 @@
 
 namespace nt2 
 { 
-  namespace tag { struct value_at_ {}; }
+  namespace tag { struct value_at_ : ext::unspecified_<value_at_> {}; }
   NT2_FUNCTION_IMPLEMENTATION(tag::value_at_, value_at, 2)
 }
 

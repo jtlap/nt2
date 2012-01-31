@@ -67,11 +67,20 @@ namespace boost { namespace simd
      * \brief Define the tag shift_left_ of functor shift_left 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::shift_left shift_left_;
+    struct shift_left_ : ext::elementwise_<shift_left_>{};
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_left_             , shift_left     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_left_             , shl            , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::shift_left>
+  {
+    typedef boost::simd::tag::shift_left_ type;
+  };
+} } }
 
 #endif

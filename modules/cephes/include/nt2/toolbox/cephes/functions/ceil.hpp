@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag ceil_ of functor ceil 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct ceil_ {};
+    struct ceil_ : ext::elementwise_<ceil_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::ceil_, ceil, 1)
   } }

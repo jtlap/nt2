@@ -64,7 +64,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag definitely_not_equal_ of functor definitely_not_equal 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
-    struct definitely_not_equal_ {};
+    struct definitely_not_equal_ : ext::elementwise_<definitely_not_equal_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::definitely_not_equal_, definitely_not_equal, 3)
 }

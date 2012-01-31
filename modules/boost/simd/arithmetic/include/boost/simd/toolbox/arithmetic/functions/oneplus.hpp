@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag oneplus_ of functor oneplus 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct oneplus_ {};
+    struct oneplus_ : ext::elementwise_<oneplus_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::oneplus_, oneplus, 1)
 } }

@@ -73,7 +73,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag powi_ of functor powi 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct powi_ {};
+    struct powi_ : ext::elementwise_<powi_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::powi_, powi, 2)
   } }

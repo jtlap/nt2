@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag seladd_ of functor seladd 
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
-    struct seladd_ {};
+    struct seladd_ : ext::elementwise_<seladd_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::seladd_, seladd, 3)
 } }

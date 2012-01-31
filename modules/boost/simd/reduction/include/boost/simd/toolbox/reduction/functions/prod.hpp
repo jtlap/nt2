@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag prod_ of functor prod 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct prod_ {};
+    struct prod_ : ext::reduction_<prod_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prod_, prod, 1)
 } }

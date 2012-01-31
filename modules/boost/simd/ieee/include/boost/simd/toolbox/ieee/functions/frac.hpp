@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag frac_ of functor frac 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct frac_ {};
+    struct frac_ : ext::elementwise_<frac_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::frac_, frac, 1)
 } }

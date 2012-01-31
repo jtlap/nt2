@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag bits_ of functor bits 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
-    struct bits_ {};
+    struct bits_ : ext::elementwise_<bits_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bits_, bits, 1)
 } }

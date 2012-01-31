@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag cumsum_ of functor cumsum 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct cumsum_ {};
+    struct cumsum_ : ext::unspecified_<cumsum_>{};
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumsum_, cumsum, 1)
 } }

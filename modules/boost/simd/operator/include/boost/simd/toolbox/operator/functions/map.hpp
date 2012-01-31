@@ -51,11 +51,17 @@
  *  
 **/
 
-namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
+namespace boost { namespace simd
+{
   /*!
    * \brief Define the tag map_ of functor map 
    *        in namespace boost::simd::tag for toolbox boost.simd.operator
   **/
+  namespace tag
+  {
+    struct map_ : ext::elementwise_<map_> {};
+  }
+} }
 
 namespace boost { namespace simd
 {
