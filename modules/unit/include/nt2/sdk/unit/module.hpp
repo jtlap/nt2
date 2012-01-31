@@ -56,6 +56,9 @@
 
 #ifndef NT2_UNIT_MAIN
 #define NT2_UNIT_MAIN main
+#define NT2_UNIT_MAIN_SPEC
+#else
+#define NT2_UNIT_MAIN_SPEC extern "C"
 #endif
 
 #define NT2_UNIT_PREFIX BOOST_PP_CAT(BOOST_PP_CAT(test_, NT2_UNIT_MAIN), _)
@@ -64,7 +67,7 @@
 // Embedded main for testing purpose
 //==============================================================================
 #ifndef BOOST_NO_EXCEPTIONS
-extern "C" int NT2_UNIT_MAIN(int, char**)
+NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
 {
   try
   {
@@ -83,7 +86,7 @@ extern "C" int NT2_UNIT_MAIN(int, char**)
   }
 }
 #else
-extern "C" int NT2_UNIT_MAIN(int, char**)
+NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
 {
   nt2::details::main_suite.process();
   return nt2::details::error_count() ? -1: 0;
