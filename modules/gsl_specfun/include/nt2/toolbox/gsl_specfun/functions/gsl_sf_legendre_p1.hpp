@@ -69,7 +69,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_legendre_p1_ of functor gsl_sf_legendre_p1 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_legendre_p1_ : ext::elementwise_<gsl_sf_legendre_p1_> {};
+    struct gsl_sf_legendre_p1_ : ext::elementwise_<gsl_sf_legendre_p1_> : ext::elementwise_<gsl_sf_legendre_p1_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_legendre_p1_, gsl_sf_legendre_p1, 1)
   } }

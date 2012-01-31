@@ -69,7 +69,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_debye_5_ of functor gsl_sf_debye_5 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_debye_5_ : ext::elementwise_<gsl_sf_debye_5_> {};
+    struct gsl_sf_debye_5_ : ext::elementwise_<gsl_sf_debye_5_> : ext::elementwise_<gsl_sf_debye_5_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_debye_5_, gsl_sf_debye_5, 1)
   } }

@@ -69,7 +69,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_lambert_w0_ of functor gsl_sf_lambert_w0 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_lambert_w0_ : ext::elementwise_<gsl_sf_lambert_w0_> {};
+    struct gsl_sf_lambert_w0_ : ext::elementwise_<gsl_sf_lambert_w0_> : ext::elementwise_<gsl_sf_lambert_w0_> {};
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_lambert_w0_, gsl_sf_lambert_w0, 1)
   } }
