@@ -53,7 +53,7 @@ namespace nt2 { namespace openmp
         #pragma omp for
         for(std::ptrdiff_t j=olow;j < obound;++j)
         {
-          for(std::ptrdiff_t i=ilow;i < ibound;i += s)
+          for(std::ptrdiff_t i=ilow;i < ibound;i += Step::value)
           {
             f( boost::fusion::vector_tie(i,j), s);
           }
@@ -84,7 +84,7 @@ namespace nt2 { namespace openmp
                                     * Step::value;
 
       #pragma omp parallel for
-      for(std::ptrdiff_t i=low;i < aligned_bound;i += s)
+      for(std::ptrdiff_t i=low;i < aligned_bound;i += Step::value)
       {
         f( boost::fusion::vector_tie(i), s);
       }
