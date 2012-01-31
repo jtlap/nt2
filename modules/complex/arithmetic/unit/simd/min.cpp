@@ -56,7 +56,6 @@ NT2_TEST_CASE_TPL ( min_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT; 
   typedef native<dT ,ext_t>                           vdT; 
-  using boost::simd::native;
    double ulpd;
    ulpd=0.0;
    
