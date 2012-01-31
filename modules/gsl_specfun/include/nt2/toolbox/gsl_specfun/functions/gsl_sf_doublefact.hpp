@@ -70,7 +70,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_doublefact_ of functor gsl_sf_doublefact 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    template < class T> struct gsl_sf_doublefact_ {};
+    template<class T> struct gsl_sf_doublefact_ : ext::elementwise_< gsl_sf_doublefact_<T> > {};
   }
   NT2_GSL_SPECFUN_FUNCTION_IMPLEMENTATION_TPL(gsl_sf_doublefact,1)
   //  NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_doublefact_, gsl_sf_doublefact, 1)
