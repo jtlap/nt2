@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag tgamma_delta_ratio_ of functor tgamma_delta_ratio 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct tgamma_delta_ratio_ : ext::elementwise_<tgamma_delta_ratio_> {};
+    struct tgamma_delta_ratio_ : ext::elementwise_<tgamma_delta_ratio_> { typedef ext::elementwise_<tgamma_delta_ratio_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::tgamma_delta_ratio_, tgamma_delta_ratio, 2)
   } }

@@ -70,7 +70,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_bessel_jnu_ of functor gsl_sf_bessel_jnu 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_bessel_jnu_ : ext::elementwise_<gsl_sf_bessel_jnu_> {};
+    struct gsl_sf_bessel_jnu_ : ext::elementwise_<gsl_sf_bessel_jnu_> { typedef ext::elementwise_<gsl_sf_bessel_jnu_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_bessel_jnu_, gsl_sf_bessel_jnu, 2)
   } }

@@ -69,7 +69,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_dawson_ of functor gsl_sf_dawson 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_dawson_ : ext::elementwise_<gsl_sf_dawson_> {};
+    struct gsl_sf_dawson_ : ext::elementwise_<gsl_sf_dawson_> { typedef ext::elementwise_<gsl_sf_dawson_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_dawson_, gsl_sf_dawson, 1)
   } }

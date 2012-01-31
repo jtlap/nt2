@@ -56,7 +56,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag jni_ of functor jni 
      *        in namespace nt2::tag for toolbox bessel
     **/
-    struct jni_ : ext::elementwise_<jni_> {};
+    struct jni_ : ext::elementwise_<jni_> { typedef ext::elementwise_<jni_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::jni_, jni, 2)
 }

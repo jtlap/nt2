@@ -73,7 +73,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag atan2_ of functor atan2 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct atan2_ : ext::elementwise_<atan2_> {};
+    struct atan2_ : ext::elementwise_<atan2_> { typedef ext::elementwise_<atan2_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::atan2_, atan2, 2)
   } }

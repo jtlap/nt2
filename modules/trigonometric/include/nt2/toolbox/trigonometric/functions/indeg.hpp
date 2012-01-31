@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag indeg_ of functor indeg 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct indeg_ : ext::elementwise_<indeg_> {};
+    struct indeg_ : ext::elementwise_<indeg_> { typedef ext::elementwise_<indeg_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::indeg_, indeg, 1)
 }

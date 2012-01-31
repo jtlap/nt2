@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag gamma_q_inva_ of functor gamma_q_inva 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct gamma_q_inva_ : ext::elementwise_<gamma_q_inva_> {};
+    struct gamma_q_inva_ : ext::elementwise_<gamma_q_inva_> { typedef ext::elementwise_<gamma_q_inva_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::gamma_q_inva_, gamma_q_inva, 2)
   } }

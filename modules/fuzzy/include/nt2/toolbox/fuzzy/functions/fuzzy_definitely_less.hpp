@@ -64,7 +64,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag fuzzy_definitely_less_ of functor fuzzy_definitely_less 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
-    struct fuzzy_definitely_less_ : ext::elementwise_<fuzzy_definitely_less_> {};
+    struct fuzzy_definitely_less_ : ext::elementwise_<fuzzy_definitely_less_> { typedef ext::elementwise_<fuzzy_definitely_less_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fuzzy_definitely_less_, fuzzy_definitely_less, 3)
 }

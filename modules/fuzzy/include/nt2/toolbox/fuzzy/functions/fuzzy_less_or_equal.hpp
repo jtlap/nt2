@@ -64,7 +64,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag fuzzy_less_or_equal_ of functor fuzzy_less_or_equal 
      *        in namespace nt2::tag for toolbox fuzzy
     **/
-    struct fuzzy_less_or_equal_ : ext::elementwise_<fuzzy_less_or_equal_> {};
+    struct fuzzy_less_or_equal_ : ext::elementwise_<fuzzy_less_or_equal_> { typedef ext::elementwise_<fuzzy_less_or_equal_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::fuzzy_less_or_equal_, fuzzy_less_or_equal, 3)
 }

@@ -68,7 +68,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag ellint3_3_ of functor ellint3_3 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct ellint3_3_ : ext::elementwise_<ellint3_3_> {};
+    struct ellint3_3_ : ext::elementwise_<ellint3_3_> { typedef ext::elementwise_<ellint3_3_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ellint3_3_, ellint3_3, 3)
   } }

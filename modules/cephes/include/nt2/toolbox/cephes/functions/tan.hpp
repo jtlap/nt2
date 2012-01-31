@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag tan_ of functor tan 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct tan_ : ext::elementwise_<tan_> {};
+    struct tan_ : ext::elementwise_<tan_> { typedef ext::elementwise_<tan_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::tan_, tan, 1)
   } }

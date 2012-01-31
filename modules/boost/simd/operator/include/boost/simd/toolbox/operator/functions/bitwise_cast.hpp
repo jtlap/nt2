@@ -66,7 +66,7 @@ namespace boost { namespace simd
      * \brief Define the tag bitwise_cast_ of functor bitwise_cast
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct bitwise_cast_ : ext::elementwise_<bitwise_cast_> {};
+    struct bitwise_cast_ : ext::elementwise_<bitwise_cast_> { typedef ext::elementwise_<bitwise_cast_> parent; };
   }
 
   template<class T, class A0>

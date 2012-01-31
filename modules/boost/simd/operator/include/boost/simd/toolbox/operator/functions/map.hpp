@@ -59,7 +59,7 @@ namespace boost { namespace simd
   **/
   namespace tag
   {
-    struct map_ : ext::elementwise_<map_> {};
+    struct map_ : ext::elementwise_<map_> { typedef ext::elementwise_<map_> parent; };
   }
 } }
 

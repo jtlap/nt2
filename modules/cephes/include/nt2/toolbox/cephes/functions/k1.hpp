@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag k1_ of functor k1 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct k1_ : ext::elementwise_<k1_> {};
+    struct k1_ : ext::elementwise_<k1_> { typedef ext::elementwise_<k1_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::k1_, k1, 1)
   } }

@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag fabs_ of functor fabs 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct fabs_ : ext::elementwise_<fabs_> {};
+    struct fabs_ : ext::elementwise_<fabs_> { typedef ext::elementwise_<fabs_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::fabs_, fabs, 1)
   } }

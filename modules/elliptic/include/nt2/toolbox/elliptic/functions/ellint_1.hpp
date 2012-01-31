@@ -57,7 +57,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag ellint_1_ of functor ellint_1 
      *        in namespace nt2::tag for toolbox elliptic
     **/
-    struct ellint_1_ : ext::elementwise_<ellint_1_> {};
+    struct ellint_1_ : ext::elementwise_<ellint_1_> { typedef ext::elementwise_<ellint_1_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::ellint_1_, ellint_1, 1)
 }

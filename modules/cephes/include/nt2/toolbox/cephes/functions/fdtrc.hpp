@@ -74,7 +74,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag fdtrc_ of functor fdtrc 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct fdtrc_ : ext::elementwise_<fdtrc_> {};
+    struct fdtrc_ : ext::elementwise_<fdtrc_> { typedef ext::elementwise_<fdtrc_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::fdtrc_, fdtrc, 3)
   } }

@@ -71,7 +71,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_gegenpoly_n_ of functor gsl_sf_gegenpoly_n 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_gegenpoly_n_ : ext::elementwise_<gsl_sf_gegenpoly_n_> {};
+    struct gsl_sf_gegenpoly_n_ : ext::elementwise_<gsl_sf_gegenpoly_n_> { typedef ext::elementwise_<gsl_sf_gegenpoly_n_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_gegenpoly_n_, gsl_sf_gegenpoly_n, 3)
   } }

@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag acosh_ of functor acosh 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct acosh_ : ext::elementwise_<acosh_> {};
+    struct acosh_ : ext::elementwise_<acosh_> { typedef ext::elementwise_<acosh_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::acosh_, acosh, 1)
   } }

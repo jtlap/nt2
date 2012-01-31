@@ -69,7 +69,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_hazard_ of functor gsl_sf_hazard 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_hazard_ : ext::elementwise_<gsl_sf_hazard_> {};
+    struct gsl_sf_hazard_ : ext::elementwise_<gsl_sf_hazard_> { typedef ext::elementwise_<gsl_sf_hazard_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_hazard_, gsl_sf_hazard, 1)
   } }

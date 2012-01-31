@@ -57,7 +57,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag sqrt1pm1_ of functor sqrt1pm1 
      *        in namespace nt2::tag for toolbox exponential
     **/
-    struct sqrt1pm1_ : ext::elementwise_<sqrt1pm1_> {};
+    struct sqrt1pm1_ : ext::elementwise_<sqrt1pm1_> { typedef ext::elementwise_<sqrt1pm1_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sqrt1pm1_, sqrt1pm1, 1)
 }

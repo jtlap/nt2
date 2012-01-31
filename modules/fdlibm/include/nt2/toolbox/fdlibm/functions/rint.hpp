@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag rint_ of functor rint 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct rint_ : ext::elementwise_<rint_> {};
+    struct rint_ : ext::elementwise_<rint_> { typedef ext::elementwise_<rint_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::rint_, rint, 1)
   } }

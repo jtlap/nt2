@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag iround_ of functor iround 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct iround_ : ext::elementwise_<iround_> {};
+    struct iround_ : ext::elementwise_<iround_> { typedef ext::elementwise_<iround_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::iround_, iround, 1)
   } }

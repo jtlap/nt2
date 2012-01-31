@@ -56,7 +56,7 @@ namespace nt2 {
      * \brief Define the tag asinpi_ of functor asinpi 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct asinpi_ : ext::elementwise_<asinpi_> {};
+    struct asinpi_ : ext::elementwise_<asinpi_> { typedef ext::elementwise_<asinpi_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::asinpi_, asinpi, 1)
 }

@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag sin_ of functor sin 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct sin_ : ext::elementwise_<sin_> {};
+    struct sin_ : ext::elementwise_<sin_> { typedef ext::elementwise_<sin_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::sin_, sin, 1)
   } }

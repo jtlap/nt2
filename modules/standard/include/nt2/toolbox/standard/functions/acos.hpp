@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag acos_ of functor acos 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct acos_ : ext::elementwise_<acos_> {};
+    struct acos_ : ext::elementwise_<acos_> { typedef ext::elementwise_<acos_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::acos_, acos, 1)
   } }

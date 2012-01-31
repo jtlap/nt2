@@ -70,7 +70,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_pochrel_ of functor gsl_sf_pochrel 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_pochrel_ : ext::elementwise_<gsl_sf_pochrel_> {};
+    struct gsl_sf_pochrel_ : ext::elementwise_<gsl_sf_pochrel_> { typedef ext::elementwise_<gsl_sf_pochrel_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_pochrel_, gsl_sf_pochrel, 2)
   } }

@@ -13,7 +13,7 @@
 
 namespace nt2 
 { 
-  namespace tag { struct extent_ : ext::unspecified_<extent_> {}; }
+  namespace tag { struct extent_ : ext::unspecified_<extent_> { typedef ext::unspecified_<extent_> parent; }; }
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::extent_, extent, 1)
 }
 

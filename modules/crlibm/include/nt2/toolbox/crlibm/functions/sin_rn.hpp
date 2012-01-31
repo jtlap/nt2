@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag sin_rn_ of functor sin_rn 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct sin_rn_ : ext::elementwise_<sin_rn_> {};
+    struct sin_rn_ : ext::elementwise_<sin_rn_> { typedef ext::elementwise_<sin_rn_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::sin_rn_, sin_rn, 1)
 } }

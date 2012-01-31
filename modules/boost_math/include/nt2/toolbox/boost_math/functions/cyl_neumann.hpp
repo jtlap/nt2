@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag cyl_neumann_ of functor cyl_neumann 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct cyl_neumann_ : ext::elementwise_<cyl_neumann_> {};
+    struct cyl_neumann_ : ext::elementwise_<cyl_neumann_> { typedef ext::elementwise_<cyl_neumann_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::cyl_neumann_, cyl_neumann, 2)
   } }

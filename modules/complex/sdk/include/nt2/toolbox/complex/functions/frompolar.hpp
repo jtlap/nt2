@@ -58,7 +58,7 @@ namespace nt2
      * \brief Define the tag frompolar_ of functor frompolar 
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct frompolar_ : ext::elementwise_<frompolar_> {};
+    struct frompolar_ : ext::elementwise_<frompolar_> { typedef ext::elementwise_<frompolar_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::frompolar_, frompolar, 2)

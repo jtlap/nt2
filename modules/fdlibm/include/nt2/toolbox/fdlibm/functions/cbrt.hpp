@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag cbrt_ of functor cbrt 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct cbrt_ : ext::elementwise_<cbrt_> {};
+    struct cbrt_ : ext::elementwise_<cbrt_> { typedef ext::elementwise_<cbrt_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::cbrt_, cbrt, 1)
   } }

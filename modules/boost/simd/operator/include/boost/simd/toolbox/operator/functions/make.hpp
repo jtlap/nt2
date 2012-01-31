@@ -60,7 +60,7 @@ namespace boost { namespace simd
      * \brief Define the tag make_ of functor make 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct make_ : ext::unspecified_<make_> {};
+    struct make_ : ext::unspecified_<make_> { typedef ext::unspecified_<make_> parent; };
   }
 } }
 

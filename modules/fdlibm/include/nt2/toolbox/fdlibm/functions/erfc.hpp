@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag erfc_ of functor erfc 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct erfc_ : ext::elementwise_<erfc_> {};
+    struct erfc_ : ext::elementwise_<erfc_> { typedef ext::elementwise_<erfc_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::erfc_, erfc, 1)
   } }

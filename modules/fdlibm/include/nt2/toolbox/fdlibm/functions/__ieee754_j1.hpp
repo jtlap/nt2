@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag __ieee754_j1_ of functor __ieee754_j1 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct __ieee754_j1_ : ext::elementwise_<__ieee754_j1_> {};
+    struct __ieee754_j1_ : ext::elementwise_<__ieee754_j1_> { typedef ext::elementwise_<__ieee754_j1_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::__ieee754_j1_, __ieee754_j1, 1)
   } }

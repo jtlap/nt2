@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag cos_ of functor cos 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct cos_ : ext::elementwise_<cos_> {};
+    struct cos_ : ext::elementwise_<cos_> { typedef ext::elementwise_<cos_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::cos_, cos, 1)
   } }

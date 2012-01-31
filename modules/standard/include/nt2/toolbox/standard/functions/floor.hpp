@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag floor_ of functor floor 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct floor_ : ext::elementwise_<floor_> {};
+    struct floor_ : ext::elementwise_<floor_> { typedef ext::elementwise_<floor_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::floor_, floor, 1)
   } }

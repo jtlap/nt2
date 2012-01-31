@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag cosecant_ of functor cosecant 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    template <class T> struct cosecant_ : ext::elementwise_< cosecant_<T> > {};
+    template <class T> struct cosecant_ : ext::elementwise_< cosecant_<T> > { typedef ext::elementwise_< cosecant_<T> > parent; };
   }
 
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cosecant_<A0> , cosecant, (A1 const&), 2)

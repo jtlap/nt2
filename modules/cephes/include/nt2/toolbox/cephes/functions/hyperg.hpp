@@ -74,7 +74,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag hyperg_ of functor hyperg 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct hyperg_ : ext::elementwise_<hyperg_> {};
+    struct hyperg_ : ext::elementwise_<hyperg_> { typedef ext::elementwise_<hyperg_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::hyperg_, hyperg, 3)
   } }

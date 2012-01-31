@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag sinhc_ of functor sinhc 
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
-    struct sinhc_ : ext::elementwise_<sinhc_> {};
+    struct sinhc_ : ext::elementwise_<sinhc_> { typedef ext::elementwise_<sinhc_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sinhc_, sinhc, 1)
 }

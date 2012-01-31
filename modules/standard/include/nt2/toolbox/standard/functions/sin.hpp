@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag sin_ of functor sin 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct sin_ : ext::elementwise_<sin_> {};
+    struct sin_ : ext::elementwise_<sin_> { typedef ext::elementwise_<sin_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::sin_, sin, 1)
   } }

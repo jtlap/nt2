@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag cosh_ of functor cosh 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct cosh_ : ext::elementwise_<cosh_> {};
+    struct cosh_ : ext::elementwise_<cosh_> { typedef ext::elementwise_<cosh_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::cosh_, cosh, 1)
   } }

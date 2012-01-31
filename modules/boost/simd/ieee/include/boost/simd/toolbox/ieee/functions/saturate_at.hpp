@@ -58,7 +58,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     template <class T>
-    struct saturate_at_ : ext::elementwise_< saturate_at_<T> > {};
+    struct saturate_at_ : ext::elementwise_< saturate_at_<T> > { typedef ext::elementwise_< saturate_at_<T> > parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::saturate_at_<A0>, saturate_at, (A1 const&), 2)

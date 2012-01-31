@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag tan_ of functor tan 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct tan_ : ext::elementwise_<tan_> {};
+    struct tan_ : ext::elementwise_<tan_> { typedef ext::elementwise_<tan_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::tan_, tan, 1)
   } }

@@ -69,7 +69,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag laguerre_next_ of functor laguerre_next 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct laguerre_next_ : ext::elementwise_<laguerre_next_> {};
+    struct laguerre_next_ : ext::elementwise_<laguerre_next_> { typedef ext::elementwise_<laguerre_next_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::laguerre_next_, laguerre_next, 4)
   } }

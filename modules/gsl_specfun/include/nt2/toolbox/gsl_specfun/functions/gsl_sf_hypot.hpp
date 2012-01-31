@@ -70,7 +70,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_hypot_ of functor gsl_sf_hypot 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_hypot_ : ext::elementwise_<gsl_sf_hypot_> {};
+    struct gsl_sf_hypot_ : ext::elementwise_<gsl_sf_hypot_> { typedef ext::elementwise_<gsl_sf_hypot_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_hypot_, gsl_sf_hypot, 2)
   } }

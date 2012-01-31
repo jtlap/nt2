@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag round_ of functor round 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct round_ : ext::elementwise_<round_> {};
+    struct round_ : ext::elementwise_<round_> { typedef ext::elementwise_<round_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::round_, round, 1)
   } }

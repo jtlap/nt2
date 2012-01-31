@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag cosd_ of functor cosd 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct cosd_ : ext::elementwise_<cosd_> {};
+    struct cosd_ : ext::elementwise_<cosd_> { typedef ext::elementwise_<cosd_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::cosd_, cosd, 1)
 }

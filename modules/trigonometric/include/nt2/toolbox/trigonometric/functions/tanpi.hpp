@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag tanpi_ of functor tanpi 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct tanpi_ : ext::elementwise_<tanpi_> {};
+    struct tanpi_ : ext::elementwise_<tanpi_> { typedef ext::elementwise_<tanpi_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::tanpi_, tanpi, 1)
 }

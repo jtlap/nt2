@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag exp_ru_ of functor exp_ru 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct exp_ru_ : ext::elementwise_<exp_ru_> {};
+    struct exp_ru_ : ext::elementwise_<exp_ru_> { typedef ext::elementwise_<exp_ru_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::exp_ru_, exp_ru, 1)
   } }

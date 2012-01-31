@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag tangent_ of functor tangent 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    template <class T> struct tangent_ : ext::elementwise_< tangent_<T> > {};
+    template <class T> struct tangent_ : ext::elementwise_< tangent_<T> > { typedef ext::elementwise_< tangent_<T> > parent; };
   }
 
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::tangent_<A0> , tangent, (A1 const&), 2)

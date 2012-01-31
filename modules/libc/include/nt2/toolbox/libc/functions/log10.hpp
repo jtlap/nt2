@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag log10_ of functor log10 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct log10_ : ext::elementwise_<log10_> {};
+    struct log10_ : ext::elementwise_<log10_> { typedef ext::elementwise_<log10_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::log10_, log10, 1)
   } }

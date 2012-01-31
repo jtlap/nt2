@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct schedule_ : ext::unspecified_<schedule_> {}; }
+  namespace tag { struct schedule_ : ext::unspecified_<schedule_> { typedef ext::unspecified_<schedule_> parent; }; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::schedule_, schedule, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_, schedule, (A0 const&)(A1&), 2)

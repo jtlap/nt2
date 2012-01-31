@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag significand_ of functor significand 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct significand_ : ext::elementwise_<significand_> {};
+    struct significand_ : ext::elementwise_<significand_> { typedef ext::elementwise_<significand_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::significand_, significand, 1)
   } }

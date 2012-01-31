@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag secpi_ of functor secpi 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct secpi_ : ext::elementwise_<secpi_> {};
+    struct secpi_ : ext::elementwise_<secpi_> { typedef ext::elementwise_<secpi_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::secpi_, secpi, 1)
 }

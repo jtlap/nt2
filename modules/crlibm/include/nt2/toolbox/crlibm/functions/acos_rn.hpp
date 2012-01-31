@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag acos_rn_ of functor acos_rn 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct acos_rn_ : ext::elementwise_<acos_rn_> {};
+    struct acos_rn_ : ext::elementwise_<acos_rn_> { typedef ext::elementwise_<acos_rn_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::acos_rn_, acos_rn, 1)
 } }

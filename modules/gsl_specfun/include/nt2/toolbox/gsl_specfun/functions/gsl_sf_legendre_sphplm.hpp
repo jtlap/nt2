@@ -71,7 +71,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_legendre_sphplm_ of functor gsl_sf_legendre_sphplm 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_legendre_sphplm_ : ext::elementwise_<gsl_sf_legendre_sphplm_> {};
+    struct gsl_sf_legendre_sphplm_ : ext::elementwise_<gsl_sf_legendre_sphplm_> { typedef ext::elementwise_<gsl_sf_legendre_sphplm_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_legendre_sphplm_, gsl_sf_legendre_sphplm, 3)
   } }

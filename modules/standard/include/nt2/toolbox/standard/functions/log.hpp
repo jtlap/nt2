@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag log_ of functor log 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct log_ : ext::elementwise_<log_> {};
+    struct log_ : ext::elementwise_<log_> { typedef ext::elementwise_<log_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::log_, log, 1)
   } }

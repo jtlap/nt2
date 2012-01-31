@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag sec_ of functor sec 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct sec_ : ext::elementwise_<sec_> {};
+    struct sec_ : ext::elementwise_<sec_> { typedef ext::elementwise_<sec_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::sec_, sec, 1)
 }

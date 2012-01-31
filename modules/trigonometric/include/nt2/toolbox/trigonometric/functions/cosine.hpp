@@ -138,7 +138,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag cosine_ of functor cosine 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    template <class T> struct cosine_ : ext::elementwise_< cosine_<T> > {};
+    template <class T> struct cosine_ : ext::elementwise_< cosine_<T> > { typedef ext::elementwise_< cosine_<T> > parent; };
   }
 
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::cosine_<A0> , cosine, (A1 const&), 2)

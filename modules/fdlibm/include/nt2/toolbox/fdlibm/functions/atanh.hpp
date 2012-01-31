@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag atanh_ of functor atanh 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct atanh_ : ext::elementwise_<atanh_> {};
+    struct atanh_ : ext::elementwise_<atanh_> { typedef ext::elementwise_<atanh_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::atanh_, atanh, 1)
   } }

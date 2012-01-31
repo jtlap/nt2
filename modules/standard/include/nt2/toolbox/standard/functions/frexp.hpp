@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag frexp_ of functor frexp 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct frexp_ : ext::elementwise_<frexp_> {};
+    struct frexp_ : ext::elementwise_<frexp_> { typedef ext::elementwise_<frexp_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::frexp_, frexp, 1)
   NT2_FUNCTION_IMPLEMENTATION_TPL(standard::tag::frexp_, frexp, (A0 const&)(A1&), 2)

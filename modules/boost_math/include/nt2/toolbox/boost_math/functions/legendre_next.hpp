@@ -70,7 +70,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag legendre_next_ of functor legendre_next 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct legendre_next_ : ext::elementwise_<legendre_next_> {};
+    struct legendre_next_ : ext::elementwise_<legendre_next_> { typedef ext::elementwise_<legendre_next_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::legendre_next_, legendre_next, 5)
   } }

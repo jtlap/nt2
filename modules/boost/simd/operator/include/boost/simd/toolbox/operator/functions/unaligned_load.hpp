@@ -20,7 +20,7 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct unaligned_load_ : ext::elementwise_<unaligned_load_> {}; }
+  namespace tag { struct unaligned_load_ : ext::elementwise_<unaligned_load_> { typedef ext::elementwise_<unaligned_load_> parent; }; }
 
   //////////////////////////////////////////////////////////////////////////////
   // Unaligned_Load a data of type T from the memory zone given by (a0,a1)

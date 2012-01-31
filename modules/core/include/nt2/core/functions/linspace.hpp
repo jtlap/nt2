@@ -13,7 +13,7 @@
 
 namespace nt2
 {
-  namespace tag { struct linspace_ : ext::unspecified_<linspace_> {}; }
+  namespace tag { struct linspace_ : ext::unspecified_<linspace_> { typedef ext::unspecified_<linspace_> parent; }; }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::linspace_, linspace, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::linspace_, linspace, 3)

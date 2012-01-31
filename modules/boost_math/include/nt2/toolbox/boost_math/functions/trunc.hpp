@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag trunc_ of functor trunc 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct trunc_ : ext::elementwise_<trunc_> {};
+    struct trunc_ : ext::elementwise_<trunc_> { typedef ext::elementwise_<trunc_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::trunc_, trunc, 1)
   } }

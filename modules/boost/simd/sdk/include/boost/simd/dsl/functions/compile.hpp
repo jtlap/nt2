@@ -14,7 +14,7 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct compile_ : ext::unspecified_<compile_> {}; }
+  namespace tag { struct compile_ : ext::unspecified_<compile_> { typedef ext::unspecified_<compile_> parent; }; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compile_, compile, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::compile_, compile, (A0 const&)(A1&), 2)

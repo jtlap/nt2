@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag inrad_ of functor inrad 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct inrad_ : ext::elementwise_<inrad_> {};
+    struct inrad_ : ext::elementwise_<inrad_> { typedef ext::elementwise_<inrad_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::inrad_, inrad, 1)
 }

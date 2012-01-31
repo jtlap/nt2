@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag asech_ of functor asech 
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
-    struct asech_ : ext::elementwise_<asech_> {};
+    struct asech_ : ext::elementwise_<asech_> { typedef ext::elementwise_<asech_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::asech_, asech, 1)
 }

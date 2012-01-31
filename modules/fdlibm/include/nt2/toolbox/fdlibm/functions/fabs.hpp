@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag fabs_ of functor fabs 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct fabs_ : ext::elementwise_<fabs_> {};
+    struct fabs_ : ext::elementwise_<fabs_> { typedef ext::elementwise_<fabs_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::fabs_, fabs, 1)
   } }

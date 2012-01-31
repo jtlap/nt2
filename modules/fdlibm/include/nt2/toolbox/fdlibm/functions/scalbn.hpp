@@ -70,7 +70,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag scalbn_ of functor scalbn 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct scalbn_ : ext::elementwise_<scalbn_> {};
+    struct scalbn_ : ext::elementwise_<scalbn_> { typedef ext::elementwise_<scalbn_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::scalbn_, scalbn, 2)
   } }

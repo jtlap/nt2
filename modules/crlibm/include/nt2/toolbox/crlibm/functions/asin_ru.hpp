@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag asin_ru_ of functor asin_ru 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct asin_ru_ : ext::elementwise_<asin_ru_> {};
+    struct asin_ru_ : ext::elementwise_<asin_ru_> { typedef ext::elementwise_<asin_ru_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::asin_ru_, asin_ru, 1)
 } }

@@ -65,7 +65,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag rem_pio2_ of functor rem_pio2 
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct rem_pio2_ : ext::elementwise_<rem_pio2_> {};
+    struct rem_pio2_ : ext::elementwise_<rem_pio2_> { typedef ext::elementwise_<rem_pio2_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&)(A0&)(A0&),1)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::rem_pio2_, rem_pio2,(A0 const&),1)

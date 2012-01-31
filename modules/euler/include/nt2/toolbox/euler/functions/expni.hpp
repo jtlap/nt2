@@ -58,7 +58,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag expni_ of functor expni 
      *        in namespace nt2::tag for toolbox euler
     **/
-    struct expni_ : ext::elementwise_<expni_> {};
+    struct expni_ : ext::elementwise_<expni_> { typedef ext::elementwise_<expni_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::expni_, expni, 2)
 }

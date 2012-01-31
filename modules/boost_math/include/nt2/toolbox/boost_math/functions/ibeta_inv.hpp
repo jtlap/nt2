@@ -68,7 +68,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag ibeta_inv_ of functor ibeta_inv 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct ibeta_inv_ : ext::elementwise_<ibeta_inv_> {};
+    struct ibeta_inv_ : ext::elementwise_<ibeta_inv_> { typedef ext::elementwise_<ibeta_inv_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ibeta_inv_, ibeta_inv, 3)
   } }

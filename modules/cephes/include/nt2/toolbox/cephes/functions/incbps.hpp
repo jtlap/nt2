@@ -74,7 +74,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag incbps_ of functor incbps 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct incbps_ : ext::elementwise_<incbps_> {};
+    struct incbps_ : ext::elementwise_<incbps_> { typedef ext::elementwise_<incbps_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::incbps_, incbps, 3)
   } }

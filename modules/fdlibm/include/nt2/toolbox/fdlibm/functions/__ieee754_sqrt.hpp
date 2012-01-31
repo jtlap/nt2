@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag __ieee754_sqrt_ of functor __ieee754_sqrt 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct __ieee754_sqrt_ : ext::elementwise_<__ieee754_sqrt_> {};
+    struct __ieee754_sqrt_ : ext::elementwise_<__ieee754_sqrt_> { typedef ext::elementwise_<__ieee754_sqrt_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::__ieee754_sqrt_, __ieee754_sqrt, 1)
   } }

@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag falling_factorial_ of functor falling_factorial 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct falling_factorial_ : ext::elementwise_<falling_factorial_> {};
+    struct falling_factorial_ : ext::elementwise_<falling_factorial_> { typedef ext::elementwise_<falling_factorial_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::falling_factorial_, falling_factorial, 2)
   } }
