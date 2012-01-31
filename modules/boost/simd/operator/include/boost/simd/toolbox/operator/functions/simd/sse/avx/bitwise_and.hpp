@@ -25,13 +25,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef native<float, tag::avx_> ftype;
-      A0 that = { bitwise_cast<A0>
-        ( _mm256_and_ps ( bitwise_cast<ftype>(a0), 
-            bitwise_cast<ftype>(a1)
-          )
-        )
-      };
-      return that;
+      return bitwise_cast<A0>( _mm256_and_ps ( bitwise_cast<ftype>(a0)
+                                             , bitwise_cast<ftype>(a1)
+                                             )
+                             );
     }
   };
   
