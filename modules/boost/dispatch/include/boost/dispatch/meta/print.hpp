@@ -9,12 +9,14 @@
 #ifndef BOOST_DISPATCH_META_PRINT_HPP_INCLUDED
 #define BOOST_DISPATCH_META_PRINT_HPP_INCLUDED
 
+#include <boost/config.hpp>
+
 /*!
  * \file
  * \brief Defines and implements the \ref boost::dispatch::meta::print \metafunction
  */
 
-#if defined(__GNUC__) && !defined(__clang__)
+#if defined(__GNUC__) && !defined(BOOST_CLANG) && !defined(BOOST_INTEL)
 
 namespace boost { namespace dispatch { namespace meta
 {
