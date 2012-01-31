@@ -53,12 +53,10 @@ namespace nt2 { namespace container { namespace ext
   };
 
   template<class Domain, int N, class Expr>
-  struct resize<boost::proto::tag::function, Domain, N, Expr>
+  struct resize<nt2::tag::function_, Domain, N, Expr>
   {
     template<class Sz>
-    void operator()(Expr&, Sz const&)
-    {
-    }
+    void operator()(Expr&, Sz const&) {}
   };
 
 } } }
@@ -89,13 +87,13 @@ namespace nt2 { namespace container
 
     typedef typename meta::settings_of<ResultType>::type            settings_type;
     typedef typename meta::option<settings_type, tag::index_>::type index_type;
-    
+
     //==========================================================================
     // Compute storage type for size
     //==========================================================================
     typedef typename size_transform<domain>::
             template result<size_transform<domain>(Expr)>::type  extent_type;
-    
+
     //==========================================================================
     // Expression initialization called from generator
     //==========================================================================
