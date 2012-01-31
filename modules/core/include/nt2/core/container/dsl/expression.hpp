@@ -21,6 +21,7 @@
 #include <nt2/include/functions/evaluate.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 
@@ -182,7 +183,8 @@ namespace nt2 { namespace container
     template<class Sz>
     void resize(Sz const& sz)
     {
-      ext::resize< typename boost::proto::tag_of<parent>::type
+      ext::resize< typename boost::dispatch::meta::
+                   hierarchy_of< typename boost::proto::tag_of<parent>::type >::type
                  , domain
                  , boost::proto::arity_of<parent>::type::value
                  , expression<Expr, ResultType>
@@ -193,7 +195,8 @@ namespace nt2 { namespace container
     template<class Sz>
     void resize(Sz const& sz) const
     {
-      ext::resize< typename boost::proto::tag_of<parent>::type
+      ext::resize< typename boost::dispatch::meta::
+                   hierarchy_of< typename boost::proto::tag_of<parent>::type >::type
                  , domain
                  , boost::proto::arity_of<parent>::type::value
                  , expression<Expr, ResultType> const
