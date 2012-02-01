@@ -53,12 +53,7 @@ namespace nt2 { namespace ext
     }
   };
     
-  //============================================================================
-  // When an assign(lhs,rhs) expression is run, we perform the evaluation of rhs
-  // then store it in lhs. Depending on the lhs nature (real terminal or a node
-  // containing a call to any indexing function, the result of the evaluation is
-  // returned, usually as non-const reference.
-  //============================================================================
+  // nD element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(S0)
                             , ((expr_< table_< unspecified_<A0>, S0 >
@@ -90,6 +85,40 @@ namespace nt2 { namespace ext
       for(std::ptrdiff_t j=olow; j!=obound; ++j)
         for(std::ptrdiff_t i=ilow; i!=bound; ++i)
           nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<stype>());
+
+      return boost::proto::child_c<0>(a0);
+    }
+  };
+
+  // 1D element-wise operation
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_, tag::cpu_
+                            , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t N)
+                            , ((expr_< table_< unspecified_<A0>, nt2::settings(nt2::of_size_<N>, Shape, StorageKind)>
+                                     , nt2::tag::assign_
+                                     , boost::mpl::long_<2>
+                                     >
+                              ))
+                            )
+  {
+    typedef typename boost::proto::result_of::
+    child_c<A0 const&, 0>::type                             result_type;
+
+    typedef typename meta::
+            strip< typename meta::
+                   scalar_of<result_type>::type
+                 >::type                                    stype;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0) const
+    {
+      boost::proto::child_c<0>(a0).resize(a0.extent());
+
+      typename A0::index_type::type bs;
+      std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
+      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
+
+      for(std::ptrdiff_t i=low;i!=bound;++i)
+        nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<stype>());
 
       return boost::proto::child_c<0>(a0);
     }
