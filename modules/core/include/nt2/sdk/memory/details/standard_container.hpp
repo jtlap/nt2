@@ -140,11 +140,11 @@ namespace nt2 { namespace memory
      * Return the specific_data
      */
     //==========================================================================
-    BOOST_FORCEINLINE typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type& 
-    get_spec_data()       { return parent::get_spec_data(); }
+    // BOOST_FORCEINLINE typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type& 
+    // get_spec_data()       { return parent::get_spec_data(); }
 
-    BOOST_FORCEINLINE typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type const&  
-    get_spec_data() const { return parent::get_spec_data(); }
+    // BOOST_FORCEINLINE typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type const&  
+    // get_spec_data() const { return parent::get_spec_data(); }
 
     //==========================================================================
     /*!

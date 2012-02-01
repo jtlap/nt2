@@ -30,6 +30,7 @@ namespace nt2 { namespace memory
     typedef typename parent::is_static_sized              is_static_sized;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
+    typedef typename parent::specific_data_type           specific_data_type;
 
     //==========================================================================
     // Default constructor can be called endlessly to reuse data
@@ -111,6 +112,8 @@ namespace nt2 { namespace memory
 
     static BOOST_FORCEINLINE bool empty() { return block_.empty(); }
 
+    static BOOST_FORCEINLINE specific_data_type get_spec_data() { return specific_data_; }
+
     //==========================================================================
     // Resize of the container
     //==========================================================================
@@ -120,9 +123,10 @@ namespace nt2 { namespace memory
     }
 
     private:
-    static bool                         status_;
-    static typename parent::block_t     block_;
-    static typename parent::sizes_type  sizes_;
+    static bool                                 status_;
+    static typename parent::block_t             block_;
+    static typename parent::sizes_type          sizes_;
+    static typename parent::specific_data_type  specific_data_;
   };
 
   //========================================================================
@@ -144,6 +148,14 @@ namespace nt2 { namespace memory
   template<class Tag, class ID, class T, class S>
   typename nt2::details::container_base<Tag,T,S>::sizes_type
   container<Tag, ID, T, S>::sizes_;
+
+  //========================================================================
+  // Set specific_data to default value
+  //========================================================================
+  template<class Tag, class ID, class T, class S>
+  typename nt2::details::container_base<Tag,T,S>::specific_data_type
+  container<Tag, ID, T, S>::specific_data_;
+
 } }
 
 #endif

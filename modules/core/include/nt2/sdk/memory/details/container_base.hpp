@@ -21,7 +21,6 @@
 #include <nt2/core/settings/normalize_settings.hpp>
 #include <nt2/core/settings/specific_data.hpp>
 
-//#include <include/nt2/cuda/dsl/specific_data.hpp>
 
 namespace nt2 { namespace details
 {
@@ -40,18 +39,20 @@ namespace nt2 { namespace details
     //==========================================================================
     // Public type interface
     //==========================================================================
-    typedef typename block_t::allocator_type        allocator_type;
-    typedef typename block_t::value_type            value_type;
-    typedef typename block_t::iterator              iterator;
-    typedef typename block_t::const_iterator        const_iterator;
-    typedef typename block_t::reference             reference;
-    typedef typename block_t::const_reference       const_reference;
-    typedef typename block_t::size_type             size_type;
-    typedef typename block_t::difference_type       difference_type;
-    typedef typename allocator_type::pointer        pointer;
-    typedef typename allocator_type::const_pointer  const_pointer;
-    typedef Tag                                     tag_type;
-    typedef S                                       base_settings_type;
+    typedef typename block_t::allocator_type                    allocator_type;
+    typedef typename block_t::value_type                        value_type;
+    typedef typename block_t::iterator                          iterator;
+    typedef typename block_t::const_iterator                    const_iterator;
+    typedef typename block_t::reference                         reference;
+    typedef typename block_t::const_reference                   const_reference;
+    typedef typename block_t::size_type                         size_type;
+    typedef typename block_t::difference_type                   difference_type;
+    typedef typename allocator_type::pointer                    pointer;
+    typedef typename allocator_type::const_pointer              const_pointer;
+    typedef Tag                                                 tag_type;
+    typedef S                                                   base_settings_type;
+    typedef typename specific_data<
+      typename boost::dispatch::default_site<T>::type, T>::type specific_data_type;
     //==========================================================================
     // container is handling the size/base storage for the proto terminal
     //==========================================================================
@@ -299,12 +300,11 @@ namespace nt2 { namespace details
       return access ( nt2::inflate(s,p,typename index_type::type()), b, s );
     }
 
-    typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type &      
-    get_spec_data()       {return spec_data;}
-    typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type  const& 
-    get_spec_data() const {return spec_data;}
+    specific_data_type        get_spec_data()       {return spec_data;}
+    specific_data_type const& get_spec_data() const {return spec_data;}
 
-    typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type spec_data;
+    specific_data_type spec_data;
+
 
 
   };
