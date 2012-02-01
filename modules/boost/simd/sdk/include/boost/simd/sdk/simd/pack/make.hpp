@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::make_ , tag::cpu_
                             , (Target)
-                            , (target_< ast_< unspecified_<Target> > >)
+                            , (target_< ast_<Target> >)
                             )
   {
     typedef typename Target::type                           result_type;

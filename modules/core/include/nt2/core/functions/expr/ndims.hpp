@@ -18,11 +18,8 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ndims_, tag::cpu_
-                            , (A0)(T)
-                            , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain, T
-                                      >
-                              ))
+                            , (A0)
+                            , (ast_<A0>)
                             )
   {
     typedef std::size_t result_type;

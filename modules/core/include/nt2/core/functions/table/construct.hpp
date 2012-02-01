@@ -26,8 +26,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
                                       , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -51,8 +51,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
                                       , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -78,13 +78,13 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(Tag)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
                                       , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               ((expr_ < unspecified_<A1>
-                                      , nt2::container::domain
                                       , Tag
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                             )
@@ -104,8 +104,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
                                       , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               (scalar_< unspecified_<A1> >)
@@ -127,8 +127,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
                                       , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               (fusion_sequence_<A1>)

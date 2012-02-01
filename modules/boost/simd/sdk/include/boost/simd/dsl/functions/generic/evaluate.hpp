@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::evaluate_, tag::formal_
                             , (A0)
-                            , ((ast_< unspecified_<A0> >))
+                            , (ast_<A0>)
                             )
   {
     typedef typename dispatch::meta::call<tag::optimize_(A0 const&)>::type optimized;

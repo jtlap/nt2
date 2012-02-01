@@ -17,11 +17,8 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
-                            , (A0)(T)
-                            , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain, T
-                                      >
-                              ))
+                            , (A0)
+                            , (ast_<A0>)
                             )
   {
     typedef typename meta::call<tag::extent_(A0)>::type base;

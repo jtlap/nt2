@@ -118,8 +118,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, nt2::tag::openmp_<Site>
                             , (A0)(S0)(Site)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::container::domain
                                      , nt2::tag::assign_
+                                     , boost::mpl::long_<2>
                                      >
                               ))
                             )
