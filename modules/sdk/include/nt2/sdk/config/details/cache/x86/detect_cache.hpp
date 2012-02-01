@@ -38,7 +38,7 @@ namespace nt2{ namespace config{ namespace details{
 
     switch(bsc::get_vendor())
     {
-      case intel :
+    case bsc::intel :
 
         do{
             bsc::x86::cpuidex(regs, 0x00000004, cache_ecx);
@@ -70,7 +70,7 @@ namespace nt2{ namespace config{ namespace details{
 
         break;
 
-      case amd :
+    case bsc::amd :
 
         bsc::x86::cpuidex(regs,0x80000005,0);
         cache_line_sizes_[0] = regs[3] & 0x000000FF;
