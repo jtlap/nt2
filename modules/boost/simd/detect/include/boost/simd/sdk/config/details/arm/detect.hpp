@@ -10,9 +10,11 @@
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_ARM_DETECT_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch/arm.hpp>
+
+#if defined(BOOST_SIMD_ARCH_ARM)
 #include <boost/simd/sdk/config/details/detector/linux_auxv.hpp>
 
-#if defined(BOOST_SIMD_ARCH_ARM) && defined(BOOST_SIMD_OS_LINUX)
+#if defined(BOOST_SIMD_OS_LINUX)
 #include <asm/hwcap.h>
 #endif
 
@@ -20,7 +22,7 @@ namespace boost { namespace simd { namespace config { namespace details
 {
   inline bool detect(tag::neon_ const&)
   {
-#if defined(BOOST_SIMD_ARCH_ARM) && defined(BOOST_SIMD_OS_LINUX)
+#if defined(BOOST_SIMD_OS_LINUX)
     return config::linux_::hwcap() & HWCAP_NEON;
 #else
     return false;
@@ -28,5 +30,7 @@ namespace boost { namespace simd { namespace config { namespace details
   }
 
 } } } }
+
+#endif
 
 #endif

@@ -10,12 +10,14 @@
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_POWERPC_DETECT_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch/powerpc.hpp>
+
+#if defined(BOOST_SIMD_ARCH_POWERPC)
 #include <boost/simd/sdk/config/details/detector/linux_auxv.hpp>
 #include <boost/simd/sdk/config/os/macos.hpp>
 
-#if defined(BOOST_SIMD_ARCH_POWERPC) && defined(BOOST_SIMD_OS_LINUX)
+#if defined(BOOST_SIMD_OS_LINUX)
 #include <asm/cputable.h>
-#elif defined(BOOST_SIMD_ARCH_POWERPC) && defined(BOOST_SIMD_OS_MACOS)
+#elif defined(BOOST_SIMD_OS_MACOS)
 #include <boost/simd/sdk/config/details/detect.hpp>
 #include <Gestalt.h>
 #endif
@@ -24,9 +26,9 @@ namespace boost { namespace simd { namespace config { namespace details
 {
   inline bool detect(tag::altivec_ const&)
   {
-#if defined(BOOST_SIMD_ARCH_POWERPC) && defined(BOOST_SIMD_OS_LINUX)
+#if defined(BOOST_SIMD_OS_LINUX)
     return config::linux_::hwcap() & PPC_FEATURE_HAS_ALTIVEC;
-#elif defined(BOOST_SIMD_ARCH_POWERPC) && defined(BOOST_SIMD_OS_MACOS)
+#elif defined(BOOST_SIMD_OS_MACOS)
     long cpuAttributes;
     bool hasAltiVec = false;
     OSErr err = Gestalt( gestaltPowerPCProcessorFeatures, &cpuAttributes );
@@ -38,5 +40,7 @@ namespace boost { namespace simd { namespace config { namespace details
   }
 
 } } } }
+
+#endif
 
 #endif

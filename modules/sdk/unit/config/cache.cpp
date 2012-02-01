@@ -21,6 +21,7 @@ NT2_TEST_CASE(cache_size)
 {
   std::cout << "Cache L1Code size : " << nt2::config::cache_size(L1Code) << " KBytes" << std::endl;
   std::cout << "Cache L1Data size : " << nt2::config::cache_size(L1Data) << " KBytes" << std::endl;
+  std::cout << "Cache L1     size : " << nt2::config::cache_size(L1) << " KBytes" << std::endl;
   std::cout << "Cache L2     size : " << nt2::config::cache_size(L2) << " KBytes" << std::endl;
   std::cout << "Cache L3     size : " << nt2::config::cache_size(L3) << " KBytes" << std::endl;
 }
@@ -32,6 +33,7 @@ NT2_TEST_CASE(cache_line_size)
 {
   std::cout << "Cache L1Code size : " << nt2::config::cache_line_size(L1Code) << " KBytes" << std::endl;
   std::cout << "Cache L1Data size : " << nt2::config::cache_line_size(L1Data) << " KBytes" << std::endl;
+  std::cout << "Cache L1     size : " << nt2::config::cache_line_size(L1) << " KBytes" << std::endl;
   std::cout << "Cache L2     size : " << nt2::config::cache_line_size(L2) << " KBytes" << std::endl;
   std::cout << "Cache L3     size : " << nt2::config::cache_line_size(L3) << " KBytes" << std::endl;
 }
@@ -41,9 +43,10 @@ NT2_TEST_CASE(cache_line_size)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(as_cache)
 {
-  std::cout << "Cache L1Code available ([1,yes]/[0,no]) : " << nt2::config::as_cache(L1Code) << std::endl;
-  std::cout << "Cache L1Data available ([1,yes]/[0,no]) : " << nt2::config::as_cache(L1Data) << std::endl;
-  std::cout << "Cache L2     available ([1,yes]/[0,no]) : " << nt2::config::as_cache(L2) << std::endl;
-  std::cout << "Cache L3     available ([1,yes]/[0,no]) : " << nt2::config::as_cache(L3) << std::endl;
+  std::cout << "Cache L1Code available : " << std::boolalpha << nt2::config::as_cache(L1Code) << std::endl;
+  std::cout << "Cache L1Data available : " << std::boolalpha << nt2::config::as_cache(L1Data) << std::endl;
+  std::cout << "Cache L1     available : " << std::boolalpha << nt2::config::as_cache(L1) << std::endl;
+  std::cout << "Cache L2     available : " << std::boolalpha << nt2::config::as_cache(L2) << std::endl;
+  std::cout << "Cache L3     available : " << std::boolalpha << nt2::config::as_cache(L3) << std::endl;
 }
 
