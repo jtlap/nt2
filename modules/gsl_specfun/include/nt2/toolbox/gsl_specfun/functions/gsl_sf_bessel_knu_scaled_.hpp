@@ -11,17 +11,14 @@
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
-namespace nt2 { namespace gsl_specfun { namespace tag
-  {         
-    struct gsl_sf_bessel_knu_scaled__ {};
+namespace nt2 { namespace gsl_specfun
+{
+  namespace tag
+  {
+    struct gsl_sf_bessel_knu_scaled__ : ext::elementwise_<gsl_sf_bessel_knu_scaled__> { typedef ext::elementwise_<gsl_sf_bessel_knu_scaled__> parent; };
   }
+
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_bessel_knu_scaled__, gsl_sf_bessel_knu_scaled_, 2)
-  } }
- 
-#include <nt2/toolbox/gsl_specfun/functions/scalar/gsl_sf_bessel_knu_scaled_.hpp>
-// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_bessel_Knu_scaled_.hpp> 
+} }
 
- 
 #endif
-
-// modified by jt the 29/12/2010
