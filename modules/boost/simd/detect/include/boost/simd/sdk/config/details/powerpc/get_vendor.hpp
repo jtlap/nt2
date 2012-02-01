@@ -6,20 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
-#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_POWERPC_GET_VENDOR_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_POWERPC_GET_VENDOR_HPP_INCLUDED
 
-#include <boost/simd/sdk/config/details/x86/detect.hpp>
-#include <boost/simd/sdk/config/details/powerpc/detect.hpp>
-#include <boost/simd/sdk/config/details/arm/detect.hpp>
+#include <boost/simd/sdk/config/arch/powerpc.hpp>
 
-namespace boost{ namespace simd{ namespace config{ namespace details{
+#ifdef BOOST_SIMD_ARCH_POWERPC
+#include <boost/simd/sdk/config/details/get_vendor.hpp>
 
-  inline bool detect(dispatch::tag::cpu_ const& )
-  {
-    return false;
-  }
+namespace boost { namespace simd { namespace config
+{
+    inline int get_vendor()
+    {
+        return ibm;
+    }
+} } }
 
-} } } }
+#endif
 
 #endif

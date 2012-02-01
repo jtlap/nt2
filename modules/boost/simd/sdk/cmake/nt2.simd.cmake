@@ -21,6 +21,11 @@ if(NOT DEFINED NT2_SIMD_FLAGS)
     include(arch/FindVMX)
   endif()
 
+  #ARM NEON Family
+  if(NT2_ARCH_POWERPC)
+    include(arch/FindNEON)
+  endif()
+
 endif()
 
 set( NT2_SIMD_FLAGS ${NT2_SIMD_FLAGS}

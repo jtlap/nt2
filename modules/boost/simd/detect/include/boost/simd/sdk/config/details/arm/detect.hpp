@@ -6,20 +6,31 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
-#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_ARM_DETECT_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_ARM_DETECT_HPP_INCLUDED
 
-#include <boost/simd/sdk/config/details/x86/detect.hpp>
-#include <boost/simd/sdk/config/details/powerpc/detect.hpp>
-#include <boost/simd/sdk/config/details/arm/detect.hpp>
+#include <boost/simd/sdk/config/arch/arm.hpp>
 
-namespace boost{ namespace simd{ namespace config{ namespace details{
+#if defined(BOOST_SIMD_ARCH_ARM)
+#include <boost/simd/sdk/config/details/detector/linux_auxv.hpp>
 
-  inline bool detect(dispatch::tag::cpu_ const& )
+#if defined(BOOST_SIMD_OS_LINUX)
+#include <asm/hwcap.h>
+#endif
+
+namespace boost { namespace simd { namespace config { namespace details
+{
+  inline bool detect(tag::neon_ const&)
   {
+#if defined(BOOST_SIMD_OS_LINUX)
+    return config::linux_::hwcap() & HWCAP_NEON;
+#else
     return false;
+#endif
   }
 
 } } } }
+
+#endif
 
 #endif

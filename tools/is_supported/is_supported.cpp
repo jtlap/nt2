@@ -26,7 +26,8 @@ static pair data[] =
   { "fma4",   &is_supported<fma4_>    },
   { "avx",    &is_supported<avx_>     },
   { "lrb",    &is_supported<lrb_>     },
-  { "vmx",    &is_supported<altivec_> }
+  { "vmx",    &is_supported<altivec_> },
+  { "vmx",    &is_supported<neon_>    }
 };
 
 int main(int argc, char* argv[])

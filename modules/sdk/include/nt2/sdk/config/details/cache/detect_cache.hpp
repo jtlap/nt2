@@ -6,20 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
-#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
+#ifndef NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED
+#define NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED
 
-#include <boost/simd/sdk/config/details/x86/detect.hpp>
-#include <boost/simd/sdk/config/details/powerpc/detect.hpp>
-#include <boost/simd/sdk/config/details/arm/detect.hpp>
+#define NT2_MAX_CACHE_LEVEL 4
 
-namespace boost{ namespace simd{ namespace config{ namespace details{
-
-  inline bool detect(dispatch::tag::cpu_ const& )
-  {
-    return false;
-  }
-
-} } } }
+#include <nt2/sdk/config/details/cache/x86/detect_cache.hpp>
 
 #endif

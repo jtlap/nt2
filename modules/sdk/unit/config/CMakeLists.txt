@@ -7,4 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.DETECT_DEPENDENCIES_EXTRA boost.simd.config)
+SET( SOURCES
+    cache.cpp
+   )
+
+nt2_module_add_tests(sdk.config.unit ${SOURCES})
