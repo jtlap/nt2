@@ -8,7 +8,7 @@
 ################################################################################
 
 ################################################################################
-# Check for Arm NEON availability
+# Check for ARM NEON availability
 ################################################################################
 
 nt2_module_tool(is_supported neon RESULT_VARIABLE RESULT_VAR OUTPUT_QUIET)
@@ -17,11 +17,11 @@ if(RUN_RESULT_VAR EQUAL 0)
 else()
   set(NT2_HAS_NEON_SUPPORT 0)
 endif()
-  
+
 if(NT2_HAS_NEON_SUPPORT)
-  message(STATUS "[boost.simd.sdk] Arm NEON available")
+  message(STATUS "[boost.simd.sdk] ARM NEON available")
   set(NT2_SIMD_EXT neon)
-    
+
   # Find the proper options to compile
   check_cxx_compiler_flag("-mfpu=neon" HAS_GCC_NEON)
 
@@ -32,6 +32,6 @@ if(NT2_HAS_NEON_SUPPORT)
   endif()
 
 else()
-  message(STATUS "[boost.simd.sdk] Arm NEON not available")
+  message(STATUS "[boost.simd.sdk] ARM NEON not available")
   set(NT2_SIMD_FLAGS " ")
 endif()
