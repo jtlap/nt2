@@ -16,8 +16,6 @@
 #include <boost/simd/sdk/config/details/get_vendor.hpp>
 #include <nt2/sdk/error/assert.hpp>
 
-namespace bsc = boost::simd::config;
-
 namespace nt2{ namespace config{ namespace details{
 
   inline int get_range(int reg, int begin, int end)
@@ -38,7 +36,7 @@ namespace nt2{ namespace config{ namespace details{
 
     switch(bsc::get_vendor())
     {
-    case bsc::intel :
+    case boost::simd::config::intel :
 
         do{
             bsc::x86::cpuidex(regs, 0x00000004, cache_ecx);
@@ -70,7 +68,7 @@ namespace nt2{ namespace config{ namespace details{
 
         break;
 
-    case bsc::amd :
+    case boost::simd::config::amd :
 
         bsc::x86::cpuidex(regs,0x80000005,0);
         cache_line_sizes_[0] = regs[3] & 0x000000FF;
@@ -100,4 +98,4 @@ namespace nt2{ namespace config{ namespace details{
 
 #endif
 
-#endif /* NT2_SDK_CONFIG_DETAILS_CACHE_X86_DETECT_CACHE_HPP */
+#endif

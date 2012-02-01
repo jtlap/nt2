@@ -36,4 +36,4 @@ namespace nt2{ namespace config{ namespace details{
 } } }
 
 
-#endif /* NT2_SDK_CONFIG_DETAILS_CACHE_CACHE_HPP */
+#endif
