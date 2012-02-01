@@ -78,7 +78,8 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag expm1_ of functor expm1 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    template <class T> struct expm1_ {};
+    template <class T>
+    struct expm1_ : ext::elementwise_<expm1_<T> > { typedef ext::elementwise_<expm1_<T> > parent; };
   }
   NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(expm1, 1)
 } }
