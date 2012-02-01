@@ -19,6 +19,9 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
+#include <nt2/core/settings/specific_data.hpp>
+
+//#include <include/nt2/cuda/dsl/specific_data.hpp>
 
 namespace nt2 { namespace details
 {
@@ -76,7 +79,7 @@ namespace nt2 { namespace details
     }
 
     template<class Size> static
-    inline void init( block_t&, Size const&, boost::mpl::false_ const& ) {}
+    inline void init( block_t&, Size const&, boost::mpl::false_ const&) {}
 
     //==========================================================================
     // Resize inner block if resizing is allowed
@@ -295,6 +298,15 @@ namespace nt2 { namespace details
     {
       return access ( nt2::inflate(s,p,typename index_type::type()), b, s );
     }
+
+    typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type &      
+    get_spec_data()       {return spec_data;}
+    typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type  const& 
+    get_spec_data() const {return spec_data;}
+
+    typename specific_data<typename boost::dispatch::default_site<T>::type, T>::type spec_data;
+
+
   };
 } }
 
