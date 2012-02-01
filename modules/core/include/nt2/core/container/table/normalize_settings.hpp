@@ -32,20 +32,7 @@ namespace nt2
 {
   namespace tag
   {
-    struct table_
-    {
-      template<class T, class S, class O> struct apply
-      {
-        typedef ext::table_
-                < typename  boost::dispatch::meta::
-                            property_of< typename boost::dispatch::meta::
-                                                  value_of<T>::type
-                                        , O
-                                        >::type
-                , S
-                >                                   type;
-      };
-    };
+    struct table_;
   }
 
   namespace meta
@@ -96,7 +83,25 @@ namespace nt2
                                >::type                                        lp;
       typedef typename option<S,tag::buffer_, buffer_<>               >::type bf;
       typedef settings type(id,sz,sh,bs,ag,so,sg,sd,ss,al,gp,lp,bf);
+      typedef settings layout(sz,sh,ss);
     };
-} }
+  }
+
+  namespace tag
+  {
+    struct table_
+    {
+      template<class T, class S, class Origin>
+      struct apply
+      {
+        typedef ext::table_< typename boost::dispatch::meta::
+                             property_of<T, Origin>::type
+                           , typename meta::
+                             normalize_settings<table_, T, S>::layout
+                           >                                                type;
+      };
+    };
+  }
+}
 
 #endif
