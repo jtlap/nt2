@@ -11,7 +11,11 @@
 
 namespace nt2 {
 
-  template <typename Tag, typename Type> struct specific_data ;
+  template <typename Tag, typename Type> 
+  struct specific_data 
+  {
+    typedef Type type;
+  };
 
 }
 
