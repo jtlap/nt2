@@ -300,12 +300,6 @@ namespace nt2 { namespace details
       return access ( nt2::inflate(s,p,typename index_type::type()), b, s );
     }
 
-    specific_data_type        get_spec_data()       {return spec_data;}
-    specific_data_type const& get_spec_data() const {return spec_data;}
-
-    specific_data_type spec_data;
-
-
 
   };
 } }
