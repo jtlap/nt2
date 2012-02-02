@@ -16,9 +16,9 @@ MESSAGE( STATUS "[boost.simd.sdk] target processor: ${NT2_ARCH} (${CMAKE_SYSTEM_
 set(FLAGS ${NT2_SIMD_FLAGS})
 if(CMAKE_CXX_COMPILER MATCHES "[\\/]icpc[^\\/]*")
   if(UNIX)
-    set(FLAGS "${FLAGS} -wd2536")
+    set(FLAGS "${FLAGS} -mp -wd411 -wd2536")
   else()
-    set(FLAGS "${FLAGS} /wd2536")
+    set(FLAGS "${FLAGS} /mp /wd411 /wd2536")
   endif()
 endif()
 
