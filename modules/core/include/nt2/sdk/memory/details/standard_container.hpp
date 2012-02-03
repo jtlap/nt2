@@ -143,8 +143,8 @@ namespace nt2 { namespace memory
      * Return the specific_data
      */
     //==========================================================================
-    BOOST_FORCEINLINE specific_data_type         get_spec_data()       { return specific_data_; }
-    BOOST_FORCEINLINE specific_data_type  const& get_spec_data() const { return specific_data_; }
+    BOOST_FORCEINLINE specific_data_type&  get_spec_data()       { return specific_data_; }
+    BOOST_FORCEINLINE specific_data_type&  get_spec_data() const { return specific_data_; }
 
     //==========================================================================
     /*!
@@ -157,7 +157,7 @@ namespace nt2 { namespace memory
     private:
     block_t             block_;
     sizes_type          sizes_;
-    specific_data_type  specific_data_;
+    mutable  specific_data_type  specific_data_;
   };
 } }
 

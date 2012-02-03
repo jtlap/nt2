@@ -14,14 +14,13 @@ namespace nt2 {
   template <typename Tag, typename Type> 
   struct specific_data 
   {
-    struct data
+    struct type
     {
-      data() {}
-      data(data const& s){}
-      void swap(data& s){}
+      type() {}
+      type(type const& s){}
+      void swap(type& s){}
 
     };
-    typedef data type;
   };
 
 }
