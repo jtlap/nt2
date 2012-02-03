@@ -22,6 +22,7 @@ set( SOURCES
   minusone.cpp
   oneminus.cpp
   oneplus.cpp
+  rsqrt.cpp
   sqr.cpp
   sqrt.cpp
   )

@@ -13,9 +13,11 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_gtz.hpp>
+#include <nt2/include/functions/is_nltz.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
@@ -38,12 +40,12 @@ namespace nt2 { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_complex<rA0>::type result_type; 
+    typedef typename meta::as_real<A0>::type rtype;
+    typedef typename meta::as_complex<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      const rA0 root = rsqrt(nt2::abs(imag(a0))); 
-      return result_type(One<result_type>(), sign(imag(a0)))*root*Sqrt_2o_2<rA0>(); 
+      const rtype root = rsqrt(nt2::abs(imag(a0))); 
+      return multiplies(result_type(One<rtype>(), -sign(imag(a0))), root*Sqrt_2o_2<rtype>()); 
     }
   };
   
@@ -57,7 +59,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       const rA0 root = rsqrt(nt2::abs(a0)); 
-      return if_else(is_gtz(real(a0)), result_type(root), result_type(Zero<rA0>(), root)); 
+      return if_else(is_nltz(real(a0)), result_type(root), result_type(Zero<rA0>(), -root)); 
     }
   };
 
