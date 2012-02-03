@@ -87,6 +87,7 @@ namespace nt2 { namespace ext
                                 Inf<rtype>()
                                 ),
                     z);
+        z = if_else(logical_and(is_real(a0), is_nan(a0)), a0, z); 
         return if_else(negimag, conj(z), z);    
       }
   };

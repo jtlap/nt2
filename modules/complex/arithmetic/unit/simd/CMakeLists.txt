@@ -12,6 +12,7 @@ set( SOURCES
   arg.cpp
   average.cpp
   ceil.cpp
+  conj.cpp
   dist.cpp
   floor.cpp
   trunc.cpp
@@ -22,6 +23,7 @@ set( SOURCES
   oneminus.cpp
   oneplus.cpp
   sqr.cpp
+  sqrt.cpp
   )
 
 nt2_module_add_tests(complex.arithmetic.simd.unit ${SOURCES})
