@@ -43,7 +43,7 @@ macro(nt2_module_source_setup module)
   
   # installation is only done when current project is NT2
   # or same as current module
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(PROJECT_NAME MATCHES "^NT2")
 
     nt2_module_install_setup()
 
@@ -261,7 +261,7 @@ macro(nt2_module_add_library libname)
   set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
   set_property(TARGET ${libname} PROPERTY LINK_FLAGS ${FLAGS})
 
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(PROJECT_NAME MATCHES "^NT2")
     install( DIRECTORY ${NT2_BINARY_DIR}/lib
              DESTINATION . COMPONENT ${NT2_CURRENT_MODULE}
              FILES_MATCHING PATTERN "*${libname}.*"
@@ -390,7 +390,7 @@ endmacro()
 macro(nt2_module_install_file header)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(PROJECT_NAME MATCHES "^NT2")
     string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
     install(FILES ${NT2_BINARY_DIR}/include/${header}
             DESTINATION include/${${header}_path}
@@ -604,7 +604,7 @@ macro(nt2_module_tool_setup tool)
       message(FATAL_ERROR "[nt2] building tool ${tool} failed")
     endif()
 
-    if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+    if(PROJECT_NAME MATCHES "^NT2")
       install( PROGRAMS ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
                DESTINATION tools/${tool}
                COMPONENT tools
@@ -644,7 +644,7 @@ macro(nt2_postconfigure_init)
   set_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED 1)
   set(NT2_FOUND_COMPONENTS "" CACHE INTERNAL "" FORCE)
 
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(PROJECT_NAME MATCHES "^NT2")
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" \\\"$INSTDIR\\\"'")
     include(CPack)
     cpack_add_component(tools REQUIRED)
@@ -715,7 +715,7 @@ macro(nt2_postconfigure_run)
   
   nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/include_tmp ${NT2_BINARY_DIR}/include)
 
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(PROJECT_NAME MATCHES "^NT2")
 
     cpack_add_component(postconfigured
                         HIDDEN DISABLED
