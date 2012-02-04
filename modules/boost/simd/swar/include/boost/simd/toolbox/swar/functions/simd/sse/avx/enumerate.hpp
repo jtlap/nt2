@@ -241,8 +241,8 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
-      result_type that = { _mm256_set_epi16( a0+15*a1, a0+14*a1, a0+13*a1, a0+12*a1, a0+11,*a1 a0+10*a1, a0+9*a1, a0+8*a1
-                                           , a0+7*a1,  a0+6,*a1  a0+5*a1,  a0+4*a1,  a0+3*a1,  a0+2*a1,  a0+a1, a0
+      result_type that = { _mm256_set_epi16( a0+15*a1, a0+14*a1, a0+13*a1, a0+12*a1, a0+11*a1, a0+10*a1, a0+9*a1, a0+8*a1
+                                           , a0+7*a1,  a0+6*a1,  a0+5*a1,  a0+4*a1,  a0+3*a1,  a0+2*a1,  a0+a1,   a0
                                            )
                          };
       return that;
@@ -268,7 +268,7 @@ namespace boost { namespace simd { namespace ext
       result_type that = { _mm256_set_epi8( a0+31*a1, a0+30*a1, a0+29*a1, a0+28*a1, a0+27*a1, a0+26*a1, a0+25*a1, a0+24*a1
                                           , a0+23*a1, a0+22*a1, a0+21*a1, a0+20*a1, a0+19*a1, a0+18*a1, a0+17*a1, a0+16*a1
                                           , a0+15*a1, a0+14*a1, a0+13*a1, a0+12*a1, a0+11*a1, a0+10*a1, a0+9*a1,  a0+8*a1
-                                          , a0+7*a1,  a0+6*a1,  a0+5*a1,  a0+4*a1,  a0+3,*a1  a0+2*a1,  a0+a1,  a0
+                                          , a0+7*a1,  a0+6*a1,  a0+5*a1,  a0+4*a1,  a0+3*a1,  a0+2*a1,  a0+a1,  a0
                                           )
                          };
       return that;
