@@ -43,7 +43,10 @@ NT2_TEST_CASE_TPL ( enumerate_from_int, BOOST_SIMD_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
   typedef typename boost::dispatch::meta::call<enumerate_(int, as_<vT> )>::type r_t;
-
+  std::cout << enumerate<vT>(int(10)) << std::endl; 
   for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(enumerate<vT>(int(10))[i], int(10 + i));
+    NT2_TEST_EQUAL(enumerate<vT>(int(10))[i], T(10 + i));
+  std::cout << enumerate<vT>(int(10), T(0.5)) << std::endl; 
+  for(std::size_t i=0; i < vT::static_size;++i)
+    NT2_TEST_EQUAL(enumerate<vT>(int(10), T(0.5))[i], T(10 + T(0.5)*i));
 }
