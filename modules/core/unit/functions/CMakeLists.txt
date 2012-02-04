@@ -11,6 +11,7 @@ SET( SOURCES
    isrow.cpp
    iscolumn.cpp
    isvector.cpp
+   ismatrix.cpp
    length.cpp
    linspace.cpp
    ndims.cpp
