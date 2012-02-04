@@ -24,6 +24,8 @@ NT2_TEST_CASE( fundamental_size )
 
   NT2_TEST_EQUAL( std::size_t( size( 3 )(1)), 1);
   NT2_TEST_EQUAL( std::size_t( size( 3 )(2)), 1);
+  NT2_TEST_EQUAL( size( 3 , 1 ), 1);
+  NT2_TEST_EQUAL( size( 3 , 2 ), 1);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,6 +40,10 @@ NT2_TEST_CASE( size_table )
   NT2_TEST_EQUAL( std::size_t(nt2::size( x )(1)), 4);
   NT2_TEST_EQUAL( std::size_t(nt2::size( x )(2)), 5);
   NT2_TEST_EQUAL( std::size_t(nt2::size( x )(3)), 6);
+
+  NT2_TEST_EQUAL( nt2::size( x , 1), 4);
+  NT2_TEST_EQUAL( nt2::size( x , 2), 5);
+  NT2_TEST_EQUAL( nt2::size( x , 3), 6);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,6 +58,10 @@ NT2_TEST_CASE( size_expression )
   NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(1)), 4);
   NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(2)), 5);
   NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(3)), 6);
+
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 1), 4);
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 2), 5);
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 3), 6);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +76,12 @@ NT2_TEST_CASE( size_size )
   NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size(x) )(1)), 1);
   NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size(x) )(2)), 3);
 
+  NT2_TEST_EQUAL( nt2::size( nt2::size(x) , 1), 1);
+  NT2_TEST_EQUAL( nt2::size( nt2::size(x) , 2), 3);
+
   NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size( nt2::size(x) ) )(1)), 1);
   NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size( nt2::size(x) ) )(2)), 2);
 
+  NT2_TEST_EQUAL( nt2::size( nt2::size( nt2::size(x) ) , 1), 1);
+  NT2_TEST_EQUAL( nt2::size( nt2::size( nt2::size(x) ) , 2), 2);
 }

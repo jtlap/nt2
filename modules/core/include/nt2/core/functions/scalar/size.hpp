@@ -28,6 +28,20 @@ namespace nt2 { namespace ext
       return that;
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A1> >)
+                            )
+  {
+    typedef std::size_t result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&,const A1&) const
+    {
+      return 1;
+    }
+  };
 } }
 
 #endif
