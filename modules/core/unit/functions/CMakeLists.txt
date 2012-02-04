@@ -8,6 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
+   isrow.cpp
+   iscolumn.cpp
+   isvector.cpp
    length.cpp
    linspace.cpp
    ndims.cpp
