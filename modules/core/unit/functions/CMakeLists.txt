@@ -12,6 +12,7 @@ SET( SOURCES
    isempty.cpp
    ismatrix.cpp
    isrow.cpp
+   isscalar.cpp
    isvector.cpp
    length.cpp
    linspace.cpp
