@@ -657,30 +657,6 @@ macro(nt2_postconfigure_init)
                             PATTERN "*.txt"
                             PATTERN "*.cpp"
            )
-
-    # postconfigure is a target because it's only required to install, not to configure
-    file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/tools/postconfigure)
-    install( FILES ${NT2_BINARY_DIR}/tools/postconfigure/postconfigure${CMAKE_EXECUTABLE_SUFFIX}
-             DESTINATION tools/postconfigure
-             COMPONENT tools
-             OPTIONAL
-           )
-
-    set(BUILD_OPTION)
-    if(NOT CMAKE_CONFIGURATION_TYPES)
-      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=Release)
-    endif()
-             
-    add_custom_target(postconfigure
-                      COMMAND ${CMAKE_COMMAND}
-                              ${BUILD_OPTION}
-                              -G ${CMAKE_GENERATOR}
-                              ${NT2_SOURCE_ROOT}/tools/postconfigure
-                           && ${CMAKE_COMMAND} --build . --config Release
-                      WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/postconfigure
-                     )
-    set_property(TARGET postconfigure PROPERTY FOLDER tools)
-
   endif()
 
 endmacro()
