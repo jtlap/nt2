@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 fuzzy toolbox - tolerant_floor/simd Mode"
+#define NT2_UNIT_MODULE "nt2 fuzzy toolbox - tolerant_trunc/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
 /// 
-#include <nt2/toolbox/fuzzy/include/functions/tolerant_floor.hpp>
+#include <nt2/toolbox/fuzzy/include/functions/tolerant_trunc.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
@@ -36,10 +36,10 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( tolerant_floor_real__3_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( tolerant_trunc_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::tolerant_floor;
-  using nt2::tag::tolerant_floor_;
+  using nt2::tolerant_trunc;
+  using nt2::tag::tolerant_trunc_;
   using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
@@ -49,19 +49,19 @@ NT2_TEST_CASE_TPL ( tolerant_floor_real__3_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<tolerant_floor_(vT)>::type r_t;
-  typedef typename nt2::meta::call<tolerant_floor_(T)>::type sr_t;
+  typedef typename nt2::meta::call<tolerant_trunc_(vT)>::type r_t;
+  typedef typename nt2::meta::call<tolerant_trunc_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
 
 
   // specific values tests
-  NT2_TEST_EQUAL(tolerant_floor(nt2::Zero<vT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(tolerant_floor(nt2::Eps<vT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(tolerant_floor(-nt2::Eps<vT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(tolerant_floor(-nt2::Two<vT>()*nt2::Eps<vT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(tolerant_floor(-nt2::Three<vT>()*nt2::Eps<vT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(tolerant_floor(-nt2::Four<vT>()*nt2::Eps<vT>()), nt2::Mone<r_t>());
+  NT2_TEST_EQUAL(tolerant_trunc(nt2::One<vT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(tolerant_trunc(nt2::One<vT>()-nt2::Eps<vT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(tolerant_trunc(nt2::One<vT>()-nt2::Two<vT>()*nt2::Eps<vT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(tolerant_trunc(nt2::One<vT>()-nt2::Three<vT>()*nt2::Eps<vT>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(tolerant_trunc(nt2::One<vT>()-nt2::Four<vT>()*nt2::Eps<vT>()), nt2::Zero<r_t>());
+
 
 } // end of test for floating_

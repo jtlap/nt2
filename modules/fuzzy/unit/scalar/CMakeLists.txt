@@ -22,6 +22,9 @@ SET( SOURCES
   almost_greater_or_equal.cpp
   almost_equal.cpp
   tolerant_floor.cpp
+  tolerant_ceil.cpp
+  tolerant_round.cpp
+  tolerant_trunc.cpp
 # List of scalar test files for toolbox fuzzy
    )
 
