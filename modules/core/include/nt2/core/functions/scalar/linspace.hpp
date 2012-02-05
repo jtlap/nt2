@@ -10,8 +10,11 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_LINSPACE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/linspace.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 #include <nt2/core/utility/generator/generator.hpp>
 
 //==============================================================================
@@ -75,7 +78,7 @@ namespace nt2 { namespace ext
     operator()(A0 const& l, A0 const& u, A1 const& n) const
     {
       container::domain domain_;
-      nt2::details::linspace<A0> callee(l,u,n);
+      nt2::details::linspace<A0> callee((n<2 ? u : l),u,(n<2 ? 2 : n));
 
       return domain_( expr_type::make( base(of_size(1,n),callee) ) );
     }
@@ -92,17 +95,16 @@ namespace nt2 { namespace details
     linspace( T const& l, T const& u, std::size_t n )
             : lower_(l), step_((u-l)/(n-1)) {}
 
-    template<class Pos, class Size, class Target> Target
-    operator()(Pos const& p, Size const&, meta::as_<Target> const&) const
+    template<class Pos, class Size, class Target>
+    typename Target::type
+    operator()(Pos const& p, Size const&, Target const&) const
     {
-      return  lower_ + (boost::fusion::at_c<1>(p)-1) * step_;
-    }
+      typedef typename Target::type type;
 
-    template<class Pos, class Size, class U, class X> boost::simd::native<U,X>
-    operator()(Pos const& p, Size const&, meta::as_< boost::simd::native<U,X> > const&) const
-    {
-      boost::simd::native<T,X> that;
-      return that;
+      return nt2::fma ( nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
+                      , nt2::splat<type>(step_)
+                      , nt2::splat<type>(lower_)
+                      );
     }
 
     T lower_, step_;
