@@ -289,6 +289,7 @@ macro(nt2_module_use_modules)
   link_directories(${NT2_LIBRARY_DIR})
   link_libraries(${NT2_LIBRARIES})
   set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
+  list(APPEND CMAKE_MODULE_PATH ${NT2_MODULE_PATH})
 endmacro()
 
 macro(nt2_module_add_exe name)
