@@ -11,6 +11,39 @@
 
 #include <nt2/include/functor.hpp>
 
+/*!
+ * \ingroup core
+ * \defgroup core_ismatrix ismatrix
+ *
+ * \par Description
+ * Returns true or false according a0 is an "matrix" container
+ * (nXm) or not.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/ismatrix.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg is_matrix
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     bool ismatrix(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the first parameter of ismatrix
+ * 
+ * \return a bool value
+ *  
+**/
+
 namespace nt2
 {
   namespace tag
@@ -22,6 +55,7 @@ namespace nt2
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ismatrix_, ismatrix, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ismatrix_, is_matrix, 1)
 }
 
 #endif

@@ -11,6 +11,38 @@
 
 #include <nt2/include/functor.hpp>
 
+/*!
+ * \ingroup core
+ * \defgroup core_is_equal is_equal
+ *
+ * \par Description
+ * Returns true or false according a0 is a "column" container (nX1) or not.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/iscolumn.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg eq
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     bool iscolumn(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the first parameter of iscolumn
+ * 
+ * \return a bool value
+ *  
+**/
+
 namespace nt2
 {
   namespace tag
@@ -22,6 +54,7 @@ namespace nt2
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::iscolumn_, iscolumn, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::iscolumn_, is_column, 1) 
 }
 
 #endif

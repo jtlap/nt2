@@ -11,6 +11,39 @@
 
 #include <nt2/include/functor.hpp>
 
+/*!
+ * \ingroup core
+ * \defgroup core_isrow isrow
+ *
+ * \par Description
+ * Returns true or false according a0 is an "row" container
+ * (1Xn) or not.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/isrow.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg is_row
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     bool isrow(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the first parameter of isrow
+ * 
+ * \return a bool value
+ *  
+**/
+
 namespace nt2
 {
   namespace tag
@@ -22,6 +55,7 @@ namespace nt2
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isrow_, isrow, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isrow_, is_row, 1)
 }
 
 #endif

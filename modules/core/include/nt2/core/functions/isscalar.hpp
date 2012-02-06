@@ -8,8 +8,39 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ISSCALAR_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ISSCALAR_HPP_INCLUDED
-
 #include <nt2/include/functor.hpp>
+
+/*!
+ * \ingroup core
+ * \defgroup core_isscalar isscalar
+ *
+ * \par Description
+ * Returns true or false according a0 is a "scalar" container (1X1) or not.
+ *
+ * \par Header file
+ * 
+ * \code
+ * #include <nt2/include/functions/isscalar.hpp>
+ * \endcode
+ * 
+ * \par Alias 
+ * \arg is_scalar
+ * 
+ * \synopsis
+ *
+ * \code
+ * namespace boost::simd
+ * {
+ *   template <class A0>
+ *     bool isscalar(const A0 & a0);
+ * }
+ * \endcode
+ *
+ * \param a0 the first parameter of isscalar
+ * 
+ * \return a bool value
+ *  
+**/
 
 namespace nt2
 {
@@ -22,6 +53,7 @@ namespace nt2
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isscalar_, isscalar, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isscalar_, is_scalar, 1)
 }
 
 #endif
