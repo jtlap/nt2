@@ -90,6 +90,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::compare_greater_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::compare_greater_>
+  {
+    typedef boost::proto::tag::greater type;
+  };
 } } }
 
 #endif

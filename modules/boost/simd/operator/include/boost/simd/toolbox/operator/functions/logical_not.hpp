@@ -86,6 +86,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::logical_not_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::logical_not_>
+  {
+    typedef boost::proto::tag::logical_not type;
+  };
 } } }
 
 #endif

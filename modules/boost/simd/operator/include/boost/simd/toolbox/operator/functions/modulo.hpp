@@ -77,6 +77,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::modulo_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::modulo_>
+  {
+    typedef boost::proto::tag::modulus type;
+  };
 } } }
 
 #endif

@@ -29,6 +29,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef nt2::tag::function_ type;
   };
+  template<>
+  struct proto_tag<nt2::tag::function_>
+  {
+    typedef boost::proto::tag::function type;
+  };
 } } }
 
 #endif

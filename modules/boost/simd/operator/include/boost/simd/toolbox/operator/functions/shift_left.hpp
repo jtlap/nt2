@@ -81,6 +81,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::shift_left_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::shift_left_>
+  {
+    typedef boost::proto::tag::shift_left type;
+  };
 } } }
 
 #endif

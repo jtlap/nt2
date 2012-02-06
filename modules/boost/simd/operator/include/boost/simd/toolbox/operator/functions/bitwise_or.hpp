@@ -83,6 +83,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::bitwise_or_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::bitwise_or_>
+  {
+    typedef boost::proto::tag::bitwise_or type;
+  };
 } } }
 
 #endif

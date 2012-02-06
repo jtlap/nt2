@@ -90,6 +90,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::compare_less_equal_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::compare_less_equal_>
+  {
+    typedef boost::proto::tag::less_equal type;
+  };
 } } }
 
 #endif

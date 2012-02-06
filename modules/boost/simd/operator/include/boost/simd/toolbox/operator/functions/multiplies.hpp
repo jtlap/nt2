@@ -81,6 +81,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::multiplies_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::multiplies_>
+  {
+    typedef boost::proto::tag::multiplies type;
+  };
 } } }
 
 #endif

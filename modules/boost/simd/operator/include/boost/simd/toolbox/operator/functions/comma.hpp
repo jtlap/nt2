@@ -77,6 +77,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::comma_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::comma_>
+  {
+    typedef boost::proto::tag::comma type;
+  };
 } } }
 
 #endif

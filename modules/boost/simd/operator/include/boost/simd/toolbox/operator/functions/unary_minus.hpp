@@ -78,6 +78,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::unary_minus_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::unary_minus_>
+  {
+    typedef boost::proto::tag::negate type;
+  };
 } } }
 
 #endif
