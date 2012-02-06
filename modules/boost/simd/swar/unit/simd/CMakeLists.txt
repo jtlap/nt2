@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  arith.cpp
   comparator.cpp
   cumsum.cpp
   enumerate.cpp
