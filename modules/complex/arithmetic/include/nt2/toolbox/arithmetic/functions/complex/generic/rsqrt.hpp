@@ -44,11 +44,10 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      const rtype root = rsqrt(nt2::abs(imag(a0))); 
-      return multiplies(result_type(One<rtype>(), -sign(imag(a0))), root*Sqrt_2o_2<rtype>()); 
+      const rtype root = rsqrt(nt2::abs(imag(a0)));
+      return nt2::multiplies(result_type(One<rtype>(), -sign(imag(a0))), root*Sqrt_2o_2<rtype>());
     }
   };
-  
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rsqrt_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
@@ -58,8 +57,8 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      const rA0 root = rsqrt(nt2::abs(a0)); 
-      return if_else(is_nltz(real(a0)), result_type(root), result_type(Zero<rA0>(), -root)); 
+      const rA0 root = rsqrt(nt2::abs(a0));
+      return if_else(is_nltz(real(a0)), result_type(root), result_type(Zero<rA0>(), -root));
     }
   };
 
