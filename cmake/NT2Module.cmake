@@ -578,6 +578,9 @@ macro(nt2_module_tool_setup tool)
     if(NOT CMAKE_CONFIGURATION_TYPES)
       set(BUILD_OPTION -DCMAKE_BUILD_TYPE=Release)
     endif()
+    if(Boost_INCLUDE_DIR)
+      list(APPEND BUILD_OPTION -DBoost_INCLUDE_DIR=${Boost_INCLUDE_DIR})
+    endif()
 
     execute_process(COMMAND ${CMAKE_COMMAND}
                             ${BUILD_OPTION}
