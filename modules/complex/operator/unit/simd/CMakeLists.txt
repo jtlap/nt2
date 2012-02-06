@@ -8,6 +8,13 @@
 ##############################################################################
 
 set( SOURCES
+  unary_minus.cpp
+  plus.cpp
+  minus.cpp
+  multiplies.cpp
+  imag.cpp
+  real.cpp
+#  divides.cpp
    )
 
 nt2_module_add_tests(complex.operator.simd.unit ${SOURCES})

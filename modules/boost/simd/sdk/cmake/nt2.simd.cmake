@@ -11,14 +11,19 @@ include(nt2.info)
 
 if(NOT DEFINED NT2_SIMD_FLAGS)
 
-  # x86 Family
+  # x86 family
   if(NT2_ARCH_X86)
     include(arch/Findx86)
   endif()
 
-  # IBM/Motorola/Apple VMX Family
+  # IBM/Motorola/Apple POWER/PowerPC family
   if(NT2_ARCH_POWERPC)
-    include(arch/FindVMX)
+    include(arch/FindPPC)
+  endif()
+
+  # ARM family
+  if(NT2_ARCH_POWERPC)
+    include(arch/FindARM)
   endif()
 
 endif()

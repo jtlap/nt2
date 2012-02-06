@@ -78,7 +78,8 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag atanpi_ of functor atanpi 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    template <class T> struct atanpi_ {};
+    template <class T>
+    struct atanpi_ : ext::elementwise_<atanpi_<T> > { typedef ext::elementwise_<atanpi_<T> > parent; };
   }
   NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(atanpi, 1)
 } }

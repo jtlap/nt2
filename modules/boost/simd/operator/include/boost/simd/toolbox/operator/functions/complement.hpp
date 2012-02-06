@@ -80,6 +80,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::complement_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::complement_>
+  {
+    typedef boost::proto::tag::complement type;
+  };
 } } }
 
 #endif

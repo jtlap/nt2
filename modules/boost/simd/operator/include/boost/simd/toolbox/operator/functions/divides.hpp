@@ -81,6 +81,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::divides_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::divides_>
+  {
+    typedef boost::proto::tag::divides type;
+  };
 } } }
 
 #endif

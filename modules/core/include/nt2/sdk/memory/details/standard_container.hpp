@@ -41,12 +41,13 @@ namespace nt2 { namespace memory
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
     typedef Tag                                           tag_type;
+    typedef typename parent::specific_data_type           specific_data_type;
     //==========================================================================
     /*!
      * Default constructor
      */
     //==========================================================================
-    container( allocator_type const& a = allocator_type() ) : block_(a)
+    container( allocator_type const& a = allocator_type() ) : block_(a), specific_data_()
     {
       parent::init(block_,sizes_, is_static_sized());
     }
@@ -58,7 +59,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size>
     container( Size const& sz, allocator_type const& a = allocator_type() )
-            : block_( pad(sz,parent::lead_t::value) ,a), sizes_(sz)
+      : block_( pad(sz,parent::lead_t::value) ,a), sizes_(sz), specific_data_()
     {}
 
     //==========================================================================
@@ -66,7 +67,8 @@ namespace nt2 { namespace memory
      * Copy Constructor
      */
     //==========================================================================
-    container( container const& s) : block_( s.block_ ), sizes_(s.sizes_) {}
+    container( container const& s) : block_( s.block_ ), sizes_(s.sizes_), specific_data_(s.specific_data_){
+    }
 
     //==========================================================================
     /*!
@@ -77,6 +79,7 @@ namespace nt2 { namespace memory
     {
       block_.swap(src.block_);
       sizes_.swap(src.sizes_);
+      specific_data_.swap(src.specific_data_);
     }
 
     //==========================================================================
@@ -137,6 +140,14 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /*!
+     * Return the specific_data
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE specific_data_type&  get_spec_data()       { return specific_data_; }
+    BOOST_FORCEINLINE specific_data_type&  get_spec_data() const { return specific_data_; }
+
+    //==========================================================================
+    /*!
      * Return the end of the data
      */
     //==========================================================================
@@ -144,8 +155,9 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE const_iterator end() const { return block_.data().end(); }
 
     private:
-    block_t     block_;
-    sizes_type  sizes_;
+    block_t             block_;
+    sizes_type          sizes_;
+    mutable  specific_data_type  specific_data_;
   };
 } }
 

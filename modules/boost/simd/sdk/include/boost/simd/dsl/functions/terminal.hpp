@@ -32,6 +32,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::terminal_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::terminal_>
+  {
+    typedef boost::proto::tag::terminal type;
+  };
 } } }
 
 #endif

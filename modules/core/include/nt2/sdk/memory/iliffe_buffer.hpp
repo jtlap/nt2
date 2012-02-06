@@ -198,6 +198,7 @@ namespace nt2 { namespace memory
     {
       data_.resize(data_size(szs));
       index_.resize(index_size(szs));
+
       inner_    = boost::fusion::at_c<0>(szs);
       inner_up_ = data_.lower() + inner_ - 1;
       make_links();
@@ -286,11 +287,14 @@ namespace nt2 { namespace memory
     //==========================================================================
     void make_links()
     {
-      typename Index::difference_type i = index_.lower();
-      typename Index::difference_type u = index_.upper();
+      if( index_.origin() )
+      {
+        typename Index::difference_type i = index_.lower();
+        typename Index::difference_type u = index_.upper();
 
-      index_(i++) = data_.origin();
-      for(; i <= u; ++i) index_(i) = index_(i-1) + inner_;
+        index_(i++) = data_.origin();
+        for(; i <= u; ++i) index_(i) = index_(i-1) + inner_;
+      }
     }
 
     private:

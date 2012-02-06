@@ -85,6 +85,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::if_else_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::if_else_>
+  {
+    typedef boost::proto::tag::if_else_ type;
+  };
 } } }
 
 #endif

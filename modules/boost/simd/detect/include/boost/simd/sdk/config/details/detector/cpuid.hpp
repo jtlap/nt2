@@ -6,27 +6,31 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#include <boost/simd/sdk/config/details/cpuid.hpp>
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECTOR_CPUID_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECTOR_CPUID_HPP_INCLUDED
+
+/*!
+ *\file cpuid.hpp
+ *\brief cpuid function to get x86 processor infos
+*/
+
+#include <boost/simd/sdk/config/compiler.hpp>
+#include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/sdk/config/os.hpp>
 
 #if defined(BOOST_SIMD_COMPILER_MSVC)
 #include <intrin.h>
 #endif
 
-namespace boost { namespace simd { namespace config{ namespace details {
+namespace boost { namespace simd { namespace config{ namespace x86 {
 
-  bool has_bit_set(int value, int bit)
-  {
-    return (value & (1<<bit)) != 0;
-  }
-
-  void cpuid(int CPUInfo[4],int InfoType)
+  inline void cpuid(int CPUInfo[4],int InfoType)
   {
 #if defined(BOOST_SIMD_ARCH_X86)
 
 #if defined(BOOST_SIMD_COMPILER_GCC_LIKE)
     enum { eax,ebx,ecx,edx };
-    
+
 #if !defined(__PIC__) || defined(BOOST_SIMD_ARCH_X86_64)
     __asm__ __volatile__
     (
@@ -49,9 +53,48 @@ namespace boost { namespace simd { namespace config{ namespace details {
     : "cc"
     );
 #endif
-    
+
 #elif defined(BOOST_SIMD_COMPILER_MSVC)
     __cpuid(CPUInfo,InfoType);
+#else
+#error compiler not supported
+#endif
+
+#endif
+  }
+
+  inline void cpuidex(int CPUInfo[4],int InfoType, int ECXValue)
+  {
+#if defined(BOOST_SIMD_ARCH_X86)
+
+#if defined(BOOST_SIMD_COMPILER_GCC_LIKE)
+    enum { eax,ebx,ecx,edx };
+
+#if !defined(__PIC__) || defined(BOOST_SIMD_ARCH_X86_64)
+    __asm__ __volatile__
+    (
+      "cpuid"
+    : "=a" (CPUInfo[eax]), "=b" (CPUInfo[ebx])
+    , "=c" (CPUInfo[ecx]), "=d" (CPUInfo[edx])
+    : "a" (InfoType), "c" (ECXValue)
+    : "cc"
+    );
+#else
+    __asm__ __volatile__
+    (
+      "pushl %%ebx      \n\t" /* save %ebx */
+      "cpuid            \n\t"
+      "movl %%ebx, %1   \n\t" /* save what cpuid just put in %ebx */
+      "popl %%ebx       \n\t" /* restore the old %ebx */
+    : "=a"(CPUInfo[eax]), "=r"(CPUInfo[ebx])
+    , "=c"(CPUInfo[ecx]), "=d"(CPUInfo[edx])
+    : "a"(InfoType), "c" (ECXValue)
+    : "cc"
+    );
+#endif
+
+#elif defined(BOOST_SIMD_COMPILER_MSVC)
+    __cpuidex(CPUInfo,InfoType,ECXValue);
 #else
 #error compiler not supported
 #endif
@@ -62,3 +105,4 @@ namespace boost { namespace simd { namespace config{ namespace details {
 } } } }
 
 
+#endif

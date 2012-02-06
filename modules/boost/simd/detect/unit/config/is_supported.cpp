@@ -24,11 +24,12 @@
 NT2_TEST_CASE(is_supported)
 {
   std::cout << "Altivec : " << boost::simd::is_supported<boost::simd::tag::altivec_>() << std::endl;
-  std::cout << "AVX : " << boost::simd::is_supported<boost::simd::tag::avx_>() << std::endl;
-  std::cout << "SSE4.2 : " << boost::simd::is_supported<boost::simd::tag::sse4_2_>() << std::endl;
-  std::cout << "SSE4.1 : " << boost::simd::is_supported<boost::simd::tag::sse4_1_>() << std::endl;
-  std::cout << "SSE4A : " << boost::simd::is_supported<boost::simd::tag::sse4a_>() << std::endl;
-  std::cout << "SSSE3 : " << boost::simd::is_supported<boost::simd::tag::ssse3_>() << std::endl;  
-  std::cout << "SSE3 : " << boost::simd::is_supported<boost::simd::tag::sse3_>() << std::endl;
-  std::cout << "SSE2 : " << boost::simd::is_supported<boost::simd::tag::sse2_>() << std::endl;
+  std::cout << "Neon    : " << boost::simd::is_supported<boost::simd::tag::neon_>() << std::endl;
+  std::cout << "AVX     : " << boost::simd::is_supported<boost::simd::tag::avx_>() << std::endl;
+  std::cout << "SSE4.2  : " << boost::simd::is_supported<boost::simd::tag::sse4_2_>() << std::endl;
+  std::cout << "SSE4.1  : " << boost::simd::is_supported<boost::simd::tag::sse4_1_>() << std::endl;
+  std::cout << "SSE4A   : " << boost::simd::is_supported<boost::simd::tag::sse4a_>() << std::endl;
+  std::cout << "SSSE3   : " << boost::simd::is_supported<boost::simd::tag::ssse3_>() << std::endl;  
+  std::cout << "SSE3    : " << boost::simd::is_supported<boost::simd::tag::sse3_>() << std::endl;
+  std::cout << "SSE2    : " << boost::simd::is_supported<boost::simd::tag::sse2_>() << std::endl;
 }

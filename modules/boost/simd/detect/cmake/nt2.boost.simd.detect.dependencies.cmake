@@ -8,4 +8,3 @@
 ################################################################################
 
 SET(NT2_BOOST.SIMD.DETECT_DEPENDENCIES_EXTRA boost.simd.config)
-SET(NT2_BOOST.SIMD.DETECT_LIBRARIES optimized boost_simd debug boost_simd_d)

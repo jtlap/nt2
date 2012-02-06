@@ -19,6 +19,8 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
+#include <nt2/core/settings/specific_data.hpp>
+
 
 namespace nt2 { namespace details
 {
@@ -37,18 +39,20 @@ namespace nt2 { namespace details
     //==========================================================================
     // Public type interface
     //==========================================================================
-    typedef typename block_t::allocator_type        allocator_type;
-    typedef typename block_t::value_type            value_type;
-    typedef typename block_t::iterator              iterator;
-    typedef typename block_t::const_iterator        const_iterator;
-    typedef typename block_t::reference             reference;
-    typedef typename block_t::const_reference       const_reference;
-    typedef typename block_t::size_type             size_type;
-    typedef typename block_t::difference_type       difference_type;
-    typedef typename allocator_type::pointer        pointer;
-    typedef typename allocator_type::const_pointer  const_pointer;
-    typedef Tag                                     tag_type;
-    typedef S                                       base_settings_type;
+    typedef typename block_t::allocator_type                    allocator_type;
+    typedef typename block_t::value_type                        value_type;
+    typedef typename block_t::iterator                          iterator;
+    typedef typename block_t::const_iterator                    const_iterator;
+    typedef typename block_t::reference                         reference;
+    typedef typename block_t::const_reference                   const_reference;
+    typedef typename block_t::size_type                         size_type;
+    typedef typename block_t::difference_type                   difference_type;
+    typedef typename allocator_type::pointer                    pointer;
+    typedef typename allocator_type::const_pointer              const_pointer;
+    typedef Tag                                                 tag_type;
+    typedef S                                                   base_settings_type;
+    typedef typename specific_data<
+      typename boost::dispatch::default_site<T>::type, T>::type specific_data_type;
     //==========================================================================
     // container is handling the size/base storage for the proto terminal
     //==========================================================================
@@ -76,7 +80,7 @@ namespace nt2 { namespace details
     }
 
     template<class Size> static
-    inline void init( block_t&, Size const&, boost::mpl::false_ const& ) {}
+    inline void init( block_t&, Size const&, boost::mpl::false_ const&) {}
 
     //==========================================================================
     // Resize inner block if resizing is allowed
@@ -295,6 +299,8 @@ namespace nt2 { namespace details
     {
       return access ( nt2::inflate(s,p,typename index_type::type()), b, s );
     }
+
+
   };
 } }
 

@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 
+#include <nt2/include/functions/colon.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace container
@@ -21,21 +22,25 @@ namespace nt2 { namespace container
     // colon_ acts as an anything-goes sink for tie
     template<class T> colon_ const& operator=(T const&) const { return *this; }
 
-    // colon also acts as iota() generator
+    // colon also acts as : generator
     template<class Begin, class End>
-    void operator()(Begin const& b, End const& e) const
+    typename meta::call<nt2::tag::colon_(Begin,End)>::type
+    operator()(Begin const& b, End const& e) const
     {
+      return nt2::colon(b,e);
     }
 
     template<class Begin, class Step, class End>
-    void operator()(Begin const& b, Step const& s, End const& e) const
+    typename meta::call<nt2::tag::colon_(Begin,Step,End)>::type
+    operator()(Begin const& b, Step const& s, End const& e) const
     {
+      return nt2::colon(b,s,e);
     }
   };
 } }
 
-namespace nt2 
-{   
+namespace nt2
+{
   //==========================================================================
   /*!
    * _ is a multi-purpose placeholder in \nt2:

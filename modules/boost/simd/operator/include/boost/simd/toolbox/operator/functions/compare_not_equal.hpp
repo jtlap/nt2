@@ -92,6 +92,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::compare_not_equal_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::compare_not_equal_>
+  {
+    typedef boost::proto::tag::not_equal_to type;
+  };
 } } }
 
 #endif

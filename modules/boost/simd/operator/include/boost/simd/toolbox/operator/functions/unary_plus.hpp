@@ -81,6 +81,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::simd::tag::unary_plus_ type;
   };
+  template<>
+  struct proto_tag<boost::simd::tag::unary_plus_>
+  {
+    typedef boost::proto::tag::unary_plus type;
+  };
 } } }
 
 #endif

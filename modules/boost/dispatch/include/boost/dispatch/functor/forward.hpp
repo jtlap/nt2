@@ -52,6 +52,7 @@ namespace boost { namespace dispatch
 namespace boost { namespace dispatch { namespace meta
 {
   template< class Signature , class Site, class Dummy = void> struct implement;
+  template< class Tag> struct proto_tag;
 } } }
 
 
