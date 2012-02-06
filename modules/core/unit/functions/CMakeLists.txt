@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+   colon.cpp
    iscolumn.cpp
    isempty.cpp
    ismatrix.cpp
