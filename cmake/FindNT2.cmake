@@ -25,8 +25,10 @@
 #                                   to use all the requested components
 # - NT2_${COMPONENT_U}_LIBRARIES    list of libraries that are necessary to link to use the component
 # - NT2_LIBRARIES                   list of libraries that are necessary to link all the requested components
-# - NT2_${COMPONENT_U}_FLAGS        flags that must be passed to the compiler to use the component
-# - NT2_FLAGS                       flags that must be passed to the compiler to use all the requested components
+# - NT2_${COMPONENT_U}_COMPILE_FLAGS flags that must be passed to the compiler to use the component
+# - NT2_${COMPONENT_U}_LINK_FLAGS   flags that must be passed to the linker to use the component
+# - NT2_COMPILE_FLAGS               flags that must be passed to the compiler to use all the requested components
+# - NT2_LINK_FLAGS                  flags that must be passed to the linker to use all the requested components
 # - NT2_FOUND_COMPONENTS            list of all NT2 modules that have been found
 # - NT2_MODULE_PATH                 list of directories containing NT2 CMake modules
 #
@@ -45,11 +47,13 @@
 # - NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR    include directories of all dependencies
 # - NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR    library directories of all dependencies
 # - NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES      libraries that the module depends on
-# - NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS          flags required for the dependencies of the module
+# - NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS  compile flags required for the dependencies of the module
+# - NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS     link flags required for the dependencies of the module
 # - NT2_${COMPONENT_U}_DEPENDENCIES_EXTRA          extra NT2 modules the module is interdependent with. Does not guarantee
 #                                                  order in which modules are loaded, so not suitable for overriding.
 # - NT2_${COMPONENT_U}_LIBRARIES                   libraries provided by the module
-# - NT2_${COMPONENT_U}_FLAGS                       flags required to use the module
+# - NT2_${COMPONENT_U}_COMPILE_FLAGS               compile flags required to use the module
+# - NT2_${COMPONENT_U}_LINK_FLAGS                  link flags required to use the module
 
 include(NT2Module)
 
@@ -211,7 +215,8 @@ macro(nt2_find_module_dependencies _COMPONENT)
   unset(NT2_${_COMPONENT_U}_INCLUDE_DIR CACHE)
   unset(NT2_${_COMPONENT_U}_LIBRARY_DIR CACHE)
   unset(NT2_${_COMPONENT_U}_LIBRARIES CACHE)
-  unset(NT2_${_COMPONENT_U}_FLAGS CACHE)
+  unset(NT2_${_COMPONENT_U}_COMPILE_FLAGS CACHE)
+  unset(NT2_${_COMPONENT_U}_LINK_FLAGS CACHE)
 
   nt2_find_module_path_push()
   include("nt2.${_COMPONENT}.dependencies" OPTIONAL)
@@ -252,7 +257,8 @@ function(nt2_find_module COMPONENT)
       if(NOT EXTRA_COMPONENT STREQUAL ${COMPONENT})
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_LIBRARIES)
       endif()
-      set(NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_FLAGS}")
+      set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS}")
+      set(NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS}")
       
     else()
       nt2_find_log("loading dependencies of ${EXTRA_COMPONENT}")
@@ -275,9 +281,11 @@ function(nt2_find_module COMPONENT)
           nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_LIBRARIES)
         endif()
         
-        set(NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_FLAGS}")
+        set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS}")
+        set(NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_LINK_FLAGS}")
         if(NOT EXTRA_COMPONENT STREQUAL ${COMPONENT})
-          set(NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_FLAGS}")
+          set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS}")
+          set(NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS}")
         endif()
         
       endif()
@@ -285,7 +293,7 @@ function(nt2_find_module COMPONENT)
     
     nt2_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR )
     nt2_lib_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES )
-    nt2_str_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS )
+    nt2_str_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS )
     
     nt2_append_if(NT2_${COMPONENT_U}_EXTRA EXTRA_COMPONENT)
     list(REMOVE_DUPLICATES NT2_${COMPONENT_U}_EXTRA)
@@ -306,11 +314,12 @@ function(nt2_find_module COMPONENT)
   set(NT2_${COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR} ${NT2_${COMPONENT_U}_INCLUDE_ROOT})
   set(NT2_${COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR} ${NT2_${COMPONENT_U}_LIBRARY_ROOT})
   nt2_append_if(NT2_${COMPONENT_U}_LIBRARIES NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES)
-  set(NT2_${COMPONENT_U}_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_FLAGS} ${NT2_${COMPONENT_U}_FLAGS}")
+  set(NT2_${COMPONENT_U}_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${COMPONENT_U}_COMPILE_FLAGS}")
+  set(NT2_${COMPONENT_U}_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${COMPONENT_U}_LINK_FLAGS}")
   
   nt2_remove_duplicates( NT2_${COMPONENT_U}_INCLUDE_DIR NT2_${COMPONENT_U}_LIBRARY_DIR )
   nt2_lib_remove_duplicates( NT2_${COMPONENT_U}_LIBRARIES )
-  nt2_str_remove_duplicates( NT2_${COMPONENT_U}_FLAGS )
+  nt2_str_remove_duplicates( NT2_${COMPONENT_U}_COMPILE_FLAGS NT2_${COMPONENT_U}_LINK_FLAGS )
   
   foreach(EXTRA_COMPONENT ${NT2_${COMPONENT_U}_EXTRA})
     string(TOUPPER ${EXTRA_COMPONENT} EXTRA_COMPONENT_U)
@@ -329,11 +338,13 @@ function(nt2_find_module COMPONENT)
       set(NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_INCLUDE_DIR} CACHE INTERNAL "Include directories for NT2 module ${EXTRA_COMPONENT}" FORCE)
       set(NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_LIBRARY_DIR} CACHE INTERNAL "Library directories for NT2 module ${EXTRA_COMPONENT}" FORCE)
       set(NT2_${EXTRA_COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} CACHE INTERNAL "Libraries for NT2 module ${EXTRA_COMPONENT}" FORCE)
-      set(NT2_${EXTRA_COMPONENT_U}_FLAGS ${NT2_${COMPONENT_U}_FLAGS} CACHE INTERNAL "Compilation flags for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS ${NT2_${COMPONENT_U}_COMPILE_FLAGS} CACHE INTERNAL "Compilation flags for NT2 module ${EXTRA_COMPONENT}" FORCE)
+      set(NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS ${NT2_${COMPONENT_U}_LINK_FLAGS} CACHE INTERNAL "Linking flags for NT2 module ${EXTRA_COMPONENT}" FORCE)
     
       mark_as_advanced(NT2_${EXTRA_COMPONENT_U}_FOUND
                        NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR
-                       NT2_${EXTRA_COMPONENT_U}_LIBRARIES NT2_${EXTRA_COMPONENT_U}_FLAGS
+                       NT2_${EXTRA_COMPONENT_U}_LIBRARIES
+                       NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS
                       )
     
       # Debug info
@@ -342,7 +353,8 @@ function(nt2_find_module COMPONENT)
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR = ${NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR}")
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR = ${NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR}")
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_LIBRARIES = ${NT2_${EXTRA_COMPONENT_U}_LIBRARIES}")
-      nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_FLAGS = ${NT2_${EXTRA_COMPONENT_U}_FLAGS}")
+      nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS = ${NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS}")
+      nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS = ${NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS}")
     
       # Configure/build if source
       if(NT2_${EXTRA_COMPONENT_U}_ROOT)
@@ -382,7 +394,8 @@ function(nt2_find)
   set(NT2_INCLUDE_DIR "")
   set(NT2_LIBRARY_DIR "")
   set(NT2_LIBRARIES "")
-  set(NT2_FLAGS " ")
+  set(NT2_COMPILE_FLAGS " ")
+  set(NT2_LINK_FLAGS " ")
   
   if(NOT DEFINED NT2_BINARY_DIR)
     set(NT2_BINARY_DIR ${PROJECT_BINARY_DIR}/nt2)
@@ -526,8 +539,9 @@ function(nt2_find)
       set(NT2_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} ${NT2_LIBRARIES})
       nt2_lib_remove_duplicates(NT2_LIBRARIES)
     
-      set(NT2_FLAGS "${NT2_${COMPONENT_U}_FLAGS} ${NT2_FLAGS}")
-      nt2_str_remove_duplicates(NT2_FLAGS)
+      set(NT2_COMPILE_FLAGS "${NT2_${COMPONENT_U}_COMPILE_FLAGS} ${NT2_COMPILE_FLAGS}")
+      set(NT2_LINK_FLAGS "${NT2_${COMPONENT_U}_LINK_FLAGS} ${NT2_LINK_FLAGS}")
+      nt2_str_remove_duplicates(NT2_COMPILE_FLAGS NT2_LINK_FLAGS)
     elseif(NT2_FIND_COMPONENTS)
       set(NT2_FOUND 0)
     endif()
@@ -537,7 +551,8 @@ function(nt2_find)
   
   nt2_copy_parent( NT2_FOUND
                    NT2_INCLUDE_DIR NT2_LIBRARY_DIR
-                   NT2_LIBRARIES NT2_FLAGS
+                   NT2_LIBRARIES
+                   NT2_COMPILE_FLAGS NT2_LINK_FLAGS
                  )
                  
   if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)

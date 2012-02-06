@@ -22,5 +22,5 @@ if(CMAKE_CXX_COMPILER MATCHES "[\\/]icpc[^\\/]*")
   endif()
 endif()
 
-SET(NT2_BOOST.SIMD.SDK_FLAGS ${FLAGS})
+SET(NT2_BOOST.SIMD.SDK_COMPILE_FLAGS ${FLAGS})
 SET(NT2_BOOST.SIMD.SDK_DEPENDENCIES_EXTRA boost.dispatch boost.simd.config)
