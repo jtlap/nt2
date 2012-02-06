@@ -91,5 +91,8 @@ NT2_TEST_CASE_TPL ( multiplies_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::Inf<T>(),  nt2::Inf<T>()),  cT(nt2::One<T>(),  nt2::Zero<T>())), cT(nt2::Inf<T>(),  nt2::Inf<T>() ));
   NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::One<T>(),  nt2::Zero<T>()), cT(nt2::Inf<T>(),  nt2::Inf<T>())) , cT(nt2::Inf<T>(),  nt2::Inf<T>() ));
   NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::Inf<T>(),  nt2::Inf<T>()),  cT(nt2::One<T>(),  nt2::One<T>())),  cT(nt2::Nan<T>(),  nt2::Inf<T>() )); 
-  
+  NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::One<T>(),  nt2::Inf<T>()),  cT(nt2::Zero<T>(),  nt2::One<T>())),  cT(nt2::Minf<T>(),  nt2::One<T>() )); 
+  NT2_TEST_EQUAL(nt2::multiplies(cT(nt2::Inf<T>(),  nt2::One<T>()),  cT(nt2::Zero<T>(),  nt2::One<T>())),  cT(nt2::Mone<T>(),  nt2::Inf<T>() )); 
+  std::cout << " std::complex<float>(nt2::One<T>(),  nt2::Inf<T>()) " << std::complex<float>(nt2::One<T>(),  nt2::Inf<T>()) << std::endl; 
+ 
 } // end of test for floating_
