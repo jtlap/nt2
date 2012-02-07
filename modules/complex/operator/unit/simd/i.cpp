@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 complex.arithmetic toolbox - trunc/simd Mode"
+#define NT2_UNIT_MODULE "nt2 complex.arithmetic toolbox - i/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.arithmetic components in simd mode
@@ -17,8 +17,7 @@
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/trunc.hpp>
-#include <nt2/include/functions/cos.hpp>
+#include <nt2/include/constants/i.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -47,7 +46,7 @@
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
+NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -58,41 +57,19 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT; 
   typedef native<dT ,ext_t>                           vdT; 
-  double ulpd;
-  ulpd=0.0;
 
   // specific values tests
   {
-    typedef vcT r_t; 
-    NT2_TEST_ULP_EQUAL(trunc(nt2::splat<vcT>(cT(-1.1, -1.6)))[0], cT(-1, -1),0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::splat<vcT>(cT(1.1, 1.6)))[0],  cT(1, 1),0);  
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Inf<vcT>())[0], nt2::Inf<cT>(),0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Minf<vcT>())[0], nt2::Minf<cT>(),0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Mone<vcT>())[0], nt2::Mone<cT>(),0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Nan<vcT>())[0], nt2::Nan<cT>(),0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::One<vcT>())[0], nt2::One<cT>(),0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Zero<vcT>())[0], nt2::Zero<cT>(),0);
+    typedef vciT r_t;
+    std::cout << nt2::I<vciT>() << std::endl;
+    std::cout << nt2::I<vcT >() << std::endl;
+    std::cout << nt2::I<vdT >() << std::endl;
+    std::cout << nt2::I<vT  >() << std::endl;   
+    NT2_TEST_EQUAL(nt2::I<vciT>(), nt2::One<vciT>());
+    NT2_TEST_EQUAL(nt2::I<vcT>(),  nt2::One<vciT>());
+    NT2_TEST_EQUAL(nt2::I<vdT>(),  nt2::One<vciT>());
+    NT2_TEST_EQUAL(nt2::I<vT>(),   nt2::One<vciT>());
+
   }  
-  {
-    typedef vciT r_t; 
-    NT2_TEST_ULP_EQUAL(trunc(nt2::splat<vciT>(ciT(-1.1)))[0], nt2::Mone<vciT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::splat<vciT>(ciT(1.1)))[0], nt2::One<vciT>()[0],0);  
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Inf<vciT>())[0], nt2::Inf<vciT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Minf<vciT>())[0], nt2::Minf<vciT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Mone<vciT>())[0], nt2::Mone<vciT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Nan<vciT>())[0], nt2::Nan<vciT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::One<vciT>())[0], nt2::One<vciT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Zero<vciT>())[0], nt2::Zero<vciT>()[0],0);
-  }
-  {
-    typedef vdT r_t; 
-    NT2_TEST_ULP_EQUAL(trunc(nt2::splat<vdT>(dT(-1.1)))[0], nt2::Mone<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::splat<vdT>(dT(1.1)))[0], nt2::One<vdT>()[0],0);  
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Inf<vdT>())[0], nt2::Inf<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Minf<vdT>())[0], nt2::Minf<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Mone<vdT>())[0], nt2::Mone<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Nan<vdT>())[0], nt2::Nan<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::One<vdT>())[0], nt2::One<vdT>()[0],0);
-    NT2_TEST_ULP_EQUAL(trunc(nt2::Zero<vdT>())[0], nt2::Zero<vdT>()[0],0);
-  }
+
 } // end of test for floating_

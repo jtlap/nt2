@@ -37,32 +37,43 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<typename A0::type>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      typedef typename meta::as_real<result_type>::type real_t;
-      return bitwise_cast<result_type>(One<real_t>());
+      return I<result_type>();
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::I, tag::cpu_, (A0)
-                             , ((target_< generic_< arithmetic_<A0> > >))
+                             , ((target_< scalar_< arithmetic_<A0> > >))
                              )
   {
     typedef typename meta::as_imaginary<typename A0::type>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      typedef typename meta::as_real<result_type>::type real_t;
-      return bitwise_cast<result_type>(One<real_t>());
+      return I<result_type>(); 
     }
   };
 
+  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::I, tag::cpu_, (A0)(X)
+                             , ((target_< simd_< arithmetic_<A0>, X> >))
+                             )
+  {
+    typedef typename meta::as_imaginary<typename A0::type>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
+    {
+      return I<result_type>(); 
+    }
+  };
+
+
+  
   NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::I, tag::cpu_, (A0)
                              , ((target_< generic_< complex_< arithmetic_<A0> > > >))
                              )
   {
-    typedef typename A0::type result_type;
+    typedef typename meta::as_real<typename A0::type>::type real_t;
+    typedef typename meta::as_imaginary<real_t>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      typedef typename meta::as_real<result_type>::type real_t;
-      return result_type(Zero<real_t>(), One<real_t>());
+      return I<result_type>(); 
     }
   };
 } }

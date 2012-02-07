@@ -14,6 +14,7 @@ set( SOURCES
   multiplies.cpp
   imag.cpp
   real.cpp
+  i.cpp
 #  divides.cpp
    )
 

@@ -85,7 +85,8 @@ NT2_TEST_CASE_TPL ( plus_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL(nt2::plus(nt2::One<vdT>(),   nt2::One<vciT>())[0] , vcT(nt2::One<vT>(),  nt2::One<vT>())[0]);
   }
   {
-    typedef vciT r_t; 
+    typedef vciT r_t;
+    
     NT2_TEST_EQUAL(nt2::plus(vciT(nt2::Inf<vciT>()),   vciT(nt2::Inf<vciT>()))[0],  vciT(nt2::Inf<vciT>() )[0]);
     NT2_TEST_EQUAL(nt2::plus(vciT(nt2::One<vciT>()),   vciT(nt2::Zero<vciT>()))[0], vciT(nt2::One<vciT>())[0]); 
     NT2_TEST_EQUAL(nt2::plus(vciT(nt2::Zero<vciT>()),  vciT(nt2::Zero<vciT>()))[0], vciT(nt2::Zero<vciT>())[0]); 

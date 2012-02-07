@@ -60,36 +60,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   typedef native<dT ,ext_t>                           vdT; 
   double ulpd;
   ulpd=0.0;
-   {
-    vcT a;
-    a = nt2::splat<vcT>(cT(-1.1, 1.6));
-    //    std::cout <<  a[0] << std::endl;
-    // vdT ca;
-    std::cout <<  nt2::floor(a) << std::endl;
-  }
- {
-    vdT a;
-    a = nt2::splat<vdT>(dT(-1.1));
-    std::cout <<  a[0] << std::endl;
-    vdT ca;
-    std::cout <<  nt2::floor(a) << std::endl;
-  }
-  vciT a;
-  a = nt2::splat<vciT>(ciT(-1.1));
-  std::cout <<  a[0] << std::endl;
-  vciT ca;
-  std::cout <<  nt2::floor(a) << std::endl;
-  //  std::cout << nt2::bitwise_cast<vciT>(nt2::floor(nt2::imag(a))) << std::endl;
-  vcT a0 = nt2::splat<vcT>(cT(-1.1,1.6));
-  std::cout << a0 << std::endl;
-  vT r = nt2::real(a0);
-  //  vT r = boost::fusion::at_c<0>(a0); 
-  vT i = nt2::imag(a0); 
-  //  vT i = boost::fusion::at_c<1>(a0); 
-  vT z1 = nt2::floor(r);
-  vT z2 = nt2::floor(i);  
-  vcT z(z1, z2); 
-  std::cout <<  z << std::endl;
+
   // specific values tests
   { 
     typedef vcT r_t; 

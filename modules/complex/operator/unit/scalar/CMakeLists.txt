@@ -14,6 +14,7 @@ set( SOURCES
   divides.cpp
   imag.cpp
   real.cpp
+  i.cpp
    )
 
 nt2_module_add_tests(complex.operator.scalar.unit ${SOURCES})
