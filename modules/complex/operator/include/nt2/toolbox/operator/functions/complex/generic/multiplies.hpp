@@ -140,7 +140,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        nt2::return multiplies(real(a0), a1);
+        return nt2::multiplies(real(a0), a1);
       }
   }; 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
