@@ -66,7 +66,7 @@ namespace boost { namespace simd
      * \brief Define the tag divides_ of functor divides 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct divides_ : ext::elementwise_<divides_>{};
+    struct divides_ : ext::elementwise_<divides_> { typedef ext::elementwise_<divides_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divides_             , divides         , 2 )

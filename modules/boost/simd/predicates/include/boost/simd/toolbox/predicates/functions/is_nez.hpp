@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_nez_ of functor is_nez 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_nez_ : ext::elementwise_<is_nez_>{};
+    struct is_nez_ : ext::elementwise_<is_nez_> { typedef ext::elementwise_<is_nez_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nez_, is_nez,  1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_nez_, is_true, 1)

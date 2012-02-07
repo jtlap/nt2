@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_flint_ of functor is_flint 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_flint_ : ext::elementwise_<is_flint_>{};
+    struct is_flint_ : ext::elementwise_<is_flint_> { typedef ext::elementwise_<is_flint_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_flint_, is_flint, 1)
 } }

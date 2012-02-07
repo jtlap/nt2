@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag mod_ of functor mod 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct mod_ : ext::elementwise_<mod_>{};
+    struct mod_ : ext::elementwise_<mod_> { typedef ext::elementwise_<mod_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mod_, mod, 2)
 } }

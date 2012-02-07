@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag sort_ of functor sort 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct sort_ : ext::unspecified_<sort_>{};
+    struct sort_ : ext::unspecified_<sort_> { typedef ext::unspecified_<sort_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sort_, sort, 1)
 } }

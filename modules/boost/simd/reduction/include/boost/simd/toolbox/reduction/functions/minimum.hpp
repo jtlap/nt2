@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag minimum_ of functor minimum 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct minimum_ : ext::reduction_<minimum_>{};
+    struct minimum_ : ext::reduction_<minimum_> { typedef ext::reduction_<minimum_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, minimum, 1)
 } }

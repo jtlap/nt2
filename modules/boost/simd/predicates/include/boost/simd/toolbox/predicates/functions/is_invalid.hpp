@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_invalid_ of functor is_invalid 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_invalid_ : ext::elementwise_<is_invalid_>{};
+    struct is_invalid_ : ext::elementwise_<is_invalid_> { typedef ext::elementwise_<is_invalid_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_invalid_, is_invalid, 1)
 } }

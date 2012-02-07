@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag splatted_maximum_ of functor splatted_maximum 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct splatted_maximum_ : ext::unspecified_<splatted_maximum_>{};
+    struct splatted_maximum_ : ext::unspecified_<splatted_maximum_> { typedef ext::unspecified_<splatted_maximum_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::splatted_maximum_, splatted_maximum, 1)
 } }

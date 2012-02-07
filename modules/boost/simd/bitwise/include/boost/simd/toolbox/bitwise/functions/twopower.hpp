@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag twopower_ of functor twopower 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
-    struct twopower_ : ext::elementwise_<twopower_>{};
+    struct twopower_ : ext::elementwise_<twopower_> { typedef ext::elementwise_<twopower_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::twopower_, twopower, 1)
 } }
