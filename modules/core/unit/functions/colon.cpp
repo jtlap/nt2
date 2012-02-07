@@ -64,6 +64,12 @@ NT2_TEST_CASE_TPL( colon_unsigned_step, NT2_UNSIGNED_TYPES )
 
   NT2_TEST( yd.extent() == nt2::of_size(1,0) );
 
+  nt2::table<T> zd = _(T(0),T(0),T(9));
+
+  NT2_TEST( zd.extent() == nt2::of_size(1,9) );
+
+  for(int i=1;i<=9;++i)
+    NT2_TEST_EQUAL( T(zd(i)), T(0) );
 
 }
 
@@ -88,5 +94,11 @@ NT2_TEST_CASE_TPL( colon_real_step, NT2_REAL_TYPES )
   for(int i=1;i<=4;++i)
     NT2_TEST_EQUAL( T(yd(i)), T(1) + T(-0.3)*T(i-1) );
 
+  nt2::table<T> zd = _(T(0.5),T(0),T(6));
+
+  NT2_TEST( zd.extent() == nt2::of_size(1,6) );
+
+  for(int i=1;i<=6;++i)
+    NT2_TEST_EQUAL( T(zd(i)), T(0.5) );
   
 }
