@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename T::type result_type;
-
+    
     result_type operator()(T const& ) const
     {
       result_type that;
@@ -30,13 +30,13 @@ namespace boost { namespace simd { namespace ext
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
-                                    , (A0)(X)(T)
-                                    , (scalar_< arithmetic_<A0> >)
+                                      , (A0)(X)(T)
+                                      , (scalar_< arithmetic_<A0> >)
                                       ((target_< simd_< arithmetic_<T>,X> >))
-                                    )
+                                      )
   {
     typedef typename T::type result_type;
-
+    
     result_type operator()(A0 const& a0, T const& ) const
     {
       const result_type tmp =  boost::simd::arith<result_type>(); 
@@ -46,12 +46,12 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
                                       , (A0)(A1)(X)(T)
                                       , (scalar_< arithmetic_<A0> >)
-                                        (scalar_< arithmetic_<A1> >)
-                                        ((target_< simd_< arithmetic_<T>,X> >))
-                                    )
+                                      (scalar_< arithmetic_<A1> >)
+                                      ((target_< simd_< arithmetic_<T>,X> >))
+                                      )
   {
     typedef typename T::type result_type;
-
+    
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
       const result_type tmp = boost::simd::arith<result_type>(); 

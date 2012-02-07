@@ -16,36 +16,34 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
-                                    , boost::simd::tag::sse2_
-                                    , (T)
-                                    , ((target_ < simd_ < double_<T>
-                                                        , boost::simd::tag::sse_
-                                                        >
-                                                >
+                                      , boost::simd::tag::sse2_
+                                      , (T)
+                                      , ((target_ < simd_ < double_<T>
+                                          , boost::simd::tag::sse_
+                                          >
+                                         >
                                       ))
-                                    )
+                                     )
   {
     typedef typename T::type result_type;
-
     result_type operator()(T const& ) const
     {
       result_type that = { _mm_set_pd(1.0,0.0) };
       return that;
     }
   };
-
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
-                                    , boost::simd::tag::sse2_
-                                    , (T)
-                                    , ((target_ < simd_ <  single_<T>
-                                                        , boost::simd::tag::sse_
-                                                        >
-                                                >
+                                      , boost::simd::tag::sse2_
+                                      , (T)
+                                      , ((target_ < simd_ <  single_<T>
+                                          , boost::simd::tag::sse_
+                                          >
+                                         >
                                       ))
                                     )
   {
     typedef typename T::type result_type;
-
     result_type operator()(T const& ) const
     {
       result_type that = {_mm_set_ps(3.0f, 2.0f, 1.0f, 0.0f)};
@@ -54,17 +52,16 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
-                                    , boost::simd::tag::sse2_
-                                    , (T)
-                                    , ((target_ < simd_ < ints64_<T>
-                                                        , boost::simd::tag::sse_
-                                                        >
-                                                >
+                                      , boost::simd::tag::sse2_
+                                      , (T)
+                                      , ((target_ < simd_ < ints64_<T>
+                                          , boost::simd::tag::sse_
+                                          >
+                                         >
                                       ))
-                                    )
+                                     )
   {
     typedef typename T::type result_type;
-
     result_type operator()(T const& ) const
     {
       return make<result_type>(0, 1);
