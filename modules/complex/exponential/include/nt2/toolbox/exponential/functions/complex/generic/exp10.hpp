@@ -13,6 +13,9 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/constants/log_10.hpp>
+#include <nt2/include/functions/is_equal.hpp>
+#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/constants/minf.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
@@ -30,7 +33,7 @@ namespace nt2 { namespace ext
       rtype c, s;
       sincos(imag(a0)*Log_10<rtype>(), s, c);      
       rtype rho = exp10(real(a0)); 
-      return if_else(is_real(a0),
+      return if_else(logical_or(is_real(a0), eq(real(a0), Minf<rtype>())),
                      result_type(rho, Zero<rtype>()),
                      rho*result_type(c, s)); 
     }
@@ -59,7 +62,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::exp10(real(a0))); 
+      return bitwise_cast<result_type>(nt2::exp10(real(a0))); 
     }
   };  
 } }

@@ -8,6 +8,9 @@
 ##############################################################################
 
 set( SOURCES
+  exp.cpp
+  exp10.cpp 
+  exp2.cpp
    )
 
 nt2_module_add_tests(complex.exponential.simd.unit ${SOURCES})

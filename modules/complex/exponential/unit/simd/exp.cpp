@@ -65,8 +65,8 @@ NT2_TEST_CASE_TPL ( exp_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::One  <vT>(), nt2::Nan <vT>()))[0], cT(nt2::Nan<T>(), nt2::Nan<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Minf <vT>(), nt2::One <vT>()))[0], cT(nt2::Zero<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Minf <vT>(), nt2::Mone<vT>()))[0], cT(nt2::Zero<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Inf  <vT>(), nt2::One <vT>()))[0], cT(nt2::Inf <T>()*exp(cT(nt2::Zero<T>(), nt2::One <T>()))), 0.75);   
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Inf  <vT>(), nt2::Mone<vT>()))[0], cT(nt2::Inf <T>()*exp(cT(nt2::Zero<T>(), nt2::Mone<T>()))), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Inf  <vT>(), nt2::One <vT>()))[0], cT(nt2::Inf <T>()*nt2::exp(cT(nt2::Zero<T>(), nt2::One <T>()))), 0.75);   
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Inf  <vT>(), nt2::Mone<vT>()))[0], cT(nt2::Inf <T>()*nt2::exp(cT(nt2::Zero<T>(), nt2::Mone<T>()))), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Minf <vT>(), nt2::Inf<vT>()))[0],  cT(nt2::Zero<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Inf  <vT>(), nt2::Inf<vT>()))[0],  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Minf <vT>(), nt2::Nan<vT>()))[0],  cT(nt2::Zero<T>()), 0.75);
