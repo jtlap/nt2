@@ -11,6 +11,7 @@ SET( SOURCES
      generator.cpp
      run.cpp
      optimize.cpp
+     schedule.cpp
    )
 
 nt2_module_add_tests(core.container.dsl.unit ${SOURCES})
