@@ -67,7 +67,7 @@ namespace boost { namespace simd
      * \brief Define the tag shift_right_ of functor shift_right 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct shift_right_ : ext::elementwise_<shift_right_>{};
+    struct shift_right_ : ext::elementwise_<shift_right_> { typedef ext::elementwise_<shift_right_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shift_right     , 2 )

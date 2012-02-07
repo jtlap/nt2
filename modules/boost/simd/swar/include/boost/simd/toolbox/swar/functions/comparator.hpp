@@ -75,7 +75,7 @@ namespace boost { namespace simd {
      * \brief Define the tag comparator_ of functor comparator 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct comparator_ : ext::unspecified_<comparator_>{};
+    struct comparator_ : ext::unspecified_<comparator_> { typedef ext::unspecified_<comparator_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::comparator_, comparator, 3)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::comparator_, comparator, (A0 const&)(A0 const&)(A1 const&)(A0&)(A0&), 2)

@@ -75,7 +75,7 @@ namespace boost { namespace simd
      * \brief Define the tag logical_ornot_ of functor logical_ornot 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct logical_ornot_ : ext::elementwise_<logical_ornot_>{};
+    struct logical_ornot_ : ext::elementwise_<logical_ornot_> { typedef ext::elementwise_<logical_ornot_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_ornot_      , logical_ornot     , 2 )

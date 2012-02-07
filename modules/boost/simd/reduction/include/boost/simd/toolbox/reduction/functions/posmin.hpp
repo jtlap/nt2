@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag posmin_ of functor posmin 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct posmin_ : ext::reduction_<posmin_>{};
+    struct posmin_ : ext::reduction_<posmin_> { typedef ext::reduction_<posmin_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::posmin_, posmin, 1)
 } }

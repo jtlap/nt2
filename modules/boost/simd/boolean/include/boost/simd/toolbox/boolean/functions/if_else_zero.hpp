@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag if_else_zero_ of functor if_else_zero 
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
-    struct if_else_zero_ : ext::elementwise_<if_else_zero_>{};
+    struct if_else_zero_ : ext::elementwise_<if_else_zero_> { typedef ext::elementwise_<if_else_zero_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_zero_, if_else_zero, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_else_zero_, ifelsezero, 2)

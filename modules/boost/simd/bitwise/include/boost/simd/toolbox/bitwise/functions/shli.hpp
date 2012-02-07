@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag shli_ of functor shli 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
-    struct shli_ : ext::elementwise_<shli_>{};
+    struct shli_ : ext::elementwise_<shli_> { typedef ext::elementwise_<shli_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shli_, shli, 2)
 } }

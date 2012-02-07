@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag mask2logical_ of functor mask2logical
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
-     struct mask2logical_ : ext::elementwise_<mask2logical_>{};
+     struct mask2logical_ : ext::elementwise_<mask2logical_> { typedef ext::elementwise_<mask2logical_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mask2logical_, mask2logical, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mask2logical_, m2l, 1)

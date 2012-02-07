@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag minusone_ of functor minusone 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct minusone_ : ext::elementwise_<minusone_>{};
+    struct minusone_ : ext::elementwise_<minusone_> { typedef ext::elementwise_<minusone_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minusone_, minusone, 1)
 } }

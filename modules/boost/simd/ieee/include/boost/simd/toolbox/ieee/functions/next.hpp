@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag next_ of functor next 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct next_ : ext::elementwise_<next_>{};
+    struct next_ : ext::elementwise_<next_> { typedef ext::elementwise_<next_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::next_, next, 1)
 } }

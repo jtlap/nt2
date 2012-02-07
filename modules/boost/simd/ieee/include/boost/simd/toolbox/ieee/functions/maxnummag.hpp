@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag maxnummag_ of functor maxnummag 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct maxnummag_ : ext::elementwise_<maxnummag_>{};
+    struct maxnummag_ : ext::elementwise_<maxnummag_> { typedef ext::elementwise_<maxnummag_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maxnummag_, maxnummag, 2)
 } }
