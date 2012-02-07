@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/constant/common.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
