@@ -28,7 +28,7 @@ SET( SOURCES
 # const.c does not define constants in a strict C way in UNK mode,
 # so we force IEEE754 little-endian on x86 to avoid problems.
 IF(NT2_ARCH_X86)
-  SET(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} -DIBMPC")
+  SET(NT2_CURRENT_COMPILE_FLAGS "${NT2_CURRENT_COMPILE_FLAGS} -DIBMPC")
 ENDIF()
 
 nt2_module_add_library(nt2_cephesd ${SOURCES})

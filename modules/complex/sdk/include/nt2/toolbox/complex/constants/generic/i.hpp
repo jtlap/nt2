@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_COMPLEX_CONSTANTS_GENERIC_I_HPP_INCLUDED
 
 #include <nt2/toolbox/complex/constants/i.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
@@ -20,12 +21,44 @@ namespace nt2 { namespace ext
                              , ((target_< generic_< imaginary_< arithmetic_<A0> > > >))
                              )
   {
-    typedef typename A0::type base_type;
-    //    typedef typename meta::as_imaginary<base_type>::type result_type;
-    typedef                   imaginary<base_type>       result_type;      
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
+    typedef typename A0::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      return result_type(One<typename result_type::type>());
+      return bitwise_cast<result_type>(One<typename result_type::type>());
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::I, tag::cpu_, (A0)
+                             , ((target_< generic_< dry_< arithmetic_<A0> > > >))
+                             )
+  {
+    typedef typename meta::as_imaginary<typename A0::type>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
+    {
+      return bitwise_cast<result_type>(One<typename result_type::type>());
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::I, tag::cpu_, (A0)
+                             , ((target_< generic_< arithmetic_<A0> > >))
+                             )
+  {
+    typedef typename meta::as_imaginary<typename A0::type>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
+    {
+      return bitwise_cast<result_type>(One<typename result_type::type>());
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::I, tag::cpu_, (A0)
+                             , ((target_< generic_< complex_< arithmetic_<A0> > > >))
+                             )
+  {
+    typedef typename A0::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
+    {
+      typedef typename meta::real_of<result_type>::type real_t;
+      return result_type(Zero<real_t>(), One<real_t>());
     }
   };
 } }

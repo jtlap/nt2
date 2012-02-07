@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename T::type result_type;
 
-    result_type operator()(A0 const& a0, T const& ) const
+    result_type operator()(T const&) const
     {
       result_type that = { _mm256_set_pd(3.0,2.0,1.0,0.0) };
       return that;
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename T::type result_type;
 
-    result_type operator()(A0 const& a0, T const& ) const
+    result_type operator()(T const&) const
     {
       result_type that = {_mm256_set_ps(7.0f,6.0f,5.0f,4.0f,3.0f,2.0f,1.0f,0.0f)};
       return that;
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename T::type result_type;
 
-    result_type operator()(A0 const& a0, T const& ) const
+    result_type operator()(T const&) const
     {
       return make<result_type>(0, 1, 2, 3);
     }
@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename T::type result_type;
 
-    result_type operator()(A0 const& a0, T const& ) const
+    result_type operator()(T const&) const
     {
       result_type that = {_mm256_set_epi32(7,6,5,4,3,2,1,0)};
       return that;
@@ -102,7 +102,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename T::type result_type;
 
-    result_type operator()(A0 const& a0, T const& ) const
+    result_type operator()(T const&) const
     {
       result_type that = { _mm256_set_epi16( 15, 14, 13, 12, 11, 10, 9, 8
                                            , 7,  6,  5,  4,  3,  2,  1, 0
@@ -124,7 +124,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename T::type result_type;
 
-    result_type operator()(A0 const& a0, T const& ) const
+    result_type operator()(T const&) const
     {
       result_type that = { _mm256_set_epi8( 31, 30, 29, 28, 27, 26, 25, 24
                                           , 23, 22, 21, 20, 19, 18, 17, 16
