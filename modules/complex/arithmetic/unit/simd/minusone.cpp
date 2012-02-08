@@ -65,7 +65,10 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   {
     typedef vcT r_t; 
     NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vcT>(cT(T(-1), T(-1.6))))[0], cT(T(-2), T(-1.6)),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vcT>(cT(T(1), T(1.6))))[0],  cT(T(0), T(1.6)),0);  
+    NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vcT>(cT(T(1), T(1.6))))[0],  cT(T(0), T(1.6)),0);
+  }
+  {
+    typedef vdT r_t; 
     NT2_TEST_ULP_EQUAL(minusone(nt2::Inf<vcT>())[0], nt2::Inf<cT>(),0);
     NT2_TEST_ULP_EQUAL(minusone(nt2::Minf<vcT>())[0], nt2::Minf<cT>(),0);
     NT2_TEST_ULP_EQUAL(minusone(nt2::Mone<vcT>())[0], nt2::Mtwo<cT>(),0);
