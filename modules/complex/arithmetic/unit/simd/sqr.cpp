@@ -65,12 +65,15 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   {
     typedef vcT r_t; 
     NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::splat<vcT>(cT(1, 1)))[0], cT(0, 2),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Inf<vcT>())[0], nt2::Inf<cT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Minf<vcT>())[0], nt2::Inf<cT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Mone<vcT>())[0], nt2::One<cT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Nan<vcT>())[0], nt2::Nan<cT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::One<vcT>())[0], nt2::One<cT>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Zero<vcT>())[0], nt2::Zero<cT>(),0);
+  }
+  {
+    typedef vdT r_t; 
+    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Inf<vcT>())[0], dT(nt2::Inf<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Minf<vcT>())[0], dT(nt2::Inf<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Mone<vcT>())[0], dT(nt2::One<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Nan<vcT>())[0], dT(nt2::Nan<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::One<vcT>())[0], dT(nt2::One<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::Zero<vcT>())[0], dT(nt2::Zero<cT>()),0);
   }  
   {
     typedef vT r_t; 
