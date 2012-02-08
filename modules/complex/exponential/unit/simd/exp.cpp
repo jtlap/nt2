@@ -47,17 +47,17 @@ NT2_TEST_CASE_TPL ( exp_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
   typedef vcT r_t; 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], nt2::Inf<cT>(),0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Minf<vT>(), nt2::Zero<vT>()))[0],nt2::Zero<cT>(),0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Nan<vT>(), nt2::Zero<vT>()))[0], nt2::Nan<cT>(),0.75);   
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], nt2::Exp_1<cT>(),0.75); 
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Zero<vT>(), nt2::Zero<vT>()))[0],nt2::One<cT>(),0.75); 
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Zero<vT>(), nt2::Pi<vT>()))[0],  nt2::Mone<cT>(),0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], cT(nt2::Inf<cT>()),0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Minf<vT>(), nt2::Zero<vT>()))[0],cT(nt2::Zero<cT>()),0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Nan<vT>(), nt2::Zero<vT>()))[0], cT(nt2::Nan<cT>()),0.75);   
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], cT(nt2::Exp_1<cT>()),0.75); 
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Zero<vT>(), nt2::Zero<vT>()))[0],cT(nt2::One<cT>()),0.75); 
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Zero<vT>(), nt2::Pi<vT>()))[0],  cT(nt2::Mone<cT>()),0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Zero<vT>(), nt2::Pio_2<vT>()))[0],   cT(0, 1),0.75);
 
  
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Zero<vT>(),  nt2::Zero<vT>()))[0], nt2::One<cT>(), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Mzero<vT>(), nt2::Zero<vT>()))[0], nt2::One<cT>(), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Zero<vT>(),  nt2::Zero<vT>()))[0], cT(nt2::One<cT>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Mzero<vT>(), nt2::Zero<vT>()))[0], cT(nt2::One<cT>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Inf  <vT>(), nt2::Zero<vT>()))[0], cT(nt2::Inf<T>(), nt2::Zero<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(vcT(nt2::Nan  <vT>(), nt2::Zero<vT>()))[0], cT(nt2::Nan <T>(), nt2::Zero<T>()), 0.75);
   

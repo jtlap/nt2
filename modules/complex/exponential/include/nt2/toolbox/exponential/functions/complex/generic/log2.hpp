@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
                             , (generic_< complex_<floating_<A0> > >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype; 

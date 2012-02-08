@@ -40,18 +40,21 @@ NT2_TEST_CASE_TPL ( expm1_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<expm1_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
-
+  typedef typename nt2:: meta::as_dry<T>::type dT; 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
 
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Inf<cT>()), nt2::Inf<cT>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Minf<cT>()), nt2::Mone<cT>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Mone<cT>()), nt2::One<cT>()/nt2::Exp_1<cT>()-nt2::One<cT>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Nan<cT>()), nt2::Nan<cT>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::One<cT>()), nt2::Exp_1<cT>()-nt2::One<cT>(), 1.0);
-  NT2_TEST_ULP_EQUAL(expm1(nt2::Zero<cT>()), nt2::Zero<cT>(), 1.0);
-} // end of test for floating_
+  {
+    typedef dT r_t; 
+    // specific values tests
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Inf<cT>()), dT(nt2::Inf<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Minf<cT>()), dT(nt2::Mone<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Mone<cT>()), dT(nt2::One<T>()/nt2::Exp_1<T>()-nt2::One<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Nan<cT>()), dT(nt2::Nan<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::One<cT>()), dT(nt2::Exp_1<T>()-nt2::One<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Zero<cT>()), dT(nt2::Zero<T>()), 1.0);
+  } // end of test for floating_
+}
