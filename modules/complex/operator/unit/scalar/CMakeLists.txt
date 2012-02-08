@@ -15,6 +15,7 @@ set( SOURCES
   imag.cpp
   real.cpp
   i.cpp
+  sqrti.cpp
    )
 
 nt2_module_add_tests(complex.operator.scalar.unit ${SOURCES})
