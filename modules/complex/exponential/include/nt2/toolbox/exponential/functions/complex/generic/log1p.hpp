@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       result_type m = oneplus(a0);
-      rtype theta = nt2::arg(m);
+      rtype theta = if_else(logical_and(nt2::is_real(a0), nt2::is_nan(a0)), Zero<rtype>(), nt2::arg(m)) ; 
       rtype ra =  real(a0);
       rtype rb2 =  sqr(imag(a0)); 
       return result_type(Half<rtype>()*nt2::log1p(ra*(ra+Two<rtype>())+rb2), theta); 

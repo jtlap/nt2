@@ -14,6 +14,10 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -26,8 +30,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     { 
       typedef typename meta::as_real<A0>::type             rtype;
-      return result_type(nt2::log10(nt2::abs(a0)),
-                         nt2::arg(a0)/Log_10<rtype>()); 
+      rtype a = if_else(logical_and(nt2::is_real(a0), nt2::is_nan(a0)), Zero<rtype>(), nt2::arg(a0)) ; 
+      return result_type(nt2::log10(nt2::abs(a0)),a/Log_10<rtype>()); 
     }
   };
   

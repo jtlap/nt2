@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( log2_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::log2(nt2::Inf<cT>()), cT(nt2::Inf<T>()), 0)
   NT2_TEST_ULP_EQUAL(nt2::log2(nt2::Minf<cT>()), cT(nt2::Inf<T>(), nt2::Pi<T>()/nt2::Log_2<T>()), 0);
   NT2_TEST_ULP_EQUAL(nt2::log2(nt2::Mone<cT>()), cT(nt2::Zero<T>(), nt2::Pi<T>()/nt2::Log_2<T>()), 0); 
-  NT2_TEST_ULP_EQUAL(nt2::log2(nt2::Nan<cT>()),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log2(nt2::Nan<cT>()),  cT(nt2::Nan<T>(), nt2::Zero<T>()), 0);
   NT2_TEST_ULP_EQUAL(nt2::log2(cT(nt2::Nan<T>(), nt2::Nan<T>())),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0);
   NT2_TEST_ULP_EQUAL(nt2::log2(nt2::One<cT>()), cT(nt2::Zero<T>()), 0);
   NT2_TEST_ULP_EQUAL(nt2::log2(nt2::Zero<cT>()), cT(nt2::Minf<T>()), 0);
