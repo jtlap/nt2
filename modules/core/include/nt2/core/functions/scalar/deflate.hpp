@@ -26,14 +26,13 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::fusion::result_of::
                             value_at<A1,boost::mpl::int_<0> >::type index_t;
-    typedef boost::fusion::vector<index_t,index_t>                  result_type;
+    typedef typename meta::strip<index_t>::type base_t;
+    typedef boost::fusion::vector<base_t,base_t>                  result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos) const
     {
-      index_t const& i = boost::fusion::at_c<0>(pos);
-
-      result_type that( i
+      result_type that( boost::fusion::at_c<0>(pos)
                       , sub2ind ( boost::fusion::pop_front(size)
                                 , boost::fusion::pop_front(pos)
                                 )
@@ -54,14 +53,13 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::fusion::result_of::
                             value_at<A1,boost::mpl::int_<0> >::type index_t;
-    typedef boost::fusion::vector<index_t,index_t>                  result_type;
+    typedef typename meta::strip<index_t>::type base_t;
+    typedef boost::fusion::vector<base_t,base_t>                  result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos, const A2& base) const
     {
-      index_t const& i = boost::fusion::at_c<0>(pos);
-
-      result_type that( i
+      result_type that( boost::fusion::at_c<0>(pos)
                       , sub2ind ( boost::fusion::pop_front(size)
                                 , boost::fusion::pop_front(pos)
                                 , boost::fusion::pop_front(base)

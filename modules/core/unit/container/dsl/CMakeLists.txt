@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+     box.cpp
      generator.cpp
      run.cpp
      optimize.cpp
