@@ -17,19 +17,24 @@ namespace nt2 { namespace tag
   struct container_;
 } }
 
+namespace nt2 { namespace details
+{
+  template<class T> struct box;
+} }
+
 namespace nt2 { namespace container
 {
   struct colon_;
 
   template<class Domain>
   struct generator_transform;
-  
+
   template<class Domain>
   struct size_transform;
-  
+
   struct grammar;
   struct domain;
-  
+
   template<class Expression, class ResultType>            struct expression;
   template<class Type, class Settings = nt2::settings()>  struct table;
 } }
