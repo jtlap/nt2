@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     {
       if (is_eqz(a0))
         {
-          return Zero<result_type>();
+          return result_type(Zero<rA0>());
         }
       else
         {

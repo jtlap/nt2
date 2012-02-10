@@ -47,16 +47,16 @@ NT2_TEST_CASE_TPL ( exp2_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
   typedef vcT r_t; 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], nt2::Inf<cT>(),0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Minf<vT>(), nt2::Zero<vT>()))[0],nt2::Zero<cT>(),0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Nan<vT>(), nt2::Zero<vT>()))[0], nt2::Nan<cT>(),0.75);   
-  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], nt2::Two<cT>(),0.75); 
-  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Zero<vT>(), nt2::Zero<vT>()))[0],nt2::One<cT>(),0.75); 
-  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Two<vT>(), nt2::Zero<vT>()))[0], nt2::Four<cT>(),0.75); 
+  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Inf<vT>(), nt2::Zero<vT>()))[0], cT(nt2::Inf<T>()),0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Minf<vT>(), nt2::Zero<vT>()))[0],cT(nt2::Zero<T>()),0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Nan<vT>(), nt2::Zero<vT>()))[0], cT(nt2::Nan<T>()),0.75);   
+  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::One<vT>(), nt2::Zero<vT>()))[0], cT(nt2::Two<T>()),0.75); 
+  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Zero<vT>(), nt2::Zero<vT>()))[0],cT(nt2::One<T>()),0.75); 
+  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Two<vT>(), nt2::Zero<vT>()))[0], cT(nt2::Four<T>()),0.75); 
 
  
-  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Zero<vT>(),  nt2::Zero<vT>()))[0], nt2::One<cT>(), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Mzero<vT>(), nt2::Zero<vT>()))[0], nt2::One<cT>(), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Zero<vT>(),  nt2::Zero<vT>()))[0], cT(nt2::One<T>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Mzero<vT>(), nt2::Zero<vT>()))[0], cT(nt2::One<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Inf  <vT>(), nt2::Zero<vT>()))[0], cT(nt2::Inf<T>(), nt2::Zero<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp2(vcT(nt2::Nan  <vT>(), nt2::Zero<vT>()))[0], cT(nt2::Nan <T>(), nt2::Zero<T>()), 0.75);
   

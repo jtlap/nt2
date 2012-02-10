@@ -15,6 +15,7 @@ set( SOURCES
   imag.cpp
   real.cpp
   i.cpp
+  sqrti.cpp
 #  divides.cpp
    )
 

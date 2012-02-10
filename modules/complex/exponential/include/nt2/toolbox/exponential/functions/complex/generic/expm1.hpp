@@ -11,8 +11,10 @@
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/mtwo.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/log1p.hpp>    
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/logical_notand.hpp>
@@ -21,11 +23,15 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_nlt.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/divides.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -37,14 +43,22 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rA0; 
-      typedef typename meta::as_logical<rA0>::type bA0; 
+      typedef typename meta::as_real<result_type>::type rtype; 
+      typedef typename meta::as_logical<rtype>::type ltype;
       const A0 u =  nt2::exp(a0);
-      const bA0 p = logical_or(is_eqz(u),is_invalid(u)); 
-      const A0 y1 = minusone(u);
-      const bA0 m = logical_notand(p, is_not_equal(u, One<A0>()));
-      const A0 y2 = y1*(a0/nt2::log(u));
-      return select(p,y1,select(m, y2, a0));
+      const A0 w =  minusone(u);
+      const rtype ru =  real(u); 
+      const ltype exceptionnal =
+        logical_or(is_eqz(ru),
+                   logical_or(is_invalid(u),
+                              logical_or(is_eqz(a0), 
+                                         is_nlt(nt2::abs(imag(a0)), Pio_2<rtype>())
+                                         )
+                              )
+                   );
+      const A0 correct = nt2::divides(a0, nt2::log1p(w)); 
+      A0 res =  if_else(exceptionnal, w, nt2::multiplies(w, correct)); 
+      return res;
     }
   };
 
@@ -70,7 +84,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::expm1(real(a0))); 
+      return bitwise_cast<result_type>(nt2::expm1(real(a0))); 
     }
   };    
 } }

@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 complex.arithmetic toolbox - minusone/simd Mode"
+#define NT2_UNIT_MODULE "nt2 complex.arithmetic toolbox - sqrti/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.arithmetic components in simd mode
@@ -17,8 +17,7 @@
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/cos.hpp>
+#include <nt2/include/constants/sqrti.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -38,7 +37,6 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/extract.hpp>
 
 #include <nt2/include/functions/load.hpp>
 #include <nt2/sdk/complex/complex.hpp>
@@ -47,8 +45,9 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/constants/sqrt_2o_2.hpp>
 
-NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
+NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -59,43 +58,19 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
   typedef native<ciT ,ext_t>                         vciT;
   typedef typename nt2::meta::as_dry<T>::type          dT; 
   typedef native<dT ,ext_t>                           vdT; 
-  double ulpd;
-  ulpd=0.0;
 
+  // specific values tests
   {
-    typedef vcT r_t; 
-    NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vcT>(cT(T(-1), T(-1.6))))[0], cT(T(-2), T(-1.6)),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vcT>(cT(T(1), T(1.6))))[0],  cT(T(0), T(1.6)),0);
-  }
-  {
-    typedef vdT r_t; 
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Inf<vcT>())[0], nt2::Inf<cT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Minf<vcT>())[0], nt2::Minf<cT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Mone<vcT>())[0], nt2::Mtwo<cT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Nan<vcT>())[0], nt2::Nan<cT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::One<vcT>())[0], nt2::Zero<cT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Zero<vcT>())[0], nt2::Mone<cT>(),0);
+    typedef vciT r_t;
+    std::cout << nt2::Sqrti<vciT>() << std::endl;
+    std::cout << nt2::Sqrti<vcT >() << std::endl;
+    std::cout << nt2::Sqrti<vdT >() << std::endl;
+    std::cout << nt2::Sqrti<vT  >() << std::endl;   
+    NT2_TEST_EQUAL(nt2::Sqrti<vciT>(), vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
+    NT2_TEST_EQUAL(nt2::Sqrti<vcT>(),  vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
+    NT2_TEST_EQUAL(nt2::Sqrti<vdT>(),  vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
+    NT2_TEST_EQUAL(nt2::Sqrti<vT>(),   vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
+
   }  
-  {
-    typedef vcT r_t;
-    NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vciT>(ciT(T(-1))))[0], cT(T(-1.0), T(-1)),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vciT>(ciT(T(1))))[0], cT(T(-1.0), T(1)),0);  
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Inf<vciT>())[0], cT(-1, nt2::Inf<T>()),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Minf<vciT>())[0], cT(-1, nt2::Minf<T>()),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Mone<vciT>())[0], cT(-1, nt2::Mone<T>()),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Nan<vciT>())[0], cT(-1, nt2::Nan<T>()),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::One<vciT>())[0], cT(-1, nt2::One<T>()),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Zero<vciT>())[0], cT(-1, nt2::Zero<T>()),0);
-  }
-  {
-    typedef vdT r_t; 
-    NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vdT>(dT(T(-1))))[0], dT(T(-2)),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::splat<vdT>(dT(T(1))))[0], dT(T(0)),0);  
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Inf<vdT>())[0], nt2::Inf<dT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Minf<vdT>())[0], nt2::Minf<dT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Mone<vdT>())[0], nt2::Mtwo<dT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Nan<vdT>())[0], nt2::Nan<dT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::One<vdT>())[0], nt2::Zero<dT>(),0);
-    NT2_TEST_ULP_EQUAL(minusone(nt2::Zero<vdT>())[0], nt2::Mone<dT>(),0);
-  }
+
 } // end of test for floating_

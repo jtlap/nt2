@@ -49,8 +49,11 @@ NT2_TEST_CASE_TPL ( conj_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   {
     typedef vcT r_t;
     NT2_TEST_ULP_EQUAL(nt2::conj(nt2::splat<vcT>(cT(-1.1, -1.6)))[0], cT(-1.1, 1.6),0);
-    NT2_TEST_ULP_EQUAL(nt2::conj(nt2::splat<vcT>(cT(1.1, 1.6)))[0],  cT(1.1, -1.6),0);  
-    NT2_TEST_ULP_EQUAL(nt2::conj(nt2::Inf<vcT>())[0], nt2::Inf<T>(),0);
+    NT2_TEST_ULP_EQUAL(nt2::conj(nt2::splat<vcT>(cT(1.1, 1.6)))[0],  cT(1.1, -1.6),0);
+  }
+  {
+    typedef vdT r_t;
+    NT2_TEST_ULP_EQUAL(nt2::conj(nt2::Inf<vcT>())[0], nt2::Inf<cT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::conj(nt2::Minf<vcT>())[0], nt2::Minf<cT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::conj(nt2::Mone<vcT>())[0], nt2::Mone<cT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::conj(nt2::Nan<vcT>())[0], nt2::Nan<cT>(),0);

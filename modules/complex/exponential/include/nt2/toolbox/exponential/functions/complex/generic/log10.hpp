@@ -14,6 +14,10 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,40 +26,15 @@ namespace nt2 { namespace ext
                             , (generic_< complex_<floating_<A0> > >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     { 
       typedef typename meta::as_real<A0>::type             rtype;
-      return result_type(nt2::log10(nt2::abs(a0)),
-                         nt2::arg(a0)/Log_10<rtype>()); 
+      rtype a = if_else(logical_and(nt2::is_real(a0), nt2::is_nan(a0)), Zero<rtype>(), nt2::arg(a0)) ; 
+      return result_type(nt2::log10(nt2::abs(a0)),a/Log_10<rtype>()); 
     }
   };
   
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::cpu_
-//                             , (A0)
-//                             , (generic_< imaginary_<floating_<A0> > >)
-//                             )
-//   {
-//     typedef typename meta::as_real<A0>::type             rtype; 
-//     typedef typename meta::as_complex<rtype>::type result_type;
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return result_type(arg(a0)/Log_10<A0>()); 
-//     }
-//   };
-
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log10_, tag::cpu_
-//                             , (A0)
-//                             , (generic_< dry_<floating_<A0> > >)
-//                             )
-//   {
-//     typedef typename meta::as_real<A0>::type             rtype; 
-//     typedef typename meta::as_complex<rtype>::type result_type;
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return result_type(nt2::log10(nt2::abs(real(a0))), nt2::arg(real(a0))/Log_10<A0>()); 
-//     }
-//   };      
 } }
 
 

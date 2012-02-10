@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
                               (generic_< complex_<floating_<A0> > >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return exp(a1*log(a0)); 
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
                                 (generic_< floating_<A1> >)
                             )
   { 
-    typedef A0  result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<result_type>::type rtype;
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
                                 (generic_< dry_<floating_<A1> > >)
                             )
   { 
-    typedef A0  result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return pow(a0, real(a1)); 
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
                                 (generic_< complex_<floating_<A1> > >)
                             )
   {
-    typedef A1 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
         typedef typename meta::as_dry<A0>::type dtype; 
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
                                 (generic_< complex_<floating_<A1> > >)
                             )
   {
-    typedef A1 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
         return nt2::exp(a1*nt2::log(a0)); 
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
                               (generic_< imaginary_<floating_<A1> > >)
                               )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
         return nt2::exp(a1*nt2::log(a0)); 
@@ -118,7 +118,7 @@ namespace nt2 { namespace ext
                               (generic_< complex_<floating_<A1> > >)
                               )
   {
-    typedef A1 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
         return nt2::exp(a1*nt2::log(a0)); 
@@ -131,7 +131,7 @@ namespace nt2 { namespace ext
                               (generic_< floating_<A1> >)
                               )
   {
-    typedef typename meta::as_complex<A1>::type result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
         return nt2::exp(a1*nt2::log(a0)); 
@@ -144,7 +144,7 @@ namespace nt2 { namespace ext
                               (generic_< dry_ < floating_<A1> > >)
                               )
   {
-    typedef typename meta::as_complex<A1>::type result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
         return nt2::exp(a1*nt2::log(a0)); 
@@ -184,7 +184,7 @@ namespace nt2 { namespace ext
                               (generic_< dry_<floating_<A1> > >)
                               )
   {
-    typedef typename meta::as_complex<A1>::type result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
         return nt2::exp(a1*nt2::log(a0)); 
