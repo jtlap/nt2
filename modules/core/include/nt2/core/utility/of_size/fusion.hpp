@@ -86,7 +86,7 @@ namespace boost { namespace fusion { namespace extension
     struct apply_impl
     {
       typedef mpl::size_t<N> type;
-      static type call(Seq& seq) { return type(); }
+      static type call(Seq&) { return type(); }
     };
   };
 
