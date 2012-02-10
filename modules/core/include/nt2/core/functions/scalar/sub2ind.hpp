@@ -59,13 +59,13 @@ namespace nt2 { namespace ext
 
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval(const A0& s, const A1& p, const Sz&, const Sz&) const
+    eval(const A0&, const A1& p, const Sz&, const Sz&) const
     {
       return boost::fusion::at_c<Sz::value>(p) - 1;
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval( const A0& s, const A1& p
+    eval( const A0&, const A1& p
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
@@ -118,13 +118,13 @@ namespace nt2 { namespace ext
 
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval(const A0& s, const A1& p, const A2& b, const Sz&, const Sz&) const
+    eval(const A0&, const A1& p, const A2& b, const Sz&, const Sz&) const
     {
       return boost::fusion::at_c<Sz::value>(p) - boost::fusion::at_c<Sz::value>(b);
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval( const A0& s, const A1& p, const A2& b
+    eval( const A0&, const A1& p, const A2&
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {

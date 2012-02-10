@@ -9,8 +9,9 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 
-#include <boost/utility.hpp>
 #include <boost/mpl/size_t.hpp>
+#include <boost/next_prior.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
 #include <boost/fusion/include/next.hpp>

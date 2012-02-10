@@ -170,7 +170,7 @@ namespace nt2 { namespace ext
 
     template<class A0_> BOOST_FORCEINLINE
     typename result<implement(A0_&, State const&, Data const&)>::type
-    operator()(A0_& a0, State const& state, Data const&) const
+    operator()(A0_& a0, State const&, Data const&) const
     {
        return boost::proto::value(a0);
     }
@@ -189,7 +189,7 @@ namespace nt2 { namespace ext
     typedef typename Data::type   result_type;
 
     template<class A0_> BOOST_FORCEINLINE
-    result_type operator()(A0_& a0, State const& state, Data const&) const
+    result_type operator()(A0_& a0, State const&, Data const&) const
     {
       return nt2::splat<result_type>(boost::proto::value(a0));
     }

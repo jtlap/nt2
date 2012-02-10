@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval(const A0& size, const A1& pos, boost::mpl::true_ const& ) const
+    eval(const A0&, const A1&, boost::mpl::true_ const& ) const
     {
       result_type that(1,1);
       return that;
@@ -99,9 +99,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval( const A0& size, const A1& pos, const A2& base
-        , boost::mpl::true_ const&
-        ) const
+    eval(const A0&, const A1&, const A2& base, boost::mpl::true_ const&) const
     {
       result_type that( boost::fusion::at_c<0>(base)
                       , boost::fusion::at_c<0>(base)

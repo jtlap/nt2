@@ -76,7 +76,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // If I construct some container<ID> from another one, it is already in
     //==========================================================================
-    container( container const& sz ) {}
+    container( container const& ) {}
 
     //==========================================================================
     // If I assign some container<ID> to another one, it is already in

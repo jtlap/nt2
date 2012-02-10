@@ -9,20 +9,12 @@
 #ifndef NT2_SETTINGS_SPECIFIC_DATA_HPP_INCLUDED
 #define NT2_SETTINGS_SPECIFIC_DATA_HPP_INCLUDED
 
-namespace nt2 {
-
-  template <typename Tag, typename Type> 
-  struct specific_data 
+namespace nt2
+{
+  template <typename Tag, typename Type> struct specific_data
   {
-    struct type
-    {
-      type() {}
-      type(type const& s){}
-      void swap(type& s){}
-
-    };
+    struct type { void swap(type& ) {} };
   };
-
 }
 
 #endif

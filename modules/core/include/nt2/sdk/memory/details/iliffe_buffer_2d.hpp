@@ -41,7 +41,7 @@ namespace nt2 { namespace memory
     iliffe_buffer( allocator_type const& = allocator_type()) {}
 
     template<typename Sizes>
-    iliffe_buffer (Sizes const& sz, allocator_type const& = allocator_type())
+    iliffe_buffer (Sizes const&, allocator_type const& = allocator_type())
     {}
 
     //==========================================================================
