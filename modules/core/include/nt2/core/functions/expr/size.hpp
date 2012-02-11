@@ -39,11 +39,8 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
-                            , (A0)(T)(A1)
-                            , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain, T
-                                      >
-                              ))
+                            , (A0)(A1)
+                            , (ast_<A0>)
                               (scalar_< unspecified_<A1> >)
                             )
   {
