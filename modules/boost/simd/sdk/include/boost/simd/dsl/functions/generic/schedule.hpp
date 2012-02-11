@@ -15,167 +15,352 @@
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/dispatch/dsl/proto/unpack.hpp>
 
-//==============================================================================
-// Splitting of non-combinable expressions
-//==============================================================================
-
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
-                                   , (A0)(T)(N)(A1)
-                                   , ((node_<A0, elementwise_<T>, N>))
-                                     (ast_<A1>)
-                                   )
+  template<class M, class T>
+  struct same_as
+   : is_same<typename M::type, T>
   {
-    typedef proto::
+  };
+
+  template<class Tag>
+  struct unpack_schedule
+  : proto::
     unpack< proto::
             call< dispatch::
-                  functor< typename proto::tag_of<A0>::type, tag::formal_ >
+                  functor<Tag>
                 > ( proto::
                     when< proto::_
                         , proto::call< typename dispatch::
-                                       make_functor<tag::schedule_, A0>
-                                                    ::type ( proto::_expr
-                                                           , proto::_state
-                                                           )
+                                       make_functor< tag::schedule_, Tag>
+                                                     ::type ( proto::_expr
+                                                            , proto::_state
+                                                            , proto::_data
+                                                            )
                                      >
                         >
                   )
           >
-    transform;
-
-    template<class Sig>
-    struct result;
-
-    template<class This, class A0_, class A1_>
-    struct result<This(A0_, A1_)>
-      : transform::template result<transform(A0_, A1_)>
-    {
-    };
-
-    template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, A1&)>::type
-    operator()(A0_& a0, A1& a1) const
-    {
-      return transform()(a0, a1);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
-                                   , (A0)(T)(N)(A1)
-                                   , ((node_<A0, unspecified_<T>, N>))
-                                     (ast_<A1>)
-                                   )
   {
-    typedef proto::
-    unpack< proto::
-            call< dispatch::
-                  functor< typename proto::tag_of<A0>::type, tag::formal_ >
-                > ( proto::call< typename dispatch::
-                                 make_functor<tag::schedule_, A0>::type
-                               >
-                  )
-          >
-    transform;
-
-    template<class Sig>
-    struct result;
-
-    template<class This, class A0_, class A1_>
-    struct result<This(A0_, A1_)>
-    {
-      typedef typename transform::template result<transform(A0_)>::type subast;
-      typedef typename dispatch::meta::call<tag::evaluate_(subast, A1_)>::type type;
-    };
-
-    template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, A1&)>::type
-    operator()(A0_& a0, A1& a1) const
-    {
-      return evaluate(transform()(a0), a1);
-    }
   };
 
-  // Do nothing if assignment present
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
-                                   , (A0)
-                                   , ((node_<A0, boost::simd::tag::assign_, mpl::long_<2> >))
-                                   )
-  {
-    typedef typename boost::proto::result_of::child_c<A0 const&, 0>::type child0;
-    typedef typename boost::proto::result_of::child_c<A0 const&, 1>::type child1;
-    typedef typename dispatch::meta::call<tag::schedule_(child1, child0)>::type scheduled;
-    typedef typename dispatch::meta::call<tag::assign_(child0, scheduled)>::type result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
-    {
-      return assign(boost::proto::child_c<0>(a0), schedule(boost::proto::child_c<1>(a0), boost::proto::child_c<0>(a0)));
-    }
-  };
-
-  // Add assignment if not present
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
-                                   , (A0)
+                                   , (A0)(F)
                                    , (ast_<A0>)
-                                   )
-  {
-    typedef typename dispatch::meta::semantic_of<A0>::type semantic;
-    typedef typename dispatch::meta::strip<typename dispatch::meta::terminal_of<semantic>::type>::type terminal;
-    typedef typename dispatch::meta::call<tag::schedule_(A0 const&, terminal&)>::type scheduled;
-    typedef typename dispatch::meta::call<tag::assign_(terminal&, scheduled)>::type result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
-    {
-      terminal term;
-      return assign(term, schedule(a0, term));
-    }
-  };
-
-  // terminal cases
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
-                                   , (A0)
-                                   , ((node_<A0, boost::simd::tag::terminal_, mpl::long_<0> >))
+                                     (unspecified_<F>)
                                    )
   {
     template<class Sig>
     struct result;
 
-    template<class This, class A0_>
-    struct result<This(A0_)>
-      : dispatch::meta::as_ref<A0_>
+    template<class This, class A0_, class F_>
+    struct result<This(A0_, F_)>
     {
+      typedef typename dispatch::meta::call<tag::schedule_(A0_, F const&, bool)>::type type;
     };
 
     template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&)>::type
-    operator()(A0_& a0) const
+    BOOST_FORCEINLINE typename result<implement(A0_&, F const&)>::type
+    operator()(A0_& a0, F const& f) const
     {
-      return a0;
+      return schedule(a0, f, bool());
     }
   };
 
+  //==============================================================================
+  // Add assignment if necessary
+  //==============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
-                                   , (A0)(A1)
-                                   , ((node_<A0, boost::simd::tag::terminal_, mpl::long_<0> >))
-                                     (ast_<A1>)
+                                   , (A0)(F)(Top)
+                                   , ((node_<A0, boost::simd::tag::assign_, mpl::long_<2> >))
+                                     (unspecified_<F>)
+                                     (scalar_< fundamental_<Top> >)
                                    )
   {
     template<class Sig>
     struct result;
 
-    template<class This, class A0_, class A1_>
-    struct result<This(A0_, A1_)>
-      : dispatch::meta::as_ref<A0_>
+    template<class This, class A0_, class F_, class Top_>
+    struct result<This(A0_, F_, Top_)>
+    {
+      typedef typename boost::proto::result_of::child_c<A0_, 0>::type child0;
+      typedef typename boost::proto::result_of::child_c<A0_, 1>::type child1;
+      typedef typename dispatch::meta::call<tag::schedule_assign_(child0, child1, F_, Top_)>::type type;
+    };
+
+    template<class A0_>
+    BOOST_FORCEINLINE typename result<implement(A0_&, F const&, Top)>::type
+    operator()(A0_& a0, F const& f, Top top) const
+    {
+      return schedule_assign(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), f, top);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
+                                   , (A0)(F)(Top)
+                                   , (ast_<A0>)
+                                     (unspecified_<F>)
+                                     (scalar_< fundamental_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class F_, class Top_>
+    struct result<This(A0_, F_, Top_)>
+    {
+      typedef typename dispatch::meta::semantic_of<A0_>::type semantic;
+      typedef typename dispatch::meta::strip<typename dispatch::meta::terminal_of<semantic>::type>::type terminal;
+      typedef typename dispatch::meta::call<tag::schedule_assign_(terminal&, A0_, F_, Top_)>::type type;
+    };
+
+    template<class A0_>
+    BOOST_FORCEINLINE typename result<implement(A0_&, F const&, Top)>::type
+    operator()(A0_& a0, F const& f, Top top) const
+    {
+      typename result<implement(A0_&, F const&, Top)>::terminal term;
+      return schedule_assign(term, a0, f, top);
+    }
+  };
+
+  //==============================================================================
+  // Elementwise
+  //==============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_assign_, tag::formal_
+                                   , (A0)(A1)(T1)(N1)(F)(Top)
+                                   , (unspecified_<A0>)
+                                     ((node_<A1, elementwise_<T1>, N1>))
+                                     (unspecified_<F>)
+                                     (scalar_< bool_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_, class F_, class Top_>
+    struct result<This(A0_, A1_, F_, Top_)>
+    {
+      typedef typename unpack_schedule<T1>::template result<unpack_schedule<T1>(A1_, F_, int)>::type transformed;
+      typedef typename dispatch::meta::call<tag::assign_(A0_, transformed)>::type assigned;
+      typedef typename dispatch::meta::result_of<F const(assigned)>::type type;
+    };
+
+    template<class A0_, class A1_>
+    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, A1_&, F const&, bool)>::type
+    operator()(A0_& a0, A1_& a1, F const& f, bool) const
+    {
+      int i;
+      return f(assign(a0, unpack_schedule<T1>()(a1, f, i)));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_assign_, tag::formal_
+                                   , (A0)(A1)(T1)(N1)(F)(Top)
+                                   , (unspecified_<A0>)
+                                     ((node_<A1, elementwise_<T1>, N1>))
+                                     (unspecified_<F>)
+                                     (scalar_< integer_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_, class F_, class Top_>
+    struct result<This(A0_, A1_, F_, Top_)> : unpack_schedule<T1>::template result<unpack_schedule<T1>(A1_, F_, Top_)> {};
+
+    template<class A0_, class A1_>
+    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, A1_&, F const&, Top)>::type
+    operator()(A0_&, A1_& a1, F const& f, Top top) const
+    {
+      return unpack_schedule<T1>()(a1, f, top);
+    }
+  };
+
+  //==============================================================================
+  // Reduction
+  //==============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_assign_, tag::formal_
+                                   , (A0)(A1)(T1)(N1)(F)(Top)
+                                   , (unspecified_<A0>)
+                                     ((node_<A1, reduction_<T1>, N1>))
+                                     (unspecified_<F>)
+                                     (scalar_< fundamental_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_, class F_, class Top_>
+    struct result<This(A0_, A1_, F_, Top_)>
+    {
+      typedef typename unpack_schedule<T1>::template result<unpack_schedule<T1>(A1_, F_, int)>::type transformed;
+      typedef typename dispatch::meta::call<tag::assign_(A0_, transformed)>::type assigned;
+      typedef typename dispatch::meta::result_of<F const(assigned)>::type type;
+    };
+
+    template<class A0_, class A1_>
+    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, A1_&, F const&, Top)>::type
+    operator()(A0_& a0, A1_& a1, F const& f, Top) const
+    {
+      int i;
+      return f(assign(a0, unpack_schedule<T1>()(a1, f, i)));
+    }
+  };
+
+  //==============================================================================
+  // Unspecified
+  //==============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::schedule_assign_, tag::formal_
+                                   , (A0)(A1)(T1)(N1)(F)(Top)
+                                   , ( typename mpl::
+                                       eval_if< proto::is_expr<A0>
+                                              , boost::simd::ext::same_as< proto::tag_of<A0>, boost::proto::tag::terminal >
+                                              , mpl::true_
+                                              >::type
+                                     )
+                                   , (unspecified_<A0>)
+                                     ((node_<A1, unspecified_<T1>, N1>))
+                                     (unspecified_<F>)
+                                     (scalar_< fundamental_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_, class F_, class Top_>
+    struct result<This(A0_, A1_, F_, Top_)>
+    {
+      typedef typename unpack_schedule<T1>::template result<unpack_schedule<T1>(A1_, F_, bool)>::type transformed;
+      typedef typename dispatch::meta::call<tag::assign_(A0_, transformed)>::type assigned;
+      typedef typename dispatch::meta::result_of<F const(assigned)>::type type;
+    };
+
+    template<class A0_, class A1_>
+    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, A1_&, F const&, Top)>::type
+    operator()(A0_& a0, A1_& a1, F const& f, Top top) const
+    {
+      bool b;
+      return f(assign(a0, unpack_schedule<T1>()(a1, f, b)));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::schedule_assign_, tag::formal_
+                                   , (A0)(A1)(T1)(N1)(F)(Top)
+                                   , ( mpl::not_< typename mpl::
+                                                  eval_if< proto::is_expr<A0>
+                                                         , boost::simd::ext::same_as< proto::tag_of<A0>, boost::proto::tag::terminal >
+                                                         , mpl::true_
+                                                         >::type
+                                                >
+                                     )
+                                   , (unspecified_<A0>)
+                                     ((node_<A1, unspecified_<T1>, N1>))
+                                     (unspecified_<F>)
+                                     (scalar_< unspecified_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_, class F_, class Top_>
+    struct result<This(A0_, A1_, F_, Top_)>
+    {
+      typedef typename unpack_schedule<T1>::template result<unpack_schedule<T1>(A1_, F_, bool)>::type transformed;
+      typedef typename dispatch::meta::semantic_of<transformed>::type semantic;
+      typedef typename dispatch::meta::strip<typename dispatch::meta::terminal_of<semantic>::type>::type terminal;
+
+      typedef typename dispatch::meta::call<tag::assign_(terminal&, transformed)>::type assigned0;
+      typedef typename dispatch::meta::result_of<F const(assigned0)>::type type0;
+
+      typedef typename dispatch::meta::call<tag::assign_(A0_, type0)>::type assigned;
+      typedef typename dispatch::meta::result_of<F const(assigned)>::type type;
+    };
+
+    template<class A0_, class A1_>
+    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, A1_&, F const&, Top)>::type
+    operator()(A0_& a0, A1_& a1, F const& f, Top top) const
+    {
+      bool b;
+      typename result<implement(A0_&, A1_&, F const&, Top)>::terminal term;
+      return f(assign(a0, f(assign(term, unpack_schedule<T1>()(a1, f, b)))));
+    }
+  };
+
+  //==============================================================================
+  // Terminal
+  //==============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_, tag::formal_
+                                   , (A0)(F)(Top)
+                                   , ((node_<A0, boost::simd::tag::terminal_, mpl::long_<0> >))
+                                     (unspecified_<F>)
+                                     (scalar_< bool_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class F_, class Top_>
+    struct result<This(A0_, F_, Top_)>
+     : dispatch::meta::as_ref<A0_>
     {
     };
 
     template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, A1&)>::type
-    operator()(A0_& a0, A1&) const
+    BOOST_FORCEINLINE typename result<implement(A0_&, F const&, Top)>::type
+    operator()(A0_& a0, F const& f, Top) const
     {
       return a0;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_assign_, tag::formal_
+                                   , (A0)(A1)(F)(Top)
+                                   , (unspecified_<A0>)
+                                     ((node_<A1, boost::simd::tag::terminal_, mpl::long_<0> >))
+                                     (unspecified_<F>)
+                                     (scalar_< bool_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_, class F_, class Top_>
+    struct result<This(A0_, A1_, F_, Top_)>
+    {
+      typedef typename dispatch::meta::call<tag::assign_(A0_, A1_)>::type assigned;
+      typedef typename dispatch::meta::result_of<F const(assigned)>::type type;
+    };
+
+    template<class A0_, class A1_>
+    BOOST_FORCEINLINE typename result<implement(A0_&, A1_&, F const&, Top)>::type
+    operator()(A0_& a0, A1_& a1, F const& f, Top) const
+    {
+      return f(assign(a0, a1));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::schedule_assign_, tag::formal_
+                                   , (A0)(A1)(F)(Top)
+                                   , (unspecified_<A0>)
+                                     ((node_<A1, boost::simd::tag::terminal_, mpl::long_<0> >))
+                                     (unspecified_<F>)
+                                     (scalar_< integer_<Top> >)
+                                   )
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_, class F_, class Top_>
+    struct result<This(A0_, A1_, F_, Top_)>
+      : dispatch::meta::as_ref<A1_>
+    {
+    };
+
+    template<class A0_, class A1_>
+    BOOST_FORCEINLINE typename result<implement(A0_&, A1_&, F const&, Top)>::type
+    operator()(A0_&, A1_& a1, F const&, Top) const
+    {
+      return a1;
     }
   };
 

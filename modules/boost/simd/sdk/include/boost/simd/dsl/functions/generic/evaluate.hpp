@@ -11,7 +11,7 @@
 
 #include <boost/simd/dsl/functions/evaluate.hpp>
 #include <boost/simd/include/functions/optimize.hpp>
-#include <boost/simd/dsl/functions/schedule.hpp> // forward due to cyclic dependency
+#include <boost/simd/include/functions/schedule.hpp>
 #include <boost/simd/include/functions/compile.hpp>
 
 #include <boost/simd/sdk/functor/hierarchy.hpp>
@@ -25,33 +25,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::call<tag::optimize_(A0 const&)>::type optimized;
-    typedef typename dispatch::meta::call<tag::schedule_(optimized)>::type scheduled;
-    typedef typename dispatch::meta::call<tag::compile_(scheduled)>::type  compiled;
-    typedef typename dispatch::meta::result_of<compiled(scheduled)>::type  result_type;
+    typedef typename dispatch::meta::call<tag::compile_(A0 const&)>::type  compiled;
+    typedef typename dispatch::meta::call<tag::schedule_(optimized, compiled)>::type result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0) const
     {
-      scheduled s = schedule(optimize(a0));
-      return simd::compile(s)(s);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::evaluate_, tag::formal_
-                            , (A0)(A1)
-                            , (ast_<A0>)
-                              (ast_<A1>)
-                            )
-  {
-    typedef typename dispatch::meta::call<tag::assign_(A1&, A0 const&)>::type assigned;
-    typedef typename dispatch::meta::call<tag::compile_(assigned)>::type  compiled;
-    typedef typename dispatch::meta::result_of<compiled(assigned)>::type  result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A1& a1) const
-    {
-      assigned s = assign(a1, a0);
-      return simd::compile(s)(s);
+      return schedule(optimize(a0), compile(a0));
     }
   };
 } } }

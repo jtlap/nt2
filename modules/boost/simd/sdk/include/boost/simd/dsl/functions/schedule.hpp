@@ -14,11 +14,23 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct schedule_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; }; }
+  namespace tag
+  {
+    struct schedule_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
+    struct schedule_assign_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
+  }
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::schedule_, schedule, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_, schedule, (A0 const&)(A1&), 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_, schedule, (A0 const&)(A1&)(A2 const&), 3)
+  // Tree + function + top mark
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_, schedule, (A0&)(A1 const&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_, schedule, (A0 const&)(A1 const&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_, schedule, (A0&)(A1 const&)(A2 const&), 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_, schedule, (A0 const&)(A1 const&)(A2 const&), 3)
+
+  // Special case assign node
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_assign_, schedule_assign, (A0&)(A1&)(A2 const&)(A3 const), 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_assign_, schedule_assign, (A0 const&)(A1&)(A2 const&)(A3 const), 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_assign_, schedule_assign, (A0 const&)(A1 const&)(A2 const&)(A3 const), 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::schedule_assign_, schedule_assign, (A0&)(A1 const&)(A2 const&)(A3 const), 4)
 } }
 
 #endif
