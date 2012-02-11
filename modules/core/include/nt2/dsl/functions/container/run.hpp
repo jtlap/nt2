@@ -37,19 +37,25 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::proto::result_of::
-            child_c<A0 const&, 0>::type                             result_type;
+    child_c<A0 const&, 0>::type                                     child0;
+    typedef typename boost::proto::result_of::
+    child_c<A0 const&, 1>::type                                     child1;
+
+    typedef typename meta::
+    call<tag::run_(child1, Position const&, Target const&)>::type   read;
+
+    typedef typename meta::
+    call<tag::run_(child0, Position const&, read)>::type            result_type;
       
     result_type operator()(A0 const& a0, Position const& pos, Target const&) const
     {
-      nt2::run( boost::proto::child_c<0>(a0)
-              , pos
-              , nt2::run( boost::proto::child_c<1>(a0)
-                        , pos
-                        , Target()
-                        )
-              );
-              
-      return boost::proto::child_c<0>(a0);
+      return nt2::run( boost::proto::child_c<0>(a0)
+                     , pos
+                     , nt2::run( boost::proto::child_c<1>(a0)
+                               , pos
+                               , Target()
+                               )
+                     );
     }
   };
     
@@ -123,40 +129,8 @@ namespace nt2 { namespace ext
       return boost::proto::child_c<0>(a0);
     }
   };
-  
-  //============================================================================
-  // When an arbitrary expression is run, we perform its evaluation into a
-  // local temporary container of proper type.This temporary is then returned by
-  // value.
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)(Tag)(Arity)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , Tag
-                                     , Arity
-                                     > 
-                              ))
-                            )
-  {
-    typedef typename boost::
-    remove_reference< typename boost::dispatch::meta::
-                      terminal_of< typename boost::dispatch::meta::
-                                   semantic_of<A0 const&>::type
-                                 >::type
-                    >::type                                result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      result_type tmp;
-      run(assign(tmp, a0));
-      return tmp;
-    }
-  };
-
-  //============================================================================
-  // When an assign(lhs,rhs) scalar expression is run, we perform a single
-  // assignment of said scalar value.
-  //============================================================================
+  // 0D element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_, (A0)
                             , ((expr_< scalar_< unspecified_<A0> >
                                      , nt2::tag::assign_
@@ -166,42 +140,24 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
+    child_c<A0 const&, 0>::type                             node_type;
 
     typedef typename meta::
-            strip< typename meta::scalar_of<result_type>::type>::type
-            target_type;
+    strip<typename meta::scalar_of<node_type>::type>::type  target_type;
+
+    typedef typename meta::
+    call< tag::run_( A0 const&
+                   , boost::fusion::vector0<>
+                   , meta::as_<target_type>
+                   )
+        >::type                                             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0) const
     {
       boost::proto::child_c<0>(a0).resize(a0.extent());
 
-      nt2::run(a0, boost::fusion::vector0<>(), meta::as_<target_type>());
-      return boost::proto::child_c<0>(a0);
-    }
-  };
-
-  //============================================================================
-  // When a scalar expression is run, we don't perform the operation into
-  // a temporary, but rather directly return it.
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(Tag)(Arity)
-                            , ((expr_< scalar_< unspecified_<A0> >
-                                     , Tag
-                                     , Arity
-                                     >
-                              ))
-                            )
-  {
-    typedef typename boost::dispatch::meta::
-    semantic_of<A0 const&>::type                            result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      typedef typename meta::strip<result_type>::type stype;
-      return nt2::run( a0, boost::fusion::vector0<>(), meta::as_<stype>() );
+      return nt2::run(a0, boost::fusion::vector0<>(), meta::as_<target_type>());
     }
   };
 } }
