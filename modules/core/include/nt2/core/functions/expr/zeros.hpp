@@ -12,9 +12,9 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/zeros.hpp>
 #include <nt2/core/functions/of_size.hpp>
-#include <nt2/core/utility/generator/generator.hpp>
-#include <nt2/core/utility/generator/preprocessor.hpp>
-#include <nt2/core/utility/generator/constant_adaptor.hpp>
+#include <nt2/core/utility/generative/generative.hpp>
+#include <nt2/core/utility/generative/preprocessor.hpp>
+#include <nt2/core/utility/generative/constant_adaptor.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -26,24 +26,26 @@ namespace nt2 { namespace ext
                             )
   {
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::constant_generator<nt2::tag::Zero>
                       , double
                       , settings(of_size_max)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       of_size_max sizee;
-      container::domain domain_;
       nt2::details::constant_generator<nt2::tag::Zero> callee;
 
       for(std::size_t i=1;i<of_size_max::size();++i) sizee[i-1] = a0(i);
-      return domain_( expr_type::make( base(sizee,callee) ) );
+
+      base that(sizee,callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 
@@ -57,24 +59,26 @@ namespace nt2 { namespace ext
                             )
   {
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::constant_generator<nt2::tag::Zero>
                       , typename T::type
                       , settings(of_size_max)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const&) const
     {
       of_size_max sizee;
-      container::domain domain_;
       nt2::details::constant_generator<nt2::tag::Zero> callee;
 
       for(std::size_t i=1;i<of_size_max::size();++i) sizee[i-1] = a0(i);
-      return domain_( expr_type::make( base(sizee,callee) ) );
+
+      base that(sizee,callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 } }

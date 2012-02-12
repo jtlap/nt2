@@ -11,7 +11,7 @@
 
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/core/utility/generator/category.hpp>
+#include <nt2/core/utility/generative/category.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(F)(State)(Data)
-                            , ((ast_<generator_< unspecified_<A0>,F> >))
+                            , ((ast_<generative_< unspecified_<A0>,F> >))
                               (fusion_sequence_<State>)
                               ((unspecified_<Data>))
                             )

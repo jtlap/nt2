@@ -19,8 +19,7 @@
 #include <nt2/include/functions/fuzzy_equal.hpp>
 #include <nt2/include/functions/tolerant_floor.hpp>
 #include <nt2/include/constants/threeeps.hpp>
-#include <nt2/core/utility/generator/generator.hpp>
-#include <iostream>
+#include <nt2/core/utility/generative/generative.hpp>
 
 //==============================================================================
 // colon actual functor forward declaration
@@ -43,23 +42,24 @@ namespace nt2 { namespace ext
                             )
   {
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::unity_colon<A0>
                       , A0
                       , settings(_2D)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const& u) const
     {
-      container::domain domain_;
       std::size_t n = (u>=l) ? std::size_t(u-l+1) : 0;
       nt2::details::unity_colon<A0> callee(l);
-
-      return domain_( expr_type::make( base(of_size(1,n),callee) ) );
+      base that(of_size(1,n),callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 
@@ -75,25 +75,25 @@ namespace nt2 { namespace ext
                             )
   {
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::colon<A0>
                       , A0
                       , settings(_2D)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& l, A0 const& s, A0 const& u) const
     {
-      typedef typename meta::as_integer<A0>::type stype; 
-      container::domain domain_;
-      nt2::details::colon<A0> callee(l,s);
       std::size_t n = (s) ?(((u>l)==(s>0))? ((u-l+s)/s) : 0) : u;
-      //      std::size_t n = (u>=l) ? ((u-l+s)/s) : 0;
-      return domain_( expr_type::make( base(of_size(1,n),callee) ) );
+      nt2::details::colon<A0> callee(l,s);
+      base that(of_size(1,n),callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 
@@ -109,26 +109,24 @@ namespace nt2 { namespace ext
                             )
   {
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::colon<A0>
                       , A0
                       , settings(_2D)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& l, A0 const& s, A0 const& u) const
     {
-      typedef typename meta::as_integer<A0>::type stype; 
-      container::domain domain_;
-      nt2::details::colon<A0> callee(l,s);
       std::size_t n = (s) ?((u>l)? ((u-l+s)/s) : 0) : u;
-      std::cout << " u " << u << " l " << l <<" s " << s <<" n " << n <<std::endl; 
-      //      std::size_t n = (u>=l) ? ((u-l+s)/s) : 0;
-      return domain_( expr_type::make( base(of_size(1,n),callee) ) );
+      nt2::details::colon<A0> callee(l,s);
+      base that(of_size(1,n),callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 
@@ -144,26 +142,28 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::as_floating<A0,A1,A2>::type base_t;
+
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::colon<base_t>
                       , base_t
                       , settings(_2D)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& l, A1 const& s, A2 const& u) const
     {
-      container::domain domain_;
-      nt2::details::colon<base_t> callee(l,s);
+      std::size_t n = (s) ? (((u-l)*s >= 0) ? colon_size(l,s,u) : 0)
+                          : std::size_t(u);
 
-      std::size_t n = (s) ?(((u-l)*s >= 0) ? colon_size(l,s,u) : 0): std::size_t(u);
-      //      std::size_t n = (u >= l)? colon_size(l,s,u) : 0;
-      return domain_( expr_type::make( base(of_size(1,n),callee) ) );
+      nt2::details::colon<A0> callee(l,s);
+      base that(of_size(1,n),callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
 
     BOOST_FORCEINLINE std::size_t
@@ -222,7 +222,6 @@ namespace nt2 { namespace details
 
     T lower_;
   };
-
 } }
 
 #endif

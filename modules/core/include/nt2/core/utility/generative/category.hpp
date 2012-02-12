@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_UTILITY_GENERATOR_CATEGORY_HPP_INCLUDED
-#define NT2_CORE_UTILITY_GENERATOR_CATEGORY_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_GENERATIVE_CATEGORY_HPP_INCLUDED
+#define NT2_CORE_UTILITY_GENERATIVE_CATEGORY_HPP_INCLUDED
 
 #include <nt2/sdk/meta/property_of.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
@@ -15,13 +15,13 @@
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T, class F>
-  struct generator_ : generator_< typename T::parent, F >
+  struct generative_ : generative_< typename T::parent, F >
   {
-    typedef generator_<typename T::parent, F> parent;
+    typedef generative_<typename T::parent, F> parent;
   };
 
   template<class T, class F>
-  struct  generator_< unspecified_<T>, F >
+  struct  generative_< unspecified_<T>, F >
         : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;
@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace nt2 { namespace ext
 {
-  using boost::dispatch::meta::generator_;
+  using boost::dispatch::meta::generative_;
 } }
 
 #endif

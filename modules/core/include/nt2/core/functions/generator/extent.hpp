@@ -10,21 +10,23 @@
 #define NT2_CORE_FUNCTIONS_GENERATOR_EXTENT_HPP_INCLUDED
 
 #include <nt2/core/functions/extent.hpp>
-#include <nt2/core/utility/generator/category.hpp>
+#include <nt2/core/utility/generative/category.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::extent_, tag::cpu_
                             , (A0)(F)
-                            , ((generator_< unspecified_<A0>, F>))
+                            , ((generative_< unspecified_<A0>, F>))
                             )
   {
     typedef typename A0::extent_type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0) const { return a0.sizes_; }
+    result_type operator()(const A0& a0) const
+    {
+      return a0.sizes_;
+    }
   };
-
 } }
 
 #endif

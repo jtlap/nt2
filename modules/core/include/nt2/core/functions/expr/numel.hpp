@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_NUMEL_HPP_INCLUDED
 
 #include <nt2/core/functions/numel.hpp>
+#include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <nt2/core/container/dsl.hpp>
@@ -33,7 +34,7 @@ namespace nt2 { namespace ext
     {
       return boost::fusion::fold( a0
                                 , boost::mpl::size_t<1>()
-                                , functor<tag::multiplies_>() 
+                                , functor<tag::multiplies_>()
                                 );
     }
   };
@@ -51,7 +52,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
-      return nt2::numel(a0.extent());
+      return nt2::numel(nt2::extent(a0));
     }
   };
 } }

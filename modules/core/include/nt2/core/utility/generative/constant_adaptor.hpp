@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_UTILITY_GENERATOR_CONSTANT_ADAPTOR_HPP_INCLUDED
-#define NT2_CORE_UTILITY_GENERATOR_CONSTANT_ADAPTOR_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_GENERATIVE_CONSTANT_ADAPTOR_HPP_INCLUDED
+#define NT2_CORE_UTILITY_GENERATIVE_CONSTANT_ADAPTOR_HPP_INCLUDED
 
 #include <boost/dispatch/functor/meta/make_functor.hpp>
 
@@ -22,7 +22,6 @@ namespace nt2 { namespace details
       return callee(t);
     }
   };
-
 } }
 
 #endif
