@@ -25,8 +25,9 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type tmp = nt2::sqrt(oneplus(a0)); 
-      return if_else(lt(nt2::abs(a0), Half<A0>()),
+      typedef typename meta::as_real<result_type>::type rtype; 
+      result_type tmp = nt2::sqrt(oneplus(a0));
+      return if_else(lt(nt2::abs(a0), Half<rtype>()),
                      nt2::divides(a0, oneplus(tmp)),
                      minusone(tmp)); 
     }

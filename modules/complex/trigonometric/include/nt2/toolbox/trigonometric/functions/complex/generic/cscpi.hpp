@@ -6,49 +6,27 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSC_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSC_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSCPI_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSCPI_HPP_INCLUDED
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-//csc(x+iy)=rec(sin(x+iy)).
+//cscpi(x+iy)=rec(sinpi(x+iy)).
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csc_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscpi_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return rec(nt2::sin(a0));     
+      return rec(nt2::sinpi(a0));     
     }
   };
-
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csc_, tag::cpu_, (A0)
-//                             , (generic_< imaginary_< arithmetic_<A0> > >)
-//                             )
-//   {
-//     typedef A0 result_type; 
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return bitwise_cast<result_type>(rec(nt2::sinh(-real(a0)))); 
-//     }
-//   };
-
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csc_, tag::cpu_, (A0)
-//                             , (generic_< dry_< arithmetic_<A0> > >)
-//                             )
-//   {
-//     typedef A0 result_type; 
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return bitwise_cast<result_type>(rec(nt2::sin(a0))); 
-//     }
-//   };
   
 } }
 

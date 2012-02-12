@@ -16,6 +16,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/half.hpp>
 
@@ -32,7 +33,8 @@ namespace nt2 { namespace ext
     {
       if (is_inf(a0))
         {
-          a1 = a2 = a0;
+          a1 = a0;
+          a2 = nt2::abs(a0); 
         }
       else
         {

@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_imaginary<rA0>::type result_type; 
+    typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       return bitwise_cast<result_type>(-nt2::coth(real(a0))); 
