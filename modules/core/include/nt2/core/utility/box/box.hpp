@@ -49,6 +49,12 @@ namespace nt2
 
     T const& value() const { return boost::proto::value(*this); }
   };
+
+  template<class T> BOOST_FORCEINLINE box<T> as_box(T const& v)
+  {
+    box<T> that(v);
+    return that;
+  }
 }
 
 namespace boost { namespace dispatch { namespace meta
