@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINH_HPP_INCLUDED
@@ -14,6 +14,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/negif.hpp>
+#include <nt2/include/functions/is_negative.hpp>
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
@@ -49,15 +50,15 @@ namespace nt2 { namespace ext
 
     typedef typename meta::as_floating<A0>::type result_type;
     /* __ieee754_sinh(x)
-     * Method : 
+     * Method :
      * mathematically sinh(x) if defined to be (exp(x)-exp(-x))/2
-     *      1. Replace x by |x| (sinh(-x) = -sinh(x)). 
-     *      2. 
+     *      1. Replace x by |x| (sinh(-x) = -sinh(x)).
+     *      2.
      *                                                  E + E/(E+1)
      *          0        <= x <= 22     :  sinh(x) := --------------, E=expm1(x)
      *                                                      2
      *
-     *          22       <= x <= lnovft :  sinh(x) := exp(x)/2 
+     *          22       <= x <= lnovft :  sinh(x) := exp(x)/2
      *          lnovft   <= x <= ln2ovft:  sinh(x) := exp(x/2)/2 * exp(x/2)
      *          ln2ovft  <  x           :  sinh(x) := x*shuge (overflow)
      *
@@ -68,8 +69,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       const A0 tmp=nt2::expm1(nt2::abs(a0));
-      result_type r = nt2::average(tmp, tmp/(oneplus(tmp))); 
-      return negif(isnegative(a0), r); 
+      result_type r = nt2::average(tmp, tmp/(oneplus(tmp)));
+      return negif(is_negative(a0), r);
     }
   };
 } }
