@@ -10,21 +10,67 @@
 #define NT2_CORE_UTILITY_POSITION_ALIGNMENT_HPP_INCLUDED
 
 #include <nt2/core/settings/alignment.hpp>
+#include <nt2/core/settings/storage_order.hpp>
 
 namespace nt2
 {
-  template<typename Seq, typename S, typename B, typename SO, typename A>
-  inline position<Seq, S, B, SO, aligned_>
-  as_aligned( position<Seq, S, B, SO, A> const& p )
+  template<typename Seq, typename B, typename SO, typename A>
+  inline position<Seq, B, SO, aligned_>
+  as_aligned( position<Seq, B, SO, A> const& p )
   {
-    return position<Seq, S, B, SO, aligned_>(p.seq_);
+    return position<Seq, B, SO, aligned_>(p.seq_);
   }
 
-  template<typename Seq, typename S, typename B, typename SO, typename A>
-  inline position<Seq, S, B, SO, unaligned_>
-  as_unaligned( position<Seq, S, B, SO, A> const& p )
+  template<typename Seq1, typename Seq2, typename B, typename SO, typename A >
+  inline position<Seq2, B, SO, aligned_>
+  as_aligned( position<Seq1, B, SO, A> const& p, Seq2 const& s )
   {
-    return position<Seq, S, B, SO, unaligned_>(p.seq_);
+    return position<Seq2, B, SO, aligned_>(s);
+  }
+
+  template<typename Seq, typename B>
+  inline position<Seq, B, matlab_order_, aligned_>
+  as_aligned( Seq const& s, B const& b )
+  {
+    return position<Seq, B, matlab_order_, aligned_>(s);
+  }
+
+  template<typename Seq, typename B, typename SO>
+  inline position<Seq, B, SO, aligned_>
+  as_aligned( Seq const& s, B const& b, SO const& so )
+  {
+    return position<Seq, B, SO, aligned_>(s);
+  }
+}
+
+namespace nt2
+{
+  template<typename Seq, typename B, typename SO, typename A>
+  inline position<Seq, B, SO, unaligned_>
+  as_unaligned( position<Seq, B, SO, A> const& p )
+  {
+    return position<Seq, B, SO, unaligned_>(p.seq_);
+  }
+
+  template<typename Seq1, typename Seq2, typename B, typename SO, typename A >
+  inline position<Seq2, B, SO, unaligned_>
+  as_unaligned( position<Seq1, B, SO, A> const& p, Seq2 const& s )
+  {
+    return position<Seq2, B, SO, unaligned_>(s);
+  }
+
+  template<typename Seq, typename B>
+  inline position<Seq, B, matlab_order_, unaligned_>
+  as_unaligned( Seq const& s, B const& b )
+  {
+    return position<Seq, B, matlab_order_, unaligned_>(s);
+  }
+
+  template<typename Seq, typename B, typename SO>
+  inline position<Seq, B, SO, unaligned_>
+  as_unaligned( Seq const& s, B const& b, SO const& so )
+  {
+    return position<Seq, B, SO, unaligned_>(s);
   }
 }
 

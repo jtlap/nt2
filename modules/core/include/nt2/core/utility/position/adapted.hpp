@@ -18,38 +18,22 @@
 
 #include <nt2/core/utility/position/category.hpp>
 
-//==============================================================================
-// Forward declaration
-//==============================================================================
-namespace nt2 {
-  template<typename Seq, typename S, typename B, typename SO, typename A> struct position;
-}
-
-namespace nt2 { namespace meta
-{
-  //============================================================================
-  // Register container as a proper container
-  //============================================================================
-  template<typename Seq, typename S, typename B, typename SO, typename A>
-  struct is_container< nt2::position<Seq,S,B,SO,A> > : boost::mpl::true_ {};
-} }
-
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
   // hierarchy_of specialization
   //============================================================================
-  template<typename Seq, typename S, typename B, typename SO, typename A, typename Origin>
-  struct hierarchy_of< nt2::position<Seq,S,B,SO,A>, Origin >
+  template<typename Seq, typename B, typename SO, typename A>
+  struct hierarchy_of< nt2::position< Seq, B, SO, A > >
   {
-    typedef position_< Seq, A, Origin > type;
+    typedef position_< Seq, A > type;
   };
 
   //============================================================================
   // value_of specialization
   //============================================================================
-  template<typename Seq, typename S, typename B, typename SO, typename A>
-  struct value_of< nt2::position<Seq,S,B,SO,A> >
+  template<typename Seq, typename B, typename SO, typename A>
+  struct value_of< nt2::position< Seq, B, SO, A> >
   {
     typedef std::ptrdiff_t type;
   };
@@ -57,12 +41,12 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<typename Seq, typename S, typename B, typename SO, typename A>
-  struct model_of< nt2::position<Seq,S,B,SO,A> >
+  template<typename Seq, typename B, typename SO, typename A>
+  struct model_of< nt2::position< Seq, B, SO, A > >
   {
     struct type
     {
-      struct apply { typedef nt2::position<Seq,S,B,SO,A> type; };
+      struct apply { typedef nt2::position< Seq, B, SO, A > type; };
     };
   };
 } } }

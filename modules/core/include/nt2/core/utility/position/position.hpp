@@ -20,7 +20,7 @@ namespace nt2
 {
   namespace tag { struct position_ {}; }
   
-  template<typename Seq, typename S, typename B, typename SO, typename A>
+  template<typename Seq, typename B, typename SO, typename A>
   struct position
   {
     typedef tag::position_ fusion_tag;

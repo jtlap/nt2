@@ -15,16 +15,16 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class Seq, class A, class Origin>
-  struct position_ : boost::dispatch::meta::fusion_sequence_<std::ptrdiff_t>
+  template<class Seq, class A>
+  struct position_ : Seq
   {
-    typedef boost::dispatch::meta::fusion_sequence_<std::ptrdiff_t> parent;
+    typedef Seq parent;
   };
   
-  template<class Seq, class Origin>
-  struct position_< Seq, nt2::aligned_, Origin > : position_< Seq, nt2::unaligned_, Origin >
+  template<class Seq>
+  struct position_< Seq, nt2::aligned_ > : position_< Seq, nt2::unaligned_ >
   {
-    typedef position_< Seq, nt2::unaligned_, Origin > parent;
+    typedef position_< Seq, nt2::unaligned_ > parent;
   };
 } } }
 
