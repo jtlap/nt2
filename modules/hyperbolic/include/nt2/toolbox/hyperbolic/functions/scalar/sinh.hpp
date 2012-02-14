@@ -10,6 +10,8 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <nt2/include/functions/is_negative.hpp>
+#include <nt2/include/functions/average.hpp>
 
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/expm1.hpp>
@@ -29,10 +31,13 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef result_type type;
-      if (is_eqz(a0)) return Zero<type>();
-      type tmp = nt2::exp(a0);
-      return (tmp-rec(tmp))*Half<type>();
+      const result_type tmp=nt2::expm1(nt2::abs(a0));
+      result_type r = nt2::average(tmp, tmp/(oneplus(tmp)));
+      return negif(is_negative(a0), r);
+//       typedef result_type type;
+//       if (is_eqz(a0)) return Zero<type>();
+//       type tmp = nt2::exp(a0);
+//       return (tmp-rec(tmp))*Half<type>();
     }
   };
 } }

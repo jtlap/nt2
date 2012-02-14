@@ -13,6 +13,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/rec.hpp>
 
@@ -53,7 +54,7 @@ namespace nt2 { namespace ext
  *    cosh(x) is |x| if x is +INF, -INF, or NaN.
  *    only cosh(0)=1 is exact for finite x.
  */
-      const result_type tmp=exp(tofloat(a0));
+      const result_type tmp=exp(tofloat(nt2::abs(a0)));
       return (tmp+rec(tmp))*Half<result_type>();
     }
   };
