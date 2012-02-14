@@ -29,25 +29,25 @@ namespace boost { namespace dispatch { namespace meta
   };
   
   template<class Expr>
-  struct semantic_of<const Expr, typename enable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal>::type>
+  struct semantic_of<const Expr, typename enable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
     : add_const<typename semantic_of<Expr>::type>
   {
   };
   
   template<class Expr>
-  struct semantic_of<const Expr, typename disable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal>::type>
+  struct semantic_of<const Expr, typename disable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
     : semantic_of<Expr>
   {
   };
   
   template<class Expr>
-  struct semantic_of<Expr&, typename enable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal>::type>
+  struct semantic_of<Expr&, typename enable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
     : add_reference<typename semantic_of<Expr>::type>
   {
   };
   
   template<class Expr>
-  struct semantic_of<Expr&, typename disable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal>::type>
+  struct semantic_of<Expr&, typename disable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
     : semantic_of<Expr>
   {
   };
