@@ -19,6 +19,7 @@ set( SOURCES
   cospi.cpp
   sind.cpp
   tand.cpp
+  sinpi.cpp
    )
 
 nt2_module_add_tests(complex.trigonometric.scalar.unit ${SOURCES})
