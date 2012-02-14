@@ -11,7 +11,6 @@
 
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/core/settings/settings.hpp>
-#include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/alignment.hpp>

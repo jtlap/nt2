@@ -26,9 +26,16 @@
 #include <nt2/core/settings/alignment.hpp>
 #include <nt2/core/container/table/table.hpp>
 
+#include <boost/type_traits/is_same.hpp>
+
 template<class T> struct hierarchy
 {
   typedef typename boost::dispatch::meta::hierarchy_of<T>::type type;
+};
+
+template<class T> struct hierarchy_parent
+{
+  typedef typename boost::dispatch::meta::hierarchy_of<T>::type::parent type;
 };
 
 template<class T> struct model
@@ -152,17 +159,17 @@ NT2_TEST_CASE( hierarchy_of_position )
  
   NT2_TEST_EXPR_TYPE( p1,
                       hierarchy<_>,
-                      (boost::dispatch::meta::position_<vector<int, int>,
+                      (position_<aligned_2d_position,
                        aligned_>)
                     );
   NT2_TEST_EXPR_TYPE( p1a,
                       hierarchy<_>,
-                      (boost::dispatch::meta::position_<vector<int, int, int>,
+                      (position_<aligned_2d_position_a,
                        aligned_> )
                     );
   NT2_TEST_EXPR_TYPE( p1b,
                       hierarchy<_>,
-                      (boost::dispatch::meta::position_<vector<unsigned long long int, unsigned long long int>,
+                      (position_<aligned_2d_position_b,
                        aligned_> )
                     );
 
@@ -188,17 +195,17 @@ NT2_TEST_CASE( hierarchy_of_position )
 
   NT2_TEST_EXPR_TYPE( p2,
                       hierarchy<_>,
-                      (boost::dispatch::meta::position_<vector<int, int>,
+                      (boost::dispatch::meta::position_<unaligned_2d_position,
                        unaligned_> )
                     );
   NT2_TEST_EXPR_TYPE( p2a,
                       hierarchy<_>,
-                      (boost::dispatch::meta::position_<vector<int, int, int>,
+                      (boost::dispatch::meta::position_<unaligned_2d_position_a,
                        unaligned_> )
                     );
   NT2_TEST_EXPR_TYPE( p2b,
                       hierarchy<_>,
-                      (boost::dispatch::meta::position_<vector<unsigned long long int, unsigned long long int>,
+                      (boost::dispatch::meta::position_<unaligned_2d_position_b,
                        unaligned_> )
                     );
 
@@ -208,8 +215,23 @@ NT2_TEST_CASE( hierarchy_of_position )
 
   NT2_TEST_EXPR_TYPE( p3,
                       hierarchy<_>,
-                      (position_<vector<>,
-                       aligned_>)
+                      (position_<position_type, aligned_>)
+                    );
+
+  NT2_TEST((
+    boost::is_same<
+      hierarchy_of<aligned_2d_position>::type::parent,
+                   position_<aligned_2d_position, unaligned_>
+    >::value));
+
+  NT2_TEST_EXPR_TYPE( p1,
+                      hierarchy_parent<_>,
+                      (position_<aligned_2d_position, unaligned_>)
+                    );
+
+  NT2_TEST_EXPR_TYPE( p2,
+                      hierarchy_parent<_>,
+                      (fusion_sequence_<unaligned_2d_position>)
                     );
 }
 

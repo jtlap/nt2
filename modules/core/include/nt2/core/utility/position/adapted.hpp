@@ -15,7 +15,6 @@
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-
 #include <nt2/core/utility/position/category.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -23,10 +22,10 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // hierarchy_of specialization
   //============================================================================
-  template<typename Seq, typename B, typename SO, typename A>
-  struct hierarchy_of< nt2::position< Seq, B, SO, A > >
+  template<typename Seq, typename B, typename SO, typename A, typename Origin>
+  struct hierarchy_of< nt2::position< Seq, B, SO, A >, Origin >
   {
-    typedef position_< Seq, A > type;
+    typedef position_< Origin, A > type;
   };
 
   //============================================================================

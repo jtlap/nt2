@@ -9,16 +9,14 @@
 #ifndef NT2_CORE_UTILITY_POSITION_CATEGORY_HPP_INCLUDED
 #define NT2_CORE_UTILITY_POSITION_CATEGORY_HPP_INCLUDED
 
-#include <nt2/sdk/meta/property_of.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
 #include <nt2/core/settings/forward/alignment.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
   template<class Seq, class A>
-  struct position_ : Seq
+  struct position_ : boost::dispatch::meta::fusion_sequence_<Seq>
   {
-    typedef Seq parent;
+    typedef boost::dispatch::meta::fusion_sequence_<Seq> parent;
   };
   
   template<class Seq>
