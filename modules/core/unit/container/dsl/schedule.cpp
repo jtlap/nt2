@@ -69,16 +69,34 @@ struct scheduler
   {
     typedef typename boost::dispatch::meta::strip<T>::type stripped;
     typedef typename boost::dispatch::meta::semantic_of<stripped const&>::type semantic;
-    typedef typename boost::dispatch::meta::terminal_of<semantic>::type type;
+    
+    typedef typename boost::mpl::eval_if< boost::is_same<typename boost::proto::tag_of<stripped>::type, boost::proto::tag::assign>
+                                        , boost::proto::result_of::child_c<stripped const&, 0>
+                                        , boost::dispatch::meta::terminal_of<semantic>
+                                        >::type type;
   };
 
   template<class T>
-  typename result<scheduler(T const&)>::type operator()(T const&) const
+  typename boost::disable_if< boost::is_same<typename boost::proto::tag_of<T>::type, boost::proto::tag::assign>
+                            , typename result<scheduler(T const&)>::type
+                            >::type
+  operator()(T const&) const
   {
     trees.push_back(&typeid(typename as_node<T>::type));
 
     static typename boost::remove_reference<typename result<scheduler(T const&)>::type>::type r;
     return r;
+  }
+
+  template<class T>
+  typename boost::enable_if< boost::is_same<typename boost::proto::tag_of<T>::type, boost::proto::tag::assign>
+                           , typename result<scheduler(T const&)>::type
+                           >::type
+  operator()(T const& t) const
+  {
+    trees.push_back(&typeid(typename as_node<T>::type));
+
+    return boost::proto::child_c<0>(t);
   }
 
   mutable std::vector<std::type_info const*> trees;
@@ -296,28 +314,34 @@ NT2_TEST_CASE( reduction )
                     );
 }
 
-#if 0
 NT2_TEST_CASE( subscript )
 {
   using boost::mpl::_;
   using nt2::table;
   typedef double T;
 
-  table<T> a0, a1, a2, a3;
+  table<T> a0, a1, a2, a3, a4;
   using nt2::sum;
   scheduler f;
 
-  SCHEDULE( assign(a0(a1), sum(a2)), f, 0
-          , ( node2< boost::proto::tag::assign
-                   , node2< boost::proto::tag::function
-                          , boost::proto::tag::terminal
-                          , boost::proto::tag::terminal
-                          >
-                   , node1< boost::simd::tag::sum_
-                          , boost::proto::tag::terminal
-                          >
+  SCHEDULE( assign(a0(a1), sum(a2)), f, 1
+          , ( node2< boost::proto::tag::function
+                   , boost::proto::tag::terminal
+                   , boost::proto::tag::terminal
                    >
             )
+          );
+  NT2_TEST_TYPE_INFO( *f.trees.at(0)
+                    , ( node2< boost::proto::tag::assign
+                             , node2< boost::proto::tag::function
+                                    , boost::proto::tag::terminal
+                                    , boost::proto::tag::terminal
+                                    >
+                             , node1< boost::simd::tag::sum_
+                                    , boost::proto::tag::terminal
+                                    >
+                             >
+                      )
           );
 
   SCHEDULE( assign(a0(a1), a2 + sum(a3)), f, 1
@@ -342,8 +366,71 @@ NT2_TEST_CASE( subscript )
                              >
                       )
                     );
+
+  SCHEDULE( assign(a0(sum(a1)), sum(a2)), f, 2
+          , ( node2< boost::proto::tag::function
+                   , boost::proto::tag::terminal
+                   , boost::proto::tag::terminal
+                   >
+            )
+          );
+  NT2_TEST_TYPE_INFO( *f.trees.at(0)
+                    , ( node2< boost::proto::tag::assign
+                             , boost::proto::tag::terminal
+                             , node1< boost::simd::tag::sum_
+                                    , boost::proto::tag::terminal
+                                    >
+                             >
+                      )
+                    );
+  NT2_TEST_TYPE_INFO( *f.trees.at(1)
+                    , ( node2< boost::proto::tag::assign
+                             , node2< boost::proto::tag::function
+                                    , boost::proto::tag::terminal
+                                    , boost::proto::tag::terminal
+                                    >
+                             , node1< boost::simd::tag::sum_
+                                    , boost::proto::tag::terminal
+                                    >
+                             >
+                      )
+                    );
+
+  SCHEDULE( assign(a0(a1 + sum(a2)), a3 + sum(a4)), f, 2
+          , ( node2< boost::proto::tag::assign
+                   , node2< boost::proto::tag::function
+                          , boost::proto::tag::terminal
+                          , node2< boost::proto::tag::plus
+                                 , boost::proto::tag::terminal
+                                 , boost::proto::tag::terminal
+                                 >
+                          >
+                   , node2< boost::proto::tag::plus
+                          , boost::proto::tag::terminal
+                          , boost::proto::tag::terminal
+                          >
+                   >
+            )
+          );
+  NT2_TEST_TYPE_INFO( *f.trees.at(0)
+                    , ( node2< boost::proto::tag::assign
+                             , boost::proto::tag::terminal
+                             , node1< boost::simd::tag::sum_
+                                    , boost::proto::tag::terminal
+                                    >
+                             >
+                      )
+                    );
+  NT2_TEST_TYPE_INFO( *f.trees.at(1)
+                    , ( node2< boost::proto::tag::assign
+                             , boost::proto::tag::terminal
+                             , node1< boost::simd::tag::sum_
+                                    , boost::proto::tag::terminal
+                                    >
+                             >
+                      )
+                    );
 }
-#endif
 
 struct child0
 {
