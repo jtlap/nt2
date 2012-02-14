@@ -55,15 +55,15 @@ NT2_TEST_CASE_TPL ( sinpi_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(1, 1)),std::sin(nt2::Pi<T>()*cT(1.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(1, 0.5)),std::sin(nt2::Pi<T>()*cT(1.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0.5, 1)),std::sin(nt2::Pi<T>()*cT(10.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0.5, 0.5)),std::sin(nt2::Pi<T>()*cT(10.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0, 1)),std::sin(nt2::Pi<T>()*cT(0.0, 1.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0, 0.5)),std::sin(nt2::Pi<T>()*cT(0.0, 10.0)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0.5, 0)),std::sin(nt2::Pi<T>()*cT(10.0, 0.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 10);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 10);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(1, 1)),std::sin(nt2::Pi<T>()*cT(1.0, 1.0)), 10);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(1, 0.5)),std::sin(nt2::Pi<T>()*cT(1.0, 0.5)), 10);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0.5, 1)),std::sin(nt2::Pi<T>()*cT(0.5, 1.0)), 10);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0.5, 0.5)),std::sin(nt2::Pi<T>()*cT(0.5, 0.5)), 10);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0, 1)),std::sin(nt2::Pi<T>()*cT(0.0, 1.0)), 10);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0, 0.5)),std::sin(nt2::Pi<T>()*cT(0.0, 0.5)), 10);
+  NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0.5, 0)),std::sin(nt2::Pi<T>()*cT(0.5, 0.0)), 10);
 
   const int N = 20; 
   cT inputs[N] =
@@ -76,8 +76,8 @@ NT2_TEST_CASE_TPL ( sinpi_real__1_0,  NT2_REAL_TYPES)
   
   for(int i=0; i < N; i++)
    {
-     NT2_TEST_ULP_EQUAL(nt2::sinpi(-inputs[i]), -nt2::sinpi(inputs[i]), 3);  
-     NT2_TEST_ULP_EQUAL(nt2::sinpi(inputs[i]), nt2::sin(nt2::Pi<T>()*inputs[i]), 3); 
+     NT2_TEST_ULP_EQUAL(nt2::sinpi(-inputs[i]), -nt2::sinpi(inputs[i]), 4);  
+     NT2_TEST_ULP_EQUAL(nt2::sinpi(inputs[i]), nt2::sin(nt2::Pi<T>()*inputs[i]), 4); 
    }
 } // end of test for floating_
 
