@@ -15,6 +15,7 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sin.hpp>
+#include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -24,6 +25,9 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/sind.hpp>
+#include <nt2/include/functions/cosd.hpp>
+#include <nt2/include/functions/mul_minus_i.hpp>
+#include <nt2/include/functions/mul_i.hpp>
 #include <nt2/include/constants/deginrad.hpp>
 
 /* csin (x + I * y) = sin (x) * cosh (y)  + I * (cos (x) * sinh (y)) */
@@ -36,13 +40,27 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
+      typedef typename meta::as_real<A0>::type rtype;
+      //      return mul_minus_i(nt2::sinh(mul_i(a0*Deginrad<rtype>())));
+      result_type a00 =  mul_i(a0); 
       rtype c, s, ch, sh;
-      sincosd(real(a0), s, c);
-      sinhcosh(imag(a0)*Deginrad<rtype>(), sh, ch);
-      rtype r = if_zero_else(is_imag(a0), s*ch);
-      rtype i = if_zero_else(is_real(a0), c*sh);
-      return result_type(r, i);     
+      sincosd(imag(a00), s, c);
+      a00 = a00*Deginrad<rtype>(); 
+      sinhcosh(real(a00), sh, ch);
+      rtype r = c*sh;
+      rtype i = s*ch;
+      result_type res = result_type(r, i); 
+      if (any(is_invalid(a00)))
+        {
+          r = if_else(logical_and(is_inf(real(a00)), is_invalid(imag(a00))), real(a00), r);
+          i = if_else(logical_and(is_inf(real(a00)), is_nan(imag(a00))), nt2::Nan<rtype>(), i);
+          r = if_else(is_nan(real(a00)), real(a00), r);
+          i = if_else(is_nan(real(a00)), real(a00), i);
+          i = if_zero_else(is_real(a00), i);
+          r = if_zero_else(is_imag(a00), r);
+          res =  result_type(r, i);//this is sinh(mul_i(a0)*Deginrad<rtype>())
+        }
+      return mul_minus_i(res);
     }
   };
 
