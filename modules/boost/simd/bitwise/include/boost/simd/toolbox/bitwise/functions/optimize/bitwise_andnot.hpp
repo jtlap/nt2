@@ -18,10 +18,10 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_ , boost::simd::tag::optimize_
-                            , (A0)(A1)(Dom)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_and_, boost::simd::tag::optimize_
+                            , (A0)(A1)
                             , (unspecified_<A0>)
-                              ((expr_< unspecified_<A1>,Dom,boost::simd::tag::complement_>))
+                              ((node_<A1, boost::simd::tag::complement_, mpl::long_<1> >))
                             )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::bitwise_andnot_(
@@ -35,9 +35,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_ , boost::simd::tag::optimize_
-                            , (A0)(A1)(Dom)
-                            , ((expr_< unspecified_<A0>,Dom,boost::simd::tag::complement_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_, boost::simd::tag::optimize_
+                            , (A0)(A1)
+                            , ((node_<A0, boost::simd::tag::complement_, mpl::long_<1> >))
                               (unspecified_<A1>)
                             )
   {
@@ -51,6 +51,24 @@ namespace boost { namespace simd { namespace ext
       return bitwise_andnot(a1, boost::proto::child_c<0>(a0));
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_and_, boost::simd::tag::optimize_
+                            , (A0)(A1)
+                            , ((node_<A0, boost::simd::tag::complement_, mpl::long_<1> >))
+                              ((node_<A1, boost::simd::tag::complement_, mpl::long_<1> >))
+                            )
+  {
+    typedef typename dispatch::meta::call< boost::simd::tag::bitwise_andnot_(
+          A1 const&,
+          typename boost::proto::result_of::child_c<A0, 0>::type const&
+        ) >::type result_type; 
+
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return bitwise_andnot(a1, boost::proto::child_c<0>(a0));
+    }
+  };
+
 } } }
 
 #endif

@@ -18,8 +18,8 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
-                                   , boost::simd::tag::optimize_, (A0)(Dom)
-                                   , ((expr_< unspecified_<A0>, Dom, boost::simd::tag::is_greater_>))
+                                   , boost::simd::tag::optimize_, (A0)(Arity)
+                                   , ((node_<A0, boost::simd::tag::is_greater_, Arity>))
                                    )
   {
     typedef typename dispatch::meta::call< tag::is_not_greater_(

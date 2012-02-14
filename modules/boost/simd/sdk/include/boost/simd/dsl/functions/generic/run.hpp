@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::formal_
                                     , (A0)
-                                    , (ast_< unspecified_<A0> >)
+                                    , (ast_<A0>)
                                     )
   {
     typedef proto::
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
                                     , (A0)(State)
-                                    , (ast_< unspecified_<A0> >)
+                                    , (ast_<A0>)
                                       (unspecified_<State>)
                                     )
   {
@@ -94,10 +94,10 @@ namespace boost { namespace simd { namespace ext
   // When run on a terminal, we directly jump into the terminal functor
   //============================================================================  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(Domain)(State)
+                                    , (A0)(State)
                                     , ((expr_ < unspecified_<A0>
-                                              , Domain
                                               , boost::simd::tag::terminal_
+                                              , mpl::long_<0>
                                               >
                                       ))
                                       (unspecified_<State>)
@@ -124,7 +124,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
                                     , (A0)(State)(Data)
-                                    , (ast_< unspecified_<A0> >)
+                                    , (ast_<A0>)
                                       (unspecified_<State>)
                                       (unspecified_<Data>)
                                     )
@@ -166,10 +166,10 @@ namespace boost { namespace simd { namespace ext
   // When run on a terminal, we directly jump into the terminal functor
   //============================================================================    
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(Domain)(State)(Data)
+                                    , (A0)(State)(Data)
                                     , ((expr_ < unspecified_<A0>
-                                              , Domain
                                               , boost::simd::tag::terminal_
+                                              , mpl::long_<0>
                                               >
                                       ))
                                       (unspecified_<State>)

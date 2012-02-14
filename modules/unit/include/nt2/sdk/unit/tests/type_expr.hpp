@@ -73,4 +73,24 @@ std::string type_id_identity(T const&)
 }                                                                                                  \
 /**/
 
+#define NT2_TEST_TYPE_INFO(Info, Type)                                                             \
+{                                                                                                  \
+  nt2::details::test_count()++;                                                                    \
+  std::cout << " * Test type info `" << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Info)) << "`\n"   \
+            << "       is of type `" << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"   \
+            << "              aka `" << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";    \
+  if(typeid(BOOST_DISPATCH_PP_STRIP(Type)) == Info)                                                \
+  {                                                                                                \
+    std::cout << " **passed**\n\n";                                                                \
+  }                                                                                                \
+  else                                                                                             \
+  {                                                                                                \
+    nt2::details::error_count()++;                                                                 \
+    std::cout << " **failed**     is `"                                                            \
+              << nt2::details::demangle((Info).name())                                             \
+              << "`\n\n";                                                                          \
+  }                                                                                                \
+}                                                                                                  \
+/**/
+
 #endif

@@ -24,6 +24,8 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
+#include <boost/assert.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -49,7 +51,19 @@ namespace nt2 { namespace container { namespace ext
     template<class Sz>
     void operator()(Expr& expr, Sz const& sz)
     {
+      return (*this)(expr, sz, typename meta::is_container< typename boost::proto::result_of::value<Expr>::type >::type());
+    }
+
+    template<class Sz>
+    void operator()(Expr& expr, Sz const& sz, boost::mpl::true_)
+    {
       boost::proto::value(expr).resize(sz);
+    }
+
+    template<class Sz>
+    void operator()(Expr&, Sz const& sz, boost::mpl::false_)
+    {
+      BOOST_ASSERT_MSG(sz == of_size_<>(), "Resizing scalar to size other than 1");
     }
   };
 

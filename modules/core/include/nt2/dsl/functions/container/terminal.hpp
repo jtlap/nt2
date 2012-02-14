@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::terminal_, tag::cpu_
                                , (A0)(State)(Data)
                                , (mpl::bool_< fusion::result_of::size<State>::type::value == 0 >)
-                               , (ast_<unspecified_<A0> >)
+                               , (ast_<A0>)
                                  (fusion_sequence_<State>)
                                  (unspecified_<Data>)
                                )
@@ -54,7 +54,11 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(S0)(State)(Data)
-                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , nt2::tag::terminal_
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
                               (fusion_sequence_<State>)
                               (target_<scalar_<unspecified_<Data> > >)
                             )
@@ -84,7 +88,11 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(S0)(State)(Data)
-                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , nt2::tag::terminal_
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
                               (fusion_sequence_<State>)
                               (scalar_<unspecified_<Data> >)
                             )
@@ -114,7 +122,11 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(S0)(State)(Data)(X)
-                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , nt2::tag::terminal_
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
                               (fusion_sequence_<State>)
                               ((target_< simd_<unspecified_<Data>, X> >))
                             )
@@ -133,7 +145,11 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(S0)(State)(Data)(X)
-                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , nt2::tag::terminal_
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
                               (fusion_sequence_<State>)
                               ((simd_<unspecified_<Data>, X>))
                             )
@@ -153,7 +169,11 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(State)(Data)
-                            , ((ast_<scalar_< unspecified_<A0> > >))
+                            , ((expr_< scalar_< unspecified_<A0> >
+                                     , nt2::tag::terminal_
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
                               (fusion_sequence_<State>)
                               (target_< scalar_< unspecified_<Data> > >)
                             )
@@ -181,7 +201,11 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(State)(Data)(X)
-                            , ((ast_<scalar_< unspecified_<A0> > >))
+                            , ((expr_< scalar_< unspecified_<A0> >
+                                     , nt2::tag::terminal_
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
                               (fusion_sequence_<State>)
                               ((target_< simd_< unspecified_<Data>,X > >))
                             )

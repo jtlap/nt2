@@ -20,7 +20,11 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(F)(State)(Data)
-                            , ((ast_<generative_< unspecified_<A0>,F> >))
+                            , ((expr_< generative_< unspecified_<A0>, F>
+                                     , nt2::tag::terminal_
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
                               (fusion_sequence_<State>)
                               ((unspecified_<Data>))
                             )

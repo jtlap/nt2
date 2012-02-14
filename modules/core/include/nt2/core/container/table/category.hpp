@@ -14,14 +14,14 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  template<class T, class Size>
-  struct table_ : table_< typename T::parent, Size >
+  template<class T, class Layout>
+  struct table_ : table_<typename T::parent, Layout>
   {
-    typedef table_<typename T::parent, Size> parent;
+    typedef table_<typename T::parent, Layout> parent;
   };
   
-  template<class T, class Size>
-  struct  table_< unspecified_<T>, Size > 
+  template<class T, class Layout>
+  struct  table_< unspecified_<T>, Layout >
         : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;

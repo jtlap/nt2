@@ -67,6 +67,7 @@ namespace ext
   using boost::dispatch::meta::target_;
   
   using boost::dispatch::meta::ast_;
+  using boost::dispatch::meta::node_;
   using boost::dispatch::meta::expr_;
   
   using boost::dispatch::meta::array_;
