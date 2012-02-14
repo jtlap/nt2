@@ -12,7 +12,6 @@
 #include <boost/simd/dsl/functions/evaluate.hpp>
 #include <boost/simd/include/functions/optimize.hpp>
 #include <boost/simd/include/functions/schedule.hpp>
-#include <boost/simd/include/functions/compile.hpp>
 
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
@@ -24,14 +23,16 @@ namespace boost { namespace simd { namespace ext
                             , (ast_<A0>)
                             )
   {
-    typedef typename dispatch::meta::call<tag::optimize_(A0 const&)>::type optimized;
-    typedef typename dispatch::meta::call<tag::compile_(A0 const&)>::type  compiled;
-    typedef typename dispatch::meta::call<tag::schedule_(optimized, compiled)>::type result_type;
+    typedef typename dispatch::meta::call<tag::optimize_(A0 const&)>::type           optimized;
+    typedef typename dispatch::make_functor<tag::run_, A0>::type                     F;
+    typedef typename dispatch::meta::call<tag::schedule_(optimized, F const&)>::type scheduled;
+    typedef typename dispatch::meta::result_of<F(scheduled)>::type                   result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0) const
     {
-      return schedule(optimize(a0), compile(a0));
+      F f;
+      return f(schedule(optimize(a0), f));
     }
   };
 } } }
