@@ -36,7 +36,10 @@ namespace nt2 { namespace ext
       rtype c, s, ch, sh;
       sincos(imag(aa0), s, c);
       sinhcosh(real(aa0), sh, ch);
-      return result_type(sh, s)/(c+ch);     
+      rtype tmp = c+ch; 
+      rtype r_part = if_zero_else(is_imag(a0),sh/tmp); 
+      rtype i_part = if_zero_else(is_real(a0),s/tmp);
+      return result_type(r_part, i_part);       
     }
   };
 

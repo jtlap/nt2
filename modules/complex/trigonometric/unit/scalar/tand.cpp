@@ -65,5 +65,24 @@ NT2_TEST_CASE_TPL ( tand_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::tand(cT(0, 1)),std::tan(nt2::Deginrad<T>()*cT(0.0, 1.0)), 2);
   NT2_TEST_ULP_EQUAL(nt2::tand(cT(0, 10)),std::tan(nt2::Deginrad<T>()*cT(0.0, 10.0)), 2);
   NT2_TEST_ULP_EQUAL(nt2::tand(cT(10, 0)),std::tan(nt2::Deginrad<T>()*cT(10.0, 0.0)), 2);
+
+  const int N = 20; 
+  cT inputs[N] =
+    { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
+      cT(nt2::Zero<T>(),nt2::Inf<T>()), cT(nt2::Inf<T>(),nt2::Inf<T>()), cT(nt2::Minf<T>(),nt2::Inf<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
+      cT(nt2::Zero<T>(),nt2::Minf<T>()),cT(nt2::Inf<T>(),nt2::Minf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Minf<T>()),
+      cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
+      cT(nt2::Zero<T>(),180), cT(nt2::Inf<T>(),180), cT(nt2::Minf<T>(),180), cT(nt2::Nan<T>(),180),  
+    }; 
+  
+  for(int i=0; i < N; i++)
+   {
+     std::cout << "-------------------" << std::endl; 
+     std::cout << "inputs  "<< inputs[i] << std::endl; 
+     NT2_TEST_ULP_EQUAL(nt2::tand(-inputs[i]), -nt2::tand(inputs[i]), 3);  
+     NT2_TEST_ULP_EQUAL(nt2::tand(inputs[i]), nt2::mul_minus_i(nt2::tanh(nt2::mul_i(Deginrad<T>()inputs[i]))), 3); 
+     std::cout << "=================== " << std::endl; 
+   }
+
  } // end of test for floating_
 

@@ -6,17 +6,15 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 complex toolbox - tan/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 complex toolbox - tanpi/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of tan  components in scalar mode
+// unit test behavior of tanpi  components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
 /// 
+#include <nt2/include/functions/tanpi.hpp>
 #include <nt2/include/functions/tan.hpp>
-#include <nt2/include/functions/tanh.hpp>
-#include <nt2/include/functions/mul_minus_i.hpp>
-#include <nt2/include/functions/mul_i.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -32,18 +30,19 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/include/constants/deginrad.hpp>
 #include <complex>
 
 
 
-NT2_TEST_CASE_TPL ( tan_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( tanpi_real__1_0,  NT2_REAL_TYPES)
 {
   
-  using nt2::tan;
-  using nt2::tag::tan_;
+  using nt2::tanpi;
+  using nt2::tag::tanpi_;
   typedef std::complex<T> cT; 
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<tan_(cT)>::type r_t;
+  typedef typename nt2::meta::call<tanpi_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
@@ -57,15 +56,15 @@ NT2_TEST_CASE_TPL ( tan_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 10);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 10);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(1, 1)),std::tan(cT(1.0, 1.0)), 10);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(1, 0.5)),std::tan(cT(1.0, 0.5)), 10);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0.5, 1)),std::tan(cT(0.5, 1.0)), 10);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0.5, 0.5)),std::tan(cT(0.5, 0.5)), 10);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0, 1)),std::tan(cT(0.0, 1.0)), 10);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0, 0.5)),std::tan(cT(0.0, 0.5)), 10);
-  NT2_TEST_ULP_EQUAL(nt2::tan(cT(0.5, 0)),std::tan(cT(0.5, 0.0)), 10);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(1, 1)),std::tan(nt2::Deginrad<T>()*cT(1.0, 1.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(1, 10)),std::tan(nt2::Deginrad<T>()*cT(1.0, 10.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(10, 1)),std::tan(nt2::Deginrad<T>()*cT(10.0, 1.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(10, 10)),std::tan(nt2::Deginrad<T>()*cT(10.0, 10.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(0, 1)),std::tan(nt2::Deginrad<T>()*cT(0.0, 1.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(0, 10)),std::tan(nt2::Deginrad<T>()*cT(0.0, 10.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::tanpi(cT(10, 0)),std::tan(nt2::Deginrad<T>()*cT(10.0, 0.0)), 2);
 
   const int N = 20; 
   cT inputs[N] =
@@ -73,18 +72,17 @@ NT2_TEST_CASE_TPL ( tan_real__1_0,  NT2_REAL_TYPES)
       cT(nt2::Zero<T>(),nt2::Inf<T>()), cT(nt2::Inf<T>(),nt2::Inf<T>()), cT(nt2::Minf<T>(),nt2::Inf<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
       cT(nt2::Zero<T>(),nt2::Minf<T>()),cT(nt2::Inf<T>(),nt2::Minf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Minf<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Zero<T>(),nt2::Pi <T>()), cT(nt2::Inf<T>(),nt2::Pi <T>()), cT(nt2::Minf<T>(),nt2::Pi <T>()), cT(nt2::Nan<T>(),nt2::Pi <T>()),  
+      cT(nt2::Zero<T>(),One<T>()), cT(nt2::Inf<T>(),One<T>(), cT(nt2::Minf<T>(),One<T>(), cT(nt2::Nan<T>(),One<T>(),  
     }; 
   
   for(int i=0; i < N; i++)
    {
      std::cout << "-------------------" << std::endl; 
      std::cout << "inputs  "<< inputs[i] << std::endl; 
-     NT2_TEST_ULP_EQUAL(nt2::tan(-inputs[i]), -nt2::tan(inputs[i]), 3);  
-     NT2_TEST_ULP_EQUAL(nt2::tan(inputs[i]), nt2::mul_minus_i(nt2::tanh(nt2::mul_i(inputs[i]))), 3); 
+     NT2_TEST_ULP_EQUAL(nt2::tanpi(-inputs[i]), -nt2::tanpi(inputs[i]), 3);  
+     NT2_TEST_ULP_EQUAL(nt2::tanpi(inputs[i]), nt2::mul_minus_i(nt2::tanh(nt2::mul_i(Pi<T>()inputs[i]))), 3); 
      std::cout << "=================== " << std::endl; 
    }
 
-  
  } // end of test for floating_
 
