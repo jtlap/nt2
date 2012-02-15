@@ -19,14 +19,13 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <nt2/core/settings/forward/alignment.hpp>
+#include <nt2/core/settings/forward/index.hpp>
+#include <nt2/core/settings/forward/storage_order.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/core/utility/position/position.hpp>
 #include <nt2/core/utility/position/adapted.hpp>
 #include <nt2/core/utility/position/alignment.hpp>
-#include <nt2/core/settings/storage_order.hpp>
-#include <nt2/core/settings/alignment.hpp>
-#include <nt2/core/container/table/table.hpp>
-
-#include <boost/type_traits/is_same.hpp>
 
 template<class T> struct hierarchy
 {
@@ -218,12 +217,6 @@ NT2_TEST_CASE( hierarchy_of_position )
                       (position_<position_type, aligned_>)
                     );
 
-  NT2_TEST((
-    boost::is_same<
-      hierarchy_of<aligned_2d_position>::type::parent,
-                   position_<aligned_2d_position, unaligned_>
-    >::value));
-
   NT2_TEST_EXPR_TYPE( p1,
                       hierarchy_parent<_>,
                       (position_<aligned_2d_position, unaligned_>)
@@ -276,6 +269,14 @@ NT2_TEST_CASE( as_aligned )
                         aligned_> >::type)
                     );
   
+  NT2_TEST_EXPR_TYPE( as_aligned(seq),
+                      model<_>,
+                      (model<position<vector<int, int>,
+                        index_<1l, 1l>,
+                        matlab_order_,
+                        aligned_> >::type)
+                    );
+
   NT2_TEST_EXPR_TYPE( as_aligned(seq, index_<1l, 1l>()),
                       model<_>,
                       (model<position<vector<int, int>,
@@ -333,7 +334,15 @@ NT2_TEST_CASE( as_unaligned )
                         matlab_order_,
                         unaligned_> >::type)
                     );
-  
+
+  NT2_TEST_EXPR_TYPE( as_unaligned(seq),
+                      model<_>,
+                      (model<position<vector<int, int>,
+                        index_<1l, 1l>,
+                        matlab_order_,
+                        unaligned_> >::type)
+                    );
+
   NT2_TEST_EXPR_TYPE( as_unaligned(seq, index_<1l, 1l>()),
                       model<_>,
                       (model<position<vector<int, int>,
