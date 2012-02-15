@@ -12,6 +12,7 @@
 #include <boost/simd/dsl/functions/evaluate.hpp>
 #include <boost/simd/include/functions/optimize.hpp>
 #include <boost/simd/include/functions/schedule.hpp>
+#include <boost/simd/include/functions/run.hpp>
 
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>

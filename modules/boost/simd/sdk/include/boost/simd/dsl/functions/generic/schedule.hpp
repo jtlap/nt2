@@ -14,6 +14,7 @@
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/dispatch/dsl/proto/unpack.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
