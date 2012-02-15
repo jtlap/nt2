@@ -10,7 +10,7 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_GENERIC_SCHEDULE_HPP_INCLUDED
 
 #include <boost/simd/dsl/functions/schedule.hpp>
-#include <boost/simd/include/functions/evaluate.hpp>
+#include <boost/simd/include/functions/assign.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/dispatch/dsl/proto/unpack.hpp>
