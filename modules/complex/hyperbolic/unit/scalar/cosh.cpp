@@ -41,13 +41,14 @@ NT2_TEST_CASE_TPL ( cosh_real__1_0,  NT2_REAL_TYPES)
   typedef std::complex<T> cT; 
   double ulpd;
   ulpd=0.0;
-  const int N = 20; 
+  const int N = 20;
+  T Pie =  nt2::Pi <T>()-nt2::Eps<T>(); 
   cT inputs[N] =
     { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
       cT(nt2::Zero<T>(),nt2::Inf<T>()), cT(nt2::Inf<T>(),nt2::Inf<T>()), cT(nt2::Minf<T>(),nt2::Inf<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
       cT(nt2::Zero<T>(),nt2::Minf<T>()),cT(nt2::Inf<T>(),nt2::Minf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Minf<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Zero<T>(),nt2::Pi <T>()), cT(nt2::Inf<T>(),nt2::Pi <T>()), cT(nt2::Minf<T>(),nt2::Pi <T>()), cT(nt2::Nan<T>(),nt2::Pi <T>()),  
+      cT(nt2::Zero<T>(),Pie), cT(nt2::Inf<T>(),Pie), cT(nt2::Minf<T>(),Pie), cT(nt2::Nan<T>(),Pie),  
     }; 
 
   cT results[N] = 
@@ -55,7 +56,7 @@ NT2_TEST_CASE_TPL ( cosh_real__1_0,  NT2_REAL_TYPES)
       cT(nt2::Nan<T>(), nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
       cT(nt2::Nan<T>(), nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Minf<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()),cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Mone<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Inf<T>()),cT(nt2::Minf<T>(),nt2::Inf<T>()),cT(nt2::Nan<T>(),nt2::Pi <T>()),  
+      cT(nt2::Mone<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Inf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Pi <T>()),  
     }; 
 
   for(int i=0; i < N; i++)
