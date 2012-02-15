@@ -40,6 +40,7 @@ namespace nt2 { namespace ext
       rtype c, s, ch, sh;
       sincos(imag(a0), s, c);
       sinhcosh(real(a0), sh, ch);
+      std::cout << "a0  "<< a0 << " s  "<< s << " c "<< c << " sh " << sh << " ch "<< ch << std::endl; 
       rtype r = c*ch;
       rtype i = s*sh;
       i = if_zero_else(logical_or(is_imag(a0), is_real(a0)), i); 

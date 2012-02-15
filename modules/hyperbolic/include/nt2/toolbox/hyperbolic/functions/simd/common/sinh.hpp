@@ -68,8 +68,8 @@ namespace nt2 { namespace ext
      */
     NT2_FUNCTOR_CALL(1)
     {
-      const A0 tmp=nt2::expm1(nt2::abs(a0));
-      result_type r = nt2::average(tmp, tmp/(oneplus(tmp)));
+      const result_type tmp=nt2::expm1(nt2::abs(a0));
+      result_type r = if_else(eq(tmp, Inf<result_type>()), tmp, nt2::average(tmp, tmp/(oneplus(tmp))));
       return negif(is_negative(a0), r);
     }
   };

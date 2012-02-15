@@ -11,8 +11,10 @@
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/expm1.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/oneplus.hpp>
@@ -35,12 +37,13 @@ namespace nt2 { namespace ext
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
       typedef typename meta::as_logical<A1>::type ltype;
-      ltype test =  eq(a0, Inf<A1>()); 
-      const A1 u = nt2::expm1(a0);
+      A1 a00 =  nt2::abs(a0); 
+      ltype test =  eq(a00, Inf<A1>()); 
+      const A1 u = nt2::expm1(a00);
       const A1 up1 = oneplus(u);
       const A1 tmp =u/up1; 
-      a1 = if_else(test, a0, Half<A1>()*tmp*(oneplus(up1)));
-      a2 = if_else(test, a0, oneplus(Half<A1>()*tmp*u)); 
+      a1 = negif(is_negative(a0), if_else(test, a00, Half<A1>()*tmp*(oneplus(up1))));
+      a2 = if_else(test, a00, oneplus(Half<A1>()*tmp*u)); 
       return 0;
     }
   };
