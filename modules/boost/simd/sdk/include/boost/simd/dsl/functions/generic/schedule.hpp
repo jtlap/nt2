@@ -122,7 +122,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE typename result<implement(A0_&, A1_&, F const&)>::type
     operator()(A0_& a0, A1_& a1, F const& f) const
     {
-      return nt2::assign(unpack_schedule()(a0, f), unpack_schedule()(a1, f));
+      return boost::simd::assign(unpack_schedule()(a0, f), unpack_schedule()(a1, f));
     }
   };
 
@@ -175,7 +175,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE typename result<implement(A0_&, A1_&, F const&)>::type
     operator()(A0_& a0, A1_& a1, F const& f) const
     {
-      return f(nt2::assign(unpack_schedule()(a0, f), unpack_schedule()(a1, f)));
+      return f(boost::simd::assign(unpack_schedule()(a0, f), unpack_schedule()(a1, f)));
     }
   };
 
@@ -207,7 +207,7 @@ namespace boost { namespace simd { namespace ext
     operator()(A0_& a0, F const& f) const
     {
       typename result<implement(A0_&, F const&)>::terminal term;
-      return f(nt2::assign(term, unpack_schedule()(a0, f)));
+      return f(boost::simd::assign(term, unpack_schedule()(a0, f)));
     }
   };
 

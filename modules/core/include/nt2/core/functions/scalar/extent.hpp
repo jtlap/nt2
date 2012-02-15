@@ -11,7 +11,6 @@
 
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
-#include <nt2/core/container/colon/category.hpp>
 
 namespace nt2 { namespace ext
 {
