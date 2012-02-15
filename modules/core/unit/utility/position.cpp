@@ -12,6 +12,7 @@
 #include <boost/fusion/include/sequence.hpp>
 #include <boost/array.hpp>
 #include <boost/fusion/include/make_vector.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -358,4 +359,15 @@ NT2_TEST_CASE( as_unaligned )
                         C_order_,
                         unaligned_> >::type)
                     );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test have_compatible_alignments
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( have_compatible_assignments )
+{
+  NT2_TEST((nt2::have_compatible_alignments<nt2::aligned_, nt2::aligned_>::value));
+  NT2_TEST(!(nt2::have_compatible_alignments<nt2::aligned_, nt2::unaligned_>::value));
+  NT2_TEST(!(nt2::have_compatible_alignments<nt2::unaligned_, nt2::aligned_>::value));
+  NT2_TEST(!(nt2::have_compatible_alignments<nt2::unaligned_, nt2::unaligned_>::value));
 }
