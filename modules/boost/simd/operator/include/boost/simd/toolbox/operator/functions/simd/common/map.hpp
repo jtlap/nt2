@@ -30,36 +30,50 @@
 #endif
 
 #define M0(z,n,t) ((simd_< unspecified_<A##n>, X >))
-#define M2(z,n,t) typename meta::scalar_of<A##n>::type
+#define M2(z,n,t) typename meta::scalar_of<_A##n>::type
 #define M3(z,n,t) a##n[i]
 #define M4(z,n,t) (A##n)
 
-#define M5(z,n,t)                                                            \
-namespace boost { namespace simd { namespace ext                             \
-{                                                                            \
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_       \
-                            , (Func)BOOST_PP_REPEAT(n, M4, ~)(X)             \
-                            , (unspecified_<Func>)BOOST_PP_REPEAT(n,M0,~)    \
-                            )                                                \
-  {                                                                          \
-    typedef typename dispatch::meta::                                        \
-    result_of< Func const( BOOST_PP_ENUM(n,M2,~) )                           \
-             >::type                                                         \
-    rtype;                                                                   \
-    typedef simd::native<rtype, X> result_type;                              \
-                                                                             \
-    inline result_type                                                       \
-    operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))   \
-    {                                                                        \
-      result_type that;                                                      \
-                                                                             \
-      for(size_t i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i) \
-        insert(f(BOOST_PP_ENUM(n, M3, ~)), that, i);                         \
-                                                                             \
-      return that;                                                           \
-    }                                                                        \
-  };                                                                         \
-} } }                                                                        \
+#define M5(z,n,t)                                                              \
+namespace boost { namespace simd { namespace ext                               \
+{                                                                              \
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_         \
+                            , (Func)BOOST_PP_REPEAT(n, M4, ~)(X)               \
+                            , (unspecified_<Func>)BOOST_PP_REPEAT(n,M0,~)      \
+                            )                                                  \
+  {                                                                            \
+    template<class Sig>                                                        \
+    struct result;                                                             \
+                                                                               \
+    template<class This, class _Func, BOOST_PP_ENUM_PARAMS(n, class _A)>       \
+    struct result<This(_Func, BOOST_PP_ENUM_PARAMS(n, _A))>                    \
+    {                                                                          \
+      typedef typename dispatch::meta::                                        \
+      result_of< Func const( BOOST_PP_ENUM(n,M2,~) )                           \
+               >::type                                                         \
+      rtype;                                                                   \
+      typedef simd::native<rtype, X> type;                                     \
+    };                                                                         \
+                                                                               \
+    template<BOOST_PP_ENUM_PARAMS(n, class _A)>                                \
+    typename result< implement( Func const&                                    \
+                              , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)        \
+                              )                                                \
+                   >::type                                                     \
+    operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a))         \
+    {                                                                          \
+      typename result< implement( Func const&                                  \
+                                , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)      \
+                                )                                              \
+                     >::type that;                                             \
+                                                                               \
+      for(size_t i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i)   \
+        insert(f(BOOST_PP_ENUM(n, M3, ~)), that, i);                           \
+                                                                               \
+      return that;                                                             \
+    }                                                                          \
+  };                                                                           \
+} } }                                                                          \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M5,~)

@@ -66,8 +66,14 @@ namespace boost { namespace simd
 namespace boost { namespace simd
 {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1&),2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1 const&)(A2&),3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1&)(A2&),3)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1 const&)(A2 const&)(A3&),4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1 const&)(A2&)(A3&),4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1&)(A2&)(A3&),4)
 } }
 
 #endif
