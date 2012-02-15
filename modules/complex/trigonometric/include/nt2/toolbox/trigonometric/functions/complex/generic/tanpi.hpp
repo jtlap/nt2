@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_TANPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_TANPI_HPP_INCLUDED
-#include <nt2/include/functions/sincosd.hpp>
+#include <nt2/include/functions/sincospi.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
@@ -17,6 +17,7 @@
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 /* ctan (x + I * y) = (sin (2 * x)  +  I * sinh(2 * y)) / (cos (2 * x)  +  cosh (2 * y)) */
@@ -32,8 +33,8 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A0>::type rtype;
       result_type aa0 =  a0+a0; 
       rtype c, s, ch, sh;
-      sincosd(real(aa0), s, c);
-      sinhcosh(imag(aa0)*Deginrad<rtype>(), sh, ch);
+      sincospi(real(aa0), s, c);
+      sinhcosh(imag(aa0)*nt2::Pi<rtype>(), sh, ch);
       rtype tmp = c+ch; 
       rtype r_part = if_zero_else(is_imag(a0),s/tmp); 
       rtype i_part = if_zero_else(is_real(a0),sh/tmp);
