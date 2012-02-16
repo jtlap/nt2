@@ -20,10 +20,10 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <nt2/table.hpp>
 #include <nt2/core/settings/forward/alignment.hpp>
 #include <nt2/core/settings/forward/index.hpp>
 #include <nt2/core/settings/forward/storage_order.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/core/utility/position/position.hpp>
 #include <nt2/core/utility/position/adapted.hpp>
 #include <nt2/core/utility/position/alignment.hpp>
@@ -108,7 +108,7 @@ NT2_TEST_CASE( make_position )
   using boost::mpl::_;
   using namespace nt2;
 
-  typedef container::table<float, _2D> table_type;
+  typedef table<float, _2D> table_type;
   typedef vector<int, int> seq_type;
   typedef typename meta::make_position<table_type, seq_type>::type position_type;
 
@@ -366,8 +366,10 @@ NT2_TEST_CASE( as_unaligned )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( have_compatible_assignments )
 {
-  NT2_TEST((nt2::have_compatible_alignments<nt2::aligned_, nt2::aligned_>::value));
-  NT2_TEST(!(nt2::have_compatible_alignments<nt2::aligned_, nt2::unaligned_>::value));
-  NT2_TEST(!(nt2::have_compatible_alignments<nt2::unaligned_, nt2::aligned_>::value));
-  NT2_TEST(!(nt2::have_compatible_alignments<nt2::unaligned_, nt2::unaligned_>::value));
+  using namespace nt2;
+  
+  NT2_TEST((nt2::have_compatible_alignments<table<double>, aligned_>::value));
+  NT2_TEST(!(nt2::have_compatible_alignments<table<double>, unaligned_>::value));
+  NT2_TEST(!(nt2::have_compatible_alignments<table<double, unaligned_>, aligned_>::value));
+  NT2_TEST(!(nt2::have_compatible_alignments<table<double, unaligned_>, unaligned_>::value));
 }

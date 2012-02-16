@@ -9,19 +9,25 @@
 #ifndef NT2_CORE_UTILITY_POSITION_HAVE_COMPATIBLE_ALIGNMENTS_HPP_INCLUDED
 #define NT2_CORE_UTILITY_POSITION_HAVE_COMPATIBLE_ALIGNMENTS_HPP_INCLUDED
 
-#include <nt2/sdk/meta/settings_of.hpp>
-#include <nt2/core/settings/forward/settings.hpp>
+#include <boost/mpl/logical.hpp>
 #include <nt2/core/settings/forward/alignment.hpp>
+
+/**
+ * \file
+ * \brief Define nt2::have_compatible_alignments
+**/
 
 namespace nt2
 {
-  template<typename A1, typename A2>
-  struct have_compatible_alignments : boost::mpl::false_
-  {
-  };
-
-  template<>
-  struct have_compatible_alignments<nt2::aligned_, nt2::aligned_> : boost::mpl::true_
+  template<typename T, typename A>
+  struct have_compatible_alignments :
+    boost::mpl::and_<
+      typename nt2::meta::option<
+        typename boost::proto::result_of::value<T>::type::settings_type,
+        nt2::tag::alignment_>
+      ::type,
+      A
+    >
   {
   };
 }
