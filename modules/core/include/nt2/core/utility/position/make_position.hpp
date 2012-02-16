@@ -9,11 +9,11 @@
 #ifndef NT2_CORE_UTILITY_POSITION_MAKE_POSITION_HPP_INCLUDED
 #define NT2_CORE_UTILITY_POSITION_MAKE_POSITION_HPP_INCLUDED
 
-#include <nt2/sdk/meta/settings_of.hpp>
-#include <nt2/core/settings/settings.hpp>
-#include <nt2/core/settings/index.hpp>
-#include <nt2/core/settings/storage_order.hpp>
-#include <nt2/core/settings/alignment.hpp>
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/core/settings/forward/settings.hpp>
+#include <nt2/core/settings/forward/index.hpp>
+#include <nt2/core/settings/forward/storage_order.hpp>
+#include <nt2/core/settings/forward/alignment.hpp>
 
 /**
  * \file
@@ -22,12 +22,13 @@
 
 namespace nt2 { namespace meta
 {
-  template<typename A, typename Seq> struct make_position
+  template<typename T, typename Seq> struct make_position
   {
-    typedef typename nt2::meta::settings_of<A>::type settings_type;
-    typedef typename nt2::meta::option<settings_type, nt2::tag::index_>::type index_type;
-    typedef typename nt2::meta::option<settings_type, nt2::tag::storage_order_>::type storage_order_type;
-    typedef typename nt2::meta::option<settings_type, nt2::tag::alignment_>::type alignment_type;
+    //typedef typename boost::proto::result_of::value< typename meta::strip<T>::type >::type::settings_type settings_type;
+    typedef typename meta::strip<T>::type expr_type;
+    typedef typename expr_type::index_type index_type;
+    typedef typename expr_type::storage_order_type storage_order_type;
+    typedef typename expr_type::alignment_type alignment_type;
 
     typedef position<Seq, index_type, storage_order_type, alignment_type> type;
   };
