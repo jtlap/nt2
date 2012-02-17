@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE( value_at )
 {
@@ -63,4 +64,48 @@ NT2_TEST_CASE( element_wise )
   table<T> a0;
   table<boost::dispatch::meta::as_integer<T>::type> a1;
   a1 = nt2::toint(a0);
+}
+
+NT2_TEST_CASE_TPL( alignment_load_store, BOOST_SIMD_SIMD_TYPES )
+{
+  using nt2::table;
+  using nt2::settings;
+  using nt2::of_size;
+  using nt2::aligned_;
+  using nt2::unaligned_;
+  using nt2::shared_;
+  using nt2::no_padding_;
+  using nt2::share;
+
+  T *p = new T[32*32+1];
+  for (int i = 0; i < 32 * 32; i++)
+    p[i] = (T)i;
+  T *q = p + 1;
+
+  table<T, settings(aligned_, shared_, no_padding_)> aligned_table1(of_size(32,32), share(p, p + 32 * 32));
+  table<T, settings(unaligned_, shared_, no_padding_)> unaligned_table1(of_size(32,32), share(q, q + 32 * 32));
+
+  aligned_table1 = unaligned_table1;
+  for (int i = 1; i < 31; i++)
+    for (int j = 1; j < 32; j++)
+      NT2_TEST( T(aligned_table1(i+1,j)) == T(unaligned_table1(i,j)) );
+
+  // Store unaligned data in aligned table
+  table<T, settings(aligned_, shared_, no_padding_)> fake_aligned_table(of_size(32,32), share(q, q + 32 * 32));
+  NT2_TEST_THROW( fake_aligned_table = aligned_table1, nt2::assert_exception );
+
+  table<T, settings(aligned_, shared_, no_padding_)> aligned_table2(of_size(32,32), share(p, p + 32 * 32));
+  table<T, settings(unaligned_, shared_, no_padding_)> unaligned_table2(of_size(32,32), share(q, q + 32 * 32));
+
+  unaligned_table2 = aligned_table2;
+  for (int i = 1; i < 31; i++)
+    for (int j = 1; j < 32; j++)
+      NT2_TEST( T(aligned_table2(i+1,j)) == T(unaligned_table2(i,j)) );
+
+  table<T, settings(unaligned_, shared_, no_padding_)> fake_unaligned_table(of_size(32,32), share(p, p + 32 * 32));
+  fake_unaligned_table = aligned_table2;
+
+  delete[] p;
+
+  // TODO: Tester cas non contigus.
 }

@@ -88,6 +88,8 @@ namespace nt2 { namespace container
 
     typedef typename meta::settings_of<ResultType>::type            settings_type;
     typedef typename meta::option<settings_type, tag::index_>::type index_type;
+    typedef typename meta::option<settings_type, tag::storage_order_>::type storage_order_type;
+    typedef typename meta::option<settings_type, tag::alignment_>::type alignment_type;
 
     //==========================================================================
     // Compute storage type for size
