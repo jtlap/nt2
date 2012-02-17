@@ -33,14 +33,14 @@ namespace n1 {
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
-  NT2_TIMING(lookup_,(RS(vT,T(-100),T(100)))(RS(viT,0,boost::dispatch::meta::cardinal_of<T>::value-1)))
+  NT2_TIMING(lookup_,(RS(vT,T(-100),T(100)))(RS(viT,0,boost::simd::meta::cardinal_of<T>::value-1)))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
   typedef boost::simd::native<iT,ext_t> viT;
-  NT2_TIMING(lookup_,(RS(vT,T(-100),T(100)))(RS(viT,0,boost::dispatch::meta::cardinal_of<T>::value-1)))
+  NT2_TIMING(lookup_,(RS(vT,T(-100),T(100)))(RS(viT,0,boost::simd::meta::cardinal_of<T>::value-1)))
 }
 
 #undef RS
