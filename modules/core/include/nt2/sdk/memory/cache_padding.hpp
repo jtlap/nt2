@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_MEMORY_CACHE_PADDING_HPP_INCLUDED
 #define NT2_SDK_MEMORY_CACHE_PADDING_HPP_INCLUDED
 
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
 
@@ -25,34 +26,35 @@ namespace nt2 { namespace memory
     template<class Sig> struct result;
     template<class T, int N> struct result_impl;
 
-    template<class This, class T, class N>
-    struct result<This(T,N)> : result_impl<T,N::value> {};
+    template<class This, class T, class N, class V>
+    struct  result<This(T,N,V)>
+          : result_impl<T,meta::strip<N>::type::value> {};
 
-    template<class T,int N> struct result_impl  { typedef T type; };
+    template<class T,int N> struct result_impl  { typedef T           type; };
+    template<class T> struct result_impl<T,0>   { typedef std::size_t type; };
 
-    template<class T> struct result_impl<T,1>
+    template<class T, class N, class V>
+    typename result<cache_padding(T const&, N const&, V const&)>::type
+    operator()(T const& t, N const& n, V const& v) const
     {
-      typedef typename boost::dispatch::meta::
-              call<boost::simd::tag::align_on_(T const&, int)>::type  type;
-    };
-
-    template<class T, class N>
-    typename result<cache_padding(T const&, N const&)>::type
-    operator()(T const& t, N const&) const
-    {
-      return eval(t,boost::mpl::bool_<N::value==1>());
+      return eval(t,n,v,boost::mpl::bool_<N::value==0>());
     }
 
-    template<class T, class N>
-    typename result<cache_padding(T const&, N const&)>::type
-    eval(T const& t, N const&, boost::mpl::true_ const&) const
+    template<class T, class N, class V>
+    typename result<cache_padding(T const&, N const&, V const&)>::type
+    eval(T const& t, N const&, V const&, boost::mpl::true_ const&) const
     {
-      return boost::simd::memory::align_on(t,config::shared_cache_line_size());
+      static const std::size_t  tz = sizeof(typename V::type);
+
+      const std::size_t sz =
+            boost::simd::memory::align_on ( t*tz
+                                          , config::shared_cache_line_size()
+                                          );
+      return sz/tz;
     }
 
-    template<class T, class N>
-    typename result<cache_padding(T const&, N const&)>::type
-    eval(T const& t, N const&, boost::mpl::false_ const&) const
+    template<class T, class N, class V> T const&
+    eval(T const& t, N const&, V const&, boost::mpl::false_ const&) const
     {
       return t;
     }

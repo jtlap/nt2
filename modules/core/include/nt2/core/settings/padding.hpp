@@ -9,48 +9,33 @@
 #ifndef NT2_CORE_SETTINGS_PADDING_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_PADDING_HPP_INCLUDED
 
-#include <nt2/core/settings/forward/padding.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
+#include <nt2/core/settings/forward/padding.hpp>
 
 namespace nt2 { namespace meta
 {
   //============================================================================
-  /*! global_padding_ with alignment value
-   *  return padding_strategy of global_ with the alignment value
+  /*! padding_ with alignment strategy functor
+   *  return the padding functor type
    **/
   //============================================================================
-  template<class Default, std::ptrdiff_t N>
-  struct  option< global_padding_<N>, tag::global_padding_, Default >
+  template<class Default, class S>
+  struct option< padding_<S>, tag::padding_, Default >
   {
-    typedef global_padding_<N> type;
-  };
-
-  //============================================================================
-  /*! lead_padding_ with alignment value
-   *  return padding_strategy of lead_ with the alignment value
-   **/
-  //============================================================================
-  template<class Default, std::ptrdiff_t N>
-  struct  option< lead_padding_<N>, tag::lead_padding_, Default >
-  {
-    typedef lead_padding_<N> type;
+    typedef S type;
   };
 
   //============================================================================
   /*!
    * no_padding_ option
+   * return the identity padding functor
    **/
   //============================================================================
   template<class Default>
-  struct  option< no_padding_, tag::lead_padding_, Default >
+  struct option< no_padding_, tag::padding_, Default >
   {
-    typedef lead_padding_<1> type;
-  };
-
-  template<class Default>
-  struct  option< no_padding_, tag::global_padding_, Default >
-  {
-    typedef global_padding_<1> type;
+    typedef memory::no_padding type;
   };
 } }
 

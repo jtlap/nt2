@@ -19,12 +19,13 @@ namespace nt2 { namespace memory
   struct no_padding
   {
     template<class Sig> struct result;
-    template<class This, class T, class N> struct result<This(T,N)>
+    template<class This, class T, class N, class V> struct result<This(T,N,V)>
     {
       typedef T type;
     };
 
-    template<class T, class N> T const& operator()(T const& t, N const&) const
+    template<class T, class N,class V>
+    T const& operator()(T const& t, N const&, V const&) const
     {
       return t;
     }

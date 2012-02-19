@@ -10,55 +10,81 @@
 
 #include <vector>
 #include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/memory/no_padding.hpp>
+#include <nt2/sdk/memory/cache_padding.hpp>
 #include <nt2/core/utility/of_size/pad.hpp>
 #include <nt2/core/utility/of_size/of_size.hpp>
-#include <nt2/sdk/meta/padded_size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Check padded_size
+// Check pad with no_padding
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( padded_size )
-{
-  using nt2::of_size_;
-  using boost::mpl::int_;
-  using nt2::meta::padded_size;
-
-  NT2_TEST_EQUAL( (padded_size< of_size_<2,3,4>::values_type, int_<1>, int_<1> >::value)
-                , 2*3*4
-                );
-
-  NT2_TEST_EQUAL( (padded_size< of_size_<5,4,2>::values_type, int_<32>, int_<1> >::value)
-                , 64
-                );
-
-  NT2_TEST_EQUAL( (padded_size< of_size_<5,4,2>::values_type, int_<1>, int_<32> >::value)
-                , 256
-                );
-
-  NT2_TEST_EQUAL( (padded_size< of_size_<5,4,5>::values_type, int_<128>, int_<8> >::value)
-                , 256
-                );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Check pad
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( pad )
+NT2_TEST_CASE( pad_with_no_padding )
 {
   using nt2::pad;
   using nt2::of_size_;
-  using boost::mpl::int_;
   using boost::fusion::at_c;
-  
-  NT2_TEST_EQUAL( at_c<0>( pad(of_size_<6,1,2,3>(), 4) ),  8 );
-  NT2_TEST_EQUAL( at_c<0>( pad(of_size_<6,1,2,3>(), 8) ),  8 );
-  NT2_TEST_EQUAL( at_c<0>( pad(of_size_<6,1,2,3>(),16) ), 16 );
-  NT2_TEST_EQUAL( at_c<0>( pad(of_size_<6,1,2,3>(),32) ), 32 );
-  NT2_TEST_EQUAL( at_c<1>( pad(of_size_<6,1,2,3>(),16) ), 1  );
-  NT2_TEST_EQUAL( at_c<2>( pad(of_size_<6,1,2,3>(),16) ), 2  );
-  NT2_TEST_EQUAL( at_c<3>( pad(of_size_<6,1,2,3>(),16) ), 3  );  
+  using nt2::memory::no_padding;
+
+  NT2_TEST_EQUAL( at_c<0>( pad<double>(of_size_<6,1,2,3>(), no_padding()) ), 6 );
+  NT2_TEST_EQUAL( at_c<1>( pad<double>(of_size_<6,1,2,3>(), no_padding()) ), 1 );
+  NT2_TEST_EQUAL( at_c<2>( pad<double>(of_size_<6,1,2,3>(), no_padding()) ), 2 );
+  NT2_TEST_EQUAL( at_c<3>( pad<double>(of_size_<6,1,2,3>(), no_padding()) ), 3 );
+
+  NT2_TEST_EQUAL( at_c<0>( pad<float>(of_size_<6,1,2,3>(), no_padding()) ), 6 );
+  NT2_TEST_EQUAL( at_c<1>( pad<float>(of_size_<6,1,2,3>(), no_padding()) ), 1 );
+  NT2_TEST_EQUAL( at_c<2>( pad<float>(of_size_<6,1,2,3>(), no_padding()) ), 2 );
+  NT2_TEST_EQUAL( at_c<3>( pad<float>(of_size_<6,1,2,3>(), no_padding()) ), 3 );
+
+  NT2_TEST_EQUAL( at_c<0>( pad<short>(of_size_<6,1,2,3>(), no_padding()) ), 6 );
+  NT2_TEST_EQUAL( at_c<1>( pad<short>(of_size_<6,1,2,3>(), no_padding()) ), 1 );
+  NT2_TEST_EQUAL( at_c<2>( pad<short>(of_size_<6,1,2,3>(), no_padding()) ), 2 );
+  NT2_TEST_EQUAL( at_c<3>( pad<short>(of_size_<6,1,2,3>(), no_padding()) ), 3 );
+
+  NT2_TEST_EQUAL( at_c<0>( pad<char>(of_size_<6,1,2,3>(), no_padding()) ), 6 );
+  NT2_TEST_EQUAL( at_c<1>( pad<char>(of_size_<6,1,2,3>(), no_padding()) ), 1 );
+  NT2_TEST_EQUAL( at_c<2>( pad<char>(of_size_<6,1,2,3>(), no_padding()) ), 2 );
+  NT2_TEST_EQUAL( at_c<3>( pad<char>(of_size_<6,1,2,3>(), no_padding()) ), 3 );
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Check pad with cache_padding
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( pad_with_cache_padding )
+{
+  using nt2::pad;
+  using nt2::of_size_;
+  using boost::fusion::at_c;
+  using nt2::memory::cache_padding;
+  using boost::simd::memory::align_on;
+
+  std::size_t cls = nt2::config::shared_cache_line_size();
+  std::size_t dsz = align_on (6*sizeof(double), cls) / sizeof(double);
+  std::size_t fsz = align_on (6*sizeof(float) , cls) / sizeof(float);
+  std::size_t ssz = align_on (6*sizeof(short) , cls) / sizeof(short);
+  std::size_t csz = align_on (6*sizeof(char)  , cls) / sizeof(char);
+
+  NT2_TEST_EQUAL( at_c<0>( pad<double>(of_size_<6,1,2,3>(), cache_padding()) ), dsz );
+  NT2_TEST_EQUAL( at_c<1>( pad<double>(of_size_<6,1,2,3>(), cache_padding()) ), 1 );
+  NT2_TEST_EQUAL( at_c<2>( pad<double>(of_size_<6,1,2,3>(), cache_padding()) ), 2 );
+  NT2_TEST_EQUAL( at_c<3>( pad<double>(of_size_<6,1,2,3>(), cache_padding()) ), 3 );
+
+  NT2_TEST_EQUAL( at_c<0>( pad<float>(of_size_<6,1,2,3>(), cache_padding()) ), fsz );
+  NT2_TEST_EQUAL( at_c<1>( pad<float>(of_size_<6,1,2,3>(), cache_padding()) ), 1 );
+  NT2_TEST_EQUAL( at_c<2>( pad<float>(of_size_<6,1,2,3>(), cache_padding()) ), 2 );
+  NT2_TEST_EQUAL( at_c<3>( pad<float>(of_size_<6,1,2,3>(), cache_padding()) ), 3 );
+
+  NT2_TEST_EQUAL( at_c<0>( pad<short>(of_size_<6,1,2,3>(), cache_padding()) ), ssz );
+  NT2_TEST_EQUAL( at_c<1>( pad<short>(of_size_<6,1,2,3>(), cache_padding()) ), 1 );
+  NT2_TEST_EQUAL( at_c<2>( pad<short>(of_size_<6,1,2,3>(), cache_padding()) ), 2 );
+  NT2_TEST_EQUAL( at_c<3>( pad<short>(of_size_<6,1,2,3>(), cache_padding()) ), 3 );
+
+  NT2_TEST_EQUAL( at_c<0>( pad<char>(of_size_<6,1,2,3>(), cache_padding()) ), csz );
+  NT2_TEST_EQUAL( at_c<1>( pad<char>(of_size_<6,1,2,3>(), cache_padding()) ), 1 );
+  NT2_TEST_EQUAL( at_c<2>( pad<char>(of_size_<6,1,2,3>(), cache_padding()) ), 2 );
+  NT2_TEST_EQUAL( at_c<3>( pad<char>(of_size_<6,1,2,3>(), cache_padding()) ), 3 );
+}
+

@@ -14,32 +14,33 @@
  * \brief Define the nt2::pad function
 **/
 
+#include <nt2/sdk/meta/as.hpp>
+
 namespace nt2
 {
   namespace tag { struct padded_sequence_tag {}; }
-  
+
   namespace details
   {
-    template<typename Sequence, typename Value>
+    template<typename T, typename Sequence, typename Strategy>
     struct padded_sequence
     {
-      typedef tag::padded_sequence_tag fusion_tag;
-      typedef Sequence  sequence_type;
-      typedef Value     value_type;
-          
-      padded_sequence ( Sequence const& seq, Value const& v)
-                      : seq_(seq), value_(v) {}
+      typedef tag::padded_sequence_tag  fusion_tag;
+      typedef meta::as_<T>              value_type;
+      typedef Sequence                  sequence_type;
+      typedef Strategy                  strategy_type;
+
+      padded_sequence( Sequence const& seq): seq_(seq) {}
 
       sequence_type const&  seq_;
-      value_type            value_;
     };
   }
 
-  template<typename Sequence, typename Value>
-  inline details::padded_sequence<Sequence,Value>
-  pad( Sequence const& seq, Value const& v )
+  template<typename T,typename Sequence, typename Strategy>
+  inline details::padded_sequence<T,Sequence,Strategy>
+  pad( Sequence const& seq, Strategy const& )
   {
-    details::padded_sequence<Sequence,Value> that(seq,v);
+    details::padded_sequence<T,Sequence,Strategy> that(seq);
     return that;
   }
 }
