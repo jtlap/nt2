@@ -16,6 +16,11 @@
 #include <boost/dispatch/dsl/proto/unpack.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 
+#include <boost/type_traits/is_reference.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/ref.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   template<class Tag>
@@ -196,9 +201,10 @@ namespace boost { namespace simd { namespace ext
                     terminal_of< typename dispatch::meta::semantic_of<A0_>::type
                                >::type
                    >::type                                                               terminal;
-      typedef terminal&                                                                  child0;
+      typedef terminal                                                                   child0;
       typedef typename unpack_schedule::template result<unpack_schedule(A0_, F_)>::type  child1;
-      typedef typename dispatch::meta::call<tag::assign_(child0, child1)>::type          assigned;
+      typedef typename proto::result_of::
+              make_expr<proto::tag::assign, child0, child1>::type                        assigned;
       typedef typename dispatch::meta::result_of<F const(assigned)>::type                type;
     };
 
@@ -206,8 +212,15 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE typename result<implement(A0_&, F const&)>::type
     operator()(A0_& a0, F const& f) const
     {
-      typename result<implement(A0_&, F const&)>::terminal term;
-      return f(boost::simd::assign(term, unpack_schedule()(a0, f)));
+      /* FIXME: this leads to the terminal being copied many times over;
+       *        find a way to avoid all copies. */
+      typedef typename result<implement(A0_&, F const&)>::terminal terminal;
+      typedef typename result<implement(A0_&, F const&)>::child1   child1;
+      typedef typename mpl::if_< is_reference<child1>
+                               , reference_wrapper<typename remove_reference<child1>::type>
+                               , child1 const&
+                               >::type ref;
+      return f(proto::make_expr<proto::tag::assign>(terminal(), ref(unpack_schedule()(a0, f))));
     }
   };
 
