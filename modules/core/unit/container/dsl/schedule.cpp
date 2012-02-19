@@ -118,7 +118,7 @@ NT2_TEST_CASE( element_wise )
   using nt2::schedule;
   scheduler f;
 
-  SCHEDULE( assign(a0, a1), f, 0
+  SCHEDULE( nt2::assign(a0, a1), f, 0
           , ( node2< boost::proto::tag::assign
                    , boost::proto::tag::terminal
                    , boost::proto::tag::terminal
@@ -126,18 +126,7 @@ NT2_TEST_CASE( element_wise )
             )
           );
 
-  SCHEDULE( assign(a0, a1 + a2), f, 0
-          , ( node2< boost::proto::tag::assign
-                   , boost::proto::tag::terminal
-                   , node2< boost::proto::tag::plus
-                          , boost::proto::tag::terminal
-                          , boost::proto::tag::terminal
-                          >
-                   >
-            )
-          );
-
-  SCHEDULE( assign(a0, nt2::plus(a1, a2)), f, 0
+  SCHEDULE( nt2::assign(a0, a1 + a2), f, 0
           , ( node2< boost::proto::tag::assign
                    , boost::proto::tag::terminal
                    , node2< boost::proto::tag::plus
@@ -148,7 +137,18 @@ NT2_TEST_CASE( element_wise )
             )
           );
 
-  SCHEDULE( assign(a0, a1 + a2 + a3), f, 0
+  SCHEDULE( nt2::assign(a0, nt2::plus(a1, a2)), f, 0
+          , ( node2< boost::proto::tag::assign
+                   , boost::proto::tag::terminal
+                   , node2< boost::proto::tag::plus
+                          , boost::proto::tag::terminal
+                          , boost::proto::tag::terminal
+                          >
+                   >
+            )
+          );
+
+  SCHEDULE( nt2::assign(a0, a1 + a2 + a3), f, 0
           , ( node2< boost::proto::tag::assign
                    , boost::proto::tag::terminal
                    , node2< boost::proto::tag::plus
@@ -204,7 +204,7 @@ NT2_TEST_CASE( reduction )
                       )
                     );
 
-  SCHEDULE( assign(a0, sum(a1)), f, 1, boost::proto::tag::terminal );
+  SCHEDULE( nt2::assign(a0, sum(a1)), f, 1, boost::proto::tag::terminal );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
                              , boost::proto::tag::terminal
@@ -232,7 +232,7 @@ NT2_TEST_CASE( reduction )
                       )
                     );
 
-  SCHEDULE( assign(a0, a1 + sum(a2)), f, 1
+  SCHEDULE( nt2::assign(a0, a1 + sum(a2)), f, 1
           , ( node2< boost::proto::tag::assign
                    , boost::proto::tag::terminal
                    , node2< boost::proto::tag::plus
@@ -324,7 +324,7 @@ NT2_TEST_CASE( subscript )
   using nt2::sum;
   scheduler f;
 
-  SCHEDULE( assign(a0(a1), sum(a2)), f, 1
+  SCHEDULE( nt2::assign(a0(a1), sum(a2)), f, 1
           , ( node2< boost::proto::tag::function
                    , boost::proto::tag::terminal
                    , boost::proto::tag::terminal
@@ -344,7 +344,7 @@ NT2_TEST_CASE( subscript )
                       )
           );
 
-  SCHEDULE( assign(a0(a1), a2 + sum(a3)), f, 1
+  SCHEDULE( nt2::assign(a0(a1), a2 + sum(a3)), f, 1
           , ( node2< boost::proto::tag::assign
                    , node2< boost::proto::tag::function
                           , boost::proto::tag::terminal
@@ -367,7 +367,7 @@ NT2_TEST_CASE( subscript )
                       )
                     );
 
-  SCHEDULE( assign(a0(sum(a1)), sum(a2)), f, 2
+  SCHEDULE( nt2::assign(a0(sum(a1)), sum(a2)), f, 2
           , ( node2< boost::proto::tag::function
                    , boost::proto::tag::terminal
                    , boost::proto::tag::terminal
@@ -396,7 +396,7 @@ NT2_TEST_CASE( subscript )
                       )
                     );
 
-  SCHEDULE( assign(a0(a1 + sum(a2)), a3 + sum(a4)), f, 2
+  SCHEDULE( nt2::assign(a0(a1 + sum(a2)), a3 + sum(a4)), f, 2
           , ( node2< boost::proto::tag::assign
                    , node2< boost::proto::tag::function
                           , boost::proto::tag::terminal
@@ -467,7 +467,7 @@ NT2_TEST_CASE( terminal )
                     , table<T>&
                     );
 
-  NT2_TEST_EXPR_TYPE( nt2::schedule(assign(a0, a1), f)
+  NT2_TEST_EXPR_TYPE( nt2::schedule(nt2::assign(a0, a1), f)
                     , child0
                     , table<T>&
                     );
