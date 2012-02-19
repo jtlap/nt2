@@ -16,6 +16,7 @@
 #include <boost/dispatch/dsl/proto/unpack.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 
+#include <boost/proto/make_expr.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/mpl/if.hpp>
