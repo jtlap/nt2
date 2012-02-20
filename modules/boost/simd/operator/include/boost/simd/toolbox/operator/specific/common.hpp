@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext                               \
                   , tag::cpu_, Dummy                                           \
                   >                                                            \
   {                                                                            \
-    BOOST_SIMD_MAP_LOG(Tag);                                                   \
+    BOOST_SIMD_MAP_LOG(Tag)                                                    \
                                                                                \
     template<class Sig>                                                        \
     struct result;                                                             \
