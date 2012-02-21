@@ -76,6 +76,27 @@ namespace nt2 { namespace container { namespace ext
 
 } } }
 
+namespace nt2 { namespace details
+{
+  template<class Expr>
+  typename boost::enable_if_c< boost::proto::arity_of<Expr>::type::value == 0
+                             , typename Expr::extent_type
+                             >::type
+  size_recompute(Expr const& this_, Expr const& old)
+  {
+    return nt2::extent(this_.proto_base().child0);
+  }
+
+  template<class Expr>
+  typename boost::disable_if_c< boost::proto::arity_of<Expr>::type::value == 0
+                              , typename Expr::extent_type
+                              >::type
+  size_recompute(Expr const&, Expr const& old)
+  {
+    return old.extent();
+  }
+} }
+
 namespace nt2 { namespace container
 {
   template<class Expr, class ResultType>
@@ -118,6 +139,8 @@ namespace nt2 { namespace container
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE
     expression(Expr const& x, Sz const& sz) : parent(x), size_(sz) {}
+
+    expression(expression const& xpr) : parent(static_cast<parent const&>(xpr)), size_(details::size_recompute(*this, xpr)) {}
 
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
