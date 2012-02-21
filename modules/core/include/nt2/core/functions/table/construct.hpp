@@ -10,12 +10,10 @@
 #define NT2_CORE_FUNCTIONS_TABLE_CONSTRUCT_HPP_INCLUDED
 
 #include <nt2/core/functions/construct.hpp>
-#include <nt2/core/container/table/category.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
-#include <boost/dispatch/meta/fusion.hpp>
-#include <boost/fusion/include/fold.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/core/container/table/category.hpp>
+#include <boost/simd/sdk/memory/details/category.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -142,22 +140,20 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0& a0, A1 const& a1, A2 const& a2, A3 const& a3) const
     {
+      typedef typename boost::proto::result_of::value<A0>::type type;
+
       //========================================================================
       // Check we don't copy more than expected
       //========================================================================
       BOOST_ASSERT_MSG
-      ( boost::fusion::fold ( a1
-                            , boost::mpl::size_t<1>()
-                            , functor<tag::multiplies_>()
-                            )
-        >= static_cast<size_t>(std::distance(a2,a3))
+      ( nt2::numel(a1) >= static_cast<size_t>(std::distance(a2,a3))
       , "Source range is larger than destination container."
       );
 
       //========================================================================
-      // Resize to target extent
+      // Build recipient
       //========================================================================
-      boost::proto::value(a0).resize(a1);
+      type that(a1);
 
       //========================================================================
       // copy elementwisely
@@ -166,7 +162,12 @@ namespace nt2 { namespace ext
       pos[0] = boost::mpl::at_c<typename A0::index_type::type,0>::type::value;
 
       for(A2 beg_ = a2; beg_ != a3; ++pos[0], ++beg_)
-        boost::proto::value(a0)[ pos ] = *beg_;
+        that[ pos ] = *beg_;
+
+      //========================================================================
+      // Swap to destination
+      //========================================================================
+      boost::proto::value(a0).swap(that);
     }
   };
 } }
