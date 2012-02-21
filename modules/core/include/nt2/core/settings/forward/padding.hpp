@@ -16,7 +16,10 @@ namespace nt2
    * Specify a padding strategy will be used.
    **/
   //============================================================================
-  template<class Strategy> struct padding_ {};
+  template<class Strategy> struct padding_
+  {
+    typedef Strategy type;
+  };
 
   //============================================================================
   /*!

@@ -9,6 +9,8 @@
 #ifndef NT2_SDK_MEMORY_NO_PADDING_HPP_INCLUDED
 #define NT2_SDK_MEMORY_NO_PADDING_HPP_INCLUDED
 
+#include <boost/mpl/bool.hpp>
+
 namespace nt2 { namespace memory
 {
   //============================================================================
@@ -18,6 +20,8 @@ namespace nt2 { namespace memory
   //============================================================================
   struct no_padding
   {
+    typedef boost::mpl::false_ padding_status;
+
     template<class Sig> struct result;
     template<class This, class T, class N, class V> struct result<This(T,N,V)>
     {

@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_MEMORY_CACHE_PADDING_HPP_INCLUDED
 #define NT2_SDK_MEMORY_CACHE_PADDING_HPP_INCLUDED
 
+#include <boost/mpl/bool.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
@@ -23,6 +24,8 @@ namespace nt2 { namespace memory
   //============================================================================
   struct cache_padding
   {
+    typedef boost::mpl::true_ padding_status;
+
     template<class Sig> struct result;
     template<class T, int N> struct result_impl;
 

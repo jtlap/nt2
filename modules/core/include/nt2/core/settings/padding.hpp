@@ -23,7 +23,7 @@ namespace nt2 { namespace meta
   template<class Default, class S>
   struct option< padding_<S>, tag::padding_, Default >
   {
-    typedef S type;
+    typedef padding_<S> type;
   };
 
   //============================================================================
@@ -35,7 +35,7 @@ namespace nt2 { namespace meta
   template<class Default>
   struct option< no_padding_, tag::padding_, Default >
   {
-    typedef memory::no_padding type;
+    typedef padding_<memory::no_padding> type;
   };
 } }
 
