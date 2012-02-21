@@ -37,10 +37,10 @@ namespace nt2
   }
 
   template<typename T,typename Sequence, typename Strategy>
-  inline details::padded_sequence<T,Sequence,Strategy>
+  inline details::padded_sequence<T,Sequence const,Strategy>
   pad( Sequence const& seq, Strategy const& )
   {
-    details::padded_sequence<T,Sequence,Strategy> that(seq);
+    details::padded_sequence<T,Sequence const,Strategy> that(seq);
     return that;
   }
 }
