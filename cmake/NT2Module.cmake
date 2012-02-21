@@ -38,7 +38,7 @@ macro(nt2_module_source_setup module)
   link_directories(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARY_DIR})
   link_libraries(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARIES})
   add_definitions(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_COMPILE_FLAGS})
-  set(NT2_CURRENT_LINK_FLAGS "${NT2_CURRENT_LINK_FLAGS} ${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LINK_FLAGS}")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LINK_FLAGS}")
   
   file(WRITE ${NT2_BINARY_DIR}/modules/${module}.manifest)
   
@@ -290,7 +290,7 @@ macro(nt2_module_use_modules)
   link_directories(${NT2_LIBRARY_DIR})
   link_libraries(${NT2_LIBRARIES})
   add_definitions(${NT2_COMPILE_FLAGS})
-  set(NT2_CURRENT_LINK_FLAGS "${NT2_CURRENT_LINK_FLAGS} ${NT2_LINK_FLAGS}")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${NT2_LINK_FLAGS}")
   list(APPEND CMAKE_MODULE_PATH ${NT2_MODULE_PATH})
 endmacro()
 
@@ -299,7 +299,6 @@ macro(nt2_module_add_exe name)
   
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
-  set_property(TARGET ${name} PROPERTY LINK_FLAGS ${NT2_CURRENT_LINK_FLAGS})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/${suffix})
 
   set(BUILD_TYPE)
@@ -320,7 +319,6 @@ endmacro()
 macro(nt2_module_add_example name)
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER examples)
-  set_property(TARGET ${name} PROPERTY LINK_FLAGS ${NT2_CURRENT_LINK_FLAGS})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/examples)
 
   string(REGEX REPLACE "\\.sample$" ".examples" suite ${name})
