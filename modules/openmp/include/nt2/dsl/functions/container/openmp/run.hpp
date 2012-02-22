@@ -139,10 +139,7 @@ namespace nt2 { namespace ext
     typedef typename meta::
             strip< typename meta::
                    scalar_of<result_type>::type
-                 >::type                                    stype;
-
-    typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION>
-                                                            target_type;
+                 >::type                                    target_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0) const
