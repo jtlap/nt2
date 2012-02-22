@@ -11,14 +11,13 @@
 
 #include <boost/simd/sdk/config/arch/x86.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
+#include <boost/simd/sdk/config/details/get_vendor.hpp>
+#include <boost/simd/sdk/config/details/detector/cpuid.hpp>
+
 
 /*!
  *\file detect.hpp
 */
-
-
-#include <boost/simd/sdk/config/details/x86/get_vendor.hpp>
-#include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 
 #define BOOST_SIMD_DECLARE_X86_DETECTION_CALL(x, y, z)                         \
 static const int bit = x, function = y, register_id = z;                       \
