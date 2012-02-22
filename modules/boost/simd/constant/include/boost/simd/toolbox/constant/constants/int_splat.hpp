@@ -59,7 +59,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     template<boost::simd::int64_t I>
-    struct Intpattern 
+    struct Intpattern : ext::constant_< Intpattern<I> >
     { 
       template<class Target, class Dummy=void> 
       struct apply : meta::int_c<Target, Target(I)> {};  

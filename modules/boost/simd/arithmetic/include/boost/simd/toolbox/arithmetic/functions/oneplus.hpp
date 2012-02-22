@@ -19,7 +19,8 @@
  * \defgroup boost_simd_arithmetic_oneplus oneplus
  *
  * \par Description
- * returns the saturated $1+a_0$
+ * returns the saturated $1+a_0$
+ * oneplus(a) is always greater or equal to a.
  *
  * \par Header file
  * 
@@ -55,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag oneplus_ of functor oneplus 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct oneplus_ {};
+    struct oneplus_ : ext::elementwise_<oneplus_> { typedef ext::elementwise_<oneplus_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::oneplus_, oneplus, 1)
 } }

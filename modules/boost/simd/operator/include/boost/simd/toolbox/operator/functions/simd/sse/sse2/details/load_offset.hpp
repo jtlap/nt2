@@ -11,10 +11,10 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Register dispatch over load_ on simd types with an offset
@@ -23,9 +23,9 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::sse2_
                             , (A0)(A1)(A2)(A3)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< scalar_< arithmetic_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< fundamental_<A2>, boost::simd::tag::sse_ > >))
+                              ((target_< simd_< arithmetic_<A2>, boost::simd::tag::sse_ > >))
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
@@ -94,9 +94,9 @@ namespace boost { namespace simd { namespace ext
 
       result_type a     = boost::simd::load<result_type>(a0,a1+offset);
       result_type b     = boost::simd::load<result_type>(a0,a1+offset+card);
-      __m128i sa        = _mm_srli_si128(boost::simd::native_cast<__m128i>(a.data_),shifta);
-      __m128i sb        = _mm_slli_si128(boost::simd::native_cast<__m128i>(b.data_),shiftb);
-      result_type that  = { boost::simd::native_cast<raw_type>(_mm_or_si128(sa,sb)) };
+      __m128i sa        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
+      __m128i sb        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
+      result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
       return that;
     }
 
@@ -119,8 +119,8 @@ namespace boost { namespace simd { namespace ext
 
       result_type a     = boost::simd::load<result_type>(a0,a1-offset);
       result_type b     = boost::simd::load<result_type>(a0,a1-offset-card);
-      __m128i sa        = _mm_slli_si128(boost::simd::native_cast<__m128i>(a.data_),shifta);
-      __m128i sb        = _mm_srli_si128(boost::simd::native_cast<__m128i>(b.data_),shiftb);
+      __m128i sa        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
+      __m128i sb        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
       result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
       return that;
     }

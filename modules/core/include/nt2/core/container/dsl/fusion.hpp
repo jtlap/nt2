@@ -13,7 +13,7 @@
 #include <boost/fusion/include/tag_of_fwd.hpp>
 #include <nt2/core/container/extent/extent.hpp>
 #include <boost/simd/sdk/details/at_iterator.hpp>
-#include <nt2/core/container/meta/is_statically_sized.hpp>
+#include <nt2/sdk/meta/is_statically_sized.hpp>
 
 namespace nt2 { namespace tag
 {

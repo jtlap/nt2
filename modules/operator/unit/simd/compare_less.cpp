@@ -25,16 +25,14 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 
 
@@ -59,11 +57,11 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(nt2::Inf<vT>(), nt2::Inf<vT>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Minf<vT>(), nt2::Minf<vT>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Nan<vT>(), nt2::Nan<vT>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(),nt2::Zero<vT>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_less(nt2::Inf<vT>(), nt2::Inf<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Minf<vT>(), nt2::Minf<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Nan<vT>(), nt2::Nan<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(),nt2::Zero<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Zero<vT>(), nt2::Zero<vT>()), ssr_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -87,10 +85,10 @@ NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPE
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(nt2::Mone<vT>(),nt2::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(), nt2::One<vT>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(),nt2::Zero<vT>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_less(nt2::Mone<vT>(),nt2::Zero<vT>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(), nt2::One<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(),nt2::Zero<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Zero<vT>(), nt2::Zero<vT>()), ssr_t(false));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
@@ -114,7 +112,7 @@ NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(), nt2::One<vT>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(),nt2::Zero<vT>()), false);
-  NT2_TEST_EQUAL(compare_less(nt2::Zero<vT>(), nt2::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(), nt2::One<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::One<vT>(),nt2::Zero<vT>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_less(nt2::Zero<vT>(), nt2::Zero<vT>()), ssr_t(false));
 } // end of test for unsigned_int_

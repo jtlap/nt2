@@ -9,8 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_equal.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,10 +21,10 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<double_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm256_cmp_pd(a0,a1, _CMP_EQ_OQ) };
+      result_type that = {_mm256_cmp_pd(a0,a1, _CMP_EQ_OQ)};
       return that;
     }
   };
@@ -34,10 +35,10 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<single_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm256_cmp_ps(a0,a1, _CMP_EQ_OQ) };
+      result_type that = {_mm256_cmp_ps(a0,a1, _CMP_EQ_OQ)};
       return that;
     }
   };
@@ -48,10 +49,10 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_cmp_pd(a0,a1, _CMP_EQ_OQ) };
+      result_type that = {_mm_cmp_pd(a0,a1, _CMP_EQ_OQ)};
       return that;
     }
   };
@@ -62,10 +63,10 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_cmp_ps(a0,a1, _CMP_EQ_OQ) };
+      result_type that = { _mm_cmp_ps(a0,a1, _CMP_EQ_OQ)};
       return that;
     }
   };

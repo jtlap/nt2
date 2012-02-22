@@ -19,9 +19,9 @@
 // again
 ////////////////////////////////////////////////////////////////////////////////
 
-//#if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
-//#include <boost/simd/toolbox/operator/functions/simd/sse/avx/preprocessed/map.hpp>
-//#else
+#if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
+#include <boost/simd/toolbox/operator/functions/simd/sse/avx/preprocessed/map.hpp>
+#else
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/dispatch/details/parameters.hpp>
@@ -30,6 +30,7 @@
 
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
+#undef BOOST_FORCEINLINE
 #endif
 
 #define M0(z,n,h) ((simd_< h <A##n>, boost::simd::tag::avx_ >))
@@ -103,7 +104,7 @@ BOOST_SIMD_MAP_CALL(integer_, si256 )
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
 #endif
-//#endif
+#endif
 
 #endif
 #endif

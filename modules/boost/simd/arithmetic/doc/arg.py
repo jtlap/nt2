@@ -10,11 +10,11 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<boost::dispatch::meta::floating(T)>::type',
+             'default' : 'typename boost::dispatch::meta::as_floating<T>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
-         'types' : ['real_', 'unsigned_int_', 'signed_int_'],
+         'types' : ['real_'],
         },
      'info' : 'manually modified',
      'unit' : {

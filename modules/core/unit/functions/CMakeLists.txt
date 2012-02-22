@@ -8,10 +8,23 @@
 ##############################################################################
 
 SET( SOURCES
+   colon.cpp
+   iscolumn.cpp
+   isempty.cpp
+   ismatrix.cpp
+   isrow.cpp
+   isscalar.cpp
+   isvector.cpp
    length.cpp
+   linspace.cpp
    ndims.cpp
    numel.cpp
-#  size.cpp
+   ones.cpp
+#  ind2sub.cpp
+   sub2ind.cpp
+#  sub2sub.cpp
+  size.cpp
+  zeros.cpp
 # List of test files for toolbox core.settings
    )
 

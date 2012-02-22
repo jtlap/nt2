@@ -15,6 +15,8 @@
 /// 
 #include <nt2/toolbox/arithmetic/include/functions/logical_xor.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/false.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -23,12 +25,13 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 
 NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  NT2_REAL_TYPES)
@@ -40,7 +43,7 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -51,14 +54,14 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(logical_xor(T(0),T(1)), true, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(T(3),T(0)), true, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::Inf<T>(), nt2::Inf<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::Minf<T>(), nt2::Minf<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::Mone<T>(), nt2::Mone<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::Nan<T>(), nt2::Nan<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::One<T>(), nt2::One<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::Zero<T>(), nt2::Zero<T>()), false, 0);
+  NT2_TEST_EQUAL(logical_xor(T(0),T(1)), nt2::True<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(T(3),T(0)), nt2::True<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::Inf<T>(), nt2::Inf<T>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::Minf<T>(), nt2::Minf<T>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::Mone<T>(), nt2::Mone<T>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::Nan<T>(), nt2::Nan<T>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::One<T>(), nt2::One<T>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<ssr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
@@ -70,8 +73,7 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
-
+  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -81,8 +83,8 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::One<T>(), nt2::One<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::Zero<T>(), nt2::Zero<T>()), false, 0);
+  NT2_TEST_EQUAL(logical_xor(nt2::One<T>(), nt2::One<T>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<ssr_t>());
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -94,7 +96,7 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<logical_xor_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -105,7 +107,7 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::Mone<T>(), nt2::Mone<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::One<T>(), nt2::One<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(nt2::Zero<T>(), nt2::Zero<T>()), false, 0);
+  NT2_TEST_EQUAL(logical_xor(nt2::Mone<T>(), nt2::Mone<T>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::One<T>(), nt2::One<T>()), nt2::False<ssr_t>());
+  NT2_TEST_EQUAL(logical_xor(nt2::Zero<T>(), nt2::Zero<T>()), nt2::False<ssr_t>());
 } // end of test for signed_int_

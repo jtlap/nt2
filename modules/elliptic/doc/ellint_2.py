@@ -8,7 +8,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+             'default' : 'typename boost::dispatch::meta::as_floating<T>::type',
             },
          'simd_types' : ['real_'],
          'type_defs' : [],
@@ -29,7 +29,7 @@
          'specific_values' : {
              'real_' : {
                  'nt2::One<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
-                 'nt2::Zero<T>()' : {'result' : 'nt2::Pi<r_t>()/2','ulp_thresh' : '0',},
+                 'nt2::Zero<T>()' : {'result' : 'nt2::Pi<r_t>()/2','ulp_thresh' : '0.5',},
                 },
             },
          'verif_test' : {

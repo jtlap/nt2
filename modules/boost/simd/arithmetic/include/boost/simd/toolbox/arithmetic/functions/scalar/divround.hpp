@@ -8,47 +8,38 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVROUND_HPP_INCLUDED
-
-#include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/iround.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
-			      (scalar_< arithmetic_<A0> >)
+                        (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return (a1) ? A0(boost::simd::round(double(a0)/double(a1)))
-	          : ((a0 > 0) ? Valmax<A0>()
-		              : ((a1) ? Valmin<A0>()
-				      : Zero<A0>()
-				 )
-		     );
+      return (a1) ? static_cast<A0>(round2even(static_cast<double>(a0)/static_cast<double>(a1)))
+                : ((a0 > 0) ? Valmax<A0>()
+                          : ((a1) ? Valmin<A0>()
+                              : Zero<A0>()
+                         )
+                 );
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
                             , (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                            , (scalar_< floating_<A0> >)
+                        (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;

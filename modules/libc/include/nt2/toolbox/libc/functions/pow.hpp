@@ -73,7 +73,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag pow_ of functor pow 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct pow_ {};
+    struct pow_ : ext::elementwise_<pow_> { typedef ext::elementwise_<pow_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::pow_, pow, 2)
   } }

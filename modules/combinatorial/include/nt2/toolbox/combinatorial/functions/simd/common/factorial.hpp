@@ -1,15 +1,16 @@
-/*******************************************************************************
- *         Copyright 2003-2011 LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2009-2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_FACTORIAL_HPP_INCLUDED
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
+
+#include <nt2/toolbox/combinatorial/functions/factorial.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -22,21 +23,23 @@
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/round.hpp>
-#include <nt2/include/functions/bitwise_all.hpp>
-#include <nt2/include/functions/select.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::factorial_, tag::cpu_,
-			     (A0)(X),
+                       (A0)(X),
                       ((simd_<floating_<A0>,X>))
                      )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+      typedef typename meta::as_logical<A0>::type              bA0; 
       A0 r =  One<A0>();
       A0 a00 = nt2::trunc(nt2::abs(a0)); 
       r =  select(eq(a00, Two<A0>()),     Two<A0>(),    r);
@@ -50,8 +53,8 @@ namespace nt2 { namespace ext
       r =  select(eq(a00, Ten<A0>()),     Fact_10<A0>(),r);
       r =  select(eq(a00, Eleven<A0>()),  Fact_11<A0>(),r);
       r =  select(eq(a00, Twelve<A0>()),  Fact_12<A0>(),r);
-      A0 test = le(a00, Twelve<A0>());
-      if (nt2::bitwise_all(test))
+      bA0 test = le(a00, Twelve<A0>());
+      if (nt2::all(test))
         return r;
       else
         return select(test, r, 
@@ -67,10 +70,10 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-	using boost::simd::bitwise_cast; 
-	typedef typename meta::as_floating<A0>::type ftype;
-	ftype r = nt2::factorial(nt2::tofloat(a0));
-	return select(gt(r,tofloat(Valmax<A0>())), Valmax<A0>(), bitwise_cast<A0>(nt2::toint(r))); 
+      using boost::simd::bitwise_cast; 
+      typedef typename meta::as_floating<A0>::type ftype;
+      ftype r = nt2::factorial(nt2::tofloat(a0));
+      return select(gt(r,tofloat(Valmax<A0>())), Valmax<A0>(), bitwise_cast<A0>(nt2::toint(r))); 
       }
   };
 

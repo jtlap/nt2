@@ -34,7 +34,7 @@ namespace nt2 { namespace details
   //////////////////////////////////////////////////////////////////////////////
   inline void fail(char const* x, int ln, char const* fn)
   {
-    printf(" * Test `%s` **failed** in function `%s (%d)\n`", x,fn,ln);
+    printf(" * Test `%s` **failed** in function `%s (%d)`\n", x,fn,ln);
     ++error_count();
   }
 

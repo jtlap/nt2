@@ -8,13 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_EXP_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_EXP_HPP_INCLUDED
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+
+#include <nt2/toolbox/exponential/functions/exp.hpp>
 #include <nt2/toolbox/exponential/functions/simd/common/impl/expo.hpp>
-
-
+#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -26,13 +24,10 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
-    typedef A0 result_type;
-
+    typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef result_type type;
-      return impl::exponential<type,natural_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
+      return impl::exponential<result_type,natural_tag, tag::simd_type, accu_tag>::expa(tofloat(a0));
     }
   };
 } }

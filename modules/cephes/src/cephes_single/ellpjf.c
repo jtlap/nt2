@@ -62,7 +62,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 */
 
 #include "mconf.h"
-extern double PIO2F, MACHEPF;
+extern float PIO2F, MACHEPF;
 
 #define fabsf(x) ( (x) < 0 ? -(x) : (x) )
 
@@ -91,32 +91,32 @@ u = uu;
 m = mm;
 /* Check for special cases */
 
-if( m < 0.0 || m > 1.0 )
+if( m < 0.0f || m > 1.0f )
 	{
 	cephes_mtherr( "ellpjf", DOMAIN );
 	return(-1);
 	}
-if( m < 1.0e-5 )
+if( m < 1.0e-5f )
 	{
 	t = cephes_sinf(u);
 	b = cephes_cosf(u);
-	ai = 0.25 * m * (u - t*b);
+	ai = 0.25f * m * (u - t*b);
 	*sn = t - ai*b;
 	*cn = b + ai*t;
 	*ph = u - ai;
-	*dn = 1.0 - 0.5*m*t*t;
+	*dn = 1.0f - 0.5f*m*t*t;
 	return(0);
 	}
 
-if( m >= 0.99999 )
+if( m >= 0.99999f )
 	{
-	ai = 0.25 * (1.0-m);
+	ai = 0.25f * (1.0f-m);
 	b = cephes_coshf(u);
 	t = cephes_tanhf(u);
-	phi = 1.0/b;
+	phi = 1.0f/b;
 	twon = b * cephes_sinhf(u);
 	*sn = t + ai * (twon - u)/(b*b);
-	*ph = 2.0*cephes_atanf(cephes_expf(u)) - PIO2F + ai*(twon - u)/b;
+	*ph = 2.0f*cephes_atanf(cephes_expf(u)) - PIO2F + ai*(twon - u)/b;
 	ai *= t * phi;
 	*cn = phi - ai * (twon - u);
 	*dn = phi + ai * (twon + u);
@@ -126,9 +126,9 @@ if( m >= 0.99999 )
 
 /*	A. G. M. scale		*/
 a[0] = 1.0;
-b = cephes_sqrtf(1.0 - m);
+b = cephes_sqrtf(1.0f - m);
 c[0] = cephes_sqrtf(m);
-twon = 1.0;
+twon = 1.0f;
 i = 0;
 
 while( fabsf( (c[i]/a[i]) ) > MACHEPF )
@@ -140,9 +140,9 @@ while( fabsf( (c[i]/a[i]) ) > MACHEPF )
 		}
 	ai = a[i];
 	++i;
-	c[i] = 0.5 * ( ai - b );
+	c[i] = 0.5f * ( ai - b );
 	t = cephes_sqrtf( ai * b );
-	a[i] = 0.5 * ( ai + b );
+	a[i] = 0.5f * ( ai + b );
 	b = t;
 	twon += twon;
 	}
@@ -154,7 +154,7 @@ do
 	{
 	t = c[i] * cephes_sinf(phi) / a[i];
 	b = phi;
-	phi = 0.5 * (cephes_asinf(t) + phi);
+	phi = 0.5f * (cephes_asinf(t) + phi);
 	}
 while( --i );
 

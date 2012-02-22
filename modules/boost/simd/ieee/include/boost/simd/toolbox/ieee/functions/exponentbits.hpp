@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag exponentbits_ of functor exponentbits 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct exponentbits_ {};
+    struct exponentbits_ : ext::elementwise_<exponentbits_> { typedef ext::elementwise_<exponentbits_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::exponentbits_, exponentbits, 1)
 } }

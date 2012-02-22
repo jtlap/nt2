@@ -63,6 +63,7 @@ namespace boost { namespace simd
                                 );
   }
 
+
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt_2o_2, Sqrt_2o_2)
 } }
 

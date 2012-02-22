@@ -25,29 +25,29 @@ namespace boost { namespace dispatch { namespace meta
   template<class Expr, class Enable = void>
   struct semantic_of
   {
-    typedef void type;
+    typedef Expr type;
   };
   
   template<class Expr>
-  struct semantic_of<const Expr, typename boost::enable_if_c< boost::proto::arity_of<Expr>::value == 0>::type>
+  struct semantic_of<const Expr, typename enable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
     : add_const<typename semantic_of<Expr>::type>
   {
   };
   
   template<class Expr>
-  struct semantic_of<const Expr, typename boost::disable_if_c< boost::proto::arity_of<Expr>::value == 0>::type>
+  struct semantic_of<const Expr, typename disable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
     : semantic_of<Expr>
   {
   };
   
   template<class Expr>
-  struct semantic_of<Expr&, typename boost::enable_if_c< boost::proto::arity_of<Expr>::value == 0>::type>
+  struct semantic_of<Expr&, typename enable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
     : add_reference<typename semantic_of<Expr>::type>
   {
   };
   
   template<class Expr>
-  struct semantic_of<Expr&, typename boost::disable_if_c< boost::proto::arity_of<Expr>::value == 0>::type>
+  struct semantic_of<Expr&, typename disable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
     : semantic_of<Expr>
   {
   };

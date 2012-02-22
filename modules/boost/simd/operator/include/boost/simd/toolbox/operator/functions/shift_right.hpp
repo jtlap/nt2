@@ -67,11 +67,25 @@ namespace boost { namespace simd
      * \brief Define the tag shift_right_ of functor shift_right 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::shift_right shift_right_;
+    struct shift_right_ : ext::elementwise_<shift_right_> { typedef ext::elementwise_<shift_right_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shift_right     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::shift_right_             , shr             , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::shift_right>
+  {
+    typedef boost::simd::tag::shift_right_ type;
+  };
+  template<>
+  struct proto_tag<boost::simd::tag::shift_right_>
+  {
+    typedef boost::proto::tag::shift_right type;
+  };
+} } }
 
 #endif

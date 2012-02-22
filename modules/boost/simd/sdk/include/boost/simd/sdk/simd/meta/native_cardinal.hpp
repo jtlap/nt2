@@ -12,11 +12,20 @@
 #include <boost/mpl/size_t.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
 
-namespace boost { namespace simd { namespace meta
-{
-  template<class T>
-  struct  native_cardinal
-        : boost::mpl::size_t< BOOST_SIMD_BYTES / sizeof(T) > {};
-} } }
+namespace boost { namespace simd 
+{ 
+  template<class T> struct logical;
+
+  namespace meta
+  {
+    template<class T>
+    struct  native_cardinal
+          : boost::mpl::size_t< BOOST_SIMD_BYTES / sizeof(T) > {};
+
+    template<class T>
+    struct  native_cardinal< logical<T> >
+          : boost::mpl::size_t< BOOST_SIMD_BYTES / sizeof(T) > {};
+  } 
+} }
 
 #endif

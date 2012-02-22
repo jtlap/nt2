@@ -19,10 +19,11 @@
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 
 namespace nt2
 {

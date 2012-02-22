@@ -67,7 +67,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag cosh_ of functor cosh 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct cosh_ {};
+    struct cosh_ : ext::elementwise_<cosh_> { typedef ext::elementwise_<cosh_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::cosh_, cosh, 1)
   } }

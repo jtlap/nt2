@@ -27,6 +27,7 @@ NT2_TEST_CASE_TPL(cardinal_of_native, BOOST_SIMD_SIMD_TYPES )
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 native_t;
+  std::cout << ( (cardinal_of<native_t>::value) == BOOST_SIMD_BYTES/sizeof(T) ) << std::endl; 
   NT2_TEST_EQUAL( (cardinal_of<native_t>::value), BOOST_SIMD_BYTES/sizeof(T) );
 }
 
@@ -38,5 +39,6 @@ NT2_TEST_CASE_TPL(cardinal_of_pack, BOOST_SIMD_SIMD_TYPES )
 
   typedef pack<T> pack_;
   NT2_TEST_EQUAL( (cardinal_of<pack_>::value), BOOST_SIMD_BYTES/sizeof(T) );
+  std::cout << ( (cardinal_of<pack_>::value) == BOOST_SIMD_BYTES/sizeof(T) ) << std::endl; 
 
 }

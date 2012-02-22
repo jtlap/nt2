@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag cosh_rn_ of functor cosh_rn 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct cosh_rn_ {};
+    struct cosh_rn_ : ext::elementwise_<cosh_rn_> { typedef ext::elementwise_<cosh_rn_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::cosh_rn_, cosh_rn, 1)
 } }

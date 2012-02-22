@@ -73,7 +73,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag lbeta_ of functor lbeta 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct lbeta_ {};
+    struct lbeta_ : ext::elementwise_<lbeta_> { typedef ext::elementwise_<lbeta_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::lbeta_, lbeta, 2)
   } }

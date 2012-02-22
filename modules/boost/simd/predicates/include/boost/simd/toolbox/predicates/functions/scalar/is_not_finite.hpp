@@ -9,11 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_FINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_FINITE_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+//TODO this is an alias of is_invalid
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_finite_, tag::cpu_
@@ -21,26 +19,19 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(A0 const&)const 
     {
-      return boost::simd::False<A0>();
+      return boost::simd::False<result_type>();
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_finite_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return boost::simd::is_nan(a0-a0);

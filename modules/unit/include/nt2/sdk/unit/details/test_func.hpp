@@ -8,8 +8,8 @@
  ******************************************************************************/
 #ifndef NT2_SDK_UNIT_DETAILS_TEST_FUNC_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_TEST_FUNC_HPP_INCLUDED
-#include <boost/dispatch/details/ignore_unused.hpp>
-#include <boost/type_traits/common_type.hpp>
+
+#include <nt2/sdk/unit/details/stats.hpp>
 #include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -19,16 +19,13 @@
   template<class T, class U>                                                \
   inline void NAME( char const* x1, char const* x2                          \
                   , int line, char const * fn                               \
-                  , T const & t, U const & u                                \
+                  , T const & t_, U const & u_                              \
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
-    volatile T tt(t);                                                       \
-    volatile U uu(u);                                                       \
-    boost::dispatch::ignore_unused(tt);                                     \
-    boost::dispatch::ignore_unused(uu);                                     \
-    typedef typename boost::common_type<T, U>::type R;                      \
-    if( (R)tt OP (R)uu )                                                    \
+    T t = through_volatile(t_);                                             \
+    T u = through_volatile(u_);                                             \
+    if( t OP u )                                                            \
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
@@ -53,17 +50,14 @@
   template<class T, class U>                                                \
   inline void NAME( char const* x1, char const* x2                          \
                   , int line, char const * fn                               \
-                  , T const & t, U const & u                                \
+                  , T const & t_, U const & u_                              \
                   )                                                         \
   {                                                                         \
     test_count()++;                                                         \
-    volatile T tt(t);                                                       \
-    volatile U uu(u);                                                       \
-    boost::dispatch::ignore_unused(tt);                                     \
-    boost::dispatch::ignore_unused(uu);                                     \
-    typedef typename boost::common_type<T, U>::type R;                      \
-    if( (R(t) OP R(u)) || ((t != t) && (u != u)))                           \
-      {                                                                     \
+    T t = through_volatile(t_);                                             \
+    U u = through_volatile(u_);                                             \
+    if( (t OP u) || ((t != t) && (u != u)) )                                \
+    {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
                 << "` **passed**."                                          \
@@ -83,6 +77,9 @@
         
 namespace nt2 { namespace details
 {
+  template<class T>
+  T through_volatile(T const& t) { return const_cast<T const&>(const_cast<T const volatile&>(t)); }
+
   NT2_MAKE_TEST_NAN_FUNC(test_eq  , ==, !=  )
   NT2_MAKE_TEST_FUNC(test_neq , !=, ==  )
   NT2_MAKE_TEST_FUNC(test_lt  , < , >=  )

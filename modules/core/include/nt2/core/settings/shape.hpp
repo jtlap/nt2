@@ -10,37 +10,19 @@
 #define NT2_CORE_SETTINGS_SHAPE_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/forward/shape.hpp>
 
 namespace nt2 
 { 
-  //============================================================================
-  /*! dense_ represents the basic shape of any container. Every elements of a
-   *  dense_ container are stored in memory using the storage provided by the
-   * container allocator.  
-   **/
-  //============================================================================
-  struct dense_;
-
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for shape options
-     **/
-    //==========================================================================
-    struct shape_ {}; 
-  }
-
   namespace meta
   {
-    //==========================================================================
-    // Make options extracting the ID from id_
-    //==========================================================================
-    template<class Default> struct option<dense_, tag::shape_, Default>
+    template<class Default> struct option<rectangular_, tag::shape_, Default>
     {
-      typedef dense_ type;
+      typedef rectangular_ type;
     };
   } 
 }
+
+#include <nt2/core/settings/details/shape.hpp>
 
 #endif

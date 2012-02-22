@@ -11,7 +11,6 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/toolbox/operator/specific/details/maybe_genmask.hpp>
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -27,7 +26,7 @@
 #define M6(z,n,t) typename meta::scalar_of<BOOST_PP_CAT(A,BOOST_PP_INC(n))>::type
 #define M5(z,n,t) (A##n)
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
-#define M3(z,n,t) details::maybe_genmask<stype>(a0(BOOST_PP_ENUM(t,M4,n)))
+#define M3(z,n,t) a0(BOOST_PP_ENUM(t,M4,n))
 #define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <BOOST_PP_CAT(A, BOOST_PP_INC(n))>, boost::simd::tag::altivec_>))
 
 #define M0(z,n,t)                                                             \
@@ -42,13 +41,7 @@ namespace boost { namespace simd { namespace ext                              \
     result_of< A0 const( BOOST_PP_ENUM(n,M6,~) )                              \
              >::type                                                          \
     rtype;                                                                    \
-    typedef typename details::                                                \
-    as_native< A0                                                             \
-             , rtype                                                          \
-             , typename meta::scalar_of<A1>::type                             \
-             >::type                                                          \
-    stype;                                                                    \
-    typedef simd::native<stype, boost::simd::tag::altivec_> result_type;      \
+    typedef simd::native<rtype, boost::simd::tag::altivec_> result_type;      \
                                                                               \
     BOOST_SIMD_FUNCTOR_CALL(BOOST_PP_INC(n))                                  \
     {                                                                         \

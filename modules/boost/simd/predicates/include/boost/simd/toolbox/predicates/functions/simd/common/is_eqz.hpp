@@ -8,11 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_EQZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_EQZ_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_eqz_, tag::cpu_,
@@ -20,8 +19,7 @@ namespace boost { namespace simd { namespace ext
                              ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return eq(a0,Zero<A0>());

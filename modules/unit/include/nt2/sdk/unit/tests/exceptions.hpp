@@ -15,6 +15,7 @@
  */
 
 #include <nt2/sdk/unit/details/stats.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 //==============================================================================
 /*!
@@ -25,17 +26,29 @@
  * \param E Exception expected to be caught
  */
 //==============================================================================
-#define NT2_TEST_THROW(X,E)                                                 \
-do {                                                                        \
-  ::nt2::details::test_count()++;                                           \
-  bool catched = false;                                                     \
-  try             { X; }                                                    \
-  catch( E& ex )  { ::nt2::details::pass(#X); catched = true; }             \
-  catch(...)      {}                                                        \
-  if(!catched) ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION);  \
-} while(0)                                                                  \
+#define NT2_TEST_THROW(X,E)                                             \
+  do {                                                                  \
+    ::nt2::details::test_count()++;                                     \
+    bool catched = false;                                               \
+    try             { X; }                                              \
+    catch( E& ex )  {                                                   \
+      ::boost::dispatch::ignore_unused(ex);                             \
+      ::nt2::details::pass(#X); catched = true;                         \
+    }                                                                   \
+    catch(...)      {}                                                  \
+    if(!catched) ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
+  } while(0)                                                            \
 /**/
 
+//==============================================================================
+/*!
+ * \ingroup utests
+ * Checks if an expression is triggering any runtime assertion at evaluation and
+ * raise the failure count if not.
+ * \param X Expression to check
+ */
+//==============================================================================
+#define NT2_TEST_ASSERT(X) NT2_TEST_THROW(X, nt2::assert_exception)
 
 //==============================================================================
 /*!
@@ -45,13 +58,52 @@ do {                                                                        \
  * \param X Expression to check
  */
 //==============================================================================
-#define NT2_TEST_NO_THROW(X)                                                \
-do {                                                                        \
-  ::nt2::details::test_count()++;                                           \
-  try         { X; }                                                        \
-  catch(...)  { ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
-  ::nt2::details::pass(#X);}                                                 \
-} while(0)                                                                  \
+#define NT2_TEST_NO_THROW(X)                                    \
+do {                                                            \
+  bool nt2_test_no_throw = true;                                \
+  ::nt2::details::test_count()++;                               \
+  try { X; }                                                    \
+  catch(...)                                                    \
+  {                                                             \
+    ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
+    nt2_test_no_throw = false;                                  \
+  }                                                             \
+  if(nt2_test_no_throw) ::nt2::details::pass(#X);               \
+} while(0)                                                      \
 /**/
+
+//==============================================================================
+/*!
+ * \ingroup utests
+ * Checks if an expression evaluates without throwing a given exception and
+ * raise the failure count if not.
+ * \param X Expression to check
+ * \param E Exception expected to not be caught
+ */
+//==============================================================================
+#define NT2_TEST_NO_THROW_EXCEPTION(X,E)                        \
+do {                                                            \
+  bool nt2_test_no_throw = true;                                \
+  ::nt2::details::test_count()++;                               \
+  try { X; }                                                    \
+  catch(E& e)                                                   \
+  {                                                             \
+    ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
+    nt2_test_no_throw = false;                                  \
+  }                                                             \
+  catch(...) {}                                                 \
+  if(nt2_test_no_throw) ::nt2::details::pass(#X);               \
+} while(0)                                                      \
+/**/
+
+//==============================================================================
+/*!
+ * \ingroup utests
+ * Checks if an expression is triggering no runtime assertion at evaluation and
+ * raise the failure count if not.
+ * \param X Expression to check
+ */
+//==============================================================================
+#define NT2_TEST_NO_ASSERT(X) NT2_TEST_NO_THROW_EXCEPTION(X,nt2::assert_exception)
 
 #endif

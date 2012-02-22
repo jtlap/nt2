@@ -19,7 +19,7 @@
 #include <nt2/include/functions/inrad.hpp>
 #include <nt2/include/functions/round2even.hpp>
 #include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/select.hpp>  
+#include <nt2/include/functions/if_else.hpp>  
 #include <nt2/include/functions/is_not_less.hpp>
 #include <nt2/include/functions/is_not_greater.hpp>
 #include <nt2/include/functions/is_greater_equal.hpp>
@@ -37,6 +37,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/pio_2.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -141,7 +142,7 @@ namespace nt2
               typedef typename meta::upgrade<A0>::type uA0; 
               typedef trig_reduction< uA0, radian_tag,  tag::not_simd_type, mode, double> aux_reduction; 
               uA0 ux = x, uxr, uxc; 
-              int_type n = aux_reduction::reduce(ux, uxr, uxc);
+              int_type n = static_cast<int_type>(aux_reduction::reduce(ux, uxr, uxc));
               xr = static_cast<A0>(uxr);
               xc = static_cast<A0>((uxr-static_cast<uA0>(xr))+uxc);
               return n; 

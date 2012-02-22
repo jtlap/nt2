@@ -23,7 +23,7 @@
 
 namespace nt2
 {
-  namespace tag { struct slice_ {}; }
+  namespace tag { struct slice_ : boost::dispatch::meta::unspecified_<slice_> {}; }
 
   //////////////////////////////////////////////////////////////////////////////
   // slice computes the potential padded product of all dimensions in a given

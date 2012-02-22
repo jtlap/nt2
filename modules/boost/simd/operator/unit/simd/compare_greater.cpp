@@ -49,12 +49,12 @@ NT2_TEST_CASE_TPL ( compare_greater_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_greater(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(boost::simd::One<vT>(),boost::simd::Two<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(boost::simd::One<vT>(),boost::simd::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_greater(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_greater(boost::simd::Minf<vT>(), boost::simd::Minf<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_greater(boost::simd::Nan<vT>(), boost::simd::Nan<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_greater(boost::simd::One<vT>(),boost::simd::Two<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_greater(boost::simd::One<vT>(),boost::simd::Zero<vT>()), r_t(true));
+  NT2_TEST_EQUAL(compare_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), r_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_greater_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -78,7 +78,7 @@ NT2_TEST_CASE_TPL ( compare_greater_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPE
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_greater(boost::simd::One<vT>(), boost::simd::One<vT>()), false);
-  NT2_TEST_EQUAL(compare_greater(boost::simd::One<vT>(),boost::simd::Zero<vT>()), true);
-  NT2_TEST_EQUAL(compare_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), false);
+  NT2_TEST_EQUAL(compare_greater(boost::simd::One<vT>(), boost::simd::One<vT>()), r_t(false));
+  NT2_TEST_EQUAL(compare_greater(boost::simd::One<vT>(),boost::simd::Zero<vT>()), r_t(true));
+  NT2_TEST_EQUAL(compare_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>()), r_t(false));
 } // end of test for integer_

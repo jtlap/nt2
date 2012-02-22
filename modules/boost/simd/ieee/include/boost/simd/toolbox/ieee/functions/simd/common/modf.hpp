@@ -13,9 +13,7 @@
 #include <boost/simd/include/functions/trunc.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
     BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
@@ -45,7 +43,6 @@ namespace boost { namespace simd { namespace ext
 	return a0-r1;    
       }
   };
-
     
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
                        (A0)(X),

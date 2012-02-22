@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag first_ of functor first 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct first_ {};
+    struct first_ : ext::reduction_<first_> { typedef ext::reduction_<first_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::first_, first, 1)
 } }

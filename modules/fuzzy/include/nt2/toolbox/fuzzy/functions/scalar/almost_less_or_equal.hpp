@@ -12,8 +12,10 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/abs.hpp>
-
-
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -26,11 +28,11 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
-      return a0 <= a1+abs(a2);
+      return result_type(a0 <= a1+abs(a2));
     }
   };
 } }
@@ -47,23 +49,18 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
-      if (a0 == a1) return true;
-      if (is_inf(a0) || is_inf(a1)) return (a0 == a1);
-      if (is_nan(a0) || is_nan(a1)) return false;
+      if (a0 == a1) return True<result_type>();
+      if (logical_or(is_inf(a0), is_inf(a1))) return result_type(a0 == a1);
+      if (logical_or(is_nan(a0), is_nan(a1))) return False<result_type>();
       // see http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
       // by Bruce Dawson
       // Do not choose a2 negative or too large
       // assert(aa2 > 0 && aa2 < bitinteger(Nan<select_type>()) );
-      std::cout << "a0     " << a0 << std::endl;
-      std::cout << "a1     " << a1 << std::endl;
-      std::cout << "a2    " << a2 << std::endl;
-      std::cout << "succa1a2 " << successor(a1, nt2::abs(a2)) << std::endl;
-      std::cout << "le(a0, succa1a2)  " << (a0 <= successor(a1, nt2::abs(a2)))<< std::endl;
-      return  (a0 <= successor(a1, nt2::abs(a2))); 
+      return  result_type(a0 <= successor(a1, nt2::abs(a2))); 
     }
   };
 } }

@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag sinpi_rz_ of functor sinpi_rz 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct sinpi_rz_ {};
+    struct sinpi_rz_ : ext::elementwise_<sinpi_rz_> { typedef ext::elementwise_<sinpi_rz_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::sinpi_rz_, sinpi_rz, 1)
 } }

@@ -21,8 +21,11 @@
 #include <nt2/include/functions/evaluate.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <nt2/core/container/meta/container_traits.hpp>
-#include <nt2/core/container/meta/settings_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <nt2/sdk/meta/container_traits.hpp>
+#include <nt2/sdk/meta/settings_of.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
+#include <boost/assert.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -48,20 +51,51 @@ namespace nt2 { namespace container { namespace ext
     template<class Sz>
     void operator()(Expr& expr, Sz const& sz)
     {
+      return (*this)(expr, sz, typename meta::is_container< typename boost::proto::result_of::value<Expr>::type >::type());
+    }
+
+    template<class Sz>
+    void operator()(Expr& expr, Sz const& sz, boost::mpl::true_)
+    {
       boost::proto::value(expr).resize(sz);
+    }
+
+    template<class Sz>
+    void operator()(Expr&, Sz const& sz, boost::mpl::false_)
+    {
+      BOOST_ASSERT_MSG(sz == of_size_<>(), "Resizing scalar to size other than 1");
     }
   };
 
   template<class Domain, int N, class Expr>
-  struct resize<boost::proto::tag::function, Domain, N, Expr>
+  struct resize<nt2::tag::function_, Domain, N, Expr>
   {
     template<class Sz>
-    void operator()(Expr&, Sz const&)
-    {
-    }
+    void operator()(Expr&, Sz const&) {}
   };
 
 } } }
+
+namespace nt2 { namespace details
+{
+  template<class Expr>
+  typename boost::enable_if_c< boost::proto::arity_of<Expr>::type::value == 0
+                             , typename Expr::extent_type
+                             >::type
+  size_recompute(Expr const& this_, Expr const& old)
+  {
+    return nt2::extent(this_.proto_base().child0);
+  }
+
+  template<class Expr>
+  typename boost::disable_if_c< boost::proto::arity_of<Expr>::type::value == 0
+                              , typename Expr::extent_type
+                              >::type
+  size_recompute(Expr const&, Expr const& old)
+  {
+    return old.extent();
+  }
+} }
 
 namespace nt2 { namespace container
 {
@@ -89,13 +123,13 @@ namespace nt2 { namespace container
 
     typedef typename meta::settings_of<ResultType>::type            settings_type;
     typedef typename meta::option<settings_type, tag::index_>::type index_type;
-    
+
     //==========================================================================
     // Compute storage type for size
     //==========================================================================
     typedef typename size_transform<domain>::
             template result<size_transform<domain>(Expr)>::type  extent_type;
-    
+
     //==========================================================================
     // Expression initialization called from generator
     //==========================================================================
@@ -105,6 +139,8 @@ namespace nt2 { namespace container
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE
     expression(Expr const& x, Sz const& sz) : parent(x), size_(sz) {}
+
+    expression(expression const& xpr) : parent(static_cast<parent const&>(xpr)), size_(details::size_recompute(*this, xpr)) {}
 
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
@@ -184,7 +220,8 @@ namespace nt2 { namespace container
     template<class Sz>
     void resize(Sz const& sz)
     {
-      ext::resize< typename boost::proto::tag_of<parent>::type
+      ext::resize< typename boost::dispatch::meta::
+                   hierarchy_of< typename boost::proto::tag_of<parent>::type >::type
                  , domain
                  , boost::proto::arity_of<parent>::type::value
                  , expression<Expr, ResultType>
@@ -195,7 +232,8 @@ namespace nt2 { namespace container
     template<class Sz>
     void resize(Sz const& sz) const
     {
-      ext::resize< typename boost::proto::tag_of<parent>::type
+      ext::resize< typename boost::dispatch::meta::
+                   hierarchy_of< typename boost::proto::tag_of<parent>::type >::type
                  , domain
                  , boost::proto::arity_of<parent>::type::value
                  , expression<Expr, ResultType> const

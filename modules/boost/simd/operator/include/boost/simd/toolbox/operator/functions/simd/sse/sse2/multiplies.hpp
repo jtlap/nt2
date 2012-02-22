@@ -12,7 +12,6 @@
 
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 
 #include <boost/simd/include/functions/bitwise_or.hpp>
 #include <boost/simd/include/constants/digits.hpp>
@@ -62,8 +61,8 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::upgrade<A0,signed>::type  type;
 
       type mask1 = integral_constant<type,0x00FF>();
-      type a0_16 = {a0};
-      type a1_16 = {a1};
+      type a0_16 = {a0()};
+      type a1_16 = {a1()};
       type al    = {_mm_srli_epi16(a0_16, 8)};
       type bl    = {_mm_srli_epi16(a1_16, 8)};
       type abh   = {_mm_and_si128(mask1, _mm_mullo_epi16(a0,a1))};

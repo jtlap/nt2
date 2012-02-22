@@ -52,14 +52,14 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 
 #include "mconf.h"
 
-static float c1 = 0.35502805388781723926;
-static float c2 = 0.258819403792806798405;
-static float sqrt3 = 1.732050807568877293527;
-static float sqpii = 5.64189583547756286948E-1;
+static float c1 = 0.35502805388781723926f;
+static float c2 = 0.258819403792806798405f;
+static float sqrt3 = 1.732050807568877293527f;
+static float sqpii = 5.64189583547756286948E-1f;
 extern float PIF;
 
 extern float MAXNUMF, MACHEPF;
-#define MAXAIRY 25.77
+#define MAXAIRY 25.77f
 
 /* Note, these expansions are for double precision accuracy;
  * they have not yet been redesigned for single precision.
@@ -272,23 +272,23 @@ if( x > MAXAIRY )
 	return(-1);
 	}
 
-if( x < -2.09 )
+if( x < -2.09f )
 	{
 	domflg = 15;
 	t = cephes_sqrtf(-x);
-	zeta = -2.0 * x * t / 3.0;
+	zeta = -2.0f * x * t / 3.0f;
 	t = cephes_sqrtf(t);
 	k = sqpii / t;
-	z = 1.0/zeta;
+	z = 1.0f/zeta;
 	zz = z * z;
-	uf = 1.0 + zz * cephes_polevlf( zz, AFN, 8 ) / cephes_p1evlf( zz, AFD, 9 );
+	uf = 1.0f + zz * cephes_polevlf( zz, AFN, 8 ) / cephes_p1evlf( zz, AFD, 9 );
 	ug = z * cephes_polevlf( zz, AGN, 10 ) / cephes_p1evlf( zz, AGD, 10 );
-	theta = zeta + 0.25 * PIF;
+	theta = zeta + 0.25f * PIF;
 	f = cephes_sinf( theta );
 	g = cephes_cosf( theta );
 	*ai = k * (f * uf - g * ug);
 	*bi = k * (g * uf + f * ug);
-	uf = 1.0 + zz * cephes_polevlf( zz, APFN, 8 ) / cephes_p1evlf( zz, APFD, 9 );
+	uf = 1.0f + zz * cephes_polevlf( zz, APFN, 8 ) / cephes_p1evlf( zz, APFD, 9 );
 	ug = z * cephes_polevlf( zz, APGN, 10 ) / cephes_p1evlf( zz, APGD, 10 );
 	k = sqpii * t;
 	*aip = -k * (g * uf + f * ug);
@@ -296,50 +296,50 @@ if( x < -2.09 )
 	return(0);
 	}
 
-if( x >= 2.09 )	/* cbrt(9) */
+if( x >= 2.09f )	/* cbrt(9) */
 	{
 	domflg = 5;
 	t = cephes_sqrtf(x);
-	zeta = 2.0 * x * t / 3.0;
+	zeta = 2.0f * x * t / 3.0f;
 	g = cephes_expf( zeta );
 	t = cephes_sqrtf(t);
-	k = 2.0 * t * g;
-	z = 1.0/zeta;
+	k = 2.0f * t * g;
+	z = 1.0f/zeta;
 	f = cephes_polevlf( z, AN, 7 ) / cephes_polevlf( z, AD, 7 );
 	*ai = sqpii * f / k;
-	k = -0.5 * sqpii * t / g;
+	k = -0.5f * sqpii * t / g;
 	f = cephes_polevlf( z, APN, 7 ) / cephes_polevlf( z, APD, 7 );
 	*aip = f * k;
 
-	if( x > 8.3203353 )	/* zeta > 16 */
+	if( x > 8.3203353f )	/* zeta > 16 */
 		{
 		f = z * cephes_polevlf( z, BN16, 4 ) / cephes_p1evlf( z, BD16, 5 );
 		k = sqpii * g;
-		*bi = k * (1.0 + f) / t;
+		*bi = k * (1.0f + f) / t;
 		f = z * cephes_polevlf( z, BPPN, 4 ) / cephes_p1evlf( z, BPPD, 5 );
-		*bip = k * t * (1.0 + f);
+		*bip = k * t * (1.0f + f);
 		return(0);
 		}
 	}
 
-f = 1.0;
+f = 1.0f;
 g = x;
-t = 1.0;
-uf = 1.0;
+t = 1.0f;
+uf = 1.0f;
 ug = x;
-k = 1.0;
+k = 1.0f;
 z = x * x * x;
 while( t > MACHEPF )
 	{
 	uf *= z;
-	k += 1.0;
+	k += 1.0f;
 	uf /=k;
 	ug *= z;
-	k += 1.0;
+	k += 1.0f;
 	ug /=k;
 	uf /=k;
 	f += uf;
-	k += 1.0;
+	k += 1.0f;
 	ug /=k;
 	g += ug;
 	t = fabsf(uf/f);
@@ -352,27 +352,27 @@ if( (domflg & 2) == 0 )
 	*bi = sqrt3 * (uf + ug);
 
 /* the deriviative of ai */
-k = 4.0;
-uf = x * x/2.0;
-ug = z/3.0;
+k = 4.0f;
+uf = x * x/2.0f;
+ug = z/3.0f;
 f = uf;
-g = 1.0 + ug;
-uf /= 3.0;
-t = 1.0;
+g = 1.0f + ug;
+uf /= 3.0f;
+t = 1.0f;
 
 while( t > MACHEPF )
 	{
 	uf *= z;
 	ug /=k;
-	k += 1.0;
+	k += 1.0f;
 	ug *= z;
 	uf /=k;
 	f += uf;
-	k += 1.0;
+	k += 1.0f;
 	ug /=k;
 	uf /=k;
 	g += ug;
-	k += 1.0;
+	k += 1.0f;
 	t = fabsf(ug/g);
 	}
 

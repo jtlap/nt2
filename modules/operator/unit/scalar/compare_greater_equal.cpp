@@ -25,8 +25,9 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -42,7 +43,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<compare_greater_equal_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T>  wished_r_t;
 
 
   // return type conformity test 
@@ -53,11 +54,11 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::Inf<T>(), nt2::Inf<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::Minf<T>(), nt2::Minf<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::Nan<T>(), nt2::Nan<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(),nt2::Zero<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Inf<T>(), nt2::Inf<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Minf<T>(), nt2::Minf<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Nan<T>(), nt2::Nan<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(),nt2::Zero<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(true));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -69,7 +70,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  NT2_INTEGRAL_SIGNED_
   typedef typename nt2::meta::call<compare_greater_equal_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T>  wished_r_t;
 
 
   // return type conformity test 
@@ -80,10 +81,10 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  NT2_INTEGRAL_SIGNED_
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::Mone<T>(),nt2::Zero<T>()), false);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(), nt2::One<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(),nt2::Zero<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Mone<T>(),nt2::Zero<T>()), ssr_t(false));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(), nt2::One<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(),nt2::Zero<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(true));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
@@ -95,7 +96,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  NT2_UNSIGNED_TYPES
   typedef typename nt2::meta::call<compare_greater_equal_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef nt2::logical<T>  wished_r_t;
 
 
   // return type conformity test 
@@ -106,7 +107,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  NT2_UNSIGNED_TYPES
 
 
   // specific values tests
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(), nt2::One<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(),nt2::Zero<T>()), true);
-  NT2_TEST_EQUAL(compare_greater_equal(nt2::Zero<T>(), nt2::Zero<T>()), true);
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(), nt2::One<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::One<T>(),nt2::Zero<T>()), ssr_t(true));
+  NT2_TEST_EQUAL(compare_greater_equal(nt2::Zero<T>(), nt2::Zero<T>()), ssr_t(true));
 } // end of test for unsigned_int_

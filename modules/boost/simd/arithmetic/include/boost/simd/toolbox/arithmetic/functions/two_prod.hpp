@@ -56,10 +56,13 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag two_prod_ of functor two_prod 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct two_prod_ {};
+    struct two_prod_ : ext::elementwise_<two_prod_> { typedef ext::elementwise_<two_prod_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::two_prod_, two_prod, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_prod_, two_prod,(A0 const&)(A0 const&)(A0&), 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_prod_, two_prod,(A0 const&)(A0 const&)(A0&)(A0&), 1)
 } }
+    
 
 #endif
 

@@ -8,8 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-  bitwise_any.cpp
-  bitwise_all.cpp
+  is_included_c.cpp
+  is_included.cpp
   is_simd_logical.cpp
   none.cpp
   at_i.cpp

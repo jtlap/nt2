@@ -78,7 +78,8 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag asinpi_ of functor asinpi 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    template <class T> struct asinpi_ {};
+    template <class T>
+    struct asinpi_ : ext::elementwise_<asinpi_<T> > { typedef ext::elementwise_<asinpi_<T> > parent; };
   }
   NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(asinpi, 1)
 } }

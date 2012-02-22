@@ -8,25 +8,36 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_IF_ELSE_HPP_INCLUDED
-
-#include <boost/simd/toolbox/operator/functions/if_else.hpp>
-#include <boost/simd/include/functions/select.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/bitwise_select.hpp>
+#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(X)
-                            , ((simd_< fundamental_<A0>, X >))
-                              ((simd_< fundamental_<A0>, X >))
-                              ((simd_< fundamental_<A0>, X >))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
+                            , ((simd_< logical_<A0>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
                             )
   {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
+    typedef A1 result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      return boost::simd::select( boost::simd::is_eqz(a0), a2, a1 );
+      return bitwise_select(genmask(a0), a1, a2);
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, tag::cpu_, (A0)(A1)(X)
+                            , ((simd_< arithmetic_<A0>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
+                              ((simd_< arithmetic_<A1>, X >))
+                            )
+  {
+    typedef A1 result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
+    {
+      return if_else( is_nez(a0), a1, a2 );
+    }
+  };  
 } } }
 
 #endif

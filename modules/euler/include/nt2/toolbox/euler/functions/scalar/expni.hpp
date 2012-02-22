@@ -23,9 +23,7 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/is_odd.hpp>
-
-
-
+#include <nt2/include/functions/exp.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -37,9 +35,7 @@ namespace nt2 { namespace ext
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A1)>::type result_type;
-
+    typedef typename boost::dispatch::meta::as_floating<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return expni(a0, result_type(a1));
@@ -58,17 +54,15 @@ namespace nt2 { namespace ext
                             , (scalar_< integer_<A0> >)(scalar_< floating_<A1> >)
                             )
   {
-
     typedef A1 result_type;
-
     NT2_FUNCTOR_CALL(2)
     {
       A1 x = a1;
       const int32_t n =  a0;
-      if( n < 0 ||  x < 0)      return Nan<A1>();
+      if( n < 0 ||  x < Zero<A1>())      return Nan<A1>();
       if( x > Maxlog<A1>() )    return Zero<A1>();
       if( is_eqz(x) )           return (n < 2) ? Inf<A1>() : rec(n-One<A1>());
-      if( n == 0 )              return exp(-x)/x;
+      if( n == 0 )              return nt2::exp(-x)/x;
       /* Expansion for large n */
       if( n > 5000 )
       {

@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_inf_ of functor is_inf 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_inf_ {};
+    struct is_inf_ : ext::elementwise_<is_inf_> { typedef ext::elementwise_<is_inf_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_inf_, is_inf, 1)
 } }

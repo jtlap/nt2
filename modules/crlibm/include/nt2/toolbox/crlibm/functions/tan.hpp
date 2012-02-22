@@ -78,7 +78,8 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag tan_ of functor tan 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    template <class T> struct tan_ {};
+    template <class T>
+    struct tan_ : ext::elementwise_<tan_<T> > { typedef ext::elementwise_<tan_<T> > parent; };
   }
   NT2_CRLIBM_FUNCTION_IMPLEMENTATION_TPL(tan, 1)
 } }

@@ -21,10 +21,10 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     inline result_type operator()(A0 const&)const 
     {
-      return Zero<A0>();
+      return Zero<result_type>();
     }
   };
 } }

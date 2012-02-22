@@ -45,6 +45,8 @@ SET( SOURCES
   bitofsign.cpp
   bitinteger.cpp
   bitfloating.cpp
+  safe_min.cpp
+  safe_max.cpp
 # List of scalar test files for toolbox ieee
    )
 

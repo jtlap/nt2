@@ -12,10 +12,8 @@
 #include <boost/simd/include/functions/is_flint.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/half.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_even_, tag::cpu_
@@ -23,26 +21,19 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return !(a0 & One<A0>());
+      return result_type(!(a0 & One<A0>()));
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_even_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return is_flint(a0*Half<A0>());

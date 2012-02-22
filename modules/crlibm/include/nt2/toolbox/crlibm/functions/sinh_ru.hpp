@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag sinh_ru_ of functor sinh_ru 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct sinh_ru_ {};
+    struct sinh_ru_ : ext::elementwise_<sinh_ru_> { typedef ext::elementwise_<sinh_ru_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::sinh_ru_, sinh_ru, 1)
 } }

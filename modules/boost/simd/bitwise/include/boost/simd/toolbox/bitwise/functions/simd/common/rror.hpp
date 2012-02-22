@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RROR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RROR_HPP_INCLUDED
-
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext

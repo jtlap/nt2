@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0,A1)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0,A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
       y = madd(nf, w, (one-nf)*y);
 
       w = rec(y);
-      x = shri(oneplus(sign_n),1);  // 1 if positive, else 0
+      x = type(shri(oneplus(sign_n),1));  // 1 if positive, else 0
       return madd(x,y,(one-x)*w);
     }
   };

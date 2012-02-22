@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
 /// 
-#include <nt2/toolbox/bitwise/include/functions/negif.hpp>
+#include <nt2/toolbox/boolean/include/functions/negif.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,11 +24,11 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/toolbox/constant/constant.hpp>
 
 
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<negif_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  typedef typename boost::common_type<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<negif_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::arithmetic(T)>::type wished_r_t;
+  typedef typename boost::common_type<T>::type wished_r_t;
 
 
   // return type conformity test 

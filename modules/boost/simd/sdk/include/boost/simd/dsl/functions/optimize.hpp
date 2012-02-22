@@ -10,10 +10,11 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_OPTIMIZE_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct optimize_ : dispatch::tag::formal_ {}; }
+  namespace tag { struct optimize_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; }; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::optimize_, optimize, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::optimize_, optimize, (A0 const&)(A1&), 2)

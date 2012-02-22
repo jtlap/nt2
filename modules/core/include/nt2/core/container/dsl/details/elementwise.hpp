@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_ELEMENTWISE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 #include <boost/fusion/include/transform.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -79,7 +79,7 @@ namespace nt2 { namespace container { namespace ext
       typedef typename
       boost::mpl::if_c< A0::static_status,A0,A1>::type type;
     };
-    
+
     template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
     operator()(A0 const& a0, A1 const& a1) const
@@ -90,14 +90,14 @@ namespace nt2 { namespace container { namespace ext
 
     template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
-    selection(A0 const& a0, A1 const& a1, boost::mpl::true_ const&) const
+    selection(A0 const& a0, A1 const&, boost::mpl::true_ const&) const
     {
       return a0;
     }
 
     template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
-    selection(A0 const& a0, A1 const& a1, boost::mpl::false_ const&) const
+    selection(A0 const&, A1 const& a1, boost::mpl::false_ const&) const
     {
       return a1;
     }
@@ -105,7 +105,7 @@ namespace nt2 { namespace container { namespace ext
 
   // element-wise size n-ary
   template<class Tag, class Domain, int N, class Expr>
-  struct size
+  struct size_of
   {
     typedef typename boost::fusion::result_of::
     transform<Expr const, size_transform<Domain> >::type sizes;
@@ -126,7 +126,7 @@ namespace nt2 { namespace container { namespace ext
 
   // element-wise size unary
   template<class Tag, class Domain, class Expr>
-  struct size<Tag, Domain, 1, Expr>
+  struct size_of<Tag, Domain, 1, Expr>
   {
     typedef typename boost::proto::result_of::
     child_c<Expr&, 0>::type                         child0;

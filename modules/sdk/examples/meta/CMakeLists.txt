@@ -19,7 +19,6 @@ SET(SOURCES
     downgrade.cpp
     enable_if_type.cpp
     factory_of.cpp
-    floating.cpp
     is_fundamental.cpp
     is_iterator.cpp
     is_result_of_supported.cpp

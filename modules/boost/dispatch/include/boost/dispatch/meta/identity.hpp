@@ -16,29 +16,51 @@ namespace boost { namespace dispatch
 {
   struct identity
   {
+    template<class X>
+    struct apply
+    {
+      typedef X type;
+    };
+    
     template<class Sig>
     struct result;
     
     template<class This, class A0>
-    struct result<This(A0)> : meta::as_ref<A0>
+    struct result<This(A0)>
+      : meta::as_ref<A0>
     {
     };
     
     template<class This, class A0, class A1>
-    struct result<This(A0, A1)> : meta::as_ref<A0>
+    struct result<This(A0, A1)>
+      : meta::as_ref<A0>
     {
     };
     
     template<class A0>
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     A0& operator()(A0& a0) const
     {
       return a0;
     }
     
+    template<class A0>
+    BOOST_FORCEINLINE
+    A0 const& operator()(A0 const& a0) const
+    {
+      return a0;
+    }
+
     template<class A0, class A1>
-    BOOST_DISPATCH_FORCE_INLINE
+    BOOST_FORCEINLINE
     A0& operator()(A0& a0, A1&) const
+    {
+      return a0;
+    }
+
+    template<class A0, class A1>
+    BOOST_FORCEINLINE
+    A0 const& operator()(A0 const& a0, A1 const&) const
     {
       return a0;
     }

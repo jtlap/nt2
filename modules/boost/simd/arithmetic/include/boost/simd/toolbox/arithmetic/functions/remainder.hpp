@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag remainder_ of functor remainder 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct remainder_ {};
+    struct remainder_ : ext::elementwise_<remainder_> { typedef ext::elementwise_<remainder_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remainder_, remainder, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remainder_, drem, 2)

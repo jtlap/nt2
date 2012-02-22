@@ -9,34 +9,16 @@
 #ifndef NT2_CORE_SETTINGS_ID_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_ID_HPP_INCLUDED
 
+
+
 #include <boost/cstdint.hpp>
 #include <boost/mpl/string.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/forward/id.hpp>
+
 
 namespace nt2 
 { 
-  //============================================================================
-  /*! id_ gives a container with a 32bits ID, either numerical or by using
-   *  multi-byte character. This ID is usable to allow deeper compile-time
-   * analysis and optimization.
-   * 
-   * \tparam ID 32 byte multi-bytes character unique identifier
-   **/
-  //============================================================================
-  template<boost::uint32_t ID> struct id_ 
-  {
-    typedef boost::mpl::string<ID> type;
-  }; 
-  
-  namespace tag 
-  { 
-    //==========================================================================
-    /*!
-     * Option tag for id options
-     **/
-    //==========================================================================
-    struct id_ {}; 
-  }
 
   namespace meta
   {
@@ -50,5 +32,7 @@ namespace nt2
     };
   } 
 }
+
+
 
 #endif

@@ -50,12 +50,12 @@ namespace boost { namespace simd { namespace ext
     {
       typedef result_type rtype; 
       if (is_inf(a0))
-	{
-	  if (is_ltz(a0))
-	    return Valmin<rtype>(); 
-	  else
-	    return Valmax<rtype>();
-	}
+      {
+        if (is_ltz(a0))
+          return Valmin<rtype>(); 
+        else
+          return Valmax<rtype>();
+      }
       if (boost::simd::is_nan(a0)) return Zero<rtype>(); 
       return result_type(round(a0));
     }

@@ -10,9 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MINMAG_HPP_INCLUDED
 #include <boost/simd/include/functions/abs.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minmag_, tag::cpu_
@@ -21,13 +18,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       return (boost::simd::abs(a0) <  boost::simd::abs(a1)) ? a0 : a1;
     }
   };
 } } }
-
 
 #endif

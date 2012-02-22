@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag floor_ of functor floor 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct floor_ {};
+    struct floor_ : ext::elementwise_<floor_> { typedef ext::elementwise_<floor_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::floor_, floor, 1)
   } }

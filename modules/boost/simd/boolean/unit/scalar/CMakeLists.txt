@@ -10,7 +10,6 @@
 SET( SOURCES
   negif.cpp
   seladd.cpp
-  select.cpp
   selsub.cpp
 # List of scalar test files for toolbox boolean
    )

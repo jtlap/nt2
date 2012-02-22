@@ -11,9 +11,6 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_<T> , tag::cpu_,
@@ -25,13 +22,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       if (a0 > Valmax<T>())
-	return Valmax<T>();
+        return Valmax<T>();
       else if (a0 <  Valmin<T>())
- 	return Valmin<T>();
+        return Valmin<T>();
       else
-	return a0; 
+        return a0; 
     }
   };
-  
 } } }
 #endif

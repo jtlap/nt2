@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A2)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A2>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A2)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A2>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     { return gsl_sf_legendre_Plm(a0, a1, a2); }
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A2)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A2>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     { return gsl_sf_legendre_Plm(a0, a1, a2); }

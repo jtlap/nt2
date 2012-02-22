@@ -9,9 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -43,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
-      return _mm_movemask_ps(native_cast<type>(a0));
+      return _mm_movemask_ps(bitwise_cast<type>(a0));
     }
   };
 
@@ -59,7 +57,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
-      return _mm_movemask_pd(native_cast<type>(a0));
+      return _mm_movemask_pd(bitwise_cast<type>(a0));
     }
   };
 } } }

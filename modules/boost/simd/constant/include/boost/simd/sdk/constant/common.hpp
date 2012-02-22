@@ -9,12 +9,14 @@
 #ifndef BOOST_SIMD_SDK_CONSTANT_COMMON_HPP_INCLUDED
 #define BOOST_SIMD_SDK_CONSTANT_COMMON_HPP_INCLUDED
 
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/simd/sdk/simd/tags.hpp>
-#include <boost/simd/sdk/simd/category.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
 #include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/sdk/simd/category.hpp>
+#include <boost/simd/sdk/simd/tags.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/as.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
 
 //==============================================================================
 // Forward all constant call to the simd version of themselves that splat
@@ -26,8 +28,8 @@ namespace boost { namespace simd { namespace ext
   // By default we splat the constant contained into the extarcted value from
   // the Tag over a given Target.
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)
-                                   , ((target_< scalar_< fundamental_<A0> > >))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( constant_<Tag>, tag::cpu_, (Tag)(A0)
+                                   , ((target_< scalar_< arithmetic_<A0> > >))
                                    )
   {
     typedef typename A0::type                               base_type;
@@ -46,9 +48,9 @@ namespace boost { namespace simd { namespace ext
   // splat from the Tag/Target bit pattern immediate, if not we add a bitwise
   // cast
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (Tag)(A0)(X)
-                            , ((target_< simd_< arithmetic_<A0>,X> >))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( constant_<Tag>, tag::cpu_, (Tag)(A0)(X)
+                                    , ((target_< simd_< arithmetic_<A0>,X> >))
+                                    )
   {
     typedef typename A0::type                                       target_type;
     typedef typename dispatch::meta::scalar_of<target_type>::type   base_type;
@@ -62,7 +64,7 @@ namespace boost { namespace simd { namespace ext
                                                                     pattern_type;
       typedef boost::simd::native<pattern_type,X>                   tmp_type;
       
-      return native_cast<result_type> ( boost::simd::
+      return bitwise_cast<result_type> ( boost::simd::
                                         splat<tmp_type>( pattern_type(value_type::value) )
                                       );
     }

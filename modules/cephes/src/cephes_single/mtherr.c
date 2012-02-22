@@ -60,15 +60,15 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
  * messages is bound to the error codes defined
  * in mconf.h.
  */
-static char *ermsg[7] = {
-"unknown",      /* error code 0 */
-"domain",       /* error code 1 */
-"singularity",  /* et seq.      */
+/*static char *ermsg[7] = {
+"unknown",       error code 0 
+"domain",        error code 1 
+"singularity",   et seq.      
 "overflow",
 "underflow",
 "total loss of precision",
 "partial loss of precision"
-};
+};*/
 
 
 int cephes_mtherr( name, code )

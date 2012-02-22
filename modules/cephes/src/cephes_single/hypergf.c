@@ -94,11 +94,11 @@ b = bb;
 x = xx;
 /* See if a Kummer transformation will help */
 temp = b - a;
-if( fabsf(temp) < 0.001 * fabsf(a) )
+if( fabsf(temp) < 0.001f * fabsf(a) )
 	return( cephes_expf(x) * cephes_hypergf( temp, b, -x )  );
 
 psum = hy1f1pf( a, b, x, &pcanc );
-if( pcanc < 1.0e-6 )
+if( pcanc < 1.0e-6f )
 	goto done;
 
 
@@ -116,7 +116,7 @@ if( acanc < pcanc )
 	}
 
 done:
-if( pcanc > 1.0e-3 )
+if( pcanc > 1.0e-3f )
 	cephes_mtherr( "hyperg", PLOSS );
 
 return( psum );
@@ -167,9 +167,9 @@ while( t > MACHEPF )
 
 	/* check for blowup */
 	temp = fabsf(u);
-	if( (temp > 1.0 ) && (maxt > (MAXNUMF/temp)) )
+	if( (temp > 1.0f ) && (maxt > (MAXNUMF/temp)) )
 		{
-		pcanc = 1.0;	/* estimate 100% error */
+		pcanc = 1.0f;	/* estimate 100% error */
 		goto blowup;
 		}
 
@@ -185,15 +185,15 @@ while( t > MACHEPF )
 		goto blowup;
 		}
 */
-	an += 1.0;
-	bn += 1.0;
-	n += 1.0;
+	an += 1.0f;
+	bn += 1.0f;
+	n += 1.0f;
 	}
 
 pdone:
 
 /* estimate error due to roundoff and cancellation */
-if( sum != 0.0 )
+if( sum != 0.0f )
 	maxt /= fabsf(sum);
 maxt *= MACHEPF; 	/* this way avoids multiply overflow */
 pcanc = fabsf( MACHEPF * n  +  maxt );
@@ -253,13 +253,13 @@ if( b > 0 )
 	u += temp;
 	}
 
-h1 = cephes_hyp2f0f( a, a-b+1, -1.0/x, 1, &err1 );
+h1 = cephes_hyp2f0f( a, a-b+1, -1.0f/x, 1, &err1 );
 
 temp = cephes_expf(u) / cephes_gammaf(b-a);
 h1 *= temp;
 err1 *= temp;
 
-h2 = cephes_hyp2f0f( b-a, 1.0-a, 1.0/x, 2, &err2 );
+h2 = cephes_hyp2f0f( b-a, 1.0f-a, 1.0f/x, 2, &err2 );
 
 if( a < 0 )
 	temp = cephes_expf(t) / cephes_gammaf(a);
@@ -269,7 +269,7 @@ else
 h2 *= temp;
 err2 *= temp;
 
-if( x < 0.0 )
+if( x < 0.0f )
 	asum = h1;
 else
 	asum = h2;
@@ -285,10 +285,10 @@ if( b < 0 )
 	}
 
 
-if( asum != 0.0 )
+if( asum != 0.0f )
 	acanc /= fabsf(asum);
 
-acanc *= 30.0;	/* fudge factor, since error of asymptotic formula
+acanc *= 30.0f;	/* fudge factor, since error of asymptotic formula
 		 * often seems this much larger than advertised */
 
 adone:
@@ -336,7 +336,7 @@ do
 
 	/* check for blowup */
 	temp = fabsf(u);
-	if( (temp > 1.0 ) && (maxt > (MAXNUMF/temp)) )
+	if( (temp > 1.0f ) && (maxt > (MAXNUMF/temp)) )
 		goto error;
 
 	a0 *= u;
@@ -353,9 +353,9 @@ do
 	if( n > 200 )
 		goto ndone;
 
-	an += 1.0;
-	bn += 1.0;
-	n += 1.0;
+	an += 1.0f;
+	bn += 1.0f;
+	n += 1.0f;
 	if( t > maxt )
 		maxt = t;
 	}
@@ -375,17 +375,17 @@ ndone:	/* series did not converge */
 /* The following "Converging factors" are supposed to improve accuracy,
  * but do not actually seem to accomplish very much. */
 
-n -= 1.0;
-x = 1.0/x;
+n -= 1.0f;
+x = 1.0f/x;
 
 switch( type )	/* "type" given as subroutine argument */
 {
 case 1:
-	alast *= ( 0.5 + (0.125 + 0.25*b - 0.5*a + 0.25*x - 0.25*n)/x );
+	alast *= ( 0.5f + (0.125f + 0.25f*b - 0.5f*a + 0.25f*x - 0.25f*n)/x );
 	break;
 
 case 2:
-	alast *= 2.0/3.0 - b + 2.0*a + x - n;
+	alast *= 2.0f/3.0f - b + 2.0f*a + x - n;
 	break;
 
 default:

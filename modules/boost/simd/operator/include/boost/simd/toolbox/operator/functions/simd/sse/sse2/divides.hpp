@@ -11,9 +11,12 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/divides.hpp>
-#include <boost/simd/sdk/config/compiler.hpp>
-#include <boost/simd/include/functions/none.hpp>
+#include <boost/simd/include/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
 #include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/sdk/config/compiler.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,18 +27,19 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-#ifdef BOOST_SIMD_COMPILER_GCC
-      //================================================================
-      // this is a workaround for a possible gcc over-optimisation
-      // that produce zero/zero -> zero instead of nan
-      if (none(a0)&&none(a1)) return Nan<result_type>();
-      //================================================================
-#endif
       A0 const that = { _mm_div_pd(a0,a1) };
+#if defined(BOOST_SIMD_COMPILER_GCC) && \
+            __GNUC__ <= 4 && \
+            ((__GNUC_MINOR__ < 6 || \
+             (__GNUC_MINOR__ ==  6 &&__GNUC_PATCHLEVEL__ < 3)) || \
+             (__GNUC_MINOR__ == 7 && __GNUC_PATCHLEVEL__ < 1))
+      // workaround for GCC bug #50396 fixed in 4.6.3 But apparently not in 4.7.0
+      return if_nan_else(logical_and(is_eqz(a0), is_eqz(a1)), that);
+#else
       return that;
+#endif
     }
   };
 
@@ -46,18 +50,19 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-#ifdef BOOST_SIMD_COMPILER_GCC
-      //================================================================
-      // this is a workaround for a possible gcc over-optimisation
-      // that produce zero/zero -> zero instead of nan
-      if (none(a0)&&none(a1)) return Nan<result_type>();
-      //================================================================
-#endif
       A0 const that = { _mm_div_ps(a0,a1) };
+#if defined(BOOST_SIMD_COMPILER_GCC) && \
+            __GNUC__ <= 4 && \
+            ((__GNUC_MINOR__ < 6 || \
+             (__GNUC_MINOR__ ==  6 &&__GNUC_PATCHLEVEL__ < 3)) || \
+             (__GNUC_MINOR__ == 7 && __GNUC_PATCHLEVEL__ < 1))
+      // workaround for GCC bug #50396 fixed in 4.6.3  But apparently not in 4.7.0
+      return if_nan_else(logical_and(is_eqz(a0), is_eqz(a1)), that);
+#else
       return that;
+#endif
     }
   };
 } } }

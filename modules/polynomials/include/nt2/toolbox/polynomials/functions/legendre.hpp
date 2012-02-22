@@ -13,7 +13,7 @@
 
 namespace nt2 { namespace tag
   {         
-    struct legendre_ {};
+    struct legendre_ : ext::elementwise_<legendre_> { typedef ext::elementwise_<legendre_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::legendre_, legendre, 2)
 }

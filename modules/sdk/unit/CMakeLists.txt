@@ -11,3 +11,4 @@ nt2_module_use_modules(unit operator)
 
 ADD_SUBDIRECTORY(meta)
 ADD_SUBDIRECTORY(memory)
+ADD_SUBDIRECTORY(config)

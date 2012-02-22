@@ -18,11 +18,27 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    typedef boost::proto::tag::assign assign_;
+    struct assign_ : ext::elementwise_<assign_> { typedef ext::elementwise_<assign_> parent; };
   }
   
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::assign_ , assign , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_SELF(tag::assign_ , set    , 2 )
+
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL (tag::assign_ , assign, (A0 const&)(A1 const&), 2)
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::assign>
+  {
+    typedef boost::simd::tag::assign_ type;
+  };
+  template<>
+  struct proto_tag<boost::simd::tag::assign_>
+  {
+    typedef boost::proto::tag::assign type;
+  };
+} } }
 
 #endif

@@ -8,21 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REC_HPP_INCLUDED
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/inf.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
+   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename boost::dispatch::meta::result_of<boost::dispatch::meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef result_type type;
@@ -30,9 +26,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is floating_
-/////////////////////////////////////////////////////////////////////////////
 #ifdef BOOST_MSVC
   #pragma warning(push)
   #pragma warning(disable: 4723) // potential divide by 0

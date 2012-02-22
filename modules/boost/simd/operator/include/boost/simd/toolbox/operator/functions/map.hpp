@@ -51,17 +51,29 @@
  *  
 **/
 
-namespace boost { namespace simd { namespace tag { struct map_ {}; } } }
+namespace boost { namespace simd
+{
   /*!
    * \brief Define the tag map_ of functor map 
    *        in namespace boost::simd::tag for toolbox boost.simd.operator
   **/
+  namespace tag
+  {
+    struct map_ : ext::elementwise_<map_> { typedef ext::elementwise_<map_> parent; };
+  }
+} }
 
 namespace boost { namespace simd
 {
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1&),2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1 const&)(A2&),3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1&)(A2&),3)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::map_,map,4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1 const&)(A2 const&)(A3&),4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1 const&)(A2&)(A3&),4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::map_,map,(A0 const&)(A1&)(A2&)(A3&),4)
 } }
 
 #endif

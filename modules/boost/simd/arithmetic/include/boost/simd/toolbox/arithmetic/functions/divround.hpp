@@ -57,7 +57,7 @@ namespace boost { namespace simd {
      * \brief Define the tag divround_ of functor divround 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct divround_ {};
+    struct divround_ : ext::elementwise_<divround_> { typedef ext::elementwise_<divround_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divround_, divround, 2)
 } }

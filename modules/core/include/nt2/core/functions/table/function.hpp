@@ -13,7 +13,7 @@
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/function.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/meta/is_colon.hpp>
+#include <nt2/sdk/meta/is_colon.hpp>
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/sdk/memory/slice.hpp>
@@ -171,7 +171,7 @@ namespace nt2 { namespace container { namespace ext
   #undef M3
 
   template<class Expr, class Domain, int N>
-  struct size<tag::function_, Domain, N, Expr>
+  struct size_of<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::
     child_c<Expr, 0>::type                             child0;
@@ -252,10 +252,10 @@ namespace nt2 { namespace container { namespace ext
 namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (Expr)(State)(Data)
+                            , (Expr)(State)(Data)(Arity)
                             , ((expr_< unspecified_<Expr>
-                                     , nt2::container::domain
                                      , nt2::tag::function_
+                                     , Arity
                                      >
                               ))
                               (fusion_sequence_<State>)

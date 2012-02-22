@@ -17,10 +17,6 @@
 #include <boost/simd/include/functions/sqr.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, boost::simd::tag::sse2_
@@ -34,14 +30,7 @@ namespace boost { namespace simd { namespace ext
       A0 that = { _mm_sqrt_pd(a0)}; return that;
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<single_<A0>,boost::simd::tag::sse_>))
@@ -53,13 +42,7 @@ namespace boost { namespace simd { namespace ext
       A0 that = { _mm_sqrt_ps(a0)}; return that;
     }
   };
-} } }
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is integer
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqrt_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<integer_<A0>,boost::simd::tag::sse_>))

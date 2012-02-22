@@ -9,17 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IFLOOR_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
-
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/floor.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_inf.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ifloor_, tag::cpu_
@@ -48,12 +43,12 @@ namespace boost { namespace simd { namespace ext
     {
       typedef result_type rtype; 
       if (boost::simd::is_inf(a0))
-	{
-	  if (boost::simd::is_ltz(a0))
-	    return Valmin<rtype>(); 
-	  else
-	    return  Valmax<rtype>();
-	}
+      {
+        if (boost::simd::is_ltz(a0))
+          return Valmin<rtype>(); 
+        else
+          return  Valmax<rtype>();
+      }
       if (boost::simd::is_nan(a0)) return Zero<rtype>(); 
       return rtype(floor(a0));
     }

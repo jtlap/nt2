@@ -13,5 +13,6 @@
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/native_tuple.hpp>
 
 #endif

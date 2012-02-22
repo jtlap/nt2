@@ -26,12 +26,13 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_REAL_TYPES)
@@ -43,7 +44,7 @@ NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<ellint_2_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -51,9 +52,9 @@ NT2_TEST_CASE_TPL ( ellint_2_real__1_0,  NT2_REAL_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(ellint_2(nt2::One<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(ellint_2(nt2::Zero<T>()), nt2::Pi<r_t>()/2, 0);
-} // end of test for floating_
+  NT2_TEST_ULP_EQUAL(ellint_2(nt2::Zero<T>()), nt2::Pi<r_t>()/2, 0.5);
+} // end of test for real_

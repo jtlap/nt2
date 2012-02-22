@@ -21,6 +21,10 @@ SET( SOURCES
   almost_less_or_equal.cpp
   almost_greater_or_equal.cpp
   almost_equal.cpp
+  tolerant_floor.cpp
+  tolerant_ceil.cpp
+  tolerant_round.cpp
+  tolerant_trunc.cpp
 # List of simd test files for toolbox fuzzy
    )
 

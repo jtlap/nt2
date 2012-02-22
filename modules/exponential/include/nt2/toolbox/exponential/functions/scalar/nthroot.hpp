@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -54,19 +54,19 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::result_of<meta::floating(A0)>::type type;
+      typedef typename boost::dispatch::meta::as_floating<A0>::type type;
       if (!a1) return One<type>();
       if (!a0) return Zero<type>();
       bool is_ltza0 = is_ltz(a0); 
       if (!is_odd(a1) && is_ltza0) return Nan<type>(); 
       if (is_inf(a0)) return a0; 
-      type aa1 = a1;
+      type aa1 = type(a1);
       type x = nt2::abs(a0); 
       type y = nt2::pow(x,rec(aa1));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
       if (y) y -= (nt2::pow(y, a1) - x) / (aa1* nt2::pow(y,minusone(a1)));
-	  return (is_ltza0) ? -y : y;
+      return (is_ltza0) ? -y : y;
     }
   };
 } }

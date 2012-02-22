@@ -11,14 +11,13 @@
 
 #include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct align_on_ {}; }
+  namespace tag { struct align_on_ : dispatch::meta::unspecified_<align_on_> {}; }
 
   namespace memory
   {
@@ -68,6 +67,8 @@ namespace boost { namespace simd
     }
   }
 } }
+
+BOOST_DISPATCH_DEFAULT_SITE_FOR( boost::simd::tag::align_on_ )
 
 #include <boost/simd/sdk/memory/details/align_on.hpp>
 

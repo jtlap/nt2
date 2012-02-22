@@ -16,7 +16,7 @@
 #include <nt2/toolbox/predicates/include/functions/is_negative.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -27,16 +27,14 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
@@ -59,22 +57,20 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
+  std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
+  std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
 
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-10000), T(10000));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = is_negative(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::is_negative (tab_a0[k])));
-        }
+          NT2_TEST_EQUAL( v[i],ssr_t(nt2::is_negative (a0[i])));
       }
-    
   }
 } // end of test for floating_

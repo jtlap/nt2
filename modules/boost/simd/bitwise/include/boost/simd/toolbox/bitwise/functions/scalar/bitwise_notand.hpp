@@ -9,9 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_BITWISE_NOTAND_HPP_INCLUDED
 
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/toolbox/bitwise/functions/bitwise_notand.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/complement.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -23,7 +25,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0, unsigned>::type bts;
@@ -32,15 +33,6 @@ namespace boost { namespace simd { namespace ext
                                    )
                              ); 
     }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_notand_, tag::cpu_, (A0)(A1)
-                            , (scalar_< bool_<A0> >)
-                              (scalar_< bool_<A1> >)
-                            )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return !a0 && a1; }
   };
 } } }
 

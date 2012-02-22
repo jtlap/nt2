@@ -12,7 +12,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SPLAT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-
 #include <boost/dispatch/meta/as.hpp>
 
 /*!
@@ -58,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag splat_ of functor splat 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct splat_  {};
+    struct splat_ : ext::elementwise_<splat_> { typedef ext::elementwise_<splat_> parent; };
   }
 
   template<class T, class A0> inline

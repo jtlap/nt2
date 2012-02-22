@@ -28,16 +28,15 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
-			     (A0),
-			     (scalar_<arithmetic_<A0> > )
-			     )
+                             (A0),
+                             (scalar_<arithmetic_<A0> > )
+                             )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type etype;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type etype;
     typedef boost::fusion::tuple<etype, etype>           result_type;
-    
     NT2_FUNCTOR_CALL(1)
       {
-	return ellipke(etype(a0), Eps<etype>()); 
+        return ellipke(etype(a0), Eps<etype>()); 
       }
   };
   
@@ -45,17 +44,17 @@ namespace nt2 { namespace ext
   // Implementation when type A0 is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
-			     (A0),
-			     (scalar_<arithmetic_<A0> >)
-			     (scalar_<arithmetic_<A0> >)
-			     )
+                             (A0),
+                             (scalar_<arithmetic_<A0> >)
+                             (scalar_<arithmetic_<A0> >)
+                             )
   {
     typedef boost::fusion::tuple<A0, A0> result_type;
     
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
-	typedef typename meta::result_of<meta::floating(A0)>::type type;
-	return ellipke(type(a0), type(a1)); 
+        typedef typename boost::dispatch::meta::as_floating<A0>::type type;
+        return ellipke(type(a0), type(a1)); 
       }
   };
   
@@ -63,18 +62,18 @@ namespace nt2 { namespace ext
   // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::ellipke_, tag::cpu_,
-			     (A0),
-			     (scalar_<floating_<A0> >)
-			     (scalar_<floating_<A0> >)
-			     )
+                             (A0),
+                             (scalar_<floating_<A0> >)
+                             (scalar_<floating_<A0> >)
+                             )
   {
     typedef boost::fusion::tuple<A0, A0> result_type;
     
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
-	result_type res;
-	nt2::ellipke(a0, a1, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res)); 
-	return res; 
+        result_type res;
+        nt2::ellipke(a0, a1, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res)); 
+        return res; 
       }
   };
   
@@ -82,17 +81,17 @@ namespace nt2 { namespace ext
   // reference based Implementations 1 input
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,
-			       (A0), 
-			       (scalar_<floating_<A0> >)
-			       (scalar_<floating_<A0> >)
-			       (scalar_<floating_<A0> >)
-			       )
+                               (A0), 
+                               (scalar_<floating_<A0> >)
+                               (scalar_<floating_<A0> >)
+                               (scalar_<floating_<A0> >)
+                               )
   {
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A0 & a1,A0 & a2) const
       {
-	nt2::ellipke(a0,Eps<A0>(),a1,a2);
-	return 0; 
+        nt2::ellipke(a0,Eps<A0>(),a1,a2);
+        return 0; 
       }
   }; 
   
@@ -100,49 +99,49 @@ namespace nt2 { namespace ext
   // reference based Implementations 2 inputs
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::ellipke_, tag::cpu_,(A0), 
-			       (scalar_<floating_<A0> >)
-			       (scalar_<floating_<A0> >)
-			       (scalar_<floating_<A0> >)
-			       (scalar_<floating_<A0> >)
-			       )
+                               (scalar_<floating_<A0> >)
+                               (scalar_<floating_<A0> >)
+                               (scalar_<floating_<A0> >)
+                               (scalar_<floating_<A0> >)
+                               )
   {
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A0 const& a1, A0 & a2,A0 & a3) const
       {
-	if (is_ltz(a0) || gt(a0, One<A0>()))
-	  {
-	    a2 = Nan<A0>();
-	    a3 = Nan<A0>();
-	    return 0; 
-	  }
-	A0 m = a0; 
-	A0 aa0 = One<A0>();;
-	A0 bb0 = sqrt(oneminus(m));
-	A0 s0 = m;
-	int32_t i1 = 0;
-	A0 mm = 1;
-	A0 aa1 = Zero<A0>(); 
-	while (mm > a1) {
-	  aa1 = average(aa0, bb0);
-	  A0 bb1 = nt2::sqrt(aa0*bb0);
-	  A0 cc1 = nt2::average(aa0, -bb0);
-	  i1++; 
-	  mm = nt2::ldexp(sqr(cc1), i1); 
-	  s0 += mm;
-	  aa0 = aa1;
-	  bb0 = bb1;
-	};
-	if (is_equal(m, One<A0>()))
-	  {
-	    a2 = Inf<A0>();
-	    a3 = One<A0>();
-	  }
-	else
-	  {
-	    a2 = nt2::Pio_2<A0>()/aa1;
-	    a3 = a2*(One<A0>()-s0*Half<A0>());
-	  }
-	return 0; 
+        if (is_ltz(a0) || gt(a0, One<A0>()))
+          {
+            a2 = Nan<A0>();
+            a3 = Nan<A0>();
+            return 0; 
+          }
+        A0 m = a0; 
+        A0 aa0 = One<A0>();;
+        A0 bb0 = nt2::sqrt(oneminus(m));
+        A0 s0 = m;
+        int32_t i1 = 0;
+        A0 mm = 1;
+        A0 aa1 = Zero<A0>(); 
+        while (mm > a1) {
+          aa1 = average(aa0, bb0);
+          A0 bb1 = nt2::sqrt(aa0*bb0);
+          A0 cc1 = nt2::average(aa0, -bb0);
+          i1++; 
+          mm = nt2::ldexp(sqr(cc1), i1); 
+          s0 += mm;
+          aa0 = aa1;
+          bb0 = bb1;
+        };
+        if (is_equal(m, One<A0>()))
+          {
+            a2 = Inf<A0>();
+            a3 = One<A0>();
+          }
+        else
+          {
+            a2 = nt2::Pio_2<A0>()/aa1;
+            a3 = a2*(One<A0>()-s0*Half<A0>());
+          }
+        return 0; 
       }
   };
   

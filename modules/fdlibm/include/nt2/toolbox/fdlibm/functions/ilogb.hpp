@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag ilogb_ of functor ilogb 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct ilogb_ {};
+    struct ilogb_ : ext::elementwise_<ilogb_> { typedef ext::elementwise_<ilogb_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::ilogb_, ilogb, 1)
   } }

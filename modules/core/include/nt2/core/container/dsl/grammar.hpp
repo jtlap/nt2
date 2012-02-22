@@ -9,10 +9,12 @@
 #ifndef NT2_CORE_CONTAINER_DSL_GRAMMAR_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_GRAMMAR_HPP_INCLUDED
 
+#include <nt2/sdk/meta/is_container.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/container/meta/is_container.hpp>
 #include <boost/dispatch/meta/lambda_terminal.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
+
+namespace nt2 { namespace tag { struct box_; } }
 
 namespace nt2 { namespace container
 {
@@ -26,6 +28,7 @@ namespace nt2 { namespace container
                 , boost::dispatch::
                   lambda_terminal< boost::is_arithmetic<boost::proto::_value> >
                 , boost::proto::terminal<colon_>
+                , boost::proto::nullary_expr<tag::box_, boost::proto::_>
                 , boost::proto::
                   and_< boost::proto::
                         nary_expr < boost::proto::_

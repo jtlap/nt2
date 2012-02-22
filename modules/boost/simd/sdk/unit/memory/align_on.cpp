@@ -270,8 +270,8 @@ NT2_TEST_CASE(align_on_int_)
   using boost::simd::memory::align_on;
 
   boost::mpl::int_<0>           null_;
-  boost::mpl::int_<0xABCD8000> exact_;
-  boost::mpl::int_<0xABCD7FFF> under_;
+  boost::mpl::int_<int(0xABCD8000)> exact_;
+  boost::mpl::int_<int(0xABCD7FFF)> under_;
 
   NT2_TEST_EQUAL( int(align_on<0x01>(null_)) , 0 );
   NT2_TEST_EQUAL( int(align_on<0x02>(null_)) , 0 );

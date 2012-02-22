@@ -10,15 +10,6 @@
 include(NT2Module)
 nt2_module_source_setup(sdk)
 
-set(SOURCES
-    error/assert_exception.cpp
-    error/exception.cpp
-    timing/now.cpp
-    timing/timers.cpp
-    config/version.cpp
-   )
-nt2_module_add_library(nt2 ${SOURCES})
-
 nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          nt2/dsl/functions boost/simd/dsl/functions                                         
                                          --out  nt2/dsl/include/functions

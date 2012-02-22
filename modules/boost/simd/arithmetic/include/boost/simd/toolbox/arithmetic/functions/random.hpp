@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag random_ of functor random 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct random_ {};
+    struct random_ : ext::elementwise_<random_> { typedef ext::elementwise_<random_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::random_, random, 2)
 } }

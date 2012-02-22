@@ -25,17 +25,19 @@ extern "C" {long double cephes_j0l(long double);}
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
+
 #include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 
 NT2_TEST_CASE_TPL ( j0_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -56,10 +58,10 @@ NT2_TEST_CASE_TPL ( j0_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-
+  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(j0(nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(j0(nt2::One<vT>())[0], sr_t( 7.651976865579666e-01), 0);
+  NT2_TEST_ULP_EQUAL(j0(nt2::One<vT>())[0], sr_t( 7.651976865579666e-01), 0.5);
   NT2_TEST_ULP_EQUAL(j0(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0);
-} // end of test for floating_
+} // end of test for real_

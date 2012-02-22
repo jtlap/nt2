@@ -8,13 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MODF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MODF_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
@@ -52,7 +49,7 @@ namespace boost { namespace simd { namespace ext
                       (scalar_ < arithmetic_<A0> > )
                      )
   {
-    typedef boost::fusion::vector<A0, A0>                               result_type;
+    typedef boost::fusion::vector<A0,A0> result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type res;

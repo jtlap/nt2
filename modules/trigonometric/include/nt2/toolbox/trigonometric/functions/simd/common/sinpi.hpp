@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -37,15 +37,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {impl::trig_base<result_type,pi_tag,  tag::simd_type>::sina(tofloat(a0))}; 
+      A0 that = {impl::trig_base<result_type,pi_tag,tag::simd_type>::sina(a0)}; 
       return that;
     }
   };

@@ -8,14 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FMA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_FMA_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/fma.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/plus.hpp>
+// TO DO define a proper fma policy
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::fma_, tag::cpu_,

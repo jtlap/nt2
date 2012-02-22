@@ -18,16 +18,14 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-
-
-
+#include <nt2/include/functions/if_else_zero.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acotd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acotd_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
@@ -37,9 +35,10 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 s = bitofsign(a0);
-      return b_or(sel(is_inf(a0), Zero<A0>(), _90<A0>()-b_and(is_nez(a0),nt2::atand(abs(a0))))
-		  , s);
+      return b_or(sel(is_inf(a0),
+                  Zero<A0>(),
+                  _90<A0>()-if_else_zero(is_nez(a0),nt2::atand(abs(a0)))), 
+              bitofsign(a0));
     }
   };
 } }
@@ -47,7 +46,7 @@ namespace nt2 { namespace ext
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acotd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acotd_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )

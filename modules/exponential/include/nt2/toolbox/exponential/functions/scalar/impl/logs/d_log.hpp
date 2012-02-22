@@ -52,7 +52,7 @@ namespace nt2
 	  int_type k;
 	  boost::fusion::vector_tie(x, k) = fast_frexp(a0);
 	  //	  fast_frexp(a0, x, k);
-	  const int_type x_lt_sqrthf = -is_greater(Sqrt_2o_2<A0>(), x);
+          const int_type x_lt_sqrthf = is_greater(Sqrt_2o_2<A0>(), x)?Mone<int_type>():Zero<int_type>();
 	  k += x_lt_sqrthf;
 	  f = minusone(x+b_and(x, genmask(x_lt_sqrthf)));
 	  dk = tofloat(k);

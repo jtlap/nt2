@@ -8,16 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FREXP_HPP_INCLUDED
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/properties.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/bitwise_notand.hpp>
+#include <boost/simd/toolbox/ieee/functions/frexp.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/logical_notand.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/constants/maxexponent.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -34,26 +35,29 @@ namespace boost { namespace simd { namespace ext
                               ((simd_< integer_<A2>, X>))
                             )
   {
-    typedef void result_type;
-    inline void operator()(A0 const& a0,A1 & r0,A2 & r1) const
+    typedef int result_type;
+    inline int operator()(A0 const& a0,A1 & r0,A2 & r1) const
     {
+      typedef typename meta::as_logical<A0>::type bA0;
       typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
-      typedef typename meta::scalar_of<int_type>::type        sint_type;
-      typedef typename meta::scalar_of<A0>::type                 s_type;
+      typedef typename meta::as_logical<int_type>::type                 bint_type;      
+      typedef typename meta::scalar_of<int_type>::type                  sint_type;
+      typedef typename meta::scalar_of<A0>::type                           s_type;
       const sint_type me = Maxexponent<s_type>()-1;
       const sint_type nmb= Nbmantissabits<s_type>();
       const sint_type n1 = ((2*me+3)<<nmb);
       const sint_type n2 = me<<nmb;
-      const  int_type vme = splat<int_type>(me);
-      A0 ci_exp=simd::native_cast<A0>(splat< int_type>(n1));
-      r1 = simd::native_cast<int_type>(b_and(ci_exp, a0));// extract exponent
+      const int_type vme = splat<int_type>(me);
+      A0 ci_exp=simd::bitwise_cast<A0>(splat< int_type>(n1));
+      r1 = simd::bitwise_cast<int_type>(b_and(ci_exp, a0));// extract exponent
       A0 x = b_notand(ci_exp, a0);                        // clear exponent in a0
       r1 = sub(shri(r1,nmb), vme);                        // compute exponent
       r0 = b_or(x,splat<int_type>(n2));                   // insert exponent+1 in x
-      A0 test0 = is_nez(a0);
-      int_type test1 = gt(r1,vme);
-      r1 = b_and(r1, b_notand(test1, test0));
-      r0 = b_and(seladd(test1,r0,a0), test0);
+      bA0 test0 = is_nez(a0);
+      bint_type test1 = gt(r1,vme);
+      r1 = if_else_zero(logical_notand(test1, test0), r1); 
+      r0 = if_else_zero(test0, seladd(test1,r0,a0));
+      return 0; 
     }
   };
   
@@ -64,7 +68,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;    
-    inline void operator()(A0 const& a0,A2 & a2) const
+    inline result_type operator()(A0 const& a0,A2 & a2) const
     {
       A0 a1; 
       boost::simd::frexp(a0, a1, a2);

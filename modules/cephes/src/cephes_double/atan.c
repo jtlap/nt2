@@ -139,8 +139,8 @@ static short Q[20] = {
 };
 
 /* cephes_tan( 3*pi/8 ) = 2.41421356237309504880 */
-static unsigned short T3P8A[] = {0x9de6,0x333f,0x504f,0x4003};
-#define T3P8 *(double *)T3P8A
+/*static unsigned short T3P8A[] = {0x9de6,0x333f,0x504f,0x4003};*/
+/*#define T3P8 *(double *)T3P8A*/
 #endif
 
 #ifdef MIEEE
@@ -213,7 +213,7 @@ if( x < 0.0 )
 	}
 /* range reduction */
 flag = 0;
-if( x > T3P8 )
+ if( x > 2.41421356237309504880/*T3P8*/ )
 	{
 	y = PIO2;
 	flag = 1;

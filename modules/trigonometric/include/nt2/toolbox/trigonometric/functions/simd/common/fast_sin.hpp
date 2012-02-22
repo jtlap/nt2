@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_sin_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_sin_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_sin_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_sin_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
@@ -45,8 +45,8 @@ namespace nt2 { namespace ext
     typedef A0  result_type;
     NT2_FUNCTOR_CALL(1)
       {
-	A0 that = {impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::sina(a0)}; 
-	return that;
+     A0 that = {impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::sina(a0)}; 
+     return that;
       }
   }; 
 } }

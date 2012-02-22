@@ -23,19 +23,19 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
+
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
+
 #include <nt2/include/functions/load.hpp>
 
-NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  NT2_SIMD_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  NT2_SIMD_REAL_TYPES)
 {
   using boost::simd::firstbitset;
   using boost::simd::tag::firstbitset_;
@@ -56,12 +56,12 @@ NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  NT2_SIMD_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Inf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Minf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Nan<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Signmask<vT>())[0], boost::simd::One<sr_t>()+boost::simd::Valmax<sr_t>()/2);
-  NT2_TEST_EQUAL(firstbitset(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for real_
+  NT2_TEST_EQUAL(firstbitset(nt2::Inf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(firstbitset(nt2::Minf<vT>())[0], ssr_t(1ull<<boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(firstbitset(nt2::Nan<vT>())[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(firstbitset(nt2::Signmask<vT>())[0], nt2::One<sr_t>()+nt2::Valmax<sr_t>()/2);
+  NT2_TEST_EQUAL(firstbitset(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
+} // end of test for float
 
 NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {

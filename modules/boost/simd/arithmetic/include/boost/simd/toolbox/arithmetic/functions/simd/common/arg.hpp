@@ -14,29 +14,12 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/if_allbits_else.hpp>
+// No implementation for integer types
+
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::arg_, tag::cpu_,
-                      (A0)(X),
-                      ((simd_<arithmetic_<A0>,X>))
-                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
-    {
-      typedef result_type type;
-      return b_and(Pi<type>(), is_ltz(a0));
-    }
-  };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::arg_, tag::cpu_,
                       (A0)(X),
                       ((simd_<floating_<A0>,X>))
@@ -46,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       // a0 >= 0 -> 0, a0 < 0 ->Pi, a0 Nan -> Nan
-      return is_nan(a0)+b_and(Pi<A0>(), is_ltz(a0));
+      return if_nan_else(is_nan(a0), if_else_zero(is_ltz(a0), Pi<result_type>())); 
     }
   };
 } } }

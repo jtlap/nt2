@@ -9,8 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_SHLI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_SHLI_HPP_INCLUDED
 
-#include <boost/dispatch/meta/as_unsigned.hpp>
+#include <boost/simd/toolbox/bitwise/functions/shli.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/map.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 #include <boost/simd/include/functions/shift_left.hpp>
+#include <boost/dispatch/meta/as_unsigned.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,12 +24,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type ntype;
-      return simd::native_cast<A0>( map( dispatch::functor<tag::shift_left_>()
-                                       , simd::native_cast<ntype>(a0)
+      return simd::bitwise_cast<A0>( map( dispatch::functor<tag::shift_left_>()
+                                       , simd::bitwise_cast<ntype>(a0)
                                        , splat<ntype>(a1)
                                        )
                                   );

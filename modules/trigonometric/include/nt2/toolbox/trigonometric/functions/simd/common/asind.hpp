@@ -16,6 +16,7 @@
 #include <nt2/include/functions/asin.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -23,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asind_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asind_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -33,7 +34,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(nt2::sign(tofloat(a0))*_90<result_type>(), gt(abs(a0), One<A0>()));
+      return if_nan_else(gt(abs(a0), One<A0>()), nt2::sign(tofloat(a0))*_90<result_type>());
     }
   };
 } }
@@ -44,7 +45,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asind_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asind_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

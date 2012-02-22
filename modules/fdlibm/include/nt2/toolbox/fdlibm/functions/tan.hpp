@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag tan_ of functor tan 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct tan_ {};
+    struct tan_ : ext::elementwise_<tan_> { typedef ext::elementwise_<tan_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::tan_, tan, 1)
   } }

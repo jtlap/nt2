@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -33,7 +33,19 @@ namespace details
 {
   template<class T, class Origin = T, class Enable = void>
   struct  property_of
-   : meta::property_of<typename meta::primitive_of<T>::type, Origin>
+   : meta::property_of<T, Origin>
+  {
+  };
+
+  template<class T, class sT, class Origin>
+  struct property_of_impl
+   : meta::property_of<sT, Origin>
+  {
+  };
+
+  template<class T, class Origin>
+  struct property_of_impl<T, T, Origin>
+   : property_of<T, Origin>
   {
   };
 }
@@ -42,16 +54,18 @@ namespace meta
 {
   template<class T, class Origin>
   struct  property_of
-        : details::property_of< T
-                              , typename meta::strip<Origin>::type
-                              >
-  {};
+        : details::property_of_impl< typename meta::strip<T>::type
+                                   , typename meta::scalar_of<typename meta::strip<T>::type>::type
+                                   , typename meta::strip<Origin>::type
+                                   >
+  {
+  };
 
   template<class T, class Origin>
-  struct  property_of<T&, Origin> : property_of<T, typename meta::strip<Origin>::type> {};
+  struct  property_of<T&, Origin> : property_of<T, Origin> {};
 
   template<class T, class Origin>
-  struct  property_of<T const, Origin> : property_of<T, typename meta::strip<Origin>::type> {};
+  struct  property_of<T const, Origin> : property_of<T, Origin> {};
 } } }
 
 #include <boost/dispatch/meta/details/property_of.hpp>

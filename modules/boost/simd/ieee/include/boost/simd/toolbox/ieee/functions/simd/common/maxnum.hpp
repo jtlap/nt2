@@ -8,13 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MAXNUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MAXNUM_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::maxnum_, tag::cpu_,
@@ -29,11 +26,6 @@ namespace boost { namespace simd { namespace ext
       return boost::simd::max(a0, a1);
     }
   };
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::maxnum_, tag::cpu_,
                          (A0)(X),

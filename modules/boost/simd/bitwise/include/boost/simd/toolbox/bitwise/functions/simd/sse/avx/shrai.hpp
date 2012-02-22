@@ -30,6 +30,7 @@ namespace boost { namespace simd { namespace ext
       return that;
      }
   };
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shrai_, boost::simd::tag::avx_
                             , (A0)(A1)
                             , ((simd_<unsigned_<A0>,boost::simd::tag::avx_>))

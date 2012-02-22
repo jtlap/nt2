@@ -36,6 +36,21 @@ check_function_exists(ynf NT2_TOOLBOX_BESSEL_HAS_YNF)
 check_function_exists(_yn NT2_TOOLBOX_BESSEL_HAS__YN)
 check_function_exists(_ynf NT2_TOOLBOX_BESSEL_HAS__YNF)
 
+check_function_exists(j0 NT2_TOOLBOX_BESSEL_HAS_J0)
+check_function_exists(j0f NT2_TOOLBOX_BESSEL_HAS_J0F)
+check_function_exists(_j0 NT2_TOOLBOX_BESSEL_HAS__J0)
+check_function_exists(_j0f NT2_TOOLBOX_BESSEL_HAS__J0F)
+
+check_function_exists(j1 NT2_TOOLBOX_BESSEL_HAS_J1)
+check_function_exists(j1f NT2_TOOLBOX_BESSEL_HAS_J1F)
+check_function_exists(_j1 NT2_TOOLBOX_BESSEL_HAS__J1)
+check_function_exists(_j1f NT2_TOOLBOX_BESSEL_HAS__J1F)
+
+check_function_exists(jn NT2_TOOLBOX_BESSEL_HAS_JN)
+check_function_exists(jnf NT2_TOOLBOX_BESSEL_HAS_JNF)
+check_function_exists(_jn NT2_TOOLBOX_BESSEL_HAS__JN)
+check_function_exists(_jnf NT2_TOOLBOX_BESSEL_HAS__JNF)
+
 ################################################################################
 # Generate math.hpp
 ################################################################################

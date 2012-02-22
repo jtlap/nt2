@@ -11,12 +11,12 @@
 #include <boost/array.hpp>
 #include <boost/mpl/vector_c.hpp>
 #include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/align_on.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <nt2/sdk/memory/no_padding.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <nt2/sdk/memory/lead_padding.hpp>
 #include <nt2/sdk/memory/global_padding.hpp>
+#include <boost/simd/sdk/memory/align_on.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -73,7 +73,7 @@ NT2_TEST_CASE(slice_global_padding)
 {
   using nt2::slice;
   using boost::array;
-  using nt2::memory::align_on;
+  using boost::simd::memory::align_on;
   using boost::mpl::vector_c;
   using nt2::memory::global_padding;
 
@@ -119,7 +119,7 @@ NT2_TEST_CASE(slice_lead_padding)
 {
   using nt2::slice;
   using boost::array;
-  using nt2::memory::align_on;
+  using boost::simd::memory::align_on;
   using boost::mpl::vector_c;
   using nt2::memory::lead_padding;
 

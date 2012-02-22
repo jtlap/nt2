@@ -40,8 +40,9 @@ std::string type_id_identity(T const&)
 
 } }
 
-#define NT2_PP_STRINGIZE_(...) #__VA_ARGS__
-#define NT2_PP_STRINGIZE(...) NT2_PP_STRINGIZE_(__VA_ARGS__)
+#define NT2_PP_STRINGIZE__(...) #__VA_ARGS__
+#define NT2_PP_STRINGIZE_(text) NT2_PP_STRINGIZE__ text
+#define NT2_PP_STRINGIZE(...) NT2_PP_STRINGIZE_((__VA_ARGS__))
 
 #define NT2_TEST_EXPR_TYPE(Expression, Lambda, Type)                                               \
 {                                                                                                  \
@@ -53,7 +54,9 @@ std::string type_id_identity(T const&)
             << "        is of type `" << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"  \
             << "               aka `" << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";   \
   if(nt2::details::is_same_as<BOOST_DISPATCH_PP_STRIP(Type)>                                       \
-     (nt2::details::expr_type<Lambda>(BOOST_DISPATCH_PP_STRIP(Expression)))                        \
+     (nt2::details::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>                                     \
+                             (BOOST_DISPATCH_PP_STRIP(Expression))                                 \
+     )                                                                                             \
     )                                                                                              \
   {                                                                                                \
     std::cout << " **passed**\n\n";                                                                \
@@ -63,9 +66,32 @@ std::string type_id_identity(T const&)
     nt2::details::error_count()++;                                                                 \
     std::cout << " **failed**     is `"                                                            \
               << nt2::details::type_id_identity                                                    \
-                 (nt2::details::expr_type<Lambda>(BOOST_DISPATCH_PP_STRIP(Expression)))            \
+                 (nt2::details::expr_type<BOOST_DISPATCH_PP_STRIP(Lambda)>                         \
+                                         (BOOST_DISPATCH_PP_STRIP(Expression))                     \
+                 )                                                                                 \
               << "`\n\n";                                                                          \
   }                                                                                                \
-}
+}                                                                                                  \
+/**/
+
+#define NT2_TEST_TYPE_INFO(Info, Type)                                                             \
+{                                                                                                  \
+  nt2::details::test_count()++;                                                                    \
+  std::cout << " * Test type info `" << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Info)) << "`\n"   \
+            << "       is of type `" << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"   \
+            << "              aka `" << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";    \
+  if(typeid(BOOST_DISPATCH_PP_STRIP(Type)) == Info)                                                \
+  {                                                                                                \
+    std::cout << " **passed**\n\n";                                                                \
+  }                                                                                                \
+  else                                                                                             \
+  {                                                                                                \
+    nt2::details::error_count()++;                                                                 \
+    std::cout << " **failed**     is `"                                                            \
+              << nt2::details::demangle((Info).name())                                             \
+              << "`\n\n";                                                                          \
+  }                                                                                                \
+}                                                                                                  \
+/**/
 
 #endif

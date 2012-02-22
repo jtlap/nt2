@@ -20,7 +20,7 @@
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_straight_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_straight_, boost::simd::tag::simd_,
                       (A0)(X),
                       ((simd_ < floating_<A0>,X > ))
                     )
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // reference based Implementation when real
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_straight_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_straight_, boost::simd::tag::simd_,
                       (A0)(X),
                       ((simd_ < floating_<A0>, X > ))
                       ((simd_ < floating_<A0>, X > ))
@@ -54,8 +54,6 @@ namespace nt2 { namespace ext
     typedef typename meta::as_integer<A0>::type result_type;    
     inline result_type operator()(A0 const& x, A0 & xr, A0& xc) const
     {
-      //static int i = 0;
-      //std::cout << "fdlibm_straight_reduction " << i++ << std::endl; 
       xr = x-Pio2_1<A0>();
       xr -= Pio2_2<A0>();
       xr -= Pio2_3<A0>();

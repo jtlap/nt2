@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag signgam_ of functor signgam 
      *        in namespace nt2::tag for toolbox euler
     **/
-    struct signgam_ {};
+    struct signgam_ : ext::elementwise_<signgam_> { typedef ext::elementwise_<signgam_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::signgam_, signgam, 1)
 }

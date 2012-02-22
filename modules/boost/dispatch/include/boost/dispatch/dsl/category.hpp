@@ -22,29 +22,33 @@ namespace boost { namespace dispatch { namespace meta
   // the same inheritance scheme based on semantic
   //////////////////////////////////////////////////////////////////////////////
   template<class T>
-  struct ast_ : ast_<typename T::parent>
-  {
-    typedef ast_<typename T::parent> parent;
-  };
-  
-  template<class T>
-  struct ast_< unspecified_<T> > : unspecified_<T>
+  struct ast_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
   };
-  
-  template<class T, class Domain, class Tag>
-  struct  expr_
-        : expr_<typename T::parent, Domain, Tag>
+
+  template<class T, class Tag, class N>
+  struct node_ : node_<T, typename Tag::parent, N>
   {
-    typedef expr_<typename T::parent, Domain, Tag>  parent;
+    typedef node_<T, typename Tag::parent, N> parent;
   };
 
-  template<class T, class Domain, class Tag>
-  struct  expr_< unspecified_<T>, Domain, Tag > 
-    : ast_<typename hierarchy_of<typename semantic_of<T>::type, T>::type>
+  template<class T, class Tag, class N>
+  struct node_<T, unspecified_<Tag>, N> : ast_<T>
   {
-    typedef ast_<typename hierarchy_of<typename semantic_of<T>::type, T>::type> parent;
+    typedef ast_<T> parent;
+  };
+
+  template<class T, class Tag, class N>
+  struct expr_ : expr_<typename T::parent, Tag, N>
+  {
+    typedef expr_<typename T::parent, Tag, N>  parent;
+  };
+
+  template<class T, class Tag, class N>
+  struct expr_< unspecified_<T>, Tag, N> : node_<T, Tag, N>
+  {
+    typedef node_<T, Tag, N> parent;
   };
 } } }
 
@@ -61,18 +65,14 @@ namespace boost { namespace dispatch { namespace details
                      >
   {
     typedef typename meta::semantic_of<T>::type  semantic_type;
-    typedef typename proto::domain_of<T>::type   domain_type;
     typedef typename proto::tag_of<T>::type      tag_type;
     
-    typedef meta::expr_ < typename meta::
-                          hierarchy_of< semantic_type
-                                      , Origin
-                                      >::type
-                        , domain_type
-                        , tag_type
-                        >                        type;
+    typedef meta::expr_ < typename meta::hierarchy_of<semantic_type, Origin>::type
+                        , typename meta::hierarchy_of<tag_type>::type
+                        , typename proto::arity_of<T>::type
+                        >                                          type;
   };
-  
+
   template<class T>
   struct value_of< T
                  , typename boost::
@@ -81,7 +81,7 @@ namespace boost { namespace dispatch { namespace details
     : meta::semantic_of<T>
   {
   };
-  
+
 } } }
 
 #endif

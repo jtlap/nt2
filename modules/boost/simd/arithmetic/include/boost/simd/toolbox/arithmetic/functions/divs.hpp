@@ -63,7 +63,7 @@ namespace boost { namespace simd {
      * \brief Define the tag divs_ of functor divs 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct divs_ {};
+    struct divs_ : ext::elementwise_<divs_> { typedef ext::elementwise_<divs_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, divs, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, saturated_div, 2) 

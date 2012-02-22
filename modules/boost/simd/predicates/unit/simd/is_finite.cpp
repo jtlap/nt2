@@ -15,8 +15,7 @@
 /// 
 #include <boost/simd/toolbox/predicates/include/functions/is_finite.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
-
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -49,14 +48,14 @@ NT2_TEST_CASE_TPL ( is_finite_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_finite(-boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::Half<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::Inf<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::Minf<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::Mone<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::Nan<vT>())[0]!=0, boost::simd::False<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::One<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::Quarter<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::Two<vT>())[0]!=0, boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(is_finite(boost::simd::Zero<vT>())[0]!=0, boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_finite(-boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::Half<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::Inf<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::Minf<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::Mone<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::Nan<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::One<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::Quarter<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::Two<vT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(is_finite(boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());
 } // end of test for floating_

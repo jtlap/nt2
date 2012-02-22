@@ -10,37 +10,35 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_GREATER_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/simd/sdk/simd/native_cast.hpp>
-#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_greater_equal.hpp>
+#include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<single_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<single_<A0>,boost::simd::tag::altivec_>))
+                            , ((simd_<floating_<A0>, boost::simd::tag::altivec_>))
+                              ((simd_<floating_<A0>, boost::simd::tag::altivec_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that   = { simd::native_cast<A0>(vec_cmpge(a0(),a1())) };
+      result_type that = { vec_cmpge(a0(),a1()) };
       return that;
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_greater_equal_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
+                            , ((simd_<integer_<A0>, boost::simd::tag::altivec_>))
+                              ((simd_<integer_<A0>, boost::simd::tag::altivec_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 lt   = { simd::native_cast<A0>(vec_cmplt(a0(),a1())) };
-      A0 that = { boost::simd::complement(lt) };
-      return that;
+      result_type lt = { vec_cmplt(a0(),a1()) };
+      return !lt;
     }
   };
 } } }

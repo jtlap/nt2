@@ -6,7 +6,7 @@
          'call_types' : ['T','T','iT'],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::logical<T>::type',
+             'default' : 'typename nt2::meta::as_logical<T>::type',
             },
          'special' : ['fuzzy'],
          'type_defs' : [],
@@ -17,7 +17,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 04/03/2011',
-             'included' : ['#include <nt2/sdk/meta/logical.hpp>'],
+             'included' : ['#include <nt2/sdk/simd/logical.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 04/03/2011',

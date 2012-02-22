@@ -10,22 +10,22 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_VMX_ALTIVEC_IS_NOT_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/toolbox/predicates/functions/is_not_equal.hpp>
 #include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_equal_, boost::simd::tag::altivec_, (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
-                              ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
+                            , ((simd_<arithmetic_<A0>, boost::simd::tag::altivec_>))
+                              ((simd_<arithmetic_<A0>, boost::simd::tag::altivec_>))
                             )
   {
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = boost::simd::complement(boost::simd::eq(a0,a1));
-      return that;
+      return logical_not(is_equal(a0, a1));
     }
   };
 } } }

@@ -8,12 +8,16 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITFLOATING_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITFLOATING_HPP_INCLUDED
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+
+#include <boost/simd/toolbox/ieee/functions/bitfloating.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/shli.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitfloating_, tag::cpu_,
@@ -25,8 +29,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return a0 >= Zero<A0>() ?
-	bitwise_cast<result_type>(a0) :
-	bitwise_cast<result_type>(shli(One<A0>(), (8*sizeof(A0)-1))-a0);
+      bitwise_cast<result_type>(a0) :
+      bitwise_cast<result_type>(Signmask<A0>()-a0);
     }
   };
 

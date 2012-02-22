@@ -1,3 +1,4 @@
+
 //==============================================================================
 //         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
 //         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
@@ -8,25 +9,31 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_LOGICAL_XOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_LOGICAL_XOR_HPP_INCLUDED
-
 #include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/bitwise_xor.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
-                            , (A0)
-                            , (scalar_< fundamental_<A0> >)(scalar_< fundamental_<A0> >)
+                                 , (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A1> >)
                             )
   {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      using boost::simd::is_nez;
-      return (is_nez(a0)^is_nez(a1));
+      return static_cast<result_type>(b_xor(is_nez(a0), is_nez(a1)));
     }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_
+                                 , (A0)(A1)
+                            , (scalar_< logical_<A0> >)
+                              (scalar_< logical_<A1> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2) { return static_cast<result_type>(b_xor(a0, a1));}
   };
 } } }
 

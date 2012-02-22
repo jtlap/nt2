@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_CEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_CEIL_HPP_INCLUDED
-
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
@@ -32,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const A0 d0 = round2even(a0);
-      return seladd((d0 < a0),d0,One<A0>());
+      return seladd(lt(d0, a0),d0,One<A0>());
     }
   };
 } } }

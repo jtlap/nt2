@@ -186,21 +186,21 @@ int i;
 float x, a, b, s, w;
 
 x = xx;
-if( x < 0.0 )
+if( x < 0.0f )
 	{
-	if( x < -30.8148 )
+	if( x < -30.8148f )
 		{
 		cephes_mtherr( "zetacf", OVERFLOW );
-		return(0.0);
+		return(0.0f);
 		}
-	s = 1.0 - x;
+	s = 1.0f - x;
 	w = cephes_zetacf( s );
-	b = cephes_sinf(PIO2F*x) * cephes_powf(2.0*PIF, x) * cephes_gammaf(s) * (1.0 + w) / PIF;
-	return(b - 1.0);
+	b = cephes_sinf(PIO2F*x) * cephes_powf(2.0f*PIF, x) * cephes_gammaf(s) * (1.0f + w) / PIF;
+	return(b - 1.0f);
 	}
 
 if( x >= MAXL2 )
-	return(0.0);	/* because first term is 2**-x */
+	return(0.0f);	/* because first term is 2**-x */
 
 /* Tabulated values for integer argument */
 w = cephes_floorf(x);
@@ -214,30 +214,30 @@ if( w == x )
 	}
 
 
-if( x < 1.0 )
+if( x < 1.0f )
 	{
-	w = 1.0 - x;
+	w = 1.0f - x;
 	a = cephes_polevlf( x, R, 5 ) / ( w * cephes_p1evlf( x, S, 5 ));
 	return( a );
 	}
 
-if( x == 1.0 )
+if( x == 1.0f )
 	{
 	cephes_mtherr( "zetacf", SING );
 	return( MAXNUMF );
 	}
 
-if( x <= 10.0 )
+if( x <= 10.0f )
 	{
-	b = cephes_powf( 2.0, x ) * (x - 1.0);
-	w = 1.0/x;
+	b = cephes_powf( 2.0f, x ) * (x - 1.0f);
+	w = 1.0f/x;
 	s = (x * cephes_polevlf( w, P, 8 )) / (b * cephes_p1evlf( w, Q, 8 ));
 	return( s );
 	}
 
-if( x <= 50.0 )
+if( x <= 50.0f )
 	{
-	b = cephes_powf( 2.0, -x );
+	b = cephes_powf( 2.0f, -x );
 	w = cephes_polevlf( x, A, 10 ) / cephes_p1evlf( x, B, 10 );
 	w = cephes_expf(w) + b;
 	return(w);
@@ -247,17 +247,17 @@ if( x <= 50.0 )
 /* Basic sum of inverse powers */
 
 
-s = 0.0;
-a = 1.0;
+s = 0.0f;
+a = 1.0f;
 do
 	{
-	a += 2.0;
+	a += 2.0f;
 	b = cephes_powf( a, -x );
 	s += b;
 	}
 while( b/s > MACHEPF );
 
-b = cephes_powf( 2.0, -x );
-s = (s + b)/(1.0-b);
+b = cephes_powf( 2.0f, -x );
+s = (s + b)/(1.0f-b);
 return(s);
 }

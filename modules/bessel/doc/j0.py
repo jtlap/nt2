@@ -6,7 +6,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<nt2::meta::floating(T)>::type',
+             'default' : 'typename boost::dispatch::meta::as_floating<T>::type',
             },
          'type_defs' : [],
          'types' : ['real_'],
@@ -25,7 +25,7 @@
             },
          'specific_values' : {
              'real_' : {
-                 'nt2::One<T>()' : {'result' : 'r_t( 7.651976865579666e-01)','ulp_thresh' : '0',},
+                 'nt2::One<T>()' : {'result' : 'r_t( 7.651976865579666e-01)','ulp_thresh' : '0.5',},
                  'nt2::Zero<T>()' : {'result' : 'nt2::One<r_t>()','ulp_thresh' : '0',},
                  'nt2::Inf<T>()' : {'result' : 'nt2::Zero<r_t>()','ulp_thresh' : '0',},
                 },

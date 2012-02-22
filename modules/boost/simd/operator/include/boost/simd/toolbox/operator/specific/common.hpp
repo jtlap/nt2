@@ -40,6 +40,7 @@ namespace boost { namespace simd { namespace details
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/common.hpp")
 #undef BOOST_SIMD_MAP_LOG
+#undef BOOST_FORCEINLINE
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,10 +49,11 @@ namespace boost { namespace simd { namespace details
 #define M0(z,n,t) (A##n)
 #define M1(z,n,t) (generic_< unspecified_<A##n> >)
 
-#define M2(z,n,t)                                            \
-BOOST_SIMD_REGISTER_DISPATCH ( Tag , tag::cpu_, (Tag)BOOST_PP_REPEAT(n,M0,~) \
-                             , BOOST_PP_REPEAT(n,M1,~)       \
-                             )                               \
+#define M2(z,n,t)                                                              \
+BOOST_SIMD_REGISTER_DISPATCH ( elementwise_<Tag> , tag::cpu_                   \
+                             , (Tag)BOOST_PP_REPEAT(n,M0,~)                    \
+                             , BOOST_PP_REPEAT(n,M1,~)                         \
+                             )                                                 \
 /**/
 
 namespace boost { namespace simd { namespace ext
@@ -68,24 +70,36 @@ namespace boost { namespace simd { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 #define M0(z,n,t) generic_< unspecified_<A##n> >
 
-#define M1(z,n,t)                                                           \
-namespace boost { namespace simd { namespace ext                            \
-{                                                                           \
-  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>          \
-  struct implement<Tag( BOOST_PP_ENUM(n,M0,~) ), tag::cpu_, Dummy>          \
-  {                                                                         \
-    BOOST_SIMD_MAP_LOG(Tag);                                                \
-    typedef typename dispatch::meta::                                       \
-    call<tag::map_ ( dispatch::functor<Tag>                                 \
-                   , BOOST_PP_ENUM_PARAMS(n,A)                              \
-                   )>::type result_type;                                    \
-                                                                            \
-    BOOST_DISPATCH_CALL(n)                                                  \
-    {                                                                       \
-      return boost::simd::map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n,a));  \
-    }                                                                       \
-  };                                                                        \
-} } }                                                                       \
+#define M1(z,n,t)                                                              \
+namespace boost { namespace simd { namespace ext                               \
+{                                                                              \
+  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>             \
+  struct implement< elementwise_<Tag>( BOOST_PP_ENUM(n,M0,~) )                 \
+                  , tag::cpu_, Dummy                                           \
+                  >                                                            \
+  {                                                                            \
+    BOOST_SIMD_MAP_LOG(Tag)                                                    \
+                                                                               \
+    template<class Sig>                                                        \
+    struct result;                                                             \
+                                                                               \
+    template<class This, BOOST_PP_ENUM_PARAMS(n, class _A)>                    \
+    struct result<This(BOOST_PP_ENUM_PARAMS(n, _A))>                           \
+    {                                                                          \
+      typedef typename dispatch::meta::                                        \
+      call<tag::map_ ( dispatch::functor<Tag>                                  \
+                     , BOOST_PP_ENUM_PARAMS(n, _A)                             \
+                     )>::type type;                                            \
+    };                                                                         \
+                                                                               \
+    template<BOOST_PP_ENUM_PARAMS(n, class _A)>                                \
+    typename result<implement(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a))>::type  \
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)) const                  \
+    {                                                                          \
+      return map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n, a) );      \
+    }                                                                          \
+  };                                                                           \
+} } }                                                                          \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M1,~)

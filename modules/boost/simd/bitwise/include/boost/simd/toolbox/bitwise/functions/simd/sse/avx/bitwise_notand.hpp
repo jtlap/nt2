@@ -9,7 +9,6 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_AVX_BITWISE_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_AVX_BITWISE_NOTAND_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 #include <boost/simd/toolbox/bitwise/functions/bitwise_notand.hpp>
 
 namespace boost { namespace simd { namespace ext

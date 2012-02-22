@@ -11,40 +11,34 @@
 #include <boost/simd/include/functions/divceil.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/floor.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is signed_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
                             , (A0)
-                            , (scalar_< signed_<A0> >)(scalar_< signed_<A0> >)
+                            , (scalar_< signed_<A0> >)
+                        (scalar_< signed_<A0> >)
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
-        return result_type(-iceil(-double(a0)/double(a1))); 
+        return static_cast<result_type >(-iceil(-static_cast<double>(a0)/static_cast<double>(a1))); 
       else
       {
         return (a0) ? ((a0>0) ? Valmax<result_type>() : Valmin<result_type>()) : Zero<result_type>();
       }
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
                             , (A0)
-                            , (scalar_< unsigned_<A0> >)(scalar_< unsigned_<A0> >)
+                            , (scalar_< unsigned_<A0> >)
+                        (scalar_< unsigned_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -56,18 +50,12 @@ namespace boost { namespace simd { namespace ext
         return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
 #ifdef BOOST_MSVC
   #pragma warning(push)
   #pragma warning(disable: 4723) // potential divide by 0
 #endif
-namespace boost { namespace simd { namespace ext
-{
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)

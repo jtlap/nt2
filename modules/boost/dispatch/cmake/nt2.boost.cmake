@@ -10,8 +10,8 @@
 ################################################################################
 # Find and detect Boost libraries
 ################################################################################
-SET(Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0" "1.46" "1.46.0" "1.46.1" "1.47")
-FIND_PACKAGE( Boost 1.46.0 QUIET )
+SET(Boost_ADDITIONAL_VERSIONS "1.48")
+FIND_PACKAGE( Boost 1.48.0 QUIET )
 IF(Boost_FOUND)
   MESSAGE(STATUS "[boost.dispatch] Boost version: ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
 ELSE()

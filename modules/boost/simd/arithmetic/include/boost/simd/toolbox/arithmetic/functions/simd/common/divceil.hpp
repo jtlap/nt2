@@ -9,13 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 
-#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/divceil.hpp>
 #include <boost/simd/include/functions/group.hpp>
 #include <boost/simd/include/functions/split.hpp>
 #include <boost/simd/include/functions/iceil.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -52,7 +53,7 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
-      return simd::native_cast<A0>(group(divceil(a0l, a1l),divceil(a0h, a1h)));
+      return bitwise_cast<A0>(group(divceil(a0l, a1l),divceil(a0h, a1h)));
     }
   };
 
@@ -71,7 +72,7 @@ namespace boost { namespace simd { namespace ext
       ivtype a0l, a0h, a1l, a1h;
       boost::fusion::tie(a0l, a0h) = split(a0);
       boost::fusion::tie(a1l, a1h) = split(a1);
-      return simd::native_cast<A0>(group(divceil(a0l, a1l),divceil(a0h, a1h) ));
+      return simd::bitwise_cast<A0>(group(divceil(a0l, a1l),divceil(a0h, a1h) ));
     }
   };
 

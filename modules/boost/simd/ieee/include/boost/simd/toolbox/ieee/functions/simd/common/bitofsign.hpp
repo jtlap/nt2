@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITOFSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_BITOFSIGN_HPP_INCLUDED
-#include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/include/constants/mzero.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
+#include <boost/simd/include/functions/bitwise_and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_LESS_HPP_INCLUDED
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/is_ord.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
                          ((simd_<integer_<A1>,X>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()( A0 const& a0, A0 const& a1, A1 const& a2) const
     {
       return lt(a0, nt2::subs(a1, abs(a2)));
@@ -46,10 +46,10 @@ namespace nt2 { namespace ext
                          ((simd_<integer_<A1>,X>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()( A0 const& a0, A0 const& a1, A1 const& a2) const
     {
-      return b_and(
+      return l_and(
                is_ord(a0, a1),
                lt(a0, predecessor(a1, nt2::abs(a2)))
                );

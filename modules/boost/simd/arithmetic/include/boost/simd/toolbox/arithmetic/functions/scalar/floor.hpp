@@ -8,16 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/floor.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/selsub.hpp>
 #include <boost/simd/include/functions/round2even.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_
@@ -31,14 +27,7 @@ namespace boost { namespace simd { namespace ext
       return a0;
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)

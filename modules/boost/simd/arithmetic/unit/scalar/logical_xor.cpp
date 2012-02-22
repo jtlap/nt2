@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
+  typedef typename  boost::simd::meta::as_logical<T>::type  wished_r_t;
 
 
   // return type conformity test 
@@ -44,14 +44,14 @@ NT2_TEST_CASE_TPL ( logical_xor_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(logical_xor(T(0),T(1)), true, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(T(3),T(0)), true, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Inf<T>(), boost::simd::Inf<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Minf<T>(), boost::simd::Minf<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Mone<T>(), boost::simd::Mone<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Nan<T>(), boost::simd::Nan<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::One<T>(), boost::simd::One<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Zero<T>(), boost::simd::Zero<T>()), false, 0);
+  NT2_TEST_EQUAL(logical_xor(T(0),T(1)), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(T(3),T(0)), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<sr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -64,8 +64,7 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
-
+  typedef typename  boost::simd::meta::as_logical<T>::type  wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -75,8 +74,8 @@ NT2_TEST_CASE_TPL ( logical_xor_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::One<T>(), boost::simd::One<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Zero<T>(), boost::simd::Zero<T>()), false, 0);
+  NT2_TEST_EQUAL(logical_xor(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<sr_t>());
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -89,8 +88,7 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYP
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef bool wished_r_t;
-
+  typedef typename  boost::simd::meta::as_logical<T>::type  wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -100,7 +98,7 @@ NT2_TEST_CASE_TPL ( logical_xor_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYP
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Mone<T>(), boost::simd::Mone<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::One<T>(), boost::simd::One<T>()), false, 0);
-  NT2_TEST_ULP_EQUAL(logical_xor(boost::simd::Zero<T>(), boost::simd::Zero<T>()), false, 0);
+  NT2_TEST_EQUAL(logical_xor(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_xor(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::False<sr_t>());
 } // end of test for signed_int_

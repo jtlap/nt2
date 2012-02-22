@@ -69,7 +69,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
      * \brief Define the tag gsl_sf_erf_q_ of functor gsl_sf_erf_q 
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
-    struct gsl_sf_erf_q_ {};
+    struct gsl_sf_erf_q_ : ext::elementwise_<gsl_sf_erf_q_> { typedef ext::elementwise_<gsl_sf_erf_q_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(gsl_specfun::tag::gsl_sf_erf_q_, gsl_sf_erf_q, 1)
   } }

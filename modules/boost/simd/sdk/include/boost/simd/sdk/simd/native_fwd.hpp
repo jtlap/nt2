@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd
 {
-  template<class T, class X>
+  template<class T, class X, class Enable = void>
   struct BOOST_SIMD_MAY_ALIAS native;
 } }
 

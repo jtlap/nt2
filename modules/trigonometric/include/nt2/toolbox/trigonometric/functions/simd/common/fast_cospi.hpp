@@ -8,18 +8,17 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_COSPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_COSPI_HPP_INCLUDED
-#include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/if_else_allbits.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cospi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cospi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -27,7 +26,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return boost::simd::native_cast<result_type>(One<A0>()+is_eqz(a0));
+      return if_else_allbits(is_eqz(a0),One<result_type>()); 
     }
   };
 } }
@@ -38,7 +37,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cospi_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cospi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

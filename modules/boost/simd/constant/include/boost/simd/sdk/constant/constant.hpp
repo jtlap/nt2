@@ -15,6 +15,24 @@
  */
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/functor.hpp>
+#include <boost/simd/toolbox/operator/functions/map.hpp>
+
+//==============================================================================
+// Define hierarchy for constant tags
+//==============================================================================
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T>
+  struct constant_ : elementwise_<T>
+  {
+    typedef unspecified_<T> parent;
+  };
+} } }
+
+namespace boost { namespace simd { namespace ext
+{
+  using boost::dispatch::meta::constant_;
+} } }
 
 //==============================================================================
 /*!

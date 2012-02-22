@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_POSMIN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_POSMIN_HPP_INCLUDED
-
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
@@ -25,12 +24,11 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::scalar_of<A0>::type type;
-      int p = 0;
-      type m = a0[0];
+      result_type p = 0;
+      stype m = a0[0];
       for(size_t i=1; i < boost::simd::meta::cardinal_of<A0>::value; i++)// TODO UNROLL
       {
-        if (m > a0[i]){m = a0[i]; p = i; }
+        if (m > a0[i]) { m = a0[i]; p = static_cast<result_type>(i); }
       }
       return p;
     }

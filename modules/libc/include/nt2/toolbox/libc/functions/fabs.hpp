@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag fabs_ of functor fabs 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct fabs_ {};
+    struct fabs_ : ext::elementwise_<fabs_> { typedef ext::elementwise_<fabs_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::fabs_, fabs, 1)
   } }

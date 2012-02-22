@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL ( polevl_real__2_0,  NT2_REAL_TYPES)
 //   typedef typename nt2::meta::as_integer<T>::type iT;
 //   typedef typename nt2::meta::call<polevl_(T,T)>::type r_t;
 //   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+//   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
 //   // return type conformity test 
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( polevl_real__2_0,  NT2_REAL_TYPES)
 //   typedef typename nt2::meta::as_integer<T>::type iT;
 //   typedef typename nt2::meta::call<polevl_(T,T)>::type r_t;
 //   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+//   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
 //   // return type conformity test 
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL ( polevl_real__2_0,  NT2_REAL_TYPES)
 //   typedef typename nt2::meta::as_integer<T>::type iT;
 //   typedef typename nt2::meta::call<polevl_(T,T)>::type r_t;
 //   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+//   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
 //   // return type conformity test 
