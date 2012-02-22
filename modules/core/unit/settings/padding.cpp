@@ -32,12 +32,12 @@ NT2_TEST_CASE( no_padding_strategy )
 
   NT2_TEST_EXPR_TYPE( no_padding_()
                     , (option< _, nt2::tag::padding_>)
-                    , (nt2::memory::no_padding)
+                    , (nt2::padding_<nt2::memory::no_padding>)
                     );
 
   NT2_TEST_EXPR_TYPE( no_pad
                     , (option< _, nt2::tag::padding_>)
-                    , (nt2::memory::no_padding)
+                    , (nt2::padding_<nt2::memory::no_padding>)
                     );
 }
 
@@ -48,26 +48,27 @@ NT2_TEST_CASE( padding_strategy )
 {
   using boost::mpl::_;
   using nt2::padding_;
+  using nt2::no_padding_;
   using nt2::settings;
   using nt2::meta::option;
 
   NT2_TEST_EXPR_TYPE ( nt2::padding_<nt2::memory::no_padding>()
                      , (option< _, nt2::tag::padding_>)
-                     , (nt2::memory::no_padding)
+                     , (nt2::padding_<nt2::memory::no_padding>)
                      );
 
   NT2_TEST_EXPR_TYPE ( none
                      , (option< _, nt2::tag::padding_>)
-                     , (nt2::memory::no_padding)
+                     , (nt2::padding_<nt2::memory::no_padding>)
                      );
 
   NT2_TEST_EXPR_TYPE( nt2::padding_<nt2::memory::cache_padding>()
                       ,(option<_, nt2::tag::padding_>)
-                      ,(nt2::memory::cache_padding)
+                      ,(nt2::padding_<nt2::memory::cache_padding>)
                      );
 
   NT2_TEST_EXPR_TYPE( cache
                       ,(option<_, nt2::tag::padding_>)
-                      ,(nt2::memory::cache_padding)
+                      ,(nt2::padding_<nt2::memory::cache_padding>)
                      );
 }

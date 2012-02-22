@@ -94,8 +94,6 @@ NT2_TEST_CASE( shared_ctor )
   using nt2::shared_;
   using nt2::settings;
   using nt2::no_padding_;
-  using nt2::global_padding_;
-  using nt2::lead_padding_;
   using nt2::share;
 
   float data[] =  {
@@ -114,7 +112,7 @@ NT2_TEST_CASE( shared_ctor )
      for(int i=1;i<=4;++i)
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
   }
-
+/*
   {
     table<float, settings(shared_,lead_padding_<4>)>
     x(of_size(3,2), share(&data[0], &data[0] + 8));
@@ -125,20 +123,7 @@ NT2_TEST_CASE( shared_ctor )
      for(int i=1;i<=3;++i)
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
   }
-
-  {
-    table < float, settings ( shared_ , global_padding_<16>
-                                      , lead_padding_<4>
-                            )
-          > x(of_size(3,2), share(&data[0], &data[0] + 16));
-
-    NT2_TEST( nt2::extent(x) == of_size(3,2) );
-
-    for(int j=1;j<=2;++j)
-     for(int i=1;i<=3;++i)
-        NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
-  }
-
+*/
   {
     float f = 1.f;
 

@@ -196,10 +196,10 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<typename Sizes> inline void resize( Sizes const& szs )
     {
-      data_.resize(data_size(szs));
-      index_.resize(index_size(szs));
+      std::size_t index_size_ = index_.resize(index_size(szs));
+      std::size_t data_size_  = data_.resize(data_size(szs));
 
-      inner_    = boost::fusion::at_c<0>(szs);
+      inner_ = index_size_ ? data_size_/index_size_: data_size_;
       inner_up_ = data_.lower() + inner_ - 1;
       make_links();
     }
@@ -291,8 +291,8 @@ namespace nt2 { namespace memory
       {
         typename Index::difference_type i = index_.lower();
         typename Index::difference_type u = index_.upper();
-
         index_(i++) = data_.origin();
+
         for(; i <= u; ++i) index_(i) = index_(i-1) + inner_;
       }
     }

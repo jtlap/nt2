@@ -17,10 +17,9 @@
 #include <nt2/include/functions/deflate.hpp>
 #include <nt2/include/functions/inflate.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/core/settings/specific_data.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
-#include <nt2/core/settings/specific_data.hpp>
-
 
 namespace nt2 { namespace details
 {
@@ -61,14 +60,24 @@ namespace nt2 { namespace details
     typedef sizes_type const&                                         extent_type;
 
     //==========================================================================
-    // Potential container lead padding value
+    // Potential container padding strategy
     //==========================================================================
-    typedef typename meta::option<settings_type,tag::lead_padding_>::type lead_t;
+    typedef typename meta::option<settings_type,tag::padding_>::type padd_t;
+
+    //==========================================================================
+    // Container storage duration
+    //==========================================================================
+    typedef typename
+            meta::option<settings_type,tag::storage_duration_>::type dur_t;
 
     //==========================================================================
     // container knows if its size is statically defined or not
     //==========================================================================
-    typedef boost::mpl::bool_<sizes_type::static_status>  is_static_sized;
+    typedef boost::mpl::
+            bool_ <   sizes_type::static_status
+                  &&  !boost::is_same<dur_t,automatic_>::value
+                  >                                         require_static_init;
+
 
     //==========================================================================
     // If size is static, perform allocation from default constructor
@@ -76,7 +85,8 @@ namespace nt2 { namespace details
     template<class Size> static
     inline void init( block_t& block, Size const& sz, boost::mpl::true_ const& )
     {
-      block.resize( pad(sz,lead_t::value) );
+      block_t that(sz);
+      block.swap(that);
     }
 
     template<class Size> static
@@ -93,8 +103,15 @@ namespace nt2 { namespace details
       if( new_sz != old_sz )
       {
         old_sz = sizes_type(new_sz);
-        block.resize( pad(old_sz,lead_t::value) );
+        block.resize( pad<value_type>(old_sz,typename padd_t::type()) );
       }
+      /*
+       * if( new_sz != old_sz )
+      {
+        old_sz = sizes_type(new_sz);
+        block_t that(new_sz);
+        block.swap(that);
+      }*/
     }
 
     //==========================================================================
@@ -224,7 +241,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
           )
     {
-      return unpack(p,b,s,lead_t());
+      return unpack(p,b,s,typename padd_t::type::padding_status());
     }
 
     template<class Position, std::size_t N>
@@ -233,7 +250,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
           )
     {
-      return unpack(p,b,s,lead_t());
+      return unpack(p,b,s,typename padd_t::type::padding_status());
     }
 
     template<class Position, std::size_t N>
@@ -280,12 +297,12 @@ namespace nt2 { namespace details
     }
 
     //==========================================================================
-    // Unpack 1D position if lead padding is present
+    // Unpack 1D position if padding is present
     //==========================================================================
     template<class Position>
     static BOOST_FORCEINLINE reference
     unpack( Position const& p, block_t& b, sizes_type const&
-          , lead_padding_<1> const&
+          , boost::mpl::false_ const&
           )
     {
       return b(boost::fusion::at_c<0>(p));
@@ -294,25 +311,25 @@ namespace nt2 { namespace details
     template<class Position>
     static BOOST_FORCEINLINE const_reference
     unpack( Position const& p, block_t const& b, sizes_type const&
-          , lead_padding_<1> const&
+          , boost::mpl::false_ const&
           )
     {
       return b(boost::fusion::at_c<0>(p));
     }
 
-    template<class Position, std::ptrdiff_t N>
+    template<class Position>
     static BOOST_FORCEINLINE reference
     unpack( Position const& p, block_t& b
-          , sizes_type const& s, lead_padding_<N> const&
+          , sizes_type const& s, boost::mpl::true_ const&
           )
     {
       return access ( nt2::inflate(s,p,typename index_type::type()), b, s );
     }
 
-    template<class Position, std::ptrdiff_t N>
+    template<class Position>
     static BOOST_FORCEINLINE const_reference
     unpack( Position const& p, block_t const& b
-          , sizes_type const& s, lead_padding_<N> const&
+          , sizes_type const& s, boost::mpl::true_ const&
           )
     {
       return access ( nt2::inflate(s,p,typename index_type::type()), b, s );

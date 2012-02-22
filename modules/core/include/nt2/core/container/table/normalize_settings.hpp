@@ -20,9 +20,9 @@
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/settings/alignment.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <nt2/sdk/memory/cache_padding.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
-#include <nt2/sdk/memory/cache_padding.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/container/table/category.hpp>

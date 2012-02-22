@@ -46,10 +46,11 @@ namespace nt2 { namespace memory { namespace details
       if(origin_) parent_allocator::deallocate(origin_ + BaseIndex, size());
     }
 
-    void resize(size_type const& s)
+    size_type resize(size_type const& s)
     {
-      realloc(s);
+      size_type nsz = realloc(s);
       clamp(s);
+      return nsz;
     }
 
     void clamp(size_type const& s)
@@ -57,13 +58,14 @@ namespace nt2 { namespace memory { namespace details
       up_  = BaseIndex + s - 1;
     }
 
-    void realloc(size_type const& s)
+    size_type realloc(size_type const& s)
     {
       if(size() < s )
       {
         deallocate();
         origin_ = parent_allocator::allocate(s) - BaseIndex;
       }
+      return s;
     }
 
     size_type       size()        const { return up_ - BaseIndex + 1; }

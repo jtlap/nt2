@@ -33,23 +33,26 @@ namespace nt2 { namespace memory
     typedef typename parent::allocator_type               allocator_type;
     typedef typename parent::iterator                     iterator;
     typedef typename parent::const_iterator               const_iterator;
+    typedef typename parent::value_type                   value_type;
     typedef typename parent::extent_type                  extent_type;
     typedef typename parent::sizes_type                   sizes_type;
     typedef typename parent::size_type                    size_type;
     typedef typename parent::difference_type              difference_type;
-    typedef typename parent::is_static_sized              is_static_sized;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
     typedef Tag                                           tag_type;
     typedef typename parent::specific_data_type           specific_data_type;
+    typedef typename parent::padd_t                       padd_t;
+
     //==========================================================================
     /*!
      * Default constructor
      */
     //==========================================================================
-    container( allocator_type const& a = allocator_type() ) : block_(a), specific_data_()
+    container ( allocator_type const& a = allocator_type() )
+              : block_(a), specific_data_()
     {
-      parent::init(block_,sizes_, is_static_sized());
+      parent::init(block_,sizes_, typename parent::require_static_init());
     }
 
     //==========================================================================
@@ -59,7 +62,9 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size>
     container( Size const& sz, allocator_type const& a = allocator_type() )
-      : block_( pad(sz,parent::lead_t::value) ,a), sizes_(sz), specific_data_()
+      : block_( pad<value_type>(sz,typename padd_t::type()) ,a)
+      , sizes_(sz)
+      , specific_data_()
     {}
 
     //==========================================================================
@@ -67,8 +72,10 @@ namespace nt2 { namespace memory
      * Copy Constructor
      */
     //==========================================================================
-    container( container const& s) : block_( s.block_ ), sizes_(s.sizes_), specific_data_(s.specific_data_){
-    }
+    container( container const& s)  : block_( s.block_ )
+                                    , sizes_(s.sizes_)
+                                    , specific_data_(s.specific_data_)
+    {}
 
     //==========================================================================
     /*!
@@ -106,7 +113,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size> BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize( block_,szs,sizes_,is_static_sized() );
+      parent::resize(block_,szs,sizes_,typename parent::require_static_init());
     }
 
     //==========================================================================

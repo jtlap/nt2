@@ -23,13 +23,14 @@ namespace nt2 { namespace memory
     typedef nt2::details::container_base<Tag,T,S>         parent;
     typedef typename parent::block_t                      block_t;
     typedef typename parent::allocator_type               allocator_type;
+    typedef typename parent::value_type                   value_type;
     typedef typename parent::sizes_type                   sizes_type;
     typedef typename parent::extent_type                  extent_type;
     typedef typename parent::size_type                    size_type;
     typedef typename parent::difference_type              difference_type;
-    typedef typename parent::is_static_sized              is_static_sized;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
+    typedef typename parent::padd_t                       padd_t;
     typedef typename parent::specific_data_type           specific_data_type;
 
     //==========================================================================
@@ -39,7 +40,7 @@ namespace nt2 { namespace memory
     {
       if(!status_)
       {
-        parent::init(block_,sizes_, is_static_sized());
+        parent::init(block_,sizes_, typename parent::require_static_init());
         status_ = true;
       }
     }
@@ -66,7 +67,7 @@ namespace nt2 { namespace memory
     {
       if(!status_)
       {
-        block_t that(pad(sz,parent::lead_t::value),a);
+        block_t that(pad<value_type>(sz,typename padd_t::type()),a);
         block_.swap(that);
         sizes_ = sz;
         status_ = true;
@@ -119,7 +120,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size> static BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize( block_, szs, sizes_, is_static_sized() );
+      parent::resize(block_,szs,sizes_,typename parent::require_static_init());
     }
 
     private:

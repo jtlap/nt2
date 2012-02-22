@@ -10,7 +10,6 @@
 #define NT2_CORE_CONTAINER_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
 
 #include <boost/swap.hpp>
-#include <boost/assert.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
@@ -55,10 +54,7 @@ namespace nt2 {  namespace memory
     // Constructor from Size. Size information is discarded but checked if
     // comaptible with static storage size
     //==========================================================================
-    array_buffer( size_type s, allocator_type const& = allocator_type() )
-    {
-      BOOST_ASSERT_MSG(N == s, "Buffer constructed with incompatible size.");
-    }
+    array_buffer( size_type s, allocator_type const& = allocator_type() ) {}
 
     //==========================================================================
     /**!
@@ -180,10 +176,7 @@ namespace nt2 {  namespace memory
      * index.
      **/
     //==========================================================================
-    void resize(size_type s)
-    {
-      BOOST_ASSERT_MSG(N == s, "Buffer resized with incompatible size.");
-    }
+    size_type resize(size_type s) { return N; }
 
     protected:
     BOOST_SIMD_ALIGNED_TYPE(value_type) storage_[N];

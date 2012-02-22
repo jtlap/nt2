@@ -15,6 +15,7 @@
  * Defines the nt2::memory::buffer class and related interface
  **/
 //==============================================================================
+#include <iterator>
 #include <boost/assert.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/fusion/include/at.hpp>
@@ -24,7 +25,6 @@
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
 #include <boost/detail/workaround.hpp>
-#include <iterator>
 
 namespace nt2 {  namespace memory
 {
@@ -254,7 +254,7 @@ namespace nt2 {  namespace memory
      * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
      **/
     //==========================================================================
-    void resize(size_type sz) { parent_data::resize( sz ); }
+    size_type resize(size_type sz) { return parent_data::resize( sz ); }
 
     protected:
     using parent_data::allocator;
