@@ -30,10 +30,4 @@ SET( SOURCES
 #zetal.c zetacl.c ndtrl.c psil.c sindgl.c struvel.c tandgl.c setprecl.c econst.c
 #mtherrl.c rgammal.c roundl.c 
 
-# const.c does not define constants in a strict C way in UNK mode,
-# so we force IEEE754 little-endian on x86 to avoid problems.
-IF(NT2_ARCH_X86)
-  SET(NT2_CURRENT_COMPILE_FLAGS "${NT2_CURRENT_COMPILE_FLAGS} ")
-ENDIF()
-
 nt2_module_add_library(nt2_cephesl ${SOURCES})
