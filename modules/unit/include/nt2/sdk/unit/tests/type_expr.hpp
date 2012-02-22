@@ -40,8 +40,9 @@ std::string type_id_identity(T const&)
 
 } }
 
-#define NT2_PP_STRINGIZE_(...) #__VA_ARGS__
-#define NT2_PP_STRINGIZE(...) NT2_PP_STRINGIZE_(__VA_ARGS__)
+#define NT2_PP_STRINGIZE__(...) #__VA_ARGS__
+#define NT2_PP_STRINGIZE_(text) NT2_PP_STRINGIZE__ text
+#define NT2_PP_STRINGIZE(...) NT2_PP_STRINGIZE_((__VA_ARGS__))
 
 #define NT2_TEST_EXPR_TYPE(Expression, Lambda, Type)                                               \
 {                                                                                                  \
