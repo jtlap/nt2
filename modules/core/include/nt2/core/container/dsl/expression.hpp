@@ -78,20 +78,22 @@ namespace nt2 { namespace container { namespace ext
 
 namespace nt2 { namespace details
 {
-  template<class Expr>
-  typename boost::enable_if_c< boost::proto::arity_of<Expr>::type::value == 0
+  template<class Base, class Expr>
+  BOOST_DISPATCH_FORCE_INLINE
+  typename boost::enable_if_c< Base::proto_arity_c == 0
                              , typename Expr::extent_type
                              >::type
-  size_recompute(Expr const& this_, Expr const& old)
+  size_recompute(Base const& this_, Expr const& old)
   {
-    return nt2::extent(this_.proto_base().child0);
+    return nt2::extent(this_.child0);
   }
 
-  template<class Expr>
-  typename boost::disable_if_c< boost::proto::arity_of<Expr>::type::value == 0
+  template<class Base, class Expr>
+  BOOST_DISPATCH_FORCE_INLINE
+  typename boost::disable_if_c< Base::proto_arity_c == 0
                               , typename Expr::extent_type
                               >::type
-  size_recompute(Expr const&, Expr const& old)
+  size_recompute(Base const&, Expr const& old)
   {
     return old.extent();
   }
@@ -140,7 +142,12 @@ namespace nt2 { namespace container
     BOOST_DISPATCH_FORCE_INLINE
     expression(Expr const& x, Sz const& sz) : parent(x), size_(sz) {}
 
-    expression(expression const& xpr) : parent(static_cast<parent const&>(xpr)), size_(details::size_recompute(*this, xpr)) {}
+    BOOST_DISPATCH_FORCE_INLINE
+    expression(expression const& xpr)
+     : parent(xpr.proto_base())
+     , size_(details::size_recompute(parent::proto_base(), xpr))
+    {
+    }
 
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
