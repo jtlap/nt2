@@ -22,7 +22,7 @@ if(NOT DEFINED NT2_SIMD_FLAGS)
   endif()
 
   # ARM family
-  if(NT2_ARCH_POWERPC)
+  if(NT2_ARCH_ARM)
     include(arch/FindARM)
   endif()
 
