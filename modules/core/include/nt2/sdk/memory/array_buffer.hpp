@@ -43,6 +43,8 @@ namespace nt2 {  namespace memory
     typedef T const*                                  const_iterator;
     typedef T&                                        reference;
     typedef const T&                                  const_reference;
+    typedef T*                                        pointer;
+    typedef T const*                                  const_pointer;
     typedef std::ptrdiff_t                            size_type;
     typedef std::ptrdiff_t                            difference_type;
 
@@ -157,6 +159,25 @@ namespace nt2 {  namespace memory
     operator()(difference_type i,difference_type) const
     {
       return storage_[i-BaseIndex];
+    }
+
+    //==========================================================================
+    /**!
+     * Return a pointer to the ith element of the buffer.
+     *
+     * \param  pos 1D Index of the element to point
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE pointer
+    get(difference_type i)
+    {
+      return &storage_[i-BaseIndex];
+    }
+
+    BOOST_FORCEINLINE const_pointer
+    get(difference_type i) const
+    {
+      return &storage_[i-BaseIndex];
     }
 
     //==========================================================================

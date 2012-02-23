@@ -34,6 +34,11 @@ namespace nt2 { namespace memory
                   : parent(static_cast<parent const&>(s))
     {}
 
+    template<typename Sizes> inline void resize( Sizes const& szs )
+    {
+      parent::resize(boost::fusion::at_c<0>(szs));
+    }
+
     inline size_type        inner_size()  const { return parent::size();  }
     inline size_type        outer_size()  const { return 1;               }
 

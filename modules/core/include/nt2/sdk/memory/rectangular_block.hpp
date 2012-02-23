@@ -38,6 +38,18 @@ namespace nt2 { namespace memory
 
     block( block const& s ) : parent( static_cast<parent const&>(s) ) {}
 
+    template<class Position> BOOST_FORCEINLINE
+    typename parent::pointer get( Position const& pos )
+    {
+      return parent::data().get(pos);
+    }
+
+    template<class Position> BOOST_FORCEINLINE
+    typename parent::const_pointer get( Position const& pos ) const
+    {
+      return parent::data().get(pos);
+    }
+
     void swap( block& src ) { parent::data().swap( src.data() ); }
   };
 } }

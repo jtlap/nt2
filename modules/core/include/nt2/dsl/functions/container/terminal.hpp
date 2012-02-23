@@ -22,6 +22,9 @@
 #include <nt2/core/utility/position/have_compatible_alignments.hpp>
 #include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
 #include <boost/simd/toolbox/operator/functions/unaligned_store.hpp>
+#include <nt2/core/settings/details/fusion.hpp>
+
+// TODO: storage order is not used.
 
 namespace nt2 { namespace ext
 {
@@ -134,12 +137,26 @@ namespace nt2 { namespace ext
 
     inline result_type eval ( A0 const& a0, Seq const& state, boost::mpl::true_ const& ) const
     {
-      return load<result_type>(&boost::proto::value(a0)[state]);
+      return load<result_type>(boost::proto::value(a0).get(
+                                 nt2::details::safe_at_c<
+                                   boost::fusion::result_of::size<Seq>::type::value-1
+                                 >(state)
+                               ),
+                               nt2::details::safe_at_c<
+                                 boost::fusion::result_of::size<Seq>::type::value-2
+                               >(state));
     }
 
     inline result_type eval ( A0 const& a0, Seq const& state, boost::mpl::false_ const& ) const
     {
-      return boost::simd::unaligned_load<result_type>(&boost::proto::value(a0)[state]);
+      return boost::simd::unaligned_load<result_type>(boost::proto::value(a0).get(
+                                 nt2::details::safe_at_c<
+                                   boost::fusion::result_of::size<Seq>::type::value-1
+                                 >(state)
+                               ),
+                               nt2::details::safe_at_c<
+                                 boost::fusion::result_of::size<Seq>::type::value-2
+                               >(state));
     }
   };
 
@@ -162,14 +179,30 @@ namespace nt2 { namespace ext
       return eval(a0, state, data, have_compatible_alignments<A0, A>());
     }
 
-    inline result_type eval ( A0& a0, Seq const& state, Data const& data, boost::mpl::true_ const& ) const
+    template<class A0_>
+    inline result_type eval(A0_& a0, Seq const& state, Data const& data, boost::mpl::true_ const&) const
     {
-      return store(data, &boost::proto::value(a0)[state]);
+      return store<result_type>(data, boost::proto::value(a0).get(
+                                  nt2::details::safe_at_c<
+                                    boost::fusion::result_of::size<Seq>::type::value-1
+                                  >(state)
+                                ),
+                                nt2::details::safe_at_c<
+                                  boost::fusion::result_of::size<Seq>::type::value-2
+                                >(state));
     }
 
-    inline result_type eval ( A0& a0, Seq const& state, Data const& data, boost::mpl::false_ const& ) const
+    template<class A0_>
+    inline result_type eval(A0_& a0, Seq const& state, Data const& data, boost::mpl::false_ const&) const
     {
-      return boost::simd::unaligned_store(data, &boost::proto::value(a0)[state]);
+      return boost::simd::unaligned_store<result_type>(data, boost::proto::value(a0).get(
+                                  nt2::details::safe_at_c<
+                                    boost::fusion::result_of::size<Seq>::type::value-1
+                                  >(state)
+                                ),
+                                nt2::details::safe_at_c<
+                                  boost::fusion::result_of::size<Seq>::type::value-2
+                                >(state));
     }
   };
 

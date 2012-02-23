@@ -21,7 +21,6 @@
 #include <nt2/core/settings/normalize_settings.hpp>
 #include <nt2/core/settings/specific_data.hpp>
 
-
 namespace nt2 { namespace details
 {
   //============================================================================
@@ -179,6 +178,24 @@ namespace nt2 { namespace details
       return b(boost::fusion::at_c<0>(p));
     }
 
+    template<class Position>
+    static BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<2> const&
+          )
+    {
+      return b(boost::fusion::at_c<0>(p));
+    }
+
+    template<class Position>
+    static BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<2> const&
+          )
+    {
+      return b(boost::fusion::at_c<0>(p));
+    }
+
     template<class Position, std::size_t N>
     static BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const&
@@ -299,8 +316,6 @@ namespace nt2 { namespace details
     {
       return access ( nt2::inflate(s,p,typename index_type::type()), b, s );
     }
-
-
   };
 } }
 

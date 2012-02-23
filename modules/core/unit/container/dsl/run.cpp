@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 container runner"
 
 #include <nt2/table.hpp>
+//#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
 
@@ -17,24 +18,42 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
+// TODO: test the non-contiguous case
+
 NT2_TEST_CASE( value_at )
 {
   using nt2::table;
   using nt2::of_size;
   typedef double T;
 
-  table<T> a0(of_size(2, 3));
-  table<T> a1(of_size(2, 3));
+  table<T> a0(of_size(4, 3));
+  table<T> a1(of_size(4, 3));
 
   for(std::size_t j=1; j!=3+1; ++j)
-    for(std::size_t i=1; i!=2+1; ++i)
+    for(std::size_t i=1; i!=4+1; ++i)
       a0(i, j) = T(i+j);
 
   a1 = a0 + T(1);
 
   for(std::size_t j=1; j!=3+1; ++j)
-    for(std::size_t i=1; i!=2+1; ++i)
+    for(std::size_t i=1; i!=4+1; ++i)
       NT2_TEST_EQUAL( T(a1(i, j)), T(i+j+1) );
+/*
+  table<T, nt2::_1D> a2(of_size(13));
+  table<T, nt2::_1D> a3(of_size(13));
+  for(std::size_t i=1; i!=12+1; ++i)
+    a2(i) = T(i);
+
+  a3 = a2 + T(1);
+
+  for(std::size_t i=1; i!=13+1; ++i)
+    NT2_TEST_EQUAL( T(a3(i)), T(i+1) );
+*/
+/*
+  table<T, nt2::_1D> xd = nt2::_(T(0),T(2),T(9));
+  table<T, nt2::_1D> a2_(of_size(5));
+  a2_ = a2(xd);
+*/
 }
 
 NT2_TEST_CASE( scalar_size )
@@ -86,7 +105,7 @@ NT2_TEST_CASE_TPL( alignment_load_store, BOOST_SIMD_SIMD_TYPES )
   table<T, settings(unaligned_, shared_, no_padding_)> unaligned_table1(of_size(32,32), share(q, q + 32 * 32));
 
   aligned_table1 = unaligned_table1;
-  for (int i = 1; i < 31; i++)
+  for (int i = 1; i < 32; i++)
     for (int j = 1; j < 32; j++)
       NT2_TEST( T(aligned_table1(i+1,j)) == T(unaligned_table1(i,j)) );
 
@@ -98,7 +117,7 @@ NT2_TEST_CASE_TPL( alignment_load_store, BOOST_SIMD_SIMD_TYPES )
   table<T, settings(unaligned_, shared_, no_padding_)> unaligned_table2(of_size(32,32), share(q, q + 32 * 32));
 
   unaligned_table2 = aligned_table2;
-  for (int i = 1; i < 31; i++)
+  for (int i = 1; i < 32; i++)
     for (int j = 1; j < 32; j++)
       NT2_TEST( T(aligned_table2(i+1,j)) == T(unaligned_table2(i,j)) );
 
@@ -106,6 +125,4 @@ NT2_TEST_CASE_TPL( alignment_load_store, BOOST_SIMD_SIMD_TYPES )
   fake_unaligned_table = aligned_table2;
 
   delete[] p;
-
-  // TODO: Tester cas non contigus.
 }
