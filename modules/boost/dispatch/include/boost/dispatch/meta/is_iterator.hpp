@@ -26,7 +26,8 @@
 // Fix a couple of things for restrict pointers
 // FIXME: integrate upstream
 //============================================================================
-#if defined(_MSC_VER) || defined(__GNUC__)
+#if defined(_MSC_VER) || defined(__GNUC__)                                   \
+ && !(defined(__APPLE__) && defined(__clang__))
 namespace boost
 {
   template<class T>
