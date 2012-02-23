@@ -44,6 +44,7 @@ namespace boost
     struct iterator_traits<T* __restrict>
      : boost::detail::iterator_traits<T*>
     {
+      typedef T* __restrict pointer;
     };
   }
 }

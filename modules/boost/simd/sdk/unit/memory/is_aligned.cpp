@@ -183,6 +183,16 @@ NT2_TEST_CASE(is_aligned_ptr_default)
   NT2_TEST( is_aligned(exact_) );
 }
 
+#if defined(_MSC_VER) || defined(__GNUC__)
+NT2_TEST_CASE(is_aligned_restrict)
+{
+  using boost::simd::memory::is_aligned;
+
+  int * __restrict p = 0;
+  NT2_TEST( is_aligned(p) );
+}
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test the meta::is_aligned_c version
 ////////////////////////////////////////////////////////////////////////////////
