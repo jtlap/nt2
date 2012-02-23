@@ -116,7 +116,6 @@ NT2_TEST_CASE_TPL( container_static_default_ctor, NT2_TYPES)
   type b;
 
   NT2_TEST(!b.empty());
-  NT2_TEST_EQUAL(b.size()       ,  32*7 );
   NT2_TEST( (b.extent() == of_size_<32,7>()) );
 
   for(typename type::difference_type j=1;j<=7;++j)
@@ -144,7 +143,6 @@ NT2_TEST_CASE_TPL( container_automatic_static_default_ctor, NT2_TYPES)
   type b;
 
   NT2_TEST(!b.empty());
-  NT2_TEST_EQUAL(b.size()       ,  32*7 );
   NT2_TEST( (b.extent() == of_size_<32,7>()) );
 
   for(typename type::difference_type j=1;j<=7;++j)
@@ -171,7 +169,6 @@ NT2_TEST_CASE_TPL( container_size_ctor, NT2_TYPES)
   type b( of_size(32,3) );
 
   NT2_TEST(!b.empty());
-  NT2_TEST_EQUAL(b.size()       ,  32*3 );
   NT2_TEST( (b.extent() == of_size(32,3)) );
 
   for(typename type::difference_type j=1;j<=3;++j)
@@ -204,7 +201,6 @@ NT2_TEST_CASE_TPL( container_copy_ctor, NT2_TYPES)
   type x( b );
 
   NT2_TEST(!x.empty());
-  NT2_TEST_EQUAL(x.size()       ,  32*3 );
   NT2_TEST( (x.extent() == of_size(32,3)) );
 
   for(typename type::difference_type j=1;j<=3;++j)
@@ -235,7 +231,6 @@ NT2_TEST_CASE_TPL( container_assignment, NT2_TYPES)
   x = b;
 
   NT2_TEST(!x.empty());
-  NT2_TEST_EQUAL(x.size()       ,  32*3 );
   NT2_TEST( (x.extent() == of_size(32,3)) );
 
   for(typename type::difference_type j=1;j<=3;++j)
@@ -269,11 +264,9 @@ NT2_TEST_CASE_TPL( container_swap, NT2_TYPES)
   swap(x,b);
 
   NT2_TEST(!x.empty());
-  NT2_TEST_EQUAL(x.size()       ,  32*3 );
   NT2_TEST( (x.extent() == of_size(32,3)) );
 
   NT2_TEST(!b.empty());
-  NT2_TEST_EQUAL(b.size()       ,  32*3 );
   NT2_TEST( (b.extent() == of_size(32,3)) );
 
   for(typename type::difference_type j=1;j<=3;++j)
