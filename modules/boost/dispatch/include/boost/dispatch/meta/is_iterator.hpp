@@ -38,6 +38,9 @@ namespace boost
   namespace detail
   {
     template<class T>
+    struct iterator_traits;
+
+    template<class T>
     struct iterator_traits<T* __restrict>
      : boost::detail::iterator_traits<T*>
     {
