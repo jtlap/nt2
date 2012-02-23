@@ -28,7 +28,6 @@
 
 NT2_TEST_CASE_TPL ( arg_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  using boost::simd::arg;
   using boost::simd::tag::arg_;
   using boost::simd::load; 
   using boost::simd::native;
@@ -47,10 +46,10 @@ NT2_TEST_CASE_TPL ( arg_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::Inf<vT>())[0], boost::simd::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::Minf<vT>())[0], boost::simd::Pi<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::Mone<vT>())[0], boost::simd::Pi<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(arg(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(boost::simd::arg(boost::simd::Inf<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(boost::simd::arg(boost::simd::Minf<vT>())[0], boost::simd::Pi<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(boost::simd::arg(boost::simd::Mone<vT>())[0], boost::simd::Pi<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(boost::simd::arg(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(boost::simd::arg(boost::simd::One<vT>())[0], boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(boost::simd::arg(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
 } // end of test for floating_
