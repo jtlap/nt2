@@ -100,24 +100,6 @@ struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                     \
                 )                                                              \
   ) type;                                                                      \
 };                                                                             \
-                                                                               \
-template< class Tag, class Site                                                \
-          BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n,class A)                 \
-        >                                                                      \
-BOOST_FORCEINLINE                                                              \
-typename boost::mpl::                                                          \
-identity< typename                                                             \
-          dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                        \
-                       , Site                                                  \
-                       >::type                                                 \
-        >::type                                                                \
-dispatch( Tag, Site BOOST_PP_COMMA_IF(n)                                       \
-          BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & BOOST_PP_INTERCEPT)         \
-        )                                                                      \
-{                                                                              \
-  typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type  that;    \
-  return that;                                                                 \
-}                                                                              \
 /**/
 
 namespace boost { namespace dispatch { namespace meta

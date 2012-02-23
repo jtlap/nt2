@@ -27,15 +27,10 @@
 // FIXME: integrate upstream
 //============================================================================
 #if defined(_MSC_VER) || defined(__GNUC__)
-#ifdef _MSC_VER
-#define BOOST_DISPATCH_RESTRICT __restrict
-#else
-#define BOOST_DISPATCH_RESTRICT __restrict__
-#endif
 namespace boost
 {
   template<class T>
-  struct is_pointer<T BOOST_DISPATCH_RESTRICT>
+  struct is_pointer<T* __restrict>
    : mpl::true_
   {
   };
@@ -43,13 +38,16 @@ namespace boost
   namespace detail
   {
     template<class T>
-    struct iterator_traits<T BOOST_DISPATCH_RESTRICT>
-     : boost::detail::iterator_traits<T>
+    struct iterator_traits;
+
+    template<class T>
+    struct iterator_traits<T* __restrict>
+     : boost::detail::iterator_traits<T*>
     {
+      typedef T* __restrict pointer;
     };
   }
 }
-#undef BOOST_DISPATCH_RESTRICT
 #endif
 
 namespace boost { namespace dispatch { namespace meta
