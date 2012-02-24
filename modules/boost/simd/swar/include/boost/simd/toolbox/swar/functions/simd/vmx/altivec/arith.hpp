@@ -12,6 +12,8 @@
 
 #include <boost/simd/toolbox/swar/functions/arith.hpp>
 #include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/multiplies.hpp>
+
 // Is there nothing to do for float vectors ? TO DO
 namespace boost { namespace simd { namespace ext
 {
@@ -27,17 +29,19 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename T::type result_type;
+    typedef typename result_type::native_type native_type; 
 
     result_type operator()(T const& ) const
     {
       // add [a0 ... a0] with [0 1 2 ... 12 15]
       result_type that =  { vec_add ( splat<result_type>(0)()
-                                    , vec_lvsl(0,(char*)(0))
+                                    , (native_type)(vec_lvsl(0,(unsigned char*)(0)))
                                     )
                           };
       return that;
     }
   };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
                                     , boost::simd::tag::altivec_
                                     , (A0)(T)
@@ -51,12 +55,13 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename T::type result_type;
+    typedef typename result_type::native_type native_type; 
 
     result_type operator()(A0 const& a0, T const& ) const
     {
       // add [a0 ... a0] with [0 1 2 ... 12 15]
       result_type that =  { vec_add ( splat<result_type>(a0)()
-                                    , vec_lvsl(0,(char*)(0))
+                                    , (native_type)(vec_lvsl(0,(unsigned char*)(0)))
                                     )
                           };
       return that;
@@ -77,14 +82,16 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename T::type result_type;
+    typedef typename result_type::native_type native_type; 
 
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
       // add [a0 ... a0] with [0 1 2 ... 12 15]*[a1 ... a1]
+      result_type tmp  =  { (native_type)(vec_lvsl(0,(unsigned char*)(0))) };
       result_type that =  { vec_add ( splat<result_type>(a0)()
-                                      , vec_mul(splat<result_type>(a1)(),
-                                                vec_lvsl(0,(char*)(0))
-                                                )
+                                    , times( splat<result_type>(a1)
+                                           , tmp
+                                           )()
                                     )
                           };
       return that;
