@@ -21,11 +21,13 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates all integral set + types overload
   //============================================================================
-  BOOST_PP_REPEAT_FROM_TO ( 1
+  BOOST_PP_REPEAT_FROM_TO ( 2
                           , BOOST_PP_INC(NT2_MAX_DIMENSIONS)
                           , NT2_PP_GENERATIVE_MAKE_FROM_SIZE
                           , nt2::tag::One
                           )
+
+  NT2_PP_GENERATIVE_MAKE_FROM_SINGLE( nt2::tag::One )
 
   //============================================================================
   // Generates Ones from fusion sequence (support of_size calls)
