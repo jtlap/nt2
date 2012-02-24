@@ -32,8 +32,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(Position)(Target)
                             , ((expr_< unspecified_<A0>
-                                     , nt2::container::domain
                                      , nt2::tag::assign_
+                                     , boost::mpl::long_<2>
                                      >
                               ))
                               (fusion_sequence_<Position>)
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
                         , Target()
                         )
               );
-              
+
       return boost::proto::child_c<0>(a0);
     }
   };
@@ -69,8 +69,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(S0)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::container::domain
                                      , nt2::tag::assign_
+                                     , boost::mpl::long_<2>
                                      >
                               ))
                             )
@@ -101,15 +101,19 @@ namespace nt2 { namespace ext
       return boost::proto::child_c<0>(a0);
     }
   };
-  
+
   //============================================================================
   // When an arbitrary expression is run, we perform its evaluation into a
-  // local temporary container of proper type.This temporary is then returned by
+  // local temporary container of proper type. This temporary is then returned by
   // value.
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)
-                            , ((ast_<table_< unspecified_<A0>, S0 > >))
+                            , (A0)(S0)(T)(N)
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , T
+                                     , N
+                                     >
+                              ))
                             )
   {
     typedef typename boost::
@@ -133,8 +137,8 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_, (A0)
                             , ((expr_< scalar_< unspecified_<A0> >
-                                     , nt2::container::domain
                                      , nt2::tag::assign_
+                                     , boost::mpl::long_<2>
                                      >
                               ))
                             )
@@ -161,8 +165,12 @@ namespace nt2 { namespace ext
   // a temporary, but rather directly return it.
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)
-                            , (ast_<scalar_< unspecified_<A0> > >)
+                            , (A0)(T)(N)
+                            , ((expr_< scalar_< unspecified_<A0> >
+                                     , T
+                                     , N
+                                     >
+                              ))
                             )
   {
     typedef typename boost::dispatch::meta::

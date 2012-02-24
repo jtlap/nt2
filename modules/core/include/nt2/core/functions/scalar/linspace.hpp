@@ -15,7 +15,7 @@
 #include <nt2/core/functions/linspace.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/core/utility/generator/generator.hpp>
+#include <nt2/core/utility/generative/generative.hpp>
 
 //==============================================================================
 // linspace actual functor forward declaration
@@ -34,22 +34,23 @@ namespace nt2 { namespace ext
                             )
   {
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::linspace<A0>
                       , A0
                       , settings(of_size_<1,100>)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const& u) const
     {
-      container::domain domain_;
       nt2::details::linspace<A0> callee(l,u,100);
-
-      return domain_( expr_type::make( base(of_size_<1,100>(),callee) ) );
+      of_size_<1,100> sizee;
+      base that(sizee,callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 
@@ -64,23 +65,23 @@ namespace nt2 { namespace ext
                             )
   {
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::linspace<A0>
                       , A0
                       , settings(_2D)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& l, A0 const& u, A1 const& n) const
     {
-      container::domain domain_;
       nt2::details::linspace<A0> callee((n<2 ? u : l),u,(n<2 ? 2 : n));
-
-      return domain_( expr_type::make( base(of_size(1,n),callee) ) );
+      base that(of_size(1,n),callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 } }

@@ -19,9 +19,9 @@ namespace nt2 { namespace memory
 {
   template<class T, class S>
   struct block<rectangular_,T,S> : public block_facade<T,S>
-  {    
+  {
     typedef block_facade<T,S> parent;
-    
+
     block ( typename parent::allocator_type const&
             a = typename parent::allocator_type()
           )

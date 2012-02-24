@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_UTILITY_GENERATOR_ADAPTED_HPP_INCLUDED
-#define NT2_CORE_UTILITY_GENERATOR_ADAPTED_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_GENERATIVE_ADAPTED_HPP_INCLUDED
+#define NT2_CORE_UTILITY_GENERATIVE_ADAPTED_HPP_INCLUDED
 
 #include <nt2/sdk/meta/is_container.hpp>
 #include <nt2/sdk/meta/container_of.hpp>
@@ -21,7 +21,7 @@
 //==============================================================================
 namespace nt2 { namespace details
 {
-  template<class Tag, class Functor, class T, class S> struct generator;
+  template<class Tag, class Functor, class T, class S> struct generative;
 } }
 
 namespace nt2 { namespace meta
@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
   // Register container as a proper container
   //============================================================================
   template<class Tag, class F, class T, class S>
-  struct is_container< details::generator<Tag,F,T,S> > : boost::mpl::true_ {};
+  struct is_container< details::generative<Tag,F,T,S> > : boost::mpl::true_ {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -39,9 +39,9 @@ namespace boost { namespace dispatch { namespace meta
   // Generative acts as the same hiierarchy of its Tag
   //============================================================================
   template<class Tag, class F, class T, class S, class Origin>
-  struct hierarchy_of< nt2::details::generator<Tag,F,T,S>, Origin >
+  struct hierarchy_of< nt2::details::generative<Tag,F,T,S>, Origin >
   {
-    typedef generator_  < typename hierarchy_of<T,Origin>::type
+    typedef generative_ < typename hierarchy_of<T,Origin>::type
                         , F
                         > type;
   };
@@ -50,7 +50,7 @@ namespace boost { namespace dispatch { namespace meta
   // value_of specialization
   //============================================================================
   template<class Tag, class F, class T, class S>
-  struct value_of< nt2::details::generator<Tag,F,T,S> >
+  struct value_of< nt2::details::generative<Tag,F,T,S> >
   {
     typedef T type;
   };
@@ -59,12 +59,12 @@ namespace boost { namespace dispatch { namespace meta
   // model_of specialization
   //============================================================================
   template<class Tag, class F, class T, class S>
-  struct model_of< nt2::details::generator<Tag,F,T,S> >
+  struct model_of< nt2::details::generative<Tag,F,T,S> >
   {
     struct type
     {
       template<class X>
-      struct apply { typedef nt2::details::generator<Tag,F,X,S> type; };
+      struct apply { typedef nt2::details::generative<Tag,F,X,S> type; };
     };
   };
 } } }

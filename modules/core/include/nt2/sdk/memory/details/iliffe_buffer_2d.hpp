@@ -41,8 +41,13 @@ namespace nt2 { namespace memory
     iliffe_buffer( allocator_type const& = allocator_type()) {}
 
     template<typename Sizes>
-    iliffe_buffer (Sizes const& sz, allocator_type const& = allocator_type())
+    iliffe_buffer (Sizes const&, allocator_type const& = allocator_type())
     {}
+
+    template<typename Sizes> inline void resize( Sizes const& szs )
+    {
+      parent::resize(boost::fusion::at_c<0>(szs));
+    }
 
     //==========================================================================
     // Element random access

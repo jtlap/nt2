@@ -47,7 +47,7 @@ namespace boost { namespace dispatch { namespace details
   };
   
   template<class T>
-  struct proto_value_impl<T, typename enable_if_c< proto::arity_of<T>::value == 0 >::type>
+  struct proto_value_impl<T, typename enable_if< is_same<typename proto::tag_of<T>::type, proto::tag::terminal> >::type>
     : add_reference<T>
   {
   };

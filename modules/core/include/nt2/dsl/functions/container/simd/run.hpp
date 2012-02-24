@@ -20,11 +20,12 @@
 
 namespace nt2 { namespace ext
 {
+  // nD element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, boost::simd::tag::simd_
                             , (A0)(S0)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::container::domain
                                      , nt2::tag::assign_
+                                     , boost::mpl::long_<2>
                                      >
                               ))
                             )
@@ -62,6 +63,49 @@ namespace nt2 { namespace ext
         for(std::ptrdiff_t i=ibound; i!=bound; ++i)
           nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<stype>());
       }
+
+      return boost::proto::child_c<0>(a0);
+    }
+  };
+
+  // 1D element-wise operation
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_, boost::simd::tag::simd_
+                            , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)
+                            , ((expr_< table_< unspecified_<A0>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind)>
+                                     , nt2::tag::assign_
+                                     , boost::mpl::long_<2>
+                                     >
+                              ))
+                            )
+  {
+    typedef typename boost::proto::result_of::
+    child_c<A0 const&, 0>::type                             result_type;
+
+    typedef typename meta::
+            strip< typename meta::
+                   scalar_of<result_type>::type
+                 >::type                                    stype;
+
+    typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION>
+                                                            target_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0) const
+    {
+      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+
+      boost::proto::child_c<0>(a0).resize(a0.extent());
+
+      typename A0::index_type::type bs;
+      std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
+      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
+      std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(a0.extent())/N*N;
+
+      for(std::ptrdiff_t i=low;i!=aligned_bound; i+=N)
+        nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<target_type>());
+
+      for(std::ptrdiff_t i=aligned_bound; i!=bound; ++i)
+          nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<stype>());
 
       return boost::proto::child_c<0>(a0);
     }

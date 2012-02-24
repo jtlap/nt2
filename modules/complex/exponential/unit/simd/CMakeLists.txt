@@ -15,6 +15,7 @@ set( SOURCES
   log.cpp
   log2.cpp  
   log10.cpp
+  sqrt1pm1.cpp
    )
 
 nt2_module_add_tests(complex.exponential.simd.unit ${SOURCES})

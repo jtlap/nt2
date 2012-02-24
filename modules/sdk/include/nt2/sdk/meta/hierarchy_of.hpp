@@ -62,6 +62,7 @@ namespace ext
   using boost::dispatch::meta::long_double_;
   
   using boost::dispatch::meta::ast_;
+  using boost::dispatch::meta::node_;
   using boost::dispatch::meta::expr_;
 } }
 

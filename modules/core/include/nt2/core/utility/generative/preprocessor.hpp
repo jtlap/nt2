@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_UTILITY_GENERATOR_PREPROCESSOR_HPP_INCLUDED
-#define NT2_CORE_UTILITY_GENERATOR_PREPROCESSOR_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_GENERATIVE_PREPROCESSOR_HPP_INCLUDED
+#define NT2_CORE_UTILITY_GENERATIVE_PREPROCESSOR_HPP_INCLUDED
 
 #include <nt2/sdk/parameters.hpp>
 
@@ -29,24 +29,23 @@ NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_                                    \
                           )                                                   \
 {                                                                             \
   typedef nt2::details::                                                      \
-          generator < nt2::tag::table_                                        \
+          generative< nt2::tag::table_                                        \
                     , nt2::details::constant_generator<Tag>                   \
                     , double                                                  \
                     , settings(BOOST_PP_CAT(_,BOOST_PP_CAT(n,D)))             \
                     > base;                                                   \
                                                                               \
-  typedef boost::proto::terminal<base>::type  expr_type;                      \
-  typedef boost::                                                             \
-          result_of<container::domain(expr_type)>::type const result_type;    \
+  typedef typename  boost::proto::                                            \
+                    result_of::as_expr< base                                  \
+                                      , container::domain                     \
+                                      >::type             result_type;        \
                                                                               \
   BOOST_FORCEINLINE result_type                                               \
   operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,const A,& a) ) const               \
   {                                                                           \
     nt2::details::constant_generator<Tag> callee;                             \
-    container::domain domain_;                                                \
-    return domain_( expr_type                                                 \
-                    ::make( base(of_size(BOOST_PP_ENUM_PARAMS(n,a)),callee) ) \
-                  );                                                          \
+    base that(of_size(BOOST_PP_ENUM_PARAMS(n,a)),callee);                     \
+    return boost::proto::as_expr<container::domain>(that);                    \
   }                                                                           \
 };                                                                            \
                                                                               \
@@ -57,24 +56,23 @@ NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_                                    \
                           )                                                   \
 {                                                                             \
   typedef nt2::details::                                                      \
-          generator < nt2::tag::table_                                        \
+          generative< nt2::tag::table_                                        \
                     , nt2::details::constant_generator<Tag>                   \
                     , typename T::type                                        \
                     , settings(BOOST_PP_CAT(_,BOOST_PP_CAT(n,D)))             \
                     > base;                                                   \
                                                                               \
-  typedef typename boost::proto::terminal<base>::type  expr_type;             \
-  typedef typename boost::                                                    \
-          result_of<container::domain(expr_type)>::type const result_type;    \
+  typedef typename  boost::proto::                                            \
+                    result_of::as_expr< base                                  \
+                                      , container::domain                     \
+                                      >::type             result_type;        \
                                                                               \
   BOOST_FORCEINLINE result_type                                               \
   operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,const A,& a), T const& ) const     \
   {                                                                           \
     nt2::details::constant_generator<Tag> callee;                             \
-    container::domain domain_;                                                \
-    return domain_( expr_type                                                 \
-                    ::make( base(of_size(BOOST_PP_ENUM_PARAMS(n,a)),callee) ) \
-                  );                                                          \
+    base that(of_size(BOOST_PP_ENUM_PARAMS(n,a)),callee);                     \
+    return boost::proto::as_expr<container::domain>(that);                    \
   }                                                                           \
 };                                                                            \
 /**/

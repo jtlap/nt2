@@ -18,8 +18,8 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)(Dom)
-                                   , ((expr_< unspecified_<A0>,Dom,boost::simd::tag::multiplies_>))(unspecified_<A1>)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+                                   , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> >))(unspecified_<A1>)
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
@@ -34,8 +34,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)(Dom)
-                                   , (unspecified_<A0>)((expr_< unspecified_<A1>,Dom,boost::simd::tag::multiplies_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+                                   , (unspecified_<A0>)((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> >))
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
@@ -50,8 +50,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)(Dom)
-                                   , ((expr_< unspecified_<A0>,Dom,boost::simd::tag::multiplies_>))((expr_< unspecified_<A1>,Dom,boost::simd::tag::multiplies_>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+                                   , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> >))((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> >))
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(

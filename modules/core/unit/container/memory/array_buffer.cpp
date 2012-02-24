@@ -199,7 +199,7 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
 //==============================================================================
 struct f_
 {
-  template<class T> T operator()(T const& e) const { return 10*e; }
+  template<class T> T operator()(T const& e) const { return T(10*e); }
 };
 
 NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
@@ -220,7 +220,7 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
   std::transform(b,e,b,f);
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x(i), f(3+i) );
+    NT2_TEST_EQUAL( x(i), T(f(3+i)) );
 }
 
 //==============================================================================

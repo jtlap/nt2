@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_UTILITY_GENERATOR_GENERATOR_HPP_INCLUDED
-#define NT2_CORE_UTILITY_GENERATOR_GENERATOR_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_GENERATIVE_GENERATIVE_HPP_INCLUDED
+#define NT2_CORE_UTILITY_GENERATIVE_GENERATIVE_HPP_INCLUDED
 
 #include <cstddef>
 #include <nt2/sdk/meta/as.hpp>
@@ -15,19 +15,20 @@
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
-#include <nt2/core/utility/generator/adapted.hpp>
+#include <nt2/core/utility/generative/adapted.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
   /*!
-   * generative_container is a lazy type acting as a container but containing no
+   * generative is a lazy type acting as a container but containing no
    * memory block. Values from the container are computed on the fly everytime
    * a value is requested.
    **/
   //============================================================================
-  template<class Tag, class Functor, class T, class S> struct generator
+  template<class Tag, class Functor, class T, class S>
+  struct generative
   {
     typedef T                                             value_type;
     typedef Tag                                           tag_type;
@@ -36,13 +37,17 @@ namespace nt2 { namespace details
     typedef typename meta::option<S,tag::of_size_>::type  sizes_type;
     typedef sizes_type const&                             extent_type;
 
-    generator ( extent_type sz, generator_type const& g = generator_type() )
+    generative( extent_type sz, generator_type const& g = generator_type() )
               :  generator_(g), sizes_(sz) {}
 
-    template<class Position>
-    BOOST_FORCEINLINE T operator()( Position const& pos ) const
+    generative( generative const& src )
+              :  generator_(src.generator_), sizes_(src.sizes_) {}
+
+    generative& operator=( generative const& src )
     {
-      return generator_(pos,sizes_,meta::as_<T>());
+      generator_  = src.generator_;
+      sizes_      = src.sizes_;
+      return *this;
     }
 
     template<class Position,class Target>

@@ -17,6 +17,7 @@
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
@@ -34,11 +35,16 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
+      typedef typename meta::as_real<A0>::type rtype;
+      typedef typename meta::as_logical<rtype>::type ltype;
       rtype c, s, ch, sh;
-      sincos(real(a0), s, c);
-      sinhcosh(imag(a0), sh, ch);
-      return result_type(c*ch, s*sh);     
+      sincos(imag(a0), s, c);
+      sinhcosh(real(a0), sh, ch);
+      std::cout << "a0  "<< a0 << " s  "<< s << " c "<< c << " sh " << sh << " ch "<< ch << std::endl; 
+      rtype r = c*ch;
+      rtype i = s*sh;
+      i = if_zero_else(logical_or(is_imag(a0), is_real(a0)), i); 
+      return result_type(r, i);     
     }
   };
 

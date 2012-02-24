@@ -9,8 +9,9 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 
-#include <boost/utility.hpp>
 #include <boost/mpl/size_t.hpp>
+#include <boost/next_prior.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
 #include <boost/fusion/include/next.hpp>
@@ -35,7 +36,7 @@ namespace nt2 { namespace details
   void copy(InB const& inb, InE const& inE, Out const& out);
 
   template<class InB, class InE, class Out> BOOST_FORCEINLINE
-  void copy(InB const& inb, InE const&, Out const&, boost::mpl::true_)
+  void copy(InB const&, InE const&, Out const&, boost::mpl::true_)
   {
   }
 
@@ -169,7 +170,7 @@ namespace nt2 { namespace details
   }
 
   template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<-1> const&)
+  bool compare_equal(A1 const&, A2 const&, boost::mpl::long_<-1> const&)
   {
     return true;
   }
@@ -188,7 +189,7 @@ namespace nt2 { namespace details
   }
 
   template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<-1> const&)
+  bool compare_not_equal(A1 const&, A2 const&, boost::mpl::long_<-1> const&)
   {
     return false;
   }

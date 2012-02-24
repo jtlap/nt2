@@ -44,6 +44,8 @@
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/negif.hpp>
+#include <nt2/include/functions/safe_max.hpp>
+#include <nt2/include/functions/safe_min.hpp>
 
 
 #include <nt2/include/constants/one.hpp>
@@ -206,16 +208,6 @@ namespace nt2 { namespace ext
       result_type res = result_type(r, i);
       return res; 
     }
-    template < class T > 
-    static inline T safe_max(const T& t)
-      {
-        return nt2::sqrt(Valmax<T>())/t;
-      }
-    template < class T > 
-    static inline T safe_min(const T& t)
-      {
-        return nt2::sqrt(Smallestposval<T>())/t;
-      }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asin_, tag::cpu_, (A0)
@@ -240,6 +232,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       //TODO optimize it
+      if (all(is_real(a0)) && all(le(nt2::abs(a0), One<rtype>())))
+        return result_type(nt2::asin(real(a0))); 
       return nt2::asin(result_type(real(a0), Zero<rtype>()));
     }
   };

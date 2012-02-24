@@ -22,6 +22,7 @@
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/none.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
@@ -36,11 +37,15 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
-      rtype c, s, ch, sh;
-      sincos(real(a0), s, c);
-      sinhcosh(imag(a0), sh, ch);
-      return result_type(c*ch, if_zero_else(logical_or(is_imag(a0), is_real(a0)), -s*sh));     
+      return nt2::cosh(mul_i(a0)); 
+ //      typedef typename meta::as_real<A0>::type rtype; 
+//       rtype c, s, ch, sh;
+//       sincos(real(a0), s, c);
+//       sinhcosh(imag(a0), sh, ch);
+//       rtype r = c*ch;
+//       rtype i = -s*sh;
+//       i = if_zero_else(logical_or(is_imag(a0), is_real(a0)), i); 
+//       return result_type(r, i);     
     }
   };
 

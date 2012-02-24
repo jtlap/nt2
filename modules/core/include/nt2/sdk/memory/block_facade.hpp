@@ -26,7 +26,7 @@ namespace nt2 { namespace memory
    *
    **/
   //============================================================================
-  template<class Shape, class Type, class Settings> class block;
+  template<class Shape, class Type, class Settings> struct block;
 
   //============================================================================
   /**!

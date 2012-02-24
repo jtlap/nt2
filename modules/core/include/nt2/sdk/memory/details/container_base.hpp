@@ -237,7 +237,7 @@ namespace nt2 { namespace details
 
     template<class Position, std::size_t N>
     static BOOST_FORCEINLINE reference
-    access( Position const&, block_t& b, sizes_type const& s
+    access( Position const&, block_t& b, sizes_type const&
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
           )
     {
@@ -246,7 +246,7 @@ namespace nt2 { namespace details
 
     template<class Position, std::size_t N>
     static BOOST_FORCEINLINE const_reference
-    access( Position const& p, block_t const& b, sizes_type const& s
+    access( Position const&, block_t const& b, sizes_type const&
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
           )
     {

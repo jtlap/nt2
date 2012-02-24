@@ -12,7 +12,7 @@
 ################################################################################
 
 nt2_module_tool(is_supported vmx RESULT_VARIABLE RESULT_VAR OUTPUT_QUIET)
-if(RUN_RESULT_VAR EQUAL 0)
+if(RESULT_VAR EQUAL 0)
   set(NT2_HAS_VMX_SUPPORT 1)
 else()
   set(NT2_HAS_VMX_SUPPORT 0)

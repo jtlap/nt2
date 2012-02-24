@@ -14,6 +14,8 @@
 #include <boost/dispatch/meta/lambda_terminal.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
 
+namespace nt2 { namespace tag { struct box_; } }
+
 namespace nt2 { namespace container
 {
   //============================================================================
@@ -26,7 +28,7 @@ namespace nt2 { namespace container
                 , boost::dispatch::
                   lambda_terminal< boost::is_arithmetic<boost::proto::_value> >
                 , boost::proto::terminal<colon_>
-                , boost::proto::terminal<details::box< boost::proto::_> >
+                , boost::proto::nullary_expr<tag::box_, boost::proto::_>
                 , boost::proto::
                   and_< boost::proto::
                         nary_expr < boost::proto::_

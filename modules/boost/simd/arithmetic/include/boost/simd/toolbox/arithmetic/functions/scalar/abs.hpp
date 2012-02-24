@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return (a0 > 0)?a0:-a0;
+      return (a0 >= 0)?a0:-a0;
     }
   };
 
@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return std::abs(a0);
+      return  (a0 >= 0)?a0:-a0;
     }
   };
 

@@ -35,13 +35,14 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<A0>::type rtype; 
-      rtype c, s, ch, sh;
-      sincos(real(a0), s, c);
-      sinhcosh(imag(a0), sh, ch);
-      rtype r = if_zero_else(is_imag(a0), s*ch);
-      rtype i = if_zero_else(is_real(a0), c*sh);
-      return result_type(r, i);     
+      return mul_minus_i(nt2::sinh(mul_i(a0))); 
+//       typedef typename meta::as_real<A0>::type rtype; 
+//       rtype c, s, ch, sh;
+//       sincos(real(a0), s, c);
+//       sinhcosh(imag(a0), sh, ch);
+//       rtype r = if_zero_else(is_imag(a0), s*ch);
+//       rtype i = if_zero_else(is_real(a0), c*sh);
+//       return result_type(r, i);     
     }
   };
 

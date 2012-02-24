@@ -29,28 +29,28 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sec_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_dry<rA0>::type result_type; 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return bitwise_cast<result_type>(rec(nt2::cosh(imag(a0)))); 
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sec_, tag::cpu_, (A0)
+//                             , (generic_< imaginary_< arithmetic_<A0> > >)
+//                             )
+//   {
+//     typedef typename meta::as_real<A0>::type rA0;
+//     typedef typename meta::as_dry<rA0>::type result_type; 
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return bitwise_cast<result_type>(rec(nt2::cosh(imag(a0)))); 
+//     }
+//   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sec_, tag::cpu_, (A0)
-                            , (generic_< dry_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef A0 result_type; 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return bitwise_cast<result_type>(rec(nt2::cos(real(a0)))); 
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sec_, tag::cpu_, (A0)
+//                             , (generic_< dry_< arithmetic_<A0> > >)
+//                             )
+//   {
+//     typedef A0 result_type; 
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return bitwise_cast<result_type>(rec(nt2::cos(real(a0)))); 
+//     }
+//   };
   
 } }
 

@@ -22,11 +22,36 @@
 NT2_TEST_CASE( fundamental_numel )
 {
   using nt2::numel;
-  
+
   NT2_TEST_EQUAL( numel('4'), 1U  );
   NT2_TEST_EQUAL( numel(4)  , 1U  );
   NT2_TEST_EQUAL( numel(4.) , 1U  );
-  NT2_TEST_EQUAL( numel(4.f), 1U  ); 
+  NT2_TEST_EQUAL( numel(4.f), 1U  );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// numel of container
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( container_numel )
+{
+  using nt2::numel;
+  using nt2::of_size;
+
+  typedef nt2::memory::container< nt2::tag::table_
+                                , nt2::id_<0>,float,nt2::settings()
+                                > container_t;
+
+  container_t t0;
+  container_t t1( of_size(2,1,1,1) );
+  container_t t2( of_size(2,2,1,1) );
+  container_t t3( of_size(2,2,2,1) );
+  container_t t4( of_size(2,2,2,2) );
+
+  NT2_TEST_EQUAL( numel(t0), 0U   );
+  NT2_TEST_EQUAL( numel(t1), 2U   );
+  NT2_TEST_EQUAL( numel(t2), 4U   );
+  NT2_TEST_EQUAL( numel(t3), 8U   );
+  NT2_TEST_EQUAL( numel(t4), 16U  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,7 +62,7 @@ NT2_TEST_CASE( table_numel )
   using nt2::numel;
   using nt2::of_size;
   using nt2::table;
-  
+
   table<float> t0;
   table<float> t1( of_size(2) );
   table<float> t2( of_size(2,2) );
@@ -59,7 +84,7 @@ NT2_TEST_CASE( expression_numel )
   using nt2::numel;
   using nt2::of_size;
   using nt2::table;
-  
+
   table<float> t0;
   table<float> t1( of_size(2) );
   table<float> t2( of_size(2,2) );

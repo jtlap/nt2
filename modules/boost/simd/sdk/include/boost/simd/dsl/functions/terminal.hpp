@@ -17,7 +17,7 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    struct terminal_ : ext::unspecified_<terminal_> { typedef ext::unspecified_<terminal_> parent; };
+    struct terminal_ : ext::elementwise_<terminal_> { typedef ext::elementwise_<terminal_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::terminal_, terminal, 1)

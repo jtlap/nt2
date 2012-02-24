@@ -24,6 +24,8 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
+#include <boost/assert.hpp>
 
 // Semantic of NT2 expression lies in its ResultType template parameter
 namespace boost { namespace dispatch { namespace meta
@@ -49,7 +51,19 @@ namespace nt2 { namespace container { namespace ext
     template<class Sz>
     void operator()(Expr& expr, Sz const& sz)
     {
+      return (*this)(expr, sz, typename meta::is_container< typename boost::proto::result_of::value<Expr>::type >::type());
+    }
+
+    template<class Sz>
+    void operator()(Expr& expr, Sz const& sz, boost::mpl::true_)
+    {
       boost::proto::value(expr).resize(sz);
+    }
+
+    template<class Sz>
+    void operator()(Expr&, Sz const& sz, boost::mpl::false_)
+    {
+      BOOST_ASSERT_MSG(sz == of_size_<>(), "Resizing scalar to size other than 1");
     }
   };
 
@@ -61,6 +75,29 @@ namespace nt2 { namespace container { namespace ext
   };
 
 } } }
+
+namespace nt2 { namespace details
+{
+  template<class Base, class Expr>
+  BOOST_DISPATCH_FORCE_INLINE
+  typename boost::enable_if_c< Base::proto_arity_c == 0
+                             , typename Expr::extent_type
+                             >::type
+  size_recompute(Base const& this_, Expr const& old)
+  {
+    return nt2::extent(this_.child0);
+  }
+
+  template<class Base, class Expr>
+  BOOST_DISPATCH_FORCE_INLINE
+  typename boost::disable_if_c< Base::proto_arity_c == 0
+                              , typename Expr::extent_type
+                              >::type
+  size_recompute(Base const&, Expr const& old)
+  {
+    return old.extent();
+  }
+} }
 
 namespace nt2 { namespace container
 {
@@ -106,6 +143,13 @@ namespace nt2 { namespace container
     template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE
     expression(Expr const& x, Sz const& sz) : parent(x), size_(sz) {}
+
+    BOOST_DISPATCH_FORCE_INLINE
+    expression(expression const& xpr)
+     : parent(xpr.proto_base())
+     , size_(details::size_recompute(parent::proto_base(), xpr))
+    {
+    }
 
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
