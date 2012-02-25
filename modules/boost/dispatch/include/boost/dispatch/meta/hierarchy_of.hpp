@@ -22,7 +22,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {

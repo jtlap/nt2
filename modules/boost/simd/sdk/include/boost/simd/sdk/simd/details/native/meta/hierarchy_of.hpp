@@ -13,14 +13,16 @@
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T, class X, class Origin>
   struct hierarchy_of< simd::native<T, X>, Origin>
   {
-    typedef typename meta::strip<Origin>::type stripped;
-    typedef typename mpl::if_< is_native<stripped>, Origin, stripped>::type origin_;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same< simd::native<T, X>, stripped >, stripped, Origin>::type origin_;
     typedef typename simd::ext::simd_<typename property_of<T, origin_>::type, X> type;
   };
 } } }
