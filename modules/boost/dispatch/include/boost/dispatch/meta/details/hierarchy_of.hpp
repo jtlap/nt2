@@ -27,7 +27,9 @@ namespace boost { namespace dispatch { namespace details
                         boost::enable_if< boost::is_fundamental<T> >::type
                       >
   {
-    typedef meta::scalar_<typename meta::property_of<T, Origin>::type>  type;
+    typedef typename meta::strip<Origin>::type stripped;
+    typedef typename mpl::if_< is_fundamental<stripped>, Origin, stripped>::type origin_;
+    typedef meta::scalar_<typename meta::property_of<T, origin_>::type>  type;
   };
 
   //============================================================================

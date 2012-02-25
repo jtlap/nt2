@@ -42,15 +42,15 @@ namespace meta
   template<class T, class Origin = T>
   struct  hierarchy_of
         : details::hierarchy_of< T
-                               , typename meta::strip<Origin>::type
+                               , typename remove_reference<Origin>::type
                                >
   {};
 
   template<class T, class Origin>
-  struct  hierarchy_of<T&, Origin> : hierarchy_of<T, typename meta::strip<Origin>::type> {};
+  struct  hierarchy_of<T&, Origin> : hierarchy_of<T, typename remove_reference<Origin>::type> {};
   
   template<class T, class Origin>
-  struct  hierarchy_of<T const, Origin> : hierarchy_of<T, typename meta::strip<Origin>::type> {};
+  struct  hierarchy_of<T const, Origin> : hierarchy_of<T, typename remove_reference<Origin>::type> {};
 } } }
 
 #include <boost/dispatch/meta/details/hierarchy_of.hpp>

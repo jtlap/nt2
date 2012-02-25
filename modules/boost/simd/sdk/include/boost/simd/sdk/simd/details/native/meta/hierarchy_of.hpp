@@ -19,7 +19,9 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class X, class Origin>
   struct hierarchy_of< simd::native<T, X>, Origin>
   {
-    typedef typename simd::ext::simd_<typename property_of<T, Origin>::type, X> type;
+    typedef typename meta::strip<Origin>::type stripped;
+    typedef typename mpl::if_< is_native<stripped>, Origin, stripped>::type origin_;
+    typedef typename simd::ext::simd_<typename property_of<T, origin_>::type, X> type;
   };
 } } }
 
