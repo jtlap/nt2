@@ -11,6 +11,8 @@
 
 #include <boost/mpl/size_t.hpp>
 #include <nt2/core/functions/numel.hpp>
+#include <boost/fusion/include/fold.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,6 +24,27 @@ namespace nt2 { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&) const { return result_type(); }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::numel_, tag::cpu_
+                            , (A0)
+                            , (fusion_sequence_<A0>)
+                            )
+  {
+    typedef typename boost::fusion::result_of::
+    fold< A0
+        , boost::mpl::size_t<1>
+        , nt2::functor<tag::multiplies_>
+        >::type                                                   result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0) const
+    {
+      return boost::fusion::fold( a0
+                                , boost::mpl::size_t<1>()
+                                , functor<tag::multiplies_>()
+                                );
+    }
   };
 } }
 
