@@ -48,9 +48,11 @@ namespace boost { namespace dispatch { namespace details
                         boost::enable_if_c< meta::is_iterator<T>::value>::type
                       >
   {
-    typedef typename boost::pointee<T>::type                        pointee_type;
+    typedef typename boost::pointee<T>::type pointee_type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same<T, stripped>, stripped, Origin>::type origin_;
     typedef meta::iterator_ < typename
-                              meta::hierarchy_of<pointee_type,Origin>::type > type;
+                              meta::hierarchy_of<pointee_type,origin_>::type > type;
   };
 }
 
@@ -59,7 +61,9 @@ namespace meta
   template<class Origin>
   struct  hierarchy_of<void*, Origin>
   {
-    typedef meta::iterator_<meta::generic_<meta::void_<Origin> > >  type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same<void*, stripped>, stripped, Origin>::type origin_;
+    typedef meta::iterator_<meta::generic_<meta::void_<origin_> > >  type;
   };
 } } }
 
