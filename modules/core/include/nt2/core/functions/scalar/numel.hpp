@@ -31,18 +31,17 @@ namespace nt2 { namespace ext
                             , (fusion_sequence_<A0>)
                             )
   {
-    typedef typename boost::fusion::result_of::
-    fold< A0
-        , boost::mpl::size_t<1>
-        , nt2::functor<tag::multiplies_>
-        >::type                                                   result_type;
+    typedef typename  boost::dispatch::
+                      make_functor<tag::multiplies_,A0>::type       func_t;
+    typedef typename  boost::fusion::result_of::
+                      fold<A0,boost::mpl::size_t<1>,func_t>::type   result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
       return boost::fusion::fold( a0
                                 , boost::mpl::size_t<1>()
-                                , functor<tag::multiplies_>()
+                                , func_t()
                                 );
     }
   };
