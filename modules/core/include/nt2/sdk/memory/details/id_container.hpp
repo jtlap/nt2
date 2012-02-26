@@ -30,7 +30,6 @@ namespace nt2 { namespace memory
     typedef typename parent::difference_type              difference_type;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
-    typedef typename parent::padd_t                       padd_t;
     typedef typename parent::specific_data_type           specific_data_type;
 
     //==========================================================================
@@ -40,7 +39,9 @@ namespace nt2 { namespace memory
     {
       if(!status_)
       {
-        parent::init(block_,sizes_, typename parent::require_static_init());
+        parent::init( block_,sizes_, allocator_type()
+                    , typename parent::require_static_init()
+                    );
         status_ = true;
       }
     }
@@ -67,8 +68,7 @@ namespace nt2 { namespace memory
     {
       if(!status_)
       {
-        block_t that(pad<value_type>(sz,typename padd_t::type()),a);
-        block_.swap(that);
+        parent::init(block_,sz, a);
         sizes_ = sz;
         status_ = true;
       }

@@ -114,20 +114,37 @@ NT2_TEST_CASE_TPL( container_static_default_ctor, NT2_TYPES)
   using nt2::no_padding_;
   using nt2::tag::table_;
   using nt2::memory::container;
+  {
+    typedef container<table_,id_<0>,T,settings(of_size_<3,7>)> type;
+    type b;
 
-  typedef container<table_,id_<0>,T,settings(of_size_<3,7>)> type;
-  type b;
+    NT2_TEST(!b.empty());
+    NT2_TEST( (b.extent() == of_size_<3,7>()) );
 
-  NT2_TEST(!b.empty());
-  NT2_TEST( (b.extent() == of_size_<3,7>()) );
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
 
-  for(typename type::difference_type j=1;j<=7;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(i + j);
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
 
-  for(typename type::difference_type j=1;j<=7;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+  {
+    typedef container<table_,id_<0>,T,settings(of_size_<1,7>)> type;
+    type b;
+
+    NT2_TEST(!b.empty());
+    NT2_TEST( (b.extent() == of_size_<1,7>()) );
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
 }
 
 //==============================================================================
@@ -142,21 +159,39 @@ NT2_TEST_CASE_TPL( container_automatic_static_default_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<table_,id_<0>,T,settings(of_size_<3,7>, automatic_)> type;
-  type b;
+  {
+    typedef container<table_,id_<0>,T,settings(of_size_<3,7>, automatic_)> type;
+    type b;
 
-  NT2_TEST(!b.empty());
-  NT2_TEST( (b.extent() == of_size_<3,7>()) );
+    NT2_TEST(!b.empty());
+    NT2_TEST( (b.extent() == of_size_<3,7>()) );
 
-  for(typename type::difference_type j=1;j<=7;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(i + j);
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
 
-  for(typename type::difference_type j=1;j<=7;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
+
+  {
+    typedef container<table_,id_<0>,T,settings(of_size_<1,7>, automatic_)> type;
+    type b;
+
+    NT2_TEST(!b.empty());
+    NT2_TEST( (b.extent() == of_size_<1,7>()) );
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
 }
-////
+
 //==============================================================================
 // Test for container size ctor
 //==============================================================================
@@ -168,19 +203,37 @@ NT2_TEST_CASE_TPL( container_size_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<table_,id_<0>,T,settings()> type;
-  type b( of_size(5,3) );
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b( of_size(5,3) );
 
-  NT2_TEST(!b.empty());
-  NT2_TEST( (b.extent() == of_size(5,3)) );
+    NT2_TEST(!b.empty());
+    NT2_TEST( (b.extent() == of_size(5,3)) );
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(i + j);
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
+
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b( of_size(1,3) );
+
+    NT2_TEST(!b.empty());
+    NT2_TEST( (b.extent() == of_size(1,3)) );
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
 }
 
 //==============================================================================
@@ -194,21 +247,41 @@ NT2_TEST_CASE_TPL( container_copy_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<table_,id_<0>,T,settings()> type;
-  type b( of_size(5,3) );
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b( of_size(5,3) );
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(i + j);
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
 
-  type x( b );
+    type x( b );
 
-  NT2_TEST(!x.empty());
-  NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(5,3)) );
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
+
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b( of_size(1,3) );
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
+
+    type x( b );
+
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(1,3)) );
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
 }
 
 //==============================================================================
@@ -224,23 +297,42 @@ NT2_TEST_CASE_TPL( automatic_container_copy_ctor, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<table_,id_<0>,T,settings(of_size_<3,7>, automatic_)> type;
-  type b;
+  {
+    typedef container<table_,id_<0>,T,settings(of_size_<3,7>, automatic_)> type;
+    type b;
 
-  for(typename type::difference_type j=1;j<=7;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(i + j);
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
 
-  type x( b );
+    type x( b );
 
-  NT2_TEST(!x.empty());
-  NT2_TEST( (x.extent() == of_size(3,7)) );
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(3,7)) );
 
-  for(typename type::difference_type j=1;j<=7;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
+
+  {
+    typedef container<table_,id_<0>,T,settings(of_size_<1,7>, automatic_)> type;
+    type b;
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
+
+    type x( b );
+
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(1,7)) );
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
 }
-
 //==============================================================================
 // Test for container assignment
 //==============================================================================
@@ -252,25 +344,46 @@ NT2_TEST_CASE_TPL( container_assignment, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<table_,id_<0>,T,settings()> type;
-  type b( of_size(5,3) );
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b( of_size(5,3) );
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(i + j);
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
 
-  type x;
+    type x;
 
-  x = b;
+    x = b;
 
-  NT2_TEST(!x.empty());
-  NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(5,3)) );
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
+
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b( of_size(1,3) );
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
+
+    type x;
+
+    x = b;
+
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(1,3)) );
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
 }
-
 
 //==============================================================================
 // Test for automatic container assignment
@@ -285,23 +398,45 @@ NT2_TEST_CASE_TPL( automatic_container_assignment, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<table_,id_<0>,T,settings(of_size_<5,3>,automatic_)> type;
-  type b;
+  {
+    typedef container<table_,id_<0>,T,settings(of_size_<5,3>,automatic_)> type;
+    type b;
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(i + j);
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
 
-  type x;
+    type x;
 
-  x = b;
+    x = b;
 
-  NT2_TEST(!x.empty());
-  NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(5,3)) );
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
+
+  {
+    typedef container<table_,id_<0>,T,settings(of_size_<1,3>,automatic_)> type;
+    type b;
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i + j);
+
+    type x;
+
+    x = b;
+
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(1,3)) );
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i + j));
+  }
 }
 
 //==============================================================================
@@ -315,33 +450,65 @@ NT2_TEST_CASE_TPL( container_swap, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<table_,id_<0>,T,settings()> type;
-  type b( of_size(5,3) );
-  type x( of_size(3,2) );
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b( of_size(5,3) );
+    type x( of_size(3,2) );
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(j);
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(j);
 
-  for(typename type::difference_type j=1;j<=2;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      x[boost::fusion::vector_tie(i,j)] = T(i);
+    for(typename type::difference_type j=1;j<=2;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        x[boost::fusion::vector_tie(i,j)] = T(i);
 
-  swap(x,b);
+    swap(x,b);
 
-  NT2_TEST(!x.empty());
-  NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(5,3)) );
 
-  NT2_TEST(!b.empty());
-  NT2_TEST( (b.extent() == of_size(3,2)) );
+    NT2_TEST(!b.empty());
+    NT2_TEST( (b.extent() == of_size(3,2)) );
 
-  for(typename type::difference_type j=1;j<=2;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i));
+    for(typename type::difference_type j=1;j<=2;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i));
 
-  for(typename type::difference_type j=1;j<=3;++j)
-    for(typename type::difference_type i=1;i<=5;++i)
-      NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(j));
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=5;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(j));
+  }
+
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b( of_size(1,3) );
+    type x( of_size(1,2) );
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(j);
+
+    for(typename type::difference_type j=1;j<=2;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        x[boost::fusion::vector_tie(i,j)] = T(i);
+
+    swap(x,b);
+
+    NT2_TEST(!x.empty());
+    NT2_TEST( (x.extent() == of_size(1,3)) );
+
+    NT2_TEST(!b.empty());
+    NT2_TEST( (b.extent() == of_size(1,2)) );
+
+    for(typename type::difference_type j=1;j<=2;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i));
+
+    for(typename type::difference_type j=1;j<=3;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(j));
+  }
 }
 
 //==============================================================================
@@ -356,23 +523,47 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
   using nt2::tag::table_;
   using nt2::memory::container;
 
-  typedef container<table_,id_<0>,T,settings()> type;
-  type b;
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b;
 
-  NT2_TEST(b.empty());
-  NT2_TEST_EQUAL(b.size(),  0 );
-  NT2_TEST(b.extent() == of_size_<0>());
+    NT2_TEST(b.empty());
+    NT2_TEST_EQUAL(b.size(),  0 );
+    NT2_TEST(b.extent() == of_size_<0>());
 
-  b.resize( of_size(3,2) );
+    b.resize( of_size(3,2) );
 
-  NT2_TEST(!b.empty());
-  NT2_TEST(b.extent() == of_size(3,2));
+    NT2_TEST(!b.empty());
+    NT2_TEST(b.extent() == of_size(3,2));
 
-  for(typename type::difference_type j=1;j<=2;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      b[boost::fusion::vector_tie(i,j)] = T(i+j);
+    for(typename type::difference_type j=1;j<=2;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i+j);
 
-  for(typename type::difference_type j=1;j<=2;++j)
-    for(typename type::difference_type i=1;i<=3;++i)
-      NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i+j));
+    for(typename type::difference_type j=1;j<=2;++j)
+      for(typename type::difference_type i=1;i<=3;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i+j));
+  }
+
+  {
+    typedef container<table_,id_<0>,T,settings()> type;
+    type b;
+
+    NT2_TEST(b.empty());
+    NT2_TEST_EQUAL(b.size(),  0 );
+    NT2_TEST(b.extent() == of_size_<0>());
+
+    b.resize( of_size(1,2) );
+
+    NT2_TEST(!b.empty());
+    NT2_TEST(b.extent() == of_size(1,2));
+
+    for(typename type::difference_type j=1;j<=2;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i+j);
+
+    for(typename type::difference_type j=1;j<=2;++j)
+      for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i+j));
+  }
 }

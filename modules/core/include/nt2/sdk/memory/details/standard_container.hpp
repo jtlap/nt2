@@ -42,17 +42,15 @@ namespace nt2 { namespace memory
     typedef typename parent::const_reference              const_reference;
     typedef Tag                                           tag_type;
     typedef typename parent::specific_data_type           specific_data_type;
-    typedef typename parent::padd_t                       padd_t;
 
     //==========================================================================
     /*!
      * Default constructor
      */
     //==========================================================================
-    container ( allocator_type const& a = allocator_type() )
-              : block_(a), specific_data_()
+    container( allocator_type const& a = allocator_type() ) : specific_data_()
     {
-      parent::init(block_,sizes_, typename parent::require_static_init());
+      parent::init(block_,sizes_,a, typename parent::require_static_init());
     }
 
     //==========================================================================
@@ -62,17 +60,19 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size>
     container( Size const& sz, allocator_type const& a = allocator_type() )
-      : block_( pad<value_type>(sz,typename padd_t::type()) ,a)
+      : block_(sz,a)
       , sizes_(sz)
       , specific_data_()
-    {}
+    {
+
+    }
 
     //==========================================================================
     /*!
      * Copy Constructor
      */
     //==========================================================================
-    container( container const& s)  : block_( s.block_ )
+    container( container const& s)  : block_(s.block_)
                                     , sizes_(s.sizes_)
                                     , specific_data_(s.specific_data_)
     {}
@@ -162,9 +162,9 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE const_iterator end() const { return block_.data().end(); }
 
     private:
-    block_t             block_;
-    sizes_type          sizes_;
-    mutable  specific_data_type  specific_data_;
+    block_t                     block_;
+    sizes_type                  sizes_;
+    mutable specific_data_type  specific_data_;
   };
 } }
 

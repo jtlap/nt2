@@ -18,6 +18,8 @@
 #include <nt2/include/functions/inflate.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/settings/specific_data.hpp>
+#include <nt2/core/functions/scalar/numel.hpp>
+#include <nt2/core/functions/scalar/length.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
 
@@ -38,20 +40,22 @@ namespace nt2 { namespace details
     //==========================================================================
     // Public type interface
     //==========================================================================
-    typedef typename block_t::allocator_type                    allocator_type;
-    typedef typename block_t::value_type                        value_type;
-    typedef typename block_t::iterator                          iterator;
-    typedef typename block_t::const_iterator                    const_iterator;
-    typedef typename block_t::reference                         reference;
-    typedef typename block_t::const_reference                   const_reference;
-    typedef typename block_t::size_type                         size_type;
-    typedef typename block_t::difference_type                   difference_type;
-    typedef typename allocator_type::pointer                    pointer;
-    typedef typename allocator_type::const_pointer              const_pointer;
-    typedef Tag                                                 tag_type;
-    typedef S                                                   base_settings_type;
-    typedef typename specific_data<
-      typename boost::dispatch::default_site<T>::type, T>::type specific_data_type;
+    typedef typename block_t::allocator_type                allocator_type;
+    typedef typename block_t::value_type                    value_type;
+    typedef typename block_t::iterator                      iterator;
+    typedef typename block_t::const_iterator                const_iterator;
+    typedef typename block_t::reference                     reference;
+    typedef typename block_t::const_reference               const_reference;
+    typedef typename block_t::size_type                     size_type;
+    typedef typename block_t::difference_type               difference_type;
+    typedef typename allocator_type::pointer                pointer;
+    typedef typename allocator_type::const_pointer          const_pointer;
+    typedef Tag                                             tag_type;
+    typedef S                                               base_settings_type;
+    typedef typename specific_data< typename boost::dispatch::
+                                            default_site<T>::type
+                                  , T
+                                  >::type                   specific_data_type;
     //==========================================================================
     // container is handling the size/base storage for the proto terminal
     //==========================================================================
@@ -80,17 +84,38 @@ namespace nt2 { namespace details
 
 
     //==========================================================================
-    // If size is static, perform allocation from default constructor
+    // Two-phase initialisation suppport
     //==========================================================================
-    template<class Size> static
-    inline void init( block_t& block, Size const& sz, boost::mpl::true_ const& )
+    template<class Size> static inline
+    void init( block_t& block, Size const& sz, allocator_type const& a)
     {
-      block_t that(sz);
-      block.swap(that);
+      if( nt2::numel(sz) != nt2::length(sz) )
+      {
+        // padd as usual
+        block_t that(pad<value_type>(sz,typename padd_t::type()),a);
+        block.swap(that);
+      }
+      else
+      {
+        // else, don't pad this [1 1 ... N] size
+        block_t that(sz,a);
+        block.swap(that);
+      }
     }
 
-    template<class Size> static
-    inline void init( block_t&, Size const&, boost::mpl::false_ const&) {}
+    template<class Size> static BOOST_FORCEINLINE
+    void init ( block_t& block, Size const& sz, allocator_type const& a
+              , boost::mpl::true_ const&
+              )
+    {
+      init(block,sz,a);
+    }
+
+    template<class Size> static BOOST_FORCEINLINE
+    void init ( block_t&, Size const&, allocator_type const&
+              , boost::mpl::false_ const&
+              )
+    {}
 
     //==========================================================================
     // Resize inner block if resizing is allowed
@@ -103,15 +128,12 @@ namespace nt2 { namespace details
       if( new_sz != old_sz )
       {
         old_sz = sizes_type(new_sz);
-        block.resize( pad<value_type>(old_sz,typename padd_t::type()) );
+
+        if( nt2::numel(new_sz) != nt2::length(new_sz) )
+          block.resize( pad<value_type>(old_sz,typename padd_t::type()) );
+        else
+          block.resize(old_sz);
       }
-      /*
-       * if( new_sz != old_sz )
-      {
-        old_sz = sizes_type(new_sz);
-        block_t that(new_sz);
-        block.swap(that);
-      }*/
     }
 
     //==========================================================================
