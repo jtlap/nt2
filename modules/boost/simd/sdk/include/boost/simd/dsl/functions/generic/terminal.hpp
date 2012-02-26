@@ -28,18 +28,10 @@ namespace boost { namespace simd { namespace ext
                             , (ast_<A0>)
                             )
   {
-    template<class Sig>
-    struct result;
+    typedef typename proto::result_of::value<A0&>::type result_type;
     
-    template<class This, class A0_>
-    struct result<This(A0_)>
-      : proto::result_of::value<A0_>
-    {
-    };
-    
-    template<class A0_>
-    typename result<implement(A0_&)>::type
-    operator()(A0_& a0) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0) const
     {
       return boost::proto::value(a0);
     }

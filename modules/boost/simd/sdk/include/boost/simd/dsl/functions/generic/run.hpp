@@ -36,14 +36,11 @@ namespace boost { namespace simd { namespace ext
           >
     transform;
     
-    template<class Sig> struct result;
+    typedef typename transform::template
+            result<transform(A0&)>::type                    result_type;
     
-    template<class This, class A0_>
-    struct result<This(A0_)> : transform::template result<transform(A0_)> {};
-    
-    template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&)>::type
-    operator()(A0_& a0) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0) const
     {
       return transform()(a0);
     }
@@ -75,15 +72,11 @@ namespace boost { namespace simd { namespace ext
           >
     transform;
     
-    template<class Sig> struct result;
+    typedef typename transform::template
+            result<transform(A0&, State&)>::type            result_type;
     
-    template<class This, class A0_, class State_>
-    struct  result<This(A0_, State_)>
-          : transform::template result<transform(A0_, State_)> {};
-    
-    template<class A0_, class State_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, State_&)>::type
-    operator()(A0_& a0, State_& state) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State& state) const
     {
       return transform()(a0, state);
     }
@@ -103,18 +96,14 @@ namespace boost { namespace simd { namespace ext
                                       (unspecified_<State>)
                                     )
   {
-    template<class Sig> struct result;
-    
-    template<class This, class A0_, class State_>
-    struct  result<This(A0_, State_)>
-          : dispatch::meta::call<boost::proto::tag::terminal(A0_, State_)> {};
+    typedef typename dispatch::meta::
+            call<boost::proto::tag::terminal(A0&, State&)>::type result_type;
       
-    template<class A0_, class State_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, State_&)>::type
-    operator()(A0_& a0, State_& state) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State& state) const
     {
-      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
-      return callee(a0, state);
+      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
+               (a0, state);
     }
   };
 
@@ -147,15 +136,11 @@ namespace boost { namespace simd { namespace ext
           >
     transform;
     
-    template<class Sig> struct result;
+    typedef typename transform::template
+            result<transform(A0&, State&, Data const&)>::type     result_type;
     
-    template<class This, class A0_, class State_, class Data_>
-    struct  result<This(A0_, State_, Data_)>
-          : transform::template result<transform(A0_, State_, Data_)> {};
-    
-    template<class A0_, class State_, class Data_> BOOST_DISPATCH_FORCE_INLINE     
-    typename result<implement(A0_&, State_&, Data_&)>::type
-    operator()(A0_& a0, State_& state, Data_& data) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State& state, Data const& data) const
     {
       return transform()(a0, state, data);
     }
@@ -176,19 +161,14 @@ namespace boost { namespace simd { namespace ext
                                       (unspecified_<Data>)
                                     )
   {
-    template<class Sig> struct result;
-    
-    template<class This, class A0_, class State_, class Data_>
-    struct  result<This(A0_, State_, Data_)>
-          : dispatch::meta::call<boost::proto::tag::terminal(A0_, State_, Data_)>
-    {};
+    typedef typename dispatch::meta::
+            call<boost::proto::tag::terminal(A0&, State&, Data const&)>::type result_type;
       
-    template<class A0_, class State_, class Data_> BOOST_DISPATCH_FORCE_INLINE 
-    typename result<implement(A0_&, State_&, Data_&)>::type
-    operator()(A0_& a0, State_& state, Data_& data) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State& state, Data const& data) const
     {
-      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
-      return callee(a0, state,data);
+      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
+               (a0, state,data);
     }
   }; 
 } } }

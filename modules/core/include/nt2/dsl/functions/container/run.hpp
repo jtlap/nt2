@@ -37,9 +37,9 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::proto::result_of::
-            child_c<A0 const&, 0>::type                             result_type;
+            child_c<A0&, 0>::type                                  result_type;
       
-    result_type operator()(A0 const& a0, Position const& pos, Target const&) const
+    result_type operator()(A0& a0, Position const& pos, Target const&) const
     {
       nt2::run( boost::proto::child_c<0>(a0)
               , pos
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
+    child_c<A0&, 0>::type                                  result_type;
 
     typedef typename meta::
             strip< typename meta::
@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
                  >::type                                    stype;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0& a0) const
     {
       boost::proto::child_c<0>(a0).resize(a0.extent());
 
@@ -112,11 +112,11 @@ namespace nt2 { namespace ext
     typedef typename boost::
     remove_reference< typename boost::dispatch::meta::
                       terminal_of< typename boost::dispatch::meta::
-                                   semantic_of<A0 const&>::type
+                                   semantic_of<A0&>::type
                                  >::type
                     >::type                                result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
       result_type tmp;
       run(assign(tmp, a0));
@@ -137,14 +137,14 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
+    child_c<A0&, 0>::type                                  result_type;
 
     typedef typename meta::
             strip< typename meta::scalar_of<result_type>::type>::type
             target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0& a0) const
     {
       boost::proto::child_c<0>(a0).resize(a0.extent());
 
@@ -167,9 +167,9 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::
-    semantic_of<A0 const&>::type                            result_type;
+    semantic_of<A0&>::type                                 result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
       typedef typename meta::strip<result_type>::type stype;
       return nt2::run( a0, boost::fusion::vector0<>(), meta::as_<stype>() );

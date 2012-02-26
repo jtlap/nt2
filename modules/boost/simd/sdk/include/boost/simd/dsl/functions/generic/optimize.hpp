@@ -26,16 +26,10 @@ namespace boost { namespace simd { namespace ext
   {
      typedef boost::dispatch::meta::compute<boost::simd::tag::optimize_> transform;
      
-     template<class Sig>
-     struct result;
+     typedef typename transform::result<transform(A0&)>::type result_type;
      
-     template<class This, class A0_>
-     struct result<This(A0_)> : transform::result<transform(A0_)> {};
-     
-     template<class A0_>
-     BOOST_DISPATCH_FORCE_INLINE
-     typename result<implement(A0_&)>::type
-     operator()(A0_& a0) const
+     BOOST_FORCEINLINE result_type
+     operator()(A0& a0) const
      {
         return transform()(a0);
      }
