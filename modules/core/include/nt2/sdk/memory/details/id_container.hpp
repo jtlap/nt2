@@ -137,7 +137,7 @@ namespace nt2 { namespace memory
      * Return the number of physical element on the leading dimension
      */
     //==========================================================================
-    static BOOST_FORCEINLINE size_type leading_size()  const
+    static BOOST_FORCEINLINE size_type leading_size()
     {
       return parent::leading_size(sizes_);
     }
