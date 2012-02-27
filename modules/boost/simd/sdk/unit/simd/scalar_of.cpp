@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on native
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(scalar_of_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(scalar_of_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::scalar_of;
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL(scalar_of_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on native
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(scalar_of_logical_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(scalar_of_logical_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::simd::logical;
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL(scalar_of_logical_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on pack
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(scalar_of_logical_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(scalar_of_logical_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::simd::logical;
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL(scalar_of_logical_pack, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on pack
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(scalar_of_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(scalar_of_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::simd::logical;

@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that sign_of on SIMD
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(sign_of_simd_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(sign_of_simd_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::sign_of;
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL(sign_of_simd_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that sign_of on SIMD logical
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(sign_of_simd_native_logical, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(sign_of_simd_native_logical, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::native;
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL(sign_of_simd_native_logical, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on pack
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::dispatch::meta::sign_of;
@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL(sign_of_simd, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on logical pack
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(sign_of_logical_simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(sign_of_logical_simd, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::simd::logical;

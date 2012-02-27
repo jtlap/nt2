@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL(upgrade_native, BOOST_SIMD_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that upgrade is correct for SIMD logical types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(upgrade_logical_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(upgrade_logical_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::native;
@@ -93,7 +93,7 @@ NT2_TEST_CASE_TPL(upgrade_pack, BOOST_SIMD_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that upgrade is correct for pack logical types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(upgrade_logical_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(upgrade_logical_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::pack;

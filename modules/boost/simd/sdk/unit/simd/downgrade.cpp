@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::downgrade;
@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD logical types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_logical_native, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_logical_native, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::native;
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL(downgrade_logical_native, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD pack types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
   using boost::dispatch::meta::downgrade;
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL(downgrade_pack, BOOST_SIMD_TYPES)
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD logical pack types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_logical_pack, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_logical_pack, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::pack;
