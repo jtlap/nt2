@@ -13,18 +13,37 @@
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 
+namespace boost { namespace dispatch { namespace meta
+{
 ////////////////////////////////////////////////////////////////////////////
 // Extension Point for upgrade on native<T,Ext>. 
 // Prevent from upgrading native<float,altivec_> to native<double,altivec_> 
 // which is not supported.
 ////////////////////////////////////////////////////////////////////////////
 
-namespace boost { namespace dispatch { namespace meta
-{
-
   template<class T, class Ext, class Sign>
   struct upgrade< typename boost::simd::native<T, Ext>, Sign >
+  {
+    typedef typename dispatch::meta::upgrade<T>::type uT;
+    typedef typename 
+    boost::mpl::if_< typename 
+                     simd::meta::is_vectorizable<uT,Ext>::type 
+                   , typename simd::native<uT,Ext>
+                   , typename simd::native< T,Ext>
+                   >::type type;
+  };
+
+////////////////////////////////////////////////////////////////////////////
+// Extension Point for upgrade on native<T,Ext>. 
+// Prevent from upgrading native<logical<float>,altivec_> to native<logical<double>,altivec_> 
+// which is not supported.
+////////////////////////////////////////////////////////////////////////////
+
+  template<class T, class Ext, class Sign>
+  struct upgrade< typename boost::simd::native<boost::simd::logical<T>, Ext>, Sign >
   {
     typedef typename dispatch::meta::upgrade<T>::type uT;
     typedef typename 
