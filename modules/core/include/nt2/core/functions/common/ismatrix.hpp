@@ -12,6 +12,7 @@
 #include <nt2/core/functions/ismatrix.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
+#include <nt2/sdk/meta/safe_at.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -29,7 +30,7 @@ namespace nt2 { namespace ext
       std::size_t nz = nt2::numel(ex);
 
       return  (nz > 0)
-          &&  (details::safe_at_c<0>(ex)*details::safe_at_c<1>(ex) == nz);
+          &&  (meta::safe_at_c<0>(ex)*meta::safe_at_c<1>(ex) == nz);
     }
   };
 } }

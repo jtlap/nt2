@@ -40,6 +40,8 @@ namespace nt2 { namespace memory
     typedef typename parent::difference_type              difference_type;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
+    typedef typename parent::pointer                      pointer;
+    typedef typename parent::const_pointer                const_pointer;
     typedef Tag                                           tag_type;
     typedef typename parent::specific_data_type           specific_data_type;
 
@@ -102,6 +104,18 @@ namespace nt2 { namespace memory
     const_reference operator[]( Position const& pos ) const
     {
       return parent::access(pos,block_,sizes_);
+    }
+
+    template<class Position> BOOST_FORCEINLINE
+    pointer get( Position const& pos )
+    {
+      return block_.get(pos);
+    }
+
+    template<class Position> BOOST_FORCEINLINE
+    const_pointer get( Position const& pos ) const
+    {
+      return block_.get(pos);
     }
 
     //==========================================================================

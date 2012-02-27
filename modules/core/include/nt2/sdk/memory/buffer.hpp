@@ -58,6 +58,8 @@ namespace nt2 {  namespace memory
     typedef typename parent_data::const_reverse_iterator  const_reverse_iterator;
     typedef typename parent_data::reference               reference;
     typedef typename parent_data::const_reference         const_reference;
+    typedef typename parent_data::pointer                 pointer;
+    typedef typename parent_data::const_pointer           const_pointer;
     typedef typename parent_data::size_type               size_type;
     typedef typename parent_data::difference_type         difference_type;
 
@@ -231,6 +233,25 @@ namespace nt2 {  namespace memory
     operator()(difference_type i, difference_type ) const
     {
       return parent_data::origin_[i];
+    }
+
+    //==========================================================================
+    /**!
+     * Return a pointer to the ith element of the buffer.
+     *
+     * \param  pos 1D Index of the element to point
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE pointer
+    get(difference_type i)
+    {
+      return &parent_data::origin_[i];
+    }
+
+    BOOST_FORCEINLINE const_pointer
+    get(difference_type i) const
+    {
+      return &parent_data::origin_[i];
     }
 
     //==========================================================================

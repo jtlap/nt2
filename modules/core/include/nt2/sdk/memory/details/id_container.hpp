@@ -30,6 +30,8 @@ namespace nt2 { namespace memory
     typedef typename parent::difference_type              difference_type;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
+    typedef typename parent::pointer                      pointer;
+    typedef typename parent::const_pointer                const_pointer;
     typedef typename parent::specific_data_type           specific_data_type;
 
     //==========================================================================
@@ -102,6 +104,21 @@ namespace nt2 { namespace memory
     const_reference operator[]( Position const& pos ) const
     {
       return parent::access(pos,block_,sizes_);
+    }
+
+    //==========================================================================
+    // Return the ith index
+    //==========================================================================
+    BOOST_FORCEINLINE pointer
+    get( difference_type i )
+    {
+      return block_.get(i);
+    }
+
+    BOOST_FORCEINLINE const_pointer
+    get( difference_type i ) const
+    {
+      return block_.get(i);
     }
 
     //==========================================================================
