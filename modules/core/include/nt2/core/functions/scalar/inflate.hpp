@@ -11,6 +11,8 @@
 
 #include <nt2/core/functions/inflate.hpp>
 #include <boost/fusion/include/value_at.hpp>
+#include <boost/fusion/include/mpl.hpp>
+#include <boost/fusion/adapted/mpl.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -73,7 +75,7 @@ namespace nt2 { namespace ext
     typedef typename boost::fusion::result_of::at_c<A1 const,0 >::type index_t;
     typedef typename boost::fusion::result_of::at_c<A2 const,0 >::type base_t;
 
-    typedef boost::mpl::bool_< boost::mpl::size<A1>::value==0>      is_0d_t;
+    typedef boost::mpl::bool_< boost::fusion::result_of::size<A1>::value==0>      is_0d_t;
 
     typedef boost::fusion::vector < std::ptrdiff_t
                                   , std::ptrdiff_t

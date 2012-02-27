@@ -21,7 +21,6 @@
 #include <nt2/core/settings/normalize_settings.hpp>
 #include <nt2/core/settings/specific_data.hpp>
 
-
 namespace nt2 { namespace details
 {
   //============================================================================

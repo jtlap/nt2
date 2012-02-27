@@ -15,6 +15,9 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+//#include <nt2/core/settings/storage_order.hpp>
+//#include <nt2/core/settings/alignment.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Check settings_of random non-container types
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,24 +27,26 @@ NT2_TEST_CASE( value_settings_type )
   using nt2::settings;
   using boost::is_same;
   using nt2::matlab_index_;
+  using nt2::matlab_order_;
+  using nt2::unaligned_;
   using nt2::meta::settings_of;
 
-  NT2_TEST(( is_same< settings(matlab_index_, _0D)
+  NT2_TEST(( is_same< settings(matlab_index_, _0D, matlab_order_, unaligned_)
                     , settings_of<float>::type 
                     >::value 
           ));
 
-  NT2_TEST(( is_same< settings(matlab_index_, _0D)
+  NT2_TEST(( is_same< settings(matlab_index_, _0D, matlab_order_, unaligned_)
                     , settings_of<float&>::type 
                     >::value 
           ));
 
-  NT2_TEST(( is_same< settings(matlab_index_, _0D)
+  NT2_TEST(( is_same< settings(matlab_index_, _0D, matlab_order_, unaligned_)
                     , settings_of<float const>::type 
                     >::value 
           ));
 
-  NT2_TEST(( is_same< settings(matlab_index_, _0D)
+  NT2_TEST(( is_same< settings(matlab_index_, _0D, matlab_order_, unaligned_)
                     , settings_of<float const&>::type 
                     >::value 
           ));

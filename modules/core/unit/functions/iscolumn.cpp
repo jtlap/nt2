@@ -24,7 +24,7 @@ NT2_TEST_CASE( fundamental_iscolumn )
 
 NT2_TEST_CASE( container_iscolumn )
 {
-  NT2_TEST( nt2::iscolumn( nt2::ones(4))       );
+  NT2_TEST( !nt2::iscolumn( nt2::ones(4))      );
   NT2_TEST( nt2::iscolumn( nt2::ones(4,1))     );
   NT2_TEST( nt2::iscolumn( nt2::ones(4,1,1))   );
   NT2_TEST( nt2::iscolumn( nt2::ones(4,1,1,1)) );

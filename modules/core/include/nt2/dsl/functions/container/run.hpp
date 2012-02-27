@@ -15,6 +15,10 @@
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/core/utility/position/position.hpp>
+#include <nt2/core/utility/position/make_position.hpp>
+#include <nt2/core/utility/position/adapted.hpp>
+#include <nt2/core/utility/position/alignment.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
@@ -32,19 +36,22 @@ namespace nt2 { namespace ext
                                      , boost::mpl::long_<2>
                                      >
                               ))
-                             (fusion_sequence_<Position>)
-                             (target_<unspecified_<Target> >)
+                              (fusion_sequence_<Position>)
+                              (target_<unspecified_<Target> >)
                             )
   {
     typedef typename boost::proto::result_of::
-            child_c<A0&, 0>::type                                  result_type;
-      
+            child_c<A0&, 0>::type                                          result_type;
+    typedef typename nt2::meta::make_position<result_type, Position>::type position_type;
+
     result_type operator()(A0& a0, Position const& pos, Target const&) const
     {
+      position_type p(pos);
+
       nt2::run( boost::proto::child_c<0>(a0)
-              , pos
+              , as_aligned(p)
               , nt2::run( boost::proto::child_c<1>(a0)
-                        , pos
+                        , as_aligned(p)
                         , Target()
                         )
               );
