@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
+#include <boost/simd/sdk/simd/native_tuple.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -24,17 +24,16 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A1>::value_type);
       static std::size_t card = meta::cardinal_of<A0>::value;
-      result_type   MSQ = {vec_ld(a2*sz, a1)};   
-      result_type   LSQ = {vec_ld((a2*sz)+card*sz-1, a1)};   
-      n_t     edgeAlign = {vec_lvsl(a2*sz, a1)};
-      result_type edges = {vec_perm(LSQ(), MSQ(), edgeAlign())};
-      n_t         align = {vec_lvsr(a2*sz, a1)};
+      result_type       MSQ = {vec_ld(a2*sz, a1)};   
+      result_type       LSQ = {vec_ld((a2*sz)+card*sz-1, a1)};   
+      result_type edgeAlign = {vec_lvsl(a2*sz, a1)};
+      result_type     edges = {vec_perm(LSQ(), MSQ(), edgeAlign())};
+      result_type     align = {vec_lvsr(a2*sz, a1)};
       MSQ = vec_perm(edges(), a0(), align());
       LSQ = vec_perm(a0(), edges(), align());
       vec_st(LSQ(), (a2*sz)+card*sz-1, a1);
