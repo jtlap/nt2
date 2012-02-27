@@ -63,9 +63,7 @@ namespace nt2 { namespace memory
       : block_(sz,a)
       , sizes_(sz)
       , specific_data_()
-    {
-
-    }
+    {}
 
     //==========================================================================
     /*!
@@ -136,6 +134,16 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     BOOST_FORCEINLINE bool empty() const { return block_.empty(); }
+
+    //==========================================================================
+    /*!
+     * Return the number of physical element on the leading dimension
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE size_type leading_size()  const
+    {
+      return parent::leading_size(sizes_);
+    }
 
     //==========================================================================
     /*!

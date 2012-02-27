@@ -116,6 +116,16 @@ namespace nt2 { namespace memory
     static BOOST_FORCEINLINE specific_data_type get_spec_data() { return specific_data_; }
 
     //==========================================================================
+    /*!
+     * Return the number of physical element on the leading dimension
+     */
+    //==========================================================================
+    static BOOST_FORCEINLINE size_type leading_size()  const
+    {
+      return parent::leading_size(sizes_);
+    }
+
+    //==========================================================================
     // Resize of the container
     //==========================================================================
     template<class Size> static BOOST_FORCEINLINE void resize( Size const& szs )

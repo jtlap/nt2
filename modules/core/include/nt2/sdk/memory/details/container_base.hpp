@@ -68,6 +68,20 @@ namespace nt2 { namespace details
     //==========================================================================
     typedef typename meta::option<settings_type,tag::padding_>::type padd_t;
 
+    template<class Size>
+    static BOOST_FORCEINLINE size_type leading_size(Size const& sz)
+    {
+      if( nt2::numel(sz) != nt2::length(sz) )
+      {
+        return  boost::fusion::
+                at_c<0>(pad<value_type>(sz,typename padd_t::type()));
+      }
+      else
+      {
+        return boost::fusion::at_c<0>(sz);
+      }
+    }
+
     //==========================================================================
     // Container storage duration
     //==========================================================================
@@ -81,7 +95,6 @@ namespace nt2 { namespace details
             bool_ <   sizes_type::static_status
                   &&  !boost::is_same<dur_t,automatic_>::value
                   >                                         require_static_init;
-
 
     //==========================================================================
     // Two-phase initialisation suppport
