@@ -21,13 +21,13 @@
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
+#include <boost/preprocessor/facilities/is_empty.hpp>
 
 //============================================================================
 // Fix a couple of things for restrict pointers
 // FIXME: integrate upstream
 //============================================================================
-#if defined(_MSC_VER) || defined(__GNUC__)                                   \
- && !(defined(__APPLE__) && defined(__clang__))
+#if defined(_MSC_VER) || defined(__GNUC__) && !BOOST_PP_IS_EMPTY(__restrict)
 namespace boost
 {
   template<class T>

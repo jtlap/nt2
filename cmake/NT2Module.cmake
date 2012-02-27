@@ -690,8 +690,10 @@ macro(nt2_postconfigure_run)
 
     endforeach()
   endforeach()
-  
-  nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/include_tmp ${NT2_BINARY_DIR}/include)
+
+  if(IS_DIRECTORY ${NT2_BINARY_DIR}/include_tmp)
+    nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/include_tmp ${NT2_BINARY_DIR}/include)
+  endif()
 
   if(PROJECT_NAME MATCHES "^NT2")
 
