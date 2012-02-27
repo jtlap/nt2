@@ -14,7 +14,6 @@
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/sdk/simd/pack.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
