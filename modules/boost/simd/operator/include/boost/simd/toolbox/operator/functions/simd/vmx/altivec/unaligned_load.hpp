@@ -24,6 +24,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
+    typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
 
     BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
@@ -31,7 +32,7 @@ namespace boost { namespace simd { namespace ext
       static std::size_t card = meta::cardinal_of<result_type>::value;
       result_type MSQ  = {vec_ld(a1*sz  ,a0)};
       result_type LSQ  = {vec_ld((a1*sz)+card*sz-1 ,a0)};
-      result_type mask = {vec_lvsl(a1*sz,a0)};
+      n_t         mask = {vec_lvsl(a1*sz,a0)};
       result_type that = {vec_perm(MSQ(), LSQ(), mask())};
       return that;
     }
