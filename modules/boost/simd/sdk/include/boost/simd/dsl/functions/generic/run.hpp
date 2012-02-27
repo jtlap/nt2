@@ -102,8 +102,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State& state) const
     {
-      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
-               (a0, state);
+      return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
+                      (a0, state);
     }
   };
 
@@ -167,8 +167,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State& state, Data const& data) const
     {
-      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
-               (a0, state,data);
+      return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
+                      (a0, state,data);
     }
   }; 
 } } }
