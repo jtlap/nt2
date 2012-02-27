@@ -11,19 +11,19 @@
 
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/index.hpp>
+#include <nt2/core/settings/storage_order.hpp>
+#include <nt2/core/settings/alignment.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 
 namespace nt2
 {
-  namespace tag  { struct table_; }
-
   namespace details
   {
     template<class T, class Enable = void>
     struct  settings_of
     {
-      typedef settings type(matlab_index_,_0D);
+      typedef settings type(matlab_index_,_0D,matlab_order_,unaligned_);
     };
 
     template<class T>

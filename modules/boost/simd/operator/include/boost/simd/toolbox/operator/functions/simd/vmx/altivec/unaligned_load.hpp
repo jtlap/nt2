@@ -36,6 +36,26 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, boost::simd::tag::altivec_
+                            , (A0)(A1)
+                            , (iterator_< scalar_< arithmetic_<A0> > >)
+                              ((target_<simd_<arithmetic_<A1>,boost::simd::tag::altivec_> >))
+                            )
+  {
+    typedef typename A1::type result_type;
+    typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
+    inline result_type operator()(const A0& a0, const A1&)const
+    {
+      static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);
+      static std::size_t card = meta::cardinal_of<result_type>::value;
+      result_type MSQ  = {vec_ld(0  ,a0)};
+      result_type LSQ  = {vec_ld(card*sz-1 ,a0)};
+      n_t         mask = {vec_lvsl(0,a0)};
+      result_type that = {vec_perm(MSQ(), LSQ(), mask())};
+      return that;
+    }
+  };
 } } }
 
 #endif

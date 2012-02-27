@@ -74,6 +74,16 @@ namespace nt2 { namespace memory
     typedef typename Data::const_reference              const_reference;
 
     //==========================================================================
+    /** Type of pointer to a value                                            */
+    //==========================================================================
+    typedef typename Data::pointer                      pointer;
+
+    //==========================================================================
+    /** Type of pointer to a value                                            */
+    //==========================================================================
+    typedef typename Data::const_pointer                const_pointer;
+
+    //==========================================================================
     /** Type representing an amount of values                                 */
     //==========================================================================
     typedef typename Data::size_type                    size_type;
@@ -229,6 +239,24 @@ namespace nt2 { namespace memory
     operator()(difference_type i, difference_type j) const
     {
       return index_(j)[i];
+    }
+
+    //==========================================================================
+    /**
+     * Return the ith index
+     * \param pos 1D Index of the element to point
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE pointer
+    get( difference_type i )
+    {
+      return index_(i);
+    }
+
+    BOOST_FORCEINLINE const_pointer
+    get( difference_type i ) const
+    {
+      return index_(i);
     }
 
     void swap( iliffe_buffer& src )

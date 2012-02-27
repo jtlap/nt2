@@ -9,6 +9,7 @@
 
 SET( SOURCES
   of_size.cpp
+  position.cpp
    )
 
 nt2_module_add_tests(core.utility.unit ${SOURCES})

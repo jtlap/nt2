@@ -77,4 +77,60 @@ NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_                                    \
 };                                                                            \
 /**/
 
+//============================================================================
+// Construct a 2D (n, n) generative node from a 1D Constant node (n).
+//============================================================================
+#define NT2_PP_GENERATIVE_MAKE_FROM_SINGLE(Tag)                               \
+NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_, (A0)                              \
+                          , (scalar_< arithmetic_<A0> >)                      \
+                          )                                                   \
+{                                                                             \
+  typedef nt2::details::                                                      \
+          generative< nt2::tag::table_                                        \
+                    , nt2::details::constant_generator<Tag>                   \
+                    , double                                                  \
+                    , settings(_2D)                                           \
+                    > base;                                                   \
+                                                                              \
+  typedef typename  boost::proto::                                            \
+                    result_of::as_expr< base                                  \
+                                      , container::domain                     \
+                                      >::type             result_type;        \
+                                                                              \
+  BOOST_FORCEINLINE result_type                                               \
+  operator()(A0 const& a0) const                                              \
+  {                                                                           \
+    nt2::details::constant_generator<Tag> callee;                             \
+    base that(of_size(a0,a0),callee);                                         \
+    return boost::proto::as_expr<container::domain>(that);                    \
+  }                                                                           \
+};                                                                            \
+                                                                              \
+NT2_FUNCTOR_IMPLEMENTATION( Tag, tag::cpu_ , (A0)(T)                          \
+                          , (scalar_< arithmetic_<A0> >)                      \
+                            (target_< scalar_< unspecified_<T> > >)           \
+                          )                                                   \
+{                                                                             \
+  typedef nt2::details::                                                      \
+          generative< nt2::tag::table_                                        \
+                    , nt2::details::constant_generator<Tag>                   \
+                    , typename T::type                                        \
+                    , settings(_2D)                                           \
+                    > base;                                                   \
+                                                                              \
+  typedef typename  boost::proto::                                            \
+                    result_of::as_expr< base                                  \
+                                      , container::domain                     \
+                                      >::type             result_type;        \
+                                                                              \
+  BOOST_FORCEINLINE result_type                                               \
+  operator()(A0 const & a0, T const& ) const                                  \
+  {                                                                           \
+    nt2::details::constant_generator<Tag> callee;                             \
+    base that(of_size(a0,a0),callee);                                         \
+    return boost::proto::as_expr<container::domain>(that);                    \
+  }                                                                           \
+};                                                                            \
+/**/
+
 #endif
