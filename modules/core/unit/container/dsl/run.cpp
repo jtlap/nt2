@@ -9,7 +9,6 @@
 #define NT2_UNIT_MODULE "nt2 container runner"
 
 #include <nt2/table.hpp>
-//#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
 
@@ -96,7 +95,9 @@ NT2_TEST_CASE_TPL( alignment_load_store, BOOST_SIMD_SIMD_TYPES )
   using nt2::no_padding_;
   using nt2::share;
 
-  T *p = new T[32*32+1];
+  boost::simd::memory::allocator<T> a;
+
+  T *p = a.allocate(32*32+1);
   for (int i = 0; i < 32 * 32; i++)
     p[i] = (T)i;
   T *q = p + 1;
@@ -124,5 +125,5 @@ NT2_TEST_CASE_TPL( alignment_load_store, BOOST_SIMD_SIMD_TYPES )
   table<T, settings(unaligned_, shared_, no_padding_)> fake_unaligned_table(of_size(32,32), share(p, p + 32 * 32));
   fake_unaligned_table = aligned_table2;
 
-  delete[] p;
+  a.deallocate(p,32*32+1);
 }
