@@ -137,6 +137,23 @@ namespace nt2 { namespace memory
       inner_up_ = data_.lower() + inner_ - 1;
     }
 
+    iliffe_buffer(iliffe_buffer const& src)
+      : data_ (src.data_), index_(src.index_.size()), inner_(src.inner_)
+    {
+      make_links();
+      inner_up_ = data_.lower() + inner_ - 1;
+    }
+
+    iliffe_buffer& operator=(iliffe_buffer const& src)
+    {
+      data_  = src.data_;
+      index_.resize(src.index_.size());
+      inner_    = src.inner_;
+
+      make_links();
+      inner_up_ = data_.lower() + inner_ - 1;
+    }
+
     //==========================================================================
     /**
       * Give access to the beginning of the values stored in the buffer.

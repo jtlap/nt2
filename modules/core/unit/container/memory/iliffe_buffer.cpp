@@ -212,6 +212,15 @@ NT2_TEST_CASE_TPL( buffer_1D_copy_ctor, NT2_TYPES)
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(0));
 }
 
 //==============================================================================
@@ -243,6 +252,15 @@ NT2_TEST_CASE_TPL( buffer_static_1D_copy_ctor, NT2_TYPES)
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(0));
 }
 
 //==============================================================================
@@ -276,6 +294,18 @@ NT2_TEST_CASE_TPL( buffer_2D_copy_ctor, NT2_TYPES)
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
     NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    x(i,j) = 0;
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(0) );
 }
 
 //==============================================================================
@@ -309,6 +339,18 @@ NT2_TEST_CASE_TPL( buffer_static_2D_copy_ctor, NT2_TYPES)
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
     NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    x(i,j) = 0;
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(0) );
 }
 
 //==============================================================================
@@ -340,6 +382,12 @@ NT2_TEST_CASE_TPL( buffer_1D_assignment, NT2_TYPES)
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
 }
 
 //==============================================================================
@@ -371,6 +419,12 @@ NT2_TEST_CASE_TPL( buffer_static_1D_assignment, NT2_TYPES)
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
     NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
 }
 
 //==============================================================================
@@ -404,6 +458,14 @@ NT2_TEST_CASE_TPL( buffer_2D_assignment, NT2_TYPES)
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
     NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j));
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      x(i,j) = T(0);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j));
 }
 
 //==============================================================================
@@ -437,6 +499,14 @@ NT2_TEST_CASE_TPL( buffer_static_2D_assignment, NT2_TYPES)
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
     NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j));
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      x(i,j) = T(0);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j));
 }
 
 //==============================================================================
