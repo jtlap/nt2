@@ -82,7 +82,10 @@ namespace boost { namespace simd { namespace meta
   struct as_simd<logical<T>, tag::altivec_>
   {
     template<class Type, std::size_t Sz = sizeof(Type)*CHAR_BIT, class Dummy = void>
-    struct entry;
+    struct entry
+    {
+      typedef dispatch::meta::na_ type;
+    };
 
     template<class Type, class Dummy>
     struct entry<Type, 32, Dummy>     { typedef __vector __bool int type;     };
