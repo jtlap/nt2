@@ -14,12 +14,12 @@
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
 #include <nt2/core/settings/size.hpp>
+#include <nt2/sdk/meta/container_of.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/core/functions/extent.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/core/container/meta/container_of.hpp>
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
 #include <nt2/core/container/dsl/details/trait_transform.hpp>
 
@@ -51,7 +51,7 @@ namespace nt2 { namespace container
     template<class Tag, class Domain, int Arity, class Expr> struct generator
     {
       typedef typename value_type<Tag, Domain, Arity, Expr>::type   value_type;
-      typedef typename size<Tag, Domain, Arity, Expr>::result_type  extent_type;
+      typedef typename size_of<Tag,Domain,Arity,Expr>::result_type  extent_type;
       typedef typename meta::strip<extent_type>::type               size_type;
 
       typedef typename boost::mpl::
@@ -66,19 +66,21 @@ namespace nt2 { namespace container
                                      >::type
                               , value_type
                               >::type
-         >::type                                                   type;
-      typedef expression<Expr, type>                               result_type;
+         >::type                                                    type;
+      typedef expression< typename boost::
+                          remove_const<Expr>::type
+                        , type>                                     result_type;
 
       BOOST_FORCEINLINE result_type operator()(Expr& e) const
       {
-        return result_type(e, size<Tag, Domain, Arity, Expr>()(e));
+        return result_type(e, size_of<Tag, Domain, Arity, Expr>()(e));
       }
     };
   }
 
     //==========================================================================
     /*!
-     * proto::transfrom performing the computation of the type and the generation
+     * proto::transform performing the computation of the type and the generation
      * of a nt2::container::expression
      **/
     //==========================================================================

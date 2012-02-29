@@ -5,9 +5,8 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename nt2::meta::logical<T>::type',
+             'default' : 'typename nt2::meta::as_logical<T>::type',
             },
-         'simd_types' : ['real_'],
          'special' : ['predicate'],
          'type_defs' : [],
          'types' : ['real_', 'signed_int_', 'unsigned_int_'],
@@ -16,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 21/02/2011',
-             'included' : ['#include <nt2/sdk/meta/logical.hpp>'],
+             'included' : ['#include <nt2/sdk/simd/logical.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 21/02/2011',

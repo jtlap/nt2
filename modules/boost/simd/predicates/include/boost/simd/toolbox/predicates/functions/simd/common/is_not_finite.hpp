@@ -8,11 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_FINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_FINITE_HPP_INCLUDED
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_finite_, tag::cpu_,
@@ -20,24 +18,19 @@ namespace boost { namespace simd { namespace ext
                                 ((simd_<arithmetic_<A0>,X>))
                                )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0&)const
     {
       return boost::simd::False<A0>();
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_finite_, tag::cpu_,
                                 (A0)(X),
                                 ((simd_<floating_<A0>,X>))
                                )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return is_nan(a0-a0);

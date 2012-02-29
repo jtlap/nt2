@@ -8,7 +8,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'typename boost::result_of<boost::dispatch::meta::arithmetic(T)>::type',
+             'default' : 'typename boost::common_type<T>::type',
             },
          'simd_types' : ['real_', 'signed_int_'],
          'type_defs' : [],

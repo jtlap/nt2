@@ -21,13 +21,13 @@ namespace nt2 { namespace container { namespace ext
   template<class Tag, class Domain, class Expr>
   struct generator<Tag, Domain, 0, Expr>
   {
-    typedef expression< Expr
+    typedef expression< typename boost::remove_const<Expr>::type
                       , typename boost::proto::result_of::value<Expr&>::type
                       > result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return result_type(e, size<Tag, Domain, 0, Expr>()(e));
+      return result_type(e, size_of<Tag, Domain, 0, Expr>()(e));
     }
   };
 } } }

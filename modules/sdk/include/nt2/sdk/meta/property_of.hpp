@@ -9,7 +9,6 @@
 #ifndef NT2_SDK_META_PROPERTY_OF_HPP_INCLUDED
 #define NT2_SDK_META_PROPERTY_OF_HPP_INCLUDED
 
-#include <nt2/skd/meta/strip.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 
 namespace nt2 { namespace meta

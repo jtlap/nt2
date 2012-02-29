@@ -28,8 +28,8 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -37,12 +37,11 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+
 //COMMENTED
-NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::comparator;
   using nt2::tag::comparator_;

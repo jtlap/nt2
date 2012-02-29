@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(  nt2::tag::sincos_, tag::cpu_,(A0)(A1)(X)
+  NT2_FUNCTOR_IMPLEMENTATION_IF(  nt2::tag::sincos_, boost::simd::tag::simd_,(A0)(A1)(X)
                                   , (boost::mpl::equal_to < nt2::meta::cardinal_of<A0> 
                                                         , nt2::meta::cardinal_of<A1>
                                                         >
@@ -28,15 +28,16 @@ namespace nt2 { namespace ext
                                  ((simd_<floating_<A1>,X>))
                              )
   {
-    typedef void result_type;    
+    typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
       a1 = impl::trig_base <A1,radian_tag,
-                       tag::simd_type>::sincosa(tofloat(a0),a2); 
+                       tag::simd_type>::sincosa(tofloat(a0),a2);
+      return 0; 
     }
   };
  
-  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincos_, tag::cpu_,(A0)(A1)(X),
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincos_, boost::simd::tag::simd_,(A0)(A1)(X),
                                 (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
                                                  nt2::meta::cardinal_of<A1>
                                         >
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincos_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincos_, boost::simd::tag::simd_,
                          (A0)(X),
                          ((simd_<arithmetic_<A0>,X>))
                         )

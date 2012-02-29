@@ -70,7 +70,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag __ieee754_remainder_ of functor __ieee754_remainder 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct __ieee754_remainder_ {};
+    struct __ieee754_remainder_ : ext::elementwise_<__ieee754_remainder_> { typedef ext::elementwise_<__ieee754_remainder_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::__ieee754_remainder_, __ieee754_remainder, 2)
   } }

@@ -8,10 +8,11 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "boost::simd::meta::scalar_of SIMD"
 
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -23,13 +24,48 @@ NT2_TEST_CASE_TPL(scalar_of_native, BOOST_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::scalar_of;
-  using boost::is_same;
+  using boost::mpl::_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                 native_t;
 
-  NT2_TEST( (is_same<typename scalar_of<native_t>::type, T >::value) );
+  native_t a0;
+  NT2_TEST_EXPR_TYPE( a0, scalar_of<_>, T );
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Test that scalar_of on native
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(scalar_of_logical_native, BOOST_SIMD_TYPES)
+{
+  using boost::simd::native;
+  using boost::simd::logical;
+  using boost::dispatch::meta::scalar_of;
+  using boost::mpl::_;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
+  typedef native<logical<T>,ext_t>                 native_t;
+
+  native_t a0;
+  NT2_TEST_EXPR_TYPE( a0, scalar_of<_>, logical<T> );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test that scalar_of on pack
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE_TPL(scalar_of_logical_pack, BOOST_SIMD_TYPES)
+{
+  using boost::simd::pack;
+  using boost::simd::logical;
+  using boost::dispatch::meta::scalar_of;
+  using boost::mpl::_;
+
+  typedef pack< logical<T> > pack_t;
+
+  pack_t a0;
+  NT2_TEST_EXPR_TYPE( a0, scalar_of<_>, logical<T> );
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that scalar_of on pack
@@ -37,10 +73,12 @@ NT2_TEST_CASE_TPL(scalar_of_native, BOOST_SIMD_TYPES)
 NT2_TEST_CASE_TPL(scalar_of_pack, BOOST_SIMD_TYPES)
 {
   using boost::simd::pack;
+  using boost::simd::logical;
   using boost::dispatch::meta::scalar_of;
-  using boost::is_same;
+  using boost::mpl::_;
 
   typedef pack<T> pack_t;
 
-  NT2_TEST( (is_same<typename scalar_of<pack_t>::type, T >::value) );
+  pack_t a0;
+  NT2_TEST_EXPR_TYPE( a0, scalar_of<_>, T );
 }

@@ -10,10 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NLTZ_HPP_INCLUDED
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nltz_, tag::cpu_
@@ -21,10 +20,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-       return (a0 >= Zero<A0>());
+       return result_type(a0 >= Zero<A0>());
     }
   };
 
@@ -33,10 +32,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return ((a0 >= Zero<A0>()) || boost::simd::is_nan(a0));
+      return logical_or(result_type(a0 >= Zero<A0>()), boost::simd::is_nan(a0));
     }
   };
 } } }

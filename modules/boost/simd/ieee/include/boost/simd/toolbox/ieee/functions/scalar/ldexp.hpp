@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_LDEXP_HPP_INCLUDED
-#include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/constants/ldexpmask.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/is_finite.hpp>

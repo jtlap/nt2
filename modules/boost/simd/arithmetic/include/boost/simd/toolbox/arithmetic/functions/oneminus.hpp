@@ -19,7 +19,8 @@
  * \defgroup boost_simd_arithmetic_oneminus oneminus
  *
  * \par Description
- * returns the saturated $1-a_0$
+ * returns the saturated $1-a_0$ in the input type.
+ * Be warned that for unsigned types the result is always 0 or 1!
  *
  * \par Header file
  * 
@@ -55,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag oneminus_ of functor oneminus 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct oneminus_ {};
+    struct oneminus_ : ext::elementwise_<oneminus_> { typedef ext::elementwise_<oneminus_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::oneminus_, oneminus, 1)
 } }

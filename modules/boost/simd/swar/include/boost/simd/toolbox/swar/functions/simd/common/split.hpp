@@ -39,11 +39,11 @@ namespace boost { namespace simd { namespace ext
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
     {
-      static const int size_2 = meta::cardinal_of<A0>::value/2;
+      static const size_t size_2 = meta::cardinal_of<A0>::value/2;
       typedef typename meta::scalar_of<A1>::type sA1; 
       BOOST_SIMD_ALIGNED_TYPE(sA1) tmp1[size_2];
       BOOST_SIMD_ALIGNED_TYPE(sA1) tmp2[size_2];
-      for(int i = 0; i != size_2; ++i)
+      for(size_t i = 0; i != size_2; ++i)
       {
         tmp1[i] = a0[i];
         tmp2[i] = a0[i+size_2];

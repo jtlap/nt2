@@ -20,6 +20,7 @@ namespace nt2
 
   using boost::simd::multiplies;
   using boost::simd::mul;
+  using boost::simd::times;
 }
 
 #endif

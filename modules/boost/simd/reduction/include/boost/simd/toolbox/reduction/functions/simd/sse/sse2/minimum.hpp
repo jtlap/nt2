@@ -106,11 +106,11 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
-      rtype v0 = simd::native_cast<rtype>(a0);
-      A0 pack = simd::native_cast<A0>(_mm_unpackhi_pd(v0,v0));
+      rtype v0 = simd::bitwise_cast<rtype>(a0);
+      A0 pack = simd::bitwise_cast<A0>(_mm_unpackhi_pd(v0,v0));
       A0 min1 = boost::simd::min(a0,pack);
-      A0 min2 = {min(min1, simd::native_cast<A0>(_mm_shufflelo_epi16(min1, _MM_SHUFFLE(0, 1, 2, 3))))};
-         min2 = min(min2, simd::native_cast<A0>(_mm_shuffle_epi32  (min2, _MM_SHUFFLE(2, 3, 0, 1))));
+      A0 min2 = {min(min1, simd::bitwise_cast<A0>(_mm_shufflelo_epi16(min1, _MM_SHUFFLE(0, 1, 2, 3))))};
+         min2 = min(min2, simd::bitwise_cast<A0>(_mm_shuffle_epi32  (min2, _MM_SHUFFLE(2, 3, 0, 1))));
     return boost::simd::min(min2[0],min2[1]);
     }
   };
@@ -128,8 +128,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 min1 = {min(a0,simd::native_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
-      A0 that = {min(min1, simd::native_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))))};
+      A0 min1 = {min(a0,simd::bitwise_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
+      A0 that = {min(min1, simd::bitwise_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))))};
       return that[0];
     }
   };

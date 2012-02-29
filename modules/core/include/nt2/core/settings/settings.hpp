@@ -11,21 +11,12 @@
 
 #include <boost/mpl/eval_if.hpp>
 #include <nt2/core/settings/option.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-namespace nt2
-{
-  //===========================================================================
-  /*! 
-   * settings is a seed type that allow contruction of multiple options pack.
-   * If a given container needs to have options A and B set, settings(A,B) will
-   * perform such a task. 
-   **/
-  //============================================================================
-  struct settings {};
-}
+#include <nt2/core/settings/forward/settings.hpp>
 
 namespace nt2 { namespace meta
 {

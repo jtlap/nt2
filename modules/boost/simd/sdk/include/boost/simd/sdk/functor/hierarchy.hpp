@@ -25,9 +25,6 @@ namespace boost { namespace simd
     // Sites
     using boost::dispatch::tag::formal_;
     using boost::dispatch::tag::cpu_;
-    
-    // Tags
-    using boost::dispatch::tag::terminal_;
   }
     
 namespace ext
@@ -70,6 +67,7 @@ namespace ext
   using boost::dispatch::meta::target_;
   
   using boost::dispatch::meta::ast_;
+  using boost::dispatch::meta::node_;
   using boost::dispatch::meta::expr_;
   
   using boost::dispatch::meta::array_;

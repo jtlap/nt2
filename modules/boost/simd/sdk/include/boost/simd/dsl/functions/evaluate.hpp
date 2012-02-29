@@ -10,10 +10,11 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_EVALUATE_HPP_INCLUDED
 
 #include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct evaluate_ {}; }
+  namespace tag { struct evaluate_ : ext::unspecified_<evaluate_> { typedef ext::unspecified_<evaluate_> parent; }; }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::evaluate_, evaluate, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::evaluate_, evaluate, (A0 const&)(A1&), 2)

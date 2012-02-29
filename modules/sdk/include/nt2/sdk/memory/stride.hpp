@@ -13,17 +13,17 @@
 // Compute the number of stride_ between inner and the Nth outer dimension
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/mpl/size_t.hpp>
+#include <nt2/sdk/memory/padding.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
+#include <boost/fusion/include/size.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/dispatch/functor/functor.hpp>
-#include <nt2/sdk/memory/padding.hpp>
-#include <boost/fusion/include/size.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <nt2/sdk/functor/preprocessor/dispatch.hpp>
 
 namespace nt2
 {
-  namespace tag { struct stride_ {}; }
+  namespace tag { struct stride_ : boost::dispatch::meta::unspecified_<stride_> {}; }
 
   //////////////////////////////////////////////////////////////////////////////
   // stride_ computes the jump in elements between two elements on a given dim

@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_positive_ of functor is_positive 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_positive_ {};
+    struct is_positive_ : ext::elementwise_<is_positive_> { typedef ext::elementwise_<is_positive_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_positive_, is_positive, 1)
 } }

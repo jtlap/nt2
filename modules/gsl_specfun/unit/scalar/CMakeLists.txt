@@ -52,7 +52,6 @@ SET( SOURCES
   gsl_sf_lncosh.cpp
   gsl_sf_exprel_n.cpp
   gsl_sf_pochrel.cpp
-  gsl_sf_lndoublefact.cpp
   gsl_sf_hyperg_0f1.cpp
   gsl_sf_bessel_j0.cpp
   gsl_sf_legendre_sphplm.cpp
@@ -105,7 +104,6 @@ SET( SOURCES
   gsl_sf_bessel_il_scaled.cpp
   gsl_sf_bessel_jnu.cpp
   gsl_sf_psi_1.cpp
-  gsl_sf_lnfact.cpp
   gsl_sf_choose.cpp
   gsl_sf_gegenpoly_2.cpp
   gsl_sf_legendre_p3.cpp

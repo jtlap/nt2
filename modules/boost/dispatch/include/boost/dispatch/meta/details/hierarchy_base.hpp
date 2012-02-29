@@ -15,7 +15,12 @@
 
 #include <boost/dispatch/meta/details/hierarchy_pp.hpp>
 
-namespace boost { namespace dispatch { namespace meta
+namespace boost { namespace dispatch { namespace details
+{
+  struct hierarchy_tag {};
+}
+
+namespace meta
 {
   //============================================================================
   /*!
@@ -27,6 +32,7 @@ namespace boost { namespace dispatch { namespace meta
   template<class T> struct unknown_
   {
     typedef unknown_  parent;
+    typedef details::hierarchy_tag hierarchy_tag;
   };
 
   //============================================================================

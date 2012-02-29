@@ -9,26 +9,29 @@
 
 include(nt2.info)
 
-if(DEFINED NT2_SIMD_FLAGS)
-  message(STATUS "[boost.simd.sdk] SIMD flag: ${NT2_SIMD_FLAGS}")
-  return()
-endif()
+if(NOT DEFINED NT2_SIMD_FLAGS)
 
-################################################################################
-# x86 Family
-################################################################################
-if(NT2_ARCH_X86)
-  include(arch/Findx86)
-endif()
+  # x86 family
+  if(NT2_ARCH_X86)
+    include(arch/Findx86)
+  endif()
 
-################################################################################
-# IBM/Motorola/Apple VMX Family
-################################################################################
-if(NT2_ARCH_POWERPC)
-  include(arch/FindVMX)
+  # IBM/Motorola/Apple POWER/PowerPC family
+  if(NT2_ARCH_POWERPC)
+    include(arch/FindPPC)
+  endif()
+
+  # ARM family
+  if(NT2_ARCH_ARM)
+    include(arch/FindARM)
+  endif()
+
 endif()
 
 set( NT2_SIMD_FLAGS ${NT2_SIMD_FLAGS}
      CACHE STRING "SIMD extensions compiler flags"
+   )
+set( NT2_SIMD_EXT ${NT2_SIMD_EXT}
+     CACHE STRING "SIMD extension being built for (informative)"
    )
 message(STATUS "[boost.simd.sdk] SIMD flag: ${NT2_SIMD_FLAGS}")

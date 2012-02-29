@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp1[meta::cardinal_of<A0>::value];
       boost::simd::store<A0>(a0, &tmp[0], 0);
 
-      for(int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
+      for(unsigned int i=0; i < meta::cardinal_of<A0>::value; i++) { tmp1[i] = tmp[a1[i]]; }// TODO unroll
       return boost::simd::load<A0>(&tmp1[0], 0);
     }
   };

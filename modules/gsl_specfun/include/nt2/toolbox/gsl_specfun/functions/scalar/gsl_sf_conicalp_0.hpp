@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
 			      , ((scalar_< arithmetic_<A0> >))((scalar_< arithmetic_<A1> >))
 			      )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     {
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     { return gsl_sf_conicalP_0(a0, a1); }
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
     { return gsl_sf_conicalP_0(a0, a1); }

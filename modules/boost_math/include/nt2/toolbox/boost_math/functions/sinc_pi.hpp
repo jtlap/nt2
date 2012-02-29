@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag sinc_pi_ of functor sinc_pi 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct sinc_pi_ {};
+    struct sinc_pi_ : ext::elementwise_<sinc_pi_> { typedef ext::elementwise_<sinc_pi_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::sinc_pi_, sinc_pi, 1)
   } }

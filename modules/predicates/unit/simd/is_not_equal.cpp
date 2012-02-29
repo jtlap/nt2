@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/predicates/include/functions/is_not_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -25,16 +25,14 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 
 
@@ -59,10 +57,10 @@ NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_equal(nt2::Mone<vT>(), nt2::Mone<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_not_equal(nt2::One<vT>(), nt2::One<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_not_equal(nt2::One<vT>(),nt2::Zero<vT>())[0]!=0, true);
-  NT2_TEST_EQUAL(is_not_equal(nt2::Zero<vT>(), nt2::Zero<vT>())[0]!=0, false);
+  NT2_TEST_EQUAL(is_not_equal(nt2::Mone<vT>(), nt2::Mone<vT>())[0], ssr_t(false));
+  NT2_TEST_EQUAL(is_not_equal(nt2::One<vT>(), nt2::One<vT>())[0], ssr_t(false));
+  NT2_TEST_EQUAL(is_not_equal(nt2::One<vT>(),nt2::Zero<vT>())[0], ssr_t(true));
+  NT2_TEST_EQUAL(is_not_equal(nt2::Zero<vT>(), nt2::Zero<vT>())[0], ssr_t(false));
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
@@ -86,9 +84,9 @@ NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_equal(nt2::Inf<vT>(), nt2::Inf<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_not_equal(nt2::Minf<vT>(), nt2::Minf<vT>())[0]!=0, false);
-  NT2_TEST_EQUAL(is_not_equal(nt2::Nan<vT>(), nt2::Nan<vT>())[0]!=0, true);
-  NT2_TEST_EQUAL(is_not_equal(nt2::One<vT>(),nt2::Zero<vT>())[0]!=0, true);
-  NT2_TEST_EQUAL(is_not_equal(nt2::Zero<vT>(), nt2::Zero<vT>())[0]!=0, false);
+  NT2_TEST_EQUAL(is_not_equal(nt2::Inf<vT>(), nt2::Inf<vT>())[0], ssr_t(false));
+  NT2_TEST_EQUAL(is_not_equal(nt2::Minf<vT>(), nt2::Minf<vT>())[0], ssr_t(false));
+  NT2_TEST_EQUAL(is_not_equal(nt2::Nan<vT>(), nt2::Nan<vT>())[0], ssr_t(true));
+  NT2_TEST_EQUAL(is_not_equal(nt2::One<vT>(),nt2::Zero<vT>())[0], ssr_t(true));
+  NT2_TEST_EQUAL(is_not_equal(nt2::Zero<vT>(), nt2::Zero<vT>())[0], ssr_t(false));
 } // end of test for floating_

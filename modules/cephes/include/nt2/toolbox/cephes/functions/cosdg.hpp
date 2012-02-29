@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag cosdg_ of functor cosdg 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct cosdg_ {};
+    struct cosdg_ : ext::elementwise_<cosdg_> { typedef ext::elementwise_<cosdg_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::cosdg_, cosdg, 1)
   } }

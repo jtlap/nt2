@@ -29,16 +29,14 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/memory/aligned_type.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
@@ -50,7 +48,7 @@ NT2_TEST_CASE_TPL ( sincosd_real__1_0,  NT2_SIMD_REAL_TYPES)
   using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
+  typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -66,17 +64,17 @@ NT2_TEST_CASE_TPL ( sincosd_real__1_0,  NT2_SIMD_REAL_TYPES)
   // random verifications
   static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
   {
-    typedef typename boost::result_of<nt2::meta::floating(T)>::type ftype;
+    typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
     NT2_CREATE_BUF(tab_a0,T, NR, T(-2000), T(2000));
     double ulp0, ulpd ; ulpd=ulp0=0.0;
-    for(nt2::uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t r = nt2::sincosd(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          nt2::uint32_t k = i+j*cardinal_of<n_t>::value;
-          sr_t sr =  nt2::sincosd(tab_a0[k]);
+          
+          sr_t sr =  nt2::sincosd(a0[i]);
           NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r)[i],
                                     boost::fusion::get<0>(sr), 1.5);
           ulp0 = nt2::max(ulpd,ulp0);

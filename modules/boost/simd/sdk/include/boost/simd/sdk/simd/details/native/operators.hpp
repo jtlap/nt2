@@ -16,6 +16,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/or.hpp>
+#include <boost/proto/tags.hpp>
 
 #define BOOST_SIMD_OVERLOAD_UNARY_OP(Tag, Op)                                  \
 template<class A0>                                                             \

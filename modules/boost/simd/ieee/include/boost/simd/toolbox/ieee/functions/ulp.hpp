@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag ulp_ of functor ulp 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct ulp_ {};
+    struct ulp_ : ext::elementwise_<ulp_> { typedef ext::elementwise_<ulp_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::ulp_, ulp, 1)
 } }

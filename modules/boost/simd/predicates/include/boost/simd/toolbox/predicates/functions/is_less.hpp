@@ -67,7 +67,7 @@ namespace boost { namespace simd
      * \brief Define the tag is_less_ of functor is_less 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_less_ {};
+    struct is_less_ : ext::elementwise_<is_less_> { typedef ext::elementwise_<is_less_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_less_, is_less , 2 )

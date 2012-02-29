@@ -57,7 +57,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag expm1_ of functor expm1 
      *        in namespace nt2::tag for toolbox exponential
     **/
-    struct expm1_ {};
+    struct expm1_ : ext::elementwise_<expm1_> { typedef ext::elementwise_<expm1_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::expm1_, expm1, 1)
 }

@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0, A1, A2)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0, A1, A2>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0, A1, A2)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0, A1, A2>::type result_type;
 
     NT2_FUNCTOR_CALL(3)
     {

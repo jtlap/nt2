@@ -111,7 +111,7 @@ return(0.0);
 
 y = cephes_floorf( (float )x );
 if( y < x )
-	y += 1.0;
+	y += 1.0f;
 return(y);
 }
 
@@ -213,7 +213,7 @@ if( e > 0 )
 	*p &= bmask[e];
 
 if( (x < 0) && (u.y != x) )
-	u.y -= 1.0;
+	u.y -= 1.0f;
 
 return(u.y);
 }
@@ -260,17 +260,17 @@ q = &u.i[0];
 i  = ( *q >> 7) & 0xff;
 if( i == 0 )
 	{
-	if( u.y == 0.0 )
+	if( u.y == 0.0f )
 		{
 		*pw2 = 0;
-		return(0.0);
+		return(0.0f);
 		}
 /* Number is denormal or zero */
 #if DENORMAL
 /* Handle denormal number. */
 	do
 		{
-		u.y *= 2.0;
+		u.y *= 2.0f;
 		i -= 1;
 		k  = ( *q >> 7) & 0xff;
 		}
@@ -333,14 +333,14 @@ while( (e = ( *q >> 7) & 0xff) == 0 )
 /* Input is denormal. */
 	if( pw2 > 0 )
 		{
-		u.y *= 2.0;
+		u.y *= 2.0f;
 		pw2 -= 1;
 		}
 	if( pw2 < 0 )
 		{
 		if( pw2 < -24 )
 			return( 0.0 );
-		u.y *= 0.5;
+		u.y *= 0.5f;
 		pw2 += 1;
 		}
 	if( pw2 == 0 )

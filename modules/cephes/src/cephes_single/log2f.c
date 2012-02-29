@@ -51,7 +51,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 */
 
 #include "mconf.h"
-static char fname[] = {"log2"};
+/*static char fname[] = {"log2"};*/
 
 /* Coefficients for log(1+x) = x - x**2/2 + x**3 P(x)
  * 1/sqrt(2) <= x < sqrt(2)
@@ -69,8 +69,8 @@ static float P[] = {
  3.3333331174E-1
 };
 
-#define LOG2EA 0.44269504088896340735992
-#define SQRTH 0.70710678118654752440
+#define LOG2EA 0.44269504088896340735992f
+#define SQRTH 0.70710678118654752440f
 extern float MINLOGF, LOGE2F;
 
 #ifdef ANSIC
@@ -90,13 +90,13 @@ int e;
 x = xx;
 /* Test for domain */
  if( x != x) return x;
- if( x == 1.0/ZERO) return x;
- if( x <= 0.0 )
+ if( x == 1.0f/ZEROF) return x;
+ if( x <= 0.0f )
 	{
-	if( x == 0.0 )
-	  return -1.0/ZERO;
+	if( x == 0.0f )
+	  return -1.0f/ZEROF;
 	else
-	  return 0.0/ZERO;
+	  return 0.0f/ZEROF;
 	}
 
 /* separate mantissa from exponent */
@@ -108,17 +108,17 @@ x = cephes_frexpf( x, &e );
 if( x < SQRTH )
 	{
 	e -= 1;
-	x = 2.0*x - 1.0;
+	x = 2.0f*x - 1.0f;
 	}	
  else 
 	{
-	x = x - 1.0;
+	x = x - 1.0f;
 	}
 
 
 z = x*x;
 y = x * ( z * cephes_polevlf( x, P, 8 ) );
-y = y - 0.5 * z;   /*  y - 0.5 * x**2  */
+y = y - 0.5f * z;   /*  y - 0.5 * x**2  */
 
 
 /* Multiply log of fraction by log2(e)

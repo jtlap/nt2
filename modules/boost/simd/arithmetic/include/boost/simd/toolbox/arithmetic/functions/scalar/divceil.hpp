@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVCEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVCEIL_HPP_INCLUDED
-
 #include <boost/simd/include/functions/ceil.hpp>
 #include <boost/simd/include/functions/iceil.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 
 #ifdef BOOST_MSVC
@@ -30,7 +31,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
-        return result_type(iceil(double(a0)/double(a1))); 
+        return static_cast<result_type>(iceil(static_cast<double>(a0)/static_cast<double>(a1))); 
       else
       {
         return (a0) ? ((a0>0) ? Valmax<result_type>() : Valmin<result_type>()) : Zero<result_type>();
@@ -47,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if(a1)
-        return rdivide(A0(a0+(a1-One<result_type>())), a1); 
+        return rdivide(static_cast<A0>(a0+(a1-One<result_type>())), a1); 
       else
         return (a0) ? Valmax<result_type>() : Zero<result_type>();
     }

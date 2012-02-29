@@ -10,9 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_NBTRUE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
-#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/popcnt.hpp>
 
 
@@ -26,13 +24,27 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef int32_t result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef simd::native<typename boost::simd::meta::int8_t_<A0>::type,boost::simd::tag::sse_> i8type;
-      i8type tmp = {is_nez(a0)};
+      i8type tmp = {genmask(a0)};
+      return boost::simd::popcnt(_mm_movemask_epi8(tmp))*boost::simd::meta::cardinal_of<A0>::value >> 4;
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, boost::simd::tag::sse2_
+                            , (A0)
+                            , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+                            )
+  {
+    typedef int32_t result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      typedef typename A0::type vA0;
+      typedef typename meta::scalar_of<vA0>::type sA0;
+      typedef typename simd::native<boost::simd::uint8_t,boost::simd::tag::sse_> i8type; 
+      //      typedef simd::native<typename boost::simd::meta::int8_t_<typename A0::type>::type,boost::simd::tag::sse_> i8type;
+      i8type tmp = bitwise_cast<i8type>(genmask(a0));
       return boost::simd::popcnt(_mm_movemask_epi8(tmp))*boost::simd::meta::cardinal_of<A0>::value >> 4;
     }
   };
@@ -49,12 +61,10 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef int32_t result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      int32_t  r = _mm_movemask_pd(is_nez(a0));
+      int32_t  r = _mm_movemask_pd(genmask(a0));
       return   (r&1)+(r>>1);
     }
   };
@@ -71,13 +81,11 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
-
     typedef int32_t result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
-      int32_t  r = _mm_movemask_ps(is_nez(a0));
+      int32_t  r = _mm_movemask_ps(genmask(a0));
       return   (r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3);
       //      return boost::simd::popcnt(_mm_movemask_ps(is_nez(cast<type>(a0))));
     }

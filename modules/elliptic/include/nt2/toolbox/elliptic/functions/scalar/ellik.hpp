@@ -12,13 +12,13 @@
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/tan.hpp>
 #include <nt2/include/functions/atan.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/ceil.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -31,9 +31,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
-
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return ellik(result_type(a0), result_type(a1));
@@ -52,9 +50,7 @@ namespace nt2 { namespace ext
                             , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type type;
@@ -76,9 +72,7 @@ namespace nt2 { namespace ext
                             , (scalar_< single_<A0> >)(scalar_< single_<A0> >)
                             )
   {
-
     typedef A0 result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       typedef result_type type;
@@ -86,19 +80,19 @@ namespace nt2 { namespace ext
       if (is_eqz(a1))  return a0;
       type phi = nt2::abs(a0);
       type m = a1;
-      type a = 1.0;
+      type a = One<type>();
       type b = oneminus(m);
       if( is_eqz(b) )   return nt2::log(nt2::tan(nt2::average(Pio_2<type>(),phi)));
       b = nt2::sqrt(b);
       type c = nt2::sqrt(m);
-      int d = 1;
+      type d = One<A0>();
       type t = nt2::tan(phi);
-      int mod = (phi + Pio_2<type>())/Pi<type>();
+      int mod = toint((phi+Pio_2<type>())/Pi<type>());
       while( nt2::abs(c) > nt2::abs(a)*Eps<type>() )
       {
         type temp = b/a;
         phi += nt2::atan(t*temp) + mod*Pi<type>();
-        mod = (phi + Pio_2<type>())/Pi<type>();
+        mod = toint((phi+Pio_2<type>())/Pi<type>());
         t = t*oneplus(temp)/( oneminus(temp*t*t));
         c = average(a,-b);
         temp = nt2::sqrt(a*b);

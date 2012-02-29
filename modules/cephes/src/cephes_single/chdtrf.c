@@ -174,12 +174,12 @@ float df, x;
 df = dff;
 x = xx;
 
-if( (x < 0.0) || (df < 1.0) )
+if( (x < 0.0f) || (df < 1.0f) )
 	{
 	cephes_mtherr( "chdtrcf", DOMAIN );
-	return(0.0);
+	return(0.0f);
 	}
-return( cephes_igamcf( 0.5*df, 0.5*x ) );
+return( cephes_igamcf( 0.5f*df, 0.5f*x ) );
 }
 
 
@@ -194,12 +194,12 @@ float df, x;
 
 df = dff;
 x = xx;
-if( (x < 0.0) || (df < 1.0) )
+if( (x < 0.0f) || (df < 1.0f) )
 	{
 	cephes_mtherr( "chdtrf", DOMAIN );
-	return(0.0);
+	return(0.0f);
 	}
-return( cephes_igamf( 0.5*df, 0.5*x ) );
+return( cephes_igamf( 0.5f*df, 0.5f*x ) );
 }
 
 
@@ -214,12 +214,12 @@ float y, df, x;
 
 y = yy;
 df = dff;
-if( (y < 0.0) || (y > 1.0) || (df < 1.0) )
+if( (y < 0.0f) || (y > 1.0f) || (df < 1.0f) )
 	{
 	cephes_mtherr( "chdtrif", DOMAIN );
 	return(0.0);
 	}
 
-x = cephes_igamif( 0.5 * df, y );
-return( 2.0 * x );
+x = cephes_igamif( 0.5f * df, y );
+return( 2.0f * x );
 }

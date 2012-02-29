@@ -108,8 +108,8 @@ static float STIR[] = {
  3.473255786154910E-003,
  8.333331788340907E-002,
 };
-static float MAXSTIR = 26.77;
-static float SQTPIF = 2.50662827463100050242; /* sqrt( 2 pi ) */
+static float MAXSTIR = 26.77f;
+static float SQTPIF = 2.50662827463100050242f; /* sqrt( 2 pi ) */
 
 int sgngamf = 0;
 extern int sgngamf;
@@ -146,18 +146,18 @@ float x, y, w, v;
 
 
 x = xx;      
-w = 1.0/x;
-w = 1.0 + w * cephes_polevlf( w, STIR, 2 );
+w = 1.0f/x;
+w = 1.0f + w * cephes_polevlf( w, STIR, 2 );
 y = cephes_expf( -x );
 if( x > MAXSTIR )
 	{ /* Avoid overflow in pow() */
-	v = cephes_powf( x, 0.5 * x - 0.25 );
+	v = cephes_powf( x, 0.5f * x - 0.25f );
 	y *= v;
 	y *= v;
 	}
 else
 	{
-	y = cephes_powf( x, x - 0.5 ) * y;
+	y = cephes_powf( x, x - 0.5f ) * y;
 	}
 y = SQTPIF * y * w;
 return( y );
@@ -189,9 +189,9 @@ int i, direction, negative;
 x = xx;
 sgngamf = 1; 
 negative = 0;
-nz = 0.0;
+nz = 0.0f;
 
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	negative = 1;
 	q = -x;
@@ -202,13 +202,13 @@ if( x < 0.0 )
 	if( (i & 1) == 0 )
 		sgngamf = -1;
 	nz = q - p;
-	if( nz > 0.5 )
+	if( nz > 0.5f )
 		{
-		p += 1.0;
+		p += 1.0f;
 		nz = q - p;
 		}
 	nz = q * cephes_sinf( PIF * nz );
-	if( nz == 0.0 )
+	if( nz == 0.0f )
 		{
 goverf:
 		cephes_mtherr( "gamma", OVERFLOW );
@@ -219,18 +219,18 @@ goverf:
 	x = q;
 	}
 
-if( x >= 10.0 )
+if( x >= 10.0f )
 	{
 	  return stirf(x);
 	}
-if( x < 2.0 )
+if( x < 2.0f )
 	direction = 1;
 else
 	direction = 0;
 z = 1.0;
-while( x >= 3.0 )
+while( x >= 3.0f )
 	{
-	x -= 1.0;
+	x -= 1.0f;
 	z *= x;
 	}
 
@@ -243,21 +243,21 @@ while( x < 0.0 )
 	x += 1.0;
 	}
 */
-while( x < 2.0 )
+while( x < 2.0f )
 	{
-	if( x < 1.e-4 )
+	if( x < 1.e-4f )
 		goto small;
 	z *=x;
-	x += 1.0;
+	x += 1.0f;
 	}
 
 if( direction )
-	z = 1.0/z;
+	z = 1.0f/z;
 
-if( x == 2.0 )
+if( x == 2.0f )
 	return(z);
 
-x -= 2.0;
+x -= 2.0f;
 p = z * cephes_polevlf( x, P, 7 );
 
 gdone:
@@ -269,14 +269,14 @@ if( negative )
 return(p);
 
 small:
-if( x == 0.0 )
+if( x == 0.0f )
 	{
 	cephes_mtherr( "gamma", SING );
 	return( MAXNUMF );
 	}
 else
 	{
-	p = z / ((1.0 + 0.5772156649015329 * x) * x);
+	p = z / ((1.0f + 0.5772156649015329f * x) * x);
 	goto gdone;
 	}
 }
@@ -309,9 +309,9 @@ static float C[] = {
 };
 
 /* log( sqrt( 2*pi ) ) */
-static float LS2PI  =  0.91893853320467274178;
-#define MAXLGM 2.035093e36
-static float PIINV =  0.318309886183790671538;
+static float LS2PI  =  0.91893853320467274178f;
+#define MAXLGM 2.035093e36f
+static float PIINV =  0.318309886183790671538f;
 
 /* Logarithm of gamma function */
 
@@ -330,7 +330,7 @@ int i, direction;
 sgngamf = 1;
 
 x = xx;
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	q = -x;
 	w = cephes_lgamf(q); /* note this modifies sgngam! */
@@ -343,65 +343,65 @@ if( x < 0.0 )
 	else
 		sgngamf = 1;
 	z = q - p;
-	if( z > 0.5 )
+	if( z > 0.5f )
 		{
-		p += 1.0;
+		p += 1.0f;
 		z = p - q;
 		}
 	z = q * cephes_sinf( PIF * z );
-	if( z == 0.0 )
+	if( z == 0.0f )
 		goto loverf;
 	z = -cephes_logf( PIINV*z ) - w;
 	return( z );
 	}
 
-if( x < 6.5 )
+if( x < 6.5f )
 	{
 	direction = 0;
-	z = 1.0;
+	z = 1.0f;
 	tx = x;
 	nx = 0.0;
-	if( x >= 1.5 )
+	if( x >= 1.5f )
 		{
-		while( tx > 2.5 )
+		while( tx > 2.5f )
 			{
-			nx -= 1.0;
+			nx -= 1.0f;
 			tx = x + nx;
 			z *=tx;
 			}
-		x += nx - 2.0;
+		x += nx - 2.0f;
 iv1r5:
 		p = x * cephes_polevlf( x, B, 7 );
 		goto cont;
 		}
-	if( x >= 1.25 )
+	if( x >= 1.25f )
 		{
 		z *= x;
-		x -= 1.0; /* x + 1 - 2 */
+		x -= 1.0f; /* x + 1 - 2 */
 		direction = 1;
 		goto iv1r5;
 		}
-	if( x >= 0.75 )
+	if( x >= 0.75f )
 		{
-		x -= 1.0;
+		x -= 1.0f;
 		p = x * cephes_polevlf( x, C, 7 );
-		q = 0.0;
+		q = 0.0f;
 		goto contz;
 		}
-	while( tx < 1.5 )
+	while( tx < 1.5f )
 		{
-		if( tx == 0.0 )
+		if( tx == 0.0f )
 			goto loverf;
 		z *=tx;
-		nx += 1.0;
+		nx += 1.0f;
 		tx = x + nx;
 		}
 	direction = 1;
-	x += nx - 2.0;
+	x += nx - 2.0f;
 	p = x * cephes_polevlf( x, B, 7 );
 
 cont:
-	if( z < 0.0 )
+	if( z < 0.0f )
 		{
 		sgngamf = -1;
 		z = -z;
@@ -427,15 +427,15 @@ loverf:
 /* Note, though an asymptotic formula could be used for x >= 3,
  * there is cancellation error in the following if x < 6.5.  */
 q = LS2PI - x;
-q += ( x - 0.5 ) * cephes_logf(x);
+q += ( x - 0.5f ) * cephes_logf(x);
 
-if( x <= 1.0e4 )
+if( x <= 1.0e4f )
 	{
-	z = 1.0/x;
+	z = 1.0f/x;
 	p = z * z;
-	q += ((    6.789774945028216E-004 * p
-		 - 2.769887652139868E-003 ) * p
-		+  8.333316229807355E-002 ) * z;
+	q += ((    6.789774945028216E-004f * p
+		 - 2.769887652139868E-003f ) * p
+		+  8.333316229807355E-002f ) * z;
 	}
 return( q );
 }

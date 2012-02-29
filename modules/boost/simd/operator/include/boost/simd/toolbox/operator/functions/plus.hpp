@@ -65,11 +65,25 @@ namespace boost { namespace simd
      * \brief Define the tag plus_ of functor plus 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::plus plus_;
+    struct plus_ : ext::elementwise_<plus_> { typedef ext::elementwise_<plus_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::plus_             , plus            , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::plus_             , add             , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::plus>
+  {
+    typedef boost::simd::tag::plus_ type;
+  };
+  template<>
+  struct proto_tag<boost::simd::tag::plus_>
+  {
+    typedef boost::proto::tag::plus type;
+  };
+} } }
 
 #endif

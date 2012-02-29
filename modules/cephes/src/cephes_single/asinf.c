@@ -123,21 +123,21 @@ else
 	a = -x;
 	}
 
-if( a > 1.0 )
+if( a > 1.0f )
 	{
 	cephes_mtherr( "asinf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
-if( a < 1.0e-4 )
+if( a < 1.0e-4f )
 	{
 	z = a;
 	goto done;
 	}
 
-if( a > 0.5 )
+if( a > 0.5f )
 	{
-	z = 0.5 * (1.0 - a);
+	z = 0.5f * (1.0f - a);
 	x = cephes_sqrtf( z );
 	flag = 1;
 	}
@@ -149,11 +149,11 @@ else
 	}
 
 z =
-(((( 4.2163199048E-2 * z
-  + 2.4181311049E-2) * z
-  + 4.5470025998E-2) * z
-  + 7.4953002686E-2) * z
-  + 1.6666752422E-1) * z * x
+(((( 4.2163199048E-2f * z
+  + 2.4181311049E-2f) * z
+  + 4.5470025998E-2f) * z
+  + 7.4953002686E-2f) * z
+  + 1.6666752422E-1f) * z * x
   + x;
 
 if( flag != 0 )
@@ -178,20 +178,20 @@ double x;
 #endif
 {
 
-if( x < -1.0 )
+if( x < -1.0f )
 	goto domerr;
 
-if( x < -0.5) 
-	return( PIF - 2.0 * cephes_asinf( cephes_sqrtf(0.5*(1.0+x)) ) );
+if( x < -0.5f) 
+	return( PIF - 2.0f * cephes_asinf( cephes_sqrtf(0.5f*(1.0f+x)) ) );
 
-if( x > 1.0 )
+if( x > 1.0f )
 	{
 domerr:	cephes_mtherr( "acosf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
-if( x > 0.5 )
-	return( 2.0 * cephes_asinf(  cephes_sqrtf(0.5*(1.0-x) ) ) );
+if( x > 0.5f )
+	return( 2.0f * cephes_asinf(  cephes_sqrtf(0.5f*(1.0f-x) ) ) );
 
 return( PIO2F - cephes_asinf(x) );
 }

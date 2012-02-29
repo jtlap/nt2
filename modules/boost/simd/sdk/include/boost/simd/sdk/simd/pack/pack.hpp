@@ -137,6 +137,7 @@ namespace boost { namespace simd
       );
       for(int i=0;b!=e;++b,++i) (*this)[i] = *b;
     }
+    //template<class Expr> pack(Expr const& expr) : parent(expr) {}
 
     //==========================================================================
     // Constructor from unique scalar value -> splat the value

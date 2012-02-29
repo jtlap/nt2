@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_,tag::cpu_
                                 , (class Value)(class State)
                                   (class Data)(std::size_t N)
                                 , (scalar_< arithmetic_<Value> >)
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( tag::terminal_,tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::terminal_,tag::cpu_
                                 , (class Id)(class State)
                                   (class Data)(std::size_t N)
                                 , (constant_<Id>)

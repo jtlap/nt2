@@ -9,26 +9,32 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
 #include <boost/simd/toolbox/predicates/functions/is_eqz.hpp>
+#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/sdk/simd/native_cast.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, boost::simd::tag::sse2_, (A0)
-                            , ((simd_<int64_<A0>,boost::simd::tag::sse_>))
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_eqz_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_ < int64_<A0>
+                                              , boost::simd::tag::sse_
+                                              >
+                                      ))
+                                    )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type; 
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef boost::simd::native<int32_t,boost::simd::tag::sse_> type;
-      const type tmp1 = is_eqz(boost::simd::native_cast<type>(a0));
-      const type tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
-      return boost::simd::native_cast<A0>(b_and(tmp1, tmp2));
+      typedef typename dispatch::meta::downgrade<A0>::type          base; 
+      typedef typename dispatch::meta::downgrade<base>::type        type;
+      const base tmp1 = boost::simd::bitwise_cast<base>(is_eqz(boost::simd::bitwise_cast<base>(a0)));
+      const base tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
+      return boost::simd::bitwise_cast<result_type>(b_and(tmp1, tmp2));
     }
   };
 } } }

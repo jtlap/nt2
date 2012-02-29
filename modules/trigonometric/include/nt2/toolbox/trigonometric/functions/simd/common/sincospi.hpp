@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincospi_, tag::cpu_,(A0)(A1)(X),
+  NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincospi_, boost::simd::tag::simd_,(A0)(A1)(X),
                                 (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
                                                      nt2::meta::cardinal_of<A1> >),
                              ((simd_ < arithmetic_<A0>,X >))
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     }
   };
   
-   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincospi_, tag::cpu_,(A0)(A1)(X),
+   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincospi_, boost::simd::tag::simd_,(A0)(A1)(X),
                                 (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
                                                  nt2::meta::cardinal_of<A1>
                                         >
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
  /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is arithmetic_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincospi_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::sincospi_, boost::simd::tag::simd_,
                            (A0)(X),
                            ((simd_<arithmetic_<A0>,X>))
                           )

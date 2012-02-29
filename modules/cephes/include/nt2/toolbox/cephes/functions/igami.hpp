@@ -73,7 +73,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag igami_ of functor igami 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct igami_ {};
+    struct igami_ : ext::elementwise_<igami_> { typedef ext::elementwise_<igami_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::igami_, igami, 2)
   } }

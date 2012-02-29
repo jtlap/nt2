@@ -20,10 +20,40 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct unaligned_load_ {}; }
+  namespace tag { struct unaligned_load_ : ext::elementwise_<unaligned_load_> { typedef ext::elementwise_<unaligned_load_> parent; }; }
 
   //////////////////////////////////////////////////////////////////////////////
   // Unaligned_Load a data of type T from the memory zone given by (a0,a1)
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,class A0,class A1> inline
+  typename boost::dispatch::meta::call<tag::unaligned_load_ ( A0 const&, A1 const&
+                                                , boost::dispatch::meta::as_<T>
+                                                )
+                            >::type
+  unaligned_load(A0 const& a0,A1 const& a1 )
+  {
+    typename boost::dispatch::make_functor<tag::unaligned_load_, A0>::type callee;
+    return callee(a0,a1,boost::dispatch::meta::as_<T>());
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Unaligned_Load a data of type T from the memory zone given by (a0,a1) and a sub-type
+  // level offset
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,int Offset,class A0,class A1> inline
+  typename boost::dispatch::meta::call<tag::unaligned_load_ ( A0 const&, A1 const&
+                                                , boost::dispatch::meta::as_<T>
+                                                , boost::mpl::int_<Offset>
+                                                )
+                            >::type
+  unaligned_load(A0 const& a0,A1 const& a1 )
+  {
+    typename boost::dispatch::make_functor<tag::unaligned_load_, A0>::type callee;
+    return callee(a0,a1,boost::dispatch::meta::as_<T>(),boost::mpl::int_<Offset>());
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Unaligned_Load a data of type T from the memory zone given by (a0)
   //////////////////////////////////////////////////////////////////////////////
   template<class T,class A0> inline
   typename boost::dispatch::meta::call<tag::unaligned_load_ ( A0 const&
@@ -34,22 +64,6 @@ namespace boost { namespace simd
   {
     typename boost::dispatch::make_functor<tag::unaligned_load_, A0>::type callee;
     return callee(a0,boost::dispatch::meta::as_<T>());
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  // Unaligned_Load a data of type T from the memory zone given by (a0,a1) and a sub-type
-  // level offset
-  //////////////////////////////////////////////////////////////////////////////
-  template<class T,int Offset, class A0> inline
-  typename boost::dispatch::meta::call<tag::unaligned_load_ ( A0 const&
-                                                , boost::dispatch::meta::as_<T>
-                                                , boost::mpl::int_<Offset>
-                                                )
-                            >::type
-  unaligned_load(A0 const& a0)
-  {
-    typename boost::dispatch::make_functor<tag::unaligned_load_, A0>::type callee;
-    return callee(a0,boost::dispatch::meta::as_<T>(),boost::mpl::int_<Offset>());
   }
 } }
 

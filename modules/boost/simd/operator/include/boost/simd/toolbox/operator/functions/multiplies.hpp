@@ -34,6 +34,7 @@
  * 
  * \par Alias 
  * \arg mul
+ * \arg times
  * 
  * \synopsis
  *
@@ -65,11 +66,26 @@ namespace boost { namespace simd
      * \brief Define the tag multiplies_ of functor multiplies 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::multiplies multiplies_;
+    struct multiplies_ : ext::elementwise_<multiplies_> { typedef ext::elementwise_<multiplies_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , multiplies      , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , mul             , 2 )
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::multiplies_             , times           , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::multiplies>
+  {
+    typedef boost::simd::tag::multiplies_ type;
+  };
+  template<>
+  struct proto_tag<boost::simd::tag::multiplies_>
+  {
+    typedef boost::proto::tag::multiplies type;
+  };
+} } }
 
 #endif

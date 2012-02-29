@@ -9,14 +9,36 @@
 #ifndef BOOST_DISPATCH_META_SCALAR_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_META_SCALAR_OF_HPP_INCLUDED
 
-#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T>
-  struct  scalar_of
-        : primitive_of<T>
-  {};
+  struct scalar_of;
+}
+
+namespace details
+{
+  template<class T, class U = typename meta::value_of<T>::type>
+  struct scalar_of
+    : meta::scalar_of<U>
+  {
+  };
+  
+  template<class T>
+  struct scalar_of<T, T>
+  {
+    typedef T type;
+  };
+}
+
+namespace meta
+{
+  template<class T>
+  struct scalar_of
+    : details::scalar_of<T>
+  {
+  };
 } } }
 
 #endif

@@ -9,26 +9,24 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_LOAD_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-
 ////////////////////////////////////////////////////////////////////////////////
 // load for AVX SIMD types
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/assert.hpp>
 
-//==============================================================================
-// load vector of double
-//==============================================================================
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::avx_
                             , (A0)(A1)(A2)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< scalar_< double_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               ((target_< simd_< double_<A2>, boost::simd::tag::avx_ > >))
                             )
@@ -46,16 +44,10 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-} } }
 
-//==============================================================================
-// load vector of float
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::avx_
                             , (A0)(A1)(A2)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< scalar_< single_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               ((target_< simd_< single_<A2>, boost::simd::tag::avx_ > >))
                             )
@@ -73,16 +65,10 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-} } }
 
-//==============================================================================
-// load vector of integer
-//==============================================================================
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_ , boost::simd::tag::avx_
                             , (A0)(A1)(A2)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< scalar_< integer_<A0> > >)
                               (scalar_< fundamental_<A1> >)
                               ((target_< simd_< integer_<A2>, boost::simd::tag::avx_ > >))
                             )
@@ -100,6 +86,7 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
+
 } } }
 
 

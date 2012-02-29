@@ -94,7 +94,7 @@ int sign;
 x = xx;
 
 /* make argument positive and save the sign */
-if( xx < 0.0 )
+if( xx < 0.0f )
 	{
 	sign = -1;
 	x = -xx;
@@ -105,26 +105,26 @@ else
 	x = xx;
 	}
 /* range reduction */
-if( x > 2.414213562373095 )  /* tan 3pi/8 */
+if( x > 2.414213562373095f )  /* tan 3pi/8 */
 	{
 	y = PIO2F;
-	x = -( 1.0/x );
+	x = -( 1.0f/x );
 	}
 
-else if( x > 0.4142135623730950 ) /* tan pi/8 */
+else if( x > 0.4142135623730950f ) /* tan pi/8 */
 	{
 	y = PIO4F;
-	x = (x-1.0)/(x+1.0);
+	x = (x-1.0f)/(x+1.0f);
 	}
 else
-	y = 0.0;
+	y = 0.0f;
 
 z = x * x;
 y +=
-((( 8.05374449538e-2 * z
-  - 1.38776856032E-1) * z
-  + 1.99777106478E-1) * z
-  - 3.33329491539E-1) * z * x
+((( 8.05374449538e-2f * z
+  - 1.38776856032E-1f) * z
+  + 1.99777106478E-1f) * z
+  - 3.33329491539E-1f) * z * x
   + x;
 
 if( sign < 0 )
@@ -149,31 +149,31 @@ int code;
 
 code = 0;
 
-if( x < 0.0 )
+if( x < 0.0f )
 	code = 2;
-if( y < 0.0 )
+if( y < 0.0f )
 	code |= 1;
 
-if( x == 0.0 )
+if( x == 0.0f )
 	{
 	if( code & 1 )
 		{
 #if ANSIC
 		return( -PIO2F );
 #else
-		return( 3.0*PIO2F );
+		return( 3.0f*PIO2F );
 #endif
 		}
-	if( y == 0.0 )
-		return( 0.0 );
+	if( y == 0.0f )
+		return( 0.0f );
 	return( PIO2F );
 	}
 
-if( y == 0.0 )
+if( y == 0.0f )
 	{
 	if( code & 2 )
 		return( PIF );
-	return( 0.0 );
+	return( 0.0f );
 	}
 
 
@@ -182,12 +182,12 @@ switch( code )
 	default:
 #if ANSIC
 	case 0:
-	case 1: w = 0.0; break;
+	case 1: w = 0.0f; break;
 	case 2: w = PIF; break;
 	case 3: w = -PIF; break;
 #else
-	case 0: w = 0.0; break;
-	case 1: w = 2.0 * PIF; break;
+	case 0: w = 0.0f; break;
+	case 1: w = 2.0f * PIF; break;
 	case 2:
 	case 3: w = PIF; break;
 #endif

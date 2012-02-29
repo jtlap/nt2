@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+  table_settings.cpp
+  resize.cpp
   constructor.cpp
 # List of scalar test files for toolbox core.settings
    )

@@ -8,7 +8,7 @@
              'default' : 'boost::fusion::tuple<r0_t,r0_t>',
             },
          'simd_types' : ['real_'],
-         'type_defs' : ['typedef typename boost::result_of<nt2::meta::floating(T,T)>::type r0_t;'],
+         'type_defs' : ['typedef typename boost::dispatch::meta::as_floating<T,T>::type r0_t;'],
          'types' : ['real_'],
         },
      'info' : 'manually modified',

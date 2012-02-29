@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVS_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/divs.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
@@ -25,7 +24,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if ((a0 == Valmin<result_type>()) && (a1 == Mone<result_type>())) return Valmax<result_type>();
+      if ((a0 == Valmin<result_type>()) && (a1 == Mone<result_type>()))
+        return Valmax<result_type>();
       else if (a1) return a0/a1;
       else if (a0 > 0) return Valmax<result_type>();
       else if (a0 < 0) return Valmin<result_type>();
@@ -60,7 +60,8 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)
+                            , (scalar_< floating_<A0> >)
+                        (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;

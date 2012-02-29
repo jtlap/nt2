@@ -21,10 +21,10 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sine_<mode> , tag::cpu_
-			      , (A0)(mode)(X)
-			      , ((simd_<arithmetic_<A0>,X>))
-			      )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sine_<mode> , boost::simd::tag::simd_
+                     , (A0)(mode)(X)
+                     , ((simd_<arithmetic_<A0>,X>))
+                     )
   {
 
     typedef typename meta::as_floating<A0>::type result_type;
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sine_<mode>, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sine_<mode>, boost::simd::tag::simd_
                             , (A0)(mode)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

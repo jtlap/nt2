@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_COS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_COS_HPP_INCLUDED
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/include/functions/if_else_zero.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -18,17 +18,15 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cos_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cos_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL(1)
     {
-      return -is_eqz(boost::simd::native_cast<result_type>(a0));
+      return if_else_zero(is_eqz(a0), One<result_type>());
     }
   };
 } }
@@ -39,17 +37,15 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cos_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fast_cos_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
-    typedef typename meta::as_floating<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {impl::trig_base<A0,radian_tag,  tag::simd_type,clipped_pio4>::cosa(a0)}; 
+      A0 that = {impl::trig_base<A0,radian_tag,tag::simd_type,clipped_pio4>::cosa(a0)}; 
       return that;
     }
   };

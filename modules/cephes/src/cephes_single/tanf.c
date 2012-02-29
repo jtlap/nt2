@@ -107,7 +107,7 @@ int sign;
 
 
 /* make argument positive but save the sign */
-if( xx < 0.0 )
+if( xx < 0.0f )
 	{
 	x = -xx;
 	sign = -1;
@@ -124,7 +124,7 @@ if( x > lossth )
 		cephes_mtherr( "cotf", TLOSS );
 	else
 		cephes_mtherr( "tanf", TLOSS );
-	return(0.0);
+	return(0.0f);
 	}
 
 /* compute x mod PIO4 */
@@ -135,23 +135,23 @@ y = j;
 if( j & 1 )
 	{
 	j += 1;
-	y += 1.0;
+	y += 1.0f;
 	}
 
 z = ((x - y * DP1) - y * DP2) - y * DP3;
 
 zz = z * z;
 
-if( x > 1.0e-4 )
+if( x > 1.0e-4f )
 	{
 /* 1.7e-8 relative error in [-pi/4, +pi/4] */
 	y =
-	((((( 9.38540185543E-3 * zz
-	+ 3.11992232697E-3) * zz
-	+ 2.44301354525E-2) * zz
-	+ 5.34112807005E-2) * zz
-	+ 1.33387994085E-1) * zz
-	+ 3.33331568548E-1) * zz * z
+	((((( 9.38540185543E-3f * zz
+	+ 3.11992232697E-3f) * zz
+	+ 2.44301354525E-2f) * zz
+	+ 5.34112807005E-2f) * zz
+	+ 1.33387994085E-1f) * zz
+	+ 3.33331568548E-1f) * zz * z
 	+ z;
 	}
 else
@@ -164,12 +164,12 @@ if( j & 2 )
 	if( cotflg )
 		y = -y;
 	else
-		y = -1.0/y;
+		y = -1.0f/y;
 	}
 else
 	{
 	if( cotflg )
-		y = 1.0/y;
+		y = 1.0f/y;
 	}
 
 if( sign < 0 )
@@ -198,7 +198,7 @@ double x;
 #endif
 {
 
-if( x == 0.0 )
+if( x == 0.0f )
 	{
 	cephes_mtherr( "cotf", SING );
 	return( MAXNUMF );

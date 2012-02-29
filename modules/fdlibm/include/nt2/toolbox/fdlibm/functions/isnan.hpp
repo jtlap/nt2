@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag isnan_ of functor isnan 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct isnan_ {};
+    struct isnan_ : ext::elementwise_<isnan_> { typedef ext::elementwise_<isnan_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::isnan_, is_nan, 1)
   } }

@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag cbrt_ of functor cbrt 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct cbrt_ {};
+    struct cbrt_ : ext::elementwise_<cbrt_> { typedef ext::elementwise_<cbrt_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::cbrt_, cbrt, 1)
   } }

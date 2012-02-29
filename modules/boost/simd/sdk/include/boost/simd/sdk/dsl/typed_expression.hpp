@@ -63,10 +63,7 @@ namespace boost { namespace simd { namespace meta
     struct apply_impl<Expr, 0>
      : mpl::apply2< Lambda
                   , Expr
-                  , typename dispatch::meta::
-                    call< typename proto::
-                          tag_of<Expr>::type(Expr)
-                        >::type
+                  , typename proto::result_of::value<Expr>::type
                   >
     {
     };

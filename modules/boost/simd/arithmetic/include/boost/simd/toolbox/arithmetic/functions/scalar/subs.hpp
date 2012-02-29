@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_SUBS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_SUBS_HPP_INCLUDED
-
 #include <boost/simd/toolbox/arithmetic/functions/subs.hpp>
 #include <boost/simd/include/functions/saturate.hpp>
 #include <boost/simd/include/functions/adds.hpp>
@@ -34,7 +33,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type utype; 
-      return A0(boost::simd::saturate<A0>(utype(a0)-utype(a1))); 
+      return static_cast<result_type>(boost::simd::saturate<A0>(static_cast<utype>(a0)-static_cast<utype>(a1))); 
     }
   };
 } } }

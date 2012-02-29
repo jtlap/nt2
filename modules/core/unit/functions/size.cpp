@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::size function"
 
+#include <iostream>
 #include <nt2/include/functions/size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -21,40 +22,66 @@ NT2_TEST_CASE( fundamental_size )
 {
   using nt2::size;
 
-  NT2_TEST( size(4.f).empty() );
-  NT2_TEST_EQUAL( size(4.f).size()  , 0  );
-
-  NT2_TEST_EQUAL( size(4.f)(1), 1 );
-  NT2_TEST_EQUAL( size(4.f)(2), 1 );
-
-  NT2_TEST_EQUAL( size(4.f).size(1) , 1 );
-  NT2_TEST_EQUAL( size(4.f).size(2) , 1 );
-  NT2_TEST_EQUAL( size(4.f).lower(1), 1 );
-  NT2_TEST_EQUAL( size(4.f).lower(2), 1 );
-  NT2_TEST_EQUAL( size(4.f).upper(1), 1 );
-  NT2_TEST_EQUAL( size(4.f).upper(2), 1 );
+  NT2_TEST_EQUAL( std::size_t( size( 3 )(1)), 1);
+  NT2_TEST_EQUAL( std::size_t( size( 3 )(2)), 1);
+  NT2_TEST_EQUAL( size( 3 , 1 ), 1);
+  NT2_TEST_EQUAL( size( 3 , 2 ), 1);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// size of size types
+// size of tables
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( size_table )
+{
+  using nt2::table;
+
+  table<float, nt2::settings(nt2::_3D)> x( nt2::of_size(4,5,6) );
+
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x )(1)), 4);
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x )(2)), 5);
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x )(3)), 6);
+
+  NT2_TEST_EQUAL( nt2::size( x , 1), 4);
+  NT2_TEST_EQUAL( nt2::size( x , 2), 5);
+  NT2_TEST_EQUAL( nt2::size( x , 3), 6);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// size of expression
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( size_expression )
+{
+  using nt2::table;
+
+  table<float, nt2::settings(nt2::_3D)> x( nt2::of_size(4,5,6) );
+
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(1)), 4);
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(2)), 5);
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(3)), 6);
+
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 1), 4);
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 2), 5);
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 3), 6);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// size of expression
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( size_size )
 {
-  using nt2::size;
+  using nt2::table;
 
-/*
-  NT2_TEST( size(size(4.f)).empty() );
-  NT2_TEST_EQUAL( size(size(4.f)).size()  , 0  );
+  table<float, nt2::settings(nt2::_3D)> x( nt2::of_size(4,5,6) );
 
-  NT2_TEST_EQUAL( size(size(4.f))(1), 1 );
-  NT2_TEST_EQUAL( size(size(4.f))(2), 1 );
+  NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size(x) )(1)), 1);
+  NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size(x) )(2)), 3);
 
-  NT2_TEST_EQUAL( size(size(4.f)).size(1) , 1 );
-  NT2_TEST_EQUAL( size(size(4.f)).size(2) , 1 );
-  NT2_TEST_EQUAL( size(size(4.f)).lower(1), 1 );
-  NT2_TEST_EQUAL( size(size(4.f)).lower(2), 1 );
-  NT2_TEST_EQUAL( size(size(4.f)).upper(1), 1 );
-  NT2_TEST_EQUAL( size(size(4.f)).upper(2), 1 );
-*/
+  NT2_TEST_EQUAL( nt2::size( nt2::size(x) , 1), 1);
+  NT2_TEST_EQUAL( nt2::size( nt2::size(x) , 2), 3);
 
+  NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size( nt2::size(x) ) )(1)), 1);
+  NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size( nt2::size(x) ) )(2)), 2);
+
+  NT2_TEST_EQUAL( nt2::size( nt2::size( nt2::size(x) ) , 1), 1);
+  NT2_TEST_EQUAL( nt2::size( nt2::size( nt2::size(x) ) , 2), 2);
 }

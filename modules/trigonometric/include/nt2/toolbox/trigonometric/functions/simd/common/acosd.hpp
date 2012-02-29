@@ -16,6 +16,7 @@
 #include <nt2/include/functions/indeg.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/include/functions/if_allbits_else.hpp>
 
 
 
@@ -24,7 +25,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosd_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -34,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return b_or(oneminus(nt2::sign(tofloat(a0)))*_90<result_type>(), gt(abs(a0), One<A0>()));
+      return if_nan_else(gt(abs(a0), One<A0>()), oneminus(nt2::sign(tofloat(a0)))*_90<result_type>());
     }
   };
 } }
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosd_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

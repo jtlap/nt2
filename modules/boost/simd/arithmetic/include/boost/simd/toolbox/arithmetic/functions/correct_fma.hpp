@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag correct_fma_ of functor correct_fma 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct correct_fma_ {};
+    struct correct_fma_ : ext::elementwise_<correct_fma_> { typedef ext::elementwise_<correct_fma_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::correct_fma_, correct_fma, 3)
 } }

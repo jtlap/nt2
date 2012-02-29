@@ -61,14 +61,16 @@
  * \par
  *  
 **/
-
+#ifdef frexp
+#undef frexp
+#endif
 namespace boost { namespace simd { namespace tag
   {         
     /*!
      * \brief Define the tag frexp_ of functor frexp 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct frexp_ {};
+    struct frexp_ : ext::elementwise_<frexp_> { typedef ext::elementwise_<frexp_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::frexp_, frexp, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, frexp,(A0 const&)(A1&)(A2&),3)

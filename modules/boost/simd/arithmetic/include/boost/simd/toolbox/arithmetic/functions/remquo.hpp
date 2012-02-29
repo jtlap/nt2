@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag remquo_ of functor remquo 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct remquo_ {};
+    struct remquo_ : ext::elementwise_<remquo_> { typedef ext::elementwise_<remquo_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::remquo_, remquo, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::remquo_, remquo,(A0 const&)(A1 const&)(A2&)(A3&),4)

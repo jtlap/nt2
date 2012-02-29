@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag bitwise_andnot_ of functor bitwise_andnot 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
-    struct bitwise_andnot_ {};
+    struct bitwise_andnot_ : ext::elementwise_<bitwise_andnot_> { typedef ext::elementwise_<bitwise_andnot_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, bitwise_andnot, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::bitwise_andnot_, b_andnot, 2)

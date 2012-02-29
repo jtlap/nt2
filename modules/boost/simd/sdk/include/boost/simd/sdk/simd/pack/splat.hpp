@@ -16,7 +16,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_ , tag::cpu_
                             , (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
-                              (target_< ast_< unspecified_<A1> > >)
+                              (target_< ast_<A1> >)
                             )
   {
     typedef typename proto::domain_of<typename A1::type>::type  domain;

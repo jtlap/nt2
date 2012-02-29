@@ -12,7 +12,6 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
@@ -22,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd
 {
-  namespace tag { struct is_aligned_ {}; }
+  namespace tag { struct is_aligned_ : dispatch::meta::unspecified_<is_aligned_> {}; }
 
   namespace memory
   {
@@ -73,6 +72,8 @@ namespace boost { namespace simd
       return callee(a0,boost::mpl::int_<N>());
     }
 } } }
+
+BOOST_DISPATCH_DEFAULT_SITE_FOR( boost::simd::tag::is_aligned_ )
 
 #include <boost/simd/sdk/memory/details/is_aligned.hpp>
 

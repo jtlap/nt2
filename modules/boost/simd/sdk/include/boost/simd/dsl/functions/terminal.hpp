@@ -11,17 +11,32 @@
 
 #include <boost/proto/tags.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace boost { namespace simd
 {
   namespace tag
   {
-    typedef proto::tag::terminal terminal_;
+    struct terminal_ : ext::elementwise_<terminal_> { typedef ext::elementwise_<terminal_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::terminal_, terminal, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::terminal_, terminal, (A0 const&)(A1&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::terminal_, terminal, (A0 const&)(A1&)(A2 const&), 3)
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::terminal>
+  {
+    typedef boost::simd::tag::terminal_ type;
+  };
+  template<>
+  struct proto_tag<boost::simd::tag::terminal_>
+  {
+    typedef boost::proto::tag::terminal type;
+  };
+} } }
 
 #endif

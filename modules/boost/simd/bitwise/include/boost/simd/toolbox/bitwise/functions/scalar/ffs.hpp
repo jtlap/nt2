@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_FFS_HPP_INCLUDED
 
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/details/bitwise_cast.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
 
 #ifdef BOOST_MSVC
 #include <intrin.h>
@@ -23,7 +23,6 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type t1 = bitwise_cast<result_type>(a0);
@@ -51,7 +50,7 @@ namespace boost { namespace simd { namespace ext
         
       // see http://supertech.csail.mit.edu/papers/debruijn.pdf
       const uint64_t magic = 0x03f79d71b4cb0a89ULL;
-      const unsigned int magictable[64] =
+      static const unsigned int magictable[64] =
       {
          0,  1, 48,  2, 57, 49, 28,  3,
         61, 58, 50, 42, 38, 29, 17,  4,

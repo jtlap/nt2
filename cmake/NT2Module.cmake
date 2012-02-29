@@ -27,19 +27,24 @@ macro(nt2_module_source_setup module)
   
   set(NT2_CURRENT_MODULE ${module})
   set(LIBRARY_OUTPUT_PATH ${NT2_BINARY_DIR}/lib)
-  set(LIBRARY_OUTPUT_PATH_DEBUG ${NT2_BINARY_DIR}/lib)
-  set(LIBRARY_OUTPUT_PATH_RELEASE ${NT2_BINARY_DIR}/lib)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH})
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${LIBRARY_OUTPUT_PATH})
   
   include_directories(${NT2_${NT2_CURRENT_MODULE_U}_INCLUDE_DIR})
   link_directories(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARY_DIR})
   link_libraries(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LIBRARIES})
-  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_${NT2_CURRENT_MODULE_U}_FLAGS}")
+  add_definitions(${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_COMPILE_FLAGS})
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${NT2_${NT2_CURRENT_MODULE_U}_DEPENDENCIES_LINK_FLAGS}")
   
   file(WRITE ${NT2_BINARY_DIR}/modules/${module}.manifest)
   
   # installation is only done when current project is NT2
   # or same as current module
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(PROJECT_NAME MATCHES "^NT2")
 
     nt2_module_install_setup()
 
@@ -114,7 +119,7 @@ endfunction()
 macro(nt2_module_set_build_type BUILD_TYPE)
   if(CMAKE_CONFIGURATION_TYPES)
     set(OLD_CONFIGURATION_TYPES ${CMAKE_CONFIGURATION_TYPES})
-    set(CMAKE_CONFIGURATION_TYPES ${BUILD_TYPE})
+    set(CMAKE_CONFIGURATION_TYPES ${BUILD_TYPE} CACHE STRING "" FORCE)
   else()
     set(OLD_BUILD_TYPE ${CMAKE_BUILD_TYPE})
     set(CMAKE_BUILD_TYPE ${BUILD_TYPE})
@@ -123,7 +128,7 @@ endmacro()
 
 macro(nt2_module_restore_build_type)
   if(CMAKE_CONFIGURATION_TYPES)
-    set(CMAKE_CONFIGURATION_TYPES ${OLD_CONFIGURATION_TYPES})
+    set(CMAKE_CONFIGURATION_TYPES ${OLD_CONFIGURATION_TYPES} CACHE STRING "" FORCE)
   else()
     set(CMAKE_BUILD_TYPE ${OLD_BUILD_TYPE})
   endif()
@@ -134,17 +139,44 @@ macro(nt2_module_dir dir)
       add_custom_target(${NT2_CURRENT_MODULE}.${dir})
       set_property(TARGET ${NT2_CURRENT_MODULE}.${dir} PROPERTY FOLDER ${dir})
       nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
-      
+
       if(${dir} STREQUAL bench)
         set(BUILD_TYPE NT2Bench)
       else()
         set(BUILD_TYPE NT2Test)
       endif()
-      
+
       nt2_module_set_build_type(${BUILD_TYPE})
+      project(NT2_${NT2_CURRENT_MODULE_U}.${dir}) # would be better in directory
       add_subdirectory(${dir})
       nt2_module_restore_build_type()
     endif()
+endmacro()
+
+macro(nt2_configure_tests)
+  if(CMAKE_GENERATOR MATCHES "Make")
+    set(NT2_WITH_TESTS_ 1)
+  else()
+    set(NT2_WITH_TESTS_ 0)
+  endif()
+  option(NT2_WITH_TESTS "Enable benchmarks and unit tests" ${NT2_WITH_TESTS_})
+  option(NT2_WITH_TESTS_FULL "Use one executable per test" OFF)
+  option(NT2_WITH_TESTS_BENCH "Register benchmarks with ctest" OFF)
+  option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
+  set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST} CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
+
+  if(NT2_WITH_TESTS)
+    enable_testing()
+    include(CTest)
+
+    foreach(target bench unit cover)
+      get_target_property(${target}_exists ${target} EXCLUDE_FROM_ALL)
+      if(${target}_exists MATCHES "NOTFOUND$")
+        add_custom_target(${target})
+        set_property(TARGET ${target} PROPERTY FOLDER ${target})
+      endif()
+    endforeach()
+  endif()
 endmacro()
 
 macro(nt2_module_main module)
@@ -165,20 +197,8 @@ macro(nt2_module_main module)
   set(NT2_CURRENT_MODULE ${module})
   nt2_module_use_modules(${module})
   
-  if(CMAKE_GENERATOR MATCHES "Make")
-    set(NT2_WITH_TESTS_ 1)
-  else()
-    set(NT2_WITH_TESTS_ 0)
-  endif()
-  option(NT2_WITH_TESTS "Enable benchmarks and unit tests" ${NT2_WITH_TESTS_})
-  option(NT2_WITH_TESTS_FULL "Use one executable per test" OFF)
-  option(NT2_WITH_TESTS_BENCH "Register benchmarks with ctest" OFF)
-  option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
-  set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST} CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
-
+  nt2_configure_tests()
   if(NT2_WITH_TESTS)
-    enable_testing()
-    
     nt2_module_dir(bench)
     nt2_module_dir(examples)
     nt2_module_dir(unit)
@@ -195,52 +215,60 @@ endmacro()
 
 macro(nt2_module_add_library libname)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
-  
+
   if(${libname} MATCHES "_d$")
     set(BUILD_TYPE Debug)
-  else()
+  elseif(NOT CMAKE_CONFIGURATION_TYPES)
     nt2_module_add_library("${libname}_d" ${ARGN})
     set(BUILD_TYPE Release)
   endif()
-  
+
   if(DEFINED NT2_USE_STATIC_LIBS AND NOT DEFINED NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
     set(NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS NT2_USE_STATIC_LIBS)
   endif()
 
+  set(library_keyword)
   if(DEFINED NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
     if(NT2_${NT2_CURRENT_MODULE_U}_USE_STATIC_LIBS)
-      nt2_add_library(${BUILD_TYPE} ${libname} SHARED ${ARGN})
+      set(library_keyword SHARED)
       set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK 1)
     else()
-      nt2_add_library(${BUILD_TYPE} ${libname} STATIC ${ARGN})
+      set(library_keyword STATIC)
     endif()
   else()
-    nt2_add_library(${BUILD_TYPE} ${libname} ${ARGN})
     set(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK ${BUILD_SHARED_LIBS})
+  endif()
+
+  if(NOT CMAKE_CONFIGURATION_TYPES)
+    nt2_add_library(${BUILD_TYPE} ${libname} ${library_keyword} ${ARGN})
+  else()
+    add_library(${libname} ${library_keyword} ${ARGN})
+    set_property(TARGET ${libname} PROPERTY OUTPUT_NAME_DEBUG "${libname}_d")
   endif()
 
   set_property(TARGET ${libname} PROPERTY VERSION 3.0.0)
   set_property(TARGET ${libname} PROPERTY SOVERSION 3)
   set_property(TARGET ${libname} PROPERTY FOLDER lib)
-  
+
   if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
     string(REPLACE "." "_" macro_name ${NT2_CURRENT_MODULE_U})
   else()
     string(REPLACE "." "__" macro_name "NT2_${NT2_CURRENT_MODULE_U}")
   endif()
-  set(FLAGS "${NT2_CURRENT_FLAGS} -D${macro_name}_SOURCE")
+  set(FLAGS "-D${macro_name}_SOURCE")
   if(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK)
     set(FLAGS "${FLAGS} -D${macro_name}_DYN_LINK")
   endif()
   set_property(TARGET ${libname} PROPERTY COMPILE_FLAGS ${FLAGS})
-  
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  set_property(TARGET ${libname} PROPERTY LINK_FLAGS ${FLAGS})
+
+  if(PROJECT_NAME MATCHES "^NT2")
     install( DIRECTORY ${NT2_BINARY_DIR}/lib
              DESTINATION . COMPONENT ${NT2_CURRENT_MODULE}
              FILES_MATCHING PATTERN "*${libname}.*"
            )
   endif()
-  
+
 endmacro()
 
 macro(nt2_module_use_modules)
@@ -251,7 +279,7 @@ macro(nt2_module_use_modules)
   endif()
 
   #message(STATUS "[nt2.${NT2_CURRENT_MODULE}]${component_} checking dependencies...")
-  
+
   find_package(NT2 COMPONENTS ${ARGN})
   if(NOT NT2_FOUND)
     message(STATUS "[nt2.${NT2_CURRENT_MODULE}] warning:${component_} dependencies not met, skipping")
@@ -261,7 +289,9 @@ macro(nt2_module_use_modules)
   include_directories(${NT2_INCLUDE_DIR})
   link_directories(${NT2_LIBRARY_DIR})
   link_libraries(${NT2_LIBRARIES})
-  set(NT2_CURRENT_FLAGS "${NT2_CURRENT_FLAGS} ${NT2_FLAGS}")
+  add_definitions(${NT2_COMPILE_FLAGS})
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${NT2_LINK_FLAGS}")
+  list(APPEND CMAKE_MODULE_PATH ${NT2_MODULE_PATH})
 endmacro()
 
 macro(nt2_module_add_exe name)
@@ -269,8 +299,18 @@ macro(nt2_module_add_exe name)
   
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
-  set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/${suffix})
+
+  set(BUILD_TYPE)
+  if(suffix STREQUAL unit OR suffix STREQUAL cover)
+    set(BUILD_TYPE NT2TEST)
+  elseif(suffix STREQUAL bench)
+    set(BUILD_TYPE NT2BENCH)
+  endif()
+  if(BUILD_TYPE)
+    set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY_${BUILD_TYPE} ${NT2_BINARY_DIR}/${suffix})
+  endif()
+
   nt2_module_target_parent(${name})
   
 endmacro()
@@ -279,7 +319,6 @@ endmacro()
 macro(nt2_module_add_example name)
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER examples)
-  set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${NT2_CURRENT_FLAGS})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/examples)
 
   string(REGEX REPLACE "\\.sample$" ".examples" suite ${name})
@@ -290,55 +329,59 @@ macro(nt2_module_add_tests name)
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\1" prefix ${name})
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\2" suffix ${name})
   
-  if(NOT NT2_WITH_TESTS_FULL)
-    create_test_sourcelist(${name}_files ${name}.tmp.cpp ${ARGN})
-    set(${name}_files ${name}.cpp ${ARGN})
-    set_property(SOURCE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" PROPERTY COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS=1")
-    nt2_module_add_exe(${name} ${${name}_files})
-    
-    file(READ "${CMAKE_CURRENT_BINARY_DIR}/${name}.tmp.cpp" DATA)
-    file(REMOVE "${CMAKE_CURRENT_BINARY_DIR}/${name}.tmp.cpp")
-  endif()
+  if(${ARGC} GREATER 1)
   
-  foreach(source ${ARGN})
-    string(REGEX REPLACE "^([^/]+).cpp$" "\\1" basename ${source})
+    if(NOT NT2_WITH_TESTS_FULL)
+      create_test_sourcelist(${name}_files ${name}.tmp.cpp ${ARGN})
+      set(${name}_files ${name}.cpp ${ARGN})
+      set_property(SOURCE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" PROPERTY COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS=1")
+      nt2_module_add_exe(${name} ${${name}_files})
+      
+      file(READ "${CMAKE_CURRENT_BINARY_DIR}/${name}.tmp.cpp" DATA)
+      file(REMOVE "${CMAKE_CURRENT_BINARY_DIR}/${name}.tmp.cpp")
+    endif()
+    
+    foreach(source ${ARGN})
+      string(REGEX REPLACE "^([^/]+).cpp$" "\\1" basename ${source})
+      
+      if(NOT NT2_WITH_TESTS_FULL)
+        string(REPLACE "int ${basename}(int, char*[]);" "extern \"C\" int nt2_test_${basename}(int, char*[]);" DATA "${DATA}")
+        string(REGEX REPLACE "\"${basename}\",([ \r\n]+)${basename}" "\"${basename}\",\\1nt2_test_${basename}" DATA "${DATA}")
+        set_property(SOURCE ${source} PROPERTY COMPILE_DEFINITIONS NT2_UNIT_MAIN=nt2_test_${basename})
+        set(exe ${name})
+        set(arg ${basename})
+      else()
+        nt2_module_add_exe(${prefix}.${basename}.${suffix} ${source})
+        set(exe ${prefix}.${basename}.${suffix})
+        set(arg)
+      endif()
+      
+      if(NOT suffix STREQUAL bench OR NT2_WITH_TESTS_BENCH)
+        if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
+          add_test(${prefix}.${basename}-${suffix} /bin/sh -c
+                   "scp \"${NT2_BINARY_DIR}/${suffix}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
+                  )
+        else()
+          add_test(${prefix}.${basename}-${suffix} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
+        endif()
+        
+        if(NT2_WITH_TESTS_ALL)
+          set_property(TARGET ${exe} PROPERTY EXCLUDE_FROM_ALL OFF)
+        endif()
+        
+      endif()
+    endforeach()
     
     if(NOT NT2_WITH_TESTS_FULL)
-      string(REPLACE "int ${basename}(int, char*[]);" "extern \"C\" int nt2_test_${basename}(int, char*[]);" DATA "${DATA}")
-      string(REGEX REPLACE "\"${basename}\",([ \r\n]+)${basename}" "\"${basename}\",\\1nt2_test_${basename}" DATA "${DATA}")
-      set_property(SOURCE ${source} PROPERTY COMPILE_DEFINITIONS NT2_UNIT_MAIN=nt2_test_${basename})
-      set(exe ${name})
-      set(arg ${basename})
-    else()
-      nt2_module_add_exe(${prefix}.${basename}.${suffix} ${source})
-      set(exe ${prefix}.${basename}.${suffix})
-      set(arg)
-    endif()
-    
-    if(NOT suffix STREQUAL bench OR NT2_WITH_TESTS_BENCH)
-      if(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_HOST)
-        add_test(${prefix}.${basename}-${suffix} /bin/sh -c
-                 "scp \"${NT2_BINARY_DIR}/${suffix}/${CMAKE_CFG_INTDIR}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
-                )
-      else()
-        add_test(${prefix}.${basename}-${suffix} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
+      set(OLD_DATA)
+      if(EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp")
+        file(READ "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" OLD_DATA)
       endif()
-      
-      if(NT2_WITH_TESTS_ALL)
-        set_property(TARGET ${exe} PROPERTY EXCLUDE_FROM_ALL OFF)
+      if(NOT "${OLD_DATA}" STREQUAL "${DATA}")
+        file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" "${DATA}")
       endif()
-      
     endif()
-  endforeach()
   
-  if(NOT NT2_WITH_TESTS_FULL)
-    set(OLD_DATA)
-    if(EXISTS "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp")
-      file(READ "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" OLD_DATA)
-    endif()
-    if(NOT "${OLD_DATA}" STREQUAL "${DATA}")
-      file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/${name}.cpp" "${DATA}")
-    endif()
   endif()
   
 endmacro()
@@ -346,7 +389,7 @@ endmacro()
 macro(nt2_module_install_file header)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(PROJECT_NAME MATCHES "^NT2")
     string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
     install(FILES ${NT2_BINARY_DIR}/include/${header}
             DESTINATION include/${${header}_path}
@@ -399,9 +442,11 @@ endmacro()
 
 macro(nt2_module_simd_toolbox name)
   string(TOUPPER ${name} name_U)
-  get_directory_property(INCLUDE_DIRECTORIES INCLUDE_DIRECTORIES)
-  list(REMOVE_DUPLICATES INCLUDE_DIRECTORIES)
-  list(REMOVE_ITEM INCLUDE_DIRECTORIES ${NT2_BINARY_DIR}/include)
+  set(INCLUDE_DIRECTORIES)
+  foreach(module ${name} boost.simd.${name})
+    string(TOUPPER ${module} module_U)
+    list(APPEND INCLUDE_DIRECTORIES ${NT2_${module_U}_ROOT}/include)
+  endforeach()
   foreach(dir ${INCLUDE_DIRECTORIES})
     file(GLOB function_files RELATIVE ${dir}/boost/simd/toolbox/${name}/functions ${dir}/boost/simd/toolbox/${name}/functions/*.hpp)
     foreach(file ${function_files})
@@ -427,6 +472,7 @@ macro(nt2_module_simd_toolbox name)
                    "#define NT2_TOOLBOX_${name_U}_FUNCTIONS_${file_U}_HPP_INCLUDED\n"
                    "\n"
                    "#include <boost/simd/toolbox/${name}/include/functions/${file}.hpp>\n"
+                   "#include <nt2/include/functor.hpp>\n"
                    "\n"
                    "namespace nt2\n"
                    "{\n"
@@ -472,6 +518,7 @@ macro(nt2_module_simd_toolbox name)
                    "#define NT2_TOOLBOX_${name_U}_CONSTANTS_${file_U}_HPP_INCLUDED\n"
                    "\n"
                    "#include <boost/simd/toolbox/${name}/include/constants/${file}.hpp>\n"
+                   "#include <nt2/include/functor.hpp>\n"
                    "\n"
                    "namespace nt2\n"
                    "{\n"
@@ -510,6 +557,10 @@ endmacro()
 
 macro(nt2_module_tool_setup tool)
 
+  if(NOT NT2_SOURCE_ROOT)
+    message(FATAL_ERROR "[nt2] tool ${tool} was not found and cannot be built")
+  endif()
+
   get_property(NT2_TOOL_${tool}_BUILT GLOBAL PROPERTY NT2_TOOL_${tool}_BUILT)
   if(NOT NT2_TOOL_${tool}_BUILT)
 
@@ -525,6 +576,9 @@ macro(nt2_module_tool_setup tool)
     set(BUILD_OPTION)
     if(NOT CMAKE_CONFIGURATION_TYPES)
       set(BUILD_OPTION -DCMAKE_BUILD_TYPE=Release)
+    endif()
+    if(Boost_INCLUDE_DIR)
+      list(APPEND BUILD_OPTION -DBoost_INCLUDE_DIR=${Boost_INCLUDE_DIR})
     endif()
 
     execute_process(COMMAND ${CMAKE_COMMAND}
@@ -552,8 +606,8 @@ macro(nt2_module_tool_setup tool)
       message(FATAL_ERROR "[nt2] building tool ${tool} failed")
     endif()
 
-    if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
-      install( FILES ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
+    if(PROJECT_NAME MATCHES "^NT2")
+      install( PROGRAMS ${NT2_BINARY_DIR}/tools/${tool}/${tool}${CMAKE_EXECUTABLE_SUFFIX}
                DESTINATION tools/${tool}
                COMPONENT tools
              )
@@ -564,9 +618,15 @@ macro(nt2_module_tool_setup tool)
 endmacro()
 
 macro(nt2_module_tool tool)
+  string(TOUPPER ${tool} tool_U)
 
-  nt2_module_tool_setup(${tool})
-  execute_process(COMMAND ${NT2_BINARY_DIR}/tools/${tool}/${tool} ${ARGN})
+  find_program(NT2_TOOL_${tool_U} ${tool} PATHS ${NT2_ROOT}/tools/${tool} NO_DEFAULT_PATH)
+  mark_as_advanced(NT2_TOOL_${tool_U})
+  if(NOT NT2_TOOL_${tool_U})
+    nt2_module_tool_setup(${tool})
+    set(NT2_TOOL_${tool_U} ${NT2_BINARY_DIR}/tools/${tool}/${tool})
+  endif()
+  execute_process(COMMAND ${NT2_TOOL_${tool_U}} ${ARGN})
 
 endmacro()
 
@@ -586,7 +646,7 @@ macro(nt2_postconfigure_init)
   set_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED 1)
   set(NT2_FOUND_COMPONENTS "" CACHE INTERNAL "" FORCE)
 
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(PROJECT_NAME MATCHES "^NT2")
     set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\tools\\\\postconfigure\\\\postconfigure.exe\\\" \\\"$INSTDIR\\\"'")
     include(CPack)
     cpack_add_component(tools REQUIRED)
@@ -599,30 +659,6 @@ macro(nt2_postconfigure_init)
                             PATTERN "*.txt"
                             PATTERN "*.cpp"
            )
-
-    # postconfigure is a target because it's only required to install, not to configure
-    file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/tools/postconfigure)
-    install( FILES ${NT2_BINARY_DIR}/tools/postconfigure/postconfigure${CMAKE_EXECUTABLE_SUFFIX}
-             DESTINATION tools/postconfigure
-             COMPONENT tools
-             OPTIONAL
-           )
-
-    set(BUILD_OPTION)
-    if(NOT CMAKE_CONFIGURATION_TYPES)
-      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=Release)
-    endif()
-             
-    add_custom_target(postconfigure
-                      COMMAND ${CMAKE_COMMAND}
-                              ${BUILD_OPTION}
-                              -G ${CMAKE_GENERATOR}
-                              ${NT2_SOURCE_ROOT}/tools/postconfigure
-                           && ${CMAKE_COMMAND} --build . --config Release
-                      WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/postconfigure
-                     )
-    set_property(TARGET postconfigure PROPERTY FOLDER tools)
-
   endif()
 
 endmacro()
@@ -654,10 +690,12 @@ macro(nt2_postconfigure_run)
 
     endforeach()
   endforeach()
-  
-  nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/include_tmp ${NT2_BINARY_DIR}/include)
 
-  if(PROJECT_NAME STREQUAL NT2 OR PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
+  if(IS_DIRECTORY ${NT2_BINARY_DIR}/include_tmp)
+    nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/include_tmp ${NT2_BINARY_DIR}/include)
+  endif()
+
+  if(PROJECT_NAME MATCHES "^NT2")
 
     cpack_add_component(postconfigured
                         HIDDEN DISABLED

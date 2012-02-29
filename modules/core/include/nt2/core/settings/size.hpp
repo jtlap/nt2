@@ -15,29 +15,10 @@
 #include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <nt2/core/settings/forward/size.hpp>
 
 namespace nt2
 {
-  //============================================================================
-  // of_size_<D0,..,Dn> is a size value containing up to N dimensions.
-  //============================================================================
-  template< BOOST_PP_ENUM_BINARY_PARAMS ( NT2_MAX_DIMENSIONS
-                                        , std::ptrdiff_t D
-                                        , = 1 BOOST_PP_INTERCEPT
-                                        )
-          >
-  struct of_size_;
-
-  namespace tag
-  {
-    //==========================================================================
-    /*!
-     * Option tag for of_size_ options
-     **/
-    //==========================================================================
-    struct of_size_ {};
-  }
-
   namespace meta
   {
     //==========================================================================
@@ -55,6 +36,6 @@ namespace nt2
   }
 }
 
-#include <nt2/core/settings/details/of_size.hpp>
+#include <nt2/core/utility/of_size/of_size.hpp>
 
 #endif

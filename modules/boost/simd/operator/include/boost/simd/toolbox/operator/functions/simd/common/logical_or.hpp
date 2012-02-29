@@ -9,26 +9,39 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_OR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_OR_HPP_INCLUDED
 
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_not_equal.hpp>
+#include <boost/simd/toolbox/operator/functions/logical_or.hpp>
 #include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/mask2logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A1>,X>))
+                            , ((simd_<arithmetic_<A0>,X>))
+                              ((simd_<arithmetic_<A1>,X>))
                             )
   {
-
-    typedef A0 result_type;
-
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::neq( (a0 | a1), Zero<A0>() );
+      return mask2logical(b_or(genmask(a0), genmask(a1)));
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_or_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_<logical_<A0>,X>))
+                              ((simd_<logical_<A1>,X>))
+                            )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return mask2logical(b_or(genmask(a0), genmask(a1)));
+    }
+  };
+  // TODO assert if mix logical / non logical
 } } }
 
 

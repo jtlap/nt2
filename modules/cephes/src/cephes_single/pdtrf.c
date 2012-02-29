@@ -152,10 +152,10 @@ double mm;
 float v, m;
 
 m = mm;
-if( (k < 0) || (m <= 0.0) )
+if( (k < 0) || (m <= 0.0f) )
 	{
 	cephes_mtherr( "pdtrcf", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 v = k+1;
 return( cephes_igamf( v, m ) );
@@ -174,10 +174,10 @@ double mm;
 float v, m;
 
 m = mm;
-if( (k < 0) || (m <= 0.0) )
+if( (k < 0) || (m <= 0.0f) )
 	{
 	cephes_mtherr( "pdtr", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 v = k+1;
 return( cephes_igamcf( v, m ) );
@@ -195,10 +195,10 @@ double yy;
 float v, y;
 
 y = yy;
-if( (k < 0) || (y < 0.0) || (y >= 1.0) )
+if( (k < 0) || (y < 0.0f) || (y >= 1.0f) )
 	{
 	cephes_mtherr( "pdtrif", DOMAIN );
-	return( 0.0 );
+	return( 0.0f );
 	}
 v = k+1;
 v = cephes_igamif( v, y );

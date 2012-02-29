@@ -10,10 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REMAINDER_HPP_INCLUDED
 #include <boost/simd/include/functions/abs.hpp>
 #include <boost/simd/include/functions/negate.hpp>
-//#include <boost/simd/include/functions/idivfix.hpp>
 #include <boost/simd/include/functions/idivround.hpp>
 #include <boost/simd/include/functions/divround.hpp>
-
 /////////////////////////////////////////////////////////////////////////////
 // The remainder() function computes the remainder of dividing x by y.  The
 // return value is x-n*y, where n is the value x / y, rounded to the nearest
@@ -21,11 +19,6 @@
 // The drem function is just an alias for the same thing.
 /////////////////////////////////////////////////////////////////////////////
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::remainder_, tag::cpu_
@@ -37,17 +30,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       if (!a1) return a0; 
-	return a0-boost::simd::idivround(a0, a1)*a1; 
+      return a0-idivround(a0, a1)*a1; 
     }
   };
-} } }
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is floating_
-/////////////////////////////////////////////////////////////////////////////
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::remainder_, tag::cpu_
                             , (A0)
                             , (scalar_< floating_<A0> >)(scalar_< floating_<A0> >)

@@ -8,14 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_DOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_DOT_HPP_INCLUDED
-
 #include <boost/simd/toolbox/reduction/functions/dot.hpp>
 #include <boost/simd/include/functions/sum.hpp>
 #include <boost/simd/include/functions/multiplies.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::dot_, tag::cpu_,

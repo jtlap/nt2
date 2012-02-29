@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/predicates/include/functions/is_negative.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/sdk/meta/logical.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -26,8 +26,8 @@
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<is_negative_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( is_negative_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<is_negative_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -102,7 +102,7 @@ NT2_TEST_CASE_TPL ( is_negative_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<is_negative_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::logical<T>::type wished_r_t;
+  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
   // return type conformity test 

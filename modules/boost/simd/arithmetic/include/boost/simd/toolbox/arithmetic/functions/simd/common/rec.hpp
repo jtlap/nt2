@@ -11,14 +11,8 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/tofloat.hpp>
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::rec_, tag::cpu_
@@ -26,9 +20,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename dispatch::meta::as_floating<A0>::type result_type;
-
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return One<result_type>()/boost::simd::tofloat(a0);

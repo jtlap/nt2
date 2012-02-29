@@ -57,7 +57,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag gamma_ of functor gamma 
      *        in namespace nt2::tag for toolbox euler
     **/
-    struct gamma_ {};
+    struct gamma_ : ext::elementwise_<gamma_> { typedef ext::elementwise_<gamma_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::gamma_, gamma, 1)
 }

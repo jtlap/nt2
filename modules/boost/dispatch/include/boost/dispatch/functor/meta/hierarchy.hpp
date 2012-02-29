@@ -37,6 +37,16 @@ namespace boost { namespace dispatch { namespace tag
    */
   //============================================================================
   struct cpu_ : formal_ {};
+
+  //============================================================================
+  /*!
+   * \ingroup hierarchy
+   * Defines a dummy evaluation context equivalent to \c T.
+   * This is used when combining sites.
+   */
+  //============================================================================
+  template<class T>
+  struct id_ : T {};
 } } }
 
 #endif

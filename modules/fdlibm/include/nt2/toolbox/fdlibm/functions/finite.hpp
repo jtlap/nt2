@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag finite_ of functor finite 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct finite_ {};
+    struct finite_ : ext::elementwise_<finite_> { typedef ext::elementwise_<finite_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::finite_, finite, 1)
   } }

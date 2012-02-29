@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag signnz_ of functor signnz 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct signnz_ {};
+    struct signnz_ : ext::elementwise_<signnz_> { typedef ext::elementwise_<signnz_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::signnz_, signnz, 1)
 } }

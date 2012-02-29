@@ -29,8 +29,6 @@ SET( SOURCES
   gsl_sf_lnsinh.cpp
   gsl_sf_lnpoch.cpp
   gsl_sf_lngamma.cpp
-  gsl_sf_lnfact.cpp
-  gsl_sf_lndoublefact.cpp
   gsl_sf_lncosh.cpp
   gsl_sf_lnchoose.cpp
   gsl_sf_lnbeta.cpp

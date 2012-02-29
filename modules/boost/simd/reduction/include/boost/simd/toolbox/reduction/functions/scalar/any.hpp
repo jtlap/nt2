@@ -9,21 +9,30 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_ANY_HPP_INCLUDED
 #include <boost/simd/include/functions/is_nez.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, tag::cpu_,
                      (A0),
-                     (scalar_ < fundamental_<A0> > )
+                     (scalar_ < arithmetic_<A0> > )
                     )
   {
-    typedef bool result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-	return is_nez(a0);
+        return is_nez(a0);
       };
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::any_, tag::cpu_,
+                     (A0),
+                     (scalar_ < logical_<A0> > )
+                    )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+      {
+         return a0;
+      };
+  };  
 } } }
 #endif

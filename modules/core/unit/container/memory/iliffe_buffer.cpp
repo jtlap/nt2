@@ -1,200 +1,740 @@
-/*******************************************************************************
- *         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
- *         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory iliffe_buffer"
 
-#include <nt2/core/container/memory/iliffe_buffer.hpp>
-#include <nt2/core/container/memory/dereference.hpp>
-
-#include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/allocator.hpp>
-#include <nt2/sdk/memory/no_padding.hpp>
-#include <nt2/sdk/memory/lead_padding.hpp>
-#include <nt2/sdk/memory/global_padding.hpp>
-
-#include <boost/array.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
+#include <nt2/sdk/memory/array_buffer.hpp>
+#include <nt2/sdk/memory/iliffe_buffer.hpp>
+#include <nt2/sdk/memory/fixed_allocator.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
-#define PADDING                                                                   \
-(nt2::memory::no_padding)(nt2::memory::lead_padding)(nt2::memory::global_padding) \
-/**/
+#include <boost/fusion/include/make_vector.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer type has some dimensions
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_dimensions, PADDING )
+//==============================================================================
+// iliffe_buffer type has some value
+//==============================================================================
+NT2_TEST_CASE_TPL( iliffe_buffer_values, NT2_TYPES )
 {
-  using nt2::memory::allocator;
-  using nt2::memory::iliffe_buffer;
-  using nt2::meta::dimensions_of;
-
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<1,int,T,allocator<int> > >::value), 1UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<2,int,T,allocator<int> > >::value), 2UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<3,int,T,allocator<int> > >::value), 3UL );
-  NT2_TEST_EQUAL((dimensions_of< iliffe_buffer<4,int,T,allocator<int> > >::value), 4UL );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// array type has some value
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_values, PADDING )
-{
-  using boost::is_same;
   using boost::dispatch::meta::value_of;
-  using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+  using boost::mpl::_;
 
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<1,int,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<2,int,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<3,int,T,allocator<int> > >::type, int>::value ));
-  NT2_TEST((is_same< typename value_of< iliffe_buffer<4,int,T,allocator<int> > >::type, int>::value ));
+  NT2_TEST_EXPR_TYPE
+  ( (iliffe_buffer<buffer<T,1>, void >())
+  , value_of<_>
+  , T
+  );
 }
-////////////////////////////////////////////////////////////////////////////////
-// array type has a model
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_models, PADDING )
+
+//==============================================================================
+// iliffe_buffer type has a model
+//==============================================================================
+template<class T, class U>
+struct  apply_model
+      : boost::mpl::apply < typename boost::dispatch::meta::model_of<T>::type
+                          , U
+                          >
+{};
+
+NT2_TEST_CASE_TPL( iliffe_buffer_models, NT2_TYPES )
 {
-  using boost::is_same;
   using boost::dispatch::meta::model_of;
-  using nt2::memory::allocator;
   using nt2::memory::iliffe_buffer;
-  using boost::mpl::apply;
+  using nt2::memory::buffer;
+  using boost::mpl::_;
 
-  typedef typename model_of< iliffe_buffer<1,int,T,allocator<int> > >::type model1d;
-  typedef typename model_of< iliffe_buffer<2,int,T,allocator<int> > >::type model2d;
-  typedef typename model_of< iliffe_buffer<3,int,T,allocator<int> > >::type model3d;
-
-  NT2_TEST((is_same<typename apply<model1d,float>::type, iliffe_buffer<1,float,T,allocator<float> > >::value ));
-  NT2_TEST((is_same<typename apply<model2d,float>::type, iliffe_buffer<2,float,T,allocator<float> > >::value ));
-  NT2_TEST((is_same<typename apply<model3d,float>::type, iliffe_buffer<3,float,T,allocator<float> > >::value ));
+  NT2_TEST_EXPR_TYPE
+  ( (iliffe_buffer<buffer<int,1>, void >())
+  , (apply_model<_,T>)
+  , (iliffe_buffer<buffer<T,1>, void >)
+  );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer has some reference
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_reference, PADDING )
+//==============================================================================
+// Test for 1D dynamic iliffe_ buffer default ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( iliffe_buffer_dynamic_1D_default_ctor, NT2_TYPES)
 {
-  using boost::is_same;
-  using nt2::memory::allocator;
+  using boost::fusion::at_c;
+  using nt2::memory::buffer;
   using nt2::memory::iliffe_buffer;
-  using nt2::meta::dereference_;
 
-  typedef iliffe_buffer<3,int,T,allocator<int> > base;
+  typedef iliffe_buffer<buffer<T,-2>,void> buffer_t;
 
-  NT2_TEST((is_same< typename dereference_<base&,1>::type, int**&>::value) );
-  NT2_TEST((is_same< typename dereference_<base&,2>::type, int*& >::value) );
-  NT2_TEST((is_same< typename dereference_<base&,3>::type, int& >::value) );
+  buffer_t b;
 
-  NT2_TEST((is_same< typename dereference_<base const&,1>::type, int** const&>::value) );
-  NT2_TEST((is_same< typename dereference_<base const&,2>::type, int* const& >::value) );
-  NT2_TEST((is_same< typename dereference_<base const&,3>::type, int const&  >::value) );
+  NT2_TEST_EQUAL(b.size()       ,  0 );
+  NT2_TEST_EQUAL(b.inner_size() ,  0 );
+  NT2_TEST_EQUAL(b.outer_size() ,  1 );
+  NT2_TEST_EQUAL(b.lower()      , -2 );
+  NT2_TEST_EQUAL(b.inner_lower(), -2 );
+  NT2_TEST_EQUAL(b.outer_lower(),  1 );
+  NT2_TEST_EQUAL(b.upper()      , -3 );
+  NT2_TEST_EQUAL(b.inner_upper(), -3 );
+  NT2_TEST_EQUAL(b.outer_upper(),  1 );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer models Buffer Concept
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_1D_as_buffer, PADDING )
+//==============================================================================
+// Test for 1D automatic iliffe_ buffer default ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( iliffe_buffer_automatic_1D_default_ctor, NT2_TYPES)
 {
-  using nt2::memory::allocator;
-  using nt2::memory::initialize;
-  using nt2::memory::dereference;
+  using boost::fusion::at_c;
+  using nt2::memory::array_buffer;
   using nt2::memory::iliffe_buffer;
 
-  iliffe_buffer<1,int,T,allocator<int> > tab;
+  typedef iliffe_buffer<array_buffer<T,5,-2>,void> buffer_t;
 
-  boost::array<std::size_t,1> sizes = {{5}};
-  boost::array<std::size_t,1> bases = {{-2}};
-  boost::array<std::ptrdiff_t,1> pos;
+  buffer_t b;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // array type supports being initialized externally
-  //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases, T() );
-
-  //////////////////////////////////////////////////////////////////////////////
-  // array type supports R/W access through Position
-  //////////////////////////////////////////////////////////////////////////////
-  for(pos[0]=-2;pos[0]<=2;++pos[0])
-    dereference<1UL>(tab,pos) = int(10*(1+pos[0]));
-
-  for(pos[0]=-2;pos[0]<=2;++pos[0])
-    NT2_TEST_EQUAL(dereference<1UL>(tab,pos), 10*(1+pos[0]) );
+  NT2_TEST_EQUAL(b.size()       ,  5 );
+  NT2_TEST_EQUAL(b.inner_size() ,  5 );
+  NT2_TEST_EQUAL(b.outer_size() ,  1 );
+  NT2_TEST_EQUAL(b.lower()      , -2 );
+  NT2_TEST_EQUAL(b.inner_lower(), -2 );
+  NT2_TEST_EQUAL(b.outer_lower(),  1 );
+  NT2_TEST_EQUAL(b.upper()      ,  2 );
+  NT2_TEST_EQUAL(b.inner_upper(),  2 );
+  NT2_TEST_EQUAL(b.outer_upper(),  1 );
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// iliffe_buffer models Buffer Concept
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_2D_as_buffer, PADDING )
+//==============================================================================
+// Test for 2D dynamic iliffe_ buffer default ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( iliffe_buffer_dynamic_2D_default_ctor, NT2_TYPES)
 {
-  using nt2::memory::allocator;
-  using nt2::memory::initialize;
-  using nt2::memory::dereference;
+  using boost::fusion::at_c;
+  using nt2::memory::buffer;
   using nt2::memory::iliffe_buffer;
 
-  iliffe_buffer<2,int,T,allocator<int> > tab;
+  typedef iliffe_buffer< buffer<T,-2>, buffer<T*,1> > buffer_t;
 
-  boost::array<std::size_t,2> sizes = {{5,2}};
-  boost::array<std::size_t,2> bases = {{-2,0}};
-  boost::array<std::ptrdiff_t,2> pos;
+  buffer_t b;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer supports being initialized externally
-  //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases, T() );
-
-  //////////////////////////////////////////////////////////////////////////////
-  // iliffe_buffer supports R/W access through Position
-  //////////////////////////////////////////////////////////////////////////////
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=2;++pos[0])
-      dereference<2UL>(tab,pos) = int(10*(1+pos[1]) + (1+pos[0]));
-
-  for(pos[1]=0;pos[1]<=1;++pos[1])
-    for(pos[0]=-2;pos[0]<=2;++pos[0])
-    NT2_TEST_EQUAL(dereference<2UL>(tab,pos), 10*(1+pos[1]) + (1+pos[0]) );
+  NT2_TEST_EQUAL(b.size()       ,  0 );
+  NT2_TEST_EQUAL(b.inner_size() ,  0 );
+  NT2_TEST_EQUAL(b.outer_size() ,  0 );
+  NT2_TEST_EQUAL(b.lower()      , -2 );
+  NT2_TEST_EQUAL(b.inner_lower(), -2 );
+  NT2_TEST_EQUAL(b.outer_lower(),  1 );
+  NT2_TEST_EQUAL(b.upper()      , -3 );
+  NT2_TEST_EQUAL(b.inner_upper(), -3 );
+  NT2_TEST_EQUAL(b.outer_upper(),  0 );
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// array type models Buffer Concept
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( iliffe_buffer_3D_as_buffer, PADDING )
+//==============================================================================
+// Test for 2D static iliffe_ buffer default ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( iliffe_buffer_automatic_2D_default_ctor, NT2_TYPES)
 {
-  using nt2::memory::allocator;
-  using nt2::memory::initialize;
-  using nt2::memory::dereference;
+  using boost::fusion::at_c;
+  using nt2::memory::array_buffer;
   using nt2::memory::iliffe_buffer;
 
-  iliffe_buffer<3,int,T,allocator<int> > tab;
+  typedef iliffe_buffer<array_buffer<T,7*8,-2>,array_buffer<T*,8,1> > buffer_t;
 
-  boost::array<std::size_t,3> sizes = {{2,2,2}};
-  boost::array<std::size_t,3> bases = {{0,0,0}};
-  boost::array<std::size_t,3> pos;
+  buffer_t b;
 
-  //////////////////////////////////////////////////////////////////////////////
-  // array type supports being initialized externally
-  //////////////////////////////////////////////////////////////////////////////
-  initialize(tab, sizes, bases, T() );
+  NT2_TEST_EQUAL(b.size()       ,  56 );
+  NT2_TEST_EQUAL(b.inner_size() ,   7 );
+  NT2_TEST_EQUAL(b.outer_size() ,   8 );
+  NT2_TEST_EQUAL(b.lower()      ,  -2 );
+  NT2_TEST_EQUAL(b.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(b.outer_lower(),   1 );
+  NT2_TEST_EQUAL(b.upper()      ,  53 );
+  NT2_TEST_EQUAL(b.inner_upper(),   4 );
+  NT2_TEST_EQUAL(b.outer_upper(),   8 );
+}
 
-  //////////////////////////////////////////////////////////////////////////////
-  // array type supports R/W access through Position
-  //////////////////////////////////////////////////////////////////////////////
-  for(pos[2]=0;pos[2]<2;++pos[2])
-    for(pos[1]=0;pos[1]<2;++pos[1])
-      for(pos[0]=0;pos[0]<2;++pos[0])
-      dereference<3UL>(tab,pos) = int(100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+//==============================================================================
+// Test for 2D static [1 N] iliffe_ buffer default ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( iliffe_buffer_automatic_2D1D_default_ctor, NT2_TYPES)
+{
+  using boost::fusion::at_c;
+  using nt2::memory::array_buffer;
+  using nt2::memory::iliffe_buffer;
 
-  for(pos[2]=0;pos[2]<2;++pos[2])
-    for(pos[1]=0;pos[1]<2;++pos[1])
-      for(pos[0]=0;pos[0]<2;++pos[0])
-    NT2_TEST_EQUAL(dereference<3UL>(tab,pos), 100*(1+pos[2]) + 10*(1+pos[1]) + (1+pos[0]));
+  typedef iliffe_buffer<array_buffer<T,7,1>,array_buffer<T*,7,-2> > buffer_t;
+
+  buffer_t b;
+
+  NT2_TEST_EQUAL(b.size()       ,   7 );
+  NT2_TEST_EQUAL(b.inner_size() ,   1 );
+  NT2_TEST_EQUAL(b.outer_size() ,   7 );
+  NT2_TEST_EQUAL(b.lower()      ,   1 );
+  NT2_TEST_EQUAL(b.inner_lower(),   1 );
+  NT2_TEST_EQUAL(b.outer_lower(),  -2 );
+  NT2_TEST_EQUAL(b.upper()      ,   7 );
+  NT2_TEST_EQUAL(b.inner_upper(),   1 );
+  NT2_TEST_EQUAL(b.outer_upper(),   4 );
+}
+
+//==============================================================================
+// Test for dynamic 1D iliffe_buffer copy ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_1D_copy_ctor, NT2_TYPES)
+{
+  using boost::fusion::at_c;
+  using nt2::memory::buffer;
+  using nt2::memory::iliffe_buffer;
+
+  typedef iliffe_buffer<buffer<T,-3>, void> buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(7) );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  buffer_t x(b);
+
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(0));
+}
+
+//==============================================================================
+// Test for automatic 1D iliffe_buffer copy ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_1D_copy_ctor, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T,7,-3>, void> buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(7) );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  buffer_t x(b);
+
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(0));
+}
+
+//==============================================================================
+// Test for dynamic 2D iliffe_buffer copy ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_2D_copy_ctor, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+
+  typedef iliffe_buffer< buffer<T,-2>, buffer<T*,1> > buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(5,3) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      b(i,j) = T(3+i + 10*j);
+
+  buffer_t x(b);
+
+  NT2_TEST_EQUAL(x.size()       ,  15 );
+  NT2_TEST_EQUAL(x.inner_size() ,   5 );
+  NT2_TEST_EQUAL(x.outer_size() ,   3 );
+  NT2_TEST_EQUAL(x.lower()      ,  -2 );
+  NT2_TEST_EQUAL(x.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(x.outer_lower(),   1 );
+  NT2_TEST_EQUAL(x.upper()      ,  12 );
+  NT2_TEST_EQUAL(x.inner_upper(),   2 );
+  NT2_TEST_EQUAL(x.outer_upper(),   3 );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    x(i,j) = 0;
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(0) );
+}
+
+//==============================================================================
+// Test for automatic 2D iliffe_buffer copy ctor
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_2D_copy_ctor, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T,15,-2>, array_buffer<T*,3,1> > buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(5,3) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      b(i,j) = T(3+i + 10*j);
+
+  buffer_t x(b);
+
+  NT2_TEST_EQUAL(x.size()       ,  15 );
+  NT2_TEST_EQUAL(x.inner_size() ,   5 );
+  NT2_TEST_EQUAL(x.outer_size() ,   3 );
+  NT2_TEST_EQUAL(x.lower()      ,  -2 );
+  NT2_TEST_EQUAL(x.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(x.outer_lower(),   1 );
+  NT2_TEST_EQUAL(x.upper()      ,  12 );
+  NT2_TEST_EQUAL(x.inner_upper(),   2 );
+  NT2_TEST_EQUAL(x.outer_upper(),   3 );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    x(i,j) = 0;
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(0) );
+}
+
+//==============================================================================
+// Test for dynamic 1D iliffe_buffer assignment
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_1D_assignment, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+
+  typedef iliffe_buffer<buffer<T,-3>, void> buffer_t;
+
+  buffer_t x,b( boost::fusion::make_vector(7) );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  x = b;
+
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
+}
+
+//==============================================================================
+// Test for automatic 1D iliffe_buffer assignment
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_1D_assignment, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T,7,-3>, void> buffer_t;
+
+  buffer_t x,b( boost::fusion::make_vector(7) );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  x = b;
+
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
+}
+
+//==============================================================================
+// Test for dynamic 2D iliffe_buffer assignment
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_2D_assignment, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+
+  typedef iliffe_buffer<buffer<T,-2>,buffer<T*,1> > buffer_t;
+
+  buffer_t x, b( boost::fusion::make_vector(5,3) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      b(i,j) = T(3+i + 10*j);
+
+  x = b;
+
+  NT2_TEST_EQUAL(x.size()       ,  15 );
+  NT2_TEST_EQUAL(x.inner_size() ,   5 );
+  NT2_TEST_EQUAL(x.outer_size() ,   3 );
+  NT2_TEST_EQUAL(x.lower()      ,  -2 );
+  NT2_TEST_EQUAL(x.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(x.outer_lower(),   1 );
+  NT2_TEST_EQUAL(x.upper()      ,  12 );
+  NT2_TEST_EQUAL(x.inner_upper(),   2 );
+  NT2_TEST_EQUAL(x.outer_upper(),   3 );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j));
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      x(i,j) = T(0);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j));
+}
+
+//==============================================================================
+// Test for static 2D iliffe_buffer assignment
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_2D_assignment, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T ,15,-2>, array_buffer<T*, 3, 1> > buffer_t;
+
+  buffer_t x, b( boost::fusion::make_vector(5,3) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      b(i,j) = T(3+i + 10*j);
+
+  x = b;
+
+  NT2_TEST_EQUAL(x.size()       ,  15 );
+  NT2_TEST_EQUAL(x.inner_size() ,   5 );
+  NT2_TEST_EQUAL(x.outer_size() ,   3 );
+  NT2_TEST_EQUAL(x.lower()      ,  -2 );
+  NT2_TEST_EQUAL(x.inner_lower(),  -2 );
+  NT2_TEST_EQUAL(x.outer_lower(),   1 );
+  NT2_TEST_EQUAL(x.upper()      ,  12 );
+  NT2_TEST_EQUAL(x.inner_upper(),   2 );
+  NT2_TEST_EQUAL(x.outer_upper(),   3 );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j));
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      x(i,j) = T(0);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j));
+}
+
+//==============================================================================
+// Test for dynamic 1D iliffe_buffer swap
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_1D_swap, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+
+  typedef iliffe_buffer<buffer<T,-3>, void> buffer_t;
+
+  buffer_t x(boost::fusion::make_vector(4)),b(boost::fusion::make_vector(7));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 0; ++i )
+    x(i) = T(-i);
+
+  swap(b,x);
+
+  NT2_TEST_EQUAL( b.size()  , 4 );
+  NT2_TEST_EQUAL( b.lower() , -3);
+  NT2_TEST_EQUAL( b.upper() , 0 );
+
+  NT2_TEST_EQUAL(b.size()       ,    4 );
+  NT2_TEST_EQUAL(b.inner_size() ,    4 );
+  NT2_TEST_EQUAL(b.outer_size() ,    1 );
+  NT2_TEST_EQUAL(b.lower()      ,   -3 );
+  NT2_TEST_EQUAL(b.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(b.outer_lower(),    1 );
+  NT2_TEST_EQUAL(b.upper()      ,    0 );
+  NT2_TEST_EQUAL(b.inner_upper(),    0 );
+  NT2_TEST_EQUAL(b.outer_upper(),    1 );
+
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 0; ++i )
+    NT2_TEST_EQUAL( b(i), T(-i));
+}
+
+//==============================================================================
+// Test for static 1D iliffe_buffer swap
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_1D_swap, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T,7,-3>, void> buffer_t;
+
+  buffer_t x,b;
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(10);
+
+  swap(b,x);
+
+  NT2_TEST_EQUAL(b.size()       ,    7 );
+  NT2_TEST_EQUAL(b.inner_size() ,    7 );
+  NT2_TEST_EQUAL(b.outer_size() ,    1 );
+  NT2_TEST_EQUAL(b.lower()      ,   -3 );
+  NT2_TEST_EQUAL(b.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(b.outer_lower(),    1 );
+  NT2_TEST_EQUAL(b.upper()      ,    3 );
+  NT2_TEST_EQUAL(b.inner_upper(),    3 );
+  NT2_TEST_EQUAL(b.outer_upper(),    1 );
+
+  NT2_TEST_EQUAL(x.size()       ,    7 );
+  NT2_TEST_EQUAL(x.inner_size() ,    7 );
+  NT2_TEST_EQUAL(x.outer_size() ,    1 );
+  NT2_TEST_EQUAL(x.lower()      ,   -3 );
+  NT2_TEST_EQUAL(x.inner_lower(),   -3 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,    3 );
+  NT2_TEST_EQUAL(x.inner_upper(),    3 );
+  NT2_TEST_EQUAL(x.outer_upper(),    1 );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(4));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(10));
+}
+/*
+//==============================================================================
+// Test for static 2D iliffe_buffer swap
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_2D_swap, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer < array_buffer<T ,15,1>
+                        , array_buffer<T*, 3,1>
+                        > buffer_t;
+
+  buffer_t x, b;
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )
+      b(i,j) = T(7);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )
+      x(i,j) = T(9);
+
+  swap(b,x);
+
+  NT2_TEST_EQUAL(b.size()       ,   15 );
+  NT2_TEST_EQUAL(b.inner_size() ,    5 );
+  NT2_TEST_EQUAL(b.outer_size() ,    3 );
+  NT2_TEST_EQUAL(b.lower()      ,    1 );
+  NT2_TEST_EQUAL(b.inner_lower(),    1 );
+  NT2_TEST_EQUAL(b.outer_lower(),    1 );
+  NT2_TEST_EQUAL(b.upper()      ,   15 );
+  NT2_TEST_EQUAL(b.inner_upper(),    5 );
+  NT2_TEST_EQUAL(b.outer_upper(),    3 );
+
+  NT2_TEST_EQUAL(x.size()       ,   15 );
+  NT2_TEST_EQUAL(x.inner_size() ,    5 );
+  NT2_TEST_EQUAL(x.outer_size() ,    3 );
+  NT2_TEST_EQUAL(x.lower()      ,    1 );
+  NT2_TEST_EQUAL(x.inner_lower(),    1 );
+  NT2_TEST_EQUAL(x.outer_lower(),    1 );
+  NT2_TEST_EQUAL(x.upper()      ,   15 );
+  NT2_TEST_EQUAL(x.inner_upper(),    5 );
+  NT2_TEST_EQUAL(x.outer_upper(),    3 );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(7));
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(9));
+}
+*/
+
+//==============================================================================
+// Test for dynamic 1D iliffe_buffer get
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_1D_get, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+
+  typedef iliffe_buffer<buffer<T,-3>, void> buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(7) );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( *b.get(i), T(4+i));
+}
+
+//==============================================================================
+// Test for automatic 1D iliffe_buffer get
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_1D_get, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T,7,-3>, void> buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(7) );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( *b.get(i), T(4+i));
+}
+
+//==============================================================================
+// Test for dynamic 2D iliffe_buffer get
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_2D_get, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+
+  typedef iliffe_buffer<buffer<T,-2>,buffer<T*,1> > buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(5,3) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      b(i,j) = T(3+i + 10*j);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    NT2_TEST_EQUAL( b.get(j)[0], T(3 + 10*j));
+}
+
+//==============================================================================
+// Test for static 2D iliffe_buffer get
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_2D_get, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T,15,-2>, array_buffer<T*, 3, 1> > buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(5,3) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      b(i,j) = T(3+i + 10*j);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    NT2_TEST_EQUAL( b.get(j)[0], T(3 + 10*j));
 }

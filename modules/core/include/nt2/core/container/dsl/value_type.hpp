@@ -14,7 +14,7 @@
 #include <boost/proto/transform.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
 
 namespace nt2 { namespace details
 {

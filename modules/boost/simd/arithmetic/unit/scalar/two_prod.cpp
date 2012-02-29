@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( two_prod_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   using boost::simd::two_prod;
   using boost::simd::tag::two_prod_;
-  typedef typename boost::result_of<boost::dispatch::meta::floating(T,T)>::type r0_t;
+  typedef typename boost::dispatch::meta::as_floating<T,T>::type r0_t;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<two_prod_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;

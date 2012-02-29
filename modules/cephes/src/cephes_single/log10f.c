@@ -48,7 +48,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 */
 
 #include "mconf.h"
-static char fname[] = {"log10"};
+/*static char fname[] = {"log10"};*/
 
 /* Coefficients for log(1+x) = x - x**2/2 + x**3 P(x)/Q(x)
  * 1/sqrt(2) <= x < sqrt(2)
@@ -66,13 +66,13 @@ static float P[] = {
 };
 
 
-#define SQRTH 0.70710678118654752440
-#define L102A 3.0078125E-1
-#define L102B 2.48745663981195213739E-4
-#define L10EA 4.3359375E-1
-#define L10EB 7.00731903251827651129E-4
+#define SQRTH 0.70710678118654752440f
+#define L102A 3.0078125E-1f
+#define L102B 2.48745663981195213739E-4f
+#define L10EA 4.3359375E-1f
+#define L10EB 7.00731903251827651129E-4f
 
-static float MAXL10 = 38.230809449325611792;
+/*static float MAXL10 = 38.230809449325611792f;*/
 
 #ifdef ANSIC
 float cephes_frexpf(float, int *), cephes_polevlf(float, float *, int);
@@ -91,14 +91,14 @@ int e;
 x = xx;
 /* Test for domain */
 
-if( x <= 0.0 )
+if( x <= 0.0f )
 	{
-	if( x == 0.0 )
-	  return -1.0/ZERO;
+	if( x == 0.0f )
+	  return -1.0f/ZEROF;
 	else
-	  return 0.0/ZERO;
+	  return 0.0f/ZEROF;
 	}
- if (x == 1.0/ZERO) return x;
+ if (x == 1.0f/ZEROF) return x;
  if (x != x) return x;  
 /* separate mantissa from exponent */
 
@@ -109,18 +109,18 @@ x = cephes_frexpf( x, &e );
  if( x < SQRTH )
    {
      e -= 1;
-     x = 2.0*x - 1.0;
+     x = 2.0f*x - 1.0f;
    }	
  else 
    {
-     x = x - 1.0;
+     x = x - 1.0f;
    }
 
 
 /* rational form */
 z = x*x;
 y = x * ( z * cephes_polevlf( x, P, 8 ) );
-y = y - 0.5 * z;   /*  y - 0.5 * x**2  */
+y = y - 0.5f * z;   /*  y - 0.5 * x**2  */
 
 /* multiply log of fraction by log10(e)
  * and base 2 exponent by log10(2)

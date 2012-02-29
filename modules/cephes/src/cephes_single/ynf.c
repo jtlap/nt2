@@ -90,12 +90,12 @@ if( n == 1 )
 	return( sign * cephes_y1f(x) );
 
 /* test for overflow */
-if( x <= 0.0 )
+if( x <= 0.0f )
 	{
 	cephes_mtherr( "ynf", SING );
 	return( -MAXNUMF );
 	}
-if( (x < 1.0) || (n > 29) )
+if( (x < 1.0f) || (n > 29) )
 	{
 	an = (float )n;
 	r = an * cephes_logf( an/x );
@@ -112,13 +112,13 @@ anm2 = cephes_y0f(x);
 anm1 = cephes_y1f(x);
 k = 1;
 r = 2 * k;
-xinv = 1.0/x;
+xinv = 1.0f/x;
 do
 	{
 	an = r * anm1 * xinv  -  anm2;
 	anm2 = anm1;
 	anm1 = an;
-	r += 2.0;
+	r += 2.0f;
 	++k;
 	}
 while( k < n );

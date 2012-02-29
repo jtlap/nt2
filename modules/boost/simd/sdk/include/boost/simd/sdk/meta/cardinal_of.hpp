@@ -15,32 +15,6 @@
  */
 
 #include <boost/mpl/size_t.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
-
-namespace boost { namespace simd { namespace ext
-{
-  //============================================================================
-  /*!
-   * \ingroup extensions
-   * Extension point for \ref boost::simd::meta::cardinal specialized upon a \c Type
-   * and its \c Hierarchy.
-   *
-   * \tparam Type Hierarchizable type to specialize for.
-   * \tparam Hierarchy Hierarchy of type
-   *
-   * \usage
-   *
-   * For any type modeling a multi-valued register, this extension can be
-   * specialized to provide a compile-time integral constant equals to this
-   * type valuation.
-   *
-   * \see boost::simd::native
-   *
-   */
-  //============================================================================
-  template<class Type,class Hierarchy>
-  struct cardinal_of_impl : boost::mpl::size_t<1> {};
-} } }
 
 namespace boost { namespace simd { namespace meta
 {
@@ -64,10 +38,9 @@ namespace boost { namespace simd { namespace meta
    */
   //============================================================================
   template<class T>
-  struct  cardinal_of
-        : ext::cardinal_of_impl < typename boost::dispatch::meta::strip<T>::type
-                                , typename boost::dispatch::meta::hierarchy_of<T>::type
-                                > {};
+  struct cardinal_of : boost::mpl::size_t<1>
+  {
+  };
 } } }
 
 #endif

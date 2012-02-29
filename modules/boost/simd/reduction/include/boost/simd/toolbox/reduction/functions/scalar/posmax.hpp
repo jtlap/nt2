@@ -11,9 +11,6 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is fundamental_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::posmax_, tag::cpu_,

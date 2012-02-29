@@ -11,12 +11,13 @@
 #include <nt2/include/constants/true_false.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/simd/logical.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test value of true/false constants for every base real types
+// Test value of true/false constants
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL  (  true_false_value, (double)(float) )
+NT2_TEST_CASE_TPL  (  true_false_value, BOOST_SIMD_TYPES )
 {
-  NT2_TEST_EQUAL( nt2::False<T>()       , static_cast<T>(0) );
-  NT2_TEST_EQUAL( nt2::True<T>()        , static_cast<T>(1) );
+  NT2_TEST_EQUAL( nt2::False<T>() , nt2::logical<T>(false) );
+  NT2_TEST_EQUAL( nt2::True<T>()  , nt2::logical<T>(true)  );
 }

@@ -29,6 +29,19 @@ namespace boost { namespace dispatch { namespace details
   {
     typedef meta::scalar_<typename meta::property_of<T, Origin>::type>  type;
   };
+
+  //============================================================================
+  // Overload for hierarchies
+  //============================================================================
+  template<class T>
+  struct  hierarchy_of< T
+                      , T
+                      , typename
+                        meta::enable_if_type< typename T::hierarchy_tag >::type
+                      >
+  {
+    typedef T type;
+  };
 } } }
 
 #endif

@@ -30,7 +30,6 @@
  *    IEEE      -1,1        100000      1.4e-7      3.1e-8
  *
  */
-
 /*						atanh.c	*/
 
 
@@ -67,34 +66,34 @@ if( x < 0 )
 	z = -x;
 else
 	z = x;
-if( z >= 1.0 )
+if( z >= 1.0f )
 	{
-	if( x == 1.0 )
-		return( 1.0/ZERO );
-	if( x == -1.0 )
-		return( -1.0/ZERO );
-	return( 0.0/ZERO );
+	if( x == 1.0f )
+		return( 1.0f/ZEROF );
+	if( x == -1.0f )
+		return( -1.0f/ZEROF );
+	return( 0.0f/ZEROF );
 	}
 
-if( z < 1.0e-4 )
+if( z < 1.0e-4f )
 	return(x);
 
-if( z < 0.5 )
+if( z < 0.5f )
 	{
 	z = x * x;
 	z =
-	(((( 1.81740078349E-1 * z
-	  + 8.24370301058E-2) * z
-	  + 1.46691431730E-1) * z
-	  + 1.99782164500E-1) * z
-	  + 3.33337300303E-1) * z * x
+	(((( 1.81740078349E-1f * z
+	  + 8.24370301058E-2f) * z
+	  + 1.46691431730E-1f) * z
+	  + 1.99782164500E-1f) * z
+	  + 3.33337300303E-1f) * z * x
 	  + x;
 	return z;
 	}
- else if (z >=0.5)
+ else if (z >=0.5f)
 	{
-	z = 0.5 * cephes_logf( (1.0+x)/(1.0-x) );
+	z = 0.5f * cephes_logf( (1.0f+x)/(1.0f-x) );
 	return z;
 	}
- return( 0.0/ZERO );
+ return( 0.0f/ZEROF);
 }

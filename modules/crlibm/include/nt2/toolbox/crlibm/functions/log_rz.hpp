@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag log_rz_ of functor log_rz 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct log_rz_ {};
+    struct log_rz_ : ext::elementwise_<log_rz_> { typedef ext::elementwise_<log_rz_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::log_rz_, log_rz, 1)
 } }

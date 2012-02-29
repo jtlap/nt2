@@ -72,7 +72,7 @@ namespace boost { namespace simd
      * \brief Define the tag Valmin of functor Valmin 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Valmin
+    struct Valmin : ext::constant_<Valmin>
     { 
       typedef double default_type;
       template<class Target, class Dummy=void> 
@@ -89,24 +89,24 @@ namespace boost { namespace simd
 
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int8_t,Dummy> 
-          : meta::int_c<boost::simd::int8_t,-boost::simd::uint8_t(128)> {};
+          : meta::int_c<boost::simd::int8_t,boost::simd::int8_t(-128)> {};
 
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int16_t,Dummy> 
-          : meta::int_c<boost::simd::int16_t,-boost::simd::uint16_t(32768U)> {};
+          : meta::int_c<boost::simd::int16_t,boost::simd::int16_t(-32768)> {};
 
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int32_t,Dummy> 
-          : meta::int_c<boost::simd::int32_t,-boost::simd::uint32_t(2147483648UL)> {};
-
+    : meta::int_c<boost::simd::int32_t,boost::simd::int32_t(-boost::simd::uint32_t(2147483648UL))> {};
+    
     template<class Dummy>
     struct  Valmin::apply<boost::simd::int64_t,Dummy> 
-          : meta::int_c<boost::simd::int64_t,-boost::simd::uint64_t(9223372036854775808ULL)> {};
+      : meta::int_c<boost::simd::int64_t,boost::simd::int64_t(-boost::simd::uint64_t(9223372036854775808ULL))> {};
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmin, Valmin)
 } }
-
+ 
 #ifdef BOOST_MSVC
 #pragma warning(pop)
 #endif

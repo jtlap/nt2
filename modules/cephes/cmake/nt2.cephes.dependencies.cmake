@@ -9,4 +9,4 @@
 
 SET(NT2_CEPHES_DEPENDENCIES_EXTRA constant predicates)
 
-SET(NT2_CEPHES_LIBRARIES nt2_cephesf nt2_cephesd nt2_cephesl)
+SET(NT2_CEPHES_LIBRARIES optimized nt2_cephesf debug nt2_cephesf_d optimized nt2_cephesd debug nt2_cephesd_d optimized nt2_cephesl debug nt2_cephesl_d)

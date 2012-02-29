@@ -23,13 +23,11 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/bitwise_any.hpp>
+#include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/bitofsign.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -41,9 +39,7 @@ namespace nt2 { namespace ext
                             , ((simd_<arithmetic_<A0>,X>))((simd_<arithmetic_<A0>,X>))
                             )
   {
-
     typedef typename meta::as_floating<A0>::type result_type;
-
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return nt2::ellik(tofloat(a0), tofloat(a1));
@@ -58,9 +54,7 @@ namespace nt2 { namespace ext
 			      , ((simd_<double_<A0>,X>))((simd_<double_<A0>,X>))
 			      )
   {
-    
     typedef typename meta::as_floating<A0>::type result_type;
-    
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
 	return map(functor<tag::ellik_>(), a0, a1);
@@ -75,9 +69,7 @@ namespace nt2 { namespace ext
 			      , ((simd_<single_<A0>,X>))((simd_<single_<A0>,X>))
 			      )
   {
-    
     typedef typename meta::as_floating<A0>::type result_type;
-    
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
 	return map(functor<tag::ellik_>(), a0, a1);
@@ -92,7 +84,7 @@ namespace nt2 { namespace ext
 	//       A0 d = One<A0>();
 	//       A0 t = tan(phi);
 	//       A0 mod = ceil(phi/Pi<A0>());
-	//       while( nt2::bitwise_any(gt(abs(c), nt2::abs(a)*Eps<A0>())) )
+	//       while( nt2::any(gt(abs(c), nt2::abs(a)*Eps<A0>())) )
 	//       {
 	//         A0 temp = b/a;
 	//         phi = phi + atan(t*temp) + mod*Pi<A0>();

@@ -19,14 +19,19 @@
  * \defgroup boost_simd_bitwise_genmask genmask
  *
  * \par Description
- * The function returns a mask of bits. All ones if the.
- * input is non zero else all zeros
+ * The function returns a mask of bits. All ones if the
+ * input element is non zero else all zeros
  *
  * \par Header file
  * 
  * \code
  * #include <nt2/include/functions/genmask.hpp>
  * \endcode
+ * 
+ * \par Alias 
+ * \arg typed_mask
+ * \arg logical2mask
+ * \arg l2m
  * 
  * 
  * \synopsis
@@ -56,9 +61,12 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag genmask_ of functor genmask 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
-    struct genmask_ {};
+    struct genmask_ : ext::elementwise_<genmask_> { typedef ext::elementwise_<genmask_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, genmask, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, typed_mask, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, logical2mask, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::genmask_, l2m, 1)
 } }
 
 #endif

@@ -10,7 +10,11 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ATAN2_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/constant/include/constants/real.hpp>
-#include <nt2/toolbox/predicates/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/copysign.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <cmath>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -25,8 +29,9 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      if (is_invalid(a0) && is_invalid(a1)) return Nan<result_type>(); 
+    { 
+      if (is_inf(a0) && is_inf(a1)) return atan2(copysign(One<A0>(), a0),copysign(One<A0>(), a1)); 
+      if (is_nan(a0) || is_nan(a1)) return Nan<result_type>(); 
       return std::atan2(a0,a1);
     }
   };
@@ -36,7 +41,7 @@ namespace nt2 { namespace ext
                             , (scalar_< arithmetic_<A0> >)(scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
       return std::atan2(result_type(a0),result_type(a1));

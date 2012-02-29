@@ -10,7 +10,7 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-                'default' : 'typename boost::simd::meta::logical<T>::type',
+                'default' : 'typename boost::simd::meta::as_logical<T>::type',
             },
          'special' : ['predicate'],
          'type_defs' : [],
@@ -20,7 +20,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 18/02/2011',
-             'included' : ['#include <boost/simd/sdk/meta/logical.hpp>'],
+             'included' : ['#include <boost/simd/sdk/simd/logical.hpp>'],
              'no_ulp' : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 18/02/2011',
@@ -32,19 +32,8 @@
             },
          'specific_values' : {
              'default' : {
-                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0',},
-                },
-             'integer_   ' : {
-                 'boost::simd::Mone<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::One<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0',},
-                },
-             'real_' : {
-                 'boost::simd::Inf<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Minf<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Nan<T>()' : {'result' : 'boost::simd::Zero<r_t>()','ulp_thresh' : '0',},
-                 'boost::simd::Zero<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::True<T>()' : {'result' : 'boost::simd::False<r_t>()','ulp_thresh' : '0',},
+                 'boost::simd::False<T>()' : {'result' : 'boost::simd::True<r_t>()','ulp_thresh' : '0',},
                 },
             },
          'verif_test' : {

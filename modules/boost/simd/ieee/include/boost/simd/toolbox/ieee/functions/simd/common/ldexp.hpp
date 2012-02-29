@@ -9,17 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
 #include <boost/simd/sdk/meta/size.hpp>
-#include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/constants/ldexpmask.hpp>
+#include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/shli.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/is_finite.hpp>
-//
-#include <boost/simd/include/functions/select.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/rshl.hpp>
+#include <boost/simd/include/functions/bitwise_andnot.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -35,7 +34,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2) { return rshl(a0, a1); }
   };
-
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ldexp_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<arithmetic_<A0>,X>))(scalar_< integer_<A1> >)
@@ -68,7 +66,7 @@ namespace boost { namespace simd { namespace ext
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<A0>(), a0);
       e += shli(a1, Nbmantissabits<s_type>());
-      return select( b_and(is_nez(a0),is_finite(a0))
+      return select( logical_and(is_nez(a0),is_finite(a0))
                      , b_or(x, e)
                      , a0
                      );

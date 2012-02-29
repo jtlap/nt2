@@ -25,9 +25,28 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::sse2_
-                            , (A0)(A1)(X)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
-                              ((target_< simd_< double_<A1>, X > >))
+                            , (A0)(A1)(A2)
+                            , (iterator_< scalar_< double_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< double_<A2>, boost::simd::tag::sse_ > >))
+                            )
+  {
+    typedef typename A1::type result_type;
+    inline result_type operator()(const A0& a0, const A1&)const
+    {
+      result_type
+      that = { _mm_loadu_pd(a0) };
+      return that;
+    }
+  };
+} } }
+
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::sse2_
+                            , (A0)(A1)
+                            , (iterator_< scalar_< double_<A0> > >)
+                              ((target_< simd_< double_<A1>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A1::type result_type;
@@ -46,9 +65,28 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::sse2_
-                            , (A0)(A1)(X)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
-                              ((target_< simd_< single_<A1>, X > >))
+                            , (A0)(A1)(A2)
+                            , (iterator_< scalar_< single_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< single_<A2>, boost::simd::tag::sse_ > >))
+                            )
+  {
+    typedef typename A1::type result_type;
+    inline result_type operator()(const A0& a0, const A1&)const
+    {
+      result_type
+      that = { _mm_loadu_ps(a0) };
+      return that;
+    }
+  };
+} } }
+
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::sse2_
+                            , (A0)(A1)
+                            , (iterator_< scalar_< single_<A0> > >)
+                              ((target_< simd_< single_<A1>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A1::type result_type;
@@ -67,9 +105,28 @@ namespace boost { namespace simd { namespace ext
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::sse2_
-                            , (A0)(A1)(X)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
-                              ((target_< simd_< integer_<A1>,X > >))
+                            , (A0)(A1)(A2)
+                            , (iterator_< scalar_< integer_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< integer_<A2>, boost::simd::tag::sse_ > >))
+                            )
+  {
+    typedef typename A1::type result_type;
+    inline result_type operator()(const A0& a0, const A1&)const
+    {
+      result_type
+      that = { _mm_loadu_si128(reinterpret_cast<__m128i const*>(a0)) };
+      return that;
+    }
+  };
+} } }
+
+namespace boost { namespace simd { namespace ext
+{
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , boost::simd::tag::sse2_
+                            , (A0)(A1)
+                            , (iterator_< scalar_< integer_<A0> > >)
+                              ((target_< simd_< integer_<A1>, boost::simd::tag::sse_ > >))
                             )
   {
     typedef typename A1::type result_type;

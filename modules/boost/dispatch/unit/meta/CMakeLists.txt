@@ -17,18 +17,18 @@ SET( SOURCES
     as_signed.cpp
     as_unsigned.cpp
     downgrade.cpp
-    floating.cpp
     fusion.cpp
     hierarchy.cpp
     is_scalar.cpp
     is_signed.cpp
-    m_arithmetic.cpp
     make_integer.cpp
     make_floating.cpp
     scalar_of.cpp
     sign_of.cpp
     strip.cpp
     upgrade.cpp
+    counter.cpp
+    combine.cpp
    )
 
 nt2_module_add_tests(boost.dispatch.meta.unit ${SOURCES})

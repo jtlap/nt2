@@ -26,8 +26,8 @@ extern "C" { long double cephes_coshl(long double); }
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/floating.hpp>
-#include <nt2/sdk/meta/arithmetic.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( sech_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<sech_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( sech_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<sech_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
   // return type conformity test 
@@ -92,7 +92,7 @@ NT2_TEST_CASE_TPL ( sech_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<sech_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::result_of<nt2::meta::floating(T)>::type wished_r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
   // return type conformity test 

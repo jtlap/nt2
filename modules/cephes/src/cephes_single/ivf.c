@@ -22,7 +22,7 @@
  * function, according to the formula
  *
  *              v  -x
- * Iv(x) = (x/2)  e   hyperg( v+0.5, 2v+1, 2x ) / gamma(v+1)
+ * Iv(x) = (x/2)  e   hyperg( v+0.5f, 2v+1, 2x ) / gamma(v+1)
  *
  * If v is a negative integer, then v is replaced by -v.
  *
@@ -78,7 +78,7 @@ float t, ax;
 
 /* If v is a negative integer, invoke symmetry */
 t = cephes_floorf(v);
-if( v < 0.0 )
+if( v < 0.0f )
 	{
 	if( t == v )
 		{
@@ -88,34 +88,34 @@ if( v < 0.0 )
 	}
 /* If x is negative, require v to be an integer */
 sign = 1;
-if( x < 0.0 )
+if( x < 0.0f )
 	{
 	if( t != v )
 		{
 		cephes_mtherr( "ivf", DOMAIN );
-		return( 0.0 );
+		return( 0.0f );
 		}
-	if( v != 2.0 * cephes_floorf(v/2.0) )
+	if( v != 2.0f * cephes_floorf(v/2.0f) )
 		sign = -1;
 	}
 
 /* Avoid logarithm singularity */
-if( x == 0.0 )
+if( x == 0.0f )
 	{
-	if( v == 0.0 )
-		return( 1.0 );
-	if( v < 0.0 )
+	if( v == 0.0f )
+		return( 1.0f );
+	if( v < 0.0f )
 		{
 		cephes_mtherr( "ivf", OVERFLOW );
 		return( MAXNUMF );
 		}
 	else
-		return( 0.0 );
+		return( 0.0f );
 	}
 
 ax = fabsf(x);
-t = v * cephes_logf( 0.5 * ax )  -  x;
-t = sign * cephes_expf(t) / cephes_gammaf( v + 1.0 );
-ax = v + 0.5;
-return( t * cephes_hypergf( ax,  2.0 * ax,  2.0 * x ) );
+t = v * cephes_logf( 0.5f * ax )  -  x;
+t = sign * cephes_expf(t) / cephes_gammaf( v + 1.0f );
+ax = v + 0.5f;
+return( t * cephes_hypergf( ax,  2.0f * ax,  2.0f * x ) );
 }

@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_ITERATOR_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/sdk/memory/align_on.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/pointee.hpp>

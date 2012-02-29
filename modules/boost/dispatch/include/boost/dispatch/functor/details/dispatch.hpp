@@ -10,7 +10,7 @@
 #define BOOST_DISPATCH_FUNCTOR_DETAILS_DISPATCH_HPP_INCLUDED
 
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/dispatch/details/decltype.hpp>
+#include <boost/dispatch/details/typeof.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/functor/details/call.hpp>
@@ -30,7 +30,7 @@
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/dispatch.hpp")
-#undef BOOST_DISPATCH_DECLTYPE
+#undef BOOST_DISPATCH_TYPEOF
 #undef BOOST_FORCEINLINE
 #endif
 
@@ -50,7 +50,7 @@ template< class Tag, class Site                                                 
 BOOST_FORCEINLINE                                                               \
 boost::dispatch::meta::                                                         \
 implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>       \
-dispatching ( Tag, meta::unknown_<Site> BOOST_PP_REPEAT(n,M0,~)                 \
+dispatching ( meta::unknown_<Tag>, meta::unknown_<Site> BOOST_PP_REPEAT(n,M0,~) \
             , adl_helper = adl_helper()                                         \
             )                                                                   \
 {                                                                               \
@@ -86,35 +86,20 @@ namespace boost { namespace dispatch { namespace meta
 #define M0(z,n,t) , (typename meta::hierarchy_of<A##n>::type())
 /**/
 
-#define BOOST_DISPATCH_DISPATCH_CALL(z,n,t)                                 \
-template< class Tag, class Site                                             \
-          BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n,class A)              \
-         >                                                                  \
-struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                  \
-{                                                                           \
-  BOOST_DISPATCH_DECLTYPE                                                   \
-  ( dispatching ( Tag(), Site() BOOST_PP_REPEAT(n,M0,~), adl_helper() )     \
-  , type                                                                    \
-  );                                                                        \
-};                                                                          \
-                                                                            \
-template< class Tag, class Site                                             \
-          BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n,class A)              \
-        >                                                                   \
-BOOST_FORCEINLINE                                                           \
-typename boost::mpl::                                                       \
-identity< typename                                                          \
-          dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))                     \
-                       , Site                                               \
-                       >::type                                              \
-        >::type                                                             \
-dispatch( Tag, Site BOOST_PP_COMMA_IF(n)                                    \
-          BOOST_PP_ENUM_BINARY_PARAMS(n,const A, & BOOST_PP_INTERCEPT)      \
-        )                                                                   \
-{                                                                           \
-  typename dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type  that; \
-  return that;                                                              \
-}                                                                           \
+#define BOOST_DISPATCH_DISPATCH_CALL(z,n,t)                                    \
+template< class Tag, class Site                                                \
+          BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n,class A)                 \
+         >                                                                     \
+struct dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>                     \
+{                                                                              \
+  typedef BOOST_DISPATCH_TYPEOF                                                \
+  ( dispatching ( (typename meta::hierarchy_of<Tag>::type())                   \
+                , (typename meta::hierarchy_of<Site>::type())                  \
+                  BOOST_PP_REPEAT(n,M0,~)                                      \
+                , adl_helper()                                                 \
+                )                                                              \
+  ) type;                                                                      \
+};                                                                             \
 /**/
 
 namespace boost { namespace dispatch { namespace meta

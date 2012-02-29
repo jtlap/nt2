@@ -11,7 +11,6 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/toolbox/operator/specific/details/maybe_genmask.hpp>
 #include <boost/simd/include/functions/make.hpp>
 #include <boost/fusion/include/at.hpp>
 
@@ -31,13 +30,14 @@
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #if defined(__WAVE__) && defined(BOOST_SIMD_CREATE_PREPROCESSED_FILES) && __INCLUDE_LEVEL__ == 0
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/map.hpp")
+#undef BOOST_FORCEINLINE
 #endif
 
 #define M0(z,n,h) ((simd_< h <A##n>, boost::simd::tag::sse_ >))
 #define M2(z,n,t) typename meta::scalar_of<A##n>::type
 #define M3(z,n,i) fusion::at_c<i>(a##n)
 #define M4(z,n,t) (A##n)
-#define M5(z,n,t) details::maybe_genmask<stype>(f(BOOST_PP_ENUM(t, M3, n)))
+#define M5(z,n,t) f(BOOST_PP_ENUM(t, M3, n))
 
 #define M6(z,n,t)                                                            \
 namespace boost { namespace simd { namespace ext                             \
@@ -52,13 +52,7 @@ namespace boost { namespace simd { namespace ext                             \
     result_of< Func const( BOOST_PP_ENUM(n,M2,~) )                           \
              >::type                                                         \
     rtype;                                                                   \
-    typedef typename details::                                               \
-    as_native< Func                                                          \
-             , rtype                                                         \
-             , typename meta::scalar_of<A0>::type                            \
-             >::type                                                         \
-    stype;                                                                   \
-    typedef simd::native<stype, tag::sse_> result_type;                      \
+    typedef simd::native<rtype, tag::sse_> result_type;                      \
                                                                              \
     inline result_type                                                       \
     operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a))   \

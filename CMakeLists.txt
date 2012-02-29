@@ -1,10 +1,10 @@
 ################################################################################
-#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-#
-#          Distributed under the Boost Software License, Version 1.0.
-#                 See accompanying file LICENSE.txt or copy at
-#                     http://www.boost.org/LICENSE_1_0.txt
+##         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+##         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+##
+##          Distributed under the Boost Software License, Version 1.0.
+##                 See accompanying file LICENSE.txt or copy at
+##                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 cmake_minimum_required(VERSION 2.6)
 
@@ -43,10 +43,8 @@ include(nt2.package)
 
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 include(NT2Module)
+nt2_configure_tests()
 nt2_postconfigure_init()
-
-enable_testing()
-include(CTest)
 
 ################################################################################
 # Module inclusion
@@ -117,9 +115,15 @@ foreach(module ${NT2_MODULES})
   endif()
 endforeach()
 
+# Ensure all tools get set up
+file(GLOB NT2_TOOLS RELATIVE ${PROJECT_SOURCE_DIR}/tools ${PROJECT_SOURCE_DIR}/tools/*/)
+foreach(tool ${NT2_TOOLS})
+  nt2_module_tool_setup(${tool})
+endforeach()
+
 nt2_postconfigure_run()
 
 ################################################################################
 # Post-config message
 ################################################################################
-INCLUDE(nt2.directive) 
+include(nt2.directive)

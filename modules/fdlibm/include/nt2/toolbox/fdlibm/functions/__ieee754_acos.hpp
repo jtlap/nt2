@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag __ieee754_acos_ of functor __ieee754_acos 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct __ieee754_acos_ {};
+    struct __ieee754_acos_ : ext::elementwise_<__ieee754_acos_> { typedef ext::elementwise_<__ieee754_acos_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::__ieee754_acos_, __ieee754_acos, 1)
   } }

@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag maximum_ of functor maximum 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct maximum_ {};
+    struct maximum_ : ext::reduction_<maximum_> { typedef ext::reduction_<maximum_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maximum_, maximum, 1)
 } }

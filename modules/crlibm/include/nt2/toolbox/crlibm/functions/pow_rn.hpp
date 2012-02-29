@@ -74,7 +74,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag pow_rn_ of functor pow_rn 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct pow_rn_ {};
+    struct pow_rn_ : ext::elementwise_<pow_rn_> { typedef ext::elementwise_<pow_rn_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow_rn, 2)
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::pow_rn_, pow, 2)

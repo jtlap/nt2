@@ -11,12 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 24/02/2011
-/// modified by jt the 18/03/2011
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
+#include <nt2/include/functions/load.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>

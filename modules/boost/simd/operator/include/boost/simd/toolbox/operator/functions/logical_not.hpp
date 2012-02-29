@@ -72,11 +72,25 @@ namespace boost { namespace simd
      * \brief Define the tag logical_not_ of functor logical_not 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::logical_not logical_not_;
+    struct logical_not_ : ext::elementwise_<logical_not_> { typedef ext::elementwise_<logical_not_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_not_ , logical_not  , 1 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_not_ , l_not        , 1 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::logical_not>
+  {
+    typedef boost::simd::tag::logical_not_ type;
+  };
+  template<>
+  struct proto_tag<boost::simd::tag::logical_not_>
+  {
+    typedef boost::proto::tag::logical_not type;
+  };
+} } }
 
 #endif

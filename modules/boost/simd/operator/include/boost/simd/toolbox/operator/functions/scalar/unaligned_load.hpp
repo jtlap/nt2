@@ -12,11 +12,11 @@
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
+namespace boost { namespace simd { namespace ext
+{
 //==============================================================================
 // unaligned_load_ without offset
 //==============================================================================
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
@@ -32,13 +32,10 @@ namespace boost { namespace simd { namespace ext
       return *that;
     }
   };
-} } }
 
 //==============================================================================
 // unaligned_load_ with offset
 //==============================================================================
-namespace boost { namespace simd { namespace ext
-{
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(  boost::simd::tag::unaligned_load_ , tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)

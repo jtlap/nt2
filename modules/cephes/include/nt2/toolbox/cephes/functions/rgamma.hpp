@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag rgamma_ of functor rgamma 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct rgamma_ {};
+    struct rgamma_ : ext::elementwise_<rgamma_> { typedef ext::elementwise_<rgamma_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::rgamma_, rgamma, 1)
   } }

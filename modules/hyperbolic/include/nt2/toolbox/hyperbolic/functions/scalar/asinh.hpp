@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
       if (x < Sqrteps<A0>() ) return a0;
       if (x*Sqrteps<A0>() >=  One<A0>()) return sign(a0)*(log1p(x)+Log_2<A0>());
       A0 invx = rec(x);
-      return sign(a0)*log1p(x + x/(invx + sqrt(One<A0>()+invx*invx)) );
+      return sign(a0)*log1p(x + x/(invx + nt2::sqrt(One<A0>()+invx*invx)) );
 
       //         asinh(x) := x  if  1+x*x=1,
       //  *               := sign(x)*(log1p(x)+ln2))      if sqrt(1+x*x)=x, else
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {

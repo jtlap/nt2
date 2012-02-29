@@ -20,7 +20,7 @@
 // Maximum arity for function calls
 //==============================================================================
 #ifndef BOOST_DISPATCH_MAX_ARITY
-#define BOOST_DISPATCH_MAX_ARITY 5
+#define BOOST_DISPATCH_MAX_ARITY 6
 #endif
 
 #endif

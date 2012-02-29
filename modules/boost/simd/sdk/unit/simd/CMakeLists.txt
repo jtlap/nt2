@@ -20,13 +20,13 @@ SET( SOURCES
     is_simd_specific.cpp
     make_integer.cpp
     make_floating.cpp
-    native_cast.cpp
+    bitwise_cast.cpp
     scalar_of.cpp
     sign_of.cpp
     upgrade.cpp
     iterator.cpp
     pack.cpp
-    shifted_iterator.cpp
+    logical.cpp
    )
 
 nt2_module_add_tests(boost.simd.sdk.simd.unit ${SOURCES})

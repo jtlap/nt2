@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
                                         ((simd_<arithmetic_<A0>,X>))
                                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_logical<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
       return lt(a0,a1-max(abs(a0),abs(a1))*a2);

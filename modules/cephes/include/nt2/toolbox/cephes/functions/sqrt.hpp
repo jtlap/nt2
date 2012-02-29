@@ -72,7 +72,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag sqrt_ of functor sqrt 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct sqrt_ {};
+    struct sqrt_ : ext::elementwise_<sqrt_> { typedef ext::elementwise_<sqrt_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::sqrt_, sqrt, 1)
   } }

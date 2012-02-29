@@ -78,11 +78,11 @@ if( n == 0 )
 if( n == 1 )
 	return( sign * cephes_j1f(x) );
 if( n == 2 )
-	return( sign * (2.0 * cephes_j1f(x) / x  -  cephes_j0f(x)) );
+	return( sign * (2.0f * cephes_j1f(x) / x  -  cephes_j0f(x)) );
 
 /*
 if( x < MACHEPF )
-	return( 0.0 );
+	return( 0.0f );
 */
 
 /* continued fraction */
@@ -93,7 +93,7 @@ xk = x * x;
 
 do
 	{
-	pk -= 2.0;
+	pk -= 2.0f;
 	ans = pk - (xk/ans);
 	}
 while( --k > 0 );
@@ -101,9 +101,9 @@ while( --k > 0 );
 
 /* backward recurrence */
 
-pk = 1.0;
-/*pkm1 = 1.0/ans;*/
-xinv = 1.0/x;
+pk = 1.0f;
+/*pkm1 = 1.0f/ans;*/
+xinv = 1.0f/x;
 pkm1 = ans * xinv;
 k = n-1;
 r = (float )(2 * k);
@@ -113,7 +113,7 @@ do
 	pkm2 = (pkm1 * r  -  pk * x) * xinv;
 	pk = pkm1;
 	pkm1 = pkm2;
-	r -= 2.0;
+	r -= 2.0f;
 	}
 while( --k > 0 );
 

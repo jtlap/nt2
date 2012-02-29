@@ -62,7 +62,7 @@ namespace boost { namespace simd
      * \brief Define the tag Maxexponent of functor Maxexponent 
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Maxexponent 
+    struct Maxexponent : ext::constant_<Maxexponent>
     { 
       template<class Target, class Dummy=void> 
       struct  apply : meta::int_c<Target,0> {};  

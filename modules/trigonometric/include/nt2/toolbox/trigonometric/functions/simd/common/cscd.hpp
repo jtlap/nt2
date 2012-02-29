@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscd_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<integer_<A0>,X>))
                             )
@@ -42,14 +42,12 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscd_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscd_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )
   {
-
-    typedef typename meta::strip<A0>::type result_type;
-
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return cscpi(Oneo_180<result_type>()*a0);

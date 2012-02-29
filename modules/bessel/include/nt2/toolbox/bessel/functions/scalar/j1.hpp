@@ -22,9 +22,10 @@
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_less.hpp>
 #include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/select.hpp>
+#include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/splat.hpp>
 
+#include <nt2/toolbox/bessel/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -37,7 +38,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::result_of<meta::floating(A0)>::type result_type;
+    typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -64,7 +65,13 @@ namespace nt2 { namespace ext
     {
       if (is_ltz(a0)) return Nan<A0>();
       if (is_inf(a0) || is_eqz(a0)) return Zero<A0>();
+    #if defined(NT2_TOOLBOX_BESSEL_HAS__J1)
+      return ::_j1(a0);
+    #elif defined(NT2_TOOLBOX_BESSEL_HAS_J1)
       return ::j1(a0);
+    #else
+      #error j1 not supported
+    #endif
     }
   };
 } }
@@ -101,7 +108,7 @@ namespace nt2 { namespace ext
                               ) ) > (z);
         }
       A0 q = rec(x);
-      A0 w = sqrt(q);
+      A0 w = nt2::sqrt(q);
       A0 p3 = w *
         horner< NT2_HORNER_COEFF_T(A0, 8,
                            (0x3d8d98f9,
@@ -129,6 +136,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

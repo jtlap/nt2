@@ -17,6 +17,7 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/dsl/category.hpp>
 
 #if defined(DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
@@ -29,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
    * \tparam T Wrapped type hierarchy
    */
   //============================================================================
-  template<class T> struct target_ {};
+  template<class T> struct target_{};
 } } }
 #endif
 

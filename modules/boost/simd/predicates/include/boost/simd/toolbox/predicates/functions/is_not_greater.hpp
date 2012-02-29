@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_not_greater_ of functor is_not_greater 
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
-    struct is_not_greater_ {};
+    struct is_not_greater_ : ext::elementwise_<is_not_greater_> { typedef ext::elementwise_<is_not_greater_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_not_greater, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_not_greater_, is_ngt, 2)

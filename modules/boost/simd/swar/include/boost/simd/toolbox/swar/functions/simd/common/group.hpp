@@ -34,13 +34,11 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      static const int size = boost::simd::meta::cardinal_of<A0>::value;
+      static const size_t size = boost::simd::meta::cardinal_of<A0>::value;
       typedef typename meta::scalar_of<result_type>::type sR;
       BOOST_SIMD_ALIGNED_TYPE(sR) tmp[size*2];
-      
-      for(int i = 0; i != size; ++i)  tmp[i]      = static_cast<sR>(a0[i]);
-      for(int i = 0; i != size; ++i)  tmp[i+size] = static_cast<sR>(a1[i]);
-        
+      for(size_t i = 0; i != size; ++i)  tmp[i]      = static_cast<sR>(a0[i]);
+      for(size_t i = 0; i != size; ++i)  tmp[i+size] = static_cast<sR>(a1[i]);
       return load<result_type>(&tmp[0], 0);
     }
   };
