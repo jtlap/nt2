@@ -17,8 +17,10 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,boost::simd::tag::altivec_>))
                             )
   {
-    typedef bool result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return vec_all_eq(a0(),a1()); }
+    typedef typename meta::scalar_of<A0>::type  sA0; 
+    typedef typename meta::as_logical<sA0>::type result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(vec_all_eq(a0(),a1())); }
   };
 } } }
 
